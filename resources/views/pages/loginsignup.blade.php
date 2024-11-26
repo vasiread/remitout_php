@@ -68,7 +68,7 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
 
                 <div class="otppanel-mainsection">
                     <p>Do not share your OTP!</p>
-                    <p id="generatedOtp">123456</p>
+                   
                     <div class="otpinputcontainer">
                         <input type="text" class="otp-input" maxlength="1"
                             oninput="restrictToNumbers(this); moveFocus(this, 'otp2')" id="otp1">
