@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
 
 
     <title>Document</title>
@@ -19,7 +22,6 @@ $loginSignupImage = "assets/images/loginsignupimg.png";
 $loginSignupvectorOne = "assets/images/downsideloginimg.png";
 $profileCardVectorWhite = "assets/images/profileCardVector-white.png";
 $signupmainimgupside = "assets/images/signupmainimgupside.png";
-$otpCondition = false; 
 ?>
 
     <div class="loginsignupcontainer">
@@ -63,10 +65,10 @@ $otpCondition = false;
         <div class="loginsignupcontainer-otppanel" style="display:none">
             <div class="loginsignupcontainer-otppanel-inside">
                 <h1>Enter the OTP</h1>
-             
+
                 <div class="otppanel-mainsection">
-                    <p>Do not share your OTP!</p>   
-                    <p id="generatedOtp" >123456</p>
+                    <p>Do not share your OTP!</p>
+                   
                     <div class="otpinputcontainer">
                         <input type="text" class="otp-input" maxlength="1"
                             oninput="restrictToNumbers(this); moveFocus(this, 'otp2')" id="otp1">
@@ -88,7 +90,6 @@ $otpCondition = false;
     </div>
 
     <script>
-        let otpCondition = @json($otpCondition);
         let generatedOTP = '';
         let registerFormData = {};
 
@@ -103,9 +104,9 @@ $otpCondition = false;
             input.value = value;
         }
 
-        
-                        const firstInput = document.getElementById('otp1');
-                        firstInput.focus();
+
+        const firstInput = document.getElementById('otp1');
+        firstInput.focus();
 
 
         function moveFocus(currentInput, nextInputId) {
@@ -134,15 +135,15 @@ $otpCondition = false;
                 passwordIcon.classList.add('fa-eye-slash');
             }
         });
-        
-        window.onload =function(){
-           document.getElementById('otp1').focus();
+
+        window.onload = function () {
+            document.getElementById('otp1').focus();
 
         }
- 
+
         function triggerOtpSection() {
-            
-            
+
+
 
             const nameInput = document.querySelector('.rightpanel-namecontainer input');
             const emailInput = document.querySelector('.rightpanel-emailcontainer input');
@@ -156,11 +157,12 @@ $otpCondition = false;
                 if (otpPanelView && rightLoginsingupContainer) {
                     otpPanelView.style.display = 'flex';
                     rightLoginsingupContainer.style.display = 'none';
-                    
-                        const firstInput = document.getElementById('otp1');
-                        firstInput.focus();
-                    generatedOTP = generateOTP();
-                    alert("OTP Generated: " + generatedOTP);
+
+                    const firstInput = document.getElementById('otp1');
+                    firstInput.focus();
+                    generateOTP(emailInput, nameInput);
+                    alert("Check your mail OTP is generated");
+
                 } else {
                     console.error("OTP Panel not found!");
                 }
@@ -169,11 +171,37 @@ $otpCondition = false;
             }
         }
 
-        const generateOTP = () => {
-                document.getElementById('generatedOtp').textContent = generatedOTP; 
+        const generateOTP = (emailInput, nameInput) => {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 
-            return Math.floor(100000 + Math.random() * 900000).toString();
+            fetch('/send-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken,
+                },
+                body: JSON.stringify({
+                    email: emailInput.value,
+                    name: nameInput.value,
+                    otp: generatedOTP
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response data:', data);
+
+                    if (data && data.message) {
+
+                        console.log(data + 'data send successfully')
+                    } else {
+
+                        console.error("OTP Not recieved")
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         }
 
         function checkOTP() {
@@ -185,16 +213,44 @@ $otpCondition = false;
             const otp6 = document.getElementById('otp6').value;
 
             const finalOTP = otp1 + otp2 + otp3 + otp4 + otp5 + otp6;
+            const emailInput = document.getElementById('email');
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-            if (finalOTP === generatedOTP) {
-                console.log("OTP is verified");
-                alert('OTP Verified Successfully');
+            fetch('/verify-otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken,
+                },
+                body: JSON.stringify({
+                    email: emailInput.value,
+                    otp: finalOTP
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response data:', data);
 
-                submitVerifiedData();
-            } else {
-                console.log("OTP is not verified");
-                alert('Invalid OTP');
-            }
+                    if (data.message === 'OTP verified successfully') {
+                        alert('OTP Verified Successfully');
+                        // window.location.href = '/login';
+
+
+                        submitVerifiedData();
+
+
+
+
+
+
+
+                    } else {
+                        alert('Invalid OTP');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         }
 
         function submitForm(event) {
@@ -219,13 +275,20 @@ $otpCondition = false;
                 name: name,
                 email: email,
                 password: password,
-                confirmPolicy: confirmPolicy
             };
+
+
 
             triggerOtpSection();
         }
 
         function submitVerifiedData() {
+            // const registerFormData = {
+            //     name: document.getElementById('name').value,
+            //     email: document.getElementById('email').value,
+            //     password: document.getElementById('password').value,
+            // };
+
             fetch('/registerformdata', {
                 method: 'POST',
                 headers: {
@@ -239,7 +302,7 @@ $otpCondition = false;
                     console.log(data);
                     if (data.success) {
                         alert("Registration is Successful");
-                         window.location.href = '/login';
+                        window.location.href = '/login';
                     } else {
                         if (data.errors) {
                             if (data.errors.email) {
@@ -256,6 +319,7 @@ $otpCondition = false;
                     console.error('Error:', error);
                     alert('An error occurred. Please try again.');
                 });
+
         }
     </script>
 
