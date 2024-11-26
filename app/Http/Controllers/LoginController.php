@@ -20,13 +20,11 @@ class LoginController extends Controller
         // Fetch user based on 'loginName' field, which corresponds to 'name' in the database
         $user = User::where('name', $request->loginName)->first();
 
-        // If user does not exist
-        if (!$user) {
+         if (!$user) {
             return response()->json(['success' => false, 'message' => 'Invalid name or password.']);
         }
 
-        // Check if the password matches
-        if (!Hash::check($request->loginPassword, $user->password)) {
+         if (!Hash::check($request->loginPassword, $user->password)) {
             return response()->json(['success' => false, 'message' => 'Invalid name or password.']);
         }
 
