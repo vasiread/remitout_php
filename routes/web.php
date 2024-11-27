@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\TrackController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,12 @@ Route::get('/signup', function () {
 Route::get('/login', function () {
     return view('pages/login');   
 })->name('login');
+Route::get('/student-dashboard', function () {
+    return view('pages/studentdashboard');   
+})->name('student-dashboard');
+
+
+Route::get('pages/student-dashboard', [TrackController::class, 'loanTracker']);
 
 
 Route::post('/registerformdata', [RegisterController::class, 'store'])->name('registerformdata');
