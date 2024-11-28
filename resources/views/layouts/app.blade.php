@@ -47,7 +47,7 @@
     @endif
 
     @if(Route::currentRouteName() !== 'login' && Route::currentRouteName() !== 'signup')
-        <!-- <x-footer></x-footer>   -->
+        <x-footer></x-footer>  
     @endif
 </body>
 
