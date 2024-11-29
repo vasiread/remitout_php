@@ -109,7 +109,7 @@
                     console.log(data)
                     if (data.success) {
                         alert(data.message);
-                        window.location.href = '/';
+                        window.location.href = '/student-dashboard';
 
                     } else {
                         alert(data.message);

@@ -18,7 +18,7 @@ class LoginController extends Controller
         ]);
 
         // Fetch user based on 'loginName' field, which corresponds to 'name' in the database
-        $user = User::where('name', $request->loginName)->first();
+        $user = User::where('unique_id', $request->loginName)->first();
 
          if (!$user) {
             return response()->json(['success' => false, 'message' => 'Invalid name or password.']);
