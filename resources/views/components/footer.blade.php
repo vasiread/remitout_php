@@ -16,39 +16,40 @@ $footerlogo = "assets/images/Remitoutcolored.png";
     </div>
     <div class="footersection">
         <div class="footersection-reachoutsection">
-<div class="footersection-reachoutinside">
-    <div class="footersection-reachoutleft">
-        <h1>Sign Up with us Today!</h1>
-        <p>Prepare yourself and let’s explore this world</p>
-        <div class="footersection-reachoutinput">
-            <div class="reachoutinputemail">
-                <input type="text" name="" placeholder="Your Email">
-                <i class="fa-solid fa-envelope"></i>
+            <div class="footersection-reachoutinside">
+                <div class="footersection-reachoutleft">
+                    <h1>Sign Up with us Today!</h1>
+                    <p>Prepare yourself and let’s explore this world</p>
+                    <div class="footersection-reachoutinput">
+                        <div class="reachoutinputemail">
+                            <input type="text" name="" placeholder="Your Email">
+                            <i class="fa-solid fa-envelope"></i>
 
+
+                        </div>
+                        <button>Register Now!</button>
+                    </div>
+
+
+                </div>
+                <?php $globeImage = "assets/images/globe.png";?>
+
+                <div class="footersection-reachoutright">
+                    <img src="<?php echo $globeImage ?>" alt="">
+                </div>
 
             </div>
-            <button>Register Now!</button>
-        </div>
-
-
-    </div>
-    <?php $globeImage = "assets/images/globe.png";?>
-
-    <div class="footersection-reachoutright">
-        <img src="<?php echo $globeImage ?>" alt="">
-    </div>
-
-</div>
 
         </div>
-        <hr class="footer-firsthorizontalline"/>
+        <hr class="footer-firsthorizontalline" />
         <div class="footersection-container">
             <div class="footersection-insidecontainer">
                 <div class="footersection-leftinsidecontainer">
                     <img src="<?php echo $footerlogo; ?>" alt="">
                     <div class="footersection-addressinfo">
                         <i class="fa-solid fa-location-dot" style="color:rgba(233, 232, 234, 0.8);"></i>
-                        <p>B/415DAMJI SHAMJI CORPORATE SQUARE BEHIND, EVEREST GARDEN GM LINK RD GTK, Mumbai, Maharashtra, India, 400075</p>
+                        <p>B/415DAMJI SHAMJI CORPORATE SQUARE BEHIND, EVEREST GARDEN GM LINK RD GTK, Mumbai,
+                            Maharashtra, India, 400075</p>
                     </div>
                     <div class="footersection-contactinfo">
                         <i class="fa-solid fa-phone" style="color:rgba(233, 232, 234, 0.8)"></i>
@@ -94,7 +95,7 @@ $footerlogo = "assets/images/Remitoutcolored.png";
                 </div>
             </div>
         </div>
-        <hr class="footer-secondhorizontalline"/>
+        <hr class="footer-secondhorizontalline" />
         <p class="footer-rights">All Rights reserved</p>
     </div>
 </body>

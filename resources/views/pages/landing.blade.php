@@ -12,10 +12,10 @@
 @section('homecontent')
 <x-herosection></x-herosection>
 
-<div class="lineargradientbackground">
+<!-- <div class="lineargradientbackground">
     <?php $backgroundLinearBackground = "assets/images/BG Linear gradient.png"; ?>
     <img src="<?php echo $backgroundLinearBackground; ?>" alt="Background Image">
-</div>
+</div> -->
 
 <x-profilecardsection></x-profilecardsection>
 

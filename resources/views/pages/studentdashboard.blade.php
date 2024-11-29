@@ -13,30 +13,30 @@
     @section(section: 'studentdashboard') 
 
     @php
-        $profileImgPath = 'assets/images/profileimg.png';
-        $profileIconPath = "assets/images/icons/account_circle.png";
-        $phoneIconPath = "assets/images/icons/phone.png";
-        $mailIconPath = "assets/images/icons/mail.png";
-        $pindropIconPath = "assets/images/icons/pindrop.png";
-        $discordIconPath = "assets/images/icons/discordicon.png";
+$profileImgPath = 'assets/images/profileimg.png';
+$profileIconPath = "assets/images/icons/account_circle.png";
+$phoneIconPath = "assets/images/icons/phone.png";
+$mailIconPath = "assets/images/icons/mail.png";
+$pindropIconPath = "assets/images/icons/pindrop.png";
+$discordIconPath = "assets/images/icons/discordicon.png";
 
-        $bankName = 'bankName';
-        $bankMessage = 'bankMessage';
-        $loanStatusInfo = [
-            [
-                $bankName => "Bank Name",
-                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-            ],
-            [
-                $bankName => "Bank Name",
-                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-            ],
-            [
-                $bankName => "Bank Name",
-                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-            ],
+$bankName = 'bankName';
+$bankMessage = 'bankMessage';
+$loanStatusInfo = [
+    [
+        $bankName => "Bank Name",
+        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+    ],
+    [
+        $bankName => "Bank Name",
+        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+    ],
+    [
+        $bankName => "Bank Name",
+        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+    ],
 
-        ];
+];
     @endphp
 
     <div class="studentdashboardprofile">
@@ -60,7 +60,10 @@
             <h1 class="trackprogress-header" style="margin:0">Track Progress</h1>
             <div class="studentdashboardprofile-firstrowtrackprogress">
                 <div class="trackprogress-leftsection">
-                    <p style="font-weight:600;font-size:18px;color:rgba(0, 0, 0, 1); padding:15px 0px 0px 24px">Loan
+                    <p style="font-weight:600;
+                    font-size:18px;
+                    color:rgba(0, 0, 0, 1); 
+                    padding:15px 0px 0px 24px">Loan
                         Status</p>
                     <div class="leftsection-detailsinfo">
 
@@ -86,12 +89,8 @@
 
                 </div>
                 <div class="trackprogress-rightsection">
-                    <p style="  
-font-size: 18px;
-font-weight: 600;
-line-height: 27px;
-color:rgba(0, 0, 0, 1); 
-padding:15px 0px 0px 24px">
+                    <p
+                        style="  font-size: 18px;font-weight: 600; line-height: 27px; color:rgba(0, 0, 0, 1);padding:15px 0px 0px 24px">
                         Document Status
                     </p>
 
@@ -161,6 +160,7 @@ padding:15px 0px 0px 24px">
         <div class="studentdashboardprofile-profilesection">
 
             <img src="{{asset($profileImgPath)}}" class="profileImg" alt="">
+            <i class="fa-regular fa-pen-to-square"></i>
 
             <div class="studentdashboardprofile-personalinfo">
                 <div class="personalinfo-firstrow">
@@ -205,7 +205,7 @@ padding:15px 0px 0px 24px">
                                 class="progress-ring-text"></text>
 
                         </svg>
-                        <p>Profile Complete</p>
+                        <p style="color:rgba(144, 144, 144, 1)">Profile Complete</p>
 
                     </div>
                     <div class="profilestatus-graph-secondsection">
@@ -213,7 +213,7 @@ padding:15px 0px 0px 24px">
                             <p>07</p>
                             <span>/13</span>
                         </div>
-                        <p class="secondsection-inside">Document Uploaded</p>
+                        <p class="secondsection-inside" style="color:rgba(144, 144, 144, 1)">Document Uploaded</p>
 
 
 
@@ -227,6 +227,34 @@ padding:15px 0px 0px 24px">
             <div class="studentdashboardprofile-communityjoinsection">
                 <img src={{asset($discordIconPath)}}>
                 <p> Join Community</p>
+            </div>
+            <div class="studentdashboardprofile-educationeditsection">
+                <div class="educationeditsection-firstrow">
+                    <h1>Education</h1>
+                    <button>Edit</button>
+
+
+                </div>
+                <div class="educationeditsection-secondrow">
+                    <p>1. Lorem ipsum dolor sit amet</p>
+                    <p>2. Consequuntur magni dolores</p>
+                    <p>3. Voluptatem accusantium</p>
+                </div>
+            </div>
+            <div class="studentdashboardprofile-testscoreseditsection">
+                <div class="testscoreseditsection-firstrow">
+                    <h1>Test Scores</h1>
+                    <button>Edit</button>
+
+
+                </div>
+                <div class="testscoreseditsection-secondrow">
+                    <p>1. IELTS</p>
+                    <p>2. GRE</p>
+                    <p>3. TOFEL</p>
+                    <p>4. Others</p>
+                </div>
+
             </div>
 
         </div>
@@ -437,11 +465,11 @@ padding:15px 0px 0px 24px">
 
         <script>
             document.addEventListener('DOMContentLoaded', function () {
-                initializeSideBarTabs(); // Handles sidebar tab switching
-                initializeIndividualCards(); // Handles individual card message button logic
-                initializeKycDocumentUpload();   // Handles KYC document upload logic
-                initializeMarksheetUpload(); // Handles marksheet document upload logic
-                initializeProgressRing();// Handles progress ring logic
+                initializeSideBarTabs();
+                initializeIndividualCards();
+                initializeKycDocumentUpload();
+                initializeMarksheetUpload();
+                initializeProgressRing();
             });
 
             const initializeSideBarTabs = () => {
@@ -450,7 +478,13 @@ padding:15px 0px 0px 24px">
                 const lastTabVisibleDiv = document.querySelector(".studentdashboardprofile-myapplication");
                 const dynamicHeader = document.getElementById('loanproposals-header');
                 const individualCards = document.querySelectorAll('.indivudalloanstatus-cards');
+                const communityJoinCard = document.querySelector('.studentdashboardprofile-communityjoinsection');
+                const profileStatusCard = document.querySelector(".personalinfo-profilestatus");
+                const profileImgEditIcon = document.querySelector(".studentdashboardprofile-profilesection .fa-pen-to-square");
+                const educationEditSection=document.querySelector(".studentdashboardprofile-educationeditsection");
+                const testScoresEditSection=document.querySelector(".studentdashboardprofile-testscoreseditsection");
 
+                
                 sideBarTopItems.forEach((item, index) => {
                     item.addEventListener('click', () => {
                         sideBarTopItems.forEach(i => i.classList.remove('active'));
@@ -459,6 +493,12 @@ padding:15px 0px 0px 24px">
                         if (index === 1) {
                             lastTabHiddenDiv.style.display = "flex";
                             lastTabVisibleDiv.style.display = "none";
+                            communityJoinCard.style.display = "flex";
+                            profileStatusCard.style.display = "block";
+                            profileImgEditIcon.style.display = "none";
+                            educationEditSection.style.display="none";
+                            testScoresEditSection.style.display="none";
+
                             individualCards.forEach((card) => {
                                 const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
                                 const groupButtonContainer = card.querySelector('.individual-bankmessages-buttoncontainer');
@@ -472,6 +512,12 @@ padding:15px 0px 0px 24px">
                         } else if (index === 0) {
                             lastTabHiddenDiv.style.display = "flex";
                             lastTabVisibleDiv.style.display = "none";
+                            communityJoinCard.style.display = "flex";
+                            profileStatusCard.style.display = "block";
+                            profileImgEditIcon.style.display = "none";
+                              educationEditSection.style.display = "none";
+                            testScoresEditSection.style.display = "none";
+
                             individualCards.forEach((card) => {
                                 const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
                                 const groupButtonContainer = card.querySelector('.individual-bankmessages-buttoncontainer');
@@ -490,6 +536,11 @@ padding:15px 0px 0px 24px">
                         } else if (index === 2) {
                             lastTabHiddenDiv.style.display = "none";
                             lastTabVisibleDiv.style.display = "flex";
+                            communityJoinCard.style.display = "none";
+                            profileStatusCard.style.display = "none";
+                            profileImgEditIcon.style.display = "block";
+                              educationEditSection.style.display = "flex";
+                            testScoresEditSection.style.display = "flex";
                         }
                     });
                 });
@@ -530,19 +581,43 @@ padding:15px 0px 0px 24px">
                 const individualKycDocumentsUpload = document.querySelectorAll(".individualkycdocuments");
 
                 individualKycDocumentsUpload.forEach((card) => {
+                    let uploadedFile = null; // Store the uploaded file here
+
+                    // Trigger file selection when clicking the file container
                     card.querySelector('.inputfilecontainer').addEventListener('click', function () {
                         card.querySelector('#inputfilecontainer-real').click();
                     });
-                });
 
-                individualKycDocumentsUpload.forEach((card) => {
+                    // Handle file selection
                     card.querySelector('#inputfilecontainer-real').addEventListener('change', function (event) {
                         const file = event.target.files[0];
                         if (file) {
+                            uploadedFile = file;  // Store the file for later preview
                             card.querySelector('.inputfilecontainer p').textContent = file.name;
                             const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
                             const filesizeviewer = card.querySelector('.document-status');
                             filesizeviewer.textContent = `${fileSizeMB} MB Uploaded`;
+                        }
+                    });
+
+                    // Handle eye icon click for preview
+                    card.querySelector('.fa-eye').addEventListener('click', function (event) {
+                        event.stopPropagation(); // Prevent the click from triggering the file input
+
+                        if (uploadedFile && uploadedFile.type === 'application/pdf') {
+                            const reader = new FileReader();
+                            reader.onload = function (event) {
+                                const iframe = document.createElement('iframe');
+                                iframe.src = event.target.result;
+                                iframe.style.width = '100%';
+                                iframe.style.height = "500px";
+                                const previewContainer = card.querySelector('.inputfilecontainer');
+                                previewContainer.innerHTML = ''; // Clear previous content
+                                previewContainer.appendChild(iframe);
+                            };
+                            reader.readAsDataURL(uploadedFile); // Trigger file reading
+                        } else {
+                            alert('Please upload a valid PDF file to preview.');
                         }
                     });
                 });
