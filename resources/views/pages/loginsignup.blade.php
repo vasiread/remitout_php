@@ -302,7 +302,7 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
                     console.log(data);
                     if (data.success) {
                         alert("Registration is Successful");
-                        window.location.href = '/login';
+                        window.location.href = '/';
                     } else {
                         if (data.errors) {
                             if (data.errors.email) {

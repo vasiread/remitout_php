@@ -10,36 +10,39 @@
 
 <body>
     @extends('layouts.app')
-    @section(section: 'studentdashboard') 
+    @section('title', 'studentdashboard')
+
+    @section('studentdashboard')
 
     @php
-$profileImgPath = 'assets/images/profileimg.png';
-$profileIconPath = "assets/images/icons/account_circle.png";
-$phoneIconPath = "assets/images/icons/phone.png";
-$mailIconPath = "assets/images/icons/mail.png";
-$pindropIconPath = "assets/images/icons/pindrop.png";
-$discordIconPath = "assets/images/icons/discordicon.png";
+        $profileImgPath = 'assets/images/profileimg.png';
+        $profileIconPath = "assets/images/icons/account_circle.png";
+        $phoneIconPath = "assets/images/icons/phone.png";
+        $mailIconPath = "assets/images/icons/mail.png";
+        $pindropIconPath = "assets/images/icons/pindrop.png";
+        $discordIconPath = "assets/images/icons/discordicon.png";
 
-$bankName = 'bankName';
-$bankMessage = 'bankMessage';
-$loanStatusInfo = [
-    [
-        $bankName => "Bank Name",
-        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-    ],
-    [
-        $bankName => "Bank Name",
-        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-    ],
-    [
-        $bankName => "Bank Name",
-        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-    ],
+        $bankName = 'bankName';
+        $bankMessage = 'bankMessage';
+        $loanStatusInfo = [
+            [
+                $bankName => "Bank Name",
+                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+            ],
+            [
+                $bankName => "Bank Name",
+                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+            ],
+            [
+                $bankName => "Bank Name",
+                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+            ],
 
-];
+        ];
     @endphp
 
     <div class="studentdashboardprofile">
+       
         <div class="studentdashboardprofile-togglesidebar">
             <ul class="studentdashboardprofile-sidebarlists-top">
                 <li class="active"> <i class="fa-solid fa-square-poll-vertical"></i> Dashboard</li>
@@ -458,230 +461,232 @@ $loanStatusInfo = [
 
             </div>
         </div>
-        @endsection
+
+    </div>
+    @endsection
 
 
 
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                initializeSideBarTabs();
-                initializeIndividualCards();
-                initializeKycDocumentUpload();
-                initializeMarksheetUpload();
-                initializeProgressRing();
-            });
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            initializeSideBarTabs();
+            initializeIndividualCards();
+            initializeKycDocumentUpload();
+            initializeMarksheetUpload();
+            initializeProgressRing();
+        });
 
-            const initializeSideBarTabs = () => {
-                const sideBarTopItems = document.querySelectorAll('.studentdashboardprofile-sidebarlists-top li');
-                const lastTabHiddenDiv = document.querySelector(".studentdashboardprofile-trackprogress");
-                const lastTabVisibleDiv = document.querySelector(".studentdashboardprofile-myapplication");
-                const dynamicHeader = document.getElementById('loanproposals-header');
-                const individualCards = document.querySelectorAll('.indivudalloanstatus-cards');
-                const communityJoinCard = document.querySelector('.studentdashboardprofile-communityjoinsection');
-                const profileStatusCard = document.querySelector(".personalinfo-profilestatus");
-                const profileImgEditIcon = document.querySelector(".studentdashboardprofile-profilesection .fa-pen-to-square");
-                const educationEditSection=document.querySelector(".studentdashboardprofile-educationeditsection");
-                const testScoresEditSection=document.querySelector(".studentdashboardprofile-testscoreseditsection");
+        const initializeSideBarTabs = () => {
+            const sideBarTopItems = document.querySelectorAll('.studentdashboardprofile-sidebarlists-top li');
+            const lastTabHiddenDiv = document.querySelector(".studentdashboardprofile-trackprogress");
+            const lastTabVisibleDiv = document.querySelector(".studentdashboardprofile-myapplication");
+            const dynamicHeader = document.getElementById('loanproposals-header');
+            const individualCards = document.querySelectorAll('.indivudalloanstatus-cards');
+            const communityJoinCard = document.querySelector('.studentdashboardprofile-communityjoinsection');
+            const profileStatusCard = document.querySelector(".personalinfo-profilestatus");
+            const profileImgEditIcon = document.querySelector(".studentdashboardprofile-profilesection .fa-pen-to-square");
+            const educationEditSection = document.querySelector(".studentdashboardprofile-educationeditsection");
+            const testScoresEditSection = document.querySelector(".studentdashboardprofile-testscoreseditsection");
 
-                
-                sideBarTopItems.forEach((item, index) => {
-                    item.addEventListener('click', () => {
-                        sideBarTopItems.forEach(i => i.classList.remove('active'));
-                        item.classList.add('active');
 
-                        if (index === 1) {
-                            lastTabHiddenDiv.style.display = "flex";
-                            lastTabVisibleDiv.style.display = "none";
-                            communityJoinCard.style.display = "flex";
-                            profileStatusCard.style.display = "block";
-                            profileImgEditIcon.style.display = "none";
-                            educationEditSection.style.display="none";
-                            testScoresEditSection.style.display="none";
+            sideBarTopItems.forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    sideBarTopItems.forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
 
-                            individualCards.forEach((card) => {
-                                const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
-                                const groupButtonContainer = card.querySelector('.individual-bankmessages-buttoncontainer');
+                    if (index === 1) {
+                        lastTabHiddenDiv.style.display = "flex";
+                        lastTabVisibleDiv.style.display = "none";
+                        communityJoinCard.style.display = "flex";
+                        profileStatusCard.style.display = "block";
+                        profileImgEditIcon.style.display = "none";
+                        educationEditSection.style.display = "none";
+                        testScoresEditSection.style.display = "none";
 
-                                if (triggeredMessageButton && groupButtonContainer) {
-                                    triggeredMessageButton.style.display = "flex";
-                                    groupButtonContainer.style.display = "none";
-                                }
-                            });
-                            dynamicHeader.textContent = "Inbox";
-                        } else if (index === 0) {
-                            lastTabHiddenDiv.style.display = "flex";
-                            lastTabVisibleDiv.style.display = "none";
-                            communityJoinCard.style.display = "flex";
-                            profileStatusCard.style.display = "block";
-                            profileImgEditIcon.style.display = "none";
-                              educationEditSection.style.display = "none";
-                            testScoresEditSection.style.display = "none";
+                        individualCards.forEach((card) => {
+                            const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
+                            const groupButtonContainer = card.querySelector('.individual-bankmessages-buttoncontainer');
 
-                            individualCards.forEach((card) => {
-                                const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
-                                const groupButtonContainer = card.querySelector('.individual-bankmessages-buttoncontainer');
-                                const individualBankMessageInput = card.querySelector('.individual-bankmessage-input');
-
-                                card.style.height = "95px";
-                                if (individualBankMessageInput) {
-                                    individualBankMessageInput.style.display = "none";
-                                }
-                                if (triggeredMessageButton && groupButtonContainer) {
-                                    triggeredMessageButton.style.display = "none";
-                                    groupButtonContainer.style.display = "flex";
-                                }
-                            });
-                            dynamicHeader.textContent = "Loan Proposals";
-                        } else if (index === 2) {
-                            lastTabHiddenDiv.style.display = "none";
-                            lastTabVisibleDiv.style.display = "flex";
-                            communityJoinCard.style.display = "none";
-                            profileStatusCard.style.display = "none";
-                            profileImgEditIcon.style.display = "block";
-                              educationEditSection.style.display = "flex";
-                            testScoresEditSection.style.display = "flex";
-                        }
-                    });
-                });
-            };
-
-            const initializeIndividualCards = () => {
-                const individualCards = document.querySelectorAll('.indivudalloanstatus-cards');
-
-                individualCards.forEach((card) => {
-                    const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
-                    const individualBankMessageInput = card.querySelector('.individual-bankmessage-input');
-
-                    if (triggeredMessageButton) {
-                        triggeredMessageButton.addEventListener('click', () => {
-                            const isExpanded = card.style.height === "190px";
-
-                            individualCards.forEach((otherCard) => {
-                                otherCard.style.height = "95px"; // Collapse all other cards
-                                const otherMessageInput = otherCard.querySelector('.individual-bankmessage-input');
-                                if (otherMessageInput) {
-                                    otherMessageInput.style.display = "none";
-                                }
-                            });
-
-                            if (isExpanded) {
-                                card.style.height = "95px"; // Collapse this card
-                                individualBankMessageInput.style.display = "none";
-                            } else {
-                                card.style.height = "190px"; // Expand this card
-                                individualBankMessageInput.style.display = "flex";
+                            if (triggeredMessageButton && groupButtonContainer) {
+                                triggeredMessageButton.style.display = "flex";
+                                groupButtonContainer.style.display = "none";
                             }
                         });
+                        dynamicHeader.textContent = "Inbox";
+                    } else if (index === 0) {
+                        lastTabHiddenDiv.style.display = "flex";
+                        lastTabVisibleDiv.style.display = "none";
+                        communityJoinCard.style.display = "flex";
+                        profileStatusCard.style.display = "block";
+                        profileImgEditIcon.style.display = "none";
+                        educationEditSection.style.display = "none";
+                        testScoresEditSection.style.display = "none";
+
+                        individualCards.forEach((card) => {
+                            const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
+                            const groupButtonContainer = card.querySelector('.individual-bankmessages-buttoncontainer');
+                            const individualBankMessageInput = card.querySelector('.individual-bankmessage-input');
+
+                            card.style.height = "95px";
+                            if (individualBankMessageInput) {
+                                individualBankMessageInput.style.display = "none";
+                            }
+                            if (triggeredMessageButton && groupButtonContainer) {
+                                triggeredMessageButton.style.display = "none";
+                                groupButtonContainer.style.display = "flex";
+                            }
+                        });
+                        dynamicHeader.textContent = "Loan Proposals";
+                    } else if (index === 2) {
+                        lastTabHiddenDiv.style.display = "none";
+                        lastTabVisibleDiv.style.display = "flex";
+                        communityJoinCard.style.display = "none";
+                        profileStatusCard.style.display = "none";
+                        profileImgEditIcon.style.display = "block";
+                        educationEditSection.style.display = "flex";
+                        testScoresEditSection.style.display = "flex";
                     }
                 });
-            };
+            });
+        };
 
-            const initializeKycDocumentUpload = () => {
-                const individualKycDocumentsUpload = document.querySelectorAll(".individualkycdocuments");
+        const initializeIndividualCards = () => {
+            const individualCards = document.querySelectorAll('.indivudalloanstatus-cards');
 
-                individualKycDocumentsUpload.forEach((card) => {
-                    let uploadedFile = null; // Store the uploaded file here
+            individualCards.forEach((card) => {
+                const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
+                const individualBankMessageInput = card.querySelector('.individual-bankmessage-input');
 
-                    // Trigger file selection when clicking the file container
-                    card.querySelector('.inputfilecontainer').addEventListener('click', function () {
-                        card.querySelector('#inputfilecontainer-real').click();
-                    });
+                if (triggeredMessageButton) {
+                    triggeredMessageButton.addEventListener('click', () => {
+                        const isExpanded = card.style.height === "190px";
 
-                    // Handle file selection
-                    card.querySelector('#inputfilecontainer-real').addEventListener('change', function (event) {
-                        const file = event.target.files[0];
-                        if (file) {
-                            uploadedFile = file;  // Store the file for later preview
-                            card.querySelector('.inputfilecontainer p').textContent = file.name;
-                            const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
-                            const filesizeviewer = card.querySelector('.document-status');
-                            filesizeviewer.textContent = `${fileSizeMB} MB Uploaded`;
-                        }
-                    });
+                        individualCards.forEach((otherCard) => {
+                            otherCard.style.height = "95px"; // Collapse all other cards
+                            const otherMessageInput = otherCard.querySelector('.individual-bankmessage-input');
+                            if (otherMessageInput) {
+                                otherMessageInput.style.display = "none";
+                            }
+                        });
 
-                    // Handle eye icon click for preview
-                    card.querySelector('.fa-eye').addEventListener('click', function (event) {
-                        event.stopPropagation(); // Prevent the click from triggering the file input
-
-                        if (uploadedFile && uploadedFile.type === 'application/pdf') {
-                            const reader = new FileReader();
-                            reader.onload = function (event) {
-                                const iframe = document.createElement('iframe');
-                                iframe.src = event.target.result;
-                                iframe.style.width = '100%';
-                                iframe.style.height = "500px";
-                                const previewContainer = card.querySelector('.inputfilecontainer');
-                                previewContainer.innerHTML = ''; // Clear previous content
-                                previewContainer.appendChild(iframe);
-                            };
-                            reader.readAsDataURL(uploadedFile); // Trigger file reading
+                        if (isExpanded) {
+                            card.style.height = "95px"; // Collapse this card
+                            individualBankMessageInput.style.display = "none";
                         } else {
-                            alert('Please upload a valid PDF file to preview.');
+                            card.style.height = "190px"; // Expand this card
+                            individualBankMessageInput.style.display = "flex";
                         }
                     });
+                }
+            });
+        };
+
+        const initializeKycDocumentUpload = () => {
+            const individualKycDocumentsUpload = document.querySelectorAll(".individualkycdocuments");
+
+            individualKycDocumentsUpload.forEach((card) => {
+                let uploadedFile = null; // Store the uploaded file here
+
+                // Trigger file selection when clicking the file container
+                card.querySelector('.inputfilecontainer').addEventListener('click', function () {
+                    card.querySelector('#inputfilecontainer-real').click();
                 });
-            };
 
-            const initializeMarksheetUpload = () => {
-                const individualMarksheetDocumentsUpload = document.querySelectorAll(".individualmarksheetdocuments");
-
-                individualMarksheetDocumentsUpload.forEach((card) => {
-                    let uploadedFile = null;
-
-                    // Trigger file selection when clicking the file container
-                    card.querySelector('.inputfilecontainer-marksheet').addEventListener('click', function () {
-                        card.querySelector('#inputfilecontainer-real-marksheet').click();
-                    });
-
-                    // Handle file selection
-                    card.querySelector('#inputfilecontainer-real-marksheet').addEventListener('change', function (event) {
-                        const file = event.target.files[0];
-                        if (file) {
-                            uploadedFile = file;  // Store the file for later preview
-                            card.querySelector('.inputfilecontainer-marksheet p').textContent = file.name;
-                            const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
-                            const filesizeviewer = card.querySelector('.document-status');
-                            filesizeviewer.textContent = `${fileSizeMB} MB Uploaded`;
-                        }
-                    });
-
-                    // Handle eye icon click for preview
-                    card.querySelector('.fa-eye').addEventListener('click', function () {
-                        event.stopPropagation();
-                        if (uploadedFile && uploadedFile.type === 'application/pdf') {
-                            const reader = new FileReader();
-                            reader.onload = function (event) {
-                                const iframe = document.createElement('iframe');
-                                iframe.src = event.target.result;
-                                iframe.style.width = '100%';
-                                iframe.style.height = "500px";
-                                const previewContainer = card.querySelector('.inputfilecontainer-marksheet');
-                                previewContainer.innerHTML = ''; // Clear previous content
-                                previewContainer.appendChild(iframe);
-                            };
-                            reader.readAsDataURL(uploadedFile); // Trigger file reading
-                        } else {
-                            alert('Please upload a valid PDF file to preview.');
-                        }
-                    });
+                // Handle file selection
+                card.querySelector('#inputfilecontainer-real').addEventListener('change', function (event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        uploadedFile = file;  // Store the file for later preview
+                        card.querySelector('.inputfilecontainer p').textContent = file.name;
+                        const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+                        const filesizeviewer = card.querySelector('.document-status');
+                        filesizeviewer.textContent = `${fileSizeMB} MB Uploaded`;
+                    }
                 });
-            };
 
-            const initializeProgressRing = () => {
-                const radius = 52;
-                const circumference = 2 * Math.PI * radius;
-                const percentage = 0.01;
-                const offset = circumference * (1 - percentage);
-                const progressRingFill = document.querySelector('.progress-ring-fill');
-                const progressText = document.querySelector('.progress-ring-text');
+                // Handle eye icon click for preview
+                card.querySelector('.fa-eye').addEventListener('click', function (event) {
+                    event.stopPropagation(); // Prevent the click from triggering the file input
 
-                progressRingFill.style.strokeDasharray = `${circumference} ${circumference}`;
-                progressRingFill.style.strokeDashoffset = offset;
-                progressText.textContent = `${Math.round(percentage * 100)}%`;
-            };
+                    if (uploadedFile && uploadedFile.type === 'application/pdf') {
+                        const reader = new FileReader();
+                        reader.onload = function (event) {
+                            const iframe = document.createElement('iframe');
+                            iframe.src = event.target.result;
+                            iframe.style.width = '100%';
+                            iframe.style.height = "500px";
+                            const previewContainer = card.querySelector('.inputfilecontainer');
+                            previewContainer.innerHTML = ''; // Clear previous content
+                            previewContainer.appendChild(iframe);
+                        };
+                        reader.readAsDataURL(uploadedFile); // Trigger file reading
+                    } else {
+                        alert('Please upload a valid PDF file to preview.');
+                    }
+                });
+            });
+        };
 
-        </script>
+        const initializeMarksheetUpload = () => {
+            const individualMarksheetDocumentsUpload = document.querySelectorAll(".individualmarksheetdocuments");
+
+            individualMarksheetDocumentsUpload.forEach((card) => {
+                let uploadedFile = null;
+
+                // Trigger file selection when clicking the file container
+                card.querySelector('.inputfilecontainer-marksheet').addEventListener('click', function () {
+                    card.querySelector('#inputfilecontainer-real-marksheet').click();
+                });
+
+                // Handle file selection
+                card.querySelector('#inputfilecontainer-real-marksheet').addEventListener('change', function (event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        uploadedFile = file;  // Store the file for later preview
+                        card.querySelector('.inputfilecontainer-marksheet p').textContent = file.name;
+                        const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+                        const filesizeviewer = card.querySelector('.document-status');
+                        filesizeviewer.textContent = `${fileSizeMB} MB Uploaded`;
+                    }
+                });
+
+                // Handle eye icon click for preview
+                card.querySelector('.fa-eye').addEventListener('click', function () {
+                    event.stopPropagation();
+                    if (uploadedFile && uploadedFile.type === 'application/pdf') {
+                        const reader = new FileReader();
+                        reader.onload = function (event) {
+                            const iframe = document.createElement('iframe');
+                            iframe.src = event.target.result;
+                            iframe.style.width = '100%';
+                            iframe.style.height = "500px";
+                            const previewContainer = card.querySelector('.inputfilecontainer-marksheet');
+                            previewContainer.innerHTML = ''; // Clear previous content
+                            previewContainer.appendChild(iframe);
+                        };
+                        reader.readAsDataURL(uploadedFile); // Trigger file reading
+                    } else {
+                        alert('Please upload a valid PDF file to preview.');
+                    }
+                });
+            });
+        };
+
+        const initializeProgressRing = () => {
+            const radius = 52;
+            const circumference = 2 * Math.PI * radius;
+            const percentage = 0.01;
+            const offset = circumference * (1 - percentage);
+            const progressRingFill = document.querySelector('.progress-ring-fill');
+            const progressText = document.querySelector('.progress-ring-text');
+
+            progressRingFill.style.strokeDasharray = `${circumference} ${circumference}`;
+            progressRingFill.style.strokeDashoffset = offset;
+            progressText.textContent = `${Math.round(percentage * 100)}%`;
+        };
+
+    </script>
 
 </body>
 
