@@ -42,7 +42,7 @@
     @endphp
 
     <div class="studentdashboardprofile">
-       
+
         <div class="studentdashboardprofile-togglesidebar">
             <ul class="studentdashboardprofile-sidebarlists-top">
                 <li class="active"> <i class="fa-solid fa-square-poll-vertical"></i> Dashboard</li>
@@ -172,17 +172,14 @@
                 </div>
                 <ul class="personalinfo-secondrow">
                     <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span
-                            style="margin-left: 6px;">HYU67994003</span> </li>
-                    <li><i class="fa-regular fa-user"></i>
-                        Harish M Kanol</li>
-                    <li><i class="fa-solid fa-phone"></i>+91 76374 86793</li>
-                    <li>
-                        <i class="fa-regular fa-envelope"></i>kanolm@gmail.com
+                            style="margin-left: 6px;"> {{$user->unique_id}}</span> </li>
+                    <li class="personal_info_name"><i class="fa-regular fa-user"></i>
+                        {{$user->name ?? 'Name not available'}}</li>
+                    <li><i class="fa-solid fa-phone"></i>+91 {{$personalInfo->phone}}</li>
+                    <li class="personal_info_email">
+                        <i class="fa-regular fa-envelope"></i>{{$user->email}}
                     </li>
-                    <li><i class="fa-solid fa-location-dot"></i>234, Sweet Life Apt., Cross Rd, Indranagar,
-                        Bengaluru,
-                        Karnataka 560982</li>
-
+                    <li><i class="fa-solid fa-location-dot"></i>{{$personalInfo->state}}</li>
 
                 </ul>
 
@@ -234,7 +231,7 @@
             <div class="studentdashboardprofile-educationeditsection">
                 <div class="educationeditsection-firstrow">
                     <h1>Education</h1>
-                    <button>Edit</button>
+                    <!-- <button>Edit</button> -->
 
 
                 </div>
@@ -247,7 +244,7 @@
             <div class="studentdashboardprofile-testscoreseditsection">
                 <div class="testscoreseditsection-firstrow">
                     <h1>Test Scores</h1>
-                    <button>Edit</button>
+                    <!-- <button>Edit</button> -->
 
 
                 </div>
@@ -269,39 +266,56 @@
             </div>
             <div class="myapplication-secondcolumn">
                 <p>1. Where are you planning to study</p>
-                <input type="text" placeholder="Lorem ipsum dolor sit amet, ">
+                @foreach($courseDetails as $index => $course)
+                    <input type="text" placeholder="{{ $course->{'plan-to-study'} }}" value="{{ $course->{'plan-to-study'} }}">
+
+                @endforeach
             </div>
+
             <div class="myapplication-thirdcolumn">
                 <h6>2. Type of Degree?</h6>
                 <div class="degreetypescheckboxes">
+                    <!-- First radio button for Bachelors -->
                     <label class="custom-radio">
-                        <input type="radio" name="education-level" value="bachelors">
+                        <input type="radio" name="education-level" value="Bachelors (only secured loan)"
+                            @if($courseDetails[0]->{'degree-type'} == 'Bachelors (only secured loan)') checked @endif>
                         <span class="radio-button"></span>
-                        <p> Bachelors (only secured loan)</p>
+                        <p>Bachelors (only secured loan)</p>
                     </label>
                     <br>
+
+                    <!-- Second radio button for Masters -->
                     <label class="custom-radio">
-                        <input type="radio" name="education-level" value="masters">
+                        <input type="radio" name="education-level" value="Masters"
+                            @if($courseDetails[0]->{'degree-type'} == 'Masters') checked @endif>
                         <span class="radio-button"></span>
-                        <p> Masters</p>
+                        <p>Masters</p>
                     </label>
                     <br>
+
+                    <!-- Third radio button for Others -->
                     <label class="custom-radio">
-                        <input type="radio" name="education-level" value="others">
+                        <input type="radio" name="education-level" value="Others"
+                            @if($courseDetails[0]->{'degree-type'} == 'Others') checked @endif>
                         <span class="radio-button"></span>
                         <p>Others</p>
                     </label>
                 </div>
-                <input type="text" placeholder="Lorem ipsum dolor sit amet, ">
+
+                <!-- Input field for 'Others' with conditional enabling -->
+                <input type="text" placeholder="Enter your degree type" value="{{ $courseDetails[0]->{'degree-type'} }}"
+                    id="otherDegreeInput" @if($courseDetails[0]->{'degree-type'} != 'Others') disabled @endif>
             </div>
             <div class="myapplication-fourthcolumn">
                 <p>3. What is the Loan amount required?</p>
-                <input type="text" placeholder="Lorem ipsum dolor sit amet, ">
+                <input type="text" placeholder={{$courseDetails[0]->loan_amount_in_lakhs}}
+                    value={{$courseDetails[0]->loan_amount_in_lakhs}}>
 
             </div>
             <div class="myapplication-fifthcolumn">
                 <p>Referral Code</p>
-                <input type="text" placeholder="BHGSYF7684">
+                <input type="text" placeholder="{{$personalInfo->referral_code}}"
+                    value="{{$personalInfo->referral_code}}">
 
             </div>
             <div class="myapplication-sixthcolumn">
@@ -475,6 +489,7 @@
             initializeKycDocumentUpload();
             initializeMarksheetUpload();
             initializeProgressRing();
+            getStudentProfileData();
         });
 
         const initializeSideBarTabs = () => {
@@ -685,6 +700,19 @@
             progressRingFill.style.strokeDashoffset = offset;
             progressText.textContent = `${Math.round(percentage * 100)}%`;
         };
+
+
+        document.querySelectorAll('input[name="education-level"]').forEach(radio => {
+            radio.addEventListener('change', function () {
+                var otherInput = document.getElementById('otherDegreeInput');
+                if (this.value === 'Others' && this.checked) {
+                    otherInput.disabled = false; // Enable input field if 'Others' is selected
+                } else {
+                    otherInput.disabled = true; // Disable input field for other options
+                }
+            });
+        });
+
 
     </script>
 

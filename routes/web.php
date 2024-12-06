@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\TrackController;
 use Illuminate\Support\Facades\Route;
 
@@ -44,3 +45,4 @@ Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('
 
 Route::post('/send-email', [MailController::class, 'sendEmail']);
 Route::post('/verify-otp', [MailController::class, 'verifyOTP']);
+Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser'])->name('student-dashboard');

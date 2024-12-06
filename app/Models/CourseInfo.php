@@ -5,19 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PersonalInfo extends Model
+class CourseInfo extends Model
 {
+    protected $table = 'course_details_formdata';
+
     use HasFactory;
     protected $fillable = [
-        'user_id',
-        'full_name',
-        'phone',
-        'referral_code',
-        'email',
-        'state'
+        'plan_to_study',
+        'degree_type',
+        'course_duration',
+        'course_details',
+        'loan_amount_in_lakhs',
+        'user_id'
     ];
- 
-    public function user()
+
+
+      public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'unique_id');  // user_id in PersonalInfo references id in User
     }
