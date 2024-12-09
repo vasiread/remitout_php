@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\CourseInfo;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -28,8 +29,12 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+ 
+
         // Return a proper JSON response
         if ($user) {
+         
+
             return response()->json(['success' => true, 'message' => 'Registration successful']);
         } else {
             return response()->json(['success' => false, 'message' => 'Something went wrong.']);

@@ -171,17 +171,27 @@
   display: none;
   align-items: center;
   justify-content: center;
-  width: 517px;
+  width: fit-content;
+
 
 
 
   padding: 0 1rem;
 }
+.nav-searchnotificationbars .nav-profilecontainer{
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
 
 .nav-searchnotificationbars i {
   color: rgba(0, 0, 0, 1);
-  width: 12px;
+  width: 15px;
   height: 7.4px;
+  margin-bottom: 0.5rem;
+  padding-right: 0.3rem;
 
 
 }
@@ -193,12 +203,18 @@
 }
 
 .nav-searchnotificationbars .nav-profileimg {
-  width: 38px;
-
-  height: 37px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   background-size: cover;
+  background-position: center;
+ 
+  object-fit: cover;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
+.nav-searchnotificationbars .nav-profileimg:hover {
+  transform: scale(1.1);
 }
 
 .nav-searchnotificationbars .input-container {

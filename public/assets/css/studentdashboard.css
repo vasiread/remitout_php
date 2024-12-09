@@ -28,7 +28,7 @@ input[type="file"] {
     width: 100%;
     box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
     background-color: rgba(255, 255, 255, 1);
-    flex: 1;
+    /* flex: 1; */
 
 
 }
@@ -86,6 +86,8 @@ input[type="file"] {
 .studentdashboardprofile-sidebarlists-top li.active {
     background: linear-gradient(88.18deg, #FFA048 3.11%, #FA7B15 98.46%);
     color: rgba(255, 255, 255, 1);
+    display: flex;
+    gap: 18px;
 }
 
 .studentdashboardprofile-togglesidebar {
@@ -150,7 +152,7 @@ input[type="file"] {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 21px;
+    /* padding-bottom: 21px; */
 
 }
 
@@ -483,7 +485,7 @@ input[type="file"] {
 
 }
 
-.uploadsectionsandglass i {
+.uploadsectionsandglass i{
     color: rgba(210, 210, 210, 1);
     font-size: 30px;
 
@@ -763,7 +765,7 @@ input[type="file"] {
 
 
 }
-
+ 
 .myapplication-firstcolumn {
     display: flex;
     justify-content: space-between;
@@ -1370,6 +1372,9 @@ input[type="file"] {
     line-height: 15.6px;
     text-align: left;
     color: rgba(33, 33, 33, 0.5);
+    display: flex;
+  justify-content: space-between;
+     /*  padding: 0 1rem; */
 
 }
 

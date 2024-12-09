@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Academics;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -23,12 +24,14 @@ class StudentDashboardController extends Controller
         $uniqueId = $user->unique_id;
 
         $courseDetails = CourseInfo::where('user_id', $uniqueId)->get();
+        $academicDetails = Academics::where('user_id', $uniqueId)->get();
 
 
         $personalInfo = $user->personalInfo;
+        // $academicDetails = $user->academicsInfo;
 
         // Ensure this returns the view
-        return view('pages.studentdashboard', compact('user', 'personalInfo', 'courseDetails', $courseDetails));
+        return view('pages.studentdashboard', compact('user', 'personalInfo', 'courseDetails', $courseDetails, 'academicDetails', $academicDetails));
     }
 
     //

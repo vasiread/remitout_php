@@ -32,4 +32,7 @@ class User extends Model
     public function courseInfo(){
         return $this->hasOne(CourseInfo::class, 'user_id', 'unique_id');
     }
+    public function academicsInfo(){
+        return $this->hasOne(Academics::class, 'user_id', 'unique_id');
+    }
 }

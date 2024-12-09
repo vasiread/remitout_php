@@ -16,11 +16,14 @@
 
     @php
         $profileImgPath = 'assets/images/profileimg.png';
-        $profileIconPath = "assets/images/icons/account_circle.png";
-        $phoneIconPath = "assets/images/icons/phone.png";
-        $mailIconPath = "assets/images/icons/mail.png";
-        $pindropIconPath = "assets/images/icons/pindrop.png";
+        $profileIconPath = "assets/images/account_circle.png";
+        $phoneIconPath = "assets/images/call.png";
+        $mailIconPath = "assets/images/mail.png";
+        $pindropIconPath = "assets/images/pin_drop.png";
         $discordIconPath = "assets/images/icons/discordicon.png";
+
+
+
 
         $bankName = 'bankName';
         $bankMessage = 'bankMessage';
@@ -51,7 +54,7 @@
 
             </ul>
             <ul class="studentdashboardprofile-sidebarlists-bottom">
-                <li> <i class="fa-solid fa-arrow-right-from-bracket"></i>Log out</li>
+                <li onclick="window.location.href='{{route('login')}}'"> <i class="fa-solid fa-arrow-right-from-bracket"></i>Log out</li>
                 <li> <img src="assets/images/Icons/support_agent.png" alt=""> Support</li>
 
             </ul>
@@ -173,13 +176,13 @@
                 <ul class="personalinfo-secondrow">
                     <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span
                             style="margin-left: 6px;"> {{$user->unique_id}}</span> </li>
-                    <li class="personal_info_name"><i class="fa-regular fa-user"></i>
+                    <li class="personal_info_name"><img src={{$profileIconPath}} alt="">
                         {{$user->name ?? 'Name not available'}}</li>
-                    <li><i class="fa-solid fa-phone"></i>+91 {{$personalInfo->phone}}</li>
+                    <li><img src={{$phoneIconPath}} alt=""></i>+91 {{$personalInfo->phone}}</li>
                     <li class="personal_info_email">
-                        <i class="fa-regular fa-envelope"></i>{{$user->email}}
+                        <img src={{$mailIconPath}} alt="">{{$user->email}}
                     </li>
-                    <li><i class="fa-solid fa-location-dot"></i>{{$personalInfo->state}}</li>
+                    <li><img src={{$pindropIconPath}} alt="">{{$personalInfo->state}}</li>
 
                 </ul>
 
@@ -249,11 +252,24 @@
 
                 </div>
                 <div class="testscoreseditsection-secondrow">
-                    <p>1. IELTS</p>
-                    <p>2. GRE</p>
-                    <p>3. TOFEL</p>
-                    <p>4. Others</p>
+                    <p>1. IELTS <span>{{ $academicDetails[0]->ILETS }}</span></p>
+                    <p>2. GRE <span>{{ $academicDetails[0]->GRE }}</span></p>
+                    <p>3. TOEFL <span>{{ $academicDetails[0]->TOFEL }}</span></p>
+
+                    <!-- @if (!empty($academicDetails[0]->Others))
+                                @php
+                                    $otherTests = json_decode($academicDetails[0]->Others, true); 
+                                @endphp
+
+                                <p>4. Others</p>
+                                @foreach ($otherTests as $testName => $score)
+                                    <p>{{ $testName }} <span>{{ $score }}</span></p>
+                                @endforeach
+                @else
+                    <p>4. Others <span>No additional tests</span></p>
+                @endif -->
                 </div>
+
 
             </div>
 
@@ -261,13 +277,15 @@
         <div class="studentdashboardprofile-myapplication">
             <div class="myapplication-firstcolumn">
                 <h1>Course Details</h1>
-                <button>Edit</button>
+                <button onClick="triggerEditButton()">Edit</button>
 
             </div>
             <div class="myapplication-secondcolumn">
                 <p>1. Where are you planning to study</p>
                 @foreach($courseDetails as $index => $course)
-                    <input type="text" placeholder="{{ $course->{'plan-to-study'} }}" value="{{ $course->{'plan-to-study'} }}">
+
+                    <input type="text" placeholder="{{ $course->{'plan-to-study'} }}"
+                        value="{{ $course->{'plan-to-study'} }}" disabled>
 
                 @endforeach
             </div>
@@ -277,8 +295,8 @@
                 <div class="degreetypescheckboxes">
                     <!-- First radio button for Bachelors -->
                     <label class="custom-radio">
-                        <input type="radio" name="education-level" value="Bachelors (only secured loan)"
-                            @if($courseDetails[0]->{'degree-type'} == 'Bachelors (only secured loan)') checked @endif>
+                        <input type="radio" name="education-level" value="Bachelors"
+                            @if($courseDetails[0]->{'degree-type'} == 'Bachelors') checked @endif>
                         <span class="radio-button"></span>
                         <p>Bachelors (only secured loan)</p>
                     </label>
@@ -309,13 +327,13 @@
             <div class="myapplication-fourthcolumn">
                 <p>3. What is the Loan amount required?</p>
                 <input type="text" placeholder={{$courseDetails[0]->loan_amount_in_lakhs}}
-                    value={{$courseDetails[0]->loan_amount_in_lakhs}}>
+                    value={{$courseDetails[0]->loan_amount_in_lakhs}} disabled>
 
             </div>
             <div class="myapplication-fifthcolumn">
                 <p>Referral Code</p>
                 <input type="text" placeholder="{{$personalInfo->referral_code}}"
-                    value="{{$personalInfo->referral_code}}">
+                    value="{{$personalInfo->referral_code}}" disabled>
 
             </div>
             <div class="myapplication-sixthcolumn">
@@ -489,7 +507,6 @@
             initializeKycDocumentUpload();
             initializeMarksheetUpload();
             initializeProgressRing();
-            getStudentProfileData();
         });
 
         const initializeSideBarTabs = () => {
@@ -565,6 +582,33 @@
                 });
             });
         };
+
+        // Define the triggerEditButton function
+const triggerEditButton = () => {
+    // Enable all disabled inputs in the profile
+    const disabledInputs = document.querySelectorAll('.studentdashboardprofile-myapplication input[disabled]');
+    disabledInputs.forEach(inputItems => {
+        inputItems.removeAttribute('disabled');
+    });
+
+    // Enable custom radio buttons (if disabled)
+    const disabledRadios = document.querySelectorAll('.studentdashboardprofile-myapplication input[type="radio"][disabled]');
+    disabledRadios.forEach(radio => {
+        radio.removeAttribute('disabled');
+    });
+
+    // Enable the input for 'Others' degree type if it was disabled
+    const otherDegreeInput = document.getElementById("otherDegreeInput");
+    if (otherDegreeInput && otherDegreeInput.disabled) {
+        otherDegreeInput.removeAttribute('disabled');
+    }
+};
+
+// Assign the event listener outside of the function to avoid recursion
+// document.querySelector(".studentdashboardprofile-myapplication .myapplication-firstcolumn button").addEventListener("click", triggerEditButton);
+
+
+        // Attach event listener to the edit button
 
         const initializeIndividualCards = () => {
             const individualCards = document.querySelectorAll('.indivudalloanstatus-cards');

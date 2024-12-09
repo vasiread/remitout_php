@@ -11,7 +11,10 @@
         style="@if (request()->is('/')) position: absolute; top: 0; left: 0; width: 100%; z-index: 10; @else position: relative; @endif">
         <div class="{{ Request::is('/') ? 'nav-container' : 'nav-container fullopacity' }}">
             @php
-$navImgPath = "assets/images/Remitoutcolored.png";
+                $navImgPath = "assets/images/Remitoutcolored.png";
+                $navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
+                $NotificationBell = "assets/images/notifications_unread.png";
+
 
 
             @endphp
@@ -34,14 +37,21 @@ $navImgPath = "assets/images/Remitoutcolored.png";
                 <div class="input-container">
                     <input type="text" placeholder="Search">
                     <img src="assets/images/search.png" class="search-icon" alt="Search Icon">
-                </div> <img src="assets/images/notifications_unread.png" class="unread-notify" alt="">
-                <img src="assets/images/profileimg.png" class="nav-profileimg" alt="">
-            @if(session()->has('user'))
-                <h3>{{ session('user')->name }}</h3>
-            @else
-                <h3>Harish M</h3>
-            @endif
-                <i class="fa-solid fa-chevron-down"></i>
+                </div> <img src={{$NotificationBell}} style="width:24px;height:24px" class="unread-notify" alt="">
+
+                <div class="nav-profilecontainer">
+                    <img src="assets/images/profileimg.png" class="nav-profileimg" alt="">
+                    @if(session()->has('user'))
+                        <h3>{{ session('user')->name }}</h3>
+                        <i class="fa-solid fa-chevron-down"></i>
+
+                    @else
+                        <h3>Harish M</h3>
+                        <i class="fa-solid fa-chevron-down"></i>
+
+                    @endif
+                </div>
+
 
             </div>
 

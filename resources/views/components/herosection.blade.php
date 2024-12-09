@@ -32,7 +32,7 @@
                         Trusted by 15,000+ students across India, Remitout is your partner in securing the financial support you need to succeed in your studies.
                     </p>
                     <div class="cta-buttons">
-                        <button class="secure-loan">Secure your loan now!</button>
+                        <button onclick="window.location.href='{{route('student-forms')}}'" class="secure-loan">Secure your loan now!</button>
                         <button class="watch-demo">
                             <img src="assets/images/play-icon.png" alt="Video Icon" class="play-icon">
                             Watch Demo

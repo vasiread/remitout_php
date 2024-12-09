@@ -33,6 +33,9 @@ Route::get('/login', function () {
 Route::get('/student-dashboard', function () {
     return view('pages/studentdashboard');   
 })->name('student-dashboard');
+Route::get('/student-forms', function () {
+    return view('pages/studentformquestionair');   
+})->name('student-forms');
 
 
 Route::get('pages/student-dashboard', [TrackController::class, 'loanTracker']);

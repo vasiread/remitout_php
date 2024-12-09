@@ -23,8 +23,7 @@ return new class extends Migration {
             $table->string("ILETS");
             $table->string("GRE");
             $table->string("TOFEL");
-            $table->json("Others");
-
+            $table->json('Others');
 
 
             $table->timestamps();
