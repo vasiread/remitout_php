@@ -172,7 +172,7 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
         }
 
         const generateOTP = (emailInput, nameInput) => {
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const csrfToken =document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 
             fetch('/send-email', {
@@ -289,39 +289,58 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
             //     password: document.getElementById('password').value,
             // };
 
-            fetch('/registerformdata', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify(registerFormData)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    if (data.success) {
-                        alert("Registration is Successful");
-                        window.location.href = '/';
-                    } else {
-                        if (data.errors) {
-                            if (data.errors.email) {
-                                alert(data.errors.email[0]);
-                            } else {
-                                alert('Something went wrong. Please try again.');
-                            }
-                        } else {
-                            alert('Something went wrong. Please try again.');
-                        }
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred. Please try again.');
-                });
+         fetch('/registerformdata', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    },
+    body: JSON.stringify(registerFormData)
+})
+    .then(response => {
+        console.log('Response status:', response.status); // Log the response status code
+
+        // Check if the response is in the 2xx range (OK)
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        return response.json(); // Parse the response body as JSON if it's a valid response
+    })
+    .then(data => {
+        console.log('Response data:', data); // Log the parsed response data for debugging
+
+        // Check if the registration was successful
+        if (data.success) {
+            alert("Registration is Successful");
+            window.location.href = '/'; // Redirect to the home page after successful registration
+        } else {
+            // Handle error messages
+            if (data.errors) {
+                // Check for specific errors such as email-related issues
+                if (data.errors.email) {
+                    alert(data.errors.email[0]); // Show the first error message for email
+                } else {
+                    alert('Something went wrong. Please try again.');
+                }
+            } else {
+                alert('Something went wrong. Please try again.');
+            }
+        }
+    })
+    .catch(error => {
+        // Log more details about the error for debugging
+        console.error('Fetch error:', error);
+
+        // Show a generic error message to the user
+        alert('An error occurred. Please try again.');
+    });
+
 
         }
-    </script>
+               
+        </script>
+
 
     @endsection
 </body>

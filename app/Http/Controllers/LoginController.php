@@ -27,6 +27,8 @@ class LoginController extends Controller
 
 
         session(['user' => $user]);
+        session()->put('expires_at', now()->addSeconds(10000)); // Expire in 10 seconds
+
 
         return response()->json([
             'success' => true,

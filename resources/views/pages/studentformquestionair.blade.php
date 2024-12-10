@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>Remitout</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,8 +34,8 @@
     </section>
     <!-- Personal Information Tab -->
     <div class="registration-container" id="step-personal">
-        <form action="your-action-url" method="POST">
-            <!-- Registration Form -->
+        <form>
+            @csrf
             <div class="registration-form">
                 <!-- Step Header -->
                 <div class="step-header">
@@ -41,19 +43,27 @@
                     <h2>Let us know more about you</h2>
                 </div>
 
+                <!-- Hidden User ID -->
+                <input type="hidden" name="user_id" id="personal-info-userid" value="{{ session('user')->unique_id }}">
+
                 <!-- Input Row 1 -->
                 <div class="input-row">
                     <div class="input-group">
                         <img src="./assets/images/person-icon.png" alt="Person Icon" class="icon" />
-                        <input type="text" placeholder="Full Name" name="full_name" required />
+                        <input type="text" placeholder="Full Name" name="full_name" id="personal-info-name"
+                            value="{{ session('user')->name }}" required />
                     </div>
+
                     <div class="input-group">
                         <img src="./assets/images/call-icon.png" alt="Phone Icon" class="icon" />
-                        <input type="tel" placeholder="Phone Number" name="phone_number" required />
+                        <input type="tel" placeholder="Phone Number" name="phone_number" id="personal-info-phone"
+                            required />
                     </div>
+
                     <div class="input-group">
                         <img src="./assets/images/school.png" alt="Referral Code Icon" class="icon" />
-                        <input type="text" placeholder="Referral Code" name="referral_code" />
+                        <input type="text" placeholder="Referral Code" name="referral_code"
+                            id="personal-info-referral" />
                     </div>
                 </div>
 
@@ -61,11 +71,12 @@
                 <div class="input-row">
                     <div class="input-group">
                         <img src="./assets/images/mail.png" alt="Mail Icon" class="icon" />
-                        <input type="email" placeholder="Email ID" name="email" required />
+                        <input type="email" placeholder="Email ID" name="email" id="personal-info-email"
+                            value="{{ session('user')->email }}" required />
                     </div>
                     <div class="input-group">
                         <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
-                        <input type="text" placeholder="City" name="city" required />
+                        <input type="text" placeholder="City" name="city" id="personal-info-city" required />
                     </div>
                 </div>
             </div>
@@ -90,13 +101,13 @@
                         </select>
                     </div>
 
-                    <!-- Next Button (Placed Below Section 02) -->
-                    <button type="submit" class="next-btn">Next</button>
-                </div> <!-- End of section-02 -->
-            </div> <!-- End of section-02-container -->
-
+                    <!-- Submit Button -->
+                    <button type="submit" class="next-btn" id="personal-info-submit">Next</button>
+                </div>
+            </div>
         </form>
     </div>
+
 
 
     <!-- breadcrumb 2 tab -->
@@ -110,7 +121,7 @@
                 <h2>Where are you planning to study? Select all that applies</h2>
             </div>
 
-            <div class="checkbox-group">
+            <div class="checkbox-group" id="selected-study-location">
                 <label>
                     <input type="checkbox" name="study-location" value="USA">
                     USA
@@ -176,7 +187,7 @@
                 <h2>Select the type of degree you want to pursue:</h2>
             </div>
 
-            <form>
+            <form id="course-info-degreetype">
                 <div>
                     <input type="radio" id="bachelors" name="degree_type" value="bachelors">
                     <label for="bachelors">Bachelors (only secured loan)</label>
@@ -206,7 +217,7 @@
                 <h2>What is the duration of the course?</h2>
             </div>
 
-            <div class="dropdown">
+            <div class="dropdown" id="selected-course-duration">
                 <select>
                     <option>No. of Months</option>
                     <option>12 Months</option>
@@ -221,11 +232,10 @@
                 </div>
             </div>
 
-            <!-- Automatically navigate to next step -->
             <script>
                 setTimeout(function () {
                     navigateToStep('step-4');
-                }, 2000); // Auto navigate after 2 seconds
+                }, 2000); 
             </script>
         </div>
 
@@ -263,7 +273,7 @@
             </div>
 
             <!-- Only this step has the button -->
-            <button type="submit" class="next-btn-course">Next</button>
+            <button type="submit" id="course-info-submit" class="next-btn-course">Next</button>
         </div>
 
     </div>
@@ -395,7 +405,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="next-btn-academic">Next</button>
+            <button type="submit" id="academics-info-submit" class="next-btn-academic">Next</button>
         </div>
 
     </div>
@@ -1064,6 +1074,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            event.preventDefault(); // Prevent form submission for testing
+            console.log("Ok, now it's ok");
             // Breadcrumb navigation and buttons
             const prevButton = document.querySelector('.nav-button.prev');
             const nextButton = document.querySelector('.nav-button.next');
@@ -1094,6 +1106,7 @@
 
                 nextBreadcrumbButton.disabled = currentContainerIndex !== breadcrumbSections[currentBreadcrumbIndex].length - 1;
             }
+
 
             function updateBreadcrumbNavigation() {
                 breadcrumbLinks.forEach((link, index) => {
@@ -1138,6 +1151,218 @@
                 updateBreadcrumbNavigation();
                 updateNavigationButtons();
             }
+
+            document.getElementById('personal-info-submit').addEventListener('click', (event) => {
+                updateUserPersonalInfo(event);
+            })
+
+            document.getElementById('course-info-submit').addEventListener('click', (event) => {
+                updateUserCourseInfo(event);
+            })
+            document.getElementById('academics-info-submit').addEventListener('click', (event) => {
+                updateAcademicsCourseInfo(event);
+            })
+
+
+            function updateUserPersonalInfo(event) {
+                event.preventDefault();
+
+                // Getting values from form fields
+                const personalInfoId = document.getElementById("personal-info-userid").value;
+                const personalInfoName = document.getElementById("personal-info-name").value;
+                const personalInfoPhone = document.getElementById("personal-info-phone").value;
+                const personalInfoEmail = document.getElementById("personal-info-email").value;
+                const personalInfoCity = document.getElementById("personal-info-city").value;
+                const personalInfoReferral = document.getElementById("personal-info-referral").value;  // Fixed typo
+                const personalInfoFindOut = document.querySelector('select[name="how_did_you_find_us"]').value;
+
+                // Create an object with the personal update data
+                const personalUpdateData = {
+                    personalInfoId,
+                    personalInfoName,
+                    personalInfoPhone,
+                    personalInfoEmail,
+                    personalInfoCity,
+                    personalInfoReferral,  // Fixed typo
+                    personalInfoFindOut
+                };
+
+                console.log(personalUpdateData);
+
+                // Sending the data with fetch
+                fetch('/update-personalinfo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify(personalUpdateData) // Sending the data as JSON in the request body
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+
+                        if (data.success) {
+                            alert(data.message);  // Show success message
+                        } else {
+                            alert(data.message);  // Show error message
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred while updating your information.');
+                    });
+            }
+            function getSelectedExpenseType() {
+                const selectedExpense = document.querySelector('input[name="expense-type"]:checked');
+                console.log('Selected Expense Type:', selectedExpense ? selectedExpense.value : 'None');
+                return selectedExpense ? selectedExpense.value : null; // Return the selected value or null if none selected
+            }
+
+            // Function to get the entered loan amount
+            function getLoanAmount() {
+                const loanAmount = document.getElementById('loan-amount').value;
+                console.log('Loan Amount:', loanAmount.trim()); // Log the loan amount
+                return loanAmount.trim(); // Return the value with trimmed spaces
+            }
+
+            // Function to get the selected course duration
+            function getSelectedCourseDuration() {
+                const selectedOption = document.querySelector('#selected-course-duration select').value;
+                console.log('Selected Course Duration:', selectedOption); // Log the selected course duration
+                return selectedOption;
+            }
+
+            // Function to get the selected study locations (from the checkboxes)
+            function getSelectedStudyLocations() {
+                const checkboxes = document.querySelectorAll('#selected-study-location input[type="checkbox"]:checked');
+                const selectedLocations = [];
+                checkboxes.forEach(checkbox => {
+                    selectedLocations.push(checkbox.value);
+                });
+                console.log('Selected Study Locations:', selectedLocations); // Log the selected study locations
+                return selectedLocations;
+            }
+
+
+
+
+            function updateUserCourseInfo(event) {
+                event.preventDefault();
+                const personalInfoId = document.getElementById("personal-info-userid").value;
+
+                const selectedDegreeType = document.querySelector('#course-info-degreetype input[name="degree_type"]:checked').value;
+                const expenseType = getSelectedExpenseType();
+                const loanAmount = getLoanAmount();
+                const courseDuration = getSelectedCourseDuration();
+                const studyLocations = getSelectedStudyLocations();
+
+
+
+
+
+
+
+                const courseInfoData = {
+                    personalInfoId,
+                    selectedDegreeType,
+                    expenseType,
+                    loanAmount,
+                    courseDuration,
+                    studyLocations
+                }
+                console.log(courseInfoData)
+
+                fetch('/update-courseinfo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    },
+                    body: JSON.stringify(courseInfoData)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+
+                        if (data.success) {
+                            alert(data.message);  // Show success message
+                        } else {
+                            alert(data.message);  // Show error message
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred while updating your information.');
+                    });
+
+
+
+
+            }
+
+
+            function updateAcademicsCourseInfo(event) {
+                const personalInfoId = document.getElementById("personal-info-userid").value;
+
+                const selectedAcademicGap = document.querySelector('input[name="academics-gap"]:checked').value;
+                const reasonForGap = document.querySelector('.academic-reason textarea').value;
+                const selectedAdmitOption = document.querySelector('input[name="admit-option"]:checked').value;
+                const selectedWorkOption = document.querySelector('input[name="work-option"]:checked').value;
+                const ieltsScore = document.getElementById('admit-ielts').value;
+
+                const greScore = document.getElementById('admit-gre').value;
+                const toeflScore = document.getElementById('admit-toefl').value;
+                const otherExamName = document.getElementById('admit-others-name').value;
+                const otherExamScore = document.getElementById('admit-others-score').value;
+
+
+                const academicDetails = {
+                    personalInfoId, selectedAcademicGap, reasonForGap, selectedAdmitOption, selectedWorkOption, ieltsScore, greScore, toeflScore,
+                    "others": { otherExamName, otherExamScore }
+                }
+
+                console.log(academicDetails)
+
+
+
+
+                fetch('/update-academicsinfo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify(academicDetails) // Sending the data as JSON in the request body
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+
+                        if (data.success) {
+                            alert(data.message);  // Show success message
+                        } else {
+                            alert(data.message);  // Show error message
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred while updating your information.');
+                    });
+
+
+
+            }
+
+
+
+
+
+
+
+
+
+
 
             nextButton.addEventListener('click', () => navigate('next'));
             prevButton.addEventListener('click', () => navigate('prev'));
@@ -1289,6 +1514,9 @@
                 }
             });
         });
+
+
+
     </script>
 </body>
 

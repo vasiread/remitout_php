@@ -10,13 +10,14 @@ class CourseInfo extends Model
     protected $table = 'course_details_formdata';
 
     use HasFactory;
+    protected $primaryKey = 'user_id';
+
     protected $fillable = [
         'plan_to_study',
         'degree_type',
         'course_duration',
         'course_details',
         'loan_amount_in_lakhs',
-        'user_id'
     ];
 
 

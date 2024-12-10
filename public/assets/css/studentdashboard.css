@@ -152,7 +152,7 @@ input[type="file"] {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* padding-bottom: 21px; */
+    padding:1.4rem 0;
 
 }
 
@@ -163,7 +163,8 @@ input[type="file"] {
     line-height: 27px;
     letter-spacing: -0.01em;
     text-align: left;
-    color: rgba(0, 0, 0, 1)
+    color: rgba(0, 0, 0, 1);
+    margin:0;
 }
 
 .studentdashboardprofile-personalinfo .personalinfo-firstrow button {

@@ -8,13 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Academics extends Model
 {
     protected $table = 'academic_details';
+    protected $primaryKey = 'user_id';
 
     protected $fillable = [
-        'user_id',
         'gap_in_academics',
         'reason_for_gap',
         'work_experience',
-        'loan_amount_in_lakhs',
         'ILETS',
         'GRE',
         'TOFEL',
