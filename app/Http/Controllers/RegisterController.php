@@ -61,6 +61,27 @@ class RegisterController extends Controller
     // }
 
 
+    public function emailUniqueCheck(Request $request)
+    {
+        $email = $request->email;  // Get the email from the request
+
+        // Check if email already exists in the database
+        $emailUnique = User::where('email', $email)->exists();
+
+        if ($emailUnique) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Email is already taken. Please choose a different one.',
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Email is available.',
+        ]);
+    }
+
+
 
     public function store(Request $request)
     {
@@ -74,7 +95,6 @@ class RegisterController extends Controller
         // Debugging: Output the request data (remove this in production)
         // dd($request->all());
 
-        // Proceed with user creation
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -101,6 +121,11 @@ class RegisterController extends Controller
         } else {
             return response()->json(['success' => false, 'message' => 'Something went wrong.']);
         }
+
+
+
+        // Proceed with user creation
+
     }
 
 

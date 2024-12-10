@@ -68,7 +68,7 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
 
                 <div class="otppanel-mainsection">
                     <p>Do not share your OTP!</p>
-                   
+
                     <div class="otpinputcontainer">
                         <input type="text" class="otp-input" maxlength="1"
                             oninput="restrictToNumbers(this); moveFocus(this, 'otp2')" id="otp1">
@@ -172,7 +172,7 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
         }
 
         const generateOTP = (emailInput, nameInput) => {
-            const csrfToken =document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 
             fetch('/send-email', {
@@ -271,75 +271,90 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
                 return;
             }
 
-            registerFormData = {
-                name: name,
-                email: email,
-                password: password,
-            };
+            fetch("/emailuniquecheck", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ email: email })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response data:', data);
+                    if (data.success === false) {
+                        // If email is already taken, show an alert
+                        alert(data.message);
+                    } else if (data.success === true) {
 
 
-
-            triggerOtpSection();
+                        triggerOtpSection();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         }
 
         function submitVerifiedData() {
-            // const registerFormData = {
-            //     name: document.getElementById('name').value,
-            //     email: document.getElementById('email').value,
-            //     password: document.getElementById('password').value,
-            // };
+            const registerFormData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('passwordinputID').value,
+            };
+            console.log(registerFormData)
 
-         fetch('/registerformdata', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-    },
-    body: JSON.stringify(registerFormData)
-})
-    .then(response => {
-        console.log('Response status:', response.status); // Log the response status code
+            fetch('/registerformdata', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify(registerFormData)
+            })
+                .then(response => {
+                    console.log('Response status:', response.status); // Log the response status code
 
-        // Check if the response is in the 2xx range (OK)
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+                    // Check if the response is in the 2xx range (OK)
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    return response.json(); // Parse the response body as JSON if it's a valid response
+                })
+                .then(data => {
+                    console.log('Response data:', data); // Log the parsed response data for debugging
+
+                    // Check if the registration was successful
+                    if (data.success) {
+                        alert("Registration is Successful");
+                        window.location.href = '/'; // Redirect to the home page after successful registration
+                    } else {
+                        // Handle error messages
+                        if (data.errors) {
+                            // Check for specific errors such as email-related issues
+                            if (data.errors.email) {
+                                alert(data.errors.email[0]); // Show the first error message for email
+                            } else {
+                                alert('Something went wrong. Please try again.');
+                            }
+                        } else {
+                            alert('Something went wrong. Please try again.');
+                        }
+                    }
+                })
+                .catch(error => {
+                    // Log more details about the error for debugging
+                    console.error('Fetch error:', error);
+
+                    // Show a generic error message to the user
+                    alert('An error occurred. Please try again.');
+                });
+
+
         }
 
-        return response.json(); // Parse the response body as JSON if it's a valid response
-    })
-    .then(data => {
-        console.log('Response data:', data); // Log the parsed response data for debugging
-
-        // Check if the registration was successful
-        if (data.success) {
-            alert("Registration is Successful");
-            window.location.href = '/'; // Redirect to the home page after successful registration
-        } else {
-            // Handle error messages
-            if (data.errors) {
-                // Check for specific errors such as email-related issues
-                if (data.errors.email) {
-                    alert(data.errors.email[0]); // Show the first error message for email
-                } else {
-                    alert('Something went wrong. Please try again.');
-                }
-            } else {
-                alert('Something went wrong. Please try again.');
-            }
-        }
-    })
-    .catch(error => {
-        // Log more details about the error for debugging
-        console.error('Fetch error:', error);
-
-        // Show a generic error message to the user
-        alert('An error occurred. Please try again.');
-    });
-
-
-        }
-               
-        </script>
+    </script>
 
 
     @endsection

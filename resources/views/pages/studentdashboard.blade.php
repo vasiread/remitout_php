@@ -15,33 +15,36 @@
     @section('studentdashboard')
 
     @php
-        $profileImgPath = 'assets/images/profileimg.png';
-        $profileIconPath = "assets/images/account_circle.png";
-        $phoneIconPath = "assets/images/call.png";
-        $mailIconPath = "assets/images/mail.png";
-        $pindropIconPath = "assets/images/pin_drop.png";
-        $discordIconPath = "assets/images/icons/discordicon.png";
+$profileImgPath = 'assets/images/profileimg.png';
+$profileIconPath = "assets/images/account_circle.png";
+$phoneIconPath = "assets/images/call.png";
+$mailIconPath = "assets/images/mail.png";
+$pindropIconPath = "assets/images/pin_drop.png";
+$discordIconPath = "assets/images/icons/discordicon.png";
 
 
 
 
-        $bankName = 'bankName';
-        $bankMessage = 'bankMessage';
-        $loanStatusInfo = [
-            [
-                $bankName => "Bank Name",
-                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-            ],
-            [
-                $bankName => "Bank Name",
-                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-            ],
-            [
-                $bankName => "Bank Name",
-                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-            ],
+$bankName = 'bankName';
+$bankMessage = 'bankMessage';
+$loanStatusInfo = [
+    [
+        $bankName => "Bank Name",
+        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+    ],
+    [
+        $bankName => "Bank Name",
+        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+    ],
+    [
+        $bankName => "Bank Name",
+        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+    ],
 
-        ];
+];
+
+
+
     @endphp
 
     <div class="studentdashboardprofile">
@@ -54,7 +57,8 @@
 
             </ul>
             <ul class="studentdashboardprofile-sidebarlists-bottom">
-                <li onclick="window.location.href='{{route('login')}}'"> <i class="fa-solid fa-arrow-right-from-bracket"></i>Log out</li>
+                <li onclick="window.location.href='{{route('login')}}'"> <i
+                        class="fa-solid fa-arrow-right-from-bracket"></i>Log out</li>
                 <li> <img src="assets/images/Icons/support_agent.png" alt=""> Support</li>
 
             </ul>
@@ -139,7 +143,8 @@
                             </div>
                             <div class="individual-bankmessage-input">
                                 <input type="text" placeholder="Send message">
-                                <i class="fa-regular fa-paper-plane"></i>
+                                <img class="send-img" src="assets/images/send.png" alt="">
+
                                 <i class="fa-solid fa-paperclip"></i>
                                 <i class="fa-regular fa-face-smile"></i>
 
@@ -171,7 +176,7 @@
             <div class="studentdashboardprofile-personalinfo">
                 <div class="personalinfo-firstrow">
                     <h1>My Profile</h1>
-                    <button>Edit</button>
+                    <button onclick="triggerSave()">Edit</button>
                 </div>
                 <ul class="personalinfo-secondrow">
                     <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span
@@ -324,8 +329,13 @@
                 <input type="text" placeholder="Enter your degree type" value="{{ $courseDetails[0]->{'degree-type'} }}"
                     id="otherDegreeInput" @if($courseDetails[0]->{'degree-type'} != 'Others') disabled @endif>
             </div>
+            <div class="myapplication-fourthcolumn-additional">
+                <p>3. What is the duration of the course?</p>
+                <input type="text" placeholder="{{ $courseDetails[0]->{'course-details'} ?? '' }}"
+                    value="{{ $courseDetails[0]->{'course-details'} ?? '' }}" disabled>
+            </div>
             <div class="myapplication-fourthcolumn">
-                <p>3. What is the Loan amount required?</p>
+                <p>4. What is the Loan amount required?</p>
                 <input type="text" placeholder={{$courseDetails[0]->loan_amount_in_lakhs}}
                     value={{$courseDetails[0]->loan_amount_in_lakhs}} disabled>
 
@@ -507,7 +517,9 @@
             initializeKycDocumentUpload();
             initializeMarksheetUpload();
             initializeProgressRing();
+            saveChangesFunctionality();
         });
+
 
         const initializeSideBarTabs = () => {
             const sideBarTopItems = document.querySelectorAll('.studentdashboardprofile-sidebarlists-top li');
@@ -584,28 +596,28 @@
         };
 
         // Define the triggerEditButton function
-const triggerEditButton = () => {
-    // Enable all disabled inputs in the profile
-    const disabledInputs = document.querySelectorAll('.studentdashboardprofile-myapplication input[disabled]');
-    disabledInputs.forEach(inputItems => {
-        inputItems.removeAttribute('disabled');
-    });
+        const triggerEditButton = () => {
+            // Enable all disabled inputs in the profile
+            const disabledInputs = document.querySelectorAll('.studentdashboardprofile-myapplication input[disabled]');
+            disabledInputs.forEach(inputItems => {
+                inputItems.removeAttribute('disabled');
+            });
 
-    // Enable custom radio buttons (if disabled)
-    const disabledRadios = document.querySelectorAll('.studentdashboardprofile-myapplication input[type="radio"][disabled]');
-    disabledRadios.forEach(radio => {
-        radio.removeAttribute('disabled');
-    });
+            // Enable custom radio buttons (if disabled)
+            const disabledRadios = document.querySelectorAll('.studentdashboardprofile-myapplication input[type="radio"][disabled]');
+            disabledRadios.forEach(radio => {
+                radio.removeAttribute('disabled');
+            });
 
-    // Enable the input for 'Others' degree type if it was disabled
-    const otherDegreeInput = document.getElementById("otherDegreeInput");
-    if (otherDegreeInput && otherDegreeInput.disabled) {
-        otherDegreeInput.removeAttribute('disabled');
-    }
-};
+            // Enable the input for 'Others' degree type if it was disabled
+            const otherDegreeInput = document.getElementById("otherDegreeInput");
+            if (otherDegreeInput && otherDegreeInput.disabled) {
+                otherDegreeInput.removeAttribute('disabled');
+            }
+        };
 
-// Assign the event listener outside of the function to avoid recursion
-// document.querySelector(".studentdashboardprofile-myapplication .myapplication-firstcolumn button").addEventListener("click", triggerEditButton);
+        // Assign the event listener outside of the function to avoid recursion
+        // document.querySelector(".studentdashboardprofile-myapplication .myapplication-firstcolumn button").addEventListener("click", triggerEditButton);
 
 
         // Attach event listener to the edit button
@@ -746,6 +758,10 @@ const triggerEditButton = () => {
         };
 
 
+        const triggerSave = (event) => {
+            console.log(event);
+
+        }
         document.querySelectorAll('input[name="education-level"]').forEach(radio => {
             radio.addEventListener('change', function () {
                 var otherInput = document.getElementById('otherDegreeInput');
@@ -756,6 +772,29 @@ const triggerEditButton = () => {
                 }
             });
         });
+
+
+        const saveChangesFunctionality = () => {
+
+          let isEditing = true;  
+            let editState = isEditing ? 'Edit' : 'Save';
+
+            const saveChangesButton = document.querySelector(".personalinfo-firstrow button");
+
+            if (saveChangesButton) {
+                saveChangesButton.addEventListener('click', (event) => {
+                    isEditing = !isEditing; 
+                    editState = isEditing ? 'Edit' : 'Save';  
+                    saveChangesButton.textContent=  editState;
+                });
+            }
+
+
+        }
+
+
+
+
 
 
     </script>
