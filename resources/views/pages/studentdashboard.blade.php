@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+
     <title>Student Dashboard</title>
 </head>
 
@@ -15,33 +16,33 @@
     @section('studentdashboard')
 
     @php
-$profileImgPath = 'assets/images/profileimg.png';
-$profileIconPath = "assets/images/account_circle.png";
-$phoneIconPath = "assets/images/call.png";
-$mailIconPath = "assets/images/mail.png";
-$pindropIconPath = "assets/images/pin_drop.png";
-$discordIconPath = "assets/images/icons/discordicon.png";
+        $profileImgPath = 'assets/images/profileimg.png';
+        $profileIconPath = "assets/images/account_circle.png";
+        $phoneIconPath = "assets/images/call.png";
+        $mailIconPath = "assets/images/mail.png";
+        $pindropIconPath = "assets/images/pin_drop.png";
+        $discordIconPath = "assets/images/icons/discordicon.png";
 
 
 
 
-$bankName = 'bankName';
-$bankMessage = 'bankMessage';
-$loanStatusInfo = [
-    [
-        $bankName => "Bank Name",
-        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-    ],
-    [
-        $bankName => "Bank Name",
-        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-    ],
-    [
-        $bankName => "Bank Name",
-        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-    ],
+        $bankName = 'bankName';
+        $bankMessage = 'bankMessage';
+        $loanStatusInfo = [
+            [
+                $bankName => "Bank Name",
+                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+            ],
+            [
+                $bankName => "Bank Name",
+                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+            ],
+            [
+                $bankName => "Bank Name",
+                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+            ],
 
-];
+        ];
 
 
 
@@ -176,18 +177,46 @@ $loanStatusInfo = [
             <div class="studentdashboardprofile-personalinfo">
                 <div class="personalinfo-firstrow">
                     <h1>My Profile</h1>
-                    <button onclick="triggerSave()">Edit</button>
+                    <button>Edit</button>
+                    <button class="saved-msg">Saved</button>
                 </div>
                 <ul class="personalinfo-secondrow">
-                    <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span
+                    <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span class="personal_info_id"
                             style="margin-left: 6px;"> {{$user->unique_id}}</span> </li>
                     <li class="personal_info_name"><img src={{$profileIconPath}} alt="">
-                        {{$user->name ?? 'Name not available'}}</li>
-                    <li><img src={{$phoneIconPath}} alt=""></i>+91 {{$personalInfo->phone}}</li>
-                    <li class="personal_info_email">
-                        <img src={{$mailIconPath}} alt="">{{$user->email}}
+                        <p> {{$userDetails[0]->name ?? 'Name not available'}}</p>
                     </li>
-                    <li><img src={{$pindropIconPath}} alt="">{{$personalInfo->state}}</li>
+                    <li class="personal_info_phone"><img src={{$phoneIconPath}} alt="">
+                        <p>+91 {{$personalDetails[0]->phone}}</p>
+                    </li>
+                    <li class="personal_info_email">
+                        <img src={{$mailIconPath}} alt="">
+                        <p> {{$userDetails[0]->email}}</p>
+                    </li>
+                    <li class="personal_info_state"><img src={{$pindropIconPath}} alt="">
+                        <p> {{ $personalDetails[0]->state }}</p>
+                    </li>
+
+                </ul>
+                <ul class="personalinfosecondrow-editsection">
+                    <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span
+                            style="margin-left: 6px;"> {{$userDetails[0]->unique_id}}</span> </li>
+                    <li class="personal_info_name">
+                        <p>Name</p>
+                        <input type="text" value="{{$userDetails[0]->name}}">
+                    </li>
+                    <li class="personal_info_phone">
+                        <p>Phone</p>
+                        <input type="text" value="{{$personalDetails[0]->phone}}">
+                    </li>
+                    <li class="personal_info_email">
+                        <p>Email</p>
+                        <input type="text" value="{{$userDetails[0]->email}}">
+                    </li>
+                    <li class="personal_info_state">
+                        <p>State</p>
+                        <input type="text" value="{{$personalDetails[0]->state}}">
+                    </li>
 
                 </ul>
 
@@ -252,14 +281,13 @@ $loanStatusInfo = [
             <div class="studentdashboardprofile-testscoreseditsection">
                 <div class="testscoreseditsection-firstrow">
                     <h1>Test Scores</h1>
-                    <!-- <button>Edit</button> -->
 
 
                 </div>
                 <div class="testscoreseditsection-secondrow">
-                    <p>1. IELTS <span>{{ $academicDetails[0]->ILETS }}</span></p>
-                    <p>2. GRE <span>{{ $academicDetails[0]->GRE }}</span></p>
-                    <p>3. TOEFL <span>{{ $academicDetails[0]->TOFEL }}</span></p>
+                    <p>1. IELTS <span class="ilets_score">{{ $academicDetails[0]->ILETS }}</span></p>
+                    <p>2. GRE <span class="gre_score">{{ $academicDetails[0]->GRE }}</span></p>
+                    <p>3. TOEFL <span class="tofel_score">{{ $academicDetails[0]->TOFEL }}</span></p>
 
                     <!-- @if (!empty($academicDetails[0]->Others))
                                 @php
@@ -273,6 +301,14 @@ $loanStatusInfo = [
                 @else
                     <p>4. Others <span>No additional tests</span></p>
                 @endif -->
+                </div>
+                <div class="testscoreseditsection-secondrow-editsection">
+                    <p>ILETS</p>
+                    <input type="text" class="ilets_score" value={{$academicDetails[0]->ILETS}}>
+                    <p>GRE</p>
+                    <input type="text" class="gre_score" value={{$academicDetails[0]->GRE}}>
+                    <p>TOFEL</p> <input type="text" class="tofel_score" value="{{$academicDetails[0]->TOFEL}}">
+
                 </div>
 
 
@@ -342,8 +378,8 @@ $loanStatusInfo = [
             </div>
             <div class="myapplication-fifthcolumn">
                 <p>Referral Code</p>
-                <input type="text" placeholder="{{$personalInfo->referral_code}}"
-                    value="{{$personalInfo->referral_code}}" disabled>
+                <input type="text" placeholder="{{$personalDetails[0]->referral_code}}"
+                    value="{{$personalDetails[0]->referral_code}}" disabled>
 
             </div>
             <div class="myapplication-sixthcolumn">
@@ -518,6 +554,7 @@ $loanStatusInfo = [
             initializeMarksheetUpload();
             initializeProgressRing();
             saveChangesFunctionality();
+
         });
 
 
@@ -775,24 +812,106 @@ $loanStatusInfo = [
 
 
         const saveChangesFunctionality = () => {
-
-          let isEditing = true;  
-            let editState = isEditing ? 'Edit' : 'Save';
-
+            // Assuming we start in "view" mode (not editing)
+            let isEditing = false;
             const saveChangesButton = document.querySelector(".personalinfo-firstrow button");
+            const savedMsg = document.querySelector(".studentdashboardprofile-personalinfo .personalinfo-firstrow .saved-msg");  // Corrected class selector
+            const personalDivContainer = document.querySelector(".personalinfo-secondrow");
+            const personalDivContainerEdit = document.querySelector(".personalinfosecondrow-editsection");
+            const academicsMarksDivEdit = document.querySelector(".testscoreseditsection-secondrow-editsection");
+            const academicsMarksDiv = document.querySelector(".testscoreseditsection-secondrow");
 
             if (saveChangesButton) {
+                // Initially set the button text to "Edit"
+                saveChangesButton.textContent = 'Edit';  // 'Save' initially set here doesn't seem logical
+
                 saveChangesButton.addEventListener('click', (event) => {
-                    isEditing = !isEditing; 
-                    editState = isEditing ? 'Edit' : 'Save';  
-                    saveChangesButton.textContent=  editState;
+                    // Toggle the editing state
+                    isEditing = !isEditing;
+
+                    if (isEditing) {
+
+                        saveChangesButton.textContent = 'Save';
+                        personalDivContainerEdit.style.display = "flex";
+                        personalDivContainer.style.display = "none";
+                        academicsMarksDivEdit.style.display = "flex";
+                        academicsMarksDiv.style.display = "none";
+                    } else {
+
+                        saveChangesButton.textContent = 'Edit';
+                        personalDivContainer.style.display = "flex";
+                        personalDivContainerEdit.style.display = "none";
+                        academicsMarksDivEdit.style.display = "none";
+                        academicsMarksDiv.style.display = "flex";
+
+
+
+                        const editedName = document.querySelector(".personalinfosecondrow-editsection .personal_info_name input").value;
+                        const editedPhone = document.querySelector(".personalinfosecondrow-editsection .personal_info_phone input").value;
+                        const editedEmail = document.querySelector(".personalinfosecondrow-editsection .personal_info_email input").value;
+                        const editedState = document.querySelector(".personalinfosecondrow-editsection .personal_info_state input").value;
+                        const iletsScore = document.querySelector(".testscoreseditsection-secondrow-editsection .ilets_score input").value;
+                        const greScore = document.querySelector(".testscoreseditsection-secondrow-editsection .gre_score input").value;
+                        const tofelScore = document.querySelector(".testscoreseditsection-secondrow-editsection .tofel_score input").value;
+
+
+                        const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+
+                        const userId = userIdElement ? userIdElement.textContent : '';
+
+                        console.log(editedName, editedPhone, editedEmail, editedState, userId);
+
+                        const updatedInfos = {
+                            editedName: editedName,
+                            editedPhone: editedPhone,
+                            editedEmail: editedEmail,
+                            editedState: editedState,
+                            iletsScore: iletsScore,
+                            greScore: greScore,
+                            tofelScore: tofelScore,
+                            userId: userId
+                        };
+
+                        fetch('/from-profileupdate', {
+                            method: "POST",
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: JSON.stringify(updatedInfos)
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.errors) {
+                                    console.error('Validation errors:', data.errors);
+                                } else {
+                                    saveChangesButton.style.display = "none";
+                                    savedMsg.style.display = "flex";
+
+                                    document.querySelector(".personalinfo-secondrow .personal_info_name p").textContent = data.user.name;
+                                    document.querySelector(".personalinfo-secondrow .personal_info_email p").textContent = data.user.email;
+                                    document.querySelector(".personalinfo-secondrow .personal_info_phone p").textContent = data.personalInfo.phone;
+                                    document.querySelector(".personalinfo-secondrow .personal_info_state p").textContent = data.personalInfo.state;
+                                    document.querySelector(".testscoreseditsection-secondrow p .ilets_score").textContent = data.academicsScores.iletsScore;
+                                    document.querySelector(".testscoreseditsection-secondrow p .gre_score").textContent = data.academicsScores.greScore;
+                                    document.querySelector(".testscoreseditsection-secondrow p .tofel_score").textContent = data.academicsScores.tofelScore;
+
+                                    setTimeout(() => {
+                                        saveChangesButton.style.display = "flex";
+                                        savedMsg.style.display = 'none';
+
+
+                                    }, 1200);
+                                    console.log("Success", data);
+                                }
+                            })
+                            .catch(error => {
+                                console.error("Error", error);
+                            });
+                    }
                 });
             }
-
-
-        }
-
-
+        };
 
 
 

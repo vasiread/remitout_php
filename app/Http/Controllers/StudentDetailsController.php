@@ -86,6 +86,9 @@ class StudentDetailsController extends Controller
             $existingAcademics = Academics::where('user_id', $personalInfoId)->first();
             $existingCoborrwer = CoBorrowerInfo::where('user_id', $personalInfoId)->first();
 
+            session(['existing_personal_info' => $existingPersonalInfo]);
+            
+
             if (!$existingPersonalInfo && !$existingCourseInfo && !$existingAcademics && !$existingCoborrwer ) {
                 // If no records exist with the same user_id, create new records
                 $personalInfoDetail = PersonalInfo::create([

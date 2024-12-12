@@ -57,3 +57,4 @@ Route::post('/updatedetailsinfo', [StudentDetailsController::class, 'updateUserI
 Route::post('/send-email', [MailController::class, 'sendEmail']);
 Route::post('/verify-otp', [MailController::class, 'verifyOTP']);
 Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser'])->name('student-dashboard');
+Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFromProfile']);

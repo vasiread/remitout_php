@@ -57,13 +57,13 @@
                     <div class="input-group">
                         <img src="./assets/images/call-icon.png" alt="Phone Icon" class="icon" />
                         <input type="tel" placeholder="Phone Number" name="phone_number" id="personal-info-phone"
-                            required />
+                       value="{{ optional(session('existing_personal_info'))->phone }}"        required />
                     </div>
 
                     <div class="input-group">
                         <img src="./assets/images/school.png" alt="Referral Code Icon" class="icon" />
                         <input type="text" placeholder="Referral Code" name="referral_code"
-                            id="personal-info-referral" />
+                         value="{{ optional(session('existing_personal_info'))->phone }}"   id="personal-info-referral" />
                     </div>
                 </div>
 
