@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Academics;
+use App\Models\CoBorrowerInfo;
 use App\Models\CourseInfo;
 use App\Models\PersonalInfo;
 use Illuminate\Http\Request;
@@ -66,6 +67,51 @@ class StudentDetailsController extends Controller
 
             return response()->json(['success' => false, 'message' => 'An error occurred while updating your details.']);
         }
+    }
+
+    public function updateUserIds(Request $request)
+    {
+        $personalInfoId = $request->personalInfoId;
+
+        // Validate that personalInfoId is provided
+        if ($personalInfoId === '') {
+            return response()->json(['success' => false, 'message' => 'personalInfoId is required']);
+        }
+
+
+
+        try {
+            $existingPersonalInfo = PersonalInfo::where('user_id', $personalInfoId)->first();
+            $existingCourseInfo = CourseInfo::where('user_id', $personalInfoId)->first();
+            $existingAcademics = Academics::where('user_id', $personalInfoId)->first();
+            $existingCoborrwer = CoBorrowerInfo::where('user_id', $personalInfoId)->first();
+
+            if (!$existingPersonalInfo && !$existingCourseInfo && !$existingAcademics && !$existingCoborrwer ) {
+                // If no records exist with the same user_id, create new records
+                $personalInfoDetail = PersonalInfo::create([
+                    'user_id' => $personalInfoId,
+                ]);
+
+                $courseInfoDetail = CourseInfo::create([
+                    'user_id' => $personalInfoId,
+                ]);
+
+                $AcademicsDetail = Academics::create([
+                    'user_id' => $personalInfoId,
+                ]);
+                $CoborrowerDetail = CoBorrowerInfo::create([
+                    'user_id' => $personalInfoId,
+                ]);
+            } else {
+                // If any of the records already exist with the same user_id
+                return response()->json(['message' => 'User ID already exists in one of the tables.'], 400);
+            }
+
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
+        }
+
+        return response()->json(['success' => true, 'message' => $personalInfoId]);
     }
 
     public function updateAcademicsInfo(Request $request)

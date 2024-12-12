@@ -11,6 +11,7 @@ class Academics extends Model
     protected $primaryKey = 'user_id';
 
     protected $fillable = [
+        'user_id',
         'gap_in_academics',
         'reason_for_gap',
         'work_experience',

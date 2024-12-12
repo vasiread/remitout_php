@@ -296,6 +296,28 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
                 });
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         function submitVerifiedData() {
             const registerFormData = {
                 name: document.getElementById('name').value,
@@ -312,44 +334,21 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
                 },
                 body: JSON.stringify(registerFormData)
             })
-                .then(response => {
-                    console.log('Response status:', response.status); // Log the response status code
-
-                    // Check if the response is in the 2xx range (OK)
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-
-                    return response.json(); // Parse the response body as JSON if it's a valid response
-                })
+                .then(response => response.json()) 
                 .then(data => {
-                    console.log('Response data:', data); // Log the parsed response data for debugging
-
-                    // Check if the registration was successful
                     if (data.success) {
                         alert("Registration is Successful");
-                        window.location.href = '/'; // Redirect to the home page after successful registration
+                        window.location.href = '/student-forms'; 
                     } else {
-                        // Handle error messages
-                        if (data.errors) {
-                            // Check for specific errors such as email-related issues
-                            if (data.errors.email) {
-                                alert(data.errors.email[0]); // Show the first error message for email
-                            } else {
-                                alert('Something went wrong. Please try again.');
-                            }
-                        } else {
-                            alert('Something went wrong. Please try again.');
-                        }
+                        alert(data.error || 'Something went wrong. Please try again.');
                     }
                 })
-                .catch(error => {
-                    // Log more details about the error for debugging
-                    console.error('Fetch error:', error);
-
-                    // Show a generic error message to the user
+                .catch(() => {
                     alert('An error occurred. Please try again.');
                 });
+
+
+
 
 
         }

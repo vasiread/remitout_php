@@ -44,10 +44,12 @@ Route::get('pages/student-dashboard', [TrackController::class, 'loanTracker']);
 
 Route::post('/registerformdata', [RegisterController::class, 'store'])->name('registerformdata');
 Route::post('/emailuniquecheck', [RegisterController::class, 'emailUniqueCheck'])->name('emailUniqueCheck');
+// Route::post('/updateuserids', [RegisterController::class, 'updateUserIds'])->name('updateUserIds');
 Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
 Route::post('/update-personalinfo', [StudentDetailsController::class, 'updatePersonalInfo']);
 Route::post('/update-courseinfo', [StudentDetailsController::class, 'updateCourseInfo']);
 Route::post('/update-academicsinfo', [StudentDetailsController::class, 'updateAcademicsInfo']);
+Route::post('/updatedetailsinfo', [StudentDetailsController::class, 'updateUserIds']);
 
 
 

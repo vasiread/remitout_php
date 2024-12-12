@@ -101,6 +101,7 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+
         // $user->refresh();
 
 
@@ -109,6 +110,10 @@ class RegisterController extends Controller
             session(['user' => $user]);
 
             session()->put('expires_at', now()->addSeconds(10000));
+
+           
+
+            
 
 
 
@@ -127,6 +132,7 @@ class RegisterController extends Controller
         // Proceed with user creation
 
     }
+
 
 
 

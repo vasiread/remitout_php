@@ -12,16 +12,15 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('course_details_formdata', function (Blueprint $table) {
+        Schema::create('coborrower_details', function (Blueprint $table) {
             $table->id();
-            $table->json('plan-to-study')->nullable();
-            $table->string('degree-type')->nullable();
-            $table->string('course-duration')->nullable();
-            $table->string('course-details')->nullable();
-            $table->string('loan-amount-in-lakhs')->nullable();
             $table->string('user_id');
             $table->foreign('user_id')->references('unique_id')->on('users')
                 ->onDelete('cascade');
+
+            $table->string('co_borrower_relation')->nullable();
+            $table->string('co_borrower_income')->nullable();
+            $table->string('co_borrower_monthly_liability')->nullable();
 
             $table->timestamps();
         });
@@ -34,6 +33,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('course_details_formdata');
+        Schema::dropIfExists('coborrower_details');
     }
 };

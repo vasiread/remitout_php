@@ -417,7 +417,7 @@
         <div class="borrow-container-section" style="display: none;">
             <div class="step-header">
                 <div class="step-number">01</div>
-                <h2>Do you have any gap in your academics?</h2>
+                <h2>How is the co-borrower related to you?</h2>
             </div>
             <div class="borrow-options">
                 <div class="borrow-option">
@@ -477,7 +477,7 @@
                     </div>
 
                     <!-- Button placed inside the last container -->
-                    <button type="submit" class="next-btn-borrow">Next</button>
+                    <button type="submit" id="coborrower-info-submit" class="next-btn-borrow">Next</button>
                 </div>
 
             </div>
@@ -1074,8 +1074,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+
             event.preventDefault(); // Prevent form submission for testing
-            console.log("Ok, now it's ok");
             // Breadcrumb navigation and buttons
             const prevButton = document.querySelector('.nav-button.prev');
             const nextButton = document.querySelector('.nav-button.next');
@@ -1106,6 +1106,7 @@
 
                 nextBreadcrumbButton.disabled = currentContainerIndex !== breadcrumbSections[currentBreadcrumbIndex].length - 1;
             }
+
 
 
             function updateBreadcrumbNavigation() {
@@ -1152,8 +1153,73 @@
                 updateNavigationButtons();
             }
 
+            function updateUserIds() {
+                const personalInfoId = document.getElementById("personal-info-userid").value;
+
+                console.log(personalInfoId)
+
+
+
+                fetch('/updatedetailsinfo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    },
+                    body: JSON.stringify({ personalInfoId })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.message);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+
+
+
+
+            }
+            updateUserIds();
+
+
+            // function updateCoborrowerInfo(event) {
+            //     event.preventDefault();
+            //     const radioButtons = document.querySelectorAll('input[name="borrow-relation"]').value;
+            //     const bloodRelativeDropdown = document.querySelector('.borrow-dropdown').value;
+            //     const bloodRelativeOption = document.getElementById('borrow-blood-relative').value;
+            //     const dropdownItems = document.querySelectorAll('.borrow-dropdown-item').value;
+
+            //     // Listen for radio button changes
+            //     radioButtons.forEach((radio) => {
+            //         radio.addEventListener('change', function () {
+            //             if (this.value === 'blood-relative') {
+            //                 // Show the blood relative dropdown if selected
+            //                 bloodRelativeDropdown.style.display = 'block';
+            //             } else {
+            //                 // Hide the blood relative dropdown if another option is selected
+            //                 bloodRelativeDropdown.style.display = 'none';
+            //                 console.log("Selected Relation: " + this.value);
+            //             }
+            //         });
+            //     });
+
+            //     // Listen for dropdown item clicks
+            //     dropdownItems.forEach((item) => {
+            //         item.addEventListener('click', function () {
+            //             console.log("Selected Blood Relative: " + this.textContent);
+            //         });
+            //     });
+
+
+            // }
+
+
+
+
             document.getElementById('personal-info-submit').addEventListener('click', (event) => {
                 updateUserPersonalInfo(event);
+
             })
 
             document.getElementById('course-info-submit').addEventListener('click', (event) => {
@@ -1162,6 +1228,10 @@
             document.getElementById('academics-info-submit').addEventListener('click', (event) => {
                 updateAcademicsCourseInfo(event);
             })
+            document.getElementById('coborrower-info-submit').addEventListener('click', (event) => {
+                updateCoborrowerInfo(event);
+            })
+
 
 
             function updateUserPersonalInfo(event) {
@@ -1183,7 +1253,7 @@
                     personalInfoPhone,
                     personalInfoEmail,
                     personalInfoCity,
-                    personalInfoReferral,  // Fixed typo
+                    personalInfoReferral,   
                     personalInfoFindOut
                 };
 
@@ -1196,16 +1266,16 @@
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                     },
-                    body: JSON.stringify(personalUpdateData) // Sending the data as JSON in the request body
+                    body: JSON.stringify(personalUpdateData)  
                 })
                     .then(response => response.json())
                     .then(data => {
                         console.log(data);
 
                         if (data.success) {
-                            alert(data.message);  // Show success message
+                            alert(data.message);  
                         } else {
-                            alert(data.message);  // Show error message
+                            alert(data.message);   
                         }
                     })
                     .catch(error => {
@@ -1362,8 +1432,6 @@
 
 
 
-
-
             nextButton.addEventListener('click', () => navigate('next'));
             prevButton.addEventListener('click', () => navigate('prev'));
 
@@ -1460,6 +1528,7 @@
             updateBreadcrumbNavigation();
             updateNavigationButtons();
 
+
             // Dropdown for "Borrow Blood Relative"
             const borrowBloodRelativeOption = document.querySelector('.borrow-blood-relative');
             const borrowDropdown = document.querySelector('.borrow-dropdown');
@@ -1512,7 +1581,9 @@
                         helpContainer.style.display = 'none';
                     }
                 }
+
             });
+
         });
 
 

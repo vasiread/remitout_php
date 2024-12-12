@@ -18,12 +18,12 @@ return new class extends Migration {
             $table->foreign('user_id')->references('unique_id')->on('users')
                 ->onDelete('cascade');
             $table->string("gap_in_academics")->nullable();
-            $table->text("reason_for_gap");
+            $table->text("reason_for_gap")->nullable();
             $table->text("work_experience")->nullable();
-            $table->string("ILETS");
-            $table->string("GRE");
-            $table->string("TOFEL");
-            $table->json('Others');
+            $table->string("ILETS")->nullable();
+            $table->string("GRE")->nullable();
+            $table->string("TOFEL")->nullable();
+            $table->json('Others')->nullable();
 
 
             $table->timestamps();
