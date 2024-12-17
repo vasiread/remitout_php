@@ -53,7 +53,7 @@ body, html {
     padding: 0 30px 0 40px;
     transition: background-color 0.3s, color 0.3s;
     width: 160px;
-    background-color: transparent; /* Default background color */
+    background-color: transparent; 
     text-align: center;
   }
   
@@ -87,7 +87,7 @@ body, html {
     right: -28px;
     width: 55px;
     height: 55px;
-    background-color: #673AB7; /* Default background color for the triangle */
+    background-color: #673AB7; 
     transform: scale(0.707) rotate(45deg);
     z-index: 1;
    border-right: 1px solid rgba(222, 222, 222, 0.7); 
@@ -162,8 +162,8 @@ body, html {
     left: -90px;
   }
   form {
-    all: unset; /* Resets all user agent styles */
-    display: block; /* Reapply block display if needed */
+    all: unset; 
+    display: block; 
   }
   
   
@@ -201,18 +201,17 @@ body, html {
     background-color: #fff;
     margin-top:10px;
   }
-  
-  
+
   
   .input-group input {
     width: 100%;
     padding: 12px 16px;
-    padding-left: 45px; /* Space for the icon */
+    padding-left: 45px; 
     border: 1px solid #E2E2E2;
     border-radius: 6px;
     font-size: 14px;
     color: #75747C;
-    box-sizing: border-box; /* Prevent content overflow */
+    box-sizing: border-box; 
   }
   .input-group input {
     flex: 1;
@@ -239,17 +238,17 @@ body, html {
     color: red;
     margin-top: 5px;
     position: absolute;
-    bottom: -20px; /* Prevent message from affecting input height */
+    bottom: -20px; 
     left: 0;
   }
   
   .input-content {
     display: flex;
     align-items: center;
-    position: relative; /* To position icon relative to input */
+    position: relative; 
   }
   
-  
+/*container 2*/
   
   .section-02-container {
     display: flex;
@@ -388,8 +387,6 @@ body, html {
   }
   
   
-  
-  
   .next-btn {
     padding: 10px 20px;
     width: 120px;
@@ -408,16 +405,11 @@ body, html {
     z-index: 10;  
   }
   
-    
-   
-  
-  /* Error message styling */
   input.error, select.error {
     border: 2px solid red;
     background-color: #fdd;
   }
   
-  /* Optional: Add a message for validation */
   input.error:invalid, select.error:invalid {
     border-color: red;
   }
@@ -432,14 +424,12 @@ body, html {
     color: red;
     font-size: 12px;
   }
-  /* Hide the number input spinner */
+
   input[type="number"]::-webkit-outer-spin-button,
   input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
-  
-  
   
   
   .next-btn:hover {
@@ -452,7 +442,7 @@ body, html {
     align-items: center;
     gap: 16px;
     margin-top: 60px;
-    padding-left: 140px; /* Consider changing this for responsiveness */
+    padding-left: 140px; 
   }
   
   .nav-button {
@@ -487,7 +477,6 @@ body, html {
     background-color: #8B3EEB;
   }
   
-  /* Disable the button and change its appearance */
   .nav-button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -511,13 +500,11 @@ body, html {
     position: absolute;
   }
   
-  /* Right arrow for the "Next" button */
   .next .arrow::after {
     right: -1px;
     transform: rotate(45deg);
   }
   
-  /* Left arrow for the "Prev" button */
   .prev .arrow::after {
     left: -1px;
     transform: rotate(-135deg);
@@ -584,7 +571,7 @@ body, html {
   
   
   
-  /*------Breadcrumb-----*/
+  /*------Breadcrumb 2-----*/
   
   
   /*course details*/
@@ -623,7 +610,6 @@ body, html {
     position: relative;
   }
   
-  /* Label for each checkbox with custom checkbox styling */
   .checkbox-group label {
     display: flex;
     align-items: center;
@@ -650,12 +636,11 @@ body, html {
     color:#DFDFDF;
   }
   
-  /* When checkbox is checked */
   .checkbox-group input[type="checkbox"]:checked {
     border-color: #E98635;
   }
   
-  /* Show the tick mark inside the checkbox when checked */
+
   .checkbox-group input[type="checkbox"]:checked::before {
     content: '';
     width: 12px;
@@ -668,7 +653,6 @@ body, html {
     border-radius: 2px;
   }
   
-  /* Custom Input Box for adding country */
   .add-country-box {
     display: flex;
     align-items: center;
@@ -683,7 +667,6 @@ body, html {
     border-radius: 4px;
     font-size: 14px;
   }
-  
   
   
   .add-country-box {
@@ -731,7 +714,6 @@ body, html {
     align-items: center;
     gap: 10px;
   }
-  
   
   
   .degrees {
@@ -789,7 +771,7 @@ body, html {
   
   /* Add Degree input field styling */
   .add-degree-field {
-    grid-column: span 2; /* Span across both columns */
+    grid-column: span 2; 
     margin-top: 10px;
   }
   
@@ -1009,7 +991,7 @@ body, html {
       color: #75747C;
       font-family: 'Poppins', sans-serif;
       line-height: 1;
-      vertical-align: middle; /* Added this line */
+      vertical-align: middle; 
       
       }
   .loan-amount-container {
@@ -1048,8 +1030,8 @@ body, html {
     margin-top: 50px;
     
     position: absolute;
-    right: -40px;  /* Move the button further to the right */
-    z-index: 10;  /* Ensure the button is on top of other elements */
+    right: -40px; 
+    z-index: 10; 
   }
   
   
@@ -1331,10 +1313,9 @@ body, html {
     width:150px;
   }
   .admit-right-section .admit-exam-field:nth-of-type(5) .admit-input-container input[type="text"] {
-    width: 50px !important; /* Force the width change */
+    width: 50px !important;
   
   }
-  
   
   
   .admit-input-container input[type="text"] {
@@ -1448,8 +1429,8 @@ body, html {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 10;
-    max-height: 200px; /* Add max height */
-    overflow-y: auto; /* Enable scrolling if needed */
+    max-height: 200px; 
+    overflow-y: auto; 
     margin-top: 5px;
     width:310px;
     
@@ -1463,7 +1444,7 @@ body, html {
     cursor: pointer;
     border-bottom: 1px solid #E2E8F0;
     transition: background-color 0.3s ease, color 0.3s ease;
-    color: #4A5568; /* Dropdown item text color */
+    color: #4A5568; 
   }
   
   .borrow-dropdown-item:last-child {
@@ -1472,7 +1453,7 @@ body, html {
   
   .borrow-dropdown-item:hover {
     background-color: #f9f9f9;
-    color: #E98635; /* Hover color */
+    color: #E98635;
   }
   
   .borrow-dropdown-item.selected {
@@ -1530,7 +1511,6 @@ body, html {
   .borrow-option.open .borrow-option-icon::after {
     transform: rotate(-135deg);
   }
-  
   
   
   /*income co-borrower*/
@@ -1660,7 +1640,7 @@ body, html {
     font-family: 'Poppins', sans-serif;
     border: 1px solid #ccc;
     border-radius: 4px;
-    padding: 0 10px; /* Add padding inside the text input */
+    padding: 0 10px; 
   }
   
   .monthly-liability-option input[type="text"]::placeholder {
@@ -2120,18 +2100,18 @@ body, html {
   
   span[id$='-remove-icon'] {
     cursor: pointer;
-    color: #1C1B1F; /* Close icon color */
+    color: #1C1B1F; 
     font-size: 18px;
     margin-left: 10px;
-    display: none; /* Initially hide the close icon */
+    display: none; 
   }
   
   #work-experience-name {
     margin-left: 10px;
   }
   .breadcrumb-link.disabled {
-    pointer-events: none;  /* Prevent clicks */
-    opacity: 0.5;  /* Make it look disabled */
+    pointer-events: none; 
+    opacity: 0.5; 
   }
   .document-name{
     font-size: 14px;
