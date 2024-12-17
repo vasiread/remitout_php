@@ -86,9 +86,9 @@
             </button>
         </div>
     </div>
-</div>
 
-<div class="outer-container">
+
+ <div class="outer-container">
     <div class="inner-container">
         <div class="logo-container">
             <div class="logo-item">
@@ -106,9 +106,26 @@
             <div class="logo-item">
                 <img src="{{ asset('assets/images/logo5.png') }}" alt="Logo 5">
             </div>
+            <div class="logo-item">
+                <img src="{{ asset('assets/images/logo1.png') }}" alt="Logo 1">
+            </div>
+            <div class="logo-item">
+                <img src="{{ asset('assets/images/logo2.png') }}" alt="Logo 2">
+            </div>
+            <div class="logo-item">
+                <img src="{{ asset('assets/images/logo3.png') }}" alt="Logo 3">
+            </div>
+            <div class="logo-item">
+                <img src="{{ asset('assets/images/logo4.png') }}" alt="Logo 4">
+            </div>
+            <div class="logo-item">
+                <img src="{{ asset('assets/images/logo5.png') }}" alt="Logo 5">
+            </div>
         </div>
     </div>
-</div>
+ </div>
+
+</div> 
 
 
 

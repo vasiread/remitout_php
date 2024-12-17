@@ -11,7 +11,7 @@
     style="@if (request()->is('/')) position: absolute; top: 0; left: 0; width: 100%; z-index: 10; @else position: relative; @endif">
         <div class="nav-container">
             @php
-$navImgPath = "assets/images/Remitoutcolored.png"
+$navImgPath = "assets/images/logo.png"
             @endphp
             <img src="{{asset($navImgPath)}}" alt="Remitout Logo" class="logo">
 
