@@ -204,7 +204,7 @@ body {
   padding: 4rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  gap: 1rem;
   align-items: center;
 }
 
@@ -224,7 +224,7 @@ body {
 
 .line-1 {
   display: block;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .line-2 {
@@ -232,7 +232,7 @@ body {
 }
 
 .line-2 .bold {
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .line-2 .thin-italic {
@@ -255,7 +255,7 @@ body {
 
   padding: 2rem;
   width: 477px;
-  height: 239px;
+  height: 280px;
 
   color: white;
   font-family: 'Poppins', sans-serif;
@@ -287,7 +287,9 @@ body {
   font-size: 18px;
   line-height: 160%;
   font-weight: 400;
+  margin-top: 20px;
   color: rgba(255, 255, 255, 0.8);
+  width:470px;
 
 
 }
