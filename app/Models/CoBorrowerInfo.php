@@ -14,6 +14,7 @@ class CoBorrowerInfo extends Model
         'co_borrower_relation',
         'co_borrower_income',
         'co_borrower_monthly_liability',
+        'liability_select'
        
     ];
 

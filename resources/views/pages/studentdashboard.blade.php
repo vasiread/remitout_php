@@ -173,6 +173,7 @@
 
             <img src="{{asset($profileImgPath)}}" class="profileImg" alt="">
             <i class="fa-regular fa-pen-to-square"></i>
+            <input type="file" class="profile-upload">
 
             <div class="studentdashboardprofile-personalinfo">
                 <div class="personalinfo-firstrow">
@@ -211,7 +212,7 @@
                     </li>
                     <li class="personal_info_email">
                         <p>Email</p>
-                        <input type="text" value="{{$userDetails[0]->email}}">
+                        <input type="email" value="{{$userDetails[0]->email}}">
                     </li>
                     <li class="personal_info_state">
                         <p>State</p>
@@ -554,6 +555,7 @@
             initializeMarksheetUpload();
             initializeProgressRing();
             saveChangesFunctionality();
+            initialiseProfileUpload();
 
         });
 
@@ -632,8 +634,7 @@
             });
         };
 
-        // Define the triggerEditButton function
-        const triggerEditButton = () => {
+         const triggerEditButton = () => {
             // Enable all disabled inputs in the profile
             const disabledInputs = document.querySelectorAll('.studentdashboardprofile-myapplication input[disabled]');
             disabledInputs.forEach(inputItems => {
@@ -653,11 +654,52 @@
             }
         };
 
-        // Assign the event listener outside of the function to avoid recursion
-        // document.querySelector(".studentdashboardprofile-myapplication .myapplication-firstcolumn button").addEventListener("click", triggerEditButton);
+        const initialiseProfileUpload = () => {
+            const editIcon = document.querySelector('.studentdashboardprofile-profilesection .fa-pen-to-square');
+            const profileImageInput = document.querySelector('.studentdashboardprofile-profilesection .profile-upload');
+
+            if (editIcon && profileImageInput) {
+                editIcon.addEventListener('click', function () {
+                    profileImageInput.click();
+                });
+
+                profileImageInput.addEventListener('change', function (event) {
+                    const file = event.target.files[0];
+
+                    if (!file) {
+                        console.error('No file selected');
+                        return;
+                    }
+
+                    const fileName = file.name;
+                    const fileType = file.type;
+                    console.log(fileType + "." + fileName);
+
+                    const formDetailsData = new FormData();
+                    formDetailsData.append('file', file);
+
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                    fetch('/upload-profile-picture', {
+                        method: "POST",
+                        body: formDetailsData,
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken,
+                            'Accept': 'application/json',
+                        }
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log("File uploaded successfully", data);
+                        })
+                        .catch(error => {
+                            console.error("Error uploading file", error);
+                        });
+                });
+            }
+        };
 
 
-        // Attach event listener to the edit button
 
         const initializeIndividualCards = () => {
             const individualCards = document.querySelectorAll('.indivudalloanstatus-cards');
@@ -679,10 +721,10 @@
                         });
 
                         if (isExpanded) {
-                            card.style.height = "95px"; // Collapse this card
+                            card.style.height = "95px";
                             individualBankMessageInput.style.display = "none";
                         } else {
-                            card.style.height = "190px"; // Expand this card
+                            card.style.height = "190px";
                             individualBankMessageInput.style.display = "flex";
                         }
                     });
@@ -850,9 +892,9 @@
                         const editedPhone = document.querySelector(".personalinfosecondrow-editsection .personal_info_phone input").value;
                         const editedEmail = document.querySelector(".personalinfosecondrow-editsection .personal_info_email input").value;
                         const editedState = document.querySelector(".personalinfosecondrow-editsection .personal_info_state input").value;
-                        const iletsScore = document.querySelector(".testscoreseditsection-secondrow-editsection .ilets_score input").value;
-                        const greScore = document.querySelector(".testscoreseditsection-secondrow-editsection .gre_score input").value;
-                        const tofelScore = document.querySelector(".testscoreseditsection-secondrow-editsection .tofel_score input").value;
+                        const iletsScore = document.querySelector(".testscoreseditsection-secondrow-editsection .ilets_score").value;
+                        const greScore = document.querySelector(".testscoreseditsection-secondrow-editsection .gre_score").value;
+                        const tofelScore = document.querySelector(".testscoreseditsection-secondrow-editsection .tofel_score").value;
 
 
                         const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
@@ -871,6 +913,7 @@
                             tofelScore: tofelScore,
                             userId: userId
                         };
+                        console.log(updatedInfos)
 
                         fetch('/from-profileupdate', {
                             method: "POST",
@@ -887,14 +930,18 @@
                                 } else {
                                     saveChangesButton.style.display = "none";
                                     savedMsg.style.display = "flex";
+                                    console.log("data")
 
                                     document.querySelector(".personalinfo-secondrow .personal_info_name p").textContent = data.user.name;
                                     document.querySelector(".personalinfo-secondrow .personal_info_email p").textContent = data.user.email;
                                     document.querySelector(".personalinfo-secondrow .personal_info_phone p").textContent = data.personalInfo.phone;
                                     document.querySelector(".personalinfo-secondrow .personal_info_state p").textContent = data.personalInfo.state;
-                                    document.querySelector(".testscoreseditsection-secondrow p .ilets_score").textContent = data.academicsScores.iletsScore;
-                                    document.querySelector(".testscoreseditsection-secondrow p .gre_score").textContent = data.academicsScores.greScore;
-                                    document.querySelector(".testscoreseditsection-secondrow p .tofel_score").textContent = data.academicsScores.tofelScore;
+                                    console.log(data)
+
+                                    document.querySelector(".testscoreseditsection-secondrow p .ilets_score").textContent = data.academicsScores.ILETS;
+                                    document.querySelector(".testscoreseditsection-secondrow p .gre_score").textContent = data.academicsScores.GRE;
+                                    document.querySelector(".testscoreseditsection-secondrow p .tofel_score").textContent = data.academicsScores.TOFEL;
+
 
                                     setTimeout(() => {
                                         saveChangesButton.style.display = "flex";
@@ -911,7 +958,15 @@
                     }
                 });
             }
+
+
+
+
         };
+
+
+
+
 
 
 

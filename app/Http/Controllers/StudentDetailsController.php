@@ -87,9 +87,9 @@ class StudentDetailsController extends Controller
             $existingCoborrwer = CoBorrowerInfo::where('user_id', $personalInfoId)->first();
 
             session(['existing_personal_info' => $existingPersonalInfo]);
-            
 
-            if (!$existingPersonalInfo && !$existingCourseInfo && !$existingAcademics && !$existingCoborrwer ) {
+
+            if (!$existingPersonalInfo && !$existingCourseInfo && !$existingAcademics && !$existingCoborrwer) {
                 // If no records exist with the same user_id, create new records
                 $personalInfoDetail = PersonalInfo::create([
                     'user_id' => $personalInfoId,
@@ -146,5 +146,46 @@ class StudentDetailsController extends Controller
             return response()->json(['success' => false, 'message' => 'An error occurred while updating your details.']);
         }
     }
+
+
+
+    public function updateCoborrowerInfo(Request $request)
+    {
+        try {
+            // Log incoming request data for debugging
+            Log::info('Request data:', $request->all());
+
+            // Find the co-borrower info by user_id
+            $coBorrowerInfo = CoBorrowerInfo::where('user_id', $request->personalInfoId)->first();
+
+            if (!$coBorrowerInfo) {
+                return response()->json(['success' => false, 'message' => 'Co-borrower information not found'], 404);
+            }
+
+            // Update co-borrower information fields
+            $coBorrowerInfo->co_borrower_relation = $request->input('answer');
+            $coBorrowerInfo->co_borrower_income = $request->input('incomeValue');
+            $coBorrowerInfo->liability_select = $request->input('selectedLiability');
+            $coBorrowerInfo->co_borrower_monthly_liability = $request->input('emiAmount');
+
+            // Save the updated information
+            $coBorrowerInfo->save();
+
+            // Return success response
+            return response()->json(['success' => true, 'message' => 'Your details have been updated successfully.'], 200);
+
+        } catch (\Exception $e) {
+            // Log the error with the stack trace for detailed debugging
+            Log::error('Error updating co-borrower info: ' . $e->getMessage(), ['exception' => $e]);
+
+            // Return error response with detailed message (only in development environment)
+            $errorMessage = env('APP_DEBUG') ? $e->getMessage() : 'An error occurred while updating your details.';
+
+            return response()->json(['success' => false, 'message' => $errorMessage], 500);
+        }
+    }
+
+
+
 
 }

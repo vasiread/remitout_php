@@ -16,6 +16,7 @@
 </head>
 
 <body>
+      
 
     <section class="registration-section">
         <div class="container">
@@ -57,13 +58,14 @@
                     <div class="input-group">
                         <img src="./assets/images/call-icon.png" alt="Phone Icon" class="icon" />
                         <input type="tel" placeholder="Phone Number" name="phone_number" id="personal-info-phone"
-                       value="{{ optional(session('existing_personal_info'))->phone }}"        required />
+                            value="{{ optional(session('existing_personal_info'))->phone }}" required />
                     </div>
 
                     <div class="input-group">
                         <img src="./assets/images/school.png" alt="Referral Code Icon" class="icon" />
                         <input type="text" placeholder="Referral Code" name="referral_code"
-                         value="{{ optional(session('existing_personal_info'))->phone }}"   id="personal-info-referral" />
+                            value="{{ optional(session('existing_personal_info'))->phone }}"
+                            id="personal-info-referral" />
                     </div>
                 </div>
 
@@ -428,59 +430,75 @@
                     <input type="radio" name="borrow-relation" id="borrow-spouse" value="spouse">
                     <label class="borrow-label" for="borrow-spouse">Spouse</label>
                 </div>
+
                 <div class="borrow-option borrow-blood-relative">
                     <input type="radio" name="borrow-relation" id="borrow-blood-relative" value="blood-relative">
-                    <label class="borrow-label" id="borrow-blood-label" for="borrow-blood-relative">Blood
-                        relative</label>
-                    <span class="borrow-option-icon"></span>
-                    <div class="borrow-dropdown">
-                        <div class="borrow-dropdown-item">Paternal Auntie</div>
-                        <div class="borrow-dropdown-item">Paternal Uncle</div>
-                        <div class="borrow-dropdown-item">Maternal Auntie</div>
-                        <div class="borrow-dropdown-item">Maternal Uncle</div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Income Co-borrower Section -->
-        <div class="income-co-borrower" style="display: none;">
-            <div class="step-header">
-                <div class="step-number">02</div>
-                <h2>What is the gross monthly income of co-borrower?</h2>
-            </div>
-            <input type="text" placeholder=" ₹ Rupees in thousands" />
-            <p class="minimum-amount">*minimum amount of 5% after deductions for eligibility</p>
-        </div>
-
-        <!-- Monthly Liability Section (Last section) -->
-        <div class="monthly-container">
-            <div class="monthly-liability">
-                <div class="monthly-liability-container" style="display: none;">
-                    <div class="step-header">
-                        <div class="step-number">03</div>
-                        <h2>Is there any existing co-borrower monthly liability?</h2>
-                    </div>
-
-                    <div class="monthly-liability-option">
-                        <div class="monthly-liability-radio-buttons">
-                            <label>
-                                <input type="radio" name="co-borrower-liability" />
-                                Yes
-                            </label>
-                            <label>
-                                <input type="radio" name="co-borrower-liability" />
-                                No
-                            </label>
+                    <div class="borrow-option borrow-blood">
+                        <label class="borrow-label" id="borrow-blood-label" for="borrow-blood-relative">Blood
+                            relative</label>
+                        <span class="borrow-option-icon"></span>
+                        <div class="borrow-dropdown" id="borrow-dropdown">
+                            <div class="borrow-dropdown-item" data-value="paternal-aunt">Paternal Auntie</div>
+                            <div class="borrow-dropdown-item" data-value="paternal-uncle">Paternal Uncle</div>
+                            <div class="borrow-dropdown-item" data-value="maternal-aunt">Maternal Auntie</div>
+                            <div class="borrow-dropdown-item" data-value="maternal-uncle">Maternal Uncle</div>
                         </div>
-                        <input type="text" placeholder="Enter EMI amount" />
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                    <!-- Button placed inside the last container -->
-                    <button type="submit" id="coborrower-info-submit" class="next-btn-borrow">Next</button>
+
+    <!-- Income Co-borrower Section -->
+    <div class="income-co-borrower" style="display: none;">
+        <div class="step-header">
+            <div class="step-number">02</div>
+            <h2>What is the gross monthly income of co-borrower?</h2>
+        </div>
+        <input type="text" id="income-co-borrower" placeholder=" ₹ Rupees in thousands" value="" />
+        <p class="minimum-amount">*minimum amount of 5% after deductions for eligibility</p>
+        <span id="income-error-message" class="error-message" style="display:none; color:red;">Please enter a valid
+            numeric
+            income value.</span>
+    </div>
+
+
+    <!-- Monthly Liability Section (Last section) -->
+    <div class="monthly-container">
+        <div class="monthly-liability">
+            <div class="monthly-liability-container" style="display: none;">
+                <div class="step-header">
+                    <div class="step-number">03</div>
+                    <h2>Is there any existing co-borrower monthly liability?</h2>
                 </div>
 
+                <div class="monthly-liability-option">
+                    <div class="monthly-liability-radio-buttons">
+                        <label>
+                            <input type="radio" name="co-borrower-liability" id="yes-liability" value="Yes" />
+                            Yes
+                        </label>
+                        <label>
+                            <input type="radio" name="co-borrower-liability" id="no-liability" value="No" />
+                            No
+                        </label>
+                    </div>
+                    <div class="emi-content">
+                        <input type="text" id="emi-amount" class="emi-content-container" placeholder="Enter EMI amount"
+                            value="" />
+                        <span id="emi-error-message" class="error-message" style="display:none; color:red;">Please enter
+                            a
+                            valid EMI
+                            amount (numeric values only).</span>
+                    </div>
+                </div>
+
+                <!-- Button placed inside the last container -->
+                <button type="submit" id="coborrower-info-submit" class="next-btn-borrow">Next</button>
             </div>
+
         </div>
     </div>
 
@@ -1041,7 +1059,7 @@
             </div>
 
         </div>
-        <button type="submit" class="next-btn-kyc">Save and Submit</button>
+<button type="submit" id="saveandsubmit" class="next-btn-kyc">Save and Submit</button>
     </section>
 
 
@@ -1183,36 +1201,76 @@
             updateUserIds();
 
 
-            // function updateCoborrowerInfo(event) {
-            //     event.preventDefault();
-            //     const radioButtons = document.querySelectorAll('input[name="borrow-relation"]').value;
-            //     const bloodRelativeDropdown = document.querySelector('.borrow-dropdown').value;
-            //     const bloodRelativeOption = document.getElementById('borrow-blood-relative').value;
-            //     const dropdownItems = document.querySelectorAll('.borrow-dropdown-item').value;
+            function updateCoborrowerInfo(event) {
+                event.preventDefault();
 
-            //     // Listen for radio button changes
-            //     radioButtons.forEach((radio) => {
-            //         radio.addEventListener('change', function () {
-            //             if (this.value === 'blood-relative') {
-            //                 // Show the blood relative dropdown if selected
-            //                 bloodRelativeDropdown.style.display = 'block';
-            //             } else {
-            //                 // Hide the blood relative dropdown if another option is selected
-            //                 bloodRelativeDropdown.style.display = 'none';
-            //                 console.log("Selected Relation: " + this.value);
-            //             }
-            //         });
-            //     });
+                // Modified getSelectedAnswer function to include callback for async handling
+                function getSelectedAnswer(callback) {
+                    const selectedOption = document.querySelector('input[name="borrow-relation"]:checked');
 
-            //     // Listen for dropdown item clicks
-            //     dropdownItems.forEach((item) => {
-            //         item.addEventListener('click', function () {
-            //             console.log("Selected Blood Relative: " + this.textContent);
-            //         });
-            //     });
+                    if (selectedOption && selectedOption.value !== "blood-relative") {
+                        return callback(selectedOption.value);
+                    } else if (selectedOption && selectedOption.value === "blood-relative") {
+                        const dropdownRelative = document.querySelectorAll(".borrow-dropdown .borrow-dropdown-item");
+
+                        dropdownRelative.forEach(item => {
+                            item.addEventListener('click', function () {
+                                const relativeValue = item.dataset.value;
+                                console.log('Selected blood relative:', relativeValue);
+
+                                // Proceed with the final selection
+                                callback(relativeValue);
+                            });
+                        });
+
+                        // Return early since selection is pending
+                        return;
+                    } else {
+                        return callback("none selected here");
+                    }
+                }
+
+                // Call getSelectedAnswer with the callback to handle data submission
+                getSelectedAnswer(function (answer) {
+                    console.log("Final selected answer:", answer);
+
+                    const personalInfoId = document.getElementById("personal-info-userid").value;
+                    var incomeValue = document.getElementById("income-co-borrower").value;
+                    var selectedLiability = document.querySelector('input[name="co-borrower-liability"]:checked').value;
+                    var emiAmount = document.querySelector(".emi-content .emi-content-container").value;
+
+                    const coborrowerData = {
+                        personalInfoId, answer, incomeValue, selectedLiability, emiAmount
+                    };
+                    console.log(coborrowerData.personalInfoId);
+
+                    // Proceed with the fetch after answer selection
+                    fetch('/coborrowerData', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify(coborrowerData)
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+
+                            if (data.success) {
+                                alert(data.message);
+                            } else {
+                                alert(data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('An error occurred while updating your information.');
+                        });
+                });
+            }
 
 
-            // }
 
 
 
@@ -1231,7 +1289,10 @@
             document.getElementById('coborrower-info-submit').addEventListener('click', (event) => {
                 updateCoborrowerInfo(event);
             })
-
+            document.getElementById('saveandsubmit').addEventListener('click',(event)=>{
+                    window.location.href="/student-dashboard"
+            })
+            
 
 
             function updateUserPersonalInfo(event) {
@@ -1253,7 +1314,7 @@
                     personalInfoPhone,
                     personalInfoEmail,
                     personalInfoCity,
-                    personalInfoReferral,   
+                    personalInfoReferral,
                     personalInfoFindOut
                 };
 
@@ -1266,16 +1327,16 @@
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                     },
-                    body: JSON.stringify(personalUpdateData)  
+                    body: JSON.stringify(personalUpdateData)
                 })
                     .then(response => response.json())
                     .then(data => {
                         console.log(data);
 
                         if (data.success) {
-                            alert(data.message);  
+                            alert(data.message);
                         } else {
-                            alert(data.message);   
+                            alert(data.message);
                         }
                     })
                     .catch(error => {
@@ -1289,15 +1350,13 @@
                 return selectedExpense ? selectedExpense.value : null; // Return the selected value or null if none selected
             }
 
-            // Function to get the entered loan amount
             function getLoanAmount() {
                 const loanAmount = document.getElementById('loan-amount').value;
-                console.log('Loan Amount:', loanAmount.trim()); // Log the loan amount
-                return loanAmount.trim(); // Return the value with trimmed spaces
+                console.log('Loan Amount:', loanAmount.trim()); 
+                return loanAmount.trim(); 
             }
 
-            // Function to get the selected course duration
-            function getSelectedCourseDuration() {
+             function getSelectedCourseDuration() {
                 const selectedOption = document.querySelector('#selected-course-duration select').value;
                 console.log('Selected Course Duration:', selectedOption); // Log the selected course duration
                 return selectedOption;
@@ -1310,7 +1369,7 @@
                 checkboxes.forEach(checkbox => {
                     selectedLocations.push(checkbox.value);
                 });
-                console.log('Selected Study Locations:', selectedLocations); // Log the selected study locations
+                console.log('Selected Study Locations:', selectedLocations); 
                 return selectedLocations;
             }
 
@@ -1356,9 +1415,9 @@
                         console.log(data);
 
                         if (data.success) {
-                            alert(data.message);  // Show success message
+                            alert(data.message);  
                         } else {
-                            alert(data.message);  // Show error message
+                            alert(data.message);  
                         }
                     })
                     .catch(error => {
