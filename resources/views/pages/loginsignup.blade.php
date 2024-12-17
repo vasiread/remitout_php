@@ -68,7 +68,7 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
 
                 <div class="otppanel-mainsection">
                     <p>Do not share your OTP!</p>
-                   
+
                     <div class="otpinputcontainer">
                         <input type="text" class="otp-input" maxlength="1"
                             oninput="restrictToNumbers(this); moveFocus(this, 'otp2')" id="otp1">
@@ -271,23 +271,60 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
                 return;
             }
 
-            registerFormData = {
-                name: name,
-                email: email,
-                password: password,
-            };
+            fetch("/emailuniquecheck", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ email: email })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response data:', data);
+                    if (data.success === false) {
+                        // If email is already taken, show an alert
+                        alert(data.message);
+                    } else if (data.success === true) {
 
 
-
-            triggerOtpSection();
+                        triggerOtpSection();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         function submitVerifiedData() {
-            // const registerFormData = {
-            //     name: document.getElementById('name').value,
-            //     email: document.getElementById('email').value,
-            //     password: document.getElementById('password').value,
-            // };
+            const registerFormData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('passwordinputID').value,
+            };
+            console.log(registerFormData)
 
             fetch('/registerformdata', {
                 method: 'POST',
@@ -297,31 +334,27 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
                 },
                 body: JSON.stringify(registerFormData)
             })
-                .then(response => response.json())
+                .then(response => response.json()) 
                 .then(data => {
-                    console.log(data);
                     if (data.success) {
                         alert("Registration is Successful");
-                        window.location.href = '/login';
+                        window.location.href = '/student-forms'; 
                     } else {
-                        if (data.errors) {
-                            if (data.errors.email) {
-                                alert(data.errors.email[0]);
-                            } else {
-                                alert('Something went wrong. Please try again.');
-                            }
-                        } else {
-                            alert('Something went wrong. Please try again.');
-                        }
+                        alert(data.error || 'Something went wrong. Please try again.');
                     }
                 })
-                .catch(error => {
-                    console.error('Error:', error);
+                .catch(() => {
                     alert('An error occurred. Please try again.');
                 });
 
+
+
+
+
         }
+
     </script>
+
 
     @endsection
 </body>

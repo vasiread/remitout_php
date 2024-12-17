@@ -12,8 +12,8 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('unique_id')->unique()->nullable();
+        Schema::table('coborrower_details', function (Blueprint $table) {
+            $table->string('liability_select')->nullable(); // Add new column
         });
     }
 
@@ -24,9 +24,9 @@ return new class extends Migration {
      */
     public function down()
     {
-        // Drop 'unique_id' column if rolling back
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('unique_id');
+        Schema::table('coborrower_details', function (Blueprint $table) {
+            $table->dropColumn('liability_select'); // Rollback by removing the column
+
         });
     }
 };

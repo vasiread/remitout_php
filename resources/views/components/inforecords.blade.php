@@ -1,25 +1,97 @@
 <section class="study-loans-section">
-  <div class="study-loans-content">
-    <!-- Left Section -->
-    <div class="study-loans-left">
-      <div class="study-loans-text">
-        <h3>Your Smart Route to <br>Study Loans</h3>
-        <p>Bespoke Loan Options from Trusted NBFCs for <br> Your International Education.</p>
-      </div>
+    <div class="study-loans-content">
+        <!-- Left Section -->
+        <div class="study-loans-left">
+            <div class="study-loans-text">
+                <h3>Your Smart Route to <br>Study Loans</h3>
+                <p>Bespoke Loan Options from Trusted NBFCs for <br> Your International Education.</p>
+            </div>
+        </div>
+        <!-- Right Section -->
+        <div class="study-loans-image-right">
+            <img src="{{ asset('assets/images/globe-1.png') }}" alt="Globe Image" class="globe-image">
+        </div>
     </div>
-    <!-- Right Section -->
-    <div class="study-loans-image-right">
-      <img src="{{ asset('assets/images/globe-1.png') }}" alt="Globe Image" class="globe-image" >
-    </div>
-  </div>
-  <div class="flowchart-section">
+    <!-- <div class="flowchart-section">
     <img src="{{asset('assets/images/flowchat.png')}}" alt="Flowchart Image" class="flowchart-image">
-  </div>
+  </div> -->
+
+
+    <div class="graphcard-section">
+
+        <div class="graphcard-section">
+            <div class="graphcardsection-bottomleftsection">
+                <div class="bottomleft-firstsection">
+                    <h1 class="graphcard-firstheader-number">01</h1>
+                    <h2>Profile Assessment</h2>
+                    <p>Our experts assess your academic and financial profile to determine the best loan options for
+                        your overseas education.</p>
+                </div>
+                <div class="bottomleft-secondsection">
+                    <h1 class="graphcard-thirdheader-number">
+                        03
+                    </h1>
+                    <hr>
+                    <div class="bottomleft-section-inside">
+                        <h1>Choose Your Loan Offers</h1>
+                        <p>Browse and compare personalized loan offers based on your eligibility
+                            and repayment preferences.</p>
+                    </div>
+
+                </div>
+                <div class="bottomleft-thirdsection">
+                    <h1 class="graphcard-sixthheader-number">
+                        06
+                    </h1>
+                    <hr>
+                    <div class="bottomleft-section-inside">
+                        <h1>Guaranteed Disbursement</h1>
+                        <p>Once approved, your loan is disbursed directly to your institution on time, securing your
+                            admission.</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="graphcardsection-topleftsection">
+                <div class="topleft-firstsection">
+                    <h2>Get Matched With
+                        Top NBFCs</h2>
+                    <p>We connect you with
+                        multiple non-banking financial companies (NBFCs) offering competitive study loans.</p>
+                </div>
+                <div class="topleft-secondsection">
+                    <h1 class="graphcard-secondheader-number ">02</h1>
+                    <img src="assets/images/graphvectors/handshake.png" alt="">
+                    <img src="assets/images/graphvectors/perfectmatchvector.png" class="perfectmatchvector-img" alt="">
+                </div>
+            </div>
+            <div class="graphcardsection-lastsection">
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </section>
 
 <div class="smart-banner-image">
 
- <section class="smart-lending-section">
+    <section class="smart-lending-section">
         <div class="smart-content-wrapper">
             <!-- Left Content -->
             <div class="smart-left-content">
@@ -86,10 +158,10 @@
                 </div>
             </div>
         </div>
-</section>
+    </section>
 
 
-<?php
+    <?php
 // Dynamic data for stats
 $stats = [
     'students' => '500+',
@@ -114,7 +186,7 @@ $icons = [
 
 ?>
 
- <div class="effort-section">
+    <div class="effort-section">
         <!-- Background Image -->
         <img src="assets/images/effort-banner.png" alt="Background Image" class="effort-background-image">
 
@@ -123,26 +195,27 @@ $icons = [
                 <!-- Left Column with Image -->
                 <div class="effort-image-column">
                     <div class="effort-image-wrapper">
-                        <img src="assets/images/girl-image-with-banner.png" alt="Student with backpack" class="effort-main-image">
+                        <img src="assets/images/girl-image-with-banner.png" alt="Student with backpack"
+                            class="effort-main-image">
                     </div>
                 </div>
 
                 <!-- Right Column with Content -->
                 <div class="effort-content-column">
-                <div class="effort-heading">
+                    <div class="effort-heading">
 
-                    <h1>Effortless and affordable <br>global transfers!</h1>
-                    <p>Support loved ones abroad by sending money from India for education and expenses. 
-                       Transfer to 40+ countries with real exchange rates, no hidden fees. 
-                       Sign up easily online with your PAN and address.</p>
-                </div>
+                        <h1>Effortless and affordable <br>global transfers!</h1>
+                        <p>Support loved ones abroad by sending money from India for education and expenses.
+                            Transfer to 40+ countries with real exchange rates, no hidden fees.
+                            Sign up easily online with your PAN and address.</p>
+                    </div>
 
-                <div class="effort-icons-image">
-                   <img src="assets/images/account_circle.png" alt="Students Icon" class="effort-icon">
-                   <img src="assets/images/account_balance.png" alt="NBFCs Icon" class="effort-icon">
-                   <img src="assets/images/flag.png" alt="Countries Icon" class="effort-icon">
-                  <img src="assets/images/sentiment_very_satisfied.png" alt="Customers Icon" class="effort-icon">
-                </div>
+                    <div class="effort-icons-image">
+                        <img src="assets/images/account_circle.png" alt="Students Icon" class="effort-icon">
+                        <img src="assets/images/account_balance.png" alt="NBFCs Icon" class="effort-icon">
+                        <img src="assets/images/flag.png" alt="Countries Icon" class="effort-icon">
+                        <img src="assets/images/sentiment_very_satisfied.png" alt="Customers Icon" class="effort-icon">
+                    </div>
 
                     <!-- Stats Grid -->
                     <div class="effort-stats-grid">

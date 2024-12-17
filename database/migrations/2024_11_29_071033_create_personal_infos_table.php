@@ -15,11 +15,11 @@ return new class extends Migration {
         Schema::create('personal_infos', function (Blueprint $table) {
             $table->id();  // Primary key
             $table->string('user_id')->unique();  
-            $table->string('full_name');
-            $table->string('phone');
+            $table->string('full_name')->nullable();
+            $table->string('phone')->nullable();
             $table->string('referral_code')->nullable();
-            $table->string('email')->unique();
-            $table->string('state');
+            $table->string('email')->unique()->nullable();
+            $table->string('state')->nullable();
             $table->timestamps();
         });
     }

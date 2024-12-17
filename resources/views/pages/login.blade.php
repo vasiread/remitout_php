@@ -59,6 +59,9 @@
     </div>
 
     <script>
+        @if (session('session_expired'))
+            alert("{{ session('session_expired') }}");
+        @endif
         const passwordInput = document.getElementById('loginpasswordID');
         const passwordIcon = document.querySelector('.passwordClose');
         let passwordView = false;

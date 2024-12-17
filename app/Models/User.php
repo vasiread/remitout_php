@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\CourseInfo;
+// use App\Models\PersonalInfo;
+
 class User extends Model
 {
     protected $fillable = ['name', 'email', 'password', 'unique_id'];
@@ -14,7 +17,6 @@ class User extends Model
     {
         parent::boot();
 
-        // Automatically generating unique_id before creating a user
         static::creating(function ($model) {
             $lastUser = self::latest('id')->first();  // Get the latest user record
             $lastId = optional($lastUser)->id ?? 0;  // Get the last user ID or 0 if no record exists
@@ -22,4 +24,15 @@ class User extends Model
             $model->unique_id = 'HBNKJI' . $nextId;  // Create the unique_id
         });
     }
+
+    // public function personalInfo()
+    // {
+    //     return $this->hasOne(PersonalInfo::class, 'user_id', 'unique_id');
+    // }
+    // public function courseInfo(){
+    //     return $this->hasOne(CourseInfo::class, 'user_id', 'unique_id');
+    // }
+    // public function academicsInfo(){
+    //     return $this->hasOne(Academics::class, 'user_id', 'unique_id');
+    // }
 }

@@ -11,6 +11,7 @@
 
     <!-- Custom Stylesheets -->
     <link rel="stylesheet" href="assets/css/navbar.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/loginsignup.css">
     <link rel="stylesheet" href="assets/css/login.css">
@@ -41,13 +42,14 @@
         @yield('logincontent')  
     @elseif(Route::currentRouteName() === 'signup')
         @yield('signupcontent')  
+    @elseif(Route::currentRouteName() === 'student-dashboard')
+        @yield("studentdashboard")
     @else
         @yield('homecontent') 
-        @yield("studentdashboard")
     @endif
 
     @if(Route::currentRouteName() !== 'login' && Route::currentRouteName() !== 'signup')
-        <x-footer></x-footer>  
+        <x-footer></x-footer>
     @endif
 </body>
 
