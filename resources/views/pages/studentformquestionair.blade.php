@@ -1111,7 +1111,6 @@
 
 
 <script>
-
 document.addEventListener('DOMContentLoaded', () => {
   const prevButton = document.querySelector('.nav-button.prev');
   const nextButton = document.querySelector('.nav-button.next');
@@ -1128,14 +1127,14 @@ document.addEventListener('DOMContentLoaded', () => {
     [document.querySelector('.academic-container'), document.querySelector('.admit-form-container')],
     [document.querySelector('.borrow-container-section'), document.querySelector('.income-co-borrower'), document.querySelector('.monthly-liability-container')],
     [document.querySelector('.kyc-section-document'), document.querySelector('.kyc-section-marksheet'), document.querySelector('.kyc-section-Admission'), document.querySelector('.work-experience'), document.querySelector('.kyc-section-co-borrower'), document.querySelector('.salary-upload')]
-];
+  ];
 
   const breadcrumbDots = [
-      2,  // Breadcrumb 1 has 2 dots
-      4,  // Breadcrumb 2 has 4 dots
-      2,  // Breadcrumb 3 has 2 dots
-      3,  // Breadcrumb 4 has 3 dots
-      6   // Breadcrumb 5 has 6 dots
+    2,  
+    4,  
+    2,  
+    3,  
+    6   
   ];
 
   let currentBreadcrumbIndex = 0;
@@ -1143,104 +1142,116 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Dynamically add dots based on breadcrumb index
   function updateDots() {
-      const dotContainer = document.querySelector('.nav-dots');
-      dotContainer.innerHTML = '';  
-      
-      const numberOfDots = breadcrumbDots[currentBreadcrumbIndex];  
-  
-      for (let i = 0; i < numberOfDots; i++) {
-          const dot = document.createElement('div');
-          dot.classList.add('dot');
-          if (i === currentContainerIndex) {
-              dot.classList.add('active');  
-          }
-          dotContainer.appendChild(dot);
-      }
+    const dotContainer = document.querySelector('.nav-dots');
+    dotContainer.innerHTML = '';  
+    
+    const numberOfDots = breadcrumbDots[currentBreadcrumbIndex];  
+
+    for (let i = 0; i < numberOfDots; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (i === currentContainerIndex) {
+            dot.classList.add('active');  
+        }
+        dotContainer.appendChild(dot);
+    }
+  }
+
+  // Function to check if all required fields are filled
+  function areFieldsFilled() {
+    const currentContainers = breadcrumbSections[currentBreadcrumbIndex];
+    const currentContainer = currentContainers[currentContainerIndex];
+
+    const inputs = currentContainer.querySelectorAll('input[required], select[required], textarea[required]');
+    
+    for (const input of inputs) {
+        if (!input.value.trim()) {  
+            return false;
+        }
+    }
+    return true;  
   }
 
   function updateNavigationButtons() {
-      const isAtFirstContainer = currentBreadcrumbIndex === 0 && currentContainerIndex === 0;
-      const isAtLastContainer = currentContainerIndex === breadcrumbSections[currentBreadcrumbIndex].length - 1;
+    const isAtFirstContainer = currentContainerIndex === 0;  // Check if we're at the first container
+    const isAtLastContainer = currentContainerIndex === breadcrumbSections[currentBreadcrumbIndex].length - 1;
 
-      prevButton.disabled = isAtFirstContainer;
-      nextButton.disabled = isAtLastContainer;
+    prevButton.disabled = isAtFirstContainer;  // Disable Prev button if at the first container
+    nextButton.disabled = isAtLastContainer || !areFieldsFilled();  
 
-      nextBreadcrumbButton.disabled = currentContainerIndex !== breadcrumbSections[currentBreadcrumbIndex].length - 1;
+    nextBreadcrumbButton.disabled = currentContainerIndex !== breadcrumbSections[currentBreadcrumbIndex].length - 1;
   }
 
   function updateBreadcrumbNavigation() {
-      breadcrumbLinks.forEach((link, index) => {
-          link.classList.remove('active');
-          link.style.color = ''; 
+    breadcrumbLinks.forEach((link, index) => {
+        link.classList.remove('active');
+        link.style.color = ''; 
 
-      
-          if (index === currentBreadcrumbIndex) {
-              link.classList.add('active');
-              link.style.color = '#E98635'; 
-          } else {
-              link.style.color = ''; 
-          }
-      });
+        if (index === currentBreadcrumbIndex) {
+            link.classList.add('active');
+            link.style.color = '#E98635'; 
+        } else {
+            link.style.color = ''; 
+        }
+    });
   }
 
   function navigate(direction) {
-      const currentContainers = breadcrumbSections[currentBreadcrumbIndex];
+    const currentContainers = breadcrumbSections[currentBreadcrumbIndex];
 
-      currentContainers[currentContainerIndex].style.display = 'none';
+    currentContainers[currentContainerIndex].style.display = 'none';
 
-      if (direction === 'next') {
-          if (currentContainerIndex < currentContainers.length - 1) {
-              currentContainerIndex++;
-          } else if (currentBreadcrumbIndex < breadcrumbSections.length - 1) {
-              currentBreadcrumbIndex++;
-              currentContainerIndex = 0;
-          }
-      } else if (direction === 'prev') {
-          if (currentContainerIndex > 0) {
-              currentContainerIndex--;
-          } else if (currentBreadcrumbIndex > 0) {
-              currentBreadcrumbIndex--;
-              currentContainerIndex = breadcrumbSections[currentBreadcrumbIndex].length - 1;
-          }
-      }
+    if (direction === 'next') {
+        if (currentContainerIndex < currentContainers.length - 1) {
+            currentContainerIndex++;
+        } else if (currentBreadcrumbIndex < breadcrumbSections.length - 1) {
+            currentBreadcrumbIndex++;
+            currentContainerIndex = 0;
+        }
+    } else if (direction === 'prev') {
+        if (currentContainerIndex > 0) {
+            currentContainerIndex--;
+        } else if (currentBreadcrumbIndex > 0) {
+            currentBreadcrumbIndex--;
+            currentContainerIndex = breadcrumbSections[currentBreadcrumbIndex].length - 1;
+        }
+    }
 
-      const updatedContainers = breadcrumbSections[currentBreadcrumbIndex];
-      updatedContainers[currentContainerIndex].style.display = 'block';
+    const updatedContainers = breadcrumbSections[currentBreadcrumbIndex];
+    updatedContainers[currentContainerIndex].style.display = 'block';
 
-      updateBreadcrumbNavigation();
-      updateNavigationButtons();
-      updateDots(); 
+    updateBreadcrumbNavigation();
+    updateNavigationButtons();
+    updateDots(); 
   }
 
-  nextButton.addEventListener('click', () => navigate('next'));
+  // Add event listeners to buttons
+  nextButton.addEventListener('click', () => {
+    if (areFieldsFilled()) {
+      navigate('next');
+    }
+  });
+
   prevButton.addEventListener('click', () => navigate('prev'));
 
   nextBreadcrumbButton.addEventListener('click', () => {
+    if (currentContainerIndex === breadcrumbSections[currentBreadcrumbIndex].length - 1) {
       if (currentBreadcrumbIndex < breadcrumbSections.length - 1) {
-          breadcrumbSections[currentBreadcrumbIndex].forEach(container => container.style.display = 'none');
-          currentBreadcrumbIndex++;
-          currentContainerIndex = 0;
+        breadcrumbSections[currentBreadcrumbIndex].forEach(container => container.style.display = 'none');
+        currentBreadcrumbIndex++;
+        currentContainerIndex = 0;
 
-          breadcrumbSections[currentBreadcrumbIndex].forEach((container, index) => {
-              container.style.display = (index === 0) ? 'block' : 'none';
-          });
+        breadcrumbSections[currentBreadcrumbIndex].forEach((container, index) => {
+          container.style.display = (index === 0) ? 'block' : 'none';
+        });
 
-          updateBreadcrumbNavigation();
-          updateNavigationButtons();
-          updateDots(); 
+        updateBreadcrumbNavigation();
+        updateNavigationButtons();
+        updateDots();
       }
+    }
   });
-
-
-
-
-
-
-
-
-
-
-
+  
   if (nextCourseButton) {
       nextCourseButton.addEventListener('click', () => {
           if (currentBreadcrumbIndex === 1) {
@@ -1259,8 +1270,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 
-
-
   if (nextAcademicButton) {
       nextAcademicButton.addEventListener('click', () => {
           if (currentBreadcrumbIndex === 2) {
@@ -1278,8 +1287,6 @@ document.addEventListener('DOMContentLoaded', () => {
           }
       });
   }
-
-
 
   if (nextBorrowButton) {
       nextBorrowButton.addEventListener('click', () => {
@@ -1300,40 +1307,46 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-
+  // Initialize the containers
   breadcrumbSections.forEach((containers, breadcrumbIndex) => {
-      containers.forEach((container, containerIndex) => {
-          container.style.display =
-              breadcrumbIndex === 0 && containerIndex === 0 ? 'block' : 'none';
-      });
+    containers.forEach((container, containerIndex) => {
+      container.style.display =
+          breadcrumbIndex === 0 && containerIndex === 0 ? 'block' : 'none';
+    });
   });
 
+  // Add click event listeners to breadcrumb links
   breadcrumbLinks.forEach((link, index) => {
-      link.addEventListener('click', (e) => {
-          e.preventDefault();  
-  
-          if (index <= currentBreadcrumbIndex) {
-              breadcrumbSections[currentBreadcrumbIndex].forEach(container => container.style.display = 'none');
-              currentBreadcrumbIndex = index;
-              currentContainerIndex = 0; 
-  
-              breadcrumbSections[currentBreadcrumbIndex].forEach((container, i) => {
-                  container.style.display = (i === 0) ? 'block' : 'none';
-              });
-  
-              updateBreadcrumbNavigation();
-              updateNavigationButtons();
-              updateDots(); 
-          }
-      });
+    link.addEventListener('click', (e) => {
+        e.preventDefault();  
+
+        if (index <= currentBreadcrumbIndex) {
+            breadcrumbSections[currentBreadcrumbIndex].forEach(container => container.style.display = 'none');
+            currentBreadcrumbIndex = index;
+            currentContainerIndex = 0; 
+
+            breadcrumbSections[currentBreadcrumbIndex].forEach((container, i) => {
+                container.style.display = (i === 0) ? 'block' : 'none';
+            });
+
+            updateBreadcrumbNavigation();
+            updateNavigationButtons();
+            updateDots(); 
+        }
+    });
   });
 
+  // Listen for input changes and update the button state
+  document.addEventListener('input', () => {
+    updateNavigationButtons(); // Re-check if all fields are filled whenever an input changes
+  });
 
   // Initial setup
   updateBreadcrumbNavigation();
   updateNavigationButtons();
   updateDots(); // Initial call to populate dots
 });
+
 
 
 
@@ -1880,7 +1893,7 @@ document.getElementById('city-input').addEventListener('input', function() {
     errorMessage.style.display = 'none';
   }
 });
-       
+
 
 </script>
 
