@@ -1109,8 +1109,9 @@
 
 
 
-
 <script>
+
+
 document.addEventListener('DOMContentLoaded', () => {
   const prevButton = document.querySelector('.nav-button.prev');
   const nextButton = document.querySelector('.nav-button.next');
@@ -1336,6 +1337,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+
   // Listen for input changes and update the button state
   document.addEventListener('input', () => {
     updateNavigationButtons(); // Re-check if all fields are filled whenever an input changes
@@ -1346,7 +1348,6 @@ document.addEventListener('DOMContentLoaded', () => {
   updateNavigationButtons();
   updateDots(); // Initial call to populate dots
 });
-
 
 
 
@@ -1893,7 +1894,6 @@ document.getElementById('city-input').addEventListener('input', function() {
     errorMessage.style.display = 'none';
   }
 });
-
 
 
 </script>
