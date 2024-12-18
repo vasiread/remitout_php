@@ -132,6 +132,8 @@
 
 
 
+
+
 <!-- breadcrumb 2 tab -->
 <div class="course-section" id="step-course">
 
@@ -284,6 +286,10 @@
  </div>
 
 
+
+
+<!--breadcrumb 3-->
+
 <!-- Academic Details Section -->
 <div class="academic-container" id="step-academic-details" style="display: none;">
   <div class="step-header">
@@ -395,7 +401,10 @@
  </div>
 
 
+
+
  <!----breadcrumb 4 tab---->
+
  <!---co-borrower section-->
  <div class="co-borrow-section" id="step-co-borrower">
   <div class="borrow-container-section" style="display: none;">
@@ -477,6 +486,7 @@
   </div>
   </div>
  </div>
+
 
 
 
@@ -1075,6 +1085,8 @@
 
 
 
+
+
   <!-------Navigation button------>
 
     <div class="navigation">
@@ -1089,8 +1101,6 @@
             <span class="arrow"></span>
         </button>
     </div>
-
-    
 
  <div class="support-container">
     <button class="support-btn">Support</button>
@@ -1221,6 +1231,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   });
 
+
+
+
+
+
+
+
+
+
+
   if (nextCourseButton) {
       nextCourseButton.addEventListener('click', () => {
           if (currentBreadcrumbIndex === 1) {
@@ -1238,6 +1258,8 @@ document.addEventListener('DOMContentLoaded', () => {
           }
       });
   }
+
+
 
   if (nextAcademicButton) {
       nextAcademicButton.addEventListener('click', () => {
@@ -1257,6 +1279,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 
+
+
   if (nextBorrowButton) {
       nextBorrowButton.addEventListener('click', () => {
           if (currentBreadcrumbIndex === 3) {
@@ -1274,6 +1298,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
       });
   }
+
 
 
   breadcrumbSections.forEach((containers, breadcrumbIndex) => {
@@ -1302,6 +1327,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
       });
   });
+
 
   // Initial setup
   updateBreadcrumbNavigation();
