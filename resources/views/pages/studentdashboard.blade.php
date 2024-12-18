@@ -16,33 +16,33 @@
     @section('studentdashboard')
 
     @php
-        $profileImgPath = 'assets/images/profileimg.png';
-        $profileIconPath = "assets/images/account_circle.png";
-        $phoneIconPath = "assets/images/call.png";
-        $mailIconPath = "assets/images/mail.png";
-        $pindropIconPath = "assets/images/pin_drop.png";
-        $discordIconPath = "assets/images/icons/discordicon.png";
+$profileImgPath = '';
+$profileIconPath = "assets/images/account_circle.png";
+$phoneIconPath = "assets/images/call.png";
+$mailIconPath = "assets/images/mail.png";
+$pindropIconPath = "assets/images/pin_drop.png";
+$discordIconPath = "assets/images/icons/discordicon.png";
 
 
 
 
-        $bankName = 'bankName';
-        $bankMessage = 'bankMessage';
-        $loanStatusInfo = [
-            [
-                $bankName => "Bank Name",
-                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-            ],
-            [
-                $bankName => "Bank Name",
-                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-            ],
-            [
-                $bankName => "Bank Name",
-                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-            ],
+$bankName = 'bankName';
+$bankMessage = 'bankMessage';
+$loanStatusInfo = [
+    [
+        $bankName => "Bank Name",
+        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+    ],
+    [
+        $bankName => "Bank Name",
+        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+    ],
+    [
+        $bankName => "Bank Name",
+        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+    ],
 
-        ];
+];
 
 
 
@@ -171,10 +171,10 @@
         </div>
         <div class="studentdashboardprofile-profilesection">
 
-            <img src="{{asset($profileImgPath)}}" class="profileImg" alt="">
+            <img src="{{asset($profileImgPath)}}" class="profileImg" id="profile-photo-id" alt="">
             <i class="fa-regular fa-pen-to-square"></i>
-            <input type="file" class="profile-upload">
-
+<input type="file" class="profile-upload" accept="image/*" enctype="multipart/form-data">
+    
             <div class="studentdashboardprofile-personalinfo">
                 <div class="personalinfo-firstrow">
                     <h1>My Profile</h1>
@@ -556,6 +556,7 @@
             initializeProgressRing();
             saveChangesFunctionality();
             initialiseProfileUpload();
+            initialiseProfileView();
 
         });
 
@@ -634,7 +635,7 @@
             });
         };
 
-         const triggerEditButton = () => {
+        const triggerEditButton = () => {
             // Enable all disabled inputs in the profile
             const disabledInputs = document.querySelectorAll('.studentdashboardprofile-myapplication input[disabled]');
             disabledInputs.forEach(inputItems => {
@@ -653,7 +654,6 @@
                 otherDegreeInput.removeAttribute('disabled');
             }
         };
-
         const initialiseProfileUpload = () => {
             const editIcon = document.querySelector('.studentdashboardprofile-profilesection .fa-pen-to-square');
             const profileImageInput = document.querySelector('.studentdashboardprofile-profilesection .profile-upload');
@@ -670,36 +670,106 @@
                         console.error('No file selected');
                         return;
                     }
+                    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+
+                    const userId = userIdElement ? userIdElement.textContent : '';
 
                     const fileName = file.name;
                     const fileType = file.type;
                     console.log(fileType + "." + fileName);
 
+                    // Optional: Validate file type before uploading
+                    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                    if (!allowedTypes.includes(fileType)) {
+                        console.error('Invalid file type. Only jpg, png, and gif are allowed.');
+                        return;
+                    }
+
                     const formDetailsData = new FormData();
                     formDetailsData.append('file', file);
+                    formDetailsData.append('userId', userId);
 
                     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
+                    // Handle case where CSRF token is not found
+                    if (!csrfToken) {
+                        console.error('CSRF token not found');
+                        return;
+                    }
+
                     fetch('/upload-profile-picture', {
                         method: "POST",
-                        body: formDetailsData,
                         headers: {
                             'X-CSRF-TOKEN': csrfToken,
                             'Accept': 'application/json',
-                        }
+                        },
+                        body: formDetailsData,
                     })
-                        .then(response => response.json())
+                        .then(response => {
+                            if (!response.ok) {
+                                return response.json().then(errorData => {
+                                    throw new Error(errorData.error || 'Network response was not ok');
+                                });
+                            }
+                            return response.json();
+                        })
                         .then(data => {
-                            console.log("File uploaded successfully", data);
+                            if (data) {
+                                console.log("File uploaded successfully", data);
+                                const imgElement = document.querySelector("#profile-photo-id");
+                                imgElement.src = data.file_path;
+                                const navImageElement = document.querySelector("#nav-profile-photo-id");
+                                navImageElement.src = data.file_path;
+                                console.log(data)
+                            } else {
+                                console.error("Error: No URL returned from the server", data);
+                            }
                         })
                         .catch(error => {
                             console.error("Error uploading file", error);
                         });
+
                 });
             }
         };
 
 
+        const initialiseProfileView = () => {
+            var profileImgPath = '<?php echo $profileImgPath; ?>';
+
+            const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+            const userId = userIdElement ? userIdElement.textContent : '';
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            if (!csrfToken) {
+                console.error('CSRF token not found');
+                return;
+            }
+
+            fetch('/retrieve-profile-picture', {
+                method: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'  // Set content type to JSON
+                },
+                body: JSON.stringify({ userId: userId })  // Send userId as JSON
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.fileUrl) {
+                        console.log("Profile Picture URL:", data.fileUrl);
+                        const imgElement = document.querySelector("#profile-photo-id");
+                        imgElement.src = data.fileUrl;
+                    } else {
+                        console.error("Error: No URL returned from the server", data);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error retrieving profile picture", error);
+                });
+        }
 
         const initializeIndividualCards = () => {
             const individualCards = document.querySelectorAll('.indivudalloanstatus-cards');
@@ -736,9 +806,8 @@
             const individualKycDocumentsUpload = document.querySelectorAll(".individualkycdocuments");
 
             individualKycDocumentsUpload.forEach((card) => {
-                let uploadedFile = null; // Store the uploaded file here
+                let uploadedFile = null;
 
-                // Trigger file selection when clicking the file container
                 card.querySelector('.inputfilecontainer').addEventListener('click', function () {
                     card.querySelector('#inputfilecontainer-real').click();
                 });
@@ -845,9 +914,9 @@
             radio.addEventListener('change', function () {
                 var otherInput = document.getElementById('otherDegreeInput');
                 if (this.value === 'Others' && this.checked) {
-                    otherInput.disabled = false; // Enable input field if 'Others' is selected
+                    otherInput.disabled = false;
                 } else {
-                    otherInput.disabled = true; // Disable input field for other options
+                    otherInput.disabled = true;
                 }
             });
         });

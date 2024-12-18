@@ -162,6 +162,8 @@ input[type="file"] {
 .studentdashboardprofile-profilesection .profileImg {
     border-radius: 6px;
     position: relative;
+    height: 122px;
+
 }
 
 

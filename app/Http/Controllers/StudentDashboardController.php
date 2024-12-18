@@ -110,45 +110,84 @@ class StudentDashboardController extends Controller
 
 
 
-
     public function uploadProfilePicture(Request $request)
     {
-        // Validate the file input
         $request->validate([
             'file' => 'required|file',
+            'userId' => 'required'
         ]);
 
-        try {
-            // Get the file from the request
+        $userId = $request->input('userId');
+
+        if ($request->hasFile('file')) {
             $file = $request->file('file');
+            $fileName = $file->getClientOriginalName();
+            $fileDirectory = "$userId/profile_pictures";
 
-            // Generate a unique file name with the extension
-            $fileName = time() . '_' . $file->getClientOriginalName();
-
-            // Define the folder in S3 bucket
-            $folder = 'uploads/';
-
-            // Upload the file to S3
-            $filePath = $folder . $fileName;
-            $uploadSuccess = Storage::disk('s3')->put($filePath, file_get_contents($file), 'public');
-
-            // Check if the upload was successful
-            if ($uploadSuccess) {
-                $fileUrl = Storage::disk('s3')->url($filePath);
-                info("File successfully uploaded to: " . $fileUrl);
-                return response()->json(['url' => $fileUrl], 200);
-            } else {
-                info("File upload failed");
-                return response()->json(['error' => 'Failed to upload file'], 500);
+            $existingFiles = Storage::disk('s3')->files($fileDirectory);
+            if (!empty($existingFiles)) {
+                Storage::disk('s3')->delete($existingFiles);
             }
-        } catch (\Exception $e) {
-            // Log the exception for debugging
-            info("Upload Error: " . $e->getMessage());
-            return response()->json(['error' => 'File upload error: ' . $e->getMessage()], 500);
+
+            $filePath = $file->storeAs(
+                $fileDirectory,
+                $fileName,
+                [
+                    'disk' => 's3',
+                    'visibility' => 'public',
+                ]
+            );
+            $fileUrl = Storage::disk('s3')->url($filePath);
+
+
+            return response()->json([
+                'message' => 'File uploaded successfully!',
+                'file_name' => $fileName,
+                'file_path' => $fileUrl,
+            ], 200);
         }
+
+        // Return an error response if no file is uploaded
+        return response()->json([
+            'message' => 'No file uploaded.',
+        ], 400);
     }
 
 
+    public function retrieveProfilePicture(Request $request)
+    {
+        // Validate the incoming request
+        $request->validate([
+            'userId' => 'required|string',
+        ]);
+
+        // Retrieve user ID
+        $userId = $request->input('userId');
+
+        // Define the file path for the profile pictures folder
+        $filePath = "$userId/profile_pictures";  // Assuming profile pictures are stored in this structure
+
+        // Get the list of files in the user's profile pictures directory
+        $files = Storage::disk('s3')->files($filePath);
+
+        // Check if there are any files (there should be one per user)
+        if (!empty($files)) {
+            $file = $files[0];  // Get the first file (we expect only one profile picture per user)
+
+            // Generate the URL of the file
+            $fileUrl = Storage::disk('s3')->url($file);
+
+            return response()->json([
+                'message' => 'Profile picture retrieved successfully.',
+                'fileUrl' => $fileUrl,  // This is the actual S3 URL
+            ], 200);
+        }
+
+        // If no profile picture exists for the user, return an error message
+        return response()->json([
+            'message' => 'No profile picture found for this user.',
+        ], 404);
+    }
 
 
 

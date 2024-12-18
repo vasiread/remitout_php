@@ -59,3 +59,4 @@ Route::post('/verify-otp', [MailController::class, 'verifyOTP']);
 Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser'])->name('student-dashboard');
 Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFromProfile']);
 Route::post('/upload-profile-picture', [StudentDashboardController::class, 'uploadProfilePicture']);
+Route::post('/retrieve-profile-picture', [StudentDashboardController::class, 'retrieveProfilePicture']);
