@@ -35,10 +35,10 @@ body, html {
   margin-bottom: -46px;
   border: none;
   background-color: transparent;
-  border: 1px solid rgba(222, 222, 222, 0.7); 
-  backdrop-filter: blur(10px); 
-  -webkit-backdrop-filter: blur(10px); 
-  backdrop-filter: blur(2px);      
+  border: 1px solid rgba(222, 222, 222, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(2px);
 }
 
 .breadcrumb a {
@@ -53,7 +53,7 @@ body, html {
   padding: 0 30px 0 40px;
   transition: background-color 0.3s, color 0.3s;
   width: 160px;
-  background-color: transparent; /* Default background color */
+  background-color: transparent;
   text-align: center;
 }
 
@@ -63,15 +63,16 @@ body, html {
 
 .breadcrumb a:last-child {
   padding-right: 20px;
+  
 }
 
 .breadcrumb a.active {
-  background-color: #e98635 !important; 
-  color: white !important; 
+  background-color: #e98635 !important;
+  color: white !important;
 }
 
 .breadcrumb a:not(.active) {
-  background-color: #673AB7;
+ background-color: hsl(262, 29%, 53%);
   color: white;
 }
 
@@ -87,16 +88,16 @@ body, html {
   right: -28px;
   width: 55px;
   height: 55px;
-  background-color: #673AB7; /* Default background color for the triangle */
+background-color: hsl(262, 29%, 53%);
   transform: scale(0.707) rotate(45deg);
   z-index: 1;
- border-right: 1px solid rgba(222, 222, 222, 0.7); 
-  border-top: 1px solid rgba(222, 222, 222, 0.7); 
+  border-right: 1px solid rgba(222, 222, 222, 0.7);
+  border-top: 1px solid rgba(222, 222, 222, 0.7);
   transition: background-color 0.3s;
 }
 
 .breadcrumb a.active:after {
-  background-color: #e98635 !important; /* Active triangle background */
+  background-color: #e98635 !important;
 }
 
 .breadcrumb a:not(.active):hover:after {
@@ -110,8 +111,9 @@ body, html {
 .breadcrumb a:before {
   content: none;
 }
+
 .breadcrumb .breadcrumb-number {
-  display: none; 
+  display: none;
 }
 
 
