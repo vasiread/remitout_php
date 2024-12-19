@@ -1146,595 +1146,760 @@
 
         </div>
         <button type="submit" class="next-btn-kyc" id="saveandsubmit">Save and Submit</button>
-</section>
+    </section>
 
-</form>
+    </form>
 
 
 
     <!-------Navigation button------>
 
     <div class=" navigation">
-            <button class="nav-button prev">
-                <span class="arrow"></span>
-            </button>
-            <div class="nav-dots">
-                <div class="dot active"></div>
-                <div class="dot"></div>
-            </div>
-            <button class="nav-button next">
-                <span class="arrow"></span>
-            </button>
-            </div>
+        <button class="nav-button prev">
+            <span class="arrow"></span>
+        </button>
+        <div class="nav-dots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+        </div>
+        <button class="nav-button next">
+            <span class="arrow"></span>
+        </button>
+    </div>
 
 
 
-            <div class="support-container">
-                <button class="support-btn">Support</button>
-                <button class="help-btn">Help</button>
-            </div>
+    <div class="support-container">
+        <button class="support-btn">Support</button>
+        <button class="help-btn">Help</button>
+    </div>
 
 
 
 
-            <script>
-                document.addEventListener('DOMContentLoaded', () => {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
 
-                    event.preventDefault(); // Prevent form submission for testing
-                    // Breadcrumb navigation and buttons
-                    const prevButton = document.querySelector('.nav-button.prev');
-                    const nextButton = document.querySelector('.nav-button.next');
-                    const nextBreadcrumbButton = document.querySelector('.next-btn');
-                    const nextCourseButton = document.querySelector('.next-btn-course');
-                    const nextAcademicButton = document.querySelector('.next-btn-academic');
-                    const nextBorrowButton = document.querySelector('.next-btn-borrow');
-                    const nextKycButton = document.querySelector('.next-btn-ky');
-                    const breadcrumbLinks = document.querySelectorAll('.breadcrumb a'); // Adjusted to use <a> elements inside .breadcrumb
+            event.preventDefault(); // Prevent form submission for testing
+            // Breadcrumb navigation and buttons
+            const prevButton = document.querySelector('.nav-button.prev');
+            const nextButton = document.querySelector('.nav-button.next');
+            const nextBreadcrumbButton = document.querySelector('.next-btn');
+            const nextCourseButton = document.querySelector('.next-btn-course');
+            const nextAcademicButton = document.querySelector('.next-btn-academic');
+            const nextBorrowButton = document.querySelector('.next-btn-borrow');
+            const nextKycButton = document.querySelector('.next-btn-ky');
+            const breadcrumbLinks = document.querySelectorAll('.breadcrumb a'); // Adjusted to use <a> elements inside .breadcrumb
 
-                    const breadcrumbSections = [
-                        [document.querySelector('.registration-form'), document.querySelector('.section-02-container')],
-                        [document.querySelector('.course-details'), document.querySelector('.course-degree'), document.querySelector('.course-duration-container'), document.querySelector('.detail-container-section')],
-                        [document.querySelector('.academic-container'), document.querySelector('.academic-gap'), document.querySelector('.admit-form-container')],
-                        [document.querySelector('.borrow-container-section'), document.querySelector('.income-co-borrower'), document.querySelector('.monthly-liability-container')],
-                        [document.querySelector('.kyc-section-document'), document.querySelector('.kyc-section-marksheet'), document.querySelector('.kyc-section-Admission'), document.querySelector('.work-experience'), document.querySelector('.kyc-section-co-borrower'), document.querySelector('.salary-upload')]
-                    ];
+            const breadcrumbSections = [
+                [document.querySelector('.registration-form'), document.querySelector('.section-02-container')],
+                [document.querySelector('.course-details'), document.querySelector('.course-degree'), document.querySelector('.course-duration-container'), document.querySelector('.detail-container-section')],
+                [document.querySelector('.academic-container'), document.querySelector('.academic-gap'), document.querySelector('.admit-form-container')],
+                [document.querySelector('.borrow-container-section'), document.querySelector('.income-co-borrower'), document.querySelector('.monthly-liability-container')],
+                [document.querySelector('.kyc-section-document'), document.querySelector('.kyc-section-marksheet'), document.querySelector('.kyc-section-Admission'), document.querySelector('.work-experience'), document.querySelector('.kyc-section-co-borrower'), document.querySelector('.salary-upload')]
+            ];
 
-                    let currentBreadcrumbIndex = 0;
-                    let currentContainerIndex = 0;
+            let currentBreadcrumbIndex = 0;
+            let currentContainerIndex = 0;
 
-                    function updateNavigationButtons() {
-                        const isAtFirstContainer = currentBreadcrumbIndex === 0 && currentContainerIndex === 0;
-                        const isAtLastContainer = currentContainerIndex === breadcrumbSections[currentBreadcrumbIndex].length - 1;
+            function updateNavigationButtons() {
+                const isAtFirstContainer = currentBreadcrumbIndex === 0 && currentContainerIndex === 0;
+                const isAtLastContainer = currentContainerIndex === breadcrumbSections[currentBreadcrumbIndex].length - 1;
 
-                        prevButton.disabled = isAtFirstContainer;
-                        nextButton.disabled = isAtLastContainer;
+                prevButton.disabled = isAtFirstContainer;
+                nextButton.disabled = isAtLastContainer;
 
-                        nextBreadcrumbButton.disabled = currentContainerIndex !== breadcrumbSections[currentBreadcrumbIndex].length - 1;
+                nextBreadcrumbButton.disabled = currentContainerIndex !== breadcrumbSections[currentBreadcrumbIndex].length - 1;
+            }
+
+
+
+            function updateBreadcrumbNavigation() {
+                breadcrumbLinks.forEach((link, index) => {
+                    // Remove 'active' class from all breadcrumbs first
+                    link.classList.remove('active');
+                    link.style.color = ''; // Reset color of the text
+
+                    // If the current breadcrumb index matches, set the active class
+                    if (index === currentBreadcrumbIndex) {
+                        link.classList.add('active');
+                        link.style.color = '#fff';
+                    } else {
+                        link.style.color = '';
                     }
+                });
+            }
 
+            function navigate(direction) {
+                const currentContainers = breadcrumbSections[currentBreadcrumbIndex];
 
+                currentContainers[currentContainerIndex].style.display = 'none';
 
-                    function updateBreadcrumbNavigation() {
-                        breadcrumbLinks.forEach((link, index) => {
-                            // Remove 'active' class from all breadcrumbs first
-                            link.classList.remove('active');
-                            link.style.color = ''; // Reset color of the text
-
-                            // If the current breadcrumb index matches, set the active class
-                            if (index === currentBreadcrumbIndex) {
-                                link.classList.add('active');
-                                link.style.color = '#fff';
-                            } else {
-                                link.style.color = '';
-                            }
-                        });
+                if (direction === 'next') {
+                    if (currentContainerIndex < currentContainers.length - 1) {
+                        currentContainerIndex++;
+                    } else if (currentBreadcrumbIndex < breadcrumbSections.length - 1) {
+                        currentBreadcrumbIndex++;
+                        currentContainerIndex = 0;
                     }
-
-                    function navigate(direction) {
-                        const currentContainers = breadcrumbSections[currentBreadcrumbIndex];
-
-                        currentContainers[currentContainerIndex].style.display = 'none';
-
-                        if (direction === 'next') {
-                            if (currentContainerIndex < currentContainers.length - 1) {
-                                currentContainerIndex++;
-                            } else if (currentBreadcrumbIndex < breadcrumbSections.length - 1) {
-                                currentBreadcrumbIndex++;
-                                currentContainerIndex = 0;
-                            }
-                        } else if (direction === 'prev') {
-                            if (currentContainerIndex > 0) {
-                                currentContainerIndex--;
-                            } else if (currentBreadcrumbIndex > 0) {
-                                currentBreadcrumbIndex--;
-                                currentContainerIndex = breadcrumbSections[currentBreadcrumbIndex].length - 1;
-                            }
-                        }
-
-                        const updatedContainers = breadcrumbSections[currentBreadcrumbIndex];
-                        updatedContainers[currentContainerIndex].style.display = 'block';
-
-                        updateBreadcrumbNavigation();
-                        updateNavigationButtons();
+                } else if (direction === 'prev') {
+                    if (currentContainerIndex > 0) {
+                        currentContainerIndex--;
+                    } else if (currentBreadcrumbIndex > 0) {
+                        currentBreadcrumbIndex--;
+                        currentContainerIndex = breadcrumbSections[currentBreadcrumbIndex].length - 1;
                     }
+                }
 
-                    function updateUserIds() {
-                        const personalInfoId = document.getElementById("personal-info-userid").value;
+                const updatedContainers = breadcrumbSections[currentBreadcrumbIndex];
+                updatedContainers[currentContainerIndex].style.display = 'block';
 
-                        console.log(personalInfoId)
-
-
-
-                        fetch('/updatedetailsinfo', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                            },
-                            body: JSON.stringify({ personalInfoId })
-                        })
-                            .then(response => response.json())
-                            .then(data => {
-                                console.log(data.message);
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                            });
+                updateBreadcrumbNavigation();
+                updateNavigationButtons();
+            }
 
 
 
+            const helpTriggers = document.querySelectorAll('.help-trigger');
 
+            function toggleHelpContainer(event, targetClass) {
+                const helpContainer = document.querySelector(`.${targetClass}`);
+                if (helpContainer) {
+                    if (helpContainer.style.display === 'none' || !helpContainer.style.display) {
+                        helpContainer.style.display = 'block';
+                    } else {
+                        helpContainer.style.display = 'none';
                     }
-                    updateUserIds();
+                }
+            }
 
 
-                    function updateCoborrowerInfo(event) {
-                        event.preventDefault();
+            helpTriggers.forEach(trigger => {
+                trigger.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    const targetClass = trigger.getAttribute('data-target');
+                    toggleHelpContainer(event, targetClass);
+                });
+            });
 
-                        // Modified getSelectedAnswer function to include callback for async handling
-                        function getSelectedAnswer(callback) {
-                            const selectedOption = document.querySelector('input[name="borrow-relation"]:checked');
 
-                            if (selectedOption && selectedOption.value !== "blood-relative") {
-                                return callback(selectedOption.value);
-                            } else if (selectedOption && selectedOption.value === "blood-relative") {
-                                const dropdownRelative = document.querySelectorAll(".borrow-dropdown .borrow-dropdown-item");
-
-                                dropdownRelative.forEach(item => {
-                                    item.addEventListener('click', function () {
-                                        const relativeValue = item.dataset.value;
-                                        console.log('Selected blood relative:', relativeValue);
-
-                                        // Proceed with the final selection
-                                        callback(relativeValue);
-                                    });
-                                });
-
-                                // Return early since selection is pending
-                                return;
-                            } else {
-                                return callback("none selected here");
-                            }
-                        }
-
-                        // Call getSelectedAnswer with the callback to handle data submission
-                        getSelectedAnswer(function (answer) {
-                            console.log("Final selected answer:", answer);
-
-                            const personalInfoId = document.getElementById("personal-info-userid").value;
-                            var incomeValue = document.getElementById("income-co-borrower").value;
-                            var selectedLiability = document.querySelector('input[name="co-borrower-liability"]:checked').value;
-                            var emiAmount = document.querySelector(".emi-content .emi-content-container").value;
-
-                            const coborrowerData = {
-                                personalInfoId, answer, incomeValue, selectedLiability, emiAmount
-                            };
-                            console.log(coborrowerData.personalInfoId);
-
-                            // Proceed with the fetch after answer selection
-                            fetch('/coborrowerData', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                                },
-                                body: JSON.stringify(coborrowerData)
-                            })
-                                .then(response => response.json())
-                                .then(data => {
-                                    console.log(data);
-
-                                    if (data.success) {
-                                        alert(data.message);
-                                    } else {
-                                        alert(data.message);
-                                    }
-                                })
-                                .catch(error => {
-                                    console.error('Error:', error);
-                                    alert('An error occurred while updating your information.');
-                                });
-                        });
+            document.addEventListener('click', (event) => {
+                const helpContainers = document.querySelectorAll('.help-container');
+                helpContainers.forEach(container => {
+                    if (container.style.display === 'block' && !container.contains(event.target)) {
+                        container.style.display = 'none';
                     }
+                });
+            });
+
+
+            function truncateFileName(fileName, maxLength = 25) {
+                if (fileName.length <= maxLength) {
+                    return fileName;
+                } else {
+                    const extension = fileName.slice(fileName.lastIndexOf('.'));
+                    const truncatedName = fileName.slice(0, maxLength - extension.length - 3) + '...';
+                    return truncatedName + extension;
+                }
+            }
+
+            function handleFileUpload(event, fileNameId, uploadIconId, removeIconId) {
+                const fileInput = event.target;
+                const fileNameElement = document.getElementById(fileNameId);
+                const uploadIcon = document.getElementById(uploadIconId);
+                const removeIcon = document.getElementById(removeIconId);
+                const file = fileInput.files[0];
+
+                // Help container and format info elements
+                const helpTrigger = fileNameElement.parentElement.nextElementSibling.querySelector('.help-trigger');
+                const formatInfo = fileNameElement.parentElement.nextElementSibling.querySelector('span:last-child');
+
+                // Check if a file was selected
+                if (!file) {
+                    fileNameElement.textContent = 'No file chosen';
+                    uploadIcon.style.display = 'inline';
+                    removeIcon.style.display = 'none';
+                    if (helpTrigger) helpTrigger.style.display = 'inline';
+                    if (formatInfo) formatInfo.style.display = 'inline';
+                    return;
+                }
+
+                // Validate file size (5MB max)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert("Error: File size exceeds 5MB limit.");
+                    fileInput.value = ''; // Clear the file input
+                    fileNameElement.textContent = 'No file chosen';
+                    uploadIcon.style.display = 'inline';
+                    removeIcon.style.display = 'none';
+                    if (helpTrigger) helpTrigger.style.display = 'inline';
+                    if (formatInfo) formatInfo.style.display = 'inline';
+                    return;
+                }
+
+                // Validate file type
+                const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
+                const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
+                if (!allowedExtensions.includes(fileExtension)) {
+                    alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
+                    fileInput.value = ''; // Clear the file input
+                    fileNameElement.textContent = 'No file chosen';
+                    uploadIcon.style.display = 'inline';
+                    removeIcon.style.display = 'none';
+                    if (helpTrigger) helpTrigger.style.display = 'inline';
+                    if (formatInfo) formatInfo.style.display = 'inline';
+                    return;
+                }
+
+                // Update UI on successful file selection
+                const fileSizeInKB = (file.size / 1024).toFixed(2);
+                const fileSizeDisplay = fileSizeInKB > 1024
+                    ? `${(fileSizeInKB / 1024).toFixed(2)} MB`
+                    : `${fileSizeInKB} KB`;
+
+                const truncatedFileName = truncateFileName(file.name);
+                fileNameElement.textContent = truncatedFileName;
+                uploadIcon.style.display = 'none';
+                removeIcon.style.display = 'inline';
+
+                // Hide help icon and format info, replace with file size
+                if (helpTrigger) helpTrigger.style.display = 'none';
+                if (formatInfo) formatInfo.textContent = `${fileSizeDisplay} uploaded`;
+
+                // Show appropriate file icon
+                const fileIcon = document.createElement('img');
+                fileIcon.style.width = '20px';
+                fileIcon.style.height = '20px';
+                fileIcon.style.marginRight = '10px';
+
+                // Add the icon based on the file type
+                if (fileExtension === '.jpg' || fileExtension === '.jpeg' || fileExtension === '.png') {
+                    fileIcon.src = 'assets/images/image-upload.png';
+                } else if (fileExtension === '.pdf') {
+                    fileIcon.src = 'assets/images/image-pdf.png';
+                }
+
+                // Insert the file icon before the file name
+                const existingIcon = fileNameElement.querySelector('img');
+                if (existingIcon) {
+                    existingIcon.remove(); // Remove any existing icon if re-uploading a file
+                }
+                fileNameElement.insertBefore(fileIcon, fileNameElement.firstChild);
+
+                // Make the document names visible for all 3 documents
+                document.querySelectorAll('.document-name').forEach((documentElement) => {
+                    documentElement.style.display = 'block';  // Display all document names
+                });
+            }
 
 
 
+            // Function to remove the selected file
+            function removeFile(fileInputId, fileNameId, uploadIconId, removeIconId) {
+                const fileInput = document.getElementById(fileInputId);
+                const fileNameElement = document.getElementById(fileNameId);
+                const uploadIcon = document.getElementById(uploadIconId);
+                const removeIcon = document.getElementById(removeIconId);
+
+                // Help container and format info elements
+                const helpTrigger = fileNameElement.parentElement.nextElementSibling.querySelector('.help-trigger');
+                const formatInfo = fileNameElement.parentElement.nextElementSibling.querySelector('span:last-child');
+
+                // Clear the file input
+                fileInput.value = '';
+                fileNameElement.textContent = 'No file chosen';
+
+                // Reset icons
+                uploadIcon.style.display = 'inline';
+                removeIcon.style.display = 'none';
+
+                // Show help icon and format info
+                if (helpTrigger) helpTrigger.style.display = 'inline';
+                if (formatInfo) formatInfo.textContent = '*jpg, png, pdf formats';
+
+                // Remove file icon
+                const fileIcon = fileNameElement.querySelector('img');
+                if (fileIcon) {
+                    fileIcon.remove();
+                }
+            }
+
+            function updateUserIds() {
+                const personalInfoId = document.getElementById("personal-info-userid").value;
+
+                console.log(personalInfoId)
 
 
 
-                    document.getElementById('personal-info-submit').addEventListener('click', (event) => {
-                        updateUserPersonalInfo(event);
-
+                fetch('/updatedetailsinfo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    },
+                    body: JSON.stringify({ personalInfoId })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.message);
                     })
-
-                    document.getElementById('course-info-submit').addEventListener('click', (event) => {
-                        updateUserCourseInfo(event);
-                    })
-                    document.getElementById('academics-info-submit').addEventListener('click', (event) => {
-                        updateAcademicsCourseInfo(event);
-                    })
-                    document.getElementById('coborrower-info-submit').addEventListener('click', (event) => {
-                        updateCoborrowerInfo(event);
-                    })
-                    document.getElementById('saveandsubmit').addEventListener('click', (event) => {
-                        window.location.href = "/student-dashboard"
-                    })
-
-
-
-                    function updateUserPersonalInfo(event) {
-                        event.preventDefault();
-
-                        // Getting values from form fields
-                        const personalInfoId = document.getElementById("personal-info-userid").value;
-                        const personalInfoName = document.getElementById("personal-info-name").value;
-                        const personalInfoPhone = document.getElementById("personal-info-phone").value;
-                        const personalInfoEmail = document.getElementById("personal-info-email").value;
-                        const personalInfoCity = document.getElementById("personal-info-city").value;
-                        const personalInfoReferral = document.getElementById("personal-info-referral").value;  // Fixed typo
-                        const personalInfoFindOut = document.querySelector('select[name="how_did_you_find_us"]').value;
-
-                        // Create an object with the personal update data
-                        const personalUpdateData = {
-                            personalInfoId,
-                            personalInfoName,
-                            personalInfoPhone,
-                            personalInfoEmail,
-                            personalInfoCity,
-                            personalInfoReferral,
-                            personalInfoFindOut
-                        };
-
-                        console.log(personalUpdateData);
-
-                        // Sending the data with fetch
-                        fetch('/update-personalinfo', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                            },
-                            body: JSON.stringify(personalUpdateData)
-                        })
-                            .then(response => response.json())
-                            .then(data => {
-                                console.log(data);
-
-                                if (data.success) {
-                                    alert(data.message);
-                                } else {
-                                    alert(data.message);
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                alert('An error occurred while updating your information.');
-                            });
-                    }
-                    function getSelectedExpenseType() {
-                        const selectedExpense = document.querySelector('input[name="expense-type"]:checked');
-                        console.log('Selected Expense Type:', selectedExpense ? selectedExpense.value : 'None');
-                        return selectedExpense ? selectedExpense.value : null; // Return the selected value or null if none selected
-                    }
-
-                    function getLoanAmount() {
-                        const loanAmount = document.getElementById('loan-amount').value;
-                        console.log('Loan Amount:', loanAmount.trim());
-                        return loanAmount.trim();
-                    }
-
-                    function getSelectedCourseDuration() {
-                        const selectedOption = document.querySelector('#selected-course-duration select').value;
-                        console.log('Selected Course Duration:', selectedOption); // Log the selected course duration
-                        return selectedOption;
-                    }
-
-                    // Function to get the selected study locations (from the checkboxes)
-                    function getSelectedStudyLocations() {
-                        const checkboxes = document.querySelectorAll('#selected-study-location input[type="checkbox"]:checked');
-                        const selectedLocations = [];
-                        checkboxes.forEach(checkbox => {
-                            selectedLocations.push(checkbox.value);
-                        });
-                        console.log('Selected Study Locations:', selectedLocations);
-                        return selectedLocations;
-                    }
-
-
-
-
-                    function updateUserCourseInfo(event) {
-                        event.preventDefault();
-                        const personalInfoId = document.getElementById("personal-info-userid").value;
-
-                        const selectedDegreeType = document.querySelector('#course-info-degreetype input[name="degree_type"]:checked').value;
-                        const expenseType = getSelectedExpenseType();
-                        const loanAmount = getLoanAmount();
-                        const courseDuration = getSelectedCourseDuration();
-                        const studyLocations = getSelectedStudyLocations();
-
-
-
-
-
-
-
-                        const courseInfoData = {
-                            personalInfoId,
-                            selectedDegreeType,
-                            expenseType,
-                            loanAmount,
-                            courseDuration,
-                            studyLocations
-                        }
-                        console.log(courseInfoData)
-
-                        fetch('/update-courseinfo', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                            },
-                            body: JSON.stringify(courseInfoData)
-                        })
-                            .then(response => response.json())
-                            .then(data => {
-                                console.log(data);
-
-                                if (data.success) {
-                                    alert(data.message);
-                                } else {
-                                    alert(data.message);
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                alert('An error occurred while updating your information.');
-                            });
-
-
-
-
-                    }
-
-
-                    function updateAcademicsCourseInfo(event) {
-                        const personalInfoId = document.getElementById("personal-info-userid").value;
-
-                        const selectedAcademicGap = document.querySelector('input[name="academics-gap"]:checked').value;
-                        const reasonForGap = document.querySelector('.academic-reason textarea').value;
-                        const selectedAdmitOption = document.querySelector('input[name="admit-option"]:checked').value;
-                        const selectedWorkOption = document.querySelector('input[name="work-option"]:checked').value;
-                        const ieltsScore = document.getElementById('admit-ielts').value;
-
-                        const greScore = document.getElementById('admit-gre').value;
-                        const toeflScore = document.getElementById('admit-toefl').value;
-                        const otherExamName = document.getElementById('admit-others-name').value;
-                        const otherExamScore = document.getElementById('admit-others-score').value;
-
-
-                        const academicDetails = {
-                            personalInfoId, selectedAcademicGap, reasonForGap, selectedAdmitOption, selectedWorkOption, ieltsScore, greScore, toeflScore,
-                            "others": { otherExamName, otherExamScore }
-                        }
-
-                        console.log(academicDetails)
-
-
-
-
-                        fetch('/update-academicsinfo', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                            },
-                            body: JSON.stringify(academicDetails) // Sending the data as JSON in the request body
-                        })
-                            .then(response => response.json())
-                            .then(data => {
-                                console.log(data);
-
-                                if (data.success) {
-                                    alert(data.message);  // Show success message
-                                } else {
-                                    alert(data.message);  // Show error message
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                alert('An error occurred while updating your information.');
-                            });
-
-
-
-                    }
-
-
-
-
-
-
-
-
-
-                    nextButton.addEventListener('click', () => navigate('next'));
-                    prevButton.addEventListener('click', () => navigate('prev'));
-
-                    nextBreadcrumbButton.addEventListener('click', () => {
-                        if (currentBreadcrumbIndex < breadcrumbSections.length - 1) {
-                            breadcrumbSections[currentBreadcrumbIndex].forEach(container => container.style.display = 'none');
-                            currentBreadcrumbIndex++;
-                            currentContainerIndex = 0;
-
-                            breadcrumbSections[currentBreadcrumbIndex].forEach((container, index) => {
-                                container.style.display = (index === 0) ? 'block' : 'none';
-                            });
-
-                            updateBreadcrumbNavigation();
-                            updateNavigationButtons();
-                        }
+                    .catch(error => {
+                        console.error('Error:', error);
                     });
 
-                    if (nextCourseButton) {
-                        nextCourseButton.addEventListener('click', () => {
-                            if (currentBreadcrumbIndex === 1) {
-                                breadcrumbSections[currentBreadcrumbIndex].forEach(container => container.style.display = 'none');
-                                currentBreadcrumbIndex = 2;
-                                currentContainerIndex = 0;
 
-                                breadcrumbSections[currentBreadcrumbIndex].forEach((container, index) => {
-                                    container.style.display = (index === 0) ? 'block' : 'none';
-                                });
 
-                                updateBreadcrumbNavigation();
-                                updateNavigationButtons();
-                            }
+
+            }
+            updateUserIds();
+
+
+            function updateCoborrowerInfo(event) {
+                event.preventDefault();
+
+                // Modified getSelectedAnswer function to include callback for async handling
+                function getSelectedAnswer(callback) {
+                    const selectedOption = document.querySelector('input[name="borrow-relation"]:checked');
+
+                    if (selectedOption && selectedOption.value !== "blood-relative") {
+                        return callback(selectedOption.value);
+                    } else if (selectedOption && selectedOption.value === "blood-relative") {
+                        const dropdownRelative = document.querySelectorAll(".borrow-dropdown .borrow-dropdown-item");
+
+                        dropdownRelative.forEach(item => {
+                            item.addEventListener('click', function () {
+                                const relativeValue = item.dataset.value;
+                                console.log('Selected blood relative:', relativeValue);
+
+                                // Proceed with the final selection
+                                callback(relativeValue);
+                            });
                         });
+
+                        // Return early since selection is pending
+                        return;
+                    } else {
+                        return callback("none selected here");
                     }
+                }
 
-                    if (nextAcademicButton) {
-                        nextAcademicButton.addEventListener('click', () => {
-                            if (currentBreadcrumbIndex === 2) {
-                                breadcrumbSections[currentBreadcrumbIndex].forEach(container => container.style.display = 'none');
-                                currentBreadcrumbIndex = 3;
-                                currentContainerIndex = 0;
+                // Call getSelectedAnswer with the callback to handle data submission
+                getSelectedAnswer(function (answer) {
+                    console.log("Final selected answer:", answer);
 
-                                breadcrumbSections[currentBreadcrumbIndex].forEach((container, index) => {
-                                    container.style.display = (index === 0) ? 'block' : 'none';
-                                });
+                    const personalInfoId = document.getElementById("personal-info-userid").value;
+                    var incomeValue = document.getElementById("income-co-borrower").value;
+                    var selectedLiability = document.querySelector('input[name="co-borrower-liability"]:checked').value;
+                    var emiAmount = document.querySelector(".emi-content .emi-content-container").value;
 
-                                updateBreadcrumbNavigation();
-                                updateNavigationButtons();
+                    const coborrowerData = {
+                        personalInfoId, answer, incomeValue, selectedLiability, emiAmount
+                    };
+                    console.log(coborrowerData.personalInfoId);
+
+                    // Proceed with the fetch after answer selection
+                    fetch('/coborrowerData', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify(coborrowerData)
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+
+                            if (data.success) {
+                                alert(data.message);
+                            } else {
+                                alert(data.message);
                             }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('An error occurred while updating your information.');
                         });
-                    }
+                });
+            }
 
-                    if (nextBorrowButton) {
-                        nextBorrowButton.addEventListener('click', () => {
-                            if (currentBreadcrumbIndex === 3) {
-                                breadcrumbSections[currentBreadcrumbIndex].forEach(container => container.style.display = 'none');
-                                currentBreadcrumbIndex = 4;
-                                currentContainerIndex = 0;
 
-                                breadcrumbSections[currentBreadcrumbIndex].forEach((container, index) => {
-                                    container.style.display = (index === 0) ? 'block' : 'none';
-                                });
 
-                                updateBreadcrumbNavigation();
-                                updateNavigationButtons();
-                            }
-                        });
-                    }
 
-                    if (nextKycButton) {
-                        nextKycButton.addEventListener('click', () => {
-                            if (currentBreadcrumbIndex === 4) {
-                                breadcrumbSections[currentBreadcrumbIndex].forEach(container => container.style.display = 'none');
-                                currentBreadcrumbIndex = 5;
-                                currentContainerIndex = 0;
 
-                                breadcrumbSections[currentBreadcrumbIndex].forEach((container, index) => {
-                                    container.style.display = (index === 0) ? 'block' : 'none';
-                                });
 
-                                updateBreadcrumbNavigation();
-                                updateNavigationButtons();
-                            }
-                        });
-                    }
+            document.getElementById('personal-info-submit').addEventListener('click', (event) => {
+                updateUserPersonalInfo(event);
 
-                    breadcrumbSections.forEach((containers, breadcrumbIndex) => {
-                        containers.forEach((container, containerIndex) => {
-                            container.style.display =
-                                breadcrumbIndex === 0 && containerIndex === 0 ? 'block' : 'none';
-                        });
+            })
+
+            document.getElementById('course-info-submit').addEventListener('click', (event) => {
+                updateUserCourseInfo(event);
+            })
+            document.getElementById('academics-info-submit').addEventListener('click', (event) => {
+                updateAcademicsCourseInfo(event);
+            })
+            document.getElementById('coborrower-info-submit').addEventListener('click', (event) => {
+                updateCoborrowerInfo(event);
+            })
+            document.getElementById('saveandsubmit').addEventListener('click', (event) => {
+                window.location.href = "/student-dashboard"
+            })
+
+
+
+            function updateUserPersonalInfo(event) {
+                event.preventDefault();
+
+                // Getting values from form fields
+                const personalInfoId = document.getElementById("personal-info-userid").value;
+                const personalInfoName = document.getElementById("personal-info-name").value;
+                const personalInfoPhone = document.getElementById("personal-info-phone").value;
+                const personalInfoEmail = document.getElementById("personal-info-email").value;
+                const personalInfoCity = document.getElementById("personal-info-city").value;
+                const personalInfoReferral = document.getElementById("personal-info-referral").value;  // Fixed typo
+                const personalInfoFindOut = document.querySelector('select[name="how_did_you_find_us"]').value;
+
+                // Create an object with the personal update data
+                const personalUpdateData = {
+                    personalInfoId,
+                    personalInfoName,
+                    personalInfoPhone,
+                    personalInfoEmail,
+                    personalInfoCity,
+                    personalInfoReferral,
+                    personalInfoFindOut
+                };
+
+                console.log(personalUpdateData);
+
+                // Sending the data with fetch
+                fetch('/update-personalinfo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify(personalUpdateData)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+
+                        if (data.success) {
+                            alert(data.message);
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred while updating your information.');
+                    });
+            }
+            function getSelectedExpenseType() {
+                const selectedExpense = document.querySelector('input[name="expense-type"]:checked');
+                console.log('Selected Expense Type:', selectedExpense ? selectedExpense.value : 'None');
+                return selectedExpense ? selectedExpense.value : null; // Return the selected value or null if none selected
+            }
+
+            function getLoanAmount() {
+                const loanAmount = document.getElementById('loan-amount').value;
+                console.log('Loan Amount:', loanAmount.trim());
+                return loanAmount.trim();
+            }
+
+            function getSelectedCourseDuration() {
+                const selectedOption = document.querySelector('#selected-course-duration select').value;
+                console.log('Selected Course Duration:', selectedOption); // Log the selected course duration
+                return selectedOption;
+            }
+
+            // Function to get the selected study locations (from the checkboxes)
+            function getSelectedStudyLocations() {
+                const checkboxes = document.querySelectorAll('#selected-study-location input[type="checkbox"]:checked');
+                const selectedLocations = [];
+                checkboxes.forEach(checkbox => {
+                    selectedLocations.push(checkbox.value);
+                });
+                console.log('Selected Study Locations:', selectedLocations);
+                return selectedLocations;
+            }
+
+
+
+
+            function updateUserCourseInfo(event) {
+                event.preventDefault();
+                const personalInfoId = document.getElementById("personal-info-userid").value;
+
+                const selectedDegreeType = document.querySelector('#course-info-degreetype input[name="degree_type"]:checked').value;
+                const expenseType = getSelectedExpenseType();
+                const loanAmount = getLoanAmount();
+                const courseDuration = getSelectedCourseDuration();
+                const studyLocations = getSelectedStudyLocations();
+
+
+
+
+
+
+
+                const courseInfoData = {
+                    personalInfoId,
+                    selectedDegreeType,
+                    expenseType,
+                    loanAmount,
+                    courseDuration,
+                    studyLocations
+                }
+                console.log(courseInfoData)
+
+                fetch('/update-courseinfo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    },
+                    body: JSON.stringify(courseInfoData)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+
+                        if (data.success) {
+                            alert(data.message);
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred while updating your information.');
+                    });
+
+
+
+
+            }
+
+
+            function updateAcademicsCourseInfo(event) {
+                const personalInfoId = document.getElementById("personal-info-userid").value;
+
+                const selectedAcademicGap = document.querySelector('input[name="academics-gap"]:checked').value;
+                const reasonForGap = document.querySelector('.academic-reason textarea').value;
+                const selectedAdmitOption = document.querySelector('input[name="admit-option"]:checked').value;
+                const selectedWorkOption = document.querySelector('input[name="work-option"]:checked').value;
+                const ieltsScore = document.getElementById('admit-ielts').value;
+
+                const greScore = document.getElementById('admit-gre').value;
+                const toeflScore = document.getElementById('admit-toefl').value;
+                const otherExamName = document.getElementById('admit-others-name').value;
+                const otherExamScore = document.getElementById('admit-others-score').value;
+
+
+                const academicDetails = {
+                    personalInfoId, selectedAcademicGap, reasonForGap, selectedAdmitOption, selectedWorkOption, ieltsScore, greScore, toeflScore,
+                    "others": { otherExamName, otherExamScore }
+                }
+
+                console.log(academicDetails)
+
+
+
+
+                fetch('/update-academicsinfo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify(academicDetails) // Sending the data as JSON in the request body
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+
+                        if (data.success) {
+                            alert(data.message);  // Show success message
+                        } else {
+                            alert(data.message);  // Show error message
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred while updating your information.');
+                    });
+
+
+
+            }
+
+
+
+
+
+
+
+
+
+            nextButton.addEventListener('click', () => navigate('next'));
+            prevButton.addEventListener('click', () => navigate('prev'));
+
+            nextBreadcrumbButton.addEventListener('click', () => {
+                if (currentBreadcrumbIndex < breadcrumbSections.length - 1) {
+                    breadcrumbSections[currentBreadcrumbIndex].forEach(container => container.style.display = 'none');
+                    currentBreadcrumbIndex++;
+                    currentContainerIndex = 0;
+
+                    breadcrumbSections[currentBreadcrumbIndex].forEach((container, index) => {
+                        container.style.display = (index === 0) ? 'block' : 'none';
                     });
 
                     updateBreadcrumbNavigation();
                     updateNavigationButtons();
+                }
+            });
 
+            if (nextCourseButton) {
+                nextCourseButton.addEventListener('click', () => {
+                    if (currentBreadcrumbIndex === 1) {
+                        breadcrumbSections[currentBreadcrumbIndex].forEach(container => container.style.display = 'none');
+                        currentBreadcrumbIndex = 2;
+                        currentContainerIndex = 0;
 
-                    // Dropdown for "Borrow Blood Relative"
-                    const borrowBloodRelativeOption = document.querySelector('.borrow-blood-relative');
-                    const borrowDropdown = document.querySelector('.borrow-dropdown');
-                    const borrowBloodLabel = document.getElementById('borrow-blood-label');
-
-                    // Ensure dropdown and related elements exist
-                    if (!borrowBloodRelativeOption || !borrowDropdown || !borrowBloodLabel) {
-                        console.error('Dropdown elements not found.');
-                        return;
-                    }
-
-                    // Toggle dropdown on click
-                    borrowBloodRelativeOption.addEventListener('click', function (e) {
-                        e.stopPropagation(); // Prevent event bubbling
-                        const isOpen = borrowBloodRelativeOption.classList.contains('open');
-                        borrowBloodRelativeOption.classList.toggle('open', !isOpen);
-                        borrowDropdown.style.display = isOpen ? 'none' : 'flex';
-                    });
-
-                    // Update label on dropdown item selection
-                    const borrowDropdownItems = document.querySelectorAll('.borrow-dropdown-item');
-                    borrowDropdownItems.forEach((item) => {
-                        item.addEventListener('click', function (e) {
-                            e.stopPropagation(); // Prevent closing dropdown when selecting an item
-                            borrowBloodLabel.textContent = `Blood relative (${this.textContent})`; // Update label
-                            borrowDropdown.style.display = 'none';
-                            borrowBloodRelativeOption.classList.remove('open');
+                        breadcrumbSections[currentBreadcrumbIndex].forEach((container, index) => {
+                            container.style.display = (index === 0) ? 'block' : 'none';
                         });
-                    });
 
-                    // Close dropdown when clicking outside
-                    document.addEventListener('click', function () {
-                        borrowDropdown.style.display = 'none';
-                        borrowBloodRelativeOption.classList.remove('open');
-                    });
+                        updateBreadcrumbNavigation();
+                        updateNavigationButtons();
+                    }
                 });
+            }
 
-                // Help triggers
-                const helpTriggers = document.querySelectorAll('.help-trigger');
+            if (nextAcademicButton) {
+                nextAcademicButton.addEventListener('click', () => {
+                    if (currentBreadcrumbIndex === 2) {
+                        breadcrumbSections[currentBreadcrumbIndex].forEach(container => container.style.display = 'none');
+                        currentBreadcrumbIndex = 3;
+                        currentContainerIndex = 0;
 
-                helpTriggers.forEach(trigger => {
-                    trigger.addEventListener('click', () => {
-                        const targetClass = trigger.getAttribute('data-target');
-                        const helpContainer = document.querySelector(`.${targetClass}`);
+                        breadcrumbSections[currentBreadcrumbIndex].forEach((container, index) => {
+                            container.style.display = (index === 0) ? 'block' : 'none';
+                        });
 
-                        if (helpContainer) {
-                            if (helpContainer.style.display === 'none' || !helpContainer.style.display) {
-                                helpContainer.style.display = 'block';
-                            } else {
-                                helpContainer.style.display = 'none';
-                            }
-                        }
-
-                    });
-
+                        updateBreadcrumbNavigation();
+                        updateNavigationButtons();
+                    }
                 });
+            }
+
+            if (nextBorrowButton) {
+                nextBorrowButton.addEventListener('click', () => {
+                    if (currentBreadcrumbIndex === 3) {
+                        breadcrumbSections[currentBreadcrumbIndex].forEach(container => container.style.display = 'none');
+                        currentBreadcrumbIndex = 4;
+                        currentContainerIndex = 0;
+
+                        breadcrumbSections[currentBreadcrumbIndex].forEach((container, index) => {
+                            container.style.display = (index === 0) ? 'block' : 'none';
+                        });
+
+                        updateBreadcrumbNavigation();
+                        updateNavigationButtons();
+                    }
+                });
+            }
+
+            if (nextKycButton) {
+                nextKycButton.addEventListener('click', () => {
+                    if (currentBreadcrumbIndex === 4) {
+                        breadcrumbSections[currentBreadcrumbIndex].forEach(container => container.style.display = 'none');
+                        currentBreadcrumbIndex = 5;
+                        currentContainerIndex = 0;
+
+                        breadcrumbSections[currentBreadcrumbIndex].forEach((container, index) => {
+                            container.style.display = (index === 0) ? 'block' : 'none';
+                        });
+
+                        updateBreadcrumbNavigation();
+                        updateNavigationButtons();
+                    }
+                });
+            }
+
+            breadcrumbSections.forEach((containers, breadcrumbIndex) => {
+                containers.forEach((container, containerIndex) => {
+                    container.style.display =
+                        breadcrumbIndex === 0 && containerIndex === 0 ? 'block' : 'none';
+                });
+            });
+
+            updateBreadcrumbNavigation();
+            updateNavigationButtons();
+
+
+            // Dropdown for "Borrow Blood Relative"
+            const borrowBloodRelativeOption = document.querySelector('.borrow-blood-relative');
+            const borrowDropdown = document.querySelector('.borrow-dropdown');
+            const borrowBloodLabel = document.getElementById('borrow-blood-label');
+
+            // Ensure dropdown and related elements exist
+            if (!borrowBloodRelativeOption || !borrowDropdown || !borrowBloodLabel) {
+                console.error('Dropdown elements not found.');
+                return;
+            }
+
+            // Toggle dropdown on click
+            borrowBloodRelativeOption.addEventListener('click', function (e) {
+                e.stopPropagation(); // Prevent event bubbling
+                const isOpen = borrowBloodRelativeOption.classList.contains('open');
+                borrowBloodRelativeOption.classList.toggle('open', !isOpen);
+                borrowDropdown.style.display = isOpen ? 'none' : 'flex';
+            });
+
+            // Update label on dropdown item selection
+            const borrowDropdownItems = document.querySelectorAll('.borrow-dropdown-item');
+            borrowDropdownItems.forEach((item) => {
+                item.addEventListener('click', function (e) {
+                    e.stopPropagation(); // Prevent closing dropdown when selecting an item
+                    borrowBloodLabel.textContent = `Blood relative (${this.textContent})`; // Update label
+                    borrowDropdown.style.display = 'none';
+                    borrowBloodRelativeOption.classList.remove('open');
+                });
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function () {
+                borrowDropdown.style.display = 'none';
+                borrowBloodRelativeOption.classList.remove('open');
+            });
+        });
+
+        // Help triggers
+        const helpTriggers = document.querySelectorAll('.help-trigger');
+
+        helpTriggers.forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const targetClass = trigger.getAttribute('data-target');
+                const helpContainer = document.querySelector(`.${targetClass}`);
+
+                if (helpContainer) {
+                    if (helpContainer.style.display === 'none' || !helpContainer.style.display) {
+                        helpContainer.style.display = 'block';
+                    } else {
+                        helpContainer.style.display = 'none';
+                    }
+                }
+
+            });
+
+        });
 
 
 
-            </script>
+    </script>
 </body>
 
 </html>
