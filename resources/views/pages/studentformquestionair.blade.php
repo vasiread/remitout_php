@@ -1164,6 +1164,9 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      window.handleFileUpload = handleFileUpload;
+      window.removeFile = removeFile;
+
 
       event.preventDefault(); // Prevent form submission for testing
       // Breadcrumb navigation and buttons
