@@ -16,33 +16,33 @@
     @section('studentdashboard')
 
     @php
-$profileImgPath = '';
-$profileIconPath = "assets/images/account_circle.png";
-$phoneIconPath = "assets/images/call.png";
-$mailIconPath = "assets/images/mail.png";
-$pindropIconPath = "assets/images/pin_drop.png";
-$discordIconPath = "assets/images/icons/discordicon.png";
+        $profileImgPath = '';
+        $profileIconPath = "assets/images/account_circle.png";
+        $phoneIconPath = "assets/images/call.png";
+        $mailIconPath = "assets/images/mail.png";
+        $pindropIconPath = "assets/images/pin_drop.png";
+        $discordIconPath = "assets/images/icons/discordicon.png";
 
 
 
 
-$bankName = 'bankName';
-$bankMessage = 'bankMessage';
-$loanStatusInfo = [
-    [
-        $bankName => "Bank Name",
-        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-    ],
-    [
-        $bankName => "Bank Name",
-        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-    ],
-    [
-        $bankName => "Bank Name",
-        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-    ],
+        $bankName = 'bankName';
+        $bankMessage = 'bankMessage';
+        $loanStatusInfo = [
+            [
+                $bankName => "Bank Name",
+                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+            ],
+            [
+                $bankName => "Bank Name",
+                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+            ],
+            [
+                $bankName => "Bank Name",
+                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+            ],
 
-];
+        ];
 
 
 
@@ -58,8 +58,8 @@ $loanStatusInfo = [
 
             </ul>
             <ul class="studentdashboardprofile-sidebarlists-bottom">
-                <li onclick="window.location.href='{{route('login')}}'"> <i
-                        class="fa-solid fa-arrow-right-from-bracket"></i>Log out</li>
+                <li class="logoutBtn" onClick="sessionLogout()"> <i class="fa-solid fa-arrow-right-from-bracket"></i>Log
+                    out</li>
                 <li> <img src="assets/images/Icons/support_agent.png" alt=""> Support</li>
 
             </ul>
@@ -173,8 +173,8 @@ $loanStatusInfo = [
 
             <img src="{{asset($profileImgPath)}}" class="profileImg" id="profile-photo-id" alt="">
             <i class="fa-regular fa-pen-to-square"></i>
-<input type="file" class="profile-upload" accept="image/*" enctype="multipart/form-data">
-    
+            <input type="file" class="profile-upload" accept="image/*" enctype="multipart/form-data">
+
             <div class="studentdashboardprofile-personalinfo">
                 <div class="personalinfo-firstrow">
                     <h1>My Profile</h1>
@@ -561,6 +561,8 @@ $loanStatusInfo = [
         });
 
 
+
+
         const initializeSideBarTabs = () => {
             const sideBarTopItems = document.querySelectorAll('.studentdashboardprofile-sidebarlists-top li');
             const lastTabHiddenDiv = document.querySelector(".studentdashboardprofile-trackprogress");
@@ -734,6 +736,7 @@ $loanStatusInfo = [
         };
 
 
+
         const initialiseProfileView = () => {
             var profileImgPath = '<?php echo $profileImgPath; ?>';
 
@@ -892,6 +895,9 @@ $loanStatusInfo = [
             });
         };
 
+
+        // 
+
         const initializeProgressRing = () => {
             const radius = 52;
             const circumference = 2 * Math.PI * radius;
@@ -920,6 +926,10 @@ $loanStatusInfo = [
                 }
             });
         });
+
+
+
+
 
 
         const saveChangesFunctionality = () => {
@@ -1032,6 +1042,23 @@ $loanStatusInfo = [
 
 
         };
+
+        const sessionLogout = () => {
+            fetch('{{ route('session.logout') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({})
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("User logged out:", data.message);
+                    window.location.href = "{{ route('login') }}";
+                })
+                .catch(error => console.error('Error:', error));
+        }
 
 
 

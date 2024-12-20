@@ -47,8 +47,7 @@
                         <i class="fa-solid fa-chevron-down"></i>
 
                     @else
-                        <h3>Harish M</h3>
-                        <i class="fa-solid fa-chevron-down"></i>
+                        
 
                     @endif
                 </div>

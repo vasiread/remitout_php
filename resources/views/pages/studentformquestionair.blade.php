@@ -50,15 +50,29 @@
                 <!-- Input Row 1 -->
                 <div class="input-row">
                     <div class="input-group">
-                        <img src="./assets/images/person-icon.png" alt="Person Icon" class="icon" />
-                        <input type="text" placeholder="Full Name" name="full_name" id="personal-info-name"
-                            value="{{ session('user')->name }}" required />
+                        <div class="input-content">
+                            <img src="./assets/images/person-icon.png" alt="Person Icon" class="icon" />
+                            <input type="text" placeholder="Full Name" name="full_name" id="personal-info-name"
+                                value="{{ session('user')->name }}" required />
+                        </div>
+                        <div class="validation-message" id="personal-info-name-error"></div>
+
+
+
                     </div>
 
+
+
+
                     <div class="input-group">
-                        <img src="./assets/images/call-icon.png" alt="Phone Icon" class="icon" />
-                        <input type="tel" placeholder="Phone Number" name="phone_number" id="personal-info-phone"
-                            value="{{ optional(session('existing_personal_info'))->phone }}" required />
+                        <div class="input-content">
+                            <img src="./assets/images/call-icon.png" alt="Phone Icon" class="icon" />
+                            <input type="tel" placeholder="Phone Number" name="phone_number" id="personal-info-phone"
+                                value="{{ optional(session('existing_personal_info'))->phone }}" required />
+                        </div>
+                        <div class="validation-message" id="personal-info-phone-error"></div>
+
+
                     </div>
 
                     <div class="input-group">
@@ -72,13 +86,25 @@
                 <!-- Input Row 2 -->
                 <div class="input-row">
                     <div class="input-group">
-                        <img src="./assets/images/mail.png" alt="Mail Icon" class="icon" />
-                        <input type="email" placeholder="Email ID" name="email" id="personal-info-email"
-                            value="{{ session('user')->email }}" required />
+                        <div class="input-content">
+                            <img src="./assets/images/mail.png" alt="Mail Icon" class="icon" />
+                            <input type="email" placeholder="Email ID" name="email" id="personal-info-email"
+                                value="{{ session('user')->email }}" required />
+                        </div>
+                        <div class="validation-message" id="personal-info-email-error"></div>
+
+
                     </div>
                     <div class="input-group">
-                        <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
-                        <input type="text" placeholder="City" name="city" id="personal-info-city" required />
+                        <div class="input-content">
+                            <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
+                            <input type="text" placeholder="City" name="city" id="personal-info-city" required />
+                            <div id="suggestions" class="suggestions-container"></div>
+
+                        </div>
+                        <div class="validation-message" id="city-error"></div>
+
+
                     </div>
                 </div>
             </div>
@@ -123,63 +149,49 @@
                 <h2>Where are you planning to study? Select all that applies</h2>
             </div>
 
-            <div class="checkbox-group" id="selected-study-location">
+            <div class="checkbox-group">
                 <label>
-                    <input type="checkbox" name="study-location" value="USA">
-                    USA
+                    <input type="checkbox" name="study-location" value="USA"> USA
                 </label>
                 <label>
-                    <input type="checkbox" name="study-location" value="UK">
-                    UK
+                    <input type="checkbox" name="study-location" value="UK"> UK
                 </label>
                 <label>
-                    <input type="checkbox" name="study-location" value="Ireland">
-                    Ireland
+                    <input type="checkbox" name="study-location" value="Ireland"> Ireland
                 </label>
                 <label>
-                    <input type="checkbox" name="study-location" value="New Zealand">
-                    New Zealand
+                    <input type="checkbox" name="study-location" value="New Zealand"> New Zealand
                 </label>
                 <label>
-                    <input type="checkbox" name="study-location" value="Germany">
-                    Germany
+                    <input type="checkbox" name="study-location" value="Germany"> Germany
                 </label>
                 <label>
-                    <input type="checkbox" name="study-location" value="France">
-                    France
+                    <input type="checkbox" name="study-location" value="France"> France
                 </label>
                 <label>
-                    <input type="checkbox" name="study-location" value="Sweden">
-                    Sweden
+                    <input type="checkbox" name="study-location" value="Sweden"> Sweden
                 </label>
                 <label>
-                    <input type="checkbox" name="study-location" value="Other">
-                    Other
-                    <div class="add-country" style="display: none;">
-                        <input type="text" placeholder="Add Country" class="add-country-input" />
-                        <div class="add-country-button">+</div>
+                    <input type="checkbox" name="study-location" value="Other" id="other-checkbox"> Other
+                </label>
+                <label>
+                    <input type="checkbox" name="study-location" value="Italy"> Italy
+                </label>
+                <label>
+                    <input type="checkbox" name="study-location" value="Canada"> Canada
+                </label>
+                <label>
+                    <input type="checkbox" name="study-location" value="Australia"> Australia
+                </label>
+                <label>
+                    <div class="add-country-box">
+                        <input type="text" id="country" class="custom-country-input" placeholder="Add Country">
                     </div>
-                </label>
-                <label>
-                    <input type="checkbox" name="study-location" value="Italy">
-                    Italy
-                </label>
-                <label>
-                    <input type="checkbox" name="study-location" value="Canada">
-                    Canada
-                </label>
-                <label>
-                    <input type="checkbox" name="study-location" value="Australia">
-                    Australia
                 </label>
             </div>
 
             <!-- Automatically navigate to next step -->
-            <script>
-                setTimeout(function () {
-                    navigateToStep('step-2');
-                }, 2000); // Auto navigate after 2 seconds
-            </script>
+
         </div>
 
         <!-- Step 2: Degree Type -->
@@ -188,21 +200,26 @@
                 <div class="step-number">02</div>
                 <h2>Select the type of degree you want to pursue:</h2>
             </div>
-
             <form id="course-info-degreetype">
-                <div>
-                    <input type="radio" id="bachelors" name="degree_type" value="bachelors">
-                    <label for="bachelors">Bachelors (only secured loan)</label>
-                </div>
-                <div>
-                    <input type="radio" id="others" name="degree_type" value="others">
-                    <label for="others">Others</label>
-                </div>
-                <div>
-                    <input type="radio" id="masters" name="degree_type" value="masters">
-                    <label for="masters">Masters</label>
+                <div class="degrees">
+                    <div class="degree">
+                        <input type="radio" id="bachelors" name="degree_type" value="bachelors">
+                        <label for="bachelors">Bachelors (only secured loan)</label>
+                    </div>
+                    <div class="degree">
+                        <input type="radio" id="others" name="degree_type" value="others">
+                        <label for="others">Others</label>
+                    </div>
+                    <div class="degree">
+                        <input type="radio" id="masters" name="degree_type" value="masters">
+                        <label for="masters">Masters</label>
+                    </div>
+                    <div class="degree other-degree-input-container" style="display: none;">
+                        <input type="text" id="other-degree" class="other-degree-input" placeholder="Add Degree">
+                    </div>
                 </div>
             </form>
+
 
             <!-- Automatically navigate to next step -->
             <script>
@@ -219,27 +236,22 @@
                 <h2>What is the duration of the course?</h2>
             </div>
 
-            <div class="dropdown" id="selected-course-duration">
-                <select>
-                    <option>No. of Months</option>
-                    <option>12 Months</option>
-                    <option>24 Months</option>
-                    <option>36 Months</option>
-                    <option>42 Months</option>
-                </select>
-                <div class="dropdown-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7 10L12 15L17 10H7Z" fill="#718096" />
-                    </svg>
+            <div class="dropdown-container">
+                <div class="dropdown" id="selected-course-duration">
+                    <div class="dropdown-label">No. of Months</div>
+                    <div class="dropdown-icon">
+                        <!-- Dropdown arrow SVG or icon -->
+                    </div>
+                    <div class="dropdown-options">
+                        <div class="dropdown-option" data-value="12">12 Months</div>
+                        <div class="dropdown-option" data-value="24">24 Months</div>
+                        <div class="dropdown-option" data-value="36">36 Months</div>
+                        <div class="dropdown-option" data-value="42">42 Months</div>
+                    </div>
                 </div>
             </div>
-
-            <script>
-                setTimeout(function () {
-                    navigateToStep('step-4');
-                }, 2000); 
-            </script>
         </div>
+
 
         <!-- Step 4: Course Details (Only Step with Button) -->
         <div class="detail-container-section" id="step-4" style="display: none;">
@@ -306,33 +318,15 @@
                 </div>
 
                 <!-- Academic Reason -->
-                <div class="academic-reason">
+                <div class="academic-reason" id="reason-container">
                     <label for="reason-textarea">Enter reason</label>
-                    <textarea id="reason-textarea"
-                        placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore"></textarea>
+                    <textarea id="reason-textarea" placeholder="Enter the reason for the academic gap"></textarea>
                 </div>
             </div>
         </div>
 
         <!-- Academic Gap Section -->
-        <div class="academic-gap" id="step-academic-gap" style="display: none;">
-            <div class="step-header">
-                <div class="step-number">02</div>
-                <h2>Do you have any gap in your academics?</h2>
-            </div>
 
-            <!-- Academic Gap Options -->
-            <div class="gap-options">
-                <div class="gap-option">
-                    <input type="radio" id="gap-yes" name="academic-gap" value="yes">
-                    <label for="gap-yes">Yes</label>
-                </div>
-                <div class="gap-option">
-                    <input type="radio" id="gap-no" name="academic-gap" value="no">
-                    <label for="gap-no">No (only secured loan)</label>
-                </div>
-            </div>
-        </div>
 
         <!-- Admit Form Section -->
         <div class="admit-form-container" id="step-admit-form" style="display: none;">
@@ -1190,17 +1184,57 @@
             const nextBorrowButton = document.querySelector('.next-btn-borrow');
             const nextKycButton = document.querySelector('.next-btn-ky');
             const breadcrumbLinks = document.querySelectorAll('.breadcrumb a'); // Adjusted to use <a> elements inside .breadcrumb
-
+           
             const breadcrumbSections = [
                 [document.querySelector('.registration-form'), document.querySelector('.section-02-container')],
                 [document.querySelector('.course-details'), document.querySelector('.course-degree'), document.querySelector('.course-duration-container'), document.querySelector('.detail-container-section')],
-                [document.querySelector('.academic-container'), document.querySelector('.academic-gap'), document.querySelector('.admit-form-container')],
+                [document.querySelector('.academic-container'), document.querySelector('.admit-form-container')],
                 [document.querySelector('.borrow-container-section'), document.querySelector('.income-co-borrower'), document.querySelector('.monthly-liability-container')],
                 [document.querySelector('.kyc-section-document'), document.querySelector('.kyc-section-marksheet'), document.querySelector('.kyc-section-Admission'), document.querySelector('.work-experience'), document.querySelector('.kyc-section-co-borrower'), document.querySelector('.salary-upload')]
             ];
 
+           const breadcrumbDots = [
+                2,
+                4,
+                2,
+                3,
+                6
+            ];
+
             let currentBreadcrumbIndex = 0;
             let currentContainerIndex = 0;
+
+            // Dynamically add dots based on breadcrumb index
+            function updateDots() {
+                const dotContainer = document.querySelector('.nav-dots');
+                dotContainer.innerHTML = '';
+
+                const numberOfDots = breadcrumbDots[currentBreadcrumbIndex];
+
+                for (let i = 0; i < numberOfDots; i++) {
+                    const dot = document.createElement('div');
+                    dot.classList.add('dot');
+                    if (i === currentContainerIndex) {
+                        dot.classList.add('active');
+                    }
+                    dotContainer.appendChild(dot);
+                }
+            }
+
+            // Function to check if all required fields are filled
+            function areFieldsFilled() {
+                const currentContainers = breadcrumbSections[currentBreadcrumbIndex];
+                const currentContainer = currentContainers[currentContainerIndex];
+
+                const inputs = currentContainer.querySelectorAll('input[required], select[required], textarea[required]');
+
+                for (const input of inputs) {
+                    if (!input.value.trim()) {
+                        return false;
+                    }
+                }
+                return true;
+            }
 
             function updateNavigationButtons() {
                 const isAtFirstContainer = currentBreadcrumbIndex === 0 && currentContainerIndex === 0;
@@ -1259,8 +1293,10 @@
             }
 
 
+             
 
-          
+
+
             function updateUserIds() {
                 const personalInfoId = document.getElementById("personal-info-userid").value;
 
@@ -1332,7 +1368,7 @@
                     const coborrowerData = {
                         personalInfoId, answer, incomeValue, selectedLiability, emiAmount
                     };
-                    console.log(coborrowerData.personalInfoId);
+                    console.log(coborrowerData);
 
                     // Proceed with the fetch after answer selection
                     fetch('/coborrowerData', {
@@ -1437,7 +1473,7 @@
             function getSelectedExpenseType() {
                 const selectedExpense = document.querySelector('input[name="expense-type"]:checked');
                 console.log('Selected Expense Type:', selectedExpense ? selectedExpense.value : 'None');
-                return selectedExpense ? selectedExpense.value : null; // Return the selected value or null if none selected
+                return selectedExpense ? selectedExpense.value : null;
             }
 
             function getLoanAmount() {
@@ -1447,11 +1483,10 @@
             }
 
             function getSelectedCourseDuration() {
-                const selectedOption = document.querySelector('#selected-course-duration select').value;
-                console.log('Selected Course Duration:', selectedOption); // Log the selected course duration
+                const selectedOption = document.querySelector('.dropdown-label').getAttribute('data-selected');
+                console.log('Selected Course Duration:', selectedOption);
                 return selectedOption;
             }
-
             // Function to get the selected study locations (from the checkboxes)
             function getSelectedStudyLocations() {
                 const checkboxes = document.querySelectorAll('#selected-study-location input[type="checkbox"]:checked');
@@ -1572,8 +1607,288 @@
 
 
             }
+            document.getElementById('personal-info-name').addEventListener('input', function () {
+                const personalInfoName = document.getElementById('personal-info-name');
+                const errorMessage = document.getElementById('personal-info-name-error');
+                const namePattern = /^[A-Za-z\s]+$/;
+
+                if (!personalInfoName.value.match(namePattern)) {
+                    errorMessage.textContent = "Please enter full name.";
+                    errorMessage.style.display = 'block';
+                } else {
+                    errorMessage.style.display = 'none';
+                }
+            });
+
+            document.getElementById('personal-info-phone').addEventListener('input', function () {
+                const phone = document.getElementById('personal-info-phone');
+                const errorMessage = document.getElementById('personal-info-phone-error');
+                const phonePattern = /^[0-9]{10}$/;
+
+                if (!phone.value.match(phonePattern)) {
+                    errorMessage.textContent = "Please enter a valid 10-digit phone number.";
+                    errorMessage.style.display = 'block';
+                } else {
+                    errorMessage.style.display = 'none';
+                }
+            });
 
 
+            document.getElementById('personal-info-email').addEventListener('input', function () {
+                const email = document.getElementById('personal-info-email');
+                const errorMessage = document.getElementById('personal-info-email-error');
+                const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+                if (!email.value.match(emailPattern)) {
+                    errorMessage.textContent = "Please enter a valid email address.";
+                    errorMessage.style.display = 'block';
+                } else {
+                    errorMessage.style.display = 'none';
+                }
+            });
+
+            document.getElementById('personal-info-city').addEventListener('input', function () {
+                const city = document.getElementById('personal-info-city');
+                const errorMessage = document.getElementById('city-error');
+
+                if (city.value.trim() === "") {
+                    errorMessage.textContent = "Please enter the city.";
+                    errorMessage.style.display = 'block';
+                } else {
+                    errorMessage.style.display = 'none';
+                }
+            });
+
+
+            const inputField = document.getElementById('personal-info-city');
+            const suggestionsContainer = document.getElementById('suggestions');
+
+            inputField.addEventListener('input', handleInputChange);
+
+            document.addEventListener('click', (event) => {
+                if (!event.target.closest('.input-group')) {
+                    suggestionsContainer.style.display = 'none';
+                }
+            });
+
+            async function handleInputChange() {
+                const inputValue = inputField.value.toLowerCase();
+
+                const suggestion = await fetchLocationSuggestion(inputValue);
+                displaySuggestion(suggestion);
+            }
+
+            async function fetchLocationSuggestion(query) {
+                const topCities = [
+                    'mumbai',
+                    'delhi',
+                    'bangalore',
+                    'hyderabad',
+                    'chennai',
+                    'kolkata',
+                    'pune',
+                    'surat',
+                    'jaipur',
+                    'ahmedabad',
+                    'vijayawada',
+                    'indore',
+                    'visakhapatnam',
+                    'nagpur',
+                    'lucknow',
+                    'kanpur',
+                    'thane',
+                    'bhopal',
+                    'kochi',
+                    'coimbatore',
+                ];
+
+                const matchedCities = topCities.filter(city => city.includes(query));
+
+                if (matchedCities.length > 0) {
+                    switch (matchedCities[0]) {
+                        case 'mum':
+                            return 'Mumbai';
+                        case 'del':
+                            return 'Delhi';
+                        case 'ban':
+                            return 'Bangalore';
+                        case 'hyd':
+                            return 'Hyderabad';
+                        case 'che':
+                            return 'Chennai';
+                        case 'kol':
+                            return 'Kolkata';
+                        case 'pun':
+                            return 'Pune';
+                        case 'sur':
+                            return 'Surat';
+                        case 'jai':
+                            return 'Jaipur';
+                        case 'ahm':
+                            return 'Ahmedabad';
+                        case 'vij':
+                            return 'Vijayawada';
+                        case 'ind':
+                            return 'Indore';
+                        case 'vis':
+                            return 'Visakhapatnam';
+                        case 'nag':
+                            return 'Nagpur';
+                        case 'luc':
+                            return 'Lucknow';
+                        case 'kan':
+                            return 'Kanpur';
+                        case 'tha':
+                            return 'Thane';
+                        case 'bho':
+                            return 'Bhopal';
+                        case 'koc':
+                            return 'Kochi';
+                        case 'coi':
+                            return 'Coimbatore';
+                        default:
+                            return query.charAt(0).toUpperCase() + query.slice(1);
+                    }
+                } else {
+                    return '';
+                }
+            }
+
+            function displaySuggestion(suggestion) {
+                suggestionsContainer.innerHTML = '';
+
+                if (suggestion) {
+                    const suggestionElement = document.createElement('div');
+                    suggestionElement.classList.add('suggestion');
+                    suggestionElement.textContent = suggestion;
+                    suggestionElement.addEventListener('click', () => {
+                        inputField.value = suggestion;
+                        suggestionsContainer.style.display = 'none';
+                    });
+                    suggestionsContainer.appendChild(suggestionElement);
+                    suggestionsContainer.style.display = 'block';
+                } else {
+                    suggestionsContainer.style.display = 'none';
+                }
+            }
+
+
+
+
+
+
+            const othersRadio = document.getElementById('others');
+            const otherDegreeInputContainer = document.querySelector('.other-degree-input-container');
+            const otherDegreeInput = document.getElementById('other-degree');
+            const degreeRadios = document.querySelectorAll('input[name="degree_type"]');
+
+            // Show/hide the "Add Degree" input based on the "Others" radio selection
+            degreeRadios.forEach((radio) => {
+                radio.addEventListener('change', () => {
+                    if (othersRadio.checked) {
+                        otherDegreeInputContainer.style.display = 'flex';
+                    } else {
+                        otherDegreeInputContainer.style.display = 'none';
+                    }
+                });
+            });
+
+            // Update the "others" radio value instantly when typing in the text input
+            otherDegreeInput.addEventListener('input', () => {
+                othersRadio.value = otherDegreeInput.value;
+            });
+
+
+            const dropdown = document.querySelector('.dropdown');
+            const dropdownLabel = dropdown.querySelector('.dropdown-label');
+            const dropdownOptions = dropdown.querySelector('.dropdown-options');
+            const options = dropdown.querySelectorAll('.dropdown-option');
+
+            // Toggle the dropdown visibility when clicked
+            dropdown.addEventListener('click', function (event) {
+                dropdown.classList.toggle('open');
+                event.stopPropagation();
+            });
+
+            // Handle option selection
+            options.forEach(option => {
+                option.addEventListener('click', function (event) {
+                    dropdownLabel.textContent = option.textContent;
+                    options.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                    dropdown.classList.remove('open');
+                    event.stopPropagation();
+                });
+            });
+
+            // Close the dropdown if clicked outside
+            document.addEventListener('click', function (event) {
+                if (!dropdown.contains(event.target)) {
+                    dropdown.classList.remove('open');
+                }
+            });
+            // Select all dropdowns within #step-3 container
+            const dropdowns = document.querySelectorAll('#step-3 .dropdown');
+
+            dropdowns.forEach(dropdown => {
+                const dropdownLabel = dropdown.querySelector('.dropdown-label');
+                const dropdownOptions = dropdown.querySelector('.dropdown-options');
+                const options = dropdown.querySelectorAll('.dropdown-option');
+
+                // Toggle the dropdown visibility when clicked
+                dropdown.addEventListener('click', function (event) {
+                    dropdown.classList.toggle('open');
+                    event.stopPropagation();
+                });
+
+                // Handle option selection
+                options.forEach(option => {
+                    option.addEventListener('click', function (event) {
+                        // Update the dropdown label with the selected text
+                        dropdownLabel.textContent = option.textContent;
+
+                        // Set the selected value in data-selected attribute
+                        dropdownLabel.setAttribute('data-selected', option.getAttribute('data-value'));
+
+                        // Update the selected option styling
+                        options.forEach(opt => opt.classList.remove('selected'));
+                        option.classList.add('selected');
+
+                        // Close the dropdown
+                        dropdown.classList.remove('open');
+                        event.stopPropagation();
+                    });
+                });
+
+                // Close the dropdown if clicked outside
+                document.addEventListener('click', function (event) {
+                    if (!dropdown.contains(event.target)) {
+                        dropdown.classList.remove('open');
+                    }
+                });
+            });
+
+            const yesRadio = document.getElementById('academic-yes');
+            const noRadio = document.getElementById('academic-no');
+            const reasonContainer = document.getElementById('reason-container');
+
+            // Function to handle radio button change
+            function handleRadioChange(shouldShow) {
+                if (shouldShow) {
+                    reasonContainer.classList.add('visible');
+                } else {
+                    reasonContainer.classList.remove('visible');
+                }
+            }
+
+            // Add event listeners
+            yesRadio.addEventListener('change', () => {
+                handleRadioChange(yesRadio.checked);
+            });
+
+            noRadio.addEventListener('change', () => {
+                handleRadioChange(yesRadio.checked);
+            });
 
 
 
@@ -1734,6 +2049,8 @@
             });
 
         });
+
+        
 
 
 
