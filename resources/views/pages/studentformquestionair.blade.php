@@ -2038,8 +2038,8 @@
         }
       }
 
-      function handleFileUpload(event, fileNameId, uploadIconId, removeIconId) {
-        console.log(event,fileNameId,uploadIconId,removeIconId)
+      async function handleFileUpload(event, fileNameId, uploadIconId, removeIconId) {
+        console.log(event, fileNameId, uploadIconId, removeIconId)
         const fileInput = event.target;
         const fileNameElement = document.getElementById(fileNameId);
         const uploadIcon = document.getElementById(uploadIconId);
@@ -2125,7 +2125,65 @@
         document.querySelectorAll('.document-name').forEach((documentElement) => {
           documentElement.style.display = 'block';  // Display all document names
         });
+
+        const userId = document.getElementById("personal-info-userid").value;
+
+
+
+        await uploadFileToServer(file, userId, fileNameId);
+
       }
+
+      function uploadFileToServer(file, userId, fileNameId) {
+        const formDetailsData = new FormData();
+        formDetailsData.append('file', file);
+        formDetailsData.append('userId', userId);
+        formDetailsData.append('fileNameId', fileNameId);
+
+
+
+
+
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        // Handle case where CSRF token is not found
+        if (!csrfToken) {
+          console.error('CSRF token not found');
+          return;
+        }
+
+        fetch('/upload-each-documents', {
+          method: "POST",
+          headers: {
+            'X-CSRF-TOKEN': csrfToken,
+            'Accept': 'application/json',
+          },
+          body: formDetailsData,
+        })
+          .then(response => {
+            if (!response.ok) {
+              return response.json().then(errorData => {
+                throw new Error(errorData.error || 'Network response was not ok');
+              });
+            }
+            return response.json();
+          })
+          .then(data => {
+            if (data) {
+              console.log("File uploaded successfully", data);
+            } else {
+              console.error("Error: No URL returned from the server", data);
+            }
+          })
+          .catch(error => {
+            console.error("Error uploading file", error);
+          });
+
+        console.log(file, userId, fileNameId);
+      }
+
+
+
       function removeFile(fileInputId, fileNameId, uploadIconId, removeIconId) {
         const fileInput = document.getElementById(fileInputId);
         const fileNameElement = document.getElementById(fileNameId);
@@ -2215,7 +2273,38 @@
 
     });
 
-     const dropdown = document.querySelector('.dropdown');
+    const dropdown = document.querySelector('.dropdown');
+    const dropdownLabel = dropdown.querySelector('.dropdown-label');
+    const dropdownOptions = dropdown.querySelector('.dropdown-options');
+    const options = dropdown.querySelectorAll('.dropdown-option');
+
+    // Toggle the dropdown visibility when clicked
+    dropdown.addEventListener('click', function (event) {
+      dropdown.classList.toggle('open');
+      event.stopPropagation();
+    });
+
+    // Handle option selection
+    options.forEach(option => {
+      option.addEventListener('click', function (event) {
+        dropdownLabel.textContent = option.textContent;
+        options.forEach(opt => opt.classList.remove('selected'));
+        option.classList.add('selected');
+        dropdown.classList.remove('open');
+        event.stopPropagation();
+      });
+    });
+
+    // Close the dropdown if clicked outside
+    document.addEventListener('click', function (event) {
+      if (!dropdown.contains(event.target)) {
+        dropdown.classList.remove('open');
+      }
+    });
+    // Select all dropdowns within #step-3 container
+    const dropdowns = document.querySelectorAll('#step-3 .dropdown');
+
+    dropdowns.forEach(dropdown => {
       const dropdownLabel = dropdown.querySelector('.dropdown-label');
       const dropdownOptions = dropdown.querySelector('.dropdown-options');
       const options = dropdown.querySelectorAll('.dropdown-option');
@@ -2243,38 +2332,7 @@
           dropdown.classList.remove('open');
         }
       });
-      // Select all dropdowns within #step-3 container
-      const dropdowns = document.querySelectorAll('#step-3 .dropdown');
-
-      dropdowns.forEach(dropdown => {
-        const dropdownLabel = dropdown.querySelector('.dropdown-label');
-        const dropdownOptions = dropdown.querySelector('.dropdown-options');
-        const options = dropdown.querySelectorAll('.dropdown-option');
-
-        // Toggle the dropdown visibility when clicked
-        dropdown.addEventListener('click', function (event) {
-          dropdown.classList.toggle('open');
-          event.stopPropagation();
-        });
-
-        // Handle option selection
-        options.forEach(option => {
-          option.addEventListener('click', function (event) {
-            dropdownLabel.textContent = option.textContent;
-            options.forEach(opt => opt.classList.remove('selected'));
-            option.classList.add('selected');
-            dropdown.classList.remove('open');
-            event.stopPropagation();
-          });
-        });
-
-        // Close the dropdown if clicked outside
-        document.addEventListener('click', function (event) {
-          if (!dropdown.contains(event.target)) {
-            dropdown.classList.remove('open');
-          }
-        });
-      });
+    });
 
 
 

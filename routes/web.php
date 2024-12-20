@@ -61,3 +61,5 @@ Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFr
 Route::post('/upload-profile-picture', [StudentDashboardController::class, 'uploadProfilePicture']);
 Route::post('/retrieve-profile-picture', [StudentDashboardController::class, 'retrieveProfilePicture']);
 Route::post('/session-logout', [LoginController::class, 'sessionLogout'])->name('session.logout');
+
+Route::post('/upload-each-documents', [StudentDashboardController::class, 'uploadMultipleDocuments']);

@@ -107,6 +107,50 @@ class StudentDashboardController extends Controller
         }
     }
 
+    public function uploadMultipleDocuments(Request $request)
+    {
+         $request->validate([
+            'file' => 'required|file',
+            'userId' => 'required',
+            'fileNameId' => 'required|string',
+        ]);
+        $userId = $request->input('userId');
+        $Category = $request->input('fileNameId');
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileName = $file->getClientOriginalName();
+            $fileDirectory = "$userId/$Category";
+
+
+            $existingFiles = Storage::disk('s3')->files($fileDirectory);
+            if (!empty($existingFiles)) {
+                Storage::disk('s3')->delete($existingFiles);
+            }
+
+            $filePath = $file->storeAs(
+                $fileDirectory,
+                $fileName,
+                [
+                    'disk' => 's3',
+                    'visibility' => 'public',
+                ]
+            );
+            $fileUrl = Storage::disk('s3')->url($filePath);
+            return response()->json([
+                'message' => 'File uploaded successfully!',
+                'file_name' => $fileName,
+                'file_path' => $fileUrl,
+            ]);
+        }
+
+
+
+
+
+
+    }
+
 
 
 

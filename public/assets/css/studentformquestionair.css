@@ -1777,10 +1777,7 @@ p {
   margin: 10px 0;
 }
 
-.upload-field span {
-  color: #838383;
-  font-size: 14px;
-}
+ 
 
 .upload-icon {
   cursor: pointer;
@@ -1899,6 +1896,9 @@ input[type="file"] {
   color: #838383;
   font-size: 14px !important;
   padding: 5px;
+  display: flex;
+  align-items: center;
+
 }
 
 .upload-icon {
