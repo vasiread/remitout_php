@@ -274,7 +274,7 @@
 
                 </div>
                 <div class="educationeditsection-secondrow">
-                    <p>1. Lorem ipsum dolor sit amet</p>
+                    <p>1. {{ $courseDetails[0]->{'degree-type'} }}</p>
                     <p>2. Consequuntur magni dolores</p>
                     <p>3. Voluptatem accusantium</p>
                 </div>
@@ -332,40 +332,42 @@
                 @endforeach
             </div>
 
-            <div class="myapplication-thirdcolumn">
-                <h6>2. Type of Degree?</h6>
-                <div class="degreetypescheckboxes">
-                    <!-- First radio button for Bachelors -->
-                    <label class="custom-radio">
-                        <input type="radio" name="education-level" value="Bachelors"
-                            @if($courseDetails[0]->{'degree-type'} == 'Bachelors') checked @endif>
-                        <span class="radio-button"></span>
-                        <p>Bachelors (only secured loan)</p>
-                    </label>
-                    <br>
-
-                    <!-- Second radio button for Masters -->
-                    <label class="custom-radio">
-                        <input type="radio" name="education-level" value="Masters"
-                            @if($courseDetails[0]->{'degree-type'} == 'Masters') checked @endif>
-                        <span class="radio-button"></span>
-                        <p>Masters</p>
-                    </label>
-                    <br>
-
-                    <!-- Third radio button for Others -->
-                    <label class="custom-radio">
-                        <input type="radio" name="education-level" value="Others"
-                            @if($courseDetails[0]->{'degree-type'} == 'Others') checked @endif>
-                        <span class="radio-button"></span>
-                        <p>Others</p>
-                    </label>
-                </div>
-
-                <!-- Input field for 'Others' with conditional enabling -->
-                <input type="text" placeholder="Enter your degree type" value="{{ $courseDetails[0]->{'degree-type'} }}"
-                    id="otherDegreeInput" @if($courseDetails[0]->{'degree-type'} != 'Others') disabled @endif>
+        <div class="myapplication-thirdcolumn">
+            <h6>2. Type of Degree?</h6>
+            <div class="degreetypescheckboxes">
+                <!-- First radio button for Bachelors -->
+                <label class="custom-radio">
+                    <input type="radio" name="education-level" value="Bachelors"
+                        @if($courseDetails[0]->{'degree-type'} == 'Bachelors') checked @endif
+                        onclick="toggleOtherDegreeInput(false)">
+                    <span class="radio-button"></span>
+                    <p>Bachelors (only secured loan)</p>
+                </label>
+                <br>
+        
+                <!-- Second radio button for Masters -->
+                <label class="custom-radio">
+                    <input type="radio" name="education-level" value="Masters"
+                        @if($courseDetails[0]->{'degree-type'} == 'Masters') checked @endif
+                        onclick="toggleOtherDegreeInput(false)">
+                    <span class="radio-button"></span>
+                    <p>Masters</p>
+                </label>
+                <br>
+        
+                <!-- Third radio button for Others -->
+                <label class="custom-radio">
+                    <input type="radio" name="education-level" value="Others" @if($courseDetails[0]->{'degree-type'} == 'Others')
+                        checked @endif onclick="toggleOtherDegreeInput(true)">
+                    <span class="radio-button"></span>
+                    <p>Others</p>
+                </label>
             </div>
+        
+            <!-- Input field for 'Others' with conditional enabling -->
+            <input type="text" placeholder="{{ $courseDetails[0]->{'degree-type'} }}" value="{{ $courseDetails[0]->{'degree-type'} }}"
+                id="otherDegreeInput" @if($courseDetails[0]->{'degree-type'} != 'Others') disabled @endif>
+        </div>
             <div class="myapplication-fourthcolumn-additional">
                 <p>3. What is the duration of the course?</p>
                 <input type="text" placeholder="{{ $courseDetails[0]->{'course-details'} ?? '' }}"
@@ -557,7 +559,7 @@
             saveChangesFunctionality();
             initialiseProfileUpload();
             initialiseProfileView();
-
+  
         });
 
 
@@ -829,7 +831,7 @@
 
                 // Handle eye icon click for preview
                 card.querySelector('.fa-eye').addEventListener('click', function (event) {
-                    event.stopPropagation(); // Prevent the click from triggering the file input
+                    event.stopPropagation();  
 
                     if (uploadedFile && uploadedFile.type === 'application/pdf') {
                         const reader = new FileReader();
@@ -896,7 +898,15 @@
         };
 
 
-        // 
+        function toggleOtherDegreeInput(enable) {
+        const otherDegreeInput = document.getElementById('otherDegreeInput');
+        if (enable) {
+            otherDegreeInput.disabled = false;
+        } else {
+            otherDegreeInput.disabled = true;
+            otherDegreeInput.value = '';  
+        }
+    }
 
         const initializeProgressRing = () => {
             const radius = 52;

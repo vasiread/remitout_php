@@ -148,7 +148,7 @@
         <h2>Where are you planning to study? Select all that applies</h2>
       </div>
 
-      <div class="checkbox-group">
+      <div class="checkbox-group" id="selected-study-location">
         <label>
           <input type="checkbox" name="study-location" value="USA"> USA
         </label>
@@ -2273,66 +2273,66 @@
 
     });
 
-    const dropdown = document.querySelector('.dropdown');
-    const dropdownLabel = dropdown.querySelector('.dropdown-label');
-    const dropdownOptions = dropdown.querySelector('.dropdown-options');
-    const options = dropdown.querySelectorAll('.dropdown-option');
+    // const dropdown = document.querySelector('.dropdown');
+    // const dropdownLabel = dropdown.querySelector('.dropdown-label');
+    // const dropdownOptions = dropdown.querySelector('.dropdown-options');
+    // const options = dropdown.querySelectorAll('.dropdown-option');
 
-    // Toggle the dropdown visibility when clicked
-    dropdown.addEventListener('click', function (event) {
-      dropdown.classList.toggle('open');
-      event.stopPropagation();
-    });
+    // // Toggle the dropdown visibility when clicked
+    // dropdown.addEventListener('click', function (event) {
+    //   dropdown.classList.toggle('open');
+    //   event.stopPropagation();
+    // });
 
-    // Handle option selection
-    options.forEach(option => {
-      option.addEventListener('click', function (event) {
-        dropdownLabel.textContent = option.textContent;
-        options.forEach(opt => opt.classList.remove('selected'));
-        option.classList.add('selected');
-        dropdown.classList.remove('open');
-        event.stopPropagation();
-      });
-    });
+    // // Handle option selection
+    // options.forEach(option => {
+    //   option.addEventListener('click', function (event) {
+    //     dropdownLabel.textContent = option.textContent;
+    //     options.forEach(opt => opt.classList.remove('selected'));
+    //     option.classList.add('selected');
+    //     dropdown.classList.remove('open');
+    //     event.stopPropagation();
+    //   });
+    // });
 
-    // Close the dropdown if clicked outside
-    document.addEventListener('click', function (event) {
-      if (!dropdown.contains(event.target)) {
-        dropdown.classList.remove('open');
-      }
-    });
-    // Select all dropdowns within #step-3 container
-    const dropdowns = document.querySelectorAll('#step-3 .dropdown');
+    // // Close the dropdown if clicked outside
+    // document.addEventListener('click', function (event) {
+    //   if (!dropdown.contains(event.target)) {
+    //     dropdown.classList.remove('open');
+    //   }
+    // });
+    // // Select all dropdowns within #step-3 container
+    // const dropdowns = document.querySelectorAll('#step-3 .dropdown');
 
-    dropdowns.forEach(dropdown => {
-      const dropdownLabel = dropdown.querySelector('.dropdown-label');
-      const dropdownOptions = dropdown.querySelector('.dropdown-options');
-      const options = dropdown.querySelectorAll('.dropdown-option');
+    // dropdowns.forEach(dropdown => {
+    //   const dropdownLabel = dropdown.querySelector('.dropdown-label');
+    //   const dropdownOptions = dropdown.querySelector('.dropdown-options');
+    //   const options = dropdown.querySelectorAll('.dropdown-option');
 
-      // Toggle the dropdown visibility when clicked
-      dropdown.addEventListener('click', function (event) {
-        dropdown.classList.toggle('open');
-        event.stopPropagation();
-      });
+    //   // Toggle the dropdown visibility when clicked
+    //   dropdown.addEventListener('click', function (event) {
+    //     dropdown.classList.toggle('open');
+    //     event.stopPropagation();
+    //   });
 
-      // Handle option selection
-      options.forEach(option => {
-        option.addEventListener('click', function (event) {
-          dropdownLabel.textContent = option.textContent;
-          options.forEach(opt => opt.classList.remove('selected'));
-          option.classList.add('selected');
-          dropdown.classList.remove('open');
-          event.stopPropagation();
-        });
-      });
+    //   // Handle option selection
+    //   options.forEach(option => {
+    //     option.addEventListener('click', function (event) {
+    //       dropdownLabel.textContent = option.textContent;
+    //       options.forEach(opt => opt.classList.remove('selected'));
+    //       option.classList.add('selected');
+    //       dropdown.classList.remove('open');
+    //       event.stopPropagation();
+    //     });
+    //   });
 
-      // Close the dropdown if clicked outside
-      document.addEventListener('click', function (event) {
-        if (!dropdown.contains(event.target)) {
-          dropdown.classList.remove('open');
-        }
-      });
-    });
+    //   // Close the dropdown if clicked outside
+    //   document.addEventListener('click', function (event) {
+    //     if (!dropdown.contains(event.target)) {
+    //       dropdown.classList.remove('open');
+    //     }
+    //   });
+    // });
 
 
 
