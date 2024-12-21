@@ -52,21 +52,21 @@
   <div class="input-group">
     <div class="input-content">
       <img src="./assets/images/person-icon.png" alt="Person Icon" class="icon" />
-      <input type="text" placeholder="Full Name" name="full_name" id="fullName" />
+      <input type="text" placeholder="Full Name" name="full_name" id="fullName" required />
     </div>
     <div class="validation-message" id="fullName-error"></div>
   </div>
   <div class="input-group">
     <div class="input-content">
       <img src="./assets/images/call-icon.png" alt="Phone Icon" class="icon" />
-      <input type="tel" placeholder="Phone Number" name="phone_number" id="phone" />
+      <input type="tel" placeholder="Phone Number" name="phone_number" id="phone" required />
     </div>
     <div class="validation-message" id="phone-error"></div>
   </div>
   <div class="input-group">
     <div class="input-content">
       <img src="./assets/images/school.png" alt="Referral Code Icon" class="icon" />
-      <input type="text" placeholder="Referral Code" name="referral_code" id="referralCode" />
+      <input type="text" placeholder="Referral Code" name="referral_code" id="referralCode" required />
     </div>
     <div class="validation-message" id="referralCode-error"></div>
   </div>
@@ -77,7 +77,7 @@
   <div class="input-group">
     <div class="input-content">
       <img src="./assets/images/mail.png" alt="Mail Icon" class="icon" />
-      <input type="email" placeholder="Email ID" name="email" id="email" />
+      <input type="email" placeholder="Email ID" name="email" id="email" required />
     </div>
     <div class="validation-message" id="email-error"></div>
   </div>
