@@ -25,7 +25,7 @@ $NotificationBell = "assets/images/notifications_unread.png";
             @endphp                                                                  
 <img onclick="window.location.href='{{ url(' ') }}'"
     src="{{ asset(Request::is('/') ? $navImgPathWhite : $navImgPath) }}" alt="Logo" class="logo">
-
+>>>>>>> 20798ee455eb740bfd2def4b4d617932e7673497
 
 
             <div class="nav-links">
