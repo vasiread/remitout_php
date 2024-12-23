@@ -46,7 +46,7 @@
 
         <!-- Hidden User ID -->
         <input type="hidden" name="user_id" id="personal-info-userid" value="{{ session('user')->unique_id }}">
-
+       
         <!-- Input Row 1 -->
         <div class="input-row">
           <div class="input-group">
