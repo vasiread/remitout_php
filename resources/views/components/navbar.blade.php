@@ -11,8 +11,8 @@
         style="@if (request()->is('/')) position: absolute; top: 0; left: 0; width: 100%; z-index: 10; @else position: relative; @endif">
         <div class="{{ Request::is('/') ? 'nav-container' : 'nav-container fullopacity' }}">
             @php
-<<<<<<< HEAD
-$navImgPath = "assets/images/logo.png"
+
+$navImgPath = "assets/images/logo.png";
             @endphp
             <img src="{{asset($navImgPath)}}" alt="Remitout Logo" class="logo">
 =======
@@ -25,7 +25,7 @@ $NotificationBell = "assets/images/notifications_unread.png";
             @endphp                                                                  
 <img onclick="window.location.href='{{ url(' ') }}'"
     src="{{ asset(Request::is('/') ? $navImgPathWhite : $navImgPath) }}" alt="Logo" class="logo">
->>>>>>> 20798ee455eb740bfd2def4b4d617932e7673497
+
 
 
             <div class="nav-links">
