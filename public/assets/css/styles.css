@@ -204,7 +204,7 @@ body {
   padding: 4rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  gap: 0;
   align-items: center;
 }
 
@@ -224,7 +224,7 @@ body {
 
 .line-1 {
   display: block;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .line-2 {
@@ -232,7 +232,7 @@ body {
 }
 
 .line-2 .bold {
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .line-2 .thin-italic {
@@ -253,10 +253,9 @@ body {
 
 .right-content {
 
-  padding: 2rem;
+  padding:0;
   width: 477px;
   height: 239px;
-
   color: white;
   font-family: 'Poppins', sans-serif;
   display: flex;
@@ -264,7 +263,6 @@ body {
   gap: 1rem;
 }
 
-/* Align the icon and title in one row */
 .icon-title {
   display: flex;
   align-items: center;
@@ -285,14 +283,15 @@ body {
 
 .journey-text {
   font-size: 18px;
-  line-height: 160%;
-  font-weight: 400;
+  line-height: 140%;
+  font-weight: 300;
+  width:500px;
   color: rgba(255, 255, 255, 0.8);
 
 
 }
 
-/* Buttons remain unchanged */
+
 .cta-buttons {
   display: flex;
   gap: 1rem;
@@ -366,7 +365,7 @@ body {
   object-fit: contain;
 }
 
-/* Responsive styles */
+
 @media (max-width: 1024px) {
   .content-container {
     grid-template-columns: 1fr;
