@@ -283,9 +283,9 @@ body {
 
 .journey-text {
   font-size: 18px;
-  line-height: 140%;
+  line-height: 160%;
   font-weight: 300;
-  
+  width:460px;
   color: rgba(255, 255, 255, 0.8);
 
 
@@ -317,9 +317,6 @@ body {
   white-space: nowrap;
 }
 
-.secure-loan:hover {
-  background: #ff8533;
-}
 
 .watch-demo {
   width: 197px;
