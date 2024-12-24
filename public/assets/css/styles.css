@@ -465,7 +465,6 @@ body {
   flex-shrink: 0;
   border-radius: 20px;
   padding: 33px;
-  box-shadow: none; /* Removed the shadow */
   transition: transform 0.5s ease;
   position: relative;
   overflow: visible;
@@ -648,7 +647,7 @@ body {
   bottom: -120px;
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 10px;
 }
 
 .nav-arrow {
@@ -666,6 +665,7 @@ body {
 .nav-arrow.left {
   background-color: #FFFFFF;
   color: #6F25CE;
+   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 
 }
 
@@ -677,6 +677,7 @@ body {
 .nav-arrow.right {
   background-color: #6F25CE;
   color: #FFFFFF;
+   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   
 }
 
@@ -688,7 +689,7 @@ body {
 .dot-container {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .dot {
