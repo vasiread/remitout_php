@@ -285,7 +285,7 @@ body {
   font-size: 18px;
   line-height: 140%;
   font-weight: 300;
-  width:460px;
+  
   color: rgba(255, 255, 255, 0.8);
 
 
@@ -423,18 +423,29 @@ body {
   width: 58px;
   object-fit: contain;
 }
-
-.profilecard-container {
-  display: flex;
+.card-container{
+  
+   display: flex;
   justify-content: space-around;
   gap: 30px;
-  padding-top: 40px;
+ 
+  box-shadow: none;
   position: relative;
   width: calc(420px * 2 + 20px);
-
-
 }
 
+.profilecard-container {
+   display: flex;
+  justify-content: space-around;
+  gap: 30px;
+  box-shadow: none;
+  position: relative;
+  width: calc(420px * 2 + 20px);
+   padding-top: 40px;
+   flex: 1;
+  overflow: hidden;
+
+}
 
 .testimonial-slider {
   display: flex;
@@ -442,16 +453,27 @@ body {
   transition: transform 0.5s ease-in-out;
   width: max-content;
   width: calc(420px * 2 + 20px);
-  /* 2 cards + space between them */
-
+   width: 100%;
+  position: relative;
+  transition: transform 0.5s ease;
+  overflow: visible;
 
 }
 
 .profilecardsection-individual {
+  min-width: 420px;
   flex-shrink: 0;
-  width: 420px;
-  margin-right: 20px;
+  border-radius: 20px;
+  padding: 33px;
+  box-shadow: none; /* Removed the shadow */
+  transition: transform 0.5s ease;
+  position: relative;
+  overflow: visible;
+  margin-bottom: 40px;
+  background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0px 4px 49px 0px rgba(26, 2, 57, 0.05);
 }
+
 
 
 
@@ -473,16 +495,15 @@ body {
 }
 
 .profilecardsection .profilecardsection-individual {
-  max-width: 420px;
-  height: 275px;
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-  padding: 2.1rem;
-  background-color: rgba(255, 255, 255, 0.6);
-  box-shadow: 0px 4px 49px 0px rgba(26, 2, 57, 0.05);
-  position: relative;
-  border-radius: 10px;
+ max-width: 420px;
+    height: 275px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: 2.1rem;
+    
+    position: relative;
+    border-radius: 10px;
 }
 
 .profilecardsection .profilecardsection-individual::after {
@@ -619,40 +640,6 @@ body {
   margin-left: 15px;
 }
 
-/* Cards container styling */
-.profilecard-container {
-  flex: 1;
-  display: flex;
-  overflow: hidden;
-  position: relative;
-
-}
-
-/* Slider styling */
-.testimonial-slider {
-  display: flex;
-  gap: 20px;
-  width: 100%;
-  position: relative;
-  transition: transform 0.5s ease;
-  overflow: visible;
-  /* Allow elements to overflow */
-
-
-}
-
-/* Individual card styling */
-.profilecardsection-individual {
-  min-width: 420px;
-  flex-shrink: 0;
-  background: #FFFFFF;
-  border-radius: 20px;
-  padding: 33px;
-  box-shadow: 0px 4px 49px rgba(26, 2, 57, 0.05);
-  transition: transform 0.5s ease;
-  position: relative;
-  overflow: visible;
-}
 
 /* Navigation buttons */
 .pagenavigationcontainer {
@@ -679,7 +666,7 @@ body {
 .nav-arrow.left {
   background-color: #FFFFFF;
   color: #6F25CE;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+
 }
 
 .nav-arrow.left i {
@@ -690,7 +677,7 @@ body {
 .nav-arrow.right {
   background-color: #6F25CE;
   color: #FFFFFF;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  
 }
 
 .nav-arrow.right i {

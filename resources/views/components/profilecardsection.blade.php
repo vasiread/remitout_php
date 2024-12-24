@@ -41,7 +41,7 @@
         <div class="profilecard-additionalsideheader">
             <h2>Hear What <span>They</span> Say</h2>
         </div>
-
+     <div class="card-container">
         <div class="profilecard-container">
             <div class="testimonial-slider">
                 @foreach ($profileCards as $index => $items)
@@ -68,7 +68,7 @@
                 @endforeach
             </div>
         </div>
-
+    </div>
         <img src="{{ asset('assets/images/rightclosevector.png') }}" alt="Right Bracket"
             class="closedvectorimage right-bracket">
 
@@ -86,7 +86,7 @@
             </button>
         </div>
     </div>
-</div>
+
 
 <div class="outer-container">
     <div class="inner-container">
@@ -110,7 +110,7 @@
     </div>
 </div>
 
-
+</div>
 
 
 
