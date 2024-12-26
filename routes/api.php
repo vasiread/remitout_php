@@ -1,6 +1,11 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisterController;
+<<<<<<< HEAD
+use App\Http\Controllers\Auth\LoginController; // Include LoginController
+=======
+use App\Http\Controllers\LoginController;
+>>>>>>> f3dd1813f1d1718939807a78ed42c3698735d6b4
 use App\Http\Controllers\StudentDashboardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
