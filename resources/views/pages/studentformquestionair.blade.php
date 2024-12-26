@@ -33,6 +33,7 @@
       </div>
     </div>
   </section>
+  
   <!-- Personal Information Tab -->
   <div class="registration-container" id="step-personal">
     <form>
@@ -78,7 +79,7 @@
           <div class="input-group">
             <img src="./assets/images/school.png" alt="Referral Code Icon" class="icon" />
             <input type="text" placeholder="Referral Code" name="referral_code"
-              value="{{ optional(session('existing_personal_info'))->phone }}" id="personal-info-referral" />
+              value="{{ optional(session('existing_personal_info'))->phone }}" id="personal-info-referral" required />
           </div>
         </div>
 
