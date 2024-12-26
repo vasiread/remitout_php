@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StudentDashboardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('/retrieve-profile-picture', [StudentDashboardController::class, 'retrieveProfilePicture']);
+Route::post('/retrieve-pan-card', [StudentDashboardController::class, 'panCardView']);
+Route::post('/retrieve-aadhar-card', [StudentDashboardController::class, 'aadharCardView']);
+Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
+Route::post('/count-documents', [StudentDashboardController::class, 'countFilesInBucket']);
+Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFromProfile']);
 
 // Route::post('/registeruser', [RegisterController::class, 'register']);
 

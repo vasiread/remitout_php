@@ -16,33 +16,35 @@
     @section('studentdashboard')
 
     @php
-        $profileImgPath = '';
-        $profileIconPath = "assets/images/account_circle.png";
-        $phoneIconPath = "assets/images/call.png";
-        $mailIconPath = "assets/images/mail.png";
-        $pindropIconPath = "assets/images/pin_drop.png";
-        $discordIconPath = "assets/images/icons/discordicon.png";
+$profileImgPath = '';
+$uploadPanName = '';
+$profileIconPath = "assets/images/account_circle.png";
+$phoneIconPath = "assets/images/call.png";
+$mailIconPath = "assets/images/mail.png";
+$pindropIconPath = "assets/images/pin_drop.png";
+$discordIconPath = "assets/images/icons/discordicon.png";
 
 
+$courseDetailsJson = json_encode($courseDetails);
 
 
-        $bankName = 'bankName';
-        $bankMessage = 'bankMessage';
-        $loanStatusInfo = [
-            [
-                $bankName => "Bank Name",
-                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-            ],
-            [
-                $bankName => "Bank Name",
-                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-            ],
-            [
-                $bankName => "Bank Name",
-                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-            ],
+$bankName = 'bankName';
+$bankMessage = 'bankMessage';
+$loanStatusInfo = [
+    [
+        $bankName => "Bank Name",
+        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+    ],
+    [
+        $bankName => "Bank Name",
+        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+    ],
+    [
+        $bankName => "Bank Name",
+        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+    ],
 
-        ];
+];
 
 
 
@@ -178,9 +180,8 @@
             <div class="studentdashboardprofile-personalinfo">
                 <div class="personalinfo-firstrow">
                     <h1>My Profile</h1>
-                    <button>Edit</button>
-                    <button class="saved-msg">Saved</button>
                 </div>
+
                 <ul class="personalinfo-secondrow">
                     <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span class="personal_info_id"
                             style="margin-left: 6px;"> {{$user->unique_id}}</span> </li>
@@ -319,63 +320,63 @@
         <div class="studentdashboardprofile-myapplication">
             <div class="myapplication-firstcolumn">
                 <h1>Course Details</h1>
-                <button onClick="triggerEditButton()">Edit</button>
+                <!-- <button >Edit</button> -->
+                <div class="personalinfo-firstrow">
+                    <button onClick="triggerEditButton()">Edit</button>
+                    <button class="saved-msg">Saved</button>
+                </div>
 
             </div>
             <div class="myapplication-secondcolumn">
                 <p>1. Where are you planning to study</p>
-                @foreach($courseDetails as $index => $course)
-
-                    <input type="text" placeholder="{{ $course->{'plan-to-study'} }}"
-                        value="{{ $course->{'plan-to-study'} }}" disabled>
-
-                @endforeach
+                <input type="text" id="plan-to-study-edit" disabled>
             </div>
 
-        <div class="myapplication-thirdcolumn">
-            <h6>2. Type of Degree?</h6>
-            <div class="degreetypescheckboxes">
-                <!-- First radio button for Bachelors -->
-                <label class="custom-radio">
-                    <input type="radio" name="education-level" value="Bachelors"
-                        @if($courseDetails[0]->{'degree-type'} == 'Bachelors') checked @endif
-                        onclick="toggleOtherDegreeInput(false)">
-                    <span class="radio-button"></span>
-                    <p>Bachelors (only secured loan)</p>
-                </label>
-                <br>
-        
-                <!-- Second radio button for Masters -->
-                <label class="custom-radio">
-                    <input type="radio" name="education-level" value="Masters"
-                        @if($courseDetails[0]->{'degree-type'} == 'Masters') checked @endif
-                        onclick="toggleOtherDegreeInput(false)">
-                    <span class="radio-button"></span>
-                    <p>Masters</p>
-                </label>
-                <br>
-        
-                <!-- Third radio button for Others -->
-                <label class="custom-radio">
-                    <input type="radio" name="education-level" value="Others" @if($courseDetails[0]->{'degree-type'} == 'Others')
-                        checked @endif onclick="toggleOtherDegreeInput(true)">
-                    <span class="radio-button"></span>
-                    <p>Others</p>
-                </label>
+            <div class="myapplication-thirdcolumn">
+                <h6>2. Type of Degree?</h6>
+                <div class="degreetypescheckboxes">
+                    <!-- First radio button for Bachelors -->
+                    <label class="custom-radio">
+                        <input type="radio" name="education-level" value="Bachelors"
+                            @if($courseDetails[0]->{'degree-type'} == 'Bachelors') checked @endif
+                            onclick="toggleOtherDegreeInput()">
+                        <span class="radio-button"></span>
+                        <p>Bachelors (only secured loan)</p>
+                    </label>
+                    <br>
+
+                    <!-- Second radio button for Masters -->
+                    <label class="custom-radio">
+                        <input type="radio" name="education-level" value="Masters"
+                            @if($courseDetails[0]->{'degree-type'} == 'Masters') checked @endif
+                            onclick="toggleOtherDegreeInput()">
+                        <span class="radio-button"></span>
+                        <p>Masters</p>
+                    </label>
+                    <br>
+
+                    <!-- Third radio button for Others -->
+                    <label class="custom-radio">
+                        <input type="radio" name="education-level" value="Others"
+                            @if($courseDetails[0]->{'degree-type'} == 'Others') checked @endif
+                            onclick="toggleOtherDegreeInput(true)">
+                        <span class="radio-button"></span>
+                        <p>Others</p>
+                    </label>
+                </div>
+
+                <!-- Input field for 'Others' with conditional enabling -->
+                <input type="text" placeholder="Enter degree type" value="{{ $courseDetails[0]->{'degree-type'} }}"
+                    id="otherDegreeInput" @if($courseDetails[0]->{'degree-type'} != 'Others') disabled @endif>
             </div>
-        
-            <!-- Input field for 'Others' with conditional enabling -->
-            <input type="text" placeholder="{{ $courseDetails[0]->{'degree-type'} }}" value="{{ $courseDetails[0]->{'degree-type'} }}"
-                id="otherDegreeInput" @if($courseDetails[0]->{'degree-type'} != 'Others') disabled @endif>
-        </div>
             <div class="myapplication-fourthcolumn-additional">
                 <p>3. What is the duration of the course?</p>
-                <input type="text" placeholder="{{ $courseDetails[0]->{'course-details'} ?? '' }}"
-                    value="{{ $courseDetails[0]->{'course-details'} ?? '' }}" disabled>
+                <input type="text" placeholder="{{ $courseDetails[0]->{'course-duration'} ?? '' }}"
+                    value="{{ $courseDetails[0]->{'course-duration'} ?? '' }}" disabled>
             </div>
             <div class="myapplication-fourthcolumn">
                 <p>4. What is the Loan amount required?</p>
-                <input type="text" placeholder={{$courseDetails[0]->loan_amount_in_lakhs}}
+                <input type="number" placeholder={{$courseDetails[0]->loan_amount_in_lakhs}}
                     value={{$courseDetails[0]->loan_amount_in_lakhs}} disabled>
 
             </div>
@@ -399,9 +400,10 @@
                             <p class="document-name">Pan Card</p>
                             <div class="inputfilecontainer">
                                 <i class="fa-solid fa-image"></i>
-                                <p> pan_card.jpg</p>
-                                <i class="fa-solid fa-eye"></i>
+                                <p class="uploaded-pan-name"> pan_card.jpg</p>
+                                <i class="fa-solid fa-eye" id="view-pan-card"></i>
                             </div>
+
                             <input type="file" id="inputfilecontainer-real">
 
                             <span class="document-status">420 MB uploaded</span>
@@ -417,7 +419,7 @@
                             <p class="document-name">Aadhar Card</p>
                             <div class="inputfilecontainer">
                                 <i class="fa-solid fa-image"></i>
-                                <p> aadhar_card.jpg</p>
+                                <p class="uploaded-aadhar-name"> aadhar_card.jpg</p>
                                 <i class="fa-solid fa-eye"></i>
                             </div>
                             <input type="file" id="inputfilecontainer-real">
@@ -435,7 +437,7 @@
                             <p class="document-name">Passport</p>
                             <div class="inputfilecontainer">
                                 <i class="fa-solid fa-image"></i>
-                                <p> Passport.pdf</p>
+                                <p class="passport-name"> Passport.pdf</p>
                                 <i class="fa-solid fa-eye"></i>
                             </div>
                             <input type="file" id="inputfilecontainer-real">
@@ -459,7 +461,7 @@
                             <p class="document-name">10th grade marksheet</p>
                             <div class="inputfilecontainer-marksheet">
                                 <i class="fa-solid fa-image"></i>
-                                <p> 10th grade marksheet</p>
+                                <p class="sslc-marksheet"> 10th grade marksheet</p>
                                 <i class="fa-solid fa-eye"></i>
                             </div>
                             <input type="file" id="inputfilecontainer-real-marksheet">
@@ -477,7 +479,7 @@
                             <p class="document-name">12th grade marksheet</p>
                             <div class="inputfilecontainer-marksheet">
                                 <i class="fa-solid fa-image"></i>
-                                <p> 12th grade marksheet</p>
+                                <p class="hsc-marksheet"> 12th grade marksheet</p>
                                 <i class="fa-solid fa-eye"></i>
                             </div>
                             <input type="file" id="inputfilecontainer-real-marksheet">
@@ -495,7 +497,7 @@
                             <p class="document-name">Graduation marksheet</p>
                             <div class="inputfilecontainer-marksheet">
                                 <i class="fa-solid fa-image"></i>
-                                <p> Graduation Marksheet</p>
+                                <p class="graduation-marksheet"> Graduation Marksheet</p>
                                 <i class="fa-solid fa-eye"></i>
                             </div>
                             <input type="file" id="inputfilecontainer-real-marksheet">
@@ -559,7 +561,21 @@
             saveChangesFunctionality();
             initialiseProfileUpload();
             initialiseProfileView();
-  
+            initialisePanCardView();
+            initialiseAadharView();
+            initialisePassportView();
+            initialisesslcView();
+            initialisehscView();
+            initialisegraduationView();
+
+
+            const courseDetails = {!! $courseDetailsJson !!};
+            const planToStudy = courseDetails[0]['plan-to-study'].replace(/[\[\]"]/g, '');;
+
+            document.getElementById("plan-to-study-edit").value = planToStudy;
+
+
+
         });
 
 
@@ -638,6 +654,8 @@
                 });
             });
         };
+
+
 
         const triggerEditButton = () => {
             // Enable all disabled inputs in the profile
@@ -738,7 +756,237 @@
         };
 
 
+        const initialisePanCardView = () => {
 
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            if (!csrfToken) {
+                console.error('CSRF token not found');
+                return;
+            }
+            const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+            const userId = userIdElement ? userIdElement.textContent : '';
+
+            fetch('/retrieve-pan-card', {
+                method: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userId: userId })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.fileUrl) {
+                        console.log("Pan Card URL:", data);
+                        const PancardName = (data.fileUrl).split('/').pop();
+                        document.querySelector(".uploaded-pan-name").textContent = PancardName;
+
+
+                    } else {
+                        console.error("Error: No URL returned from the server", data);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error retrieving profile picture", error);
+                });
+        }
+
+        const initialisePassportView = () => {
+
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            if (!csrfToken) {
+                console.error('CSRF token not found');
+                return;
+            }
+            const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+            const userId = userIdElement ? userIdElement.textContent : '';
+
+            fetch('/retrieve-passport', {
+                method: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userId: userId })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.fileUrl) {
+                        console.log("Passport URL:", data);
+                        const passPortName = (data.fileUrl).split('/').pop();
+                        document.querySelector(".passport-name").textContent = passPortName;
+
+
+                    } else {
+                        console.error("Error: No URL returned from the server", data);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error retrieving passport url", error);
+                });
+        }
+
+        const initialisesslcView = () => {
+
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            if (!csrfToken) {
+                console.error('CSRF token not found');
+                return;
+            }
+            const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+            const userId = userIdElement ? userIdElement.textContent : '';
+
+            fetch('/retrieve-sslcmarksheet', {
+                method: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userId: userId })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.fileUrl) {
+                        console.log("sslc-marksheet URL:", data);
+                        const sslcMarksheetName = (data.fileUrl).split('/').pop();
+                        document.querySelector(".sslc-marksheet").textContent = sslcMarksheetName;
+
+
+                    } else {
+                        console.error("Error: No URL returned from the server", data);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error retrieving sslcmarksheet url", error);
+                });
+        }
+
+        const initialisehscView = () => {
+
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            if (!csrfToken) {
+                console.error('CSRF token not found');
+                return;
+            }
+            const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+            const userId = userIdElement ? userIdElement.textContent : '';
+
+            fetch('/retrieve-hscmarksheet', {
+                method: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userId: userId })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.fileUrl) {
+                        console.log("hsc-marksheet URL:", data);
+                        const hscMarksheetName = (data.fileUrl).split('/').pop();
+                        document.querySelector(".hsc-marksheet").textContent = hscMarksheetName;
+
+
+                    } else {
+                        console.error("Error: No URL returned from the server", data);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error retrieving hsc marksheet url", error);
+                });
+        }
+
+        const initialisegraduationView = () => {
+
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            if (!csrfToken) {
+                console.error('CSRF token not found');
+                return;
+            }
+            const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+            const userId = userIdElement ? userIdElement.textContent : '';
+
+            fetch('/retrieve-graduationmarksheet', {
+                method: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userId: userId })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.fileUrl) {
+                        console.log("graduation-marksheet URL:", data);
+                        const graduationMarksheetName = (data.fileUrl).split('/').pop();
+                        document.querySelector(".graduation-marksheet").textContent = graduationMarksheetName;
+
+
+                    } else {
+                        console.error("Error: No URL returned from the server", data);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error retrieving graduation marksheet url", error);
+                });
+        }
+
+
+
+
+
+
+        const initialiseAadharView = () => {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            if (!csrfToken) {
+                console.error('CSRF token not found');
+                return;
+            }
+            const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+            const userId = userIdElement ? userIdElement.textContent : '';
+
+            fetch('/retrieve-aadhar-card', {
+                method: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userId: userId })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.fileUrl) {
+                        console.log("Aadhar Card URL:", data);
+                        const aadharName = (data.fileUrl).split('/').pop();
+                        document.querySelector(".uploaded-aadhar-name").textContent = aadharName;
+
+
+                    } else {
+                        console.error("Error: No URL returned from the server", data);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error retrieving profile picture", error);
+                });
+
+        }
         const initialiseProfileView = () => {
             var profileImgPath = '<?php echo $profileImgPath; ?>';
 
@@ -757,9 +1005,9 @@
                 headers: {
                     'X-CSRF-TOKEN': csrfToken,
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'  // Set content type to JSON
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ userId: userId })  // Send userId as JSON
+                body: JSON.stringify({ userId: userId })
             })
                 .then(response => response.json())
                 .then(data => {
@@ -776,6 +1024,7 @@
                 });
         }
 
+
         const initializeIndividualCards = () => {
             const individualCards = document.querySelectorAll('.indivudalloanstatus-cards');
 
@@ -788,7 +1037,7 @@
                         const isExpanded = card.style.height === "190px";
 
                         individualCards.forEach((otherCard) => {
-                            otherCard.style.height = "95px"; // Collapse all other cards
+                            otherCard.style.height = "95px";
                             const otherMessageInput = otherCard.querySelector('.individual-bankmessage-input');
                             if (otherMessageInput) {
                                 otherMessageInput.style.display = "none";
@@ -817,7 +1066,6 @@
                     card.querySelector('#inputfilecontainer-real').click();
                 });
 
-                // Handle file selection
                 card.querySelector('#inputfilecontainer-real').addEventListener('change', function (event) {
                     const file = event.target.files[0];
                     if (file) {
@@ -829,9 +1077,8 @@
                     }
                 });
 
-                // Handle eye icon click for preview
                 card.querySelector('.fa-eye').addEventListener('click', function (event) {
-                    event.stopPropagation();  
+                    event.stopPropagation();
 
                     if (uploadedFile && uploadedFile.type === 'application/pdf') {
                         const reader = new FileReader();
@@ -899,14 +1146,14 @@
 
 
         function toggleOtherDegreeInput(enable) {
-        const otherDegreeInput = document.getElementById('otherDegreeInput');
-        if (enable) {
-            otherDegreeInput.disabled = false;
-        } else {
-            otherDegreeInput.disabled = true;
-            otherDegreeInput.value = '';  
+            const otherDegreeInput = document.getElementById('otherDegreeInput');
+            if (enable) {
+                otherDegreeInput.disabled = false;
+            } else {
+                otherDegreeInput.disabled = true;
+                otherDegreeInput.value = '';
+            }
         }
-    }
 
         const initializeProgressRing = () => {
             const radius = 52;
@@ -943,18 +1190,21 @@
 
 
         const saveChangesFunctionality = () => {
-            // Assuming we start in "view" mode (not editing)
             let isEditing = false;
             const saveChangesButton = document.querySelector(".personalinfo-firstrow button");
-            const savedMsg = document.querySelector(".studentdashboardprofile-personalinfo .personalinfo-firstrow .saved-msg");  // Corrected class selector
+            const savedMsg = document.querySelector(".studentdashboardprofile-myapplication .myapplication-firstcolumn .personalinfo-firstrow .saved-msg");  // Corrected class selector
             const personalDivContainer = document.querySelector(".personalinfo-secondrow");
             const personalDivContainerEdit = document.querySelector(".personalinfosecondrow-editsection");
             const academicsMarksDivEdit = document.querySelector(".testscoreseditsection-secondrow-editsection");
             const academicsMarksDiv = document.querySelector(".testscoreseditsection-secondrow");
 
+            const planToStudy = document.getElementById("plan-to-study-edit");
+
+
             if (saveChangesButton) {
-                // Initially set the button text to "Edit"
-                saveChangesButton.textContent = 'Edit';  // 'Save' initially set here doesn't seem logical
+                saveChangesButton.textContent = 'Edit'; 
+                saveChangesButton.style.backgroundColor = "transparent";
+                saveChangesButton.style.color = "#260254";  
 
                 saveChangesButton.addEventListener('click', (event) => {
                     // Toggle the editing state
@@ -963,6 +1213,9 @@
                     if (isEditing) {
 
                         saveChangesButton.textContent = 'Save';
+                        saveChangesButton.style.backgroundColor="rgba(111, 37, 206, 1)";
+                        saveChangesButton.style.color="#fff";
+
                         personalDivContainerEdit.style.display = "flex";
                         personalDivContainer.style.display = "none";
                         academicsMarksDivEdit.style.display = "flex";
@@ -970,6 +1223,8 @@
                     } else {
 
                         saveChangesButton.textContent = 'Edit';
+                          saveChangesButton.style.backgroundColor = "transparent";
+                        saveChangesButton.style.color = "#260254";
                         personalDivContainer.style.display = "flex";
                         personalDivContainerEdit.style.display = "none";
                         academicsMarksDivEdit.style.display = "none";
@@ -984,6 +1239,11 @@
                         const iletsScore = document.querySelector(".testscoreseditsection-secondrow-editsection .ilets_score").value;
                         const greScore = document.querySelector(".testscoreseditsection-secondrow-editsection .gre_score").value;
                         const tofelScore = document.querySelector(".testscoreseditsection-secondrow-editsection .tofel_score").value;
+
+                        const planToStudy = document.getElementById("plan-to-study-edit").value;
+                        const courseDuration = document.querySelector(".myapplication-fourthcolumn-additional input").value;
+                        const loanAmount = document.querySelector(".myapplication-fourthcolumn input").value;
+                        const referralCode = document.querySelector(".myapplication-fifthcolumn input").value;
 
 
                         const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
@@ -1000,9 +1260,15 @@
                             iletsScore: iletsScore,
                             greScore: greScore,
                             tofelScore: tofelScore,
+                            planToStudy: planToStudy,
+                            courseDuration: courseDuration,
+                            loanAmount: loanAmount,
+                            referralCode: referralCode,
                             userId: userId
                         };
                         console.log(updatedInfos)
+                        console.log(planToStudy.value)
+                        console.log("000000000000");
 
                         fetch('/from-profileupdate', {
                             method: "POST",
@@ -1030,6 +1296,14 @@
                                     document.querySelector(".testscoreseditsection-secondrow p .ilets_score").textContent = data.academicsScores.ILETS;
                                     document.querySelector(".testscoreseditsection-secondrow p .gre_score").textContent = data.academicsScores.GRE;
                                     document.querySelector(".testscoreseditsection-secondrow p .tofel_score").textContent = data.academicsScores.TOFEL;
+
+                                    setTimeout(() => {
+                                        const disabledInputs = document.querySelectorAll('.studentdashboardprofile-myapplication input[disabled]');
+                                        disabledInputs.forEach(inputItems => {
+                                            inputItems.removeAttribute('disabled');
+                                        });
+                                    }, 1200)
+
 
 
                                     setTimeout(() => {
@@ -1062,18 +1336,18 @@
                 },
                 body: JSON.stringify({})
             })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     console.log("User logged out:", data.message);
-                    window.location.href = "{{ route('login') }}";
+                    window.location.href = "{{ route('login') }}"; // Redirect to the login page
                 })
-                .catch(error => console.error('Error:', error));
-        }
-
-
-
-
-
+                .catch(error => console.error('Error during logout:', error));
+        };
 
 
 

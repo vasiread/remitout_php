@@ -47,6 +47,11 @@ class StudentDashboardController extends Controller
             'iletsScore' => 'required|numeric',
             'greScore' => 'required|numeric',
             'tofelScore' => 'required|numeric',
+
+            'planToStudy' => 'required',
+            'courseDuration' => 'required|numeric',
+            'loanAmount' => 'required|numeric',
+            'referralCode' => 'required|string',
             'userId' => 'required'
         ]);
 
@@ -64,13 +69,15 @@ class StudentDashboardController extends Controller
                 $personalInfo->phone = $validated['editedPhone'];
                 $personalInfo->state = $validated['editedState'];
                 $personalInfo->full_name = $validated['editedName'];
+                $personalInfo->referral_code = $validated['referralCode'];
                 $personalInfo->save();
             } else {
                 $personalInfo = PersonalInfo::create([
                     'user_id' => $user->unique_id,
                     'full_name' => $validated['editedName'],
                     'phone' => $validated['editedPhone'],
-                    'state' => $validated['editedState']
+                    'state' => $validated['editedState'],
+                    'referral_code' => $validated['referralCode']
                 ]);
             }
 
@@ -92,9 +99,37 @@ class StudentDashboardController extends Controller
             }
 
 
+
+
+            $courseInfoData = CourseInfo::where('user_id', $user->unique_id)->first();
+
+
+
+            $planToStudy = is_array($validated['planToStudy'])
+                ? json_encode($validated['planToStudy'])
+                : json_encode(explode(',', $validated['planToStudy']));
+
+
+            if ($courseInfoData) {
+                $courseInfoData->{"plan-to-study"} = $planToStudy;
+                $courseInfoData->{"course-duration"} = $validated['courseDuration'];
+                $courseInfoData->loan_amount_in_lakhs = $validated['loanAmount'];
+                $courseInfoData->save();
+            } else {
+                $courseInfoData = CourseInfo::create([
+                    'user_id' => $user->unique_id,
+                    'plan-to-study' => $planToStudy,
+                    'course-duration' => $validated['courseDuration'],
+                    'loan_amount_in_lakhs' => $validated['loanAmount'],
+                ]);
+
+            }
+
+
             $user->refresh();
             $personalInfo->refresh();
             $academicsScores->refresh();
+            $courseInfoData->refresh();
 
             return response()->json([
                 'message' => 'User details updated successfully.',
@@ -109,7 +144,7 @@ class StudentDashboardController extends Controller
 
     public function uploadMultipleDocuments(Request $request)
     {
-         $request->validate([
+        $request->validate([
             'file' => 'required|file',
             'userId' => 'required',
             'fileNameId' => 'required|string',
@@ -223,6 +258,210 @@ class StudentDashboardController extends Controller
 
             return response()->json([
                 'message' => 'Profile picture retrieved successfully.',
+                'fileUrl' => $fileUrl,  // This is the actual S3 URL
+            ], 200);
+        }
+
+        // If no profile picture exists for the user, return an error message
+        return response()->json([
+            'message' => 'No profile picture found for this user.',
+        ], 404);
+    }
+    public function aadharCardView(Request $request)
+    {
+        // Validate the incoming request
+        $request->validate([
+            'userId' => 'required|string',
+        ]);
+
+        // Retrieve user ID
+        $userId = $request->input('userId');
+
+        // Define the file path for the profile pictures folder
+        $filePath = "$userId/aadhar-card-name";  // Assuming profile pictures are stored in this structure
+
+        // Get the list of files in the user's profile pictures directory
+        $files = Storage::disk('s3')->files($filePath);
+
+        // Check if there are any files (there should be one per user)
+        if (!empty($files)) {
+            $file = $files[0];  // Get the first file (we expect only one profile picture per user)
+
+            // Generate the URL of the file
+            $fileUrl = Storage::disk('s3')->url($file);
+
+            return response()->json([
+                'message' => 'Aadhar Card Url retrieved successfully.',
+                'fileUrl' => $fileUrl,  // This is the actual S3 URL
+            ], 200);
+        }
+
+        // If no profile picture exists for the user, return an error message
+        return response()->json([
+            'message' => 'No profile picture found for this user.',
+        ], 404);
+    }
+    public function passportView(Request $request)
+    {
+        // Validate the incoming request
+        $request->validate([
+            'userId' => 'required|string',
+        ]);
+
+        // Retrieve user ID
+        $userId = $request->input('userId');
+
+        // Define the file path for the profile pictures folder
+        $filePath = "$userId/pan-card-name";  // Assuming profile pictures are stored in this structure
+
+        // Get the list of files in the user's profile pictures directory
+        $files = Storage::disk('s3')->files($filePath);
+
+        // Check if there are any files (there should be one per user)
+        if (!empty($files)) {
+            $file = $files[0];  // Get the first file (we expect only one profile picture per user)
+
+            // Generate the URL of the file
+            $fileUrl = Storage::disk('s3')->url($file);
+
+            return response()->json([
+                'message' => 'Pan Card URL retrieved successfully.',
+                'fileUrl' => $fileUrl,  // This is the actual S3 URL
+            ], 200);
+        }
+
+        // If no profile picture exists for the user, return an error message
+        return response()->json([
+            'message' => 'No profile picture found for this user.',
+        ], 404);
+    }
+    public function pancardView(Request $request)
+    {
+        // Validate the incoming request
+        $request->validate([
+            'userId' => 'required|string',
+        ]);
+
+        // Retrieve user ID
+        $userId = $request->input('userId');
+
+        // Define the file path for the profile pictures folder
+        $filePath = "$userId/passport-name";  // Assuming profile pictures are stored in this structure
+
+        // Get the list of files in the user's profile pictures directory
+        $files = Storage::disk('s3')->files($filePath);
+
+        // Check if there are any files (there should be one per user)
+        if (!empty($files)) {
+            $file = $files[0];  // Get the first file (we expect only one profile picture per user)
+
+            // Generate the URL of the file
+            $fileUrl = Storage::disk('s3')->url($file);
+
+            return response()->json([
+                'message' => 'Passport URL retrieved successfully.',
+                'fileUrl' => $fileUrl,  // This is the actual S3 URL
+            ], 200);
+        }
+
+        // If no profile picture exists for the user, return an error message
+        return response()->json([
+            'message' => 'No profile picture found for this user.',
+        ], 404);
+    }
+    public function sslcmarksheetView(Request $request)
+    {
+        // Validate the incoming request
+        $request->validate([
+            'userId' => 'required|string',
+        ]);
+
+        // Retrieve user ID
+        $userId = $request->input('userId');
+
+        // Define the file path for the profile pictures folder
+        $filePath = "$userId/tenth-grade-name";  // Assuming profile pictures are stored in this structure
+
+        // Get the list of files in the user's profile pictures directory
+        $files = Storage::disk('s3')->files($filePath);
+
+        // Check if there are any files (there should be one per user)
+        if (!empty($files)) {
+            $file = $files[0];  // Get the first file (we expect only one profile picture per user)
+
+            // Generate the URL of the file
+            $fileUrl = Storage::disk('s3')->url($file);
+
+            return response()->json([
+                'message' => '10th marksheet URL retrieved successfully.',
+                'fileUrl' => $fileUrl,  // This is the actual S3 URL
+            ], 200);
+        }
+
+        // If no profile picture exists for the user, return an error message
+        return response()->json([
+            'message' => 'No profile picture found for this user.',
+        ], 404);
+    }
+    public function hscmarksheetView(Request $request)
+    {
+        // Validate the incoming request
+        $request->validate([
+            'userId' => 'required|string',
+        ]);
+
+        // Retrieve user ID
+        $userId = $request->input('userId');
+
+        // Define the file path for the profile pictures folder
+        $filePath = "$userId/twelfth-grade-name";  // Assuming profile pictures are stored in this structure
+
+        // Get the list of files in the user's profile pictures directory
+        $files = Storage::disk('s3')->files($filePath);
+
+        // Check if there are any files (there should be one per user)
+        if (!empty($files)) {
+            $file = $files[0];  // Get the first file (we expect only one profile picture per user)
+
+            // Generate the URL of the file
+            $fileUrl = Storage::disk('s3')->url($file);
+
+            return response()->json([
+                'message' => '12th Marksheet retrieved successfully.',
+                'fileUrl' => $fileUrl,  // This is the actual S3 URL
+            ], 200);
+        }
+
+        // If no profile picture exists for the user, return an error message
+        return response()->json([
+            'message' => 'No profile picture found for this user.',
+        ], 404);
+    }
+    public function graduationmarksheetView(Request $request)
+    {
+        // Validate the incoming request
+        $request->validate([
+            'userId' => 'required|string',
+        ]);
+
+        // Retrieve user ID
+        $userId = $request->input('userId');
+
+        // Define the file path for the profile pictures folder
+        $filePath = "$userId/graduation-grade-name";  // Assuming profile pictures are stored in this structure
+
+        // Get the list of files in the user's profile pictures directory
+        $files = Storage::disk('s3')->files($filePath);
+
+        // Check if there are any files (there should be one per user)
+        if (!empty($files)) {
+            $file = $files[0];  // Get the first file (we expect only one profile picture per user)
+
+            // Generate the URL of the file
+            $fileUrl = Storage::disk('s3')->url($file);
+
+            return response()->json([
+                'message' => 'Graduation Marksheet URL retrieved successfully.',
                 'fileUrl' => $fileUrl,  // This is the actual S3 URL
             ], 200);
         }
