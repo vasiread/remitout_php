@@ -20,10 +20,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::post('/registeruser', [RegisterController::class, 'register']);
-
-// Route::get('/registeruser', [RegisterController::class, 'showMessage']);
-
-//Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
+Route::post('/registeruser', [RegisterController::class, 'register']);
+Route::get('/registeruser', [RegisterController::class, 'showMessage']);
+Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
 
 
