@@ -33,7 +33,7 @@
       </div>
     </div>
   </section>
-  
+
   <!-- Personal Information Tab -->
   <div class="registration-container" id="step-personal">
     <form>
@@ -47,7 +47,7 @@
 
         <!-- Hidden User ID -->
         <input type="hidden" name="user_id" id="personal-info-userid" value="{{ session('user')->unique_id }}">
-       
+
         <!-- Input Row 1 -->
         <div class="input-row">
           <div class="input-group">
@@ -1178,7 +1178,7 @@
       const nextAcademicButton = document.querySelector('.next-btn-academic');
       const nextBorrowButton = document.querySelector('.next-btn-borrow');
       const nextKycButton = document.querySelector('.next-btn-ky');
-      const breadcrumbLinks = document.querySelectorAll('.breadcrumb a'); // Adjusted to use <a> elements inside .breadcrumb
+      const breadcrumbLinks = document.querySelectorAll('.breadcrumb a');
 
       const breadcrumbSections = [
         [document.querySelector('.registration-form'), document.querySelector('.section-02-container')],
@@ -1432,43 +1432,47 @@
         const personalInfoReferral = document.getElementById("personal-info-referral").value;  // Fixed typo
         const personalInfoFindOut = document.querySelector('select[name="how_did_you_find_us"]').value;
 
-        // Create an object with the personal update data
-        const personalUpdateData = {
-          personalInfoId,
-          personalInfoName,
-          personalInfoPhone,
-          personalInfoEmail,
-          personalInfoCity,
-          personalInfoReferral,
-          personalInfoFindOut
-        };
+        if (personalInfoName !== '' && personalInfoPhone !== '' && personalInfoEmail !== '' && personalInfoCity !== '' && personalInfoReferral !== '' && personalInfoFindOut) {
+          const personalUpdateData = {
+            personalInfoId,
+            personalInfoName,
+            personalInfoPhone,
+            personalInfoEmail,
+            personalInfoCity,
+            personalInfoReferral,
+            personalInfoFindOut
+          };
 
-        console.log(personalUpdateData);
+          console.log(personalUpdateData);
 
-        // Sending the data with fetch
-        fetch('/update-personalinfo', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-          },
-          body: JSON.stringify(personalUpdateData)
-        })
-          .then(response => response.json())
-          .then(data => {
-            console.log(data);
-
-            if (data.success) {
-              alert(data.message);
-            } else {
-              alert(data.message);
-            }
+          // Sending the data with fetch
+          fetch('/update-personalinfo', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify(personalUpdateData)
           })
-          .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred while updating your information.');
-          });
+            .then(response => response.json())
+            .then(data => {
+              console.log(data);
+
+              if (data.success) {
+                alert(data.message);
+              } else {
+                alert(data.message);
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert('An error occurred while updating your information.');
+            });
+        } else {
+          alert("Required fields Not Filled Do you want to continue with that");
+        }
       }
+
       function getSelectedExpenseType() {
         const selectedExpense = document.querySelector('input[name="expense-type"]:checked');
         console.log('Selected Expense Type:', selectedExpense ? selectedExpense.value : 'None');

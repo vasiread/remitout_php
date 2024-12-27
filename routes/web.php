@@ -68,3 +68,6 @@ Route::post('/retrieve-sslcmarksheet', [StudentDashboardController::class, 'sslc
 Route::post('/retrieve-hscmarksheet', [StudentDashboardController::class, 'hscmarksheetView']);
 Route::post('/retrieve-graduationmarksheet', [StudentDashboardController::class, 'graduationmarksheetView']);
 Route::post('/upload-each-documents', [StudentDashboardController::class, 'uploadMultipleDocuments']);
+Route::post('/count-documents', [StudentDashboardController::class, 'countFilesInBucket']);
+Route::post('/check-columns', [StudentDashboardController::class, 'validateTablesAndColumns']);
+Route::post('/send-documents', [StudentDashboardController::class, 'sendUserDocuments']);

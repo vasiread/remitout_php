@@ -12,20 +12,24 @@ use Illuminate\Queue\SerializesModels;
 class WelcomeMail extends Mailable
 {
     use Queueable, SerializesModels;
+
     public $msg;
     public $subject;
-
+    public $attachments; // To hold attachments
 
     /**
      * Create a new message instance.
      *
+     * @param string $msg
+     * @param string $subject
+     * @param array $attachments
      * @return void
      */
-    public function __construct($msg, $subject)
+    public function __construct($msg, $subject, $attachments = [])
     {
-        //
         $this->msg = $msg;
         $this->subject = $subject;
+        $this->attachments = $attachments; // Assign attachments to the instance
     }
 
     /**
@@ -59,6 +63,36 @@ class WelcomeMail extends Mailable
      */
     public function attachments()
     {
-        return [];
+        $attachedFiles = [];
+
+        // Attach each file provided in the $attachments array
+        foreach ($this->attachments as $attachment) {
+            $attachedFiles[] = [
+                'file_content' => $attachment['file_content'],
+                'file_name' => $attachment['file_name'],
+            ];
+        }
+
+        // Return the attachments array
+        return $attachedFiles;
+    }
+
+    /**
+     * Build the email message.
+     *
+     * @return $this
+     */
+    public function build()
+    {
+        $email = $this->view('components.mail')
+            ->subject($this->subject)
+            ->with('msg', $this->msg);
+
+        // Attach each file
+        foreach ($this->attachments as $attachment) {
+            $email->attachData($attachment['file_content'], $attachment['file_name']);
+        }
+
+        return $email;
     }
 }

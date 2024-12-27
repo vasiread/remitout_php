@@ -1,11 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Schema;
+use App\Mail\Documentsmail;
+ 
 use App\Models\Academics;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 use App\Models\PersonalInfo;
@@ -13,6 +17,12 @@ use App\Models\CourseInfo;
 
 class StudentDashboardController extends Controller
 {
+    protected $tablesAndColumns = [
+        'personal_infos' => ['full_name', 'phone', 'email', 'state', 'linked_through'],
+        'academic_details' => ['gap_in_academics', 'work_experience'],
+        'coborrower_details' => ['plan-to-study', 'degree-type', 'course-duration', 'course-details', 'loan_amount_in_lakhs'],
+        'course_details_formdata' => ['co_borrower_relation', 'co_borrower_income', 'liability_select']
+    ];
     public function getUser()
     {
         $user = session('user');
@@ -35,7 +45,7 @@ class StudentDashboardController extends Controller
         // $academicDetails = $user->academicsInfo;
 
         // Ensure this returns the view
-        return view('pages.studentdashboard', compact('user', 'userDetails', $userDetails, 'personalDetails', $personalDetails, 'courseDetails', $courseDetails, 'academicDetails', $academicDetails));
+        return view('pages.studentdashboard', compact('user', 'userDetails', 'personalDetails', 'courseDetails', 'academicDetails'));
     }
     public function updateFromProfile(Request $request)
     {
@@ -69,12 +79,14 @@ class StudentDashboardController extends Controller
                 $personalInfo->phone = $validated['editedPhone'];
                 $personalInfo->state = $validated['editedState'];
                 $personalInfo->full_name = $validated['editedName'];
+                $personalInfo->email = $validated['editedEmail'];
                 $personalInfo->referral_code = $validated['referralCode'];
                 $personalInfo->save();
             } else {
                 $personalInfo = PersonalInfo::create([
                     'user_id' => $user->unique_id,
                     'full_name' => $validated['editedName'],
+                    'email' => $validated['editedEmail'],
                     'phone' => $validated['editedPhone'],
                     'state' => $validated['editedState'],
                     'referral_code' => $validated['referralCode']
@@ -303,25 +315,19 @@ class StudentDashboardController extends Controller
     }
     public function passportView(Request $request)
     {
-        // Validate the incoming request
-        $request->validate([
+         $request->validate([
             'userId' => 'required|string',
         ]);
 
-        // Retrieve user ID
-        $userId = $request->input('userId');
+         $userId = $request->input('userId');
 
-        // Define the file path for the profile pictures folder
-        $filePath = "$userId/pan-card-name";  // Assuming profile pictures are stored in this structure
+         $filePath = "$userId/pan-card-name";  
 
-        // Get the list of files in the user's profile pictures directory
-        $files = Storage::disk('s3')->files($filePath);
+         $files = Storage::disk('s3')->files($filePath);
 
-        // Check if there are any files (there should be one per user)
-        if (!empty($files)) {
-            $file = $files[0];  // Get the first file (we expect only one profile picture per user)
+         if (!empty($files)) {
+            $file = $files[0]; 
 
-            // Generate the URL of the file
             $fileUrl = Storage::disk('s3')->url($file);
 
             return response()->json([
@@ -471,6 +477,129 @@ class StudentDashboardController extends Controller
             'message' => 'No profile picture found for this user.',
         ], 404);
     }
+
+    public function countFilesInBucket(Request $request)
+    {
+        $request->validate([
+            'userId' => 'required|string'
+        ]);
+        $userId = $request->input('userId');
+        $folderPath = "$userId";
+
+        $files = Storage::disk("s3")->allFiles($folderPath);
+        $documentCount = count($files);
+
+
+        return response()->json([
+            'message' => 'Documents counts retreived successfully',
+            'documentscount' => $documentCount - 1,
+
+        ], 200);
+
+
+    }
+
+
+
+   
+
+    // Method to check profile completion based on user ID (from the request)
+    public function validateProfileCompletion(Request $request)
+    {
+        $userId = $request->input('user_id');
+        if (!$userId) {
+            return response()->json(['error' => 'User ID is required'], 400);
+        }
+
+        $validationResult = [];
+        $totalColumns = 0;
+        $filledColumns = 0;
+
+        foreach ($this->tablesAndColumns as $table => $columns) {
+            if (Schema::hasTable($table)) {
+                $tableStatus = ['table_exists' => true, 'columns' => []];
+
+                // Fetch all necessary columns at once for the specific user
+                $userData = DB::table($table)->where('user_id', $userId)->first();
+
+                foreach ($columns as $column) {
+                    $totalColumns++;
+
+                    // Check if the column exists in the table schema
+                    if (Schema::hasColumn($table, $column)) {
+                        $value = $userData ? $userData->$column : null;
+
+                        if (!empty($value)) {
+                            $tableStatus['columns'][$column] = 'Filled';
+                            $filledColumns++;
+                        } else {
+                            $tableStatus['columns'][$column] = 'Not Filled';
+                        }
+                    } else {
+                        $tableStatus['columns'][$column] = 'Column does not exist';
+                    }
+                }
+
+                $validationResult[$table] = $tableStatus;
+            } else {
+                $validationResult[$table] = ['table_exists' => false, 'columns' => 'Table does not exist'];
+            }
+        }
+
+        $completionPercentage = ($totalColumns > 0) ? ($filledColumns / $totalColumns) * 100 : 0;
+
+        return response()->json([
+            'profile_completion_percentage' => $completionPercentage,
+            'validation_result' => $validationResult
+        ]);
+    }
+
+    public function sendUserDocuments(Request $request)
+    {
+        $email = $request->input('email');  // The recipient's email
+        $userId = $request->input('userId');
+
+        $folderPath = "$userId";  // The folder where the files are stored in S3
+        $files = Storage::disk('s3')->files($folderPath);  // Get all files in the folder
+
+        // Log the files to ensure we are getting the correct files
+        \Log::info('Files retrieved from S3: ', $files);
+
+        // Prepare an array to hold attachments
+        $attachments = [];
+
+        foreach ($files as $file) {
+            \Log::info('Adding attachment: ', ['file' => $file]);
+
+            $attachments[] = [
+                'file_path' => $file,  // Store the S3 file path
+                'file_name' => basename($file),  // Get the file name from the path
+            ];
+        }
+
+        // Create and send the email with the attachments
+        Mail::to($email)->send(new Documentsmail(
+            'Please find your documents attached.',  // The email body message
+            'Your Requested Documents',  // The subject of the email
+            $attachments  // The attachments array containing file paths
+        ));
+
+        return response()->json([
+            'message' => 'Email sent successfully with attachments.'
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

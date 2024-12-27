@@ -26,6 +26,8 @@ Route::post('/retrieve-aadhar-card', [StudentDashboardController::class, 'aadhar
 Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
 Route::post('/count-documents', [StudentDashboardController::class, 'countFilesInBucket']);
 Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFromProfile']);
+Route::post('/check-columns', [StudentDashboardController::class, 'validateTablesAndColumns']);
+Route::post('/send-documents', [StudentDashboardController::class, 'sendUserDocuments']);
 
 // Route::post('/registeruser', [RegisterController::class, 'register']);
 

@@ -249,8 +249,8 @@ $loanStatusInfo = [
                     </div>
                     <div class="profilestatus-graph-secondsection">
                         <div class="profilestatus-noofdocuments-section">
-                            <p>07</p>
-                            <span>/13</span>
+                            <p>00</p>
+                            <span>/22</span>
                         </div>
                         <p class="secondsection-inside" style="color:rgba(144, 144, 144, 1)">Document Uploaded</p>
 
@@ -286,24 +286,33 @@ $loanStatusInfo = [
 
 
                 </div>
-                <div class="testscoreseditsection-secondrow">
-                    <p>1. IELTS <span class="ilets_score">{{ $academicDetails[0]->ILETS }}</span></p>
-                    <p>2. GRE <span class="gre_score">{{ $academicDetails[0]->GRE }}</span></p>
-                    <p>3. TOEFL <span class="tofel_score">{{ $academicDetails[0]->TOFEL }}</span></p>
+            <div class="testscoreseditsection-secondrow">
+                @php
+                    $counter = 1; 
+                @endphp
+            
+                @if (is_numeric($academicDetails[0]->ILETS) && !empty($academicDetails[0]->ILETS))
+                    <p>{{ $counter++ }}. IELTS <span class="ilets_score">{{ $academicDetails[0]->ILETS }}</span></p>
+                @endif
+            
+                @if (is_numeric($academicDetails[0]->GRE) && !empty($academicDetails[0]->GRE))
+                    <p>{{ $counter++ }}. GRE <span class="gre_score">{{ $academicDetails[0]->GRE }}</span></p>
+                @endif
+            
+                @if (is_numeric($academicDetails[0]->TOFEL) && !empty($academicDetails[0]->TOFEL))
+                    <p>{{ $counter++ }}. TOEFL <span class="tofel_score">{{ $academicDetails[0]->TOFEL }}</span></p>
+                @endif
+            
+                @php
+                    $others = json_decode($academicDetails[0]->Others, true);
+                @endphp
+            
+                @if (isset($others['otherExamName']) && isset($others['otherExamScore']) && is_numeric($others['otherExamScore']) && !empty($others['otherExamScore']))
+                    <p>{{ $counter++ }}. {{$others['otherExamName']}} <span>{{$others['otherExamScore']}}</span></p>
+                @endif
+            </div>
 
-                    <!-- @if (!empty($academicDetails[0]->Others))
-                                @php
-                                    $otherTests = json_decode($academicDetails[0]->Others, true); 
-                                @endphp
 
-                                <p>4. Others</p>
-                                @foreach ($otherTests as $testName => $score)
-                                    <p>{{ $testName }} <span>{{ $score }}</span></p>
-                                @endforeach
-                @else
-                    <p>4. Others <span>No additional tests</span></p>
-                @endif -->
-                </div>
                 <div class="testscoreseditsection-secondrow-editsection">
                     <p>ILETS</p>
                     <input type="text" class="ilets_score" value={{$academicDetails[0]->ILETS}}>
@@ -339,7 +348,7 @@ $loanStatusInfo = [
                     <label class="custom-radio">
                         <input type="radio" name="education-level" value="Bachelors"
                             @if($courseDetails[0]->{'degree-type'} == 'Bachelors') checked @endif
-                            onclick="toggleOtherDegreeInput()">
+                            onclick="toggleOtherDegreeInput(event)">
                         <span class="radio-button"></span>
                         <p>Bachelors (only secured loan)</p>
                     </label>
@@ -349,7 +358,7 @@ $loanStatusInfo = [
                     <label class="custom-radio">
                         <input type="radio" name="education-level" value="Masters"
                             @if($courseDetails[0]->{'degree-type'} == 'Masters') checked @endif
-                            onclick="toggleOtherDegreeInput()">
+                            onclick="toggleOtherDegreeInput(event)">
                         <span class="radio-button"></span>
                         <p>Masters</p>
                     </label>
@@ -357,9 +366,8 @@ $loanStatusInfo = [
 
                     <!-- Third radio button for Others -->
                     <label class="custom-radio">
-                        <input type="radio" name="education-level" value="Others"
-                            @if($courseDetails[0]->{'degree-type'} == 'Others') checked @endif
-                            onclick="toggleOtherDegreeInput(true)">
+                        <input type="radio" name="education-level" value="Others" @if($courseDetails[0]->{'degree-type'} !== 'Bachelors' && $courseDetails[0]->{'degree-type'} !== 'Masters') checked @endif
+                            onclick="toggleOtherDegreeInput(event)">
                         <span class="radio-button"></span>
                         <p>Others</p>
                     </label>
@@ -369,6 +377,7 @@ $loanStatusInfo = [
                 <input type="text" placeholder="Enter degree type" value="{{ $courseDetails[0]->{'degree-type'} }}"
                     id="otherDegreeInput" @if($courseDetails[0]->{'degree-type'} != 'Others') disabled @endif>
             </div>
+
             <div class="myapplication-fourthcolumn-additional">
                 <p>3. What is the duration of the course?</p>
                 <input type="text" placeholder="{{ $courseDetails[0]->{'course-duration'} ?? '' }}"
@@ -559,6 +568,7 @@ $loanStatusInfo = [
             initializeMarksheetUpload();
             initializeProgressRing();
             saveChangesFunctionality();
+            initialisedocumentsCount();
             initialiseProfileUpload();
             initialiseProfileView();
             initialisePanCardView();
@@ -1145,13 +1155,22 @@ $loanStatusInfo = [
         };
 
 
-        function toggleOtherDegreeInput(enable) {
+        function toggleOtherDegreeInput(event) {
             const otherDegreeInput = document.getElementById('otherDegreeInput');
-            if (enable) {
-                otherDegreeInput.disabled = false;
+
+            // Check if the event target and its value exist
+            if (event && event.target && event.target.value) {
+                if (event.target.value === 'Others') {
+                    otherDegreeInput.disabled = false;
+                    otherDegreeInput.placeholder = 'Enter here';
+                    otherDegreeInput.value = '';
+                } else {
+                    otherDegreeInput.disabled = true;
+                    otherDegreeInput.value = event.target.value; // Set the value to Bachelors or Masters
+                    otherDegreeInput.placeholder = 'Enter degree type'; // Reset placeholder if needed
+                }
             } else {
-                otherDegreeInput.disabled = true;
-                otherDegreeInput.value = '';
+                console.error("Error: Event or target value is undefined.");
             }
         }
 
@@ -1166,6 +1185,51 @@ $loanStatusInfo = [
             progressRingFill.style.strokeDasharray = `${circumference} ${circumference}`;
             progressRingFill.style.strokeDashoffset = offset;
             progressText.textContent = `${Math.round(percentage * 100)}%`;
+        };
+
+        const initialisedocumentsCount = () => {
+            const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+
+            const userId = userIdElement ? userIdElement.textContent : '';
+
+            fetch("/count-documents", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ userId })
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data) {
+                        console.log(data.documentscount);
+                        const documentCountText = document.querySelector(".profilestatus-graph-secondsection .profilestatus-noofdocuments-section p");
+                        // if(data.documentscount<10){
+                        if (data.documentscount < 10 && documentCountText && data && data.documentscount !== undefined) {
+                            documentCountText.textContent = "0" + data.documentscount;
+                        } else if (data.documentscount > 10 && documentCountText && data && data.documentscount !== undefined) {
+                            documentCountText.textContent = data.documentscount;
+
+                        } else {
+                            console.error('Element not found or data is invalid');
+
+
+                        }
+
+                        // }
+                        // else{
+                        // documentCountText.textContent = "0" + data.documentscount;
+
+                        // }
+
+                    } else if (data.error) {
+                        console.error(data.error);
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         };
 
 
@@ -1202,9 +1266,9 @@ $loanStatusInfo = [
 
 
             if (saveChangesButton) {
-                saveChangesButton.textContent = 'Edit'; 
+                saveChangesButton.textContent = 'Edit';
                 saveChangesButton.style.backgroundColor = "transparent";
-                saveChangesButton.style.color = "#260254";  
+                saveChangesButton.style.color = "#260254";
 
                 saveChangesButton.addEventListener('click', (event) => {
                     // Toggle the editing state
@@ -1213,8 +1277,8 @@ $loanStatusInfo = [
                     if (isEditing) {
 
                         saveChangesButton.textContent = 'Save';
-                        saveChangesButton.style.backgroundColor="rgba(111, 37, 206, 1)";
-                        saveChangesButton.style.color="#fff";
+                        saveChangesButton.style.backgroundColor = "rgba(111, 37, 206, 1)";
+                        saveChangesButton.style.color = "#fff";
 
                         personalDivContainerEdit.style.display = "flex";
                         personalDivContainer.style.display = "none";
@@ -1223,7 +1287,7 @@ $loanStatusInfo = [
                     } else {
 
                         saveChangesButton.textContent = 'Edit';
-                          saveChangesButton.style.backgroundColor = "transparent";
+                        saveChangesButton.style.backgroundColor = "transparent";
                         saveChangesButton.style.color = "#260254";
                         personalDivContainer.style.display = "flex";
                         personalDivContainerEdit.style.display = "none";
@@ -1287,15 +1351,15 @@ $loanStatusInfo = [
                                     savedMsg.style.display = "flex";
                                     console.log("data")
 
-                                    document.querySelector(".personalinfo-secondrow .personal_info_name p").textContent = data.user.name;
-                                    document.querySelector(".personalinfo-secondrow .personal_info_email p").textContent = data.user.email;
-                                    document.querySelector(".personalinfo-secondrow .personal_info_phone p").textContent = data.personalInfo.phone;
-                                    document.querySelector(".personalinfo-secondrow .personal_info_state p").textContent = data.personalInfo.state;
+                                    document.querySelector(".personalinfo-secondrow .personal_info_name p").value = data.user.name;
+                                    document.querySelector(".personalinfo-secondrow .personal_info_email p").value = data.user.email;
+                                    document.querySelector(".personalinfo-secondrow .personal_info_phone p").value = data.personalInfo.phone;
+                                    document.querySelector(".personalinfo-secondrow .personal_info_state p").value = data.personalInfo.state;
                                     console.log(data)
 
-                                    document.querySelector(".testscoreseditsection-secondrow p .ilets_score").textContent = data.academicsScores.ILETS;
-                                    document.querySelector(".testscoreseditsection-secondrow p .gre_score").textContent = data.academicsScores.GRE;
-                                    document.querySelector(".testscoreseditsection-secondrow p .tofel_score").textContent = data.academicsScores.TOFEL;
+                                    document.querySelector(".testscoreseditsection-secondrow p .ilets_score").value = data.academicsScores.ILETS;
+                                    document.querySelector(".testscoreseditsection-secondrow p .gre_score").value = data.academicsScores.GRE;
+                                    document.querySelector(".testscoreseditsection-secondrow p .tofel_score").value = data.academicsScores.TOFEL;
 
                                     setTimeout(() => {
                                         const disabledInputs = document.querySelectorAll('.studentdashboardprofile-myapplication input[disabled]');
