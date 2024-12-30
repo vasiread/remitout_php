@@ -38,8 +38,7 @@
   <div class="registration-container" id="step-personal">
     <form>
       @csrf
-      
-      <div class="registration-form">
+            <div class="registration-form">
         <!-- Step Header -->
         <div class="step-header">
           <div class="step-number">01</div>
@@ -78,9 +77,11 @@
           </div>
 
           <div class="input-group">
-            <img src="./assets/images/school.png" alt="Referral Code Icon" class="icon" />
-            <input type="text" placeholder="Referral Code" name="referral_code"
+            <div class="input-content">
+             <img src="./assets/images/school.png" alt="Referral Code Icon" class="icon" />
+             <input type="text" placeholder="Referral Code" name="referral_code"
               value="{{ optional(session('existing_personal_info'))->phone }}" id="personal-info-referral" required />
+            </div>  
           </div>
         </div>
 
@@ -136,7 +137,6 @@
       </div>
     </form>
   </div>
-
 
 
 
@@ -222,6 +222,13 @@
         </div>
       </form>
 
+
+      <!-- Automatically navigate to next step -->
+      <script>
+        setTimeout(function () {
+          navigateToStep('step-3');
+        }, 2000); // Auto navigate after 2 seconds
+      </script>
     </div>
 
     <!-- Step 3: Course Duration -->
@@ -1137,7 +1144,7 @@
 
   <!-------Navigation button------>
 
-<div class="navigation">
+  <div class="navigation">
   <button class="nav-button prev" id="prev-button" disabled>
     <span class="arrow"></span>
   </button>
@@ -1151,7 +1158,6 @@
     <span class="arrow"></span>
   </button>
 </div>
-
 
 
   <div class="support-container">
