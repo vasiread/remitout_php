@@ -222,13 +222,6 @@
         </div>
       </form>
 
-
-      <!-- Automatically navigate to next step -->
-      <script>
-        setTimeout(function () {
-          navigateToStep('step-3');
-        }, 2000); // Auto navigate after 2 seconds
-      </script>
     </div>
 
     <!-- Step 3: Course Duration -->
