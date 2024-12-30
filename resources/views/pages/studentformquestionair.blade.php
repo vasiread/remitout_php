@@ -38,6 +38,7 @@
   <div class="registration-container" id="step-personal">
     <form>
       @csrf
+      
       <div class="registration-form">
         <!-- Step Header -->
         <div class="step-header">
@@ -54,7 +55,7 @@
             <div class="input-content">
               <img src="./assets/images/person-icon.png" alt="Person Icon" class="icon" />
               <input type="text" placeholder="Full Name" name="full_name" id="personal-info-name"
-                value="{{ session('user')->name }}" required />
+                value="{{ session('user')->name }}" required/>
             </div>
             <div class="validation-message" id="personal-info-name-error"></div>
 
@@ -135,6 +136,7 @@
       </div>
     </form>
   </div>
+
 
 
 
@@ -1141,18 +1143,23 @@
 
 
   <!-------Navigation button------>
-  <div class="navigation">
-    <button class="nav-button prev">
-      <span class="arrow"></span>
-    </button>
-    <div class="nav-dots">
-      <div class="dot active"></div>
-      <div class="dot"></div>
-    </div>
-    <button class="nav-button next">
-      <span class="arrow"></span>
-    </button>
+
+<div class="navigation">
+  <button class="nav-button prev" id="prev-button" disabled>
+    <span class="arrow"></span>
+  </button>
+  <div class="nav-dots">
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
   </div>
+  <button class="nav-button next" id="next-button" disabled>
+    <span class="arrow"></span>
+  </button>
+</div>
+
+
 
   <div class="support-container">
     <button class="support-btn">Support</button>
@@ -2339,6 +2346,36 @@
     //   });
     // });
 
+// Function to check if all required fields are filled
+function checkRequiredFields() {
+  const requiredFields = document.querySelectorAll('input[required]');
+  const nextButton = document.getElementById('next-button');
+  const prevButton = document.getElementById('prev-button');
+
+  let allFilled = true;
+
+  // Check if all required fields are filled
+  requiredFields.forEach(field => {
+    if (!field.value.trim()) {
+      allFilled = false;
+    }
+  });
+
+  // Enable or disable the 'Next' button based on whether all required fields are filled
+  nextButton.disabled = !allFilled;
+
+  // Optionally enable/disable the 'Prev' button if needed
+  prevButton.disabled = false; // You can modify this logic based on your requirements
+}
+
+// Add event listeners to inputs to check required fields when the user types
+const inputs = document.querySelectorAll('input[required]');
+inputs.forEach(input => {
+  input.addEventListener('input', checkRequiredFields);
+});
+
+// Initial check on page load to see if the button should be enabled or disabled
+checkRequiredFields();
 
 
 
