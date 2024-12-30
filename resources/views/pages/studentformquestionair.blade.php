@@ -55,11 +55,8 @@
               <img src="./assets/images/person-icon.png" alt="Person Icon" class="icon" />
               <input type="text" placeholder="Full Name" name="full_name" id="personal-info-name"
                 value="{{ session('user')->name }}" required/>
+                <div class="validation-message" id="personal-info-name-error"></div>
             </div>
-            <div class="validation-message" id="personal-info-name-error"></div>
-
-
-
           </div>
 
 
@@ -70,10 +67,8 @@
               <img src="./assets/images/call-icon.png" alt="Phone Icon" class="icon" />
               <input type="tel" placeholder="Phone Number" name="phone_number" id="personal-info-phone"
                 value="{{ optional(session('existing_personal_info'))->phone }}" required />
+                <div class="validation-message" id="personal-info-phone-error"></div>
             </div>
-            <div class="validation-message" id="personal-info-phone-error"></div>
-
-
           </div>
 
           <div class="input-group">
@@ -81,6 +76,7 @@
              <img src="./assets/images/school.png" alt="Referral Code Icon" class="icon" />
              <input type="text" placeholder="Referral Code" name="referral_code"
               value="{{ optional(session('existing_personal_info'))->phone }}" id="personal-info-referral" required />
+               <div class="validation-message" id="referralCode-error"></div>
             </div>  
           </div>
         </div>
@@ -92,19 +88,17 @@
               <img src="./assets/images/mail.png" alt="Mail Icon" class="icon" />
               <input type="email" placeholder="Email ID" name="email" id="personal-info-email"
                 value="{{ session('user')->email }}" required />
+                 <div class="validation-message" id="personal-info-email-error"></div>
             </div>
-            <div class="validation-message" id="personal-info-email-error"></div>
-
-
           </div>
+
           <div class="input-group">
             <div class="input-content">
               <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
               <input type="text" placeholder="City" name="city" id="personal-info-city" required />
               <div id="suggestions" class="suggestions-container"></div>
-
+               <div class="validation-message" id="city-error"></div>
             </div>
-            <div class="validation-message" id="city-error"></div>
 
 
           </div>
@@ -121,15 +115,18 @@
           </div>
 
           <!-- Input Dropdown -->
-          <div class="input-container">
-            <select class="dropdown" name="how_did_you_find_us" required>
-              <option value="" disabled selected>Select</option>
-              <option value="youtube">YouTube</option>
-              <option value="google">Google</option>
-              <option value="friend">Friend</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
+        <div class="dropdown-container" data-required="true">
+           <div class="dropdown">
+              <div class="dropdown-label">Select</div>
+              <div class="dropdown-icon"></div>
+             <div class="dropdown-options">
+                <div class="dropdown-option" data-value="youtube">YouTube</div>
+                <div class="dropdown-option" data-value="google">Google</div>
+                <div class="dropdown-option" data-value="friend">Friend</div>
+                 <div class="dropdown-option" data-value="other">Other</div>
+             </div>
+           </div>
+        </div>  
 
           <!-- Submit Button -->
           <button type="submit" class="next-btn" id="personal-info-submit">Next</button>
@@ -1641,6 +1638,21 @@
           errorMessage.style.display = 'none';
         }
       });
+      
+       document.getElementById('personal-info-referral').addEventListener('input', function () {
+  const referralCode = document.getElementById('personal-info-referral');
+  const errorMessage = document.getElementById('referralCode-error');
+
+  if (referralCode.value.trim() === "") {
+    errorMessage.textContent = "Please enter a valid referral code.";
+    errorMessage.style.display = 'block';
+  } else {
+    errorMessage.style.display = 'none';
+  }
+});
+
+  
+
 
 
       document.getElementById('personal-info-email').addEventListener('input', function () {
