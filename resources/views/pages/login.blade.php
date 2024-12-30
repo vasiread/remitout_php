@@ -99,14 +99,15 @@
                 loginPassword: loginPassword,
             };
 
-            fetch('/loginformdata', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify(loginFormData)
-            })
+            fetch("{{ route('loginformdata') }}", {
+                  method: 'POST',
+                 headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                       },
+                     body: JSON.stringify(loginFormData)
+                   });
+
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)
