@@ -482,6 +482,7 @@ form {
       justify-content: space-between;
       cursor: pointer;
       transition: border-color 0.3s ease;
+      margin-top: 10px;
     }
 
     .dropdown:hover {
@@ -510,7 +511,7 @@ form {
       position: absolute;
       top: calc(100% + 8px);
       left: 0;
-      width: 100%;
+      width: 320px;
       background-color: white;
       border: 1px solid #E2E8F0;
       border-radius: 8px;
@@ -520,13 +521,13 @@ form {
       max-height: 200px;
       overflow-y: auto;
       z-index: 1000;
-      /* Hide scrollbar for Chrome, Safari and Opera */
+      
       ::-webkit-scrollbar {
         display: none;
       }
-      /* Hide scrollbar for IE, Edge and Firefox */
-      -ms-overflow-style: none;  /* IE and Edge */
-      scrollbar-width: none;  /* Firefox */
+      
+      -ms-overflow-style: none;  
+      scrollbar-width: none;  
     }
 
     .dropdown.open .dropdown-options {
@@ -540,7 +541,7 @@ form {
       cursor: pointer;
       transition: background-color 0.3s ease, color 0.3s ease;
       border-bottom: 1px solid #E2E8F0;
-      width:300px;
+      width:320px;
     }
 
     .dropdown-option:last-child {
@@ -548,7 +549,7 @@ form {
     }
 
     .dropdown-option:hover {
-      background-color: #f9f9f9;
+    
       color: #E98635;
     }
 

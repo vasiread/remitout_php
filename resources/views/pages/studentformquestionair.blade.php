@@ -1234,65 +1234,88 @@
         return true;
       }
 
-      function updateNavigationButtons() {
-        const isAtFirstContainer = currentBreadcrumbIndex === 0 && currentContainerIndex === 0;
-        const isAtLastContainer = currentContainerIndex === breadcrumbSections[currentBreadcrumbIndex].length - 1;
+    
+  function updateNavigationButtons() {
+    const isAtFirstContainer = currentContainerIndex === 0;  
+    const isAtLastContainer = currentContainerIndex === breadcrumbSections[currentBreadcrumbIndex].length - 1;
 
-        prevButton.disabled = isAtFirstContainer;
-        nextButton.disabled = isAtLastContainer;
+    prevButton.disabled = isAtFirstContainer;  
+    nextButton.disabled = isAtLastContainer || !areFieldsFilled();  
 
-        nextBreadcrumbButton.disabled = currentContainerIndex !== breadcrumbSections[currentBreadcrumbIndex].length - 1;
-      }
+    nextBreadcrumbButton.disabled = currentContainerIndex !== breadcrumbSections[currentBreadcrumbIndex].length - 1;
+  }
 
+  function updateBreadcrumbNavigation() {
+    breadcrumbLinks.forEach((link, index) => {
+        link.classList.remove('active');
+        link.style.color = ''; 
 
-
-      function updateBreadcrumbNavigation() {
-        breadcrumbLinks.forEach((link, index) => {
-          link.classList.remove('active');
-          link.style.color = '';
-
-          if (index === currentBreadcrumbIndex) {
+        if (index === currentBreadcrumbIndex) {
             link.classList.add('active');
-            link.style.color = '#E98635';
-          } else {
-            link.style.color = '';
-          }
-        });
-      }
+            link.style.color = '#E98635'; 
+        } else {
+            link.style.color = ''; 
+        }
+    });
+  }
 
-      function navigate(direction) {
-        const currentContainers = breadcrumbSections[currentBreadcrumbIndex];
+  function navigate(direction) {
+    const currentContainers = breadcrumbSections[currentBreadcrumbIndex];
 
-        currentContainers[currentContainerIndex].style.display = 'none';
+    currentContainers[currentContainerIndex].style.display = 'none';
 
-        if (direction === 'next') {
-          if (currentContainerIndex < currentContainers.length - 1) {
+    if (direction === 'next') {
+        if (currentContainerIndex < currentContainers.length - 1) {
             currentContainerIndex++;
-          } else if (currentBreadcrumbIndex < breadcrumbSections.length - 1) {
+        } else if (currentBreadcrumbIndex < breadcrumbSections.length - 1) {
             currentBreadcrumbIndex++;
             currentContainerIndex = 0;
-          }
-        } else if (direction === 'prev') {
-          if (currentContainerIndex > 0) {
+        }
+    } else if (direction === 'prev') {
+        if (currentContainerIndex > 0) {
             currentContainerIndex--;
-          } else if (currentBreadcrumbIndex > 0) {
+        } else if (currentBreadcrumbIndex > 0) {
             currentBreadcrumbIndex--;
             currentContainerIndex = breadcrumbSections[currentBreadcrumbIndex].length - 1;
-          }
         }
+    }
 
-        const updatedContainers = breadcrumbSections[currentBreadcrumbIndex];
-        updatedContainers[currentContainerIndex].style.display = 'block';
+    const updatedContainers = breadcrumbSections[currentBreadcrumbIndex];
+    updatedContainers[currentContainerIndex].style.display = 'block';
+
+    updateBreadcrumbNavigation();
+    updateNavigationButtons();
+    updateDots(); 
+    updateMobileHeading(currentBreadcrumbIndex);
+  }
+
+  // Add event listeners to buttons
+  nextButton.addEventListener('click', () => {
+    if (areFieldsFilled()) {
+      navigate('next');
+    }
+  });
+
+  prevButton.addEventListener('click', () => navigate('prev'));
+
+  nextBreadcrumbButton.addEventListener('click', () => {
+    if (currentContainerIndex === breadcrumbSections[currentBreadcrumbIndex].length - 1) {
+      if (currentBreadcrumbIndex < breadcrumbSections.length - 1) {
+        breadcrumbSections[currentBreadcrumbIndex].forEach(container => container.style.display = 'none');
+        currentBreadcrumbIndex++;
+        currentContainerIndex = 0;
+
+        breadcrumbSections[currentBreadcrumbIndex].forEach((container, index) => {
+          container.style.display = (index === 0) ? 'block' : 'none';
+        });
 
         updateBreadcrumbNavigation();
         updateNavigationButtons();
         updateDots();
+        updateMobileHeading(currentBreadcrumbIndex);
       }
-      //  nextButton.addEventListener('click', () => {
-      //   if (areFieldsFilled()) {
-      //     navigate('next');
-      //   }
-      // });
+    }
+  });
 
 
 
