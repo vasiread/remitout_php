@@ -16,7 +16,8 @@
 </head>
 
 <body>
-
+     
+ 
 
   <section class="registration-section">
     <div class="container">
@@ -38,7 +39,7 @@
   <div class="registration-container" id="step-personal">
     <form>
       @csrf
-            <div class="registration-form">
+      <div class="registration-form">
         <!-- Step Header -->
         <div class="step-header">
           <div class="step-number">01</div>
@@ -54,27 +55,32 @@
             <div class="input-content">
               <img src="./assets/images/person-icon.png" alt="Person Icon" class="icon" />
               <input type="text" placeholder="Full Name" name="full_name" id="personal-info-name"
-                value="{{ session('user')->name }}" required/>
-                 <div class="validation-message" id="personal-info-name-error"></div>
+                value="{{ session('user')->name }}" required />
             </div>
+            <div class="validation-message" id="personal-info-name-error"></div>
+
+
+
           </div>
+
+
+
 
           <div class="input-group">
             <div class="input-content">
               <img src="./assets/images/call-icon.png" alt="Phone Icon" class="icon" />
               <input type="tel" placeholder="Phone Number" name="phone_number" id="personal-info-phone"
                 value="{{ optional(session('existing_personal_info'))->phone }}" required />
-                <div class="validation-message" id="personal-info-phone-error"></div>
             </div>
+            <div class="validation-message" id="personal-info-phone-error"></div>
+
+
           </div>
 
           <div class="input-group">
-            <div class="input-content">
-             <img src="./assets/images/school.png" alt="Referral Code Icon" class="icon" />
-             <input type="text" placeholder="Referral Code" name="referral_code"
+            <img src="./assets/images/school.png" alt="Referral Code Icon" class="icon" />
+            <input type="text" placeholder="Referral Code" name="referral_code"
               value="{{ optional(session('existing_personal_info'))->phone }}" id="personal-info-referral" required />
-               <div class="validation-message" id="referralCode-error"></div>
-            </div>  
           </div>
         </div>
 
@@ -85,18 +91,20 @@
               <img src="./assets/images/mail.png" alt="Mail Icon" class="icon" />
               <input type="email" placeholder="Email ID" name="email" id="personal-info-email"
                 value="{{ session('user')->email }}" required />
-                  <div class="validation-message" id="personal-info-email-error"></div>
             </div>
-          
+            <div class="validation-message" id="personal-info-email-error"></div>
+
+
           </div>
           <div class="input-group">
             <div class="input-content">
               <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
               <input type="text" placeholder="City" name="city" id="personal-info-city" required />
               <div id="suggestions" class="suggestions-container"></div>
-              <div class="validation-message" id="city-error"></div>
 
             </div>
+            <div class="validation-message" id="city-error"></div>
+
 
           </div>
         </div>
@@ -496,7 +504,7 @@
 
 
 
-  <section class="kyc-section-document" style="display: none;">
+  <section class="kyc-section-document" id="kyc-section-id" style="display: none;">
     <div class="kyc-container">
       <div class="step-header">
         <div class="step-number">01</div>
@@ -505,7 +513,6 @@
 
       <div class="document-container">
 
-        <!-- PAN Card -->
         <div class="document-box">
           <div class="document-name" id="pan-card-document-name" style="display: none;">PAN Card</div>
           <div class="upload-field">
@@ -1134,22 +1141,18 @@
 
 
   <!-------Navigation button------>
-
   <div class="navigation">
-  <button class="nav-button prev" id="prev-button" disabled>
-    <span class="arrow"></span>
-  </button>
-  <div class="nav-dots">
-    <div class="dot active"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
+    <button class="nav-button prev">
+      <span class="arrow"></span>
+    </button>
+    <div class="nav-dots">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+    </div>
+    <button class="nav-button next">
+      <span class="arrow"></span>
+    </button>
   </div>
-  <button class="nav-button next" id="next-button" disabled>
-    <span class="arrow"></span>
-  </button>
-</div>
-
 
   <div class="support-container">
     <button class="support-btn">Support</button>
@@ -1157,8 +1160,7 @@
   </div>
 
 
-
-
+ <!-- #region -->
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -1166,8 +1168,7 @@
       window.removeFile = removeFile;
 
 
-      event.preventDefault(); // Prevent form submission for testing
-      // Breadcrumb navigation and buttons
+      event.preventDefault(); 
       const prevButton = document.querySelector('.nav-button.prev');
       const nextButton = document.querySelector('.nav-button.next');
       const nextBreadcrumbButton = document.querySelector('.next-btn');
@@ -1176,6 +1177,13 @@
       const nextBorrowButton = document.querySelector('.next-btn-borrow');
       const nextKycButton = document.querySelector('.next-btn-ky');
       const breadcrumbLinks = document.querySelectorAll('.breadcrumb a');
+
+      window.onload = function () {
+        if (window.location.hash === '#kyc-section-id') {
+          document.getElementById('kyc-section-id').style.display = 'block';
+          alert("KYC")
+        }
+      };
 
       const breadcrumbSections = [
         [document.querySelector('.registration-form'), document.querySelector('.section-02-container')],
@@ -1196,7 +1204,6 @@
       let currentBreadcrumbIndex = 0;
       let currentContainerIndex = 0;
 
-      // Dynamically add dots based on breadcrumb index
       function updateDots() {
         const dotContainer = document.querySelector('.nav-dots');
         dotContainer.innerHTML = '';
@@ -1213,7 +1220,6 @@
         }
       }
 
-      // Function to check if all required fields are filled
       function areFieldsFilled() {
         const currentContainers = breadcrumbSections[currentBreadcrumbIndex];
         const currentContainer = currentContainers[currentContainerIndex];
@@ -2336,36 +2342,6 @@
     //   });
     // });
 
-// Function to check if all required fields are filled
-function checkRequiredFields() {
-  const requiredFields = document.querySelectorAll('input[required]');
-  const nextButton = document.getElementById('next-button');
-  const prevButton = document.getElementById('prev-button');
-
-  let allFilled = true;
-
-  // Check if all required fields are filled
-  requiredFields.forEach(field => {
-    if (!field.value.trim()) {
-      allFilled = false;
-    }
-  });
-
-  // Enable or disable the 'Next' button based on whether all required fields are filled
-  nextButton.disabled = !allFilled;
-
-  // Optionally enable/disable the 'Prev' button if needed
-  prevButton.disabled = false; // You can modify this logic based on your requirements
-}
-
-// Add event listeners to inputs to check required fields when the user types
-const inputs = document.querySelectorAll('input[required]');
-inputs.forEach(input => {
-  input.addEventListener('input', checkRequiredFields);
-});
-
-// Initial check on page load to see if the button should be enabled or disabled
-checkRequiredFields();
 
 
 
