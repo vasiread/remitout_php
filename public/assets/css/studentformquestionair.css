@@ -3112,7 +3112,7 @@ input[type="file"] {
   margin-left: 8px;
 }
 
-.save-btn-kyc{
+.next-btn-kyc{
   padding: 10px 20px;
   width: 190px;
   height: 50px;
@@ -3130,7 +3130,7 @@ input[type="file"] {
 }
 
 @media (max-width: 760px) {
-  .save-btn-kyc {
+  .next-btn-kyc{
    padding: 10px 20px;
   width: 180px;
   height: 50px;
