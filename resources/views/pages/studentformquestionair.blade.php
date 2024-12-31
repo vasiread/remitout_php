@@ -49,18 +49,15 @@
         <!-- Hidden User ID -->
         <input type="hidden" name="user_id" id="personal-info-userid" value="{{ session('user')->unique_id }}">
 
-        <!-- Input Row 1 -->
+         <!-- Input Row 1 -->
         <div class="input-row">
           <div class="input-group">
             <div class="input-content">
               <img src="./assets/images/person-icon.png" alt="Person Icon" class="icon" />
               <input type="text" placeholder="Full Name" name="full_name" id="personal-info-name"
-                value="{{ session('user')->name }}" required />
+                value="{{ session('user')->name }}" required/>
+                <div class="validation-message" id="personal-info-name-error"></div>
             </div>
-            <div class="validation-message" id="personal-info-name-error"></div>
-
-
-
           </div>
 
 
@@ -71,16 +68,17 @@
               <img src="./assets/images/call-icon.png" alt="Phone Icon" class="icon" />
               <input type="tel" placeholder="Phone Number" name="phone_number" id="personal-info-phone"
                 value="{{ optional(session('existing_personal_info'))->phone }}" required />
+                <div class="validation-message" id="personal-info-phone-error"></div>
             </div>
-            <div class="validation-message" id="personal-info-phone-error"></div>
-
-
           </div>
 
           <div class="input-group">
-            <img src="./assets/images/school.png" alt="Referral Code Icon" class="icon" />
-            <input type="text" placeholder="Referral Code" name="referral_code"
+            <div class="input-content">
+             <img src="./assets/images/school.png" alt="Referral Code Icon" class="icon" />
+             <input type="text" placeholder="Referral Code" name="referral_code"
               value="{{ optional(session('existing_personal_info'))->phone }}" id="personal-info-referral" required />
+               <div class="validation-message" id="referralCode-error"></div>
+            </div>  
           </div>
         </div>
 
@@ -91,19 +89,17 @@
               <img src="./assets/images/mail.png" alt="Mail Icon" class="icon" />
               <input type="email" placeholder="Email ID" name="email" id="personal-info-email"
                 value="{{ session('user')->email }}" required />
+                 <div class="validation-message" id="personal-info-email-error"></div>
             </div>
-            <div class="validation-message" id="personal-info-email-error"></div>
-
-
           </div>
+
           <div class="input-group">
             <div class="input-content">
               <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
               <input type="text" placeholder="City" name="city" id="personal-info-city" required />
               <div id="suggestions" class="suggestions-container"></div>
-
+               <div class="validation-message" id="city-error"></div>
             </div>
-            <div class="validation-message" id="city-error"></div>
 
 
           </div>
