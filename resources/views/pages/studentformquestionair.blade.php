@@ -38,7 +38,7 @@
   <div class="registration-container" id="step-personal">
     <form>
       @csrf
-      <div class="registration-form">
+            <div class="registration-form">
         <!-- Step Header -->
         <div class="step-header">
           <div class="step-number">01</div>
@@ -54,12 +54,9 @@
             <div class="input-content">
               <img src="./assets/images/person-icon.png" alt="Person Icon" class="icon" />
               <input type="text" placeholder="Full Name" name="full_name" id="personal-info-name"
-                value="{{ session('user')->name }}" required />
+                value="{{ session('user')->name }}" required/>
+                <div class="validation-message" id="personal-info-name-error"></div>
             </div>
-            <div class="validation-message" id="personal-info-name-error"></div>
-
-
-
           </div>
 
 
@@ -70,16 +67,17 @@
               <img src="./assets/images/call-icon.png" alt="Phone Icon" class="icon" />
               <input type="tel" placeholder="Phone Number" name="phone_number" id="personal-info-phone"
                 value="{{ optional(session('existing_personal_info'))->phone }}" required />
+                <div class="validation-message" id="personal-info-phone-error"></div>
             </div>
-            <div class="validation-message" id="personal-info-phone-error"></div>
-
-
           </div>
 
           <div class="input-group">
-            <img src="./assets/images/school.png" alt="Referral Code Icon" class="icon" />
-            <input type="text" placeholder="Referral Code" name="referral_code"
+            <div class="input-content">
+             <img src="./assets/images/school.png" alt="Referral Code Icon" class="icon" />
+             <input type="text" placeholder="Referral Code" name="referral_code"
               value="{{ optional(session('existing_personal_info'))->phone }}" id="personal-info-referral" required />
+               <div class="validation-message" id="referralCode-error"></div>
+            </div>  
           </div>
         </div>
 
@@ -90,19 +88,17 @@
               <img src="./assets/images/mail.png" alt="Mail Icon" class="icon" />
               <input type="email" placeholder="Email ID" name="email" id="personal-info-email"
                 value="{{ session('user')->email }}" required />
+                 <div class="validation-message" id="personal-info-email-error"></div>
             </div>
-            <div class="validation-message" id="personal-info-email-error"></div>
-
-
           </div>
+
           <div class="input-group">
             <div class="input-content">
               <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
               <input type="text" placeholder="City" name="city" id="personal-info-city" required />
               <div id="suggestions" class="suggestions-container"></div>
-
+               <div class="validation-message" id="city-error"></div>
             </div>
-            <div class="validation-message" id="city-error"></div>
 
 
           </div>
@@ -110,7 +106,7 @@
       </div>
 
       <!-- Section 02 (Hidden Initially) -->
-      <div class="section-02-container" style="display: none;">
+      <div class="section-02-container">
         <div class="section section-02">
           <!-- Step Header -->
           <div class="step-header">
@@ -119,15 +115,19 @@
           </div>
 
           <!-- Input Dropdown -->
-          <div class="input-container">
-            <select class="dropdown" name="how_did_you_find_us" required>
-              <option value="" disabled selected>Select</option>
-              <option value="youtube">YouTube</option>
-              <option value="google">Google</option>
-              <option value="friend">Friend</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
+         <div class="dropdown-container" data-required="true">
+           <div class="dropdown">
+              <div class="dropdown-label">Select</div>
+              <div class="dropdown-icon"></div>
+             <div class="dropdown-options">
+                <div class="dropdown-option" data-value="youtube">YouTube</div>
+                <div class="dropdown-option" data-value="google">Google</div>
+                <div class="dropdown-option" data-value="friend">Friend</div>
+                 <div class="dropdown-option" data-value="other">Other</div>
+             </div>
+           </div>
+        </div>
+
 
           <!-- Submit Button -->
           <button type="submit" class="next-btn" id="personal-info-submit">Next</button>
@@ -221,12 +221,6 @@
       </form>
 
 
-      <!-- Automatically navigate to next step -->
-      <script>
-        setTimeout(function () {
-          navigateToStep('step-3');
-        }, 2000); // Auto navigate after 2 seconds
-      </script>
     </div>
 
     <!-- Step 3: Course Duration -->
@@ -1141,18 +1135,22 @@
 
 
   <!-------Navigation button------>
+
   <div class="navigation">
-    <button class="nav-button prev">
-      <span class="arrow"></span>
-    </button>
-    <div class="nav-dots">
-      <div class="dot active"></div>
-      <div class="dot"></div>
-    </div>
-    <button class="nav-button next">
-      <span class="arrow"></span>
-    </button>
+  <button class="nav-button prev" id="prev-button" disabled>
+    <span class="arrow"></span>
+  </button>
+  <div class="nav-dots">
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
   </div>
+  <button class="nav-button next" id="next-button" disabled>
+    <span class="arrow"></span>
+  </button>
+</div>
+
 
   <div class="support-container">
     <button class="support-btn">Support</button>
@@ -1164,6 +1162,7 @@
 
 
   <script>
+
     document.addEventListener('DOMContentLoaded', () => {
       window.handleFileUpload = handleFileUpload;
       window.removeFile = removeFile;
@@ -1231,65 +1230,88 @@
         return true;
       }
 
-      function updateNavigationButtons() {
-        const isAtFirstContainer = currentBreadcrumbIndex === 0 && currentContainerIndex === 0;
-        const isAtLastContainer = currentContainerIndex === breadcrumbSections[currentBreadcrumbIndex].length - 1;
+    
+  function updateNavigationButtons() {
+    const isAtFirstContainer = currentContainerIndex === 0;  
+    const isAtLastContainer = currentContainerIndex === breadcrumbSections[currentBreadcrumbIndex].length - 1;
 
-        prevButton.disabled = isAtFirstContainer;
-        nextButton.disabled = isAtLastContainer;
+    prevButton.disabled = isAtFirstContainer;  
+    nextButton.disabled = isAtLastContainer || !areFieldsFilled();  
 
-        nextBreadcrumbButton.disabled = currentContainerIndex !== breadcrumbSections[currentBreadcrumbIndex].length - 1;
-      }
+    nextBreadcrumbButton.disabled = currentContainerIndex !== breadcrumbSections[currentBreadcrumbIndex].length - 1;
+  }
 
+  function updateBreadcrumbNavigation() {
+    breadcrumbLinks.forEach((link, index) => {
+        link.classList.remove('active');
+        link.style.color = ''; 
 
-
-      function updateBreadcrumbNavigation() {
-        breadcrumbLinks.forEach((link, index) => {
-          link.classList.remove('active');
-          link.style.color = '';
-
-          if (index === currentBreadcrumbIndex) {
+        if (index === currentBreadcrumbIndex) {
             link.classList.add('active');
-            link.style.color = '#E98635';
-          } else {
-            link.style.color = '';
-          }
-        });
-      }
+            link.style.color = '#E98635'; 
+        } else {
+            link.style.color = ''; 
+        }
+    });
+  }
 
-      function navigate(direction) {
-        const currentContainers = breadcrumbSections[currentBreadcrumbIndex];
+  function navigate(direction) {
+    const currentContainers = breadcrumbSections[currentBreadcrumbIndex];
 
-        currentContainers[currentContainerIndex].style.display = 'none';
+    currentContainers[currentContainerIndex].style.display = 'none';
 
-        if (direction === 'next') {
-          if (currentContainerIndex < currentContainers.length - 1) {
+    if (direction === 'next') {
+        if (currentContainerIndex < currentContainers.length - 1) {
             currentContainerIndex++;
-          } else if (currentBreadcrumbIndex < breadcrumbSections.length - 1) {
+        } else if (currentBreadcrumbIndex < breadcrumbSections.length - 1) {
             currentBreadcrumbIndex++;
             currentContainerIndex = 0;
-          }
-        } else if (direction === 'prev') {
-          if (currentContainerIndex > 0) {
+        }
+    } else if (direction === 'prev') {
+        if (currentContainerIndex > 0) {
             currentContainerIndex--;
-          } else if (currentBreadcrumbIndex > 0) {
+        } else if (currentBreadcrumbIndex > 0) {
             currentBreadcrumbIndex--;
             currentContainerIndex = breadcrumbSections[currentBreadcrumbIndex].length - 1;
-          }
         }
+    }
 
-        const updatedContainers = breadcrumbSections[currentBreadcrumbIndex];
-        updatedContainers[currentContainerIndex].style.display = 'block';
+    const updatedContainers = breadcrumbSections[currentBreadcrumbIndex];
+    updatedContainers[currentContainerIndex].style.display = 'block';
+
+    updateBreadcrumbNavigation();
+    updateNavigationButtons();
+    updateDots(); 
+    updateMobileHeading(currentBreadcrumbIndex);
+  }
+
+  // Add event listeners to buttons
+  nextButton.addEventListener('click', () => {
+    if (areFieldsFilled()) {
+      navigate('next');
+    }
+  });
+
+  prevButton.addEventListener('click', () => navigate('prev'));
+
+  nextBreadcrumbButton.addEventListener('click', () => {
+    if (currentContainerIndex === breadcrumbSections[currentBreadcrumbIndex].length - 1) {
+      if (currentBreadcrumbIndex < breadcrumbSections.length - 1) {
+        breadcrumbSections[currentBreadcrumbIndex].forEach(container => container.style.display = 'none');
+        currentBreadcrumbIndex++;
+        currentContainerIndex = 0;
+
+        breadcrumbSections[currentBreadcrumbIndex].forEach((container, index) => {
+          container.style.display = (index === 0) ? 'block' : 'none';
+        });
 
         updateBreadcrumbNavigation();
         updateNavigationButtons();
         updateDots();
+        updateMobileHeading(currentBreadcrumbIndex);
       }
-      //  nextButton.addEventListener('click', () => {
-      //   if (areFieldsFilled()) {
-      //     navigate('next');
-      //   }
-      // });
+    }
+  });
 
 
 
@@ -1635,6 +1657,21 @@
           errorMessage.style.display = 'none';
         }
       });
+      
+       document.getElementById('personal-info-referral').addEventListener('input', function () {
+  const referralCode = document.getElementById('personal-info-referral');
+  const errorMessage = document.getElementById('referralCode-error');
+
+  if (referralCode.value.trim() === "") {
+    errorMessage.textContent = "Please enter a valid referral code.";
+    errorMessage.style.display = 'block';
+  } else {
+    errorMessage.style.display = 'none';
+  }
+});
+
+  
+
 
 
       document.getElementById('personal-info-email').addEventListener('input', function () {
@@ -2339,6 +2376,36 @@
     //   });
     // });
 
+// Function to check if all required fields are filled
+function checkRequiredFields() {
+  const requiredFields = document.querySelectorAll('input[required]');
+  const nextButton = document.getElementById('next-button');
+  const prevButton = document.getElementById('prev-button');
+
+  let allFilled = true;
+
+  // Check if all required fields are filled
+  requiredFields.forEach(field => {
+    if (!field.value.trim()) {
+      allFilled = false;
+    }
+  });
+
+  // Enable or disable the 'Next' button based on whether all required fields are filled
+  nextButton.disabled = !allFilled;
+
+  // Optionally enable/disable the 'Prev' button if needed
+  prevButton.disabled = false; // You can modify this logic based on your requirements
+}
+
+// Add event listeners to inputs to check required fields when the user types
+const inputs = document.querySelectorAll('input[required]');
+inputs.forEach(input => {
+  input.addEventListener('input', checkRequiredFields);
+});
+
+// Initial check on page load to see if the button should be enabled or disabled
+checkRequiredFields();
 
 
 

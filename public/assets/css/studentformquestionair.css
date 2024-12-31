@@ -465,103 +465,98 @@ form {
   align-items: center;
   width: 100%;
 }
-.dropdown {
-  position: relative;
-  width: 300px;
-  height: 45px;
-  border: 1px solid #E2E8F0;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  padding: 0 12px;
-  background-color: #fff;
-  cursor: pointer;
-  transition: border-color 0.3s ease;
-  margin-top: 10px;
-}
-.dropdown-1 {
-  position: relative;
-  width: 300px;
-  height: 45px;
-  border: 1px solid #E2E8F0;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  padding: 0 12px;
-  background-color: #fff;
-  cursor: pointer;
-  transition: border-color 0.3s ease;
-  margin-top: 10px;
-}
+.dropdown-container {
+      position: relative;
+      width: 300px;
+    }
 
-.dropdown:hover {
-  border-color: #A0AEC0;
-}
+    .dropdown {
+      width: 300px;
+      height: 45px;
+      padding: 0 12px;
+      background-color: white;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: border-color 0.3s ease;
+      margin-top: 10px;
+    }
 
-.dropdown-label {
-  font-size: 14px;
-  color: #838383;
-  flex-grow: 1;
-}
+    .dropdown:hover {
+      border-color: #A0AEC0;
+    }
 
-.dropdown-icon {
-  width: 8px;
-  height: 8px;
-  border-right: 2px solid #191825;
-  border-bottom: 2px solid #191825;
-  transform: rotate(45deg);
-  transition: transform 0.3s ease;
-}
+    .dropdown-label {
+      font-size: 14px;
+      color: #838383;
+    }
 
-.dropdown.open .dropdown-icon {
-  transform: rotate(-135deg);
-}
+    .dropdown-icon {
+      width: 8px;
+      height: 8px;
+      border-right: 2px solid #191825;
+      border-bottom: 2px solid #191825;
+      transform: rotate(45deg);
+      transition: transform 0.3s ease;
+    }
 
-.dropdown-options {
-  position: absolute;
-  top: 50px;
-  left: 0;
-  width: 100%;
-  background-color: #fff;
-  border: 1px solid #E2E8F0;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: none;
-  flex-direction: column;
-  max-height: 200px;
-  overflow-y: auto;
-  z-index: 10;
-}
+    .dropdown.open .dropdown-icon {
+      transform: rotate(-135deg);
+    }
 
-.dropdown.open .dropdown-options {
-  display: flex;
-}
+    .dropdown-options {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      width: 320px;
+      background-color: white;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display: none;
+      flex-direction: column;
+      max-height: 200px;
+      overflow-y: auto;
+      z-index: 1000;
+      
+      ::-webkit-scrollbar {
+        display: none;
+      }
+      
+      -ms-overflow-style: none;  
+      scrollbar-width: none;  
+    }
 
-.dropdown-option {
-  padding: 12px 16px;
-  font-size: 14px;
-  color: #838383;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
+    .dropdown.open .dropdown-options {
+      display: flex;
+    }
 
+    .dropdown-option {
+      padding: 12px 16px;
+      font-size: 14px;
+      color: #838383;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      border-bottom: 1px solid #E2E8F0;
+      width:320px;
+    }
 
-.dropdown-option:not(:last-child) {
-  border-bottom: 1px solid #E2E8F0;  
-}
+    .dropdown-option:last-child {
+      border-bottom: none;
+    }
 
-.dropdown-option:hover {
-  background-color: #f9f9f9;
-  color: #E98635;
-}
+    .dropdown-option:hover {
+    
+      color: #E98635;
+    }
 
-.dropdown-option.selected {
-  font-weight: bold;
-  background-color: #f3f3f3;
-}
-.input-group {
-  position: relative;
-}
+    .dropdown-option.selected {
+      font-weight: bold;
+      background-color: #f3f3f3;
+    }
 
 .suggestions-container {
   position: absolute;
@@ -3266,5 +3261,5 @@ div.salary-sub p {
   margin-bottom: 30px !important;
 }
 .selected {
-    background-color: #e0e0e0; /* Highlight selected option */
+    background-color: #e0e0e0; 
 }
