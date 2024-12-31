@@ -115,16 +115,18 @@
             <h2>How did you find out about us?</h2>
           </div>
 
-          <!-- Input Dropdown -->
-          <div class="input-container">
-            <select class="dropdown" name="how_did_you_find_us" required>
-              <option value="" disabled selected>Select</option>
-              <option value="youtube">YouTube</option>
-              <option value="google">Google</option>
-              <option value="friend">Friend</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
+             <div class="dropdown-container" data-required="true">
+            <div class="dropdown">
+                <div class="dropdown-label">Select</div>
+                <div class="dropdown-icon"></div>
+                <div class="dropdown-options">
+                    <div class="dropdown-option" data-value="youtube">YouTube</div>
+                    <div class="dropdown-option" data-value="google">Google</div>
+                    <div class="dropdown-option" data-value="friend">Friend</div>
+                    <div class="dropdown-option" data-value="other">Other</div>
+                </div>
+            </div>
+        </div>
 
           <!-- Submit Button -->
           <button type="submit" class="next-btn" id="personal-info-submit">Next</button>
@@ -385,6 +387,7 @@
           </div>
 
           <div class="admit-exam-field">
+            <label for="admit-others-name"></label>
             <div class="admit-input-container">
               <input type="text" id="admit-others-score" placeholder="Add score">
             </div>
@@ -400,6 +403,7 @@
 
   <!----breadcrumb 4 tab---->
   <!---co-borrower section-->
+  
   <div class="co-borrow-section" id="step-co-borrower">
     <div class="borrow-container-section" style="display: none;">
       <div class="step-header">
@@ -1119,9 +1123,10 @@
       </div>
 
       <!-- Submit Button -->
-    <button type="submit" class="next-btn-kyc" id="saveandsubmit">Save and Submit</button>
+    
     
     </div>
+    <button type="submit" class="next-btn-kyc" id="saveandsubmit">Save and Submit</button>
     
   </section>
 
@@ -2036,6 +2041,7 @@ if (!borrowBloodRelative.contains(event.target)) {
 });
 
 //change start
+// upadted js Code
 
 const dropdown = document.querySelector('.dropdown');
 const dropdownLabel = dropdown.querySelector('.dropdown-label');
@@ -2065,6 +2071,60 @@ document.addEventListener('click', function(event) {
         dropdown.classList.remove('open'); 
     }
 });
+
+
+// Get all dropdown containers
+const dropdownContainers = document.querySelectorAll('.dropdown-container-about');
+
+// Add click event listeners to all dropdowns
+dropdownContainers.forEach(container => {
+    const dropdown = container.querySelector('.dropdown-about');
+    const options = container.querySelector('.dropdown-options-about');
+    const label = container.querySelector('.dropdown-label-about');
+
+    // Toggle dropdown on click
+    dropdown.addEventListener('click', (e) => {
+        e.stopPropagation();
+        // Close all other dropdowns first
+        dropdownContainers.forEach(otherContainer => {
+            if (otherContainer !== container) {
+                otherContainer.querySelector('.dropdown-options-about').classList.remove('active');
+                otherContainer.querySelector('.dropdown-about').classList.remove('open');
+            }
+        });
+        
+        // Toggle current dropdown
+        options.classList.toggle('active');
+        dropdown.classList.toggle('open');
+    });
+
+    // Handle option selection
+    const optionElements = container.querySelectorAll('.dropdown-option-about');
+    optionElements.forEach(option => {
+        option.addEventListener('click', (e) => {
+            e.stopPropagation();
+            label.textContent = option.textContent;
+            options.classList.remove('active');
+            dropdown.classList.remove('open');
+            
+            // Get the selected value
+            const selectedValue = option.getAttribute('data-value');
+            // You can perform additional actions with the selected value here
+            console.log('Selected value:', selectedValue);
+        });
+    });
+});
+
+// Close dropdown when clicking outside
+document.addEventListener('click', () => {
+    dropdownContainers.forEach(container => {
+        const options = container.querySelector('.dropdown-options-about');
+        const dropdown = container.querySelector('.dropdown-about');
+        options.classList.remove('active');
+        dropdown.classList.remove('open');
+    });
+});
+
 // Select all dropdowns within #step-3 container
 const dropdowns = document.querySelectorAll('#step-3 .dropdown');
 
@@ -2248,26 +2308,38 @@ otherCheckbox.addEventListener('change', () => {
 
 
       const othersRadio = document.getElementById('others');
-      const otherDegreeInputContainer = document.querySelector('.other-degree-input-container');
-      const otherDegreeInput = document.getElementById('other-degree');
-      const degreeRadios = document.querySelectorAll('input[name="degree_type"]');
+const otherDegreeInputContainer = document.querySelector('.other-degree-input-container');
+const otherDegreeInput = document.getElementById('other-degree');
+const degreeRadios = document.querySelectorAll('input[name="degree_type"]');
 
-      // Show/hide the "Add Degree" input based on the "Others" radio selection
-    
-      degreeRadios.forEach((radio) => {
-        radio.addEventListener('change', () => {
-          if (othersRadio.checked) {
-            otherDegreeInputContainer.style.display = 'flex';
-          } else {
-            otherDegreeInputContainer.style.display = 'none';
-          }
-        });
-      });
+let isOthersSelected = false; // Track the state of the "Others" radio button
 
-      // Update the "others" radio value instantly when typing in the text input
-      otherDegreeInput.addEventListener('input', () => {
-        othersRadio.value = otherDegreeInput.value;
-      });
+degreeRadios.forEach((radio) => {
+  radio.addEventListener('click', () => {
+    if (radio === othersRadio) {
+      // Toggle the "Others" input field visibility
+      isOthersSelected = !isOthersSelected;
+      otherDegreeInputContainer.style.display = isOthersSelected ? 'flex' : 'none';
+
+      if (!isOthersSelected) {
+        // Reset the "Others" radio button value and clear the text input
+        othersRadio.value = 'others';
+        otherDegreeInput.value = '';
+      }
+    } else {
+      // Hide the input field and reset state when other radio buttons are clicked
+      isOthersSelected = false;
+      otherDegreeInputContainer.style.display = 'none';
+      othersRadio.value = 'others'; // Reset "Others" value
+      otherDegreeInput.value = ''; // Clear the text input
+    }
+  });
+});
+
+// Update the "Others" radio value instantly when typing in the text input
+otherDegreeInput.addEventListener('input', () => {
+  othersRadio.value = otherDegreeInput.value;
+});
 
 
 

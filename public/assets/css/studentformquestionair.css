@@ -2496,12 +2496,20 @@ p {
   font-family: 'Poppins', sans-serif;
   border-radius: 4px;
   padding: 0 10px; 
+   border: 1px solid #E2E2E2;
 }
 
 .monthly-liability-option input[type="text"]::placeholder {
   font-size: 14px;
 }
+.monthly-liability-option input[type="text"]:hover {
+  border: 1px solid #E2E2E2;
+}
 
+/* Maintain the same border color on focus */
+.monthly-liability-option input[type="text"]:focus {
+  border: 1px solid #E2E2E2;
+}
 
 .next-btn-borrow{
   padding: 10px 20px;
