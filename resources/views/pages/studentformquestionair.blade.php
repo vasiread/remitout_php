@@ -19,21 +19,37 @@
      
  
 
-  <section class="registration-section">
-    <div class="container">
-      <div class="registration-content">
-        <h1 class="registration-title">Let's Get you Registered</h1>
-        <p class="registration-subtitle">Let us know you better to find you the best offers and services!</p>
-        <div class="breadcrumb flat">
-          <a href="#" id="breadcrumb-personal" class="active">Personal Information</a>
-          <a href="#" id="breadcrumb-course">Course Details</a>
-          <a href="#" id="breadcrumb-academic">Academic Details</a>
-          <a href="#" id="breadcrumb-co-borrower">Co-borrower Info</a>
-          <a href="#" id="breadcrumb-documents">Document Upload</a>
-        </div>
+ <section class="registration-section">
+  <div class="container">
+    <div class="registration-content">
+      <h1 class="registration-title">Let's Get you Registered</h1>
+      <p class="registration-subtitle">Let us know you better to find you the best offers and services!</p>
+      <div class="breadcrumb flat">
+        <a href="#" id="breadcrumb-personal" class="active desktop-text">
+          <span class="desktop-text">Personal Information</span>
+          <span class="mobile-number">1</span>
+        </a>
+        <a href="#" id="breadcrumb-course" class="desktop-text">
+          <span class="desktop-text">Course Details</span>
+          <span class="mobile-number">2</span>
+        </a>
+        <a href="#" id="breadcrumb-academic" class="desktop-text">
+          <span class="desktop-text">Academic Details</span>
+          <span class="mobile-number">3</span>
+        </a>
+        <a href="#" id="breadcrumb-co-borrower" class="desktop-text">
+          <span class="desktop-text">Co-borrower Info</span>
+          <span class="mobile-number">4</span>
+        </a>
+        <a href="#" id="breadcrumb-documents" class="desktop-text">
+          <span class="desktop-text">Document Upload</span>
+          <span class="mobile-number">5</span>
+        </a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
 
   <!-- Personal Information Tab -->
   <div class="registration-container" id="step-personal">
