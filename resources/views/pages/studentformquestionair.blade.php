@@ -1217,26 +1217,6 @@
     }
 }
 
-// Modify breadcrumb click handler
-breadcrumbLinks.forEach((link, index) => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-
-        // Remove the condition that was preventing backwards navigation
-        breadcrumbSections[currentBreadcrumbIndex].forEach(container => container.style.display = 'none');
-        currentBreadcrumbIndex = index;
-        currentContainerIndex = 0;
-
-        breadcrumbSections[currentBreadcrumbIndex].forEach((container, i) => {
-            container.style.display = (i === 0) ? 'block' : 'none';
-        });
-
-        updateBreadcrumbNavigation();
-        updateNavigationButtons();
-        updateDots();
-        updateMobileHeading(index);
-    });
-});
 
 // Make sure navigation function also updates heading
 function navigate(direction) {

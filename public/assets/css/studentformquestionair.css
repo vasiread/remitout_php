@@ -1095,7 +1095,7 @@ height: auto;
 .degrees {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  gap: 16px;width:800px;
 }
 
 .degree {
@@ -1411,7 +1411,7 @@ h2 {
 .right-section {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
   margin-left: 100px;
   flex: 1;
 }
@@ -1640,8 +1640,7 @@ h2 {
 
 .academic-options {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
+    gap: 18px;
   margin-top: 10px;
 }
 
@@ -1693,10 +1692,10 @@ h2 {
 .academic-reason {
   display: none;
   flex-direction: column;
-  gap: 10px;
+  gap: 30px;
   transition: opacity 0.3s ease;
   opacity: 0;
-  margin-top: -28px;
+  margin-top: -38px;
 }
 
 .academic-reason.visible {
@@ -2506,7 +2505,7 @@ p {
   border: 1px solid #E2E2E2;
 }
 
-/* Maintain the same border color on focus */
+
 .monthly-liability-option input[type="text"]:focus {
   border: 1px solid #E2E2E2;
 }
