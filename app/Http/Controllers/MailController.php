@@ -1,11 +1,15 @@
 <?php
-
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Cache;
 
-use Illuminate\Http\Request;
+use App\Mail\SendDocumentsMail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 use App\Mail\WelcomeMail;
+
+
 
 class MailController extends Controller
 {
@@ -56,4 +60,65 @@ class MailController extends Controller
 
         return response()->json(['message' => 'Invalid or expired OTP'], 400);
     }
+
+
+
+
+
+
+
+
+
+    public function sendUserDocuments(Request $request)
+    {
+        $request->validate([
+            'userId' => 'required|string',
+            'email' => 'required|email',
+            'name' => 'required|string'
+        ]);
+
+        $userId = $request->input('userId');
+        $email = $request->input('email');
+        $name = $request->input('name');
+
+        $baseFilePath = "$userId/";
+
+        $folders = Storage::disk('s3')->directories($baseFilePath);
+
+        $filePaths = [];
+
+        foreach ($folders as $folder) {
+            $files = Storage::disk('s3')->files($folder);
+
+            foreach ($files as $file) {
+                $filePaths[] = $file;
+            }
+        }
+
+        if (!empty($filePaths)) {
+            Mail::to($email)->send(new SendDocumentsMail($filePaths, $email, $name, $userId));
+
+            return response()->json([
+                'message' => 'All documents sent as attachments successfully.',
+            ], 200);
+        }
+
+        return response()->json([
+            'message' => 'No documents found for this user.',
+        ], 404);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\RegisterController;
@@ -70,4 +71,7 @@ Route::post('/retrieve-graduationmarksheet', [StudentDashboardController::class,
 Route::post('/upload-each-documents', [StudentDashboardController::class, 'uploadMultipleDocuments']);
 Route::post('/count-documents', [StudentDashboardController::class, 'countFilesInBucket']);
 Route::post('/check-columns', [StudentDashboardController::class, 'validateTablesAndColumns']);
-Route::post('/send-documents', [StudentDashboardController::class, 'sendUserDocuments']);
+Route::post('/send-documents', [MailController::class, 'sendUserDocuments']);
+
+Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
+Route::get('auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle']);   

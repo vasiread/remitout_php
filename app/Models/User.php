@@ -10,7 +10,7 @@ use App\Models\CourseInfo;
 
 class User extends Model
 {
-    protected $fillable = ['name', 'email', 'password', 'unique_id'];
+    protected $fillable = ['name', 'email', 'password', 'unique_id','google_id'];
 
     // Automatically generate unique_id when a new record is created
     protected static function boot()

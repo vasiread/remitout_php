@@ -16,7 +16,8 @@
 </head>
 
 <body>
-
+     
+ 
 
   <section class="registration-section">
     <div class="container">
@@ -503,7 +504,7 @@
 
 
 
-  <section class="kyc-section-document" style="display: none;">
+  <section class="kyc-section-document" id="kyc-section-id" style="display: none;">
     <div class="kyc-container">
       <div class="step-header">
         <div class="step-number">01</div>
@@ -512,7 +513,6 @@
 
       <div class="document-container">
 
-        <!-- PAN Card -->
         <div class="document-box">
           <div class="document-name" id="pan-card-document-name" style="display: none;">PAN Card</div>
           <div class="upload-field">
@@ -1160,8 +1160,7 @@
   </div>
 
 
-
-
+ <!-- #region -->
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -1169,8 +1168,7 @@
       window.removeFile = removeFile;
 
 
-      event.preventDefault(); // Prevent form submission for testing
-      // Breadcrumb navigation and buttons
+      event.preventDefault(); 
       const prevButton = document.querySelector('.nav-button.prev');
       const nextButton = document.querySelector('.nav-button.next');
       const nextBreadcrumbButton = document.querySelector('.next-btn');
@@ -1179,6 +1177,13 @@
       const nextBorrowButton = document.querySelector('.next-btn-borrow');
       const nextKycButton = document.querySelector('.next-btn-ky');
       const breadcrumbLinks = document.querySelectorAll('.breadcrumb a');
+
+      window.onload = function () {
+        if (window.location.hash === '#kyc-section-id') {
+          document.getElementById('kyc-section-id').style.display = 'block';
+          alert("KYC")
+        }
+      };
 
       const breadcrumbSections = [
         [document.querySelector('.registration-form'), document.querySelector('.section-02-container')],
@@ -1199,7 +1204,6 @@
       let currentBreadcrumbIndex = 0;
       let currentContainerIndex = 0;
 
-      // Dynamically add dots based on breadcrumb index
       function updateDots() {
         const dotContainer = document.querySelector('.nav-dots');
         dotContainer.innerHTML = '';
@@ -1216,7 +1220,6 @@
         }
       }
 
-      // Function to check if all required fields are filled
       function areFieldsFilled() {
         const currentContainers = breadcrumbSections[currentBreadcrumbIndex];
         const currentContainer = currentContainers[currentContainerIndex];

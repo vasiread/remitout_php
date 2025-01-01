@@ -57,7 +57,31 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
                     </div>
                     <button type="submit">Sign up</button>
                 </div>
+                <!-- <div class="googlesigninbuttoncontainer">
+                    <button class="googlesigninbutton" onclick="window.location.href='{{ route('google-auth') }}'">
+                        <img src="{{ asset('assets/images/googleicon.png') }}"> Sign in with Google
+                    </button>
+                    <button class="iossigninbutton">
+                        <img src="{{ asset('assets/images/appleicon.png') }}"> Sign in with Apple
+                    </button>
+                </div> -->
             </form>
+            <div class="logincontainer-anotherresources">
+                <p>Or</p>
+                <div class="googlesigninbuttoncontainer">
+                    <button class="googlesigninbutton" onclick="window.location.href='{{ route('google-auth') }}'">
+                        <img src="{{ asset('assets/images/googleicon.png') }}"> Sign in with Google
+                    </button>
+                    <button class="iossigninbutton">
+                        <img src="{{ asset('assets/images/appleicon.png') }}"> Sign in with Apple
+                    </button>
+                </div>
+                <div class="logincontainer-signinoption">
+                    <p>Have an account? </p>
+                    <span onclick="window.location.href='{{ route('login') }}'">Sign In</span>
+                </div>
+            </div>
+
         </div>
 
 
@@ -85,8 +109,12 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
 
                     <button onclick="checkOTP()">Verify</button>
                 </div>
+
             </div>
+
         </div>
+
+
     </div>
 
     <script>
@@ -334,11 +362,11 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
                 },
                 body: JSON.stringify(registerFormData)
             })
-                .then(response => response.json()) 
+                .then(response => response.json())
                 .then(data => {
                     if (data.success) {
                         alert("Registration is Successful");
-                        window.location.href = '/student-forms'; 
+                        window.location.href = '/student-forms';
                     } else {
                         alert(data.error || 'Something went wrong. Please try again.');
                     }

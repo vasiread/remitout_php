@@ -23,6 +23,7 @@ $phoneIconPath = "assets/images/call.png";
 $mailIconPath = "assets/images/mail.png";
 $pindropIconPath = "assets/images/pin_drop.png";
 $discordIconPath = "assets/images/icons/discordicon.png";
+$viewIconPath = "assets/images/visibility.png";
 
 
 $courseDetailsJson = json_encode($courseDetails);
@@ -115,7 +116,7 @@ $loanStatusInfo = [
                             </p>
 
                         </div>
-                        <button>
+                        <button onclick="window.location.href='{{ asset('student-forms') }}'">
                             Upload
                         </button>
                     </div>
@@ -252,7 +253,7 @@ $loanStatusInfo = [
                             <p>00</p>
                             <span>/22</span>
                         </div>
-                        <p class="secondsection-inside" style="color:rgba(144, 144, 144, 1)">Document Uploaded</p>
+                        <p class="secondsection-inside" style="color:rgba(144, 144, 144, 1)" >Document Uploaded</p>
 
 
 
@@ -288,7 +289,7 @@ $loanStatusInfo = [
                 </div>
             <div class="testscoreseditsection-secondrow">
                 @php
-                    $counter = 1; 
+$counter = 1; 
                 @endphp
             
                 @if (is_numeric($academicDetails[0]->ILETS) && !empty($academicDetails[0]->ILETS))
@@ -304,7 +305,7 @@ $loanStatusInfo = [
                 @endif
             
                 @php
-                    $others = json_decode($academicDetails[0]->Others, true);
+$others = json_decode($academicDetails[0]->Others, true);
                 @endphp
             
                 @if (isset($others['otherExamName']) && isset($others['otherExamScore']) && is_numeric($others['otherExamScore']) && !empty($others['otherExamScore']))
@@ -410,7 +411,7 @@ $loanStatusInfo = [
                             <div class="inputfilecontainer">
                                 <i class="fa-solid fa-image"></i>
                                 <p class="uploaded-pan-name"> pan_card.jpg</p>
-                                <i class="fa-solid fa-eye" id="view-pan-card"></i>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-pan-card"></>
                             </div>
 
                             <input type="file" id="inputfilecontainer-real">
@@ -429,7 +430,8 @@ $loanStatusInfo = [
                             <div class="inputfilecontainer">
                                 <i class="fa-solid fa-image"></i>
                                 <p class="uploaded-aadhar-name"> aadhar_card.jpg</p>
-                                <i class="fa-solid fa-eye"></i>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-aadhar-card"></>
+
                             </div>
                             <input type="file" id="inputfilecontainer-real">
 
@@ -447,7 +449,8 @@ $loanStatusInfo = [
                             <div class="inputfilecontainer">
                                 <i class="fa-solid fa-image"></i>
                                 <p class="passport-name"> Passport.pdf</p>
-                                <i class="fa-solid fa-eye"></i>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-passport-card"></>
+
                             </div>
                             <input type="file" id="inputfilecontainer-real">
 
@@ -471,7 +474,8 @@ $loanStatusInfo = [
                             <div class="inputfilecontainer-marksheet">
                                 <i class="fa-solid fa-image"></i>
                                 <p class="sslc-marksheet"> 10th grade marksheet</p>
-                                <i class="fa-solid fa-eye"></i>
+                                 <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-card"></>
+
                             </div>
                             <input type="file" id="inputfilecontainer-real-marksheet">
 
@@ -489,7 +493,8 @@ $loanStatusInfo = [
                             <div class="inputfilecontainer-marksheet">
                                 <i class="fa-solid fa-image"></i>
                                 <p class="hsc-marksheet"> 12th grade marksheet</p>
-                                <i class="fa-solid fa-eye"></i>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-card"></>
+
                             </div>
                             <input type="file" id="inputfilecontainer-real-marksheet">
 
@@ -507,7 +512,8 @@ $loanStatusInfo = [
                             <div class="inputfilecontainer-marksheet">
                                 <i class="fa-solid fa-image"></i>
                                 <p class="graduation-marksheet"> Graduation Marksheet</p>
-                                <i class="fa-solid fa-eye"></i>
+                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-card">
+
                             </div>
                             <input type="file" id="inputfilecontainer-real-marksheet">
 
@@ -795,6 +801,7 @@ $loanStatusInfo = [
                         document.querySelector(".uploaded-pan-name").textContent = PancardName;
 
 
+
                     } else {
                         console.error("Error: No URL returned from the server", data);
                     }
@@ -802,7 +809,7 @@ $loanStatusInfo = [
                 .catch(error => {
                     console.error("Error retrieving profile picture", error);
                 });
-        }
+         }
 
         const initialisePassportView = () => {
 
@@ -1079,7 +1086,7 @@ $loanStatusInfo = [
                 card.querySelector('#inputfilecontainer-real').addEventListener('change', function (event) {
                     const file = event.target.files[0];
                     if (file) {
-                        uploadedFile = file;  // Store the file for later preview
+                        uploadedFile = file;  
                         card.querySelector('.inputfilecontainer p').textContent = file.name;
                         const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
                         const filesizeviewer = card.querySelector('.document-status');
@@ -1090,21 +1097,7 @@ $loanStatusInfo = [
                 card.querySelector('.fa-eye').addEventListener('click', function (event) {
                     event.stopPropagation();
 
-                    if (uploadedFile && uploadedFile.type === 'application/pdf') {
-                        const reader = new FileReader();
-                        reader.onload = function (event) {
-                            const iframe = document.createElement('iframe');
-                            iframe.src = event.target.result;
-                            iframe.style.width = '100%';
-                            iframe.style.height = "500px";
-                            const previewContainer = card.querySelector('.inputfilecontainer');
-                            previewContainer.innerHTML = ''; // Clear previous content
-                            previewContainer.appendChild(iframe);
-                        };
-                        reader.readAsDataURL(uploadedFile); // Trigger file reading
-                    } else {
-                        alert('Please upload a valid PDF file to preview.');
-                    }
+                    
                 });
             });
         };
@@ -1115,12 +1108,10 @@ $loanStatusInfo = [
             individualMarksheetDocumentsUpload.forEach((card) => {
                 let uploadedFile = null;
 
-                // Trigger file selection when clicking the file container
                 card.querySelector('.inputfilecontainer-marksheet').addEventListener('click', function () {
                     card.querySelector('#inputfilecontainer-real-marksheet').click();
                 });
 
-                // Handle file selection
                 card.querySelector('#inputfilecontainer-real-marksheet').addEventListener('change', function (event) {
                     const file = event.target.files[0];
                     if (file) {
@@ -1132,24 +1123,9 @@ $loanStatusInfo = [
                     }
                 });
 
-                // Handle eye icon click for preview
                 card.querySelector('.fa-eye').addEventListener('click', function () {
                     event.stopPropagation();
-                    if (uploadedFile && uploadedFile.type === 'application/pdf') {
-                        const reader = new FileReader();
-                        reader.onload = function (event) {
-                            const iframe = document.createElement('iframe');
-                            iframe.src = event.target.result;
-                            iframe.style.width = '100%';
-                            iframe.style.height = "500px";
-                            const previewContainer = card.querySelector('.inputfilecontainer-marksheet');
-                            previewContainer.innerHTML = ''; // Clear previous content
-                            previewContainer.appendChild(iframe);
-                        };
-                        reader.readAsDataURL(uploadedFile); // Trigger file reading
-                    } else {
-                        alert('Please upload a valid PDF file to preview.');
-                    }
+                    
                 });
             });
         };
@@ -1208,7 +1184,7 @@ $loanStatusInfo = [
                         // if(data.documentscount<10){
                         if (data.documentscount < 10 && documentCountText && data && data.documentscount !== undefined) {
                             documentCountText.textContent = "0" + data.documentscount;
-                        } else if (data.documentscount > 10 && documentCountText && data && data.documentscount !== undefined) {
+                        } else if (data.documentscount >= 10 && documentCountText && data && data.documentscount !== undefined) {
                             documentCountText.textContent = data.documentscount;
 
                         } else {

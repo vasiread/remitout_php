@@ -359,7 +359,8 @@ class StudentDashboardController extends Controller
 
         // Check if there are any files (there should be one per user)
         if (!empty($files)) {
-            $file = $files[0];  // Get the first file (we expect only one profile picture per user)
+            $file = $files[0]; 
+            
 
             // Generate the URL of the file
             $fileUrl = Storage::disk('s3')->url($file);
@@ -554,42 +555,7 @@ class StudentDashboardController extends Controller
         ]);
     }
 
-    public function sendUserDocuments(Request $request)
-    {
-        $email = $request->input('email');  // The recipient's email
-        $userId = $request->input('userId');
-
-        $folderPath = "$userId";  // The folder where the files are stored in S3
-        $files = Storage::disk('s3')->files($folderPath);  // Get all files in the folder
-
-        // Log the files to ensure we are getting the correct files
-        \Log::info('Files retrieved from S3: ', $files);
-
-        // Prepare an array to hold attachments
-        $attachments = [];
-
-        foreach ($files as $file) {
-            \Log::info('Adding attachment: ', ['file' => $file]);
-
-            $attachments[] = [
-                'file_path' => $file,  // Store the S3 file path
-                'file_name' => basename($file),  // Get the file name from the path
-            ];
-        }
-
-        // Create and send the email with the attachments
-        Mail::to($email)->send(new Documentsmail(
-            'Please find your documents attached.',  // The email body message
-            'Your Requested Documents',  // The subject of the email
-            $attachments  // The attachments array containing file paths
-        ));
-
-        return response()->json([
-            'message' => 'Email sent successfully with attachments.'
-        ]);
-    }
-
-
+   
 
 
 
