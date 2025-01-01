@@ -1212,27 +1212,29 @@
 
  <!-- #region -->
 
-  <script>
+<script>
+
 document.addEventListener('DOMContentLoaded', () => {
+
     window.handleFileUpload = handleFileUpload;
     window.removeFile = removeFile;
 
-  event.preventDefault(); 
-  const prevButton = document.querySelector('.nav-button.prev');
-  const nextButton = document.querySelector('.nav-button.next');
-  const nextBreadcrumbButton = document.querySelector('.next-btn');
-  const nextCourseButton = document.querySelector('.next-btn-course'); 
-  const nextAcademicButton = document.querySelector('.next-btn-academic');
-  const nextBorrowButton = document.querySelector('.next-btn-borrow');
-  const nextKycButton = document.querySelector('.save-btn-kyc');
-  const breadcrumbLinks = document.querySelectorAll('.breadcrumb a');
+     event.preventDefault(); 
+     const prevButton = document.querySelector('.nav-button.prev');
+     const nextButton = document.querySelector('.nav-button.next');
+     const nextBreadcrumbButton = document.querySelector('.next-btn');
+     const nextCourseButton = document.querySelector('.next-btn-course'); 
+     const nextAcademicButton = document.querySelector('.next-btn-academic');
+     const nextBorrowButton = document.querySelector('.next-btn-borrow');
+     const nextKycButton = document.querySelector('.save-btn-kyc');
+     const breadcrumbLinks = document.querySelectorAll('.breadcrumb a');
 
-   window.onload = function () {
+    window.onload = function () {
         if (window.location.hash === '#kyc-section-id') {
           document.getElementById('kyc-section-id').style.display = 'block';
           alert("KYC")
         }
-      };
+    };
   
   const breadcrumbSections = [
     [document.querySelector('.registration-form'), document.querySelector('.section-02-container')],
@@ -1241,9 +1243,6 @@ document.addEventListener('DOMContentLoaded', () => {
     [document.querySelector('.borrow-container-section'), document.querySelector('.income-co-borrower'), document.querySelector('.monthly-liability-container')],
     [document.querySelector('.kyc-section-document'), document.querySelector('.kyc-section-marksheet'), document.querySelector('.kyc-section-Admission'), document.querySelector('.work-experience'), document.querySelector('.kyc-section-co-borrower'), document.querySelector('.salary-upload')]
   ];
-
-
-
 
   function updateMobileHeading(breadcrumbIndex) {
     const mobileHeading = document.getElementById('mobileHeading');
@@ -1380,13 +1379,29 @@ document.addEventListener('DOMContentLoaded', () => {
             currentBreadcrumbIndex--;
             currentContainerIndex = breadcrumbSections[currentBreadcrumbIndex].length - 1;
         }
+  }  
+    const updatedContainers = breadcrumbSections[currentBreadcrumbIndex];
+    updatedContainers[currentContainerIndex].style.display = 'block';
+
+    updateBreadcrumbNavigation();
+    updateNavigationButtons();
+    updateDots(); 
+    updateMobileHeading(currentBreadcrumbIndex);
   }
 
+  // Add event listeners to buttons
+  nextButton.addEventListener('click', () => {
+    if (areFieldsFilled()) {
+      navigate('next');
+    }
+  });
 
-    function updateUserIds() {
+      function updateUserIds() {
         const personalInfoId = document.getElementById("personal-info-userid").value;
 
         console.log(personalInfoId)
+
+
 
         fetch('/updatedetailsinfo', {
           method: 'POST',
@@ -1405,10 +1420,9 @@ document.addEventListener('DOMContentLoaded', () => {
           });
 
       }
-
       updateUserIds();
 
-      
+
       function updateCoborrowerInfo(event) {
         event.preventDefault();
 
@@ -1496,7 +1510,9 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = "/student-dashboard"
       })
 
-       function updateUserPersonalInfo(event) {
+
+
+      function updateUserPersonalInfo(event) {
         event.preventDefault();
 
         // Getting values from form fields
@@ -1549,7 +1565,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
-       function getSelectedExpenseType() {
+      function getSelectedExpenseType() {
         const selectedExpense = document.querySelector('input[name="expense-type"]:checked');
         console.log('Selected Expense Type:', selectedExpense ? selectedExpense.value : 'None');
         return selectedExpense ? selectedExpense.value : null;
@@ -1566,7 +1582,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Selected Course Duration:', selectedOption);
         return selectedOption;
       }
-
       // Function to get the selected study locations (from the checkboxes)
       function getSelectedStudyLocations() {
         const checkboxes = document.querySelectorAll('#selected-study-location input[type="checkbox"]:checked');
@@ -1578,6 +1593,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return selectedLocations;
       }
 
+
       function updateUserCourseInfo(event) {
         event.preventDefault();
         const personalInfoId = document.getElementById("personal-info-userid").value;
@@ -1587,7 +1603,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const loanAmount = getLoanAmount();
         const courseDuration = getSelectedCourseDuration();
         const studyLocations = getSelectedStudyLocations();
-
 
         const courseInfoData = {
           personalInfoId,
@@ -1624,6 +1639,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       }
 
+
       function updateAcademicsCourseInfo(event) {
         const personalInfoId = document.getElementById("personal-info-userid").value;
 
@@ -1645,10 +1661,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         console.log(academicDetails)
-
-
-
-
         fetch('/update-academicsinfo', {
           method: 'POST',
           headers: {
@@ -1671,7 +1683,6 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error:', error);
             alert('An error occurred while updating your information.');
           });
-
       }
 
 
@@ -1681,26 +1692,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-      
-    const updatedContainers = breadcrumbSections[currentBreadcrumbIndex];
-    updatedContainers[currentContainerIndex].style.display = 'block';
-
-    updateBreadcrumbNavigation();
-    updateNavigationButtons();
-    updateDots(); 
-    updateMobileHeading(currentBreadcrumbIndex);
-  }
-
-  // Add event listeners to buttons
-  nextButton.addEventListener('click', () => {
-    if (areFieldsFilled()) {
-      navigate('next');
-    }
-  });
-
   prevButton.addEventListener('click', () => navigate('prev'));
-
-  nextBreadcrumbButton.addEventListener('click', () => {
+   nextBreadcrumbButton.addEventListener('click', () => {
     if (currentContainerIndex === breadcrumbSections[currentBreadcrumbIndex].length - 1) {
       if (currentBreadcrumbIndex < breadcrumbSections.length - 1) {
         breadcrumbSections[currentBreadcrumbIndex].forEach(container => container.style.display = 'none');
@@ -2029,10 +2022,6 @@ document.addEventListener('DOMContentLoaded', () => {
         formDetailsData.append('file', file);
         formDetailsData.append('userId', userId);
         formDetailsData.append('fileNameId', fileNameId);
-
-
-
-
 
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -2458,8 +2447,6 @@ document.addEventListener('DOMContentLoaded', () => {
     errorMessage.style.display = 'none';
    }
  });
-
-
 
 
 
