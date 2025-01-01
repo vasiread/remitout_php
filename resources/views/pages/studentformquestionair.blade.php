@@ -27,23 +27,23 @@
       <div class="breadcrumb flat">
         <a href="#" id="breadcrumb-personal" class="active desktop-text">
           <span class="desktop-text">Personal Information</span>
-          <span class="mobile-number">1</span>
+          <span class="breadcrumb-tab-number">1</span>
         </a>
         <a href="#" id="breadcrumb-course" class="desktop-text">
           <span class="desktop-text">Course Details</span>
-          <span class="mobile-number">2</span>
+          <span class="breadcrumb-tab-number">2</span>
         </a>
         <a href="#" id="breadcrumb-academic" class="desktop-text">
           <span class="desktop-text">Academic Details</span>
-          <span class="mobile-number">3</span>
+          <span class="breadcrumb-tab-number">3</span>
         </a>
         <a href="#" id="breadcrumb-co-borrower" class="desktop-text">
           <span class="desktop-text">Co-borrower Info</span>
-          <span class="mobile-number">4</span>
+          <span class="breadcrumb-tab-number">4</span>
         </a>
         <a href="#" id="breadcrumb-documents" class="desktop-text">
           <span class="desktop-text">Document Upload</span>
-          <span class="mobile-number">5</span>
+          <span class="breadcrumb-tab-number">5</span>
         </a>
       </div>
     </div>
@@ -52,6 +52,7 @@
 
 
   <!-- Personal Information Tab -->
+  <div class="mobile-heading" id="mobileHeading">Personal Information</div>
   <div class="registration-container" id="step-personal">
     <form>
       @csrf
@@ -131,15 +132,15 @@
             <h2>How did you find out about us?</h2>
           </div>
 
-             <div class="dropdown-container" data-required="true">
-            <div class="dropdown">
-                <div class="dropdown-label">Select</div>
-                <div class="dropdown-icon"></div>
-                <div class="dropdown-options">
-                    <div class="dropdown-option" data-value="youtube">YouTube</div>
-                    <div class="dropdown-option" data-value="google">Google</div>
-                    <div class="dropdown-option" data-value="friend">Friend</div>
-                    <div class="dropdown-option" data-value="other">Other</div>
+          <div class="dropdown-container-about" data-required="true">
+            <div class="dropdown-about">
+                <div class="dropdown-label-about">Select</div>
+                <div class="dropdown-icon-about"></div>
+                <div class="dropdown-options-about">
+                    <div class="dropdown-option-about-us" data-value="youtube">YouTube</div>
+                    <div class="dropdown-option-about-us" data-value="google">Google</div>
+                    <div class="dropdown-option-about-us" data-value="friend">Friend</div>
+                    <div class="dropdown-option-about-us" data-value="other">Other</div>
                 </div>
             </div>
         </div>
@@ -634,6 +635,8 @@
 
         <!-- 10th Grade Mark Sheet -->
         <div class="document-box">
+
+         <div class="document-name" id="10th-mark-sheet-id" style="display: none;">10th Mark Sheet</div>
           <div class="upload-field">
             <span id="tenth-grade-name">10th Grade Mark Sheet</span>
             <label for="tenth-grade" class="upload-icon" id="tenth-grade-upload-icon">
@@ -658,6 +661,7 @@
 
         <!-- 12th Grade Mark Sheet -->
         <div class="document-box">
+          <div class="document-name" id="12th-mark-sheet-id" style="display: none;">12th Mark Sheet</div>
           <div class="upload-field">
             <span id="twelfth-grade-name">12th Grade Mark Sheet</span>
             <label for="twelfth-grade" class="upload-icon" id="twelfth-grade-upload-icon">
@@ -682,6 +686,7 @@
 
         <!-- Graduation Mark Sheet -->
         <div class="document-box">
+         <div class="document-name" id="graduation-mark-sheet-id" style="display: none;">Graduation Mark Sheet</div>
           <div class="upload-field">
             <span id="graduation-grade-name">Graduation Mark Sheet</span>
             <label for="graduation-grade" class="upload-icon" id="graduation-grade-upload-icon">
@@ -719,6 +724,7 @@
       <div class="document-container">
         <!-- 10th Grade -->
         <div class="document-box">
+         <div class="document-name" id="10th-grades-id" style="display: none;">10th Grade</div>
           <div class="upload-field">
             <span id="secured-tenth-name">10th Grade</span>
             <label for="secured-tenth" class="upload-icon" id="secured-tenth-upload-icon">
@@ -743,6 +749,7 @@
 
         <!-- 12th Grade -->
         <div class="document-box">
+        <div class="document-name" id="12th-grade-id" style="display: none;">12th Grade</div>
           <div class="upload-field">
             <span id="secured-twelfth-name">12th Grade</span>
             <label for="secured-twelfth" class="upload-icon" id="secured-twelfth-upload-icon">
@@ -767,6 +774,7 @@
 
         <!-- Graduation -->
         <div class="document-box">
+         <div class="document-name" id="Graduation-id" style="display: none;">Graduation</div>
           <div class="upload-field">
             <span id="secured-graduation-name">Graduation</span>
             <label for="secured-graduation" class="upload-icon" id="secured-graduation-upload-icon">
@@ -803,6 +811,7 @@
       </div>
       <div class="work-experience-row">
         <div class="work-experience-box">
+        <div class="document-name" id="experience-letter-id" style="display: none;">Experience letter</div>
           <div class="upload-field">
             <span id="work-experience-tenth-name">Experience letter</span>
             <label for="work-experience-tenth" class="upload-icon" id="work-experience-tenth-upload-icon">
@@ -826,6 +835,7 @@
         </div>
 
         <div class="work-experience-box">
+        <div class="document-name" id="3-months-salary-slip-id" style="display: none;">3 months salary slip</div>
           <div class="upload-field">
             <span id="work-experience-twelfth-name">3 months salary slip</span>
             <label for="work-experience-twelfth" class="upload-icon" id="work-experience-twelfth-upload-icon">
@@ -849,6 +859,7 @@
         </div>
 
         <div class="work-experience-box">
+         <div class="document-name" id="office-IDs-id" style="display: none;">office ID</div>
           <div class="upload-field">
             <span id="work-experience-graduation-name">office ID</span>
             <label for="work-experience-graduation" class="upload-icon" id="work-experience-graduation-upload-icon">
@@ -874,6 +885,7 @@
 
       <div class="work-experience-row">
         <div class="work-experience-box">
+        <div class="document-name" id="Joining-letter-id" style="display: none;">Joining letter</div>
 
           <div class="upload-field">
             <span id="work-experience-fourth-name">Joining letter</span>
@@ -912,8 +924,8 @@
       <div class="document-container">
 
         <!-- PAN Card -->
-        <!-- PAN Card -->
         <div class="document-box">
+          <div class="document-name" id="pan-card-ids" style="display: none;">PAN Card</div>
           <div class="upload-field">
             <span id="co-pan-card-name">PAN Card</span>
             <label for="co-pan-card" class="upload-icon" id="co-upload-icon">
@@ -938,6 +950,7 @@
 
         <!-- Aadhar Card -->
         <div class="document-box">
+          <div class="document-name" id="aadhar-card-id" style="display: none;">Aadhar Card</div>
           <div class="upload-field">
             <span id="co-aadhar-card-name">Aadhar Card</span>
             <label for="co-aadhar-card" class="upload-icon" id="co-aadhar-upload-icon">
@@ -962,6 +975,7 @@
 
         <!-- Passport (Address Proof) -->
         <div class="document-box">
+        <div class="document-name" id="address-proof-id" style="display: none;">Address Proof</div>
           <div class="upload-field">
             <span id="co-passport-name">Address Proof</span>
             <label for="co-passport" class="upload-icon" id="co-passport-upload-icon">
@@ -1005,6 +1019,7 @@
       <div class="salary-upload-row">
         <!-- Salary Slip -->
         <div class="salary-upload-box">
+          <div class="document-name" id="3 months-salary-slip-id" style="display: none;">3 months salary slip</div>
           <div class="upload-field">
             <span id="salary-upload-salary-slip-name">3 months salary slip</span>
             <label for="salary-upload-salary-slip" class="upload-icon" id="salary-upload-salary-slip-upload-icon">
@@ -1029,6 +1044,7 @@
 
         <!-- Bank Statement -->
         <div class="salary-upload-box">
+         <div class="document-name" id="6-months-bank-statement-id" style="display: none;">6 months bank statement</div>
           <div class="upload-field">
             <span id="salary-upload-salary-statement-name">6 months bank statement</span>
             <label for="salary-upload-salary-statement" class="upload-icon"
@@ -1054,6 +1070,7 @@
 
         <!-- Address Proof -->
         <div class="salary-upload-box">
+         <div class="document-name" id="address-proof-salary-id" style="display: none;">Address Proof</div>
           <div class="upload-field">
             <span id="salary-upload-address-proof-name">Address Proof</span>
             <label for="salary-upload-address-proof" class="upload-icon" id="salary-upload-address-proof-upload-icon">
@@ -1085,6 +1102,7 @@
       <div class="salary-upload-row">
         <!-- ITR -->
         <div class="salary-upload-box">
+         <div class="document-name" id="2 years of ITR-id" style="display: none;">2 years of ITR</div>
           <div class="upload-field">
             <span id="salary-upload-itr-name">2 years of ITR</span>
             <label for="salary-upload-itr" class="upload-icon" id="salary-upload-itr-upload-icon">
@@ -1110,6 +1128,7 @@
 
         <!-- 6 Months Bank Statement -->
         <div class="salary-upload-box">
+         <div class="document-name" id="6-months-bank-statements-id" style="display: none;">6 months bank statement</div>
           <div class="upload-field">
             <span id="salary-upload-fourth-document-name">6 months bank statement</span>
             <label for="salary-upload-fourth-document" class="upload-icon"
@@ -1135,6 +1154,7 @@
 
         <!-- Office/Shop Photographs -->
         <div class="salary-upload-box">
+         <div class="document-name" id="Office/Shop-photographs-id" style="display: none;">Office/Shop photographs</div>
           <div class="upload-field">
             <span id="salary-upload-fifth-document-name">Office/Shop photographs</span>
             <label for="salary-upload-fifth-document" class="upload-icon" id="salary-upload-fifth-document-upload-icon">
@@ -1193,7 +1213,7 @@
  <!-- #region -->
 
   <script>
-   document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     window.handleFileUpload = handleFileUpload;
     window.removeFile = removeFile;
 
@@ -1214,15 +1234,18 @@
         }
       };
   
- const breadcrumbSections = [
+  const breadcrumbSections = [
     [document.querySelector('.registration-form'), document.querySelector('.section-02-container')],
     [document.querySelector('.course-details'), document.querySelector('.course-degree'), document.querySelector('.course-duration-container'), document.querySelector('.detail-container-section')],
     [document.querySelector('.academic-container'), document.querySelector('.academic-details'), document.querySelector('.admit-form-container')],
     [document.querySelector('.borrow-container-section'), document.querySelector('.income-co-borrower'), document.querySelector('.monthly-liability-container')],
     [document.querySelector('.kyc-section-document'), document.querySelector('.kyc-section-marksheet'), document.querySelector('.kyc-section-Admission'), document.querySelector('.work-experience'), document.querySelector('.kyc-section-co-borrower'), document.querySelector('.salary-upload')]
-];
+  ];
 
- function updateMobileHeading(breadcrumbIndex) {
+
+
+
+  function updateMobileHeading(breadcrumbIndex) {
     const mobileHeading = document.getElementById('mobileHeading');
     const headings = {
         0: 'Personal Information',
@@ -1235,11 +1258,12 @@
     if (mobileHeading) {
         mobileHeading.textContent = headings[breadcrumbIndex] || '';
     }
-}
+  }
 
 
-// Make sure navigation function also updates heading
-function navigate(direction) {
+
+  // Make sure navigation function also updates heading
+  function navigate(direction) {
     const currentContainers = breadcrumbSections[currentBreadcrumbIndex];
     currentContainers[currentContainerIndex].style.display = 'none';
 
@@ -1267,7 +1291,7 @@ function navigate(direction) {
     updateBreadcrumbNavigation();
     updateNavigationButtons();
     updateDots();
-}
+  }
 
   const breadcrumbDots = [
     2,  
@@ -1356,15 +1380,13 @@ function navigate(direction) {
             currentBreadcrumbIndex--;
             currentContainerIndex = breadcrumbSections[currentBreadcrumbIndex].length - 1;
         }
-    }
+  }
 
 
     function updateUserIds() {
         const personalInfoId = document.getElementById("personal-info-userid").value;
 
         console.log(personalInfoId)
-
-
 
         fetch('/updatedetailsinfo', {
           method: 'POST',
@@ -1567,11 +1589,6 @@ function navigate(direction) {
         const studyLocations = getSelectedStudyLocations();
 
 
-
-
-
-
-
         const courseInfoData = {
           personalInfoId,
           selectedDegreeType,
@@ -1658,58 +1675,13 @@ function navigate(direction) {
       }
 
 
-      document.getElementById('personal-info-name').addEventListener('input', function () {
-        const personalInfoName = document.getElementById('personal-info-name');
-        const errorMessage = document.getElementById('personal-info-name-error');
-        const namePattern = /^[A-Za-z\s]+$/;
-
-        if (!personalInfoName.value.match(namePattern)) {
-          errorMessage.textContent = "Please enter full name.";
-          errorMessage.style.display = 'block';
-        } else {
-          errorMessage.style.display = 'none';
-        }
-      });
-
-      document.getElementById('personal-info-phone').addEventListener('input', function () {
-        const phone = document.getElementById('personal-info-phone');
-        const errorMessage = document.getElementById('personal-info-phone-error');
-        const phonePattern = /^[0-9]{10}$/;
-
-        if (!phone.value.match(phonePattern)) {
-          errorMessage.textContent = "Please enter a valid 10-digit phone number.";
-          errorMessage.style.display = 'block';
-        } else {
-          errorMessage.style.display = 'none';
-        }
-      });
 
 
-      document.getElementById('personal-info-email').addEventListener('input', function () {
-        const email = document.getElementById('personal-info-email');
-        const errorMessage = document.getElementById('personal-info-email-error');
-        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
-        if (!email.value.match(emailPattern)) {
-          errorMessage.textContent = "Please enter a valid email address.";
-          errorMessage.style.display = 'block';
-        } else {
-          errorMessage.style.display = 'none';
-        }
-      });
 
-      document.getElementById('personal-info-city').addEventListener('input', function () {
-        const city = document.getElementById('personal-info-city');
-        const errorMessage = document.getElementById('city-error');
 
-        if (city.value.trim() === "") {
-          errorMessage.textContent = "Please enter the city.";
-          errorMessage.style.display = 'block';
-        } else {
-          errorMessage.style.display = 'none';
-        }
-      });
 
+      
     const updatedContainers = breadcrumbSections[currentBreadcrumbIndex];
     updatedContainers[currentContainerIndex].style.display = 'block';
 
@@ -1804,6 +1776,73 @@ function navigate(direction) {
       });
   }
 
+  document.getElementById('personal-info-name').addEventListener('input', function () {
+    const personalInfoName = document.getElementById('personal-info-name');
+    const errorMessage = document.getElementById('personal-info-name-error');
+    const namePattern = /^[A-Za-z\s]+$/;
+
+   if (!personalInfoName.value.match(namePattern)) {
+     errorMessage.textContent = "Please enter full name.";
+     errorMessage.style.display = 'block';
+  } else {
+    errorMessage.style.display = 'none';
+  }
+ });
+
+  document.getElementById('personal-info-phone').addEventListener('input', function () {
+     const phone = document.getElementById('personal-info-phone');
+     const errorMessage = document.getElementById('personal-info-phone-error');
+     const phonePattern = /^[0-9]{10}$/;
+
+     if (!phone.value.match(phonePattern)) {
+       errorMessage.textContent = "Please enter a valid 10-digit phone number.";
+       errorMessage.style.display = 'block';
+     } else {
+      errorMessage.style.display = 'none';
+     }
+     });
+
+  document.getElementById('personal-info-email').addEventListener('input', function () {
+    const email = document.getElementById('personal-info-email');
+    const errorMessage = document.getElementById('personal-info-email-error');
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+    if (!email.value.match(emailPattern)) {
+      errorMessage.textContent = "Please enter a valid email address.";
+      errorMessage.style.display = 'block';
+     } else {
+     errorMessage.style.display = 'none';
+    }
+  });
+
+  document.getElementById('personal-info-city').addEventListener('input', function () {
+    const city = document.getElementById('personal-info-city');
+    const errorMessage = document.getElementById('city-error');
+
+   if (city.value.trim() === "") {
+     errorMessage.textContent = "Please enter the city.";
+     errorMessage.style.display = 'block';
+    } else {
+     errorMessage.style.display = 'none';
+   }
+ });
+
+  // Referral Code Validation
+  document.getElementById('personal-info-referral').addEventListener('input', function () {
+    const referralCode = document.getElementById('personal-info-referral');
+    const errorMessage = document.getElementById('referralCode-error');
+    const referralCodePattern = /^[A-Za-z0-9]{6,10}$/; // Alphanumeric and between 6 to 10 characters
+
+  if (!referralCode.value.match(referralCodePattern)) {
+    errorMessage.textContent = "Please enter the referral code";
+    errorMessage.style.display = 'block';
+  } else {
+    errorMessage.style.display = 'none';
+  }
+
+ });
+
+
 
   // Initialize the containers
   breadcrumbSections.forEach((containers, breadcrumbIndex) => {
@@ -1844,43 +1883,41 @@ function navigate(direction) {
   updateNavigationButtons();
   updateDots(); 
   updateMobileHeading(currentBreadcrumbIndex);
-});
 
+  const helpTriggers = document.querySelectorAll('.help-trigger');
 
-const helpTriggers = document.querySelectorAll('.help-trigger');
-
-function toggleHelpContainer(event, targetClass) {
-  const helpContainer = document.querySelector(`.${targetClass}`);
-  if (helpContainer) {
+  function toggleHelpContainer(event, targetClass) {
+   const helpContainer = document.querySelector(`.${targetClass}`);
+   if (helpContainer) {
       if (helpContainer.style.display === 'none' || !helpContainer.style.display) {
           helpContainer.style.display = 'block';
       } else {
           helpContainer.style.display = 'none';
       }
+   }
   }
-}
 
 
-helpTriggers.forEach(trigger => {
-  trigger.addEventListener('click', (event) => {
+  helpTriggers.forEach(trigger => {
+    trigger.addEventListener('click', (event) => {
       event.stopPropagation(); 
       const targetClass = trigger.getAttribute('data-target');
       toggleHelpContainer(event, targetClass);
+   });
   });
-});
 
 
-document.addEventListener('click', (event) => {
-  const helpContainers = document.querySelectorAll('.help-container');
-  helpContainers.forEach(container => {
+  document.addEventListener('click', (event) => {
+    const helpContainers = document.querySelectorAll('.help-container');
+    helpContainers.forEach(container => {
       if (container.style.display === 'block' && !container.contains(event.target)) {
           container.style.display = 'none';
       }
+    });
   });
-});
 
 
-function truncateFileName(fileName, maxLength = 25) {
+ function truncateFileName(fileName, maxLength = 25) {
   if (fileName.length <= maxLength) {
     return fileName;
   } else {
@@ -1889,108 +1926,162 @@ function truncateFileName(fileName, maxLength = 25) {
     return truncatedName + extension;
     
   }
-}
+ }
 
-function handleFileUpload(event, fileNameId, uploadIconId, removeIconId) {
-  const fileInput = event.target;
-  const fileNameElement = document.getElementById(fileNameId);
-  const uploadIcon = document.getElementById(uploadIconId);
-  const removeIcon = document.getElementById(removeIconId);
-  const file = fileInput.files[0];
+  async function handleFileUpload(event, fileNameId, uploadIconId, removeIconId) {
+        console.log(event, fileNameId, uploadIconId, removeIconId)
+        const fileInput = event.target;
+        const fileNameElement = document.getElementById(fileNameId);
+        const uploadIcon = document.getElementById(uploadIconId);
+        const removeIcon = document.getElementById(removeIconId);
+        const file = fileInput.files[0];
 
-  // Help container and format info elements
-  const helpTrigger = fileNameElement.parentElement.nextElementSibling.querySelector('.help-trigger');
-  const formatInfo = fileNameElement.parentElement.nextElementSibling.querySelector('span:last-child');
+        // Help container and format info elements
+        const helpTrigger = fileNameElement.parentElement.nextElementSibling.querySelector('.help-trigger');
+        const formatInfo = fileNameElement.parentElement.nextElementSibling.querySelector('span:last-child');
 
-  // Check if a file was selected
-  if (!file) {
-    fileNameElement.textContent = 'No file chosen';
-    uploadIcon.style.display = 'inline';
-    removeIcon.style.display = 'none';
-    if (helpTrigger) helpTrigger.style.display = 'inline';
-    if (formatInfo) formatInfo.style.display = 'inline';
-    return;
-  }
+        // Check if a file was selected
+        if (!file) {
+          fileNameElement.textContent = 'No file chosen';
+          uploadIcon.style.display = 'inline';
+          removeIcon.style.display = 'none';
+          if (helpTrigger) helpTrigger.style.display = 'inline';
+          if (formatInfo) formatInfo.style.display = 'inline';
+          return;
+        }
 
-  // Validate file size (5MB max)
-  if (file.size > 5 * 1024 * 1024) {
-    alert("Error: File size exceeds 5MB limit.");
-    fileInput.value = ''; // Clear the file input
-    fileNameElement.textContent = 'No file chosen';
-    uploadIcon.style.display = 'inline';
-    removeIcon.style.display = 'none';
-    if (helpTrigger) helpTrigger.style.display = 'inline';
-    if (formatInfo) formatInfo.style.display = 'inline';
-    return;
-  }
+        // Validate file size (5MB max)
+        if (file.size > 5 * 1024 * 1024) {
+          alert("Error: File size exceeds 5MB limit.");
+          fileInput.value = ''; // Clear the file input
+          fileNameElement.textContent = 'No file chosen';
+          uploadIcon.style.display = 'inline';
+          removeIcon.style.display = 'none';
+          if (helpTrigger) helpTrigger.style.display = 'inline';
+          if (formatInfo) formatInfo.style.display = 'inline';
+          return;
+        }
 
-  // Validate file type
-  const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
-  const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
-  if (!allowedExtensions.includes(fileExtension)) {
-    alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
-    fileInput.value = ''; // Clear the file input
-    fileNameElement.textContent = 'No file chosen';
-    uploadIcon.style.display = 'inline';
-    removeIcon.style.display = 'none';
-    if (helpTrigger) helpTrigger.style.display = 'inline';
-    if (formatInfo) formatInfo.style.display = 'inline';
-    return;
-  }
+        // Validate file type
+        const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
+        const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
+        if (!allowedExtensions.includes(fileExtension)) {
+          alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
+          fileInput.value = ''; // Clear the file input
+          fileNameElement.textContent = 'No file chosen';
+          uploadIcon.style.display = 'inline';
+          removeIcon.style.display = 'none';
+          if (helpTrigger) helpTrigger.style.display = 'inline';
+          if (formatInfo) formatInfo.style.display = 'inline';
+          return;
+        }
 
-  // Update UI on successful file selection
-  const fileSizeInKB = (file.size / 1024).toFixed(2);
-  const fileSizeDisplay = fileSizeInKB > 1024
-    ? `${(fileSizeInKB / 1024).toFixed(2)} MB`
-    : `${fileSizeInKB} KB`;
+        // Update UI on successful file selection
+        const fileSizeInKB = (file.size / 1024).toFixed(2);
+        const fileSizeDisplay = fileSizeInKB > 1024
+          ? `${(fileSizeInKB / 1024).toFixed(2)} MB`
+          : `${fileSizeInKB} KB`;
 
-  const truncatedFileName = truncateFileName(file.name);
-  fileNameElement.textContent = truncatedFileName;
-  uploadIcon.style.display = 'none';
-  removeIcon.style.display = 'inline';
+        const truncatedFileName = truncateFileName(file.name);
+        fileNameElement.textContent = truncatedFileName;
+        uploadIcon.style.display = 'none';
+        removeIcon.style.display = 'inline';
 
-  // Hide help icon and format info, replace with file size
-  if (helpTrigger) helpTrigger.style.display = 'none';
-  if (formatInfo) formatInfo.textContent = `${fileSizeDisplay} uploaded`;
+        // Hide help icon and format info, replace with file size
+        if (helpTrigger) helpTrigger.style.display = 'none';
+        if (formatInfo) formatInfo.textContent = `${fileSizeDisplay} uploaded`;
 
-  // Show appropriate file icon
-  const fileIcon = document.createElement('img');
-  fileIcon.style.width = '20px';
-  fileIcon.style.height = '20px';
-  fileIcon.style.marginRight = '10px';
+        // Show appropriate file icon
+        const fileIcon = document.createElement('img');
+        fileIcon.style.width = '20px';
+        fileIcon.style.height = '20px';
+        fileIcon.style.marginRight = '10px';
 
-  // Add the icon based on the file type
-  if (fileExtension === '.jpg' || fileExtension === '.jpeg' || fileExtension === '.png') {
-    fileIcon.src = 'assets/images/image-upload.png';
-  } else if (fileExtension === '.pdf') {
-    fileIcon.src = 'assets/images/image-pdf.png';
-  }
+        // Add the icon based on the file type
+        if (fileExtension === '.jpg' || fileExtension === '.jpeg' || fileExtension === '.png') {
+          fileIcon.src = 'assets/images/image-upload.png';
+        } else if (fileExtension === '.pdf') {
+          fileIcon.src = 'assets/images/image-pdf.png';
+        }
 
-  // Insert the file icon before the file name
-  const existingIcon = fileNameElement.querySelector('img');
-  if (existingIcon) {
-    existingIcon.remove(); // Remove any existing icon if re-uploading a file
-  }
-  fileNameElement.insertBefore(fileIcon, fileNameElement.firstChild);
+        // Insert the file icon before the file name
+        const existingIcon = fileNameElement.querySelector('img');
+        if (existingIcon) {
+          existingIcon.remove(); // Remove any existing icon if re-uploading a file
+        }
+        fileNameElement.insertBefore(fileIcon, fileNameElement.firstChild);
 
-  // Make the document names visible for all 3 documents
-  document.querySelectorAll('.document-name').forEach((documentElement) => {
-    documentElement.style.display = 'block';  // Display all document names
-  });
-}
+        // Make the document names visible for all 3 documents
+        document.querySelectorAll('.document-name').forEach((documentElement) => {
+          documentElement.style.display = 'block';  // Display all document names
+        });
+
+        const userId = document.getElementById("personal-info-userid").value;
 
 
 
-// Function to remove the selected file
-function removeFile(fileInputId, fileNameId, uploadIconId, removeIconId) {
-  const fileInput = document.getElementById(fileInputId);
-  const fileNameElement = document.getElementById(fileNameId);
-  const uploadIcon = document.getElementById(uploadIconId);
-  const removeIcon = document.getElementById(removeIconId);
+        await uploadFileToServer(file, userId, fileNameId);
 
-  // Help container and format info elements
-  const helpTrigger = fileNameElement.parentElement.nextElementSibling.querySelector('.help-trigger');
-  const formatInfo = fileNameElement.parentElement.nextElementSibling.querySelector('span:last-child');
+      }
+
+      function uploadFileToServer(file, userId, fileNameId) {
+        const formDetailsData = new FormData();
+        formDetailsData.append('file', file);
+        formDetailsData.append('userId', userId);
+        formDetailsData.append('fileNameId', fileNameId);
+
+
+
+
+
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        // Handle case where CSRF token is not found
+        if (!csrfToken) {
+          console.error('CSRF token not found');
+          return;
+        }
+
+        fetch('/upload-each-documents', {
+          method: "POST",
+          headers: {
+            'X-CSRF-TOKEN': csrfToken,
+            'Accept': 'application/json',
+          },
+          body: formDetailsData,
+        })
+          .then(response => {
+            if (!response.ok) {
+              return response.json().then(errorData => {
+                throw new Error(errorData.error || 'Network response was not ok');
+              });
+            }
+            return response.json();
+          })
+          .then(data => {
+            if (data) {
+              console.log("File uploaded successfully", data);
+            } else {
+              console.error("Error: No URL returned from the server", data);
+            }
+          })
+          .catch(error => {
+            console.error("Error uploading file", error);
+          });
+
+        console.log(file, userId, fileNameId);
+      }
+
+ // Function to remove the selected file
+   function removeFile(fileInputId, fileNameId, uploadIconId, removeIconId) {
+     const fileInput = document.getElementById(fileInputId);
+     const fileNameElement = document.getElementById(fileNameId);
+     const uploadIcon = document.getElementById(uploadIconId);
+     const removeIcon = document.getElementById(removeIconId);
+
+    // Help container and format info elements
+     const helpTrigger = fileNameElement.parentElement.nextElementSibling.querySelector('.help-trigger');
+     const formatInfo = fileNameElement.parentElement.nextElementSibling.querySelector('span:last-child');
 
   // Clear the file input
   fileInput.value = '';
@@ -2009,28 +2100,28 @@ function removeFile(fileInputId, fileNameId, uploadIconId, removeIconId) {
   if (fileIcon) {
     fileIcon.remove();
   }
-}
+  }
 
 
-const borrowBloodRelative = document.querySelector('.borrow-blood-relative');
-const borrowOptionIcon = borrowBloodRelative.querySelector('.borrow-option-icon');
-const borrowDropdown = borrowBloodRelative.querySelector('.borrow-dropdown');
-const borrowBloodLabel = document.getElementById('borrow-blood-label');
-const bloodRelativeRadio = document.getElementById('borrow-blood-relative');
+ const borrowBloodRelative = document.querySelector('.borrow-blood-relative');
+ const borrowOptionIcon = borrowBloodRelative.querySelector('.borrow-option-icon');
+ const borrowDropdown = borrowBloodRelative.querySelector('.borrow-dropdown');
+ const borrowBloodLabel = document.getElementById('borrow-blood-label');
+ const bloodRelativeRadio = document.getElementById('borrow-blood-relative');
 
-// Toggle dropdown visibility on radio button or icon click
-function toggleDropdown() {
-borrowBloodRelative.classList.toggle('open');
-borrowDropdown.style.display = borrowBloodRelative.classList.contains('open') ? 'flex' : 'none';
-}
+ // Toggle dropdown visibility on radio button or icon click
+ function toggleDropdown() {
+ borrowBloodRelative.classList.toggle('open');
+ borrowDropdown.style.display = borrowBloodRelative.classList.contains('open') ? 'flex' : 'none';
+ }
 
-// Toggle dropdown when the radio button or the icon is clicked
-bloodRelativeRadio.addEventListener('click', toggleDropdown);
-borrowOptionIcon.addEventListener('click', toggleDropdown);
+ // Toggle dropdown when the radio button or the icon is clicked
+ bloodRelativeRadio.addEventListener('click', toggleDropdown);
+ borrowOptionIcon.addEventListener('click', toggleDropdown);
 
-// Handle dropdown item selection
-borrowDropdown.addEventListener('click', function (e) {
-if (e.target.classList.contains('borrow-dropdown-item')) {
+ // Handle dropdown item selection
+ borrowDropdown.addEventListener('click', function (e) {
+ if (e.target.classList.contains('borrow-dropdown-item')) {
   // Update label text without changing color
   borrowBloodLabel.textContent = e.target.textContent;
 
@@ -2045,106 +2136,52 @@ if (e.target.classList.contains('borrow-dropdown-item')) {
   // Close dropdown
   borrowBloodRelative.classList.remove('open');
   borrowDropdown.style.display = 'none';
-}
-});
+ }
+ });
 
-// Close dropdown on outside click
-document.addEventListener('click', function (event) {
-if (!borrowBloodRelative.contains(event.target)) {
+ // Close dropdown on outside click
+ document.addEventListener('click', function (event) {
+ if (!borrowBloodRelative.contains(event.target)) {
   borrowBloodRelative.classList.remove('open');
   borrowDropdown.style.display = 'none';
-}
-});
+ }
+ });
 
-//change start
-// upadted js Code
+ //change start
+ // upadted js Code
+ const dropdown = document.querySelector('.dropdown-about');
+    const dropdownLabel = dropdown.querySelector('.dropdown-label-about');
+    const dropdownOptions = dropdown.querySelector('.dropdown-options-about');
+    const options = dropdown.querySelectorAll('.dropdown-option-about-us');
 
-const dropdown = document.querySelector('.dropdown');
-const dropdownLabel = dropdown.querySelector('.dropdown-label');
-const dropdownOptions = dropdown.querySelector('.dropdown-options');
-const options = dropdown.querySelectorAll('.dropdown-option');
-
-// Toggle the dropdown visibility when clicked
-dropdown.addEventListener('click', function(event) {
-    dropdown.classList.toggle('open');  
-    event.stopPropagation(); 
-});
-
-// Handle option selection
-options.forEach(option => {
-    option.addEventListener('click', function(event) {
-        dropdownLabel.textContent = option.textContent;  
-        options.forEach(opt => opt.classList.remove('selected'));  
-        option.classList.add('selected');  
-        dropdown.classList.remove('open');  
-        event.stopPropagation(); 
-    });
-});
-
-// Close the dropdown if clicked outside
-document.addEventListener('click', function(event) {
-    if (!dropdown.contains(event.target)) {
-        dropdown.classList.remove('open'); 
-    }
-});
-
-
-// Get all dropdown containers
-const dropdownContainers = document.querySelectorAll('.dropdown-container-about');
-
-// Add click event listeners to all dropdowns
-dropdownContainers.forEach(container => {
-    const dropdown = container.querySelector('.dropdown-about');
-    const options = container.querySelector('.dropdown-options-about');
-    const label = container.querySelector('.dropdown-label-about');
-
-    // Toggle dropdown on click
-    dropdown.addEventListener('click', (e) => {
-        e.stopPropagation();
-        // Close all other dropdowns first
-        dropdownContainers.forEach(otherContainer => {
-            if (otherContainer !== container) {
-                otherContainer.querySelector('.dropdown-options-about').classList.remove('active');
-                otherContainer.querySelector('.dropdown-about').classList.remove('open');
-            }
-        });
-        
-        // Toggle current dropdown
-        options.classList.toggle('active');
+    // Toggle the dropdown visibility when clicked
+    dropdown.addEventListener('click', function(event) {
         dropdown.classList.toggle('open');
+        event.stopPropagation();
     });
 
     // Handle option selection
-    const optionElements = container.querySelectorAll('.dropdown-option-about');
-    optionElements.forEach(option => {
-        option.addEventListener('click', (e) => {
-            e.stopPropagation();
-            label.textContent = option.textContent;
-            options.classList.remove('active');
+    options.forEach(option => {
+        option.addEventListener('click', function(event) {
+            dropdownLabel.textContent = option.textContent;
+            options.forEach(opt => opt.classList.remove('selected'));
+            option.classList.add('selected');
             dropdown.classList.remove('open');
-            
-            // Get the selected value
-            const selectedValue = option.getAttribute('data-value');
-            // You can perform additional actions with the selected value here
-            console.log('Selected value:', selectedValue);
+            event.stopPropagation();
         });
     });
-});
 
-// Close dropdown when clicking outside
-document.addEventListener('click', () => {
-    dropdownContainers.forEach(container => {
-        const options = container.querySelector('.dropdown-options-about');
-        const dropdown = container.querySelector('.dropdown-about');
-        options.classList.remove('active');
-        dropdown.classList.remove('open');
+    // Close the dropdown if clicked outside
+    document.addEventListener('click', function(event) {
+        if (!dropdown.contains(event.target)) {
+            dropdown.classList.remove('open');
+        }
     });
-});
 
-// Select all dropdowns within #step-3 container
-const dropdowns = document.querySelectorAll('#step-3 .dropdown');
+ // Select all dropdowns within #step-3 container
+ const dropdowns = document.querySelectorAll('#step-3 .dropdown');
 
-dropdowns.forEach(dropdown => {
+ dropdowns.forEach(dropdown => {
     const dropdownLabel = dropdown.querySelector('.dropdown-label');
     const dropdownOptions = dropdown.querySelector('.dropdown-options');
     const options = dropdown.querySelectorAll('.dropdown-option');
@@ -2172,31 +2209,31 @@ dropdowns.forEach(dropdown => {
             dropdown.classList.remove('open');  
         }
     });
-});
+ });
 
-const yesRadio = document.getElementById('academic-yes');
-const noRadio = document.getElementById('academic-no');
-const reasonContainer = document.getElementById('reason-container');
+ const yesRadio = document.getElementById('academic-yes');
+ const noRadio = document.getElementById('academic-no');
+ const reasonContainer = document.getElementById('reason-container');
 
-// Function to handle radio button change
-function handleRadioChange(shouldShow) {
+ // Function to handle radio button change
+ function handleRadioChange(shouldShow) {
     if (shouldShow) {
         reasonContainer.classList.add('visible');
     } else {
         reasonContainer.classList.remove('visible');
     }
-}
+ }
 
-// Add event listeners
-yesRadio.addEventListener('change', () => {
+ // Add event listeners
+ yesRadio.addEventListener('change', () => {
     handleRadioChange(yesRadio.checked);
-});
+ });
 
-noRadio.addEventListener('change', () => {
+ noRadio.addEventListener('change', () => {
     handleRadioChange(yesRadio.checked);
-});
+ });
 
-const inputField = document.getElementById('personal-info-city');
+  const inputField = document.getElementById('personal-info-city');
       const suggestionsContainer = document.getElementById('suggestions');
 
       inputField.addEventListener('input', handleInputChange);
@@ -2310,27 +2347,27 @@ const inputField = document.getElementById('personal-info-city');
 
 
 
-const otherCheckbox = document.querySelector('#other-checkbox');
-const addCountryBox = document.querySelector('.add-country-box');
+ const otherCheckbox = document.querySelector('#other-checkbox');
+ const addCountryBox = document.querySelector('.add-country-box');
 
-otherCheckbox.addEventListener('change', () => {
+ otherCheckbox.addEventListener('change', () => {
   if (otherCheckbox.checked) {
     addCountryBox.style.display = 'block'; 
   } else {
     addCountryBox.style.display = 'none'; 
   }
-});
+ });
 
 
 
       const othersRadio = document.getElementById('others');
-const otherDegreeInputContainer = document.querySelector('.other-degree-input-container');
-const otherDegreeInput = document.getElementById('other-degree');
-const degreeRadios = document.querySelectorAll('input[name="degree_type"]');
+ const otherDegreeInputContainer = document.querySelector('.other-degree-input-container');
+ const otherDegreeInput = document.getElementById('other-degree');
+ const degreeRadios = document.querySelectorAll('input[name="degree_type"]');
 
-let isOthersSelected = false; // Track the state of the "Others" radio button
+ let isOthersSelected = false; // Track the state of the "Others" radio button
 
-degreeRadios.forEach((radio) => {
+ degreeRadios.forEach((radio) => {
   radio.addEventListener('click', () => {
     if (radio === othersRadio) {
       // Toggle the "Others" input field visibility
@@ -2350,17 +2387,17 @@ degreeRadios.forEach((radio) => {
       otherDegreeInput.value = ''; // Clear the text input
     }
   });
-});
+ });
 
-// Update the "Others" radio value instantly when typing in the text input
-otherDegreeInput.addEventListener('input', () => {
+ // Update the "Others" radio value instantly when typing in the text input
+ otherDegreeInput.addEventListener('input', () => {
   othersRadio.value = otherDegreeInput.value;
-});
+ });
 
 
 
-//validate
-document.getElementById('loan-amount').addEventListener('input', function() {
+ //validate
+ document.getElementById('loan-amount').addEventListener('input', function() {
   const loanAmount = document.getElementById('loan-amount');
   const errorMessage = document.getElementById('loan-error-message');
 
@@ -2370,59 +2407,67 @@ document.getElementById('loan-amount').addEventListener('input', function() {
   } else {
     errorMessage.style.display = 'none'; 
   }
-});
+  }); 
 
 
-//borrower container
-document.getElementById('income-co-borrower').addEventListener('input', function() {
-  const incomeInput = document.getElementById('income-co-borrower');
-  const errorMessage = document.getElementById('income-error-message');
+ //borrower container
+  document.getElementById('income-co-borrower').addEventListener('input', function() {
+     const incomeInput = document.getElementById('income-co-borrower');
+     const errorMessage = document.getElementById('income-error-message');
 
-  // Check if the input is not a valid number or is empty
-  if (isNaN(incomeInput.value) || incomeInput.value.trim() === "") {
-    errorMessage.style.display = 'block';  
-  } else {
+   // Check if the input is not a valid number or is empty
+   if (isNaN(incomeInput.value) || incomeInput.value.trim() === "") {
+     errorMessage.style.display = 'block';  
+   } else {
     errorMessage.style.display = 'none';  
-  }
-});
+   }
+   });
 
-document.getElementById('yes-liability').addEventListener('change', function() {
-  const emiInput = document.getElementById('emi-amount');
-  emiInput.disabled = false;  
-});
+  document.getElementById('yes-liability').addEventListener('change', function() {
+   const emiInput = document.getElementById('emi-amount');
+   emiInput.disabled = false;  
+  });
 
-document.getElementById('no-liability').addEventListener('change', function() {
-  const emiInput = document.getElementById('emi-amount');
-  emiInput.disabled = true;  
-  emiInput.value = ''; 
-  document.getElementById('emi-error-message').style.display = 'none';  
-});
+ document.getElementById('no-liability').addEventListener('change', function() {
+   const emiInput = document.getElementById('emi-amount');
+   emiInput.disabled = true;  
+   emiInput.value = ''; 
+   document.getElementById('emi-error-message').style.display = 'none';  
+ });
 
-document.getElementById('emi-amount').addEventListener('input', function() {
-  const emiInput = document.getElementById('emi-amount');
-  const errorMessage = document.getElementById('emi-error-message');
+ document.getElementById('emi-amount').addEventListener('input', function() {
+   const emiInput = document.getElementById('emi-amount');
+   const errorMessage = document.getElementById('emi-error-message');
 
-  // Check if the input is a valid number or not empty
-  if (emiInput.value && isNaN(emiInput.value) || emiInput.value.trim() === "") {
-    errorMessage.style.display = 'block';  
-  } else {
+   // Check if the input is a valid number or not empty
+   if (emiInput.value && isNaN(emiInput.value) || emiInput.value.trim() === "") {
+     errorMessage.style.display = 'block';  
+   } else {
     errorMessage.style.display = 'none';  
-  }
-});
+   }
+  });
 
-document.getElementById('city-input').addEventListener('input', function() {
-  const city = document.getElementById('city-input');
-  const errorMessage = document.getElementById('city-error');
+ document.getElementById('city-input').addEventListener('input', function() {
+   const city = document.getElementById('city-input');
+   const errorMessage = document.getElementById('city-error');
 
-  if (city.value.trim() === "") {
-    errorMessage.textContent = "Please enter the city.";
-    errorMessage.style.display = 'block';
-  } else {
+   if (city.value.trim() === "") {
+     errorMessage.textContent = "Please enter the city.";
+     errorMessage.style.display = 'block';
+   } else {
     errorMessage.style.display = 'none';
-  }
-});
+   }
+ });
 
-//mobile js
+
+
+
+
+
+
+}); //close addEventListener
+
+
 
 
   </script>
