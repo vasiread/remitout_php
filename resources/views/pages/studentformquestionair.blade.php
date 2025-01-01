@@ -334,9 +334,29 @@
       </div>
     </div>
 
-    <!-- Academic Gap Section -->
 
+    <!---academic-details container---->
+<div class="academic-details" id="step-academic-details">
+        <div class="academic-details-container">
+            <div class="step-header">
+                <div class="step-number">02</div>
+                <h2>Academic details</h2>
+            </div>
 
+            <div class="education-label">Education</div>
+
+            <div class="input-grid">
+                <div class="input-field">
+                    <input type="text" placeholder="University/School">
+                </div>
+                <div class="input-field">
+                    <input type="text" placeholder="Course Name">
+                </div>
+            </div>
+        </div>
+  </div>
+
+  
     <!-- Admit Form Section -->
     <div class="admit-form-container" id="step-admit-form" style="display: none;">
       <div class="admit-container">
@@ -1194,13 +1214,13 @@
         }
       };
   
-  const breadcrumbSections = [
+ const breadcrumbSections = [
     [document.querySelector('.registration-form'), document.querySelector('.section-02-container')],
     [document.querySelector('.course-details'), document.querySelector('.course-degree'), document.querySelector('.course-duration-container'), document.querySelector('.detail-container-section')],
-    [document.querySelector('.academic-container'), document.querySelector('.admit-form-container')],
+    [document.querySelector('.academic-container'), document.querySelector('.academic-details'), document.querySelector('.admit-form-container')],
     [document.querySelector('.borrow-container-section'), document.querySelector('.income-co-borrower'), document.querySelector('.monthly-liability-container')],
     [document.querySelector('.kyc-section-document'), document.querySelector('.kyc-section-marksheet'), document.querySelector('.kyc-section-Admission'), document.querySelector('.work-experience'), document.querySelector('.kyc-section-co-borrower'), document.querySelector('.salary-upload')]
-  ];
+];
 
  function updateMobileHeading(breadcrumbIndex) {
     const mobileHeading = document.getElementById('mobileHeading');
