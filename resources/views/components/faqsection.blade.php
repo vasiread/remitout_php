@@ -183,20 +183,30 @@
             return sortedData;
         }
 
-        function updatePagination() {
-            const totalPages = Math.ceil(faqData.length / ITEMS_PER_PAGE);
-            const dots = document.querySelectorAll('.dot');
+       function updatePagination() {
+         const totalPages = Math.ceil(faqData.length / ITEMS_PER_PAGE);
+        const navDotsContainer = document.querySelector('.nav-dots');
+    
+         // Clear existing dots
+        navDotsContainer.innerHTML = '';
 
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentPage);
-            });
-
-            const prevButton = document.querySelector('.nav-button.prev');
-            const nextButton = document.querySelector('.nav-button.next');
-
-            prevButton.disabled = currentPage === 0;
-            nextButton.disabled = currentPage === totalPages - 1;
+         // Create dots dynamically based on total pages
+         for (let i = 0; i < totalPages; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+          if (i === currentPage) {
+             dot.classList.add('active'); // Highlight current active dot
+            }
+           navDotsContainer.appendChild(dot);
         }
+
+       // Update navigation button states
+        const prevButton = document.querySelector('.nav-button.prev');
+        const nextButton = document.querySelector('.nav-button.next');
+
+         prevButton.disabled = currentPage === 0;
+        nextButton.disabled = currentPage === totalPages - 1;
+       }
 
 
 

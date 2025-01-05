@@ -228,7 +228,7 @@
  }
  .logincontainer .loginvector{
     position: absolute;
-    z-index: 3;
+    z-index: -1;
     top:-70%;
     left:10%;
     width: 829px;
