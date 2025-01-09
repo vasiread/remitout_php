@@ -50,18 +50,18 @@ class StudentDashboardController extends Controller
     public function updateFromProfile(Request $request)
     {
         $validated = $request->validate([
-            'editedName' => 'required|string|max:255',
-            'editedPhone' => 'required|string|max:15',
-            'editedEmail' => 'required|email',
-            'editedState' => 'required|string|max:255',
-            'iletsScore' => 'required|numeric',
-            'greScore' => 'required|numeric',
-            'tofelScore' => 'required|numeric',
+            'editedName' => 'nullable|string|max:255',
+            'editedPhone' => 'nullable|string|max:15',
+            'editedEmail' => 'nullable|email',
+            'editedState' => 'nullable|string|max:255',
+            'iletsScore' => 'nullable|numeric',
+            'greScore' => 'nullable|numeric',
+            'tofelScore' => 'nullable|numeric',
 
-            'planToStudy' => 'required',
-            'courseDuration' => 'required|numeric',
-            'loanAmount' => 'required|numeric',
-            'referralCode' => 'required|string',
+            'planToStudy' => 'nullable',
+            'courseDuration' => 'nullable|numeric',
+            'loanAmount' => 'nullable|numeric',
+            'referralCode' => 'nullable|string',
             'userId' => 'required'
         ]);
 

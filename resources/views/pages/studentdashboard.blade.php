@@ -186,13 +186,13 @@ $loanStatusInfo = [
                 <ul class="personalinfo-secondrow">
                     <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span class="personal_info_id"
                             style="margin-left: 6px;"> {{$user->unique_id}}</span> </li>
-                    <li class="personal_info_name"><img src={{$profileIconPath}} alt="">
+                    <li class="personal_info_name" id="referenceNameId"><img src={{$profileIconPath}} alt="">
                         <p> {{$userDetails[0]->name ?? 'Name not available'}}</p>
                     </li>
                     <li class="personal_info_phone"><img src={{$phoneIconPath}} alt="">
                         <p>+91 {{$personalDetails[0]->phone}}</p>
                     </li>
-                    <li class="personal_info_email">
+                    <li class="personal_info_email" id="referenceEmailId">
                         <img src={{$mailIconPath}} alt="">
                         <p> {{$userDetails[0]->email}}</p>
                     </li>
@@ -382,7 +382,8 @@ $others = json_decode($academicDetails[0]->Others, true);
             <div class="myapplication-fourthcolumn-additional">
                 <p>3. What is the duration of the course?</p>
                 <input type="text" placeholder="{{ $courseDetails[0]->{'course-duration'} ?? '' }}"
-                    value="{{ $courseDetails[0]->{'course-duration'} ?? '' }}" disabled>
+                    value="{{ $courseDetails[0]->{'course-duration'} ?? '' }} " disabled>
+
             </div>
             <div class="myapplication-fourthcolumn">
                 <p>4. What is the Loan amount required?</p>
@@ -589,6 +590,9 @@ $others = json_decode($academicDetails[0]->Others, true);
             const planToStudy = courseDetails[0]['plan-to-study'].replace(/[\[\]"]/g, '');;
 
             document.getElementById("plan-to-study-edit").value = planToStudy;
+            document.querySelector('.mailnbfcbutton').addEventListener('click', (event) => {
+                sendDocumenttoEmail(event);
+            })
 
 
 
@@ -671,11 +675,69 @@ $others = json_decode($academicDetails[0]->Others, true);
             });
         };
 
+       function sendDocumenttoEmail(event) {
+            console.log(event);
+            event.preventDefault();
 
+            // Get user ID
+            const uniqueIdElement = document.querySelector('.personal_info_id');
+            const userId = uniqueIdElement ? uniqueIdElement.textContent || uniqueIdElement.innerHTML : null;
+
+            // Get email
+            const emailElement = document.querySelector("#referenceEmailId p");
+            const email = emailElement ? emailElement.textContent || emailElement.innerHTML : null;
+
+            // Get user name
+            const userNameElement = document.querySelector("#referenceNameId p");
+            const name = userNameElement ? userNameElement.textContent || userNameElement.innerHTML : null;
+
+            // Check if all required details are present
+            if (userId && email && name) {
+                console.log("Unique ID:", userId, "Email:", email, "Name:", name);
+            } else {
+                console.error("Error: Could not retrieve unique ID, email, or name.");
+                return; // Exit the function if any value is missing
+            }
+
+            // Prepare data to send in the POST request
+            const sendDocumentsRequiredDetails = {
+                userId: userId,
+                email: email,
+                name: name
+            };
+
+            // Make the fetch request
+            fetch('/send-documents', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify(sendDocumentsRequiredDetails)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.errors) {
+                        console.error('Validation errors:', data.errors);
+                    } else {
+                        console.log("Success:", data.message);
+                        alert(data.message)
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+
+            console.log("Sending Data:", sendDocumentsRequiredDetails);
+        }
 
         const triggerEditButton = () => {
-            // Enable all disabled inputs in the profile
-            const disabledInputs = document.querySelectorAll('.studentdashboardprofile-myapplication input[disabled]');
+             const disabledInputs = document.querySelectorAll('.studentdashboardprofile-myapplication input[disabled]');
             disabledInputs.forEach(inputItems => {
                 inputItems.removeAttribute('disabled');
             });
@@ -686,7 +748,6 @@ $others = json_decode($academicDetails[0]->Others, true);
                 radio.removeAttribute('disabled');
             });
 
-            // Enable the input for 'Others' degree type if it was disabled
             const otherDegreeInput = document.getElementById("otherDegreeInput");
             if (otherDegreeInput && otherDegreeInput.disabled) {
                 otherDegreeInput.removeAttribute('disabled');
@@ -769,10 +830,11 @@ $others = json_decode($academicDetails[0]->Others, true);
 
                 });
             }
-        };
+        };  
 
 
         const initialisePanCardView = () => {
+            
 
 
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -1367,6 +1429,7 @@ $others = json_decode($academicDetails[0]->Others, true);
 
         };
 
+        
         const sessionLogout = () => {
             fetch('{{ route('session.logout') }}', {
                 method: 'POST',

@@ -35,7 +35,7 @@ class SendDocumentsMail extends Mailable
          $subject = 'Documents Shared: ' . implode(', ', $documentNames);
 
          $mail = $this->subject($subject)
-            ->view('emails.sendDocuments', ['documentNames' => $documentNames]);
+            ->view('email.email', ['documentNames' => $documentNames]);
 
          foreach ($this->filePaths as $filePath) {
             $fileExtension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));

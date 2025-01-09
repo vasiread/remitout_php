@@ -18,7 +18,9 @@ class Academics extends Model
         'ILETS',
         'GRE',
         'TOFEL',
-        'Others'
+        'Others',
+        'university_school_name',
+        'course_name'
     ];
     use HasFactory;
 

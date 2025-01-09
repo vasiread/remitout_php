@@ -6,13 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\CourseInfo;
-// use App\Models\PersonalInfo;
 
 class User extends Model
 {
-    protected $fillable = ['name', 'email', 'password', 'unique_id','google_id'];
+    protected $fillable = ['name', 'email', 'password', 'unique_id', 'google_id'];
 
-    // Automatically generate unique_id when a new record is created
     protected static function boot()
     {
         parent::boot();
@@ -25,14 +23,43 @@ class User extends Model
         });
     }
 
-    // public function personalInfo()
+    // public function profileCompletePercentage()
     // {
-    //     return $this->hasOne(PersonalInfo::class, 'user_id', 'unique_id');
-    // }
-    // public function courseInfo(){
-    //     return $this->hasOne(CourseInfo::class, 'user_id', 'unique_id');
-    // }
-    // public function academicsInfo(){
-    //     return $this->hasOne(Academics::class, 'user_id', 'unique_id');
+    //     $filledFields = 0;
+    //     $totalFields = 0;
+
+    //     foreach ($this->fillable as $field) {
+    //         $totalFields++;
+    //         if (!empty($this->$field)) {
+    //             $filledFields++;
+    //         }
+    //     }
+
+    //     if ($this->Academics) {
+    //         $academicFields = [
+    //             'gap_in_academics',
+    //             'reason_for_gap',
+    //             'work_experience',
+    //             'ILETS',
+    //             'GRE',
+    //             'TOFEL',
+    //             'Others',
+    //             'university_school_name',
+    //             'course_name'
+
+    //         ];
+    //         foreach ($academicFields as $field) {
+    //             $totalFields++;
+    //             if (!empty($this->address->$field)) {
+    //                 $filledFields++;
+    //             }
+    //         }
+    //     }
+
+    //     $percentage = ($totalFields > 0) ? ($filledFields / $totalFields) * 100 : 0;
+    //     return round($percentage,2)
+
+
+
     // }
 }

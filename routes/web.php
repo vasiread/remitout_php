@@ -38,7 +38,12 @@ Route::get('/student-dashboard', function () {
 Route::get('/student-forms', function () {
     return view('pages/studentformquestionair');
 })->name('student-forms');
-
+Route::get(
+    "/sc-dashboard",
+    function () {
+        return view("pages/scdashboard");
+    }
+)->name("sc-dashboard");
 
 Route::get('pages/student-dashboard', [TrackController::class, 'loanTracker']);
 
@@ -47,7 +52,7 @@ Route::post('/registerformdata', [RegisterController::class, 'store'])->name('re
 Route::post('/emailuniquecheck', [RegisterController::class, 'emailUniqueCheck'])->name('emailUniqueCheck');
 // Route::post('/updateuserids', [RegisterController::class, 'updateUserIds'])->name('updateUserIds');
 Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
-Route::post('/update-personalinfo',  [StudentDetailsController::class, 'updatePersonalInfo']);
+Route::post('/update-personalinfo', [StudentDetailsController::class, 'updatePersonalInfo']);
 Route::post('/update-courseinfo', [StudentDetailsController::class, 'updateCourseInfo']);
 Route::post('/update-academicsinfo', [StudentDetailsController::class, 'updateAcademicsInfo']);
 Route::post('/updatedetailsinfo', [StudentDetailsController::class, 'updateUserIds']);
@@ -58,6 +63,7 @@ Route::post("/coborrowerData", [StudentDetailsController::class, 'updateCoborrow
 Route::post('/send-email', [MailController::class, 'sendEmail']);
 Route::post('/verify-otp', [MailController::class, 'verifyOTP']);
 Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser'])->name('student-dashboard');
+// Route::get('/sc-dashboard', [scdashboardco::class, 'getUser'])->name('student-dashboard');
 Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFromProfile']);
 Route::post('/upload-profile-picture', [StudentDashboardController::class, 'uploadProfilePicture']);
 Route::post('/retrieve-profile-picture', [StudentDashboardController::class, 'retrieveProfilePicture']);
@@ -74,4 +80,4 @@ Route::post('/check-columns', [StudentDashboardController::class, 'validateTable
 Route::post('/send-documents', [MailController::class, 'sendUserDocuments']);
 
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
-Route::get('auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle']);   
+Route::get('auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle']);

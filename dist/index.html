@@ -1,0 +1,1548 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://remitouturl.s3.amazonaws.com/css/styles.css">
+
+</head>
+<body>
+    
+    
+    
+
+
+
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="rxgVBJQN8m30iTPSmWYhOSgqzFmFITqB5vqEc8ra">
+
+    <title>Welcome to Remitout</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+    <!-- Custom Stylesheets -->
+    <link rel="stylesheet" href="https://remitouturl.s3.amazonaws.com/css/navbar.css">
+
+
+    <link rel="stylesheet" href="https://remitouturl.s3.amazonaws.com/css/footer.css">
+    <link rel="stylesheet" href="https://remitouturl.s3.amazonaws.com/css/styles.css">
+    <link rel="stylesheet" href="https://remitouturl.s3.amazonaws.com/css/loginsignup.css">
+    <link rel="stylesheet" href="https://remitouturl.s3.amazonaws.com/css/login.css">
+    <link rel="stylesheet" href="https://remitouturl.s3.amazonaws.com/css/studentdashboard.css">
+
+
+    <link rel="stylesheet" href="https://remitouturl.s3.amazonaws.com/css/footer.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Aileron:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+            <html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <nav class="nav"
+        style=" position: absolute; top: 0; left: 0; width: 100%; z-index: 10; ">
+        <div class="nav-container">
+                        <img onclick="window.location.href='http://localhost/ '"
+                src="http://localhost/assets/images/RemitoutLogoWhite.png" alt="Logo" class="logo">
+
+            <div class="nav-links">
+                <a class="" href="http://localhost">Home</a>
+
+                <a href="#resources" class="">Resources</a>
+                <a href="#deals" class="">Special Deals</a>
+                <a href="#services" class="">Our Service</a>
+                <a href="#schedule" class="">Schedule Call</a>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="login-btn" onclick="window.location.href='http://localhost/login'">Log In</button>
+                <button class="signup-btn" onclick="window.location.href='http://localhost/signup'">Sign Up</button>
+            </div>
+            <div class="nav-searchnotificationbars">
+                <div class="input-container">
+                    <input type="text" placeholder="Search">
+                    <img src="assets/images/search.png" class="search-icon" alt="Search Icon">
+                </div> <img src=assets/images/notifications_unread.png style="width:24px;height:24px" class="unread-notify" alt="">
+
+                <div class="nav-profilecontainer">
+                    <img src="" id="nav-profile-photo-id" class="nav-profileimg" alt="">
+                    
+
+
+
+                                    </div>
+
+
+            </div>
+
+            <div class="menu-icon" id="menu-icon">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuIcon = document.getElementById('menu-icon');
+            const navContainer = document.querySelector('.nav-container');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const navLinksContainer = document.querySelector('.nav-links');
+            const searchnotificationbars = document.querySelector(".nav-searchnotificationbars");
+            const navigationLoginSignupButtons = document.querySelector(".nav-buttons");
+
+
+
+
+
+            window.onload = function () {
+                var currentRoute = window.location.pathname;
+                retrieveProfilePictureNav();
+
+                if (currentRoute === "/student-dashboard") {
+                    searchnotificationbars.style.display = "flex";
+                    navLinksContainer.style.display = "none";
+                    navigationLoginSignupButtons.style.display = "none";
+                }
+                else {
+                    searchnotificationbars.style.display = "none";
+                    navLinksContainer.style.display = "flex";
+                    navigationLoginSignupButtons.style.display = "flex";
+
+
+                }
+            }
+
+            menuIcon.addEventListener('click', function () {
+                menuIcon.classList.toggle('active');
+                navContainer.classList.toggle('active');
+                document.body.style.overflow = navContainer.classList.contains('active') ? 'hidden' : '';
+            });
+
+            const navbar = document.querySelector('.nav');
+            function handleScroll() {
+                if (window.scrollY > 0) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            }
+            window.addEventListener('scroll', handleScroll);
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    menuIcon.classList.remove('active');
+                    navContainer.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+
+            document.addEventListener('click', function (event) {
+                if (!navContainer.contains(event.target) && !menuIcon.contains(event.target)) {
+                    menuIcon.classList.remove('active');
+                    navContainer.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        })
+
+        const retrieveProfilePictureNav = async () => {
+            const userSession = null;
+            const userId = userSession.unique_id;
+            const profileImgUpdate = document.querySelector(".nav-profilecontainer .nav-profileimg");
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            if (!csrfToken) {
+                console.error('CSRF token not found');
+                return;
+            }
+
+            try {
+                const response = await fetch('/retrieve-profile-picture', {
+                    method: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ userId: userId })
+                });
+
+                const data = await response.json();
+
+                if (data.fileUrl) {
+                    console.log("Profile Picture URL:", data.fileUrl);
+                    profileImgUpdate.src = data.fileUrl;
+                } else {
+                    console.error("Error: No URL returned from the server", data);
+                }
+            } catch (error) {
+                console.error("Error retrieving profile picture", error);
+            }
+        };
+
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>    
+            <html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+
+</head>
+
+<body>
+     <section class="hero-section">
+            <div class="content-container">
+                <div class="left-container">
+                    <h1 class="hero-title">
+                        <span class="line-1">Secure Fast,</span>
+                        <span class="line-2">
+                            <span class="bold">Simple </span><span class="thin-italic">Loans for</span>
+                        </span>
+                        <span class="line-3">a Brighter Future.</span>
+                    </h1>
+                </div>
+
+                <!-- Right Container -->
+                <div class="right-content">
+                    <div class="icon-title">
+                        <img src="assets/images/journey icon.png" alt="Journey Icon" class="journey-icon">
+                        <h2 class="journey-title">Fuel Your Global Journey</h2>
+                    </div>
+                    <p class="journey-text">
+                        Trusted by 15,000+ students across India, Remitout is your partner in securing the financial support you need to succeed in your studies.
+                    </p>
+                    <div class="cta-buttons">
+                        <button onclick="window.location.href='http://localhost/student-forms'" class="secure-loan">Secure your loan now!</button>
+                        <button class="watch-demo">
+                            <img src="assets/images/play-icon.png" alt="Video Icon" class="play-icon">
+                            Watch Demo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</body>
+
+</html>
+<!-- <div class="lineargradientbackground">
+        <img src="assets/images/BG Linear gradient.png" alt="Background Image">
+</div> -->
+
+<div class="profilecardsection">
+    <div class="background-vector"></div>
+
+    <div class="profilecardsection-inside">
+        <img src="http://localhost/assets/images/rightclosevector.png" alt="Left Bracket"
+            class="closedvectorimage left-bracket">
+
+        <div class="profilecard-additionalsideheader">
+            <h2>Hear What <span>They</span> Say</h2>
+        </div>
+     <div class="card-container">
+        <div class="profilecard-container">
+            <div class="testimonial-slider">
+                                    <div class="profilecardsection-individual" data-index="0">
+                        <img src="http://localhost/assets/images/profileCardVector.png" alt="Quote" class="quote-icon">
+                        <div class="profilecard-firstrow">
+                            <div class="profilecard-firstrowleft">
+                                <img src="http://localhost/assets/images/Person.png" alt="Profile">
+                            </div>
+                            <div class="profilecard-firstrowright">
+                                <h1>Mark Debrovski</h1>
+                                <p>Designation</p>
+                                <div class="profilecard-ratingcontainer">
+                                                                            <i class="fa-solid fa-star"></i>
+                                                                            <i class="fa-solid fa-star"></i>
+                                                                            <i class="fa-solid fa-star"></i>
+                                                                            <i class="fa-solid fa-star"></i>
+                                                                            <i class="fa-solid fa-star"></i>
+                                                                    </div>
+                            </div>
+                        </div>
+                        <div class="profilecard-secondrow">
+                            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.</p>
+                        </div>
+                    </div>
+                                    <div class="profilecardsection-individual" data-index="1">
+                        <img src="http://localhost/assets/images/profileCardVector.png" alt="Quote" class="quote-icon">
+                        <div class="profilecard-firstrow">
+                            <div class="profilecard-firstrowleft">
+                                <img src="http://localhost/assets/images/person5.avif" alt="Profile">
+                            </div>
+                            <div class="profilecard-firstrowright">
+                                <h1>Debrovski</h1>
+                                <p>Designation</p>
+                                <div class="profilecard-ratingcontainer">
+                                                                            <i class="fa-solid fa-star"></i>
+                                                                            <i class="fa-solid fa-star"></i>
+                                                                            <i class="fa-solid fa-star"></i>
+                                                                            <i class="fa-solid fa-star"></i>
+                                                                    </div>
+                            </div>
+                        </div>
+                        <div class="profilecard-secondrow">
+                            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.</p>
+                        </div>
+                    </div>
+                                    <div class="profilecardsection-individual" data-index="2">
+                        <img src="http://localhost/assets/images/profileCardVector.png" alt="Quote" class="quote-icon">
+                        <div class="profilecard-firstrow">
+                            <div class="profilecard-firstrowleft">
+                                <img src="http://localhost/assets/images/person3.avif" alt="Profile">
+                            </div>
+                            <div class="profilecard-firstrowright">
+                                <h1>Mark Debrovski</h1>
+                                <p>Designation</p>
+                                <div class="profilecard-ratingcontainer">
+                                                                            <i class="fa-solid fa-star"></i>
+                                                                            <i class="fa-solid fa-star"></i>
+                                                                            <i class="fa-solid fa-star"></i>
+                                                                            <i class="fa-solid fa-star"></i>
+                                                                            <i class="fa-solid fa-star"></i>
+                                                                    </div>
+                            </div>
+                        </div>
+                        <div class="profilecard-secondrow">
+                            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.</p>
+                        </div>
+                    </div>
+                                    <div class="profilecardsection-individual" data-index="3">
+                        <img src="http://localhost/assets/images/profileCardVector.png" alt="Quote" class="quote-icon">
+                        <div class="profilecard-firstrow">
+                            <div class="profilecard-firstrowleft">
+                                <img src="http://localhost/assets/images/Person.png" alt="Profile">
+                            </div>
+                            <div class="profilecard-firstrowright">
+                                <h1>Mark Debrovski</h1>
+                                <p>Designation</p>
+                                <div class="profilecard-ratingcontainer">
+                                                                            <i class="fa-solid fa-star"></i>
+                                                                            <i class="fa-solid fa-star"></i>
+                                                                            <i class="fa-solid fa-star"></i>
+                                                                            <i class="fa-solid fa-star"></i>
+                                                                            <i class="fa-solid fa-star"></i>
+                                                                    </div>
+                            </div>
+                        </div>
+                        <div class="profilecard-secondrow">
+                            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.</p>
+                        </div>
+                    </div>
+                            </div>
+        </div>
+    </div>
+        <img src="http://localhost/assets/images/rightclosevector.png" alt="Right Bracket"
+            class="closedvectorimage right-bracket">
+
+        <div class="pagenavigationcontainer">
+            <button class="nav-arrow left" aria-label="Previous">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <div class="dot-container">
+                <span class="dot"></span>
+                <span class="middle-dot active"></span>
+                <span class="dot"></span>
+            </div>
+            <button class="nav-arrow right" aria-label="Next">
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+
+<div class="outer-container">
+    <div class="inner-container">
+        <div class="logo-container">
+            <div class="logo-item">
+                <img src="http://localhost/assets/images/logo1.png" alt="Logo 1">
+            </div>
+            <div class="logo-item">
+                <img src="http://localhost/assets/images/logo2.png" alt="Logo 2">
+            </div>
+            <div class="logo-item">
+                <img src="http://localhost/assets/images/logo3.png" alt="Logo 3">
+            </div>
+            <div class="logo-item">
+                <img src="http://localhost/assets/images/logo4.png" alt="Logo 4">
+            </div>
+            <div class="logo-item">
+                <img src="http://localhost/assets/images/logo5.png" alt="Logo 5">
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+
+
+            const testimonialSlider = document.querySelector('.testimonial-slider');
+            const prevButton = document.querySelector('.nav-arrow.left');
+            const nextButton = document.querySelector('.nav-arrow.right');
+            const dots = document.querySelectorAll('.dot');
+            const slides = document.querySelectorAll('.profilecardsection-individual');
+            let currentIndex = 0;
+            const cardsPerView = 2; // Number of cards visible at a time
+
+            function getSlideWidth() {
+                return slides[0].offsetWidth + 20; // Includes margin
+            }
+
+            let slideWidth = getSlideWidth();
+            const totalSlides = Math.ceil(slides.length / cardsPerView);
+
+            // Update slider position
+            function updateSlider() {
+                const translateX = -(currentIndex * slideWidth * cardsPerView);
+                testimonialSlider.style.transform = `translateX(${translateX}px)`;
+                updateDots();
+            }
+
+            // Update active dot
+            function updateDots() {
+                dots.forEach((dot, index) => {
+                    if (index === currentIndex) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            }
+
+            // Arrow button navigation
+            prevButton.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + totalSlides) % totalSlides; // Circular navigation
+                updateSlider();
+            });
+
+            nextButton.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % totalSlides; // Circular navigation
+                updateSlider();
+            });
+
+            // Initialize slider
+            updateSlider();
+
+            // Recalculate the slider width and update on window resize
+            window.addEventListener('resize', () => {
+                slideWidth = getSlideWidth(); // Recalculate slide width
+                updateSlider(); // Reapply the correct transformation
+            });
+
+            // Logo scrolling effect
+            const logoContainer = document.querySelector('.logo-container');
+            function autoScroll() {
+                logoContainer.style.animation = 'scroll 30s linear infinite';
+            }
+            autoScroll();
+        });
+
+        //smart-lending-section
+        document.getElementById('loanButton').addEventListener('click', function () {
+            console.log('Loan button clicked');
+        });
+
+
+
+    </script>
+</body>
+
+</html>
+<div class="study-loans-section">
+        <h2 class="study-loans-title">We Secure Your Future</h2>
+        <div class="study-loans-content">
+            <div class="study-loans-image">
+                <img src="http://localhost/assets/images/study-loans.png" style="position:relative;" alt="Study Loans">
+            </div>
+            <div class="study-loans-text">
+                <h3>Get the loan you need for international education.</h3>
+                <p>Trusted by 15,000+ students, we offer competitive rates for your academic dreams.</p>
+            </div>
+        </div>
+    </div>
+
+<section class="study-loans-section">
+    <div class="study-loans-content">
+        <!-- Left Section -->
+        <div class="study-loans-left">
+            <div class="study-loans-text">
+                <h3>Your Smart Route to <br>Study Loans</h3>
+                <p>Bespoke Loan Options from Trusted NBFCs for <br> Your International Education.</p>
+            </div>
+        </div>
+        <!-- Right Section -->
+        <div class="study-loans-image-right">
+            <img src="http://localhost/assets/images/globe-1.png" alt="Globe Image" class="globe-image">
+        </div>
+    </div>
+    <!-- <div class="flowchart-section">
+    <img src="http://localhost/assets/images/flowchat.png" alt="Flowchart Image" class="flowchart-image">
+  </div> -->
+
+
+
+
+    <div class="graphcard-section">
+
+        <div class="graphcardsection-bottomleftsection">
+
+
+            <div class="bottomleft-firstsection">
+                <h1 class="graphcard-firstheader-number">01</h1>
+                <h2>Profile Assessment</h2>
+                <p>Our experts assess your academic and financial profile to determine the best loan options for
+                    your overseas education.</p>
+            </div>
+
+            <div class="bottomleft-secondsection">
+                <h1 class="graphcard-thirdheader-number">
+                    03
+                </h1>
+                <hr>
+                <div class="bottomleft-section-inside">
+                    <h1>Choose Your Loan Offers</h1>
+                    <p>Browse and compare personalized loan offers based on your eligibility
+                        and repayment preferences.</p>
+                </div>
+
+            </div>
+            <div class="bottomleft-thirdsection">
+                <h1 class="graphcard-sixthheader-number">
+                    06
+                </h1>
+                <hr>
+                <div class="bottomleft-section-inside">
+                    <h1>Guaranteed Disbursement</h1>
+                    <p>Once approved, your loan is disbursed directly to your institution on time, securing your
+                        admission.</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="graphcardsection-topleftsection">
+            <div class="topleft-firstsection">
+                <h2>Get Matched With
+                    Top NBFCs</h2>
+                <p>We connect you with
+                    multiple non-banking financial companies (NBFCs) offering competitive study loans.</p>
+            </div>
+            <div class="topleft-secondsection">
+                <h1 class="graphcard-secondheader-number ">02</h1>
+                <img src="assets/images/graphvectors/handshake.png" class="handshake-img" alt="">
+                <img src="assets/images/graphvectors/perfectmatchvector.png" class="perfectmatchvector-img" alt="">
+
+            </div>
+        </div>
+        <div class="graphcardsection-toprightsection">
+            <div class="numbercontainer">
+                <p>04</p>
+            </div>
+            <div class="fourthcontainersection">
+                <h1>Submit Document with Ease</h1>
+                <p>Upload your required documents securely through our platform for a seamless process.</p>
+            </div>
+        </div>
+        <div class="graphcardsection-lastsection">
+
+
+        </div>
+        <div class="gracardsection-centersection">
+            <img src="assets/images/graphvectors/profileassesmentvector.png" class="profileassesmentvector-img" alt="">
+            <img src="assets/images/graphvectors/loanchoicesvector.png" class="loanchoicesvector-img" alt="">
+            <img src="assets/images/graphvectors/guaranteevector.png" class="guaranteevector-img" alt="">
+            <img src="assets/images/graphvectors/fastrackaprovalvector.png" class="fastrackaprovalvector-img" alt="">
+
+            <div class="fastrackapproval-section">
+                <div class="numbercontainer">
+                    <p>05</p>
+                </div>
+                <div class="fastrackapproval-details">
+                    <h1>Fast-Track Approval</h1>
+                    <p>Experience quick
+                        approvals with minimal delays, ensuring you stay on track for your educational goals</p>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+<div class="smart-banner-image">
+
+    <section class="smart-lending-section">
+        <div class="smart-content-wrapper">
+            <!-- Left Content -->
+            <div class="smart-left-content">
+                <h1 class="main-heading">
+                    Where your safety meets<br>
+                    smart lending
+                </h1>
+
+                <div class="features-list">
+                    <div class="feature-item">
+                        <img src="assets/images/icon-1.png" alt="Support Icon">
+                        <div class="feature-content">
+                            <h4>Integrated Support, Anytime, Anywhere</h4>
+                            <p>Instant support builds trust and enhances experience!</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <img src="assets/images/icon-2.png" alt="Processing Icon">
+                        <div class="feature-content">
+                            <h4>Rapid Processing</h4>
+                            <p>Easy student remittance in just a few steps!</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <img src="assets/images/icon-3.png" alt="Price Icon">
+                        <div class="feature-content">
+                            <h4>Best Price Commitment</h4>
+                            <p>Transparent, competitive exchange rates guaranteed!</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <img src="assets/images/iocn-4.png" alt="Protection Icon">
+                        <div class="feature-content">
+                            <h4>Absolutely Protected</h4>
+                            <p>Instant transfers, no fees, 24/7 support!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="cta-button" id="loanButton">
+                    Secure your loan now!
+                </button>
+            </div>
+
+            <!-- Right Content -->
+            <div class="smart-right-content">
+                <div class="loading-container">
+                    <img src="assets/images/Circle.png" alt="Loading animation" class="loading-dots">
+                </div>
+                <div class="radcliffe-brand">
+                    <img src="assets/images/over-icon.png" alt="Radcliffe Camera icon">
+                </div>
+                <div class="radcliffe-image">
+                    <img src="assets/images/image-1.png" alt="Radcliffe Camera">
+                </div>
+                <div class="students-image">
+                    <img src="assets/images/image-2.png" alt="Students with Tablet">
+                </div>
+                <div class="graduation-image">
+                    <img src="assets/images/image-3.png" alt="Graduation Celebration">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    
+    <div class="effort-section">
+        <!-- Background Image -->
+        <img src="assets/images/effort-banner.png" alt="Background Image" class="effort-background-image">
+
+        <div class="effort-container">
+            <div class="effort-content">
+                <!-- Left Column with Image -->
+                <div class="effort-image-column">
+                    <div class="effort-image-wrapper">
+                        <img src="assets/images/girl-image-with-banner.png" alt="Student with backpack"
+                            class="effort-main-image">
+                    </div>
+                </div>
+
+                <!-- Right Column with Content -->
+                <div class="effort-content-column">
+                    <div class="effort-heading">
+
+                        <h1>Effortless and affordable <br>global transfers!</h1>
+                        <p>Support loved ones abroad by sending money from India for education and expenses.
+                            Transfer to 40+ countries with real exchange rates, no hidden fees.
+                            Sign up easily online with your PAN and address.</p>
+                    </div>
+
+                    <div class="effort-icons-image">
+                        <img src="assets/images/account_circle.png" alt="Students Icon" class="effort-icon">
+                        <img src="assets/images/account_balance.png" alt="NBFCs Icon" class="effort-icon">
+                        <img src="assets/images/flag.png" alt="Countries Icon" class="effort-icon">
+                        <img src="assets/images/sentiment_very_satisfied.png" alt="Customers Icon" class="effort-icon">
+                    </div>
+
+                    <!-- Stats Grid -->
+                    <div class="effort-stats-grid">
+                        
+                            <div class="effort-stat-card">
+                                <div class="effort-stat-value">500+</div>
+                                <div class="effort-stat-label">Students</div>
+                            </div>
+                            
+                            <div class="effort-stat-card">
+                                <div class="effort-stat-value">100</div>
+                                <div class="effort-stat-label">NBFCs</div>
+                            </div>
+                            
+                            <div class="effort-stat-card">
+                                <div class="effort-stat-value">40+</div>
+                                <div class="effort-stat-label">Countries</div>
+                            </div>
+                            
+                            <div class="effort-stat-card">
+                                <div class="effort-stat-value">2k+</div>
+                                <div class="effort-stat-label">Happy customers</div>
+                            </div>
+                                                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FAQ Section -->
+
+
+
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <section class="faq-section">
+        <div class="faq-background">
+
+            <div class="container">
+                <div class="header">
+                    <h1>Frequently asked questions</h1>
+                    <div class="search-container">
+                        <div class="search-box">
+                            <input type="text" class="search-input" placeholder="Type keywords to find related queries">
+                        </div>
+                        <div style="position: relative;">
+                            <button class="sort-button" id="sortButton">
+                                Sort by
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div class="sort-dropdown" id="sortDropdown">
+                                <div class="sort-option" data-sort="az">Alphabetical (A-Z)</div>
+                                <div class="sort-option" data-sort="za">Alphabetical (Z-A)</div>
+                                <div class="sort-option" data-sort="newest">Newest First</div>
+                                <div class="sort-option" data-sort="oldest">Oldest First</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-container">
+                    <div class="faq-list">
+                        <!-- FAQ items will be dynamically inserted here -->
+                    </div>
+                </div>
+
+
+                <div class="navigation">
+                    <button class="nav-button prev">
+                        <span class="arrow"></span>
+                    </button>
+                    <div class="nav-dots">
+                        <div class="dot active"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                    <button class="nav-button next">
+                        <span class="arrow"></span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script>function displayFAQs(data = faqData) {
+            const startIndex = currentPage * ITEMS_PER_PAGE;
+            const endIndex = startIndex + ITEMS_PER_PAGE;
+            const pageData = data.slice(startIndex, endIndex);
+
+            const faqList = document.querySelector('.faq-list');
+            faqList.innerHTML = '';
+
+            pageData.forEach((item) => {
+                const faqItem = document.createElement('div');
+                faqItem.className = 'faq-item';
+                faqItem.innerHTML = `
+            <button class="faq-question">
+                ${item.question}
+                <svg class="toggle-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+            </button>
+            <div class="faq-answer">
+                ${item.answer}
+            </div>
+        `;
+                faqList.appendChild(faqItem);
+            });
+
+            updatePagination();
+        }
+
+
+        //FAQ Section
+
+
+        const faqData = [
+            {
+                question: "How can I apply for a loan with Remitout?",
+                answer: "You can easily apply online by visiting our [application page] and filling out a short form with your basic information. Once submitted, our team will review your application and reach out with the next steps.",
+                date: new Date('2024-01-01')
+            },
+            {
+                question: "What are the eligibility criteria for a loan?",
+                answer: "Our eligibility criteria includes age requirements, income verification, and credit history assessment. Please contact our support team for detailed information specific to your situation.",
+                date: new Date('2024-01-15')
+            },
+            {
+                question: "How long does the loan approval process take?",
+                answer: "The loan approval process typically takes 2-3 business days, depending on the completeness of your application and required documentation.",
+                date: new Date('2024-02-01')
+            },
+            {
+                question: "What documents are required to apply for a loan?",
+                answer: "Required documents typically include government-issued ID, proof of income, bank statements, and proof of address. Specific requirements may vary based on the loan type.",
+                date: new Date('2024-02-15')
+            },
+            {
+                question: "Can I apply for a loan if I have bad credit?",
+                answer: "While bad credit may impact your eligibility, we assess applications on a case-by-case basis. Reach out to our support team to discuss potential options for your situation.",
+                date: new Date('2024-03-01')
+            },
+            {
+                question: "How do I track my loan application status?",
+                answer: "You can track the status of your loan application by logging into your account on our website. Additionally, our team will notify you of any updates via email or phone.",
+                date: new Date('2024-03-10')
+            },
+            {
+                question: "Can I use my loan for any purpose?",
+                answer: "Our loans are designed primarily for educational expenses. While most loans can be used for tuition, living costs, and study-related expenses, check the loan terms for any specific restrictions.",
+                date: new Date('2024-03-20')
+            },
+            {
+                question: "What is the repayment schedule for my loan?",
+                answer: "Repayment terms are customized based on your loan amount, tenure, and educational institution. You'll be informed about your repayment schedule at the time of loan approval.",
+                date: new Date('2024-04-01')
+            },
+            {
+                question: "How do I choose the best loan offer for me?",
+                answer: "Once your profile is assessed, we provide personalized loan offers. You can compare these offers based on your eligibility, interest rates, and repayment options to select the one that best suits your needs.",
+                date: new Date('2024-04-10')
+            },
+            {
+                question: "Can I pay off my loan early?",
+                answer: "Yes, you can pay off your loan early without any prepayment penalties. Early repayment may also help you save on interest charges.",
+                date: new Date('2024-04-20')
+            },
+            {
+                question: "What happens if I miss a loan payment?",
+                answer: "If you miss a loan payment, please contact us immediately. We may offer alternative arrangements or extend your payment period. It's important to keep us informed to avoid negative impacts on your credit score.",
+                date: new Date('2024-05-01')
+            },
+            {
+                question: "How fast can I receive my loan disbursement?",
+                answer: "Once approved, your loan will be disbursed directly to your educational institution in a timely manner, ensuring there are no delays in securing your admission.",
+                date: new Date('2024-05-10')
+            }
+        ];
+
+        const ITEMS_PER_PAGE = 4;
+        let currentPage = 0;
+        let currentSort = 'az';
+
+        function sortFAQs(sortType) {
+            const sortedData = [...faqData];
+            switch (sortType) {
+                case 'az':
+                    sortedData.sort((a, b) => a.question.localeCompare(b.question));
+                    break;
+                case 'za':
+                    sortedData.sort((a, b) => b.question.localeCompare(a.question));
+                    break;
+                case 'newest':
+                    sortedData.sort((a, b) => b.date - a.date);
+                    break;
+                case 'oldest':
+                    sortedData.sort((a, b) => a.date - b.date);
+                    break;
+            }
+            return sortedData;
+        }
+
+       function updatePagination() {
+         const totalPages = Math.ceil(faqData.length / ITEMS_PER_PAGE);
+        const navDotsContainer = document.querySelector('.nav-dots');
+    
+         // Clear existing dots
+        navDotsContainer.innerHTML = '';
+
+         // Create dots dynamically based on total pages
+         for (let i = 0; i < totalPages; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+          if (i === currentPage) {
+             dot.classList.add('active'); // Highlight current active dot
+            }
+           navDotsContainer.appendChild(dot);
+        }
+
+       // Update navigation button states
+        const prevButton = document.querySelector('.nav-button.prev');
+        const nextButton = document.querySelector('.nav-button.next');
+
+         prevButton.disabled = currentPage === 0;
+        nextButton.disabled = currentPage === totalPages - 1;
+       }
+
+
+
+        // Initialize navigation
+        document.querySelector('.nav-button.prev').addEventListener('click', () => {
+            if (currentPage > 0) {
+                currentPage--;
+                displayFAQs(sortFAQs(currentSort));
+            }
+        });
+
+        document.querySelector('.nav-button.next').addEventListener('click', () => {
+            const totalPages = Math.ceil(faqData.length / ITEMS_PER_PAGE);
+            if (currentPage < totalPages - 1) {
+                currentPage++;
+                displayFAQs(sortFAQs(currentSort));
+            }
+        });
+
+        // Initialize search
+        function initSearch() {
+            const searchInput = document.querySelector('.search-input');
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const filteredData = faqData.filter(item =>
+                    item.question.toLowerCase().includes(searchTerm)
+                );
+                currentPage = 0;
+                displayFAQs(filteredData);
+            });
+        }
+
+        // Sort functionality
+        const sortButton = document.getElementById('sortButton');
+        const sortDropdown = document.getElementById('sortDropdown');
+
+        sortButton.addEventListener('click', () => {
+            sortDropdown.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!sortButton.contains(e.target) && !sortDropdown.contains(e.target)) {
+                sortDropdown.classList.remove('active');
+            }
+        });
+
+        document.querySelectorAll('.sort-option').forEach(option => {
+            option.addEventListener('click', () => {
+                const sortType = option.dataset.sort;
+                currentSort = sortType;
+                currentPage = 0;
+                const sortedData = sortFAQs(sortType);
+                displayFAQs(sortedData);
+                sortDropdown.classList.remove('active');
+            });
+        });
+
+        // FAQ item click handler
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.faq-question')) {
+                const faqItem = e.target.closest('.faq-item');
+                const wasActive = faqItem.classList.contains('active');
+
+                // Close all FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                // Toggle clicked item
+                if (!wasActive) {
+                    faqItem.classList.add('active');
+                }
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            displayFAQs();
+            initSearch();
+        });
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html> 
+    
+            <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Footer Section</title>
+<style>
+/* Reset default margins and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-section {
+    width: 100%;
+    background-image: url('assets/images/foooter-image.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 30px 0px;
+    position: relative;
+    min-height: auto;
+    margin-top: auto;
+}
+
+.footer-container {
+    max-width: 1190px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Signup Container */
+.signup-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    margin-top: 60px;
+    max-width: auto;
+    width:100%;
+    height: 240px;
+    padding: 40px;
+
+}
+
+.signup-content {
+    width: 50%;
+    padding-right: 32px;
+}
+
+.signup-text h5 {
+    font-size: 20px !important;
+    line-height:120%;
+    color: #E6E5E6;
+    margin-left:10px;
+}
+
+.signup-text p {
+  color: #E6E6E8;
+  margin: 10px;
+  font-family: 'Glacial Indifference', sans-serif;
+  font-size: 18px;
+  line-height: 160%;
+}
+.signup-form {
+    display: flex;
+    max-width: 460px;
+}
+
+.input-container {
+    position: relative;
+    flex: 1;
+}
+
+.email-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;  
+    height: 24px; 
+}
+
+.signup-form input {
+    flex: 1;
+    padding: 12px 16px 12px 48px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(124, 58, 237, 0.1);
+    color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    width: 358px;
+    height: 56px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.signup-form input:focus {
+    border-color: transparent;
+    background: rgba(124, 58, 237, 0.2);
+}
+
+.signup-form input::placeholder {
+    color: rgba(255, 255, 255, 0.75);
+    transition: opacity 0.3s ease;
+}
+
+.signup-form input:focus::placeholder {
+    opacity: 0;
+}
+
+.signup-form .footer-button {
+    background: #6F25CE;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 20px;
+    width: 170px;
+    height: 56px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size:16px;
+    font-family: 'Glacial Indifference', sans-serif;
+
+}
+
+.signup-form .footer-button span {
+    white-space: nowrap;
+}
+
+/* Footer Navigation */
+.footer-nav-section {
+    width: 100%;
+    max-width: 1174px;
+    margin: 60px auto 20px;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Left Column - Company Info */
+.company-info {
+    width: 403px;
+    margin:0;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    margin-top:-10px;
+}
+
+.logo-img {
+    width: 142px;
+    height: 45px;
+    margin-right: 12px;
+    margin-bottom:20px;
+}
+
+.footer-logo strong {
+    color: white;
+}
+
+.address-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    width:403px;
+    padding:10px;
+}
+
+.phone-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    padding:10px;
+    
+}
+
+.icon {
+    width: 40px;
+    height: 40px;
+    padding:6px;
+}
+
+.address-info {
+    color: #E9E8EA;
+    line-height: 160%;
+    font-family: 'Poppins', sans-serif;
+    font-size:16px;
+    color: rgba(233, 232, 234, 0.8);
+    font-weight: 400;
+
+}
+
+.company-info p {
+    color: #e9d5ff;
+    margin-bottom: 18px;
+    font-family: 'Poppins', sans-serif;
+    color: rgba(233, 232, 234, 0.8);
+    line-height:196%;
+}
+
+.social-links {
+  display: flex;
+  gap: 16px;
+}
+
+.social-links {
+  display: flex;
+  gap: 16px;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 16px;
+  height: 40px;
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
+.social-icon {
+  width: 15px;
+  height: 13px;
+  margin-right: 12px;
+}
+
+.social-link span {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  line-height:120%;
+  color:#EEEEEE;
+}
+
+/* Right Column - Navigation Links */
+.footer-links {
+    width: 608px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 51px;
+}
+
+.footer-column h3 {
+   font-size: 18px;
+   font-weight: 400; /* Corrected property name */
+   margin-bottom: 24px;
+   color: #E6E5E6; /* This will apply, as it overrides the previous color */
+
+
+
+}
+
+.footer-column a {
+    text-decoration: none;
+    margin-bottom: 16px;
+     display: block;
+    color: rgba(216, 216, 216, 0.8); /* Set link color */
+    text-decoration: none;
+    margin-bottom: 16px;
+    line-height: 160%; /* Set link line height */
+    white-space: nowrap;
+}
+
+.copyright {
+    text-align: center;
+    color: #D6D3D9;
+    padding:0;
+    font-size:16px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    
+
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .container,
+    .footer-nav-section {
+        width: 90%;
+    }
+    
+    .signup-wrapper {
+        width: 90%;
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+    }
+    
+    .signup-content {
+        width: 100%;
+        padding-right: 0;
+    }
+    
+    .footer-nav-section {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .company-info,
+    .footer-links {
+        width: 100%;
+        margin-bottom: 40px;
+    }
+    
+    .footer-links {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-section {
+        background-size: cover;
+        min-height: auto;
+        padding: 40px 0;
+    }
+
+    .footer-links {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .signup-form {
+        flex-direction: column;
+    }
+
+    .signup-form input,
+    .signup-form .footer-button {
+        width: 100%;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+}
+</style>
+</head>
+<body>
+
+<footer class="footer-section">
+    <div class="footer-container">
+        <!-- Signup Container -->
+        <div class="signup-wrapper">
+            <div class="signup-content">
+                <div class="signup-text">
+                    <h5>Sign Up with us Today!</h5>
+                    <p>Prepare yourself and let's explore this world.</p>
+                </div>
+
+                <form class="signup-form" id="signupForm">
+                    <div class="input-container">
+                        <img src="assets/images/message-icon.png" class="email-icon" alt="email icon">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <button type="submit" class="footer-button"><span>Register Now!</span></button>
+                </form>
+
+            </div>
+            <div class="signup-image">
+                <!-- Image content here if needed -->
+                <img src="assets/images/Globe.png" class="footer-globe" alt="Globe image">
+            </div>
+        </div>
+
+        <!-- Footer Navigation Section -->
+        <div class="footer-nav-section">
+            <!-- Company Info -->
+            <div class="company-info">
+                <div class="footer-logo">
+                    <img src="assets/images/footer-logo.png" alt="Remitout" class="logo-img">
+                </div>
+                <div class="address-container">
+                    <img src="assets/images/addres-icon.png " alt="Address" class="icon">
+                    <div class="address-info">
+                        B/415DAMJI SHAMJI CORPORATE<br>
+                        SQUARE BEHIND EVEREST GARDEN GM<br>
+                        LINK RD GTK, Mumbai, Maharashtra,<br>
+                        India, 400075
+                    </div>
+                </div>
+                <div class="phone-container">
+                    <img src="assets/images/phone-icon.png" alt="Phone" class="icon">
+                    <span style="color: rgba(233, 232, 234, 0.8);">+91 75784 75788</span>
+                </div>
+                <p>Reach us through other platforms!</p>
+                <div class="social-links">
+  <a href="#" class="social-link">
+    <img src="assets/images/Twitter.png" alt="Twitter" class="social-icon" style="width: 15px; height: 13px;">
+    <span style="font-family: 'Poppins', sans-serif; font-weight: normal; font-size: 11px;">Twitter</span>
+  </a>
+  <a href="#" class="social-link">
+    <img src="assets/images/Instagram.png" alt="Instagram" class="social-icon" style="width: 15px; height: 13px;">
+    <span style="font-family: 'Poppins', sans-serif; font-weight: normal; font-size: 11px;">Instagram</span>
+  </a>
+  <a href="#" class="social-link">
+    <img src="assets/images/Facebook.png" alt="Facebook" class="social-icon" style="width: 15px; height: 13px;">
+    <span style="font-family: 'Poppins', sans-serif; font-weight: normal; font-size: 11px;">Facebook</span>
+  </a>
+</div>
+            </div>
+
+            <!-- Navigation Links -->
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <a href="#">About</a>
+                    <a href="#">Alliance</a>
+                    <a href="#">Blogs</a>
+                    <a href="#">Privacy Policy</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <a href="#">Contact us</a>
+                    <a href="#">Partner with us</a>
+                    <a href="#">FAQ's</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Our Services</h3>
+                    <a href="#">Student accommodation</a>
+                    <a href="#">Exchange Currency</a>
+                    <a href="#">Forex Card</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="copyright">
+        All Rights reserved
+    </div>
+</footer>
+
+<script>
+document.getElementById('signupForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const email = this.querySelector('input[type="email"]').value;
+    console.log('Email submitted:', email);
+});
+</script>
+
+</body>
+</html>    </body>
+
+</html>
