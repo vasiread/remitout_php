@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\OTPMobController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\StudentDetailsController;
@@ -58,10 +59,12 @@ Route::post('/update-academicsinfo', [StudentDetailsController::class, 'updateAc
 Route::post('/updatedetailsinfo', [StudentDetailsController::class, 'updateUserIds']);
 Route::post("/coborrowerData", [StudentDetailsController::class, 'updateCoborrowerInfo']);
 
+Route::post('/send-mobotp', [OTPMobController::class, 'sendOTP']);
+Route::post('/verify-mobotp', [OTPMobController::class, 'verifyOTP']);
 
 
-Route::post('/send-email', [MailController::class, 'sendEmail']);
-Route::post('/verify-otp', [MailController::class, 'verifyOTP']);
+// Route::post('/send-email', [MailController::class, 'sendEmail']);
+// Route::post('/verify-otp', [MailController::class, 'verifyOTP']);
 Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser'])->name('student-dashboard');
 // Route::get('/sc-dashboard', [scdashboardco::class, 'getUser'])->name('student-dashboard');
 Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFromProfile']);

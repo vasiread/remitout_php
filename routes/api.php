@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\OTPMobController;
 use App\Http\Controllers\StudentDashboardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,9 @@ Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFr
 Route::post('/check-columns', [StudentDashboardController::class, 'validateTablesAndColumns']);
 Route::post('/send-documents', [MailController::class, 'sendUserDocuments']);
 // Route::post('/registeruser', [RegisterController::class, 'register']);
+Route::post('/send-mobotp', [OTPMobController::class, 'sendOTP']);
+Route::post('/verify-mobotp', [OTPMobController::class, 'verifyOTP']);
+Route::post('/emailuniquecheck', action: [RegisterController::class, 'emailUniqueCheck']);
 
 // Route::get('/registeruser', [RegisterController::class, 'showMessage']);
 
