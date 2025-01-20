@@ -404,9 +404,17 @@ $others = json_decode($academicDetails[0]->Others, true);
             </div>
             <div class="myapplication-seventhcolumn">
                 <h1>Attached Documents</h1>
-                <div class="myapplication-seventhcolum-documentscolumn">
-                    <h4>Student KYC Document</h4>
-                    <div class="kycdocumentscolumn">
+                <div class="seventhcolum-firstsection">
+                    <div class="seventhcolumn-header">
+                        <p>Student KYC Document</p> 
+
+                     <i class="fa-solid fa-angle-down"></i>
+                </div>
+              
+              
+                <div class="kycdocumentscolumn"  >
+
+               
                         <div class="individualkycdocuments">
                             <p class="document-name">Pan Card</p>
                             <div class="inputfilecontainer">
@@ -467,71 +475,84 @@ $others = json_decode($academicDetails[0]->Others, true);
 
 
                     </div>
-                    <h4>Academic Marksheets</h4>
-
-                    <div class="marksheetdocumentscolumn">
-                        <div class="individualmarksheetdocuments">
-                            <p class="document-name">10th grade marksheet</p>
-                            <div class="inputfilecontainer-marksheet">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="sslc-marksheet"> 10th grade marksheet</p>
-                                 <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-card"></>
-
-                            </div>
-                            <input type="file" id="inputfilecontainer-real-marksheet">
-
-                            <span class="document-status">420 MB uploaded</span>
+                   </div>  
+                    
+ 
+              
 
 
+            </div>
+            <div class="seventhcolumn-additional">
+                <div class="seventhcolumn-additional-firstcolumn">
+                <div class="seventhcolumnadditional-header">
+
+                    <p>Academic Marksheets</p>
+                        <i class="fa-solid fa-angle-down"></i>
+                   </div>
+                        <div class="marksheetdocumentscolumn">
+                                                <div class="individualmarksheetdocuments">
+                                                    <p class="document-name">10th grade marksheet</p>
+                                                    <div class="inputfilecontainer-marksheet">
+                                                        <i class="fa-solid fa-image"></i>
+                                                        <p class="sslc-marksheet"> 10th grade marksheet</p>
+                                                         <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-card"></>
+                        
+                                                    </div>
+                                                    <input type="file" id="inputfilecontainer-real-marksheet">
+                        
+                                                    <span class="document-status">420 MB uploaded</span>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                                                </div>
+                                                <div class="individualmarksheetdocuments">
+                                                    <p class="document-name">12th grade marksheet</p>
+                                                    <div class="inputfilecontainer-marksheet">
+                                                        <i class="fa-solid fa-image"></i>
+                                                        <p class="hsc-marksheet"> 12th grade marksheet</p>
+                                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-card"></>
+                        
+                                                    </div>
+                                                    <input type="file" id="inputfilecontainer-real-marksheet">
+                        
+                                                    <span class="document-status">420 MB uploaded</span>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                                                </div>
+                                                <div class="individualmarksheetdocuments">
+                                                    <p class="document-name">Graduation marksheet</p>
+                                                    <div class="inputfilecontainer-marksheet">
+                                                        <i class="fa-solid fa-image"></i>
+                                                        <p class="graduation-marksheet"> Graduation Marksheet</p>
+                                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-card">
+                        
+                                                    </div>
+                                                    <input type="file" id="inputfilecontainer-real-marksheet">
+                        
+                                                    <span class="document-status">420 MB uploaded</span>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                                                </div>
+                        
+                        
+                                            </div>
 
 
-
-
-
-                        </div>
-                        <div class="individualmarksheetdocuments">
-                            <p class="document-name">12th grade marksheet</p>
-                            <div class="inputfilecontainer-marksheet">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="hsc-marksheet"> 12th grade marksheet</p>
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-card"></>
-
-                            </div>
-                            <input type="file" id="inputfilecontainer-real-marksheet">
-
-                            <span class="document-status">420 MB uploaded</span>
-
-
-
-
-
-
-
-                        </div>
-                        <div class="individualmarksheetdocuments">
-                            <p class="document-name">Graduation marksheet</p>
-                            <div class="inputfilecontainer-marksheet">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="graduation-marksheet"> Graduation Marksheet</p>
-                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-card">
-
-                            </div>
-                            <input type="file" id="inputfilecontainer-real-marksheet">
-
-                            <span class="document-status">420 MB uploaded</span>
-
-
-
-
-
-
-
-                        </div>
-
-
-                    </div>
                 </div>
-
 
             </div>
             <div class="myapplication-eightcolumn">
@@ -542,7 +563,7 @@ $others = json_decode($academicDetails[0]->Others, true);
 
             </div>
             <div class="myapplication-ninthcolumn">
-                <div class="ninthcolumn-firstsection">
+                <div class="ninthcolumn-firstsection" >
                     <p>Work Experience</p>
                     <i class="fa-solid fa-angle-down"></i>
                 </div>
@@ -584,6 +605,11 @@ $others = json_decode($academicDetails[0]->Others, true);
             initialisesslcView();
             initialisehscView();
             initialisegraduationView();
+            initialiseSeventhcolumn();
+            initialiseSeventhAdditionalColumn();
+            initialiseEightcolumn();
+            initialiseNinthcolumn();
+            initialiseTenthcolumn();
 
 
             const courseDetails = {!! $courseDetailsJson !!};
@@ -833,6 +859,66 @@ $others = json_decode($academicDetails[0]->Others, true);
         };  
 
 
+        const initialiseEightcolumn=()=>{
+            const section = document.querySelector('.eightcolumn-firstsection');
+
+            section.addEventListener('click', function () {
+                if (section.style.height === '') {
+                    section.style.height = '300px'; 
+                } else {
+                    section.style.height = '';
+                }
+            });
+        }
+        const initialiseSeventhcolumn =()=>{
+            const section = document.querySelector('.seventhcolum-firstsection');
+
+            section.addEventListener('click', function () {
+                if (section.style.height === '') {
+                    section.style.height = '300px';
+                } else {
+                    section.style.height = '';
+                }
+            });
+
+        }
+        const initialiseSeventhAdditionalColumn =()=>{
+            const section = document.querySelector('.seventhcolumn-additional-firstcolumn');
+
+            section.addEventListener('click', function () {
+                if (section.style.height === '') {
+                    section.style.height = '300px';
+                } else {
+                    section.style.height = '';
+                }
+            });
+
+        }
+         const initialiseNinthcolumn=()=>{
+            const section = document.querySelector('.ninthcolumn-firstsection');
+
+            section.addEventListener('click', function () {
+                if (section.style.height === '') {
+                    section.style.height = '300px';
+                } else {
+                    section.style.height = '';
+                }
+            });
+
+        }
+   
+        const initialiseTenthcolumn=()=>{
+            const section = document.querySelector(".tenthcolumn-firstsection");
+             section.addEventListener('click', function () {
+                if (section.style.height === '') {
+                    section.style.height = '300px';
+                } else {
+                    section.style.height = '';
+                }
+            });
+
+        }
+   
         const initialisePanCardView = () => {
             
 

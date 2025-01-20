@@ -25,7 +25,7 @@
                 <form class="logincontainer-loginresources" id="loginForm" onsubmit="loginSubmitForm(event)">
                     <img src="assets/images/loginsinguprightsideimg.png" class="loginrightsidevector-img" alt="">
                     <div class="logincontainer-namecontainer">
-                        <input type="text" placeholder="Name" name="name" id="loginname">
+                        <input type="text" placeholder="Unique ID" name="name" id="loginname">
                     </div>
                     <div class="logincontainer-passwordcontainer">
                         <input type="password" placeholder="Password" id="loginpasswordID" name="password">

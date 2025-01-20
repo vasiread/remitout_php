@@ -18,7 +18,7 @@ class OTPMobController extends Controller
         ]);
 
         try {
-             $sid = env('TWILIO_SID');
+              $sid = env('TWILIO_SID');
             $token = env('TWILIO_AUTH_TOKEN');
             $client = new Client($sid, $token);
 
@@ -26,7 +26,7 @@ class OTPMobController extends Controller
             $mobile = '+91' . $request->phone;
             $name = $request->name;
 
-             $otp = rand(100000, 999999);
+            $otp = rand(100000, 999999);
 
             // Cache the OTP for 10 minutes
             Cache::put('otp_' . $mobile, $otp, 600);
@@ -35,7 +35,7 @@ class OTPMobController extends Controller
             $message = $client->messages->create(
                 $mobile, // To number
                 [
-                    'from' => env('TWILIO_PHONE_NUMBER'), // From Twilio number
+                    'from' => env('TWILIO_PHONE_NUMBER'),
                     'body' => "Hi $name, Your OTP code is: $otp",
                 ]
             );
@@ -50,7 +50,6 @@ class OTPMobController extends Controller
 
     public function verifyOTP(Request $request)
     {
-        // Validate the request input
         $validator = Validator::make($request->all(), [
             'phone' => 'required|regex:/^[0-9]{10}$/',
             'otp' => 'required|numeric|digits:6',
