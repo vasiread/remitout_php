@@ -499,9 +499,10 @@
     <div class="monthly-liability">
       <div class="monthly-liability-container" style="display: none;">
         <div class="step-header">
-          <div class="step-number">03</div>
-          <h2>Is there any existing co-borrower monthly liability?</h2>
-        </div>
+        <div class="step-number">03</div>
+         <h2>Is there any existing co-borrower monthly liability?</h2>
+         <p class="amount-thousand">Enter the amount in thousands</p>
+      </div>
 
         <div class="monthly-liability-option">
           <div class="monthly-liability-radio-buttons">
@@ -515,12 +516,10 @@
             </label>
           </div>
           <div class="emi-content">
-            <input type="text" id="emi-amount" class="emi-content-container" placeholder="Enter EMI amount" value="" />
-            <span id="emi-error-message" class="error-message" style="display:none; color:red;">Please enter
-              a
-              valid EMI
-              amount (numeric values only).</span>
-          </div>
+             <p class="amount-thousand-mobile">Enter the amount in thousands</p>
+             <input type="text" id="emi-amount" class="emi-content-container" placeholder="Enter EMI amount" disabled />
+             <span id="emi-error-message" class="error-message" style="display:none; color:red;">Please enter a valid EMI amount (numeric values only).</span>
+          </div> 
         </div>
 
         <!-- Button placed inside the last container -->
@@ -1303,7 +1302,7 @@
       const breadcrumbDots = [
         2,
         4,
-        2,
+        3,
         3,
         6
       ];

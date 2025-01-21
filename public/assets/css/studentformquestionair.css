@@ -2470,6 +2470,9 @@ p {
 
 /*monthly liability*/
 
+
+/*monthly liability*/
+
 .monthly-liability{
   display: flex;
   flex-direction: column;
@@ -2557,11 +2560,7 @@ p {
   font-family: 'Poppins', sans-serif;
   border-radius: 4px;
   padding: 0 10px; 
-   border: 1px solid #E2E2E2;
-}
-
-.monthly-liability-option input:focus {
-  outline: none;
+  margin-left: 100px;
 }
 
 .monthly-liability-option input[type="text"]::placeholder {
@@ -2585,6 +2584,19 @@ p {
   z-index: 10;  
 }
 /* Media Query for smaller screens (max-width: 768px) */
+
+.amount-thousand {
+  display: none;
+      font-size: 15px;
+    font-weight: 500;
+    color: #191825;
+    margin-left: 100px;
+
+}
+.amount-thousand-mobile {
+  display: none;
+}
+
 @media (max-width: 768px) {
     .monthly-liability {
         display: flex;
@@ -2661,7 +2673,9 @@ p {
         border-radius: 8px;
         border: 1px solid #E5E7EB;
         color: #6B7280;
+        margin-left: 0px;
     }
+    
 
     .rupee-symbol {
         position: absolute;
@@ -2703,7 +2717,26 @@ p {
     margin-top: 8px;
     width: 100%;
 }
+ .amount-thousand-mobile {
+    display: block;
+  }
 }
+
+
+
+@media (min-width: 1024px) {
+  .amount-thousand {
+    display: block;
+  }
+}
+
+@media (max-width: 1023px) and (min-width: 768px) {
+  .amount-thousand {
+    display: none !important;
+  }
+}
+
+
 /*document upload*/
 
 .kyc-section {
