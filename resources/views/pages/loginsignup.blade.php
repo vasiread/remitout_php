@@ -39,7 +39,7 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
             <h1>Get Started Now</h1>
             <form class="loginsingupcontainer-rightpanel-inside" id="signupForm" onsubmit="submitForm(event)">
                 <div class="rightpanel-namecontainer">
-                    <input type="text" name="name" id="name" placeholder="Name" required>
+                    <input type="text" name="name" id="name" placeholder="Name (as per Aadhar)" required>
                 </div>
                 <div class="rightpanel-emailcontainer">
                     <input type="text" name="phone" id="phone" placeholder="Phone" required>
