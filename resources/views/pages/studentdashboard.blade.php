@@ -374,8 +374,7 @@ $others = json_decode($academicDetails[0]->Others, true);
                     </label>
                 </div>
 
-                <!-- Input field for 'Others' with conditional enabling -->
-                <input type="text" placeholder="Enter degree type" value="{{ $courseDetails[0]->{'degree-type'} }}"
+                 <input type="text" placeholder="Enter degree type" value="{{ $courseDetails[0]->{'degree-type'} }}"
                     id="otherDegreeInput" @if($courseDetails[0]->{'degree-type'} != 'Others') disabled @endif>
             </div>
 
@@ -871,7 +870,7 @@ $others = json_decode($academicDetails[0]->Others, true);
 
             section.addEventListener('click', function () {
                 if (section.style.height === '') {
-                    section.style.height = '300px'; 
+                    section.style.height = 'fit-content'; 
                 } else {
                     section.style.height = '';
                 }
@@ -882,7 +881,7 @@ $others = json_decode($academicDetails[0]->Others, true);
 
             section.addEventListener('click', function () {
                 if (section.style.height === '') {
-                    section.style.height = '300px';
+                    section.style.height = 'fit-content';
                 } else {
                     section.style.height = '';
                 }
@@ -894,7 +893,7 @@ $others = json_decode($academicDetails[0]->Others, true);
 
             section.addEventListener('click', function () {
                 if (section.style.height === '') {
-                    section.style.height = '300px';
+                    section.style.height = 'fit-content';
                 } else {
                     section.style.height = '';
                 }
@@ -906,7 +905,7 @@ $others = json_decode($academicDetails[0]->Others, true);
 
             section.addEventListener('click', function () {
                 if (section.style.height === '') {
-                    section.style.height = '300px';
+                    section.style.height = 'fit-content';
                 } else {
                     section.style.height = '';
                 }
@@ -918,7 +917,7 @@ $others = json_decode($academicDetails[0]->Others, true);
             const section = document.querySelector(".tenthcolumn-firstsection");
              section.addEventListener('click', function () {
                 if (section.style.height === '') {
-                    section.style.height = '300px';
+                    section.style.height = 'fit-content';
                 } else {
                     section.style.height = '';
                 }
