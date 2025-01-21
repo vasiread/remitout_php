@@ -557,22 +557,29 @@ $others = json_decode($academicDetails[0]->Others, true);
             </div>
             <div class="myapplication-eightcolumn">
                 <div class="eightcolumn-firstsection">
+                                        <div class="eightcolumn-header">
+
                     <p>Secured Admissions</p>
-                    <i class="fa-solid fa-angle-down"></i>
+                    <i class="fa-solid fa-angle-down"></i> </div>
                 </div>
 
             </div>
             <div class="myapplication-ninthcolumn">
                 <div class="ninthcolumn-firstsection" >
+                                                            <div class="ninthcolumn-header">
+
                     <p>Work Experience</p>
-                    <i class="fa-solid fa-angle-down"></i>
+                    <i class="fa-solid fa-angle-down"></i></div>
                 </div>
 
             </div>
             <div class="myapplication-tenthcolumn">
                 <div class="tenthcolumn-firstsection">
+                <div class="tenthcolumn-header">
+
+                
                     <p>Co-borrower Documents</p>
-                    <i class="fa-solid fa-angle-down"></i>
+                    <i class="fa-solid fa-angle-down"></i></div>
                 </div>
 
             </div>
