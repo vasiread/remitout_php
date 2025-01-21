@@ -42,7 +42,7 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
                     <input type="text" name="name" id="name" placeholder="Name" required>
                 </div>
                 <div class="rightpanel-emailcontainer">
-                    <input type="email" name="email" id="email" placeholder="Email" required>
+                    <input type="text" name="phone" id="phone" placeholder="Phone" required>
                 </div>
                 <div class="rightpanel-passwordcontainer">
                     <input type="password" id="passwordinputID" name="password" class="passwordOpen"
@@ -57,7 +57,31 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
                     </div>
                     <button type="submit">Sign up</button>
                 </div>
+                <!-- <div class="googlesigninbuttoncontainer">
+                    <button class="googlesigninbutton" onclick="window.location.href='{{ route('google-auth') }}'">
+                        <img src="{{ asset('assets/images/googleicon.png') }}"> Sign in with Google
+                    </button>
+                    <button class="iossigninbutton">
+                        <img src="{{ asset('assets/images/appleicon.png') }}"> Sign in with Apple
+                    </button>
+                </div> -->
             </form>
+            <div class="logincontainer-anotherresources">
+                <p>Or</p>
+                <div class="googlesigninbuttoncontainer">
+                    <button class="googlesigninbutton" onclick="window.location.href='{{ route('google-auth') }}'">
+                        <img src="{{ asset('assets/images/googleicon.png') }}"> Sign in with Google
+                    </button>
+                    <button class="iossigninbutton">
+                        <img src="{{ asset('assets/images/appleicon.png') }}"> Sign in with Apple
+                    </button>
+                </div>
+                <div class="logincontainer-signinoption">
+                    <p>Have an account? </p>
+                    <span onclick="window.location.href='{{ route('login') }}'">Sign In</span>
+                </div>
+            </div>
+
         </div>
 
 
@@ -85,8 +109,12 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
 
                     <button onclick="checkOTP()">Verify</button>
                 </div>
+
             </div>
+
         </div>
+
+
     </div>
 
     <script>
@@ -146,11 +174,11 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
 
 
             const nameInput = document.querySelector('.rightpanel-namecontainer input');
-            const emailInput = document.querySelector('.rightpanel-emailcontainer input');
+            const phoneInput = document.querySelector('.rightpanel-emailcontainer input');
             const passwordInput = document.querySelector('.rightpanel-passwordcontainer input');
             const checkbox = document.getElementById('confirmpolicy');
 
-            if (nameInput.value !== '' && emailInput.value !== '' && passwordInput.value !== '' && checkbox.checked) {
+            if (nameInput.value !== '' && phoneInput.value !== '' && passwordInput.value !== '' && checkbox.checked) {
                 const otpPanelView = document.querySelector('.loginsignupcontainer-otppanel');
                 const rightLoginsingupContainer = document.querySelector('.loginsingupcontainer-rightpanel');
 
@@ -160,7 +188,7 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
 
                     const firstInput = document.getElementById('otp1');
                     firstInput.focus();
-                    generateOTP(emailInput, nameInput);
+                    generateOTP(phoneInput, nameInput);
                     alert("Check your mail OTP is generated");
 
                 } else {
@@ -171,40 +199,48 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
             }
         }
 
-        const generateOTP = (emailInput, nameInput) => {
+        const generateOTP = (phoneInput, nameInput) => {
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
+            const generatedOTP = Math.floor(100000 + Math.random() * 900000);
 
-            fetch('/send-email', {
+            const detailsInfo = {
+                phone: phoneInput.value,
+                name: nameInput.value,
+                otp: generatedOTP
+            };
+
+            fetch('/send-mobotp', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': csrfToken,
                 },
-                body: JSON.stringify({
-                    email: emailInput.value,
-                    name: nameInput.value,
-                    otp: generatedOTP
-                })
+                body: JSON.stringify(detailsInfo)  // Pass `detailsInfo` directly, no need to wrap inside another object
             })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        return response.text().then(text => { throw new Error(text) });
+                    }
+                    return response.json();
+                })
                 .then(data => {
-                    console.log('Response data:', data);
-
-                    if (data && data.message) {
-
-                        console.log(data + 'data send successfully')
+                    if (data.message) {
+                        console.log('OTP sent successfully: ' + data.message);
+                        alert('OTP sent successfully to ' + phoneInput.value);
                     } else {
-
-                        console.error("OTP Not recieved")
+                        console.error('OTP not received:', data);
+                        alert('Error: OTP not sent.');
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
+                    console.error('Error sending OTP:', error);
+                    alert('Error: ' + error.message);
                 });
-        }
+        };
 
         function checkOTP() {
+            // Get the OTP values from input fields
             const otp1 = document.getElementById('otp1').value;
             const otp2 = document.getElementById('otp2').value;
             const otp3 = document.getElementById('otp3').value;
@@ -212,20 +248,38 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
             const otp5 = document.getElementById('otp5').value;
             const otp6 = document.getElementById('otp6').value;
 
+            // Ensure all OTP fields are filled
+            if (!otp1 || !otp2 || !otp3 || !otp4 || !otp5 || !otp6) {
+                alert('Please fill all OTP fields');
+                return;
+            }
+
+            // Combine OTP values
             const finalOTP = otp1 + otp2 + otp3 + otp4 + otp5 + otp6;
-            const emailInput = document.getElementById('email');
+
+            // Get the phone number and CSRF token
+            const phoneInput = document.getElementById('phone');
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-            fetch('/verify-otp', {
+            console.log('Phone:', phoneInput.value, 'OTP:', finalOTP);
+
+
+            // Prepare the data to send
+            const mailOtpdata = {
+                phone: phoneInput.value,
+                otp: finalOTP
+            };
+            console.log(JSON.stringify(mailOtpdata));
+
+
+            // Send the request to the backend
+            fetch('/verify-mobotp', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': csrfToken,
                 },
-                body: JSON.stringify({
-                    email: emailInput.value,
-                    otp: finalOTP
-                })
+                body: JSON.stringify(mailOtpdata)
             })
                 .then(response => response.json())
                 .then(data => {
@@ -233,23 +287,15 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
 
                     if (data.message === 'OTP verified successfully') {
                         alert('OTP Verified Successfully');
-                        // window.location.href = '/login';
-
-
+                        // Call the function to handle the next step (like submitting verified data)
                         submitVerifiedData();
-
-
-
-
-
-
-
                     } else {
                         alert('Invalid OTP');
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
+                    alert('An error occurred while verifying OTP');
                 });
         }
 
@@ -257,7 +303,7 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
             event.preventDefault();
 
             const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
+            const phoneInput = document.getElementById('phone').value;
             const password = document.getElementById('passwordinputID').value;
             const confirmPolicy = document.getElementById('confirmpolicy').checked;
 
@@ -277,13 +323,12 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 },
-                body: JSON.stringify({ email: email })
+                body: JSON.stringify({ phone: phoneInput })
             })
                 .then(response => response.json())
                 .then(data => {
                     console.log('Response data:', data);
                     if (data.success === false) {
-                        // If email is already taken, show an alert
                         alert(data.message);
                     } else if (data.success === true) {
 
@@ -321,7 +366,7 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
         function submitVerifiedData() {
             const registerFormData = {
                 name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
+                phoneInput: document.getElementById('phone').value,
                 password: document.getElementById('passwordinputID').value,
             };
             console.log(registerFormData)
@@ -334,11 +379,11 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
                 },
                 body: JSON.stringify(registerFormData)
             })
-                .then(response => response.json()) 
+                .then(response => response.json())
                 .then(data => {
                     if (data.success) {
                         alert("Registration is Successful");
-                        window.location.href = '/student-forms'; 
+                        window.location.href = '/student-forms';
                     } else {
                         alert(data.error || 'Something went wrong. Please try again.');
                     }

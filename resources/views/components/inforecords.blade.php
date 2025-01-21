@@ -17,62 +17,102 @@
   </div> -->
 
 
+
+
     <div class="graphcard-section">
 
-        <div class="graphcard-section">
-            <div class="graphcardsection-bottomleftsection">
-                <div class="bottomleft-firstsection">
-                    <h1 class="graphcard-firstheader-number">01</h1>
-                    <h2>Profile Assessment</h2>
-                    <p>Our experts assess your academic and financial profile to determine the best loan options for
-                        your overseas education.</p>
-                </div>
-                <div class="bottomleft-secondsection">
-                    <h1 class="graphcard-thirdheader-number">
-                        03
-                    </h1>
-                    <hr>
-                    <div class="bottomleft-section-inside">
-                        <h1>Choose Your Loan Offers</h1>
-                        <p>Browse and compare personalized loan offers based on your eligibility
-                            and repayment preferences.</p>
-                    </div>
+        <div class="graphcardsection-bottomleftsection">
 
-                </div>
-                <div class="bottomleft-thirdsection">
-                    <h1 class="graphcard-sixthheader-number">
-                        06
-                    </h1>
-                    <hr>
-                    <div class="bottomleft-section-inside">
-                        <h1>Guaranteed Disbursement</h1>
-                        <p>Once approved, your loan is disbursed directly to your institution on time, securing your
-                            admission.</p>
-                    </div>
 
-                </div>
+            <div class="bottomleft-firstsection">
+                <h1 class="graphcard-firstheader-number">01</h1>
+                <h2>Profile Assessment</h2>
+                <p>Our experts assess your academic and financial profile to determine the best loan options for
+                    your overseas education.</p>
             </div>
-            <div class="graphcardsection-topleftsection">
-                <div class="topleft-firstsection">
-                    <h2>Get Matched With
-                        Top NBFCs</h2>
-                    <p>We connect you with
-                        multiple non-banking financial companies (NBFCs) offering competitive study loans.</p>
-                </div>
-                <div class="topleft-secondsection">
-                    <h1 class="graphcard-secondheader-number ">02</h1>
-                    <img src="assets/images/graphvectors/handshake.png" alt="">
-                    <img src="assets/images/graphvectors/perfectmatchvector.png" class="perfectmatchvector-img" alt="">
-                </div>
-            </div>
-            <div class="graphcardsection-lastsection">
 
+            <div class="bottomleft-secondsection">
+                <h1 class="graphcard-thirdheader-number">
+                    03
+                </h1>
+                <hr>
+                <div class="bottomleft-section-inside">
+                    <h1>Choose Your Loan Offers</h1>
+                    <p>Browse and compare personalized loan offers based on your eligibility
+                        and repayment preferences.</p>
+                </div>
+
+            </div>
+            <div class="bottomleft-thirdsection">
+                <h1 class="graphcard-sixthheader-number">
+                    06
+                </h1>
+                <hr>
+                <div class="bottomleft-section-inside">
+                    <h1>Guaranteed Disbursement</h1>
+                    <p>Once approved, your loan is disbursed directly to your institution on time, securing your
+                        admission.</p>
+                </div>
 
             </div>
         </div>
+        <div class="graphcardsection-topleftsection">
+            <div class="topleft-firstsection">
+                <h2>Get Matched With
+                    Top NBFCs</h2>
+                <p>We connect you with
+                    multiple non-banking financial companies (NBFCs) offering competitive study loans.</p>
+            </div>
+            <div class="topleft-secondsection">
+                <h1 class="graphcard-secondheader-number ">02</h1>
+                <img src="assets/images/graphvectors/handshake.png" class="handshake-img" alt="">
+                <img src="assets/images/graphvectors/perfectmatchvector.png" class="perfectmatchvector-img" alt="">
+
+            </div>
+        </div>
+        <div class="graphcardsection-toprightsection">
+            <div class="numbercontainer">
+                <p>04</p>
+            </div>
+            <div class="fourthcontainersection">
+                <h1>Submit Document with Ease</h1>
+                <p>Upload your required documents securely through our platform for a seamless process.</p>
+            </div>
+        </div>
+        <div class="graphcardsection-lastsection">
 
 
+        </div>
+        <div class="gracardsection-centersection">
+            <img src="assets/images/graphvectors/profileassesmentvector.png" class="profileassesmentvector-img" alt="">
+            <img src="assets/images/graphvectors/loanchoicesvector.png" class="loanchoicesvector-img" alt="">
+            <img src="assets/images/graphvectors/guaranteevector.png" class="guaranteevector-img" alt="">
+            <img src="assets/images/graphvectors/fastrackaprovalvector.png" class="fastrackaprovalvector-img" alt="">
+
+            <div class="fastrackapproval-section">
+                <div class="numbercontainer">
+                    <p>05</p>
+                </div>
+                <div class="fastrackapproval-details">
+                    <h1>Fast-Track Approval</h1>
+                    <p>Experience quick
+                        approvals with minimal delays, ensuring you stay on track for your educational goals</p>
+                </div>
+            </div>
+
+
+        </div>
     </div>
+
+
+
+
+
+
+
+
+
+
 
 
 

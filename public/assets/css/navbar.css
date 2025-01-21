@@ -5,14 +5,13 @@
   top: 0;
   left: 0; 
   width: 100%;
-  z-index: 10;*/
+  z-index: 1000; */
 }
 
 
 
 .nav-container {
     height: 85px;
-    padding: 20px 0px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,12 +21,24 @@
     -webkit-backdrop-filter: blur(2px);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     width: 100%;
+    position:relative;
 
 }
+.nav-container::after{
+    position: absolute;
+    content: "";
+    background-color: #ffffff;
+    width: 100%;
+    height:100%;
+    top:0;
+    left:0;
+    opacity: 0.25;
+    z-index: 2;
 
+
+}
 .nav-container.fullopacity {
     background-color: #fff;
-    /* Add solid background when .fullopacity is active */
     color: rgba(38, 2, 84, 1);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
@@ -36,12 +47,14 @@
     width: 138px;
     height: auto;
     margin-left: 50px;
+    z-index: 4;
 }
 
 .nav-buttons {
     display: flex;
     gap: 16px;
     align-items: center;
+
 }
 
 .login-btn,
@@ -58,6 +71,7 @@
     border-radius: 8px;
     transition: all 0.3s ease;
     padding: 0 20px;
+        z-index: 4;
 }
 
 .login-btn {
@@ -87,6 +101,8 @@
 .nav-links {
     display: flex;
     gap: 38px;
+            z-index: 4;
+
 }
 
 .nav-links a {
@@ -173,6 +189,7 @@
     align-items: center;
     justify-content: center;
     width: fit-content;
+    z-index: 4;
 
 
 

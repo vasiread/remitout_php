@@ -7,10 +7,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'Remitout')</title>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
     <!-- Custom Stylesheets -->
     <link rel="stylesheet" href="assets/css/navbar.css">
+
+
     <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/loginsignup.css">
@@ -51,6 +55,10 @@
     @if(Route::currentRouteName() !== 'login' && Route::currentRouteName() !== 'signup')
         <x-footer></x-footer>
     @endif
+
+
+        <script src="{{ asset('js/app.js') }}"></script>
+
 </body>
 
 </html>

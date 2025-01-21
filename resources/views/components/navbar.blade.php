@@ -25,7 +25,7 @@
                 <a class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}" href="{{url('/')}}">Home</a>
 
                 <a href="#resources" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Resources</a>
-                <a href="#deals" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Special Deals</a>
+                <a href="#deals" class="{{ Request::is(patterns: '/') ? '' : 'fullopacitylinks' }}">Special Deals</a>
                 <a href="#services" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Our Service</a>
                 <a href="#schedule" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Schedule Call</a>
             </div>
@@ -41,13 +41,15 @@
                 </div> <img src={{$NotificationBell}} style="width:24px;height:24px" class="unread-notify" alt="">
 
                 <div class="nav-profilecontainer">
-                    <img src="assets/images/profileimg.png" id="nav-profile-photo-id" class="nav-profileimg" alt="">
+                    <img src="" id="nav-profile-photo-id" class="nav-profileimg" alt="">
                     @if(session()->has('user'))
                         <h3>{{ session('user')->name }}</h3>
                         <i class="fa-solid fa-chevron-down"></i>
 
                     @else
-                        
+
+
+
 
                     @endif
                 </div>
@@ -77,6 +79,7 @@
 
             window.onload = function () {
                 var currentRoute = window.location.pathname;
+                retrieveProfilePictureNav();
 
                 if (currentRoute === "/student-dashboard") {
                     searchnotificationbars.style.display = "flex";
@@ -124,6 +127,46 @@
                 }
             });
         })
+
+        const retrieveProfilePictureNav = async () => {
+            const userSession = @json(session('user'));
+            const userId = userSession.unique_id;
+            const profileImgUpdate = document.querySelector(".nav-profilecontainer .nav-profileimg");
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            if (!csrfToken) {
+                console.error('CSRF token not found');
+                return;
+            }
+
+            try {
+                const response = await fetch('/retrieve-profile-picture', {
+                    method: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ userId: userId })
+                });
+
+                const data = await response.json();
+
+                if (data.fileUrl) {
+                    console.log("Profile Picture URL:", data.fileUrl);
+                    profileImgUpdate.src = data.fileUrl;
+                } else {
+                    console.error("Error: No URL returned from the server", data);
+                }
+            } catch (error) {
+                console.error("Error retrieving profile picture", error);
+            }
+        };
+
+
+
+
+
 
 
     </script>

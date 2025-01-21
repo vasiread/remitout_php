@@ -1449,7 +1449,27 @@ input[type="file"] {
 }
 
 
+.pdf-viewer-container {
+    width: 57%;
+    height: 833px;
+    margin: 0 auto;
+    
+    background: white;
+    position: fixed;
+    top: 10%;
+    left: 23%;
+    z-index: 1000;
+}
 
+#pdfViewerModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
 
 
 

@@ -253,7 +253,7 @@ body {
 
 .right-content {
 
-  padding:0;
+  padding: 0;
   width: 477px;
   height: 239px;
   color: white;
@@ -285,7 +285,7 @@ body {
   font-size: 18px;
   line-height: 160%;
   font-weight: 300;
-  width:460px;
+  width: 460px;
   color: rgba(255, 255, 255, 0.8);
 
 
@@ -420,26 +420,27 @@ body {
   width: 58px;
   object-fit: contain;
 }
-.card-container{
-  
-   display: flex;
+
+.card-container {
+
+  display: flex;
   justify-content: space-around;
   gap: 30px;
- 
+
   box-shadow: none;
   position: relative;
   width: calc(420px * 2 + 20px);
 }
 
 .profilecard-container {
-   display: flex;
+  display: flex;
   justify-content: space-around;
   gap: 30px;
   box-shadow: none;
   position: relative;
   width: calc(420px * 2 + 20px);
-   padding-top: 40px;
-   flex: 1;
+  padding-top: 40px;
+  flex: 1;
   overflow: hidden;
 
 }
@@ -450,7 +451,7 @@ body {
   transition: transform 0.5s ease-in-out;
   width: max-content;
   width: calc(420px * 2 + 20px);
-   width: 100%;
+  width: 100%;
   position: relative;
   transition: transform 0.5s ease;
   overflow: visible;
@@ -467,7 +468,7 @@ body {
   overflow: visible;
   margin-bottom: 40px;
   background-color: rgba(255, 255, 255, 0.6);
-    box-shadow: 0px 4px 49px 0px rgba(26, 2, 57, 0.05);
+  box-shadow: 0px 4px 49px 0px rgba(26, 2, 57, 0.05);
 }
 
 
@@ -491,15 +492,15 @@ body {
 }
 
 .profilecardsection .profilecardsection-individual {
- max-width: 420px;
-    height: 275px;
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-    padding: 2.1rem;
-    
-    position: relative;
-    border-radius: 10px;
+  max-width: 420px;
+  height: 275px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 2.1rem;
+
+  position: relative;
+  border-radius: 10px;
 }
 
 .profilecardsection .profilecardsection-individual::after {
@@ -662,7 +663,7 @@ body {
 .nav-arrow.left {
   background-color: #FFFFFF;
   color: #6F25CE;
-   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 
 }
 
@@ -674,8 +675,8 @@ body {
 .nav-arrow.right {
   background-color: #6F25CE;
   color: #FFFFFF;
-   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+
 }
 
 .nav-arrow.right i {
@@ -855,10 +856,12 @@ body {
   color: #968F9E;
   margin-top: 20px;
 }
-.study-loans-image img{
-   height: 200px;
-   margin-bottom: 3rem;
+
+.study-loans-image img {
+  height: 200px;
+  margin-bottom: 3rem;
 }
+
 .study-loans-image-right {
   width: 50%;
   height: auto;
@@ -1068,9 +1071,9 @@ body {
 }
 
 .graphcard-section {
-  max-width: 1170px;
-  width: 100%;
-  height: 730px;
+  max-width: 100%;
+  width: 85%;
+  height: 900px;
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -1084,7 +1087,7 @@ body {
   width: 100%;
   position: relative;
   justify-content: space-between;
-  
+
 
 }
 
@@ -1151,7 +1154,7 @@ body {
   line-height: 19.8px;
   text-align: left;
   color: rgba(85, 67, 107, 1);
-    width: 255px;
+  width: 255px;
 }
 
 .bottomleft-secondsection .bottomleft-section-inside p {
@@ -1161,7 +1164,7 @@ body {
   line-height: 23.8px;
   text-align: left;
   color: rgba(150, 143, 158, 0.8);
-    width: 255px;
+  width: 255px;
 
 }
 
@@ -1232,8 +1235,9 @@ body {
   background-color: rgba(55, 55, 55, 0.2);
   /* outline: none; */
 }
+
 /*  */
-   
+
 
 
 
@@ -1291,8 +1295,129 @@ body {
   width: 175px;
   height: 105px;
   position: relative;
+  bottom: 40px;
 }
 
+.profileassesmentvector-img {
+  position: relative;
+  width: 175px;
+  height: 105px;
+
+
+}
+
+.gracardsection-centersection img {
+  width: 175px;
+  height: 105px;
+}
+
+.gracardsection-centersection {
+  display: flex;
+  position: absolute;
+  align-items: flex-end;
+
+  max-width: 100%;
+  width: 70%;
+  height: 100%;
+  bottom: 18.5%;
+  left: 18.7%;
+  gap: 12%;
+
+}
+
+.guaranteevector-img {
+  position: absolute;
+  bottom: -5%;
+  right: 10%;
+  width: 175px;
+  height: 105px;
+  align-self: self-end;
+}
+
+.fastrackaprovalvector-img {
+  position: absolute;
+  right: -5%;
+  bottom:10%
+}
+
+.graphcardsection-topleftsection .handshake-img {
+  position: relative;
+  bottom: 20px;
+
+}
+
+.graphcardsection-toprightsection{
+  position:absolute;
+  right:22%;
+  top:40%;
+  width:296px;
+
+}
+.graphcardsection-toprightsection .numbercontainer p{
+  font-family: Inter;
+    font-size: 32px;
+    font-weight: 900;
+    line-height: 35.2px;
+    color:#E98635;
+   
+}
+.graphcardsection-toprightsection .fourthcontainersection h1{
+  font-family: Poppins;
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 19.8px;
+    text-align: left;
+    color:#55436B;
+    width: 175px;
+
+}
+.graphcardsection-toprightsection .fourthcontainersection p{
+  font-family: Poppins;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 23.8px;
+    text-align: left;
+    color:#968F9ECC;
+
+}
+.fastrackapproval-section{
+  position: absolute;
+  width: 273px;
+  right:-25%;
+ 
+}
+.fastrackapproval-section .numbercontainer p{
+  font-family: Inter;
+    font-size: 32px;
+    font-weight: 900;
+    line-height: 35.2px;
+    color: #E98635;
+    text-align: right;
+
+}
+.fastrackapproval-section .fastrackapproval-details h1 {
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 19.8px;
+  text-align: right;
+  color: #55436B;
+  text-align: right;
+
+}
+
+.fastrackapproval-section .fastrackapproval-details p {
+  font-family: Poppins;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 23.8px;
+  text-align: right;
+  color: #968F9ECC;
+
+}
+.graphcardsection-toprightsection{
+
+}
 .topleft-firstsection {
   display: flex;
   flex-direction: column;
