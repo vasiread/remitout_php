@@ -1,11 +1,11 @@
 /* Navbar */
 
 .nav {
-    /* position: absolute;
+    position: absolute;
   top: 0;
   left: 0; 
   width: 100%;
-  z-index: 1000; */
+  z-index: 1000;
 }
 
 
@@ -28,7 +28,7 @@
     position: absolute;
     content: "";
     background-color: #ffffff;
-    width: 100%;
+    width: fit-content;
     height:100%;
     top:0;
     left:0;
@@ -41,6 +41,7 @@
     background-color: #fff;
     color: rgba(38, 2, 84, 1);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+   
 }
 
 .logo {
@@ -290,11 +291,7 @@
 }
 
 @media screen and (max-width: 1024px) {
-    /* .nav-container {
-    padding: 20px 50px;
-  }
-
-  .nav-links {
-    gap: 20px;
-  } */
+.nav-container.fullopacity{
+        width: 100%;
+    }
 }
