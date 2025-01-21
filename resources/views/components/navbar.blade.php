@@ -11,9 +11,9 @@
         style="@if (request()->is('/')) position: absolute; top: 0; left: 0; width: 100%; z-index: 10; @else position: relative; @endif">
         <div class="{{ Request::is('/') ? 'nav-container' : 'nav-container fullopacity' }}">
             @php
-                $navImgPath = "assets/images/Remitoutcolored.png";
-                $navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
-                $NotificationBell = "assets/images/notifications_unread.png";
+$navImgPath = "assets/images/Remitoutcolored.png";
+$navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
+$NotificationBell = "assets/images/notifications_unread.png";
 
 
 
@@ -56,6 +56,13 @@
 
 
             </div>
+            <div class="profile-photo-mobtab" style="display:none">
+            
+                <img src="" id="nav-profile-photo-id" class="nav-profileimg" alt="">
+
+
+
+            </div>
 
             <div class="menu-icon" id="menu-icon">
                 <span class="bar"></span>
@@ -72,6 +79,7 @@
             const navLinksContainer = document.querySelector('.nav-links');
             const searchnotificationbars = document.querySelector(".nav-searchnotificationbars");
             const navigationLoginSignupButtons = document.querySelector(".nav-buttons");
+            const mobTabProfile = document.querySelector(".profile-photo-mobtab img");
 
 
 
@@ -82,7 +90,13 @@
                 retrieveProfilePictureNav();
 
                 if (currentRoute === "/student-dashboard") {
-                    searchnotificationbars.style.display = "flex";
+                    if (window.innerWidth <= 420) {
+                        searchnotificationbars.style.display = "none";
+                        mobTabProfile.style.display = "block";
+                    } else {
+                        searchnotificationbars.style.display = "flex";
+                        mobTabProfile.style.display = "none";
+                    }
                     navLinksContainer.style.display = "none";
                     navigationLoginSignupButtons.style.display = "none";
                 }
@@ -132,6 +146,8 @@
             const userSession = @json(session('user'));
             const userId = userSession.unique_id;
             const profileImgUpdate = document.querySelector(".nav-profilecontainer .nav-profileimg");
+                        const mobTabProfile = document.querySelector(".profile-photo-mobtab img");
+
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
             if (!csrfToken) {
@@ -155,6 +171,7 @@
                 if (data.fileUrl) {
                     console.log("Profile Picture URL:", data.fileUrl);
                     profileImgUpdate.src = data.fileUrl;
+                    mobTabProfile.src = data.fileUrl;
                 } else {
                     console.error("Error: No URL returned from the server", data);
                 }

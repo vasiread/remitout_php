@@ -45,8 +45,9 @@
 }
 
 .logo {
-    width: 138px;
-    height: auto;
+    
+    width: clamp(95px, 10vw, 138px);
+    height: clamp(31px, 5vw, 45px);
     margin-left: 50px;
     z-index: 4;
 }
@@ -293,5 +294,19 @@
 @media screen and (max-width: 1024px) {
 .nav-container.fullopacity{
         width: 100%;
+    }
+}
+
+@media (max-width:428px) {
+     
+
+    .nav-profilecontainer {
+        display: block;
+    }
+    .logo{
+        margin-left: 1rem;
+    }
+    .profile-photo-mobtab{
+        display: block;
     }
 }
