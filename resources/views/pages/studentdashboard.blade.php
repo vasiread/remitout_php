@@ -374,8 +374,7 @@ $others = json_decode($academicDetails[0]->Others, true);
                     </label>
                 </div>
 
-                <!-- Input field for 'Others' with conditional enabling -->
-                <input type="text" placeholder="Enter degree type" value="{{ $courseDetails[0]->{'degree-type'} }}"
+                 <input type="text" placeholder="Enter degree type" value="{{ $courseDetails[0]->{'degree-type'} }}"
                     id="otherDegreeInput" @if($courseDetails[0]->{'degree-type'} != 'Others') disabled @endif>
             </div>
 
@@ -427,6 +426,12 @@ $others = json_decode($academicDetails[0]->Others, true);
 
                             <span class="document-status">420 MB uploaded</span>
 
+
+
+
+
+
+
                         </div>
                         <div class="individualkycdocuments">
                             <p class="document-name">Aadhar Card</p>
@@ -440,6 +445,12 @@ $others = json_decode($academicDetails[0]->Others, true);
 
                             <span class="document-status">420 MB uploaded</span>
 
+
+
+
+
+
+
                         </div>
                         <div class="individualkycdocuments">
                             <p class="document-name">Passport</p>
@@ -452,52 +463,17 @@ $others = json_decode($academicDetails[0]->Others, true);
                             <input type="file" id="inputfilecontainer-real">
 
                             <span class="document-status">420 MB uploaded</span>
+
+
+
+
+
+
+
                         </div>
+
+
                     </div>
-<<<<<<< HEAD
-
-
-
-                    <h4>Academic Marksheets</h4>
-
-                    <div class="marksheetdocumentscolumn">
-                        <div class="individualmarksheetdocuments">
-                            <p class="document-name">10th grade marksheet</p>
-                            <div class="inputfilecontainer-marksheet">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="sslc-marksheet"> 10th grade marksheet</p>
-                                 <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-card"></>
-
-                            </div>
-                            <input type="file" id="inputfilecontainer-real-marksheet">
-                            <span class="document-status">420 MB uploaded</span>
-                        </div>
-                        <div class="individualmarksheetdocuments">
-                            <p class="document-name">12th grade marksheet</p>
-                            <div class="inputfilecontainer-marksheet">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="hsc-marksheet"> 12th grade marksheet</p>
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-card"></>
-
-                            </div>
-                            <input type="file" id="inputfilecontainer-real-marksheet">
-                            <span class="document-status">420 MB uploaded</span>
-
-                        </div>
-                        <div class="individualmarksheetdocuments">
-                            <p class="document-name">Graduation marksheet</p>
-                            <div class="inputfilecontainer-marksheet">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="graduation-marksheet"> Graduation Marksheet</p>
-                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-card">
-
-                            </div>
-                            <input type="file" id="inputfilecontainer-real-marksheet">
-                            <span class="document-status">420 MB uploaded</span>
-                        </div>
-                    </div>
-                </div>
-=======
                    </div>  
                     
  
@@ -577,7 +553,6 @@ $others = json_decode($academicDetails[0]->Others, true);
 
                 </div>
 
->>>>>>> f19e5589600ee56d54bf76fb26d87b63ae767f24
             </div>
             <div class="myapplication-eightcolumn">
                 <div class="eightcolumn-firstsection">
@@ -588,8 +563,6 @@ $others = json_decode($academicDetails[0]->Others, true);
                 </div>
 
             </div>
-
-            
             <div class="myapplication-ninthcolumn">
                 <div class="ninthcolumn-firstsection" >
                                                             <div class="ninthcolumn-header">
@@ -897,7 +870,7 @@ $others = json_decode($academicDetails[0]->Others, true);
 
             section.addEventListener('click', function () {
                 if (section.style.height === '') {
-                    section.style.height = '300px'; 
+                    section.style.height = 'fit-content'; 
                 } else {
                     section.style.height = '';
                 }
@@ -908,7 +881,7 @@ $others = json_decode($academicDetails[0]->Others, true);
 
             section.addEventListener('click', function () {
                 if (section.style.height === '') {
-                    section.style.height = '300px';
+                    section.style.height = 'fit-content';
                 } else {
                     section.style.height = '';
                 }
@@ -920,7 +893,7 @@ $others = json_decode($academicDetails[0]->Others, true);
 
             section.addEventListener('click', function () {
                 if (section.style.height === '') {
-                    section.style.height = '300px';
+                    section.style.height = 'fit-content';
                 } else {
                     section.style.height = '';
                 }
@@ -932,7 +905,7 @@ $others = json_decode($academicDetails[0]->Others, true);
 
             section.addEventListener('click', function () {
                 if (section.style.height === '') {
-                    section.style.height = '300px';
+                    section.style.height = 'fit-content';
                 } else {
                     section.style.height = '';
                 }
@@ -944,7 +917,7 @@ $others = json_decode($academicDetails[0]->Others, true);
             const section = document.querySelector(".tenthcolumn-firstsection");
              section.addEventListener('click', function () {
                 if (section.style.height === '') {
-                    section.style.height = '300px';
+                    section.style.height = 'fit-content';
                 } else {
                     section.style.height = '';
                 }
@@ -1275,196 +1248,11 @@ $others = json_decode($academicDetails[0]->Others, true);
                     }
                 });
 
-                
+                card.querySelector('.fa-eye').addEventListener('click', function (event) {
+                    event.stopPropagation();
 
-<<<<<<< HEAD
-               card.querySelector('.fa-eye').addEventListener('click', function (event) {
-    event.stopPropagation();
-    const previewContainer = card.querySelector('.inputfilecontainer');
-    const eyeIcon = this;
-
-    if (eyeIcon.classList.contains('preview-active')) {
-        const previewWrapper = document.querySelector('.pdf-preview-wrapper');
-        if (previewWrapper) previewWrapper.remove();
-        const overlay = document.querySelector('.pdf-preview-overlay');
-        if (overlay) overlay.remove();
-        eyeIcon.classList.remove('preview-active');
-        eyeIcon.classList.replace('fa-times', 'fa-eye');
-    } else {
-        if (uploadedFile && uploadedFile.type === 'application/pdf') {
-            const reader = new FileReader();
-            reader.onload = function (event) {
-                // Create wrapper for the preview
-                const previewWrapper = document.createElement('div');
-                previewWrapper.className = 'pdf-preview-wrapper';
-                previewWrapper.style.cssText = `
-                    position: fixed;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    width: 90%;
-                    height: 90vh;
-                    background-color: white;
-                    display: flex;
-                    flex-direction: column;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                    z-index: 1000;
-                `;
-
-                // Add overlay
-                const overlay = document.createElement('div');
-                overlay.className = 'pdf-preview-overlay';
-                overlay.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: rgba(0, 0, 0, 0.5);
-                    z-index: 999;
-                `;
-
-                // Create header
-                const header = document.createElement('div');
-                header.style.cssText = `
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 8px 16px;
-                    background-color: #1a1a1a;
-                    color: white;
-                    height: 40px;
-                `;
-
-                // Left section with filename
-                const fileNameSection = document.createElement('div');
-                fileNameSection.style.cssText = `
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                `;
-                
-                const fileName = document.createElement('span');
-                fileName.textContent = uploadedFile.name;
-                fileName.style.cssText = `
-                    color: white;
-                    font-size: 14px;
-                `;
-                fileNameSection.appendChild(fileName);
-
-                // Middle section with zoom controls
-                const zoomControls = document.createElement('div');
-                zoomControls.style.cssText = `
-                    display: flex;
-                    align-items: center;
-                    gap: 12px;
-                    position: absolute;
-                    left: 50%;
-                    transform: translateX(-50%);
-                `;
-
-                const zoomOut = document.createElement('button');
-                zoomOut.innerHTML = '&#8722;';
-                const zoomIn = document.createElement('button');
-                zoomIn.innerHTML = '&#43;';
-
-                [zoomOut, zoomIn].forEach(btn => {
-                    btn.style.cssText = `
-                        background: none;
-                        border: none;
-                        color: white;
-                        font-size: 18px;
-                        cursor: pointer;
-                        padding: 4px 8px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    `;
-                });
-
-                zoomControls.appendChild(zoomOut);
-                zoomControls.appendChild(zoomIn);
-
-                // Close button
-                const closeButton = document.createElement('button');
-                closeButton.innerHTML = '&#10005;';
-                closeButton.style.cssText = `
-                    background: none;
-                    border: none;
-                    color: white;
-                    font-size: 18px;
-                    cursor: pointer;
-                    padding: 4px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                `;
-
-                const closePreview = () => {
-                    previewWrapper.remove();
-                    overlay.remove();
-                    eyeIcon.classList.remove('preview-active');
-                    eyeIcon.classList.replace('fa-times', 'fa-eye');
-                };
-
-                closeButton.addEventListener('click', closePreview);
-                overlay.addEventListener('click', closePreview);
-
-                // Assemble header
-                header.appendChild(fileNameSection);
-                header.appendChild(zoomControls);
-                header.appendChild(closeButton);
-
-                // Create iframe for PDF content
-                const iframe = document.createElement('iframe');
-                iframe.src = event.target.result;
-                iframe.style.cssText = `
-                    width: 100%;
-                    height: calc(100% - 40px);
-                    border: none;
-                    background-color: white;
-                `;
-
-                // Assemble the preview
-                previewWrapper.appendChild(header);
-                previewWrapper.appendChild(iframe);
-                
-                // Add to document body
-                document.body.appendChild(overlay);
-                document.body.appendChild(previewWrapper);
-
-                // Add zoom functionality
-                let currentZoom = 100;
-                zoomIn.addEventListener('click', () => {
-                    currentZoom += 10;
-                    iframe.style.transform = `scale(${currentZoom / 100})`;
-                    iframe.style.transformOrigin = 'top center';
-                });
-
-                zoomOut.addEventListener('click', () => {
-                    currentZoom = Math.max(currentZoom - 10, 50);
-                    iframe.style.transform = `scale(${currentZoom / 100})`;
-                    iframe.style.transformOrigin = 'top center';
-                });
-
-                // Add keyboard shortcut for closing
-                document.addEventListener('keydown', function(e) {
-                    if (e.key === 'Escape') {
-                        closePreview();
-                    }
-=======
                     
->>>>>>> 60762d8c0da2b9c4499869df65a456a9acc003cd
                 });
-            };
-            reader.readAsDataURL(uploadedFile);
-            eyeIcon.classList.add('preview-active');
-            eyeIcon.classList.replace('fa-eye', 'fa-times');
-        } else {
-            alert('Please upload a valid PDF file to preview.');
-        }
-    }
-});
             });
         };
 
@@ -1489,195 +1277,10 @@ $others = json_decode($academicDetails[0]->Others, true);
                     }
                 });
 
-<<<<<<< HEAD
-    card.querySelector('.fa-eye').addEventListener('click', function (event) {
-    event.stopPropagation();
-    const previewContainer = card.querySelector('.inputfilecontainer-marksheet');
-    const eyeIcon = this;
-
-    if (eyeIcon.classList.contains('preview-active')) {
-        const previewWrapper = previewContainer.querySelector('.pdf-preview-wrapper');
-        if (previewWrapper) previewWrapper.remove();
-        eyeIcon.classList.remove('preview-active');
-        eyeIcon.classList.replace('fa-times', 'fa-eye');
-    } else {
-        if (uploadedFile && uploadedFile.type === 'application/pdf') {
-            const reader = new FileReader();
-            reader.onload = function (event) {
-                // Create wrapper for the preview
-                const previewWrapper = document.createElement('div');
-                previewWrapper.className = 'pdf-preview-wrapper';
-                previewWrapper.style.cssText = `
-                    position: fixed;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    width: 90%;
-                    height: 90vh;
-                    background-color: white;
-                    display: flex;
-                    flex-direction: column;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                    z-index: 1000;
-                `;
-
-                // Add overlay
-                const overlay = document.createElement('div');
-                overlay.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: rgba(0, 0, 0, 0.5);
-                    z-index: 999;
-                `;
-
-                // Create header
-                const header = document.createElement('div');
-                header.style.cssText = `
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 8px 16px;
-                    background-color: #1a1a1a;
-                    color: white;
-                    height: 40px;
-                `;
-
-                // Left section with filename
-                const fileNameSection = document.createElement('div');
-                fileNameSection.style.cssText = `
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                `;
-                
-                const fileName = document.createElement('span');
-                fileName.textContent = uploadedFile.name;
-                fileName.style.cssText = `
-                    color: white;
-                    font-size: 14px;
-                `;
-                fileNameSection.appendChild(fileName);
-
-                // Middle section with zoom controls
-                const zoomControls = document.createElement('div');
-                zoomControls.style.cssText = `
-                    display: flex;
-                    align-items: center;
-                    gap: 12px;
-                    position: absolute;
-                    left: 50%;
-                    transform: translateX(-50%);
-                `;
-
-                const zoomOut = document.createElement('button');
-                zoomOut.innerHTML = '&#8722;';
-                const zoomIn = document.createElement('button');
-                zoomIn.innerHTML = '&#43;';
-
-                [zoomOut, zoomIn].forEach(btn => {
-                    btn.style.cssText = `
-                        background: none;
-                        border: none;
-                        color: white;
-                        font-size: 18px;
-                        cursor: pointer;
-                        padding: 4px 8px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    `;
-                });
-
-                zoomControls.appendChild(zoomOut);
-                zoomControls.appendChild(zoomIn);
-
-                // Close button
-                const closeButton = document.createElement('button');
-                closeButton.innerHTML = '&#10005;';
-                closeButton.style.cssText = `
-                    background: none;
-                    border: none;
-                    color: white;
-                    font-size: 18px;
-                    cursor: pointer;
-                    padding: 4px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                `;
-
-                const closePreview = () => {
-                    previewWrapper.remove();
-                    overlay.remove();
-                    eyeIcon.classList.remove('preview-active');
-                    eyeIcon.classList.replace('fa-times', 'fa-eye');
-                };
-
-                closeButton.addEventListener('click', closePreview);
-                overlay.addEventListener('click', closePreview);
-
-                // Assemble header
-                header.appendChild(fileNameSection);
-                header.appendChild(zoomControls);
-                header.appendChild(closeButton);
-
-                // Create iframe for PDF content
-                const iframe = document.createElement('iframe');
-                iframe.src = event.target.result;
-                iframe.style.cssText = `
-                    width: 100%;
-                    height: calc(100% - 40px);
-                    border: none;
-                    background-color: white;
-                `;
-
-                // Assemble the preview
-                previewWrapper.appendChild(header);
-                previewWrapper.appendChild(iframe);
-                
-                // Add to document body
-                document.body.appendChild(overlay);
-                document.body.appendChild(previewWrapper);
-
-                // Add zoom functionality
-                let currentZoom = 100;
-                zoomIn.addEventListener('click', () => {
-                    currentZoom += 10;
-                    iframe.style.transform = `scale(${currentZoom / 100})`;
-                    iframe.style.transformOrigin = 'top center';
-                });
-
-                zoomOut.addEventListener('click', () => {
-                    currentZoom = Math.max(currentZoom - 10, 50);
-                    iframe.style.transform = `scale(${currentZoom / 100})`;
-                    iframe.style.transformOrigin = 'top center';
-                });
-
-                // Add keyboard shortcut for closing
-                document.addEventListener('keydown', function(e) {
-                    if (e.key === 'Escape') {
-                        closePreview();
-                    }
-=======
                 card.querySelector('.fa-eye').addEventListener('click', function () {
                     event.stopPropagation();
                     
->>>>>>> 60762d8c0da2b9c4499869df65a456a9acc003cd
                 });
-            };
-            reader.readAsDataURL(uploadedFile);
-            eyeIcon.classList.add('preview-active');
-            eyeIcon.classList.replace('fa-eye', 'fa-times');
-        } else {
-            alert('Please upload a valid PDF file to preview.');
-        }
-    }
-});
-
-                
             });
         };
 
