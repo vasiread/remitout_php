@@ -5,7 +5,7 @@ use App\Models\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+ use Illuminate\Support\Facades\Hash;
 use App\Models\PersonalInfo;
 use Illuminate\Support\Facades\Session;
 
@@ -49,6 +49,7 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return response()->json(['message' => 'Session manually cleared.']);
+
+        return redirect()->route('login');
     }
 }

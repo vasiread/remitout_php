@@ -11,9 +11,9 @@
         style="@if (request()->is('/')) position: absolute; top: 0; left: 0; width: 100%; z-index: 10; @else position: relative; @endif">
         <div class="{{ Request::is('/') ? 'nav-container' : 'nav-container fullopacity' }}">
             @php
-                $navImgPath = "assets/images/Remitoutcolored.png";
-                $navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
-                $NotificationBell = "assets/images/notifications_unread.png";
+$navImgPath = "assets/images/Remitoutcolored.png";
+$navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
+$NotificationBell = "assets/images/notifications_unread.png";
 
 
 
@@ -25,7 +25,7 @@
                 <a class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}" href="{{url('/')}}">Home</a>
 
                 <a href="#resources" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Resources</a>
-                <a href="#deals" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Special Deals</a>
+                <a href="#deals" class="{{ Request::is(patterns: '/') ? '' : 'fullopacitylinks' }}">Special Deals</a>
                 <a href="#services" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Our Service</a>
                 <a href="#schedule" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Schedule Call</a>
             </div>
@@ -41,16 +41,25 @@
                 </div> <img src={{$NotificationBell}} style="width:24px;height:24px" class="unread-notify" alt="">
 
                 <div class="nav-profilecontainer">
-                    <img src="assets/images/profileimg.png" id="nav-profile-photo-id" class="nav-profileimg" alt="">
+                    <img src="" id="nav-profile-photo-id" class="nav-profileimg" alt="">
                     @if(session()->has('user'))
                         <h3>{{ session('user')->name }}</h3>
                         <i class="fa-solid fa-chevron-down"></i>
 
                     @else
-                        
+
+
+
 
                     @endif
                 </div>
+
+
+            </div>
+            <div class="profile-photo-mobtab" style="display:none">
+            
+                <img src="" id="nav-profile-photo-id" class="nav-profileimg" alt="">
+
 
 
             </div>
@@ -70,6 +79,7 @@
             const navLinksContainer = document.querySelector('.nav-links');
             const searchnotificationbars = document.querySelector(".nav-searchnotificationbars");
             const navigationLoginSignupButtons = document.querySelector(".nav-buttons");
+            const mobTabProfile = document.querySelector(".profile-photo-mobtab img");
 
 
 
@@ -77,9 +87,16 @@
 
             window.onload = function () {
                 var currentRoute = window.location.pathname;
+                retrieveProfilePictureNav();
 
                 if (currentRoute === "/student-dashboard") {
-                    searchnotificationbars.style.display = "flex";
+                    if (window.innerWidth <= 420) {
+                        searchnotificationbars.style.display = "none";
+                        mobTabProfile.style.display = "block";
+                    } else {
+                        searchnotificationbars.style.display = "flex";
+                        mobTabProfile.style.display = "none";
+                    }
                     navLinksContainer.style.display = "none";
                     navigationLoginSignupButtons.style.display = "none";
                 }
@@ -124,6 +141,49 @@
                 }
             });
         })
+
+        const retrieveProfilePictureNav = async () => {
+            const userSession = @json(session('user'));
+            const userId = userSession.unique_id;
+            const profileImgUpdate = document.querySelector(".nav-profilecontainer .nav-profileimg");
+                        const mobTabProfile = document.querySelector(".profile-photo-mobtab img");
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            if (!csrfToken) {
+                console.error('CSRF token not found');
+                return;
+            }
+
+            try {
+                const response = await fetch('/retrieve-profile-picture', {
+                    method: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ userId: userId })
+                });
+
+                const data = await response.json();
+
+                if (data.fileUrl) {
+                    console.log("Profile Picture URL:", data.fileUrl);
+                    profileImgUpdate.src = data.fileUrl;
+                    mobTabProfile.src = data.fileUrl;
+                } else {
+                    console.error("Error: No URL returned from the server", data);
+                }
+            } catch (error) {
+                console.error("Error retrieving profile picture", error);
+            }
+        };
+
+
+
+
+
 
 
     </script>

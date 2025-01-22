@@ -11,59 +11,10 @@ use Illuminate\Support\Facades\Log;
 
 class RegisterController extends Controller
 {
-    // public function store(Request $request)
-    // {
-    //     // Validate the incoming request
-    //     $request->validate([
-    //         'name' => 'required|string|max:255',
-    //         'email' => 'required|email|max:255',
-    //         'password' => 'required|string|min:6',
-    //     ]);
-
-    //     try {
-    //         // Log before user creation
-    //         \Log::info('Attempting to create user with email: ' . $request->email);
-
-    //         // Create the user
-    //         $user = User::create([
-    //             'name' => $request->name,
-    //             'email' => $request->email,
-    //             'password' => Hash::make($request->password),
-    //         ]);
-
-    //         // Log after user creation
-    //         \Log::info('User created: ', ['user' => $user]);
-
-    //         // Create personal info
-    //         $personalInfoDetail = PersonalInfo::create([
-    //             'user_id' => $user->unique_id,
-    //         ]);
-
-    //         // Log after personal info creation
-    //         \Log::info('PersonalInfo created: ', ['personalInfoDetail' => $personalInfoDetail]);
-
-    //         // Optionally, set session and return success response
-    //         session(['user' => $user]);
-    //         session()->put('expires_at', now()->addSeconds(100000));
-
-    //         return response()->json([
-    //             'success' => true,
-    //             'message' => 'Registration successful',
-    //             'expires_at' => session('expires_at')->toISOString(),
-    //         ]);
-
-    //     } catch (\Exception $e) {
-    //         // Log the error for debugging
-    //         \Log::error('Error during registration: ' . $e->getMessage());
-
-    //         return response()->json(['success' => false, 'message' => 'Something went wrong. Please try again.'], 500);
-    //     }
-    // }
-
-
+  
     public function emailUniqueCheck(Request $request)
     {
-        $email = $request->email;  // Get the email from the request
+        $email = $request->phone;  // Get the email from the request
 
         // Check if email already exists in the database
         $emailUnique = User::where('email', $email)->exists();
@@ -88,7 +39,7 @@ class RegisterController extends Controller
         // Validate the incoming request
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
+            'phoneInput' => 'required',
             'password' => 'required|string|min:6',
         ]);
 
@@ -97,7 +48,7 @@ class RegisterController extends Controller
 
         $user = User::create([
             'name' => $request->name,
-            'email' => $request->email,
+            'email' => $request->phoneInput,
             'password' => Hash::make($request->password),
         ]);
 

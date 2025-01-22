@@ -12,7 +12,10 @@
     @section('title', 'Login')
 
     @section('logincontent')
-    <div class="logincontainer">
+    <div class="logincontainer">  
+         
+        <img class="loginvector" src="{{asset("assets/images/loginvector.png")}}" alt="">
+        <img class="loginvectorsecond" src="{{asset("assets/images/loginvectorsecond.png")}}" alt="">
         <div class="logincontainer-inside">
             <div class="logincontainer-leftinside">
                 <img src="assets/images/Pexels Photo by Buro Millennial.png" alt="">
@@ -22,7 +25,7 @@
                 <form class="logincontainer-loginresources" id="loginForm" onsubmit="loginSubmitForm(event)">
                     <img src="assets/images/loginsinguprightsideimg.png" class="loginrightsidevector-img" alt="">
                     <div class="logincontainer-namecontainer">
-                        <input type="text" placeholder="Name" name="name" id="loginname">
+                        <input type="text" placeholder="Unique ID" name="name" id="loginname">
                     </div>
                     <div class="logincontainer-passwordcontainer">
                         <input type="password" placeholder="Password" id="loginpasswordID" name="password">
@@ -42,7 +45,7 @@
                 <div class="logincontainer-anotherresources">
                     <p>Or</p>
                     <div class="googlesigninbuttoncontainer">
-                        <button class="googlesigninbutton">
+                        <button class="googlesigninbutton" onclick="window.location.href='{{ route('google-auth') }}'">
                             <img src="{{ asset('assets/images/googleicon.png') }}"> Sign in with Google
                         </button>
                         <button class="iossigninbutton">
@@ -58,72 +61,115 @@
         </div>
     </div>
 
-    <script>
-        @if (session('session_expired'))
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+         @if (session('session_expired'))
             alert("{{ session('session_expired') }}");
+            logoutSession();   
         @endif
-        const passwordInput = document.getElementById('loginpasswordID');
-        const passwordIcon = document.querySelector('.passwordClose');
-        let passwordView = false;
+    });
 
-        passwordIcon.addEventListener('click', function () {
-            passwordView = !passwordView;
+    const passwordInput = document.getElementById('loginpasswordID');
+    const passwordIcon = document.querySelector('.passwordClose');
+    let passwordView = false;
 
-            if (passwordView) {
-                passwordInput.type = 'text';
-                passwordIcon.classList.remove('fa-eye-slash');
-                passwordIcon.classList.add('fa-eye');
-            } else {
-                passwordInput.type = 'password';
-                passwordIcon.classList.remove('fa-eye');
-                passwordIcon.classList.add('fa-eye-slash');
-            }
-        });
+     passwordIcon?.addEventListener('click', function () {
+        passwordView = !passwordView;
 
-        function loginSubmitForm(event) {
-            event.preventDefault();
+        if (passwordView) {
+            passwordInput.type = 'text';
+            passwordIcon.classList.remove('fa-eye-slash');
+            passwordIcon.classList.add('fa-eye');
+        } else {
+            passwordInput.type = 'password';
+            passwordIcon.classList.remove('fa-eye');
+            passwordIcon.classList.add('fa-eye-slash');
+        }
+    });
 
-            const loginName = document.getElementById("loginname").value;
-            const loginPassword = document.getElementById("loginpasswordID").value;
-            const confirmPolicy = document.getElementById("confirmpolicy");
+    // Function to handle logout session
+    function logoutSession() {
+        const csrfToken = document.querySelector('meta[name="csrf-token"]');
 
+        if (csrfToken) {
+            fetch('/session-logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken.getAttribute('content')
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = '/login';
+                    } else {
+                        throw new Error('Logout failed');
+                    }
+                })
+                .catch(error => {
+                    console.error('Logout failed:', error);
+                    alert('An error occurred during logout.');
+                });
+        } else {
+            console.error('CSRF token not found');
+        }
+    }
 
+    // Login form submit handler
+    function loginSubmitForm(event) {
+        event.preventDefault();
 
-            if (!confirmPolicy.checked) {
-                alert("You must agree to the terms & policy");
-                return;
-            }
+        const loginName = document.getElementById("loginname").value;
+        const loginPassword = document.getElementById("loginpasswordID").value;
+        const confirmPolicy = document.getElementById("confirmpolicy");
 
-            const loginFormData = {
-                loginName: loginName,
-                loginPassword: loginPassword,
-            };
+        if (!confirmPolicy.checked) {
+            alert("You must agree to the terms & policy");
+            return;
+        }
 
+        const loginFormData = {
+            loginName: loginName,
+            loginPassword: loginPassword,
+        };
+
+        const csrfToken = document.querySelector('meta[name="csrf-token"]');
+
+        if (csrfToken) {
             fetch('/loginformdata', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    'X-CSRF-TOKEN': csrfToken.getAttribute('content')
                 },
                 body: JSON.stringify(loginFormData)
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
                     if (data.success) {
                         alert(data.message);
                         window.location.href = '/student-dashboard';
-
                     } else {
                         alert(data.message);
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert("An error occurred");
+                    alert("An error occurred during login.");
                 });
-        };
-    </script>
+        } else {
+            console.error('CSRF token not found');
+        }
+    }
+
+    // Example of logout button event (to trigger manually)
+    const logoutButton = document.getElementById('logoutButton');  // Add your actual logout button ID here
+    logoutButton?.addEventListener('click', function () {
+        logoutSession();
+    });
+</script>
+
+
     @endsection
 </body>
 

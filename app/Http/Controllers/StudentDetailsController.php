@@ -136,6 +136,9 @@ class StudentDetailsController extends Controller
             $academicsDetailsInfo->GRE = $request->input('greScore');
             $academicsDetailsInfo->TOFEL = $request->input('toeflScore');
             $academicsDetailsInfo->Others = $request->input('others');
+            $academicsDetailsInfo->university_school_name = $request->input("universityName");
+            $academicsDetailsInfo->course_name = $request->input("courseName");
+
 
             $academicsDetailsInfo->save();
 

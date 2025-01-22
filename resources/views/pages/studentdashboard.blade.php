@@ -23,6 +23,7 @@ $phoneIconPath = "assets/images/call.png";
 $mailIconPath = "assets/images/mail.png";
 $pindropIconPath = "assets/images/pin_drop.png";
 $discordIconPath = "assets/images/icons/discordicon.png";
+$viewIconPath = "assets/images/visibility.png";
 
 
 $courseDetailsJson = json_encode($courseDetails);
@@ -115,7 +116,7 @@ $loanStatusInfo = [
                             </p>
 
                         </div>
-                        <button>
+                        <button onclick="window.location.href='{{ asset('student-forms') }}'">
                             Upload
                         </button>
                     </div>
@@ -185,13 +186,13 @@ $loanStatusInfo = [
                 <ul class="personalinfo-secondrow">
                     <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span class="personal_info_id"
                             style="margin-left: 6px;"> {{$user->unique_id}}</span> </li>
-                    <li class="personal_info_name"><img src={{$profileIconPath}} alt="">
+                    <li class="personal_info_name" id="referenceNameId"><img src={{$profileIconPath}} alt="">
                         <p> {{$userDetails[0]->name ?? 'Name not available'}}</p>
                     </li>
                     <li class="personal_info_phone"><img src={{$phoneIconPath}} alt="">
                         <p>+91 {{$personalDetails[0]->phone}}</p>
                     </li>
-                    <li class="personal_info_email">
+                    <li class="personal_info_email" id="referenceEmailId">
                         <img src={{$mailIconPath}} alt="">
                         <p> {{$userDetails[0]->email}}</p>
                     </li>
@@ -252,7 +253,7 @@ $loanStatusInfo = [
                             <p>00</p>
                             <span>/22</span>
                         </div>
-                        <p class="secondsection-inside" style="color:rgba(144, 144, 144, 1)">Document Uploaded</p>
+                        <p class="secondsection-inside" style="color:rgba(144, 144, 144, 1)" >Document Uploaded</p>
 
 
 
@@ -288,7 +289,7 @@ $loanStatusInfo = [
                 </div>
             <div class="testscoreseditsection-secondrow">
                 @php
-                    $counter = 1; 
+$counter = 1; 
                 @endphp
             
                 @if (is_numeric($academicDetails[0]->ILETS) && !empty($academicDetails[0]->ILETS))
@@ -304,7 +305,7 @@ $loanStatusInfo = [
                 @endif
             
                 @php
-                    $others = json_decode($academicDetails[0]->Others, true);
+$others = json_decode($academicDetails[0]->Others, true);
                 @endphp
             
                 @if (isset($others['otherExamName']) && isset($others['otherExamScore']) && is_numeric($others['otherExamScore']) && !empty($others['otherExamScore']))
@@ -373,15 +374,15 @@ $loanStatusInfo = [
                     </label>
                 </div>
 
-                <!-- Input field for 'Others' with conditional enabling -->
-                <input type="text" placeholder="Enter degree type" value="{{ $courseDetails[0]->{'degree-type'} }}"
+                 <input type="text" placeholder="Enter degree type" value="{{ $courseDetails[0]->{'degree-type'} }}"
                     id="otherDegreeInput" @if($courseDetails[0]->{'degree-type'} != 'Others') disabled @endif>
             </div>
 
             <div class="myapplication-fourthcolumn-additional">
                 <p>3. What is the duration of the course?</p>
                 <input type="text" placeholder="{{ $courseDetails[0]->{'course-duration'} ?? '' }}"
-                    value="{{ $courseDetails[0]->{'course-duration'} ?? '' }}" disabled>
+                    value="{{ $courseDetails[0]->{'course-duration'} ?? '' }} " disabled>
+
             </div>
             <div class="myapplication-fourthcolumn">
                 <p>4. What is the Loan amount required?</p>
@@ -402,15 +403,23 @@ $loanStatusInfo = [
             </div>
             <div class="myapplication-seventhcolumn">
                 <h1>Attached Documents</h1>
-                <div class="myapplication-seventhcolum-documentscolumn">
-                    <h4>Student KYC Document</h4>
-                    <div class="kycdocumentscolumn">
+                <div class="seventhcolum-firstsection">
+                    <div class="seventhcolumn-header">
+                        <p>Student KYC Document</p> 
+
+                     <i class="fa-solid fa-angle-down"></i>
+                </div>
+              
+              
+                <div class="kycdocumentscolumn"  >
+
+               
                         <div class="individualkycdocuments">
                             <p class="document-name">Pan Card</p>
                             <div class="inputfilecontainer">
                                 <i class="fa-solid fa-image"></i>
                                 <p class="uploaded-pan-name"> pan_card.jpg</p>
-                                <i class="fa-solid fa-eye" id="view-pan-card"></i>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-pan-card"></>
                             </div>
 
                             <input type="file" id="inputfilecontainer-real">
@@ -423,7 +432,8 @@ $loanStatusInfo = [
                             <div class="inputfilecontainer">
                                 <i class="fa-solid fa-image"></i>
                                 <p class="uploaded-aadhar-name"> aadhar_card.jpg</p>
-                                <i class="fa-solid fa-eye"></i>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-aadhar-card"></>
+
                             </div>
                             <input type="file" id="inputfilecontainer-real">
 
@@ -435,7 +445,8 @@ $loanStatusInfo = [
                             <div class="inputfilecontainer">
                                 <i class="fa-solid fa-image"></i>
                                 <p class="passport-name"> Passport.pdf</p>
-                                <i class="fa-solid fa-eye"></i>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-passport-card"></>
+
                             </div>
                             <input type="file" id="inputfilecontainer-real">
 
@@ -444,64 +455,114 @@ $loanStatusInfo = [
                     </div>
 
 
-
-                    <h4>Academic Marksheets</h4>
-
-                    <div class="marksheetdocumentscolumn">
-                        <div class="individualmarksheetdocuments">
-                            <p class="document-name">10th grade marksheet</p>
-                            <div class="inputfilecontainer-marksheet">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="sslc-marksheet"> 10th grade marksheet</p>
-                                <i class="fa-solid fa-eye"></i>
-                            </div>
-                            <input type="file" id="inputfilecontainer-real-marksheet">
-                            <span class="document-status">420 MB uploaded</span>
-                        </div>
-                        <div class="individualmarksheetdocuments">
-                            <p class="document-name">12th grade marksheet</p>
-                            <div class="inputfilecontainer-marksheet">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="hsc-marksheet"> 12th grade marksheet</p>
-                                <i class="fa-solid fa-eye"></i>
-                            </div>
-                            <input type="file" id="inputfilecontainer-real-marksheet">
-                            <span class="document-status">420 MB uploaded</span>
-
-                        </div>
-                        <div class="individualmarksheetdocuments">
-                            <p class="document-name">Graduation marksheet</p>
-                            <div class="inputfilecontainer-marksheet">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="graduation-marksheet"> Graduation Marksheet</p>
-                                <i class="fa-solid fa-eye"></i>
-                            </div>
-                            <input type="file" id="inputfilecontainer-real-marksheet">
-                            <span class="document-status">420 MB uploaded</span>
-                        </div>
                     </div>
+                   </div>  
+                    
+ 
+              
+
+
+            </div>
+            <div class="seventhcolumn-additional">
+                <div class="seventhcolumn-additional-firstcolumn">
+                <div class="seventhcolumnadditional-header">
+
+                    <p>Academic Marksheets</p>
+                        <i class="fa-solid fa-angle-down"></i>
+                   </div>
+                        <div class="marksheetdocumentscolumn">
+                                                <div class="individualmarksheetdocuments">
+                                                    <p class="document-name">10th grade marksheet</p>
+                                                    <div class="inputfilecontainer-marksheet">
+                                                        <i class="fa-solid fa-image"></i>
+                                                        <p class="sslc-marksheet"> 10th grade marksheet</p>
+                                                         <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-card"></>
+                        
+                                                    </div>
+                                                    <input type="file" id="inputfilecontainer-real-marksheet">
+                        
+                                                    <span class="document-status">420 MB uploaded</span>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                                                </div>
+                                                <div class="individualmarksheetdocuments">
+                                                    <p class="document-name">12th grade marksheet</p>
+                                                    <div class="inputfilecontainer-marksheet">
+                                                        <i class="fa-solid fa-image"></i>
+                                                        <p class="hsc-marksheet"> 12th grade marksheet</p>
+                                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-card"></>
+                        
+                                                    </div>
+                                                    <input type="file" id="inputfilecontainer-real-marksheet">
+                        
+                                                    <span class="document-status">420 MB uploaded</span>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                                                </div>
+                                                <div class="individualmarksheetdocuments">
+                                                    <p class="document-name">Graduation marksheet</p>
+                                                    <div class="inputfilecontainer-marksheet">
+                                                        <i class="fa-solid fa-image"></i>
+                                                        <p class="graduation-marksheet"> Graduation Marksheet</p>
+                                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-card">
+                        
+                                                    </div>
+                                                    <input type="file" id="inputfilecontainer-real-marksheet">
+                        
+                                                    <span class="document-status">420 MB uploaded</span>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                                                </div>
+                        
+                        
+                                            </div>
+
+
                 </div>
+
             </div>
             <div class="myapplication-eightcolumn">
                 <div class="eightcolumn-firstsection">
+                                        <div class="eightcolumn-header">
+
                     <p>Secured Admissions</p>
-                    <i class="fa-solid fa-angle-down"></i>
+                    <i class="fa-solid fa-angle-down"></i> </div>
                 </div>
 
             </div>
 
             
             <div class="myapplication-ninthcolumn">
-                <div class="ninthcolumn-firstsection">
+                <div class="ninthcolumn-firstsection" >
+                                                            <div class="ninthcolumn-header">
+
                     <p>Work Experience</p>
-                    <i class="fa-solid fa-angle-down"></i>
+                    <i class="fa-solid fa-angle-down"></i></div>
                 </div>
 
             </div>
             <div class="myapplication-tenthcolumn">
                 <div class="tenthcolumn-firstsection">
+                <div class="tenthcolumn-header">
+
+                
                     <p>Co-borrower Documents</p>
-                    <i class="fa-solid fa-angle-down"></i>
+                    <i class="fa-solid fa-angle-down"></i></div>
                 </div>
 
             </div>
@@ -534,12 +595,20 @@ $loanStatusInfo = [
             initialisesslcView();
             initialisehscView();
             initialisegraduationView();
+            initialiseSeventhcolumn();
+            initialiseSeventhAdditionalColumn();
+            initialiseEightcolumn();
+            initialiseNinthcolumn();
+            initialiseTenthcolumn();
 
 
             const courseDetails = {!! $courseDetailsJson !!};
             const planToStudy = courseDetails[0]['plan-to-study'].replace(/[\[\]"]/g, '');;
 
             document.getElementById("plan-to-study-edit").value = planToStudy;
+            document.querySelector('.mailnbfcbutton').addEventListener('click', (event) => {
+                sendDocumenttoEmail(event);
+            })
 
 
 
@@ -622,11 +691,69 @@ $loanStatusInfo = [
             });
         };
 
+       function sendDocumenttoEmail(event) {
+            console.log(event);
+            event.preventDefault();
 
+            // Get user ID
+            const uniqueIdElement = document.querySelector('.personal_info_id');
+            const userId = uniqueIdElement ? uniqueIdElement.textContent || uniqueIdElement.innerHTML : null;
+
+            // Get email
+            const emailElement = document.querySelector("#referenceEmailId p");
+            const email = emailElement ? emailElement.textContent || emailElement.innerHTML : null;
+
+            // Get user name
+            const userNameElement = document.querySelector("#referenceNameId p");
+            const name = userNameElement ? userNameElement.textContent || userNameElement.innerHTML : null;
+
+            // Check if all required details are present
+            if (userId && email && name) {
+                console.log("Unique ID:", userId, "Email:", email, "Name:", name);
+            } else {
+                console.error("Error: Could not retrieve unique ID, email, or name.");
+                return; // Exit the function if any value is missing
+            }
+
+            // Prepare data to send in the POST request
+            const sendDocumentsRequiredDetails = {
+                userId: userId,
+                email: email,
+                name: name
+            };
+
+            // Make the fetch request
+            fetch('/send-documents', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify(sendDocumentsRequiredDetails)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.errors) {
+                        console.error('Validation errors:', data.errors);
+                    } else {
+                        console.log("Success:", data.message);
+                        alert(data.message)
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+
+            console.log("Sending Data:", sendDocumentsRequiredDetails);
+        }
 
         const triggerEditButton = () => {
-            // Enable all disabled inputs in the profile
-            const disabledInputs = document.querySelectorAll('.studentdashboardprofile-myapplication input[disabled]');
+             const disabledInputs = document.querySelectorAll('.studentdashboardprofile-myapplication input[disabled]');
             disabledInputs.forEach(inputItems => {
                 inputItems.removeAttribute('disabled');
             });
@@ -637,7 +764,6 @@ $loanStatusInfo = [
                 radio.removeAttribute('disabled');
             });
 
-            // Enable the input for 'Others' degree type if it was disabled
             const otherDegreeInput = document.getElementById("otherDegreeInput");
             if (otherDegreeInput && otherDegreeInput.disabled) {
                 otherDegreeInput.removeAttribute('disabled');
@@ -720,10 +846,71 @@ $loanStatusInfo = [
 
                 });
             }
-        };
+        };  
 
 
+        const initialiseEightcolumn=()=>{
+            const section = document.querySelector('.eightcolumn-firstsection');
+
+            section.addEventListener('click', function () {
+                if (section.style.height === '') {
+                    section.style.height = 'fit-content'; 
+                } else {
+                    section.style.height = '';
+                }
+            });
+        }
+        const initialiseSeventhcolumn =()=>{
+            const section = document.querySelector('.seventhcolum-firstsection');
+
+            section.addEventListener('click', function () {
+                if (section.style.height === '') {
+                    section.style.height = 'fit-content';
+                } else {
+                    section.style.height = '';
+                }
+            });
+
+        }
+        const initialiseSeventhAdditionalColumn =()=>{
+            const section = document.querySelector('.seventhcolumn-additional-firstcolumn');
+
+            section.addEventListener('click', function () {
+                if (section.style.height === '') {
+                    section.style.height = 'fit-content';
+                } else {
+                    section.style.height = '';
+                }
+            });
+
+        }
+         const initialiseNinthcolumn=()=>{
+            const section = document.querySelector('.ninthcolumn-firstsection');
+
+            section.addEventListener('click', function () {
+                if (section.style.height === '') {
+                    section.style.height = 'fit-content';
+                } else {
+                    section.style.height = '';
+                }
+            });
+
+        }
+   
+        const initialiseTenthcolumn=()=>{
+            const section = document.querySelector(".tenthcolumn-firstsection");
+             section.addEventListener('click', function () {
+                if (section.style.height === '') {
+                    section.style.height = 'fit-content';
+                } else {
+                    section.style.height = '';
+                }
+            });
+
+        }
+   
         const initialisePanCardView = () => {
+            
 
 
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -752,6 +939,7 @@ $loanStatusInfo = [
                         document.querySelector(".uploaded-pan-name").textContent = PancardName;
 
 
+
                     } else {
                         console.error("Error: No URL returned from the server", data);
                     }
@@ -759,7 +947,7 @@ $loanStatusInfo = [
                 .catch(error => {
                     console.error("Error retrieving profile picture", error);
                 });
-        }
+         }
 
         const initialisePassportView = () => {
 
@@ -1036,7 +1224,7 @@ $loanStatusInfo = [
                 card.querySelector('#inputfilecontainer-real').addEventListener('change', function (event) {
                     const file = event.target.files[0];
                     if (file) {
-                        uploadedFile = file;  // Store the file for later preview
+                        uploadedFile = file;  
                         card.querySelector('.inputfilecontainer p').textContent = file.name;
                         const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
                         const filesizeviewer = card.querySelector('.document-status');
@@ -1239,12 +1427,10 @@ $loanStatusInfo = [
             individualMarksheetDocumentsUpload.forEach((card) => {
                 let uploadedFile = null;
 
-                // Trigger file selection when clicking the file container
                 card.querySelector('.inputfilecontainer-marksheet').addEventListener('click', function () {
                     card.querySelector('#inputfilecontainer-real-marksheet').click();
                 });
 
-                // Handle file selection
                 card.querySelector('#inputfilecontainer-real-marksheet').addEventListener('change', function (event) {
                     const file = event.target.files[0];
                     if (file) {
@@ -1496,7 +1682,7 @@ $loanStatusInfo = [
                         // if(data.documentscount<10){
                         if (data.documentscount < 10 && documentCountText && data && data.documentscount !== undefined) {
                             documentCountText.textContent = "0" + data.documentscount;
-                        } else if (data.documentscount > 10 && documentCountText && data && data.documentscount !== undefined) {
+                        } else if (data.documentscount >= 10 && documentCountText && data && data.documentscount !== undefined) {
                             documentCountText.textContent = data.documentscount;
 
                         } else {
@@ -1679,6 +1865,7 @@ $loanStatusInfo = [
 
         };
 
+        
         const sessionLogout = () => {
             fetch('{{ route('session.logout') }}', {
                 method: 'POST',

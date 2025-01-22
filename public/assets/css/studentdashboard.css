@@ -22,16 +22,13 @@ input[type="file"] {
 }
 
 .studentdashboardprofile-togglesidebar {
-    height: 795px;
-    padding: 35px 29px;
-    max-width: 19%;
-    width: 100%;
+    height: 100vh;
+    padding: 35px 27px;
     box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
     background-color: rgba(255, 255, 255, 1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* flex: 1; */
 
 
 }
@@ -789,7 +786,7 @@ input[type="file"] {
     display: none;
     max-width: 815px;
     width: 100%;
-    height: 1815px;
+    height: fit-content;
     background-color: rgba(255, 255, 255, 1);
     box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
     margin: 19px 0;
@@ -908,13 +905,13 @@ input[type="file"] {
     display: flex;
 }
 
- .custom-radio .radio-button {
+.custom-radio .radio-button {
     display: inline-block;
     width: 24px;
     height: 24px;
     border: 2px solid rgba(223, 223, 223, 1);
-     border-radius: 2px;
-     position: relative;
+    border-radius: 2px;
+    position: relative;
     margin-right: 10px;
     vertical-align: middle;
     cursor: pointer;
@@ -922,19 +919,19 @@ input[type="file"] {
 
 }
 
- .custom-radio .radio-button::after {
+.custom-radio .radio-button::after {
     content: "";
     display: block;
     width: 16px;
     height: 16px;
     border-radius: 2px;
     background-color: rgba(233, 134, 53, 1);
-     position: absolute;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     opacity: 0;
-     transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
 }
 
 /* When the radio is checked, show the inner dot */
@@ -1039,7 +1036,7 @@ input[type="file"] {
 
 .myapplication-sixthcolumn {
     width: 100%;
-    height: 80px;
+    height: fit-content;
     border: 1px solid rgba(226, 226, 226, 1);
     border-radius: 4px;
 }
@@ -1148,8 +1145,7 @@ input[type="file"] {
     font-weight: 500;
     line-height: 21px;
     color: rgba(131, 131, 131, 1);
-    /* height: 100%; */
-    /* padding: 0.75rem 0; */
+
     overflow: hidden;
 
 }
@@ -1164,20 +1160,18 @@ input[type="file"] {
 
 }
 
-.myapplication-seventhcolum-documentscolumn .kycdocumentscolumn {
+.myapplication-seventhcolumn .kycdocumentscolumn {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    border-bottom: 1.2px solid rgba(194, 194, 194, 0.7);
-    padding-bottom: 2rem;
+    width: 100%;
 }
 
-.myapplication-seventhcolum-documentscolumn .marksheetdocumentscolumn {
+.seventhcolumn-additional-firstcolumn .marksheetdocumentscolumn {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    border-bottom: 1.2px solid rgba(194, 194, 194, 0.7);
-    padding-bottom: 2rem;
+    width: 100%;
 
 }
 
@@ -1207,10 +1201,12 @@ input[type="file"] {
     color: rgba(131, 131, 131, 0.5);
 }
 
-.myapplication-seventhcolum-documentscolumn .fa-image {
-    color: rgba(233, 134, 53, 1);
+.myapplication-seventhcolum-documentscolumn .inputfilecontainer .fa-image {
+    color: rgba(233, 134, 53, 1) !important;
 }
 
+.seventhcolumn-additional,
+.myapplication-seventhcolumn,
 .myapplication-eightcolumn,
 .myapplication-ninthcolumn,
 .myapplication-tenthcolumn {
@@ -1226,14 +1222,38 @@ input[type="file"] {
     color: rgba(25, 24, 37, 1);
 }
 
-.myapplication-eightcolumn .eightcolumn-firstsection,
+.seventhcolumn-header,
+.seventhcolumnadditional-header,
+.eightcolumn-header,
+.ninthcolumn-header,
+.tenthcolumn-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.fa-solid.fa-image {
+    color: rgba(233, 134, 53, 1);
+
+}
+
 .myapplication-ninthcolumn .ninthcolumn-firstsection,
-.myapplication-tenthcolumn .tenthcolumn-firstsection {
+.myapplication-tenthcolumn .tenthcolumn-firstsection,
+.myapplication-eightcolumn .eightcolumn-firstsection,
+.myapplication-seventhcolumn .seventhcolum-firstsection,
+.seventhcolumn-additional .seventhcolumn-additional-firstcolumn {
     display: flex;
     max-width: 100%;
     width: 100%;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1rem;
+    cursor: pointer;
+    height: 20px;
+    transition: height 0.5s ease;
+    overflow: hidden;
 
 }
 
@@ -1449,8 +1469,90 @@ input[type="file"] {
 }
 
 
+.pdf-viewer-container {
+    width: 57%;
+    height: 833px;
+    margin: 0 auto;
+
+    background: white;
+    position: fixed;
+    top: 10%;
+    left: 23%;
+    z-index: 1000;
+}
+
+#pdfViewerModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
 
 
+@media (max-width:428px) {
+    .studentdashboardprofile-profilesection {
+        display: none;
+    }
+
+    .studentdashboardprofile-togglesidebar {
+        display: none;
+
+    }
+
+    .studentdashboardprofile-firstrowtrackprogress {
+        flex-direction: column;
+        height: fit-content;
+
+    }
+
+    .individual-bankmessages {
+        flex-direction: column;
+        height: fit-content;
+        gap: 1rem;
+
+    }
+
+    .loanproposals-loanstatuscards {
+        gap: 4rem;
+
+    }
+
+    .individual-bankmessages-buttoncontainer {
+        flex-direction: row-reverse;
+    }
+
+    .bankmessage-buttoncontainer-reject {
+        margin-right: 3rem;
+    }
+
+    .indivudalloanstatus-cards {
+        padding: 1rem 0.6rem;
+    }
+
+    .studentdashboardprofile-trackprogress .trackprogress-header {
+        padding-left: 0;
+        font-size: 24px;
+    }
+
+    .studentdashboardprofile-trackprogress h1 {
+        margin: 0;
+    }
+
+    .myapplication-seventhcolumn .kycdocumentscolumn,
+    .seventhcolumn-additional-firstcolumn .marksheetdocumentscolumn {
+        display: flex;
+        flex-direction: column;
+    }
+        .myapplication-thirdcolumn .degreetypescheckboxes{
+            flex-direction: column;
+            gap: 0;
+        }
+      
+
+}
 
 
 
