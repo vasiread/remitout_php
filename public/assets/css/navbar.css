@@ -2,16 +2,17 @@
 
 .nav {
     position: absolute;
-  top: 0;
-  left: 0; 
-  width: 100%;
-  z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    z-index: 1000;
 }
 
 
 
 .nav-container {
-    height: 85px;
+    padding: 20px 0px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -21,42 +22,26 @@
     -webkit-backdrop-filter: blur(2px);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     width: 100%;
-    position:relative;
+    max-width: 100%;
 
 }
-.nav-container::after{
-    position: absolute;
-    content: "";
-    background-color: #ffffff;
-    width: fit-content;
-    height:100%;
-    top:0;
-    left:0;
-    opacity: 0.25;
-    z-index: 2;
 
-
-}
 .nav-container.fullopacity {
     background-color: #fff;
     color: rgba(38, 2, 84, 1);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-   
 }
 
 .logo {
-    
-    width: clamp(95px, 10vw, 138px);
-    height: clamp(31px, 5vw, 45px);
+    width: 138px;
+    height: auto;
     margin-left: 50px;
-    z-index: 4;
 }
 
 .nav-buttons {
     display: flex;
     gap: 16px;
     align-items: center;
-
 }
 
 .login-btn,
@@ -73,7 +58,6 @@
     border-radius: 8px;
     transition: all 0.3s ease;
     padding: 0 20px;
-        z-index: 4;
 }
 
 .login-btn {
@@ -103,8 +87,6 @@
 .nav-links {
     display: flex;
     gap: 38px;
-            z-index: 4;
-
 }
 
 .nav-links a {
@@ -191,7 +173,6 @@
     align-items: center;
     justify-content: center;
     width: fit-content;
-    z-index: 4;
 
 
 
@@ -292,21 +273,11 @@
 }
 
 @media screen and (max-width: 1024px) {
-.nav-container.fullopacity{
-        width: 100%;
-    }
-}
+    /* .nav-container {
+    padding: 20px 50px;
+  }
 
-@media (max-width:428px) {
-     
-
-    .nav-profilecontainer {
-        display: block;
-    }
-    .logo{
-        margin-left: 1rem;
-    }
-    .profile-photo-mobtab{
-        display: block;
-    }
+  .nav-links {
+    gap: 20px;
+  } */
 }

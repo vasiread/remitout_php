@@ -88,7 +88,7 @@ $loanStatusInfo = [
                         </div>
                         <div class="loan-onholdsection">
                             <h1>01</h1>
-                            <p>Received
+                            <p>On Hold
 
                         </div>
                         <div class="loan-rejectedsection">
@@ -1285,10 +1285,9 @@ $others = json_decode($academicDetails[0]->Others, true);
         };
 
 
-        function toggleOtherDegreeInput(event) {
+      function toggleOtherDegreeInput(event) {
             const otherDegreeInput = document.getElementById('otherDegreeInput');
 
-            // Check if the event target and its value exist
             if (event && event.target && event.target.value) {
                 if (event.target.value === 'Others') {
                     otherDegreeInput.disabled = false;
@@ -1299,11 +1298,13 @@ $others = json_decode($academicDetails[0]->Others, true);
                     otherDegreeInput.value = event.target.value; // Set the value to Bachelors or Masters
                     otherDegreeInput.placeholder = 'Enter degree type'; // Reset placeholder if needed
                 }
+
+                // Trigger the "Save" state on degree type change
+                toggleSaveState();
             } else {
                 console.error("Error: Event or target value is undefined.");
             }
         }
-
         const initializeProgressRing = () => {
             const radius = 52;
             const circumference = 2 * Math.PI * radius;
@@ -1383,10 +1384,10 @@ $others = json_decode($academicDetails[0]->Others, true);
 
 
 
-        const saveChangesFunctionality = () => {
+       const saveChangesFunctionality = () => {
             let isEditing = false;
             const saveChangesButton = document.querySelector(".personalinfo-firstrow button");
-            const savedMsg = document.querySelector(".studentdashboardprofile-myapplication .myapplication-firstcolumn .personalinfo-firstrow .saved-msg");  // Corrected class selector
+            const savedMsg = document.querySelector(".studentdashboardprofile-myapplication .myapplication-firstcolumn .personalinfo-firstrow .saved-msg");
             const personalDivContainer = document.querySelector(".personalinfo-secondrow");
             const personalDivContainerEdit = document.querySelector(".personalinfosecondrow-editsection");
             const academicsMarksDivEdit = document.querySelector(".testscoreseditsection-secondrow-editsection");
@@ -1394,6 +1395,18 @@ $others = json_decode($academicDetails[0]->Others, true);
 
             const planToStudy = document.getElementById("plan-to-study-edit");
 
+            const toggleSaveState = () => {
+                 isEditing = true; 
+
+                saveChangesButton.textContent = 'Save';
+                saveChangesButton.style.backgroundColor = "rgba(111, 37, 206, 1)";
+                saveChangesButton.style.color = "#fff";
+
+                personalDivContainerEdit.style.display = "flex";
+                personalDivContainer.style.display = "none";
+                academicsMarksDivEdit.style.display = "flex";
+                academicsMarksDiv.style.display = "none";
+            };
 
             if (saveChangesButton) {
                 saveChangesButton.textContent = 'Edit';
@@ -1405,7 +1418,6 @@ $others = json_decode($academicDetails[0]->Others, true);
                     isEditing = !isEditing;
 
                     if (isEditing) {
-
                         saveChangesButton.textContent = 'Save';
                         saveChangesButton.style.backgroundColor = "rgba(111, 37, 206, 1)";
                         saveChangesButton.style.color = "#fff";
@@ -1415,7 +1427,6 @@ $others = json_decode($academicDetails[0]->Others, true);
                         academicsMarksDivEdit.style.display = "flex";
                         academicsMarksDiv.style.display = "none";
                     } else {
-
                         saveChangesButton.textContent = 'Edit';
                         saveChangesButton.style.backgroundColor = "transparent";
                         saveChangesButton.style.color = "#260254";
@@ -1423,8 +1434,6 @@ $others = json_decode($academicDetails[0]->Others, true);
                         personalDivContainerEdit.style.display = "none";
                         academicsMarksDivEdit.style.display = "none";
                         academicsMarksDiv.style.display = "flex";
-
-
 
                         const editedName = document.querySelector(".personalinfosecondrow-editsection .personal_info_name input").value;
                         const editedPhone = document.querySelector(".personalinfosecondrow-editsection .personal_info_phone input").value;
@@ -1439,12 +1448,19 @@ $others = json_decode($academicDetails[0]->Others, true);
                         const loanAmount = document.querySelector(".myapplication-fourthcolumn input").value;
                         const referralCode = document.querySelector(".myapplication-fifthcolumn input").value;
 
-
                         const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-
                         const userId = userIdElement ? userIdElement.textContent : '';
 
                         console.log(editedName, editedPhone, editedEmail, editedState, userId);
+
+                        const selectedDegree = document.querySelector('input[name="education-level"]:checked').value;
+                        const otherDegreeInput = document.getElementById('otherDegreeInput').value;
+
+                        const updatedDegreeType = selectedDegree === 'Others' ? otherDegreeInput : selectedDegree;
+
+                        const updatedData = {
+                            degreeType: updatedDegreeType
+                        };
 
                         const updatedInfos = {
                             editedName: editedName,
@@ -1458,11 +1474,9 @@ $others = json_decode($academicDetails[0]->Others, true);
                             courseDuration: courseDuration,
                             loanAmount: loanAmount,
                             referralCode: referralCode,
+                            degreeType: updatedData.degreeType,
                             userId: userId
                         };
-                        console.log(updatedInfos)
-                        console.log(planToStudy.value)
-                        console.log("000000000000");
 
                         fetch('/from-profileupdate', {
                             method: "POST",
@@ -1479,32 +1493,18 @@ $others = json_decode($academicDetails[0]->Others, true);
                                 } else {
                                     saveChangesButton.style.display = "none";
                                     savedMsg.style.display = "flex";
-                                    console.log("data")
-
-                                    document.querySelector(".personalinfo-secondrow .personal_info_name p").value = data.user.name;
-                                    document.querySelector(".personalinfo-secondrow .personal_info_email p").value = data.user.email;
-                                    document.querySelector(".personalinfo-secondrow .personal_info_phone p").value = data.personalInfo.phone;
-                                    document.querySelector(".personalinfo-secondrow .personal_info_state p").value = data.personalInfo.state;
-                                    console.log(data)
-
-                                    document.querySelector(".testscoreseditsection-secondrow p .ilets_score").value = data.academicsScores.ILETS;
-                                    document.querySelector(".testscoreseditsection-secondrow p .gre_score").value = data.academicsScores.GRE;
-                                    document.querySelector(".testscoreseditsection-secondrow p .tofel_score").value = data.academicsScores.TOFEL;
+                                    console.log("data");
 
                                     setTimeout(() => {
                                         const disabledInputs = document.querySelectorAll('.studentdashboardprofile-myapplication input[disabled]');
                                         disabledInputs.forEach(inputItems => {
                                             inputItems.removeAttribute('disabled');
                                         });
-                                    }, 1200)
-
-
+                                    }, 1200);
 
                                     setTimeout(() => {
                                         saveChangesButton.style.display = "flex";
                                         savedMsg.style.display = 'none';
-
-
                                     }, 1200);
                                     console.log("Success", data);
                                 }
@@ -1516,12 +1516,12 @@ $others = json_decode($academicDetails[0]->Others, true);
                 });
             }
 
-
-
-
+             const degreeRadioButtons = document.querySelectorAll('input[name="education-level"]');
+            degreeRadioButtons.forEach(button => {
+                button.addEventListener('change', toggleSaveState);
+            });
         };
 
-        
         const sessionLogout = () => {
             fetch('{{ route('session.logout') }}', {
                 method: 'POST',

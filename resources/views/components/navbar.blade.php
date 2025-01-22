@@ -11,57 +11,46 @@
         style="@if (request()->is('/')) position: absolute; top: 0; left: 0; width: 100%; z-index: 10; @else position: relative; @endif">
         <div class="{{ Request::is('/') ? 'nav-container' : 'nav-container fullopacity' }}">
             @php
-$navImgPath = "assets/images/Remitoutcolored.png";
-$navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
-$NotificationBell = "assets/images/notifications_unread.png";
-
-
-
+                $navImgPath = "assets/images/Remitoutcolored.png";
+                $navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
+                $NotificationBell = "assets/images/notifications_unread.png";
             @endphp
+
             <img onclick="window.location.href='{{ url(' ') }}'"
                 src="{{ asset(Request::is('/') ? $navImgPathWhite : $navImgPath) }}" alt="Logo" class="logo">
 
             <div class="nav-links">
                 <a class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}" href="{{url('/')}}">Home</a>
-
                 <a href="#resources" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Resources</a>
-                <a href="#deals" class="{{ Request::is(patterns: '/') ? '' : 'fullopacitylinks' }}">Special Deals</a>
+                <a href="#deals" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Special Deals</a>
                 <a href="#services" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Our Service</a>
                 <a href="#schedule" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Schedule Call</a>
             </div>
 
-            <div class="nav-buttons">
-                <button class="login-btn" onclick="window.location.href='{{ route(name: 'login') }}'">Log In</button>
-                <button class="signup-btn" onclick="window.location.href='{{ route('signup') }}'">Sign Up</button>
-            </div>
-            <div class="nav-searchnotificationbars">
-                <div class="input-container">
-                    <input type="text" placeholder="Search">
-                    <img src="assets/images/search.png" class="search-icon" alt="Search Icon">
-                </div> <img src={{$NotificationBell}} style="width:24px;height:24px" class="unread-notify" alt="">
+            @if(session()->has('user'))
+                <div class="nav-searchnotificationbars">
+                    <div class="input-container">
+                        <input type="text" placeholder="Search">
+                        <img src="assets/images/search.png" class="search-icon" alt="Search Icon">
+                    </div>
+                    <img src="{{ $NotificationBell }}" style="width:24px;height:24px" class="unread-notify" alt="">
 
-                <div class="nav-profilecontainer">
-                    <img src="" id="nav-profile-photo-id" class="nav-profileimg" alt="">
-                    @if(session()->has('user'))
+                    <div class="nav-profilecontainer">
+                        <img src="{{ session('user')->profile_photo_url }}" id="nav-profile-photo-id" class="nav-profileimg"
+                            alt="Profile Image">
                         <h3>{{ session('user')->name }}</h3>
                         <i class="fa-solid fa-chevron-down"></i>
-
-                    @else
-
-
-
-
-                    @endif
+                    </div>
                 </div>
+            @else
+                <div class="nav-buttons">
+                    <button class="login-btn" onclick="window.location.href='{{ route('login') }}'">Log In</button>
+                    <button class="signup-btn" onclick="window.location.href='{{ route('signup') }}'">Sign Up</button>
+                </div>
+            @endif
 
-
-            </div>
             <div class="profile-photo-mobtab" style="display:none">
-            
                 <img src="" id="nav-profile-photo-id" class="nav-profileimg" alt="">
-
-
-
             </div>
 
             <div class="menu-icon" id="menu-icon">
@@ -71,82 +60,39 @@ $NotificationBell = "assets/images/notifications_unread.png";
             </div>
         </div>
     </nav>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const menuIcon = document.getElementById('menu-icon');
-            const navContainer = document.querySelector('.nav-container');
-            const navLinks = document.querySelectorAll('.nav-links a');
-            const navLinksContainer = document.querySelector('.nav-links');
-            const searchnotificationbars = document.querySelector(".nav-searchnotificationbars");
-            const navigationLoginSignupButtons = document.querySelector(".nav-buttons");
-            const mobTabProfile = document.querySelector(".profile-photo-mobtab img");
+            var currentRoute = window.location.pathname;
+            console.log('Current Route:', currentRoute); // Debugging to confirm the current route
 
+            retrieveProfilePictureNav();
+            console.log('Route after retrieveProfilePictureNav:', currentRoute); // Check exact path again
 
-
-
-
-            window.onload = function () {
-                var currentRoute = window.location.pathname;
-                retrieveProfilePictureNav();
-
-                if (currentRoute === "/student-dashboard") {
-                    if (window.innerWidth <= 420) {
-                        searchnotificationbars.style.display = "none";
-                        mobTabProfile.style.display = "block";
-                    } else {
-                        searchnotificationbars.style.display = "flex";
-                        mobTabProfile.style.display = "none";
-                    }
-                    navLinksContainer.style.display = "none";
-                    navigationLoginSignupButtons.style.display = "none";
-                }
-                else {
-                    searchnotificationbars.style.display = "none";
-                    navLinksContainer.style.display = "flex";
-                    navigationLoginSignupButtons.style.display = "flex";
-
-
-                }
-            }
-
-            menuIcon.addEventListener('click', function () {
-                menuIcon.classList.toggle('active');
-                navContainer.classList.toggle('active');
-                document.body.style.overflow = navContainer.classList.contains('active') ? 'hidden' : '';
-            });
-
-            const navbar = document.querySelector('.nav');
-            function handleScroll() {
-                if (window.scrollY > 0) {
-                    navbar.classList.add('scrolled');
+            if (currentRoute.includes("/student-dashboard") || currentRoute.includes("/student-forms")) {
+                console.log('Dashboard or Forms detected'); // Debugging to verify the condition
+                if (window.innerWidth <= 420) {
+                    document.querySelector('.nav-searchnotificationbars').style.display = "none";
+                    document.querySelector('.profile-photo-mobtab').style.display = "block";
                 } else {
-                    navbar.classList.remove('scrolled');
+                    document.querySelector('.nav-searchnotificationbars').style.display = "flex";
+                    document.querySelector('.profile-photo-mobtab').style.display = "none";
                 }
+                document.querySelector('.nav-links').style.display = "none";
+                document.querySelector('.nav-buttons').style.display = "none";
+            } else {
+                console.log('Other route detected'); // Debugging to verify fallback
+                document.querySelector('.nav-searchnotificationbars').style.display = "none";
+                document.querySelector('.nav-links').style.display = "flex";
+                document.querySelector('.nav-buttons').style.display = "flex";
             }
-            window.addEventListener('scroll', handleScroll);
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    menuIcon.classList.remove('active');
-                    navContainer.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
-            });
-
-            document.addEventListener('click', function (event) {
-                if (!navContainer.contains(event.target) && !menuIcon.contains(event.target)) {
-                    menuIcon.classList.remove('active');
-                    navContainer.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            });
-        })
+        });
 
         const retrieveProfilePictureNav = async () => {
             const userSession = @json(session('user'));
             const userId = userSession.unique_id;
             const profileImgUpdate = document.querySelector(".nav-profilecontainer .nav-profileimg");
-                        const mobTabProfile = document.querySelector(".profile-photo-mobtab img");
+            const mobTabProfile = document.querySelector(".profile-photo-mobtab img");
 
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -179,13 +125,6 @@ $NotificationBell = "assets/images/notifications_unread.png";
                 console.error("Error retrieving profile picture", error);
             }
         };
-
-
-
-
-
-
-
     </script>
 
 </body>

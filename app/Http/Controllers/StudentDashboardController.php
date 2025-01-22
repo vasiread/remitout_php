@@ -57,6 +57,7 @@ class StudentDashboardController extends Controller
             'iletsScore' => 'nullable|numeric',
             'greScore' => 'nullable|numeric',
             'tofelScore' => 'nullable|numeric',
+            'degreeType'=>'nullable',
 
             'planToStudy' => 'nullable',
             'courseDuration' => 'nullable|numeric',
@@ -67,6 +68,7 @@ class StudentDashboardController extends Controller
 
         // Find the user by unique_id
         $user = User::where('unique_id', $validated['userId'])->first();
+
 
         if ($user) {
             // Update the User model's name and email
@@ -126,6 +128,7 @@ class StudentDashboardController extends Controller
                 $courseInfoData->{"plan-to-study"} = $planToStudy;
                 $courseInfoData->{"course-duration"} = $validated['courseDuration'];
                 $courseInfoData->loan_amount_in_lakhs = $validated['loanAmount'];
+                $courseInfoData->{"degree-type"} = $validated['degreeType'];
                 $courseInfoData->save();
             } else {
                 $courseInfoData = CourseInfo::create([
@@ -133,6 +136,7 @@ class StudentDashboardController extends Controller
                     'plan-to-study' => $planToStudy,
                     'course-duration' => $validated['courseDuration'],
                     'loan_amount_in_lakhs' => $validated['loanAmount'],
+                    'degree-type'=>$validated['degreeType'],
                 ]);
 
             }
