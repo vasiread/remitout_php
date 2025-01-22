@@ -680,7 +680,7 @@ input[type="file"] {
     align-items: center;
     justify-content: center;
     box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
-    border: none;
+    border: 1px solid rgba(111, 37, 206, 1);
     cursor: pointer;
     background-color: transparent;
 
@@ -707,10 +707,9 @@ input[type="file"] {
     color: rgba(255, 255, 255, 1);
     background-color: rgba(111, 37, 206, 1);
     border: none;
-    box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
     display: none;
-    cursor:pointer; 
-    
+    cursor: pointer;
+
 
 }
 
@@ -739,8 +738,8 @@ input[type="file"] {
 }
 
 .individual-bankmessages-buttoncontainer .bankmessage-buttoncontainer-reject {
-    color: rgba(38, 2, 84, 1);
-    border: 1px solid rgba(226, 226, 226, 1);
+    color: #FF7A00;
+    border: 1px solid #E2E2E2;
 }
 
 .individual-bankmessages-buttoncontainer .bankmessage-buttoncontainer-reject:hover {
@@ -1548,11 +1547,12 @@ input[type="file"] {
         display: flex;
         flex-direction: column;
     }
-        .myapplication-thirdcolumn .degreetypescheckboxes{
-            flex-direction: column;
-            gap: 0;
-        }
-      
+
+    .myapplication-thirdcolumn .degreetypescheckboxes {
+        flex-direction: column;
+        gap: 0;
+    }
+
 
 }
 

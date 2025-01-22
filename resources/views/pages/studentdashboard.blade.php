@@ -88,7 +88,7 @@ $loanStatusInfo = [
                         </div>
                         <div class="loan-onholdsection">
                             <h1>01</h1>
-                            <p>On Hold
+                            <p>On Hold </p>
 
                         </div>
                         <div class="loan-rejectedsection">
