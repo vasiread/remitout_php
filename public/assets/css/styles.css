@@ -253,7 +253,7 @@ body {
 
 .right-content {
 
-  padding: 0;
+  padding:0;
   width: 477px;
   height: 239px;
   color: white;
@@ -283,9 +283,9 @@ body {
 
 .journey-text {
   font-size: 18px;
-  line-height: 160%;
+  line-height: 140%;
   font-weight: 300;
-  width: 460px;
+  
   color: rgba(255, 255, 255, 0.8);
 
 
@@ -317,6 +317,9 @@ body {
   white-space: nowrap;
 }
 
+.secure-loan:hover {
+  background: #ff8533;
+}
 
 .watch-demo {
   width: 197px;
@@ -421,29 +424,17 @@ body {
   object-fit: contain;
 }
 
-.card-container {
-
-  display: flex;
-  justify-content: space-around;
-  gap: 30px;
-
-  box-shadow: none;
-  position: relative;
-  width: calc(420px * 2 + 20px);
-}
-
 .profilecard-container {
   display: flex;
   justify-content: space-around;
   gap: 30px;
-  box-shadow: none;
+  padding-top: 40px;
   position: relative;
   width: calc(420px * 2 + 20px);
-  padding-top: 40px;
-  flex: 1;
-  overflow: hidden;
+
 
 }
+
 
 .testimonial-slider {
   display: flex;
@@ -451,26 +442,16 @@ body {
   transition: transform 0.5s ease-in-out;
   width: max-content;
   width: calc(420px * 2 + 20px);
-  width: 100%;
-  position: relative;
-  transition: transform 0.5s ease;
-  overflow: visible;
+  /* 2 cards + space between them */
+
 
 }
 
 .profilecardsection-individual {
-  min-width: 420px;
   flex-shrink: 0;
-  border-radius: 20px;
-  padding: 33px;
-  transition: transform 0.5s ease;
-  position: relative;
-  overflow: visible;
-  margin-bottom: 40px;
-  background-color: rgba(255, 255, 255, 0.6);
-  box-shadow: 0px 4px 49px 0px rgba(26, 2, 57, 0.05);
+  width: 420px;
+  margin-right: 20px;
 }
-
 
 
 
@@ -498,7 +479,8 @@ body {
   flex-direction: column;
   gap: 22px;
   padding: 2.1rem;
-
+  background-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0px 4px 49px 0px rgba(26, 2, 57, 0.05);
   position: relative;
   border-radius: 10px;
 }
@@ -637,6 +619,40 @@ body {
   margin-left: 15px;
 }
 
+/* Cards container styling */
+.profilecard-container {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+
+}
+
+/* Slider styling */
+.testimonial-slider {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  position: relative;
+  transition: transform 0.5s ease;
+  overflow: visible;
+  /* Allow elements to overflow */
+
+
+}
+
+/* Individual card styling */
+.profilecardsection-individual {
+  min-width: 420px;
+  flex-shrink: 0;
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 33px;
+  box-shadow: 0px 4px 49px rgba(26, 2, 57, 0.05);
+  transition: transform 0.5s ease;
+  position: relative;
+  overflow: visible;
+}
 
 /* Navigation buttons */
 .pagenavigationcontainer {
@@ -645,7 +661,7 @@ body {
   bottom: -120px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 25px;
 }
 
 .nav-arrow {
@@ -664,7 +680,6 @@ body {
   background-color: #FFFFFF;
   color: #6F25CE;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-
 }
 
 .nav-arrow.left i {
@@ -676,7 +691,6 @@ body {
   background-color: #6F25CE;
   color: #FFFFFF;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-
 }
 
 .nav-arrow.right i {
@@ -687,7 +701,7 @@ body {
 .dot-container {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .dot {
@@ -856,12 +870,10 @@ body {
   color: #968F9E;
   margin-top: 20px;
 }
-
-.study-loans-image img {
-  height: 200px;
-  margin-bottom: 3rem;
+.study-loans-image img{
+   height: 200px;
+   margin-bottom: 3rem;
 }
-
 .study-loans-image-right {
   width: 50%;
   height: auto;
@@ -1071,9 +1083,9 @@ body {
 }
 
 .graphcard-section {
-  max-width: 100%;
-  width: 85%;
-  height: 900px;
+  max-width: 1170px;
+  width: 100%;
+  height: 730px;
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -1087,7 +1099,7 @@ body {
   width: 100%;
   position: relative;
   justify-content: space-between;
-
+  
 
 }
 
@@ -1154,7 +1166,7 @@ body {
   line-height: 19.8px;
   text-align: left;
   color: rgba(85, 67, 107, 1);
-  width: 255px;
+    width: 255px;
 }
 
 .bottomleft-secondsection .bottomleft-section-inside p {
@@ -1164,7 +1176,7 @@ body {
   line-height: 23.8px;
   text-align: left;
   color: rgba(150, 143, 158, 0.8);
-  width: 255px;
+    width: 255px;
 
 }
 
@@ -1235,9 +1247,8 @@ body {
   background-color: rgba(55, 55, 55, 0.2);
   /* outline: none; */
 }
-
 /*  */
-
+   
 
 
 
@@ -1295,129 +1306,8 @@ body {
   width: 175px;
   height: 105px;
   position: relative;
-  bottom: 40px;
 }
 
-.profileassesmentvector-img {
-  position: relative;
-  width: 175px;
-  height: 105px;
-
-
-}
-
-.gracardsection-centersection img {
-  width: 175px;
-  height: 105px;
-}
-
-.gracardsection-centersection {
-  display: flex;
-  position: absolute;
-  align-items: flex-end;
-
-  max-width: 100%;
-  width: 70%;
-  height: 100%;
-  bottom: 18.5%;
-  left: 18.7%;
-  gap: 12%;
-
-}
-
-.guaranteevector-img {
-  position: absolute;
-  bottom: -5%;
-  right: 10%;
-  width: 175px;
-  height: 105px;
-  align-self: self-end;
-}
-
-.fastrackaprovalvector-img {
-  position: absolute;
-  right: -5%;
-  bottom:10%
-}
-
-.graphcardsection-topleftsection .handshake-img {
-  position: relative;
-  bottom: 20px;
-
-}
-
-.graphcardsection-toprightsection{
-  position:absolute;
-  right:22%;
-  top:40%;
-  width:296px;
-
-}
-.graphcardsection-toprightsection .numbercontainer p{
-  font-family: Inter;
-    font-size: 32px;
-    font-weight: 900;
-    line-height: 35.2px;
-    color:#E98635;
-   
-}
-.graphcardsection-toprightsection .fourthcontainersection h1{
-  font-family: Poppins;
-    font-size: 18px;
-    font-weight: 900;
-    line-height: 19.8px;
-    text-align: left;
-    color:#55436B;
-    width: 175px;
-
-}
-.graphcardsection-toprightsection .fourthcontainersection p{
-  font-family: Poppins;
-    font-size: 17px;
-    font-weight: 400;
-    line-height: 23.8px;
-    text-align: left;
-    color:#968F9ECC;
-
-}
-.fastrackapproval-section{
-  position: absolute;
-  width: 273px;
-  right:-25%;
- 
-}
-.fastrackapproval-section .numbercontainer p{
-  font-family: Inter;
-    font-size: 32px;
-    font-weight: 900;
-    line-height: 35.2px;
-    color: #E98635;
-    text-align: right;
-
-}
-.fastrackapproval-section .fastrackapproval-details h1 {
-  font-family: Poppins;
-  font-size: 18px;
-  font-weight: 900;
-  line-height: 19.8px;
-  text-align: right;
-  color: #55436B;
-  text-align: right;
-
-}
-
-.fastrackapproval-section .fastrackapproval-details p {
-  font-family: Poppins;
-  font-size: 17px;
-  font-weight: 400;
-  line-height: 23.8px;
-  text-align: right;
-  color: #968F9ECC;
-
-}
-.graphcardsection-toprightsection{
-
-}
 .topleft-firstsection {
   display: flex;
   flex-direction: column;
