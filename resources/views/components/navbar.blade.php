@@ -63,14 +63,16 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+
+            const navButtons = document.querySelector(".nav-buttons");
             var currentRoute = window.location.pathname;
-            console.log('Current Route:', currentRoute); // Debugging to confirm the current route
+            console.log('Current Route:', currentRoute);  
 
             retrieveProfilePictureNav();
-            console.log('Route after retrieveProfilePictureNav:', currentRoute); // Check exact path again
+            console.log('Route after retrieveProfilePictureNav:', currentRoute);  
 
             if (currentRoute.includes("/student-dashboard") || currentRoute.includes("/student-forms")) {
-                console.log('Dashboard or Forms detected'); // Debugging to verify the condition
+                console.log('Dashboard or Forms detected'); 
                 if (window.innerWidth <= 420) {
                     document.querySelector('.nav-searchnotificationbars').style.display = "none";
                     document.querySelector('.profile-photo-mobtab').style.display = "block";
@@ -79,12 +81,20 @@
                     document.querySelector('.profile-photo-mobtab').style.display = "none";
                 }
                 document.querySelector('.nav-links').style.display = "none";
-                document.querySelector('.nav-buttons').style.display = "none";
+                if (navButtons) {
+                    navButtons.style.display = "none";
+
+
+                }
             } else {
                 console.log('Other route detected'); // Debugging to verify fallback
                 document.querySelector('.nav-searchnotificationbars').style.display = "none";
                 document.querySelector('.nav-links').style.display = "flex";
-                document.querySelector('.nav-buttons').style.display = "flex";
+                if (navButtons) {
+                    navButtons.style.display = "flex";
+
+
+                }
             }
         });
 

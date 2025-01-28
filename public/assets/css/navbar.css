@@ -30,6 +30,10 @@
     background-color: #fff;
     color: rgba(38, 2, 84, 1);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    position:fixed;
+    top:0;
+    z-index: 50;
+    height: 85px;
 }
 
 .logo {
@@ -132,7 +136,7 @@
 }
 
 /* Mobile and Tablet View */
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
     .nav-container {
         padding: 20px 30px;
     }
@@ -166,7 +170,7 @@
     .menu-icon.active+.nav-links {
         display: flex;
     }
-}
+} */
 
 .nav-searchnotificationbars {
     display: none;

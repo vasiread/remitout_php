@@ -86,8 +86,8 @@
           <div class="input-group">
             <div class="input-content">
               <img src="./assets/images/call-icon.png" alt="Phone Icon" class="icon" />
-              <input type="tel" placeholder="Phone Number" name="phone_number" id="personal-info-phone"
-                value="" required />
+              <input type="tel" placeholder="Phone Number" name="phone_number" id="personal-info-phone" value=""
+                required />
               <div class="validation-message" id="personal-info-phone-error"></div>
             </div>
           </div>
@@ -95,8 +95,8 @@
           <div class="input-group">
             <div class="input-content">
               <img src="./assets/images/school.png" alt="Referral Code Icon" class="icon" />
-              <input type="text" placeholder="Referral Code" name="referral_code"
-                value="" id="personal-info-referral" required />
+              <input type="text" placeholder="Referral Code" name="referral_code" value="" id="personal-info-referral"
+                required />
               <div class="validation-message" id="referralCode-error"></div>
             </div>
           </div>
@@ -818,14 +818,14 @@
         <div class="work-experience-box">
           <div class="document-name" id="experience-letter-id" style="display: none;">Experience letter</div>
           <div class="upload-field">
-            <span id="work-experience-tenth-name">Experience letter</span>
+            <span id="work-experience-experience-letter">Experience letter</span>
             <label for="work-experience-tenth" class="upload-icon" id="work-experience-tenth-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
             </label>
             <input type="file" id="work-experience-tenth" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'work-experience-tenth-name', 'work-experience-tenth-upload-icon', 'work-experience-tenth-remove-icon')" />
+              onchange="handleFileUpload(event, 'work-experience-experience-letter', 'work-experience-tenth-upload-icon', 'work-experience-tenth-remove-icon')" />
             <span id="work-experience-tenth-remove-icon" style="display:none;"
-              onclick="removeFile('work-experience-tenth', 'work-experience-tenth-name', 'work-experience-tenth-upload-icon', 'work-experience-tenth-remove-icon')">✖</span>
+              onclick="removeFile('work-experience-tenth', 'work-experience-experience-letter', 'work-experience-tenth-upload-icon', 'work-experience-tenth-remove-icon')">✖</span>
           </div>
           <div class="info">
             <span class="help-trigger" data-target="work-experience-tenth-help">ⓘ Help</span>
@@ -842,14 +842,14 @@
         <div class="work-experience-box">
           <div class="document-name" id="3-months-salary-slip-id" style="display: none;">3 months salary slip</div>
           <div class="upload-field">
-            <span id="work-experience-twelfth-name">3 months salary slip</span>
+            <span id="work-experience-monthly-slip">3 months salary slip</span>
             <label for="work-experience-twelfth" class="upload-icon" id="work-experience-twelfth-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
             </label>
             <input type="file" id="work-experience-twelfth" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'work-experience-twelfth-name', 'work-experience-twelfth-upload-icon', 'work-experience-twelfth-remove-icon')" />
+              onchange="handleFileUpload(event, 'work-experience-monthly-slip', 'work-experience-twelfth-upload-icon', 'work-experience-twelfth-remove-icon')" />
             <span id="work-experience-twelfth-remove-icon" style="display:none;"
-              onclick="removeFile('work-experience-twelfth', 'work-experience-twelfth-name', 'work-experience-twelfth-upload-icon', 'work-experience-twelfth-remove-icon')">✖</span>
+              onclick="removeFile('work-experience-twelfth', 'work-experience-monthly-slip', 'work-experience-twelfth-upload-icon', 'work-experience-twelfth-remove-icon')">✖</span>
           </div>
           <div class="info">
             <span class="help-trigger" data-target="work-experience-twelfth-help">ⓘ Help</span>
@@ -866,14 +866,14 @@
         <div class="work-experience-box">
           <div class="document-name" id="office-IDs-id" style="display: none;">office ID</div>
           <div class="upload-field">
-            <span id="work-experience-graduation-name">office ID</span>
+            <span id="work-experience-office-id">office ID</span>
             <label for="work-experience-graduation" class="upload-icon" id="work-experience-graduation-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
             </label>
             <input type="file" id="work-experience-graduation" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'work-experience-graduation-name', 'work-experience-graduation-upload-icon', 'work-experience-graduation-remove-icon')" />
+              onchange="handleFileUpload(event, 'work-experience-office-id', 'work-experience-graduation-upload-icon', 'work-experience-graduation-remove-icon')" />
             <span id="work-experience-graduation-remove-icon" style="display:none;"
-              onclick="removeFile('work-experience-graduation', 'work-experience-graduation-name', 'work-experience-graduation-upload-icon', 'work-experience-graduation-remove-icon')">✖</span>
+              onclick="removeFile('work-experience-graduation', 'work-experience-office-id', 'work-experience-graduation-upload-icon', 'work-experience-graduation-remove-icon')">✖</span>
           </div>
           <div class="info">
             <span class="help-trigger" data-target="work-experience-graduation-help">ⓘ Help</span>
@@ -893,14 +893,14 @@
           <div class="document-name" id="Joining-letter-id" style="display: none;">Joining letter</div>
 
           <div class="upload-field">
-            <span id="work-experience-fourth-name">Joining letter</span>
+            <span id="work-experience-joining-letter">Joining letter</span>
             <label for="work-experience-fourth" class="upload-icon" id="work-experience-fourth-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
             </label>
             <input type="file" id="work-experience-fourth" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'work-experience-fourth-name', 'work-experience-fourth-upload-icon', 'work-experience-fourth-remove-icon')" />
+              onchange="handleFileUpload(event, 'work-experience-joining-letter', 'work-experience-fourth-upload-icon', 'work-experience-fourth-remove-icon')" />
             <span id="work-experience-fourth-remove-icon" style="display:none;"
-              onclick="removeFile('work-experience-fourth', 'work-experience-fourth-name', 'work-experience-fourth-upload-icon', 'work-experience-fourth-remove-icon')">✖</span>
+              onclick="removeFile('work-experience-fourth', 'work-experience-joining-letter', 'work-experience-fourth-upload-icon', 'work-experience-fourth-remove-icon')">✖</span>
           </div>
 
           <div class="info">
@@ -982,14 +982,14 @@
         <div class="document-box">
           <div class="document-name" id="address-proof-id" style="display: none;">Address Proof</div>
           <div class="upload-field">
-            <span id="co-passport-name">Address Proof</span>
+            <span id="co-addressproof">Address Proof</span>
             <label for="co-passport" class="upload-icon" id="co-passport-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
             <input type="file" id="co-passport" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'co-passport-name', 'co-passport-upload-icon', 'co-passport-remove-icon')">
+              onchange="handleFileUpload(event, 'co-addressproof', 'co-passport-upload-icon', 'co-passport-remove-icon')">
             <span id="co-passport-remove-icon" class="remove-icon" style="display:none;"
-              onclick="removeFile('co-passport', 'co-passport-name', 'co-passport-upload-icon', 'co-passport-remove-icon')">✖</span>
+              onclick="removeFile('co-passport', 'co-addressproof', 'co-passport-upload-icon', 'co-passport-remove-icon')">✖</span>
           </div>
           <div class="info">
             <span class="help-trigger" data-target="co-passport-help">ⓘ Help</span>

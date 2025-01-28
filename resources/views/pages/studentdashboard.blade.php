@@ -253,7 +253,7 @@ $loanStatusInfo = [
                             <p>00</p>
                             <span>/22</span>
                         </div>
-                        <p class="secondsection-inside" style="color:rgba(144, 144, 144, 1)" >Document Uploaded</p>
+                        <p class="secondsection-inside" style="color:rgba(144, 144, 144, 1)">Document Uploaded</p>
 
 
 
@@ -287,31 +287,31 @@ $loanStatusInfo = [
 
 
                 </div>
-            <div class="testscoreseditsection-secondrow">
-                @php
+                <div class="testscoreseditsection-secondrow">
+                    @php
 $counter = 1; 
-                @endphp
-            
-                @if (is_numeric($academicDetails[0]->ILETS) && !empty($academicDetails[0]->ILETS))
-                    <p>{{ $counter++ }}. IELTS <span class="ilets_score">{{ $academicDetails[0]->ILETS }}</span></p>
-                @endif
-            
-                @if (is_numeric($academicDetails[0]->GRE) && !empty($academicDetails[0]->GRE))
-                    <p>{{ $counter++ }}. GRE <span class="gre_score">{{ $academicDetails[0]->GRE }}</span></p>
-                @endif
-            
-                @if (is_numeric($academicDetails[0]->TOFEL) && !empty($academicDetails[0]->TOFEL))
-                    <p>{{ $counter++ }}. TOEFL <span class="tofel_score">{{ $academicDetails[0]->TOFEL }}</span></p>
-                @endif
-            
-                @php
+                    @endphp
+
+                    @if (is_numeric($academicDetails[0]->ILETS) && !empty($academicDetails[0]->ILETS))
+                        <p>{{ $counter++ }}. IELTS <span class="ilets_score">{{ $academicDetails[0]->ILETS }}</span></p>
+                    @endif
+
+                    @if (is_numeric($academicDetails[0]->GRE) && !empty($academicDetails[0]->GRE))
+                        <p>{{ $counter++ }}. GRE <span class="gre_score">{{ $academicDetails[0]->GRE }}</span></p>
+                    @endif
+
+                    @if (is_numeric($academicDetails[0]->TOFEL) && !empty($academicDetails[0]->TOFEL))
+                        <p>{{ $counter++ }}. TOEFL <span class="tofel_score">{{ $academicDetails[0]->TOFEL }}</span></p>
+                    @endif
+
+                    @php
 $others = json_decode($academicDetails[0]->Others, true);
-                @endphp
-            
-                @if (isset($others['otherExamName']) && isset($others['otherExamScore']) && is_numeric($others['otherExamScore']) && !empty($others['otherExamScore']))
-                    <p>{{ $counter++ }}. {{$others['otherExamName']}} <span>{{$others['otherExamScore']}}</span></p>
-                @endif
-            </div>
+                    @endphp
+
+                    @if (isset($others['otherExamName']) && isset($others['otherExamScore']) && is_numeric($others['otherExamScore']) && !empty($others['otherExamScore']))
+                        <p>{{ $counter++ }}. {{$others['otherExamName']}} <span>{{$others['otherExamScore']}}</span></p>
+                    @endif
+                </div>
 
 
                 <div class="testscoreseditsection-secondrow-editsection">
@@ -340,6 +340,47 @@ $others = json_decode($academicDetails[0]->Others, true);
             <div class="myapplication-secondcolumn">
                 <p>1. Where are you planning to study</p>
                 <input type="text" id="plan-to-study-edit" disabled>
+                <div class="checkbox-group-edit" id="selected-study-location-edit">
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="USA" disabled> USA
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="UK" disabled> UK
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="Ireland" disabled> Ireland
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="New Zealand" disabled> New Zealand
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="Germany" disabled> Germany
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="France" disabled> France
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="Sweden" disabled> Sweden
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="Other" id="other-checkbox-edit"
+                            disabled> Other
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="Italy" disabled> Italy
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="Canada" disabled> Canada
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="Australia" disabled> Australia
+                    </label>
+                    <label>
+                        <div class="add-country-box-edit">
+                            <input type="text" id="country-edit" class="custom-country-edit" placeholder="Add Country">
+                        </div>
+                    </label>
+                </div>
             </div>
 
             <div class="myapplication-thirdcolumn">
@@ -349,7 +390,7 @@ $others = json_decode($academicDetails[0]->Others, true);
                     <label class="custom-radio">
                         <input type="radio" name="education-level" value="Bachelors"
                             @if($courseDetails[0]->{'degree-type'} == 'Bachelors') checked @endif
-                            onclick="toggleOtherDegreeInput(event)">
+                            onclick="toggleOtherDegreeInput(event)" disabled>
                         <span class="radio-button"></span>
                         <p>Bachelors (only secured loan)</p>
                     </label>
@@ -359,7 +400,7 @@ $others = json_decode($academicDetails[0]->Others, true);
                     <label class="custom-radio">
                         <input type="radio" name="education-level" value="Masters"
                             @if($courseDetails[0]->{'degree-type'} == 'Masters') checked @endif
-                            onclick="toggleOtherDegreeInput(event)">
+                            onclick="toggleOtherDegreeInput(event)" disabled>
                         <span class="radio-button"></span>
                         <p>Masters</p>
                     </label>
@@ -368,13 +409,13 @@ $others = json_decode($academicDetails[0]->Others, true);
                     <!-- Third radio button for Others -->
                     <label class="custom-radio">
                         <input type="radio" name="education-level" value="Others" @if($courseDetails[0]->{'degree-type'} !== 'Bachelors' && $courseDetails[0]->{'degree-type'} !== 'Masters') checked @endif
-                            onclick="toggleOtherDegreeInput(event)">
+                            onclick="toggleOtherDegreeInput(event)" disabled>
                         <span class="radio-button"></span>
                         <p>Others</p>
                     </label>
                 </div>
 
-                 <input type="text" placeholder="Enter degree type" value="{{ $courseDetails[0]->{'degree-type'} }}"
+                <input type="text" placeholder="Enter degree type" value="{{ $courseDetails[0]->{'degree-type'} }}"
                     id="otherDegreeInput" @if($courseDetails[0]->{'degree-type'} != 'Others') disabled @endif>
             </div>
 
@@ -405,180 +446,270 @@ $others = json_decode($academicDetails[0]->Others, true);
                 <h1>Attached Documents</h1>
                 <div class="seventhcolum-firstsection">
                     <div class="seventhcolumn-header">
-                        <p>Student KYC Document</p> 
+                        <p>Student KYC Document</p>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
 
-                     <i class="fa-solid fa-angle-down"></i>
-                </div>
-              
-              
-                <div class="kycdocumentscolumn"  >
-
-               
+                    <div class="kycdocumentscolumn">
                         <div class="individualkycdocuments">
                             <p class="document-name">Pan Card</p>
                             <div class="inputfilecontainer">
                                 <i class="fa-solid fa-image"></i>
                                 <p class="uploaded-pan-name"> pan_card.jpg</p>
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-pan-card"></>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-pan-card" />
                             </div>
-
-                            <input type="file" id="inputfilecontainer-real">
-
+                            <input type="file" id="inputfilecontainer-real" />
                             <span class="document-status">420 MB uploaded</span>
-
-
-
-
-
-
-
                         </div>
+
                         <div class="individualkycdocuments">
                             <p class="document-name">Aadhar Card</p>
                             <div class="inputfilecontainer">
                                 <i class="fa-solid fa-image"></i>
                                 <p class="uploaded-aadhar-name"> aadhar_card.jpg</p>
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-aadhar-card"></>
-
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-aadhar-card" />
                             </div>
-                            <input type="file" id="inputfilecontainer-real">
-
+                            <input type="file" id="inputfilecontainer-real" />
                             <span class="document-status">420 MB uploaded</span>
-
-
-
-
-
-
-
                         </div>
+
                         <div class="individualkycdocuments">
                             <p class="document-name">Passport</p>
                             <div class="inputfilecontainer">
                                 <i class="fa-solid fa-image"></i>
-                                <p class="passport-name"> Passport.pdf</p>
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-passport-card"></>
-
+                                <p class="passport-name-selector"> Passport.pdf</p>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-passport-card" />
                             </div>
-                            <input type="file" id="inputfilecontainer-real">
-
+                            <input type="file" id="inputfilecontainer-real" />
                             <span class="document-status">420 MB uploaded</span>
-
-
-
-
-
-
-
                         </div>
-
-
                     </div>
-                   </div>  
-                    
- 
-              
-
-
+                </div>
             </div>
+
             <div class="seventhcolumn-additional">
                 <div class="seventhcolumn-additional-firstcolumn">
-                <div class="seventhcolumnadditional-header">
-
-                    <p>Academic Marksheets</p>
+                    <div class="seventhcolumnadditional-header">
+                        <p>Academic Marksheets</p>
                         <i class="fa-solid fa-angle-down"></i>
-                   </div>
-                        <div class="marksheetdocumentscolumn">
-                                                <div class="individualmarksheetdocuments">
-                                                    <p class="document-name">10th grade marksheet</p>
-                                                    <div class="inputfilecontainer-marksheet">
-                                                        <i class="fa-solid fa-image"></i>
-                                                        <p class="sslc-marksheet"> 10th grade marksheet</p>
-                                                         <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-card"></>
-                        
-                                                    </div>
-                                                    <input type="file" id="inputfilecontainer-real-marksheet">
-                        
-                                                    <span class="document-status">420 MB uploaded</span>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                                                </div>
-                                                <div class="individualmarksheetdocuments">
-                                                    <p class="document-name">12th grade marksheet</p>
-                                                    <div class="inputfilecontainer-marksheet">
-                                                        <i class="fa-solid fa-image"></i>
-                                                        <p class="hsc-marksheet"> 12th grade marksheet</p>
-                                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-card"></>
-                        
-                                                    </div>
-                                                    <input type="file" id="inputfilecontainer-real-marksheet">
-                        
-                                                    <span class="document-status">420 MB uploaded</span>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                                                </div>
-                                                <div class="individualmarksheetdocuments">
-                                                    <p class="document-name">Graduation marksheet</p>
-                                                    <div class="inputfilecontainer-marksheet">
-                                                        <i class="fa-solid fa-image"></i>
-                                                        <p class="graduation-marksheet"> Graduation Marksheet</p>
-                                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-card">
-                        
-                                                    </div>
-                                                    <input type="file" id="inputfilecontainer-real-marksheet">
-                        
-                                                    <span class="document-status">420 MB uploaded</span>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                                                </div>
-                        
-                        
-                                            </div>
+                    </div>
 
+                    <div class="marksheetdocumentscolumn">
+                        <div class="individualmarksheetdocuments">
+                            <p class="document-name">10th grade marksheet</p>
+                            <div class="inputfilecontainer-marksheet">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="sslc-marksheet"> 10th grade marksheet</p>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-card" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
 
+                        <div class="individualmarksheetdocuments">
+                            <p class="document-name">12th grade marksheet</p>
+                            <div class="inputfilecontainer-marksheet">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="hsc-marksheet"> 12th grade marksheet</p>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-card" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+
+                        <div class="individualmarksheetdocuments">
+                            <p class="document-name">Graduation marksheet</p>
+                            <div class="inputfilecontainer-marksheet">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="graduation-marksheet"> Graduation Marksheet</p>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-card" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                    </div>
                 </div>
-
             </div>
+
             <div class="myapplication-eightcolumn">
                 <div class="eightcolumn-firstsection">
-                                        <div class="eightcolumn-header">
+                    <div class="eightcolumn-header">
 
-                    <p>Secured Admissions</p>
-                    <i class="fa-solid fa-angle-down"></i> </div>
+                        <p>Secured Admissions</p>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                    <div class="secured-admissioncolumn">
+                        <div class="individual-secured-admission-documents">
+                            <p class="document-name">10th Grade
+                            </p>
+                            <div class="inputfilecontainer-secured-admission">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="sslc-grade">SSLC Grade</p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-grade"></>
+
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet">
+
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-secured-admission-documents">
+                            <p class="document-name">12th Grade
+                            </p>
+                            <div class="inputfilecontainer-secured-admission">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="hsc-grade">HSC Grade</p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-grade"></>
+
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet">
+
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-secured-admission-documents">
+                            <p class="document-name">Graduation
+                            </p>
+                            <div class="inputfilecontainer-secured-admission">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="graduation-grade">Graduation</p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-grade"></>
+
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet">
+
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                    </div>
                 </div>
+
 
             </div>
             <div class="myapplication-ninthcolumn">
-                <div class="ninthcolumn-firstsection" >
-                                                            <div class="ninthcolumn-header">
+                <div class="ninthcolumn-firstsection">
+                    <div class="ninthcolumn-header">
 
-                    <p>Work Experience</p>
-                    <i class="fa-solid fa-angle-down"></i></div>
+                        <p>Work Experience</p>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                    <div class="work-experiencecolumn">
+                        <div class="individual-work-experiencecolumn-documents">
+                            <p class="document-name">Experience Letter
+                            </p>
+                            <div class="inputfilecontainer-work-experiencecolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="experience-letter">Experience Letter</p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-experience-letter"></>
+
+                            </div>
+                            <input type="file" id="inputfilecontainer-work-experience">
+
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-work-experiencecolumn-documents">
+                            <p class="document-name">3 month Salary Slip
+                            </p>
+                            <div class="inputfilecontainer-work-experiencecolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="salary-slip">3 month salary slip</p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-salary-slip"></>
+
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet">
+
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-work-experiencecolumn-documents">
+                            <p class="document-name">Office ID
+                            </p>
+                            <div class="inputfilecontainer-work-experiencecolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="office-id">Office ID</p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-office-id"></>
+
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet">
+
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-work-experiencecolumn-documents">
+                            <p class="document-name">Employment Joining Letter
+                            </p>
+                            <div class="inputfilecontainer-work-experiencecolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="joining-letter">Joining Letter</p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-joining-letter"></>
+
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet">
+
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+
+                    </div>
                 </div>
 
             </div>
             <div class="myapplication-tenthcolumn">
                 <div class="tenthcolumn-firstsection">
-                <div class="tenthcolumn-header">
+                    <div class="tenthcolumn-header">
 
-                
-                    <p>Co-borrower Documents</p>
-                    <i class="fa-solid fa-angle-down"></i></div>
+
+                        <p>Co-borrower Documents</p>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                    <div class="coborrower-kyccolumn">
+                        <div class="individual-coborrower-kyc-documents">
+                            <p class="document-name">Pan Card
+                            </p>
+                            <div class="inputfilecontainer-coborrower-kyccolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="coborrower-pancard">Pan Card </p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-pan"></>
+
+                            </div>
+                            <input type="file" id="inputfilecontainer-kyccoborrwer">
+
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-coborrower-kyc-documents">
+                            <p class="document-name">Aadhar Card
+                            </p>
+                            <div class="inputfilecontainer-coborrower-kyccolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="coborrower-aadharcard">Aadhar Card </p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-aadhar"></>
+
+                            </div>
+                            <input type="file" id="inputfilecontainer-kyccoborrwer">
+
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-coborrower-kyc-documents">
+                            <p class="document-name">Address Proof
+                            </p>
+                            <div class="inputfilecontainer-coborrower-kyccolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="coborrower-addressproof">Address Proof </p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-addressproof"></>
+
+                            </div>
+                            <input type="file" id="inputfilecontainer-kyccoborrwer">
+
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+
+
+                    </div>
+
                 </div>
 
             </div>
@@ -605,12 +736,19 @@ $others = json_decode($academicDetails[0]->Others, true);
             initialisedocumentsCount();
             initialiseProfileUpload();
             initialiseProfileView();
-            initialisePanCardView();
-            initialiseAadharView();
-            initialisePassportView();
-            initialisesslcView();
-            initialisehscView();
-            initialisegraduationView();
+            // initialisePanCardView();
+            // initialiseAadharView();
+            // initialisePassportView();
+            // initialisesslcView();
+            // initialisehscView();
+            // initialisegraduationView();
+            initialiseAllViews()
+                .then(() => {
+                    console.log("All URLs fetched successfully!");
+                })
+                .catch((error) => {
+                    console.error("Error during initialization:", error);
+                });
             initialiseSeventhcolumn();
             initialiseSeventhAdditionalColumn();
             initialiseEightcolumn();
@@ -619,12 +757,42 @@ $others = json_decode($academicDetails[0]->Others, true);
 
 
             const courseDetails = {!! $courseDetailsJson !!};
-            const planToStudy = courseDetails[0]['plan-to-study'].replace(/[\[\]"]/g, '');;
+
+            let planToStudy = courseDetails[0]['plan-to-study'].replace(/[\[\]"]/g, '');
+
+            let selectedCountries = planToStudy.split(/\s*,\s*/);
 
             document.getElementById("plan-to-study-edit").value = planToStudy;
-            document.querySelector('.mailnbfcbutton').addEventListener('click', (event) => {
-                sendDocumenttoEmail(event);
-            })
+
+            document.querySelectorAll('input[name="study-location-edit"]').forEach(checkbox => {
+                if (selectedCountries.includes(checkbox.value)) {
+                    checkbox.checked = true;
+                }
+            });
+
+            const otherCheckbox = document.querySelector('#other-checkbox-edit');
+            const addCountryBox = document.querySelector('.add-country-box-edit');
+            const customCountryInput = document.querySelector('#country-edit');
+
+            if (selectedCountries.includes("Other")) {
+                otherCheckbox.checked = true;
+                addCountryBox.style.display = 'block';
+            } else {
+                addCountryBox.style.display = 'none';
+            }
+
+            otherCheckbox.addEventListener('change', () => {
+                if (otherCheckbox.checked) {
+                    addCountryBox.style.display = 'block';
+                } else {
+                    addCountryBox.style.display = 'none';
+                    customCountryInput.value = '';
+                }
+            });
+            document.querySelector('.mailnbfcbutton').addEventListener('click', () => {
+                sendDocumenttoEmail(selectedCountries);
+            });
+
 
 
 
@@ -707,7 +875,7 @@ $others = json_decode($academicDetails[0]->Others, true);
             });
         };
 
-       function sendDocumenttoEmail(event) {
+        function sendDocumenttoEmail(event) {
             console.log(event);
             event.preventDefault();
 
@@ -728,7 +896,7 @@ $others = json_decode($academicDetails[0]->Others, true);
                 console.log("Unique ID:", userId, "Email:", email, "Name:", name);
             } else {
                 console.error("Error: Could not retrieve unique ID, email, or name.");
-                return; // Exit the function if any value is missing
+                return; // Exit zany value is missing
             }
 
             // Prepare data to send in the POST request
@@ -768,8 +936,75 @@ $others = json_decode($academicDetails[0]->Others, true);
             console.log("Sending Data:", sendDocumentsRequiredDetails);
         }
 
+        const endpoints = [
+            { url: '/retrieve-file', selector: ".uploaded-aadhar-name", fileType: "aadhar-card-name" },
+            { url: '/retrieve-file', selector: ".uploaded-pan-name", fileType: "pan-card-name" },
+            { url: '/retrieve-file', selector: ".passport-name-selector", fileType: "passport-name" },
+            { url: '/retrieve-file', selector: ".sslc-marksheet", fileType: "tenth-grade-name" },
+            { url: '/retrieve-file', selector: ".hsc-marksheet", fileType: "twelfth-grade-name" },
+            { url: '/retrieve-file', selector: ".graduation-marksheet", fileType: "graduation-grade-name" },
+            { url: '/retrieve-file', selector: ".sslc-grade", fileType: "secured-tenth-name" },
+            { url: '/retrieve-file', selector: ".hsc-grade", fileType: "secured-twelfth-name" },
+            { url: '/retrieve-file', selector: ".graduation-grade", fileType: "secured-graduation-name" },
+            { url: '/retrieve-file', selector: ".experience-letter", fileType: "work-experience-experience-letter" },
+            { url: '/retrieve-file', selector: ".salary-slip", fileType: "work-experience-monthly-slip" },
+            { url: '/retrieve-file', selector: ".office-id", fileType: "work-experience-office-id" },
+            { url: '/retrieve-file', selector: ".joining-letter", fileType: "work-experience-joining-letter" },
+            { url: '/retrieve-file', selector: ".coborrower-pancard", fileType: "co-pan-card-name" },
+            { url: '/retrieve-file', selector: ".coborrower-aadharcard", fileType: "co-aadhar-card-name" },
+            { url: '/retrieve-file', selector: ".coborrower-addressproof", fileType: "co-addressproof" },
+
+
+        ];
+
+        const initialiseAllViews = () => {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+            const userId = userIdElement ? userIdElement.textContent.trim() : '';
+
+            if (!csrfToken || !userId) {
+                console.error("CSRF token or User ID is missing");
+                return Promise.reject("CSRF token or User ID is missing");
+            }
+
+            const fetchWithUrl = ({ url, selector, fileType }) => {
+                return fetch(url, {
+                    method: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        userId: userId,
+                        fileType: fileType, // Pass the specific file type
+                    }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.fileUrl) {
+                            const fileName = data.fileUrl.split('/').pop();
+                            const element = document.querySelector(selector);
+                            if (element) {
+                                element.textContent = fileName; // Update the element with the file name
+                                console.log(`Fetched ${fileType}:`, data.fileUrl);
+                            } else {
+                                console.log(`Element not found for selector: ${selector}`);
+                            }
+                        } else {
+                            console.error(`No fileUrl returned for ${fileType}`, data);
+                        }
+                    })
+                    .catch(error => {
+                        console.error(`Error fetching ${fileType}:`, error);
+                    });
+            };
+
+            return Promise.all(endpoints.map(fetchWithUrl));
+        };
+
         const triggerEditButton = () => {
-             const disabledInputs = document.querySelectorAll('.studentdashboardprofile-myapplication input[disabled]');
+            const disabledInputs = document.querySelectorAll('.studentdashboardprofile-myapplication input[disabled]');
             disabledInputs.forEach(inputItems => {
                 inputItems.removeAttribute('disabled');
             });
@@ -862,21 +1097,19 @@ $others = json_decode($academicDetails[0]->Others, true);
 
                 });
             }
-        };  
-
-
-        const initialiseEightcolumn=()=>{
+        };
+        const initialiseEightcolumn = () => {
             const section = document.querySelector('.eightcolumn-firstsection');
 
             section.addEventListener('click', function () {
                 if (section.style.height === '') {
-                    section.style.height = 'fit-content'; 
+                    section.style.height = 'fit-content';
                 } else {
                     section.style.height = '';
                 }
             });
         }
-        const initialiseSeventhcolumn =()=>{
+        const initialiseSeventhcolumn = () => {
             const section = document.querySelector('.seventhcolum-firstsection');
 
             section.addEventListener('click', function () {
@@ -888,7 +1121,7 @@ $others = json_decode($academicDetails[0]->Others, true);
             });
 
         }
-        const initialiseSeventhAdditionalColumn =()=>{
+        const initialiseSeventhAdditionalColumn = () => {
             const section = document.querySelector('.seventhcolumn-additional-firstcolumn');
 
             section.addEventListener('click', function () {
@@ -900,7 +1133,7 @@ $others = json_decode($academicDetails[0]->Others, true);
             });
 
         }
-         const initialiseNinthcolumn=()=>{
+        const initialiseNinthcolumn = () => {
             const section = document.querySelector('.ninthcolumn-firstsection');
 
             section.addEventListener('click', function () {
@@ -912,10 +1145,9 @@ $others = json_decode($academicDetails[0]->Others, true);
             });
 
         }
-   
-        const initialiseTenthcolumn=()=>{
+        const initialiseTenthcolumn = () => {
             const section = document.querySelector(".tenthcolumn-firstsection");
-             section.addEventListener('click', function () {
+            section.addEventListener('click', function () {
                 if (section.style.height === '') {
                     section.style.height = 'fit-content';
                 } else {
@@ -924,242 +1156,238 @@ $others = json_decode($academicDetails[0]->Others, true);
             });
 
         }
-   
-        const initialisePanCardView = () => {
-            
+        // const initialisePanCardView = () => {
 
+        //     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        //     if (!csrfToken) {
+        //         console.error('CSRF token not found');
+        //         return;
+        //     }
+        //     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+        //     const userId = userIdElement ? userIdElement.textContent : '';
 
-            if (!csrfToken) {
-                console.error('CSRF token not found');
-                return;
-            }
-            const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-            const userId = userIdElement ? userIdElement.textContent : '';
-
-            fetch('/retrieve-pan-card', {
-                method: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ userId: userId })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.fileUrl) {
-                        console.log("Pan Card URL:", data);
-                        const PancardName = (data.fileUrl).split('/').pop();
-                        document.querySelector(".uploaded-pan-name").textContent = PancardName;
+        //     fetch('/retrieve-pan-card', {
+        //         method: "POST",
+        //         headers: {
+        //             'X-CSRF-TOKEN': csrfToken,
+        //             'Accept': 'application/json',
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({ userId: userId })
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             if (data.fileUrl) {
+        //                 console.log("Pan Card URL:", data);
+        //                 const PancardName = (data.fileUrl).split('/').pop();
+        //                 document.querySelector(".uploaded-pan-name").textContent = PancardName;
 
 
 
-                    } else {
-                        console.error("Error: No URL returned from the server", data);
-                    }
-                })
-                .catch(error => {
-                    console.error("Error retrieving profile picture", error);
-                });
-         }
+        //             } else {
+        //                 console.error("Error: No URL returned from the server", data);
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error("Error retrieving profile picture", error);
+        //         });
+        //  }
 
-        const initialisePassportView = () => {
-
-
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-            if (!csrfToken) {
-                console.error('CSRF token not found');
-                return;
-            }
-            const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-            const userId = userIdElement ? userIdElement.textContent : '';
-
-            fetch('/retrieve-passport', {
-                method: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ userId: userId })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.fileUrl) {
-                        console.log("Passport URL:", data);
-                        const passPortName = (data.fileUrl).split('/').pop();
-                        document.querySelector(".passport-name").textContent = passPortName;
+        // const initialisePassportView = () => {
 
 
-                    } else {
-                        console.error("Error: No URL returned from the server", data);
-                    }
-                })
-                .catch(error => {
-                    console.error("Error retrieving passport url", error);
-                });
-        }
+        //     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        const initialisesslcView = () => {
+        //     if (!csrfToken) {
+        //         console.error('CSRF token not found');
+        //         return;
+        //     }
+        //     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+        //     const userId = userIdElement ? userIdElement.textContent : '';
 
-
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-            if (!csrfToken) {
-                console.error('CSRF token not found');
-                return;
-            }
-            const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-            const userId = userIdElement ? userIdElement.textContent : '';
-
-            fetch('/retrieve-sslcmarksheet', {
-                method: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ userId: userId })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.fileUrl) {
-                        console.log("sslc-marksheet URL:", data);
-                        const sslcMarksheetName = (data.fileUrl).split('/').pop();
-                        document.querySelector(".sslc-marksheet").textContent = sslcMarksheetName;
+        //     fetch('/retrieve-passport', {
+        //         method: "POST",
+        //         headers: {
+        //             'X-CSRF-TOKEN': csrfToken,
+        //             'Accept': 'application/json',
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({ userId: userId })
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             if (data.fileUrl) {
+        //                 console.log("Passport URL:", data);
+        //                 const passPortName = (data.fileUrl).split('/').pop();
+        //                 document.querySelector(".passport-name").textContent = passPortName;
 
 
-                    } else {
-                        console.error("Error: No URL returned from the server", data);
-                    }
-                })
-                .catch(error => {
-                    console.error("Error retrieving sslcmarksheet url", error);
-                });
-        }
+        //             } else {
+        //                 console.error("Error: No URL returned from the server", data);
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error("Error retrieving passport url", error);
+        //         });
+        // }
 
-        const initialisehscView = () => {
-
-
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-            if (!csrfToken) {
-                console.error('CSRF token not found');
-                return;
-            }
-            const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-            const userId = userIdElement ? userIdElement.textContent : '';
-
-            fetch('/retrieve-hscmarksheet', {
-                method: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ userId: userId })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.fileUrl) {
-                        console.log("hsc-marksheet URL:", data);
-                        const hscMarksheetName = (data.fileUrl).split('/').pop();
-                        document.querySelector(".hsc-marksheet").textContent = hscMarksheetName;
+        // const initialisesslcView = () => {
 
 
-                    } else {
-                        console.error("Error: No URL returned from the server", data);
-                    }
-                })
-                .catch(error => {
-                    console.error("Error retrieving hsc marksheet url", error);
-                });
-        }
+        //     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        const initialisegraduationView = () => {
+        //     if (!csrfToken) {
+        //         console.error('CSRF token not found');
+        //         return;
+        //     }
+        //     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+        //     const userId = userIdElement ? userIdElement.textContent : '';
 
-
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-            if (!csrfToken) {
-                console.error('CSRF token not found');
-                return;
-            }
-            const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-            const userId = userIdElement ? userIdElement.textContent : '';
-
-            fetch('/retrieve-graduationmarksheet', {
-                method: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ userId: userId })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.fileUrl) {
-                        console.log("graduation-marksheet URL:", data);
-                        const graduationMarksheetName = (data.fileUrl).split('/').pop();
-                        document.querySelector(".graduation-marksheet").textContent = graduationMarksheetName;
+        //     fetch('/retrieve-sslcmarksheet', {
+        //         method: "POST",
+        //         headers: {
+        //             'X-CSRF-TOKEN': csrfToken,
+        //             'Accept': 'application/json',
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({ userId: userId })
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             if (data.fileUrl) {
+        //                 console.log("sslc-marksheet URL:", data);
+        //                 const sslcMarksheetName = (data.fileUrl).split('/').pop();
+        //                 document.querySelector(".sslc-marksheet").textContent = sslcMarksheetName;
 
 
-                    } else {
-                        console.error("Error: No URL returned from the server", data);
-                    }
-                })
-                .catch(error => {
-                    console.error("Error retrieving graduation marksheet url", error);
-                });
-        }
+        //             } else {
+        //                 console.error("Error: No URL returned from the server", data);
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error("Error retrieving sslcmarksheet url", error);
+        //         });
+        // }
+
+        // const initialisehscView = () => {
+
+
+        //     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        //     if (!csrfToken) {
+        //         console.error('CSRF token not found');
+        //         return;
+        //     }
+        //     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+        //     const userId = userIdElement ? userIdElement.textContent : '';
+
+        //     fetch('/retrieve-hscmarksheet', {
+        //         method: "POST",
+        //         headers: {
+        //             'X-CSRF-TOKEN': csrfToken,
+        //             'Accept': 'application/json',
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({ userId: userId })
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             if (data.fileUrl) {
+        //                 console.log("hsc-marksheet URL:", data);
+        //                 const hscMarksheetName = (data.fileUrl).split('/').pop();
+        //                 document.querySelector(".hsc-marksheet").textContent = hscMarksheetName;
+
+
+        //             } else {
+        //                 console.error("Error: No URL returned from the server", data);
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error("Error retrieving hsc marksheet url", error);
+        //         });
+        // }
+
+        // const initialisegraduationView = () => {
+
+
+        //     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        //     if (!csrfToken) {
+        //         console.error('CSRF token not found');
+        //         return;
+        //     }
+        //     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+        //     const userId = userIdElement ? userIdElement.textContent : '';
+
+        //     fetch('/retrieve-graduationmarksheet', {
+        //         method: "POST",
+        //         headers: {
+        //             'X-CSRF-TOKEN': csrfToken,
+        //             'Accept': 'application/json',
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({ userId: userId })
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             if (data.fileUrl) {
+        //                 console.log("graduation-marksheet URL:", data);
+        //                 const graduationMarksheetName = (data.fileUrl).split('/').pop();
+        //                 document.querySelector(".graduation-marksheet").textContent = graduationMarksheetName;
+
+
+        //             } else {
+        //                 console.error("Error: No URL returned from the server", data);
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error("Error retrieving graduation marksheet url", error);
+        //         });
+        // }
 
 
 
 
 
 
-        const initialiseAadharView = () => {
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        // const initialiseAadharView = () => {
+        //     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-            if (!csrfToken) {
-                console.error('CSRF token not found');
-                return;
-            }
-            const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-            const userId = userIdElement ? userIdElement.textContent : '';
+        //     if (!csrfToken) {
+        //         console.error('CSRF token not found');
+        //         return;
+        //     }
+        //     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+        //     const userId = userIdElement ? userIdElement.textContent : '';
 
-            fetch('/retrieve-aadhar-card', {
-                method: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ userId: userId })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.fileUrl) {
-                        console.log("Aadhar Card URL:", data);
-                        const aadharName = (data.fileUrl).split('/').pop();
-                        document.querySelector(".uploaded-aadhar-name").textContent = aadharName;
+        //     fetch('/retrieve-aadhar-card', {
+        //         method: "POST",
+        //         headers: {
+        //             'X-CSRF-TOKEN': csrfToken,
+        //             'Accept': 'application/json',
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({ userId: userId })
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             if (data.fileUrl) {
+        //                 console.log("Aadhar Card URL:", data);
+        //                 const aadharName = (data.fileUrl).split('/').pop();
+        //                 document.querySelector(".uploaded-aadhar-name").textContent = aadharName;
 
 
-                    } else {
-                        console.error("Error: No URL returned from the server", data);
-                    }
-                })
-                .catch(error => {
-                    console.error("Error retrieving profile picture", error);
-                });
+        //             } else {
+        //                 console.error("Error: No URL returned from the server", data);
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error("Error retrieving profile picture", error);
+        //         });
 
-        }
+        // }
         const initialiseProfileView = () => {
-            var profileImgPath = '<?php echo $profileImgPath; ?>';
 
             const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
             const userId = userIdElement ? userIdElement.textContent : '';
@@ -1240,7 +1468,7 @@ $others = json_decode($academicDetails[0]->Others, true);
                 card.querySelector('#inputfilecontainer-real').addEventListener('change', function (event) {
                     const file = event.target.files[0];
                     if (file) {
-                        uploadedFile = file;  
+                        uploadedFile = file;
                         card.querySelector('.inputfilecontainer p').textContent = file.name;
                         const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
                         const filesizeviewer = card.querySelector('.document-status');
@@ -1251,7 +1479,7 @@ $others = json_decode($academicDetails[0]->Others, true);
                 card.querySelector('.fa-eye').addEventListener('click', function (event) {
                     event.stopPropagation();
 
-                    
+
                 });
             });
         };
@@ -1269,7 +1497,7 @@ $others = json_decode($academicDetails[0]->Others, true);
                 card.querySelector('#inputfilecontainer-real-marksheet').addEventListener('change', function (event) {
                     const file = event.target.files[0];
                     if (file) {
-                        uploadedFile = file;  // Store the file for later preview
+                        uploadedFile = file;
                         card.querySelector('.inputfilecontainer-marksheet p').textContent = file.name;
                         const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
                         const filesizeviewer = card.querySelector('.document-status');
@@ -1279,13 +1507,13 @@ $others = json_decode($academicDetails[0]->Others, true);
 
                 card.querySelector('.fa-eye').addEventListener('click', function () {
                     event.stopPropagation();
-                    
+
                 });
             });
         };
 
 
-      function toggleOtherDegreeInput(event) {
+        function toggleOtherDegreeInput(event) {
             const otherDegreeInput = document.getElementById('otherDegreeInput');
 
             if (event && event.target && event.target.value) {
@@ -1364,6 +1592,7 @@ $others = json_decode($academicDetails[0]->Others, true);
         };
 
 
+
         const triggerSave = (event) => {
             console.log(event);
 
@@ -1384,7 +1613,7 @@ $others = json_decode($academicDetails[0]->Others, true);
 
 
 
-       const saveChangesFunctionality = () => {
+        const saveChangesFunctionality = () => {
             let isEditing = false;
             const saveChangesButton = document.querySelector(".personalinfo-firstrow button");
             const savedMsg = document.querySelector(".studentdashboardprofile-myapplication .myapplication-firstcolumn .personalinfo-firstrow .saved-msg");
@@ -1396,7 +1625,7 @@ $others = json_decode($academicDetails[0]->Others, true);
             const planToStudy = document.getElementById("plan-to-study-edit");
 
             const toggleSaveState = () => {
-                 isEditing = true; 
+                isEditing = true;
 
                 saveChangesButton.textContent = 'Save';
                 saveChangesButton.style.backgroundColor = "rgba(111, 37, 206, 1)";
@@ -1414,18 +1643,11 @@ $others = json_decode($academicDetails[0]->Others, true);
                 saveChangesButton.style.color = "#260254";
 
                 saveChangesButton.addEventListener('click', (event) => {
-                    // Toggle the editing state
+
                     isEditing = !isEditing;
 
                     if (isEditing) {
-                        saveChangesButton.textContent = 'Save';
-                        saveChangesButton.style.backgroundColor = "rgba(111, 37, 206, 1)";
-                        saveChangesButton.style.color = "#fff";
-
-                        personalDivContainerEdit.style.display = "flex";
-                        personalDivContainer.style.display = "none";
-                        academicsMarksDivEdit.style.display = "flex";
-                        academicsMarksDiv.style.display = "none";
+                        toggleSaveState(); // Call toggleSaveState function when entering edit mode
                     } else {
                         saveChangesButton.textContent = 'Edit';
                         saveChangesButton.style.backgroundColor = "transparent";
@@ -1516,9 +1738,9 @@ $others = json_decode($academicDetails[0]->Others, true);
                 });
             }
 
-             const degreeRadioButtons = document.querySelectorAll('input[name="education-level"]');
+            const degreeRadioButtons = document.querySelectorAll('input[name="education-level"]');
             degreeRadioButtons.forEach(button => {
-                button.addEventListener('change', toggleSaveState);
+                button.addEventListener('change', toggleSaveState); // toggleSaveState is now defined
             });
         };
 
