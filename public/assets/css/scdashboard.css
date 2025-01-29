@@ -1,38 +1,46 @@
 .scdashboard-container {
     display: flex;
     gap: 4.6rem;
-    width: fit-content;
+    width: 100%;
+    max-width: 100%;
+    width: clamp(65%, 100%, 100%);
+    margin: 5% 15% 0% 25.5%;
+
 }
 
 .scdashboard-trackprogress {
-    margin-top: 3rem;
     padding: 2rem 25px 17px 2rem;
-
-
-    width: 100%;
     max-width: 100%;
-    box-shadow: 0px 0px 20px 0px #1A02390D;
+    width: 100%;
+    box-shadow: 0px 0px 20px 0px rgba(26, 2, 57, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 3.4%;
 }
 
 .trackprogress-firstsection {
     display: flex;
 
     justify-content: space-between;
+    max-width: 100%;
+    align-items: center;
 }
 
 .trackprogress-firstsection h1 {
     color: #E98635;
-
+    font-family: Inter;
+    font-size: clamp(22px, 5vw, 28px);
+    line-height: clamp(26px, 6vw, 33px);
+    font-weight: 700;
 
 }
 
-.scdashboard-trackprogress {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
 
-.trackprogress-firstsection button {
+
+.trackprogress-firstsection button,
+#mobgeneratedbutton {
+
     width: 224px;
     height: 35px;
     padding: 16px 22px;
@@ -46,9 +54,12 @@
     align-items: center;
 }
 
+
 .trackprogress-secondsection {
     display: flex;
     gap: 24px;
+    max-width: 100%;
+    width: 100%;
 
 
 }
@@ -58,7 +69,8 @@
     flex-direction: column;
     gap: 24px;
     max-width: 100%;
-    width: 100%;
+    width: 72vw;
+
 }
 
 .trackprogress-month,
@@ -67,7 +79,7 @@
 .trackprogress-totalamount {
     display: flex;
     flex-direction: column;
-    width: 223px;
+    width: 100%;
     height: 135px;
 
     border: 1px solid #E5E5E5;
@@ -102,10 +114,10 @@
     justify-content: space-between;
 }
 
-.trackprogress-thirdsection button {
+.trackprogress-thirdsection button,
+#mobgeneratedreferralcode {
     width: fit-content;
     height: 52px;
-
     padding: 14px 20px;
     gap: 16px;
     border-radius: 4px;
@@ -123,11 +135,19 @@
 
 }
 
+#mobgeneratedbutton,
+#mobgeneratedreferralcode,
+.firstsection-lists .studenteacheditbutton {
+    display: none;
+}
+
 .scdashboard-studentapplication {
     max-width: 100%;
     width: 100%;
-    box-shadow: 0px 0px 20px 0px #1A02390D;margin-top: 3rem;
-        padding: 2rem 25px 17px 2rem;
+    box-shadow: 0px 0px 20px 0px #1A02390D;
+    margin-top: 3rem;
+    padding: 2rem 25px 17px 2rem;
+
 }
 
 .studentapplication-header {
@@ -140,9 +160,9 @@
 
 .studentapplication-header h1 {
     font-family: Poppins;
-    font-size: 30px;
+    font-size: 18px;
     font-weight: 600;
-    line-height: 45px;
+    line-height: 21px;
     text-align: center;
     color: #E98635;
 
@@ -189,12 +209,16 @@
 .studentapplication-lists {
     display: flex;
     flex-direction: column;
-}
-
-
-.studentapplication-lists {
     max-width: 100%;
+    width: 100%;
+    height: 140px;
+    border: 1px solid #E5E5E5;
+    margin-top: 1.2rem;
+    border-radius: 0.5rem;
 }
+
+
+
 
 .firstsection-lists {
     display: flex;
@@ -203,47 +227,284 @@
     align-items: center;
     justify-content: space-between;
 }
-.individualapplication-list{
-    padding: 16px;
+
+.individualapplication-list {
+    padding: 1rem 0.5rem;
     border-bottom: 1px solid #E5E5E5;
-    margin-top: 1.2rem;
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    width: 98%;
+    margin: 0 1%;
+
 
 }
-.firstsection-lists h1{
+
+.firstsection-lists h1 {
     font-family: Poppins;
-        font-size: 16px;
-        font-weight: 600;
-        line-height: 18px;
-        letter-spacing: -0.01em;
-        text-align: left;
-        color:#5D5C5C;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 18px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: #5D5C5C;
+    margin: 0;
 }
 
-.firstsection-lists button{
+.firstsection-lists button {
+    display: none;
     width: 71px;
-        height:35px;
-        padding: 1rem 2rem;
-        gap: 8px;
-        border-radius: 4px ;
-        border: 1px solid #6F25CE;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: transparent;
-        color: #6F25CE;
+    height: 35px;
+    padding: 1rem 2rem;
+    gap: 8px;
+    border-radius: 4px;
+    border: 1px solid #6F25CE;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    color: #6F25CE;
 
 }
-.application-buttoncontainer .expand-arrow{
+
+.application-buttoncontainer .expand-arrow {
     background-color: #6F25CE;
-    color:#fff;
-    width:38px;
-        height: 35px;
-        padding: 16px 7px;
-        gap: 8px;
-        border-radius: 4px
+    color: #fff;
+    width: 38px;
+    height: 35px;
+    padding: 16px 7px;
+    gap: 8px;
+    border-radius: 4px
 }
 
-.firstsection-lists .application-buttoncontainer{
+.firstsection-lists .application-buttoncontainer {
     display: flex;
     gap: 0.8rem;
+}
+
+
+.scdashboard-parentcontainer {
+    display: flex;
+}
+
+.individualstudentapplication-status {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+    padding: 1rem;
+}
+
+.individualstudentapplication-status li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.scdashboard-nbfcstatus-pending {
+    margin-left: 20px;
+}
+
+.scdashboard-nbfcnamecontainer p,
+.scdashboard-nbfcstatus-pending p,
+.scdashboard-nbfcstatus-pending span,
+.scdashboard-missingdocumentsstatus p,
+.scdashboard-missingdocumentsstatus span {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    color: #909090;
+}
+
+.scdashboard-missingdocumentsstatus p {
+    color: #E62E2E;
+}
+
+.scdashboard-nbfcstatus-pending span {
+    color: #FA7B15;
+    background-color: #FFE3CACC;
+    border-radius: 50px;
+    width: 85px;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+.studentapplication-header .studentadditbutton {
+    display: none;
+    width: 45px;
+    height: 45px;
+    padding: 1rem 1.3rem;
+    gap: 8px;
+    border-radius: 4px;
+    opacity: 0px;
+    background-color: #FA7B15;
+    box-shadow: 0px 0px 10px 0px #92889B21;
+    font-size: 1.4rem;
+    color: #FFFFFF;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+@media(max-width:1200px) {
+
+    .scdashboard-container {
+        margin: 5% 0% 0% 20.5%;
+    }
+
+
+}
+
+@media (max-width:1024px) {
+    .scdashboard-container {
+        margin: 5% 12% 0% 16.5%;
+
+    }
+
+
+
+}
+
+@media(max-width:980px) {
+    .scdashboard-container {
+        margin: 5% 0% 0% 16.5%;
+        width: 100%;
+        max-width: 100%;
+
+
+    }
+
+    .individualstudentapplication-status {
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .scdashboard-trackprogress {
+        padding: 3.5rem 0.5rem 17px 2rem;
+    }
+
+    .scdashboard-dashboardcontent {
+        width: 100%;
+
+    }
+
+    .trackprogress-secondsection {
+        display: grid;
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr);
+        justify-items: center;
+        padding: 1rem;
+    }
+
+    .scdashboard-studentapplication {
+        padding: 1rem;
+    }
+
+    .trackprogress-thirdsection {
+        justify-content: space-around;
+    }
+
+    .trackprogress-firstsection {
+        justify-content: space-around;
+        align-items: flex-start;
+    }
+
+    .studentapplication-header {
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .studentapplication-header h1 {
+        margin: 0;
+    }
+
+}
+
+
+@media(max-width:720px) {
+    .scdashboard-nbfcstatus-pending {
+        margin-left: 0;
+    }
+
+}
+
+@media(max-width:660px) {
+    .scdashboard-container {
+        margin: 1.3rem;
+        padding-top: 1.3rem;
+        width: 100%;
+    }
+
+    .scdashboard-trackprogress {
+        margin: 0;
+    }
+
+ 
+
+    .trackprogress-thirdsection {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    .trackprogress-thirdsection button {
+        width: 100%;
+        max-width: 100%;
+
+
+    }
+
+    .individualstudentapplication-status {
+        flex-direction: column;
+        position: relative;
+    }
+
+    .studentapplication-lists {
+        height: fit-content;
+    }
+
+    .scdashboard-nbfcstatus-pending {
+        position: absolute;
+        bottom: 10%;
+        right: 4%;
+    }
+
+    .scdashboard-nbfcstatus-pending p,
+    .studentapplication-header .application-buttoncontainer,
+    .firstsection-lists .application-buttoncontainer,
+    .trackprogress-firstsection button,
+    #pcviewgeneratedreferralcode {
+        display: none;
+    }
+
+    .studentapplication-header .studentadditbutton,
+    #mobgeneratedreferralcode,
+    .firstsection-lists .studenteacheditbutton {
+        display: flex;
+
+    }
+
+    #mobgeneratedbutton {
+        display: flex;
+        max-width: 100%;
+        width: 100%;
+        height: 45px;
+    }
+
+    .scdashboard-trackprogress {
+        padding: 0;
+        padding-top: 3.5rem;
+    }
+
+    .trackprogress-secondsection {
+        width: 100%;
+    }
+
+
+
 }
