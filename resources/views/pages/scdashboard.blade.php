@@ -339,7 +339,6 @@
                         style="display: {{ $page == 0 ? 'block' : 'none' }};">
                         @foreach ($students as $student)
                             <div class="studentapplicationstatusreports-inscdashboard">
-                                <!-- <i class="fa-solid fa-pen-to-square"></i> -->
                                 <div class="reportsindashboard-firstrow">
                                     <div class="reportsindashboard-leftcontentinfirstrow">
                                         <p>Student name</p>
@@ -412,10 +411,29 @@
             letFirstPageActive();
 
 
+        })
 
+        window.addEventListener('resize', function () {
+            const triggeredSideBar = document.querySelector(".commonsidebar-togglesidebar");
+            const img = document.querySelector("#scuser-dashboard-menu img");
+
+
+            if (window.innerWidth < 640) {
+                 if (img.src.includes("menu.png")) {
+                    img.src = '{{ asset('assets/images/Icons/close_icon.png') }}';
+                }
+
+            } else if (window.innerWidth > 640) {
+                triggeredSideBar.style.backgroundColor = '';
+                triggeredSideBar.style.display = "flex";
+
+
+            }
         });
+
+
         const letFirstPageActive = () => {
-            const i = {{ $i }};  // This should be dynamically assigned based on your application logic
+            const i = {{ $i }};
             const button = document.querySelector(`#page-id[data-page="${i}"]`);
 
             if (i === 1) {
@@ -495,9 +513,19 @@
             const trackprogressContainer = document.querySelector(".scdashboard-container");
             const scinboxContainer = document.querySelector(".scdashboard-inboxcontent");
             const scapplicationStatus = document.querySelector(".scdashboard-applicationstatus");
+            const triggeredSideBar = document.querySelector(".commonsidebar-togglesidebar");
+            const img = document.querySelector("#scuser-dashboard-menu img");
 
             scsidebaritems.forEach((item, index) => {
                 item.addEventListener("click", () => {
+
+                    if (window.innerWidth <= 640) {
+                        triggeredSideBar.style.display = "none";
+                        if (img.src.includes("close_icon.png")) {
+                            img.src = '{{ asset('assets/images/Icons/menu.png') }}';
+                        }
+
+                    }
                     scsidebaritems.forEach(i => i.classList.remove('active'));
                     item.classList.add('active');
                     if (index === 0) {
@@ -521,7 +549,6 @@
 
         let currentValue = 1;
 
-        // Funct    ion to handle page navigation
         function pageTrigger(event) {
             const pageNumber = event.target.getAttribute("data-page");
             currentValue = parseInt(pageNumber);
@@ -530,33 +557,28 @@
                 page.style.display = "none";
             });
 
-            // Show the selected page
             document.querySelector(`.student-page[data-page="${currentValue}"]`).style.display = "block";
 
-            // Update active class for pagination buttons
             document.querySelectorAll(".page-class").forEach(button => {
                 button.classList.remove("active");
             });
             event.target.classList.add("active");
         }
 
-        // Function to go to the previous page
         function prevdetail() {
             if (currentValue > 1) {
                 currentValue--;
                 document.querySelector(`.student-page[data-page="${currentValue}"]`).style.display = "block";
                 document.querySelector(`.student-page[data-page="${currentValue + 1}"]`).style.display = "none";
 
-                // Update active class for pagination buttons
                 document.querySelectorAll(".page-class").forEach(button => {
                     button.classList.remove("active");
-                 });
-                
+                });
+
                 document.querySelector(`.page-class[data-page="${currentValue}"]`).classList.add("active");
             }
         }
 
-        // Function to go to the next page
         function nextdetail() {
             const totalPages = document.querySelectorAll(".student-page").length;
             if (currentValue < totalPages) {
@@ -564,7 +586,6 @@
                 document.querySelector(`.student-page[data-page="${currentValue}"]`).style.display = "block";
                 document.querySelector(`.student-page[data-page="${currentValue - 1}"]`).style.display = "none";
 
-                // Update active class for pagination buttons
                 document.querySelectorAll(".page-class").forEach(button => {
                     button.classList.remove("active");
                 });

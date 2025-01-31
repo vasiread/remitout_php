@@ -1,7 +1,7 @@
 /* Navbar */
 
 .nav {
-   /* position: absolute;
+    /* position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -30,8 +30,8 @@
     background-color: #fff;
     color: rgba(38, 2, 84, 1);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    position:fixed;
-    top:0;
+    position: fixed;
+    top: 0;
     z-index: 50;
     height: 85px;
 }
@@ -135,6 +135,12 @@
     border-radius: 2px;
 }
 
+.menubarcontainer-profile img {
+    display: none;
+ }
+.menubarcontainer-profile{
+    cursor: pointer;
+}
 /* Mobile and Tablet View */
 /* @media screen and (max-width: 768px) {
     .nav-container {
@@ -284,4 +290,19 @@
   .nav-links {
     gap: 20px;
   } */
+}
+
+@media screen and (max-width:640px) {
+    .nav-searchnotificationbars {
+        display: flex;
+        gap: 0.85rem;
+
+    }
+
+    .nav-container.fullopacity #profile-logo {
+        margin-left: 1rem;
+        margin-top: 0.5rem;
+        width: 95px;
+        height: 2rem;
+    }
 }
