@@ -351,12 +351,673 @@
     cursor: pointer;
 }
 
+/* -----------------------------SC profile----------------------------------- */
+.scdashboard-inboxcontent {
+    margin: 9% 1% 0% 18.5%;
+    width: fit-content;
+    /* display: flex; */
+    display: none;
+    max-width: 80%;
+    width: 100%;
+
+}
+
+.scmember-profilecontainer {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    max-width: 27%;
+    width: 100%;
+    margin-left: 0.5rem;
+    padding: 1.5rem;
+    background-color: #FFFFFF;
+    border-radius: 0.6rem;
+    box-shadow: 0px 8px 23px 0px #1A023908;
+
+
+
+}
+
+.scmember-profilecontainer #studentcounsellor-profile {
+    width: 100%;
+    /* height: 100%; */
+    height: 122px;
+    border-radius: 6px;
+    object-fit: cover;
+
+}
+
+.scmember-rowfirst {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.scmember-rowfirst h1 {
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 27px;
+
+}
+
+.scmember-rowfirst button {
+    display: flex;
+    width: 72px;
+    height: 32px;
+    border-radius: 4px;
+    background: transparent;
+    border: 1px solid #E2E2E2;
+    padding: 1rem 2rem;
+    justify-content: center;
+    align-items: center;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.8px;
+    color: #6F25CEDE;
+
+}
+
+#screferral-id-fromprofile {
+    font-family: Poppins;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 15.6px;
+    color: #212121;
+}
+
+#screferral-dob-fromprofile {
+    display: flex;
+    font-family: Poppins;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 15.6px;
+    color: #21212180;
+    gap: 20px;
+    margin-top: 1rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #E5E5E5
+}
+
+#screferral-dob-fromprofile i {
+    font-size: 0.8rem;
+}
+
+.scmember_personalinfo {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+    gap: 11px;
+
+
+}
+
+.scmember_personalinfo p {
+    font-family: Poppins;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 15.6px;
+    color: #21212180;
+}
+
+.scmember_personalinfo li {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+
+}
+
+.scmember_personalinfo li img {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+
+/* --------------------------sc dashboard performance------------------------------------------ */
+.scdashboard-performancecontainer {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1.8rem;
+    max-width: 66.52%;
+    width: 100%;
+    height: fit-content;
+    box-shadow: 0px 8px 20px 0px #1A023908;
+
+    padding: 20px 24px;
+    gap: 30px;
+    border-radius: 8px;
+
+
+
+
+}
+
+.performancecontainer-firstrow {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.2rem 0;
+}
+
+.performancecontainer-firstrow h3 {
+    font-family: Poppins;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 26.4px;
+    color: #E98635;
+}
+
+.performancecontainer-firstrow button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #6F25CE;
+    width: 70px;
+    height: 35px;
+    padding: 16px 22px;
+    gap: 8px;
+    border-radius: 4px;
+    box-shadow: 0px 0px 10px 0px #92889B21;
+    background: transparent;
+
+}
+
+.scdashboard-individual-performance {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    max-width: 100%;
+    width: 100%;
+    gap: 1.35rem;
+
+}
+
+.scdashboard-individual-performance li {
+    max-width: 100%;
+    width: 100%;
+    height: 50px;
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 13px;
+    background-color: transparent;
+    border: 1px solid #E2E2E2;
+
+
+
+
+}
+
+.scdashboard-individual-performance li p {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    color: #909090;
+
+}
+
+.scdashboard-individual-performance li span {
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 21.78px;
+    color: #E98635;
+
+}
+
+.scdashboard-queryraisedcontainer {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+
+}
+
+.queryraisedcontainer-firstrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 14px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #E5E5E5
+}
+
+.queryraisedcontainer-firstrow #queryraised-header {
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 27px;
+    color: #000;
+}
+
+.queryraisedcontainer-rightcontent {
+    display: flex;
+    gap: 20px;
+
+
+}
+
+.queryraisedcontainer-rightcontent #sort-by {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    width: 104px;
+    height: 38px;
+    padding: 10px 13px;
+    gap: 10px;
+    border-radius: 4px;
+    border: 1px solid #E2E2E2;
+}
+
+#sort-by p {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    color: #909090;
+}
+
+
+
+.queryraisedcontainer-rightcontent #raised-query {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    width: 129px;
+    height: 35px;
+    gap: 8px;
+    border-radius: 4px;
+    border: 1px solid #6F25CE;
+    box-shadow: 0px 0px 10px 0px #92889B21;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 12.8px;
+    color: #6F25CE;
+
+}
+
+
+.groupofraisedquestion-scdashboard {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+}
+
+
+.individual-raisedquestions {
+    display: flex;
+    padding: 1rem 0;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #E5E5E5
+}
+
+.individual-raisedquestions #queries-row {
+    width: 60%;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    color: #909090;
+
+}
+
+.individual-raisedquestions #query-raisedbyrow {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    color: #909090;
+    /* background-color: red; */
+    margin-right: 3rem;
+}
+
+.firstrowapplication-rightsidecontent #mobwidthdownloadbutton {
+    width: 45px;
+    height: 45px;
+    padding: 16px 20px;
+    gap: 8px;
+    border-radius: 4px;
+    border: 1px solid #FA7B15;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+}
+
+/* ----------------------------------------------Application status---------------------------------------------------------- */
+.scdashboard-applicationstatus {
+    display: none;
+    padding: 20px 24px;
+    box-shadow: 0px 0px 20px 0px #1A02390D;
+    max-width: 77%;
+    width: 100%;
+    gap: 20px;
+    flex-direction: column;
+    margin: 10% 1% 0% 25%;
+
+
+}
+
+.studentapplicationstatusreports-inscdashboard {
+    display: none;
+
+}
+
+.studentapplicationstatusreports-inscdashboard {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #E5E5E5;
+    color: #fff;
+    margin-bottom: 12px;
+
+
+
+}
+
+.scdashboard-applicationstatus .scapplicationstatus-firstrow {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+
+
+}
+
+.firstrowapplication-rightsidecontent {
+    display: flex;
+    gap: 20px;
+
+}
+
+.scdashboard-applicationstatus .scapplicationstatus-firstrow h1 {
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 21.78px;
+    color: #E98635;
+}
+
+.scdashboard-applicationstatus .scapplicationstatus-firstrow #applicationstatus-sortby {
+    width: 106px;
+    height: 34px;
+    padding: 8px 10px;
+    gap: 10px;
+    border-radius: 4px;
+    border: 1px solid #5252523D;
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    color: #5D5C5C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+
+
+}
+
+.scdashboard-applicationstatus .scapplicationstatus-firstrow #sc-new-application-generate {
+    width: fit-content;
+    height: 35px;
+    padding: 16px 22px;
+    gap: 8px;
+    border-radius: 4px;
+    background-color: #6F25CE;
+    border: none;
+    box-shadow: 0px 0px 10px 0px #92889B21;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.8px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.application-buttoncontainer .reportsindashboard-buttoncontainer {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+}
+
+.reportsindashboard-firstrow {
+    display: flex;
+    margin: 1rem 0;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.reportsindashboard-buttoncontainer {
+    display: flex;
+    gap: 10px;
+}
+
+.reportsindashboard-leftcontentinfirstrow {
+    display: flex;
+    gap: 5.6rem;
+
+}
+
+.reportsindashboard-leftcontentinfirstrow p {
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 18px;
+    color: #5D5C5C;
+
+}
+
+.reportsindashboard-leftcontentinfirstrow span {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    color: #000000;
+}
+
+.reportsproposal-individualdatalists span {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+
+    color: #909090;
+    background-color: #F0F0F0;
+    padding: 7px;
+    border-radius: 50px;
+    margin-left: 5px;
+    max-width: 95px;
+    width: 100%;
+    height: 2rem;
+
+
+}
+
+.reportsindashboard-secondrow {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    gap: 5%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #E5E5E5;
+
+}
+
+.reportsindashboard-secondrow p {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    color: #909090;
+}
+
+.reportsproposal-individualdatalists p {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    color: #909090;
+}
+
+#reportsindashboard-firstrow-view,
+#reportsindashboard-firstrow-edit {
+    width: 71px;
+    height: 35px;
+    padding: 1rem 2rem;
+    gap: 8px;
+    border-radius: 4px;
+    border: 1px solid #6F25CE;
+    box-shadow: 0px 0px 10px 0px #92889B21;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.8px;
+    color: #6F25CE;
+}
+
+.expand-arrow-reportsindashboard {
+    width: 38px;
+    height: 35px;
+    padding: 16px 7px;
+    gap: 8px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #6F25CE;
+    box-shadow: 0px 0px 10px 0px #92889B21;
+    border: none;
+
+}
+
+.reportsproposal-datalists {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-top: 1.3rem;
+    padding-bottom: 1rem;
+
+}
+
+.reportsproposal-datalists .reportsproposal-individualdatalists {
+    display: flex;
+    gap: 80px;
+    /* justify-content: space-between; */
+}
+
+.studentapplicaton-datashownpagination {
+    align-items: center;
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    justify-content: flex-end;
+}
+
+.studentapplicaton-datashownpagination .pagenumbers {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.studentapplicaton-datashownpagination #prevstudents,
+.studentapplicaton-datashownpagination #nextstudents {
+    background-color: transparent;
+    border: none;
+    color: #B4B8C1;
+    font-size: 1.7rem;
+    height: 7px;
+    margin: 0.5rem;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    align-items: center;
+
+
+}
+
+.studentapplicaton-datashownpagination .page-class {
+    width: 27px;
+    height: 26px;
+    padding: 4px 10px;
+    margin-top: 0.4rem;
+    gap: 10px;
+    border-radius: 4px;
+    border: 1px solid #E6E6E6;
+    color: #B8B8B8;
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    background-color: #fff;
+    cursor: pointer;
+    margin-right: 7px;
+
+}
+
+.studentapplicaton-datashownpagination .page-class.active {
+    color: #000;
+    background-color: #E6E6E6;
+    border: none;
+}
+
+#download-detailsid {
+    width: fit-content;
+    height: 35px;
+    padding: 16px 22px;
+    gap: 8px;
+    border-radius: 4px;
+    background-color: #FA7B15;
+    box-shadow: 0px 0px 10px 0px #92889B21;
+    color: #FFFFFF;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.8px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.application-shrinkwidtheditcontainer {
+    display: none;
+}
+
+/* -------------------------------------------Media Queries-------------------------------------------------------------- */
 @media(max-width:1200px) {
 
     .scdashboard-container {
         margin: 5% 0% 0% 20.5%;
     }
 
+    .scdashboard-dashboardcontent {
+        width: 74vw;
+        margin-top: 2rem;
+        margin-left: 2rem;
+    }
+
+    .scdashboard-applicationstatus {
+
+        margin: 10% 0% 0% 20.5%;
+        width: 78vw;
+    }
 
 }
 
@@ -364,41 +1025,70 @@
     .scdashboard-container {
         margin: 5% 12% 0% 16.5%;
 
+
     }
 
+    .scdashboard-dashboardcontent {
+        width: 78vw;
+        margin-top: 2rem;
+        margin-left: 2rem;
+    }
+
+    .scmember-rowfirst h1 {
+        font-size: 0.8rem;
+        line-height: 1rem;
+    }
 
 
 }
 
 @media(max-width:980px) {
-    .scdashboard-container {
-        margin: 5% 0% 0% 16.5%;
-        width: 100%;
+    .scdashboard-dashboardcontent {
         max-width: 100%;
+        width: 78vw;
+        margin-top: 3rem;
+        padding: 2rem;
 
 
+    }
+
+    .scmember-profilecontainer {
+        max-width: 36%;
+        width: 100%;
+        padding: 0.5rem;
+        margin-top: 2rem;
+
+    }
+
+    .scmember-rowfirst h1 {
+        font-size: 0.8rem;
+        line-height: 1rem;
     }
 
     .individualstudentapplication-status {
         justify-content: space-between;
         gap: 1rem;
+
+    }
+
+    .scdashboard-applicationstatus {
+
+        margin: 12% 0% 0% 20.5%;
+        width: 78vw;
     }
 
     .scdashboard-trackprogress {
         padding: 3.5rem 0.5rem 17px 2rem;
     }
 
-    .scdashboard-dashboardcontent {
-        width: 100%;
 
-    }
 
     .trackprogress-secondsection {
         display: grid;
         grid-template-rows: repeat(2, 1fr);
         grid-template-columns: repeat(2, 1fr);
         justify-items: center;
-        padding: 1rem;
+        padding: 1rem 0;
     }
 
     .scdashboard-studentapplication {
@@ -406,11 +1096,13 @@
     }
 
     .trackprogress-thirdsection {
-        justify-content: space-around;
+        justify-content: space-between;
+        gap: 1rem;
     }
 
+
     .trackprogress-firstsection {
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: flex-start;
     }
 
@@ -419,9 +1111,18 @@
         justify-content: space-between;
     }
 
+
     .studentapplication-header h1 {
         margin: 0;
     }
+
+    .reportsproposal-datalists .reportsproposal-individualdatalists {
+        gap: 0;
+        justify-content: space-between;
+    }
+
+
+
 
 }
 
@@ -431,20 +1132,169 @@
         margin-left: 0;
     }
 
+
+
+    .scdashboard-performancecontainer {
+        margin: 38px 14px;
+    }
+
+
+    .reportsproposal-datalists .reportsproposal-individualdatalists {
+        gap: 0;
+        justify-content: space-around;
+    }
+
+    #reportspropsal-status-state {
+        display: flex;
+        align-items: center;
+
+    }
+
+    .scdashboard-applicationstatus .scapplicationstatus-firstrow #sc-new-application-generate {
+        padding: 1rem
+    }
+
+    .scdashboard-applicationstatus {
+
+        margin: 14% 0% 0% 20.5%;
+        width: 78vw;
+    }
+
+    .commonsidebar-togglesidebar .commonsidebar-sidebarlists-top {
+        margin: 0;
+    }
+
+    .scmember-rowfirst h1 {
+        font-size: 0.8rem;
+        line-height: 1rem;
+    }
+
+    .application-shrinkwidtheditcontainer {
+        display: block;
+    }
+
+    .reportsindashboard-buttoncontainer {
+        display: none;
+    }
+
 }
 
-@media(max-width:660px) {
-    .scdashboard-container {
-        margin: 1.3rem;
-        padding-top: 1.3rem;
-        width: 100%;
+@media(max-width:729px) and (min-width:640px) {
+
+    .reportsindashboard-secondrow p,
+    .reportsproposal-datalists .reportsproposal-individualdatalists p,
+    .scdashboard-individual-performance li p {
+        font-size: 12px;
     }
+
+    .reportsproposal-datalists .reportsproposal-individualdatalists {
+        align-items: center;
+        gap: 13px;
+        justify-content: space-around;
+    }
+
+    .scdashboard-individual-performance li span {
+        font-size: 0.95rem;
+    }
+
+    .studentapplication-header .start-new {
+        width: 193px
+    }
+}
+
+@media(max-width:640px) {
+    .scdashboard-container {
+        margin: 0 1.3rem;
+        padding-top: 1.3rem;
+        width: 100vw;
+        max-width: 100%;
+    }
+
+
+    .scdashboard-dashboardcontent {
+        max-width: 100%;
+        width: 90vw;
+        margin-top: 6rem;
+        margin-left: 0rem;
+        padding: 0;
+    }
+
+    .scdashboard-applicationstatus {
+        margin: 1rem;
+        max-width: 100%;
+        width: 100%;
+        margin-top: 7rem;
+    }
+
+    .reportsproposal-datalists .reportsproposal-individualdatalists {
+        flex-direction: column;
+        gap: 10px;
+        position: relative;
+    }
+
+    .reportsindashboard-firstrow {
+        margin-bottom: 1rem;
+    }
+
+    .reportsindashboard-rightcontentinfirstrow {
+        align-self: flex-start;
+    }
+
+    #reportspropsal-status-state {
+        position: absolute;
+        top: 1rem;
+        right: 0;
+    }
+
 
     .scdashboard-trackprogress {
         margin: 0;
     }
 
- 
+    .scmember-rowfirst h1 {
+        font-size: 1.2rem;
+        line-height: 35px;
+    }
+
+    .scdashboard-inboxcontent {
+        flex-direction: column;
+        align-items: center;
+        margin: 1.3rem;
+        max-width: 100%;
+        width: 100%;
+
+    }
+
+    .scdashboard-individual-performance li {
+        height: 168px;
+        flex-direction: column-reverse;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .scdashboard-individual-performance span {
+        font-size: 30px;
+        line-height: 45px;
+    }
+
+    .scdashboard-individual-performance p {
+        font-size: 14px;
+        line-height: 21px;
+        text-align: center;
+    }
+
+    .scmember-profilecontainer {
+        /* max-width: 60%; */
+        max-width: 60%;
+        margin-top: 4rem;
+    }
+
+    .scdashboard-performancecontainer {
+        max-width: 100%;
+        width: 100%;
+        margin-left: 0;
+    }
+
 
     .trackprogress-thirdsection {
         flex-direction: column;
@@ -478,8 +1328,13 @@
     .studentapplication-header .application-buttoncontainer,
     .firstsection-lists .application-buttoncontainer,
     .trackprogress-firstsection button,
-    #pcviewgeneratedreferralcode {
+    #pcviewgeneratedreferralcode,
+    #download-detailsid {
         display: none;
+    }
+
+    .firstrowapplication-rightsidecontent #mobwidthdownloadbutton {
+        display: flex;
     }
 
     .studentapplication-header .studentadditbutton,
@@ -497,14 +1352,51 @@
     }
 
     .scdashboard-trackprogress {
-        padding: 0;
-        padding-top: 3.5rem;
+        padding: 3.5rem 0.5rem 17px 2rem;
     }
 
     .trackprogress-secondsection {
         width: 100%;
     }
 
+    .reportsindashboard-secondrow {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .reportsindashboard-leftcontentinfirstrow {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+
+
+    .studentapplicationstatusreports-inscdashboard {
+        position: relative;
+    }
+
+    .studentapplicationstatusreports-inscdashboard i {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+    }
+
+
+    @media(max-width:480px) {
+
+        .scdashboard-inboxcontent {
+            margin: 0.5rem;
+        }
+
+        .scmember-profilecontainer,
+        .scdashboard-performancecontainer {
+
+            padding: 0.5rem;
+            padding-top: 1.5rem;
+        }
+
+    }
 
 
 }
