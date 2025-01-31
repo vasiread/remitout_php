@@ -18,10 +18,41 @@
 </head>
 
 <body>
+<nav class="student-form-nav">
+      <div class="student-form-nav-container">
+        <img src="assets/images/student-form-logo.png" alt="Remitout Logo" class="student-form-logo">
+        <div class="student-form-nav-links" id="student-form-nav-links">
+          <a href="#home">Home</a>
+          <a href="#resources">Resources</a>
+          <a href="#deals">Special Deals</a>
+          <a href="#services">Our Service</a>
+          <a href="#schedule">Schedule Call</a>
+          <a href="#support" class="student-form-nav-mobile">Support</a>
+          <a href="#help" class="student-form-nav-mobile">Help</a>
+
+          <div class="student-form-nav-buttons">
+              <a href="#" class="student-form-login-btn">Log In</a>
+              <button class="student-form-signup-btn">Sign Up</button>
+          </div>
+        </div>
+        
+      <div class="student-form-menu-left">
+           <a href="#" class="student-form-nav-mobile">Login</a>
+        <div class="student-form-menu-icon-container" id="student-form-menu-icon-container">
+        
+          <div class="student-form-menu-icon" id="student-form-menu-icon">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </div>
+
+        </div>
+      </div>
+
+      </div>
+    </nav>
 
 
-
-  <x-navbar></x-navbar>
   <section class="registration-section">
     <div class="container">
       <div class="registration-content">
@@ -498,10 +529,11 @@
   <div class="monthly-container">
     <div class="monthly-liability">
       <div class="monthly-liability-container" style="display: none;">
-        <div class="step-header">
-          <div class="step-number">03</div>
-          <h2>Is there any existing co-borrower monthly liability?</h2>
-        </div>
+       <div class="step-header">
+        <div class="step-number">03</div>
+         <h2>Is there any existing co-borrower monthly liability?</h2>
+         <p class="amount-thousand">Enter the amount in thousands</p>
+      </div>
 
         <div class="monthly-liability-option">
           <div class="monthly-liability-radio-buttons">
@@ -514,13 +546,11 @@
               No
             </label>
           </div>
-          <div class="emi-content">
-            <input type="text" id="emi-amount" class="emi-content-container" placeholder="Enter EMI amount" value="" />
-            <span id="emi-error-message" class="error-message" style="display:none; color:red;">Please enter
-              a
-              valid EMI
-              amount (numeric values only).</span>
-          </div>
+           <div class="emi-content">
+             <p class="amount-thousand-mobile">Enter the amount in thousands</p>
+               <input type="text" id="emi-amount" class="emi-content-container" placeholder="Enter EMI amount" disabled />
+               <span id="emi-error-message" class="error-message" style="display:none; color:red;">Please enter a valid EMI amount (numeric values only).</span>
+           </div>  
         </div>
 
         <!-- Button placed inside the last container -->
@@ -1223,6 +1253,14 @@
   <script>
 
     document.addEventListener('DOMContentLoaded', () => {
+
+      const studentFormMenuIcon = document.getElementById('student-form-menu-icon');
+      const studentFormNavLinks = document.getElementById('student-form-nav-links');
+
+        studentFormMenuIcon.addEventListener('click', () => {
+         studentFormMenuIcon.classList.toggle('active');
+         studentFormNavLinks.classList.toggle('active');
+          });
 
       window.handleFileUpload = handleFileUpload;
       window.removeFile = removeFile;

@@ -5,19 +5,277 @@ body, html {
   overflow-x: hidden;
   font-family: 'Poppins', sans-serif;
 }
+/* Navigation Bar Styles */
+.student-form-nav {
+    background-color: #FFFFFF;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: regular;
+    height:85px;
+    padding:0;
+}
+
+.student-form-nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 88px;
+}
+
+.student-form-logo {
+    width: 138px;
+    height: auto;
+    margin-left: 50px;
+}
+
+.student-form-nav-links {
+    display: flex;
+    gap: 38px;
+    align-items: center;
+    margin-left: auto;
+}
+
+.student-form-nav-links a {
+    text-decoration: none;
+    color: #260254;
+    transition: color 0.3s ease;
+}
+
+.student-form-nav-links a:hover {
+    color: #4c0486;
+}
+
+.student-form-nav-buttons {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-left: 24px;
+    margin-right: 0;
+}
+
+.student-form-login-btn {
+    min-width: 80px;
+    height: 42px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #968F9E; /* Updated color */
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    padding: 0 20px;
+}
+
+.student-form-signup-btn {
+    min-width: 100px;
+    height: 42px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    padding: 0 20px;
+}
+
+.student-form-login-btn {
+    background: white;
+    color: #260254;
+}
+
+.student-form-signup-btn {
+    background: #260254;
+    color: white;
+    width: 119px;
+}
+
+.student-form-login-btn:hover {
+    background: #f5f5f5;
+}
+
+.student-form-signup-btn:hover {
+    background: #4c0486;
+}
+
+.student-form-menu-icon {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.student-form-menu-icon .bar {
+    width: 30px;
+    height: 4px;
+    background-color: #260254;
+    border-radius: 2px;
+}
+
+.student-form-nav-mobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .student-form-nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        position: relative;
+    }
+
+    .student-form-logo {
+        margin-left: 0;
+    }
+
+    .student-form-nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        position: absolute;
+        top: 85px;
+        left: 0;
+        width: 100%;
+        background-color: #FFFFFF;
+        padding: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+        overflow-y: auto;
+    }
+
+    .student-form-nav-links a {
+        text-align: left;
+        padding: 20px;
+        width: 100%;
+        padding-left:40px;
+    }
+
+    .student-form-nav-links a:last-child {
+        border-bottom: none;
+    }
+
+    .student-form-nav-links.active {
+        display: flex;
+    }
+
+    .student-form-nav-mobile {
+        display: block;
+    }
+
+    .student-form-nav-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Align buttons to the left */
+        justify-content: center;
+        gap: 20px;
+        padding-top:20px;
+        width: 100%;
+        margin: 0 auto;
+        height:auto;
+    }
+
+    .student-form-signup-btn, .student-form-login-btn {
+        width: 100%;
+        max-width: 480px;
+        height: 54px;
+        font-size: 14px;
+        line-height: 54px;
+        text-align: center;
+        border-radius: 5px;
+        cursor: pointer;
+        box-sizing: border-box;
+        padding-left:0;
+    }
+
+    .student-form-signup-btn {
+        background-color: #260254;
+        color: #FFFFFF;
+        border: none;
+    }
+
+    .student-form-login-btn {
+        background-color: #FFFFFF;
+        color: #260254;
+        padding: 0;
+    }
+
+    .student-form-login-btn:hover {
+        background-color: #f5f5f5;
+    }
+
+    .student-form-signup-btn:hover {
+        background-color: #4c0486;
+    }
+
+    .student-form-nav-buttons a, .student-form-nav-buttons button {
+        width: 100%;
+        max-width: 340px;
+        height: 54px;
+    }
+
+    /* Menu icon (hamburger menu) */
+    .student-form-menu-icon-container {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        gap:20px;
+    }
+
+    .student-form-menu-icon-container nav-mobile{
+        color:#260254;
+        font-size:14px;
+    }
+
+    .student-form-menu-left {
+        display:flex;
+        gap:20px;
+    }
+
+    .student-form-menu-icon {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .student-form-menu-icon .bar {
+        width: 24px;
+        height: 3px;
+        background-color: #260254;
+        transition: transform 0.3s ease;
+    }
+
+    /* Menu icon animations */
+    .student-form-menu-icon.active .bar:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+
+    .student-form-menu-icon.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .student-form-menu-icon.active .bar:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+}
 
 .registration-section {
   background-image: url("../images/student-dashboard.png");
   background-size: cover;
   background-position: center;
-  padding: 40px 150px;
+  padding: 30px 150px;
   color: #fff;
   width: 100%;
+  
 }
 
 .registration-title {
-  font-size: 32px;
-  font-weight: bold;
+  font-size: 24px;
+  font-weight: 500;
   margin-bottom: 16px;
 }
 
@@ -66,7 +324,7 @@ body, html {
   box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.35);
   overflow: visible;
   counter-reset: flag;
-  margin-bottom: -46px;
+  margin-bottom: -36px;
   background-color: transparent;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -2557,11 +2815,7 @@ p {
   font-family: 'Poppins', sans-serif;
   border-radius: 4px;
   padding: 0 10px; 
-   border: 1px solid #E2E2E2;
-}
-
-.monthly-liability-option input:focus {
-  outline: none;
+  margin-left: 100px;
 }
 
 .monthly-liability-option input[type="text"]::placeholder {
@@ -2585,6 +2839,19 @@ p {
   z-index: 10;  
 }
 /* Media Query for smaller screens (max-width: 768px) */
+
+.amount-thousand {
+  display: none;
+      font-size: 15px;
+    font-weight: 500;
+    color: #191825;
+    margin-left: 100px;
+
+}
+.amount-thousand-mobile {
+  display: none;
+}
+
 @media (max-width: 768px) {
     .monthly-liability {
         display: flex;
@@ -2661,7 +2928,9 @@ p {
         border-radius: 8px;
         border: 1px solid #E5E7EB;
         color: #6B7280;
+        margin-left: 0px;
     }
+    
 
     .rupee-symbol {
         position: absolute;
@@ -2703,7 +2972,26 @@ p {
     margin-top: 8px;
     width: 100%;
 }
+ .amount-thousand-mobile {
+    display: block;
+  }
 }
+
+
+
+@media (min-width: 1024px) {
+  .amount-thousand {
+    display: block;
+  }
+}
+
+@media (max-width: 1023px) and (min-width: 768px) {
+  .amount-thousand {
+    display: none !important;
+  }
+}
+
+
 /*document upload*/
 
 .kyc-section {
