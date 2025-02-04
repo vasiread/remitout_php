@@ -19,6 +19,7 @@
             <img onclick="window.location.href='{{ url(' ') }}'"
                 src="{{ asset(Request::is('/') ? $navImgPathWhite : $navImgPath) }}" alt="Logo" class="logo"
                 id="profile-logo">
+                
 
             <div class="nav-links">
                 <a class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}" href="{{url('/')}}">Home</a>
@@ -113,7 +114,7 @@
 
                 }
             } else {
-                console.log('Other route detected'); 
+                console.log('Other route detected');
                 document.querySelector('.nav-searchnotificationbars').style.display = "none";
                 document.querySelector('.nav-links').style.display = "flex";
                 if (navButtons) {

@@ -14,7 +14,35 @@
     top: 0;
     left: 0;
 }
+#commonsidebar-admin{
+    height: fit-content;
+    position:sticky;
 
+}
+#commonsidebar-admin .commonsidebar-sidebarlists-bottom{
+    display: flex;
+    flex-direction: row;
+    margin-top: 60px;
+}
+#commonsidebar-admin .commonsidebar-sidebarlists-bottom li{
+    width:114px;
+    font-size: 13px;
+    gap:8.5px;
+   align-items: center;
+   justify-content: flex-start;
+
+
+
+}
+#commonsidebar-admin .commonsidebar-sidebarlists-bottom li i,#commonsidebar-admin .commonsidebar-sidebarlists-bottom li img{
+     font-size: 13px;
+     width: 14px;
+     height: 14px;
+}
+
+#commonsidebar-admin .commonsidebar-sidebarlists-top{
+    height: fit-content;
+}
 .commonsidebar-togglesidebar .commonsidebar-sidebarlists-top {
     list-style: none;
     display: flex;

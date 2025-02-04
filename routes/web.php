@@ -46,10 +46,17 @@ Route::get(
         return view("pages/scdashboard");
     }
 )->name("sc-dashboard");
+ 
 Route::get(
     "/sidebar",
     function () {
         return view("components/commonsidebar");
+    }
+)->name("sc-dashboard");
+Route::get(
+    "/admin-dashboard",
+    function () {
+        return view("pages/admindashboard");
     }
 )->name("sc-dashboard");
 
@@ -58,15 +65,14 @@ Route::get('pages/student-dashboard', [TrackController::class, 'loanTracker']);
 
 Route::post('/registerformdata', [RegisterController::class, 'store'])->name('registerformdata');
 Route::post('/emailuniquecheck', [RegisterController::class, 'emailUniqueCheck'])->name('emailUniqueCheck');
-// Route::post('/updateuserids', [RegisterController::class, 'updateUserIds'])->name('updateUserIds');
 Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
 Route::post('/update-personalinfo', [StudentDetailsController::class, 'updatePersonalInfo']);
 Route::post('/update-courseinfo', [StudentDetailsController::class, 'updateCourseInfo']);
 Route::post('/update-academicsinfo', [StudentDetailsController::class, 'updateAcademicsInfo']);
 Route::post('/updatedetailsinfo', [StudentDetailsController::class, 'updateUserIds']);
 Route::post("/coborrowerData", [StudentDetailsController::class, 'updateCoborrowerInfo']);
-// Route::get('/menubarimplement', [SidebarHandlingController::class, 'scdashboard'])->name('scdashboard');
 Route::get('/scdashboard', [SidebarHandlingController::class, 'scdashboardItems']);
+Route::get('/admin-dashboard', [SidebarHandlingController::class, 'admindashboardItems']);
 
 Route::post('/send-mobotp', [OTPMobController::class, 'sendOTP']);
 Route::post('/verify-mobotp', [OTPMobController::class, 'verifyOTP']);
@@ -75,18 +81,12 @@ Route::get("/sc-dashboard", [SidebarHandlingController::class, 'scdashboardItems
 
 // Route::post('/send-email', [MailController::class, 'sendEmail']);
 // Route::post('/verify-otp', [MailController::class, 'verifyOTP']);
+
 Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser'])->name('student-dashboard');
-// Route::get('/sc-dashboard', [scdashboardco::class, 'getUser'])->name('student-dashboard');
 Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFromProfile']);
 Route::post('/upload-profile-picture', [StudentDashboardController::class, 'uploadProfilePicture']);
 Route::post('/retrieve-profile-picture', [StudentDashboardController::class, 'retrieveProfilePicture']);
-// Route::post('/retrieve-pan-card', [StudentDashboardController::class, 'panCardView']);
 Route::post('/session-logout', [LoginController::class, 'sessionLogout'])->name('session.logout');
-// Route::post('/retrieve-aadhar-card', [StudentDashboardController::class, 'aadharCardView']);
-// Route::post('/retrieve-passport', [StudentDashboardController::class, 'passportView']);
-// Route::post('/retrieve-sslcmarksheet', [StudentDashboardController::class, 'sslcmarksheetView']);
-// Route::post('/retrieve-hscmarksheet', [StudentDashboardController::class, 'hscmarksheetView']);
-// Route::post('/retrieve-graduationmarksheet', [StudentDashboardController::class, 'graduationmarksheetView']);
 Route::post('/upload-each-documents', [StudentDashboardController::class, 'uploadMultipleDocuments']);
 Route::post('/count-documents', [StudentDashboardController::class, 'countFilesInBucket']);
 Route::post('/check-columns', [StudentDashboardController::class, 'validateTablesAndColumns']);

@@ -14,15 +14,12 @@ class SidebarHandlingController extends Controller
             ['name' => 'Application Status', 'icon' => 'fa-regular fa-clipboard', 'active' => false],
         ];
 
-        // Retrieve 'scuser' from session, set to 1 if not already set
         $scuser = session('scuser', 1);
 
-        // Store 'scuser' in the session (only if it was not already set)
         if (!session()->has('scuser')) {
             session(['scuser' => $scuser]);
         }
 
-        // Set session expiration time
         session()->put('expires_at', now()->addSeconds(30000));
 
          return view('pages.scdashboard', compact('sidebarItems', 'scuser'));
@@ -43,7 +40,7 @@ class SidebarHandlingController extends Controller
             ['name' => 'Promotional', 'icon' => 'fa-regular fa-clipboard', 'active' => false],
         ];
 
-        return view('pages.scdashboard', compact('sidebarItems'));
+        return view('components.admin.adminsidebar', compact('sidebarItems')); 
     }
 
 }

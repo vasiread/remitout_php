@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="assets/css/studentdashboard.css">
     <link rel="stylesheet" href="assets/css/scdashboard.css">
     <link rel="stylesheet" href="assets/css/commonsidebar.css">
+    <link rel="stylesheet" href="assets/css/admindashboard.css">
 
 
     <link rel="stylesheet" href="assets/css/footer.css">
@@ -55,6 +56,8 @@
         @yield("studentdashboard")
     @elseif(Route::currentRouteName() === 'sc-dashboard')
         @yield("scdashboard");
+    @elseif(Route::currentRouteName() === 'admin-dashboard')
+        @yield("admindashboard");
     @else
         @yield('homecontent') 
 
