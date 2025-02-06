@@ -1341,6 +1341,7 @@
     #mobgeneratedreferralcode,
     .firstsection-lists .studenteacheditbutton {
         display: flex;
+        border-top-right-radius: 2px;
 
     }
 

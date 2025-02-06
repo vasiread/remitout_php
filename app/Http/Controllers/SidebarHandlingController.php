@@ -8,7 +8,7 @@ class SidebarHandlingController extends Controller
 {
     public function scdashboardItems()
     {
-         $sidebarItems = [
+        $sidebarItems = [
             ['name' => 'Dashboard', 'icon' => 'fa-solid fa-square-poll-vertical', 'active' => true],
             ['name' => 'Inbox', 'icon' => 'fa-solid fa-inbox', 'active' => false],
             ['name' => 'Application Status', 'icon' => 'fa-regular fa-clipboard', 'active' => false],
@@ -22,7 +22,7 @@ class SidebarHandlingController extends Controller
 
         session()->put('expires_at', now()->addSeconds(30000));
 
-         return view('pages.scdashboard', compact('sidebarItems', 'scuser'));
+        return view('pages.scdashboard', compact('sidebarItems', 'scuser'));
     }
 
 
@@ -40,7 +40,7 @@ class SidebarHandlingController extends Controller
             ['name' => 'Promotional', 'icon' => 'fa-regular fa-clipboard', 'active' => false],
         ];
 
-        return view('components.admin.adminsidebar', compact('sidebarItems')); 
+        return $sidebarItems;
     }
 
 }
