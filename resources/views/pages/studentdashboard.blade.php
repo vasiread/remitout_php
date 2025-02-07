@@ -1454,35 +1454,183 @@ $others = json_decode($academicDetails[0]->Others, true);
                 }
             });
         };
+const initializeKycDocumentUpload = () => {
+    const individualKycDocumentsUpload = document.querySelectorAll(".individualkycdocuments");
 
-        const initializeKycDocumentUpload = () => {
-            const individualKycDocumentsUpload = document.querySelectorAll(".individualkycdocuments");
+    individualKycDocumentsUpload.forEach((card) => {
+        let uploadedFile = null;
 
-            individualKycDocumentsUpload.forEach((card) => {
-                let uploadedFile = null;
+        // Trigger file input when the container is clicked
+        card.querySelector('.inputfilecontainer').addEventListener('click', function () {
+            card.querySelector('#inputfilecontainer-real').click();
+        });
 
-                card.querySelector('.inputfilecontainer').addEventListener('click', function () {
-                    card.querySelector('#inputfilecontainer-real').click();
-                });
+        // Handle file selection and validation
+        card.querySelector('#inputfilecontainer-real').addEventListener('change', function (event) {
+            const file = event.target.files[0];
 
-                card.querySelector('#inputfilecontainer-real').addEventListener('change', function (event) {
-                    const file = event.target.files[0];
-                    if (file) {
-                        uploadedFile = file;
-                        card.querySelector('.inputfilecontainer p').textContent = file.name;
-                        const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
-                        const filesizeviewer = card.querySelector('.document-status');
-                        filesizeviewer.textContent = `${fileSizeMB} MB Uploaded`;
-                    }
-                });
+            // Ensure file is selected
+            if (!file) return;
 
-                card.querySelector('.fa-eye').addEventListener('click', function (event) {
-                    event.stopPropagation();
+            console.log("Selected file: ", file);  // Debug log
 
+            // Allowed file types
+            const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
+            const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
 
-                });
-            });
-        };
+            // Validate file type
+            if (!allowedExtensions.includes(fileExtension)) {
+                alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
+                event.target.value = ''; // Clear the file input
+                card.querySelector('.inputfilecontainer p').textContent = 'No file chosen';
+                return;
+            }
+
+            // Validate file size (5MB max)
+            if (file.size > 5 * 1024 * 1024) {
+                alert("Error: File size exceeds 5MB limit.");
+                event.target.value = ''; // Clear the file input
+                card.querySelector('.inputfilecontainer p').textContent = 'No file chosen';
+                return;
+            }
+
+            // Store the file and update UI
+            uploadedFile = file;
+            const truncatedFileName = truncateFileName(file.name);
+            card.querySelector('.inputfilecontainer p').textContent = truncatedFileName;
+
+            const fileSize = file.size < 1024 * 1024 
+                ? (file.size / 1024).toFixed(2) + ' KB'
+                : (file.size / (1024 * 1024)).toFixed(2) + ' MB';
+            card.querySelector('.document-status').textContent = `${fileSize} Uploaded`;
+
+            console.log("File uploaded:", uploadedFile);  // Debug log
+        });
+
+        // Handle the preview functionality for PDF files
+        card.querySelector('.fa-eye').addEventListener('click', function (event) {
+            event.stopPropagation();
+            const eyeIcon = this;
+
+            console.log("Eye icon clicked"); // Debug log
+
+            if (uploadedFile) {
+                console.log("Uploaded file: ", uploadedFile);
+
+                if (uploadedFile.type === 'application/pdf') {
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        console.log('PDF Loaded:', event.target.result); // Log to check result
+
+                        // Create preview elements
+                        const previewWrapper = document.createElement('div');
+                        previewWrapper.className = 'pdf-preview-wrapper';
+
+                        const overlay = document.createElement('div');
+                        overlay.className = 'pdf-preview-overlay';
+
+                        const header = document.createElement('div');
+                        header.className = 'pdf-preview-header';
+
+                        const fileNameSection = document.createElement('div');
+                        fileNameSection.className = 'file-name-section';
+
+                        const fileName = document.createElement('span');
+                        fileName.textContent = uploadedFile.name;
+                        fileName.className = 'file-name';
+                        fileNameSection.appendChild(fileName);
+
+                        const zoomControls = document.createElement('div');
+                        zoomControls.className = 'zoom-controls';
+
+                        const zoomOut = document.createElement('button');
+                        zoomOut.textContent = '-';
+                        zoomOut.className = 'zoom-out';
+
+                        const zoomIn = document.createElement('button');
+                        zoomIn.textContent = '+';
+                        zoomIn.className = 'zoom-in';
+
+                        zoomControls.appendChild(zoomOut);
+                        zoomControls.appendChild(zoomIn);
+
+                        const closeButton = document.createElement('button');
+                        closeButton.textContent = '×';
+                        closeButton.className = 'close-button';
+
+                        const closePreview = () => {
+                            previewWrapper.remove();
+                            overlay.remove();
+                            eyeIcon.classList.remove('preview-active');
+                            eyeIcon.classList.replace('fa-times', 'fa-eye');
+                        };
+
+                        closeButton.addEventListener('click', closePreview);
+                        overlay.addEventListener('click', closePreview);
+
+                        header.appendChild(fileNameSection);
+                        header.appendChild(zoomControls);
+                        header.appendChild(closeButton);
+
+                        const iframe = document.createElement('iframe');
+                        iframe.src = event.target.result; // Set the PDF data URL
+                        iframe.className = 'pdf-preview-iframe';
+                        iframe.style.width = '100%'; // Ensure the iframe is visible
+                        iframe.style.height = '600px'; // Adjust as needed
+
+                        previewWrapper.appendChild(header);
+                        previewWrapper.appendChild(iframe);
+
+                        document.body.appendChild(overlay);
+                        document.body.appendChild(previewWrapper);
+
+                        // Zoom functionality
+                        let currentZoom = 100;
+                        zoomIn.addEventListener('click', () => {
+                            currentZoom += 10;
+                            iframe.style.transform = `scale(${currentZoom / 100})`;
+                            iframe.style.transformOrigin = 'top center';
+                        });
+
+                        zoomOut.addEventListener('click', () => {
+                            currentZoom = Math.max(currentZoom - 10, 50);
+                            iframe.style.transform = `scale(${currentZoom / 100})`;
+                            iframe.style.transformOrigin = 'top center';
+                        });
+
+                        // Close preview with Escape key
+                        document.addEventListener('keydown', function (e) {
+                            if (e.key === 'Escape') {
+                                closePreview();
+                            }
+                        });
+
+                        // Update the eye icon to "close" state
+                        eyeIcon.classList.add('preview-active');
+                        eyeIcon.classList.replace('fa-eye', 'fa-times');
+                    };
+
+                    reader.readAsDataURL(uploadedFile); // Read the PDF file as a Data URL
+                } else {
+                    alert('Please upload a valid PDF file to preview.');
+                }
+            } else {
+                alert('Please select a PDF file first.');
+            }
+        });
+    });
+};
+
+// Function to truncate file names
+function truncateFileName(fileName, maxLength = 25) { 
+    if (fileName.length <= maxLength) {
+        return fileName;
+    } else {
+        const extension = fileName.slice(fileName.lastIndexOf('.'));
+        const truncatedName = fileName.slice(0, maxLength - extension.length - 3) + '...';
+        return truncatedName + extension;
+    }
+}
 
         const initializeMarksheetUpload = () => {
             const individualMarksheetDocumentsUpload = document.querySelectorAll(".individualmarksheetdocuments");
