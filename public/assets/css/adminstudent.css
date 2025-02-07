@@ -1,0 +1,167 @@
+ .student-listcontainer {
+
+     margin: 134px 85px 0 59px;
+     display: none;
+     flex-direction: column;
+     max-width: 100%%;
+     width: 100%;
+
+
+ }
+
+ .student-listcontainer .studentlistcontainer-headersection {
+     display: flex;
+     align-items: center;
+     width: 100%;
+     max-width: 100%;
+     background-color: rgba(255, 255, 255, 1);
+     box-shadow: 0px 0px 28px 0px rgba(0, 0, 0, 0.03);
+     justify-content: space-between;
+     padding: 24px;
+ }
+
+ .student-listcontainer .studentlistcontainer-headersection h2 {
+     font-family: Poppins;
+     font-size: 24px;
+     font-weight: 600;
+     line-height: 36px;
+     color: rgba(233, 134, 53, 1);
+
+
+ }
+
+ .headersection-rightsidecontent {
+     display: flex;
+     width: fit-content;
+     align-items: center;
+     justify-content: flex-end;
+     gap: 10px;
+ }
+
+ #search-student-list {
+     height: 100%;
+     width: 100%;
+     font-family: Poppins;
+     font-size: 16px;
+     font-weight: 400;
+     line-height: 19.2px;
+     color: rgba(38, 2, 84, 1);
+     width: 242px;
+     height: 37px;
+     padding: 10px;
+     padding-left: 35px;
+     gap: 10px;
+     border-radius: 4px;
+     border: 1px;
+     border: 1px solid rgba(222, 222, 222, 0.7);
+     display: flex;
+     align-items: center;
+
+ }
+
+ .dropdown-filters {
+     position: relative;
+     display: inline-block;
+
+ }
+
+ .dropdown-button-filters {
+     width: 117px;
+     height: 35px;
+     padding: 8px 10px;
+     gap: 8px;
+     border-radius: 4px;
+     border: 0.75px;
+     background-color: transparent;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     border: 0.75px solid rgba(82, 82, 82, 0.24);
+    font-family: Inter;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 14.52px;
+        color:rgba(93, 92, 92, 1);
+
+
+ }
+
+ .dropdown-content-filters {
+     position: absolute;
+     display: none;
+     background-color: #f9f9f9;
+     z-index: 1;
+     top: 2.4rem;
+     width: 100%;
+
+ }
+
+ .dropdown-content-filters a {
+     color: black;
+     padding: 12px 16px;
+     text-decoration: none;
+     display: block;
+ }
+
+ .dropdown-content-filters a:hover {
+     background-color: #f1f1f1;
+ }
+
+ .dropdown-filters:hover .dropdown-content-filters {
+     display: block;
+ }
+
+ .dropdown-filters:hover .dropdown-button-filters {
+     background-color: #f1f1f1;
+ }
+
+ #studentlist-add-button {
+     background-color: rgba(111, 37, 206, 1);
+     box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
+     width: 88px;
+     height: 35px;
+     padding: 1rem 2rem;
+     gap: 8px;
+     border-radius: 4px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     background-color: rgba(111, 37, 206, 1);
+     color: rgba(255, 255, 255, 1);
+     border: none;
+
+ }
+
+ .searchcontainer-rightsidecontent {
+     position: relative;
+     width: 242px;
+     height: 37px;
+
+
+ }
+
+ .searchcontainer-rightsidecontent .fa-search {
+     position: absolute;
+     left: 0;
+     top: 37%;
+     color: rgba(93, 92, 92, 1);
+     font-size: 11px;
+     padding: 0px 13px;
+     display: flex;
+     align-items: center;
+   
+
+
+ }
+
+ .headersection-rightsidecontent #studentlistcontainer-filters {
+     display: flex;
+     justify-content: center;
+     font-family: Inter;
+     font-size: 12px;
+     font-weight: 500;
+     line-height: 14.52px;
+     color: rgba(93, 92, 92, 1);
+ }
+
+ #search-student-list::placeholder {}

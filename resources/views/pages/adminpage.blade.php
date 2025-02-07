@@ -17,7 +17,7 @@
 
         <div class="admin-detailedviewcontainer">
             <x-admin.admindashboard />
-
+            <x-admin.adminstudent/>
         </div>
     </div>
 

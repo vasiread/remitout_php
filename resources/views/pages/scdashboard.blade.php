@@ -136,7 +136,7 @@
                     </div>
                 </div>
 
-                <div class="scdashboard-studentapplication">
+                <div class="scdashboard-studentapplication" id="studentapplicationfromstudentdashboard">
                     <div class="studentapplication-header">
                         <h1>Applications</h1>
                         <div class="application-buttoncontainer">
@@ -207,7 +207,7 @@
                             </li>
                             <li class="scdashboard-nbfcstatus-pending">
                                 <p>Status:</p>
-                                <span>Pending</span>
+                                <span>Approved</span>
 
                             </li>
                             <li class="scdashboard-missingdocumentsstatus">
@@ -419,7 +419,7 @@
 
 
             if (window.innerWidth < 640) {
-                 if (img.src.includes("menu.png")) {
+                if (img.src.includes("menu.png")) {
                     img.src = '{{ asset('assets/images/Icons/close_icon.png') }}';
                 }
 
@@ -491,6 +491,28 @@
 
         const initializecheckStatus = () => {
             const statusElements = document.querySelectorAll(".reportsproposal-individualdatalists p span");
+            const applicationStatusElements = document.querySelectorAll(".individualstudentapplication-status .scdashboard-nbfcstatus-pending span");
+            const missingDocumentsCount = document.querySelectorAll(".scdashboard-missingdocumentsstatus");
+
+            applicationStatusElements.forEach((items, index) => {
+                // Check if the status contains "Approved"
+                if (items.textContent.includes("Approved")) {
+                    items.style.color = "#3FA27E";
+                    items.style.backgroundColor = "#D2FFEE";
+
+                    // Hide the corresponding missing documents container
+                    if (missingDocumentsCount[index]) {
+                        missingDocumentsCount[index].style.display = "none";
+                    }
+                } else {
+                    // Show the missing documents container if not approved
+                    if (missingDocumentsCount[index]) {
+                        missingDocumentsCount[index].style.display = "flex";
+                    }
+                }
+            });
+
+
 
             statusElements.forEach(dynamicStatusColorChange => {
                 if (dynamicStatusColorChange.textContent.includes("Approved")) {
@@ -499,6 +521,7 @@
                     dynamicStatusColorChange.style.width = "100%"
                     dynamicStatusColorChange.style.maxWidth = "95px"
                 }
+
                 else if (dynamicStatusColorChange.textContent.includes("Pending")) {
                     dynamicStatusColorChange.style.color = "#FA7B15";
                     dynamicStatusColorChange.style.backgroundColor = "#FFE3CA";
