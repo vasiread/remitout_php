@@ -22,7 +22,9 @@
     <link rel="stylesheet" href="assets/css/studentdashboard.css">
     <link rel="stylesheet" href="assets/css/scdashboard.css">
     <link rel="stylesheet" href="assets/css/commonsidebar.css">
-
+    <link rel="stylesheet" href="assets/css/admindashboard.css">
+    <link rel="stylesheet" href="assets/css/adminpage.css">
+ 
 
     <link rel="stylesheet" href="assets/css/footer.css">
 
@@ -40,11 +42,14 @@
 </head>
 
 <body>
-    @if(!in_array(Route::currentRouteName(), ['login', 'signup']))
+    @if(!in_array(Route::currentRouteName(), ['login', 'signup', 'admin-page']))
         <x-navbar></x-navbar>
     @endif
-    @yield('homecontent') 
+    @yield('homecontent') ;
+    @yield('adminsidebar')
 
+ 
+    
 
 
     @if(Route::currentRouteName() === 'login')
@@ -52,17 +57,17 @@
     @elseif(Route::currentRouteName() === 'signup')
         @yield('signupcontent')  
     @elseif(Route::currentRouteName() === 'student-dashboard')
-        @yield("studentdashboard")
+        @yield('studentdashboard')
     @elseif(Route::currentRouteName() === 'sc-dashboard')
-        @yield("scdashboard");
+        @yield('scdashboard')
+    @elseif(Route::currentRouteName() === 'adminpage')
+        @yield('adminpage');
     @else
-        @yield('homecontent') 
-
-
+        @yield('homecontent')
     @endif
 
 
-    @if(Route::currentRouteName() !== 'login' && Route::currentRouteName() !== 'signup')
+    @if(Route::currentRouteName() !== 'login' && Route::currentRouteName() !== 'signup' && Route::currentRouteName() !== 'admin-page')
         <x-footer></x-footer>
     @endif
 

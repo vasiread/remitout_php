@@ -17,7 +17,9 @@
             @endphp
 
             <img onclick="window.location.href='{{ url(' ') }}'"
-                src="{{ asset(Request::is('/') ? $navImgPathWhite : $navImgPath) }}" alt="Logo" class="logo">
+                src="{{ asset(Request::is('/') ? $navImgPathWhite : $navImgPath) }}" alt="Logo" class="logo"
+                id="profile-logo">
+                
 
             <div class="nav-links">
                 <a class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}" href="{{url('/')}}">Home</a>
@@ -41,6 +43,29 @@
                         <h3>{{ session('user')->name }}</h3>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
+
+                    <div class="menubarcontainer-profile" id="user-dashboard-menu">
+                        <img src="{{ asset('assets/images/Icons/menu.png') }}" alt="">
+                    </div>
+                </div>
+            @elseif(session()->has('scuser'))
+                <div class="nav-searchnotificationbars">
+                    <div class="input-container">
+                        <input type="text" placeholder="Search">
+                        <img src="assets/images/search.png" class="search-icon" alt="Search Icon">
+                    </div>
+                    <img src="{{ $NotificationBell }}" style="width:24px;height:24px" class="unread-notify" alt="">
+
+                    <div class="nav-profilecontainer">
+                        <img src="default-profile-image.png" id="nav-profile-photo-id" class="nav-profileimg"
+                            alt="Profile Image">
+                        <h3>SC User</h3>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+
+                    <div class="menubarcontainer-profile" id="scuser-dashboard-menu">
+                        <img src="{{ asset('assets/images/Icons/menu.png') }}" onclick="menuopenclose()" alt="">
+                    </div>
                 </div>
             @else
                 <div class="nav-buttons">
@@ -48,6 +73,7 @@
                     <button class="signup-btn" onclick="window.location.href='{{ route('signup') }}'">Sign Up</button>
                 </div>
             @endif
+
 
             <div class="profile-photo-mobtab" style="display:none">
                 <img src="" id="nav-profile-photo-id" class="nav-profileimg" alt="">
@@ -63,16 +89,17 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            dynamicChangeNavMob();
 
             const navButtons = document.querySelector(".nav-buttons");
             var currentRoute = window.location.pathname;
-            console.log('Current Route:', currentRoute);  
+            console.log('Current Route:', currentRoute);
 
             retrieveProfilePictureNav();
-            console.log('Route after retrieveProfilePictureNav:', currentRoute);  
+            console.log('Route after retrieveProfilePictureNav:', currentRoute);
 
-            if (currentRoute.includes("/student-dashboard") || currentRoute.includes("/student-forms")) {
-                console.log('Dashboard or Forms detected'); 
+            if (currentRoute.includes("/student-dashboard") || currentRoute.includes("/student-forms") || currentRoute.includes("/sc-dashboard")) {
+                console.log('Dashboard or Forms detected');
                 if (window.innerWidth <= 420) {
                     document.querySelector('.nav-searchnotificationbars').style.display = "none";
                     document.querySelector('.profile-photo-mobtab').style.display = "block";
@@ -87,7 +114,7 @@
 
                 }
             } else {
-                console.log('Other route detected'); // Debugging to verify fallback
+                console.log('Other route detected');
                 document.querySelector('.nav-searchnotificationbars').style.display = "none";
                 document.querySelector('.nav-links').style.display = "flex";
                 if (navButtons) {
@@ -97,6 +124,19 @@
                 }
             }
         });
+
+        function menuopenclose() {
+            const triggeredSideBar = document.querySelector(".commonsidebar-togglesidebar");
+            const img = document.querySelector("#scuser-dashboard-menu img");
+            if (img.src.includes("menu.png")) {
+                img.src = '{{ asset('assets/images/Icons/close_icon.png') }}';
+                triggeredSideBar.style.display = 'flex';
+            } else if (img.src.includes("close_icon.png")) {
+                img.src = '{{ asset('assets/images/Icons/menu.png') }}';
+                triggeredSideBar.style.display = 'none';
+            }
+
+        }
 
         const retrieveProfilePictureNav = async () => {
             const userSession = @json(session('user'));
@@ -135,6 +175,32 @@
                 console.error("Error retrieving profile picture", error);
             }
         };
+        const dynamicChangeNavMob = () => {
+            const searchTextBoxProfile = document.querySelector(".nav-searchnotificationbars .input-container");
+            const unreadNofifyProfile = document.querySelector(".nav-searchnotificationbars .unread-notify");
+            const nameFromProfile = document.querySelector(".nav-searchnotificationbars .nav-profilecontainer h3");
+            const iconFromProfile = document.querySelector(".nav-searchnotificationbars .nav-profilecontainer i");
+            const menuBarFromProfile = document.querySelector(".menubarcontainer-profile img")
+
+            if (window.innerWidth <= 640) {
+                searchTextBoxProfile.style.display = "none";
+                unreadNofifyProfile.style.display = "none";
+                nameFromProfile.style.display = "none";
+                iconFromProfile.style.display = "none";
+                menuBarFromProfile.style.display = "block";
+            } else {
+                searchTextBoxProfile.style.display = "block";
+                unreadNofifyProfile.style.display = "block";
+                nameFromProfile.style.display = "block";
+                iconFromProfile.style.display = "block";
+                menuBarFromProfile.style.display = "none";
+            }
+        };
+
+        window.addEventListener("resize", () => {
+            dynamicChangeNavMob();
+        });
+
     </script>
 
 </body>

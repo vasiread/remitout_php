@@ -2,19 +2,13 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Schema;
-use App\Mail\Documentsmail;
- 
 use App\Models\Academics;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
-use Aws\S3\S3Client;
-use Aws\Exception\AwsException;
 use App\Models\PersonalInfo;
 use App\Models\CourseInfo;
-
 class StudentDashboardController extends Controller
 {
     protected $tablesAndColumns = [
@@ -251,20 +245,20 @@ class StudentDashboardController extends Controller
 
     public function retrieveProfilePicture(Request $request)
     {
-         $request->validate([
+        $request->validate([
             'userId' => 'required|string',
         ]);
 
-         $userId = $request->input('userId');
+        $userId = $request->input('userId');
 
-         $filePath = "$userId/profile_pictures";  
+        $filePath = "$userId/profile_pictures";
 
-         $files = Storage::disk('s3')->files($filePath);
+        $files = Storage::disk('s3')->files($filePath);
 
-         if (!empty($files)) {
-            $file = $files[0];   
+        if (!empty($files)) {
+            $file = $files[0];
 
-             $fileUrl = Storage::disk('s3')->url($file);
+            $fileUrl = Storage::disk('s3')->url($file);
 
             return response()->json([
                 'message' => 'Profile picture retrieved successfully.',
@@ -272,7 +266,7 @@ class StudentDashboardController extends Controller
             ], 200);
         }
 
-         return response()->json([
+        return response()->json([
             'message' => 'No profile picture found for this user.',
         ], 404);
     }
@@ -477,30 +471,30 @@ class StudentDashboardController extends Controller
     // }
     public function retrieveFile(Request $request)
     {
-         $request->validate([
+        $request->validate([
             'userId' => 'required|string',
             'fileType' => 'required|string',
         ]);
 
-         $userId = $request->input('userId');
+        $userId = $request->input('userId');
         $fileType = $request->input('fileType');
 
-         $filePath = "$userId/$fileType";
+        $filePath = "$userId/$fileType";
 
-         $files = Storage::disk('s3')->files($filePath);
+        $files = Storage::disk('s3')->files($filePath);
 
-         if (!empty($files)) {
-            $file = $files[0];  
+        if (!empty($files)) {
+            $file = $files[0];
 
-             $fileUrl = Storage::disk('s3')->url($file);
+            $fileUrl = Storage::disk('s3')->url($file);
 
             return response()->json([
                 'message' => ucfirst(str_replace('-', ' ', $fileType)) . ' retrieved successfully.',
-                'fileUrl' => $fileUrl,  
+                'fileUrl' => $fileUrl,
             ], 200);
         }
 
-         return response()->json([
+        return response()->json([
             'message' => 'No file found for the specified type.',
         ], 404);
     }
@@ -533,7 +527,6 @@ class StudentDashboardController extends Controller
 
 
 
-    // Method to check profile completion based on user ID (from the request)
     public function validateProfileCompletion(Request $request)
     {
         $userId = $request->input('user_id');

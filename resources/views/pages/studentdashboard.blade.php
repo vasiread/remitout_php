@@ -16,36 +16,36 @@
     @section('studentdashboard')
 
     @php
-$profileImgPath = '';
-$uploadPanName = '';
-$profileIconPath = "assets/images/account_circle.png";
-$phoneIconPath = "assets/images/call.png";
-$mailIconPath = "assets/images/mail.png";
-$pindropIconPath = "assets/images/pin_drop.png";
-$discordIconPath = "assets/images/icons/discordicon.png";
-$viewIconPath = "assets/images/visibility.png";
+        $profileImgPath = '';
+        $uploadPanName = '';
+        $profileIconPath = "assets/images/account_circle.png";
+        $phoneIconPath = "assets/images/call.png";
+        $mailIconPath = "assets/images/mail.png";
+        $pindropIconPath = "assets/images/pin_drop.png";
+        $discordIconPath = "assets/images/icons/discordicon.png";
+        $viewIconPath = "assets/images/visibility.png";
 
 
-$courseDetailsJson = json_encode($courseDetails);
+        $courseDetailsJson = json_encode($courseDetails);
 
 
-$bankName = 'bankName';
-$bankMessage = 'bankMessage';
-$loanStatusInfo = [
-    [
-        $bankName => "Bank Name",
-        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-    ],
-    [
-        $bankName => "Bank Name",
-        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-    ],
-    [
-        $bankName => "Bank Name",
-        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-    ],
+        $bankName = 'bankName';
+        $bankMessage = 'bankMessage';
+        $loanStatusInfo = [
+            [
+                $bankName => "Bank Name",
+                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+            ],
+            [
+                $bankName => "Bank Name",
+                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+            ],
+            [
+                $bankName => "Bank Name",
+                $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+            ],
 
-];
+        ];
 
 
 
@@ -289,7 +289,7 @@ $loanStatusInfo = [
                 </div>
                 <div class="testscoreseditsection-secondrow">
                     @php
-$counter = 1; 
+                        $counter = 1; 
                     @endphp
 
                     @if (is_numeric($academicDetails[0]->ILETS) && !empty($academicDetails[0]->ILETS))
@@ -305,7 +305,7 @@ $counter = 1;
                     @endif
 
                     @php
-$others = json_decode($academicDetails[0]->Others, true);
+                        $others = json_decode($academicDetails[0]->Others, true);
                     @endphp
 
                     @if (isset($others['otherExamName']) && isset($others['otherExamScore']) && is_numeric($others['otherExamScore']) && !empty($others['otherExamScore']))
@@ -736,12 +736,6 @@ $others = json_decode($academicDetails[0]->Others, true);
             initialisedocumentsCount();
             initialiseProfileUpload();
             initialiseProfileView();
-            // initialisePanCardView();
-            // initialiseAadharView();
-            // initialisePassportView();
-            // initialisesslcView();
-            // initialisehscView();
-            // initialisegraduationView();
             initialiseAllViews()
                 .then(() => {
                     console.log("All URLs fetched successfully!");
