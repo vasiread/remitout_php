@@ -232,7 +232,7 @@
                     <button>Edit</button>
                 </div>
                 <p id="screferral-id-fromprofile">Referral Number: <span>HYU67994003</span></p>
-                <div id="screferral-dob-fromprofile">
+                <div id="screferral-dob-fromprofile" inputmode="Date">
                     <i class="fa-solid fa-calendar"></i>
                     <p>DD/MM/YYY</p>
 
@@ -495,17 +495,14 @@
             const missingDocumentsCount = document.querySelectorAll(".scdashboard-missingdocumentsstatus");
 
             applicationStatusElements.forEach((items, index) => {
-                // Check if the status contains "Approved"
                 if (items.textContent.includes("Approved")) {
                     items.style.color = "#3FA27E";
                     items.style.backgroundColor = "#D2FFEE";
 
-                    // Hide the corresponding missing documents container
                     if (missingDocumentsCount[index]) {
                         missingDocumentsCount[index].style.display = "none";
                     }
                 } else {
-                    // Show the missing documents container if not approved
                     if (missingDocumentsCount[index]) {
                         missingDocumentsCount[index].style.display = "flex";
                     }

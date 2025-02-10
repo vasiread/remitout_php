@@ -23,8 +23,9 @@
     <link rel="stylesheet" href="assets/css/scdashboard.css">
     <link rel="stylesheet" href="assets/css/commonsidebar.css">
     <link rel="stylesheet" href="assets/css/admindashboard.css">
-    <link rel="stylesheet" href="assets/css/adminpage.css">
     <link rel="stylesheet" href="assets/css/adminstudent.css">
+    <link rel="stylesheet" href="assets/css/adminstudentcounsellor.css">
+    <link rel="stylesheet" href="assets/css/adminpage.css">
  
 
     <link rel="stylesheet" href="assets/css/footer.css">
