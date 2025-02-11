@@ -3,13 +3,13 @@
      margin: 134px 85px 0 59px;
      display: none;
      flex-direction: column;
-     max-width: 100%%;
+     max-width: 100%;
      width: 100%;
 
 
  }
 
- .student-listcontainer .studentlistcontainer-headersection {
+ .globallistcontainer-header {
      display: flex;
      align-items: center;
      width: 100%;
@@ -20,9 +20,9 @@
      padding: 24px;
  }
 
- .student-listcontainer .studentlistcontainer-headersection h2 {
+ .globallistcontainer-header h2 {
      font-family: Poppins;
-     font-size: 24px;
+     font-size: 22px;
      font-weight: 600;
      line-height: 36px;
      color: rgba(233, 134, 53, 1);
@@ -77,11 +77,11 @@
      justify-content: space-between;
      align-items: center;
      border: 0.75px solid rgba(82, 82, 82, 0.24);
-    font-family: Inter;
-        font-size: 12px;
-        font-weight: 500;
-        line-height: 14.52px;
-        color:rgba(93, 92, 92, 1);
+     font-family: Inter;
+     font-size: 12px;
+     font-weight: 500;
+     line-height: 14.52px;
+     color: rgba(93, 92, 92, 1);
 
 
  }
@@ -115,7 +115,7 @@
      background-color: #f1f1f1;
  }
 
- #studentlist-add-button {
+ .studentlist-add-button {
      background-color: rgba(111, 37, 206, 1);
      box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
      width: 88px;
@@ -164,4 +164,177 @@
      color: rgba(93, 92, 92, 1);
  }
 
- #search-student-list::placeholder {}
+ /* --------------------------------------------------------------------------------------------- */
+
+ .studentcounsellorlist-adminside {
+     display: none;
+     flex-direction: column;
+     max-width: 100%;
+     width: 100%;
+     margin-top: 135px;
+     margin-right: 85px;
+     gap: 17px;
+     margin-left: 4.1%;
+
+ }
+
+
+ #counsellorlistcontainer-headersection {}
+
+ .individualcounsellorlists-admin {
+     padding: 24px 20px;
+     background: rgba(255, 255, 255, 1);
+     box-shadow: 0px 0px 20px 0px rgba(26, 2, 57, 0.03);
+
+ }
+
+ .individualcounsellorlists-items {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 1.9rem 1rem;
+     border-bottom: 1px solid rgba(229, 229, 229, 1);
+
+ }
+
+ .individualcounsellorlists-items p {
+     font-family: Poppins;
+     font-weight: 600;
+     font-size: 16px;
+     line-height: 18px;
+     color: rgba(93, 92, 92, 1);
+     flex: 2;
+
+ }
+
+ .individualcounsellorlists-header {
+     display: flex;
+     justify-self: flex-start;
+     flex-direction: row;
+
+     padding: 1rem;
+     padding-bottom: 30px;
+     border-bottom: 1px solid rgba(229, 229, 229, 1);
+     width: 100%;
+     gap: 17.5%;
+
+
+ }
+
+ .individualcounsellorlists-header p {
+     font-family: Poppins;
+     font-weight: 600;
+     font-size: 16px;
+     line-height: 18px;
+     color: rgba(93, 92, 92, 1);
+ }
+
+ .cousellor-name-identify,
+ .cousellor-referralid-identify {
+     width: 363px;
+
+ }
+
+ .individualcounsellors-buttoncontainer {
+     display: flex;
+     gap: 10px;
+ }
+
+ .individualcounsellors-buttoncontainer button {
+     width: 86;
+     height: 35;
+     border-width: 1px;
+     gap: 8px;
+     padding: 16px 12px;
+     border-radius: 4px;
+     border: 1px solid rgba(111, 37, 206, 1);
+     box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
+     background-color: transparent;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+ }
+
+ .individualcounsellors-buttoncontainer button:not(:last-child) {
+     width: 35px;
+
+
+ }
+
+ .individualcounsellors-buttoncontainer button:last-child {
+     font-family: Poppins;
+     font-weight: 500;
+     font-size: 14px;
+     line-height: 16.8px;
+     color: rgba(111, 37, 206, 1);
+ }
+
+
+
+
+
+ @media(max-width:768px) {
+     .globallistcontainer-header {
+         flex-direction: column;
+         align-items: flex-start;
+     }
+
+     .individualcounsellorlists-content {
+         flex-direction: column;
+         gap: 4px;
+     }
+
+     .studentcounsellorlist-adminside {
+         margin: auto 20px 20px 20px;
+         width: 100%;
+     }
+
+     .individualcounsellorlists-items p {
+         font-size: 13px;
+         color: rgba(93, 92, 92, 1);
+
+     }
+
+     #student-counsellor-name-id {
+         font-size: 1rem;
+     }
+
+     .studentcounsellorlist-adminside {
+         width: 100%;
+         max-width: 100%;
+     }
+
+     .individualcounsellors-buttoncontainer button:first-child {
+         display: none;
+     }
+
+     .individualcounsellors-buttoncontainer button:nth-child(2) {
+         border: none;
+         background-color: transparent;
+         box-shadow: none;
+         width: fit-content;
+         height: 45px;
+
+
+     }
+
+     .individualcounsellors-buttoncontainer button:nth-child(2) img {
+         width: 100%;
+     }
+
+     .individualcounsellors-buttoncontainer button:last-child {
+         width: 86px;
+         height: 45px;
+
+
+     }
+
+     .individualcounsellorlists-header {
+         display: none;
+     }
+
+
+
+
+
+ }

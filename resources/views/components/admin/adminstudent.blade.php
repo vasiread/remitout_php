@@ -13,7 +13,7 @@
     @extends('layouts.app')
 
     <div class="student-listcontainer">
-        <div class="studentlistcontainer-headersection">
+        <div class="globallistcontainer-header"  id="studentlistcontainer-headersection">
             <h2>Student List</h2>
             <div class="headersection-rightsidecontent">
                 <div class="searchcontainer-rightsidecontent" id="search-student-list-container">
@@ -35,7 +35,7 @@
                         <a href="#">Option 3</a>
                     </div>
                 </div>
-                <button id="studentlist-add-button">Add</button>
+                <button class="studentlist-add-button">Add</button>
 
 
             </div>

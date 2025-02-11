@@ -418,12 +418,12 @@
             const img = document.querySelector("#scuser-dashboard-menu img");
 
 
-            if (window.innerWidth < 640) {
+            if (window.innerWidth < 768) {
                 if (img.src.includes("menu.png")) {
                     img.src = '{{ asset('assets/images/Icons/close_icon.png') }}';
                 }
 
-            } else if (window.innerWidth > 640) {
+            } else if (window.innerWidth > 768) {
                 triggeredSideBar.style.backgroundColor = '';
                 triggeredSideBar.style.display = "flex";
 
@@ -539,7 +539,7 @@
             scsidebaritems.forEach((item, index) => {
                 item.addEventListener("click", () => {
 
-                    if (window.innerWidth <= 640) {
+                    if (window.innerWidth <= 768) {
                         triggeredSideBar.style.display = "none";
                         if (img.src.includes("close_icon.png")) {
                             img.src = '{{ asset('assets/images/Icons/menu.png') }}';

@@ -19,6 +19,7 @@
             <x-admin.admindashboard />
             <x-admin.adminstudent/>
             <x-admin.adminstudentcounsellor/>
+            <x-admin.adminnbfc/>
         </div>
     </div>
 
