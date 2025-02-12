@@ -45,7 +45,7 @@
 </head>
 
 <body>
-    @if(!in_array(Route::currentRouteName(), ['login', 'signup', 'admin-page']))
+    @if(!in_array(Route::currentRouteName(), ['login', 'signup', 'admin-page', 'nbfc-dashboard']))
         <x-navbar></x-navbar>
     @endif
     @yield('homecontent') 
@@ -69,7 +69,7 @@
     @endif
 
 
-    @if(Route::currentRouteName() !== 'login' && Route::currentRouteName() !== 'signup' && Route::currentRouteName() !== 'admin-page')
+    @if(Route::currentRouteName() !== 'login' && Route::currentRouteName() !== 'signup' && Route::currentRouteName() !== 'admin-page' && Route::currentRouteName() !== 'nbfc-dashboard')
         <x-footer></x-footer>
     @endif
 

@@ -50,6 +50,7 @@ Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser'])
 Route::get('/student-forms', function () {
     return view('pages.studentformquestionair');
 })->name('student-forms');
+
 Route::get("/sc-dashboard", function () {
     return view("pages.scdashboard");
 })->name("sc-dashboard");
@@ -57,6 +58,11 @@ Route::get("/sc-dashboard", function () {
 // Miscellaneous Routes
 Route::get('pages/student-dashboard', [TrackController::class, 'loanTracker']);
 Route::get("/sc-dashboard", [SidebarHandlingController::class, 'scdashboardItems'])->name("sc-dashboard");
+
+
+Route::get('/nbfc-dashboard', function () {
+    return view('pages.nbfcdashboard');
+})->name('nbfc-dashboard');
 
 // Google Authentication Routes
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
