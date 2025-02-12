@@ -14,35 +14,41 @@
     top: 0;
     left: 0;
 }
-#commonsidebar-admin{
+
+#commonsidebar-admin {
     height: fit-content;
-    position:sticky;
+    position: sticky;
 
 }
-#commonsidebar-admin .commonsidebar-sidebarlists-bottom{
+
+#commonsidebar-admin .commonsidebar-sidebarlists-bottom {
     display: flex;
     flex-direction: row;
     margin-top: 60px;
 }
-#commonsidebar-admin .commonsidebar-sidebarlists-bottom li{
-    width:114px;
+
+#commonsidebar-admin .commonsidebar-sidebarlists-bottom li {
+    width: 114px;
     font-size: 13px;
-    gap:8.5px;
-   align-items: center;
-   justify-content: flex-start;
+    gap: 8.5px;
+    align-items: center;
+    justify-content: flex-start;
 
 
 
 }
-#commonsidebar-admin .commonsidebar-sidebarlists-bottom li i,#commonsidebar-admin .commonsidebar-sidebarlists-bottom li img{
-     font-size: 13px;
-     width: 14px;
-     height: 14px;
+
+#commonsidebar-admin .commonsidebar-sidebarlists-bottom li i,
+#commonsidebar-admin .commonsidebar-sidebarlists-bottom li img {
+    font-size: 13px;
+    width: 14px;
+    height: 14px;
 }
 
-#commonsidebar-admin .commonsidebar-sidebarlists-top{
+#commonsidebar-admin .commonsidebar-sidebarlists-top {
     height: fit-content;
 }
+
 .commonsidebar-togglesidebar .commonsidebar-sidebarlists-top {
     list-style: none;
     display: flex;
@@ -74,8 +80,20 @@
     padding-left: 1rem;
     justify-content: flex-start;
     align-items: center;
+    position: relative;
 
+}
+#expanded-studentcounsellor-admin-side,
+#expanded-student-admin-side{
+    display: none;
+    flex-direction: column;
+}
+#expand-icon-Student,
+#expand-icon-StudentCounsellor {
 
+    position: absolute;
+    right: 3%;
+    top: 40%;
 }
 
 .commonsidebar-togglesidebar .commonsidebar-sidebarlists-top li.active {
@@ -96,6 +114,7 @@
 
 
 }
+
 
 .commonsidebar-sidebarlists-bottom li {
     border: 1px solid rgba(222, 222, 222, 0.8);
@@ -121,6 +140,7 @@
 
 
 }
+
 #scuser-dashboard-menu img {
     transition: opacity 0.3s ease;
 }

@@ -136,7 +136,7 @@
                     </div>
                 </div>
 
-                <div class="scdashboard-studentapplication">
+                <div class="scdashboard-studentapplication" id="studentapplicationfromstudentdashboard">
                     <div class="studentapplication-header">
                         <h1>Applications</h1>
                         <div class="application-buttoncontainer">
@@ -207,7 +207,7 @@
                             </li>
                             <li class="scdashboard-nbfcstatus-pending">
                                 <p>Status:</p>
-                                <span>Pending</span>
+                                <span>Approved</span>
 
                             </li>
                             <li class="scdashboard-missingdocumentsstatus">
@@ -232,7 +232,7 @@
                     <button>Edit</button>
                 </div>
                 <p id="screferral-id-fromprofile">Referral Number: <span>HYU67994003</span></p>
-                <div id="screferral-dob-fromprofile">
+                <div id="screferral-dob-fromprofile" inputmode="Date">
                     <i class="fa-solid fa-calendar"></i>
                     <p>DD/MM/YYY</p>
 
@@ -418,12 +418,12 @@
             const img = document.querySelector("#scuser-dashboard-menu img");
 
 
-            if (window.innerWidth < 640) {
-                 if (img.src.includes("menu.png")) {
+            if (window.innerWidth < 768) {
+                if (img.src.includes("menu.png")) {
                     img.src = '{{ asset('assets/images/Icons/close_icon.png') }}';
                 }
 
-            } else if (window.innerWidth > 640) {
+            } else if (window.innerWidth > 768) {
                 triggeredSideBar.style.backgroundColor = '';
                 triggeredSideBar.style.display = "flex";
 
@@ -491,6 +491,25 @@
 
         const initializecheckStatus = () => {
             const statusElements = document.querySelectorAll(".reportsproposal-individualdatalists p span");
+            const applicationStatusElements = document.querySelectorAll(".individualstudentapplication-status .scdashboard-nbfcstatus-pending span");
+            const missingDocumentsCount = document.querySelectorAll(".scdashboard-missingdocumentsstatus");
+
+            applicationStatusElements.forEach((items, index) => {
+                if (items.textContent.includes("Approved")) {
+                    items.style.color = "#3FA27E";
+                    items.style.backgroundColor = "#D2FFEE";
+
+                    if (missingDocumentsCount[index]) {
+                        missingDocumentsCount[index].style.display = "none";
+                    }
+                } else {
+                    if (missingDocumentsCount[index]) {
+                        missingDocumentsCount[index].style.display = "flex";
+                    }
+                }
+            });
+
+
 
             statusElements.forEach(dynamicStatusColorChange => {
                 if (dynamicStatusColorChange.textContent.includes("Approved")) {
@@ -499,6 +518,7 @@
                     dynamicStatusColorChange.style.width = "100%"
                     dynamicStatusColorChange.style.maxWidth = "95px"
                 }
+
                 else if (dynamicStatusColorChange.textContent.includes("Pending")) {
                     dynamicStatusColorChange.style.color = "#FA7B15";
                     dynamicStatusColorChange.style.backgroundColor = "#FFE3CA";
@@ -519,7 +539,7 @@
             scsidebaritems.forEach((item, index) => {
                 item.addEventListener("click", () => {
 
-                    if (window.innerWidth <= 640) {
+                    if (window.innerWidth <= 768) {
                         triggeredSideBar.style.display = "none";
                         if (img.src.includes("close_icon.png")) {
                             img.src = '{{ asset('assets/images/Icons/menu.png') }}';
