@@ -64,6 +64,9 @@ Route::get('/nbfc-dashboard', function () {
     return view('pages.nbfcdashboard');
 })->name('nbfc-dashboard');
 
+// In routes/web.php
+Route::get('/get-student-profile/{studentId}', [StudentDashboardController::class, 'getStudentProfile']);
+
 // Google Authentication Routes
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
 Route::get('auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle']);

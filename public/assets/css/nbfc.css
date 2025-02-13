@@ -2510,5 +2510,7 @@
     display: none !important;
 }
 .nbfc-studentdashboard-profile-container {
-    display: none; /* Hidden by default */
+    display: none;
+    width: 100%;
+    
 }

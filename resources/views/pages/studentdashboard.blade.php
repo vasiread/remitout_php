@@ -172,6 +172,7 @@
 
 
         </div>
+       <div class="nbfc-studentdashboard-profile-container">
         <div class="studentdashboardprofile-profilesection">
 
             <img src="{{asset($profileImgPath)}}" class="profileImg" id="profile-photo-id" alt="">

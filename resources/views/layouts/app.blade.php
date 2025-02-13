@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="assets/css/adminstudentcounsellor.css">
     <link rel="stylesheet" href="assets/css/adminnbfc.css">
     <link rel="stylesheet" href="assets/css/adminpage.css">
+    <link rel="stylesheet" href="assets/css/adminedit.css">
  
 
     <link rel="stylesheet" href="assets/css/footer.css">

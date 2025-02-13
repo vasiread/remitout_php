@@ -13,7 +13,9 @@
 
 
     <link rel="stylesheet" href="assets/css/nbfc.css">
-
+     
+<link rel="stylesheet" href="{{ asset('css/app.css') }}">
+<script src="{{ asset('js/app.js') }}" defer></script>
 
 </head>
 <body>
@@ -160,6 +162,16 @@
                 <!-- Dynamically populated list for Proposals goes here -->
             </div>
         </section>
+    </div>
+
+    <!---view trigger--->
+
+    <div class="nbfc-studentdashboard-profile-container">
+       <!-- Your profile content -->
+
+        @if(isset($student))
+        <!-- Your student profile content -->
+       @endif
     </div>
 
    
@@ -352,7 +364,9 @@
 
     
 </section>
+
 </div>
+
 
  <script>
  document.addEventListener('DOMContentLoaded', function () {
@@ -707,8 +721,6 @@ window.addEventListener('resize', checkWindowSize);
     { id: 9, name: "Sophia Black", studentId: "HYUIUIJ756746" },
     { id: 10, name: "Lucas Blue", studentId: "HYUIUIJ756747" }
  ];
-
- // Function to create student list item
 function createStudentListItem(student) {
     const listItem = document.createElement("div");
     listItem.classList.add("dashboard-student-item");
@@ -734,20 +746,48 @@ function createStudentListItem(student) {
     viewButton.classList.add("dashboard-view-button");
     viewButton.innerHTML = '<i class="fa-solid fa-eye eye-icon"></i>';
 
-    // ✅ Updated: Hide dashboard sections instead of navigating
-    viewButton.addEventListener("click", function () {
-        localStorage.setItem("showView", "true"); // Store state
+    viewButton.addEventListener("click", async function() {
+        try {
+            // Fetch the profile content
+            const response = await fetch(`/get-student-profile/${student.studentId}`);
+            if (!response.ok) {
+                throw new Error('Failed to load profile');
+            }
+            const profileContent = await response.text();
 
-        // Hide the main dashboard sections
-        const dashboardSections = document.querySelector(".dashboard-sections-container");
-        if (dashboardSections) {
-            dashboardSections.style.display = "none";
-        }
+            // Hide the dashboard sections
+            const dashboardSections = document.querySelector(".dashboard-sections-container");
+            if (dashboardSections) {
+                dashboardSections.style.display = "none";
+            }
 
-        // Show the student profile container
-        const profileContainer = document.querySelector(".nbfc-studentdashboard-profile-container");
-        if (profileContainer) {
+            // Create or update profile container
+            let profileContainer = document.querySelector(".nbfc-studentdashboard-profile-container");
+            if (!profileContainer) {
+                profileContainer = document.createElement('div');
+                profileContainer.classList.add('nbfc-studentdashboard-profile-container');
+                document.querySelector('.main-content').appendChild(profileContainer);
+            }
+
+            // Update content and show
+            profileContainer.innerHTML = profileContent;
             profileContainer.style.display = "block";
+
+            // Add back button if needed
+            if (!profileContainer.querySelector('.back-to-dashboard')) {
+                const backButton = document.createElement('button');
+                backButton.classList.add('back-to-dashboard');
+                backButton.textContent = 'Back to Dashboard';
+                backButton.addEventListener('click', function() {
+                    profileContainer.style.display = "none";
+                    dashboardSections.style.display = "block";
+                });
+                profileContainer.insertBefore(backButton, profileContainer.firstChild);
+            }
+
+        } catch (error) {
+            console.error("Error loading profile:", error);
+            alert("Failed to load student profile. Please try again.");
         }
     });
 
@@ -766,7 +806,6 @@ function createStudentListItem(student) {
 
     return listItem;
 }
-
   //new
   
 
