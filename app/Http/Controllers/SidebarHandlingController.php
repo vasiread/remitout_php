@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Scuser;
 use Illuminate\Http\Request;
 
 class SidebarHandlingController extends Controller
@@ -14,16 +15,26 @@ class SidebarHandlingController extends Controller
             ['name' => 'Application Status', 'icon' => 'fa-regular fa-clipboard', 'active' => false],
         ];
 
+        // Define referralId
+        $referralId = 'HYU67994003';
+
+        // Fetch scDetail from database
+        $scDetail = Scuser::where('referral_code', $referralId)->first(); // Assuming you need just one record, use `first()` instead of `get()`
+
+        // Check if scuser session exists, else set default value
         $scuser = session('scuser', 1);
 
         if (!session()->has('scuser')) {
             session(['scuser' => $scuser]);
         }
 
-        session()->put('expires_at', now()->addSeconds(30000));
+         session()->put('scDetail', $scDetail);
 
-        return view('pages.scdashboard', compact('sidebarItems', 'scuser'));
+         session()->put('expires_at', now()->addSeconds(30000));
+
+         return $sidebarItems;
     }
+
 
 
     public function admindashboardItems()

@@ -13,6 +13,7 @@
     margin-top: 85.3px;
     top: 0;
     left: 0;
+    overflow-y: scroll;
 }
 
 #commonsidebar-admin {

@@ -12,6 +12,9 @@ use App\Http\Controllers\{
     StudentDetailsController,
     TrackController
 };
+use App\Http\Controllers\ExportController;
+use App\Http\Controllers\scDashboardController;
+use App\Http\Controllers\StudentCounsellorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,25 +41,34 @@ Route::get('/login', function () {
     return view('pages.login');
 })->name('login');
 
- Route::get('/admin-page', function () {
-     
+
+Route::get('/admin-page', function () {
+
     $sidebarItems = (new SidebarHandlingController)->admindashboardItems();
+    $userDetails = (new StudentDashboardController)->getAllUsersFromAdmin();  // Example class name
 
-     return view('pages.adminpage', ['sidebarItems' => $sidebarItems]);
+    return view('pages.adminpage', [
+        'sidebarItems' => $sidebarItems,
+        'userDetails' => $userDetails,
+    ]);
 })->name('admin-page');
-
+Route::get('/sc-dashboard', function () {
+    $sidebarItems = (new SidebarHandlingController)->scdashboardItems();
+    $userByRef = (new scDashboardController)->getUsersByCounsellor();
+    return view('pages.scdashboard', [
+        'sidebarItems' => $sidebarItems,
+        'userByRef' => $userByRef,
+    ]);
+})->name('sc-dashboard');
 // Student Routes
 Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser'])->name('student-dashboard');
 Route::get('/student-forms', function () {
     return view('pages.studentformquestionair');
 })->name('student-forms');
-Route::get("/sc-dashboard", function () {
-    return view("pages.scdashboard");
-})->name("sc-dashboard");
+
 
 // Miscellaneous Routes
 Route::get('pages/student-dashboard', [TrackController::class, 'loanTracker']);
-Route::get("/sc-dashboard", [SidebarHandlingController::class, 'scdashboardItems'])->name("sc-dashboard");
 
 // Google Authentication Routes
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
@@ -76,18 +88,21 @@ Route::post('/updatedetailsinfo', [StudentDetailsController::class, 'updateUserI
 Route::post("/coborrowerData", [StudentDetailsController::class, 'updateCoborrowerInfo']);
 
 // Document Upload and Handling Routes
+Route::post('/remove-each-documents', [StudentDashboardController::class, 'removeFromServer']);
 Route::post('/upload-each-documents', [StudentDashboardController::class, 'uploadMultipleDocuments']);
 Route::post('/count-documents', [StudentDashboardController::class, 'countFilesInBucket']);
 Route::post('/check-columns', [StudentDashboardController::class, 'validateTablesAndColumns']);
 Route::post('/send-documents', [MailController::class, 'sendUserDocuments']);
 Route::post('/retrieve-file', [StudentDashboardController::class, 'retrieveFile']);
 
+Route::post('/getuserbyref', [scDashboardController::class, 'getUsersByCounsellor']);
+
 // OTP Routes
 Route::post('/send-mobotp', [OTPMobController::class, 'sendOTP']);
 Route::post('/verify-mobotp', [OTPMobController::class, 'verifyOTP']);
 
 // Admin Sidebar Handling Routes
- 
+
 // Profile and Picture Routes
 Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFromProfile']);
 Route::post('/upload-profile-picture', [StudentDashboardController::class, 'uploadProfilePicture']);
@@ -99,3 +114,5 @@ Route::get('auth/google/call-back', [GoogleAuthController::class, 'callbackGoogl
 
 // Miscellaneous API-like Routes
 Route::post('/retrieve-file', [StudentDashboardController::class, 'retrieveFile']);
+Route::get("/getalluserdetailsfromadmin", [StudentDashboardController::class, 'getAllUsersFromAdmin']);
+Route::get('/export-excel', [ExportController::class, 'export'])->name('export.excel');

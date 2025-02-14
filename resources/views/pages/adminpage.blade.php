@@ -17,7 +17,8 @@
 
         <div class="admin-detailedviewcontainer">
             <x-admin.admindashboard />
-            <x-admin.adminstudent/>
+            
+            <x-admin.adminstudent :userDetails="$userDetails"/>
             <x-admin.adminstudentcounsellor/>
             <x-admin.adminnbfc/>
         </div>
