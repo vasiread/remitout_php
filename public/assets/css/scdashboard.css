@@ -428,7 +428,20 @@
     object-fit: cover;
 
 }
+.scmember-profilecontainerimg{
+    position:relative;
+}
+.scmember-profilecontainerimg i{
+    display:none;
+    position:absolute;
+    top:0;
+    right:0;
+    padding: 0.4rem;
+    color:rgba(38, 2, 84, 0.7);
+    
 
+
+}
 .scmember-rowfirst {
     display: flex;
     justify-content: space-between;
@@ -717,7 +730,6 @@
     font-weight: 500;
     line-height: 18px;
     color: #909090;
-    /* background-color: red; */
     margin-right: 3rem;
 }
 
@@ -851,6 +863,10 @@
 .reportsindashboard-leftcontentinfirstrow {
     display: flex;
     gap: 5.6rem;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-right: 15rem;
 
 }
 
@@ -962,7 +978,7 @@
 .reportsproposal-datalists .reportsproposal-individualdatalists {
     display: flex;
     gap: 80px;
-    /* justify-content: space-between; */
+
 }
 
 .studentapplicaton-datashownpagination {
@@ -1504,8 +1520,7 @@
 
     .studentAddByScuserPopup-footerpart button:nth-child(2) {
         display: none;
-    }
-
+    } 
 
     .scdashboard-dashboardcontent {
         max-width: 100%;
@@ -1663,7 +1678,12 @@
 
     .reportsindashboard-leftcontentinfirstrow {
         flex-direction: column;
-        gap: 12px;
+         display: flex;
+         justify-content: space-between;
+        width: 100%;
+        margin-right: 9rem;
+        align-items: flex-start;
+        gap:1rem;
     }
 
 
@@ -1704,5 +1724,3 @@
     }
 
 }
-
-

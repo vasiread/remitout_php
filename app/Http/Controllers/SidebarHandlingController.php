@@ -9,31 +9,29 @@ class SidebarHandlingController extends Controller
 {
     public function scdashboardItems()
     {
-        $sidebarItems = [
+         $sidebarItems = [
             ['name' => 'Dashboard', 'icon' => 'fa-solid fa-square-poll-vertical', 'active' => true],
             ['name' => 'Inbox', 'icon' => 'fa-solid fa-inbox', 'active' => false],
             ['name' => 'Application Status', 'icon' => 'fa-regular fa-clipboard', 'active' => false],
         ];
 
-        // Define referralId
-        $referralId = 'HYU67994003';
+         $referralId = 'HYU67994003';
 
-        // Fetch scDetail from database
-        $scDetail = Scuser::where('referral_code', $referralId)->first(); // Assuming you need just one record, use `first()` instead of `get()`
+         $scUserSession = Scuser::where('referral_code', $referralId)->first();
 
-        // Check if scuser session exists, else set default value
-        $scuser = session('scuser', 1);
+         if ($scUserSession) {
+            session(['scuser' => $scUserSession]);
 
-        if (!session()->has('scuser')) {
-            session(['scuser' => $scuser]);
+             session()->put('scDetail', $scUserSession);
+
+            // Set session expiry
+            session()->put('expires_at', now()->addSeconds(10000));
         }
 
-         session()->put('scDetail', $scDetail);
-
-         session()->put('expires_at', now()->addSeconds(30000));
-
-         return $sidebarItems;
+        // Return sidebar items
+        return $sidebarItems;
     }
+
 
 
 

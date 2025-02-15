@@ -69,7 +69,7 @@
     @endif
 
 
-    @if(Route::currentRouteName() !== 'login' && Route::currentRouteName() !== 'signup' && Route::currentRouteName() !== 'admin-page')
+    @if(Route::currentRouteName() !== 'login' && Route::currentRouteName() !== 'signup' && Route::currentRouteName() !== 'admin-page' && Route::currentRouteName() !== 'sc-dashboard')
         <x-footer></x-footer>
     @endif
 

@@ -11,15 +11,15 @@
         style="@if (request()->is('/')) position: absolute; top: 0; left: 0; width: 100%; z-index: 10; @else position: relative; @endif">
         <div class="{{ Request::is('/') ? 'nav-container' : 'nav-container fullopacity' }}">
             @php
-                $navImgPath = "assets/images/Remitoutcolored.png";
-                $navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
-                $NotificationBell = "assets/images/notifications_unread.png";
+$navImgPath = "assets/images/Remitoutcolored.png";
+$navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
+$NotificationBell = "assets/images/notifications_unread.png";
             @endphp
 
             <img onclick="window.location.href='{{ url(' ') }}'"
                 src="{{ asset(Request::is('/') ? $navImgPathWhite : $navImgPath) }}" alt="Logo" class="logo"
                 id="profile-logo">
-                
+
 
             <div class="nav-links">
                 <a class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}" href="{{url('/')}}">Home</a>
@@ -57,9 +57,9 @@
                     <img src="{{ $NotificationBell }}" style="width:24px;height:24px" class="unread-notify" alt="">
 
                     <div class="nav-profilecontainer">
-                        <img src="default-profile-image.png" id="nav-profile-photo-id" class="nav-profileimg"
-                            alt="Profile Image">
-                        <h3>SC User</h3>
+                        <img src="{{ asset('assets/images/image-women.jpeg') }}" id="nav-profile-photo-id"
+                            class="nav-profileimg" alt="Profile Image">
+                        <h3 style='width:100%'>{{ session('scuser')->full_name }}</h3>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
 
@@ -96,6 +96,7 @@
             console.log('Current Route:', currentRoute);
 
             retrieveProfilePictureNav();
+            retrieveProfilePictureNavSc();
             console.log('Route after retrieveProfilePictureNav:', currentRoute);
 
             if (currentRoute.includes("/student-dashboard") || currentRoute.includes("/student-forms") || currentRoute.includes("/sc-dashboard")) {
@@ -175,6 +176,44 @@
                 console.error("Error retrieving profile picture", error);
             }
         };
+
+        const retrieveProfilePictureNavSc = async () => {
+            const scuserrefid = 'HYU67994003';
+            const profileImgUpdate = document.querySelector(".nav-profilecontainer .nav-profileimg");
+            const mobTabProfile = document.querySelector(".profile-photo-mobtab img");
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            if (!csrfToken) {
+                console.error('CSRF token not found');
+                return;
+            }
+
+            try {
+                const response = await fetch('/view-scuserprofile-photo', {
+                    method: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ scuserrefid: scuserrefid })
+                });
+
+                const data = await response.json();
+
+                if (data.fileUrl) {
+                    console.log("Profile Picture URL:", data.fileUrl);
+                    profileImgUpdate.src = data.fileUrl;
+                    mobTabProfile.src = data.fileUrl;
+                } else {
+                    console.error("Error: No URL returned from the server", data);
+                }
+            } catch (error) {
+                console.error("Error retrieving profile picture", error);
+            }
+        }
+
         const dynamicChangeNavMob = () => {
             const searchTextBoxProfile = document.querySelector(".nav-searchnotificationbars .input-container");
             const unreadNofifyProfile = document.querySelector(".nav-searchnotificationbars .unread-notify");

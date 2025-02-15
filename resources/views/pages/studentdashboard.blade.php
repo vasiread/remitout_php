@@ -873,34 +873,34 @@
             console.log(event);
             event.preventDefault();
 
-            // Get user ID
+          
             const uniqueIdElement = document.querySelector('.personal_info_id');
             const userId = uniqueIdElement ? uniqueIdElement.textContent || uniqueIdElement.innerHTML : null;
 
-            // Get email
+            
             const emailElement = document.querySelector("#referenceEmailId p");
             const email = emailElement ? emailElement.textContent || emailElement.innerHTML : null;
 
-            // Get user name
+             
             const userNameElement = document.querySelector("#referenceNameId p");
             const name = userNameElement ? userNameElement.textContent || userNameElement.innerHTML : null;
 
-            // Check if all required details are present
+           
             if (userId && email && name) {
                 console.log("Unique ID:", userId, "Email:", email, "Name:", name);
             } else {
                 console.error("Error: Could not retrieve unique ID, email, or name.");
-                return; // Exit zany value is missing
+                return;  
             }
 
-            // Prepare data to send in the POST request
+             
             const sendDocumentsRequiredDetails = {
                 userId: userId,
                 email: email,
                 name: name
             };
 
-            // Make the fetch request
+          
             fetch('/send-documents', {
                 method: "POST",
                 headers: {
@@ -971,7 +971,7 @@
                     },
                     body: JSON.stringify({
                         userId: userId,
-                        fileType: fileType, // Pass the specific file type
+                        fileType: fileType, 
                     }),
                 })
                     .then(response => response.json())
@@ -1038,8 +1038,7 @@
                     const fileType = file.type;
                     console.log(fileType + "." + fileName);
 
-                    // Optional: Validate file type before uploading
-                    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                     const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
                     if (!allowedTypes.includes(fileType)) {
                         console.error('Invalid file type. Only jpg, png, and gif are allowed.');
                         return;
@@ -1051,8 +1050,7 @@
 
                     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-                    // Handle case where CSRF token is not found
-                    if (!csrfToken) {
+                     if (!csrfToken) {
                         console.error('CSRF token not found');
                         return;
                     }
@@ -1150,237 +1148,7 @@
             });
 
         }
-        // const initialisePanCardView = () => {
-
-        //     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-        //     if (!csrfToken) {
-        //         console.error('CSRF token not found');
-        //         return;
-        //     }
-        //     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-        //     const userId = userIdElement ? userIdElement.textContent : '';
-
-        //     fetch('/retrieve-pan-card', {
-        //         method: "POST",
-        //         headers: {
-        //             'X-CSRF-TOKEN': csrfToken,
-        //             'Accept': 'application/json',
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify({ userId: userId })
-        //     })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             if (data.fileUrl) {
-        //                 console.log("Pan Card URL:", data);
-        //                 const PancardName = (data.fileUrl).split('/').pop();
-        //                 document.querySelector(".uploaded-pan-name").textContent = PancardName;
-
-
-
-        //             } else {
-        //                 console.error("Error: No URL returned from the server", data);
-        //             }
-        //         })
-        //         .catch(error => {
-        //             console.error("Error retrieving profile picture", error);
-        //         });
-        //  }
-
-        // const initialisePassportView = () => {
-
-
-        //     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-        //     if (!csrfToken) {
-        //         console.error('CSRF token not found');
-        //         return;
-        //     }
-        //     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-        //     const userId = userIdElement ? userIdElement.textContent : '';
-
-        //     fetch('/retrieve-passport', {
-        //         method: "POST",
-        //         headers: {
-        //             'X-CSRF-TOKEN': csrfToken,
-        //             'Accept': 'application/json',
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify({ userId: userId })
-        //     })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             if (data.fileUrl) {
-        //                 console.log("Passport URL:", data);
-        //                 const passPortName = (data.fileUrl).split('/').pop();
-        //                 document.querySelector(".passport-name").textContent = passPortName;
-
-
-        //             } else {
-        //                 console.error("Error: No URL returned from the server", data);
-        //             }
-        //         })
-        //         .catch(error => {
-        //             console.error("Error retrieving passport url", error);
-        //         });
-        // }
-
-        // const initialisesslcView = () => {
-
-
-        //     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-        //     if (!csrfToken) {
-        //         console.error('CSRF token not found');
-        //         return;
-        //     }
-        //     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-        //     const userId = userIdElement ? userIdElement.textContent : '';
-
-        //     fetch('/retrieve-sslcmarksheet', {
-        //         method: "POST",
-        //         headers: {
-        //             'X-CSRF-TOKEN': csrfToken,
-        //             'Accept': 'application/json',
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify({ userId: userId })
-        //     })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             if (data.fileUrl) {
-        //                 console.log("sslc-marksheet URL:", data);
-        //                 const sslcMarksheetName = (data.fileUrl).split('/').pop();
-        //                 document.querySelector(".sslc-marksheet").textContent = sslcMarksheetName;
-
-
-        //             } else {
-        //                 console.error("Error: No URL returned from the server", data);
-        //             }
-        //         })
-        //         .catch(error => {
-        //             console.error("Error retrieving sslcmarksheet url", error);
-        //         });
-        // }
-
-        // const initialisehscView = () => {
-
-
-        //     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-        //     if (!csrfToken) {
-        //         console.error('CSRF token not found');
-        //         return;
-        //     }
-        //     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-        //     const userId = userIdElement ? userIdElement.textContent : '';
-
-        //     fetch('/retrieve-hscmarksheet', {
-        //         method: "POST",
-        //         headers: {
-        //             'X-CSRF-TOKEN': csrfToken,
-        //             'Accept': 'application/json',
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify({ userId: userId })
-        //     })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             if (data.fileUrl) {
-        //                 console.log("hsc-marksheet URL:", data);
-        //                 const hscMarksheetName = (data.fileUrl).split('/').pop();
-        //                 document.querySelector(".hsc-marksheet").textContent = hscMarksheetName;
-
-
-        //             } else {
-        //                 console.error("Error: No URL returned from the server", data);
-        //             }
-        //         })
-        //         .catch(error => {
-        //             console.error("Error retrieving hsc marksheet url", error);
-        //         });
-        // }
-
-        // const initialisegraduationView = () => {
-
-
-        //     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-        //     if (!csrfToken) {
-        //         console.error('CSRF token not found');
-        //         return;
-        //     }
-        //     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-        //     const userId = userIdElement ? userIdElement.textContent : '';
-
-        //     fetch('/retrieve-graduationmarksheet', {
-        //         method: "POST",
-        //         headers: {
-        //             'X-CSRF-TOKEN': csrfToken,
-        //             'Accept': 'application/json',
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify({ userId: userId })
-        //     })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             if (data.fileUrl) {
-        //                 console.log("graduation-marksheet URL:", data);
-        //                 const graduationMarksheetName = (data.fileUrl).split('/').pop();
-        //                 document.querySelector(".graduation-marksheet").textContent = graduationMarksheetName;
-
-
-        //             } else {
-        //                 console.error("Error: No URL returned from the server", data);
-        //             }
-        //         })
-        //         .catch(error => {
-        //             console.error("Error retrieving graduation marksheet url", error);
-        //         });
-        // }
-
-
-
-
-
-
-        // const initialiseAadharView = () => {
-        //     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-        //     if (!csrfToken) {
-        //         console.error('CSRF token not found');
-        //         return;
-        //     }
-        //     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-        //     const userId = userIdElement ? userIdElement.textContent : '';
-
-        //     fetch('/retrieve-aadhar-card', {
-        //         method: "POST",
-        //         headers: {
-        //             'X-CSRF-TOKEN': csrfToken,
-        //             'Accept': 'application/json',
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify({ userId: userId })
-        //     })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             if (data.fileUrl) {
-        //                 console.log("Aadhar Card URL:", data);
-        //                 const aadharName = (data.fileUrl).split('/').pop();
-        //                 document.querySelector(".uploaded-aadhar-name").textContent = aadharName;
-
-
-        //             } else {
-        //                 console.error("Error: No URL returned from the server", data);
-        //             }
-        //         })
-        //         .catch(error => {
-        //             console.error("Error retrieving profile picture", error);
-        //         });
-
-        // }
+       
         const initialiseProfileView = () => {
 
             const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");

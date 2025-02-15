@@ -116,3 +116,8 @@ Route::get('auth/google/call-back', [GoogleAuthController::class, 'callbackGoogl
 Route::post('/retrieve-file', [StudentDashboardController::class, 'retrieveFile']);
 Route::get("/getalluserdetailsfromadmin", [StudentDashboardController::class, 'getAllUsersFromAdmin']);
 Route::get('/export-excel', [ExportController::class, 'export'])->name('export.excel');
+
+
+
+Route::post('/upload-scuserprofile-photo', [scDashboardController::class, 'uploadScUserPhoto']);
+Route::post('/view-scuserprofile-photo', [scDashboardController::class, 'retrieveScProfilePicture']);
