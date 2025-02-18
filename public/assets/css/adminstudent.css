@@ -1,6 +1,6 @@
  .student-listcontainer {
 
-     margin: 134px 85px 0 59px;
+     margin: 50px 0 0 59px;
      display: none;
      flex-direction: column;
      max-width: 100%;
@@ -171,7 +171,7 @@
      flex-direction: column;
      max-width: 100%;
      width: 100%;
-     margin-top: 135px;
+     margin-top: 50px;
      margin-right: 85px;
      gap: 17px;
      margin-left: 4.1%;

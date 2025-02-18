@@ -13,11 +13,12 @@ const initializeAdminSidebar = () => {
 
     const adminCounsellorAdd = document.querySelector(".add-studentcounsellor-adminside");
     const studentListContainer = document.querySelector(".student-listcontainer");
-    const editContainerAdmin = document.querySelector(".edit-content-main-section");
                                                          
     const studentCounsellorList = document.querySelector(".studentcounsellorlist-adminside");
 
     const studentNBFCList = document.querySelector(".nbfclist-adminside");
+    const studentIndexAdmin = document.querySelector("#index-section-admin-id");
+
 
     if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "none";
     if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
@@ -72,11 +73,13 @@ const initializeAdminSidebar = () => {
                 if (adminCounsellorAdd) adminCounsellorAdd.style.display = "none";
                 if (studentCounsellorList) studentCounsellorList.style.display = "none";
                 if (studentNBFCList) studentNBFCList.style.display = "none";
-                if (editContainerAdmin) editContainerAdmin.style.display = "none"; 
+               
+                if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
 
 
 
             } else if (index === 1) {
+                if (studentIndexAdmin) studentIndexAdmin.style.display = "flex";
                 if (adminPropertyOne) adminPropertyOne.style.display = "none";
                 if (sidebarChevronUpDown) sidebarChevronUpDown.classList.add("fa-chevron-down");
                 if (sidebarStudentCounsellorChevronUpDown) sidebarStudentCounsellorChevronUpDown.classList.add("fa-chevron-down");
@@ -86,8 +89,7 @@ const initializeAdminSidebar = () => {
                 if (adminCounsellorAdd) adminCounsellorAdd.style.display = "none";
                 if (studentCounsellorList) studentCounsellorList.style.display = "none";
                 if (studentNBFCList) studentNBFCList.style.display = "none";
-                 if (editContainerAdmin) editContainerAdmin.style.display = "none"; 
-
+               
 
 
 
@@ -102,7 +104,7 @@ const initializeAdminSidebar = () => {
                 if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
                 if (studentCounsellorList) studentCounsellorList.style.display = "none";
                 if (studentNBFCList) studentNBFCList.style.display = "none";
-                 if (editContainerAdmin) editContainerAdmin.style.display = "none"; 
+                if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
 
                 
                 
@@ -128,11 +130,13 @@ const initializeAdminSidebar = () => {
                 if (adminCounsellorAdd) adminCounsellorAdd.style.display = "none";
                 if (studentCounsellorList) studentCounsellorList.style.display = "none";
                 if (studentNBFCList) studentNBFCList.style.display = "none";
-                if (editContainerAdmin) editContainerAdmin.style.display = "none"; 
                 if (adminPropertyOne) adminPropertyOne.style.display = "none";
+                if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
 
                 if (index === 5 || index === 6) {
                     if (studentCounsellorList) studentCounsellorList.style.display = "flex";
+                      if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
+
                 }
                 if (index === 8) {
                     if (adminCounsellorAdd) adminCounsellorAdd.style.display = "flex";
@@ -151,12 +155,14 @@ const initializeAdminSidebar = () => {
                 if (adminCounsellorAdd) adminCounsellorAdd.style.display = "none";
                 if (studentCounsellorList) studentCounsellorList.style.display = "none";
                 if (studentNBFCList) studentNBFCList.style.display = "none";
-                if (editContainerAdmin) editContainerAdmin.style.display = "none"; 
+                if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
                 if (index === 9) {
                     if (studentNBFCList) studentNBFCList.style.display = "flex";
+                    if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
                 }
                 if (index === 12) {
-                                    if (editContainerAdmin) editContainerAdmin.style.display = "none";
+                  
+                     if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
 
                 }
 

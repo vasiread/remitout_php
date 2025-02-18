@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
 
 
     <link rel="stylesheet" href="assets/css/nbfc.css">
@@ -21,6 +22,22 @@
 <body>
 
 @extends('layouts.app')
+
+ 
+
+    @php
+        $profileImgPath = 'images/admin-student-profile.png';
+        $uploadPanName = '';
+        $profileIconPath = "assets/images/account_circle.png";
+        $phoneIconPath = "assets/images/call.png";
+        $mailIconPath = "assets/images/mail.png";
+        $pindropIconPath = "assets/images/pin_drop.png";
+        $discordIconPath = "assets/images/icons/discordicon.png";
+        $viewIconPath = "assets/images/visibility.png";
+
+
+       
+    @endphp
 
 <nav class="nbfc-navbar">
     <div class="nbfc-logo">
@@ -115,15 +132,14 @@
                             <button class="dashboard-sort-option" data-sort="Z-A">Z-A</button>
                             <button class="dashboard-sort-option" data-sort="Newest">Newest</button>
                             <button class="dashboard-sort-option" data-sort="Oldest">Oldest</button>
+                           
                         </div>
                     </div>
-                      <div class="dashboard-nbfc-search-container">
+                      <div class="dashboard-nbfc-search-container-section" id="dashboard-nbfc-search-container-section-request">
                           <img src="assets/images/search.png" alt="Search" class="dashboard-nbfc-search-icon">
-                          <input type="text" class="dashboard-nbfc-search-input" placeholder="Search">
+                          <input type="text" class="dashboard-nbfc-search-input-sec" placeholder="Search">
                        </div>
-                    <button class="dashboard-search-button">
-                        <img src="assets/images/search.png" alt="Search">
-                    </button>
+                  
                 </div>    
             </div>
             <div class="dashboard-student-list" id="dashboard-request-list">
@@ -148,14 +164,12 @@
                             <button class="dashboard-sort-option" data-sort="Oldest">Oldest</button>
                         </div>
                     </div>
-                     <div class="dashboard-nbfc-search-container">
+                      <div class="dashboard-nbfc-search-container-section" id="dashboard-nbfc-search-container-section-proposal">
                           <img src="assets/images/search.png" alt="Search" class="dashboard-nbfc-search-icon">
-                          <input type="text" class="dashboard-nbfc-search-input" placeholder="Search">
+                          <input type="text" class="dashboard-nbfc-search-input-sec" placeholder="Search">
                        </div>
 
-                    <button class="dashboard-search-button">
-                        <img src="assets/images/search.png" alt="Search">
-                    </button>
+                  
                 </div>
             </div>
             <div class="dashboard-student-list" id="dashboard-proposal-list">
@@ -165,16 +179,526 @@
     </div>
 
     <!---view trigger--->
+    
+    <div class="nbfc-studentdashboardprofile-profile-section-container" id="nbfc-studentdashboardprofile-profile-section-container-id">
+    <div class="nbfc-student-dashboard-section-main-contents" id="nbfc-student-dashboard-section-main-contents-id">
+     <div class="studentdashboardprofile-profilesection" id="nbfc-studentdashboardprofile-profilesection">
 
-    <div class="nbfc-studentdashboard-profile-container">
-       <!-- Your profile content -->
+          <img src="{{ asset('assets/images/admin-student-profile.png') }}" class="profileImg" id="profile-photo-id" alt="Profile Image">
 
-        @if(isset($student))
-        <!-- Your student profile content -->
-       @endif
+           <i class="fa-regular fa-pen-to-square"></i>
+
+            <input type="file" class="profile-upload" accept="image/*" enctype="multipart/form-data">
+            <div class="studentdashboardprofile-personalinfo">
+                <div class="personalinfo-firstrow">
+                    <h1>My Profile</h1>
+                </div>
+
+                <ul class="personalinfo-secondrow">
+                   <li style="margin-bottom: 3px; color: rgba(33, 33, 33, 1);">
+                     Unique ID : <span class="personal_info_id" style="margin-left: 6px;">HBNKJI0000001</span>
+                    </li>
+                  <li class="personal_info_name" id="referenceNameId">
+                    <img src="assets/images/account_circle.png" alt="">
+                    <p>John Doe</p>
+                  </li>
+                  <li class="personal_info_phone">
+                   <img src="assets/images/call.png" alt="">
+                   <p>+91 9876543210</p>
+                  </li>
+                  <li class="personal_info_email" id="referenceEmailId">
+                   <img src="assets/images/mail.png" alt="">
+                   <p>john.doe@example.com</p>
+                  </li>
+                  <li class="personal_info_state">
+                     <img src="assets/images/pin_drop.png" alt="">
+                     <p>Karnataka</p>
+                   </li>
+                  </ul>
+ 
+                <ul class="personalinfosecondrow-editsection">
+                 <li style="margin-bottom: 3px; color: rgba(33, 33, 33, 1);">
+                   Unique ID : <span style="margin-left: 6px;">123456789</span>
+                 </li>
+                <li class="personal_info_name">
+                  <p>Name</p>
+                  <input type="text" value="John Doe">
+                </li>
+                <li class="personal_info_phone">
+                 <p>Phone</p>
+                 <input type="text" value="+91 9876543210">
+                </li>
+                <li class="personal_info_email">
+                 <p>Email</p>
+                 <input type="email" value="john.doe@example.com">
+                </li>
+                <li class="personal_info_state">
+                 <p>State</p>
+                 <input type="text" value="Karnataka">
+               </li>
+             </ul>
+            </div>
+
+            
+            <div class="studentdashboardprofile-educationeditsection" id="studentdashboardprofile-educationeditsection-id">
+                <div class="educationeditsection-firstrow">
+                    <h1>Education</h1>
+                    <!-- <button>Edit</button> -->
+                </div>
+                <div class="educationeditsection-secondrow">
+                  <p>1. Bachelors</p>
+                   <p>2. Consequuntur magni dolores</p>
+                  <p>3. Voluptatem accusantium</p>
+                </div>
+            </div>
+
+            <div class="studentdashboardprofile-testscoreseditsection" id="studentdashboardprofile-testscoreseditsection-id">
+                <div class="testscoreseditsection-firstrow">
+                    <h1>Test Scores</h1>
+                </div>
+               <div class="testscoreseditsection-secondrow">
+                 <p>1. IELTS <span class="ilets_score">7.5</span></p>
+                 <p>2. GRE <span class="gre_score">320</span></p>
+                 <p>3. TOEFL <span class="tofel_score">110</span></p>
+                  <p>4. GMAT <span>650</span></p>
+               </div>
+
+               <div class="testscoreseditsection-secondrow-editsection">
+                 <p>IELTS</p>
+                 <input type="text" class="ilets_score" value="7.5">
+                 <p>GRE</p>
+                 <input type="text" class="gre_score" value="320">
+                 <p>TOEFL</p>
+                 <input type="text" class="tofel_score" value="110">
+               </div>
+            </div>
+        </div>
+
+      <div class="studentdashboardprofile-myapplication" id="studentdashboardprofile-myapplication-id">
+            <div class="myapplication-firstcolumn">
+                <h1>Application Details</h1>
+                <!-- <button >Edit</button> -->
+               <div class="personalinfo-firstrow" id="personalinfo-firstrow-id">
+    <button onClick="triggerEditButton()">Edit</button> <!-- Initially displays as 'Edit' -->
+    <button class="saved-msg" style="display: none;">Saved</button> <!-- Displays 'Saved' after saving -->
+</div>
+
+
+
+            </div>
+            <div class="myapplication-secondcolumn" id="myapplication-secondcolumn-id">
+                <p>1. Where are you planning to study</p>
+                <input type="text" id="plan-to-study-edit" disabled>
+                <div class="checkbox-group-edit" id="selected-study-location-edit">
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="USA" disabled> USA
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="UK" disabled> UK
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="Ireland" disabled> Ireland
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="New Zealand" disabled> New Zealand
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="Germany" disabled> Germany
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="France" disabled> France
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="Sweden" disabled> Sweden
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="Other" id="other-checkbox-edit"
+                            disabled> Other
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="Italy" disabled> Italy
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="Canada" disabled> Canada
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="Australia" disabled> Australia
+                    </label>
+                    <label>
+                        <div class="add-country-box-edit">
+                            <input type="text" id="country-edit" class="custom-country-edit" placeholder="Add Country">
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="myapplication-thirdcolumn" id="myapplication-thirdcolumn-id">
+                <h6>2. Type of Degree?</h6>
+                <div class="degreetypescheckboxes">
+                    <!-- First radio button for Bachelors -->
+                    <label class="custom-radio">
+                       <input type="radio" name="education-level" value="Bachelors" checked onclick="toggleOtherDegreeInput(event)" disabled>
+                      <span class="radio-button"></span>
+                      <p>Bachelors (only secured loan)</p>
+                    </label>
+
+                    <br>
+
+                    <!-- Second radio button for Masters -->
+                   <label class="custom-radio">
+                     <input type="radio" name="education-level" value="Masters" checked onclick="toggleOtherDegreeInput(event)" disabled>
+                     <span class="radio-button"></span>
+                      <p>Masters</p>
+                    </label>
+
+                    <br>
+
+                    <!-- Third radio button for Others -->
+                   <label class="custom-radio">
+                     <input type="radio" name="education-level" value="Others" checked onclick="toggleOtherDegreeInput(event)" disabled>
+                     <span class="radio-button"></span>
+                     <p>Others</p>
+                    </label>
+
+                </div>
+
+               <input type="text" placeholder="Enter degree type" value="Degree" 
+                 id="otherDegreeInput" disabled>
+
+            </div>
+
+            <div class="myapplication-fourthcolumn-additional" id="myapplication-fourthcolumn-additional-id">
+              <p>3. What is the duration of the course?</p>
+              <input type="text" placeholder="2 years" value="2 years" disabled>
+            </div>
+
+           <div class="myapplication-fourthcolumn" id="myapplication-fourthcolumn-id">
+             <p>4. What is the Loan amount required?</p>
+             <input type="number" placeholder="10" value="10" disabled>
+           </div>
+
+           <div class="myapplication-fifthcolumn" id="myapplication-fifthcolumn-id">
+              <p>Referral Code</p>
+              <input type="text" placeholder="ABC123" value="ABC123" disabled>
+           </div>
+
+            <div class="myapplication-sixthcolumn" id="myapplication-sixthcolumn-id">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <div class="myapplication-seventhcolumn" id="myapplication-seventhcolumn-id">
+                <h1>Attached Documents</h1>
+                <div class="seventhcolum-firstsection" id="seventhcolum-firstsection-id">
+                    <div class="seventhcolumn-header">
+                        <p>Student KYC Document</p>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+
+                    <div class="kycdocumentscolumn">
+                       <div class="individualkycdocuments" id="individualkycdocuments-pan">
+                            <p class="document-name">Pan Card</p>
+                            <div class="inputfilecontainer">
+    <i class="fa-solid fa-image"></i>
+    <p class="uploaded-pan-name">pan_card.jpg</p>
+    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-pan-card" />
+</div>
+
+<!-- PDF Preview Modal (hidden by default) -->
+<div id="pdf-preview-modal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background-color:rgba(0, 0, 0, 0.7); z-index:1000;">
+    <div style="position:relative; margin: auto; width: 80%; height: 80%; background-color: white; overflow: auto;">
+        <span id="close-modal" style="position:absolute; top:10px; right:10px; cursor:pointer; color: red; font-size: 24px;">&times;</span>
+        <canvas id="pdf-preview-canvas" style="width: 100%;"></canvas>
+    </div>
+</div>
+                            <input type="file" id="inputfilecontainer-real" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+
+                        <div class="individualkycdocuments" id="individualkycdocuments-aadhar">
+                            <p class="document-name">Aadhar Card</p>
+                            <div class="inputfilecontainer">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="uploaded-aadhar-name"> aadhar_card.jpg</p>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-aadhar-card" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+
+                        <div class="individualkycdocuments" id="individualkycdocuments-passport">
+
+                            <p class="document-name">Passport</p>
+                            <div class="inputfilecontainer">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="passport-name-selector"> Passport.pdf</p>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-passport-card" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="seventhcolumn-additional" id="seventhcolumn-additional-id">
+                <div class="seventhcolumn-additional-firstcolumn">
+                    <div class="seventhcolumnadditional-header">
+                        <p>Academic Marksheets</p>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+
+                    <div class="marksheetdocumentscolumn">
+                        <div class="individualmarksheetdocuments">
+                            <p class="document-name">10th grade marksheet</p>
+                            <div class="inputfilecontainer-marksheet">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="sslc-marksheet"> 10th grade marksheet</p>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-card" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+
+                        <div class="individualmarksheetdocuments">
+                            <p class="document-name">12th grade marksheet</p>
+                            <div class="inputfilecontainer-marksheet">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="hsc-marksheet"> 12th grade marksheet</p>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-card" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+
+                        <div class="individualmarksheetdocuments">
+                            <p class="document-name">Graduation marksheet</p>
+                            <div class="inputfilecontainer-marksheet">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="graduation-marksheet"> Graduation Marksheet</p>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-card" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="myapplication-eightcolumn" id="myapplication-eightcolumn-id">
+                <div class="eightcolumn-firstsection">
+                    <div class="eightcolumn-header">
+
+                        <p>Secured Admissions</p>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                    <div class="secured-admissioncolumn">
+                        <div class="individual-secured-admission-documents">
+                            <p class="document-name">10th Grade
+                            </p>
+                            <div class="inputfilecontainer-secured-admission">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="sslc-grade">SSLC Grade</p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-grade"></>
+
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet">
+
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-secured-admission-documents">
+                            <p class="document-name">12th Grade
+                            </p>
+                            <div class="inputfilecontainer-secured-admission">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="hsc-grade">HSC Grade</p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-grade"></>
+
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet">
+
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-secured-admission-documents">
+                            <p class="document-name">Graduation
+                            </p>
+                            <div class="inputfilecontainer-secured-admission">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="graduation-grade">Graduation</p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-grade"></>
+
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet">
+
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                    </div>
+                </div>
+           </div>
+
+            <div class="myapplication-ninthcolumn" id="myapplication-ninthcolumn-id">
+                <div class="ninthcolumn-firstsection">
+                    <div class="ninthcolumn-header">
+
+                        <p>Work Experience</p>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                    <div class="work-experiencecolumn">
+                        <div class="individual-work-experiencecolumn-documents">
+                            <p class="document-name">Experience Letter
+                            </p>
+                            <div class="inputfilecontainer-work-experiencecolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="experience-letter">Experience Letter</p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-experience-letter"></>
+
+                            </div>
+                            <input type="file" id="inputfilecontainer-work-experience">
+
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-work-experiencecolumn-documents">
+                            <p class="document-name">3 month Salary Slip
+                            </p>
+                            <div class="inputfilecontainer-work-experiencecolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="salary-slip">3 month salary slip</p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-salary-slip"></>
+
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet">
+
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-work-experiencecolumn-documents">
+                            <p class="document-name">Office ID
+                            </p>
+                            <div class="inputfilecontainer-work-experiencecolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="office-id">Office ID</p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-office-id"></>
+
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet">
+
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-work-experiencecolumn-documents">
+                            <p class="document-name">Employment Joining Letter
+                            </p>
+                            <div class="inputfilecontainer-work-experiencecolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="joining-letter">Joining Letter</p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-joining-letter"></>
+
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet">
+
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+             <div class="myapplication-tenthcolumn" id="myapplication-tenthcolumn-id">
+                <div class="tenthcolumn-firstsection">
+                    <div class="tenthcolumn-header">
+                        <p>Co-borrower Documents</p>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                    <div class="coborrower-kyccolumn">
+                        <div class="individual-coborrower-kyc-documents">
+                            <p class="document-name">Pan Card
+                            </p>
+                            <div class="inputfilecontainer-coborrower-kyccolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="coborrower-pancard">Pan Card </p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-pan"></>
+                            </div>
+                            <input type="file" id="inputfilecontainer-kyccoborrwer">
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-coborrower-kyc-documents">
+                            <p class="document-name">Aadhar Card
+                            </p>
+                            <div class="inputfilecontainer-coborrower-kyccolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="coborrower-aadharcard">Aadhar Card </p>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-aadhar"></>
+                            </div>
+                            <input type="file" id="inputfilecontainer-kyccoborrwer">
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-coborrower-kyc-documents">
+                            <p class="document-name">Address Proof
+                            </p>
+                            <div class="inputfilecontainer-coborrower-kyccolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="coborrower-addressproof">Address Proof </p>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-addressproof"></>
+                            </div>
+                            <input type="file" id="inputfilecontainer-kyccoborrwer">
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <div class="myapplication-eleventhcolumn" id="myapplication-eleventhcolumn-id">
+
+                <button class="nbfc-send-proposal-button" id="openModalBtn">Send Proposal</button>
+               
+                <div class="myapplication-eleventhcolumn-buttons">
+                  <button class="nbfc-message-button" id="send-proposal-message-id">Message</button>
+                    <button class="nbfc-reject-button" id="send-proposal-button-id">Reject</button>
+                </div>
+           </div>
+
+           
+        </div>            
+     </div>
     </div>
 
-   
+    
+    <div class="nbfc-send-proposal-modal-container" id="modelContainer-send-proposal">
+        <div class="nbfc-send-proposal-modal-content">
+            <div class="nbfc-send-proposal-modal-header">
+                <h3>Send Proposal</h3>
+                <button class="nbfc-send-proposal-close-button">&times;</button>
+            </div>
+
+            <textarea class="nbfc-send-proposal-remarks-textarea" placeholder="Add Remarks"></textarea>
+
+            <div class="nbfc-send-proposal-attachment-section">
+                <label class="nbfc-send-proposal-attachment-label">Attachment</label>
+                <input type="file" id="fileInput" class="nbfc-send-proposal-attachment-input">
+                <button class="nbfc-send-proposal-attachment-button" id="attachmentBtn">+ Add Attachment</button>
+
+                <div class="nbfc-send-proposal-attachment-preview" id="attachmentPreview">
+                    <div class="nbfc-send-proposal-file-info">
+                        <span class="nbfc-send-proposal-file-name">No file selected</span>
+                        <span class="nbfc-send-proposal-file-size"></span>
+                    </div>
+                    <button class="nbfc-send-proposal-close-button" id="removeAttachment">&times;</button>
+                </div>
+            </div>
+
+            <div class="nbfc-send-proposal-button-container">
+                <button class="nbfc-send-proposal-cancel-button">Cancel</button>
+                <button class="nbfc-send-proposal-send-button">Send</button>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -182,23 +706,25 @@
 
 
 
-<div class="modal-container" style="display: none;">
-  <div class="reject-application-modal">
+<div class="modal-container" id="model-container-reject-container" style="display: none;">
+  <div class="reject-application-modal" id="reject-application-id">
     <div class="reject-application-modal-header">
       <h3>Reject Application</h3>
-      <button class="close-button">
+      <button class="close-button" id="close-button-id">
         <i class="fas fa-times"></i>
       </button>
     </div>
-    <div class="reject-application-modal-content">
+    <div class="reject-application-modal-content" id="reject-application-modal-content-id">
       <textarea class="remarks-textarea" placeholder="Add Remarks"></textarea>
       <div class="actions">
-        <button class="cancel-button">Cancel</button>
-        <button class="reject-button">Reject</button>
+        <button class="cancel-button" id="cancel-button-id">Cancel</button>
+        <button class="reject-button" id="reject-button-id">Reject</button>
       </div>
     </div>
   </div>
 </div>
+
+
 
 
 <section class="index-section">
@@ -211,7 +737,7 @@
                     <input type="text" class="index-search-input" placeholder="Search">
                 </div>
                 <div class="inbox-filters">
-                    <span>Filters</span>
+                    <span>Sort</span>
                     <img src="assets/images/filter-icon.png" alt="Filters">
                 </div>
             </div>
@@ -671,6 +1197,35 @@ window.addEventListener('resize', checkWindowSize);
     populateStudentList("dashboard-proposal-list", filteredProposals);
  });
 
+// Function to handle search for Requests
+function handleRequestsSearch() {
+    const searchInput = document.querySelector("#dashboard-nbfc-search-container-section-request .dashboard-nbfc-search-input-sec");
+    const requestListContainer = document.getElementById("dashboard-request-list");
+
+    searchInput.addEventListener("input", () => {
+        const searchTerm = searchInput.value;
+        const filteredRequests = filterData(requestsData, searchTerm);
+        populateStudentList("dashboard-request-list", filteredRequests);
+    });
+}
+
+// Assuming `requestsData` contains the list of requests
+handleRequestsSearch();
+
+
+function handleProposalsSearch() {
+    const searchInput = document.querySelector("#dashboard-nbfc-search-container-section-proposal .dashboard-nbfc-search-input-sec");
+    const proposalListContainer = document.getElementById("dashboard-proposal-list");
+
+    searchInput.addEventListener("input", () => {
+        const searchTerm = searchInput.value;
+        const filteredProposals = filterData(proposalsData, searchTerm);
+        populateStudentList("dashboard-proposal-list", filteredProposals);
+    });
+}
+
+// Call the function to initialize search functionality
+handleProposalsSearch();
 
  // Modal Container and Buttons
  const modalContainer = document.querySelector(".modal-container");
@@ -721,6 +1276,8 @@ window.addEventListener('resize', checkWindowSize);
     { id: 9, name: "Sophia Black", studentId: "HYUIUIJ756746" },
     { id: 10, name: "Lucas Blue", studentId: "HYUIUIJ756747" }
  ];
+
+
 function createStudentListItem(student) {
     const listItem = document.createElement("div");
     listItem.classList.add("dashboard-student-item");
@@ -746,48 +1303,22 @@ function createStudentListItem(student) {
     viewButton.classList.add("dashboard-view-button");
     viewButton.innerHTML = '<i class="fa-solid fa-eye eye-icon"></i>';
 
-    viewButton.addEventListener("click", async function() {
-        try {
-            // Fetch the profile content
-            const response = await fetch(`/get-student-profile/${student.studentId}`);
-            if (!response.ok) {
-                throw new Error('Failed to load profile');
-            }
-            const profileContent = await response.text();
-
-            // Hide the dashboard sections
-            const dashboardSections = document.querySelector(".dashboard-sections-container");
-            if (dashboardSections) {
-                dashboardSections.style.display = "none";
-            }
-
-            // Create or update profile container
-            let profileContainer = document.querySelector(".nbfc-studentdashboard-profile-container");
-            if (!profileContainer) {
-                profileContainer = document.createElement('div');
-                profileContainer.classList.add('nbfc-studentdashboard-profile-container');
-                document.querySelector('.main-content').appendChild(profileContainer);
-            }
-
-            // Update content and show
-            profileContainer.innerHTML = profileContent;
-            profileContainer.style.display = "block";
-
-            // Add back button if needed
-            if (!profileContainer.querySelector('.back-to-dashboard')) {
-                const backButton = document.createElement('button');
-                backButton.classList.add('back-to-dashboard');
-                backButton.textContent = 'Back to Dashboard';
-                backButton.addEventListener('click', function() {
-                    profileContainer.style.display = "none";
-                    dashboardSections.style.display = "block";
-                });
-                profileContainer.insertBefore(backButton, profileContainer.firstChild);
-            }
-
-        } catch (error) {
-            console.error("Error loading profile:", error);
-            alert("Failed to load student profile. Please try again.");
+    viewButton.addEventListener("click", function() {
+        // Get all relevant containers
+        const dashboardContainer = document.querySelector('.dashboard-sections-container');
+        const profileContainer = document.querySelector('.nbfc-studentdashboardprofile-profile-section-container');
+        const myApplicationContainer = document.querySelector('.studentdashboardprofile-myapplication');
+        
+        // Hide dashboard container
+        dashboardContainer.style.display = 'none';
+        
+        // Show profile container
+        profileContainer.style.display = 'block';
+        
+        // Show my application container and set its display to flex
+        if (myApplicationContainer) {
+            myApplicationContainer.style.display = 'flex';
+           
         }
     });
 
@@ -806,7 +1337,6 @@ function createStudentListItem(student) {
 
     return listItem;
 }
-  //new
   
 
   // Function to populate student list for a given section
@@ -1247,6 +1777,355 @@ function createStudentListItem(student) {
     
 
 });
+
+//nbfc-student
+  const modalContainer = document.getElementById('modelContainer-send-proposal');
+        const openModalBtn = document.getElementById('openModalBtn');
+        const closeButtons = document.querySelectorAll('.nbfc-send-proposal-close-button');
+        const fileInput = document.getElementById('fileInput');
+        const attachmentBtn = document.getElementById('attachmentBtn');
+        const attachmentPreview = document.getElementById('attachmentPreview');
+        const removeAttachment = document.getElementById('removeAttachment');
+        const fileName = document.querySelector('.nbfc-send-proposal-file-name');
+        const fileSize = document.querySelector('.nbfc-send-proposal-file-size');
+        const cancelButton = document.querySelector('.nbfc-send-proposal-cancel-button');
+        const sendButton = document.querySelector('.nbfc-send-proposal-send-button');
+
+        function openModal() {
+            modalContainer.style.display = 'flex';
+        }
+
+        function closeModal() {
+            modalContainer.style.display = 'none';
+            clearFileInput();
+        }
+
+        function clearFileInput() {
+            fileInput.value = '';
+            attachmentPreview.style.display = 'none';
+            fileName.textContent = 'No file selected';
+            fileSize.textContent = '';
+        }
+
+        attachmentBtn.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                fileName.textContent = file.name;
+                fileSize.textContent = (file.size / 1024).toFixed(2) + ' KB';
+                attachmentPreview.style.display = 'flex';
+            }
+        });
+
+        removeAttachment.addEventListener('click', clearFileInput);
+        openModalBtn.addEventListener('click', openModal);
+        closeButtons.forEach(button => button.addEventListener('click', closeModal));
+        cancelButton.addEventListener('click', closeModal);
+        sendButton.addEventListener('click', closeModal);
+
+//nbfc reject button
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Select modal elements
+    const modalContainer = document.getElementById("model-container-reject-container");
+    const closeButton = document.getElementById("close-button-id");
+    const cancelButton = document.getElementById("cancel-button-id");
+    const sendProposalRejectButton = document.getElementById("send-proposal-button-id");
+
+    // Function to show the modal
+    function showRejectModal() {
+        if (modalContainer) {
+            modalContainer.style.display = "flex"; // Show modal
+        }
+    }
+
+    // Function to hide the modal
+    function hideRejectModal() {
+        if (modalContainer) {
+            modalContainer.style.display = "none"; // Hide modal
+        }
+    }
+
+    // Show modal when clicking the ".nbfc-reject-button"
+    if (sendProposalRejectButton) {
+        sendProposalRejectButton.addEventListener("click", showRejectModal);
+    }
+
+    // Close modal when clicking "X" or "Cancel"
+    if (closeButton) {
+        closeButton.addEventListener("click", hideRejectModal);
+    }
+
+    if (cancelButton) {
+        cancelButton.addEventListener("click", hideRejectModal);
+    }
+
+    // Keep existing rejection alert for ".reject-button"
+    const rejectButtons = document.querySelectorAll(".reject-button");
+    rejectButtons.forEach((rejectButton) => {
+        rejectButton.addEventListener("click", function () {
+            alert("Application Rejected");
+        });
+    });
+
+    // Close modal when clicking outside the modal
+    if (modalContainer) {
+        modalContainer.addEventListener("click", function (event) {
+            if (event.target === modalContainer) {
+                hideRejectModal();
+            }
+        });
+    }
+});
+
+let isEditing = false; // Track whether we're in edit mode or not
+
+const triggerEditButton = () => {
+    const saveChangesButton = document.querySelector(".personalinfo-firstrow button");
+    const savedMsg = document.querySelector(".saved-msg");
+    const inputs = document.querySelectorAll('.studentdashboardprofile-myapplication input');
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const radioButtons = document.querySelectorAll('input[type="radio"]');
+    
+    saveChangesButton.addEventListener('click', () => {
+        if (isEditing) {
+            // Save the changes if we're in edit mode
+            const editedName = document.querySelector(".personalinfosecondrow-editsection .personal_info_name input").value;
+            const editedPhone = document.querySelector(".personalinfosecondrow-editsection .personal_info_phone input").value;
+            const editedEmail = document.querySelector(".personalinfosecondrow-editsection .personal_info_email input").value;
+            const editedState = document.querySelector(".personalinfosecondrow-editsection .personal_info_state input").value;
+            const planToStudy = document.getElementById("plan-to-study-edit").value;
+
+            // Send the data to the server
+            const updatedInfos = {
+                editedName: editedName,
+                editedPhone: editedPhone,
+                editedEmail: editedEmail,
+                editedState: editedState,
+                planToStudy: planToStudy
+            };
+
+            fetch('/from-profileupdate', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify(updatedInfos)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.errors) {
+                    console.error('Validation errors:', data.errors);
+                } else {
+                    // If save is successful, change the button to "Edit"
+                    saveChangesButton.textContent = 'Edit'; // Change button back to "Edit"
+                    saveChangesButton.style.backgroundColor = "transparent";
+                    saveChangesButton.style.color = "#260254";
+
+                    savedMsg.style.display = "flex"; // Show the "Saved" message
+
+                    // Disable the form fields after saving
+                    inputs.forEach(input => input.setAttribute('disabled', true));
+                    checkboxes.forEach(checkbox => checkbox.setAttribute('disabled', true));
+                    radioButtons.forEach(radio => radio.setAttribute('disabled', true));
+
+                    // Hide the "Saved" message after a short delay
+                    setTimeout(() => {
+                        savedMsg.style.display = 'none';
+                    }, 1200);
+
+                    isEditing = false; // Exit edit mode
+                }
+            })
+            .catch(error => {
+                console.error("Error", error);
+            });
+
+        } else {
+            // Enter Edit mode: Enable the fields for editing
+            inputs.forEach(input => input.removeAttribute('disabled'));
+            checkboxes.forEach(checkbox => checkbox.removeAttribute('disabled'));
+            radioButtons.forEach(radio => radio.removeAttribute('disabled'));
+
+            // Change the button text to "Save"
+            saveChangesButton.textContent = 'Save';
+            saveChangesButton.style.backgroundColor = "rgba(111, 37, 206, 1)";
+            saveChangesButton.style.color = "#fff";
+
+            // Hide the "Saved" message if it's visible
+            savedMsg.style.display = 'none';
+
+            isEditing = true; // Set to editing mode
+        }
+    });
+};
+
+// Initialize the function when the page loads or when needed
+triggerEditButton();
+
+const initialiseSeventhcolumn = () => {
+    const section = document.querySelector('.seventhcolum-firstsection');
+
+    section.addEventListener('click', function () {
+        if (section.style.height === '') {
+            section.style.height = 'fit-content';
+        } else {
+            section.style.height = '';
+        }
+    });
+};
+
+const initialiseSeventhAdditionalColumn = () => {
+    const section = document.querySelector('.seventhcolumn-additional-firstcolumn');
+
+    section.addEventListener('click', function () {
+        if (section.style.height === '') {
+            section.style.height = 'fit-content';
+        } else {
+            section.style.height = '';
+        }
+    });
+};
+
+// Initialize the columns
+initialiseSeventhcolumn();
+initialiseSeventhAdditionalColumn();
+
+const initializeKycDocumentUpload = () => {
+    const individualKycDocumentsUpload = document.querySelectorAll(".individualkycdocuments");
+
+    individualKycDocumentsUpload.forEach((card) => {
+        let uploadedFile = null;
+
+        // Trigger the file input when the container is clicked
+        card.querySelector('.inputfilecontainer').addEventListener('click', function () {
+            card.querySelector('#inputfilecontainer-real').click();
+        });
+
+        // Handle file selection
+        card.querySelector('#inputfilecontainer-real').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+
+            // Validate file type (PDF, JPG, JPEG)
+            const validTypes = ['application/pdf', 'image/jpeg', 'image/jpg'];
+            if (!validTypes.includes(file.type)) {
+                alert("Please upload only PDF, JPG, or JPEG files.");
+                return;
+            }
+
+            // Validate file size (max 5 MB)
+            const maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+            if (file.size > maxSize) {
+                alert("The file size must be less than 5 MB.");
+                return;
+            }
+
+            if (file) {
+                uploadedFile = file;
+                card.querySelector('.inputfilecontainer p').textContent = file.name;
+
+                const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+                const filesizeviewer = card.querySelector('.document-status');
+                filesizeviewer.textContent = `${fileSizeMB} MB Uploaded`;
+
+                // Upload the file
+                uploadFile(file, 'kyc');
+            }
+        });
+
+        // Handle the view icon click (optional functionality)
+        card.querySelector('.fa-eye').addEventListener('click', function (event) {
+            event.stopPropagation();
+            // Add any functionality here for previewing the uploaded file
+        });
+    });
+};
+
+// Function to upload the file (via AJAX)
+const uploadFile = (file, documentType) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('document_type', documentType);
+
+    // Make sure to change the URL to match the route in your server-side logic
+    fetch('/upload-kyc-document', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log('File uploaded successfully:', data);
+        } else {
+            console.error('Error uploading file:', data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+};
+
+// Initialize the KYC document upload functionality
+initializeKycDocumentUpload();
+
+const initializeMarksheetUpload = () => {
+    const individualMarksheetDocumentsUpload = document.querySelectorAll(".individualmarksheetdocuments");
+
+    individualMarksheetDocumentsUpload.forEach((card) => {
+        let uploadedFile = null;
+
+        // Trigger the file input when the container is clicked
+        card.querySelector('.inputfilecontainer-marksheet').addEventListener('click', function () {
+            card.querySelector('#inputfilecontainer-real-marksheet').click();
+        });
+
+        // Handle file selection
+        card.querySelector('#inputfilecontainer-real-marksheet').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+
+            // Validate file type (PDF, JPG, JPEG)
+            const validTypes = ['application/pdf', 'image/jpeg', 'image/jpg'];
+            if (!validTypes.includes(file.type)) {
+                alert("Please upload only PDF, JPG, or JPEG files.");
+                return;
+            }
+
+            // Validate file size (max 5 MB)
+            const maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+            if (file.size > maxSize) {
+                alert("The file size must be less than 5 MB.");
+                return;
+            }
+
+            if (file) {
+                uploadedFile = file;
+                card.querySelector('.inputfilecontainer-marksheet p').textContent = file.name;
+
+                const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+                const filesizeviewer = card.querySelector('.document-status');
+                filesizeviewer.textContent = `${fileSizeMB} MB Uploaded`;
+
+                // Upload the file
+                uploadFile(file, 'marksheet');
+            }
+        });
+
+        // Handle the view icon click (optional functionality)
+        card.querySelector('.fa-eye').addEventListener('click', function (event) {
+            event.stopPropagation();
+            // Add any functionality here for previewing the uploaded file
+        });
+    });
+};
+
+// Initialize the Marksheet document upload functionality
+initializeMarksheetUpload();
+
+
+
+
+
 
 
  </script>

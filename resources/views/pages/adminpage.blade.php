@@ -62,7 +62,7 @@
             <x-admin.adminstudent/>
             <x-admin.adminstudentcounsellor/>
             <x-admin.adminnbfc/>
-            <x-admin.admineditcontent/>
+            <x-admin.adminindex/>
         </div>
     </div>
 
