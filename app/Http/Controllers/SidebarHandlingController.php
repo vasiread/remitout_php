@@ -2,28 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Scuser;
 use Illuminate\Http\Request;
 
 class SidebarHandlingController extends Controller
 {
     public function scdashboardItems()
     {
-        $sidebarItems = [
+         $sidebarItems = [
             ['name' => 'Dashboard', 'icon' => 'fa-solid fa-square-poll-vertical', 'active' => true],
             ['name' => 'Inbox', 'icon' => 'fa-solid fa-inbox', 'active' => false],
             ['name' => 'Application Status', 'icon' => 'fa-regular fa-clipboard', 'active' => false],
         ];
 
-        $scuser = session('scuser', 1);
+         $referralId = 'HYU67994003';
 
-        if (!session()->has('scuser')) {
-            session(['scuser' => $scuser]);
+         $scUserSession = Scuser::where('referral_code', $referralId)->first();
+
+         if ($scUserSession) {
+            session(['scuser' => $scUserSession]);
+
+             session()->put('scDetail', $scUserSession);
+
+            // Set session expiry
+            session()->put('expires_at', now()->addSeconds(10000));
         }
 
-        session()->put('expires_at', now()->addSeconds(30000));
-
-        return view('pages.scdashboard', compact('sidebarItems', 'scuser'));
+        // Return sidebar items
+        return $sidebarItems;
     }
+
+
 
 
     public function admindashboardItems()

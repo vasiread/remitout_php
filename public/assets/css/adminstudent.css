@@ -29,7 +29,9 @@
 
 
  }
-
+.globallistcontainer-header #student-list-count{
+    display:none
+}
  .headersection-rightsidecontent {
      display: flex;
      width: fit-content;
@@ -333,7 +335,15 @@
          display: none;
      }
 
-
+.globallistcontainer-header #student-list-count{
+    display:flex;
+    align-self: flex-end;
+    font-family: Poppins;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 18px;
+        color:rgba(93, 92, 92, 1);
+}
 
 
 

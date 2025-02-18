@@ -8,6 +8,48 @@
 
 }
 
+.scdashboard-parentcontainer.dull {
+    -webkit-filter: blur(5px) grayscale(50%);
+    -webkit-transform: scale(0.9);
+
+    /* Dull effect */
+}
+
+.queryraisedcontainer-rightcontent .sort-by-contents,
+.sort-by-contents-applications-studentnames {
+    display: none;
+    align-items: center;
+    position: absolute;
+    flex-direction: column;
+    top: 40px;
+    gap: 9px;
+    height: 157px;
+    left: 1px;
+    border-radius: 4px;
+    width: 42%;
+    padding: 6px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 3;
+    background: #ffffff;
+    border: 1px solid #ddd;
+}
+
+.queryraisedcontainer-rightcontent .sort-by-contents a,
+.sort-by-contents-applications-studentnames a {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+
+.queryraisedcontainer-rightcontent .sort-by-contents a:hover,
+.sort-by-contents-applications-studentnames a:hover {
+    background: #f0f0f0;
+}
+
 .scdashboard-trackprogress {
     padding: 2rem 25px 17px 2rem;
     max-width: 100%;
@@ -202,6 +244,7 @@
     align-items: center;
     color: #fff;
     background-color: #E98635;
+    cursor: pointer;
 
 
 }
@@ -341,8 +384,7 @@
     gap: 8px;
     border-radius: 4px;
     opacity: 0px;
-    background-color: #FA7B15;
-    box-shadow: 0px 0px 10px 0px #92889B21;
+    background-color: transparent;
     font-size: 1.4rem;
     color: #FFFFFF;
     border: none;
@@ -386,7 +428,20 @@
     object-fit: cover;
 
 }
+.scmember-profilecontainerimg{
+    position:relative;
+}
+.scmember-profilecontainerimg i{
+    display:none;
+    position:absolute;
+    top:0;
+    right:0;
+    padding: 0.4rem;
+    color:rgba(38, 2, 84, 0.7);
+    
 
+
+}
 .scmember-rowfirst {
     display: flex;
     justify-content: space-between;
@@ -597,6 +652,7 @@
 .queryraisedcontainer-rightcontent {
     display: flex;
     gap: 20px;
+    position: relative;
 
 
 }
@@ -674,7 +730,6 @@
     font-weight: 500;
     line-height: 18px;
     color: #909090;
-    /* background-color: red; */
     margin-right: 3rem;
 }
 
@@ -735,6 +790,7 @@
 .firstrowapplication-rightsidecontent {
     display: flex;
     gap: 20px;
+    position: relative;
 
 }
 
@@ -807,6 +863,10 @@
 .reportsindashboard-leftcontentinfirstrow {
     display: flex;
     gap: 5.6rem;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-right: 15rem;
 
 }
 
@@ -851,7 +911,7 @@
     max-width: 100%;
     gap: 5%;
     padding-bottom: 20px;
-    border-bottom: 1px solid #E5E5E5;
+    border-bottom: 1px solid transparent;
 
 }
 
@@ -907,7 +967,7 @@
 }
 
 .reportsproposal-datalists {
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 1.5rem;
     padding-top: 1.3rem;
@@ -918,7 +978,7 @@
 .reportsproposal-datalists .reportsproposal-individualdatalists {
     display: flex;
     gap: 80px;
-    /* justify-content: space-between; */
+
 }
 
 .studentapplicaton-datashownpagination {
@@ -1000,6 +1060,234 @@
     display: none;
 }
 
+/* ---------------------------------------------------------- */
+
+.studentAddBySCuserPopup,
+.referral-triggered-view {
+    display: none;
+    flex-direction: column;
+
+    background: rgba(255, 255, 255, 1);
+    position: fixed;
+    max-width: 42.01%;
+    width: 100%;
+
+    height: fit-content;
+    top: 50%;
+    left: 52%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
+    padding: 20px 24px;
+    gap: 17px;
+    z-index: 1000;
+
+
+}
+
+
+
+.studentAddByScuserPopup-headerpart,
+.referral-triggered-view-headersection {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.studentAddByScuserPopup-headerpart h3,
+.referral-triggered-view-headersection h3 {
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 27px;
+    color: rgba(233, 134, 53, 1);
+}
+
+.studentAddByScuserPopup-headerpart img,
+.referral-triggered-view-headersection,
+.referral-Link-trigger-button,
+.referral-Link-trigger-anotherbutton {
+    cursor: pointer;
+}
+
+.studentAddByScuserPopup-contentpart {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: fit-content;
+    border-bottom: 1px solid rgba(217, 217, 217, 1);
+    padding-bottom: 17px;
+}
+
+.studentAddByScuserPopup-contentpart input::placeholder {
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    color: rgba(144, 144, 144, 1);
+
+}
+
+.referral-triggered-view-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.studentAddByScuserPopup-contentpart input {
+    width: 100%;
+    height: 38;
+    border-radius: 4px;
+
+    padding: 10px 13px;
+    gap: 10px;
+    border-width: 1px;
+    border: 1px solid rgba(226, 226, 226, 1);
+    outline: none;
+
+
+}
+
+.studentAddByScuserPopup-contentpart #delete-student-row,
+.delete-student-popup {
+    align-self: flex-end;
+    max-width: 109px;
+    width: 100%;
+    height: 35px;
+    border-radius: 4px;
+    gap: 8px;
+    border: 1px solid rgba(111, 37, 206, 1);
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16.8px;
+    color: rgba(38, 2, 84, 1);
+    background: transparent;
+
+}
+
+.studentAddByScuserPopup-footerpart {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.studentAddByScuserPopup-footerpart button {
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16.8px;
+    text-align: center;
+    border-radius: 4px;
+    height: 35px;
+
+
+}
+
+.studentAddByScuserPopup-footerpart button:first-child {
+    align-self: flex-start;
+    max-width: 129px;
+    width: 100%;
+
+    border: 1px solid rgba(233, 134, 53, 1);
+    box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
+    background: transparent;
+    display: flex;
+    gap: 11px;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.studentAddByScuserPopup-footerpart button:nth-child(2),
+#dynamic-add-student-button {
+    background: transparent;
+    color: rgba(111, 37, 206, 1);
+    border: 1px solid rgba(111, 37, 206, 1);
+    padding: 16px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+
+
+}
+
+#dynamic-add-student-button {
+    display: none;
+    align-self: flex-end;
+    border-radius: 4px;
+    width: 109px;
+    height: 40px;
+    padding: 0;
+}
+
+.studentAddByScuserPopup-footerpart button:last-child {
+    max-width: 169px;
+    width: 100%;
+    background-color: rgba(111, 37, 206, 1);
+    box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
+    border: none;
+    color: rgba(255, 255, 255, 1);
+
+}
+
+.referral-triggered-view-content input::placeholder {
+    text-align: center;
+}
+
+.referral-triggered-view-content input {
+    width: 100%;
+    height: 128px;
+    padding: 0 2rem;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    white-space: normal;
+    border: 1px solid rgba(226, 226, 226, 1);
+    border-radius: 4px;
+    outline: none;
+}
+
+.referral-triggered-view-footer button:first-child {
+    width: 109px;
+    height: 35px;
+    gap: 8px;
+    border-radius: 4px;
+    border-width: 1px;
+    padding: 1rem 2rem;
+    border: 1px solid rgba(233, 134, 53, 1);
+    background: rgba(255, 255, 255, 1);
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16.8px;
+    color: rgba(0, 0, 0, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.referral-triggered-view-footer button img {
+    width: 12px;
+}
+
+.referral-triggered-view-footer button:last-child {
+    width: 126px;
+    height: 35px;
+    gap: 8px;
+    border-radius: 4px;
+    background-color: rgba(111, 37, 206, 1);
+    box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16.8px;
+    color: rgba(255, 255, 255, 1);
+    border: none;
+}
+
 /* -------------------------------------------Media Queries-------------------------------------------------------------- */
 @media(max-width:1200px) {
 
@@ -1037,6 +1325,14 @@
     .scmember-rowfirst h1 {
         font-size: 0.8rem;
         line-height: 1rem;
+    }
+
+    .studentAddByScuserPopup-footerpart button:nth-child(2) {
+        display: none;
+    }
+
+    #dynamic-add-student-button {
+        display: flex;
     }
 
 
@@ -1151,7 +1447,7 @@
     }
 
     .scdashboard-applicationstatus .scapplicationstatus-firstrow #sc-new-application-generate {
-        padding: 1rem
+        padding: 1rem;
     }
 
     .scdashboard-applicationstatus {
@@ -1177,6 +1473,13 @@
         display: none;
     }
 
+    .studentAddBySCuserPopup,
+    .referral-triggered-view {
+        max-width: 60%;
+        width: 100%;
+    }
+
+
 }
 
 @media(max-width:729px) and (min-width:640px) {
@@ -1200,6 +1503,11 @@
     .studentapplication-header .start-new {
         width: 193px
     }
+
+    .queryraisedcontainer-rightcontent .sort-by-contents {
+        width: 70%;
+    }
+
 }
 
 @media(max-width:640px) {
@@ -1210,6 +1518,9 @@
         max-width: 100%;
     }
 
+    .studentAddByScuserPopup-footerpart button:nth-child(2) {
+        display: none;
+    } 
 
     .scdashboard-dashboardcontent {
         max-width: 100%;
@@ -1367,7 +1678,12 @@
 
     .reportsindashboard-leftcontentinfirstrow {
         flex-direction: column;
-        gap: 12px;
+         display: flex;
+         justify-content: space-between;
+        width: 100%;
+        margin-right: 9rem;
+        align-items: flex-start;
+        gap:1rem;
     }
 
 
@@ -1383,21 +1699,28 @@
 
     }
 
-
-    @media(max-width:480px) {
-
-        .scdashboard-inboxcontent {
-            margin: 0.5rem;
-        }
-
-        .scmember-profilecontainer,
-        .scdashboard-performancecontainer {
-
-            padding: 0.5rem;
-            padding-top: 1.5rem;
-        }
-
+    .studentAddBySCuserPopup,
+    .referral-triggered-view {
+        max-width: 70%;
+        width: 100%;
     }
 
+    .queryraisedcontainer-rightcontent .sort-by-contents {
+        width: 70%;
+    }
+}
+
+@media(max-width:480px) {
+
+    .scdashboard-inboxcontent {
+        margin: 0.5rem;
+    }
+
+    .scmember-profilecontainer,
+    .scdashboard-performancecontainer {
+
+        padding: 0.5rem;
+        padding-top: 1.5rem;
+    }
 
 }

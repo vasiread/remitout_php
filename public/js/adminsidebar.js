@@ -102,11 +102,18 @@ const initializeAdminSidebar = () => {
                 if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
                 if (studentCounsellorList) studentCounsellorList.style.display = "none";
                 if (studentNBFCList) studentNBFCList.style.display = "none";
+<<<<<<< HEAD
                  if (editContainerAdmin) editContainerAdmin.style.display = "none"; 
 
                 
                 
                 if (index === 4) {
+=======
+                if (studentListContainer) studentListContainer.style.display = "none"
+
+
+                if (index === 2||index ===3) {
+>>>>>>> e8282519028546f9089a3718d4ab72fb76773f27
                     if (studentListContainer) studentListContainer.style.display = "flex"
 
 

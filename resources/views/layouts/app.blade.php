@@ -70,7 +70,11 @@
     @endif
 
 
+<<<<<<< HEAD
     @if(Route::currentRouteName() !== 'login' && Route::currentRouteName() !== 'signup' && Route::currentRouteName() !== 'admin-page' && Route::currentRouteName() !== 'nbfc-dashboard')
+=======
+    @if(Route::currentRouteName() !== 'login' && Route::currentRouteName() !== 'signup' && Route::currentRouteName() !== 'admin-page' && Route::currentRouteName() !== 'sc-dashboard')
+>>>>>>> e8282519028546f9089a3718d4ab72fb76773f27
         <x-footer></x-footer>
     @endif
 

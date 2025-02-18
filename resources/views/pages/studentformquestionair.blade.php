@@ -1250,8 +1250,9 @@
 
   <!-- #region -->
 
-  <script>
+      <script src="{{ asset('js/studentforms.js') }}"></script>
 
+<<<<<<< HEAD
     document.addEventListener('DOMContentLoaded', () => {
 
       const studentFormMenuIcon = document.getElementById('student-form-menu-icon');
@@ -2518,6 +2519,8 @@
 
 
   </script>
+=======
+>>>>>>> e8282519028546f9089a3718d4ab72fb76773f27
 </body>
 
 </html>
