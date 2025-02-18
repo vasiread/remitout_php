@@ -7,6 +7,7 @@
 </head>
 
 <body>
+    
     {{$msg}}
 
 </body>

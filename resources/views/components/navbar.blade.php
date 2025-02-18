@@ -14,54 +14,69 @@
 $navImgPath = "assets/images/Remitoutcolored.png";
 $navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
 $NotificationBell = "assets/images/notifications_unread.png";
-
-
-
             @endphp
+
             <img onclick="window.location.href='{{ url(' ') }}'"
-                src="{{ asset(Request::is('/') ? $navImgPathWhite : $navImgPath) }}" alt="Logo" class="logo">
+                src="{{ asset(Request::is('/') ? $navImgPathWhite : $navImgPath) }}" alt="Logo" class="logo"
+                id="profile-logo">
+
 
             <div class="nav-links">
                 <a class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}" href="{{url('/')}}">Home</a>
-
                 <a href="#resources" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Resources</a>
-                <a href="#deals" class="{{ Request::is(patterns: '/') ? '' : 'fullopacitylinks' }}">Special Deals</a>
+                <a href="#deals" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Special Deals</a>
                 <a href="#services" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Our Service</a>
                 <a href="#schedule" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Schedule Call</a>
             </div>
 
-            <div class="nav-buttons">
-                <button class="login-btn" onclick="window.location.href='{{ route(name: 'login') }}'">Log In</button>
-                <button class="signup-btn" onclick="window.location.href='{{ route('signup') }}'">Sign Up</button>
-            </div>
-            <div class="nav-searchnotificationbars">
-                <div class="input-container">
-                    <input type="text" placeholder="Search">
-                    <img src="assets/images/search.png" class="search-icon" alt="Search Icon">
-                </div> <img src={{$NotificationBell}} style="width:24px;height:24px" class="unread-notify" alt="">
+            @if(session()->has('user'))
+                <div class="nav-searchnotificationbars">
+                    <div class="input-container">
+                        <input type="text" placeholder="Search">
+                        <img src="assets/images/search.png" class="search-icon" alt="Search Icon">
+                    </div>
+                    <img src="{{ $NotificationBell }}" style="width:24px;height:24px" class="unread-notify" alt="">
 
-                <div class="nav-profilecontainer">
-                    <img src="" id="nav-profile-photo-id" class="nav-profileimg" alt="">
-                    @if(session()->has('user'))
+                    <div class="nav-profilecontainer">
+                        <img src="{{ session('user')->profile_photo_url }}" id="nav-profile-photo-id" class="nav-profileimg"
+                            alt="Profile Image">
                         <h3>{{ session('user')->name }}</h3>
                         <i class="fa-solid fa-chevron-down"></i>
+                    </div>
 
-                    @else
-
-
-
-
-                    @endif
+                    <div class="menubarcontainer-profile" id="user-dashboard-menu">
+                        <img src="{{ asset('assets/images/Icons/menu.png') }}" alt="">
+                    </div>
                 </div>
+            @elseif(session()->has('scuser'))
+                <div class="nav-searchnotificationbars">
+                    <div class="input-container">
+                        <input type="text" placeholder="Search">
+                        <img src="assets/images/search.png" class="search-icon" alt="Search Icon">
+                    </div>
+                    <img src="{{ $NotificationBell }}" style="width:24px;height:24px" class="unread-notify" alt="">
+
+                    <div class="nav-profilecontainer">
+                        <img src="{{ asset('assets/images/image-women.jpeg') }}" id="nav-profile-photo-id"
+                            class="nav-profileimg" alt="Profile Image">
+                        <h3 style='width:100%'>{{ session('scuser')->full_name }}</h3>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+
+                    <div class="menubarcontainer-profile" id="scuser-dashboard-menu">
+                        <img src="{{ asset('assets/images/Icons/menu.png') }}" onclick="menuopenclose()" alt="">
+                    </div>
+                </div>
+            @else
+                <div class="nav-buttons">
+                    <button class="login-btn" onclick="window.location.href='{{ route('login') }}'">Log In</button>
+                    <button class="signup-btn" onclick="window.location.href='{{ route('signup') }}'">Sign Up</button>
+                </div>
+            @endif
 
 
-            </div>
             <div class="profile-photo-mobtab" style="display:none">
-            
                 <img src="" id="nav-profile-photo-id" class="nav-profileimg" alt="">
-
-
-
             </div>
 
             <div class="menu-icon" id="menu-icon">
@@ -71,82 +86,64 @@ $NotificationBell = "assets/images/notifications_unread.png";
             </div>
         </div>
     </nav>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const menuIcon = document.getElementById('menu-icon');
-            const navContainer = document.querySelector('.nav-container');
-            const navLinks = document.querySelectorAll('.nav-links a');
-            const navLinksContainer = document.querySelector('.nav-links');
-            const searchnotificationbars = document.querySelector(".nav-searchnotificationbars");
-            const navigationLoginSignupButtons = document.querySelector(".nav-buttons");
-            const mobTabProfile = document.querySelector(".profile-photo-mobtab img");
+            dynamicChangeNavMob();
 
+            const navButtons = document.querySelector(".nav-buttons");
+            var currentRoute = window.location.pathname;
+            console.log('Current Route:', currentRoute);
 
+            retrieveProfilePictureNav();
+            retrieveProfilePictureNavSc();
+            console.log('Route after retrieveProfilePictureNav:', currentRoute);
 
-
-
-            window.onload = function () {
-                var currentRoute = window.location.pathname;
-                retrieveProfilePictureNav();
-
-                if (currentRoute === "/student-dashboard") {
-                    if (window.innerWidth <= 420) {
-                        searchnotificationbars.style.display = "none";
-                        mobTabProfile.style.display = "block";
-                    } else {
-                        searchnotificationbars.style.display = "flex";
-                        mobTabProfile.style.display = "none";
-                    }
-                    navLinksContainer.style.display = "none";
-                    navigationLoginSignupButtons.style.display = "none";
-                }
-                else {
-                    searchnotificationbars.style.display = "none";
-                    navLinksContainer.style.display = "flex";
-                    navigationLoginSignupButtons.style.display = "flex";
-
-
-                }
-            }
-
-            menuIcon.addEventListener('click', function () {
-                menuIcon.classList.toggle('active');
-                navContainer.classList.toggle('active');
-                document.body.style.overflow = navContainer.classList.contains('active') ? 'hidden' : '';
-            });
-
-            const navbar = document.querySelector('.nav');
-            function handleScroll() {
-                if (window.scrollY > 0) {
-                    navbar.classList.add('scrolled');
+            if (currentRoute.includes("/student-dashboard") || currentRoute.includes("/student-forms") || currentRoute.includes("/sc-dashboard")) {
+                console.log('Dashboard or Forms detected');
+                if (window.innerWidth <= 420) {
+                    document.querySelector('.nav-searchnotificationbars').style.display = "none";
+                    document.querySelector('.profile-photo-mobtab').style.display = "block";
                 } else {
-                    navbar.classList.remove('scrolled');
+                    document.querySelector('.nav-searchnotificationbars').style.display = "flex";
+                    document.querySelector('.profile-photo-mobtab').style.display = "none";
+                }
+                document.querySelector('.nav-links').style.display = "none";
+                if (navButtons) {
+                    navButtons.style.display = "none";
+
+
+                }
+            } else {
+                console.log('Other route detected');
+                document.querySelector('.nav-searchnotificationbars').style.display = "none";
+                document.querySelector('.nav-links').style.display = "flex";
+                if (navButtons) {
+                    navButtons.style.display = "flex";
+
+
                 }
             }
-            window.addEventListener('scroll', handleScroll);
+        });
 
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    menuIcon.classList.remove('active');
-                    navContainer.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
-            });
+        function menuopenclose() {
+            const triggeredSideBar = document.querySelector(".commonsidebar-togglesidebar");
+            const img = document.querySelector("#scuser-dashboard-menu img");
+            if (img.src.includes("menu.png")) {
+                img.src = '{{ asset('assets/images/Icons/close_icon.png') }}';
+                triggeredSideBar.style.display = 'flex';
+            } else if (img.src.includes("close_icon.png")) {
+                img.src = '{{ asset('assets/images/Icons/menu.png') }}';
+                triggeredSideBar.style.display = 'none';
+            }
 
-            document.addEventListener('click', function (event) {
-                if (!navContainer.contains(event.target) && !menuIcon.contains(event.target)) {
-                    menuIcon.classList.remove('active');
-                    navContainer.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            });
-        })
+        }
 
         const retrieveProfilePictureNav = async () => {
             const userSession = @json(session('user'));
             const userId = userSession.unique_id;
             const profileImgUpdate = document.querySelector(".nav-profilecontainer .nav-profileimg");
-                        const mobTabProfile = document.querySelector(".profile-photo-mobtab img");
+            const mobTabProfile = document.querySelector(".profile-photo-mobtab img");
 
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -180,11 +177,68 @@ $NotificationBell = "assets/images/notifications_unread.png";
             }
         };
 
+        const retrieveProfilePictureNavSc = async () => {
+            const scuserrefid = 'HYU67994003';
+            const profileImgUpdate = document.querySelector(".nav-profilecontainer .nav-profileimg");
+            const mobTabProfile = document.querySelector(".profile-photo-mobtab img");
 
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
+            if (!csrfToken) {
+                console.error('CSRF token not found');
+                return;
+            }
 
+            try {
+                const response = await fetch('/view-scuserprofile-photo', {
+                    method: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ scuserrefid: scuserrefid })
+                });
 
+                const data = await response.json();
 
+                if (data.fileUrl) {
+                    console.log("Profile Picture URL:", data.fileUrl);
+                    profileImgUpdate.src = data.fileUrl;
+                    mobTabProfile.src = data.fileUrl;
+                } else {
+                    console.error("Error: No URL returned from the server", data);
+                }
+            } catch (error) {
+                console.error("Error retrieving profile picture", error);
+            }
+        }
+
+        const dynamicChangeNavMob = () => {
+            const searchTextBoxProfile = document.querySelector(".nav-searchnotificationbars .input-container");
+            const unreadNofifyProfile = document.querySelector(".nav-searchnotificationbars .unread-notify");
+            const nameFromProfile = document.querySelector(".nav-searchnotificationbars .nav-profilecontainer h3");
+            const iconFromProfile = document.querySelector(".nav-searchnotificationbars .nav-profilecontainer i");
+            const menuBarFromProfile = document.querySelector(".menubarcontainer-profile img")
+
+            if (window.innerWidth <= 640) {
+                searchTextBoxProfile.style.display = "none";
+                unreadNofifyProfile.style.display = "none";
+                nameFromProfile.style.display = "none";
+                iconFromProfile.style.display = "none";
+                menuBarFromProfile.style.display = "block";
+            } else {
+                searchTextBoxProfile.style.display = "block";
+                unreadNofifyProfile.style.display = "block";
+                nameFromProfile.style.display = "block";
+                iconFromProfile.style.display = "block";
+                menuBarFromProfile.style.display = "none";
+            }
+        };
+
+        window.addEventListener("resize", () => {
+            dynamicChangeNavMob();
+        });
 
     </script>
 

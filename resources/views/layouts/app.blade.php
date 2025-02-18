@@ -20,7 +20,14 @@
     <link rel="stylesheet" href="assets/css/loginsignup.css">
     <link rel="stylesheet" href="assets/css/login.css">
     <link rel="stylesheet" href="assets/css/studentdashboard.css">
-
+    <link rel="stylesheet" href="assets/css/scdashboard.css">
+    <link rel="stylesheet" href="assets/css/commonsidebar.css">
+    <link rel="stylesheet" href="assets/css/admindashboard.css">
+    <link rel="stylesheet" href="assets/css/adminstudent.css">
+    <link rel="stylesheet" href="assets/css/adminstudentcounsellor.css">
+    <link rel="stylesheet" href="assets/css/adminnbfc.css">
+    <link rel="stylesheet" href="assets/css/adminpage.css">
+ 
 
     <link rel="stylesheet" href="assets/css/footer.css">
 
@@ -38,26 +45,36 @@
 </head>
 
 <body>
-    @if(Route::currentRouteName() !== 'login' && Route::currentRouteName() !== 'signup')
+    @if(!in_array(Route::currentRouteName(), ['login', 'signup', 'admin-page']))
         <x-navbar></x-navbar>
     @endif
+    @yield('homecontent') 
+ 
+ 
+    
+
 
     @if(Route::currentRouteName() === 'login')
         @yield('logincontent')  
     @elseif(Route::currentRouteName() === 'signup')
         @yield('signupcontent')  
     @elseif(Route::currentRouteName() === 'student-dashboard')
-        @yield("studentdashboard")
+        @yield('studentdashboard')
+    @elseif(Route::currentRouteName() === 'sc-dashboard')
+        @yield('scdashboard')
+    @elseif(Route::currentRouteName() === 'adminpage')
+        @yield('adminpage');
     @else
-        @yield('homecontent') 
+        @yield('homecontent')
     @endif
 
-    @if(Route::currentRouteName() !== 'login' && Route::currentRouteName() !== 'signup')
+
+    @if(Route::currentRouteName() !== 'login' && Route::currentRouteName() !== 'signup' && Route::currentRouteName() !== 'admin-page' && Route::currentRouteName() !== 'sc-dashboard')
         <x-footer></x-footer>
     @endif
 
 
-        <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 
 </body>
 

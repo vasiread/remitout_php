@@ -1,14 +1,20 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\GoogleAuthController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\MailController;
-use App\Http\Controllers\OTPMobController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\StudentDashboardController;
-use App\Http\Controllers\StudentDetailsController;
-use App\Http\Controllers\TrackController;
+use App\Http\Controllers\{
+    AuthController,
+    GoogleAuthController,
+    LoginController,
+    MailController,
+    OTPMobController,
+    RegisterController,
+    SidebarHandlingController,
+    StudentDashboardController,
+    StudentDetailsController,
+    TrackController
+};
+use App\Http\Controllers\ExportController;
+use App\Http\Controllers\scDashboardController;
+use App\Http\Controllers\StudentCounsellorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +28,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Landing and Authentication Routes
 Route::get('/', function () {
     return view('pages.landing');
 });
@@ -31,56 +38,86 @@ Route::get('/signup', function () {
 })->name('signup');
 
 Route::get('/login', function () {
-    return view('pages/login');
+    return view('pages.login');
 })->name('login');
-Route::get('/student-dashboard', function () {
-    return view('pages/studentdashboard');
-})->name('student-dashboard');
-Route::get('/student-forms', function () {
-    return view('pages/studentformquestionair');
-})->name('student-forms');
-Route::get(
-    "/sc-dashboard",
-    function () {
-        return view("pages/scdashboard");
-    }
-)->name("sc-dashboard");
 
+
+Route::get('/admin-page', function () {
+
+    $sidebarItems = (new SidebarHandlingController)->admindashboardItems();
+    $userDetails = (new StudentDashboardController)->getAllUsersFromAdmin();  // Example class name
+
+    return view('pages.adminpage', [
+        'sidebarItems' => $sidebarItems,
+        'userDetails' => $userDetails,
+    ]);
+})->name('admin-page');
+Route::get('/sc-dashboard', function () {
+    $sidebarItems = (new SidebarHandlingController)->scdashboardItems();
+    $userByRef = (new scDashboardController)->getUsersByCounsellor();
+    return view('pages.scdashboard', [
+        'sidebarItems' => $sidebarItems,
+        'userByRef' => $userByRef,
+    ]);
+})->name('sc-dashboard');
+// Student Routes
+Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser'])->name('student-dashboard');
+Route::get('/student-forms', function () {
+    return view('pages.studentformquestionair');
+})->name('student-forms');
+
+
+// Miscellaneous Routes
 Route::get('pages/student-dashboard', [TrackController::class, 'loanTracker']);
 
+// Google Authentication Routes
+Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
+Route::get('auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle']);
 
+// Form Submission Routes
 Route::post('/registerformdata', [RegisterController::class, 'store'])->name('registerformdata');
 Route::post('/emailuniquecheck', [RegisterController::class, 'emailUniqueCheck'])->name('emailUniqueCheck');
-// Route::post('/updateuserids', [RegisterController::class, 'updateUserIds'])->name('updateUserIds');
 Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
+Route::post('/session-logout', [LoginController::class, 'sessionLogout'])->name('session.logout');
+
+// Update Routes for Student Details
 Route::post('/update-personalinfo', [StudentDetailsController::class, 'updatePersonalInfo']);
 Route::post('/update-courseinfo', [StudentDetailsController::class, 'updateCourseInfo']);
 Route::post('/update-academicsinfo', [StudentDetailsController::class, 'updateAcademicsInfo']);
 Route::post('/updatedetailsinfo', [StudentDetailsController::class, 'updateUserIds']);
 Route::post("/coborrowerData", [StudentDetailsController::class, 'updateCoborrowerInfo']);
 
-Route::post('/send-mobotp', [OTPMobController::class, 'sendOTP']);
-Route::post('/verify-mobotp', [OTPMobController::class, 'verifyOTP']);
-
-
-// Route::post('/send-email', [MailController::class, 'sendEmail']);
-// Route::post('/verify-otp', [MailController::class, 'verifyOTP']);
-Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser'])->name('student-dashboard');
-// Route::get('/sc-dashboard', [scdashboardco::class, 'getUser'])->name('student-dashboard');
-Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFromProfile']);
-Route::post('/upload-profile-picture', [StudentDashboardController::class, 'uploadProfilePicture']);
-Route::post('/retrieve-profile-picture', [StudentDashboardController::class, 'retrieveProfilePicture']);
-Route::post('/retrieve-pan-card', [StudentDashboardController::class, 'panCardView']);
-Route::post('/session-logout', [LoginController::class, 'sessionLogout'])->name('session.logout');
-Route::post('/retrieve-aadhar-card', [StudentDashboardController::class, 'aadharCardView']);
-Route::post('/retrieve-passport', [StudentDashboardController::class, 'passportView']);
-Route::post('/retrieve-sslcmarksheet', [StudentDashboardController::class, 'sslcmarksheetView']);
-Route::post('/retrieve-hscmarksheet', [StudentDashboardController::class, 'hscmarksheetView']);
-Route::post('/retrieve-graduationmarksheet', [StudentDashboardController::class, 'graduationmarksheetView']);
+// Document Upload and Handling Routes
+Route::post('/remove-each-documents', [StudentDashboardController::class, 'removeFromServer']);
 Route::post('/upload-each-documents', [StudentDashboardController::class, 'uploadMultipleDocuments']);
 Route::post('/count-documents', [StudentDashboardController::class, 'countFilesInBucket']);
 Route::post('/check-columns', [StudentDashboardController::class, 'validateTablesAndColumns']);
 Route::post('/send-documents', [MailController::class, 'sendUserDocuments']);
+Route::post('/retrieve-file', [StudentDashboardController::class, 'retrieveFile']);
 
+Route::post('/getuserbyref', [scDashboardController::class, 'getUsersByCounsellor']);
+
+// OTP Routes
+Route::post('/send-mobotp', [OTPMobController::class, 'sendOTP']);
+Route::post('/verify-mobotp', [OTPMobController::class, 'verifyOTP']);
+
+// Admin Sidebar Handling Routes
+
+// Profile and Picture Routes
+Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFromProfile']);
+Route::post('/upload-profile-picture', [StudentDashboardController::class, 'uploadProfilePicture']);
+Route::post('/retrieve-profile-picture', [StudentDashboardController::class, 'retrieveProfilePicture']);
+
+// Google Auth Routes
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
 Route::get('auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle']);
+
+// Miscellaneous API-like Routes
+Route::post('/retrieve-file', [StudentDashboardController::class, 'retrieveFile']);
+Route::get("/getalluserdetailsfromadmin", [StudentDashboardController::class, 'getAllUsersFromAdmin']);
+Route::get('/export-excel', [ExportController::class, 'export'])->name('export.excel');
+
+
+
+Route::post('/upload-scuserprofile-photo', [scDashboardController::class, 'uploadScUserPhoto']);
+Route::post('/view-scuserprofile-photo', [scDashboardController::class, 'retrieveScProfilePicture']);

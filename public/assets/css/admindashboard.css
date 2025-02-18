@@ -1,0 +1,613 @@
+  .admindashboard-container {
+      display: none;
+      flex-direction: column;
+      margin: 0 30px;
+      max-width: 100%;
+      width: 100%;
+      margin-top: 85px;
+      padding-top: 53px;
+   }
+
+  .admindashboardcontainer-firstsection {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  }
+
+  .admindashboardcontainer-firstsection h1 {
+      font-family: Poppins;
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 42px;
+      color: #E98635;
+  }
+
+  .admindashboardcontainer-firstsectionbuttoncontainer {
+      display: flex;
+      gap: 12px;
+
+
+  }
+
+  .admindashboardcontainer-firstsectionbuttoncontainer button {
+      width: 169px;
+      height: 35px;
+      background-color: #FFFFFF;
+      font-family: Poppins;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 16.8px;
+      color: #E98635;
+      border-radius: 4px;
+      border: 1px solid #E98635
+  }
+
+  .admindashboardcontainer-secondsection {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 23px 0;
+
+  }
+
+  .admindashboardcontainer-secondsection h1 {
+      font-family: Poppins;
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 36px;
+      color: #E98635;
+  }
+
+  .admindashboardsecondsection-buttongroups {
+      display: flex;
+      justify-content: flex-end;
+      max-width: 64.24%;
+      width: 100%;
+      gap: 12px;
+
+
+  }
+
+  .admindashboardsecondsection-buttongroups button {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+
+      align-items: center;
+      background-color: transparent;
+
+  }
+
+  #showall-buttongroups {
+      max-width: 242px;
+      width: 100%;
+      height: 35px;
+      padding: 8px 10px;
+      gap: 10px;
+      border-radius: 4px;
+      border: 1px solid #5252523D;
+      font-family: Poppins;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      color: #5D5C5C;
+
+  }
+
+  .postgrad-buttongroups {
+      max-width: 132px;
+      width: 100%;
+      height: 35px;
+      padding: 8px 10px;
+      gap: 10px;
+      border-radius: 4px;
+      border: 1px solid #5252523D;
+      font-family: Poppins;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      color: #5D5C5C;
+  }
+
+
+  #calender-buttongroups,
+  #calender-reportsregister {
+      max-width: 132px;
+      width: 100%;
+      height: 35px;
+      padding: 8px 10px;
+      gap: 10px;
+      border-radius: 4px;
+      border: 1px solid #5252523D;
+      color: #5D5C5C;
+
+  }
+
+  #calender-reportsregister {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+
+      align-items: center;
+      background-color: transparent;
+  }
+
+  #download-buttongroups {
+      max-width: 166px;
+      width: 100%;
+      height: 35px;
+      padding: 16px 20px;
+      gap: 8px;
+      border-radius: 4px;
+      background-color: #6F25CE;
+      color: #FFFFFF;
+      border: none;
+
+
+  }
+
+  .admindashboardcontainer-thirdsection {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+
+  }
+
+  .reports-registeration {
+      display: flex;
+      flex-direction: column;
+      width: fit-content;
+      background-color: rgba(255, 255, 255, 1);
+
+  }
+
+  .admindashboard-firstpart,
+  .admindashboard-secondpart,
+  .admindashboard-thirdpart {
+      flex: 1;
+      width: 100%;
+      flex-direction: column;
+
+
+  }
+
+  .reports-registeration-sectionone {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      align-items: center;
+
+
+  }
+
+  .reports-registeration {
+      padding: 13.23px 9px 11.25px 6.16px;
+      box-shadow: 0px 6.16px 15.41px 0px rgba(26, 2, 57, 0.03);
+      background: rgba(255, 255, 255, 1);
+  }
+
+  .reports-registeration-sectionone p {
+      font-family: Poppins;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 18.36px;
+      color: #5D5C5C;
+      margin-left: 13px;
+      margin-top: 6px;
+  }
+
+
+
+
+
+
+  .source-registeration {
+      display: flex;
+      gap: 2.2rem;
+      flex-direction: column;
+      padding: 20px;
+      margin-top: 14.23px;
+      background-color: rgba(255, 255, 255, 1);
+      box-shadow: 0px 6.16px 15.41px 0px rgba(26, 2, 57, 0.03);
+      width: 100%;
+  }
+
+  .donutregistration-chart-container,
+  .ageratio-donutregistration-chart-container {
+      display: flex;
+      height: fit-content;
+      gap: 1.9rem;
+      justify-content: space-between;
+
+  }
+
+  .ageratio-donutregistration-chart-container {
+      justify-content: space-around;
+  }
+
+  #source-registeration-header {
+      font-family: Poppins;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 18.36px;
+      color:
+          rgba(93, 92, 92, 1);
+      text-align: left;
+  }
+
+  canvas {
+      width: 103px !important;
+      height: 103px !important;
+  }
+
+
+  .donutgraphinfos .graphviewofregistrations,
+  .ageratio-donutgraphinfos .ageratio-graphviewofratios {
+      display: flex;
+      justify-content: space-between;
+      gap: 1.5rem;
+      align-items: center;
+  }
+
+  .donutgraphinfos,
+  .ageratio-donutgraphinfos {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+  }
+
+
+  .donutgraphinfos .graphviewofregistrations .points,
+  .ageratio-donutgraphinfos .ageratio-graphviewofratios .ageratio-points {
+      display: flex;
+  }
+
+  .graphviewofregistrations-secondpart,
+  .graphviewofregistrations-firstpart {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+  }
+
+  .graphviewofregistrations-firstpart p,
+  .graphviewofregistrations-secondpart p {
+      font-family: Poppins;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      color: rgba(93, 92, 92, 1);
+  }
+
+  #donutRegistrationChart-percentage {
+      color: rgba(111, 37, 206, 1);
+  }
+
+
+
+  .admindashboard-secondpart {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+
+  }
+
+  .admindashboard-secondpart div {
+      background-color: rgba(255, 255, 255, 1);
+
+
+  }
+
+  .admindashboard-secondpart .totalundergrads-admin,
+  .admindashboard-secondpart .totalpostgrads-admin {
+      padding: 20px 22px 14px 19px;
+      display: flex;
+      flex-direction: column;
+      height: 105px;
+      width: fit-content;
+      justify-content: space-between;
+      box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
+
+  }
+
+  .admindashboard-secondpart .totalundergrads-admin h4,
+  .admindashboard-secondpart .totalpostgrads-admin h4 {
+      font-family: Poppins;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 23.83px;
+      color: rgba(93, 92, 92, 1);
+  }
+
+  .totalundergrads-info,
+  .totalpostgrads-info {
+      display: flex;
+      gap: 20px;
+      align-items: flex-end;
+
+  }
+
+  .totalundergrads-info h1,
+  .totalpostgrads-info h1 {
+      margin-right: 23px;
+      font-family: Poppins;
+      font-size: 35px;
+      font-weight: 500;
+      line-height: 30.5px;
+      color: rgba(111, 37, 206, 1);
+      margin-bottom: 0;
+  }
+
+  .totalundergrads-info p,
+  .totalpostgrads-info p {
+      font-family: Poppins;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 23.83px;
+      color: rgba(130, 136, 152, 0.6);
+  }
+
+  .totalundergrads-info p span,
+  .totalpostgrads-info p span {
+      color: rgba(93, 92, 92, 1);
+      margin-left: 8px;
+  }
+
+
+
+  /* ----------------POSTGRAD----------------- */
+
+
+  /* Style the button group */
+  .postgrad-buttongroups {
+      position: relative;
+      display: flex;
+      cursor: pointer;
+      justify-content: space-between;
+      align-items: center;
+
+  }
+
+  #postgrad-buttongroups-insideshow {
+      background-color: transparent;
+      color: rgba(93, 92, 92, 1);
+      width: 100%;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: Poppins;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+
+  }
+
+  .dropdown-content-postgrad {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      top: 100%;
+      /* Position the dropdown below the button */
+      left: 0;
+      color: rgba(93, 92, 92, 1);
+  }
+
+  /* Style the links inside the dropdown */
+  .dropdown-content-postgrad a {
+      color: rgba(93, 92, 92, 1);
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+  }
+
+  /* Hover effect for the dropdown links */
+  .dropdown-content-postgrad a:hover {
+      background-color: #ddd;
+  }
+
+  /* Show the dropdown when hovering over the button group */
+  .postgrad-buttongroups:hover .dropdown-content-postgrad {
+      display: block;
+  }
+
+
+  /* --------------------------------- */
+
+  .admindashboard-secondpart .ageratio-graph-admin {
+      display: flex;
+      flex-direction: column;
+      padding: 13px 13px 0 24px;
+  }
+
+  .ageratio-graph-admin {
+      gap: 2rem;
+
+  }
+
+  .agerationcolumn-firstsection {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+
+  .agerationcolumn-firstsection #ageratio-header {
+      font-family: Poppins;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 24.53px;
+      color: rgba(93, 92, 92, 1);
+  }
+
+  .ageratio-graphviewofratios p {
+      font-family: Poppins;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      color: rgba(93, 92, 92, 1);
+  }
+
+
+  .admindashboard-thirdpart {
+      display: flex;
+      padding: 13px 13px 0 23px;
+      box-shadow: 0px 8.23px 20.58px 0px rgba(26, 2, 57, 0.03);
+      height: 455px;
+      flex-direction: column;
+      padding: 13px 13px 0 23px;
+      gap: 62px;
+
+
+  }
+
+  .admindashboard-thirdpart .funnelreport-analyze-header {
+      display: flex;
+      justify-content: space-between;
+      align-content: center;
+  }
+
+  #funnel-analyze-header {
+      font-family: Poppins;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 24.53px;
+      color: rgba(93, 92, 92, 1);
+  }
+
+  .funnelreport-analyze-diagram {
+      display: flex;
+      width: 100%;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+      justify-content: space-between;
+
+
+  }
+
+  .funnelreport-analyse-left,
+  .funnelreport-analyse-right {
+      display: flex;
+      flex-direction: column;
+
+  }
+
+  .funnelreport-analyse-left {
+      width: 100%;
+      max-width: 77%;
+      clip-path: polygon(0 0, 100% 0, 75% 100%, 25% 100%);
+  }
+
+  .funnelreport-analyze-diagram .funnelreport-analyse-left div {
+      height: 52px;
+      max-width: 279px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+
+  }
+
+  .funnelreport-analyze-diagram p {
+      font-family: Poppins;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      color: rgba(255, 255, 255, 1);
+
+  }
+
+  .funnelreport-analyze-diagram div:first-child {
+
+      background-color: rgba(138, 96, 191, 0.5);
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+
+  }
+
+  .funnelreport-analyze-diagram div:nth-child(2) {
+      background-color: rgba(138, 96, 191, 0.8)
+  }
+
+  #funnelreport-rightsideid {
+      background-color: transparent;
+      
+  }
+
+  #funnelreport-rightsideid p {
+      color: rgba(103, 44, 179, 1);
+      font-family: Poppins;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 14px;
+
+
+  }
+
+  .funnelreport-analyze-diagram div:nth-child(3) {
+      background-color: rgba(138, 96, 191, 1);
+  }
+
+  .funnelreport-analyze-diagram div:nth-child(4) {
+      background-color: rgba(126, 79, 187, 1);
+  }
+
+  .funnelreport-analyze-diagram div:nth-child(5) {
+      background-color: rgba(115, 61, 184, 1);
+  }
+
+  .funnelreport-analyze-diagram div:nth-child(6) {
+      background-color: rgba(115, 61, 184, 1);
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+      background-color: rgba(103, 44, 179, 1);
+      line-height: 14px;
+  }
+
+
+  .funnelreport-analyze-diagram div:nth-child(4) p {
+      line-height: 14px;
+      width: 50%;
+      text-align: center;
+  }
+
+  .funnelreport-analyze-diagram div:nth-child(5) p {
+      line-height: 14px;
+      width: 50%;
+      text-align: center;
+  }
+
+  .funnelreport-analyze-diagram div:nth-child(6) p {
+      line-height: 14px;
+      width: 50%;
+      text-align: center;
+  }
+
+  .funnelreport-analyze-diagram div p {
+      font-family: Poppins;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      color: rgba(255, 255, 255, 1);
+
+  }
+
+
+  .funnelreport-analyse-right {
+      background-color: #fff;
+      color: rgba(103, 44, 179, 1);
+      font-family: Poppins;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 19.5px;
+      display: flex;
+      gap:2.1rem;
+      padding: 2rem 0;
+  }
