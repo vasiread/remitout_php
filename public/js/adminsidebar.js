@@ -1,9 +1,3 @@
-
-
-
-
-
-
 const initializeAdminSidebar = () => {
     const adminSidebarItems = document.querySelectorAll("#commonsidebar-admin .commonsidebar-sidebarlists-top li");
     const triggeredSideBar = document.getElementById("commonsidebar-admin");
@@ -19,6 +13,8 @@ const initializeAdminSidebar = () => {
 
     const adminCounsellorAdd = document.querySelector(".add-studentcounsellor-adminside");
     const studentListContainer = document.querySelector(".student-listcontainer");
+    const editContainerAdmin = document.querySelector(".edit-content-main-section");
+                                                         
     const studentCounsellorList = document.querySelector(".studentcounsellorlist-adminside");
 
     const studentNBFCList = document.querySelector(".nbfclist-adminside");
@@ -76,6 +72,7 @@ const initializeAdminSidebar = () => {
                 if (adminCounsellorAdd) adminCounsellorAdd.style.display = "none";
                 if (studentCounsellorList) studentCounsellorList.style.display = "none";
                 if (studentNBFCList) studentNBFCList.style.display = "none";
+                if (editContainerAdmin) editContainerAdmin.style.display = "none"; 
 
 
 
@@ -89,6 +86,7 @@ const initializeAdminSidebar = () => {
                 if (adminCounsellorAdd) adminCounsellorAdd.style.display = "none";
                 if (studentCounsellorList) studentCounsellorList.style.display = "none";
                 if (studentNBFCList) studentNBFCList.style.display = "none";
+                 if (editContainerAdmin) editContainerAdmin.style.display = "none"; 
 
 
 
@@ -104,10 +102,18 @@ const initializeAdminSidebar = () => {
                 if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
                 if (studentCounsellorList) studentCounsellorList.style.display = "none";
                 if (studentNBFCList) studentNBFCList.style.display = "none";
+<<<<<<< HEAD
+                 if (editContainerAdmin) editContainerAdmin.style.display = "none"; 
+
+                
+                
+                if (index === 4) {
+=======
                 if (studentListContainer) studentListContainer.style.display = "none"
 
 
                 if (index === 2||index ===3) {
+>>>>>>> e8282519028546f9089a3718d4ab72fb76773f27
                     if (studentListContainer) studentListContainer.style.display = "flex"
 
 
@@ -129,6 +135,7 @@ const initializeAdminSidebar = () => {
                 if (adminCounsellorAdd) adminCounsellorAdd.style.display = "none";
                 if (studentCounsellorList) studentCounsellorList.style.display = "none";
                 if (studentNBFCList) studentNBFCList.style.display = "none";
+                if (editContainerAdmin) editContainerAdmin.style.display = "none"; 
                 if (adminPropertyOne) adminPropertyOne.style.display = "none";
 
                 if (index === 5 || index === 6) {
@@ -136,18 +143,9 @@ const initializeAdminSidebar = () => {
                 }
                 if (index === 8) {
                     if (adminCounsellorAdd) adminCounsellorAdd.style.display = "flex";
-
-
                 }
 
-
-
-
-
-
             }
-
-
 
             else {
                 if (adminPropertyOne) adminPropertyOne.style.display = "none";
@@ -160,8 +158,13 @@ const initializeAdminSidebar = () => {
                 if (adminCounsellorAdd) adminCounsellorAdd.style.display = "none";
                 if (studentCounsellorList) studentCounsellorList.style.display = "none";
                 if (studentNBFCList) studentNBFCList.style.display = "none";
+                if (editContainerAdmin) editContainerAdmin.style.display = "none"; 
                 if (index === 9) {
                     if (studentNBFCList) studentNBFCList.style.display = "flex";
+                }
+                if (index === 12) {
+                                    if (editContainerAdmin) editContainerAdmin.style.display = "none";
+
                 }
 
 
@@ -172,8 +175,10 @@ const initializeAdminSidebar = () => {
 };
 
 
+
 document.addEventListener('DOMContentLoaded', function () {
     initializeAdminSidebar();
+    initializeEditContentProperties();
 
 
-});
+})

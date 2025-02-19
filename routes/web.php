@@ -69,9 +69,20 @@ Route::get('/student-forms', function () {
     return view('pages.studentformquestionair');
 })->name('student-forms');
 
+Route::get("/sc-dashboard", function () {
+    return view("pages.scdashboard");
+})->name("sc-dashboard");
 
 // Miscellaneous Routes
 Route::get('pages/student-dashboard', [TrackController::class, 'loanTracker']);
+
+
+Route::get('/nbfc-dashboard', function () {
+    return view('pages.nbfcdashboard');
+})->name('nbfc-dashboard');
+
+// In routes/web.php
+Route::get('/get-student-profile/{studentId}', [StudentDashboardController::class, 'getStudentProfile']);
 
 // Google Authentication Routes
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
