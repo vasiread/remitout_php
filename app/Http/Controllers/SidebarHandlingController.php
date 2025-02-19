@@ -15,18 +15,7 @@ class SidebarHandlingController extends Controller
             ['name' => 'Application Status', 'icon' => 'fa-regular fa-clipboard', 'active' => false],
         ];
 
-         $referralId = 'HYU67994003';
-
-         $scUserSession = Scuser::where('referral_code', $referralId)->first();
-
-         if ($scUserSession) {
-            session(['scuser' => $scUserSession]);
-
-             session()->put('scDetail', $scUserSession);
-
-            // Set session expiry
-            session()->put('expires_at', now()->addSeconds(10000));
-        }
+         
 
         // Return sidebar items
         return $sidebarItems;

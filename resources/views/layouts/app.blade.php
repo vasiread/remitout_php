@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="assets/css/adminstudentcounsellor.css">
     <link rel="stylesheet" href="assets/css/adminnbfc.css">
     <link rel="stylesheet" href="assets/css/adminpage.css">
+    <link rel="stylesheet" href="assets/css/nbfc.css">
  
 
     <link rel="stylesheet" href="assets/css/footer.css">
@@ -64,6 +65,8 @@
         @yield('scdashboard')
     @elseif(Route::currentRouteName() === 'adminpage')
         @yield('adminpage');
+    @elseif(Route::currentRouteName() === 'nbfc-dashboard')
+        @yield('nbfcdashboard');
     @else
         @yield('homecontent')
     @endif

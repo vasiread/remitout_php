@@ -12,162 +12,171 @@
     @section('title', 'Login')
 
     @section('logincontent')
-    <div class="logincontainer">  
-         
-        <img class="loginvector" src="{{asset("assets/images/loginvector.png")}}" alt="">
-        <img class="loginvectorsecond" src="{{asset("assets/images/loginvectorsecond.png")}}" alt="">
-        <div class="logincontainer-inside">
-            <div class="logincontainer-leftinside">
-                <img src="assets/images/Pexels Photo by Buro Millennial.png" alt="">
-            </div>
-            <div class="logincontainer-rightinside">
-                <h1>Welcome back!</h1>
-                <form class="logincontainer-loginresources" id="loginForm" onsubmit="loginSubmitForm(event)">
-                    <img src="assets/images/loginsinguprightsideimg.png" class="loginrightsidevector-img" alt="">
-                    <div class="logincontainer-namecontainer">
-                        <input type="text" placeholder="Unique ID" name="name" id="loginname">
-                    </div>
-                    <div class="logincontainer-passwordcontainer">
-                        <input type="password" placeholder="Password" id="loginpasswordID" name="password">
-                        <i class="fa-regular fa-eye-slash passwordClose" id="loginpasswordeyecloseicon"
-                            style="cursor: pointer;"></i>
-                    </div>
-                    <div class="logincontainer-signupbuttoncontainer">
-                        <div class="logincontainer-checkboxcontainer">
-                            <input type="checkbox" id="confirmpolicy" style="margin:0;padding:0px" required>
-                            <p>I agree to the <span>terms & policy</span></p>
+        <div class="logincontainer">
+
+            <img class="loginvector" src="{{asset("assets/images/loginvector.png")}}" alt="">
+            <img class="loginvectorsecond" src="{{asset("assets/images/loginvectorsecond.png")}}" alt="">
+            <div class="logincontainer-inside">
+                <div class="logincontainer-leftinside">
+                    <img src="assets/images/Pexels Photo by Buro Millennial.png" alt="">
+                </div>
+                <div class="logincontainer-rightinside">
+                    <h1>Welcome back!</h1>
+                    <form class="logincontainer-loginresources" id="loginForm" onsubmit="loginSubmitForm(event)">
+                        <img src="assets/images/loginsinguprightsideimg.png" class="loginrightsidevector-img" alt="">
+                        <div class="logincontainer-namecontainer">
+                            <input type="text" placeholder="Unique ID" name="name" id="loginname">
                         </div>
-                        <button type="submit">Sign In</button>
-                    </div>
-                    <?php $googleIcon = "assets/images/googleicon.png" ?>
-                    <?php $appleIcon = "assets/images/appleicon.png" ?>
-                </form>
-                <div class="logincontainer-anotherresources">
-                    <p>Or</p>
-                    <div class="googlesigninbuttoncontainer">
-                        <button class="googlesigninbutton" onclick="window.location.href='{{ route('google-auth') }}'">
-                            <img src="{{ asset('assets/images/googleicon.png') }}"> Sign in with Google
-                        </button>
-                        <button class="iossigninbutton">
-                            <img src="{{ asset('assets/images/appleicon.png') }}"> Sign in with Apple
-                        </button>
-                    </div>
-                    <div class="logincontainer-signinoption">
-                        <p>New here? </p>
-                        <span onclick="window.location.href='{{ route('signup') }}'">Sign Up</span>
+                        <div class="logincontainer-passwordcontainer">
+                            <input type="password" placeholder="Password" id="loginpasswordID" name="password">
+                            <i class="fa-regular fa-eye-slash passwordClose" id="loginpasswordeyecloseicon"
+                                style="cursor: pointer;"></i>
+                        </div>
+                        <div class="logincontainer-signupbuttoncontainer">
+                            <div class="logincontainer-checkboxcontainer">
+                                <input type="checkbox" id="confirmpolicy" style="margin:0;padding:0px" required>
+                                <p>I agree to the <span>terms & policy</span></p>
+                            </div>
+                            <button type="submit">Sign In</button>
+                        </div>
+                        <?php $googleIcon = "assets/images/googleicon.png" ?>
+                        <?php $appleIcon = "assets/images/appleicon.png" ?>
+                    </form>
+                    <div class="logincontainer-anotherresources">
+                        <p>Or</p>
+                        <div class="googlesigninbuttoncontainer">
+                            <button class="googlesigninbutton" onclick="window.location.href='{{ route('google-auth') }}'">
+                                <img src="{{ asset('assets/images/googleicon.png') }}"> Sign in with Google
+                            </button>
+                            <button class="iossigninbutton">
+                                <img src="{{ asset('assets/images/appleicon.png') }}"> Sign in with Apple
+                            </button>
+                        </div>
+                        <div class="logincontainer-signinoption">
+                            <p>New here? </p>
+                            <span onclick="window.location.href='{{ route('signup') }}'">Sign Up</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-         @if (session('session_expired'))
-            alert("{{ session('session_expired') }}");
-            logoutSession();   
-        @endif
-    });
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                @if (session('session_expired'))
+                    alert("{{ session('session_expired') }}");
+                    logoutSession();
+                @endif
+            });
 
-    const passwordInput = document.getElementById('loginpasswordID');
-    const passwordIcon = document.querySelector('.passwordClose');
-    let passwordView = false;
+            const passwordInput = document.getElementById('loginpasswordID');
+            const passwordIcon = document.querySelector('.passwordClose');
+            let passwordView = false;
 
-     passwordIcon?.addEventListener('click', function () {
-        passwordView = !passwordView;
+            passwordIcon?.addEventListener('click', function () {
+                passwordView = !passwordView;
 
-        if (passwordView) {
-            passwordInput.type = 'text';
-            passwordIcon.classList.remove('fa-eye-slash');
-            passwordIcon.classList.add('fa-eye');
-        } else {
-            passwordInput.type = 'password';
-            passwordIcon.classList.remove('fa-eye');
-            passwordIcon.classList.add('fa-eye-slash');
-        }
-    });
-
-    // Function to handle logout session
-    function logoutSession() {
-        const csrfToken = document.querySelector('meta[name="csrf-token"]');
-
-        if (csrfToken) {
-            fetch('/session-logout', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken.getAttribute('content')
+                if (passwordView) {
+                    passwordInput.type = 'text';
+                    passwordIcon.classList.remove('fa-eye-slash');
+                    passwordIcon.classList.add('fa-eye');
+                } else {
+                    passwordInput.type = 'password';
+                    passwordIcon.classList.remove('fa-eye');
+                    passwordIcon.classList.add('fa-eye-slash');
                 }
-            })
-                .then(response => {
-                    if (response.ok) {
-                        window.location.href = '/login';
-                    } else {
-                        throw new Error('Logout failed');
-                    }
-                })
-                .catch(error => {
-                    console.error('Logout failed:', error);
-                    alert('An error occurred during logout.');
-                });
-        } else {
-            console.error('CSRF token not found');
-        }
-    }
+            });
 
-    // Login form submit handler
-    function loginSubmitForm(event) {
-        event.preventDefault();
+            // Function to handle logout session
+            function logoutSession() {
+                const csrfToken = document.querySelector('meta[name="csrf-token"]');
 
-        const loginName = document.getElementById("loginname").value;
-        const loginPassword = document.getElementById("loginpasswordID").value;
-        const confirmPolicy = document.getElementById("confirmpolicy");
+                if (csrfToken) {
+                    fetch('/session-logout', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken.getAttribute('content')
+                        }
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                window.location.href = '/login';
+                            } else {
+                                throw new Error('Logout failed');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Logout failed:', error);
+                            alert('An error occurred during logout.');
+                        });
+                } else {
+                    console.error('CSRF token not found');
+                }
+            }
 
-        if (!confirmPolicy.checked) {
-            alert("You must agree to the terms & policy");
-            return;
-        }
+            // Login form submit handler
+            function loginSubmitForm(event) {
+                event.preventDefault();
 
-        const loginFormData = {
-            loginName: loginName,
-            loginPassword: loginPassword,
-        };
+                const loginName = document.getElementById("loginname").value;
+                const loginPassword = document.getElementById("loginpasswordID").value;
+                const confirmPolicy = document.getElementById("confirmpolicy");
 
-        const csrfToken = document.querySelector('meta[name="csrf-token"]');
+                if (!confirmPolicy.checked) {
+                    alert("You must agree to the terms & policy");
+                    return;
+                }
 
-        if (csrfToken) {
-            fetch('/loginformdata', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken.getAttribute('content')
-                },
-                body: JSON.stringify(loginFormData)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert(data.message);
-                        window.location.href = '/student-dashboard';
-                    } else {
-                        alert(data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert("An error occurred during login.");
-                });
-        } else {
-            console.error('CSRF token not found');
-        }
-    }
+                const loginFormData = {
+                    loginName: loginName,
+                    loginPassword: loginPassword,
+                };
 
-    // Example of logout button event (to trigger manually)
-    const logoutButton = document.getElementById('logoutButton');  // Add your actual logout button ID here
-    logoutButton?.addEventListener('click', function () {
-        logoutSession();
-    });
-</script>
+                const csrfToken = document.querySelector('meta[name="csrf-token"]');
+
+                if (csrfToken) {
+                    fetch('/loginformdata', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken.getAttribute('content')
+                        },
+                        body: JSON.stringify(loginFormData)
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert(data.message);
+                                if (data.user && data.user.referral_code) {
+                                    window.location.href='/sc-dashboard'
+
+                                }
+                                else {
+                                    window.location.href = '/student-dashboard';
+
+
+                                }
+
+                            } else {
+                                alert(data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert("An error occurred during login.");
+                        });
+                } else {
+                    console.error('CSRF token not found');
+                }
+            }
+
+            // Example of logout button event (to trigger manually)
+            const logoutButton = document.getElementById('logoutButton');  // Add your actual logout button ID here
+            logoutButton?.addEventListener('click', function () {
+                logoutSession();
+            });
+        </script>
 
 
     @endsection

@@ -38,7 +38,7 @@ $NotificationBell = "assets/images/notifications_unread.png";
                     <img src="{{ $NotificationBell }}" style="width:24px;height:24px" class="unread-notify" alt="">
 
                     <div class="nav-profilecontainer">
-                        <img src="{{ session('user')->profile_photo_url }}" id="nav-profile-photo-id" class="nav-profileimg"
+                        <img src="{{ asset('assets/images/Icons/account_circle.png') }}" id="nav-profile-photo-id" class="nav-profileimg"
                             alt="Profile Image">
                         <h3>{{ session('user')->name }}</h3>
                         <i class="fa-solid fa-chevron-down"></i>
@@ -57,7 +57,7 @@ $NotificationBell = "assets/images/notifications_unread.png";
                     <img src="{{ $NotificationBell }}" style="width:24px;height:24px" class="unread-notify" alt="">
 
                     <div class="nav-profilecontainer">
-                        <img src="{{ asset('assets/images/image-women.jpeg') }}" id="nav-profile-photo-id"
+                        <img src="{{ asset('assets/images/Icons/account_circle.png') }}" id="nav-profile-photo-id"
                             class="nav-profileimg" alt="Profile Image">
                         <h3 style='width:100%'>{{ session('scuser')->full_name }}</h3>
                         <i class="fa-solid fa-chevron-down"></i>
@@ -94,9 +94,13 @@ $NotificationBell = "assets/images/notifications_unread.png";
             const navButtons = document.querySelector(".nav-buttons");
             var currentRoute = window.location.pathname;
             console.log('Current Route:', currentRoute);
+             @if(session('scuser'))
+                retrieveProfilePictureNavSc();
+            @elseif(session('user'))
+                retrieveProfilePictureNav();
+            @endif
 
-            retrieveProfilePictureNav();
-            retrieveProfilePictureNavSc();
+
             console.log('Route after retrieveProfilePictureNav:', currentRoute);
 
             if (currentRoute.includes("/student-dashboard") || currentRoute.includes("/student-forms") || currentRoute.includes("/sc-dashboard")) {
@@ -178,7 +182,8 @@ $NotificationBell = "assets/images/notifications_unread.png";
         };
 
         const retrieveProfilePictureNavSc = async () => {
-            const scuserrefid = 'HYU67994003';
+               const userSession = @json(session('scuser'));
+            const scuserrefid = userSession.referral_code;
             const profileImgUpdate = document.querySelector(".nav-profilecontainer .nav-profileimg");
             const mobTabProfile = document.querySelector(".profile-photo-mobtab img");
 

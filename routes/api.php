@@ -51,4 +51,4 @@ Route::post('/remove-each-documents', [StudentDashboardController::class, 'remov
 Route::post('/getuserbyref', [scDashboardController::class, 'getUsersByCounsellorApi']);
 
 
- 
+Route::post("/register-studentcounsellor", [scDashboardController::class, 'uploadScUserInfo']);

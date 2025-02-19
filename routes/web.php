@@ -40,6 +40,9 @@ Route::get('/signup', function () {
 Route::get('/login', function () {
     return view('pages.login');
 })->name('login');
+Route::get('/nbfc-dashboard', function () {
+    return view('pages.nbfcdashboard');
+})->name('login');
 
 
 Route::get('/admin-page', function () {
@@ -95,7 +98,7 @@ Route::post('/check-columns', [StudentDashboardController::class, 'validateTable
 Route::post('/send-documents', [MailController::class, 'sendUserDocuments']);
 Route::post('/retrieve-file', [StudentDashboardController::class, 'retrieveFile']);
 
-Route::post('/getuserbyref', [scDashboardController::class, 'getUsersByCounsellor']);
+Route::post('/getuserbyref', [scDashboardController::class, 'getUsersByCounsellorApi']);
 
 // OTP Routes
 Route::post('/send-mobotp', [OTPMobController::class, 'sendOTP']);
@@ -121,3 +124,6 @@ Route::get('/export-excel', [ExportController::class, 'export'])->name('export.e
 
 Route::post('/upload-scuserprofile-photo', [scDashboardController::class, 'uploadScUserPhoto']);
 Route::post('/view-scuserprofile-photo', [scDashboardController::class, 'retrieveScProfilePicture']);
+
+
+Route::post("/register-studentcounsellor", [scDashboardController::class, 'uploadScUserInfo']);

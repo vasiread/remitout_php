@@ -219,12 +219,11 @@
 .studentapplication-header .see-all {
     width: 91px;
     height: 35px;
-    padding: 16px 22px;
     gap: 8px;
     border-radius: 4px;
     border: 1px solid #E98635;
     display: flex;
-    flex-direction: center;
+    justify-content: center;
     align-items: center;
     background-color: transparent;
     color: #E98635;
@@ -474,8 +473,14 @@
     color: #6F25CEDE;
 
 }
-
 #screferral-id-fromprofile {
+    font-family: Poppins;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 15.6px;
+        letter-spacing: 0%;
+}
+#screferral-id-fromprofile span {
     font-family: Poppins;
     font-size: 13px;
     font-weight: 500;
@@ -499,6 +504,14 @@
 
 #screferral-dob-fromprofile i {
     font-size: 0.8rem;
+}
+
+#screferral-dob-fromprofile p{
+    font-family: Poppins;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 15.6px;
+        color:rgba(33, 33, 33, 0.5);
 }
 
 .scmember_personalinfo {
