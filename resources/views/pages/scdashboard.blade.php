@@ -16,75 +16,75 @@
 
     @section('scdashboard')
                                             @php
-                                                $profileIconPath = "assets/images/account_circle.png";
-                                                $phoneIconPath = "assets/images/call.png";
-                                                $mailIconPath = "assets/images/mail.png";
-                                                $pindropIconPath = "assets/images/pin_drop.png";
+$profileIconPath = "assets/images/account_circle.png";
+$phoneIconPath = "assets/images/call.png";
+$mailIconPath = "assets/images/mail.png";
+$pindropIconPath = "assets/images/pin_drop.png";
 
 
 
-                                                $questions = [
-                                                    [
-                                                        'queries' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et",
-                                                        'queriesRaisedBy' => "Student",
-                                                        'date_added' => '2025-04-11'
-                                                    ],
-                                                    [
-                                                        'queries' => "worem ipsum dolor sit amet, consectetur elit, ",
-                                                        'queriesRaisedBy' => "NBFC",
-                                                        'date_added' => '2025-12-01'
+$questions = [
+    [
+        'queries' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et",
+        'queriesRaisedBy' => "Student",
+        'date_added' => '2025-04-11'
+    ],
+    [
+        'queries' => "worem ipsum dolor sit amet, consectetur elit, ",
+        'queriesRaisedBy' => "NBFC",
+        'date_added' => '2025-12-01'
 
-                                                    ],
-                                                    [
-                                                        'queries' => "Lorem ipsum dolor sit amet, consectetur elit, ",
-                                                        'queriesRaisedBy' => "Student",
-                                                        'date_added' => '2025-10-29'
+    ],
+    [
+        'queries' => "Lorem ipsum dolor sit amet, consectetur elit, ",
+        'queriesRaisedBy' => "Student",
+        'date_added' => '2025-10-29'
 
-                                                    ],
-                                                    [
-                                                        'queries' => "oorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et ",
-                                                        'queriesRaisedBy' => "NBFC",
-                                                        'date_added' => '2023-09-01'
+    ],
+    [
+        'queries' => "oorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et ",
+        'queriesRaisedBy' => "NBFC",
+        'date_added' => '2023-09-01'
 
-                                                    ],
-                                                    [
-                                                        'queries' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et ",
-                                                        'queriesRaisedBy' => "Student",
-                                                        'date_added' => '2020-02-01'
+    ],
+    [
+        'queries' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et ",
+        'queriesRaisedBy' => "Student",
+        'date_added' => '2020-02-01'
 
-                                                    ],
-                                                ];
-                                                $proposalsInfo = [
-                                                    [
-                                                        'NBFC' => 'NBFC Name',
-                                                        'ProposalDate' => '20/11/2024',
-                                                        'Status' => 'Approved'
+    ],
+];
+$proposalsInfo = [
+    [
+        'NBFC' => 'NBFC Name',
+        'ProposalDate' => '20/11/2024',
+        'Status' => 'Approved'
 
-                                                    ],
-                                                    [
-                                                        'NBFC' => 'NBFC Name',
-                                                        'ProposalDate' => '20/11/2024',
-                                                        'Status' => 'Pending'
+    ],
+    [
+        'NBFC' => 'NBFC Name',
+        'ProposalDate' => '20/11/2024',
+        'Status' => 'Pending'
 
-                                                    ],
+    ],
 
-                                                ];
+];
 
-                                                $studentDocumentDetailsInfo = [
-                                                    ['student_name' => 'Manish', 'DocumentFinalStatus' => 'Missing Documents: 01', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-07-01'],
-                                                    ['student_name' => 'Kumar', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-02-01'],
-                                                    ['student_name' => 'Raji', 'DocumentFinalStatus' => 'Missing Documents: 12', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-12-04'],
-                                                    ['student_name' => 'Venkatesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-01'],
-                                                    ['student_name' => 'Ramya', 'DocumentFinalStatus' => 'Missing Documents: 03', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-02-09'],
-                                                    ['student_name' => 'Chinna', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2025-07-20'],
-                                                    ['student_name' => 'Feroz', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-21'],
-                                                    ['student_name' => 'Ramesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-29'],
-                                                    ['student_name' => 'Vasi', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-09-30'],
-                                                    ['student_name' => 'Aari', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-10-01'],
-                                                    ['student_name' => 'Abinav', 'DocumentFinalStatus' => 'Missing Documents: 02', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-01'],
+$studentDocumentDetailsInfo = [
+    ['student_name' => 'Manish', 'DocumentFinalStatus' => 'Missing Documents: 01', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-07-01'],
+    ['student_name' => 'Kumar', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-02-01'],
+    ['student_name' => 'Raji', 'DocumentFinalStatus' => 'Missing Documents: 12', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-12-04'],
+    ['student_name' => 'Venkatesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-01'],
+    ['student_name' => 'Ramya', 'DocumentFinalStatus' => 'Missing Documents: 03', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-02-09'],
+    ['student_name' => 'Chinna', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2025-07-20'],
+    ['student_name' => 'Feroz', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-21'],
+    ['student_name' => 'Ramesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-29'],
+    ['student_name' => 'Vasi', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-09-30'],
+    ['student_name' => 'Aari', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-10-01'],
+    ['student_name' => 'Abinav', 'DocumentFinalStatus' => 'Missing Documents: 02', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-01'],
 
 
-                                                ];
+];
 
 
 
@@ -164,9 +164,8 @@
 
                             </div>
 
-                            @if ($userByRef->isEmpty())
-                                <p>No users found.</p> <!-- Display a message if no users are found -->
-                            @else
+                           <div id="user-list">
+                           </div>
 
 
 
@@ -177,38 +176,7 @@
 
 
 
-                                @foreach ($userByRef as $user)
-                                                                            <div class="studentapplication-lists">
-                                        <div class="individualapplication-list">
-                                            <div class="firstsection-lists">
-                                                <h1>{{ $user['full_name'] }}</h1> <!-- Displaying full_name from the response -->
-                                                <div class="application-buttoncontainer">
-                                                    <button>View</button>
-                                                    <button>Edit</button>
-                                                    <button class="expand-arrow">
-                                                        <img src="{{ asset('assets/images/stat_minus_1.png') }}" alt="Expand">
-                                                    </button>
-                                                </div>
-                                                <button class="studenteacheditbutton">Edit</button>
-                                            </div>
-                                        </div>
-                                        <ul class="individualstudentapplication-status">
-                                            <li class="scdashboard-nbfcnamecontainer">
-                                                <p>NBFC:</p>
-                                                <p>NBFC Name</p>
-                                            </li>
-                                            <li class="scdashboard-nbfcstatus-pending">
-                                                <p>Status:</p>
-                                                <span>{{ $user['status'] ?? 'Pending' }}</span> <!-- Dynamic status, with fallback -->
-                                            </li>
-                                            <li class="scdashboard-missingdocumentsstatus">
-                                                <p>Missing Documents:</p>
-                                                <span>{{ $user['missing_documents'] ?? '03' }}</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                @endforeach
-                            @endif
+ 
 
 
 
@@ -238,7 +206,7 @@
                             <h1>Student Counsellor</h1>
 
                         </div>
-                        <p id="screferral-id-fromprofile">Referral Number: <span>HYU67994003</span></p>
+                        <p id="screferral-id-fromprofile">Referral Number: <span>{{ session('scuser')->referral_code }}</span></p>
                         <div id="screferral-dob-fromprofile" inputmode="Date">
                             <i class="fa-solid fa-calendar"></i>
                             <p>{{ session('scuser')->dob }}</p>
@@ -310,7 +278,7 @@
                             </div>
                             <div class="groupofraisedquestion-scdashboard">
                                 @foreach ($questions as $items)
-                                                                        <div class="individual-raisedquestions" data-added="{{ $items['date_added']}}">
+                                        <div class="individual-raisedquestions" data-added="{{ $items['date_added']}}">
                                         <p id="queries-row">{{ $items['queries'] }}</p>
                                         <p id="query-raisedbyrow">{{ $items['queriesRaisedBy']}}</p>
                                     </div>
@@ -347,9 +315,9 @@
                         </div>
                     </div>
                     @php
-                        $perPage = 3;
-                        $totalStudents = count($studentDocumentDetailsInfo);
-                        $totalPages = ceil($totalStudents / $perPage);  
+$perPage = 3;
+$totalStudents = count($studentDocumentDetailsInfo);
+$totalPages = ceil($totalStudents / $perPage);  
                     @endphp
 
                     <div id="student-applicationdetailsstatus">
@@ -604,7 +572,8 @@
                         return;
                     }
 
-                    const scUserRefId = 'HYU67994003';
+                    const idsession = @json(session('scuser'));
+                    const scUserRefId = idsession.referral_code;
                     const fileName = file.name;
                     const fileType = file.type;
                     console.log(`${fileName} . ${fileType}`);
@@ -661,8 +630,11 @@
         };
 
         const initializeProfileViewScuser = () => {
-            const scUserRefId = 'HYU67994003';
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+               const idsession = @json(session('scuser'));
+            const scUserRefId = idsession.referral_code;
+             
+             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
             const profileViewInstantChange = document.getElementById("studentcounsellor-profile");
 
@@ -1044,41 +1016,81 @@
         }
 
 
-        const getUsersByCounsellor = () => {
-            const getRefCode = document.querySelector("#screferral-id-fromprofile span");
-            const referralId = getRefCode ? getRefCode.textContent : '';
+   const getUsersByCounsellor = () => {
+        const getRefCode = document.querySelector("#screferral-id-fromprofile span");
+        const referralId = getRefCode ? getRefCode.textContent : '';
 
-            if (!referralId) {
-                console.error("Referral ID is missing");
-                return;
-            }
+        if (!referralId) {
+            console.error("Referral ID is missing");
+            return;
+        }
 
-            fetch("/getuserbyref", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
-                },
-                body: JSON.stringify({ referralId })
+        fetch("/getuserbyref", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+            },
+            body: JSON.stringify({ referralId })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
             })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error("Network response was not ok");
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.error) {
-                        throw new Error(data.error);
-                    }
+            .then(data => {
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                console.log(data);
 
-                    console.log(data);
-                })
-                .catch(error => {
-                    console.error("Error fetching users:", error);
-                });
-        };
+                const userListContainer = document.getElementById("user-list");
+                userListContainer.innerHTML = ""; // Clear previous content
 
+                if (data && data.length > 0) {
+                    data.forEach((user) => {
+                        const userHTML = `
+                    <div class="studentapplication-lists">
+                        <div class="individualapplication-list">
+                            <div class="firstsection-lists">
+                                <h1>${user.full_name}</h1> <!-- Displaying full_name -->
+                                <div class="application-buttoncontainer">
+                                    <button>View</button>
+                                    <button>Edit</button>
+                                    <button class="expand-arrow">
+                                        <img src="/assets/images/stat_minus_1.png" alt="Expand">
+                                    </button>
+                                </div>
+                                <button class="studenteacheditbutton">Edit</button>
+                            </div>
+                        </div>
+                        <ul class="individualstudentapplication-status">
+                            <li class="scdashboard-nbfcnamecontainer">
+                                <p>NBFC:</p>
+                                <p>NBFC Name</p>
+                            </li>
+                            <li class="scdashboard-nbfcstatus-pending">
+                                <p>Status:</p>
+                                <span>Pending</span>
+                            </li>
+                            <li class="scdashboard-missingdocumentsstatus">
+                                <p>Missing Documents:</p>
+                                <span>03</span>
+                            </li>
+                        </ul>
+                    </div>
+                `;
+                        userListContainer.innerHTML += userHTML; // Append user details to the container
+                    });
+                } else {
+                    userListContainer.innerHTML = "<p>No users found.</p>"; // If no users are returned
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching users:", error);
+            });
+    };
 
         const generateReferLinkPopup = () => {
             const triggeredReferralButtons = document.querySelectorAll(".referral-Link-trigger-button, .referral-Link-trigger-anotherbutton");

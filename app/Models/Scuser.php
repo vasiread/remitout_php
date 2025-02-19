@@ -7,18 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Scuser extends Model
 {
-    protected $table = 'studentcounsellorlist';
     use HasFactory;
+
+    protected $table = 'studentcounsellorlist';
+
     protected $primaryKey = 'referral_code';
+
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
     protected $fillable = [
         'referral_code',
         'full_name',
         'dob',
         'phone',
         'email',
-        'address'
-
+        'address',
+        'start_date',
+        'passwordField'
     ];
-
-
 }

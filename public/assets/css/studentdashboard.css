@@ -127,10 +127,14 @@ input[type="file"] {
 
 }
 
+.nbfc-studentdashboard-profile-container{
+    display:flex;
+}
 .studentdashboardprofile-profilesection {
     margin-top: 105.8px;
     height: fit-content;
-    max-width: 21%;
+
+    
     padding: 20px 20px 31px 22px;
     box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
     width: 100%;
@@ -789,7 +793,7 @@ input[type="file"] {
     height: fit-content;
     background-color: rgba(255, 255, 255, 1);
     box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
-    margin: 19px 0;
+    margin: 90px 0;
     padding: 20px 24px;
     display: none;
     flex-direction: column;

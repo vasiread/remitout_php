@@ -172,6 +172,7 @@
 
 
         </div>
+       <div class="nbfc-studentdashboard-profile-container">
         <div class="studentdashboardprofile-profilesection">
 
             <img src="{{asset($profileImgPath)}}" class="profileImg" id="profile-photo-id" alt="">
@@ -1232,27 +1233,58 @@
                 }
             });
         };
+const initializeKycDocumentUpload = () => {
+    const individualKycDocumentsUpload = document.querySelectorAll(".individualkycdocuments");
 
-        const initializeKycDocumentUpload = () => {
-            const individualKycDocumentsUpload = document.querySelectorAll(".individualkycdocuments");
+    individualKycDocumentsUpload.forEach((card) => {
+        let uploadedFile = null;
 
-            individualKycDocumentsUpload.forEach((card) => {
-                let uploadedFile = null;
+        // Trigger file input when the container is clicked
+        card.querySelector('.inputfilecontainer').addEventListener('click', function () {
+            card.querySelector('#inputfilecontainer-real').click();
+        });
 
-                card.querySelector('.inputfilecontainer').addEventListener('click', function () {
-                    card.querySelector('#inputfilecontainer-real').click();
-                });
+        // Handle file selection and validation
+        card.querySelector('#inputfilecontainer-real').addEventListener('change', function (event) {
+            const file = event.target.files[0];
 
-                card.querySelector('#inputfilecontainer-real').addEventListener('change', function (event) {
-                    const file = event.target.files[0];
-                    if (file) {
-                        uploadedFile = file;
-                        card.querySelector('.inputfilecontainer p').textContent = file.name;
-                        const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
-                        const filesizeviewer = card.querySelector('.document-status');
-                        filesizeviewer.textContent = `${fileSizeMB} MB Uploaded`;
-                    }
-                });
+            // Ensure file is selected
+            if (!file) return;
+
+            console.log("Selected file: ", file);  // Debug log
+
+            // Allowed file types
+            const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
+            const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
+
+            // Validate file type
+            if (!allowedExtensions.includes(fileExtension)) {
+                alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
+                event.target.value = ''; // Clear the file input
+                card.querySelector('.inputfilecontainer p').textContent = 'No file chosen';
+                return;
+            }
+
+            // Validate file size (5MB max)
+            if (file.size > 5 * 1024 * 1024) {
+                alert("Error: File size exceeds 5MB limit.");
+                event.target.value = ''; // Clear the file input
+                card.querySelector('.inputfilecontainer p').textContent = 'No file chosen';
+                return;
+            }
+
+            // Store the file and update UI
+            uploadedFile = file;
+            const truncatedFileName = truncateFileName(file.name);
+            card.querySelector('.inputfilecontainer p').textContent = truncatedFileName;
+
+            const fileSize = file.size < 1024 * 1024 
+                ? (file.size / 1024).toFixed(2) + ' KB'
+                : (file.size / (1024 * 1024)).toFixed(2) + ' MB';
+            card.querySelector('.document-status').textContent = `${fileSize} Uploaded`;
+
+            console.log("File uploaded:", uploadedFile);  // Debug log
+        });
 
                 
 
