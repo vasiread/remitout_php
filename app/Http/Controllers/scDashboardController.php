@@ -235,10 +235,13 @@ class scDashboardController extends Controller
     {
         $request->validate([
             'scRefNo' => 'required|string',
-            'updatedScName' => 'nullable|string', // Make nullable for optional fields
+            'updatedScName' => 'nullable|string',
             'updatedScDob' => 'nullable|string',
             'updatedScPhone' => 'nullable|string',
-            'finalAddress' => 'nullable|string',
+            'street' => 'nullable|string',
+            'district' => 'nullable|string',
+            'state' => 'nullable|string',
+            'pincode' => 'nullable|string'
         ]);
 
         try {
@@ -254,14 +257,29 @@ class scDashboardController extends Controller
                 if ($request->has('updatedScPhone')) {
                     $studentCounsellor->phone = $request->input('updatedScPhone');
                 }
-                if ($request->has('finalAddress')) {
-                    $studentCounsellor->address = $request->input('finalAddress');
+                if ($request->has('street')) {
+                    $studentCounsellor->street = $request->input('street');
                 }
+                if ($request->has('district')) {
+                    $studentCounsellor->district = $request->input('district');
+                }
+                if ($request->has('state')) {
+                    $studentCounsellor->state = $request->input('state');
+                }
+                if ($request->has('pincode')) {
+                    $studentCounsellor->pincode = $request->input('pincode');
+                }
+
+                $fullAddress = $request->input('street') . ', ' . $request->input('district') . ', ' . $request->input('state') . ' - ' . $request->input('pincode');
+
+                if($fullAddress){
+                    $studentCounsellor->address = $fullAddress;
+                }
+
 
                 // Save the updated data
                 $studentCounsellor->save();
 
-                // Update the session with the new data
 
 
                 return response()->json([

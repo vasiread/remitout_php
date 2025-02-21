@@ -25,6 +25,10 @@ class Scuser extends Model
         'email',
         'address',
         'start_date',
-        'passwordField'
+        'passwordField',
+        'street',
+        'district',
+        'state',
+        'pincode'
     ];
 }

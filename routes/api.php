@@ -35,19 +35,19 @@ Route::post('/count-documents', [StudentDashboardController::class, 'countFilesI
 Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFromProfile']);
 Route::post('/check-columns', [StudentDashboardController::class, 'validateTablesAndColumns']);
 Route::post('/send-documents', [MailController::class, 'sendUserDocuments']);
-// Route::post('/registeruser', [RegisterController::class, 'register']);
+
 Route::post('/send-mobotp', [OTPMobController::class, 'sendOTP']);
 Route::post('/verify-mobotp', [OTPMobController::class, 'verifyOTP']);
 Route::post('/emailuniquecheck', action: [RegisterController::class, 'emailUniqueCheck']);
 
-// Route::get('/registeruser', [RegisterController::class, 'showMessage']);
+
 
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
 Route::get('auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle']);
 Route::get("/getalluserdetailsfromadmin", [StudentDashboardController::class, 'getAllUsersFromAdmin']);
 Route::post('/retrieve-file', action: [StudentDashboardController::class, 'retrieveFile']);
 Route::post('/remove-each-documents', [StudentDashboardController::class, 'removeFromServer']);
-// routes/web.php
+
 Route::post('/getuserbyref', [scDashboardController::class, 'getUsersByCounsellorApi']);
 
 

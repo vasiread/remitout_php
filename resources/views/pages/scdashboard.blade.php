@@ -215,7 +215,7 @@ $studentDocumentDetailsInfo = [
                         </div>
                         <div id="screferral-dob-fromprofile-editmode" inputmode="Date">
                             <i class="fa-solid fa-calendar"></i>
-                            <input type="text" value="{{ session('scuser')->dob }}">
+                            <input type="text">
 
                         </div>
                         <ul class="scmember_personalinfo">
@@ -237,20 +237,20 @@ $studentDocumentDetailsInfo = [
                         </ul>
                         <ul class="scmember_personalinfo_editmode">
                             <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
-                                <input type="text" value="{{ session('scuser')->full_name }}">
+                                <input type="text">
                             </li>
                             <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="">
-                                <input type="text" value="{{ session('scuser')->phone }}">
+                                <input type="text">
                             </li>
                             <li class="scmember_personal_info_email" id="referenceEmailId">
                                 <img src="{{$mailIconPath}}" alt="">
-                                <input type="text" value="{{ session('scuser')->email }}" disabled>
+                                <input type="text" disabled>
                             </li>
                             <li class="scmember_personal_info_state-edit">
 
                                 <div class="scmember-personal_address_header">
                                     <img src="{{$pindropIconPath}}" alt="">
-                                    <input type="text" value="{{ session('scuser')->address }}" disabled>
+                                    <input type="text" disabled>
                                 </div>
 
 
@@ -578,7 +578,7 @@ $totalPages = ceil($totalStudents / $perPage);
             }
         });
 
-        const initializeProfileUploadScuser = () => {
+        const initializeProfileUploadScuser  = async () => {
             const profileUploadForScTriggerShower = document.querySelector('.scdashboard-performancecontainer .performancecontainer-firstrow .edit-scuser');
             const scUserInfoUpdationSaver = document.querySelector('.scdashboard-performancecontainer .performancecontainer-firstrow .save-scuser');
 
@@ -1189,33 +1189,46 @@ $totalPages = ceil($totalStudents / $perPage);
             const updatedScName = personalEditMode.querySelector(".scmember_personal_info_name input").value;
             const updatedScDob = document.querySelector("#screferral-dob-fromprofile-editmode input").value;
             const updatedScPhone = personalEditMode.querySelector(".scmember_personal_info_phone input").value;
-            const updatedScAddress = personalEditMode.querySelectorAll(".subbranch-of-address input");
-            const Profileinfo = document.querySelector(".scmember_personalinfo");
+            const updatedScAddress = personalEditMode.querySelector(".scmember_personal_info_state-edit .subbranch-of-address");
             const Profiledob = document.getElementById("screferral-dob-fromprofile");
             const editStateProfiledob = document.getElementById("screferral-dob-fromprofile-editmode");
-            
-            let fullAddress = '';
+                const profileUploadForScTriggerShower = document.querySelector('.scdashboard-performancecontainer .performancecontainer-firstrow .edit-scuser');
+            const scUserInfoUpdationSaver = document.querySelector('.scdashboard-performancecontainer .performancecontainer-firstrow .save-scuser');
 
-            updatedScAddress.forEach((item, index) => {
-                fullAddress += item.value;
-                if (index < updatedScAddress.length - 1) {
-                    if (index === updatedScAddress.length - 2) {
-                        fullAddress += ' ';
-                    } else {
-                        fullAddress += ', ';
-                    }
-                }
-            });
 
-            const finalAddress = fullAddress.trim();
+            const street = updatedScAddress.querySelector("#scaddress-address").value;
+            const district = updatedScAddress.querySelector("#scaddress-city").value;
+            const state = updatedScAddress.querySelector("#scaddress-state").value;
+            const pincode = updatedScAddress.querySelector("#scaddress-pincode").value;
+
 
             const scUserUpdatedDatas = {
                 scRefNo,
                 updatedScName,
                 updatedScDob,
                 updatedScPhone,
-                finalAddress
+                street,
+                district,
+                state,
+                pincode
             };
+
+            const scNameElement = personalScInfoContainer.querySelector(".scmember_personal_info_name p");
+            const scPhoneElement = personalScInfoContainer.querySelector(".scmember_personal_info_phone p");
+            const scAddressElement = personalScInfoContainer.querySelector(".scmember_personal_info_state p");
+
+            if (scNameElement) scNameElement.textContent = updatedScName;
+            if (scPhoneElement) scPhoneElement.textContent = updatedScPhone;
+ 
+            if (Profiledob && Profiledob.querySelector("p")) {
+                Profiledob.querySelector("p").textContent = updatedScDob;
+            }
+
+            if (!street || !district || !state || !pincode) {
+                alert("Please fill in all the address fields: street, district, state, and pincode.");
+                return; // Stop the execution if any field is missing, preventing fetch
+            }
+            
 
             fetch("/updatescuserdetails", {
                 method: "POST",
@@ -1229,44 +1242,38 @@ $totalPages = ceil($totalStudents / $perPage);
                 .then((data) => {
                     if (data.success) {
                         alert("All Details Updated for the respective student counsellor");
+                        if (personalEditMode) personalEditMode.style.display = "none";
+                        if (personalScInfoContainer) personalScInfoContainer.style.display = "flex";
+                        if (editStateProfiledob) editStateProfiledob.style.display = "none";
+                        if (Profiledob) Profiledob.style.display = "flex";
+                        
+                        profileUploadForScTriggerShower.style.display = "flex";
+                        scUserInfoUpdationSaver.style.display = "none";        
+                        const finalAddress = `${street}, ${district}, ${state} - ${pincode}`;
 
-                         if (personalEditMode.querySelector(".scmember_personal_info_name p")) {
-                            personalEditMode.querySelector(".scmember_personal_info_name p").textContent = data.full_name;
-                        }
+                        if (scAddressElement) scAddressElement.textContent = finalAddress; 
 
-                        if (personalEditMode.querySelector(".scmember_personal_info_phone p")) {
-                            personalEditMode.querySelector(".scmember_personal_info_phone p").textContent = data.phone;
-                        }
-
-                        if (personalEditMode.querySelector(".scmember_personal_info_state p")) {
-                            personalEditMode.querySelector(".scmember_personal_info_state p").textContent = data.address;
-                        }
-
-                        if (document.querySelector("#screferral-dob-fromprofile p")) {
-                            document.querySelector("#screferral-dob-fromprofile p").textContent = data.dob;
-                        }
-
-                        if(personalEditMode)  personalEditMode.style.display = "none";
-                        if(personalScInfoContainer) personalScInfoContainer.style.display = "flex";
-                        if(editStateProfiledob) editStateProfiledob.style.display = "none";
-                       if(Profileinfo) Profileinfo.style.display = "flex";
-                       if(Profiledob) Profiledob.style.display = "flex";
-                       if(editStateProfileinfo) editStateProfileinfo.style.display = "none";
-
-                    }
-                    else {
-                        console.error(data.error);
+                    } else {
+                        console.error("Update failed: " + data.error);
                     }
                 })
-                .catch(() => {
-                    console.error("Error when posting data");
+                .catch((error) => {
+                    console.error("Error posting data: ", error);
                 });
         };
 
         const initializeScUserOneView = () => {
-            const referral_code = document.querySelector("#screferral-id-fromprofile span").textContent;
-            const personalScInfoContainer = document.querySelector(".scmember_personalinfo");
+            const referralCodeElem = document.querySelector("#screferral-id-fromprofile span");
+            const referralCode = referralCodeElem ? referralCodeElem.textContent : null;
 
+            const personalScInfoContainer = document.querySelector(".scmember_personalinfo");
+            const personalEditMode = document.querySelector(".scmember_personalinfo_editmode");
+            const additionAddressView = document.querySelector(".scmember_personal_info_state-edit");
+
+            if (!referralCode) {
+                console.error("Referral code not found");
+                return;
+            }
 
             fetch('/scuserone', {
                 method: "POST",
@@ -1274,28 +1281,71 @@ $totalPages = ceil($totalStudents / $perPage);
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 },
-                body: JSON.stringify({ referral_code })
+                body: JSON.stringify({ referral_code: referralCode })
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    if (data) {
-                        console.log(data);
-                        personalScInfoContainer.querySelector(".scmember_personal_info_name p").textContent = data.full_name;
-                        personalScInfoContainer.querySelector(".scmember_personal_info_phone p").textContent = data.phone;
-                        personalScInfoContainer.querySelector(".scmember_personal_info_state p").textContent = data.address;
-                        document.querySelector("#screferral-dob-fromprofile p").textContent = data.dob;
-
-
-
-
-                    } else {
-                        console.error("Retrieving get data failed");
+                    console.log(data)
+                    if (!data) {
+                        console.error("No data returned from server");
+                        return;
                     }
+
+                    if (personalScInfoContainer) {
+                        const scNameDisplay = personalScInfoContainer.querySelector(".scmember_personal_info_name p");
+                        if (scNameDisplay) scNameDisplay.textContent = data.full_name || "N/A";
+                    }
+                    if (personalEditMode) {
+                        const scNameEdit = personalEditMode.querySelector(".scmember_personal_info_name input");
+                        if (scNameEdit) scNameEdit.value = data.full_name || "";
+                    }
+
+                    if (personalScInfoContainer) {
+                        const scPhoneDisplay = personalScInfoContainer.querySelector(".scmember_personal_info_phone p");
+                        if (scPhoneDisplay) scPhoneDisplay.textContent = data.phone || "N/A";
+                    }
+                    if (personalEditMode) {
+                        const scPhoneEdit = personalEditMode.querySelector(".scmember_personal_info_phone input");
+                        if (scPhoneEdit) scPhoneEdit.value = data.phone || "";
+                    }
+
+                    if (personalScInfoContainer) {
+                        const scAddressDisplay = personalScInfoContainer.querySelector(".scmember_personal_info_state p");
+                        if (scAddressDisplay) scAddressDisplay.textContent = data.address || "N/A";
+                    }
+                    if (personalEditMode) {
+                        const scAddressEdit = personalEditMode.querySelector(".scmember_personal_info_state-edit .scmember-personal_address_header input");
+                        if (scAddressEdit) scAddressEdit.value = data.address || "";
+                    }
+
+                    if (personalEditMode) {
+                        const editedEmail = personalEditMode.querySelector(".scmember_personal_info_email input");
+                        if (editedEmail) editedEmail.value = data.email || "";
+                    }
+
+                    if (additionAddressView) {
+                        const streetInput = additionAddressView.querySelector("#scaddress-address");
+                        const cityInput = additionAddressView.querySelector("#scaddress-city");
+                        const stateInput = additionAddressView.querySelector("#scaddress-state");
+                        const pincodeInput = additionAddressView.querySelector("#scaddress-pincode");
+
+                        if (streetInput) streetInput.value = data.street || "";
+                        if (cityInput) cityInput.value = data.district || "";
+                        if (stateInput) stateInput.value = data.state || "";
+                        if (pincodeInput) pincodeInput.value = data.pincode || "";
+                    }
+
+                    const dobDisplay = document.querySelector("#screferral-dob-fromprofile p");
+                    const dobEdit = document.querySelector("#screferral-dob-fromprofile-editmode input");
+
+                    if (dobDisplay) dobDisplay.textContent = data.dob || "N/A";
+                    if (dobEdit) dobEdit.value = data.dob || "";
                 })
-                .catch(() => {
-                    console.error("Error retrieving data");
+                .catch((error) => {
+                    console.error("Error retrieving data: ", error);
                 });
-        }
+        };
+
 
 
     </script>
