@@ -15,7 +15,7 @@
     @extends('layouts.app')
 
     @section('scdashboard')
-                                            @php
+            @php
 $profileIconPath = "assets/images/account_circle.png";
 $phoneIconPath = "assets/images/call.png";
 $mailIconPath = "assets/images/mail.png";
@@ -88,17 +88,17 @@ $studentDocumentDetailsInfo = [
 
 
 
-                                            @endphp
+            @endphp
             <div class="scdashboard-parentcontainer">
                 <div class="commonsidebar-togglesidebar">
                     <ul class="commonsidebar-sidebarlists-top">
                         @foreach($sidebarItems as $item)
-                                                                <li class="{{ $item['active'] ? 'active' : '' }}">
+                            <li class="{{ $item['active'] ? 'active' : '' }}">
                                 <i class="{{ $item['icon'] }}"></i>
                                 <p>{{ $item['name'] }}</p>
                             </li>
                         @endforeach
-                                                    </ul>
+                    </ul>
                     <ul class="commonsidebar-sidebarlists-bottom">
                         <li class="logoutBtn" onClick="sessionLogout()">
                             <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
@@ -164,8 +164,8 @@ $studentDocumentDetailsInfo = [
 
                             </div>
 
-                           <div id="user-list">
-                           </div>
+                            <div id="user-list">
+                            </div>
 
 
 
@@ -176,7 +176,7 @@ $studentDocumentDetailsInfo = [
 
 
 
- 
+
 
 
 
@@ -206,26 +206,62 @@ $studentDocumentDetailsInfo = [
                             <h1>Student Counsellor</h1>
 
                         </div>
-                        <p id="screferral-id-fromprofile">Referral Number: <span>{{ session('scuser')->referral_code }}</span></p>
+                        <p id="screferral-id-fromprofile">Referral Number: <span>{{ session('scuser')->referral_code }}</span>
+                        </p>
                         <div id="screferral-dob-fromprofile" inputmode="Date">
                             <i class="fa-solid fa-calendar"></i>
-                            <p>{{ session('scuser')->dob }}</p>
+                            <p></p>
+
+                        </div>
+                        <div id="screferral-dob-fromprofile-editmode" inputmode="Date">
+                            <i class="fa-solid fa-calendar"></i>
+                            <input type="text" value="{{ session('scuser')->dob }}">
 
                         </div>
                         <ul class="scmember_personalinfo">
 
                             <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
-                                <p>{{ session('scuser')->full_name }} </p>
+                                <p> </p>
                             </li>
                             <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="">
-                                <p>+91 {{ session('scuser')->phone }} </p>
+                                <p></p>
+                            </li>
+                            <li class="scmember_personal_info_email" style="word-break: break-all;" id="referenceEmailId">
+                                <img src="{{$mailIconPath}}" alt="">
+                                <p>{{ session('scuser')->email}}</p>
+                            </li>
+                            <li class="scmember_personal_info_state"><img src="{{$pindropIconPath}}" alt="">
+                                <p style="line-height:19px"></p>
+                            </li>
+
+                        </ul>
+                        <ul class="scmember_personalinfo_editmode">
+                            <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
+                                <input type="text" value="{{ session('scuser')->full_name }}">
+                            </li>
+                            <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="">
+                                <input type="text" value="{{ session('scuser')->phone }}">
                             </li>
                             <li class="scmember_personal_info_email" id="referenceEmailId">
                                 <img src="{{$mailIconPath}}" alt="">
-                                <p>{{ session('scuser')->email }} </p>
+                                <input type="text" value="{{ session('scuser')->email }}" disabled>
                             </li>
-                            <li class="scmember_personal_info_state"><img src="{{$pindropIconPath}}" alt="">
-                                <p>{{ session('scuser')->address}}</p>
+                            <li class="scmember_personal_info_state-edit">
+
+                                <div class="scmember-personal_address_header">
+                                    <img src="{{$pindropIconPath}}" alt="">
+                                    <input type="text" value="{{ session('scuser')->address }}" disabled>
+                                </div>
+
+
+
+                                <div class="subbranch-of-address">
+                                    <input type="text" placeholder="area" id="scaddress-address">
+                                    <input type="text" placeholder="city" id="scaddress-city">
+                                    <input type="text" placeholder="state" id="scaddress-state">
+                                    <input type="text" placeholder="pincode" id="scaddress-pincode">
+                                </div>
+
                             </li>
 
                         </ul>
@@ -234,7 +270,8 @@ $studentDocumentDetailsInfo = [
                     <div class="scdashboard-performancecontainer">
                         <div class="performancecontainer-firstrow">
                             <h3>Performance</h3>
-                            <button>Edit</button>
+                            <button class="edit-scuser">Edit</button>
+                            <button class="save-scuser">Save</button>
                         </div>
                         <ul class="scdashboard-individual-performance">
                             <li>
@@ -278,7 +315,7 @@ $studentDocumentDetailsInfo = [
                             </div>
                             <div class="groupofraisedquestion-scdashboard">
                                 @foreach ($questions as $items)
-                                        <div class="individual-raisedquestions" data-added="{{ $items['date_added']}}">
+                                    <div class="individual-raisedquestions" data-added="{{ $items['date_added']}}">
                                         <p id="queries-row">{{ $items['queries'] }}</p>
                                         <p id="query-raisedbyrow">{{ $items['queriesRaisedBy']}}</p>
                                     </div>
@@ -288,7 +325,7 @@ $studentDocumentDetailsInfo = [
 
 
 
-                                                            </div>
+                            </div>
                         </div>
 
 
@@ -322,52 +359,52 @@ $totalPages = ceil($totalStudents / $perPage);
 
                     <div id="student-applicationdetailsstatus">
                         @foreach (array_chunk($studentDocumentDetailsInfo, $perPage, true) as $page => $students)
-                                                            <div class="page-class student-page" data-page="{{ $page + 1 }}"
-                            style="display: {{ $page == 0 ? 'block' : 'none' }};">
-                            @foreach ($students as $student)
-                                                                    <div class="studentapplicationstatusreports-inscdashboard"
-                                    data-added="{{ $student['date_added'] }}">
-                                    <div class="reportsindashboard-firstrow">
-                                        <div class="reportsindashboard-leftcontentinfirstrow">
-                                            <p>{{ $student['student_name'] }}</p>
-                                            <span>Unique ID: HBJHKNJ776878</span>
+                            <div class="page-class student-page" data-page="{{ $page + 1 }}"
+                                style="display: {{ $page == 0 ? 'block' : 'none' }};">
+                                @foreach ($students as $student)
+                                    <div class="studentapplicationstatusreports-inscdashboard"
+                                        data-added="{{ $student['date_added'] }}">
+                                        <div class="reportsindashboard-firstrow">
+                                            <div class="reportsindashboard-leftcontentinfirstrow">
+                                                <p>{{ $student['student_name'] }}</p>
+                                                <span>Unique ID: HBJHKNJ776878</span>
+                                            </div>
+                                            <div class="reportsindashboard-rightcontentinfirstrow">
+                                                <div class="application-buttoncontainer reportsindashboard-buttoncontainer">
+                                                    <button id="reportsindashboard-firstrow-view" style="cursor:pointer">View</button>
+                                                    <button id="reportsindashboard-firstrow-edit" style="cursor:pointer">Edit</button>
+                                                    <button class="expand-arrow-reportsindashboard" style="cursor:pointer">
+                                                        <img src="{{ asset('assets/images/stat_minus_1.png') }}" alt="">
+                                                    </button>
+                                                </div>
+                                                <div class="application-shrinkwidtheditcontainer">
+                                                    <img src="{{ asset('assets/images/Icons/edit_icon.png') }}" alt="">
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="reportsindashboard-rightcontentinfirstrow">
-                                            <div class="application-buttoncontainer reportsindashboard-buttoncontainer">
-                                                <button id="reportsindashboard-firstrow-view" style="cursor:pointer">View</button>
-                                                <button id="reportsindashboard-firstrow-edit" style="cursor:pointer">Edit</button>
-                                                <button class="expand-arrow-reportsindashboard" style="cursor:pointer">
-                                                    <img src="{{ asset('assets/images/stat_minus_1.png') }}" alt="">
-                                                </button>
-                                            </div>
-                                            <div class="application-shrinkwidtheditcontainer">
-                                                <img src="{{ asset('assets/images/Icons/edit_icon.png') }}" alt="">
-                                            </div>
+                                        <div class="reportsindashboard-secondrow">
+                                            <p>{{ $student['DocumentFinalStatus'] }}</p>
+                                            <p>Application Date: {{ $student['DocumentFinalDate'] }}</p>
+                                            <p>Proposals received: {{ $student['ProposalReceived'] }}</p>
+                                            <p>Total Duration: {{ $student['TotalDuration'] }}</p>
+                                        </div>
+                                        <div class="reportsproposal-datalists">
+                                            @foreach ($student['proposalDetailInfo'] as $proposal)
+                                                <div class="reportsproposal-individualdatalists">
+                                                    <p>NFBC: &nbsp;&nbsp;{{ $proposal['NBFC'] }}</p>
+                                                    <p>Proposal Date: &nbsp;&nbsp;{{ $proposal['ProposalDate'] }}</p>
+                                                    <p id="reportspropsal-status-state" class="dynamic-status-hide">
+                                                        &nbsp;&nbsp;<span>{{ $proposal['Status'] }}</span>
+                                                    </p>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
-                                    <div class="reportsindashboard-secondrow">
-                                        <p>{{ $student['DocumentFinalStatus'] }}</p>
-                                        <p>Application Date: {{ $student['DocumentFinalDate'] }}</p>
-                                        <p>Proposals received: {{ $student['ProposalReceived'] }}</p>
-                                        <p>Total Duration: {{ $student['TotalDuration'] }}</p>
-                                    </div>
-                                    <div class="reportsproposal-datalists">
-                                        @foreach ($student['proposalDetailInfo'] as $proposal)
-                                                                                    <div class="reportsproposal-individualdatalists">
-                                                <p>NFBC: &nbsp;&nbsp;{{ $proposal['NBFC'] }}</p>
-                                                <p>Proposal Date: &nbsp;&nbsp;{{ $proposal['ProposalDate'] }}</p>
-                                                <p id="reportspropsal-status-state" class="dynamic-status-hide">
-                                                    &nbsp;&nbsp;<span>{{ $proposal['Status'] }}</span>
-                                                </p>
-                                            </div>
-                                        @endforeach
-                                                                        </div>
-                                </div>
-                            @endforeach
+                                @endforeach
 
-                                                            </div>
+                            </div>
                         @endforeach
-                                                    </div>
+                    </div>
 
                     <!-- Pagination Controls -->
                     <div class="pagination-controls studentapplicaton-datashownpagination">
@@ -440,11 +477,13 @@ $totalPages = ceil($totalStudents / $perPage);
             generateReferLinkPopup();
             addDynamicInputFields();
             initializecheckStatus();
-            getUsersByCounsellor();
+
             initializeSortByFunctionQueries();
             initializeSortByFunctionApplicationStatus();
             initializeProfileUploadScuser();
             initializeProfileViewScuser();
+            initializeScUserOneView();
+            getUsersByCounsellor();
             const backgroundContainer = document.querySelector('.scdashboard-parentcontainer');
 
 
@@ -508,6 +547,11 @@ $totalPages = ceil($totalStudents / $perPage);
             initializePagination();
 
             letFirstPageActive();
+
+
+
+
+
         })
 
 
@@ -535,16 +579,29 @@ $totalPages = ceil($totalStudents / $perPage);
         });
 
         const initializeProfileUploadScuser = () => {
-            const profileUploadForScTriggerShower = document.querySelector('.scdashboard-performancecontainer .performancecontainer-firstrow button');
+            const profileUploadForScTriggerShower = document.querySelector('.scdashboard-performancecontainer .performancecontainer-firstrow .edit-scuser');
+            const scUserInfoUpdationSaver = document.querySelector('.scdashboard-performancecontainer .performancecontainer-firstrow .save-scuser');
+
             const profileUploadForScTrigger = document.querySelector('.scmember-profilecontainerimg i');
             const profileUploadToCloud = document.getElementById('sc-profile-upload-cloud');
             const profileViewInstantChange = document.getElementById("studentcounsellor-profile");
+
+            const editStateProfileinfo = document.querySelector(".scmember_personalinfo_editmode");
+            const editStateProfiledob = document.getElementById("screferral-dob-fromprofile-editmode");
+            const Profileinfo = document.querySelector(".scmember_personalinfo");
+            const Profiledob = document.getElementById("screferral-dob-fromprofile");
 
             // Check if elements exist before adding event listeners
             if (profileUploadForScTriggerShower) {
                 profileUploadForScTriggerShower.addEventListener('click', () => {
                     if (profileUploadForScTrigger) {
-                        profileUploadForScTrigger.style.display = profileUploadForScTrigger.style.display === 'none' ? 'block' : 'none';
+                        profileUploadForScTrigger.style.display = "block";
+                        editStateProfileinfo.style.display = "flex";
+                        Profileinfo.style.display = "none";
+                        Profiledob.style.display = "none";
+                        scUserInfoUpdationSaver.style.display = "flex";
+                        profileUploadForScTriggerShower.style.display = "none";
+                        editStateProfiledob.style.display = "flex";
                     }
                 });
             } else {
@@ -627,14 +684,20 @@ $totalPages = ceil($totalStudents / $perPage);
             } else {
                 console.error('Profile upload input not found');
             }
+
+
+            scUserInfoUpdationSaver.addEventListener('click', () => {
+                updateScUserProfileInfos();
+
+            })
         };
 
         const initializeProfileViewScuser = () => {
 
-               const idsession = @json(session('scuser'));
+            const idsession = @json(session('scuser'));
             const scUserRefId = idsession.referral_code;
-             
-             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
             const profileViewInstantChange = document.getElementById("studentcounsellor-profile");
 
@@ -1016,41 +1079,41 @@ $totalPages = ceil($totalStudents / $perPage);
         }
 
 
-   const getUsersByCounsellor = () => {
-        const getRefCode = document.querySelector("#screferral-id-fromprofile span");
-        const referralId = getRefCode ? getRefCode.textContent : '';
+        const getUsersByCounsellor = () => {
+            const getRefCode = document.querySelector("#screferral-id-fromprofile span");
+            const referralId = getRefCode ? getRefCode.textContent : '';
 
-        if (!referralId) {
-            console.error("Referral ID is missing");
-            return;
-        }
+            if (!referralId) {
+                console.error("Referral ID is missing");
+                return;
+            }
 
-        fetch("/getuserbyref", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
-            },
-            body: JSON.stringify({ referralId })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.json();
+            fetch("/getuserbyref", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                },
+                body: JSON.stringify({ referralId })
             })
-            .then(data => {
-                if (data.error) {
-                    throw new Error(data.error);
-                }
-                console.log(data);
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        throw new Error(data.error);
+                    }
+                    console.log(data);
 
-                const userListContainer = document.getElementById("user-list");
-                userListContainer.innerHTML = ""; // Clear previous content
+                    const userListContainer = document.getElementById("user-list");
+                    userListContainer.innerHTML = ""; // Clear previous content
 
-                if (data && data.length > 0) {
-                    data.forEach((user) => {
-                        const userHTML = `
+                    if (data && data.length > 0) {
+                        data.forEach((user) => {
+                            const userHTML = `
                     <div class="studentapplication-lists">
                         <div class="individualapplication-list">
                             <div class="firstsection-lists">
@@ -1081,16 +1144,17 @@ $totalPages = ceil($totalStudents / $perPage);
                         </ul>
                     </div>
                 `;
-                        userListContainer.innerHTML += userHTML; // Append user details to the container
-                    });
-                } else {
-                    userListContainer.innerHTML = "<p>No users found.</p>"; // If no users are returned
-                }
-            })
-            .catch(error => {
-                console.error("Error fetching users:", error);
-            });
-    };
+                            userListContainer.innerHTML += userHTML; // Append user details to the container
+                        });
+                    } else {
+                        userListContainer.innerHTML = "<p>No users found.</p>"; // If no users are returned
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching users:", error);
+                });
+        };
+
 
         const generateReferLinkPopup = () => {
             const triggeredReferralButtons = document.querySelectorAll(".referral-Link-trigger-button, .referral-Link-trigger-anotherbutton");
@@ -1116,6 +1180,124 @@ $totalPages = ceil($totalStudents / $perPage);
                 })
             }
         };
+
+
+        const updateScUserProfileInfos = () => {
+            const personalEditMode = document.querySelector(".scmember_personalinfo_editmode");
+            const personalScInfoContainer = document.querySelector(".scmember_personalinfo");
+            const scRefNo = document.querySelector("#screferral-id-fromprofile span").textContent;
+            const updatedScName = personalEditMode.querySelector(".scmember_personal_info_name input").value;
+            const updatedScDob = document.querySelector("#screferral-dob-fromprofile-editmode input").value;
+            const updatedScPhone = personalEditMode.querySelector(".scmember_personal_info_phone input").value;
+            const updatedScAddress = personalEditMode.querySelectorAll(".subbranch-of-address input");
+            const Profileinfo = document.querySelector(".scmember_personalinfo");
+            const Profiledob = document.getElementById("screferral-dob-fromprofile");
+            const editStateProfiledob = document.getElementById("screferral-dob-fromprofile-editmode");
+            
+            let fullAddress = '';
+
+            updatedScAddress.forEach((item, index) => {
+                fullAddress += item.value;
+                if (index < updatedScAddress.length - 1) {
+                    if (index === updatedScAddress.length - 2) {
+                        fullAddress += ' ';
+                    } else {
+                        fullAddress += ', ';
+                    }
+                }
+            });
+
+            const finalAddress = fullAddress.trim();
+
+            const scUserUpdatedDatas = {
+                scRefNo,
+                updatedScName,
+                updatedScDob,
+                updatedScPhone,
+                finalAddress
+            };
+
+            fetch("/updatescuserdetails", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify(scUserUpdatedDatas)
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.success) {
+                        alert("All Details Updated for the respective student counsellor");
+
+                         if (personalEditMode.querySelector(".scmember_personal_info_name p")) {
+                            personalEditMode.querySelector(".scmember_personal_info_name p").textContent = data.full_name;
+                        }
+
+                        if (personalEditMode.querySelector(".scmember_personal_info_phone p")) {
+                            personalEditMode.querySelector(".scmember_personal_info_phone p").textContent = data.phone;
+                        }
+
+                        if (personalEditMode.querySelector(".scmember_personal_info_state p")) {
+                            personalEditMode.querySelector(".scmember_personal_info_state p").textContent = data.address;
+                        }
+
+                        if (document.querySelector("#screferral-dob-fromprofile p")) {
+                            document.querySelector("#screferral-dob-fromprofile p").textContent = data.dob;
+                        }
+
+                        if(personalEditMode)  personalEditMode.style.display = "none";
+                        if(personalScInfoContainer) personalScInfoContainer.style.display = "flex";
+                        if(editStateProfiledob) editStateProfiledob.style.display = "none";
+                       if(Profileinfo) Profileinfo.style.display = "flex";
+                       if(Profiledob) Profiledob.style.display = "flex";
+                       if(editStateProfileinfo) editStateProfileinfo.style.display = "none";
+
+                    }
+                    else {
+                        console.error(data.error);
+                    }
+                })
+                .catch(() => {
+                    console.error("Error when posting data");
+                });
+        };
+
+        const initializeScUserOneView = () => {
+            const referral_code = document.querySelector("#screferral-id-fromprofile span").textContent;
+            const personalScInfoContainer = document.querySelector(".scmember_personalinfo");
+
+
+            fetch('/scuserone', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ referral_code })
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data) {
+                        console.log(data);
+                        personalScInfoContainer.querySelector(".scmember_personal_info_name p").textContent = data.full_name;
+                        personalScInfoContainer.querySelector(".scmember_personal_info_phone p").textContent = data.phone;
+                        personalScInfoContainer.querySelector(".scmember_personal_info_state p").textContent = data.address;
+                        document.querySelector("#screferral-dob-fromprofile p").textContent = data.dob;
+
+
+
+
+                    } else {
+                        console.error("Retrieving get data failed");
+                    }
+                })
+                .catch(() => {
+                    console.error("Error retrieving data");
+                });
+        }
+
+
     </script>
 
 </body>

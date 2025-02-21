@@ -427,20 +427,23 @@
     object-fit: cover;
 
 }
-.scmember-profilecontainerimg{
-    position:relative;
+
+.scmember-profilecontainerimg {
+    position: relative;
 }
-.scmember-profilecontainerimg i{
-    display:none;
-    position:absolute;
-    top:0;
-    right:0;
+
+.scmember-profilecontainerimg i {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
     padding: 0.4rem;
-    color:rgba(38, 2, 84, 0.7);
-    
+    color: rgba(38, 2, 84, 0.7);
+
 
 
 }
+
 .scmember-rowfirst {
     display: flex;
     justify-content: space-between;
@@ -473,13 +476,15 @@
     color: #6F25CEDE;
 
 }
+
 #screferral-id-fromprofile {
     font-family: Poppins;
-        font-weight: 500;
-        font-size: 13px;
-        line-height: 15.6px;
-        letter-spacing: 0%;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 15.6px;
+    letter-spacing: 0%;
 }
+
 #screferral-id-fromprofile span {
     font-family: Poppins;
     font-size: 13px;
@@ -488,7 +493,8 @@
     color: #212121;
 }
 
-#screferral-dob-fromprofile {
+#screferral-dob-fromprofile,
+#screferral-dob-fromprofile-editmode {
     display: flex;
     font-family: Poppins;
     align-items: center;
@@ -502,16 +508,22 @@
     border-bottom: 1px solid #E5E5E5
 }
 
-#screferral-dob-fromprofile i {
+#screferral-dob-fromprofile-editmode {
+    display: none
+}
+
+#screferral-dob-fromprofile i,
+#screferral-dob-fromprofile-editmode i {
     font-size: 0.8rem;
 }
 
-#screferral-dob-fromprofile p{
+#screferral-dob-fromprofile p,
+#screferral-dob-fromprofile-editmode p {
     font-family: Poppins;
-        font-weight: 500;
-        font-size: 13px;
-        line-height: 15.6px;
-        color:rgba(33, 33, 33, 0.5);
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 15.6px;
+    color: rgba(33, 33, 33, 0.5);
 }
 
 .scmember_personalinfo {
@@ -539,11 +551,81 @@
 
 }
 
-.scmember_personalinfo li img {
+.scmember_personalinfo li img,
+.scmember_personalinfo_editmode li img {
     width: 1.2rem;
     height: 1.2rem;
 }
 
+.subbranch-of-address {
+    display: flex;
+    flex-direction: column;
+    width: 83%;
+    gap: 11px;
+    margin-left: 14.90%;
+    
+}
+.subbranch-of-address input{
+     width: 100%;
+     border-radius: 2px;
+ }
+
+ .performancecontainer-firstrow .save-scuser{
+    display:none;   
+ }
+
+.scmember_personal_info_state-edit {
+    display: flex;
+    flex-direction: column;
+    
+ 
+
+}
+.scmember_personal_info_state-edit .scmember-personal_address_header{
+    display:flex;
+    width: 100%;
+    gap: 20px;
+   
+}
+.scmember_personal_info_state input{
+    width: 100%;
+}
+
+.scmember_personal_info_state_editmode input {
+    width: 100%;
+
+}
+
+.scmember_personalinfo_editmode {
+
+    list-style-type: none;
+    display: none;
+    flex-direction: column;
+    gap: 11px;
+    margin-top: 1.5rem;
+
+}
+
+.scmember_personalinfo_editmode li {
+    display: flex;
+    align-items: center;
+    gap: 20px
+}
+
+.scmember_personalinfo_editmode input,
+#screferral-dob-fromprofile-editmode input {
+    border: 1px solid #E5E5E5;
+    outline: none;
+    font-family: Poppins;
+    font-size: 11.5px;
+    font-weight: 500;
+    line-height: 15.6px;
+    color: #21212180;
+    padding: 4.5px;
+    width: 100%;
+
+
+}
 
 /* --------------------------sc dashboard performance------------------------------------------ */
 .scdashboard-performancecontainer {
@@ -578,7 +660,7 @@
     color: #E98635;
 }
 
-.performancecontainer-firstrow button {
+.performancecontainer-firstrow .edit-scuser,.performancecontainer-firstrow .save-scuser {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -592,7 +674,12 @@
     background: transparent;
 
 }
-
+.performancecontainer-firstrow .save-scuser{
+    display:none;
+    background: #6F25CE;
+    color:#FFFFFF;
+    
+}
 .scdashboard-individual-performance {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1523,7 +1610,7 @@
 
 }
 
-@media(max-width:640px) {
+@media(max-width:767px) {
     .scdashboard-container {
         margin: 0 1.3rem;
         padding-top: 1.3rem;
@@ -1533,7 +1620,7 @@
 
     .studentAddByScuserPopup-footerpart button:nth-child(2) {
         display: none;
-    } 
+    }
 
     .scdashboard-dashboardcontent {
         max-width: 100%;
@@ -1691,12 +1778,12 @@
 
     .reportsindashboard-leftcontentinfirstrow {
         flex-direction: column;
-         display: flex;
-         justify-content: space-between;
+        display: flex;
+        justify-content: space-between;
         width: 100%;
         margin-right: 9rem;
         align-items: flex-start;
-        gap:1rem;
+        gap: 1rem;
     }
 
 
