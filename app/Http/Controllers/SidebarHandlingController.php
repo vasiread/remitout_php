@@ -17,8 +17,7 @@ class SidebarHandlingController extends Controller
 
          
 
-        // Return sidebar items
-        return $sidebarItems;
+         return $sidebarItems;
     }
 
 

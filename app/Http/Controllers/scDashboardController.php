@@ -42,7 +42,7 @@ class scDashboardController extends Controller
         $referralId = $request->input('referralId');
 
 
- 
+
         $userByRef = PersonalInfo::where('referral_code', $referralId)->get();
         $scDetail = Scuser::where('referral_code', $referralId)->get();
 
@@ -119,38 +119,85 @@ class scDashboardController extends Controller
             'scEmail' => 'string|required|email',
             'scContact' => 'string|required',
             'scAddress' => 'string|required',
+            'profilePhoto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        $password = Str::random(12);
+        try {
+            $password = Str::random(12);
+            $hashedPassword = Hash::make($password);
 
-        $hashedPassword = Hash::make($password);
-
-        $referralCode = 'SCREF' . str_pad(rand(0, 99999999), 8, '0', STR_PAD_LEFT);
-
-        while (Scuser::where('referral_code', $referralCode)->exists()) {
             $referralCode = 'SCREF' . str_pad(rand(0, 99999999), 8, '0', STR_PAD_LEFT);
-        }
+            while (Scuser::where('referral_code', $referralCode)->exists()) {
+                $referralCode = 'SCREF' . str_pad(rand(0, 99999999), 8, '0', STR_PAD_LEFT);
+            }
 
-        $scUser = Scuser::create([
-            'referral_code' => $referralCode,
-            'full_name' => $request->input('scUserName'),
-            'dob' => $request->input('scDob'),
-            'email' => $request->input('scEmail'),
-            'phone' => $request->input('scContact'),
-            'address' => $request->input('scAddress'),
-            'passwordField' => $hashedPassword
+            $scUser = Scuser::create([
+                'referral_code' => $referralCode,
+                'full_name' => $request->input('scUserName'),
+                'dob' => $request->input('scDob'),
+                'email' => $request->input('scEmail'),
+                'phone' => $request->input('scContact'),
+                'address' => $request->input('scAddress'),
+                'passwordField' => $hashedPassword
+            ]);
+
+            $fileUrl = null;
+
+            if ($scUser) {
+                if ($request->hasFile('profilePhoto')) {
+                    $file = $request->file('profilePhoto');
+                    $fileName = $file->getClientOriginalName();
+                    $fileDirectory = "Student_Counsellor/$referralCode/Profile_photoes";
+
+
+                    $existingFiles = Storage::disk('s3')->files($fileDirectory);
+                    if (!empty($existingFiles)) {
+                        Storage::disk('s3')->delete($existingFiles);
+                    }
+
+                    $filePath = $file->storeAs(
+                        $fileDirectory,
+                        $fileName,
+                        [
+                            'disk' => 's3',
+                            'visibility' => 'public',
+                        ]
+                    );
+
+                    $fileUrl = Storage::disk('s3')->url($filePath); // Get the file URL
+                }
+
+                Mail::to($request->input('scEmail'))->send(new SendScDetailsMail($referralCode, $password));
+            }
+
+            return response()->json([
+                'message' => 'User information successfully uploaded and password sent!',
+                'scUser' => $scUser,
+                'profilePhoto' => $fileUrl
+            ], 201);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'An error occurred: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+    public function retrieveOneScUser(Request $request)
+    {
+
+        $request->validate([
+            'referral_code' => 'required|string'
         ]);
 
-        if ($scUser) {
-            Mail::to($request->input('scEmail'))->send(new SendScDetailsMail($referralCode, $password));
+        $scuser = Scuser::where('referral_code', $request->input("referral_code"))->first();
 
-        }
+        return $scuser;
 
-        return response()->json([
-            'message' => 'User information successfully uploaded and password sent!',
-            'scUser' => $scUser
-        ], 201);
+
     }
+
 
 
 
@@ -182,6 +229,58 @@ class scDashboardController extends Controller
             'message' => 'No profile picture found for this user.',
         ], 404);
     }
+
+
+    public function uploadScUserDetails(Request $request)
+    {
+        $request->validate([
+            'scRefNo' => 'required|string',
+            'updatedScName' => 'nullable|string', // Make nullable for optional fields
+            'updatedScDob' => 'nullable|string',
+            'updatedScPhone' => 'nullable|string',
+            'finalAddress' => 'nullable|string',
+        ]);
+
+        try {
+            $studentCounsellor = Scuser::where('referral_code', $request->input('scRefNo'))->first();
+
+            if ($studentCounsellor) {
+                if ($request->has('updatedScName')) {
+                    $studentCounsellor->full_name = $request->input('updatedScName');
+                }
+                if ($request->has('updatedScDob')) {
+                    $studentCounsellor->dob = $request->input('updatedScDob');
+                }
+                if ($request->has('updatedScPhone')) {
+                    $studentCounsellor->phone = $request->input('updatedScPhone');
+                }
+                if ($request->has('finalAddress')) {
+                    $studentCounsellor->address = $request->input('finalAddress');
+                }
+
+                // Save the updated data
+                $studentCounsellor->save();
+
+                // Update the session with the new data
+
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Student counsellor details updated successfully',
+                ], 200);
+            } else {
+                return response()->json([
+                    'error' => 'Student counsellor not found',
+                ], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred while updating the details.',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
 
 
 

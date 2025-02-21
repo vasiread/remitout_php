@@ -52,3 +52,5 @@ Route::post('/getuserbyref', [scDashboardController::class, 'getUsersByCounsello
 
 
 Route::post("/register-studentcounsellor", [scDashboardController::class, 'uploadScUserInfo']);
+Route::post("/updatescuserdetails",[scDashboardController::class,'uploadScUserDetails']);
+Route::post("/scuserone",[scDashboardController::class,'retrieveOneScUser']);
