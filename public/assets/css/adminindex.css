@@ -1,33 +1,59 @@
 #index-section-admin-id{
-  margin-top: 35px;
+  margin-top: 120px;
      
   
 }
 
 
+#index-section-id .index-section {
+    padding: 0;
+    margin-top: 0px;
+    background-color: #F5F5F5;
+}
 .admin-index-section-main-container{
       display: none;
      flex-direction: column;
      max-width: 100%;
      width: 100%;
      margin-top: 50px;
-     margin-right: 85px;
+     margin-right: 60px;
      gap: 17px;
-     margin-left: 4.1%;
+     margin-left: 2.1%;
 
 }
+.admin-index-main-sub-container{
+    display: flex;
+    flex-direction: column;
+    background: white;
+   margin: 25px;
+     padding-top: 20px;
+}
+
 .admin-index-main-container {
             display: flex;
             justify-content: center;
             margin: 0px 25px;
-            padding-top: 20px;
+            padding: 20px 0px;
             align-items: center;
             gap: 16px;
-            padding: 20px;
+          
             background: white;
             border-radius: 8px;
         }
-
+        
+   .admin-index-heading-index h1{
+   
+    font-weight: 600;
+    font-size: 28px;
+    color: #E98635;
+    margin: 0px 25px;
+   } 
+   .dashboard-section-index{
+     font-weight: 600;
+    font-size: 18px;
+    color: #E98635;
+  
+}
         .admin-index-item {
             display: flex;
             align-items: center;
@@ -37,9 +63,11 @@
             font-family: 'Poppins', sans-serif;
             font-size: 16px;
             cursor: pointer;
-            min-width: 250px;
+            min-width: 290px;
+            width:90%;
+            height:64px;
             border: 1px solid #ccc;
-            /* Adjust color as needed */
+           
         }
 
 
@@ -49,8 +77,8 @@
         }
 
         .admin-index-icon {
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
         }
 
         .admin-index-count {
@@ -78,3 +106,13 @@
             text-align: center;
 
         }
+.index-bank-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.nbfc-individual-bankmessage-input-message {
+    display: none; 
+}

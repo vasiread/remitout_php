@@ -28,8 +28,11 @@
     <link rel="stylesheet" href="assets/css/adminnbfc.css">
     <link rel="stylesheet" href="assets/css/adminpage.css">
     <link rel="stylesheet" href="assets/css/adminedit.css">
- 
-
+    <link rel="stylesheet" href="assets/css/adminticketraised.css">
+    <link rel="stylesheet" href="assets/css/adminmanagestudent.css">
+    <link rel="stylesheet" href="assets/css/adminrolemanagement.css">
+    <link rel="stylesheet" href="assets/css/adminpromotional.css">
+    
     <link rel="stylesheet" href="assets/css/footer.css">
 
     <!-- Google Fonts -->

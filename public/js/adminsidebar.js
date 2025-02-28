@@ -7,7 +7,6 @@ const initializeAdminSidebar = () => {
     const sidebarStudentCounsellorChevronUpDown = document.querySelector("#expand-icon-StudentCounsellor");
     const expandedStudentFromAdmin = document.getElementById("expanded-student-admin-side");
     const expandedStudentCounsellorFromAdmin = document.getElementById("expanded-studentcounsellor-admin-side");
-
     const studentFirstListChild = document.querySelector("#expanded-student-admin-side li:first-child");
     const studentCounsellorFirstListChild = document.querySelector("#expanded-studentcounsellor-admin-side li:first-child");
 
@@ -18,6 +17,12 @@ const initializeAdminSidebar = () => {
 
     const studentNBFCList = document.querySelector(".nbfclist-adminside");
     const studentIndexAdmin = document.querySelector("#index-section-admin-id");
+    const studentEditIndex = document.querySelector("#edit-content-container-id");
+    const studentTicketRaised = document.querySelector("#ticket-raised-container-admin-id");
+    const adminManageStudent = document.querySelector("#manage-student-main-admin-report-container-id"); 
+    const adminRoleManagement = document.querySelector("#role-management-container-admin-id");
+    const adminPromotionalEmail = document.querySelector("#promotional-composer-main-section-id");
+    
 
 
     if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "none";
@@ -72,10 +77,14 @@ const initializeAdminSidebar = () => {
                 if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
                 if (adminCounsellorAdd) adminCounsellorAdd.style.display = "none";
                 if (studentCounsellorList) studentCounsellorList.style.display = "none";
-                if (studentNBFCList) studentNBFCList.style.display = "none";
-               
+                if (studentNBFCList) studentNBFCList.style.display = "none";         
                 if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
-
+                if (studentEditIndex) studentEditIndex.style.display = "none";
+                if (studentTicketRaised) studentTicketRaised.style.display = "none";
+                if (adminManageStudent) adminManageStudent.style.display = "none";
+                if (adminRoleManagement) adminRoleManagement.style.display = "none";
+                if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
+               
 
 
             } else if (index === 1) {
@@ -89,6 +98,11 @@ const initializeAdminSidebar = () => {
                 if (adminCounsellorAdd) adminCounsellorAdd.style.display = "none";
                 if (studentCounsellorList) studentCounsellorList.style.display = "none";
                 if (studentNBFCList) studentNBFCList.style.display = "none";
+                if (studentEditIndex) studentEditIndex.style.display = "none";
+                if (studentTicketRaised) studentTicketRaised.style.display = "none";
+                if (adminManageStudent) adminManageStudent.style.display = "none";
+                if (adminRoleManagement) adminRoleManagement.style.display = "none";
+                  if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
                
 
 
@@ -99,17 +113,28 @@ const initializeAdminSidebar = () => {
                     sidebarChevronUpDown.classList.remove("fa-chevron-down");
                     sidebarChevronUpDown.classList.add("fa-chevron-up");
                 }
+
+
                 if (sidebarStudentCounsellorChevronUpDown) sidebarStudentCounsellorChevronUpDown.classList.add("fa-chevron-down");
                 if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "flex";
                 if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
                 if (studentCounsellorList) studentCounsellorList.style.display = "none";
                 if (studentNBFCList) studentNBFCList.style.display = "none";
                 if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
+                if (studentEditIndex) studentEditIndex.style.display = "none";
+                if (studentTicketRaised) studentTicketRaised.style.display = "none";
+                if (adminManageStudent) adminManageStudent.style.display = "none";
+                if (adminRoleManagement) adminRoleManagement.style.display = "none";
+                if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
+                
 
                 
                 
                 if (index === 4) {
                     if (studentListContainer) studentListContainer.style.display = "flex"
+                    if (studentEditIndex) studentEditIndex.style.display = "none";
+                    if (studentTicketRaised) studentTicketRaised.style.display = "none";
+                    if (adminRoleManagement) adminRoleManagement.style.display = "none";
 
 
                 }
@@ -123,7 +148,6 @@ const initializeAdminSidebar = () => {
                 }
                 if (sidebarChevronUpDown) sidebarChevronUpDown.classList.add("fa-chevron-down");
                 if (adminPropertyOne) adminPropertyOne.style.display = "none";
-
                 if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "flex";
                 if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "none";
                 if (studentListContainer) studentListContainer.style.display = "none";
@@ -131,15 +155,33 @@ const initializeAdminSidebar = () => {
                 if (studentCounsellorList) studentCounsellorList.style.display = "none";
                 if (studentNBFCList) studentNBFCList.style.display = "none";
                 if (adminPropertyOne) adminPropertyOne.style.display = "none";
-                if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
+                if (studentTicketRaised) studentTicketRaised.style.display = "flex";
+                if (adminManageStudent) adminManageStudent.style.display = "none";
+                if (adminRoleManagement) adminRoleManagement.style.display = "none";
+                  if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
+               
 
                 if (index === 5 || index === 6) {
                     if (studentCounsellorList) studentCounsellorList.style.display = "flex";
-                      if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
+                    if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
+                    if (studentEditIndex) studentEditIndex.style.display = "none";
+                    if (studentTicketRaised) studentTicketRaised.style.display = "none";
+                    if (adminManageStudent) adminManageStudent.style.display = "none";
+                    if (adminManageStudent) adminManageStudent.style.display = "none";
+                    if (adminRoleManagement) adminRoleManagement.style.display = "none";
+                      if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
 
                 }
+                
                 if (index === 8) {
                     if (adminCounsellorAdd) adminCounsellorAdd.style.display = "flex";
+                    if (studentTicketRaised) studentTicketRaised.style.display = "none";
+                    if (adminManageStudent) adminManageStudent.style.display = "none";
+                    if (studentEditIndex) studentEditIndex.style.display = "none";
+                    if (studentTicketRaised) studentTicketRaised.style.display = "none";
+                    if (adminManageStudent) adminManageStudent.style.display = "none";
+                    if (adminRoleManagement) adminRoleManagement.style.display = "none";
+                      if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
                 }
 
             }
@@ -156,16 +198,41 @@ const initializeAdminSidebar = () => {
                 if (studentCounsellorList) studentCounsellorList.style.display = "none";
                 if (studentNBFCList) studentNBFCList.style.display = "none";
                 if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
+                if (studentEditIndex) studentEditIndex.style.display = "none";
+                if (studentTicketRaised) studentTicketRaised.style.display = "none";
+                if (adminRoleManagement) adminRoleManagement.style.display = "none";
+                  if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
+
+
                 if (index === 9) {
                     if (studentNBFCList) studentNBFCList.style.display = "flex";
                     if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
-                }
-                if (index === 12) {
-                  
+                    if (studentTicketRaised) studentTicketRaised.style.display = "none";
+                     if (adminManageStudent) adminManageStudent.style.display = "none";
+                    if (studentEditIndex) studentEditIndex.style.display = "none";
+                    if (adminRoleManagement) adminRoleManagement.style.display = "none";
+                      if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
+
+                
+                 } 
+             else if (index === 10) {
+                  if (adminManageStudent) adminManageStudent.style.display = "flex";
+                  if (adminRoleManagement) adminRoleManagement.style.display = "none";
+                 } 
+         
+    
+                else if (index === 11) {
+                   if (adminManageStudent) adminManageStudent.style.display = "none";
+                   if (adminRoleManagement) adminRoleManagement.style.display = "flex";
+                 }
+            
+                else if (index === 12) {
                      if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
-
-                }
-
+                     if (studentEditIndex) studentEditIndex.style.display = "flex";
+                     if (studentTicketRaised) studentTicketRaised.style.display = "none";
+                     if (adminManageStudent) adminManageStudent.style.display = "none";
+                     if (adminRoleManagement) adminRoleManagement.style.display = "none";
+                    }
 
             }
 
