@@ -1,10 +1,11 @@
   .admindashboard-container {
       display: none;
       flex-direction: column;
-      margin: 0 30px;
+    margin: 80px 20px 80px 20px;
+
       max-width: 100%;
       width: 100%;
-      margin-top: 85px;
+    
       padding-top: 53px;
    }
 
@@ -143,7 +144,8 @@
       border-radius: 4px;
       background-color: #6F25CE;
       color: #FFFFFF;
-      border: none;
+      border: none;  
+      font-size: 14px;
 
 
   }

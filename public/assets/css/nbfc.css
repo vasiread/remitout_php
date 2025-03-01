@@ -1,24 +1,25 @@
-*{
-    box-sizing: border-box;
-}
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            box-sizing: border-box;
+            
+        }
 
-.nbfc-navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%; 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 30px;
-    background-color: white;
-    border-bottom: 1px solid #f0f0f0;
-    height: 85px;
-    z-index: 9999;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
-  
-
+  .nbfc-navbar {
+            position: sticky;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 30px;
+            background-color: white;
+            border-bottom: 1px solid #f0f0f0;
+            height: 85px;
+            z-index: 1000;
+        }
 
         .nbfc-logo {
             display: flex;
@@ -91,15 +92,15 @@
         .nbfc-profile {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 8px;
             padding: 6px 12px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
         .nbfc-avatar {
-            width: 37px;
-            height: 37px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             background-color: #E98635;
             display: flex;
@@ -736,7 +737,7 @@
        
         
         .nbfcstudentdashboardprofile-togglesidebar {
-            width: 16%;
+            width: 19%;
             min-height: calc(100vh - 80px);
             padding: 35px 29px;
             background-color: white;
@@ -744,7 +745,6 @@
             position: fixed;
             height:75vh;
             left: 0;
-            margin-top: 80px;
         }
 
 /*tablet toggle sidebar*/        
@@ -830,8 +830,8 @@
 
 .dashboard-main-content {
     flex:1;
-    margin-left: 16%;
-    padding: 18px;
+    margin-left: 19%;
+    padding: 20px;
     background-color: #F5F5F5;
 }
 
@@ -841,7 +841,6 @@
     gap: 24px;
     padding: 10px;
     background-color: #F5F5F5;
-    margin-top: 85px;
 }
 
 
@@ -1028,26 +1027,10 @@
 
 .dashboard-nbfc-search-container{
  position: relative;
- 
+ display:none;
 
 }
-.dashboard-nbfc-search-container-section{
- position: relative;
 
-}
-#dashboard-nbfc-search-container-id{
-      width: 200px; 
-}
-
-.dashboard-nbfc-search-input-sec{
-     padding: 8px 12px 8px 36px;
-    border: 1px solid #e2e2e2;
-    border-radius: 4px;
-    width: 140px;
-    font-family: 'Poppins', sans-serif;
-    background-color: #ffffff;
-    font-size: 12px;
-}
 .dashboard-nbfc-search-input {
     padding: 8px 12px 8px 36px;
     border: 1px solid #e2e2e2;
@@ -1091,16 +1074,6 @@
         background-color: #ffffff;
         font-size: 12px;
     }
-    
-    .dashboard-nbfc-search-input-sec{
-     padding: 8px 12px 8px 36px;
-    border: 1px solid #e2e2e2;
-    border-radius: 4px;
-    width:100%;
-    font-family: 'Poppins', sans-serif;
-    background-color: #ffffff;
-    font-size: 12px;
-}
 
     .dashboard-nbfc-search-input::placeholder {
         padding: 0px 10px;
@@ -1136,15 +1109,6 @@
         background-color: #ffffff;
         font-size: 12px;
     }
-    .dashboard-nbfc-search-input-sec{
-     padding: 8px 12px 8px 36px;
-    border: 1px solid #e2e2e2;
-    border-radius: 4px;
-    width: 240px;
-    font-family: 'Poppins', sans-serif;
-    background-color: #ffffff;
-    font-size: 12px;
-}
 
     .dashboard-nbfc-search-input::placeholder {
         padding: 0px 10px;
@@ -1379,15 +1343,6 @@
     background-color: #ffffff;
     font-size: 12px;
 }
- .dashboard-nbfc-search-input-sec{
-     padding: 8px 12px 8px 36px;
-    border: 1px solid #e2e2e2;
-    border-radius: 4px;
-    width: 240px;
-    font-family: 'Poppins', sans-serif;
-    background-color: #ffffff;
-    font-size: 12px;
-}
  .dashboard-nbfc-search-input::placeholder {
     padding: 0px 10px;
     font-family: 'Poppins', sans-serif;
@@ -1539,15 +1494,7 @@
         align-items: center; 
         flex-direction: column; 
      
-    } .dashboard-nbfc-search-input-sec{
-     padding: 8px 12px 8px 36px;
-    border: 1px solid #e2e2e2;
-    border-radius: 4px;
-    width: 100%;
-    font-family: 'Poppins', sans-serif;
-    background-color: #ffffff;
-    font-size: 12px;
-}
+    }
 
     .dashboard-sections-container {
         grid-template-columns: 1fr; 
@@ -1788,13 +1735,9 @@
 
 /* Inbox Styles */
 
-#index-section-id-nbfc{
-    margin-top: 100px;
-    overflow-x: hidden;
-}
 .index-section {
     padding:0;
-   
+    margin:0;
     background-color: #F5F5F5;
 }
 .inbox-container {
@@ -1805,8 +1748,6 @@
     margin:25px;
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
-    
 }
 
 
@@ -1817,61 +1758,16 @@
     font-size: 28px;
     }
      
-
-       
 .inbox-filters {
-    position: relative;
+    width: 117px;
+    border: 1px solid #e2e2e2; 
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    padding: 10px;
-    width: fit-content;
-}
-
-.sort-dropdown-nbfc {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: white;
-    border: 1px solid #ddd;
-    display: none;
-    list-style: none;
-    padding: 0;
-    margin: 5px 0;
-    z-index: 10;
-  
-}
-
-.sort-dropdown-nbfc.visible {
-    display: block;
-}
-
-.sort-dropdown-nbfc li {
-    padding: 10px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.sort-dropdown-nbfc li:hover {
-    background-color: #f0f0f0;
-}
-
-#sortable-list {
-    margin-top: 10px;
-    padding: 0;
-    list-style: none;
-}
-
-#sortable-list li {
     padding: 5px;
-    border: 1px solid #ddd;
-    margin: 2px 0;
+
 }
-#sort-options-index-nbfc{
-  width:80px;
-}
+
 .inbox-filters span {
     margin-right: 5px;    
     font-family: 'Poppins', sans-serif;
@@ -1888,7 +1784,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-   
+    border-bottom: 1px solid #e2e2e2;
     padding:5px 0px 20px 0px;
 }
 
@@ -1912,15 +1808,11 @@
 .message-thread {
     flex: 1;
     padding-bottom: 14px;
-    border-bottom: 1px solid #e2e2e2;
-     border-top: 1px solid #e2e2e2;
-     display:flex;
-     flex-direction: column;
+    border-bottom: 2px solid #e2e2e2;
 }
 
 .message-item {
     padding: 24px 0;
-    
 }
 
 .message-header {
@@ -1985,7 +1877,7 @@
     font-size: 14px;
     color: #909090;
     line-height: 1.5;
-    
+    width: 560px;
     height: 70px;
     border: 1px solid #e2e2e2;
     padding: 4px;
@@ -2149,7 +2041,6 @@
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid #E5E7EB;
-    
 }
 .index-student-details-container .index-student-message-container:last-child {
     border-bottom: none; 
@@ -2160,7 +2051,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-   
    
 }
 
@@ -2184,14 +2074,12 @@
     color: #666;
     line-height: 1.5;
     width:590px;
-    margin-top: 10px;
 }
 
 .index-student-button-group {
     display: flex;
     gap: 10px;
     align-items: center;
-    overflow: hidden;
 }
 
 .index-student-message-btn {
@@ -2216,7 +2104,6 @@
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
     transition: all 0.3s ease;
-    width:80px;
 }
 
 .index-student-message-btn:hover {
@@ -2312,7 +2199,6 @@
     font-weight: 500;
     font-size: 12px;
     color: #5D5C5C;
-    
 }
 
 .index-search-icon {
@@ -2627,320 +2513,4 @@
     display: none;
     width: 100%;
     
-}
-
-/*view trigger container*/
-
-.nbfc-studentdashboardprofile-profile-section-container{
-    display:none;
-}
-.nbfc-student-dashboard-section-main-contents{
-    display:flex;
-    width:100%;
-    margin-top: 85px;
-    
-}
-
-.nbfc-student-dashboard-section-main-contents .studentdashboardprofile-myapplication {
-    display: none;
-    width:100%;
-    margin-left: 20px;
-    margin-right: 0;
-  
- 
-
-}
-.nbfc-student-dashboard-section-main-contents .studentdashboardprofile-profilesection {
-    background-color: white;
-    margin-top: 19px;
-    max-width: 100%;
-
-}
-
-.nbfc-student-dashboard-section-main-contents .myapplication-firstcolumn h1{
-    margin-top: 20px;
-}
-
-.nbfc-student-dashboard-section-main-contents .personalinfo-secondrow li{
-    font-family: Poppins;
-    font-size: 13px !important;
-    font-weight: 500;
-    line-height: 15.6px;
-    text-align: left;
-    color: rgba(33, 33, 33, 0.5);
-    display: flex;
-    gap: 20px;
-
-}
-
-
-
-
-.personalinfo-secondrow li, .personal_info_name, .personal_info_phone, .personal_info_email, .personal_info_state{
-    font-family: Poppins;
-    font-size: 13px !important;
-    font-weight: 500;
-    line-height: 15.6px;
-    text-align: left;
-    color: rgba(33, 33, 33, 0.5);
-    display: flex;
-    gap: 20px;
-
-}
-
-.nbfc-student-dashboard-section-main-contents .studentdashboardprofile-educationeditsection {
-    display: flex;
-    flex-direction: column;
-    margin: 13px 0;
-
-}
-
-.nbfc-student-dashboard-section-main-contents .studentdashboardprofile-testscoreseditsection {
-    display: flex;
-    flex-direction: column;
-    margin: 13px 0;
-
-}
-
-.nbfc-student-dashboard-section-main-contents .myapplication-eleventhcolumn {
-    display:flex;
-   justify-content: flex-start;
-   gap:300px;
-
-}
-.myapplication-eleventhcolumn {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-.nbfc-send-proposal-button{
-    margin-right: auto;
-     max-width: 168px;
-    width: 100%;
-    height: 35px;
-    padding: 16px 10px;
-    gap: 8px;
-    border-radius: 4px;
-    border: 1px solid rgba(111, 37, 206, 1);
-    background: transparent;
-    font-family: Poppins;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 16.8px;
-    text-align: left;
-    color:white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
-     background-color: #6F25CE;
-}
-
-.myapplication-eleventhcolumn-buttons {
-    display: flex;
-    gap: 10px; 
-  
-    width: 100%;
-    height: 35px;
-    padding: 16px 10px;
-    gap: 8px;
-    border-radius: 4px;
-   
-    background: transparent;
-    font-family: Poppins;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 16.8px;
-    text-align: left;
-   
-    display: flex;
-    align-items: center;
-    justify-content: center;
-   
-   
-}
-.nbfc-message-button, .nbfc-reject-button{
- margin-right: auto;
-     max-width: 108px;
-    width: 100%;
-    height: 35px;
-    padding: 16px 10px;
-    gap: 8px;
-    border-radius: 4px;
-    border: 1px solid rgba(111, 37, 206, 1);
-    background: transparent;
-    font-family: Poppins;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 16.8px;
-    text-align: left;
-    color: rgba(79, 79, 79, 1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
-
-}
-
-
- .nbfc-send-proposal-modal-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .nbfc-send-proposal-modal-content {
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 24px;
-            width: 605px;
-        }
-
-        .nbfc-send-proposal-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .nbfc-send-proposal-modal-header h3 {
-            color: #E98635;
-            font-size: 20px;
-            margin: 0;
-        }
-
-        .nbfc-send-proposal-close-button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 20px;
-            color: #666;
-        }
-
-        .nbfc-send-proposal-remarks-textarea {
-            width: 100%;
-            height: 120px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 12px;
-            margin-bottom: 20px;
-            resize: none;
-        }
-
-        .nbfc-send-proposal-attachment-section {
-            margin-bottom: 20px;
-        }
-
-        .nbfc-send-proposal-attachment-label {
-            color: #666;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .nbfc-send-proposal-attachment-input {
-            display: none;
-        }
-
-        .nbfc-send-proposal-attachment-button {
-            padding: 6px 16px;
-            background: #fff;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            cursor: pointer;
-            color: #666;
-            margin-bottom: 10px;
-              font-size: 12px;
-        }
-
-        .nbfc-send-proposal-attachment-preview {
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 12px;
-            display: none;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-        }
-
-        .nbfc-send-proposal-file-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 12px;
-        }
-
-        .nbfc-send-proposal-file-name {
-            color: #333;
-        }
-
-        .nbfc-send-proposal-file-size {
-            color: #666;
-            font-size: 0.9em;
-        }
-
-        .nbfc-send-proposal-button-container {
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            margin-top: 20px;
-          
-        }
-
-        .nbfc-send-proposal-cancel-button {
-            padding: 6px 24px;
-            background: white;
-            border: 1px solid #6F25CE;
-            color: #260254;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .nbfc-send-proposal-send-button {
-            padding: 6px 24px;
-            background: #6F25CE;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-        }
- .chat-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin-top: 10px;
-    max-height: 200px;
-    overflow-y: auto;
-}
-
-.chat-message {
-    background-color: #007bff;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 8px;
-    margin: 5px 0;
-    max-width: 70%;
-    word-wrap: break-word;
-}
-
-.chat-message.right {
-    align-self: flex-end;
-    background-color: #007bff;
-}
-
-.chat-message a {
-    color: white;
-    text-decoration: underline;
-    word-wrap: break-word;
 }

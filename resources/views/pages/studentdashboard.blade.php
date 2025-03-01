@@ -1252,11 +1252,12 @@ $others = json_decode($academicDetails[0]->Others, true);
                 }
             });
         };
+        
         const initializeKycDocumentUpload = () => {
-            const individualKycDocumentsUpload = document.querySelectorAll(".individualkycdocuments");
+                    const individualKycDocumentsUpload = document.querySelectorAll(".individualkycdocuments");
 
-            individualKycDocumentsUpload.forEach((card) => {
-                let uploadedFile = null;
+                    individualKycDocumentsUpload.forEach((card) => {
+                        let uploadedFile = null;
 
                 // Trigger file input when the container is clicked
                 card.querySelector('.inputfilecontainer').addEventListener('click', function () {

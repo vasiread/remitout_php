@@ -1,0 +1,172 @@
+.role-management-admin-main-container {
+    display: none;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 100%;
+     margin: 0 auto;
+    margin: 20px;
+
+}
+ .role-management-container {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+     margin: 0 auto;
+    margin: 20px;
+    width: 100%;
+}
+
+.role-management-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.role-management-title {
+    color: #E98635;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.role-management-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.role-management-search {
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 200px;
+    height: 38px;
+    font-size: 14px;
+    color: #909090;
+    outline: none;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>');
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    padding-left: 35px;
+}
+
+.role-management-list {
+    width: 100%;
+}
+
+.role-management-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 80px;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    color: #909090;
+    gap: 10px;
+    width: 100%;
+}
+
+.role-management-actions {
+    text-align: right;
+}
+
+.role-management-btn {
+    padding: 5px 15px;
+    border: 1px solid #6F25CE;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    background: transparent;
+    color: #6F25CE;
+    transition: all 0.3s ease;
+    width: 60px;
+    height: 32px;
+}
+
+.role-management-btn-save {
+    background-color: #6F25CE;
+    color: white;
+}
+
+.role-management-select {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 190px;
+    font-size: 14px;
+    color: #575555;
+    outline: none;
+}
+
+.role-management-email {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 200px;
+    font-size: 14px;
+    color: #909090;
+    outline: none;
+}
+
+.role-management-email:not([disabled]),
+.role-management-select:not([disabled]) {
+    color: #6F25CE;
+    border-color: #6F25CE;
+    width: 190px;
+}
+
+.role-management-email:disabled,
+.role-management-select:disabled {
+    border: none;
+    background: none;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 190px;
+    font-size: 14px;
+    padding: 5px 10px;
+    color: #575555;
+    outline: none;
+}
+
+.custom-dropdown {
+    position: relative;
+    width: 104px;
+    height: 38px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-size: 14px;
+    color: #909090;
+    cursor: pointer;
+    background: white;
+}
+
+
+
+.custom-dropdown-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.custom-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.custom-dropdown-item {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.custom-dropdown-item:hover {
+    background: #f5f5f5;
+}

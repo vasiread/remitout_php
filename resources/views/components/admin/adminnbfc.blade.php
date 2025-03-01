@@ -179,11 +179,9 @@
                 dynamicChangesThroughWindow(); // Call this on window resize
             });
 
-            // Initial call to apply changes on page load
-            dynamicChangesThroughWindow();
+             dynamicChangesThroughWindow();
 
-            // Sort functionality
-            sortLinks.forEach(items => {
+             sortLinks.forEach(items => {
                 items.addEventListener('click', function (e) {
                     e.preventDefault();
                     const sortType = this.getAttribute('data-sort');

@@ -3,7 +3,7 @@
     flex-direction: column;
     max-width: 71.04%;
     width: 100%;
-    margin-top: 135px;
+    margin-top: 50px;
     gap: 17px;
     margin-left: 4.1%;
 
@@ -106,7 +106,7 @@
 }
 
 .add-nbfc-datasection {
-    display: flex;
+    display: none;
     flex-direction: column;
     padding: 20px 24px;
     max-width: 53.54%;
