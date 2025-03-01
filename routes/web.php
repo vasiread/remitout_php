@@ -13,6 +13,7 @@ use App\Http\Controllers\{
     TrackController
 };
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\NbfcController;
 use App\Http\Controllers\scDashboardController;
 use App\Http\Controllers\StudentCounsellorController;
 use Illuminate\Support\Facades\Route;
@@ -97,7 +98,10 @@ Route::post('/count-documents', [StudentDashboardController::class, 'countFilesI
 Route::post('/check-columns', [StudentDashboardController::class, 'validateTablesAndColumns']);
 Route::post('/send-documents', [MailController::class, 'sendUserDocuments']);
 Route::post('/retrieve-file', [StudentDashboardController::class, 'retrieveFile']);
-
+Route::post('/push-user-id-request', [StudentDashboardController::class, 'pushUserIdToRequest']);
+Route::post('/del-user-id-request', [StudentDashboardController::class, 'removeUserIdFromNBFCAndReject']);
+Route::post('/update-user-id-request', [StudentDashboardController::class, 'updateUserIdFromNBFC']);
+ 
 Route::post('/getuserbyref', [scDashboardController::class, 'getUsersByCounsellorApi']);
 
 // OTP Routes
@@ -132,3 +136,9 @@ Route::post("/register-studentcounsellor", [scDashboardController::class, 'uploa
 Route::post("/updatescuserdetails", [scDashboardController::class, 'uploadScUserDetails']);
 
 Route::post("/scuserone", [scDashboardController::class, 'retrieveOneScUser']);
+Route::post("/trace-process", [TrackController::class, 'traceuserprogress']);
+
+
+Route::get("/getnbfcdata", [TrackController::class, 'getnbfcdata']);
+
+Route::post("/addbulkusers", [NbfcController::class, 'addBulkNbfc']);

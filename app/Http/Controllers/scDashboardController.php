@@ -138,7 +138,11 @@ class scDashboardController extends Controller
                 'email' => $request->input('scEmail'),
                 'phone' => $request->input('scContact'),
                 'address' => $request->input('scAddress'),
-                'passwordField' => $hashedPassword
+                'passwordField' => $hashedPassword,
+                'street'=>'',
+                'district'=>'',
+                'state'=>'',
+                'pincode'=>''
             ]);
 
             $fileUrl = null;
@@ -178,7 +182,7 @@ class scDashboardController extends Controller
 
         } catch (\Exception $e) {
             return response()->json([
-                'message' => 'An error occurred: ' . $e->getMessage()
+                'error' => 'An error occurred: ' . $e->getMessage()
             ], 500);
         }
     }

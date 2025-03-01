@@ -490,76 +490,8 @@ $totalPages = ceil($totalStudents / $perPage);
             const triggeredExcelStudentUploadAction = document.querySelector("#excel-sheet-student-update");
             const triggeredExcelStudentUploadButton = document.querySelector("#excel-upload-trigger");
 
-            if (triggeredExcelStudentUploadButton) {
-                triggeredExcelStudentUploadButton.addEventListener('click', () => {
-                    if (triggeredExcelStudentUploadAction) {
-                        triggeredExcelStudentUploadAction.click();
-                    }
-                });
-            }
-
-            document.getElementById('download-detailsid').addEventListener('click', function () {
-                window.location.href = "{{ route('export.excel') }}";
-            });
-
-
-            const statusShown = document.querySelectorAll('.reportsproposal-datalists');
-            const statusShownTrigger = document.querySelectorAll('#reportsindashboard-firstrow-view');
-            const rowHide = document.querySelectorAll(".reportsindashboard-secondrow");
-
-            statusShownTrigger.forEach((item, index) => {
-                item.addEventListener('click', () => {
-                    if (statusShown && rowHide) {
-
-                        if (statusShown[index].style.opacity === '0' || statusShown[index].style.display === 'none') {
-                            statusShown[index].style.display = 'flex';
-                            statusShown[index].style.height = '0';
-                            setTimeout(() => {
-                                statusShown[index].style.transition = 'height 0.5s ease-in-out, opacity 0.5s ease-in-out';
-                                statusShown[index].style.height = '100%';
-                                statusShown[index].style.opacity = '1';
-                            }, 10);
-                            rowHide[index].style.borderBottom = '1px solid #E5E5E5';
-                        } else {
-
-                            statusShown[index].style.transition = 'height 0.5s ease-in-out, opacity 0.5s ease-in-out';  // Animate height and opacity
-                            statusShown[index].style.height = '0';
-                            statusShown[index].style.opacity = '00'
-                            setTimeout(() => {
-                                statusShown[index].style.display = 'none';
-                            }, 500);
-                            rowHide[index].style.borderBottom = '1px solid transparent';
-                        }
-                    }
-
-
-
-
-                })
-
-
-            })
-
-
-
-
-
-            initializePagination();
-
-            letFirstPageActive();
-
-
-
-
-
         })
-
-
-
-
-
-
-
+        
         window.addEventListener('resize', function () {
             const triggeredSideBar = document.querySelector(".commonsidebar-togglesidebar");
             const img = document.querySelector("#scuser-dashboard-menu img");
@@ -941,7 +873,7 @@ $totalPages = ceil($totalStudents / $perPage);
             <input type="text" placeholder="password">
             <button class="delete-student-popup">Delete</button>
         `;
-
+ 
                 studentFormContainer.appendChild(newForm);
 
                 const deleteButton = newForm.querySelector(".delete-student-popup");

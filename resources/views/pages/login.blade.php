@@ -149,14 +149,18 @@
                             if (data.success) {
                                 alert(data.message);
                                 if (data.user && data.user.referral_code) {
-                                    window.location.href='/sc-dashboard'
+                                    window.location.href = '/sc-dashboard'
 
                                 }
-                                else {
+                                else if (data.user && data.user.unique_id) {
                                     window.location.href = '/student-dashboard';
 
 
                                 }
+                                else if (data.user && data.user.nbfc_id) {
+                                    window.location.href = '/nbfc-dashboard';
+
+                                }   
 
                             } else {
                                 alert(data.message);

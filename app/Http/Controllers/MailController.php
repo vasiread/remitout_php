@@ -98,6 +98,9 @@ class MailController extends Controller
         if (!empty($filePaths)) {
             Mail::to($email)->send(new SendDocumentsMail($filePaths, $email, $name, $userId));
 
+
+            
+
             return response()->json([
                 'message' => 'All documents sent as attachments successfully.',
             ], 200);

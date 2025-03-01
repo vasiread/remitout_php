@@ -32,8 +32,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('studentcounsellorlist', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('studentcounsellorlist'); // Drop the table if it exists when rolling back
+
     }
 };

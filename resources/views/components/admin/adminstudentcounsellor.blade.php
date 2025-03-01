@@ -306,8 +306,8 @@
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    if (data.success) {
-                        alert('Student Counsellor Registered Successfully');
+                    if (data.message) {
+                        alert(data.message);
                         console.log(data);  
 
                         document.getElementById("studentcounsellor-requiredfields-admin-scname").value = '';

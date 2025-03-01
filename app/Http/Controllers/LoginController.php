@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Nbfc;
 use App\Models\Scuser;
 use App\Models\User;
 
@@ -36,14 +37,14 @@ class LoginController extends Controller
             session(['scuser' => $scuser]);
             session()->put('scDetail', $scuser);
             session()->put('expires_at', now()->addSeconds(10000)); // Expire in 10,000 seconds
-           
+
             return response()->json([
                 'success' => true,
                 'message' => 'Login successful',
                 'user' => $scuser,
             ]);
 
-        } else {
+        } else if (strpos($loginName, 'HBNKJI') !== false) {
             $user = User::where('unique_id', $request->loginName)->first();
 
             if (!$user) {
@@ -61,6 +62,26 @@ class LoginController extends Controller
                 'success' => true,
                 'message' => 'Login successful',
                 'user' => $user,
+            ]);
+        }
+        else if(strpos($loginName,'NBFC')!==false){
+            $NBFCuser = Nbfc::where('nbfc_id', $request->loginName)->first();
+
+            if (!$NBFCuser) {
+                return response()->json(['success' => false, 'message' => 'Invalid name or password.']);
+            }
+
+            if (!Hash::check($request->loginPassword, $NBFCuser->password)) {
+                return response()->json(['success' => false, 'message' => 'Invalid name or password.']);
+            }
+
+            session(['user' => $NBFCuser]);
+            session()->put('expires_at', now()->addSeconds(10000)); // Expire in 10,000 seconds
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Login successful',
+                'user' => $NBFCuser,
             ]);
         }
 

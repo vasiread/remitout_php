@@ -1,6 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Nbfc;
+use App\Models\Rejectedbynbfc;
+use App\Models\Requestprogress;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Academics;
 use Illuminate\Http\Request;
@@ -9,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\Models\PersonalInfo;
 use App\Models\CourseInfo;
+use PhpParser\Node\Stmt\Catch_;
 class StudentDashboardController extends Controller
 {
     protected $tablesAndColumns = [
@@ -42,7 +47,122 @@ class StudentDashboardController extends Controller
         return view('pages.studentdashboard', compact('user', 'userDetails', 'personalDetails', 'courseDetails', 'academicDetails'));
     }
     // In SidebarHandlingController (or any controller)
-    
+
+
+    public function pushUserIdToRequest(Request $request)
+    {
+        $request->validate([
+            'userId' => 'string|required'
+        ]);
+
+        $userId = $request->input('userId');
+
+        if ($userId) {
+            $getNbfcData = Nbfc::get();
+
+            if ($getNbfcData) {
+                foreach ($getNbfcData as $data) {
+                    Requestprogress::create([
+                        'nbfc_id' => $data->nbfc_id,
+                        'user_id' => $userId,
+                        'type' => Requestprogress::TYPE_REQUEST,
+                    ]);
+                }
+            }
+        }
+
+        return response()->json([
+            'success' => 'User Ids Sent to NBFC Requests',
+            'recievedData' => $getNbfcData,
+        ], 200);
+    }
+
+    public function removeUserIdFromNBFCAndReject(Request $request)
+    {
+        try {
+            $request->validate([
+                'userId' => 'string|required',
+                'nbfcId' => 'string|required',
+                'remarks' => 'string' // changed from 'text' to 'string'
+            ]);
+
+            $userID = $request->input('userId');
+            $nbfcID = $request->input('nbfcId');
+            $remarks = $request->input('remarks');
+
+            // Create new record in 'rejectedbynbfc' table without manually adding timestamps
+            $record = Rejectedbynbfc::create([
+                'user_id' => $userID,
+                'nbfc_id' => $nbfcID,
+                'remarks' => $remarks
+            ]);
+
+            if ($record) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Rejected Records stored successfully',
+                ], 200);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to store rejected records'
+                ], 404);
+            }
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred during the rejection process',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+    public function updateUserIdFromNBFC(Request $request)
+    {
+        try {
+            $request->validate([
+                'userId' => 'string|required',
+                'nbfcId' => 'string|required'
+            ]);
+
+            $userID = $request->input('userId');
+            $nbfcID = $request->input('nbfcId');
+
+            // Correct column names should be 'user_id' and 'nbfc_id'
+            $updatedCount = Requestprogress::where('user_id', $userID)
+                ->where('nbfc_id', $nbfcID)
+                ->update([
+                    'type' => Requestprogress::TYPE_PROPOSAL,
+ 
+                ]);
+
+            if ($updatedCount > 0) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Record(s) updated to Proposal for that particular NBFC successfully',
+                    'updated_count' => $updatedCount,
+                    'updated_at' => now()
+                ], 200);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No matching records found to update'
+                ], 404);
+            }
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while updating records',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+
+
+
+    }
 
     public function getAllUsersFromAdmin()
     {
@@ -64,7 +184,6 @@ class StudentDashboardController extends Controller
             'greScore' => 'nullable|numeric',
             'tofelScore' => 'nullable|numeric',
             'degreeType' => 'nullable',
-
             'planToStudy' => 'nullable',
             'courseDuration' => 'nullable|numeric',
             'loanAmount' => 'nullable|numeric',
@@ -629,11 +748,11 @@ class StudentDashboardController extends Controller
 
 
 
-public function getStudentProfile($studentId)
-{
-    $student = Student::find($studentId);
-    return view('pages.studentdashboard', compact('student'));
-}
+    public function getStudentProfile($studentId)
+    {
+        $student = Student::find($studentId);
+        return view('pages.studentdashboard', compact('student'));
+    }
 
 
 
