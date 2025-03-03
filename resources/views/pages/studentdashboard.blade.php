@@ -75,9 +75,9 @@ $loanStatusInfo = [
                     <div class="studentdashboardprofile-firstrowtrackprogress">
                         <div class="trackprogress-leftsection">
                             <p style="font-weight:600;
-                                                                    font-size:18px;
-                                                                    color:rgba(0, 0, 0, 1); 
-                                                                    padding:15px 0px 0px 24px">Loan
+                                                                                    font-size:18px;
+                                                                                    color:rgba(0, 0, 0, 1); 
+                                                                                    padding:15px 0px 0px 24px">Loan
                                 Status</p>
                             <div class="leftsection-detailsinfo">
 
@@ -493,240 +493,242 @@ $others = json_decode($academicDetails[0]->Others, true);
 
                             </div>
                         </div>
-                    </div>
-
-                    <div class="seventhcolumn-additional">
-                        <div class="seventhcolumn-additional-firstcolumn">
-                            <div class="seventhcolumnadditional-header">
-                                <p>Academic Marksheets</p>
-                                <i class="fa-solid fa-angle-down"></i>
-                            </div>
-
-                            <div class="marksheetdocumentscolumn">
-                                <div class="individualmarksheetdocuments">
-                                    <p class="document-name">10th grade marksheet</p>
-                                    <div class="inputfilecontainer-marksheet">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="sslc-marksheet"> 10th grade marksheet</p>
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-card" />
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet" />
-                                    <span class="document-status">420 MB uploaded</span>
+                        <div class="seventhcolumn-additional">
+                            <div class="seventhcolumn-additional-firstcolumn">
+                                <div class="seventhcolumnadditional-header">
+                                    <p>Academic Marksheets</p>
+                                    <i class="fa-solid fa-angle-down"></i>
                                 </div>
 
-                                <div class="individualmarksheetdocuments">
-                                    <p class="document-name">12th grade marksheet</p>
-                                    <div class="inputfilecontainer-marksheet">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="hsc-marksheet"> 12th grade marksheet</p>
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-card" />
+                                <div class="marksheetdocumentscolumn">
+                                    <div class="individualmarksheetdocuments">
+                                        <p class="document-name">10th grade marksheet</p>
+                                        <div class="inputfilecontainer-marksheet">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="sslc-marksheet"> 10th grade marksheet</p>
+                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-card" />
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-real-marksheet" />
+                                        <span class="document-status">420 MB uploaded</span>
                                     </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
 
-                                <div class="individualmarksheetdocuments">
-                                    <p class="document-name">Graduation marksheet</p>
-                                    <div class="inputfilecontainer-marksheet">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="graduation-marksheet"> Graduation Marksheet</p>
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-card" />
+                                    <div class="individualmarksheetdocuments">
+                                        <p class="document-name">12th grade marksheet</p>
+                                        <div class="inputfilecontainer-marksheet">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="hsc-marksheet"> 12th grade marksheet</p>
+                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-card" />
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-real-marksheet" />
+                                        <span class="document-status">420 MB uploaded</span>
                                     </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="myapplication-eightcolumn">
-                        <div class="eightcolumn-firstsection">
-                            <div class="eightcolumn-header">
-
-                                <p>Secured Admissions</p>
-                                <i class="fa-solid fa-angle-down"></i>
-                            </div>
-                            <div class="secured-admissioncolumn">
-                                <div class="individual-secured-admission-documents">
-                                    <p class="document-name">10th Grade
-                                    </p>
-                                    <div class="inputfilecontainer-secured-admission">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="sslc-grade">SSLC Grade</p>
-
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-grade"></>
-
+                                    <div class="individualmarksheetdocuments">
+                                        <p class="document-name">Graduation marksheet</p>
+                                        <div class="inputfilecontainer-marksheet">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="graduation-marksheet"> Graduation Marksheet</p>
+                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-card" />
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-real-marksheet" />
+                                        <span class="document-status">420 MB uploaded</span>
                                     </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet">
-
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                                <div class="individual-secured-admission-documents">
-                                    <p class="document-name">12th Grade
-                                    </p>
-                                    <div class="inputfilecontainer-secured-admission">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="hsc-grade">HSC Grade</p>
-
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-grade"></>
-
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet">
-
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                                <div class="individual-secured-admission-documents">
-                                    <p class="document-name">Graduation
-                                    </p>
-                                    <div class="inputfilecontainer-secured-admission">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="graduation-grade">Graduation</p>
-
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-grade"></>
-
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet">
-
-                                    <span class="document-status">420 MB uploaded</span>
                                 </div>
                             </div>
                         </div>
 
+                        <div class="myapplication-eightcolumn">
+                            <div class="eightcolumn-firstsection">
+                                <div class="eightcolumn-header">
 
-                    </div>
+                                    <p>Secured Admissions</p>
+                                    <i class="fa-solid fa-angle-down"></i>
+                                </div>
+                                <div class="secured-admissioncolumn">
+                                    <div class="individual-secured-admission-documents">
+                                        <p class="document-name">10th Grade
+                                        </p>
+                                        <div class="inputfilecontainer-secured-admission">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="sslc-grade">SSLC Grade</p>
 
+                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-grade"></>
 
-                    <div class="myapplication-ninthcolumn">
-                        <div class="ninthcolumn-firstsection">
-                            <div class="ninthcolumn-header">
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-real-marksheet">
 
-                                <p>Work Experience</p>
-                                <i class="fa-solid fa-angle-down"></i>
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+                                    <div class="individual-secured-admission-documents">
+                                        <p class="document-name">12th Grade
+                                        </p>
+                                        <div class="inputfilecontainer-secured-admission">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="hsc-grade">HSC Grade</p>
+
+                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-grade"></>
+
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-real-marksheet">
+
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+                                    <div class="individual-secured-admission-documents">
+                                        <p class="document-name">Graduation
+                                        </p>
+                                        <div class="inputfilecontainer-secured-admission">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="graduation-grade">Graduation</p>
+
+                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-grade"></>
+
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-real-marksheet">
+
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="work-experiencecolumn">
-                                <div class="individual-work-experiencecolumn-documents">
-                                    <p class="document-name">Experience Letter
-                                    </p>
-                                    <div class="inputfilecontainer-work-experiencecolumn">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="experience-letter">Experience Letter</p>
 
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-experience-letter"></>
-
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-work-experience">
-
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                                <div class="individual-work-experiencecolumn-documents">
-                                    <p class="document-name">3 month Salary Slip
-                                    </p>
-                                    <div class="inputfilecontainer-work-experiencecolumn">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="salary-slip">3 month salary slip</p>
-
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-salary-slip"></>
-
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet">
-
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                                <div class="individual-work-experiencecolumn-documents">
-                                    <p class="document-name">Office ID
-                                    </p>
-                                    <div class="inputfilecontainer-work-experiencecolumn">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="office-id">Office ID</p>
-
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-office-id"></>
-
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet">
-
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                                <div class="individual-work-experiencecolumn-documents">
-                                    <p class="document-name">Employment Joining Letter
-                                    </p>
-                                    <div class="inputfilecontainer-work-experiencecolumn">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="joining-letter">Joining Letter</p>
-
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-joining-letter"></>
-
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet">
-
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="myapplication-tenthcolumn">
-                        <div class="tenthcolumn-firstsection">
-                            <div class="tenthcolumn-header">
-
-
-                                <p>Co-borrower Documents</p>
-                                <i class="fa-solid fa-angle-down"></i>
-                            </div>
-                            <div class="coborrower-kyccolumn">
-                                <div class="individual-coborrower-kyc-documents">
-                                    <p class="document-name">Pan Card
-                                    </p>
-                                    <div class="inputfilecontainer-coborrower-kyccolumn">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="coborrower-pancard">Pan Card </p>
-
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-pan"></>
-
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-kyccoborrwer">
-
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                                <div class="individual-coborrower-kyc-documents">
-                                    <p class="document-name">Aadhar Card
-                                    </p>
-                                    <div class="inputfilecontainer-coborrower-kyccolumn">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="coborrower-aadharcard">Aadhar Card </p>
-
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-aadhar"></>
-
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-kyccoborrwer">
-
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                                <div class="individual-coborrower-kyc-documents">
-                                    <p class="document-name">Address Proof
-                                    </p>
-                                    <div class="inputfilecontainer-coborrower-kyccolumn">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="coborrower-addressproof">Address Proof </p>
-
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-addressproof"></>
-
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-kyccoborrwer">
-
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-
-
-                            </div>
 
                         </div>
 
-                    </div>
-                    <div class="myapplication-eleventhcolumn">
-                        <button class="mailnbfcbutton">Send Email to NBFCs</button>
 
+                        <div class="myapplication-ninthcolumn">
+                            <div class="ninthcolumn-firstsection">
+                                <div class="ninthcolumn-header">
+
+                                    <p>Work Experience</p>
+                                    <i class="fa-solid fa-angle-down"></i>
+                                </div>
+                                <div class="work-experiencecolumn">
+                                    <div class="individual-work-experiencecolumn-documents">
+                                        <p class="document-name">Experience Letter
+                                        </p>
+                                        <div class="inputfilecontainer-work-experiencecolumn">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="experience-letter">Experience Letter</p>
+
+                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-experience-letter"></>
+
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-work-experience">
+
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+                                    <div class="individual-work-experiencecolumn-documents">
+                                        <p class="document-name">3 month Salary Slip
+                                        </p>
+                                        <div class="inputfilecontainer-work-experiencecolumn">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="salary-slip">3 month salary slip</p>
+
+                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-salary-slip"></>
+
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-real-marksheet">
+
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+                                    <div class="individual-work-experiencecolumn-documents">
+                                        <p class="document-name">Office ID
+                                        </p>
+                                        <div class="inputfilecontainer-work-experiencecolumn">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="office-id">Office ID</p>
+
+                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-office-id"></>
+
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-real-marksheet">
+
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+                                    <div class="individual-work-experiencecolumn-documents">
+                                        <p class="document-name">Employment Joining Letter
+                                        </p>
+                                        <div class="inputfilecontainer-work-experiencecolumn">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="joining-letter">Joining Letter</p>
+
+                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-joining-letter"></>
+
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-real-marksheet">
+
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="myapplication-tenthcolumn">
+                            <div class="tenthcolumn-firstsection">
+                                <div class="tenthcolumn-header">
+
+
+                                    <p>Co-borrower Documents</p>
+                                    <i class="fa-solid fa-angle-down"></i>
+                                </div>
+                                <div class="coborrower-kyccolumn">
+                                    <div class="individual-coborrower-kyc-documents">
+                                        <p class="document-name">Pan Card
+                                        </p>
+                                        <div class="inputfilecontainer-coborrower-kyccolumn">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="coborrower-pancard">Pan Card </p>
+
+                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-pan"></>
+
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-kyccoborrwer">
+
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+                                    <div class="individual-coborrower-kyc-documents">
+                                        <p class="document-name">Aadhar Card
+                                        </p>
+                                        <div class="inputfilecontainer-coborrower-kyccolumn">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="coborrower-aadharcard">Aadhar Card </p>
+
+                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-aadhar"></>
+
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-kyccoborrwer">
+
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+                                    <div class="individual-coborrower-kyc-documents">
+                                        <p class="document-name">Address Proof
+                                        </p>
+                                        <div class="inputfilecontainer-coborrower-kyccolumn">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="coborrower-addressproof">Address Proof </p>
+
+                                            <img class="fa-eye" src="{{asset($viewIconPath)}}"
+                                                id="view-coborrower-addressproof"></>
+
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-kyccoborrwer">
+
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="myapplication-eleventhcolumn">
+                            <button class="mailnbfcbutton">Send Email to NBFCs</button>
+
+                        </div>
                     </div>
+
+
                 </div>
 
             </div>
@@ -794,7 +796,7 @@ $others = json_decode($academicDetails[0]->Others, true);
                 }
             });
             document.querySelector('.mailnbfcbutton').addEventListener('click', () => {
-                sendDocumenttoEmail(selectedCountries);
+                sendDocumenttoEmail();
             });
 
 
@@ -881,7 +883,6 @@ $others = json_decode($academicDetails[0]->Others, true);
 
         function sendDocumenttoEmail(event) {
             console.log(event);
-            event.preventDefault();
 
             const uniqueIdElement = document.querySelector('.personal_info_id');
             const userId = uniqueIdElement ? uniqueIdElement.textContent || uniqueIdElement.innerHTML : null;
@@ -937,33 +938,29 @@ $others = json_decode($academicDetails[0]->Others, true);
             console.log("Sending Data:", sendDocumentsRequiredDetails);
         }
 
-        function addUserToRequest(userId) {
+    function addUserToRequest(userId) {
+            console.log(userId);
 
+            // Fetch request to send userId to the server
             fetch("/push-user-id-request", {
-                method:"POST",
-                 headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Accept': 'application/json',
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 },
-                body: JSON.stringify({ userId })
-
-
-
+                body: JSON.stringify( {userId:userId.trim()} )
             })
-            .then((response)=>response.json())
-            .then((data)=>{
-                if(data.success){
-                    console.log(data)
-                }
-                else if(data.error){
-                    console.log(data.error)
-                }
-            })
-            .catch((e)=>{
-                console.error(e)
-            })
-
-
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.success) {
+                        console.log("Success:", data);
+                    } else if (data.error) {
+                        console.log("Error:", data.error);
+                    }
+                })
+                .catch((e) => {
+                    console.error("Request failed:", e);
+                });
         }
 
         const endpoints = [
@@ -1022,7 +1019,7 @@ $others = json_decode($academicDetails[0]->Others, true);
                                 console.log(`Element not found for selector: ${selector}`);
                             }
                         } else {
-                            console.error(`No fileUrl returned for ${fileType}`, data);
+                            console.log(`No fileUrl returned for ${fileType}`, data);
                         }
                     })
                     .catch(error => {
@@ -1252,12 +1249,12 @@ $others = json_decode($academicDetails[0]->Others, true);
                 }
             });
         };
-        
-        const initializeKycDocumentUpload = () => {
-                    const individualKycDocumentsUpload = document.querySelectorAll(".individualkycdocuments");
 
-                    individualKycDocumentsUpload.forEach((card) => {
-                        let uploadedFile = null;
+        const initializeKycDocumentUpload = () => {
+            const individualKycDocumentsUpload = document.querySelectorAll(".individualkycdocuments");
+
+            individualKycDocumentsUpload.forEach((card) => {
+                let uploadedFile = null;
 
                 // Trigger file input when the container is clicked
                 card.querySelector('.inputfilecontainer').addEventListener('click', function () {
@@ -1755,9 +1752,15 @@ $others = json_decode($academicDetails[0]->Others, true);
                         console.log(data.documentscount);
                         const documentCountText = document.querySelector(".profilestatus-graph-secondsection .profilestatus-noofdocuments-section p");
                         // if(data.documentscount<10){
-                        if (data.documentscount < 10 && documentCountText && data && data.documentscount !== undefined) {
+                        if (data.documentscount < 10 && data.documentscound>=0 && documentCountText && data && data.documentscount !== undefined) {
                             documentCountText.textContent = "0" + data.documentscount;
-                        } else if (data.documentscount >= 10 && documentCountText && data && data.documentscount !== undefined) {
+                        }
+                        else if(data.documentscount<0){
+                            documentCountText.textContent="00";
+
+
+                        }
+                         else if (data.documentscount >= 10 && documentCountText && data && data.documentscount !== undefined) {
                             documentCountText.textContent = data.documentscount;
 
                         } else {

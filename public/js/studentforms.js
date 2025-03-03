@@ -311,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Use the captured value from the custom dropdown
         const personalInfoFindOut = selectedValue;
 
-        if (personalInfoName !== '' && personalInfoPhone !== '' && personalInfoEmail !== '' && personalInfoCity !== '' && personalInfoReferral !== '' && personalInfoFindOut) {
+        if (personalInfoName !== '' && personalInfoPhone !== '' && personalInfoEmail !== '' && personalInfoCity !== '' && personalInfoFindOut) {
             const personalUpdateData = {
                 personalInfoId,
                 personalInfoName,
@@ -319,7 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 personalInfoEmail,
                 personalInfoCity,
                 personalInfoReferral,
-                personalInfoFindOut // Use the selected dropdown value here
+                personalInfoFindOut
             };
 
             console.log(personalUpdateData);
@@ -461,9 +461,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log(data);
 
                 if (data.success) {
-                    alert(data.message);  // Show success message
+                    alert(data.message);
                 } else {
-                    alert(data.message);  // Show error message
+                    alert(data.message);
                 }
             })
             .catch(error => {
@@ -607,7 +607,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Referral Code Validation
+
     document.getElementById('personal-info-referral').addEventListener('input', function () {
         const referralCode = document.getElementById('personal-info-referral');
         const errorMessage = document.getElementById('referralCode-error');
@@ -623,7 +623,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    // Initialize the containers
     breadcrumbSections.forEach((containers, breadcrumbIndex) => {
         containers.forEach((container, containerIndex) => {
             container.style.display =
@@ -715,11 +714,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const removeIcon = document.getElementById(removeIconId);
         const file = fileInput.files[0];
 
-        // Help container and format info elements
         const helpTrigger = fileNameElement.parentElement.nextElementSibling.querySelector('.help-trigger');
         const formatInfo = fileNameElement.parentElement.nextElementSibling.querySelector('span:last-child');
 
-        // Check if a file was selected
         if (!file) {
             fileNameElement.textContent = 'No file chosen';
             uploadIcon.style.display = 'inline';
@@ -729,10 +726,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Validate file size (5MB max)
         if (file.size > 5 * 1024 * 1024) {
             alert("Error: File size exceeds 5MB limit.");
-            fileInput.value = ''; // Clear the file input
+            fileInput.value = '';  
             fileNameElement.textContent = 'No file chosen';
             uploadIcon.style.display = 'inline';
             removeIcon.style.display = 'none';
@@ -755,8 +751,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Update UI on successful file selection
-        const fileSizeInKB = (file.size / 1024).toFixed(2);
+         const fileSizeInKB = (file.size / 1024).toFixed(2);
         const fileSizeDisplay = fileSizeInKB > 1024
             ? `${(fileSizeInKB / 1024).toFixed(2)} MB`
             : `${fileSizeInKB} KB`;
@@ -766,11 +761,9 @@ document.addEventListener('DOMContentLoaded', () => {
         uploadIcon.style.display = 'none';
         removeIcon.style.display = 'inline';
 
-        // Hide help icon and format info, replace with file size
         if (helpTrigger) helpTrigger.style.display = 'none';
         if (formatInfo) formatInfo.textContent = `${fileSizeDisplay} uploaded`;
 
-        // Show appropriate file icon
         const fileIcon = document.createElement('img');
         fileIcon.style.width = '20px';
         fileIcon.style.height = '20px';
@@ -783,14 +776,12 @@ document.addEventListener('DOMContentLoaded', () => {
             fileIcon.src = 'assets/images/image-pdf.png';
         }
 
-        // Insert the file icon before the file name
         const existingIcon = fileNameElement.querySelector('img');
         if (existingIcon) {
-            existingIcon.remove(); // Remove any existing icon if re-uploading a file
+            existingIcon.remove(); 
         }
         fileNameElement.insertBefore(fileIcon, fileNameElement.firstChild);
 
-        // Make the document names visible for all 3 documents
         document.querySelectorAll('.document-name').forEach((documentElement) => {
             documentElement.style.display = 'block';  // Display all document names
         });
@@ -799,7 +790,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-        await uploadFileToServer(file,userId, fileNameId);
+        await uploadFileToServer(file, userId, fileNameId);
 
     }
 
@@ -811,7 +802,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        // Handle case where CSRF token is not found
         if (!csrfToken) {
             console.error('CSRF token not found');
             return;
@@ -847,7 +837,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(file, userId, fileNameId);
     }
 
-    // Function to remove the selected file
     async function removeFile(fileInputId, fileNameId, uploadIconId, removeIconId) {
         const fileInput = document.getElementById(fileInputId);
         const fileNameElement = document.getElementById(fileNameId);
@@ -860,7 +849,6 @@ document.addEventListener('DOMContentLoaded', () => {
         fileInput.value = '';
         fileNameElement.textContent = 'No file chosen';
 
-        // Reset icons
         uploadIcon.style.display = 'inline';
         removeIcon.style.display = 'none';
 
@@ -873,12 +861,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const userId = document.getElementById("personal-info-userid").value;
 
-        await deleteFileToServer(file, userId, fileNameId);
+        await deleteFileToServer(userId, fileNameId);
 
     }
 
 
     function deleteFileToServer(userId, fileNameId) {
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
         if (!csrfToken) {
             console.error('CSRF token not found');
             return;

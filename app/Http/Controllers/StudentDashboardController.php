@@ -647,25 +647,32 @@ class StudentDashboardController extends Controller
         $userId = $request->input('userId');
         $fileType = $request->input('fileType');
 
+        // Path where the files are stored based on user ID and file type
         $filePath = "$userId/$fileType";
 
+        // Fetch files from the S3 bucket
         $files = Storage::disk('s3')->files($filePath);
 
         if (!empty($files)) {
+            // Get the first file in the list
             $file = $files[0];
 
+            // Generate the URL for the file
             $fileUrl = Storage::disk('s3')->url($file);
 
+            // Return success response with file URL
             return response()->json([
                 'message' => ucfirst(str_replace('-', ' ', $fileType)) . ' retrieved successfully.',
                 'fileUrl' => $fileUrl,
             ], 200);
         }
 
-        return response()->json([
+         return response()->json([
             'message' => 'No file found for the specified type.',
-        ], 404);
+            'fileUrl' => null,  
+        ], 200); 
     }
+
 
 
 

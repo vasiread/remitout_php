@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('traceprogress', function (Blueprint $table) {
-            $table->string('nbfc_id')->unique();  
+            $table->string('nbfc_id');  
             $table->string('user_id');  
 
             $table->foreign('nbfc_id')->references('nbfc_id')->on('nbfc')
@@ -23,6 +23,8 @@ return new class extends Migration
                 ->onDelete('cascade');
 
             $table->enum('type', ['request', 'proposal'])->default('request');
+            $table->unique(['nbfc_id', 'user_id'], 'nbfc_user_unique');
+
             $table->timestamps();
 
         });
