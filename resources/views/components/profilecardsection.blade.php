@@ -106,7 +106,25 @@
             <div class="logo-item">
                 <img src="{{ asset('assets/images/logo5.png') }}" alt="Logo 5">
             </div>
+
+             <div class="logo-item">
+                <img src="{{ asset('assets/images/logo1.png') }}" alt="Logo 1">
+            </div>
+            <div class="logo-item">
+                <img src="{{ asset('assets/images/logo2.png') }}" alt="Logo 2">
+            </div>
+            <div class="logo-item">
+                <img src="{{ asset('assets/images/logo3.png') }}" alt="Logo 3">
+            </div>
+            <div class="logo-item">
+                <img src="{{ asset('assets/images/logo4.png') }}" alt="Logo 4">
+            </div>
+            <div class="logo-item">
+                <img src="{{ asset('assets/images/logo5.png') }}" alt="Logo 5">
+            </div>
         </div>
+
+        
     </div>
 </div>
 
@@ -130,76 +148,135 @@
 
     <script>
 
-        document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
 
 
+const menuIcon = document.getElementById('menu-icon'); 
+const navLinks = document.querySelector('.header-links'); 
 
-            const testimonialSlider = document.querySelector('.testimonial-slider');
-            const prevButton = document.querySelector('.nav-arrow.left');
-            const nextButton = document.querySelector('.nav-arrow.right');
-            const dots = document.querySelectorAll('.dot');
-            const slides = document.querySelectorAll('.profilecardsection-individual');
-            let currentIndex = 0;
-            const cardsPerView = 2; // Number of cards visible at a time
+menuIcon.addEventListener('click', () => {
+   
+    navLinks.classList.toggle('show');
+  
+    menuIcon.classList.toggle('open');
+});
 
-            function getSlideWidth() {
-                return slides[0].offsetWidth + 20; // Includes margin
-            }
+    
+const testimonialSlider = document.querySelector('.testimonial-slider');
+const prevButton = document.querySelector('.nav-arrow.left');
+const nextButton = document.querySelector('.nav-arrow.right');
+const slides = document.querySelectorAll('.profilecardsection-individual');
+const dots = document.querySelectorAll('.dot-container span');
+let currentIndex = 0;
+const cardsPerView = 2; // Number of cards visible at a time
 
-            let slideWidth = getSlideWidth();
-            const totalSlides = Math.ceil(slides.length / cardsPerView);
+// Function to calculate slide width dynamically
+function getSlideWidth() {
+    const style = window.getComputedStyle(slides[0]);
+    const margin = parseFloat(style.marginRight) + parseFloat(style.marginLeft);
+    return slides[0].offsetWidth + margin;
+}
 
-            // Update slider position
-            function updateSlider() {
-                const translateX = -(currentIndex * slideWidth * cardsPerView);
-                testimonialSlider.style.transform = `translateX(${translateX}px)`;
-                updateDots();
-            }
+let slideWidth = getSlideWidth();
 
-            // Update active dot
-            function updateDots() {
-                dots.forEach((dot, index) => {
-                    if (index === currentIndex) {
-                        dot.classList.add('active');
-                    } else {
-                        dot.classList.remove('active');
-                    }
-                });
-            }
+// Function to update slider position
+function updateSlider() {
+    const translateX = -(currentIndex * slideWidth * cardsPerView);
+    testimonialSlider.style.transform = `translateX(${translateX}px)`;
+    updateDots();
+    toggleButtonState(); // Update the button states after sliding
+}
 
-            // Arrow button navigation
-            prevButton.addEventListener('click', () => {
-                currentIndex = (currentIndex - 1 + totalSlides) % totalSlides; // Circular navigation
-                updateSlider();
-            });
+// Function to update active dot
+function updateDots() {
+    // Remove active class from all dots
+    dots.forEach(dot => {
+        dot.classList.remove('active');
+    });
+    
+    // Add active class to the current dot
+    // For your specific 3-dot case with 4 cards total (2 visible at a time):
+    // - First dot active when showing cards 1-2 (index 0)
+    // - Second dot active when showing cards 3-4 (index 1)
+    // - Third dot not used in this case
+    if (currentIndex < dots.length) {
+        dots[currentIndex].classList.add('active');
+    }
+}
 
-            nextButton.addEventListener('click', () => {
-                currentIndex = (currentIndex + 1) % totalSlides; // Circular navigation
-                updateSlider();
-            });
+// Function to disable/enable navigation buttons
+function toggleButtonState() {
+    // Disable 'prevButton' if at the first position
+    if (currentIndex === 0) {
+        prevButton.disabled = true;
+        prevButton.classList.add('disabled');
+    } else {
+        prevButton.disabled = false;
+        prevButton.classList.remove('disabled');
+    }
+    
+    // For exactly 4 cards with 2 visible at a time, we only have 2 positions (0 and 1)
+    // So disable 'nextButton' if at position 1
+    if (currentIndex === 1) {
+        nextButton.disabled = true;
+        nextButton.classList.add('disabled');
+    } else {
+        nextButton.disabled = false;
+        nextButton.classList.remove('disabled');
+    }
+}
 
-            // Initialize slider
+// Event listener for the 'prev' button
+prevButton.addEventListener('click', () => {
+    if (currentIndex > 0) {
+        currentIndex -= 1;
+        updateSlider();
+    }
+});
+
+// Event listener for the 'next' button
+nextButton.addEventListener('click', () => {
+    if (currentIndex < 1) { // With 4 cards and 2 visible, we only have 2 positions (0 and 1)
+        currentIndex += 1;
+        updateSlider();
+    }
+});
+
+// Add click events for the dots
+dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        // Only navigate to valid positions (0 or 1 in your case)
+        if (index <= 1) {
+            currentIndex = index;
             updateSlider();
+        }
+    });
+});
 
-            // Recalculate the slider width and update on window resize
-            window.addEventListener('resize', () => {
-                slideWidth = getSlideWidth(); // Recalculate slide width
-                updateSlider(); // Reapply the correct transformation
-            });
+// Recalculate slide width and update slider on window resize
+window.addEventListener('resize', () => {
+    slideWidth = getSlideWidth();
+    updateSlider();
+});
 
-            // Logo scrolling effect
-            const logoContainer = document.querySelector('.logo-container');
-            function autoScroll() {
-                logoContainer.style.animation = 'scroll 30s linear infinite';
-            }
-            autoScroll();
-        });
+// Initialize slider - make sure buttons and dots are in correct state from the start
+updateDots();
+toggleButtonState();
+updateSlider();
+    
 
-        //smart-lending-section
-        document.getElementById('loanButton').addEventListener('click', function () {
-            console.log('Loan button clicked');
-        });
+    // Logo scrolling effect
+    const logoContainer = document.querySelector('.logo-container');
+    function autoScroll() {
+        logoContainer.style.animation = 'scroll 30s linear infinite';
+    }
+    autoScroll();
+});
 
+//smart-lending-section
+document.getElementById('loanButton').addEventListener('click', function() {
+    console.log('Loan button clicked');
+});
 
 
     </script>
