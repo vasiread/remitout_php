@@ -17,7 +17,8 @@
 
             <div class="container">
                 <div class="header">
-                    <h1>Frequently asked questions</h1>
+                     <h1 class="header-desktop-faq">Frequently asked questions</h1>
+                     <h1 class="header-mobile-faq">FAQs</h1>
                     <div class="search-container">
                         <div class="search-box">
                             <input type="text" class="search-input" placeholder="Type keywords to find related queries">

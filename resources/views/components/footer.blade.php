@@ -9,7 +9,7 @@
 * {
     margin: 0;
     padding: 0;
-    /* box-sizing: border-box; */
+    box-sizing: border-box;
 }
 
 body {
@@ -290,63 +290,158 @@ body {
 
 }
 
-/* Responsive Styles */
-@media (max-width: 1200px) {
-    .container,
-    .footer-nav-section {
-        width: 90%;
+
+@media screen and (max-width: 1024px) {
+    .footer-container {
+        max-width: 900px;
     }
-    
     .signup-wrapper {
-        width: 90%;
         flex-direction: column;
         height: auto;
-        padding: 20px;
+        padding: 30px;
+        text-align: center;
     }
-    
     .signup-content {
         width: 100%;
         padding-right: 0;
     }
-    
+    .signup-form {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    .signup-form input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .signup-form .footer-button {
+        width: 100%;
+
+    }
     .footer-nav-section {
         flex-direction: column;
-        height: auto;
+        align-items: center;
+        text-align: center;
     }
-    
-    .company-info,
+    .footer-logo {
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    .company-info {
+        width: 100%;
+        text-align: center;
+    }
+    .address-container, .phone-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .social-links {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
     .footer-links {
         width: 100%;
-        margin-bottom: 40px;
-    }
-    
-    .footer-links {
         grid-template-columns: repeat(2, 1fr);
-        gap: 32px;
+        gap: 30px;
+        text-align: center;
     }
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
     .footer-section {
-        background-size: cover;
-        min-height: auto;
-        padding: 40px 0;
+        padding: 20px 0;
     }
-
-    .footer-links {
-        grid-template-columns: 1fr;
-        gap: 24px;
+    .signup-wrapper {
+        padding: 20px;
+        margin-top: 40px;
     }
-
-    .signup-form {
-        flex-direction: column;
+    .signup-text h5 {
+        font-size: 18px;
     }
-
-    .signup-form input,
+    .signup-text p {
+        font-size: 16px;
+    }
+    .signup-form input {
+        height: 50px;
+    }
     .signup-form .footer-button {
-        width: 100%;
-        border-radius: 4px;
-        margin-bottom: 10px;
+        height: 50px;
+        margin-left:0;
+    }
+    .footer-nav-section {
+        margin: 40px auto 20px;
+    }
+    .footer-logo {
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    .company-info {
+        text-align: center;
+    }
+    .address-container, .phone-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .social-links {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .footer-links {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 20px;
+    }
+    .signup-image{
+    display:none;
+}
+}
+
+@media screen and (max-width: 480px) {
+    .signup-wrapper {
+        padding: 15px;
+    }
+    .signup-text h5 {
+        font-size: 16px;
+    }
+    .signup-text p {
+        font-size: 14px;
+    }
+    .signup-form input {
+        height: 45px;
+    }
+    .signup-form .footer-button {
+        height: 45px;
+        font-size: 14px;
+    }
+    .footer-nav-section {
+        margin: 30px auto 10px;
+    }
+    .footer-logo {
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+    .company-info {
+        text-align: center;
+    }
+    .address-container, .phone-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .social-links {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .footer-links {
+        grid-template-columns: repeat(1, 1fr);
+        margin-top:20px;
+    }
+    .copyright {
+        font-size: 14px;
     }
 }
 </style>
