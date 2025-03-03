@@ -47,87 +47,67 @@ $loanStatusInfo = [
 
 ];
 
-
-
             @endphp
 
             <div class="studentdashboardprofile">
-
                 <div class="studentdashboardprofile-togglesidebar">
                     <ul class="studentdashboardprofile-sidebarlists-top">
                         <li class="active"> <i class="fa-solid fa-square-poll-vertical"></i> Dashboard</li>
                         <li> <i class="fa-solid fa-inbox"></i> Inbox</li>
                         <li> <i class="fa-regular fa-clipboard"></i> My Applications</li>
-
                     </ul>
                     <ul class="studentdashboardprofile-sidebarlists-bottom">
                         <li class="logoutBtn" onClick="sessionLogout()"> <i class="fa-solid fa-arrow-right-from-bracket"></i>Log
                             out</li>
                         <li> <img src="assets/images/Icons/support_agent.png" alt=""> Support</li>
-
                     </ul>
-
-
-
                 </div>
                 <div class="studentdashboardprofile-trackprogress">
                     <h1 class="trackprogress-header" style="margin:0">Track Progress</h1>
                     <div class="studentdashboardprofile-firstrowtrackprogress">
                         <div class="trackprogress-leftsection">
                             <p style="font-weight:600;
-                                                                                    font-size:18px;
-                                                                                    color:rgba(0, 0, 0, 1); 
-                                                                                    padding:15px 0px 0px 24px">Loan
+                                font-size:18px;
+                                color:rgba(0, 0, 0, 1); 
+                                padding:15px 0px 0px 24px">Loan
                                 Status</p>
+                            
                             <div class="leftsection-detailsinfo">
-
-                                <div class="loan-receivedsection">
+                               <div class="loan-receivedsection">
                                     <h1 style="color:rgba(255, 154, 63, 1);">02</h1>
                                     <p>Received</p>
-
                                 </div>
                                 <div class="loan-onholdsection">
                                     <h1>01</h1>
                                     <p>On Hold </p>
-
                                 </div>
                                 <div class="loan-rejectedsection">
                                     <h1>00</h1>
                                     <p>Rejected</p>
-
                                 </div>
-
                             </div>
-
-
-
                         </div>
                         <div class="trackprogress-rightsection">
                             <p
                                 style="  font-size: 18px;font-weight: 600; line-height: 27px; color:rgba(0, 0, 0, 1);padding:15px 0px 0px 24px">
                                 Document Status
                             </p>
-
                             <div class="rightsection-uploadsection">
                                 <div class="uploadsectionsandglass">
                                     <i class="fa-solid fa-hourglass"></i>
                                     <p class="upload-status-hourglass">
                                         Status : Pending
                                     </p>
-
                                 </div>
                                 <button onclick="window.location.href='{{ asset('student-forms') }}'">
                                     Upload
                                 </button>
                             </div>
-
                         </div>
-
                     </div>
 
                     <div class="studentdashboardprofile-loanproposals">
                         <h1 class="loanproposals-header" id="loanproposals-header">Loan Proposals</h1>
-
                         <div class="loanproposals-loanstatuscards">
                             @foreach ($loanStatusInfo as $loanDetails)
                                 <div class="indivudalloanstatus-cards">
@@ -139,7 +119,6 @@ $loanStatusInfo = [
                                         <div class="individual-bankmessages-buttoncontainer">
                                             <button>View</button><button>Accept</button><button
                                                 class="bankmessage-buttoncontainer-reject">Reject</button>
-
                                         </div>
                                         <button class="triggeredbutton">
                                             Message
@@ -148,585 +127,522 @@ $loanStatusInfo = [
                                     <div class="individual-bankmessage-input">
                                         <input type="text" placeholder="Send message">
                                         <img class="send-img" src="assets/images/send.png" alt="">
-
                                         <i class="fa-solid fa-paperclip"></i>
                                         <i class="fa-regular fa-face-smile"></i>
-
                                     </div>
-
                                 </div>
-
-
                             @endforeach
-
-
                         </div>
-
-
-
-
                     </div>
+                </div>
+
+        <div class="studentdashboardprofile-profilesection">
+            <img src="{{asset($profileImgPath)}}" class="profileImg" id="profile-photo-id" alt="">
+            <i class="fa-regular fa-pen-to-square"></i>
+            <input type="file" class="profile-upload" accept="image/*" enctype="multipart/form-data">
+            <div class="studentdashboardprofile-personalinfo">
+                <div class="personalinfo-firstrow">
+                    <h1>My Profile</h1>
+                </div>
+                <ul class="personalinfo-secondrow">
+                    <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span class="personal_info_id"
+                            style="margin-left: 6px;"> {{$user->unique_id}}</span> </li>
+                    <li class="personal_info_name" id="referenceNameId"><img src={{$profileIconPath}} alt="">
+                        <p> {{$userDetails[0]->name ?? 'Name not available'}}</p>
+                    </li>
+                    <li class="personal_info_phone"><img src={{$phoneIconPath}} alt="">
+                        <p>+91 {{$personalDetails[0]->phone}}</p>
+                    </li>
+                    <li class="personal_info_email" id="referenceEmailId">
+                        <img src={{$mailIconPath}} alt="">
+                        <p> {{$userDetails[0]->email}}</p>
+                    </li>
+                    <li class="personal_info_state"><img src={{$pindropIconPath}} alt="">
+                        <p> {{ $personalDetails[0]->state }}</p>
+                    </li>
+                </ul>
+                <ul class="personalinfosecondrow-editsection">
+                    <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span
+                            style="margin-left: 6px;"> {{$userDetails[0]->unique_id}}</span> </li>
+                    <li class="personal_info_name">
+                        <p>Name</p>
+                        <input type="text" value="{{$userDetails[0]->name}}">
+                    </li>
+                    <li class="personal_info_phone">
+                        <p>Phone</p>
+                        <input type="text" value="{{$personalDetails[0]->phone}}">
+                    </li>
+                    <li class="personal_info_email">
+                        <p>Email</p>
+                        <input type="email" value="{{$userDetails[0]->email}}">
+                    </li>
+                    <li class="personal_info_state">
+                        <p>State</p>
+                        <input type="text" value="{{$personalDetails[0]->state}}">
+                    </li>
+                </ul>
+            </div>
+            <div class="personalinfo-profilestatus">
+                <h1>Profile Status</h1>
+                <div class="personalinfo-graphsectioncontainer">
+                    <div class="profilestatus-graph-section">
+                        <svg class="progress-ring" width="75" height="75" viewBox="0 0 120 120">
+                            <!-- Background Circle (100%) -->
+                            <circle class="progress-ring-circle" stroke="rgba(213, 213, 213, 0.41)" stroke-width="18"
+                                fill="transparent" r="52" cx="60" cy="60" />
+
+                            <!-- Progress Circle (animated) -->
+                            <circle class="progress-ring-fill" stroke="rgba(255, 154, 63, 1)" stroke-width="18"
+                                fill="transparent" r="52" cx="60" cy="60" />
+                            <text x="50%" y="50%" text-anchor="middle" fill="rgba(255, 154, 63, 1)" font-weight="600"
+                                font-family="Poppins" font-size="14" width="31px" height="21px"
+                                class="progress-ring-text"></text>
+                        </svg>
+                        <p style="color:rgba(144, 144, 144, 1)">Profile Complete</p>
+                    </div>
+                    <div class="profilestatus-graph-secondsection">
+                        <div class="profilestatus-noofdocuments-section">
+                            <p>00</p>
+                            <span>/22</span>
+                        </div>
+                        <p class="secondsection-inside" style="color:rgba(144, 144, 144, 1)">Document Uploaded</p>
+                    </div>
+                </div>
+            </div>
+            <div class="studentdashboardprofile-communityjoinsection">
+                <img src={{asset($discordIconPath)}}>
+                <p> Join Community</p>
+            </div>
+            <div class="studentdashboardprofile-educationeditsection">
+                <div class="educationeditsection-firstrow">
+                    <h1>Education</h1>
+                    <!-- <button>Edit</button> -->
+                </div>
+                <div class="educationeditsection-secondrow">
+                    <p>1. {{ $courseDetails[0]->{'degree-type'} }}</p>
+                    <p>2. Consequuntur magni dolores</p>
+                    <p>3. Voluptatem accusantium</p>
+                </div>
+            </div>
+           
+            <div class="studentdashboardprofile-testscoreseditsection">
+                <div class="testscoreseditsection-firstrow">
+                    <h1>Test Scores</h1>
+                </div>
+                <div class="testscoreseditsection-secondrow">
+                    @php
+                        $counter = 1; 
+                    @endphp
+
+                    @if (is_numeric($academicDetails[0]->ILETS) && !empty($academicDetails[0]->ILETS))
+                        <p>{{ $counter++ }}. IELTS <span class="ilets_score">{{ $academicDetails[0]->ILETS }}</span></p>
+                    @endif
+
+                    @if (is_numeric($academicDetails[0]->GRE) && !empty($academicDetails[0]->GRE))
+                        <p>{{ $counter++ }}. GRE <span class="gre_score">{{ $academicDetails[0]->GRE }}</span></p>
+                    @endif
+
+                    @if (is_numeric($academicDetails[0]->TOFEL) && !empty($academicDetails[0]->TOFEL))
+                        <p>{{ $counter++ }}. TOEFL <span class="tofel_score">{{ $academicDetails[0]->TOFEL }}</span></p>
+                    @endif
+
+                    @php
+                        $others = json_decode($academicDetails[0]->Others, true);
+                    @endphp
+
+                    @if (isset($others['otherExamName']) && isset($others['otherExamScore']) && is_numeric($others['otherExamScore']) && !empty($others['otherExamScore']))
+                        <p>{{ $counter++ }}. {{$others['otherExamName']}} <span>{{$others['otherExamScore']}}</span></p>
+                    @endif
+                </div>
 
 
-
-
+                <div class="testscoreseditsection-secondrow-editsection">
+                    <p>ILETS</p>
+                    <input type="text" class="ilets_score" value={{$academicDetails[0]->ILETS}}>
+                    <p>GRE</p>
+                    <input type="text" class="gre_score" value={{$academicDetails[0]->GRE}}>
+                    <p>TOFEL</p> <input type="text" class="tofel_score" value="{{$academicDetails[0]->TOFEL}}">
 
                 </div>
-                <div class="nbfc-studentdashboard-profile-container">
-                    <div class="studentdashboardprofile-profilesection">
-
-                        <img src="{{asset($profileImgPath)}}" class="profileImg" id="profile-photo-id" alt="">
-                        <i class="fa-regular fa-pen-to-square"></i>
-                        <input type="file" class="profile-upload" accept="image/*" enctype="multipart/form-data">
-
-                        <div class="studentdashboardprofile-personalinfo">
-                            <div class="personalinfo-firstrow">
-                                <h1>My Profile</h1>
-                            </div>
-
-                            <ul class="personalinfo-secondrow">
-                                <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span
-                                        class="personal_info_id" style="margin-left: 6px;"> {{$user->unique_id}}</span> </li>
-                                <li class="personal_info_name" id="referenceNameId"><img src={{$profileIconPath}} alt="">
-                                    <p> {{$userDetails[0]->name ?? 'Name not available'}}</p>
-                                </li>
-                                <li class="personal_info_phone"><img src={{$phoneIconPath}} alt="">
-                                    <p>+91 {{$personalDetails[0]->phone}}</p>
-                                </li>
-                                <li class="personal_info_email" id="referenceEmailId">
-                                    <img src={{$mailIconPath}} alt="">
-                                    <p> {{$userDetails[0]->email}}</p>
-                                </li>
-                                <li class="personal_info_state"><img src={{$pindropIconPath}} alt="">
-                                    <p> {{ $personalDetails[0]->state }}</p>
-                                </li>
-
-                            </ul>
-                            <ul class="personalinfosecondrow-editsection">
-                                <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span
-                                        style="margin-left: 6px;"> {{$userDetails[0]->unique_id}}</span> </li>
-                                <li class="personal_info_name">
-                                    <p>Name</p>
-                                    <input type="text" value="{{$userDetails[0]->name}}">
-                                </li>
-                                <li class="personal_info_phone">
-                                    <p>Phone</p>
-                                    <input type="text" value="{{$personalDetails[0]->phone}}">
-                                </li>
-                                <li class="personal_info_email">
-                                    <p>Email</p>
-                                    <input type="email" value="{{$userDetails[0]->email}}">
-                                </li>
-                                <li class="personal_info_state">
-                                    <p>State</p>
-                                    <input type="text" value="{{$personalDetails[0]->state}}">
-                                </li>
-
-                            </ul>
+            </div>
+        </div>
+              
 
 
+      <div class="studentdashboardprofile-myapplication">
+            <div class="myapplication-firstcolumn">
+                <h1>Course Details</h1>
+                <!-- <button >Edit</button> -->
+                <div class="personalinfo-firstrow">
+                    <button onClick="triggerEditButton()">Edit</button>
+                    <button class="saved-msg">Saved</button>
+                </div>
+            </div>
 
-
+            <div class="myapplication-secondcolumn">
+                <p>1. Where are you planning to study</p>
+                <input type="text" id="plan-to-study-edit" disabled>
+                <div class="checkbox-group-edit" id="selected-study-location-edit">
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="USA" disabled> USA
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="UK" disabled> UK
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="Ireland" disabled> Ireland
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="New Zealand" disabled> New Zealand
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="Germany" disabled> Germany
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="France" disabled> France
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="Sweden" disabled> Sweden
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="Other" id="other-checkbox-edit"
+                            disabled> Other
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="Italy" disabled> Italy
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="Canada" disabled> Canada
+                    </label>
+                    <label>
+                        <input type="checkbox" name="study-location-edit" value="Australia" disabled> Australia
+                    </label>
+                    <label>
+                        <div class="add-country-box-edit">
+                            <input type="text" id="country-edit" class="custom-country-edit" placeholder="Add Country">
                         </div>
-                        <div class="personalinfo-profilestatus">
-                            <h1>Profile Status</h1>
-                            <div class="personalinfo-graphsectioncontainer">
-                                <div class="profilestatus-graph-section">
+                    </label>
+                </div>
+            </div>
 
-                                    <svg class="progress-ring" width="75" height="75" viewBox="0 0 120 120">
-                                        <!-- Background Circle (100%) -->
-                                        <circle class="progress-ring-circle" stroke="rgba(213, 213, 213, 0.41)"
-                                            stroke-width="18" fill="transparent" r="52" cx="60" cy="60" />
+            <div class="myapplication-thirdcolumn">
+                <h6>2. Type of Degree?</h6>
+                <div class="degreetypescheckboxes">
+                    <!-- First radio button for Bachelors -->
+                    <label class="custom-radio">
+                        <input type="radio" name="education-level" value="Bachelors"
+                            @if($courseDetails[0]->{'degree-type'} == 'Bachelors') checked @endif
+                            onclick="toggleOtherDegreeInput(event)" disabled>
+                        <span class="radio-button"></span>
+                        <p>Bachelors (only secured loan)</p>
+                    </label>
+                    <br>
 
-                                        <!-- Progress Circle (animated) -->
-                                        <circle class="progress-ring-fill" stroke="rgba(255, 154, 63, 1)" stroke-width="18"
-                                            fill="transparent" r="52" cx="60" cy="60" />
-                                        <text x="50%" y="50%" text-anchor="middle" fill="rgba(255, 154, 63, 1)"
-                                            font-weight="600" font-family="Poppins" font-size="14" width="31px" height="21px"
-                                            class="progress-ring-text"></text>
+                    <!-- Second radio button for Masters -->
+                    <label class="custom-radio">
+                        <input type="radio" name="education-level" value="Masters"
+                            @if($courseDetails[0]->{'degree-type'} == 'Masters') checked @endif
+                            onclick="toggleOtherDegreeInput(event)" disabled>
+                        <span class="radio-button"></span>
+                        <p>Masters</p>
+                    </label>
+                    <br>
 
-                                    </svg>
-                                    <p style="color:rgba(144, 144, 144, 1)">Profile Complete</p>
+                    <!-- Third radio button for Others -->
+                    <label class="custom-radio">
+                        <input type="radio" name="education-level" value="Others" @if($courseDetails[0]->{'degree-type'} !== 'Bachelors' && $courseDetails[0]->{'degree-type'} !== 'Masters') checked @endif
+                            onclick="toggleOtherDegreeInput(event)" disabled>
+                        <span class="radio-button"></span>
+                        <p>Others</p>
+                    </label>
+                </div>
 
-                                </div>
-                                <div class="profilestatus-graph-secondsection">
-                                    <div class="profilestatus-noofdocuments-section">
-                                        <p>00</p>
-                                        <span>/22</span>
-                                    </div>
-                                    <p class="secondsection-inside" style="color:rgba(144, 144, 144, 1)">Document Uploaded</p>
+                <input type="text" placeholder="Enter degree type" value="{{ $courseDetails[0]->{'degree-type'} }}"
+                    id="otherDegreeInput" @if($courseDetails[0]->{'degree-type'} != 'Others') disabled @endif>
+            </div>
 
+            <div class="myapplication-fourthcolumn-additional">
+                <p>3. What is the duration of the course?</p>
+                <input type="text" placeholder="{{ $courseDetails[0]->{'course-duration'} ?? '' }}"
+                    value="{{ $courseDetails[0]->{'course-duration'} ?? '' }} " disabled>
 
+            </div>
+            <div class="myapplication-fourthcolumn">
+                <p>4. What is the Loan amount required?</p>
+                <input type="number" placeholder={{$courseDetails[0]->loan_amount_in_lakhs}}
+                    value={{$courseDetails[0]->loan_amount_in_lakhs}} disabled>
 
+            </div>
+            <div class="myapplication-fifthcolumn">
+                <p>Referral Code</p>
+                <input type="text" placeholder="{{$personalDetails[0]->referral_code}}"
+                    value="{{$personalDetails[0]->referral_code}}" disabled>
+            </div>
+            <div class="myapplication-sixthcolumn">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <div class="myapplication-seventhcolumn">
+                <h1>Attached Documents</h1>
+                <div class="seventhcolum-firstsection">
+                    <div class="seventhcolumn-header">
+                        <p>Student KYC Document</p>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
 
-                                </div>
+                    <div class="kycdocumentscolumn">
+                        <div class="individualkycdocuments">
+                            <p class="document-name">Pan Card</p>
+                            <div class="inputfilecontainer">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="uploaded-pan-name"> pan_card.jpg</p>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-pan-card" />
                             </div>
-
-
-
+                            <input type="file" id="inputfilecontainer-real" />
+                            <span class="document-status">420 MB uploaded</span>
                         </div>
-                        <div class="studentdashboardprofile-communityjoinsection">
-                            <img src={{asset($discordIconPath)}}>
-                            <p> Join Community</p>
+
+                        <div class="individualkycdocuments">
+                            <p class="document-name">Aadhar Card</p>
+                            <div class="inputfilecontainer">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="uploaded-aadhar-name"> aadhar_card.jpg</p>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-aadhar-card" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real" />
+                            <span class="document-status">420 MB uploaded</span>
                         </div>
-                        <div class="studentdashboardprofile-educationeditsection">
-                            <div class="educationeditsection-firstrow">
-                                <h1>Education</h1>
-                                <!-- <button>Edit</button> -->
 
-
+                        <div class="individualkycdocuments">
+                            <p class="document-name">Passport</p>
+                            <div class="inputfilecontainer">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="passport-name-selector"> Passport.pdf</p>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-passport-card" />
                             </div>
-                            <div class="educationeditsection-secondrow">
-                                <p>1. {{ $courseDetails[0]->{'degree-type'} }}</p>
-                                <p>2. Consequuntur magni dolores</p>
-                                <p>3. Voluptatem accusantium</p>
-                            </div>
+                            <input type="file" id="inputfilecontainer-real" />
+                            <span class="document-status">420 MB uploaded</span>
                         </div>
-                        <div class="studentdashboardprofile-testscoreseditsection">
-                            <div class="testscoreseditsection-firstrow">
-                                <h1>Test Scores</h1>
+                    </div>
+                </div>
+            </div>
 
+            <div class="seventhcolumn-additional">
+                <div class="seventhcolumn-additional-firstcolumn">
+                    <div class="seventhcolumnadditional-header">
+                        <p>Academic Marksheets</p>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+
+                    <div class="marksheetdocumentscolumn">
+                        <div class="individualmarksheetdocuments">
+                            <p class="document-name">10th grade marksheet</p>
+                            <div class="inputfilecontainer-marksheet">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="sslc-marksheet"> 10th grade marksheet</p>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-card" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+
+                        <div class="individualmarksheetdocuments">
+                            <p class="document-name">12th grade marksheet</p>
+                            <div class="inputfilecontainer-marksheet">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="hsc-marksheet"> 12th grade marksheet</p>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-card" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+
+                        <div class="individualmarksheetdocuments">
+                            <p class="document-name">Graduation marksheet</p>
+                            <div class="inputfilecontainer-marksheet">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="graduation-marksheet"> Graduation Marksheet</p>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-card" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="myapplication-eightcolumn">
+                <div class="eightcolumn-firstsection">
+                    <div class="eightcolumn-header">
+
+                        <p>Secured Admissions</p>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                    <div class="secured-admissioncolumn">
+                        <div class="individual-secured-admission-documents">
+                            <p class="document-name">10th Grade
+                            </p>
+                            <div class="inputfilecontainer-secured-admission">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="sslc-grade">SSLC Grade</p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-grade"></>
 
                             </div>
-                            <div class="testscoreseditsection-secondrow">
-                                @php
-$counter = 1; 
-                                @endphp
+                            <input type="file" id="inputfilecontainer-real-marksheet">
 
-                                @if (is_numeric($academicDetails[0]->ILETS) && !empty($academicDetails[0]->ILETS))
-                                    <p>{{ $counter++ }}. IELTS <span class="ilets_score">{{ $academicDetails[0]->ILETS }}</span></p>
-                                @endif
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-secured-admission-documents">
+                            <p class="document-name">12th Grade
+                            </p>
+                            <div class="inputfilecontainer-secured-admission">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="hsc-grade">HSC Grade</p>
 
-                                @if (is_numeric($academicDetails[0]->GRE) && !empty($academicDetails[0]->GRE))
-                                    <p>{{ $counter++ }}. GRE <span class="gre_score">{{ $academicDetails[0]->GRE }}</span></p>
-                                @endif
-
-                                @if (is_numeric($academicDetails[0]->TOFEL) && !empty($academicDetails[0]->TOFEL))
-                                    <p>{{ $counter++ }}. TOEFL <span class="tofel_score">{{ $academicDetails[0]->TOFEL }}</span></p>
-                                @endif
-
-                                @php
-$others = json_decode($academicDetails[0]->Others, true);
-                                @endphp
-
-                                @if (isset($others['otherExamName']) && isset($others['otherExamScore']) && is_numeric($others['otherExamScore']) && !empty($others['otherExamScore']))
-                                    <p>{{ $counter++ }}. {{$others['otherExamName']}} <span>{{$others['otherExamScore']}}</span></p>
-                                @endif
-                            </div>
-
-
-                            <div class="testscoreseditsection-secondrow-editsection">
-                                <p>ILETS</p>
-                                <input type="text" class="ilets_score" value={{$academicDetails[0]->ILETS}}>
-                                <p>GRE</p>
-                                <input type="text" class="gre_score" value={{$academicDetails[0]->GRE}}>
-                                <p>TOFEL</p> <input type="text" class="tofel_score" value="{{$academicDetails[0]->TOFEL}}">
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-grade"></>
 
                             </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet">
+
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-secured-admission-documents">
+                            <p class="document-name">Graduation
+                            </p>
+                            <div class="inputfilecontainer-secured-admission">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="graduation-grade">Graduation</p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-grade"></>
+
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet">
+
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                    </div>
+                </div>
 
 
+            </div>
+            <div class="myapplication-ninthcolumn">
+                <div class="ninthcolumn-firstsection">
+                    <div class="ninthcolumn-header">
+
+                        <p>Work Experience</p>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                    <div class="work-experiencecolumn">
+                        <div class="individual-work-experiencecolumn-documents">
+                            <p class="document-name">Experience Letter
+                            </p>
+                            <div class="inputfilecontainer-work-experiencecolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="experience-letter">Experience Letter</p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-experience-letter"></>
+
+                            </div>
+                            <input type="file" id="inputfilecontainer-work-experience">
+
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-work-experiencecolumn-documents">
+                            <p class="document-name">3 month Salary Slip
+                            </p>
+                            <div class="inputfilecontainer-work-experiencecolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="salary-slip">3 month salary slip</p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-salary-slip"></>
+
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet">
+
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-work-experiencecolumn-documents">
+                            <p class="document-name">Office ID
+                            </p>
+                            <div class="inputfilecontainer-work-experiencecolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="office-id">Office ID</p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-office-id"></>
+
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet">
+
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-work-experiencecolumn-documents">
+                            <p class="document-name">Employment Joining Letter
+                            </p>
+                            <div class="inputfilecontainer-work-experiencecolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="joining-letter">Joining Letter</p>
+
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-joining-letter"></>
+
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet">
+
+                            <span class="document-status">420 MB uploaded</span>
                         </div>
 
                     </div>
-                    <div class="studentdashboardprofile-myapplication">
-                        <div class="myapplication-firstcolumn">
-                            <h1>Course Details</h1>
-                            <!-- <button >Edit</button> -->
-                            <div class="personalinfo-firstrow">
-                                <button onClick="triggerEditButton()">Edit</button>
-                                <button class="saved-msg">Saved</button>
+                </div>
+
+            </div>
+            <div class="myapplication-tenthcolumn">
+                <div class="tenthcolumn-firstsection">
+                    <div class="tenthcolumn-header">
+                        <p>Co-borrower Documents</p>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                    <div class="coborrower-kyccolumn">
+                        <div class="individual-coborrower-kyc-documents">
+                            <p class="document-name">Pan Card
+                            </p>
+                            <div class="inputfilecontainer-coborrower-kyccolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="coborrower-pancard">Pan Card </p>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-pan"></>
                             </div>
-
+                            <input type="file" id="inputfilecontainer-kyccoborrwer">
+                            <span class="document-status">420 MB uploaded</span>
                         </div>
-                        <div class="myapplication-secondcolumn">
-                            <p>1. Where are you planning to study</p>
-                            <input type="text" id="plan-to-study-edit" disabled>
-                            <div class="checkbox-group-edit" id="selected-study-location-edit">
-                                <label>
-                                    <input type="checkbox" name="study-location-edit" value="USA" disabled> USA
-                                </label>
-                                <label>
-                                    <input type="checkbox" name="study-location-edit" value="UK" disabled> UK
-                                </label>
-                                <label>
-                                    <input type="checkbox" name="study-location-edit" value="Ireland" disabled> Ireland
-                                </label>
-                                <label>
-                                    <input type="checkbox" name="study-location-edit" value="New Zealand" disabled> New Zealand
-                                </label>
-                                <label>
-                                    <input type="checkbox" name="study-location-edit" value="Germany" disabled> Germany
-                                </label>
-                                <label>
-                                    <input type="checkbox" name="study-location-edit" value="France" disabled> France
-                                </label>
-                                <label>
-                                    <input type="checkbox" name="study-location-edit" value="Sweden" disabled> Sweden
-                                </label>
-                                <label>
-                                    <input type="checkbox" name="study-location-edit" value="Other" id="other-checkbox-edit"
-                                        disabled> Other
-                                </label>
-                                <label>
-                                    <input type="checkbox" name="study-location-edit" value="Italy" disabled> Italy
-                                </label>
-                                <label>
-                                    <input type="checkbox" name="study-location-edit" value="Canada" disabled> Canada
-                                </label>
-                                <label>
-                                    <input type="checkbox" name="study-location-edit" value="Australia" disabled> Australia
-                                </label>
-                                <label>
-                                    <div class="add-country-box-edit">
-                                        <input type="text" id="country-edit" class="custom-country-edit"
-                                            placeholder="Add Country">
-                                    </div>
-                                </label>
+                        <div class="individual-coborrower-kyc-documents">
+                            <p class="document-name">Aadhar Card
+                            </p>
+                            <div class="inputfilecontainer-coborrower-kyccolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="coborrower-aadharcard">Aadhar Card </p>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-aadhar"></>
                             </div>
+                            <input type="file" id="inputfilecontainer-kyccoborrwer">
+                            <span class="document-status">420 MB uploaded</span>
                         </div>
-
-                        <div class="myapplication-thirdcolumn">
-                            <h6>2. Type of Degree?</h6>
-                            <div class="degreetypescheckboxes">
-                                <!-- First radio button for Bachelors -->
-                                <label class="custom-radio">
-                                    <input type="radio" name="education-level" value="Bachelors"
-                                        @if($courseDetails[0]->{'degree-type'} == 'Bachelors') checked @endif
-                                        onclick="toggleOtherDegreeInput(event)" disabled>
-                                    <span class="radio-button"></span>
-                                    <p>Bachelors (only secured loan)</p>
-                                </label>
-                                <br>
-
-                                <!-- Second radio button for Masters -->
-                                <label class="custom-radio">
-                                    <input type="radio" name="education-level" value="Masters"
-                                        @if($courseDetails[0]->{'degree-type'} == 'Masters') checked @endif
-                                        onclick="toggleOtherDegreeInput(event)" disabled>
-                                    <span class="radio-button"></span>
-                                    <p>Masters</p>
-                                </label>
-                                <br>
-
-                                <!-- Third radio button for Others -->
-                                <label class="custom-radio">
-                                    <input type="radio" name="education-level" value="Others"
-                                        @if($courseDetails[0]->{'degree-type'} !== 'Bachelors' && $courseDetails[0]->{'degree-type'} !== 'Masters') checked @endif
-                                        onclick="toggleOtherDegreeInput(event)" disabled>
-                                    <span class="radio-button"></span>
-                                    <p>Others</p>
-                                </label>
+                        <div class="individual-coborrower-kyc-documents">
+                            <p class="document-name">Address Proof
+                            </p>
+                            <div class="inputfilecontainer-coborrower-kyccolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="coborrower-addressproof">Address Proof </p>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-addressproof"></>
                             </div>
-
-                            <input type="text" placeholder="Enter degree type" value="{{ $courseDetails[0]->{'degree-type'} }}"
-                                id="otherDegreeInput" @if($courseDetails[0]->{'degree-type'} != 'Others') disabled @endif>
-                        </div>
-
-                        <div class="myapplication-fourthcolumn-additional">
-                            <p>3. What is the duration of the course?</p>
-                            <input type="text" placeholder="{{ $courseDetails[0]->{'course-duration'} ?? '' }}"
-                                value="{{ $courseDetails[0]->{'course-duration'} ?? '' }} " disabled>
-
-                        </div>
-                        <div class="myapplication-fourthcolumn">
-                            <p>4. What is the Loan amount required?</p>
-                            <input type="number" placeholder={{$courseDetails[0]->loan_amount_in_lakhs}}
-                                value={{$courseDetails[0]->loan_amount_in_lakhs}} disabled>
-
-                        </div>
-                        <div class="myapplication-fifthcolumn">
-                            <p>Referral Code</p>
-                            <input type="text" placeholder="{{$personalDetails[0]->referral_code}}"
-                                value="{{$personalDetails[0]->referral_code}}" disabled>
-
-                        </div>
-                        <div class="myapplication-sixthcolumn">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        </div>
-                        <div class="myapplication-seventhcolumn">
-                            <h1>Attached Documents</h1>
-                            <div class="seventhcolum-firstsection">
-                                <div class="seventhcolumn-header">
-                                    <p>Student KYC Document</p>
-                                    <i class="fa-solid fa-angle-down"></i>
-                                </div>
-
-                                <div class="kycdocumentscolumn">
-                                    <div class="individualkycdocuments">
-                                        <p class="document-name">Pan Card</p>
-                                        <div class="inputfilecontainer">
-                                            <i class="fa-solid fa-image"></i>
-                                            <p class="uploaded-pan-name"> pan_card.jpg</p>
-                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-pan-card" />
-                                        </div>
-                                        <input type="file" id="inputfilecontainer-real" />
-                                        <span class="document-status">420 MB uploaded</span>
-
-                                    </div>
-
-                                    <div class="individualkycdocuments">
-                                        <p class="document-name">Aadhar Card</p>
-                                        <div class="inputfilecontainer">
-                                            <i class="fa-solid fa-image"></i>
-                                            <p class="uploaded-aadhar-name"> aadhar_card.jpg</p>
-                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-aadhar-card" />
-                                        </div>
-                                        <input type="file" id="inputfilecontainer-real" />
-                                        <span class="document-status">420 MB uploaded</span>
-
-                                    </div>
-
-                                    <div class="individualkycdocuments">
-                                        <p class="document-name">Passport</p>
-                                        <div class="inputfilecontainer">
-                                            <i class="fa-solid fa-image"></i>
-                                            <p class="passport-name-selector"> Passport.pdf</p>
-                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-passport-card" />
-                                        </div>
-                                        <input type="file" id="inputfilecontainer-real" />
-                                        <span class="document-status">420 MB uploaded</span>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </div>
-                        <div class="seventhcolumn-additional">
-                            <div class="seventhcolumn-additional-firstcolumn">
-                                <div class="seventhcolumnadditional-header">
-                                    <p>Academic Marksheets</p>
-                                    <i class="fa-solid fa-angle-down"></i>
-                                </div>
-
-                                <div class="marksheetdocumentscolumn">
-                                    <div class="individualmarksheetdocuments">
-                                        <p class="document-name">10th grade marksheet</p>
-                                        <div class="inputfilecontainer-marksheet">
-                                            <i class="fa-solid fa-image"></i>
-                                            <p class="sslc-marksheet"> 10th grade marksheet</p>
-                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-card" />
-                                        </div>
-                                        <input type="file" id="inputfilecontainer-real-marksheet" />
-                                        <span class="document-status">420 MB uploaded</span>
-                                    </div>
-
-                                    <div class="individualmarksheetdocuments">
-                                        <p class="document-name">12th grade marksheet</p>
-                                        <div class="inputfilecontainer-marksheet">
-                                            <i class="fa-solid fa-image"></i>
-                                            <p class="hsc-marksheet"> 12th grade marksheet</p>
-                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-card" />
-                                        </div>
-                                        <input type="file" id="inputfilecontainer-real-marksheet" />
-                                        <span class="document-status">420 MB uploaded</span>
-                                    </div>
-
-                                    <div class="individualmarksheetdocuments">
-                                        <p class="document-name">Graduation marksheet</p>
-                                        <div class="inputfilecontainer-marksheet">
-                                            <i class="fa-solid fa-image"></i>
-                                            <p class="graduation-marksheet"> Graduation Marksheet</p>
-                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-card" />
-                                        </div>
-                                        <input type="file" id="inputfilecontainer-real-marksheet" />
-                                        <span class="document-status">420 MB uploaded</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="myapplication-eightcolumn">
-                            <div class="eightcolumn-firstsection">
-                                <div class="eightcolumn-header">
-
-                                    <p>Secured Admissions</p>
-                                    <i class="fa-solid fa-angle-down"></i>
-                                </div>
-                                <div class="secured-admissioncolumn">
-                                    <div class="individual-secured-admission-documents">
-                                        <p class="document-name">10th Grade
-                                        </p>
-                                        <div class="inputfilecontainer-secured-admission">
-                                            <i class="fa-solid fa-image"></i>
-                                            <p class="sslc-grade">SSLC Grade</p>
-
-                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-grade"></>
-
-                                        </div>
-                                        <input type="file" id="inputfilecontainer-real-marksheet">
-
-                                        <span class="document-status">420 MB uploaded</span>
-                                    </div>
-                                    <div class="individual-secured-admission-documents">
-                                        <p class="document-name">12th Grade
-                                        </p>
-                                        <div class="inputfilecontainer-secured-admission">
-                                            <i class="fa-solid fa-image"></i>
-                                            <p class="hsc-grade">HSC Grade</p>
-
-                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-grade"></>
-
-                                        </div>
-                                        <input type="file" id="inputfilecontainer-real-marksheet">
-
-                                        <span class="document-status">420 MB uploaded</span>
-                                    </div>
-                                    <div class="individual-secured-admission-documents">
-                                        <p class="document-name">Graduation
-                                        </p>
-                                        <div class="inputfilecontainer-secured-admission">
-                                            <i class="fa-solid fa-image"></i>
-                                            <p class="graduation-grade">Graduation</p>
-
-                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-grade"></>
-
-                                        </div>
-                                        <input type="file" id="inputfilecontainer-real-marksheet">
-
-                                        <span class="document-status">420 MB uploaded</span>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-
-
-                        <div class="myapplication-ninthcolumn">
-                            <div class="ninthcolumn-firstsection">
-                                <div class="ninthcolumn-header">
-
-                                    <p>Work Experience</p>
-                                    <i class="fa-solid fa-angle-down"></i>
-                                </div>
-                                <div class="work-experiencecolumn">
-                                    <div class="individual-work-experiencecolumn-documents">
-                                        <p class="document-name">Experience Letter
-                                        </p>
-                                        <div class="inputfilecontainer-work-experiencecolumn">
-                                            <i class="fa-solid fa-image"></i>
-                                            <p class="experience-letter">Experience Letter</p>
-
-                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-experience-letter"></>
-
-                                        </div>
-                                        <input type="file" id="inputfilecontainer-work-experience">
-
-                                        <span class="document-status">420 MB uploaded</span>
-                                    </div>
-                                    <div class="individual-work-experiencecolumn-documents">
-                                        <p class="document-name">3 month Salary Slip
-                                        </p>
-                                        <div class="inputfilecontainer-work-experiencecolumn">
-                                            <i class="fa-solid fa-image"></i>
-                                            <p class="salary-slip">3 month salary slip</p>
-
-                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-salary-slip"></>
-
-                                        </div>
-                                        <input type="file" id="inputfilecontainer-real-marksheet">
-
-                                        <span class="document-status">420 MB uploaded</span>
-                                    </div>
-                                    <div class="individual-work-experiencecolumn-documents">
-                                        <p class="document-name">Office ID
-                                        </p>
-                                        <div class="inputfilecontainer-work-experiencecolumn">
-                                            <i class="fa-solid fa-image"></i>
-                                            <p class="office-id">Office ID</p>
-
-                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-office-id"></>
-
-                                        </div>
-                                        <input type="file" id="inputfilecontainer-real-marksheet">
-
-                                        <span class="document-status">420 MB uploaded</span>
-                                    </div>
-                                    <div class="individual-work-experiencecolumn-documents">
-                                        <p class="document-name">Employment Joining Letter
-                                        </p>
-                                        <div class="inputfilecontainer-work-experiencecolumn">
-                                            <i class="fa-solid fa-image"></i>
-                                            <p class="joining-letter">Joining Letter</p>
-
-                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-joining-letter"></>
-
-                                        </div>
-                                        <input type="file" id="inputfilecontainer-real-marksheet">
-
-                                        <span class="document-status">420 MB uploaded</span>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="myapplication-tenthcolumn">
-                            <div class="tenthcolumn-firstsection">
-                                <div class="tenthcolumn-header">
-
-
-                                    <p>Co-borrower Documents</p>
-                                    <i class="fa-solid fa-angle-down"></i>
-                                </div>
-                                <div class="coborrower-kyccolumn">
-                                    <div class="individual-coborrower-kyc-documents">
-                                        <p class="document-name">Pan Card
-                                        </p>
-                                        <div class="inputfilecontainer-coborrower-kyccolumn">
-                                            <i class="fa-solid fa-image"></i>
-                                            <p class="coborrower-pancard">Pan Card </p>
-
-                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-pan"></>
-
-                                        </div>
-                                        <input type="file" id="inputfilecontainer-kyccoborrwer">
-
-                                        <span class="document-status">420 MB uploaded</span>
-                                    </div>
-                                    <div class="individual-coborrower-kyc-documents">
-                                        <p class="document-name">Aadhar Card
-                                        </p>
-                                        <div class="inputfilecontainer-coborrower-kyccolumn">
-                                            <i class="fa-solid fa-image"></i>
-                                            <p class="coborrower-aadharcard">Aadhar Card </p>
-
-                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-aadhar"></>
-
-                                        </div>
-                                        <input type="file" id="inputfilecontainer-kyccoborrwer">
-
-                                        <span class="document-status">420 MB uploaded</span>
-                                    </div>
-                                    <div class="individual-coborrower-kyc-documents">
-                                        <p class="document-name">Address Proof
-                                        </p>
-                                        <div class="inputfilecontainer-coborrower-kyccolumn">
-                                            <i class="fa-solid fa-image"></i>
-                                            <p class="coborrower-addressproof">Address Proof </p>
-
-                                            <img class="fa-eye" src="{{asset($viewIconPath)}}"
-                                                id="view-coborrower-addressproof"></>
-
-                                        </div>
-                                        <input type="file" id="inputfilecontainer-kyccoborrwer">
-
-                                        <span class="document-status">420 MB uploaded</span>
-                                    </div>
-
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <div class="myapplication-eleventhcolumn">
-                            <button class="mailnbfcbutton">Send Email to NBFCs</button>
-
+                            <input type="file" id="inputfilecontainer-kyccoborrwer">
+                            <span class="document-status">420 MB uploaded</span>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="myapplication-eleventhcolumn">
+                <button class="mailnbfcbutton">Send Email to NBFCs</button>
+            </div>
+        </div>
 
 
                 </div>
@@ -1697,8 +1613,1289 @@ $others = json_decode($academicDetails[0]->Others, true);
 
 
             });
-        };
+        };  
 
+        const initializeSecuredAdmissionDocumentUpload = () => {
+    const securedAdmissionDocuments = document.querySelectorAll(".individual-secured-admission-documents");
+
+    securedAdmissionDocuments.forEach((card, index) => {
+        let uploadedFile = null;
+        const inputId = card.querySelector('input[type="file"]').id;
+        const documentTypeText = card.querySelector('.document-name').textContent.trim();
+        
+        // Get the specific preview icon
+        const previewIconId = card.querySelector('.fa-eye').id;
+
+        // Trigger file input when the container is clicked
+        card.querySelector('.inputfilecontainer-secured-admission').addEventListener('click', function (event) {
+            // Prevent triggering if clicking on the eye icon
+            if (!event.target.classList.contains('fa-eye') && !event.target.id.startsWith('view-')) {
+                card.querySelector(`#${inputId}`).click();
+            }
+        });
+
+        // Handle file selection and validation
+        card.querySelector(`#${inputId}`).addEventListener('change', function (event) {
+            const file = event.target.files[0];
+
+            // Ensure file is selected
+            if (!file) return;
+
+            console.log(`Selected file for ${documentTypeText}:`, file);  // Debug log
+
+            // Allowed file types
+            const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
+            const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
+
+            // Validate file type
+            if (!allowedExtensions.includes(fileExtension)) {
+                alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
+                event.target.value = ''; // Clear the file input
+                
+                // Reset the text inside the respective document type element
+                const documentTypeElement = getDocumentTypeElement(card);
+                if (documentTypeElement) {
+                    documentTypeElement.textContent = getOriginalText(documentTypeElement);
+                }
+                
+                return;
+            }
+
+            // Validate file size (5MB max)
+            if (file.size > 5 * 1024 * 1024) {
+                alert("Error: File size exceeds 5MB limit.");
+                event.target.value = ''; // Clear the file input
+                
+                // Reset the text inside the respective document type element
+                const documentTypeElement = getDocumentTypeElement(card);
+                if (documentTypeElement) {
+                    documentTypeElement.textContent = getOriginalText(documentTypeElement);
+                }
+                
+                return;
+            }
+
+            // Store the file and update UI
+            uploadedFile = file;
+            
+            // Update the text in the specific document type element
+            const documentTypeElement = getDocumentTypeElement(card);
+            if (documentTypeElement) {
+                documentTypeElement.textContent = truncateFileName(file.name);
+            }
+
+            const fileSize = file.size < 1024 * 1024
+                ? (file.size / 1024).toFixed(2) + ' KB'
+                : (file.size / (1024 * 1024)).toFixed(2) + ' MB';
+            card.querySelector('.document-status').textContent = `${fileSize} Uploaded`;
+
+            console.log(`File uploaded for ${documentTypeText}:`, uploadedFile);  // Debug log
+        });
+
+        // Helper function to get the correct document type element
+        function getDocumentTypeElement(card) {
+            if (card.querySelector('.sslc-grade')) return card.querySelector('.sslc-grade');
+            if (card.querySelector('.hsc-grade')) return card.querySelector('.hsc-grade');
+            if (card.querySelector('.graduation-grade')) return card.querySelector('.graduation-grade');
+            return null;
+        }
+        
+        // Helper function to get original text
+        function getOriginalText(element) {
+            if (element.classList.contains('sslc-grade')) return 'SSLC Grade';
+            if (element.classList.contains('hsc-grade')) return 'HSC Grade';
+            if (element.classList.contains('graduation-grade')) return 'Graduation';
+            return 'No file chosen';
+        }
+
+        // Handle preview functionality
+        card.querySelector(`#${previewIconId}`).addEventListener('click', function (event) {
+            event.stopPropagation();
+            
+            // Reference to preview icon
+            const eyeIcon = this;
+
+            if (eyeIcon.classList.contains('preview-active')) {
+                const previewWrapper = document.querySelector('.pdf-preview-wrapper');
+                if (previewWrapper) previewWrapper.remove();
+                const overlay = document.querySelector('.pdf-preview-overlay');
+                if (overlay) overlay.remove();
+                eyeIcon.classList.remove('preview-active');
+            } else {
+                if (uploadedFile && uploadedFile.type === 'application/pdf') {
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        // Create wrapper for the preview
+                        const previewWrapper = document.createElement('div');
+                        previewWrapper.className = 'pdf-preview-wrapper';
+                        previewWrapper.style.cssText = `
+                            position: fixed;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            width: 90%;
+                            height: 90vh;
+                            background-color: white;
+                            display: flex;
+                            flex-direction: column;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                            z-index: 1000;
+                        `;
+
+                        // Add overlay
+                        const overlay = document.createElement('div');
+                        overlay.className = 'pdf-preview-overlay';
+                        overlay.style.cssText = `
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background-color: rgba(0, 0, 0, 0.5);
+                            z-index: 999;
+                        `;
+
+                        // Create header
+                        const header = document.createElement('div');
+                        header.style.cssText = `
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding: 8px 16px;
+                            background-color: #1a1a1a;
+                            color: white;
+                            height: 40px;
+                        `;
+
+                        // Left section with filename
+                        const fileNameSection = document.createElement('div');
+                        fileNameSection.style.cssText = `
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                        `;
+
+                        const fileName = document.createElement('span');
+                        fileName.textContent = uploadedFile.name;
+                        fileName.style.cssText = `
+                            color: white;
+                            font-size: 14px;
+                        `;
+                        fileNameSection.appendChild(fileName);
+
+                        // Middle section with zoom controls
+                        const zoomControls = document.createElement('div');
+                        zoomControls.style.cssText = `
+                            display: flex;
+                            align-items: center;
+                            gap: 12px;
+                            position: absolute;
+                            left: 50%;
+                            transform: translateX(-50%);
+                        `;
+
+                        const zoomOut = document.createElement('button');
+                        zoomOut.innerHTML = '&#8722;';
+                        const zoomIn = document.createElement('button');
+                        zoomIn.innerHTML = '&#43;';
+
+                        [zoomOut, zoomIn].forEach(btn => {
+                            btn.style.cssText = `
+                                background: none;
+                                border: none;
+                                color: white;
+                                font-size: 18px;
+                                cursor: pointer;
+                                padding: 4px 8px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            `;
+                        });
+
+                        zoomControls.appendChild(zoomOut);
+                        zoomControls.appendChild(zoomIn);
+
+                        // Close button
+                        const closeButton = document.createElement('button');
+                        closeButton.innerHTML = '&#10005;';
+                        closeButton.style.cssText = `
+                            background: none;
+                            border: none;
+                            color: white;
+                            font-size: 18px;
+                            cursor: pointer;
+                            padding: 4px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        `;
+
+                        const closePreview = () => {
+                            previewWrapper.remove();
+                            overlay.remove();
+                            eyeIcon.classList.remove('preview-active');
+                        };
+
+                        closeButton.addEventListener('click', closePreview);
+                        overlay.addEventListener('click', closePreview);
+
+                        // Assemble header
+                        header.appendChild(fileNameSection);
+                        header.appendChild(zoomControls);
+                        header.appendChild(closeButton);
+
+                        // Create iframe for PDF content
+                        const iframe = document.createElement('iframe');
+                        iframe.src = event.target.result;
+                        iframe.style.cssText = `
+                            width: 100%;
+                            height: calc(100% - 40px);
+                            border: none;
+                            background-color: white;
+                        `;
+
+                        // Assemble the preview
+                        previewWrapper.appendChild(header);
+                        previewWrapper.appendChild(iframe);
+
+                        // Add to document body
+                        document.body.appendChild(overlay);
+                        document.body.appendChild(previewWrapper);
+
+                        // Add zoom functionality
+                        let currentZoom = 100;
+                        zoomIn.addEventListener('click', () => {
+                            currentZoom += 10;
+                            iframe.style.transform = `scale(${currentZoom / 100})`;
+                            iframe.style.transformOrigin = 'top center';
+                        });
+
+                        zoomOut.addEventListener('click', () => {
+                            currentZoom = Math.max(currentZoom - 10, 50);
+                            iframe.style.transform = `scale(${currentZoom / 100})`;
+                            iframe.style.transformOrigin = 'top center';
+                        });
+
+                        // Add keyboard shortcut for closing
+                        document.addEventListener('keydown', function (e) {
+                            if (e.key === 'Escape') {
+                                closePreview();
+                            }
+                        });
+                    };
+                    reader.readAsDataURL(uploadedFile);
+                    eyeIcon.classList.add('preview-active');
+                } else if (uploadedFile && (uploadedFile.type.startsWith('image/'))) {
+                    // Image preview
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        // Create wrapper for the preview
+                        const previewWrapper = document.createElement('div');
+                        previewWrapper.className = 'image-preview-wrapper';
+                        previewWrapper.style.cssText = `
+                            position: fixed;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            width: 90%;
+                            max-width: 800px;
+                            max-height: 90vh;
+                            background-color: white;
+                            display: flex;
+                            flex-direction: column;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                            z-index: 1000;
+                        `;
+
+                        // Add overlay
+                        const overlay = document.createElement('div');
+                        overlay.className = 'image-preview-overlay';
+                        overlay.style.cssText = `
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background-color: rgba(0, 0, 0, 0.5);
+                            z-index: 999;
+                        `;
+
+                        // Create header
+                        const header = document.createElement('div');
+                        header.style.cssText = `
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding: 8px 16px;
+                            background-color: #1a1a1a;
+                            color: white;
+                            height: 40px;
+                        `;
+
+                        // Left section with filename
+                        const fileNameSection = document.createElement('div');
+                        fileNameSection.style.cssText = `
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                        `;
+
+                        const fileName = document.createElement('span');
+                        fileName.textContent = uploadedFile.name;
+                        fileName.style.cssText = `
+                            color: white;
+                            font-size: 14px;
+                        `;
+                        fileNameSection.appendChild(fileName);
+
+                        // Close button
+                        const closeButton = document.createElement('button');
+                        closeButton.innerHTML = '&#10005;';
+                        closeButton.style.cssText = `
+                            background: none;
+                            border: none;
+                            color: white;
+                            font-size: 18px;
+                            cursor: pointer;
+                            padding: 4px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        `;
+
+                        const closePreview = () => {
+                            previewWrapper.remove();
+                            overlay.remove();
+                            eyeIcon.classList.remove('preview-active');
+                        };
+
+                        closeButton.addEventListener('click', closePreview);
+                        overlay.addEventListener('click', closePreview);
+
+                        // Assemble header
+                        header.appendChild(fileNameSection);
+                        header.appendChild(closeButton);
+
+                        // Create image element
+                        const imageContainer = document.createElement('div');
+                        imageContainer.style.cssText = `
+                            width: 100%;
+                            height: calc(100% - 40px);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            overflow: auto;
+                            padding: 20px;
+                            background-color: #f0f0f0;
+                        `;
+
+                        const img = document.createElement('img');
+                        img.src = event.target.result;
+                        img.style.cssText = `
+                            max-width: 100%;
+                            max-height: 80vh;
+                            object-fit: contain;
+                        `;
+
+                        imageContainer.appendChild(img);
+
+                        // Assemble the preview
+                        previewWrapper.appendChild(header);
+                        previewWrapper.appendChild(imageContainer);
+
+                        // Add to document body
+                        document.body.appendChild(overlay);
+                        document.body.appendChild(previewWrapper);
+
+                        // Add keyboard shortcut for closing
+                        document.addEventListener('keydown', function (e) {
+                            if (e.key === 'Escape') {
+                                closePreview();
+                            }
+                        });
+                    };
+                    reader.readAsDataURL(uploadedFile);
+                    eyeIcon.classList.add('preview-active');
+                } else {
+                    alert('Please upload a valid PDF or image file to preview.');
+                }
+            }
+        });
+    });
+};
+
+// Helper function to truncate file names
+function truncateFileName(fileName) {
+    if (fileName.length <= 20) return fileName;
+    
+    const extension = fileName.slice(fileName.lastIndexOf('.'));
+    const name = fileName.slice(0, fileName.lastIndexOf('.'));
+    
+    return name.slice(0, 16) + '...' + extension;
+}
+
+// Initialize the document uploads when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    initializeSecuredAdmissionDocumentUpload();
+});
+
+
+
+const initializeWorkExperienceDocumentUpload = () => {
+    const workExperienceDocuments = document.querySelectorAll(".individual-work-experiencecolumn-documents");
+
+    workExperienceDocuments.forEach((card) => {
+        let uploadedFile = null;
+        const inputId = card.querySelector('input[type="file"]').id;
+        const documentTypeText = card.querySelector('.document-name').textContent.trim();
+        
+        // Get the specific preview icon
+        const previewIconId = card.querySelector('.fa-eye').id;
+
+        // Trigger file input when the container is clicked
+        card.querySelector('.inputfilecontainer-work-experiencecolumn').addEventListener('click', function (event) {
+            // Prevent triggering if clicking on the eye icon
+            if (!event.target.classList.contains('fa-eye') && !event.target.id.startsWith('view-')) {
+                card.querySelector(`#${inputId}`).click();
+            }
+        });
+
+        // Handle file selection and validation
+        card.querySelector(`#${inputId}`).addEventListener('change', function (event) {
+            const file = event.target.files[0];
+
+            // Ensure file is selected
+            if (!file) return;
+
+            console.log(`Selected file for ${documentTypeText}:`, file);  // Debug log
+
+            // Allowed file types
+            const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
+            const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
+
+            // Validate file type
+            if (!allowedExtensions.includes(fileExtension)) {
+                alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
+                event.target.value = ''; // Clear the file input
+                
+                // Reset the text inside the respective document type element
+                const documentTypeElement = getDocumentTypeElement(card);
+                if (documentTypeElement) {
+                    documentTypeElement.textContent = getOriginalText(documentTypeElement);
+                }
+                
+                return;
+            }
+
+            // Validate file size (5MB max)
+            if (file.size > 5 * 1024 * 1024) {
+                alert("Error: File size exceeds 5MB limit.");
+                event.target.value = ''; // Clear the file input
+                
+                // Reset the text inside the respective document type element
+                const documentTypeElement = getDocumentTypeElement(card);
+                if (documentTypeElement) {
+                    documentTypeElement.textContent = getOriginalText(documentTypeElement);
+                }
+                
+                return;
+            }
+
+            // Store the file and update UI
+            uploadedFile = file;
+            
+            // Update the text in the specific document type element
+            const documentTypeElement = getDocumentTypeElement(card);
+            if (documentTypeElement) {
+                documentTypeElement.textContent = truncateFileName(file.name);
+            }
+
+            const fileSize = file.size < 1024 * 1024
+                ? (file.size / 1024).toFixed(2) + ' KB'
+                : (file.size / (1024 * 1024)).toFixed(2) + ' MB';
+            card.querySelector('.document-status').textContent = `${fileSize} Uploaded`;
+
+            console.log(`File uploaded for ${documentTypeText}:`, uploadedFile);  // Debug log
+        });
+
+        // Helper function to get the correct document type element
+        function getDocumentTypeElement(card) {
+            if (card.querySelector('.experience-letter')) return card.querySelector('.experience-letter');
+            if (card.querySelector('.salary-slip')) return card.querySelector('.salary-slip');
+            if (card.querySelector('.office-id')) return card.querySelector('.office-id');
+            if (card.querySelector('.joining-letter')) return card.querySelector('.joining-letter');
+            return null;
+        }
+        
+        // Helper function to get original text
+        function getOriginalText(element) {
+            if (element.classList.contains('experience-letter')) return 'Experience Letter';
+            if (element.classList.contains('salary-slip')) return '3 month salary slip';
+            if (element.classList.contains('office-id')) return 'Office ID';
+            if (element.classList.contains('joining-letter')) return 'Joining Letter';
+            return 'No file chosen';
+        }
+
+        // Handle preview functionality
+        card.querySelector(`#${previewIconId}`).addEventListener('click', function (event) {
+            event.stopPropagation();
+            
+            // Reference to preview icon
+            const eyeIcon = this;
+
+            if (eyeIcon.classList.contains('preview-active')) {
+                const previewWrapper = document.querySelector('.pdf-preview-wrapper');
+                if (previewWrapper) previewWrapper.remove();
+                const overlay = document.querySelector('.pdf-preview-overlay');
+                if (overlay) overlay.remove();
+                eyeIcon.classList.remove('preview-active');
+            } else {
+                if (uploadedFile && uploadedFile.type === 'application/pdf') {
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        // Create wrapper for the preview
+                        const previewWrapper = document.createElement('div');
+                        previewWrapper.className = 'pdf-preview-wrapper';
+                        previewWrapper.style.cssText = `
+                            position: fixed;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            width: 90%;
+                            height: 90vh;
+                            background-color: white;
+                            display: flex;
+                            flex-direction: column;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                            z-index: 1000;
+                        `;
+
+                        // Add overlay
+                        const overlay = document.createElement('div');
+                        overlay.className = 'pdf-preview-overlay';
+                        overlay.style.cssText = `
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background-color: rgba(0, 0, 0, 0.5);
+                            z-index: 999;
+                        `;
+
+                        // Create header
+                        const header = document.createElement('div');
+                        header.style.cssText = `
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding: 8px 16px;
+                            background-color: #1a1a1a;
+                            color: white;
+                            height: 40px;
+                        `;
+
+                        // Left section with filename
+                        const fileNameSection = document.createElement('div');
+                        fileNameSection.style.cssText = `
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                        `;
+
+                        const fileName = document.createElement('span');
+                        fileName.textContent = uploadedFile.name;
+                        fileName.style.cssText = `
+                            color: white;
+                            font-size: 14px;
+                        `;
+                        fileNameSection.appendChild(fileName);
+
+                        // Middle section with zoom controls
+                        const zoomControls = document.createElement('div');
+                        zoomControls.style.cssText = `
+                            display: flex;
+                            align-items: center;
+                            gap: 12px;
+                            position: absolute;
+                            left: 50%;
+                            transform: translateX(-50%);
+                        `;
+
+                        const zoomOut = document.createElement('button');
+                        zoomOut.innerHTML = '&#8722;';
+                        const zoomIn = document.createElement('button');
+                        zoomIn.innerHTML = '&#43;';
+
+                        [zoomOut, zoomIn].forEach(btn => {
+                            btn.style.cssText = `
+                                background: none;
+                                border: none;
+                                color: white;
+                                font-size: 18px;
+                                cursor: pointer;
+                                padding: 4px 8px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            `;
+                        });
+
+                        zoomControls.appendChild(zoomOut);
+                        zoomControls.appendChild(zoomIn);
+
+                        // Close button
+                        const closeButton = document.createElement('button');
+                        closeButton.innerHTML = '&#10005;';
+                        closeButton.style.cssText = `
+                            background: none;
+                            border: none;
+                            color: white;
+                            font-size: 18px;
+                            cursor: pointer;
+                            padding: 4px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        `;
+
+                        const closePreview = () => {
+                            previewWrapper.remove();
+                            overlay.remove();
+                            eyeIcon.classList.remove('preview-active');
+                        };
+
+                        closeButton.addEventListener('click', closePreview);
+                        overlay.addEventListener('click', closePreview);
+
+                        // Assemble header
+                        header.appendChild(fileNameSection);
+                        header.appendChild(zoomControls);
+                        header.appendChild(closeButton);
+
+                        // Create iframe for PDF content
+                        const iframe = document.createElement('iframe');
+                        iframe.src = event.target.result;
+                        iframe.style.cssText = `
+                            width: 100%;
+                            height: calc(100% - 40px);
+                            border: none;
+                            background-color: white;
+                        `;
+
+                        // Assemble the preview
+                        previewWrapper.appendChild(header);
+                        previewWrapper.appendChild(iframe);
+
+                        // Add to document body
+                        document.body.appendChild(overlay);
+                        document.body.appendChild(previewWrapper);
+
+                        // Add zoom functionality
+                        let currentZoom = 100;
+                        zoomIn.addEventListener('click', () => {
+                            currentZoom += 10;
+                            iframe.style.transform = `scale(${currentZoom / 100})`;
+                            iframe.style.transformOrigin = 'top center';
+                        });
+
+                        zoomOut.addEventListener('click', () => {
+                            currentZoom = Math.max(currentZoom - 10, 50);
+                            iframe.style.transform = `scale(${currentZoom / 100})`;
+                            iframe.style.transformOrigin = 'top center';
+                        });
+
+                        // Add keyboard shortcut for closing
+                        document.addEventListener('keydown', function (e) {
+                            if (e.key === 'Escape') {
+                                closePreview();
+                            }
+                        });
+                    };
+                    reader.readAsDataURL(uploadedFile);
+                    eyeIcon.classList.add('preview-active');
+                } else if (uploadedFile && (uploadedFile.type.startsWith('image/'))) {
+                    // Image preview
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        // Create wrapper for the preview
+                        const previewWrapper = document.createElement('div');
+                        previewWrapper.className = 'image-preview-wrapper';
+                        previewWrapper.style.cssText = `
+                            position: fixed;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            width: 90%;
+                            max-width: 800px;
+                            max-height: 90vh;
+                            background-color: white;
+                            display: flex;
+                            flex-direction: column;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                            z-index: 1000;
+                        `;
+
+                        // Add overlay
+                        const overlay = document.createElement('div');
+                        overlay.className = 'image-preview-overlay';
+                        overlay.style.cssText = `
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background-color: rgba(0, 0, 0, 0.5);
+                            z-index: 999;
+                        `;
+
+                        // Create header
+                        const header = document.createElement('div');
+                        header.style.cssText = `
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding: 8px 16px;
+                            background-color: #1a1a1a;
+                            color: white;
+                            height: 40px;
+                        `;
+
+                        // Left section with filename
+                        const fileNameSection = document.createElement('div');
+                        fileNameSection.style.cssText = `
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                        `;
+
+                        const fileName = document.createElement('span');
+                        fileName.textContent = uploadedFile.name;
+                        fileName.style.cssText = `
+                            color: white;
+                            font-size: 14px;
+                        `;
+                        fileNameSection.appendChild(fileName);
+
+                        // Close button
+                        const closeButton = document.createElement('button');
+                        closeButton.innerHTML = '&#10005;';
+                        closeButton.style.cssText = `
+                            background: none;
+                            border: none;
+                            color: white;
+                            font-size: 18px;
+                            cursor: pointer;
+                            padding: 4px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        `;
+
+                        const closePreview = () => {
+                            previewWrapper.remove();
+                            overlay.remove();
+                            eyeIcon.classList.remove('preview-active');
+                        };
+
+                        closeButton.addEventListener('click', closePreview);
+                        overlay.addEventListener('click', closePreview);
+
+                        // Assemble header
+                        header.appendChild(fileNameSection);
+                        header.appendChild(closeButton);
+
+                        // Create image element
+                        const imageContainer = document.createElement('div');
+                        imageContainer.style.cssText = `
+                            width: 100%;
+                            height: calc(100% - 40px);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            overflow: auto;
+                            padding: 20px;
+                            background-color: #f0f0f0;
+                        `;
+
+                        const img = document.createElement('img');
+                        img.src = event.target.result;
+                        img.style.cssText = `
+                            max-width: 100%;
+                            max-height: 80vh;
+                            object-fit: contain;
+                        `;
+
+                        imageContainer.appendChild(img);
+
+                        // Assemble the preview
+                        previewWrapper.appendChild(header);
+                        previewWrapper.appendChild(imageContainer);
+
+                        // Add to document body
+                        document.body.appendChild(overlay);
+                        document.body.appendChild(previewWrapper);
+
+                        // Add keyboard shortcut for closing
+                        document.addEventListener('keydown', function (e) {
+                            if (e.key === 'Escape') {
+                                closePreview();
+                            }
+                        });
+                    };
+                    reader.readAsDataURL(uploadedFile);
+                    eyeIcon.classList.add('preview-active');
+                } else {
+                    alert('Please upload a valid PDF or image file to preview.');
+                }
+            }
+        });
+    });
+};
+
+// Helper function to truncate file names
+function truncateFileName(fileName) {
+    if (fileName.length <= 20) return fileName;
+    
+    const extension = fileName.slice(fileName.lastIndexOf('.'));
+    const name = fileName.slice(0, fileName.lastIndexOf('.'));
+    
+    return name.slice(0, 16) + '...' + extension;
+}
+
+// Initialize the document uploads when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    initializeWorkExperienceDocumentUpload();
+});
+
+
+
+//co-borrower document
+const initializeCoBorrowerDocumentUpload = () => {
+    const coBorrowerDocuments = document.querySelectorAll(".individual-coborrower-kyc-documents");
+
+    coBorrowerDocuments.forEach((card) => {
+        let uploadedFile = null;
+        const inputId = card.querySelector('input[type="file"]').id;
+        const documentTypeText = card.querySelector('.document-name').textContent.trim();
+        
+        // Get the specific preview icon
+        const previewIconId = card.querySelector('.fa-eye').id;
+
+        // Trigger file input when the container is clicked
+        card.querySelector('.inputfilecontainer-coborrower-kyccolumn').addEventListener('click', function (event) {
+            // Prevent triggering if clicking on the eye icon
+            if (!event.target.classList.contains('fa-eye') && !event.target.id.startsWith('view-')) {
+                card.querySelector(`#${inputId}`).click();
+            }
+        });
+
+        // Handle file selection and validation
+        card.querySelector(`#${inputId}`).addEventListener('change', function (event) {
+            const file = event.target.files[0];
+
+            // Ensure file is selected
+            if (!file) return;
+
+            console.log(`Selected file for ${documentTypeText}:`, file);  // Debug log
+
+            // Allowed file types
+            const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
+            const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
+
+            // Validate file type
+            if (!allowedExtensions.includes(fileExtension)) {
+                alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
+                event.target.value = ''; // Clear the file input
+                
+                // Reset the text inside the respective document type element
+                const documentTypeElement = getDocumentTypeElement(card);
+                if (documentTypeElement) {
+                    documentTypeElement.textContent = getOriginalText(documentTypeElement);
+                }
+                
+                return;
+            }
+
+            // Validate file size (5MB max)
+            if (file.size > 5 * 1024 * 1024) {
+                alert("Error: File size exceeds 5MB limit.");
+                event.target.value = ''; // Clear the file input
+                
+                // Reset the text inside the respective document type element
+                const documentTypeElement = getDocumentTypeElement(card);
+                if (documentTypeElement) {
+                    documentTypeElement.textContent = getOriginalText(documentTypeElement);
+                }
+                
+                return;
+            }
+
+            // Store the file and update UI
+            uploadedFile = file;
+            
+            // Update the text in the specific document type element
+            const documentTypeElement = getDocumentTypeElement(card);
+            if (documentTypeElement) {
+                documentTypeElement.textContent = truncateFileName(file.name);
+            }
+
+            const fileSize = file.size < 1024 * 1024
+                ? (file.size / 1024).toFixed(2) + ' KB'
+                : (file.size / (1024 * 1024)).toFixed(2) + ' MB';
+            card.querySelector('.document-status').textContent = `${fileSize} Uploaded`;
+
+            console.log(`File uploaded for ${documentTypeText}:`, uploadedFile);  // Debug log
+        });
+
+        // Helper function to get the correct document type element
+        function getDocumentTypeElement(card) {
+            if (card.querySelector('.coborrower-pancard')) return card.querySelector('.coborrower-pancard');
+            if (card.querySelector('.coborrower-aadharcard')) return card.querySelector('.coborrower-aadharcard');
+            if (card.querySelector('.coborrower-addressproof')) return card.querySelector('.coborrower-addressproof');
+            return null;
+        }
+        
+        // Helper function to get original text
+        function getOriginalText(element) {
+            if (element.classList.contains('coborrower-pancard')) return 'Pan Card';
+            if (element.classList.contains('coborrower-aadharcard')) return 'Aadhar Card';
+            if (element.classList.contains('coborrower-addressproof')) return 'Address Proof';
+            return 'No file chosen';
+        }
+
+        // Handle preview functionality
+        card.querySelector(`#${previewIconId}`).addEventListener('click', function (event) {
+            event.stopPropagation();
+            
+            // Reference to preview icon
+            const eyeIcon = this;
+
+            if (eyeIcon.classList.contains('preview-active')) {
+                const previewWrapper = document.querySelector('.pdf-preview-wrapper, .image-preview-wrapper');
+                if (previewWrapper) previewWrapper.remove();
+                const overlay = document.querySelector('.pdf-preview-overlay, .image-preview-overlay');
+                if (overlay) overlay.remove();
+                eyeIcon.classList.remove('preview-active');
+            } else {
+                if (uploadedFile && uploadedFile.type === 'application/pdf') {
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        // Create wrapper for the preview
+                        const previewWrapper = document.createElement('div');
+                        previewWrapper.className = 'pdf-preview-wrapper';
+                        previewWrapper.style.cssText = `
+                            position: fixed;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            width: 90%;
+                            height: 90vh;
+                            background-color: white;
+                            display: flex;
+                            flex-direction: column;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                            z-index: 1000;
+                        `;
+
+                        // Add overlay
+                        const overlay = document.createElement('div');
+                        overlay.className = 'pdf-preview-overlay';
+                        overlay.style.cssText = `
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background-color: rgba(0, 0, 0, 0.5);
+                            z-index: 999;
+                        `;
+
+                        // Create header
+                        const header = document.createElement('div');
+                        header.style.cssText = `
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding: 8px 16px;
+                            background-color: #1a1a1a;
+                            color: white;
+                            height: 40px;
+                        `;
+
+                        // Left section with filename
+                        const fileNameSection = document.createElement('div');
+                        fileNameSection.style.cssText = `
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                        `;
+
+                        const fileName = document.createElement('span');
+                        fileName.textContent = uploadedFile.name;
+                        fileName.style.cssText = `
+                            color: white;
+                            font-size: 14px;
+                        `;
+                        fileNameSection.appendChild(fileName);
+
+                        // Middle section with zoom controls
+                        const zoomControls = document.createElement('div');
+                        zoomControls.style.cssText = `
+                            display: flex;
+                            align-items: center;
+                            gap: 12px;
+                            position: absolute;
+                            left: 50%;
+                            transform: translateX(-50%);
+                        `;
+
+                        const zoomOut = document.createElement('button');
+                        zoomOut.innerHTML = '&#8722;';
+                        const zoomIn = document.createElement('button');
+                        zoomIn.innerHTML = '&#43;';
+
+                        [zoomOut, zoomIn].forEach(btn => {
+                            btn.style.cssText = `
+                                background: none;
+                                border: none;
+                                color: white;
+                                font-size: 18px;
+                                cursor: pointer;
+                                padding: 4px 8px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            `;
+                        });
+
+                        zoomControls.appendChild(zoomOut);
+                        zoomControls.appendChild(zoomIn);
+
+                        // Close button
+                        const closeButton = document.createElement('button');
+                        closeButton.innerHTML = '&#10005;';
+                        closeButton.style.cssText = `
+                            background: none;
+                            border: none;
+                            color: white;
+                            font-size: 18px;
+                            cursor: pointer;
+                            padding: 4px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        `;
+
+                        const closePreview = () => {
+                            previewWrapper.remove();
+                            overlay.remove();
+                            eyeIcon.classList.remove('preview-active');
+                        };
+
+                        closeButton.addEventListener('click', closePreview);
+                        overlay.addEventListener('click', closePreview);
+
+                        // Assemble header
+                        header.appendChild(fileNameSection);
+                        header.appendChild(zoomControls);
+                        header.appendChild(closeButton);
+
+                        // Create iframe for PDF content
+                        const iframe = document.createElement('iframe');
+                        iframe.src = event.target.result;
+                        iframe.style.cssText = `
+                            width: 100%;
+                            height: calc(100% - 40px);
+                            border: none;
+                            background-color: white;
+                        `;
+
+                        // Assemble the preview
+                        previewWrapper.appendChild(header);
+                        previewWrapper.appendChild(iframe);
+
+                        // Add to document body
+                        document.body.appendChild(overlay);
+                        document.body.appendChild(previewWrapper);
+
+                        // Add zoom functionality
+                        let currentZoom = 100;
+                        zoomIn.addEventListener('click', () => {
+                            currentZoom += 10;
+                            iframe.style.transform = `scale(${currentZoom / 100})`;
+                            iframe.style.transformOrigin = 'top center';
+                        });
+
+                        zoomOut.addEventListener('click', () => {
+                            currentZoom = Math.max(currentZoom - 10, 50);
+                            iframe.style.transform = `scale(${currentZoom / 100})`;
+                            iframe.style.transformOrigin = 'top center';
+                        });
+
+                        // Add keyboard shortcut for closing
+                        document.addEventListener('keydown', function (e) {
+                            if (e.key === 'Escape') {
+                                closePreview();
+                            }
+                        });
+                    };
+                    reader.readAsDataURL(uploadedFile);
+                    eyeIcon.classList.add('preview-active');
+                } else if (uploadedFile && (uploadedFile.type.startsWith('image/'))) {
+                    // Image preview
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        // Create wrapper for the preview
+                        const previewWrapper = document.createElement('div');
+                        previewWrapper.className = 'image-preview-wrapper';
+                        previewWrapper.style.cssText = `
+                            position: fixed;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            width: 90%;
+                            max-width: 800px;
+                            max-height: 90vh;
+                            background-color: white;
+                            display: flex;
+                            flex-direction: column;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                            z-index: 1000;
+                        `;
+
+                        // Add overlay
+                        const overlay = document.createElement('div');
+                        overlay.className = 'image-preview-overlay';
+                        overlay.style.cssText = `
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background-color: rgba(0, 0, 0, 0.5);
+                            z-index: 999;
+                        `;
+
+                        // Create header
+                        const header = document.createElement('div');
+                        header.style.cssText = `
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding: 8px 16px;
+                            background-color: #1a1a1a;
+                            color: white;
+                            height: 40px;
+                        `;
+
+                        // Left section with filename
+                        const fileNameSection = document.createElement('div');
+                        fileNameSection.style.cssText = `
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                        `;
+
+                        const fileName = document.createElement('span');
+                        fileName.textContent = uploadedFile.name;
+                        fileName.style.cssText = `
+                            color: white;
+                            font-size: 14px;
+                        `;
+                        fileNameSection.appendChild(fileName);
+
+                        // Close button
+                        const closeButton = document.createElement('button');
+                        closeButton.innerHTML = '&#10005;';
+                        closeButton.style.cssText = `
+                            background: none;
+                            border: none;
+                            color: white;
+                            font-size: 18px;
+                            cursor: pointer;
+                            padding: 4px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        `;
+
+                        const closePreview = () => {
+                            previewWrapper.remove();
+                            overlay.remove();
+                            eyeIcon.classList.remove('preview-active');
+                        };
+
+                        closeButton.addEventListener('click', closePreview);
+                        overlay.addEventListener('click', closePreview);
+
+                        // Assemble header
+                        header.appendChild(fileNameSection);
+                        header.appendChild(closeButton);
+
+                        // Create image element
+                        const imageContainer = document.createElement('div');
+                        imageContainer.style.cssText = `
+                            width: 100%;
+                            height: calc(100% - 40px);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            overflow: auto;
+                            padding: 20px;
+                            background-color: #f0f0f0;
+                        `;
+
+                        const img = document.createElement('img');
+                        img.src = event.target.result;
+                        img.style.cssText = `
+                            max-width: 100%;
+                            max-height: 80vh;
+                            object-fit: contain;
+                        `;
+
+                        imageContainer.appendChild(img);
+
+                        // Assemble the preview
+                        previewWrapper.appendChild(header);
+                        previewWrapper.appendChild(imageContainer);
+
+                        // Add to document body
+                        document.body.appendChild(overlay);
+                        document.body.appendChild(previewWrapper);
+
+                        // Add keyboard shortcut for closing
+                        document.addEventListener('keydown', function (e) {
+                            if (e.key === 'Escape') {
+                                closePreview();
+                            }
+                        });
+                    };
+                    reader.readAsDataURL(uploadedFile);
+                    eyeIcon.classList.add('preview-active');
+                } else {
+                    alert('Please upload a valid PDF or image file to preview.');
+                }
+            }
+        });
+    });
+};
+
+// Helper function to truncate file names
+function truncateFileName(fileName) {
+    if (fileName.length <= 20) return fileName;
+    
+    const extension = fileName.slice(fileName.lastIndexOf('.'));
+    const name = fileName.slice(0, fileName.lastIndexOf('.'));
+    
+    return name.slice(0, 16) + '...' + extension;
+}
+
+// Initialize the document uploads when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    initializeCoBorrowerDocumentUpload();
+});
 
         function toggleOtherDegreeInput(event) {
             const otherDegreeInput = document.getElementById('otherDegreeInput');
