@@ -22,7 +22,8 @@
                 rgba(255, 255, 255, 0.25),
                 rgba(111, 37, 206, 0.15)
             );
-             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);  
+              font-family: 'Poppins', sans-serif;
            
         }
 
@@ -73,6 +74,7 @@
             border-radius: 8px;
             transition: all 0.3s ease;
             padding: 0 20px;
+              font-family: 'Poppins', sans-serif;
         }
 
         .header-login-btn {

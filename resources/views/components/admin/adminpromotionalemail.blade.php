@@ -19,7 +19,8 @@
 
      @endphp
 
-      <div class="promotional-composer-main-section" id="promotional-composer-main-section-id">
+<div class="promotional-email-composer" id="promotional-composer-main-section-id">
+      <div class="promotional-composer-main-section">
         <div class="composer-email-container">
             <div class="promotional-header">
                 <h2>Compose Email</h2>
@@ -334,9 +335,14 @@
         </div>
 
     </div>
+</div>
+
 
     <script>
     // Wait for the DOM to be fully loaded
+
+
+
 document.addEventListener('DOMContentLoaded', function () {
     // Store references to frequently accessed elements
     const contentArea = document.querySelector('.promotional-content-area');

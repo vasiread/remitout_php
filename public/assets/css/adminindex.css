@@ -9,6 +9,7 @@
     padding: 0;
     margin-top: 0px;
     background-color: #F5F5F5;
+     font-family: 'Poppins', sans-serif;
 }
 .admin-index-section-main-container{
       display: none;
@@ -18,7 +19,7 @@
      margin-top: 50px;
      margin-right: 60px;
      gap: 17px;
-     margin-left: 2.1%;
+     margin-left: 2.1%; font-family: 'Poppins', sans-serif;
 
 }
 .admin-index-main-sub-container{
@@ -50,7 +51,7 @@
    } 
    .dashboard-section-index{
      font-weight: 600;
-    font-size: 18px;
+    font-size: 18px !important;
     color: #E98635;
   
 }
@@ -61,7 +62,7 @@
             padding: 12px 20px;
             border-radius: 6px;
             font-family: 'Poppins', sans-serif;
-            font-size: 16px;
+            font-size: 16px !important;
             cursor: pointer;
             min-width: 290px;
             width:90%;
@@ -107,7 +108,7 @@
 
         }
 .index-bank-name {
-    font-size: 14px;
+    font-size: 14px !important;
     font-weight: 600;
     margin-bottom: 8px;
     color: #333;

@@ -185,7 +185,7 @@
                 <div class="index-student-message-container" id="index-student-message-container-id">
                     <div class="index-student-card" id="index-student-card-id">
                         <div class="index-student-info" id="index-student-info-id">
-                            <h3 class="index-bank-name">Student Name</h3>
+                            <h3 class="index-bank-name">Bank Name</h3>
                             <p class="index-student-description">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                                 incididunt ut elit, sed do eiusmod tempor incididunt ut.
