@@ -6,7 +6,7 @@
             margin: 0 auto;
             display: none;
             flex-direction: column;
-           
+            font-family: 'Poppins', sans-serif;
             max-width: 100%;
             width: 100%;
             margin-top: 140px;
@@ -74,7 +74,7 @@
             padding: 10px 12px;
             text-decoration: none;
             display: block;
-            font-size: 14px;
+            font-size: 14px !important;
         }
 
         .ticket-raised-dropdown-content a:hover {
@@ -93,7 +93,7 @@
             flex: 1;
             color: #666;
             line-height: 1.5;
-            font-size: 14px;
+            font-size: 14px !important;
             padding-right: 15px;
         }
 
@@ -106,7 +106,7 @@
 
         .ticket-raised-meta-item {
             color: #666;
-            font-size: 14px;
+            font-size: 14px !important;
             text-align: center;
         }
 
@@ -118,7 +118,7 @@
             cursor: pointer;
             display: inline-block;
             margin-left: 5px;
-            font-size: 14px;
+            font-size: 14px !important;
         }
 
         .ticket-raised-chat-icon-container {
