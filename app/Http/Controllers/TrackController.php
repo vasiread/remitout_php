@@ -26,10 +26,10 @@ class TrackController extends Controller
 
         try {
             $request->validate([
-                'nbfc_id' => 'string|required',
+                'nbfcId' => 'string|required',
             ]);
 
-            $nbfcId = $request->input('nbfc_id');
+            $nbfcId = $request->input('nbfcId');
 
 
             $retrievedata = Requestprogress::join('users', 'users.unique_id', '=', 'traceprogress.user_id')

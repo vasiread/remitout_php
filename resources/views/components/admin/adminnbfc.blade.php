@@ -57,7 +57,7 @@
     @endphp
 
 
-    <div class="nbfclist-adminside" style="display:none">
+    <div class="nbfclist-adminside">
         <div class="globallistcontainer-header" id="nbfclistcontainer-headersection">
             <h2>NBFCs List</h2>
             <div class="headersection-rightsidecontent">
@@ -140,6 +140,36 @@
             nbfcListInitialize();
 
 
+
+            const nbfcAdminsideButton = document.querySelector(".nbfclist-adminside .studentlist-add-button");
+            const nbfcAdminside = document.querySelector(".nbfclist-adminside");
+            const nbfcAdminsideAddAuthority = document.querySelector(".add-nbfc-datasection");
+
+
+
+
+            if (nbfcAdminsideButton) {
+                nbfcAdminsideButton.addEventListener('click', () => {
+                    nbfcAdminside.style.display = "none";
+                    nbfcAdminsideAddAuthority.style.display = "flex";
+
+                });
+            }
+
+
+            const deletefirstbutton = document.querySelector(".delete-nbfc-id");
+
+
+            deletefirstbutton.addEventListener('click', () => {
+                const inputs = document.querySelectorAll(".formsection-addnbfcuser input");
+
+                inputs.forEach((item) => {
+                    item.value = '';
+                })
+
+
+            })
+
             const dropdownButton = document.querySelector('#studentlistcontainer-filters .dropdown-button-filters');
             const dropdownContent = document.querySelector('#studentlistcontainer-filters .dropdown-content-filters');
             const changeButtonInsideImg = document.querySelector('.individualnbfcs-buttoncontainer button:nth-child(2)');
@@ -158,6 +188,7 @@
                     }
                 });
             });
+
 
 
             document.querySelector(".add-nbfc-firstsection #save-all-nbfc").addEventListener('click', () => {
@@ -179,9 +210,9 @@
                 dynamicChangesThroughWindow(); // Call this on window resize
             });
 
-             dynamicChangesThroughWindow();
+            dynamicChangesThroughWindow();
 
-             sortLinks.forEach(items => {
+            sortLinks.forEach(items => {
                 items.addEventListener('click', function (e) {
                     e.preventDefault();
                     const sortType = this.getAttribute('data-sort');
@@ -377,6 +408,20 @@
                 .then((data) => {
                     if (data.success) {
                         console.log(data.message);
+                        const newForm = document.querySelectorAll(".formsection-addnbfcuser");
+                        newForm.forEach((item,index) => {
+                            if (index > 0) {
+                                item.remove();
+
+                            }
+                        })
+                        const inputs = document.querySelectorAll(".formsection-addnbfcuser input");
+
+                        inputs.forEach((item) => {
+                            item.value = '';
+                        })
+
+
                         alert(data.message);
                     } else if (data.error) {
                         console.error(data.error);

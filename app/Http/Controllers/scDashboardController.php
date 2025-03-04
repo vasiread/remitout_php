@@ -187,6 +187,28 @@ class scDashboardController extends Controller
         }
     }
 
+    public function getScAllUsers (){
+
+        try {
+            $scuser = Scuser::get();
+
+            return response()->json([
+                'success' => true,
+                'receivedData' => $scuser
+            ]);
+
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while fetching data',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+
+
+    }
+
 
     public function retrieveOneScUser(Request $request)
     {

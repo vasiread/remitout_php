@@ -42,46 +42,7 @@
 
     @php
 
-        $studentCounsellorsLists = [
-            [
-                'counsellor_name' => 'Rahul V Raman',
-                'counsellor_referral_id' => '3568878827634',
-                'date_added' => '2025-02-01'
 
-            ],
-            [
-                'counsellor_name' => 'Rahul V Raman',
-                'counsellor_referral_id' => '3568878827634',
-                'date_added' => '2025-02-13'
-
-            ],
-            [
-                'counsellor_name' => 'Pranav Rajan',
-                'counsellor_referral_id' => '3568878827634',
-                'date_added' => '2025-09-01'
-
-            ],
-            [
-                'counsellor_name' => 'Kalim Shaul',
-                'counsellor_referral_id' => '3568878827634',
-                'date_added' => '2025-02-01'
-
-            ],
-            [
-                'counsellor_name' => 'Vikra Narayan',
-                'counsellor_referral_id' => '3568878827634',
-                'date_added' => '2025-04-01'
-
-            ],
-            [
-                'counsellor_name' => 'Andher Pathil',
-                'counsellor_referral_id' => '3568878827634',
-                'date_added' => '2025-02-01'
-
-            ],
-
-
-        ]
 
 
     @endphp
@@ -121,14 +82,13 @@
                 <p id="cousellor-name-identify">Student Counsellor name</p>
                 <p id="cousellor-referralid-identify">Referral Number</p>
             </div>
-            @foreach ($studentCounsellorsLists as $studentCounsellor)
 
-                <div class="individualcounsellorlists-items" data-added="{{ $studentCounsellor['date_added'] }}">
+                <div class="individualcounsellorlists-items" data-added="">
 
                     <div class="individualcounsellorlists-content">
 
-                        <p id="student-counsellor-name-id">{{$studentCounsellor['counsellor_name']}}</p>
-                        <p>{{$studentCounsellor['counsellor_referral_id']}}</p>
+                        <p id="student-counsellor-name-id"></p>
+                        <p></p>
                     </div>
 
                     <div class="individualcounsellors-buttoncontainer">
@@ -137,7 +97,6 @@
                         <button>Suspend</button>
                     </div>
                 </div>
-            @endforeach
 
         </div>
     </div>
@@ -152,6 +111,17 @@
 
             document.getElementById("generate-referral-councellor-admin").addEventListener('click', () => {
                 addStudentCounsellor()
+
+            })
+
+            document.querySelector(".student-listcontainer .studentlist-add-button").addEventListener('click', () => {
+                const studentList = document.querySelector(".student-listcontainer");
+                const studentCounsellorAdminSide = document.querySelector(".add-studentcounsellor-adminside");
+
+                if (studentList && studentCounsellorAdminSide) {
+                    studentList.style.display = "none";
+                    studentCounsellorAdminSide.style.display = "flex";
+                }
 
             })
 
@@ -182,6 +152,32 @@
 
                 })
             })
+
+
+            const getScUsers = () => {
+                fetch('/getallscuser', {
+                    method: "GET",
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.success) {
+                            // Assuming the API returns a list of student counsellors in `data.receivedData`
+                            const counsellorList = data.receivedData;
+                            updateCounsellorList(counsellorList);  // Update the list on the page
+                        } else {
+                            console.error(data.error);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Fetch error: ", error);
+                    });
+            };
+
+            getScUsers();
+
 
 
 
@@ -284,18 +280,18 @@
                 return;
             }
 
-             if (!profilePhoto.files || profilePhoto.files.length === 0) {
+            if (!profilePhoto.files || profilePhoto.files.length === 0) {
                 alert('Please upload a profile photo.');
                 return;
             }
 
-             const formData = new FormData();
+            const formData = new FormData();
             formData.append('scUserName', scUserName);
             formData.append('scDob', scDob);
             formData.append('scEmail', scEmail);
             formData.append('scContact', scContact);
             formData.append('scAddress', scAddress);
-            formData.append('profilePhoto', profilePhoto.files[0]); 
+            formData.append('profilePhoto', profilePhoto.files[0]);
 
             fetch('/register-studentcounsellor', {
                 method: "POST",
@@ -308,7 +304,7 @@
                 .then((data) => {
                     if (data.message) {
                         alert(data.message);
-                        console.log(data);  
+                        console.log(data);
 
                         document.getElementById("studentcounsellor-requiredfields-admin-scname").value = '';
                         document.getElementById("studentcounsellor-requiredfields-admin-startdate").value = '';
@@ -329,6 +325,51 @@
         };
 
 
+        const updateCounsellorList = (counsellorList) => {
+            const counsellorContainer = document.getElementById('counsellor-list');
+            counsellorContainer.innerHTML = '';
+
+            counsellorList.forEach(counsellor => {
+                const fullTimestamp = counsellor.created_at;
+                const dateOnly = fullTimestamp.split(' ')[0];
+                const counsellorItem = document.createElement('div');
+                counsellorItem.className = 'individualcounsellorlists-items';
+                counsellorItem.setAttribute('data-added', dateOnly);
+
+                const counsellorContent = document.createElement('div');
+                counsellorContent.className = 'individualcounsellorlists-content';
+
+                const counsellorName = document.createElement('p');
+                counsellorName.id = 'student-counsellor-name-id';
+                counsellorName.textContent = counsellor.full_name;
+
+                const counsellorReferral = document.createElement('p');
+                counsellorReferral.textContent = counsellor.referral_code;
+
+                counsellorContent.appendChild(counsellorName);
+                counsellorContent.appendChild(counsellorReferral);
+                counsellorItem.appendChild(counsellorContent);
+
+                const buttonContainer = document.createElement('div');
+                buttonContainer.className = 'individualcounsellors-buttoncontainer';
+
+                const viewButton = document.createElement('button');
+                viewButton.innerHTML = '<img src="/assets/images/Icons/visibility.png" alt="View">';
+                buttonContainer.appendChild(viewButton);
+
+                const editButton = document.createElement('button');
+                editButton.innerHTML = '<img src="/assets/images/Icons/edit_purple.png" alt="Edit">';
+                buttonContainer.appendChild(editButton);
+
+                const suspendButton = document.createElement('button');
+                suspendButton.textContent = 'Suspend';
+                buttonContainer.appendChild(suspendButton);
+
+                counsellorItem.appendChild(buttonContainer);
+
+                counsellorContainer.appendChild(counsellorItem);
+            });
+        };
     </script>
 
 </body>

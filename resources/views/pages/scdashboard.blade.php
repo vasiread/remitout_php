@@ -484,6 +484,23 @@ $totalPages = ceil($totalStudents / $perPage);
             initializeProfileViewScuser();
             initializeScUserOneView();
             getUsersByCounsellor();
+           const triggerExpandShrink = document.querySelectorAll("#reportsindashboard-firstrow-view");
+
+            if (triggerExpandShrink) {
+                triggerExpandShrink.forEach((items, index) => {
+
+                    items.addEventListener("click",()=>{
+ const progress = document.querySelectorAll(".reportsproposal-datalists");
+                    if (progress[index].style.display === "flex") {
+                        progress[index].style.display = "none";
+                    } else {
+                        progress[index].style.display = "flex";
+                    }
+                    })
+                   
+                });
+            }
+
             const backgroundContainer = document.querySelector('.scdashboard-parentcontainer');
 
 
@@ -491,7 +508,7 @@ $totalPages = ceil($totalStudents / $perPage);
             const triggeredExcelStudentUploadButton = document.querySelector("#excel-upload-trigger");
 
         })
-        
+
         window.addEventListener('resize', function () {
             const triggeredSideBar = document.querySelector(".commonsidebar-togglesidebar");
             const img = document.querySelector("#scuser-dashboard-menu img");
@@ -510,7 +527,7 @@ $totalPages = ceil($totalStudents / $perPage);
             }
         });
 
-        const initializeProfileUploadScuser  = async () => {
+        const initializeProfileUploadScuser = async () => {
             const profileUploadForScTriggerShower = document.querySelector('.scdashboard-performancecontainer .performancecontainer-firstrow .edit-scuser');
             const scUserInfoUpdationSaver = document.querySelector('.scdashboard-performancecontainer .performancecontainer-firstrow .save-scuser');
 
@@ -623,6 +640,7 @@ $totalPages = ceil($totalStudents / $perPage);
 
             })
         };
+
 
         const initializeProfileViewScuser = () => {
 
@@ -873,7 +891,7 @@ $totalPages = ceil($totalStudents / $perPage);
             <input type="text" placeholder="password">
             <button class="delete-student-popup">Delete</button>
         `;
- 
+
                 studentFormContainer.appendChild(newForm);
 
                 const deleteButton = newForm.querySelector(".delete-student-popup");
@@ -1124,7 +1142,7 @@ $totalPages = ceil($totalStudents / $perPage);
             const updatedScAddress = personalEditMode.querySelector(".scmember_personal_info_state-edit .subbranch-of-address");
             const Profiledob = document.getElementById("screferral-dob-fromprofile");
             const editStateProfiledob = document.getElementById("screferral-dob-fromprofile-editmode");
-                const profileUploadForScTriggerShower = document.querySelector('.scdashboard-performancecontainer .performancecontainer-firstrow .edit-scuser');
+            const profileUploadForScTriggerShower = document.querySelector('.scdashboard-performancecontainer .performancecontainer-firstrow .edit-scuser');
             const scUserInfoUpdationSaver = document.querySelector('.scdashboard-performancecontainer .performancecontainer-firstrow .save-scuser');
 
 
@@ -1151,7 +1169,7 @@ $totalPages = ceil($totalStudents / $perPage);
 
             if (scNameElement) scNameElement.textContent = updatedScName;
             if (scPhoneElement) scPhoneElement.textContent = updatedScPhone;
- 
+
             if (Profiledob && Profiledob.querySelector("p")) {
                 Profiledob.querySelector("p").textContent = updatedScDob;
             }
@@ -1160,7 +1178,7 @@ $totalPages = ceil($totalStudents / $perPage);
                 alert("Please fill in all the address fields: street, district, state, and pincode.");
                 return; // Stop the execution if any field is missing, preventing fetch
             }
-            
+
 
             fetch("/updatescuserdetails", {
                 method: "POST",
@@ -1178,12 +1196,12 @@ $totalPages = ceil($totalStudents / $perPage);
                         if (personalScInfoContainer) personalScInfoContainer.style.display = "flex";
                         if (editStateProfiledob) editStateProfiledob.style.display = "none";
                         if (Profiledob) Profiledob.style.display = "flex";
-                        
+
                         profileUploadForScTriggerShower.style.display = "flex";
-                        scUserInfoUpdationSaver.style.display = "none";        
+                        scUserInfoUpdationSaver.style.display = "none";
                         const finalAddress = `${street}, ${district}, ${state} - ${pincode}`;
 
-                        if (scAddressElement) scAddressElement.textContent = finalAddress; 
+                        if (scAddressElement) scAddressElement.textContent = finalAddress;
 
                     } else {
                         console.error("Update failed: " + data.error);

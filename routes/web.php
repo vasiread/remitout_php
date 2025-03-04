@@ -101,7 +101,7 @@ Route::post('/retrieve-file', [StudentDashboardController::class, 'retrieveFile'
 Route::post('/push-user-id-request', [StudentDashboardController::class, 'pushUserIdToRequest']);
 Route::post('/del-user-id-request', [StudentDashboardController::class, 'removeUserIdFromNBFCAndReject']);
 Route::post('/update-user-id-request', [StudentDashboardController::class, 'updateUserIdFromNBFC']);
- 
+Route::get("/getallscuser", [scDashboardController::class, 'getScAllUsers']);
 Route::post('/getuserbyref', [scDashboardController::class, 'getUsersByCounsellorApi']);
 
 // OTP Routes
