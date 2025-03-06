@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         /* Header Navigation */
         .header-nav {
@@ -58,6 +59,7 @@
             display: flex;
             gap: 16px;
             align-items: center;
+            margin-left:50px;
         }
 
         .header-login-btn,
@@ -99,16 +101,18 @@
         /* Navigation Links */
         .header-links {
             display: flex;
-            gap: 43px;
+            gap: 48px;
             align-items: center;
         }
+        
 
         .header-links a {
             text-decoration: none;
             color: white;
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 400;
             transition: color 0.3s ease;
+            letter-spacing: 1px;
         }
 
         .header-links a:hover {
@@ -138,7 +142,8 @@
             background-color: white;
             border-radius: 2px;
         }
-        @media (min-width: 1513px) { 
+
+@media (min-width: 1513px) { 
     .header-container {
         height: 85px;
         width: 1470px;
@@ -212,6 +217,7 @@
                 width: 100%;
                 margin: 0 auto;
                 font-size: 20px;
+                font-weight:500;
                 padding-top: 80px;
                 height: auto;
             }
@@ -436,12 +442,14 @@
                 <a href="#schedule" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Schedule Call</a>
                 <a href="#support" class="header-mobile-link {{ Request::is('/') ? '' : 'fullopacitylinks' }}">Support</a>
                 <a href="#help" class="header-mobile-link {{ Request::is('/') ? '' : 'fullopacitylinks' }}">Help</a>
-
-                <div class="header-buttons">
+             
+             <div class="header-buttons">
                     <button class="header-login-btn" onclick="window.location.href='{{ route('login') }}'">Log In</button>
                     <button class="header-signup-btn" onclick="window.location.href='{{ route('signup') }}'">Sign Up</button>
                 </div>
+                
             </div>
+            
 
             <div class="header-menu-icon" id="menu-icon">
                 <span class="bar"></span>

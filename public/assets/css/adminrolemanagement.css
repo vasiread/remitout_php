@@ -1,21 +1,20 @@
 .role-management-admin-main-container {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 150px; 
+    right: 40px; 
     background-color: white;
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    display: flex;
+    display: none;
     flex-direction: column;
     font-family: 'Poppins', sans-serif;
-    width: calc(100% - 18% - 40px); /* Sidebar width + margin */
-    margin-left: 18%; /* Push content to the right of sidebar */
-    margin-right: 20px; /* Add spacing from the right */
+    width: calc(100% - 20% - 50px);
+    margin-left: 18%;
     height: 100vh;
     overflow-y: auto;
-    margin-top: 150px; /* Match sidebar */
 }
+
 
 
 
@@ -23,7 +22,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    padding:20px 0px;
 }
 
 .role-management-title {
@@ -43,7 +42,7 @@
     border-radius: 8px;
     width: 200px;
     height: 38px;
-    font-size: 14px;
+    font-size: 14px !important;
     color: #909090;
     outline: none;
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>');
@@ -54,6 +53,7 @@
 
 .role-management-list {
     width: 100%;
+   
 }
 
 .role-management-row {
@@ -66,6 +66,7 @@
     color: #909090;
     gap: 10px;
     width: 100%;
+     font-family: 'Poppins', sans-serif;
 }
 
 .role-management-actions {
@@ -128,6 +129,7 @@
     padding: 5px 10px;
     color: #575555;
     outline: none;
+     font-family: 'Poppins', sans-serif;
 }
 
 .custom-dropdown {

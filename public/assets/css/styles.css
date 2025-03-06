@@ -231,6 +231,7 @@ body {
 .line-1 {
   display: block;
   font-weight: 600;
+   font-family: 'Poppins', sans-serif;
 }
 
 .line-2 {
@@ -239,6 +240,7 @@ body {
 
 .line-2 .bold {
   font-weight: 600;
+   font-family: 'Poppins', sans-serif;
 }
 
 .line-2 .thin-italic {
@@ -282,7 +284,7 @@ body {
 
 .journey-title {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 120%;
   margin: 0;
 }
@@ -291,7 +293,7 @@ body {
   font-size: 18px;
   line-height: 140%;
   font-weight: 300;
-  
+  padding:15px 0px;
   color: rgba(255, 255, 255, 0.8);
 
 
@@ -321,6 +323,8 @@ body {
   justify-content: center;
   align-items: center;
   white-space: nowrap;
+   font-family: 'Poppins', sans-serif;
+
 }
 
 .secure-loan:hover {
@@ -347,7 +351,9 @@ body {
   gap: 0.5rem;
   transition: background-color 0.3s ease;
   white-space: nowrap;
-  border: 0.5px solid rgba(255, 255, 255, 1)
+  border: 0.5px solid rgba(255, 255, 255, 1);
+   font-family: 'Poppins', sans-serif;
+
 }
 
 .watch-demo:hover {

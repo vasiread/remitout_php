@@ -1,7 +1,8 @@
       
         .edit-content-container {
              font-family: 'Poppins', sans-serif;
-          padding:10px;
+             display:none;
+             padding:10px;
             flex-direction: column;
             max-width: 71.04%;
             width: 100%;
@@ -15,6 +16,7 @@
 
        .admin-edit-container-sections{
          border: 10px;
+           border-radius: 10px;
         }
  
    
@@ -64,6 +66,17 @@
     padding: 24px 40px;
     position: relative; 
 }
+.edit-content-tag-container {
+    font-size: 14px;
+    color: #909090;
+     font-family: 'Poppins', sans-serif;
+}
+
+.edit-content-row > div:not(.edit-content-tag-container) {
+    font-size: 14px;
+}
+
+
 
 .edit-content-row::after {
     content: "";

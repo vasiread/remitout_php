@@ -31,14 +31,14 @@
 
 
     @php
-        $profileImgPath = 'images/admin-student-profile.png';
-        $uploadPanName = '';
-        $profileIconPath = "assets/images/account_circle.png";
-        $phoneIconPath = "assets/images/call.png";
-        $mailIconPath = "assets/images/mail.png";
-        $pindropIconPath = "assets/images/pin_drop.png";
-        $discordIconPath = "assets/images/icons/discordicon.png";
-        $viewIconPath = "assets/images/visibility.png";
+$profileImgPath = 'images/admin-student-profile.png';
+$uploadPanName = '';
+$profileIconPath = "assets/images/account_circle.png";
+$phoneIconPath = "assets/images/call.png";
+$mailIconPath = "assets/images/mail.png";
+$pindropIconPath = "assets/images/pin_drop.png";
+$discordIconPath = "assets/images/icons/discordicon.png";
+$viewIconPath = "assets/images/visibility.png";
 
 
 
@@ -937,6 +937,7 @@
                 const mobileOverlay = document.querySelector('.nbfc-mobile-overlay');
                 const nbfcNavRight = document.querySelector('.nbfc-nav-right'); // Select nav-right
 
+
                 // Select elements for menu items
                 const dashboardBtn = document.querySelector('.nbfc-mobile-menu-top li:nth-child(1)'); // Dashboard
                 const inboxBtn = document.querySelector('.nbfc-mobile-menu-top li:nth-child(2)'); // Inbox
@@ -1290,18 +1291,15 @@
                 const cancelButton = document.querySelector(".cancel-button");
 
 
-                // Show a rejection message when any reject button is clicked
 
-                const rejectButtons = document.querySelectorAll(".reject-button"); // Select all reject buttons
+                const rejectButtons = document.querySelectorAll(".reject-button");
 
-                rejectButtons.forEach((rejectButton) => {
+                rejectButtons.forEach((rejectButton, index) => {
                     rejectButton.addEventListener("click", function () {
-                        // Display a rejection message
-                        alert("Application Rejected"); // Replace this with a toast if needed
+                         
                     });
                 });
 
-                // Close the modal when the close button or cancel button is clicked (if modal functionality is still needed elsewhere)
                 if (closeButton) {
                     closeButton.addEventListener("click", function () {
                         modalContainer.style.display = "none"; // Hide the modal
@@ -1322,6 +1320,7 @@
                 const initializeTraceViewNBFC = (requestsData, proposalsData) => {
 
                     var user = @json(session('user'));
+                    
 
                     if (user && user.nbfc_id) {
                         const nbfcId = user.nbfc_id;
@@ -1361,7 +1360,7 @@
                                             console.log(requestsData);
                                             populateStudentList("dashboard-request-list", requestsData);
 
-                                        } else if (item.type === 'proposals') {
+                                        } else if (item.type === 'proposal') {
                                             // Push into proposalsData
                                             proposalsData.push({
                                                 id: index + 1,
@@ -1389,7 +1388,9 @@
                     }
                 };
 
-                initializeTraceViewNBFC(requestsData, proposalsData);
+                                                initializeTraceViewNBFC(requestsData, proposalsData);
+
+
 
 
                 function populateStudentList(sectionId, data) {
@@ -1397,8 +1398,8 @@
 
                     studentListContainer.innerHTML = ""; // Clear existing list items
 
-                    data.forEach(student => {
-                        const studentListItem = createStudentListItem(student);
+                    data.forEach((student) => {
+                         const studentListItem = createStudentListItem(student);
                         studentListContainer.appendChild(studentListItem);
                     });
                 }
@@ -1454,7 +1455,8 @@
                     rejectButton.classList.add("dashboard-reject-button");
                     rejectButton.textContent = "Reject";
                     rejectButton.addEventListener("click", function () {
-                        showRejectModal();
+                         
+                        showRejectModal(student);
                     });
 
                     actionButtons.appendChild(viewButton);
@@ -1470,9 +1472,11 @@
                 // Function to populate student list for a given section
 
                 // Function to show the reject modal
-                function showRejectModal() {
+                function showRejectModal(student) {
                     const modal = document.querySelector('.modal-container');
-                    modal.style.display = 'flex'; // Show the modal
+                    modal.style.display = 'flex';  
+                    alert(student);
+                     
                 }
 
                 // Populate both the "Requests" and "Proposals" lists
@@ -1976,13 +1980,13 @@
                     cancelButton.addEventListener("click", hideRejectModal);
                 }
 
-                // Keep existing rejection alert for ".reject-button"
-                const rejectButtons = document.querySelectorAll(".reject-button");
-                rejectButtons.forEach((rejectButton) => {
-                    rejectButton.addEventListener("click", function () {
-                        alert("Application Rejected");
-                    });
-                });
+                // const rejectButtons = document.querySelectorAll(".reject-button");
+                // rejectButtons.forEach((rejectButton) => {
+                //     rejectButton.addEventListener("click", function () {
+                //         alert("Application Rejected");
+
+                //     });
+                // });
 
                 // Close modal when clicking outside the modal
                 if (modalContainer) {

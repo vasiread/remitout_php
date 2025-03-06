@@ -2,7 +2,7 @@
     border-radius: 8px;
     padding: 20px;
    
-    display: flex;
+    display: none;
     flex-direction: column;
     font-family: 'Poppins', sans-serif;
     width: calc(100% - 18% - 20px);
@@ -10,7 +10,6 @@
     top: 0; 
     right: 0; 
     left: auto; 
-     font-family: 'Poppins', sans-serif;
     margin-left: auto; 
     margin-top:100px;
 }
@@ -40,8 +39,8 @@
 }
 
 .manage-student-report-title {
-    color: #ff6b00;
-    font-size: 24px;
+    color: #E98635;
+    font-size: 28px;
     font-weight: 500;
      font-family: 'Poppins', sans-serif;
 }
@@ -54,6 +53,8 @@
     border-radius: 4px;
     cursor: pointer;
     font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
 }
 
 .manage-student-report-filters {
@@ -67,7 +68,9 @@
     display: flex;
     gap: 15px;
     margin-bottom: 15px;
-      font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    color:#5D5C5C;
 }
 
 .manage-student-report-filters-left {
@@ -83,12 +86,16 @@
 
 .manage-student-report-select,
 .manage-student-report-input {
-    padding: 8px;
+    padding: 4px;
     border: 1px solid #ddd;
     border-radius: 4px;
     min-width: 150px;
-    font-size: 14px;
-      font-family: 'Poppins', sans-serif;
+    height:35px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    color:#5D5C5C;
+    font-weight: 500;
+    
 }
 
 .manage-student-report-search-container {
@@ -110,22 +117,31 @@
     height: 20px;
 }
 
+
 .manage-student-report-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: collapse; 
+    border: 1px solid #ddd; 
+    border-radius: 12px;
     margin-top: 20px;
 }
-
-.manage-student-report-th,
 .manage-student-report-td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
-    font-size: 14px;
+    font-size: 12px;
+    color:#5D5C5CCC;
 }
 
 .manage-student-report-th {
     font-weight: 500;
+    color:#5D5C5C;
+     font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    white-space: nowrap;
+    border-bottom: 1px solid #ddd;
+    padding:20px 0px;
+
 }
 
 .manage-student-report-pagination {
@@ -158,6 +174,8 @@
 }
 
 .manage-student-report-pagination-text {
-    color: #64748b;
+  
     padding: 0 4px;
+      font-size: 12px;
+    color:#3E3E3E;
 }
