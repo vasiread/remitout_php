@@ -59,7 +59,7 @@
             display: flex;
             gap: 16px;
             align-items: center;
-            margin-left:50px;
+           
         }
 
         .header-login-btn,
@@ -112,12 +112,10 @@
             font-size: 16px;
             font-weight: 400;
             transition: color 0.3s ease;
-            letter-spacing: 1px;
+          
         }
 
-        .header-links a:hover {
-            color: #e0e0e0;
-        }
+       
 
         .fullopacitylinks {
             color: #333 !important;
