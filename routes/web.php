@@ -95,6 +95,9 @@ Route::post("/coborrowerData", [StudentDetailsController::class, 'updateCoborrow
 Route::post('/remove-each-documents', [StudentDashboardController::class, 'removeFromServer']);
 Route::post('/upload-each-documents', [StudentDashboardController::class, 'uploadMultipleDocuments']);
 Route::post('/count-documents', [StudentDashboardController::class, 'countFilesInBucket']);
+Route::post('/remaining-documents', [StudentDashboardController::class, 'getRemainingNonUploadedFiles']);
+Route::get("/overallcounts", [TrackController::class, 'counts']);
+
 Route::post('/check-columns', [StudentDashboardController::class, 'validateTablesAndColumns']);
 Route::post('/send-documents', [MailController::class, 'sendUserDocuments']);
 Route::post('/retrieve-file', [StudentDashboardController::class, 'retrieveFile']);

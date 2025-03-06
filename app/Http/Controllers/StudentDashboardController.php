@@ -62,13 +62,20 @@ class StudentDashboardController extends Controller
 
             if ($getNbfcData) {
                 foreach ($getNbfcData as $data) {
-                    Requestprogress::create([
-                        'nbfc_id' => $data->nbfc_id,
-                        'user_id' => $userId,
-                        'type' => Requestprogress::TYPE_REQUEST,
-                    ]);
+                    $existingRecord = Requestprogress::where('nbfc_id', $data->nbfc_id)
+                        ->where('user_id', $userId)
+                        ->exists();
+
+                    if (!$existingRecord) {
+                        Requestprogress::create([
+                            'nbfc_id' => $data->nbfc_id,
+                            'user_id' => $userId,
+                            'type' => Requestprogress::TYPE_REQUEST,
+                        ]);
+                    }
                 }
             }
+
         }
 
         return response()->json([
@@ -83,19 +90,31 @@ class StudentDashboardController extends Controller
             $request->validate([
                 'userId' => 'string|required',
                 'nbfcId' => 'string|required',
-                'remarks' => 'string' // changed from 'text' to 'string'
+                'remarks' => 'string'
+            ]);
+
+            // Log incoming data to ensure it's correct
+            \Log::info('Received request data:', [
+                'userId' => $request->input('userId'),
+                'nbfcId' => $request->input('nbfcId'),
+                'remarks' => $request->input('remarks')
             ]);
 
             $userID = $request->input('userId');
             $nbfcID = $request->input('nbfcId');
             $remarks = $request->input('remarks');
 
-            // Create new record in 'rejectedbynbfc' table without manually adding timestamps
-            $record = Rejectedbynbfc::create([
-                'user_id' => $userID,
-                'nbfc_id' => $nbfcID,
-                'remarks' => $remarks
-            ]);
+            $deleteQuery = Requestprogress::where('nbfc_id', $nbfcID)
+                ->where('user_id', $userID)
+                ->delete();
+
+            if ($deleteQuery) {
+                $record = Rejectedbynbfc::create([
+                    'user_id' => $userID,
+                    'nbfc_id' => $nbfcID,
+                    'remarks' => $remarks
+                ]);
+            }
 
             if ($record) {
                 return response()->json([
@@ -110,6 +129,9 @@ class StudentDashboardController extends Controller
             }
 
         } catch (\Exception $e) {
+            // Log the error for debugging
+            \Log::error('Error during rejection process:', ['error' => $e->getMessage()]);
+
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred during the rejection process',
@@ -117,6 +139,7 @@ class StudentDashboardController extends Controller
             ], 500);
         }
     }
+
 
 
     public function updateUserIdFromNBFC(Request $request)
@@ -135,7 +158,7 @@ class StudentDashboardController extends Controller
                 ->where('nbfc_id', $nbfcID)
                 ->update([
                     'type' => Requestprogress::TYPE_PROPOSAL,
- 
+
                 ]);
 
             if ($updatedCount > 0) {
@@ -167,9 +190,15 @@ class StudentDashboardController extends Controller
     public function getAllUsersFromAdmin()
     {
 
-        $userDetails = User::all();
+        $userDetails = DB::table('traceprogress')
+            ->join('users', 'traceprogress.user_id', '=', 'users.unique_id')->join('nbfc', 'traceprogress.nbfc_id', '=', 'nbfc.nbfc_id')
+            ->where('traceprogress.type', Requestprogress::TYPE_PROPOSAL)
+            ->select('traceprogress.*', 'users.name as user_name', 'nbfc.nbfc_name') // Select all requestprogress data and the names
+            ->get();
 
-        return User::all();
+
+
+        return $userDetails;
 
 
     }
@@ -667,10 +696,10 @@ class StudentDashboardController extends Controller
             ], 200);
         }
 
-         return response()->json([
+        return response()->json([
             'message' => 'No file found for the specified type.',
-            'fileUrl' => null,  
-        ], 200); 
+            'fileUrl' => null,
+        ], 200);
     }
 
 
@@ -697,6 +726,56 @@ class StudentDashboardController extends Controller
 
 
     }
+
+
+    public function getRemainingNonUploadedFiles(Request $request)
+    {
+        $request->validate([
+            'userId' => 'required|string'
+        ]);
+
+        $userId = $request->input('userId');
+        $folderPath = "$userId/";
+
+        // List of all document folders you expect to be uploaded
+        $expectedFolders = [
+            'aadhar-card-name/',
+            'co-aadhar-card-name/',
+            'co-addressproof/',
+            'co-pan-card-name/',
+            'graduation-grade-name/',
+            'pan-card-name/',
+            'passport-name/',
+            'salary-upload-address-proof-name/',
+            'salary-upload-salary-slip-name/',
+            'secured-graduation-name/',
+            'secured-tenth-name/',
+            'secured-twelfth-name/',
+            'tenth-grade-name/',
+            'twelfth-grade-name/',
+            'work-experience-experience-letter/',
+            'work-experience-joining-letter/',
+            'work-experience-monthly-slip/',
+            'work-experience-office-id/'
+        ];
+
+        $missingDocuments = [];
+
+        foreach ($expectedFolders as $folder) {
+            $filesInFolder = Storage::disk("s3")->files($folderPath . $folder);
+
+            if (empty($filesInFolder)) {
+                $missingDocuments[] = $folder;
+            }
+        }
+
+        return response()->json([
+            'message' => 'Documents count retrieved successfully',
+            'missingDocuments' => $missingDocuments,
+        ], 200);
+    }
+
+
 
 
 

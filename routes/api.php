@@ -34,6 +34,7 @@ Route::post('/retrieve-pan-card', [StudentDashboardController::class, 'panCardVi
 Route::post('/retrieve-aadhar-card', [StudentDashboardController::class, 'aadharCardView']);
 Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
 Route::post('/count-documents', [StudentDashboardController::class, 'countFilesInBucket']);
+Route::post('/remaining-documents', [StudentDashboardController::class, 'getRemainingNonUploadedFiles']);
 Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFromProfile']);
 Route::post('/check-columns', [StudentDashboardController::class, 'validateTablesAndColumns']);
 Route::post('/send-documents', [MailController::class, 'sendUserDocuments']);
@@ -62,4 +63,5 @@ Route::post("/updatescuserdetails",[scDashboardController::class,'uploadScUserDe
 Route::post("/scuserone",[scDashboardController::class,'retrieveOneScUser']);
 Route::post("/trace-process",[TrackController::class,'traceuserprogress']);
 Route::get("/getnbfcdata", [TrackController::class, 'getnbfcdata']);
+Route::get("/overallcounts", [TrackController::class, 'counts']);
 Route::post("/addbulkusers", [NbfcController::class, 'addBulkNbfc']);

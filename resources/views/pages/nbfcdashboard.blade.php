@@ -1290,18 +1290,9 @@
                 const cancelButton = document.querySelector(".cancel-button");
 
 
-                // Show a rejection message when any reject button is clicked
 
-                const rejectButtons = document.querySelectorAll(".reject-button"); // Select all reject buttons
 
-                rejectButtons.forEach((rejectButton) => {
-                    rejectButton.addEventListener("click", function () {
-                        // Display a rejection message
-                        alert("Application Rejected"); // Replace this with a toast if needed
-                    });
-                });
 
-                // Close the modal when the close button or cancel button is clicked (if modal functionality is still needed elsewhere)
                 if (closeButton) {
                     closeButton.addEventListener("click", function () {
                         modalContainer.style.display = "none"; // Hide the modal
@@ -1361,7 +1352,7 @@
                                             console.log(requestsData);
                                             populateStudentList("dashboard-request-list", requestsData);
 
-                                        } else if (item.type === 'proposals') {
+                                        } else if (item.type === 'proposal') {
                                             // Push into proposalsData
                                             proposalsData.push({
                                                 id: index + 1,
@@ -1397,7 +1388,7 @@
 
                     studentListContainer.innerHTML = ""; // Clear existing list items
 
-                    data.forEach(student => {
+                    data.forEach((student) => {
                         const studentListItem = createStudentListItem(student);
                         studentListContainer.appendChild(studentListItem);
                     });
@@ -1454,8 +1445,36 @@
                     rejectButton.classList.add("dashboard-reject-button");
                     rejectButton.textContent = "Reject";
                     rejectButton.addEventListener("click", function () {
-                        showRejectModal();
+
+
+                        const modal = document.querySelector(".modal-container");
+                        if (modal) {
+                            modal.style.display = 'flex';
+                            alert(student.studentId);
+
+
+
+
+                        }
+
+                        const textArea = document.querySelector(".remarks-textarea");
+                        if (textArea) {
+                            console.log(textArea);
+                            textArea.placeholder = "Enter Remarks for " + student.name;
+                            const finalCallReject = document.querySelector(".reject-application-modal-content .actions .reject-button");
+                            if (finalCallReject) {
+                                finalCallReject.addEventListener('click', () => {
+                                    alert("success");
+
+                                })
+
+                            }
+
+                        } else {
+                            console.log("Textarea not found!");
+                        }
                     });
+
 
                     actionButtons.appendChild(viewButton);
                     actionButtons.appendChild(rejectButton);
@@ -1467,13 +1486,123 @@
                 }
 
 
-                // Function to populate student list for a given section
+                const rejectButtons = document.querySelectorAll(".reject-button");
+                function createStudentListItem(student) {
+                    const listItem = document.createElement("div");
+                    listItem.classList.add("dashboard-student-item");
+                    listItem.setAttribute("data-id", student.id);
 
-                // Function to show the reject modal
-                function showRejectModal() {
-                    const modal = document.querySelector('.modal-container');
-                    modal.style.display = 'flex'; // Show the modal
+                    const studentInfo = document.createElement("div");
+                    studentInfo.classList.add("dashboard-student-info");
+
+                    const studentName = document.createElement("div");
+                    studentName.classList.add("dashboard-student-name");
+                    studentName.textContent = student.name;
+
+                    const studentId = document.createElement("div");
+                    studentId.classList.add("dashboard-student-id");
+                    studentId.textContent = student.studentId;
+
+                    studentInfo.appendChild(studentName);
+                    studentInfo.appendChild(studentId);
+
+                    const actionButtons = document.createElement("div");
+                    actionButtons.classList.add("dashboard-action-buttons");
+
+                    // View Button
+                    const viewButton = document.createElement("button");
+                    viewButton.classList.add("dashboard-view-button");
+                    viewButton.innerHTML = '<i class="fa-solid fa-eye eye-icon"></i>';
+
+                    viewButton.addEventListener("click", function () {
+                        const dashboardContainer = document.querySelector('.dashboard-sections-container');
+                        const profileContainer = document.querySelector('.nbfc-studentdashboardprofile-profile-section-container');
+                        const myApplicationContainer = document.querySelector('.studentdashboardprofile-myapplication');
+
+                        if (dashboardContainer && profileContainer) {
+                            dashboardContainer.style.display = 'none';
+                            profileContainer.style.display = 'block';
+                        }
+
+                        if (myApplicationContainer) {
+                            myApplicationContainer.style.display = 'flex';
+                        }
+                    });
+
+                    const rejectButton = document.createElement("button");
+                    rejectButton.classList.add("dashboard-reject-button");
+                    rejectButton.textContent = "Reject";
+                    rejectButton.addEventListener("click", function () {
+                        const modal = document.querySelector(".modal-container");
+                        if (modal) {
+                            modal.style.display = 'flex';
+                            const textArea = document.querySelector(".remarks-textarea");
+
+                            if (textArea) {
+                                textArea.placeholder = "Enter Remarks for " + student.name;
+
+                                const finalCallReject = document.querySelector(".reject-application-modal-content .actions .reject-button");
+
+                                const newRejectButton = finalCallReject.cloneNode(true);
+                                finalCallReject.replaceWith(newRejectButton);
+
+                                newRejectButton.addEventListener('click', () => {
+                                    var user = @json(session('user'));
+
+
+
+                                    const nbfcId = user.nbfc_id;
+                                    const userId = student.studentId;
+                                    const remarks = textArea.value;
+                                    if (nbfcId && userId && remarks) {
+
+                                        const data = {
+                                            userId, nbfcId, remarks
+                                        };
+
+                                        fetch('/del-user-id-request', {
+                                            method: "POST",
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                            },
+                                            body: JSON.stringify(data)
+                                        })
+                                            .then((response) => response.json())
+                                            .then((data) => {
+                                                if (data.success) {
+                                                    console.log(data)
+                                                    alert("Remarks submitted for student ID: " + userId);
+                                                    initializeTraceViewNBFC(requestsData, proposalsData);
+
+
+                                                }
+                                                else if (data.error) {
+                                                    console.error(data.error)
+                                                }
+                                            })
+                                            .catch((error) => {
+                                                console.error("Error del data", error);
+                                            })
+
+                                    }
+                                    modal.style.display = 'none';
+                                });
+                            }
+                        } else {
+                            console.log("Modal not found!");
+                        }
+                    });
+
+                    actionButtons.appendChild(viewButton);
+                    actionButtons.appendChild(rejectButton);
+
+                    listItem.appendChild(studentInfo);
+                    listItem.appendChild(actionButtons);
+
+                    return listItem;
                 }
+
 
                 // Populate both the "Requests" and "Proposals" lists
 
@@ -1949,11 +2078,7 @@
                 const sendProposalRejectButton = document.getElementById("send-proposal-button-id");
 
                 // Function to show the modal
-                function showRejectModal() {
-                    if (modalContainer) {
-                        modalContainer.style.display = "flex"; // Show modal
-                    }
-                }
+
 
                 // Function to hide the modal
                 function hideRejectModal() {
@@ -1962,10 +2087,7 @@
                     }
                 }
 
-                // Show modal when clicking the ".nbfc-reject-button"
-                if (sendProposalRejectButton) {
-                    sendProposalRejectButton.addEventListener("click", showRejectModal);
-                }
+
 
                 // Close modal when clicking "X" or "Cancel"
                 if (closeButton) {
@@ -1976,13 +2098,13 @@
                     cancelButton.addEventListener("click", hideRejectModal);
                 }
 
-                // Keep existing rejection alert for ".reject-button"
-                const rejectButtons = document.querySelectorAll(".reject-button");
-                rejectButtons.forEach((rejectButton) => {
-                    rejectButton.addEventListener("click", function () {
-                        alert("Application Rejected");
-                    });
-                });
+                // const rejectButtons = document.querySelectorAll(".reject-button");
+                // rejectButtons.forEach((rejectButton) => {
+                //     rejectButton.addEventListener("click", function () {
+                //         alert("Application Rejected");
+
+                //     });
+                // });
 
                 // Close modal when clicking outside the modal
                 if (modalContainer) {

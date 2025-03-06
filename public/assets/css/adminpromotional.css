@@ -9,7 +9,7 @@
     border-radius: 8px;
     padding: 20px;
    
-    display: flex;
+    display: none;
     flex-direction: column;
     font-family: 'Poppins', sans-serif;
     width: calc(100% - 18% - 20px);
@@ -348,8 +348,7 @@
         }
 
         .search-icon {
-            margin-left: -30px;
-            color: #999;
+             color: #999;
         }
 
         .promotional-recipients-table {

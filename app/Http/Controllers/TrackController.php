@@ -3,6 +3,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Nbfc;
 use App\Models\Requestprogress;
+use App\Models\Scuser;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TrackController extends Controller
@@ -73,6 +75,41 @@ class TrackController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
+    }
+
+    public function counts()
+    {
+
+        try {
+            $nbfcdata = Nbfc::get();
+            $userdata = User::get();
+            $counsellordata = Scuser::get();
+
+            $nbfcdataCount = $nbfcdata->count();
+            $userdataCount = $userdata->count();
+            $counsellordataCount = $counsellordata->count();
+
+            $overallCounts = [
+               "nbfc"=> $nbfcdataCount,
+               "user"=> $userdataCount,
+               "counsellor"=> $counsellordataCount
+            ];
+
+            return response()->json([
+                'success' => true,
+                'receivedData' => $overallCounts
+            ]);
+
+
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while fetching data',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+
     }
 
 }

@@ -1,18 +1,18 @@
 .manage-student-main-report-container {
     border-radius: 8px;
     padding: 20px;
-   
-    display: flex;
+
+    display: none;
     flex-direction: column;
     font-family: 'Poppins', sans-serif;
     width: calc(100% - 18% - 20px);
-    position: absolute; 
-    top: 0; 
-    right: 0; 
-    left: auto; 
-     font-family: 'Poppins', sans-serif;
-    margin-left: auto; 
-    margin-top:100px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: auto;
+    font-family: 'Poppins', sans-serif;
+    margin-left: auto;
+    margin-top: 100px;
 }
 
 
@@ -21,7 +21,7 @@
     background: white;
     border-radius: 8px;
     padding: 20px;
-    
+
 
 
 }
@@ -43,7 +43,7 @@
     color: #ff6b00;
     font-size: 24px;
     font-weight: 500;
-     font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .manage-student-report-export-btn {
@@ -62,12 +62,28 @@
     margin-bottom: 20px;
 }
 
+#studentapplicationfromadminstudent .upload-field {
+    width: 100%;
+}
+
+#studentapplicationfromadminstudent .document-box {
+    padding: 0 0.4rem;
+    flex-direction: column;
+}
+
+#studentapplicationfromadminstudent .document-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 .manage-student-report-filters-row {
     width: 100%;
     display: flex;
     gap: 15px;
     margin-bottom: 15px;
-      font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .manage-student-report-filters-left {
@@ -88,7 +104,7 @@
     border-radius: 4px;
     min-width: 150px;
     font-size: 14px;
-      font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .manage-student-report-search-container {

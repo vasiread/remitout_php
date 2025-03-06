@@ -1032,6 +1032,7 @@ $totalPages = ceil($totalStudents / $perPage);
         const getUsersByCounsellor = () => {
             const getRefCode = document.querySelector("#screferral-id-fromprofile span");
             const referralId = getRefCode ? getRefCode.textContent : '';
+            // console.log(referralId)
 
             if (!referralId) {
                 console.error("Referral ID is missing");

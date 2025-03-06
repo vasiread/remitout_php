@@ -2,7 +2,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%; 
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -13,161 +13,162 @@
     z-index: 9999;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
-  
 
 
-        .nbfc-logo {
-            display: flex;
-            align-items: center;
-        }
 
-        .nbfc-logo img {
-            height: 32px;
-            object-fit: contain;
-        }
+.nbfc-logo {
+    display: flex;
+    align-items: center;
+}
 
-        .nbfc-nav-right {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            transition: opacity 0.3s ease;
-            margin-left: 20px;
-        }
+.nbfc-logo img {
+    height: 32px;
+    object-fit: contain;
+}
 
-        .nbfc-nav-right.hide {
-            opacity: 0;
-            pointer-events: none;
-        }
+.nbfc-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    transition: opacity 0.3s ease;
+    margin-left: 20px;
+}
 
-        .nbfc-search-container {
-            position: relative;
-        }
+.nbfc-nav-right.hide {
+    opacity: 0;
+    pointer-events: none;
+}
 
-        .nbfc-search-input {
-            padding: 8px 12px 8px 36px;
-            border: 1px solid #e2e2e2;
-            border-radius: 4px;
-            width: 240px;
-            font-family: 'Poppins', sans-serif;
-            background-color: #ffffff;
-            font-size: 12px;
-        }
+.nbfc-search-container {
+    position: relative;
+}
 
-        .nbfc-search-input::placeholder {
-            padding: 0px 10px;
-            font-family: 'Poppins', sans-serif;
-            font-weight: normal;
-            font-size: 16px;
-            color: #260254;
-        }
+.nbfc-search-input {
+    padding: 8px 12px 8px 36px;
+    border: 1px solid #e2e2e2;
+    border-radius: 4px;
+    width: 240px;
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
+    font-size: 12px;
+}
 
-        .nbfc-search-icon {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 24px;
-            height: 24px;
-            opacity: 0.5;
-        }
+.nbfc-search-input::placeholder {
+    padding: 0px 10px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: normal;
+    font-size: 16px;
+    color: #260254;
+}
 
-        .nbfc-dark-mode {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 4px;
-        }
+.nbfc-search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    opacity: 0.5;
+}
 
-        .nbfc-dark-mode img {
-            width: auto;
-            height: auto;
-            vertical-align: middle;
-        }
+.nbfc-dark-mode {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+}
 
-        .nbfc-profile {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            padding: 6px 12px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+.nbfc-dark-mode img {
+    width: auto;
+    height: auto;
+    vertical-align: middle;
+}
 
-        .nbfc-avatar {
-            width: 37px;
-            height: 37px;
-            border-radius: 50%;
-            background-color: #E98635;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 500;
-        }
+.nbfc-profile {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
-        .nbfc-profile-text {
-            color: #260254;
-            font-weight: 500;
-        }
+.nbfc-avatar {
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    background-color: #E98635;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 500;
+}
 
-        .nbfc-dropdown-icon {
-            display: inline-block;
-            width: 14px;
-            height: 14px;
-            position: relative;
-        }
+.nbfc-profile-text {
+    color: #260254;
+    font-weight: 500;
+}
 
-        .nbfc-dropdown-icon::after {
-            content: '';
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            border-right: 2px solid #333;
-            border-bottom: 2px solid #333;
-            transform: rotate(45deg);
-            top: 0;
-            left: 3px;
-        }
+.nbfc-dropdown-icon {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    position: relative;
+}
 
-        .nbfc-mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-            position: relative;
-            z-index: 1001;
-            margin-left: 10px;
-        }
+.nbfc-dropdown-icon::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid #333;
+    border-bottom: 2px solid #333;
+    transform: rotate(45deg);
+    top: 0;
+    left: 3px;
+}
 
-        .nbfc-mobile-menu-btn i {
-            font-size: 24px;
-            color: #260254;
-        }
+.nbfc-mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    position: relative;
+    z-index: 1001;
+    margin-left: 10px;
+}
 
-        .nbfc-mobile-sidebar {
-            position: fixed;
-            top: 85px;
-            left: -100%;
-            width: 100%;
-            height: 90vh;
-            background-color: white;
-            transition: left 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            z-index: 1000;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        }
+.nbfc-mobile-menu-btn i {
+    font-size: 24px;
+    color: #260254;
+}
 
-        .nbfc-mobile-sidebar.active {
-            left: 0;
-            opacity: 1;
-            visibility: visible;
- 
+.nbfc-mobile-sidebar {
+    position: fixed;
+    top: 85px;
+    left: -100%;
+    width: 100%;
+    height: 90vh;
+    background-color: white;
+    transition: left 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 1000;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-        }
-        .nbfc-mobile-overlay.active {
+.nbfc-mobile-sidebar.active {
+    left: 0;
+    opacity: 1;
+    visibility: visible;
+
+
+}
+
+.nbfc-mobile-overlay.active {
     opacity: 1;
     visibility: visible;
     position: fixed;
@@ -188,567 +189,568 @@
     z-index: 1000;
 }
 
-        .nbfc-mobile-menu-top {
-            list-style: none;
+.nbfc-mobile-menu-top {
+    list-style: none;
 
-            margin: 15px;
-            flex-grow: 1;
+    margin: 15px;
+    flex-grow: 1;
 
-        }
+}
 
-        .nbfc-mobile-menu-top li {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 20px 24px;
-            color: rgba(38, 2, 84, 0.7);
-            font-family: 'Poppins', sans-serif;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-          
-            border-bottom: 1px solid #E8E8E8;
-        }
+.nbfc-mobile-menu-top li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 24px;
+    color: rgba(38, 2, 84, 0.7);
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
 
-        .nbfc-mobile-menu-top li.active {
-            color: #FF9A3F;
-            background: linear-gradient(88.18deg, #FFA048 3.11%, #FA7B15 98.46%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    border-bottom: 1px solid #E8E8E8;
+}
 
-
-        .nbfc-mobile-menu-bottom {
-            list-style: none;
-            padding: 15px;
-            margin: 0;
-            position: relative;
-            margin: 0 auto;
+.nbfc-mobile-menu-top li.active {
+    color: #FF9A3F;
+    background: linear-gradient(88.18deg, #FFA048 3.11%, #FA7B15 98.46%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
 
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            height: 202px;
-            max-width: 100%;
+.nbfc-mobile-menu-bottom {
+    list-style: none;
+    padding: 15px;
+    margin: 0;
+    position: relative;
+    margin: 0 auto;
 
 
-        }
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 202px;
+    max-width: 100%;
 
-      .nbfc-mobile-menu-bottom li {
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         gap: 18px; 
-         padding: 20px 24px;
-         color: rgba(38, 2, 84, 0.7);
-         font-family: 'Poppins', sans-serif;
-         font-size: 16px;
-         font-weight: 500;
-         cursor: pointer;
-         height: 56px;
-         width: 400px;
-         border: 1px solid rgba(222, 222, 222, 0.8);
-         background-color: rgba(255, 255, 255, 1);
-        max-width: 100%;
+
+}
+
+.nbfc-mobile-menu-bottom li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 20px 24px;
+    color: rgba(38, 2, 84, 0.7);
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    height: 56px;
+    width: 400px;
+    border: 1px solid rgba(222, 222, 222, 0.8);
+    background-color: rgba(255, 255, 255, 1);
+    max-width: 100%;
+}
+
+
+.nbfc-mobile-menu-top li i,
+.nbfc-mobile-menu-bottom li i {
+    font-size: 20px;
+}
+
+.nbfc-mobile-menu-bottom li img {
+    width: 20px;
+    height: 20px;
+}
+
+.nbfc-mobile-menu-top li.applications {
+    border-bottom: 1px solid #E8E8E8;
+}
+
+.nbfc-mobile-overlay {
+    display: none;
+    position: fixed;
+    top: 85px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 85px);
+    z-index: 999;
+}
+
+
+/*nav bar for tablets*/
+
+@media screen and (max-width: 1023px) {
+    .nbfc-navbar {
+        padding: 12px 20px;
+        justify-content: end;
     }
 
+    .nbfc-logo {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-grow: 1;
+    }
 
-        .nbfc-mobile-menu-top li i,
-        .nbfc-mobile-menu-bottom li i {
-            font-size: 20px;
-        }
+    .nbfc-search-input {
+        display: none;
+    }
 
-        .nbfc-mobile-menu-bottom li img {
-            width: 20px;
-            height: 20px;
-        }
+    .nbfc-search-container {
+        position: static;
+        display: flex;
+        align-items: center;
+    }
 
-        .nbfc-mobile-menu-top li.applications {
-            border-bottom: 1px solid #E8E8E8;
-        }
+    .nbfc-search-icon {
+        position: static;
+        transform: none;
+    }
 
-        .nbfc-mobile-overlay {
-            display: none;
-            position: fixed;
-            top: 85px;
-            left: 0;
-            width: 100%;
-            height: calc(100% - 85px);
-            z-index: 999;
-        }
-        
+    .nbfc-nav-right {
+        gap: 16px;
+        margin-left: 0;
+        justify-content: flex-end;
+    }
 
-        /*nav bar for tablets*/
+    .nbfc-profile {
+        padding: 0;
+    }
 
-        @media screen and (max-width: 1023px) {
-            .nbfc-navbar {
-                padding: 12px 20px;
-                justify-content: end;
-            }
+    .nbfc-profile-text,
+    .nbfc-dropdown-icon {
+        display: none;
+    }
 
-            .nbfc-logo {
-                display: flex;
-                align-items: center;
-                justify-content: flex-start;
-                flex-grow: 1;
-            }
+    .nbfc-avatar {
+        width: 40px;
+        height: 40px;
+    }
 
-            .nbfc-search-input {
-                display: none;
-            }
+    .nbfc-mobile-menu-btn {
+        display: block;
+    }
 
-            .nbfc-search-container {
-                position: static;
-                display: flex;
-                align-items: center;
-            }
-
-            .nbfc-search-icon {
-                position: static;
-                transform: none;
-            }
-
-            .nbfc-nav-right {
-                gap: 16px;
-                margin-left: 0;
-                justify-content: flex-end;
-            }
-
-            .nbfc-profile {
-                padding: 0;
-            }
-
-            .nbfc-profile-text,
-            .nbfc-dropdown-icon {
-                display: none;
-            }
-
-            .nbfc-avatar {
-                width: 40px;
-                height: 40px;
-            }
-
-            .nbfc-mobile-menu-btn {
-                display: block;
-            }
-
-          /*  .nbfc-mobile-sidebar {
+    /*  .nbfc-mobile-sidebar {
                 display: none;
             }*/
 
-            .nbfc-mobile-sidebar.active {
-                display: flex;
-                /* Show only when active */
-            }
+    .nbfc-mobile-sidebar.active {
+        display: flex;
+        /* Show only when active */
+    }
 
-            .nbfc-mobile-menu-top {
-                flex-grow: 1;
+    .nbfc-mobile-menu-top {
+        flex-grow: 1;
 
-            }
+    }
 
-            .nbfc-mobile-menu-bottom {
-                position: relative;
-                margin-top: auto;
-            }
-        }
- 
- 
+    .nbfc-mobile-menu-bottom {
+        position: relative;
+        margin-top: auto;
+    }
+}
+
+
 /*mobile responsive nav bar*/
 
-        @media screen and (max-width: 768px) {
-            .nbfc-navbar {
-                padding: 12px 20px;
-                justify-content: end;
-            }
+@media screen and (max-width: 768px) {
+    .nbfc-navbar {
+        padding: 12px 20px;
+        justify-content: end;
+    }
 
-            .nbfc-logo {
-                display: flex;
-                align-items: center;
-                justify-content: flex-start;
-                flex-grow: 1;
-            }
+    .nbfc-logo {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-grow: 1;
+    }
 
-            .nbfc-search-input {
-                display: none;
-            }
+    .nbfc-search-input {
+        display: none;
+    }
 
-            .nbfc-search-container {
-                position: static;
-                display: flex;
-                align-items: center;
-            }
+    .nbfc-search-container {
+        position: static;
+        display: flex;
+        align-items: center;
+    }
 
-            .nbfc-search-icon {
-                position: static;
-                transform: none;
-            }
+    .nbfc-search-icon {
+        position: static;
+        transform: none;
+    }
 
-            .nbfc-nav-right {
-                gap: 16px;
-                margin-left: 0;
-                justify-content: flex-end;
-            }
+    .nbfc-nav-right {
+        gap: 16px;
+        margin-left: 0;
+        justify-content: flex-end;
+    }
 
-            .nbfc-profile {
-                padding: 0;
-            }
+    .nbfc-profile {
+        padding: 0;
+    }
 
-            .nbfc-profile-text,
-            .nbfc-dropdown-icon {
-                display: none;
-            }
+    .nbfc-profile-text,
+    .nbfc-dropdown-icon {
+        display: none;
+    }
 
-            .nbfc-avatar {
-                width: 40px;
-                height: 40px;
-            }
+    .nbfc-avatar {
+        width: 40px;
+        height: 40px;
+    }
 
-            .nbfc-mobile-menu-btn {
-                display: block;
-            }
+    .nbfc-mobile-menu-btn {
+        display: block;
+    }
 
-          /*  .nbfc-mobile-sidebar {
+    /*  .nbfc-mobile-sidebar {
                 display: none;
             }*/
 
-            .nbfc-mobile-sidebar.active {
-                display: flex;
-                /* Show only when active */
-            }
+    .nbfc-mobile-sidebar.active {
+        display: flex;
+        /* Show only when active */
+    }
 
-            .nbfc-mobile-menu-top {
-                flex-grow: 1;
+    .nbfc-mobile-menu-top {
+        flex-grow: 1;
 
-            }
+    }
 
-            .nbfc-mobile-menu-bottom {
-                position: relative;
-                margin-top: auto;
-            }
-        }
- 
+    .nbfc-mobile-menu-bottom {
+        position: relative;
+        margin-top: auto;
+    }
+}
+
 /*toggle slidebar mobile responsive*/
- 
- .nbfc-dropdown-icon::after {
-            content: '';
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            border-right: 2px solid #333;
-            border-bottom: 2px solid #333;
-            transform: rotate(45deg);
-            top: 0;
-            left: 3px;
-        }
+
+.nbfc-dropdown-icon::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid #333;
+    border-bottom: 2px solid #333;
+    transform: rotate(45deg);
+    top: 0;
+    left: 3px;
+}
 
 
-        .nbfcstudentdashboardprofile-togglesidebar {
-            height: 635px;
-            padding: 35px 29px;
-            max-width: 19%;
-            width: 100%;
-            box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
-            background-color: rgba(255, 255, 255, 1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+.nbfcstudentdashboardprofile-togglesidebar {
+    height: 635px;
+    padding: 35px 10px;
+    max-width: 19%;
+    width: 100%;
+    box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
+    background-color: rgba(255, 255, 255, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
-        .nbfcstudentdashboardprofile-togglesidebar ul {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-           
-            max-width: 100%;
-        }
+.nbfcstudentdashboardprofile-togglesidebar ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 
-        .nbfcstudentdashboardprofile-togglesidebar ul li {
-            font-family: Poppins;
-            font-size: 16px;
-            font-weight: 500;
-            line-height: 19.2px;
-            text-align: left;
-            color: rgba(38, 2, 84, 0.7);
-            padding: 0.93rem;
-            cursor: pointer;
-            width: 100%;
-            height: 54px;
-            border-radius: 4px;
-            opacity: 0px;
-        }
+    max-width: 100%;
+}
 
-        .nbfcstudentdashboardprofile-sidebarlists-bottom {
-            width: 100%;
-        }
+.nbfcstudentdashboardprofile-togglesidebar ul li {
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.2px;
+    text-align: left;
+    color: rgba(38, 2, 84, 0.7);
+    padding: 0.93rem;
+    cursor: pointer;
+    width: 100%;
+    height: 54px;
+    border-radius: 4px;
+    opacity: 0px;
+}
 
-        .nbfcstudentdashboardprofile-sidebarlists-bottom li {
-            border: 1px solid rgba(222, 222, 222, 0.8);
-            background-color: rgba(255, 255, 255, 1);
-            display: flex;
-            gap: 18px;
-            max-width: 100%;
-            width: 100%;
-        }
+.nbfcstudentdashboardprofile-sidebarlists-bottom {
+    width: 100%;
+}
 
-        .nbfcpersonalinfo-secondrow li img {
-            width: 20px;
-            height: 20px;
-        }
+.nbfcstudentdashboardprofile-sidebarlists-bottom li {
+    border: 1px solid rgba(222, 222, 222, 0.8);
+    background-color: rgba(255, 255, 255, 1);
+    display: flex;
+    gap: 18px;
+    max-width: 100%;
+    width: 100%;
+}
 
-        .nbfcstudentdashboardprofile-sidebarlists-top li {
-           display: flex;
-           gap: 18px;
-       }
+.nbfcpersonalinfo-secondrow li img {
+    width: 20px;
+    height: 20px;
+}
+
+.nbfcstudentdashboardprofile-sidebarlists-top li {
+    display: flex;
+    gap: 18px;
+}
 
 .nbfcstudentdashboardprofile-sidebarlists-top li.nbfcactive {
     background: linear-gradient(88.18deg, #FFA048 3.11%, #FA7B15 98.46%);
     color: rgba(255, 255, 255, 1);
     display: flex;
     gap: 18px;
-    width:100%;
+    width: 100%;
 }
-        /* profilesection */
-        .nbfcstudentdashboardprofile-profilesection {
-            margin-top: 1.3rem;
-            height: fit-content;
-            max-width: 21%;
-            padding: 20px 20px 31px 22px;
-            box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 22px;
-            flex: 1;
-            position: relative;
-        }
 
-        .nbfcstudentdashboardprofile-profilesection .fa-pen-to-square {
-            position: absolute;
-            top: 0;
-            right: 0;
-            padding: 1.7rem;
-            color: rgba(38, 2, 84, 0.7);
-            display: none;
-            cursor: pointer;
-        }
+/* profilesection */
+.nbfcstudentdashboardprofile-profilesection {
+    margin-top: 1.3rem;
+    height: fit-content;
+    max-width: 21%;
+    padding: 20px 20px 31px 22px;
+    box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    flex: 1;
+    position: relative;
+}
 
-        .nbfcstudentdashboardprofile-profilesection .nbfcprofileImg {
-            border-radius: 6px;
-            position: relative;
-            height: 122px;
-        }
+.nbfcstudentdashboardprofile-profilesection .fa-pen-to-square {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1.7rem;
+    color: rgba(38, 2, 84, 0.7);
+    display: none;
+    cursor: pointer;
+}
 
-        .nbfcstudentdashboardprofile-personalinfo {
-            height: 262px;
-            max-width: 272px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: space-between;
-            justify-content: flex-start;
-        }
+.nbfcstudentdashboardprofile-profilesection .nbfcprofileImg {
+    border-radius: 6px;
+    position: relative;
+    height: 122px;
+}
 
-        .nbfcstudentdashboardprofile-personalinfo .nbfcpersonalinfo-firstrow {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.4rem 0;
-        }
+.nbfcstudentdashboardprofile-personalinfo {
+    height: 262px;
+    max-width: 272px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    justify-content: flex-start;
+}
 
-        .nbfcstudentdashboardprofile-personalinfo .nbfcpersonalinfo-firstrow h1 {
-            font-family: Poppins;
-            font-size: 18px;
-            font-weight: 600;
-            line-height: 27px;
-            letter-spacing: -0.01em;
-            text-align: left;
-            color: rgba(0, 0, 0, 1);
-            margin: 0;
-        }
+.nbfcstudentdashboardprofile-personalinfo .nbfcpersonalinfo-firstrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 0;
+}
 
-        .nbfcstudentdashboardprofile-personalinfo .nbfcpersonalinfo-firstrow button {
-            width: 72px;
-            height: 35px;
-            padding: 16px 32px;
-            gap: 8px;
-            border-radius: 4px;
-            font-family: Poppins;
-            font-size: 14px;
-            font-weight: 500;
-            line-height: 16.8px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid rgba(226, 226, 226, 1);
-            color: rgba(111, 37, 206, 0.87);
-            cursor: pointer;
-            background-color: transparent;
-        }
+.nbfcstudentdashboardprofile-personalinfo .nbfcpersonalinfo-firstrow h1 {
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 27px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: rgba(0, 0, 0, 1);
+    margin: 0;
+}
 
-        .nbfcstudentdashboardprofile-personalinfo .nbfcpersonalinfo-secondrow {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 13px;
-            overflow: hidden;
-            padding-right: 1rem;
-        }
+.nbfcstudentdashboardprofile-personalinfo .nbfcpersonalinfo-firstrow button {
+    width: 72px;
+    height: 35px;
+    padding: 16px 32px;
+    gap: 8px;
+    border-radius: 4px;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(226, 226, 226, 1);
+    color: rgba(111, 37, 206, 0.87);
+    cursor: pointer;
+    background-color: transparent;
+}
 
-        .nbfcpersonalinfo-secondrow li {
-            font-family: Poppins;
-            font-size: 13px;
-            font-weight: 500;
-            line-height: 15.6px;
-            text-align: left;
-            color: rgba(33, 33, 33, 0.5);
-            display: flex;
-            gap: 20px;
-        }
+.nbfcstudentdashboardprofile-personalinfo .nbfcpersonalinfo-secondrow {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    overflow: hidden;
+    padding-right: 1rem;
+}
 
-        .nbfcstudentdashboardprofile-profilesection .nbfcprogress-ring-circle {
-            stroke-dasharray: 330;
-            stroke-dashoffset: 0;
-        }
+.nbfcpersonalinfo-secondrow li {
+    font-family: Poppins;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 15.6px;
+    text-align: left;
+    color: rgba(33, 33, 33, 0.5);
+    display: flex;
+    gap: 20px;
+}
 
-        .nbfcstudentdashboardprofile-profilesection .nbfcprogress-ring-fill {
-            stroke-dasharray: 330;
-            stroke-dashoffset: 330;
-        }
+.nbfcstudentdashboardprofile-profilesection .nbfcprogress-ring-circle {
+    stroke-dasharray: 330;
+    stroke-dashoffset: 0;
+}
 
-        .nbfcpersonalinfo-profilestatus h1 {
-            font-family: Poppins;
-            font-size: 13px;
-            font-weight: 500;
-            line-height: 19.5px;
-            letter-spacing: -0.01em;
-            text-align: left;
-            color: rgba(0, 0, 0, 1);
-            padding-bottom: 1rem;
-        }
+.nbfcstudentdashboardprofile-profilesection .nbfcprogress-ring-fill {
+    stroke-dasharray: 330;
+    stroke-dashoffset: 330;
+}
 
-        .nbfcprofilestatus-graph-section {
-            max-width: 124px;
-            height: 165px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 1rem;
-            border: 1px solid rgba(229, 229, 229, 1);
-            color: rgba(255, 255, 255, 1);
-        }
+.nbfcpersonalinfo-profilestatus h1 {
+    font-family: Poppins;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 19.5px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: rgba(0, 0, 0, 1);
+    padding-bottom: 1rem;
+}
 
-        .nbfcpersonalinfo-graphsectioncontainer {
-            display: flex;
-            gap: 20.99px;
-        }
+.nbfcprofilestatus-graph-section {
+    max-width: 124px;
+    height: 165px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+    border: 1px solid rgba(229, 229, 229, 1);
+    color: rgba(255, 255, 255, 1);
+}
 
-        .nbfcprofilestatus-graph-section p {
-            font-family: Poppins;
-            font-size: 14px;
-            font-weight: 500;
-            line-height: 18px;
-            letter-spacing: -0.01em;
-            color: rgba(255, 154, 63, 1);
-            padding: 12px;
-        }
+.nbfcpersonalinfo-graphsectioncontainer {
+    display: flex;
+    gap: 20.99px;
+}
 
-        .nbfcprofilestatus-graph-secondsection span {
-            font-family: Poppins;
-            font-size: 30px;
-            font-weight: 600;
-            line-height: 45px;
-            letter-spacing: -0.01em;
-            text-align: left;
-            color: rgba(131, 131, 131, 0.3);
-            margin-left: 2rem;
-            margin-bottom: 2rem;
-        }
+.nbfcprofilestatus-graph-section p {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.01em;
+    color: rgba(255, 154, 63, 1);
+    padding: 12px;
+}
 
-        .nbfcprofilestatus-graph-secondsection p {
-            padding-top: 1rem;
-            font-family: Poppins;
-            font-size: 30px;
-            font-weight: 500;
-            line-height: 0px;
-            letter-spacing: -0.01em;
-            text-align: left;
-            color: rgba(255, 154, 63, 1);
-        }
+.nbfcprofilestatus-graph-secondsection span {
+    font-family: Poppins;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 45px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: rgba(131, 131, 131, 0.3);
+    margin-left: 2rem;
+    margin-bottom: 2rem;
+}
 
-        .nbfcprofilestatus-graph-secondsection {
-            max-width: 124px;
-            width: 100%;
-            height: 165px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 1rem;
-            border: 1px solid rgba(229, 229, 229, 1);
-        }
+.nbfcprofilestatus-graph-secondsection p {
+    padding-top: 1rem;
+    font-family: Poppins;
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 0px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: rgba(255, 154, 63, 1);
+}
 
-        .nbfcprofilestatus-graph-secondsection .nbfcsecondsection-inside {
-            font-family: Poppins;
-            font-size: 14px;
-            font-weight: 500;
-            line-height: 18px;
-            letter-spacing: -0.01em;
-            color: rgba(255, 154, 63, 1);
-            padding: 12px;
-        }
+.nbfcprofilestatus-graph-secondsection {
+    max-width: 124px;
+    width: 100%;
+    height: 165px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+    border: 1px solid rgba(229, 229, 229, 1);
+}
 
-        .nbfcstudentdashboardprofile-communityjoinsection {
-            max-width: 100%;
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            width: 272px;
-            height: 50px;
-            padding: 15px;
-            gap: 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            border: 1px solid rgba(222, 222, 222, 0.8);
-        }
+.nbfcprofilestatus-graph-secondsection .nbfcsecondsection-inside {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.01em;
+    color: rgba(255, 154, 63, 1);
+    padding: 12px;
+}
 
-        .nbfcstudentdashboardprofile-communityjoinsection p {
-            color: rgba(38, 2, 84, 0.7);
-            font-family: Poppins;
-            font-size: 16px;
-            font-weight: 500;
-            line-height: 19.2px;
-        }
+.nbfcstudentdashboardprofile-communityjoinsection {
+    max-width: 100%;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    width: 272px;
+    height: 50px;
+    padding: 15px;
+    gap: 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid rgba(222, 222, 222, 0.8);
+}
 
-        .nbfcstudentdashboardprofile-sidebarlists-top img,
-        .nbfcstudentdashboardprofile-sidebarlists-bottom img {
-            width: auto;
-            height: auto;
-           
-        }
+.nbfcstudentdashboardprofile-communityjoinsection p {
+    color: rgba(38, 2, 84, 0.7);
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.2px;
+}
 
-       
-        
-        .nbfcstudentdashboardprofile-togglesidebar {
-            width: 16%;
-            min-height: calc(100vh - 80px);
-            padding: 35px 29px;
-            background-color: white;
-            box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
-            position: fixed;
-            height:75vh;
-            left: 0;
-            margin-top: 80px;
-        }
+.nbfcstudentdashboardprofile-sidebarlists-top img,
+.nbfcstudentdashboardprofile-sidebarlists-bottom img {
+    width: auto;
+    height: auto;
 
-/*tablet toggle sidebar*/        
+}
+
+
+
+.nbfcstudentdashboardprofile-togglesidebar {
+    width: 16%;
+    min-height: calc(100vh - 80px);
+    padding: 35px 10px;
+    background-color: white;
+    box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
+    position: fixed;
+    height: 75vh;
+    left: 0;
+    margin-top: 80px;
+}
+
+/*tablet toggle sidebar*/
 
 @media screen and (max-width: 1024px) {
     .nbfcstudentdashboardprofile-togglesidebar {
-        width:23%;
-         max-width: none;
+        width: 23%;
+        max-width: none;
         padding: 40px 15px;
     }
 
@@ -813,26 +815,26 @@
     }
 }
 
- 
+
 /*mobile togglesidebar hidden*/
 
 @media (max-width: 768px) {
     .nbfcstudentdashboardprofile-togglesidebar {
-        display: none; 
+        display: none;
     }
 }
 
 /*nbfc main container for dashboard*/
 
 .dashboard-main-content {
-    flex:1;
+    flex: 1;
     margin-left: 16%;
     padding: 18px;
     background-color: #F5F5F5;
 }
 
 .dashboard-sections-container {
-     display: grid !important;
+    display: grid !important;
     grid-template-columns: 1fr 1fr;
     gap: 24px;
     padding: 10px;
@@ -844,16 +846,16 @@
 .dashboard-sections-container .section {
     transition: visibility 0.3s, opacity 0.3s;
     opacity: 1;
-    visibility: visible; 
+    visibility: visible;
     position: relative;
-    flex: 0 1 auto; 
+    flex: 0 1 auto;
 }
 
 .dashboard-sections-container .section.hidden {
-    visibility: hidden; 
-    opacity: 0; 
-    position: absolute; 
-    width: 0; 
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    width: 0;
 }
 
 .dashboard-section {
@@ -861,7 +863,7 @@
     border-radius: 8px;
     padding: 14px;
 
-    
+
 }
 
 .dashboard-section-header {
@@ -869,16 +871,16 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     padding: 25px;
     background: white;
 }
 
 .dashboard-section-title {
-  
-     font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 28px;
+
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 28px;
     color: #FF6B2C;
 
 
@@ -890,13 +892,13 @@
 }
 
 .dashboard-sort-button-container {
-     
-   display: inline-block;
+
+    display: inline-block;
     position: relative;
 }
 
 .dashboard-sort-options {
-    display: none; 
+    display: none;
     position: absolute;
     top: 100%;
     left: 0;
@@ -919,7 +921,7 @@
     background-color: #f1f1f1;
 }
 
-.dashboard-sort-button:focus + .dashboard-sort-options {
+.dashboard-sort-button:focus+.dashboard-sort-options {
     display: block;
 }
 
@@ -934,7 +936,7 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    height: 38px; 
+    height: 38px;
     width: 39px;
 }
 
@@ -950,10 +952,10 @@
     color: #909090;
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
-    font-weight: 500; 
+    font-weight: 500;
     line-height: 18px;
-   
-    height:38px;
+
+    height: 38px;
 }
 
 .dashboard-student-list {
@@ -969,7 +971,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 26px;
-    border-bottom: 1px solid #F0F0F0; 
+    border-bottom: 1px solid #F0F0F0;
 }
 
 .dashboard-student-info {
@@ -977,6 +979,7 @@
     flex-direction: column;
     gap: 4px;
 }
+
 .dashboard-student-name {
     font-weight: 600;
     color: #5D5C5C;
@@ -1022,21 +1025,23 @@
     background: transparent;
 }
 
-.dashboard-nbfc-search-container{
- position: relative;
- 
+.dashboard-nbfc-search-container {
+    position: relative;
+
 
 }
-.dashboard-nbfc-search-container-section{
- position: relative;
+
+.dashboard-nbfc-search-container-section {
+    position: relative;
 
 }
-#dashboard-nbfc-search-container-id{
-      width: 200px; 
+
+#dashboard-nbfc-search-container-id {
+    width: 200px;
 }
 
-.dashboard-nbfc-search-input-sec{
-     padding: 8px 12px 8px 36px;
+.dashboard-nbfc-search-input-sec {
+    padding: 8px 12px 8px 36px;
     border: 1px solid #e2e2e2;
     border-radius: 4px;
     width: 140px;
@@ -1044,6 +1049,7 @@
     background-color: #ffffff;
     font-size: 12px;
 }
+
 .dashboard-nbfc-search-input {
     padding: 8px 12px 8px 36px;
     border: 1px solid #e2e2e2;
@@ -1053,7 +1059,8 @@
     background-color: #ffffff;
     font-size: 12px;
 }
- .dashboard-nbfc-search-input::placeholder {
+
+.dashboard-nbfc-search-input::placeholder {
     padding: 0px 10px;
     font-family: 'Poppins', sans-serif;
     font-weight: normal;
@@ -1061,16 +1068,16 @@
     color: #260254;
 }
 
-    .dashboard-nbfc-search-icon {
-        position: absolute;
-        left: 12px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 24px;
-        height: 24px;
-        opacity: 0.5;
-    }
- 
+.dashboard-nbfc-search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    opacity: 0.5;
+}
+
 
 /* Tablet view of dashboard */
 @media (max-width: 1024px) {
@@ -1087,16 +1094,16 @@
         background-color: #ffffff;
         font-size: 12px;
     }
-    
-    .dashboard-nbfc-search-input-sec{
-     padding: 8px 12px 8px 36px;
-    border: 1px solid #e2e2e2;
-    border-radius: 4px;
-    width:100%;
-    font-family: 'Poppins', sans-serif;
-    background-color: #ffffff;
-    font-size: 12px;
-}
+
+    .dashboard-nbfc-search-input-sec {
+        padding: 8px 12px 8px 36px;
+        border: 1px solid #e2e2e2;
+        border-radius: 4px;
+        width: 100%;
+        font-family: 'Poppins', sans-serif;
+        background-color: #ffffff;
+        font-size: 12px;
+    }
 
     .dashboard-nbfc-search-input::placeholder {
         padding: 0px 10px;
@@ -1132,15 +1139,16 @@
         background-color: #ffffff;
         font-size: 12px;
     }
-    .dashboard-nbfc-search-input-sec{
-     padding: 8px 12px 8px 36px;
-    border: 1px solid #e2e2e2;
-    border-radius: 4px;
-    width: 240px;
-    font-family: 'Poppins', sans-serif;
-    background-color: #ffffff;
-    font-size: 12px;
-}
+
+    .dashboard-nbfc-search-input-sec {
+        padding: 8px 12px 8px 36px;
+        border: 1px solid #e2e2e2;
+        border-radius: 4px;
+        width: 240px;
+        font-family: 'Poppins', sans-serif;
+        background-color: #ffffff;
+        font-size: 12px;
+    }
 
     .dashboard-nbfc-search-input::placeholder {
         padding: 0px 10px;
@@ -1164,233 +1172,237 @@
 
 @media (min-width: 769px) and (max-width: 1024px) {
     .dashboard-main-content {
-    flex:1;
-    margin-left: 21%;
-    padding: 20px;
-    background-color: #F5F5F5;
-}
+        flex: 1;
+        margin-left: 21%;
+        padding: 20px;
+        background-color: #F5F5F5;
+    }
 
-.dashboard-sections-container {
-    display: grid !important;
-    grid-template-columns: 1fr; /* Single column layout */
-    gap: 24px;
-    padding: 10px;
-    background-color: #F5F5F5;
-}
-
-
-.dashboard-sections-container .section {
-    transition: visibility 0.3s, opacity 0.3s;
-    opacity: 1;
-    visibility: visible; 
-    position: relative;
-    flex: 0 1 auto; 
-}
-
-.dashboard-sections-container .section.hidden {
-    visibility: hidden; 
-    opacity: 0; 
-    position: absolute; 
-    width: 0; 
-}
-
-.dashboard-section {
-    flex: 1;
-    border-radius: 8px;
-    padding: 14px;
-
-    
-}
-
-.dashboard-section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
-    padding: 25px;
-    background: white;
-}
-
-.dashboard-section-title {
-  
-     font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 28px;
-    color: #FF6B2C;
+    .dashboard-sections-container {
+        display: grid !important;
+        grid-template-columns: 1fr;
+        /* Single column layout */
+        gap: 24px;
+        padding: 10px;
+        background-color: #F5F5F5;
+    }
 
 
-}
+    .dashboard-sections-container .section {
+        transition: visibility 0.3s, opacity 0.3s;
+        opacity: 1;
+        visibility: visible;
+        position: relative;
+        flex: 0 1 auto;
+    }
 
-.dashboard-header-controls {
-    display: flex;
-    gap: 8px;
-}
+    .dashboard-sections-container .section.hidden {
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        width: 0;
+    }
 
-.dashboard-sort-button-container {
-     
-   display: inline-block;
-    position: relative;
-}
-
-.dashboard-sort-options {
-    display: none; 
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
-.dashboard-sort-options button {
-    padding: 10px;
-    background-color: white;
-    border: none;
-    width: 100%;
-    text-align: left;
-}
-
-.dashboard-sort-options button:hover {
-    background-color: #f1f1f1;
-}
-
-.dashboard-sort-button:focus + .dashboard-sort-options {
-    display: block;
-}
+    .dashboard-section {
+        flex: 1;
+        border-radius: 8px;
+        padding: 14px;
 
 
-.dashboard-search-button {
-    padding: 8px 12px;
-    border: 1px solid #E2E2E2;
-    border-radius: 4px;
-    background: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    height: 38px; 
-    width: 39px;
-}
+    }
 
-.dashboard-sort-button {
-    padding: 8px 12px;
-    border: 1px solid #E2E2E2;
-    border-radius: 4px;
-    background: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #909090;
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    font-weight: 500; 
-    line-height: 18px;
-   
-    height:38px;
-}
+    .dashboard-section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 25px;
+        background: white;
+    }
 
-.dashboard-student-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    background-color: white;
-    border-radius: 16px;
-}
+    .dashboard-section-title {
 
-.dashboard-student-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 26px;
-    border-bottom: 1px solid #F0F0F0; 
-}
-
-.dashboard-student-info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-.dashboard-student-name {
-    font-weight: 600;
-    color: #5D5C5C;
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px;
-    line-height: 20px;
-}
-
-.dashboard-student-id {
-    color: #5D5C5C;
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    line-height: 20px;
-}
-
-.dashboard-action-buttons {
-    display: flex;
-    gap: 8px;
-}
-
-.dashboard-view-button,
-.dashboard-reject-button {
-    padding: 8px 16px;
-    border: 1px solid #6F25CE;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-
-}
-
-.dashboard-view-button {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px;
-    color: #6F25CE;
-}
-
-.dashboard-reject-button {
-    color: #6F25CE;
-    background: transparent;
-}
-
-.dashboard-nbfc-search-container{
- position: relative;
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        font-size: 28px;
+        color: #FF6B2C;
 
 
-}
+    }
 
-.dashboard-nbfc-search-input {
-    padding: 8px 12px 8px 36px;
-    border: 1px solid #e2e2e2;
-    border-radius: 4px;
-    width: 240px;
-    font-family: 'Poppins', sans-serif;
-    background-color: #ffffff;
-    font-size: 12px;
-}
- .dashboard-nbfc-search-input-sec{
-     padding: 8px 12px 8px 36px;
-    border: 1px solid #e2e2e2;
-    border-radius: 4px;
-    width: 240px;
-    font-family: 'Poppins', sans-serif;
-    background-color: #ffffff;
-    font-size: 12px;
-}
- .dashboard-nbfc-search-input::placeholder {
-    padding: 0px 10px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: normal;
-    font-size: 16px;
-    color: #260254;
-}
+    .dashboard-header-controls {
+        display: flex;
+        gap: 8px;
+    }
+
+    .dashboard-sort-button-container {
+
+        display: inline-block;
+        position: relative;
+    }
+
+    .dashboard-sort-options {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    .dashboard-sort-options button {
+        padding: 10px;
+        background-color: white;
+        border: none;
+        width: 100%;
+        text-align: left;
+    }
+
+    .dashboard-sort-options button:hover {
+        background-color: #f1f1f1;
+    }
+
+    .dashboard-sort-button:focus+.dashboard-sort-options {
+        display: block;
+    }
+
+
+    .dashboard-search-button {
+        padding: 8px 12px;
+        border: 1px solid #E2E2E2;
+        border-radius: 4px;
+        background: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        height: 38px;
+        width: 39px;
+    }
+
+    .dashboard-sort-button {
+        padding: 8px 12px;
+        border: 1px solid #E2E2E2;
+        border-radius: 4px;
+        background: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #909090;
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 18px;
+
+        height: 38px;
+    }
+
+    .dashboard-student-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        background-color: white;
+        border-radius: 16px;
+    }
+
+    .dashboard-student-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 26px;
+        border-bottom: 1px solid #F0F0F0;
+    }
+
+    .dashboard-student-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .dashboard-student-name {
+        font-weight: 600;
+        color: #5D5C5C;
+        font-family: 'Poppins', sans-serif;
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .dashboard-student-id {
+        color: #5D5C5C;
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .dashboard-action-buttons {
+        display: flex;
+        gap: 8px;
+    }
+
+    .dashboard-view-button,
+    .dashboard-reject-button {
+        padding: 8px 16px;
+        border: 1px solid #6F25CE;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+
+    }
+
+    .dashboard-view-button {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+        color: #6F25CE;
+    }
+
+    .dashboard-reject-button {
+        color: #6F25CE;
+        background: transparent;
+    }
+
+    .dashboard-nbfc-search-container {
+        position: relative;
+
+
+    }
+
+    .dashboard-nbfc-search-input {
+        padding: 8px 12px 8px 36px;
+        border: 1px solid #e2e2e2;
+        border-radius: 4px;
+        width: 240px;
+        font-family: 'Poppins', sans-serif;
+        background-color: #ffffff;
+        font-size: 12px;
+    }
+
+    .dashboard-nbfc-search-input-sec {
+        padding: 8px 12px 8px 36px;
+        border: 1px solid #e2e2e2;
+        border-radius: 4px;
+        width: 240px;
+        font-family: 'Poppins', sans-serif;
+        background-color: #ffffff;
+        font-size: 12px;
+    }
+
+    .dashboard-nbfc-search-input::placeholder {
+        padding: 0px 10px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: normal;
+        font-size: 16px;
+        color: #260254;
+    }
 
     .dashboard-nbfc-search-icon {
         position: absolute;
@@ -1401,39 +1413,40 @@
         height: 24px;
         opacity: 0.5;
     }
- 
+
 }
 
 @media (max-width: 768px) {
-     .dashboard-main-content {
-      margin-left: 0;
-        padding:10px;
-        margin:0;
-        width: 100%; 
+    .dashboard-main-content {
+        margin-left: 0;
+        padding: 10px;
+        margin: 0;
+        width: 100%;
         display: flex;
-        justify-content: center; 
-        align-items: center; 
-        flex-direction: column; 
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
     }
 
     .dashboard-sections-container {
-        grid-template-columns: 1fr; 
+        grid-template-columns: 1fr;
         padding: 10px;
-        width:100%;
-       
-       
+        width: 100%;
+
+
     }
 
     .dashboard-section {
         padding: 0px;
-        width: 100%; 
+        width: 100%;
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         background-color: white;
     }
+
     .dashboard-section-header {
         display: flex;
         flex-direction: column;
-        align-items: flex-start; 
+        align-items: flex-start;
         margin-bottom: 5px;
         box-shadow: none;
         background: white;
@@ -1442,9 +1455,9 @@
     }
 
     .dashboard-section-title {
-         text-align: left;
-            font-size: 24px;
-            font-weight: 600;
+        text-align: left;
+        font-size: 24px;
+        font-weight: 600;
     }
 
     .dashboard-header-controls {
@@ -1454,9 +1467,9 @@
 
     .dashboard-sort-button-container {
         width: 100%;
-        order:2;
+        order: 2;
     }
-    
+
 
     .dashboard-sort-options {
         top: 120%;
@@ -1465,7 +1478,7 @@
     .dashboard-sort-button {
         padding: 6px 10px;
         font-size: 12px;
-       
+
     }
 
     .dashboard-search-button {
@@ -1501,7 +1514,7 @@
     .dashboard-view-button {
         display: none;
     }
-    
+
 }
 
 @media (min-width: 540px) and (max-width: 767px) {
@@ -1524,45 +1537,48 @@
 }
 
 @media (max-width: 400px) {
-    
+
     .dashboard-main-content {
-      margin-left:0;
-        padding:10px;
-        margin:0;
-        width: 100%; 
+        margin-left: 0;
+        padding: 10px;
+        margin: 0;
+        width: 100%;
         display: flex;
-        justify-content: center; 
-        align-items: center; 
-        flex-direction: column; 
-     
-    } .dashboard-nbfc-search-input-sec{
-     padding: 8px 12px 8px 36px;
-    border: 1px solid #e2e2e2;
-    border-radius: 4px;
-    width: 100%;
-    font-family: 'Poppins', sans-serif;
-    background-color: #ffffff;
-    font-size: 12px;
-}
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+    }
+
+    .dashboard-nbfc-search-input-sec {
+        padding: 8px 12px 8px 36px;
+        border: 1px solid #e2e2e2;
+        border-radius: 4px;
+        width: 100%;
+        font-family: 'Poppins', sans-serif;
+        background-color: #ffffff;
+        font-size: 12px;
+    }
 
     .dashboard-sections-container {
-        grid-template-columns: 1fr; 
+        grid-template-columns: 1fr;
         padding: 10px;
-        width: auto; 
+        width: auto;
     }
 
     .dashboard-section {
-        width: 100%; 
-        max-width: 320px; 
+        width: 100%;
+        max-width: 320px;
         padding: 0px;
-        margin: 0 auto; 
+        margin: 0 auto;
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         background-color: white;
     }
+
     .dashboard-section-header {
         display: flex;
         flex-direction: column;
-        align-items: flex-start; 
+        align-items: flex-start;
         margin-bottom: 5px;
         box-shadow: none;
         background: white;
@@ -1571,25 +1587,26 @@
     }
 
     .dashboard-section-title {
-         text-align: left;
-            font-size: 24px;
-            font-weight: 600;
+        text-align: left;
+        font-size: 24px;
+        font-weight: 600;
     }
 
     .dashboard-header-controls {
         align-items: flex-start;
         gap: 12px;
-       
+
     }
+
     .dashboard-nbfc-search-container {
-    width:100x;
- }
+        width: 100x;
+    }
 
     .dashboard-sort-button-container {
         width: 100%;
-        order:2;
+        order: 2;
     }
-    
+
 
     .dashboard-sort-options {
         top: 120%;
@@ -1598,7 +1615,7 @@
     .dashboard-sort-button {
         padding: 6px 10px;
         font-size: 12px;
-       
+
     }
 
     .dashboard-search-button {
@@ -1634,187 +1651,190 @@
     .dashboard-view-button {
         display: none;
     }
-    
- 
+
+
 }
 
 
 @media (max-width: 380px) {
-.dashboard-nbfc-search-input {
-    padding: 8px 12px 8px 36px;
-    border: 1px solid #e2e2e2;
-    border-radius: 4px;
-    width: 190px;
-    font-family: 'Poppins', sans-serif;
-    background-color: #ffffff;
-    font-size: 12px;
-}
+    .dashboard-nbfc-search-input {
+        padding: 8px 12px 8px 36px;
+        border: 1px solid #e2e2e2;
+        border-radius: 4px;
+        width: 190px;
+        font-family: 'Poppins', sans-serif;
+        background-color: #ffffff;
+        font-size: 12px;
+    }
 }
 
 /*reject container*/
 
 .modal-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black for dimming */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent black for dimming */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
 .reject-application-modal {
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: 605px;
-  height: 281px;
- 
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 605px;
+    height: 281px;
+
 }
 
 
 .reject-application-modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); 
-  backdrop-filter: blur(10px);
-  z-index: 998;
-  display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    z-index: 998;
+    display: none;
 }
 
 .reject-application-modal-open .reject-application-modal-backdrop {
-  display: block;
+    display: block;
 }
 
-  .reject-application-modal-header {
+.reject-application-modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
-  }
+}
 
-  .reject-application-modal-header h3 {
+.reject-application-modal-header h3 {
     font-size: 18px;
     font-weight: 500;
-    color:#E98635;
-  }
+    color: #E98635;
+}
 
-  .reject-application-modal-header .close-button {
+.reject-application-modal-header .close-button {
     background-color: transparent;
     border: none;
     color: #666;
     cursor: pointer;
     font-size: 20px;
-  }
+}
 
-  .reject-application-modal-content .remarks-textarea {
+.reject-application-modal-content .remarks-textarea {
     width: 100%;
     height: 120px;
-    border: 1px solid #ccc; 
+    border: 1px solid #ccc;
     border-radius: 4px;
     padding: 8px;
     font-size: 14px;
     resize: none;
     margin-bottom: 16px;
-  }
+}
 
-  .reject-application-modal-content .actions {
+.reject-application-modal-content .actions {
     display: flex;
     justify-content: space-between;
-  }
+}
 
-  .reject-application-modal-content .actions button {
+.reject-application-modal-content .actions button {
     margin-left: 8px;
     padding: 8px 16px;
     font-size: 14px;
     border-radius: 4px;
     cursor: pointer;
-  }
+}
 
-  .reject-application-modal-content .actions .cancel-button {
+.reject-application-modal-content .actions .cancel-button {
     background-color: #FFFFFF;
-    color:#260254;
+    color: #260254;
     border: none;
-      border: 1px solid #6F25CE; 
-  }
+    border: 1px solid #6F25CE;
+}
 
-  .reject-application-modal-content .actions .reject-button {
+.reject-application-modal-content .actions .reject-button {
     background-color: #6F25CE;
     color: white;
     border: none;
-  }
+}
 
 @media (max-width: 768px) {
-  .reject-application-modal {
-    width: 90%;
-    height: auto;
-    padding: 15px;
-  }
+    .reject-application-modal {
+        width: 90%;
+        height: auto;
+        padding: 15px;
+    }
 
-  .reject-application-modal-header h3 {
-    font-size: 16px;
-  }
+    .reject-application-modal-header h3 {
+        font-size: 16px;
+    }
 
-  .reject-application-modal-content .remarks-textarea {
-    height: 100px;
-    font-size: 12px;
-  }
+    .reject-application-modal-content .remarks-textarea {
+        height: 100px;
+        font-size: 12px;
+    }
 
-  .reject-application-modal-content .actions button {
-    padding: 6px 12px;
-    font-size: 12px;
-  }
+    .reject-application-modal-content .actions button {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
 
-  .reject-application-modal-content .actions .cancel-button,
-  .reject-application-modal-content .actions .reject-button {
-    font-size: 12px;
-  }
+    .reject-application-modal-content .actions .cancel-button,
+    .reject-application-modal-content .actions .reject-button {
+        font-size: 12px;
+    }
 
-  .reject-application-modal-header .close-button {
-    font-size: 18px;
-  }
+    .reject-application-modal-header .close-button {
+        font-size: 18px;
+    }
 }
 
 /* Inbox Styles */
 
-#index-section-id-nbfc{
+#index-section-id-nbfc {
     margin-top: 100px;
     overflow-x: hidden;
 }
+
 .index-section {
-    padding:0;
-   
+    padding: 0;
+
     background-color: #F5F5F5;
 }
+
 .inbox-container {
     background: white;
     border-radius: 8px;
     padding: 24px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    margin:25px;
+    margin: 25px;
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-    
+
 }
 
 
-.dashboard-section-title  h2{
+.dashboard-section-title h2 {
     color: #FF6B2C;
     font-family: 'Inter', sans-serif;
     font-weight: 700;
     font-size: 28px;
-    }
-     
+}
 
-       
+
+
 .inbox-filters {
     position: relative;
     display: flex;
@@ -1837,7 +1857,7 @@
     padding: 0;
     margin: 5px 0;
     z-index: 10;
-  
+
 }
 
 .sort-dropdown-nbfc.visible {
@@ -1865,18 +1885,20 @@
     border: 1px solid #ddd;
     margin: 2px 0;
 }
-#sort-options-index-nbfc{
-  width:80px;
+
+#sort-options-index-nbfc {
+    width: 80px;
 }
+
 .inbox-filters span {
-    margin-right: 5px;    
+    margin-right: 5px;
     font-family: 'Poppins', sans-serif;
-    font-size: 12px; 
-    
+    font-size: 12px;
+
 }
 
 .inbox-filters img {
-    width: 16px; 
+    width: 16px;
 }
 
 
@@ -1884,19 +1906,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-   
-    padding:5px 0px 20px 0px;
+
+    padding: 5px 0px 20px 0px;
 }
 
- .inbox-controls {
+.inbox-controls {
     display: flex;
     gap: 16px;
 }
 
 .inbox-search {
     position: relative;
-} 
-        
+}
+
 
 .inbox-search input {
     padding: 8px 16px 8px 40px;
@@ -1909,14 +1931,14 @@
     flex: 1;
     padding-bottom: 14px;
     border-bottom: 1px solid #e2e2e2;
-     border-top: 1px solid #e2e2e2;
-     display:flex;
-     flex-direction: column;
+    border-top: 1px solid #e2e2e2;
+    display: flex;
+    flex-direction: column;
 }
 
 .message-item {
     padding: 24px 0;
-    
+
 }
 
 .message-header {
@@ -1929,7 +1951,7 @@
 .student-name {
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
-    font-weight: 600; 
+    font-weight: 600;
     color: #5D5C5C;
 }
 
@@ -1950,11 +1972,11 @@
     width: 71px;
     height: 36px;
     font-family: 'Poppins', sans-serif;
-    font-weight: 500; 
+    font-weight: 500;
     font-size: 14px;
     display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
 }
 
 .inbox-btn-view {
@@ -1968,11 +1990,11 @@
     width: 71px;
     height: 36px;
     font-family: 'Poppins', sans-serif;
-    font-weight: 500; 
+    font-weight: 500;
     font-size: 14px;
     display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
 }
 
 .message-content {
@@ -1981,15 +2003,15 @@
     font-size: 14px;
     color: #909090;
     line-height: 1.5;
-    
+
     height: 70px;
     border: 1px solid #e2e2e2;
     padding: 4px;
     padding-left: auto;
-    border-radius: 5px; 
-    display: flex; 
+    border-radius: 5px;
+    display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
 }
 
 
@@ -2003,8 +2025,9 @@
     padding: 10px;
 
 }
-.message-response-container{
-     display: flex;
+
+.message-response-container {
+    display: flex;
     flex-direction: column;
     align-items: flex-end;
     height: auto;
@@ -2013,6 +2036,7 @@
     border-radius: 4px;
     padding: 10px;
 }
+
 .message-content-container {
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
@@ -2035,7 +2059,7 @@
     font-weight: 500;
     font-size: 14px;
     line-height: 1.5;
-   color: #909090;
+    color: #909090;
     text-align: left;
 }
 
@@ -2059,7 +2083,7 @@
     gap: 8px;
     border-radius: 4px;
     border: 1px solid rgba(226, 226, 226, 1);
-   font-size: 12px;
+    font-size: 12px;
     color: rgba(144, 144, 144, 1);
 }
 
@@ -2084,7 +2108,7 @@
 }
 
 .nbfc-individual-bankmessage-input i {
-     font-size: 1.2rem;
+    font-size: 1.2rem;
     color: rgba(187, 187, 187, 1);
     cursor: pointer;
 }
@@ -2101,7 +2125,7 @@
     font-size: 18px;
 }
 
-        
+
 .index-search-container {
     position: relative;
 }
@@ -2136,28 +2160,30 @@
 
 
 
-  /*index container*/
+/*index container*/
 
 .index-student-details-container {
     max-width: 1000px;
 }
+
 .index-student-details-container .index-student-message-container {
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid #E5E7EB;
-    
+
 }
+
 .index-student-details-container .index-student-message-container:last-child {
-    border-bottom: none; 
+    border-bottom: none;
 }
 
 .index-student-card {
-  padding: 20px 10px;
+    padding: 20px 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-   
-   
+
+
 }
 
 .index-student-card:last-child {
@@ -2179,7 +2205,7 @@
     font-size: 14px;
     color: #666;
     line-height: 1.5;
-    width:590px;
+    width: 590px;
     margin-top: 10px;
 }
 
@@ -2212,7 +2238,7 @@
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
     transition: all 0.3s ease;
-    width:80px;
+    width: 80px;
 }
 
 .index-student-message-btn:hover {
@@ -2296,7 +2322,7 @@
     padding: 8px 12px 8px 36px;
     border: 1px solid #e2e2e2;
     border-radius: 4px;
-    width:auto;
+    width: auto;
     font-family: 'Poppins', sans-serif;
     background-color: #ffffff;
     font-size: 12px;
@@ -2308,7 +2334,7 @@
     font-weight: 500;
     font-size: 12px;
     color: #5D5C5C;
-    
+
 }
 
 .index-search-icon {
@@ -2324,108 +2350,112 @@
 
 @media (min-width: 1700px) {
 
-.index-student-details-container {
+    .index-student-details-container {
         max-width: 1200px;
-           
-        }
+
+    }
 
 
 
-.index-student-card {
-    padding: 20px 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-   
-}
+    .index-student-card {
+        padding: 20px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+    }
 
     .index-student-description {
         width: 700px;
     }
 }
+
 @media (max-width: 1024px) {
-    
+
     .index-student-card {
-        padding: 15px; 
+        padding: 15px;
     }
 
     .index-student-description {
-        width: 100%; /* Make it full width */
+        width: 100%;
+        /* Make it full width */
     }
+
     .message-response {
-    display: flex
-;
-    flex-direction: column;
-    width: auto;
-    height: auto;
-    margin-left: auto;
-    border-radius: 4px;
-    padding: 10px;
-}
+        display: flex;
+        flex-direction: column;
+        width: auto;
+        height: auto;
+        margin-left: auto;
+        border-radius: 4px;
+        padding: 10px;
+    }
 }
 
 
 @media only screen and (max-width: 768px) {
 
-.index-section {
-    grid-template-columns: 1fr;
+    .index-section {
+        grid-template-columns: 1fr;
         padding: 10px;
-}    
+    }
 
-.inbox-container {
-    background: white;
-    border-radius: 8px;
-    padding: 24px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    margin:10px;
-    display: flex;
-    flex-direction: column;
-}
-   
+    .inbox-container {
+        background: white;
+        border-radius: 8px;
+        padding: 24px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        margin: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+
     .inbox-header {
         display: flex;
         flex-direction: column;
-         align-items: flex-start; 
-         gap:10px;
+        align-items: flex-start;
+        gap: 10px;
 
     }
-     .inbox-controls {
-            display: flex;
-            gap: 16px;
-            
-        }
 
-        .inbox-search {
-            position: absolute;
-        } 
-        
+    .inbox-controls {
+        display: flex;
+        gap: 16px;
 
-        .inbox-search input {
-         padding: 8px 12px 8px 36px;
+    }
+
+    .inbox-search {
+        position: absolute;
+    }
+
+
+    .inbox-search input {
+        padding: 8px 12px 8px 36px;
         border: 1px solid #e2e2e2;
         border-radius: 4px;
         width: 190px;
         font-family: 'Poppins', sans-serif;
         background-color: #ffffff;
         font-size: 12px;
-            
-        }
-      
-         .index-student-details-container {
+
+    }
+
+    .index-student-details-container {
         max-width: 100%;
         padding: 10px;
     }
+
     .inbox-filters {
-    width:auto;
-    border: 1px solid #e2e2e2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-}
+        width: auto;
+        border: 1px solid #e2e2e2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+    }
 
     .index-student-card {
-      
+
         padding: 15px 0px;
     }
 
@@ -2446,42 +2476,44 @@
     .index-student-message-btn,
     .index-student-view-btn {
         width: 100%;
-        font-size: 12px; 
+        font-size: 12px;
         padding: 10px;
     }
-        .message-composer {
-        width: 100%; 
-        padding: 14px 10px; 
+
+    .message-composer {
+        width: 100%;
+        padding: 14px 10px;
     }
 
     .message-input {
-        width: 100%; 
+        width: 100%;
         height: 40px;
         padding: 8px 12px;
         font-size: 16px;
     }
-    
-.message-content {
-    border: 1px solid #e2e2e2;
-    font-size: 12px;
-    width: 300px;
-    height:auto;
-    padding:10px;
-   
-}
+
+    .message-content {
+        border: 1px solid #e2e2e2;
+        font-size: 12px;
+        width: 300px;
+        height: auto;
+        padding: 10px;
+
+    }
 
     .composer-actions {
         width: 300px;
-        justify-content: space-between; 
+        justify-content: space-between;
     }
-     .message-response {
-        width:100%;
+
+    .message-response {
+        width: 100%;
         padding: 0;
         margin-left: 0;
     }
 
     .message-response-container {
-       
+
 
         display: flex;
         flex-direction: column;
@@ -2489,33 +2521,35 @@
         height: auto;
         margin-left: 40px;
         border: 1px solid #e2e2e2;
-       
+
     }
 
     .message-content-container {
         font-size: 12px;
-       height:auto;
+        height: auto;
     }
 
     .message-list li {
-          font-size: 12px;
-       height:auto;
+        font-size: 12px;
+        height: auto;
     }
-    .messages-wrapper{
+
+    .messages-wrapper {
         margin-left: 40px;
-       
+
     }
 
 }
-@media(max-width:380px){
-       
-.message-content {
-    border: 1px solid #e2e2e2;
-    font-size: 12px;
-    width: 270px;
-    height:auto;
-   
-}
+
+@media(max-width:380px) {
+
+    .message-content {
+        border: 1px solid #e2e2e2;
+        font-size: 12px;
+        width: 270px;
+        height: auto;
+
+    }
 }
 
 @media (min-width: 1025px) {
@@ -2528,20 +2562,23 @@
     .index-student-button-group {
         display: none;
     }
-    
+
     .index-student-send-btn-mobile {
         display: block;
     }
 }
 
 
-@media (max-width: 768px) { /* Adjust the breakpoint as needed */
+@media (max-width: 768px) {
+
+    /* Adjust the breakpoint as needed */
     .index-student-button-group {
         display: none;
     }
 
     .index-student-send-btn-mobile {
-        display: block; /* Ensure it's visible */
+        display: block;
+        /* Ensure it's visible */
     }
 }
 
@@ -2551,14 +2588,14 @@
         padding: 5px;
     }
 
-    
+
 
     .index-student-name {
         font-size: 12px;
     }
 
     .index-student-description {
-        font-size: 11px; 
+        font-size: 11px;
     }
 
     .index-student-button-group {
@@ -2567,11 +2604,12 @@
 
     .index-student-message-btn,
     .index-student-view-btn {
-       display:none;
+        display: none;
     }
-     .action-btn {
+
+    .action-btn {
         padding: 8px;
-        flex-direction: column; 
+        flex-direction: column;
     }
 
     .action-btn svg {
@@ -2594,12 +2632,13 @@
     }
 
     .action-btn svg {
-        width: 28px; 
+        width: 28px;
         height: 28px;
     }
 }
-@media (max-width: 380px) { 
-   .index-search-input {
+
+@media (max-width: 380px) {
+    .index-search-input {
         padding: 8px 12px 8px 36px;
         border: 1px solid #e2e2e2;
         border-radius: 4px;
@@ -2608,44 +2647,47 @@
         background-color: #ffffff;
         font-size: 12px;
     }
-    
+
     .index-student-card {
         padding: 10px 0px;
-          width: 270px;
-         height:auto;
+        width: 270px;
+        height: auto;
     }
 }
 
 .hidden {
     display: none !important;
 }
+
 .nbfc-studentdashboard-profile-container {
     display: none;
     width: 100%;
-    
+
 }
 
 /*view trigger container*/
 
-.nbfc-studentdashboardprofile-profile-section-container{
-    display:none;
+.nbfc-studentdashboardprofile-profile-section-container {
+    display: none;
 }
-.nbfc-student-dashboard-section-main-contents{
-    display:flex;
-    width:100%;
+
+.nbfc-student-dashboard-section-main-contents {
+    display: flex;
+    width: 100%;
     margin-top: 85px;
-    
+
 }
 
 .nbfc-student-dashboard-section-main-contents .studentdashboardprofile-myapplication {
     display: none;
-    width:100%;
+    width: 100%;
     margin-left: 20px;
     margin-right: 0;
-  
- 
+
+
 
 }
+
 .nbfc-student-dashboard-section-main-contents .studentdashboardprofile-profilesection {
     background-color: white;
     margin-top: 19px;
@@ -2653,11 +2695,11 @@
 
 }
 
-.nbfc-student-dashboard-section-main-contents .myapplication-firstcolumn h1{
+.nbfc-student-dashboard-section-main-contents .myapplication-firstcolumn h1 {
     margin-top: 20px;
 }
 
-.nbfc-student-dashboard-section-main-contents .personalinfo-secondrow li{
+.nbfc-student-dashboard-section-main-contents .personalinfo-secondrow li {
     font-family: Poppins;
     font-size: 13px !important;
     font-weight: 500;
@@ -2672,7 +2714,11 @@
 
 
 
-.personalinfo-secondrow li, .personal_info_name, .personal_info_phone, .personal_info_email, .personal_info_state{
+.personalinfo-secondrow li,
+.personal_info_name,
+.personal_info_phone,
+.personal_info_email,
+.personal_info_state {
     font-family: Poppins;
     font-size: 13px !important;
     font-weight: 500;
@@ -2699,11 +2745,12 @@
 }
 
 .nbfc-student-dashboard-section-main-contents .myapplication-eleventhcolumn {
-    display:flex;
-   justify-content: flex-start;
-   gap:300px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 300px;
 
 }
+
 .myapplication-eleventhcolumn {
     display: flex;
     justify-content: space-between;
@@ -2711,9 +2758,9 @@
     width: 100%;
 }
 
-.nbfc-send-proposal-button{
+.nbfc-send-proposal-button {
     margin-right: auto;
-     max-width: 168px;
+    max-width: 168px;
     width: 100%;
     height: 35px;
     padding: 16px 10px;
@@ -2726,40 +2773,42 @@
     font-weight: 500;
     line-height: 16.8px;
     text-align: left;
-    color:white;
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
-     background-color: #6F25CE;
+    background-color: #6F25CE;
 }
 
 .myapplication-eleventhcolumn-buttons {
     display: flex;
-    gap: 10px; 
-  
+    gap: 10px;
+
     width: 100%;
     height: 35px;
     padding: 16px 10px;
     gap: 8px;
     border-radius: 4px;
-   
+
     background: transparent;
     font-family: Poppins;
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
     text-align: left;
-   
+
     display: flex;
     align-items: center;
     justify-content: center;
-   
-   
+
+
 }
-.nbfc-message-button, .nbfc-reject-button{
- margin-right: auto;
-     max-width: 108px;
+
+.nbfc-message-button,
+.nbfc-reject-button {
+    margin-right: auto;
+    max-width: 108px;
     width: 100%;
     height: 35px;
     padding: 16px 10px;
@@ -2781,137 +2830,138 @@
 }
 
 
- .nbfc-send-proposal-modal-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
+.nbfc-send-proposal-modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
 
-        .nbfc-send-proposal-modal-content {
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 24px;
-            width: 605px;
-        }
+.nbfc-send-proposal-modal-content {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    width: 605px;
+}
 
-        .nbfc-send-proposal-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+.nbfc-send-proposal-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
 
-        .nbfc-send-proposal-modal-header h3 {
-            color: #E98635;
-            font-size: 20px;
-            margin: 0;
-        }
+.nbfc-send-proposal-modal-header h3 {
+    color: #E98635;
+    font-size: 20px;
+    margin: 0;
+}
 
-        .nbfc-send-proposal-close-button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 20px;
-            color: #666;
-        }
+.nbfc-send-proposal-close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #666;
+}
 
-        .nbfc-send-proposal-remarks-textarea {
-            width: 100%;
-            height: 120px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 12px;
-            margin-bottom: 20px;
-            resize: none;
-        }
+.nbfc-send-proposal-remarks-textarea {
+    width: 100%;
+    height: 120px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 12px;
+    margin-bottom: 20px;
+    resize: none;
+}
 
-        .nbfc-send-proposal-attachment-section {
-            margin-bottom: 20px;
-        }
+.nbfc-send-proposal-attachment-section {
+    margin-bottom: 20px;
+}
 
-        .nbfc-send-proposal-attachment-label {
-            color: #666;
-            margin-bottom: 8px;
-            display: block;
-        }
+.nbfc-send-proposal-attachment-label {
+    color: #666;
+    margin-bottom: 8px;
+    display: block;
+}
 
-        .nbfc-send-proposal-attachment-input {
-            display: none;
-        }
+.nbfc-send-proposal-attachment-input {
+    display: none;
+}
 
-        .nbfc-send-proposal-attachment-button {
-            padding: 6px 16px;
-            background: #fff;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            cursor: pointer;
-            color: #666;
-            margin-bottom: 10px;
-              font-size: 12px;
-        }
+.nbfc-send-proposal-attachment-button {
+    padding: 6px 16px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #666;
+    margin-bottom: 10px;
+    font-size: 12px;
+}
 
-        .nbfc-send-proposal-attachment-preview {
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 12px;
-            display: none;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-        }
+.nbfc-send-proposal-attachment-preview {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 12px;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
 
-        .nbfc-send-proposal-file-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 12px;
-        }
+.nbfc-send-proposal-file-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+}
 
-        .nbfc-send-proposal-file-name {
-            color: #333;
-        }
+.nbfc-send-proposal-file-name {
+    color: #333;
+}
 
-        .nbfc-send-proposal-file-size {
-            color: #666;
-            font-size: 0.9em;
-        }
+.nbfc-send-proposal-file-size {
+    color: #666;
+    font-size: 0.9em;
+}
 
-        .nbfc-send-proposal-button-container {
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            margin-top: 20px;
-          
-        }
+.nbfc-send-proposal-button-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 20px;
 
-        .nbfc-send-proposal-cancel-button {
-            padding: 6px 24px;
-            background: white;
-            border: 1px solid #6F25CE;
-            color: #260254;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-        }
+}
 
-        .nbfc-send-proposal-send-button {
-            padding: 6px 24px;
-            background: #6F25CE;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-        }
- .chat-container {
+.nbfc-send-proposal-cancel-button {
+    padding: 6px 24px;
+    background: white;
+    border: 1px solid #6F25CE;
+    color: #260254;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.nbfc-send-proposal-send-button {
+    padding: 6px 24px;
+    background: #6F25CE;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.chat-container {
     display: flex;
     flex-direction: column;
     align-items: flex-end;

@@ -11,7 +11,7 @@ class Requestprogress extends Model
 
     use HasFactory;
     protected $fillable = ['nbfc_id', 'user_id', 'type'];
-
+ 
 
     const TYPE_REQUEST = 'request';
     const TYPE_PROPOSAL = 'proposal';
