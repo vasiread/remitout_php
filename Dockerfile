@@ -15,15 +15,19 @@ RUN apt-get update && apt-get install -y \
     vim \
     unzip \
     git \
-    curl
+    curl \
+    libonig-dev \
+    libzip-dev \
+    php-xml \
+    php-mbstring
 
 # Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Copy the existing application directory contents
 COPY . /var/www
 
-# Install Laravel dependencies
+# Install Laravel dependencies using Composer
 RUN composer install --no-dev --optimize-autoloader
 
 # Expose port 8000
