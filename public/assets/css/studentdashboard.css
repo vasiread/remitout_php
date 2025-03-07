@@ -16,21 +16,23 @@ input[type="file"] {
     /* flex-direction: column; */
 
 
-    gap: 0.02%;
+    gap: 2.28%;
 
 
 }
 
 .studentdashboardprofile-togglesidebar {
     height: 100vh;
-    padding: 35px 27px;
+    padding: 35px 0px;
+
     box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
     background-color: rgba(255, 255, 255, 1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin-top: 85px;
-    /* position:fixed; */
+    max-width: 17.43%;
+    width: 100%;
 
 
 }
@@ -42,6 +44,7 @@ input[type="file"] {
     gap: 20px;
     height: 202px;
     max-width: 100%;
+    margin-left: 29px;
 
 }
 
@@ -66,6 +69,7 @@ input[type="file"] {
 
 .studentdashboardprofile-sidebarlists-bottom {
     width: 100%;
+    margin: 0;
 }
 
 .studentdashboardprofile-sidebarlists-bottom li {
@@ -75,6 +79,7 @@ input[type="file"] {
     gap: 18px;
     max-width: 100%;
     width: 100%;
+    margin: 0;
 
 
 
@@ -143,6 +148,8 @@ input[type="file"] {
     gap: 22px;
     flex: 1;
     position: relative;
+    max-width: 21.80%;
+    width: 100%;
 
 }
 
@@ -390,6 +397,7 @@ input[type="file"] {
     padding: 0 1.5rem;
     flex: 1;
     margin-top: 85px;
+    max-width: 53.54%;
 
 
 
@@ -443,8 +451,7 @@ input[type="file"] {
 
     box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
 
-    padding: 0px 25px 25px 24px;
-
+ 
 }
 
 .trackprogress-leftsection {
@@ -1208,6 +1215,7 @@ input[type="file"] {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    padding: 0 5px;
 }
 
 .inputfilecontainer-marksheet,

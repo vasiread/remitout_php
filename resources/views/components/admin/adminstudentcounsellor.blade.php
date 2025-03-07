@@ -83,20 +83,20 @@
                 <p id="cousellor-referralid-identify">Referral Number</p>
             </div>
 
-                <div class="individualcounsellorlists-items" data-added="">
+            <div class="individualcounsellorlists-items" data-added="">
 
-                    <div class="individualcounsellorlists-content">
+                <div class="individualcounsellorlists-content">
 
-                        <p id="student-counsellor-name-id"></p>
-                        <p></p>
-                    </div>
-
-                    <div class="individualcounsellors-buttoncontainer">
-                        <button> <img src="{{asset("assets/images/Icons/visibility.png")}}"> </button>
-                        <button> <img src="{{asset("assets/images/Icons/edit_purple.png")}}"></button>
-                        <button>Suspend</button>
-                    </div>
+                    <p id="student-counsellor-name-id"></p>
+                    <p></p>
                 </div>
+
+                <div class="individualcounsellors-buttoncontainer">
+                    <button> <img src="{{asset("assets/images/Icons/visibility.png")}}"> </button>
+                    <button> <img src="{{asset("assets/images/Icons/edit_purple.png")}}"></button>
+                    <button>Suspend</button>
+                </div>
+            </div>
 
         </div>
     </div>
@@ -164,9 +164,8 @@
                     .then((response) => response.json())
                     .then((data) => {
                         if (data.success) {
-                            // Assuming the API returns a list of student counsellors in `data.receivedData`
                             const counsellorList = data.receivedData;
-                            updateCounsellorList(counsellorList);  // Update the list on the page
+                            updateCounsellorList(counsellorList);
                         } else {
                             console.error(data.error);
                         }
@@ -254,27 +253,23 @@
                 return;
             }
 
-            // Date of Birth validation
             if (!scDob) {
                 alert('Please enter the date of birth.');
                 return;
             }
 
-            // Email validation
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!scEmail || !emailPattern.test(scEmail)) {
                 alert('Please enter a valid email address.');
                 return;
             }
 
-            // Contact number validation: Ensure it's a 10-digit number
             const contactPattern = /^[0-9]{10}$/;
             if (!scContact || !contactPattern.test(scContact)) {
                 alert('Please enter a valid 10-digit contact number.');
                 return;
             }
 
-            // Address validation
             if (!scAddress) {
                 alert('Please enter the address.');
                 return;
@@ -331,10 +326,9 @@
 
             counsellorList.forEach(counsellor => {
                 const fullTimestamp = counsellor.created_at;
-                const dateOnly = fullTimestamp.split(' ')[0];
                 const counsellorItem = document.createElement('div');
                 counsellorItem.className = 'individualcounsellorlists-items';
-                counsellorItem.setAttribute('data-added', dateOnly);
+                counsellorItem.setAttribute('data-added', fullTimestamp);
 
                 const counsellorContent = document.createElement('div');
                 counsellorContent.className = 'individualcounsellorlists-content';

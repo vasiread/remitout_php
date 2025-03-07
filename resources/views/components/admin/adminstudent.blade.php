@@ -140,7 +140,7 @@
                                     <span id="passport-remove-icon" class="remove-icon" style="display: none;"
                                         onclick="removeFile('passport', 'passport-name', 'passport-upload-icon', 'passport-remove-icon','<?= $users->user_id ?>')">✖</span>
                                 </div>
-                                 <div class="info" style="display:none">
+                                <div class="info" style="display:none">
                                     <span class="help-trigger" data-target="tenth-grade-help">ⓘ Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
@@ -250,7 +250,7 @@
                                     <input type="file" id="secured-tenth" accept=".jpg, .png, .pdf"
                                         onchange="handleFileUpload(event, 'secured-tenth-name', 'secured-tenth-upload-icon', 'secured-tenth-remove-icon','<?= $users->user_id ?>')">
                                     <span id="secured-tenth-remove-icon" class="remove-icon" style="display:none;"
-                                        onclick="removeFile('secured-tenth', 'secured-tenth-name', 'secured-tenth-upload-icon', 'secured-tenth-remove-icon')">✖</span>
+                                        onclick="removeFile('secured-tenth', 'secured-tenth-name', 'secured-tenth-upload-icon', 'secured-tenth-remove-icon','<?= $users->user_id ?>')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
                                     <span class="help-trigger" data-target="tenth-grade-help">ⓘ Help</span>
@@ -304,7 +304,7 @@
                                     <span id="secured-graduation-remove-icon" class="remove-icon" style="display:none;"
                                         onclick="removeFile('secured-graduation', 'secured-graduation-name', 'secured-graduation-upload-icon', 'secured-graduation-remove-icon','<?= $users->user_id ?>')">✖</span>
                                 </div>
-                                 <div class="info" style="display:none">
+                                <div class="info" style="display:none">
                                     <span class="help-trigger" data-target="tenth-grade-help">ⓘ Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
@@ -332,7 +332,7 @@
                                     <span id="co-remove-icon" class="remove-icon" style="display:none;"
                                         onclick="removeFile('co-pan-card', 'co-pan-card-name', 'co-upload-icon', 'co-remove-icon','<?= $users->user_id ?>')">✖</span>
                                 </div>
-                                 <div class="info" style="display:none">
+                                <div class="info" style="display:none">
                                     <span class="help-trigger" data-target="tenth-grade-help">ⓘ Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
@@ -437,7 +437,6 @@
             const userIdElements = document.querySelectorAll(".firstsection-lists #hidden-id-elementforaccess");
             const missingDocumentCountUpdateforeach = document.querySelectorAll(".scdashboard-missingdocumentsstatus .missing-document-count");
 
-            // Ensure both have the same length to match user IDs with missing document counts
             if (userIdElements.length !== missingDocumentCountUpdateforeach.length) {
                 console.error("Mismatch between the number of user IDs and missing document count elements.");
                 return;
@@ -458,13 +457,10 @@
                     .then((data) => {
                         console.log("API response for user:", userId, data);
 
-                        // Increment document count
                         let documentsCount = data.documentscount || 0;
 
-                        // Get the corresponding missing document count element
                         const missingCountElement = missingDocumentCountUpdateforeach[index];
 
-                        // Ensure the element exists before trying to modify it
                         if (missingCountElement) {
                             if (documentsCount > 10) {
                                 missingCountElement.textContent = "0" + (22 - documentsCount);
@@ -487,8 +483,7 @@
             const documentsStatusBar = document.querySelectorAll(".studentapplication-lists-remainingdocuments");
             const studentId = document.querySelectorAll(".studentapplication-lists .firstsection-lists #hidden-id-elementforaccess");
 
-            let previousUserId = ""; // To store the previously used userId
-
+            let previousUserId = "";
             for (let [index, item] of viewButton.entries()) {
                 item.addEventListener('click', async () => {
                     if (listContainer[index] && documentsStatusBar[index] && studentId[index]) {
@@ -497,9 +492,8 @@
 
                         const userId = studentId[index].textContent.trim();
 
-                        // Check if the new userId is different from the previous one
                         if (userId && userId !== previousUserId) {
-                            previousUserId = userId; // Update previousUserId
+                            previousUserId = userId;
                             await getRemainingDocuments(userId);
                         } else {
                             console.log("Same userId detected or userId is empty, skipping fetch.");
@@ -526,21 +520,20 @@
 
             console.log(userId);
 
-            // Perform the fetch call with correct formatting
             await fetch("/remaining-documents", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 },
-                body: JSON.stringify({ userId }) // Corrected placement of JSON.stringify
+                body: JSON.stringify({ userId })
             })
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.message === "Documents count retrieved successfully") {
                         const missingDocuments = data.missingDocuments;
 
-                        // Loop through missingDocuments and check for each document type
+
                         missingDocuments.forEach(missingDocument => {
                             if (missingDocument === "aadhar-card-name/") {
                                 console.log("Missing: Aadhar Card");
