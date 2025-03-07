@@ -1,36 +1,33 @@
-# Use the official PHP image as the base image
+# Use the official PHP image with Laravel requirements
 FROM php:8.1-fpm
 
-# Set the working directory inside the container
+# Set working directory
 WORKDIR /var/www
 
-# Install system dependencies and PHP extensions
+# Install dependencies
 RUN apt-get update && apt-get install -y \
-    build-essential \
     libpng-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
-    libzip-dev \
+    locales \
     zip \
+    jpegoptim optipng pngquant gifsicle \
+    vim \
     unzip \
     git \
-    curl \
-    && docker-php-ext-install pdo_mysql gd zip
+    curl
 
-# Install Composer globally
+# Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy the Laravel application files to the container
+# Copy the existing application directory contents
 COPY . /var/www
 
-# Set the proper file permissions
-RUN chown -R www-data:www-data /var/www
+# Install Laravel dependencies
+RUN composer install --no-dev --optimize-autoloader
 
-# Change the current user to www-data
-USER www-data
-
-# Expose port 8000 to be used for Laravel development
+# Expose port 8000
 EXPOSE 8000
 
-# Start the PHP FastCGI Process Manager (FPM)
-CMD ["php-fpm"]
+# Start Laravel server when container runs
+CMD php artisan serve --host=0.0.0.0 --port=8000
