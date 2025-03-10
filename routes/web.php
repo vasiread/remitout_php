@@ -43,13 +43,13 @@ Route::get('/login', function () {
 })->name('login');
 Route::get('/nbfc-dashboard', function () {
     return view('pages.nbfcdashboard');
-})->name('login');
+})->name('nbfcdashboard');
 
 
 Route::get('/admin-page', function () {
 
     $sidebarItems = (new SidebarHandlingController)->admindashboardItems();
-    $userDetails = (new StudentDashboardController)->getAllUsersFromAdmin();  // Example class name
+    $userDetails = (new StudentDashboardController)->getAllUsersFromAdmin();   
 
     return view('pages.adminpage', [
         'sidebarItems' => $sidebarItems,

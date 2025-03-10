@@ -11,9 +11,9 @@
         style="@if (request()->is('/')) position: absolute; top: 0; left: 0; width: 100%; z-index: 10; @else position: relative; @endif">
         <div class="{{ Request::is('/') ? 'nav-container' : 'nav-container fullopacity' }}">
             @php
-$navImgPath = "assets/images/Remitoutcolored.png";
-$navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
-$NotificationBell = "assets/images/notifications_unread.png";
+                $navImgPath = "assets/images/Remitoutcolored.png";
+                $navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
+                $NotificationBell = "assets/images/notifications_unread.png";
             @endphp
 
             <img onclick="window.location.href='{{ url(' ') }}'"
@@ -37,14 +37,18 @@ $NotificationBell = "assets/images/notifications_unread.png";
                     </div>
                     <img src="{{ $NotificationBell }}" style="width:24px;height:24px" class="unread-notify" alt="">
 
-                    <div class="nav-profilecontainer">
-                        <img src="{{ asset('assets/images/Icons/account_circle.png') }}" id="nav-profile-photo-id" class="nav-profileimg"
-                            alt="Profile Image">
+                    <div class="nav-profilecontainer" id="notification-userprofile-section">
+                        <img src="{{ asset('assets/images/Icons/account_circle.png') }}" id="nav-profile-photo-id"
+                            class="nav-profileimg" alt="Profile Image">
                         <h3>{{ session('user')->name }}</h3>
-                        <i class="fa-solid fa-chevron-down"></i>
+                        <i class="fa-solid fa-chevron-down" style="cursor:pointer;"></i>
+                        <div class="popup-notify-list" style="display:none">
+                            <p>Change Password</p>
+                            <p>Logout</p>
+                        </div>
                     </div>
 
-                    <div class="menubarcontainer-profile" id="user-dashboard-menu">
+                    <div class=" menubarcontainer-profile" id="user-dashboard-menu">
                         <img src="{{ asset('assets/images/Icons/menu.png') }}" alt="">
                     </div>
                 </div>
@@ -90,11 +94,14 @@ $NotificationBell = "assets/images/notifications_unread.png";
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             dynamicChangeNavMob();
+            userPopopuOpen();
+
+
 
             const navButtons = document.querySelector(".nav-buttons");
             var currentRoute = window.location.pathname;
             console.log('Current Route:', currentRoute);
-             @if(session('scuser'))
+            @if(session('scuser'))
                 retrieveProfilePictureNavSc();
             @elseif(session('user'))
                 retrieveProfilePictureNav();
@@ -182,7 +189,7 @@ $NotificationBell = "assets/images/notifications_unread.png";
         };
 
         const retrieveProfilePictureNavSc = async () => {
-               const userSession = @json(session('scuser'));
+            const userSession = @json(session('scuser'));
             const scuserrefid = userSession.referral_code;
             const profileImgUpdate = document.querySelector(".nav-profilecontainer .nav-profileimg");
             const mobTabProfile = document.querySelector(".profile-photo-mobtab img");
@@ -244,6 +251,29 @@ $NotificationBell = "assets/images/notifications_unread.png";
         window.addEventListener("resize", () => {
             dynamicChangeNavMob();
         });
+
+
+        const userPopopuOpen = () => {
+            const userPopupTrigger = document.querySelector("#notification-userprofile-section i");
+            const userPopupList = document.querySelector(".popup-notify-list");
+
+            if (userPopupTrigger) {
+                userPopupTrigger.addEventListener('click', () => {
+                    if (userPopupTrigger.classList.contains("fa-chevron-down")) {
+                        userPopupTrigger.classList.remove("fa-chevron-down");
+                        userPopupTrigger.classList.add("fa-chevron-up");
+                        userPopupList.style.display = "flex";
+                    } else {
+                        userPopupTrigger.classList.remove("fa-chevron-up");
+                        userPopupTrigger.classList.add("fa-chevron-down");
+                        userPopupList.style.display = "none";
+
+                    }
+                });
+
+
+            }
+        }
 
     </script>
 

@@ -1141,10 +1141,10 @@
 
                 if (triggeredMessageButton) {
                     triggeredMessageButton.addEventListener('click', () => {
-                        const isExpanded = card.style.height === "190px";
+                        const isExpanded = card.style.height === "95px";
 
                         individualCards.forEach((otherCard) => {
-                            otherCard.style.height = "95px";
+                            otherCard.style.height = "fit-content";
                             const otherMessageInput = otherCard.querySelector('.individual-bankmessage-input');
                             if (otherMessageInput) {
                                 otherMessageInput.style.display = "none";
@@ -1155,7 +1155,7 @@
                             card.style.height = "95px";
                             individualBankMessageInput.style.display = "none";
                         } else {
-                            card.style.height = "190px";
+                            card.style.height = "fit-content";
                             individualBankMessageInput.style.display = "flex";
                         }
                     });

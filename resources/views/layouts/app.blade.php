@@ -7,7 +7,7 @@
     
     <title>@yield('title', 'Remitout')</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://use.typekit.net/dhw7ffd.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     
     <!-- Custom Stylesheets -->
@@ -49,13 +49,11 @@
     <!-- Only show header component on home page -->
     @if(request()->is('/'))
         <x-header></x-header>
-    <!-- Show navbar on other pages except excluded ones -->
     @elseif(!in_array(Route::currentRouteName(), ['login', 'signup', 'admin-page', 'nbfc-dashboard']))
         <x-navbar></x-navbar>
     @endif
     
-    @yield('homecontent')
-        
+         
     @if(Route::currentRouteName() === 'login')
         @yield('logincontent')
     @elseif(Route::currentRouteName() === 'signup')
