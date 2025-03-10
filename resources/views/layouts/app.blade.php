@@ -70,9 +70,9 @@
         @yield('homecontent')
     @endif
     
-    @if(Route::currentRouteName() !== 'login' && Route::currentRouteName() !== 'signup' && Route::currentRouteName() !== 'admin-page' && Route::currentRouteName() !== 'nbfc-dashboard')
-        <x-footer></x-footer>
-    @endif
+   @if(!in_array(Route::currentRouteName(), ['login', 'signup', 'admin-page', 'nbfc-dashboard', 'sc-dashboard']))
+    <x-footer></x-footer>
+   @endif
     
     <script src="{{ asset('js/app.js') }}"></script>
 </body>

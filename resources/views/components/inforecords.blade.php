@@ -1,25 +1,26 @@
 <section class="study-loans-section">
     <div class="study-loans-content">
-        <!-- Left Section -->
-        <div class="study-loans-left">
-            <div class="study-loans-text">
-                <h3>Your Smart Route to <br>Study Loans</h3>
-                <p>Bespoke Loan Options from Trusted NBFCs for <br> Your International Education.</p>
-            </div>
-        </div>
-        <!-- Right Section -->
-        <div class="study-loans-image-right">
-            <img src="{{ asset('assets/images/globe-1.png') }}" alt="Globe Image" class="globe-image">
-        </div>
+      
+    <!-- Left Section -->
+    <div class="study-loans-left">
+      <div class="study-loans-text">
+        <h3>Your Smart Route to <br>Study Loans</h3>
+        <p>Bespoke Loan Options from Trusted NBFCs for <br> Your International Education.</p>
+      </div>
     </div>
-    <!-- <div class="flowchart-section">
-    <img src="{{asset('assets/images/flowchat.png')}}" alt="Flowchart Image" class="flowchart-image">
-  </div> -->
+    <!-- Right Section -->
+    <div class="study-loans-image-right">
+      <img src="{{ asset('assets/images/globe-1.png') }}" alt="Globe Image" class="globe-image">
+    </div>
+  </div>
+  <div class="flowchart-section">
+     <img src="{{asset('assets/images/flowchat.png')}}" alt="Flowchart Image" class="flowchart-image">
+  </div>
+</section>
 
 
 
-
-    <div class="graphcard-section">
+  <!-- <div class="graphcard-section">
 
         <div class="graphcardsection-bottomleftsection">
 
@@ -102,7 +103,7 @@
 
 
         </div>
-    </div>
+    </div>-->
 
 
 

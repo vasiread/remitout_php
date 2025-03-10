@@ -91,6 +91,8 @@
             padding: 6px 12px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+
         }
 
         .nbfc-avatar {
@@ -167,7 +169,7 @@
  
 
         }
-        .nbfc-mobile-overlay.active {
+ .nbfc-mobile-overlay.active {
     opacity: 1;
     visibility: visible;
     position: fixed;
@@ -442,6 +444,9 @@
             left: 3px;
         }
 
+body {
+    background-color: #F5F5F5;
+}
 
         .nbfcstudentdashboardprofile-togglesidebar {
             height: 635px;
@@ -823,12 +828,17 @@
 }
 
 /*nbfc main container for dashboard*/
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
 
 .dashboard-main-content {
     flex:1;
     margin-left: 16%;
     padding: 18px;
     background-color: #F5F5F5;
+
 }
 
 .dashboard-sections-container {
@@ -896,31 +906,60 @@
 }
 
 .dashboard-sort-options {
-    display: none; 
+    display: none;
     position: absolute;
     top: 100%;
     left: 0;
     background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     z-index: 1;
+    width: 77px;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
 }
 
 .dashboard-sort-options button {
-    padding: 10px;
+    padding: 10px 16px;
     background-color: white;
     border: none;
     width: 100%;
     text-align: left;
+    color: #6b7280;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.dashboard-sort-options button:last-child {
+    border-bottom: none;
 }
 
 .dashboard-sort-options button:hover {
-    background-color: #f1f1f1;
+    background-color: #f9fafb;
 }
 
-.dashboard-sort-button:focus + .dashboard-sort-options {
+.dashboard-sort-button:focus + .dashboard-sort-options,
+.dashboard-sort-button:active + .dashboard-sort-options {
     display: block;
+}
+
+/* Additional CSS for the sort button that triggers the dropdown */
+.dashboard-sort-button {
+    background: transparent;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    width: 77px;
 }
 
 
@@ -961,7 +1000,7 @@
     flex-direction: column;
     gap: 16px;
     background-color: white;
-    border-radius: 16px;
+    border-radius: 8px;
 }
 
 .dashboard-student-item {
@@ -1015,11 +1054,13 @@
     justify-content: center;
     padding: 8px;
     color: #6F25CE;
+    font-family: 'Poppins', sans-serif;
 }
 
 .dashboard-reject-button {
     color: #6F25CE;
     background: transparent;
+    font-family: 'Poppins', sans-serif;
 }
 
 .dashboard-nbfc-search-container{
@@ -1664,6 +1705,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  font-family: 'Poppins', sans-serif;
 }
 
 .reject-application-modal {
@@ -1712,6 +1754,7 @@
     color: #666;
     cursor: pointer;
     font-size: 20px;
+    font-family: 'Poppins', sans-serif;
   }
 
   .reject-application-modal-content .remarks-textarea {
@@ -1723,6 +1766,7 @@
     font-size: 14px;
     resize: none;
     margin-bottom: 16px;
+    font-family: 'Poppins', sans-serif !important;
   }
 
   .reject-application-modal-content .actions {
@@ -1740,15 +1784,26 @@
 
   .reject-application-modal-content .actions .cancel-button {
     background-color: #FFFFFF;
-    color:#260254;
-    border: none;
-      border: 1px solid #6F25CE; 
+    color: #260254;
+    border: 1px solid #6F25CE;
+    width: 109px;
+    height: 35px;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .reject-application-modal-content .actions .reject-button {
-    background-color: #6F25CE;
+      background-color: #6F25CE;
     color: white;
     border: none;
+    width: 126px;
+    height: 35px;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
 @media (max-width: 768px) {
@@ -1814,30 +1869,49 @@
     }
      
 
-       
+/* Base styles for the filter button */
 .inbox-filters {
     position: relative;
     display: flex;
     align-items: center;
     gap: 10px;
     cursor: pointer;
-    border: 1px solid #ccc;
-    padding: 10px;
+    border: 1px solid #e5e7eb;
+    padding: 8px 12px;
     width: fit-content;
+    border-radius: 8px;
+    background-color: white;
+    font-family: 'Poppins', sans-serif;
 }
 
+.inbox-filters span {
+    margin-right: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.inbox-filters img {
+    width: 16px;
+}
+
+/* Dropdown styling to match the image */
 .sort-dropdown-nbfc {
     position: absolute;
-    top: 100%;
+    top: calc(100% + 5px);
     left: 0;
     background: white;
-    border: 1px solid #ddd;
+    border: 1px solid #e5e7eb;
     display: none;
     list-style: none;
     padding: 0;
-    margin: 5px 0;
+    margin: 0;
     z-index: 10;
-  
+    width: 77px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
 }
 
 .sort-dropdown-nbfc.visible {
@@ -1845,34 +1919,26 @@
 }
 
 .sort-dropdown-nbfc li {
-    padding: 10px;
+    padding: 10px 16px;
     cursor: pointer;
     font-size: 14px;
+    color: #6b7280;
+    border-bottom: 1px solid #f3f4f6;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+}
+
+.sort-dropdown-nbfc li:last-child {
+    border-bottom: none;
 }
 
 .sort-dropdown-nbfc li:hover {
-    background-color: #f0f0f0;
+    background-color: #f9fafb;
 }
 
-#sortable-list {
-    margin-top: 10px;
-    padding: 0;
-    list-style: none;
-}
-
-#sortable-list li {
-    padding: 5px;
-    border: 1px solid #ddd;
-    margin: 2px 0;
-}
-#sort-options-index-nbfc{
-  width:80px;
-}
-.inbox-filters span {
-    margin-right: 5px;    
-    font-family: 'Poppins', sans-serif;
-    font-size: 12px; 
-    
+/* Override the width specification in your original code */
+#sort-options-index-nbfc {
+    width: 77px;
 }
 
 .inbox-filters img {
@@ -1984,7 +2050,8 @@
     
     height: 70px;
     border: 1px solid #e2e2e2;
-    padding: 4px;
+    padding: 20px 10px;
+    width:560px;
     padding-left: auto;
     border-radius: 5px; 
     display: flex; 
@@ -2166,6 +2233,7 @@
 
 .index-student-info {
     flex-grow: 1;
+    font-family: 'Poppins', sans-serif;
 }
 
 .index-student-name {
@@ -2249,6 +2317,7 @@
     border: 1px solid rgba(226, 226, 226, 1);
     font-size: 12px;
     color: rgba(144, 144, 144, 1);
+    font-family: 'Poppins', sans-serif;
 }
 
 .nbfc-bankmessages-buttoncontainer .nbfc-bankmessage-buttoncontainer-reject {
@@ -2321,12 +2390,38 @@
     height: 24px;
     opacity: 0.5;
 }
+.messages-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    overflow-y: auto;
+    background: #fff;
+}
+
+.message-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.message-bubble {
+    max-width: 80%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    overflow-wrap: break-word;
+    background: #f1f1f1; /* Optional: Light gray background for better visibility */
+}
 
 
 @media (min-width: 1700px) {
 
 .index-student-details-container {
         max-width: 1200px;
+        font-family: 'Poppins', sans-serif;
            
         }
 
@@ -2337,6 +2432,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+     font-family: 'Poppins', sans-serif;
    
 }
 
@@ -2643,14 +2739,17 @@
     width:100%;
     margin-left: 20px;
     margin-right: 0;
+    margin-top: 0;
+    font-family: 'Poppins', sans-serif;
   
  
 
 }
 .nbfc-student-dashboard-section-main-contents .studentdashboardprofile-profilesection {
     background-color: white;
-    margin-top: 19px;
+    margin-top: 0px;
     max-width: 100%;
+
 
 }
 
@@ -2801,6 +2900,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 24px;
             width: 605px;
+            font-family: 'Poppins', sans-serif;
         }
 
         .nbfc-send-proposal-modal-header {
@@ -2808,6 +2908,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            font-family: 'Poppins', sans-serif;
         }
 
         .nbfc-send-proposal-modal-header h3 {
@@ -2832,6 +2933,7 @@
             padding: 12px;
             margin-bottom: 20px;
             resize: none;
+            font-family: 'Poppins', sans-serif;
         }
 
         .nbfc-send-proposal-attachment-section {
@@ -2846,6 +2948,7 @@
 
         .nbfc-send-proposal-attachment-input {
             display: none;
+            
         }
 
         .nbfc-send-proposal-attachment-button {
@@ -2857,6 +2960,7 @@
             color: #666;
             margin-bottom: 10px;
               font-size: 12px;
+              font-family: 'Poppins', sans-serif;
         }
 
         .nbfc-send-proposal-attachment-preview {
@@ -2901,6 +3005,7 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 14px;
+            font-family: 'Poppins', sans-serif;
         }
 
         .nbfc-send-proposal-send-button {
@@ -2911,6 +3016,7 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 14px;
+            font-family: 'Poppins', sans-serif;
         }
  .chat-container {
     display: flex;
