@@ -10,7 +10,7 @@
 <body>
     @extends('layouts.app');
 
-    <div class="student-listcontainer">
+    <div class="student-listcontainer" id="student-admin-section-id">
         <div class="globallistcontainer-header" id="studentlistcontainer-headersection">
             <h2>Student List</h2>
             <h3 id="student-list-count">{{ count($userDetails) }}</h3>

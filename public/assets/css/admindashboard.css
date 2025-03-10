@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
   .admindashboard-container {
     display:flex;
     flex-direction: column;
@@ -6,6 +7,18 @@
     width: 100%;
     padding-top: 53px;
    }
+=======
+ .admindashboard-container {
+    display: none;
+    flex-direction: column;
+    margin: 80px 20px 80px 20px;
+    max-width: 100%;
+    width: calc(100% - 18%); /* Subtract sidebar width */
+    padding-top: 53px;
+    position: absolute;
+    left: 18%; /* Start right after the sidebar */
+}
+>>>>>>> Stashed changes
 
   .admindashboardcontainer-firstsection {
       display: flex;
