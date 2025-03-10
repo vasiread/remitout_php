@@ -17,7 +17,7 @@
 
      @endphp
 
-<div class="edit-content-container" id="edit-content-container-id">
+<div class="edit-content-container" id="edit-content-main-section">
     <div class="admin-edit-container-sections">
         <!-- Edit Content Section -->
         <div class="edit-content-sub-container" id="edit-content-sub-container-id">

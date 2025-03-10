@@ -4,14 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="{{ asset('js/adminsidebar.js') }}">
-    </script>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr">
-    </script>
-
+    <script src="{{ asset('js/adminsidebar.js') }}"></script>
 </head>
 
 <body>
@@ -24,13 +17,12 @@
             Add Student Counsellor
         </h1>
         <div class="studentcounsellor-requiredfields-admin">
-            <input type="text" placeholder="Name of the Student Counsellor"
-                id="studentcounsellor-requiredfields-admin-scname">
-            <input type="text" placeholder="Starting Date" id="studentcounsellor-requiredfields-admin-startdate">
-            <input type="email" placeholder="Email ID" id="studentcounsellor-requiredfields-admin-email">
-            <input type="text" placeholder="Contact No." id="studentcounsellor-requiredfields-admin-contact">
+            <input type="text" placeholder="Name of the Student Counsellor">
+            <input type="text" placeholder="Starting Date">
+            <input type="text" placeholder="Email ID">
+            <input type="text" placeholder="Contact No.">
             <input type="textarea" placeholder="Address" id="student-counsellor-admin-address">
-            <div id="trigger-profile-photo-sc">Upload Profile Image</div>
+            <input type="text" placeholder="Upload Profile Image" id="trigger-profile-photo-sc">
             <input type="file" id="sc-profile-photo-upload" style="display: none;">
         </div>
         <div class="addcouncellor-buttoncontainer">
@@ -42,7 +34,46 @@
 
     @php
 
+        $studentCounsellorsLists = [
+            [
+                'counsellor_name' => 'Rahul V Raman',
+                'counsellor_referral_id' => '3568878827634',
+                'date_added' => '2025-02-01'
 
+            ],
+            [
+                'counsellor_name' => 'Rahul V Raman',
+                'counsellor_referral_id' => '3568878827634',
+                'date_added' => '2025-02-13'
+
+            ],
+            [
+                'counsellor_name' => 'Pranav Rajan',
+                'counsellor_referral_id' => '3568878827634',
+                'date_added' => '2025-09-01'
+
+            ],
+            [
+                'counsellor_name' => 'Kalim Shaul',
+                'counsellor_referral_id' => '3568878827634',
+                'date_added' => '2025-02-01'
+
+            ],
+            [
+                'counsellor_name' => 'Vikra Narayan',
+                'counsellor_referral_id' => '3568878827634',
+                'date_added' => '2025-04-01'
+
+            ],
+            [
+                'counsellor_name' => 'Andher Pathil',
+                'counsellor_referral_id' => '3568878827634',
+                'date_added' => '2025-02-01'
+
+            ],
+
+
+        ]
 
 
     @endphp
@@ -82,6 +113,7 @@
                 <p id="cousellor-name-identify">Student Counsellor name</p>
                 <p id="cousellor-referralid-identify">Referral Number</p>
             </div>
+            @foreach ($studentCounsellorsLists as $studentCounsellor)
 
             <div class="individualcounsellorlists-items" data-added="">
 
@@ -108,23 +140,7 @@
             const dropdownButton = document.querySelector('.dropdown-button-filters');
             const dropdownContent = document.querySelector('.dropdown-content-filters');
 
-
-            document.getElementById("generate-referral-councellor-admin").addEventListener('click', () => {
-                addStudentCounsellor()
-
-            })
-
-            document.querySelector(".student-listcontainer .studentlist-add-button").addEventListener('click', () => {
-                const studentList = document.querySelector(".student-listcontainer");
-                const studentCounsellorAdminSide = document.querySelector(".add-studentcounsellor-adminside");
-
-                if (studentList && studentCounsellorAdminSide) {
-                    studentList.style.display = "none";
-                    studentCounsellorAdminSide.style.display = "flex";
-                }
-
-            })
-
+ 
 
             const sortLinks = document.querySelectorAll('#counsellorlistcontainer-headersection .dropdown-content-filters a');
             const counsellorList = document.getElementById('counsellor-list');
@@ -186,12 +202,6 @@
                     triggeredFileThroughText.click();
                 });
             }
-
-            triggeredFileThroughText.addEventListener('change', () => {
-                if (triggeredFileThroughText.files.length > 0) {
-                    triggerTextBox.textContent = triggeredFileThroughText.files[0].name;
-                }
-            })
 
             document.querySelector("#counsellorlistcontainer-headersection .searchcontainer-rightsidecontent input").addEventListener("input", function () {
 
@@ -361,9 +371,6 @@
 
                 counsellorItem.appendChild(buttonContainer);
 
-                counsellorContainer.appendChild(counsellorItem);
-            });
-        };
     </script>
 
 </body>

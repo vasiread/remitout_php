@@ -1,3 +1,8 @@
+body {
+    background-color: #F5F5F5;
+}
+
+
 #index-section-admin-id{
   margin-top: 120px;
      
@@ -116,4 +121,191 @@
 
 .nbfc-individual-bankmessage-input-message {
     display: none; 
+}
+
+.admin-individual-bankmessage-input-message{
+       max-width: 100%;
+    height: 35px;
+    margin: 20px 30px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    display: none;
+}
+
+.admin-individual-bankmessage-input-message input,
+
+
+
+  /* Hide on desktop by default */
+.mobile-inbox-container {
+    display: none;
+}
+
+/* Show on mobile devices */
+@media screen and (max-width: 768px) {
+
+    .admin-index-main-container{
+        display:none;
+    }
+    .mobile-inbox-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 10px;
+        background: white;
+        border-radius: 8px;
+        
+    }
+
+    .mobile-inbox-item {
+        font-weight: 600;
+        font-size: 14px;
+        color: #333;
+        cursor: pointer;
+        padding: 8px;
+    }
+
+    .mobile-inbox-item.active {
+        color: #6F25CE;
+        border-bottom: 2px solid #6F25CE;
+    }
+    .admin-index-main-sub-container{
+    display: flex;
+    flex-direction: column;
+    background: white;
+   margin: 0px;
+     padding-top: 20px;
+}
+#index-container-id{
+    width:100%;
+    margin:0 auto;
+    margin-top: 20px;
+}
+}
+
+
+.admin-inbox-filters {
+    position: relative;
+    width: 117px;
+    height: 38px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.admin-inbox-filters span {
+    font-size: 14px;
+}
+
+.admin-inbox-filters img {
+    width: 20px;
+    height: 20px;
+}
+
+.admin-sort-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.admin-sort-dropdown.active {
+    display: block;
+}
+
+.admin-sort-dropdown li {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    list-style: none;
+    font-size: 14px;
+}
+
+.admin-sort-dropdown li:hover {
+    background-color: #f0f0f0;
+}
+
+
+.admin-inbox-btn-view {
+    padding: 8px 24px;
+    border: 1px solid #6F25CE;
+    border-radius: 4px;
+    color: #6F25CE;
+    background: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 71px;
+    height: 36px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500; 
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.admin-inbox-btn-close{
+    padding: 8px 24px;
+    border: 1px solid #6F25CE;
+    border-radius: 4px;
+    color: #6F25CE;
+    background: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 71px;
+    height: 36px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500; 
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.admin-individual-bankmessage-input {
+    max-width: 100%;
+    height: 35px;
+    margin: 33px 0px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+      font-family: 'Poppins', sans-serif;
+}
+
+.admin-individual-bankmessage-input input,
+.admin-message-input {
+    max-width: 100%;
+    width: 85%;
+    height: 100%;
+    padding: 16px 32px 16px 12px;
+    gap: 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(226, 226, 226, 1);
+   font-size: 12px;
+    color: rgba(144, 144, 144, 1);
+      font-family: 'Poppins', sans-serif;
+}
+
+.admin-message-item {
+    padding: 24px 0;
+    
+}
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
 }

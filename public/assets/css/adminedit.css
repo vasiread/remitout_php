@@ -1,23 +1,25 @@
-      .edit-content-container {
-          font-family: 'Poppins', sans-serif;
-          padding: 10px;
-          display:none;
-          flex-direction: column;
-          max-width: 71.04%;
-          width: 100%;
-          margin-top: 120px;
-          margin-left: 4.1%;
+      
+        .edit-content-container {
+             font-family: 'Poppins', sans-serif;
+             display:none;
+             padding:10px;
+            flex-direction: column;
+            max-width: 71.04%;
+            width: 100%;
+            margin-top: 120px;
+            margin-left: 4.1%;
+           
+            border-radius: 10px;
+           
+                     
+        }
 
-          border-radius: 10px;
-
-
-      }
-
-      .admin-edit-container-sections {
-          border: 10px;
-      }
-
-
+       .admin-edit-container-sections{
+         border: 10px;
+           border-radius: 10px;
+        }
+ 
+   
 
       .edit-content-header {
           display: flex;
@@ -60,13 +62,24 @@
           font-size: 14px;
       }
 
-      .edit-content-row {
-          display: grid;
-          grid-template-columns: 180px 120px 1fr 80px;
-          align-items: center;
-          padding: 24px 40px;
-          position: relative;
-      }
+       .edit-content-row {
+    display: grid;
+    grid-template-columns: 180px 120px 1fr 80px;
+    align-items: center;
+    padding: 24px 40px;
+    position: relative; 
+}
+.edit-content-tag-container {
+    font-size: 14px;
+    color: #909090;
+     font-family: 'Poppins', sans-serif;
+}
+
+.edit-content-row > div:not(.edit-content-tag-container) {
+    font-size: 14px;
+}
+
+
 
       .edit-content-row::after {
           content: "";
@@ -150,16 +163,19 @@
           font-weight: 500;
       }
 
-      .edit-contents-cms-save {
-          background: #ff6b2b;
-          color: white;
-          border: none;
-          padding: 8px 24px;
-          border-radius: 4px;
-          cursor: pointer;
-          font-weight: 500;
-          transition: background 0.3s ease;
-      }
+        .edit-contents-cms-save {
+            background: #ff6b2b;
+            color: white;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+
+            
+        }
 
       .edit-contents-cms-save:hover {
           background: #e85a1f;
@@ -274,16 +290,18 @@
           color: white;
       }
 
-      .edit-contents-cms-update {
-          background: #ff6b2b;
-          color: white;
-          border: none;
-          padding: 6px 16px;
-          border-radius: 4px;
-          cursor: pointer;
-          font-size: 14px;
-          transition: background 0.3s ease;
-      }
+        .edit-contents-cms-update {
+            background: #ff6b2b;
+            color: white;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+
+        }
 
       .edit-contents-cms-update:hover {
           background: #e85a1f;

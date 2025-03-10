@@ -937,6 +937,7 @@
                 const mobileOverlay = document.querySelector('.nbfc-mobile-overlay');
                 const nbfcNavRight = document.querySelector('.nbfc-nav-right'); // Select nav-right
 
+
                 // Select elements for menu items
                 const dashboardBtn = document.querySelector('.nbfc-mobile-menu-top li:nth-child(1)'); // Dashboard
                 const inboxBtn = document.querySelector('.nbfc-mobile-menu-top li:nth-child(2)'); // Inbox
@@ -1291,9 +1292,7 @@
 
 
 
-
-
-                if (closeButton) {
+if (closeButton) {
                     closeButton.addEventListener("click", function () {
                         modalContainer.style.display = "none"; // Hide the modal
                     });

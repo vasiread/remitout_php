@@ -32,11 +32,12 @@
                                 </svg>
                             </button>
                             <div class="sort-dropdown" id="sortDropdown">
-                                <div class="sort-option" data-sort="az">Alphabetical (A-Z)</div>
-                                <div class="sort-option" data-sort="za">Alphabetical (Z-A)</div>
-                                <div class="sort-option" data-sort="newest">Newest First</div>
-                                <div class="sort-option" data-sort="oldest">Oldest First</div>
+                                <div class="sort-option" data-sort="az">A-Z</div>
+                                <div class="sort-option" data-sort="za">Z-A</div>
+                                <div class="sort-option" data-sort="newest">Newest</div>
+                                <div class="sort-option" data-sort="oldest">Oldest</div>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
