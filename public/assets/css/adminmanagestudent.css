@@ -1,6 +1,21 @@
+.manage-student-main-report-section {
+    width: calc(100% - 18%); /* Take remaining space */
+    margin-left: 0; /* No extra margin */
+    margin-top: 0; /* Move it to the top */
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 20px 0px #1A02390D;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Takes up remaining space */
+    overflow-y: auto; /* Allow scrolling */
+}
+
+/* Report container inside the right section */
 .manage-student-main-report-container {
     border-radius: 8px;
     padding: 20px;
+<<<<<<< Updated upstream
    
     display: none;
     flex-direction: column;
@@ -16,21 +31,32 @@
 
 
 
+=======
+    max-width: 100%;
+    margin: 20px auto;
+}
+
+>>>>>>> Stashed changes
 .manage-student-report-container {
     background: white;
     border-radius: 8px;
     padding: 20px;
+<<<<<<< Updated upstream
     
 
 
+=======
+>>>>>>> Stashed changes
 }
 
+/* Export button styles */
 .export-button-group {
     display: flex;
     justify-content: space-between;
     gap: 10px;
 }
 
+/* Report header */
 .manage-student-report-header {
     display: flex;
     justify-content: space-between;
@@ -45,6 +71,7 @@
      font-family: 'Poppins', sans-serif;
 }
 
+/* Export button */
 .manage-student-report-export-btn {
     background: #6c2bd9;
     color: white;
@@ -57,6 +84,7 @@
     font-size: 14px;
 }
 
+/* Filters */
 .manage-student-report-filters {
     display: flex;
     flex-wrap: wrap;
@@ -73,17 +101,18 @@
     color:#5D5C5C;
 }
 
-.manage-student-report-filters-left {
-    display: flex;
-    gap: 15px;
-}
-
+.manage-student-report-filters-left,
 .manage-student-report-filters-right {
     display: flex;
     gap: 15px;
+}
+
+/* Moves right filters to the right */
+.manage-student-report-filters-right {
     margin-left: auto;
 }
 
+/* Input and Select Styles */
 .manage-student-report-select,
 .manage-student-report-input {
     padding: 4px;
@@ -98,6 +127,7 @@
     
 }
 
+/* Search Input */
 .manage-student-report-search-container {
     position: relative;
     width: 200px;
@@ -117,7 +147,11 @@
     height: 20px;
 }
 
+<<<<<<< Updated upstream
 
+=======
+/* Table Styles */
+>>>>>>> Stashed changes
 .manage-student-report-table {
     width: 100%;
     border-collapse: collapse; 
@@ -144,6 +178,7 @@
 
 }
 
+/* Pagination */
 .manage-student-report-pagination {
     display: flex;
     justify-content: center;

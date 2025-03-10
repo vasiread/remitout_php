@@ -16,6 +16,7 @@ body {
     background-color: #F5F5F5;
      font-family: 'Poppins', sans-serif;
 }
+<<<<<<< Updated upstream
 .admin-index-section-main-container{
       display: none;
      flex-direction: column;
@@ -26,6 +27,17 @@ body {
      gap: 17px;
      margin-left: 2.1%; font-family: 'Poppins', sans-serif;
 
+=======
+.admin-index-section-main-container {
+    display: none;
+    flex-direction: column;
+    max-width: 100%;
+    width: calc(100% - 18%); /* Subtract sidebar width */
+    margin-top: 50px;
+    margin-right: 60px;
+    gap: 17px;
+    margin-left: 18%; /* Start right after the sidebar */
+>>>>>>> Stashed changes
 }
 .admin-index-main-sub-container{
     display: flex;

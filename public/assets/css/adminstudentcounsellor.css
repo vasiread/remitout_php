@@ -1,14 +1,14 @@
 .add-studentcounsellor-adminside {
-    max-width: 53%;
-    width: 100%;
-    box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
-    background-color: rgba(255, 255, 255, 1);
-    height: 387px;
-    margin-top: 135px;
-    margin-left: 13.26%;
-    display: none;
-    flex-direction: column;
-    padding: 20px 24px;
+     display: none;
+          flex-direction: column;
+          max-width: 100%;
+          width: calc(100% - 18%); /* Adjust width to account for sidebar */
+          margin-top: 90px;
+          margin-right: 20px;
+          gap: 17px;
+          margin-left: 20%; /* Aligns the container to the right of the sidebar */
+          background-color: white;
+          padding:20px;
 
 }
 
