@@ -224,8 +224,8 @@ class CMSEditor {
                 {
                     id: 6,
                     section: 'Landing Page',
-                    title: 'Watch Demo',
-                    content: 'Video content here',
+                    title: 'Video content',
+                    content: 'Watch Demo',
                     status: 'Active',
                     maxLength: 10
                 }
