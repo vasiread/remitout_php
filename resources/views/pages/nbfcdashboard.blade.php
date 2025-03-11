@@ -4531,6 +4531,13 @@ initializeCoBorrowerDocumentUpload();
 
             // Initialize when DOM is loaded
             document.addEventListener('DOMContentLoaded', initializeChats);
+            
+
+            function enableScroll() {
+    document.body.style.overflow = "auto"; // Enable scrolling
+    document.documentElement.style.overflow = "auto"; // For <html>
+}
+
 
 
 
