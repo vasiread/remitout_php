@@ -23,7 +23,23 @@
         <div class="edit-content-sub-container" id="edit-content-sub-container-id">
             <div class="edit-content-header">
                 <h1 class="edit-content-header-title">Edit Content</h1>
-                <input type="text" placeholder="Search" class="edit-content-search-input">
+                <div class="edit-container-search-sort-container">
+                   <input type="text" placeholder="Search" class="edit-content-search-input" placeholder="Search">
+                   
+                  
+                    <div class="admin-edit-dropdown">
+                        <div class="admin-edit-dropdown-toggle">
+                            Sort
+                            <img src="assets/images/filter-icon.png" alt="Filter">
+                        </div>
+                   <div class="admin-edit-dropdown-menu">
+                       <div class="admin-edit-dropdown-item" data-value="name">A-Z</div>
+                       <div class="admin-edit-dropdown-item" data-value="role">Z-A</div>
+                       <div class="admin-edit-dropdown-item" data-value="email-new">Newest</div>
+                       <div class="admin-edit-dropdown-item" data-value="email-old">Oldest</div>
+                    </div>
+                   </div>
+                </div>
             </div>
             <div class="edit-content-list"></div>
         </div>
@@ -91,11 +107,12 @@
 
  <script>
 
+// Define contentData globally so it can be accessed throughout the code
 const contentData = [
     { name: "Landing Page", sections: 4, tags: ["Text", "Img"] },
     { name: "Contact Page", sections: 2, tags: ["Text", "Img", "Video"] },
     { name: "About Us", sections: 3, tags: ["Text"] },
-    { name: "Services", sections: 5, tags: ["Text", "Images","Video"] },
+    { name: "Services", sections: 5, tags: ["Text", "Images", "Video"] },
     { name: "Contact Page", sections: 2, tags: ["Text", "Img", "Video"] }
 ];
 
@@ -781,6 +798,113 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// Initialize event listeners for dropdown and sorting
+document.addEventListener('DOMContentLoaded', () => {
+    const dropdownToggle = document.querySelector('.admin-edit-dropdown-toggle');
+    const dropdownMenu = document.querySelector('.admin-edit-dropdown-menu');
+    const dropdownItems = document.querySelectorAll('.admin-edit-dropdown-item');
+    
+    // Define contentData based on the existing DOM structure
+    const contentData = [];
+    
+    // Extract data from existing DOM
+    function extractContentData() {
+        const contentRows = document.querySelectorAll('.edit-content-row');
+        contentData.length = 0; // Clear previous data
+        
+        contentRows.forEach(row => {
+            const name = row.querySelector('div:first-child').textContent;
+            const sections = parseInt(row.querySelector('div:nth-child(2)').textContent);
+            const tags = [];
+            row.querySelectorAll('.edit-content-tag').forEach(tag => {
+                tags.push(tag.textContent);
+            });
+            
+            contentData.push({
+                name,
+                sections,
+                tags,
+                element: row // Store reference to original DOM element
+            });
+        });
+        
+        return contentData;
+    }
+    
+    // Toggle dropdown when clicking the toggle button
+    dropdownToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Handle sorting when clicking dropdown items
+    dropdownItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const sortValue = item.getAttribute('data-value');
+            const data = extractContentData(); // Get fresh data
+            let sortedContent = [...data];
+
+            switch (sortValue) {
+                case 'name':
+                    // Sort A-Z by name
+                    sortedContent.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'role':
+                    // Sort Z-A by name
+                    sortedContent.sort((a, b) => b.name.localeCompare(a.name));
+                    break;
+                case 'email-new':
+                    // Sort by number of sections (highest first)
+                    sortedContent.sort((a, b) => b.sections - a.sections);
+                    break;
+                case 'email-old':
+                    // Sort by number of sections (lowest first)
+                    sortedContent.sort((a, b) => a.sections - b.sections);
+                    break;
+            }
+
+            renderContentRows(sortedContent);
+            dropdownMenu.style.display = 'none';
+        });
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.admin-edit-dropdown')) {
+            dropdownMenu.style.display = 'none';
+        }
+    });
+
+    // Function to render content rows in the correct order
+    function renderContentRows(sortedData) {
+        const contentContainer = document.querySelector('.edit-content-list');
+        if (!contentContainer) {
+            console.error("Content container not found! Make sure an element with class 'edit-content-list' exists.");
+            return;
+        }
+        
+        // Remove all existing rows from the container
+        while (contentContainer.firstChild) {
+            contentContainer.removeChild(contentContainer.firstChild);
+        }
+        
+        // Append rows in the sorted order
+        sortedData.forEach(item => {
+            contentContainer.appendChild(item.element);
+        });
+    }
+
+    // Add search functionality
+    document.querySelector('.content-search')?.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const data = extractContentData();
+        const filteredContent = data.filter(item => 
+            item.name.toLowerCase().includes(searchTerm) || 
+            item.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+        );
+        renderContentRows(filteredContent);
+    });
+});
 
 
     </script>

@@ -30,7 +30,6 @@
     <link rel="stylesheet" href="assets/css/adminrolemanagement.css">
     <link rel="stylesheet" href="assets/css/adminpromotional.css">
     <link rel="stylesheet" href="assets/css/footer.css">
-     
     
     <!-- Google Fonts -->
     <link
@@ -54,8 +53,7 @@
         <x-navbar></x-navbar>
     @endif
     
-    @yield('homecontent')
-        
+    <!-- Main content section with conditional rendering -->
     @if(Route::currentRouteName() === 'login')
         @yield('logincontent')
     @elseif(Route::currentRouteName() === 'signup')
@@ -65,14 +63,15 @@
     @elseif(Route::currentRouteName() === 'sc-dashboard')
         @yield('scdashboard')
     @elseif(Route::currentRouteName() === 'adminpage')
-        @yield('adminpage');
+        @yield('adminpage')
     @else
         @yield('homecontent')
     @endif
     
-   @if(!in_array(Route::currentRouteName(), ['login', 'signup', 'admin-page', 'nbfc-dashboard', 'sc-dashboard']))
-    <x-footer></x-footer>
-   @endif
+    <!-- Footer component except on specific pages -->
+    @if(!in_array(Route::currentRouteName(), ['login', 'signup', 'admin-page', 'nbfc-dashboard', 'sc-dashboard']))
+        <x-footer></x-footer>
+    @endif
     
     <script src="{{ asset('js/app.js') }}"></script>
 </body>

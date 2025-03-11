@@ -75,6 +75,8 @@
             <x-admin.adminmanagestudent/>
             <x-admin.adminrolemanagement/>
             <x-admin.adminpromotionalemail/>
+            <x-admin.adminstudapplication/>
+            
           
           
         </div>

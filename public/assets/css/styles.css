@@ -230,7 +230,7 @@ body {
 
 .line-1 {
   display: block;
-  font-weight: 600;
+  font-weight: 500;
    font-family: 'Poppins', sans-serif;
 }
 
@@ -239,7 +239,7 @@ body {
 }
 
 .line-2 .bold {
-  font-weight: 600;
+  font-weight: 500;
    font-family: 'Poppins', sans-serif;
 }
 

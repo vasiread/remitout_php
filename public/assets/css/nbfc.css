@@ -515,7 +515,8 @@ body {
     width:100%;
 }
         /* profilesection */
-        .nbfcstudentdashboardprofile-profilesection {
+        
+        .nbfcstudentdashboardprofile-profilesection { 
             margin-top: 1.3rem;
             height: fit-content;
             max-width: 21%;
@@ -1982,6 +1983,7 @@ html, body {
 
 .message-item {
     padding: 24px 0;
+                font-family: 'Poppins', sans-serif;
     
 }
 
@@ -2212,6 +2214,7 @@ html, body {
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid #E5E7EB;
+    font-family: 'Poppins', sans-serif;
     
 }
 .index-student-details-container .index-student-message-container:last-child {
