@@ -1995,6 +1995,8 @@ html, body {
 .message-item {
     padding: 24px 0;
 
+                font-family: 'Poppins', sans-serif;
+    
 }
 
 .message-header {
@@ -2228,6 +2230,8 @@ html, body {
     flex-direction: column;
     border-bottom: 1px solid #E5E7EB;
 
+    font-family: 'Poppins', sans-serif;
+    
 }
 
 .index-student-details-container .index-student-message-container:last-child {

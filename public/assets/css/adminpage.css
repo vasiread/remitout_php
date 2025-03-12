@@ -1,9 +1,17 @@
- .admin-parentcontainer{
-    display: flex;
+.admin-parentcontainer {
+    display: flex; /* Ensures side-by-side layout */
+    flex-direction: row; /* Ensures horizontal alignment */
     width: 100%;
     max-width: 100%;
     background-color: #F5F5F5;
+<<<<<<< Updated upstream
  }
+=======
+    height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Prevents unwanted scroll */
+}
+
+>>>>>>> Stashed changes
 
 
 

@@ -8,7 +8,7 @@
             width: 100%;
             margin-top: 120px;
             margin-left: 4.1%;
-           
+           font-family: 'Poppins', sans-serif;
             border-radius: 10px;
            
                      
@@ -161,8 +161,10 @@
             display: flex;
             gap: 8px;
             justify-content: center;
+            font-family: 'Poppins', sans-serif;
         }
 
+<<<<<<< HEAD
       .edit-content-tag {
         display: flex; 
         justify-content: center; 
@@ -192,6 +194,16 @@
     height: 37px;
     text-align: center;
 }
+=======
+        .edit-content-tag {
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 13px;
+            background-color: #FFF5EE;
+            color: #E98635;
+            font-family: 'Poppins', sans-serif;
+        }
+>>>>>>> 61f85a802e90a5efd93bbe1442fa1f05d91ba457
 
 
         .edit-content-button:hover {
@@ -334,7 +346,8 @@
            .edit-contents-cms-container {
             background: #fff;
             width: 100%;
-            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            padding-bottom:20px;
         }
 
         .edit-contents-cms-header {

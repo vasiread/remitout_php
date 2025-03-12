@@ -12,21 +12,32 @@ const initializeAdminSidebar = () => {
 
     const adminCounsellorAdd = document.querySelector(".add-studentcounsellor-adminside");
     const studentListContainer = document.querySelector(".student-listcontainer");
+<<<<<<< HEAD
     const studentApplication = document.querySelector("#nbfc-studentdashboardprofile-profile-section-container-id");
+=======
+<<<<<<< Updated upstream
+>>>>>>> 61f85a802e90a5efd93bbe1442fa1f05d91ba457
     const editContainerAdmin = document.querySelector("#edit-content-main-section");
 
+=======
+                                                         
+>>>>>>> Stashed changes
     const studentCounsellorList = document.querySelector(".studentcounsellorlist-adminside");
 
     const studentNBFCList = document.querySelector(".nbfclist-adminside");
     const studentIndexAdmin = document.querySelector("#index-section-admin-id");
     const studentEditIndex = document.querySelector("#edit-content-container-id");
     const studentTicketRaised = document.querySelector("#ticket-raised-container-admin-id");
-    const adminManageStudent = document.querySelector("#manage-student-main-admin-report-container-id");
+    const adminManageStudent = document.querySelector("#manage-student-main-admin-report-container-id"); 
     const adminRoleManagement = document.querySelector("#role-management-container-admin-id");
     const adminPromotionalEmail = document.querySelector("#promotional-composer-main-section-id");
+<<<<<<< Updated upstream
     const nbfcAdminsideAddAuthority = document.querySelector(".add-nbfc-datasection");
 
 
+=======
+    
+>>>>>>> Stashed changes
 
 
     if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "none";
@@ -81,7 +92,7 @@ const initializeAdminSidebar = () => {
                 if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
                 if (adminCounsellorAdd) adminCounsellorAdd.style.display = "none";
                 if (studentCounsellorList) studentCounsellorList.style.display = "none";
-                if (studentNBFCList) studentNBFCList.style.display = "none";
+                if (studentNBFCList) studentNBFCList.style.display = "none";         
                 if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
                 if (studentEditIndex) studentEditIndex.style.display = "none";
                 if (studentTicketRaised) studentTicketRaised.style.display = "none";
@@ -90,12 +101,16 @@ const initializeAdminSidebar = () => {
                 if (adminManageStudent) adminManageStudent.style.display = "none";
                 if (adminRoleManagement) adminRoleManagement.style.display = "none";
                 if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
+<<<<<<< Updated upstream
                 if (nbfcAdminsideAddAuthority) nbfcAdminsideAddAuthority.style.display = "none";
 
                 if (studentNBFCList) studentNBFCList.style.display = "none";
                 if (editContainerAdmin) editContainerAdmin.style.display = "none";
                 if (studentApplication) studentApplication.style.display = "none";
 
+=======
+               
+>>>>>>> Stashed changes
 
 
             } else if (index === 1) {
@@ -113,12 +128,20 @@ const initializeAdminSidebar = () => {
                 if (studentTicketRaised) studentTicketRaised.style.display = "none";
                 if (adminManageStudent) adminManageStudent.style.display = "none";
                 if (adminRoleManagement) adminRoleManagement.style.display = "none";
+<<<<<<< Updated upstream
                 if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
 
                 if (editContainerAdmin) editContainerAdmin.style.display = "none";
 
                 if (nbfcAdminsideAddAuthority) nbfcAdminsideAddAuthority.style.display = "none";
+<<<<<<< HEAD
                 if (studentApplication) studentApplication.style.display = "none";
+=======
+=======
+                  if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
+               
+>>>>>>> Stashed changes
+>>>>>>> 61f85a802e90a5efd93bbe1442fa1f05d91ba457
 
 
 
@@ -144,6 +167,7 @@ const initializeAdminSidebar = () => {
                 if (adminManageStudent) adminManageStudent.style.display = "none";
                 if (adminRoleManagement) adminRoleManagement.style.display = "none";
                 if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
+<<<<<<< Updated upstream
                 if (studentListContainer) studentListContainer.style.display = "none"
 
 
@@ -159,6 +183,13 @@ const initializeAdminSidebar = () => {
 
 
                 if (index === 2 || index === 3) {
+=======
+                
+
+                
+                
+                if (index === 4) {
+>>>>>>> Stashed changes
                     if (studentListContainer) studentListContainer.style.display = "flex"
                    
 
@@ -185,11 +216,11 @@ const initializeAdminSidebar = () => {
                 if (adminCounsellorAdd) adminCounsellorAdd.style.display = "none";
                 if (studentCounsellorList) studentCounsellorList.style.display = "none";
                 if (studentNBFCList) studentNBFCList.style.display = "none";
-                if (editContainerAdmin) editContainerAdmin.style.display = "none";
                 if (adminPropertyOne) adminPropertyOne.style.display = "none";
                 if (studentTicketRaised) studentTicketRaised.style.display = "none";
                 if (adminManageStudent) adminManageStudent.style.display = "none";
                 if (adminRoleManagement) adminRoleManagement.style.display = "none";
+<<<<<<< Updated upstream
                 if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
                 if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
                    if (studentApplication) studentApplication.style.display = "none";
@@ -206,9 +237,23 @@ const initializeAdminSidebar = () => {
                     if (studentTicketRaised) studentTicketRaised.style.display = "flex";
                        if (studentApplication) studentApplication.style.display = "none";
 
+=======
+                  if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
+               
+
+                if (index === 5 || index === 6) {
+                    if (studentCounsellorList) studentCounsellorList.style.display = "flex";
+                    if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
+                    if (studentEditIndex) studentEditIndex.style.display = "none";
+                    if (studentTicketRaised) studentTicketRaised.style.display = "none";
+                    if (adminManageStudent) adminManageStudent.style.display = "none";
+                    if (adminManageStudent) adminManageStudent.style.display = "none";
+                    if (adminRoleManagement) adminRoleManagement.style.display = "none";
+                      if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
+>>>>>>> Stashed changes
 
                 }
-
+                
                 if (index === 8) {
                     if (adminCounsellorAdd) adminCounsellorAdd.style.display = "flex";
 
@@ -218,16 +263,20 @@ const initializeAdminSidebar = () => {
                     if (studentTicketRaised) studentTicketRaised.style.display = "none";
                     if (adminManageStudent) adminManageStudent.style.display = "none";
                     if (adminRoleManagement) adminRoleManagement.style.display = "none";
+<<<<<<< Updated upstream
                     if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
                     if (studentListContainer) studentListContainer.style.display = "none";
                     if (studentCounsellorList) studentCounsellorList.style.display = "none";
                        if (studentApplication) studentApplication.style.display = "none";
 
 
+=======
+                      if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
+>>>>>>> Stashed changes
                 }
 
-
             }
+<<<<<<< Updated upstream
             else if (index === 9) {
                 if (studentNBFCList) studentNBFCList.style.display = "flex";
 
@@ -250,21 +299,68 @@ const initializeAdminSidebar = () => {
 
             }
                  else if (index === 10) {
+=======
+
+            else {
+                if (adminPropertyOne) adminPropertyOne.style.display = "none";
+
+                if (sidebarChevronUpDown) sidebarChevronUpDown.classList.add("fa-chevron-down");
+                if (sidebarStudentCounsellorChevronUpDown) sidebarStudentCounsellorChevronUpDown.classList.add("fa-chevron-down");
+>>>>>>> Stashed changes
                 if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "none";
                 if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
                 if (studentListContainer) studentListContainer.style.display = "none";
                 if (adminCounsellorAdd) adminCounsellorAdd.style.display = "none";
                 if (studentCounsellorList) studentCounsellorList.style.display = "none";
                 if (studentNBFCList) studentNBFCList.style.display = "none";
-                if (editContainerAdmin) editContainerAdmin.style.display = "none";
+                if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
+                if (studentEditIndex) studentEditIndex.style.display = "none";
+                if (studentTicketRaised) studentTicketRaised.style.display = "none";
                 if (adminRoleManagement) adminRoleManagement.style.display = "none";
+<<<<<<< Updated upstream
                 if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
                 if (nbfcAdminsideAddAuthority) nbfcAdminsideAddAuthority.style.display = "none";
                 if (adminManageStudent) adminManageStudent.style.display = "flex";
                 if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
                 if (adminPropertyOne) adminPropertyOne.style.display = "none";
+<<<<<<< HEAD
                    if (studentApplication) studentApplication.style.display = "none";
+=======
+=======
+                  if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
+>>>>>>> 61f85a802e90a5efd93bbe1442fa1f05d91ba457
 
+
+                if (index === 9) {
+                    if (studentNBFCList) studentNBFCList.style.display = "flex";
+                    if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
+                    if (studentTicketRaised) studentTicketRaised.style.display = "none";
+                     if (adminManageStudent) adminManageStudent.style.display = "none";
+                    if (studentEditIndex) studentEditIndex.style.display = "none";
+                    if (adminRoleManagement) adminRoleManagement.style.display = "none";
+                      if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
+>>>>>>> Stashed changes
+
+                
+                 } 
+             else if (index === 10) {
+                  if (adminManageStudent) adminManageStudent.style.display = "flex";
+                  if (adminRoleManagement) adminRoleManagement.style.display = "none";
+                 } 
+         
+    
+                else if (index === 11) {
+                   if (adminManageStudent) adminManageStudent.style.display = "none";
+                   if (adminRoleManagement) adminRoleManagement.style.display = "flex";
+                 }
+            
+                else if (index === 12) {
+                     if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
+                     if (studentEditIndex) studentEditIndex.style.display = "flex";
+                     if (studentTicketRaised) studentTicketRaised.style.display = "none";
+                     if (adminManageStudent) adminManageStudent.style.display = "none";
+                     if (adminRoleManagement) adminRoleManagement.style.display = "none";
+                    }
 
             }
             else if (index === 11) {
