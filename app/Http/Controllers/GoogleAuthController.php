@@ -23,16 +23,11 @@ class GoogleAuthController extends Controller
         try {
             $request->validate([
                 'userId' => 'required|string',
-                'oldPassword' => 'required|string|min:6',
-                'newPassword' => 'required|string|min:6',
+                'currentPassword' => 'required|string|min:8',
+                'newPassword' => 'required|string|min:8|different:currentPassword',  
             ]);
 
-            $userId = $request->input('userId');
-            $oldPassword = $request->input('oldPassword');
-            $newPassword = $request->input('newPassword');
-
-
-            $user = User::where('unique_id', $userId)->first();
+            $user = User::where('unique_id', $request->userId)->first();
 
             if (!$user) {
                 return response()->json([
@@ -41,32 +36,37 @@ class GoogleAuthController extends Controller
                 ], 404);
             }
 
-
-            if (Hash::check($oldPassword, $user->password)) {
-
-                $user->password = Hash::make($newPassword);
-                $user->save();
-
-
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Password updated successfully.',
-                ]);
-            } else {
+            if (!Hash::check($request->currentPassword, $user->password)) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Old password does not match.',
+                    'message' => 'Current password is incorrect.',
                 ], 401);
             }
+
+            $user->password = Hash::make($request->newPassword);
+            $user->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Password updated successfully.',
+            ], 200);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed.',
+                'errors' => $e->errors(),
+            ], 422);
 
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred.',
+                'message' => 'An error occurred while updating the password.',
                 'error' => $e->getMessage(),
             ], 500);
         }
     }
+
     public function callbackGoogle()
     {
         try {

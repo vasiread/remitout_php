@@ -31,14 +31,14 @@
 
 
     @php
-        $profileImgPath = 'images/admin-student-profile.png';
-        $uploadPanName = '';
-        $profileIconPath = "assets/images/account_circle.png";
-        $phoneIconPath = "assets/images/call.png";
-        $mailIconPath = "assets/images/mail.png";
-        $pindropIconPath = "assets/images/pin_drop.png";
-        $discordIconPath = "assets/images/icons/discordicon.png";
-        $viewIconPath = "assets/images/visibility.png";
+$profileImgPath = 'images/admin-student-profile.png';
+$uploadPanName = '';
+$profileIconPath = "assets/images/account_circle.png";
+$phoneIconPath = "assets/images/call.png";
+$mailIconPath = "assets/images/mail.png";
+$pindropIconPath = "assets/images/pin_drop.png";
+$discordIconPath = "assets/images/icons/discordicon.png";
+$viewIconPath = "assets/images/visibility.png";
 
 
 
@@ -59,11 +59,20 @@
                 <img src="/assets/images/notifications_unread.png" alt="the notification icon"
                     class="notification-icon">
             </button>
+            @if(session()->has('nbfcuser'))
+                @php $nbfcuser = session('nbfcuser'); @endphp
+                <div class="nbfc-profile">
+                    <div class="nbfc-avatar"></div>
+                    <span class="nbfc-profile-text">{{ $nbfcuser->nbfc_name }}</span>
+                    <div class="nbfc-dropdown-icon"></div>
+                </div>
 
-            <div class="nbfc-profile">
-                <div class="nbfc-avatar"></div>
-                <span class="nbfc-profile-text">Bank Rep</span>
-                <div class="nbfc-dropdown-icon"></div>
+            @endif
+
+
+            <div class="popup-notify-list-nbfc">
+                <p id="change-password-trigger-nbfc">Change Password</p>
+                <p>Logout</p>
             </div>
         </div>
 
@@ -924,19 +933,37 @@
         </section>
 
         </div>
+        <div class="password-change-container-nbfc">
+            <div class="password-change-triggered-view-headersection-nbfc">
+                <h3>Password Change Request</h3>
+                <img src="{{ asset('assets/images/Icons/close_small.png') }}" style="cursor:pointer" alt="">
+            </div>
+            <input type="password" placeholder="Current Password" id="current-password-nbfc">
+            <span id="current-password-error-nbfc" class="error-message"></span>
+
+            <input type="password" placeholder="New Password" id="new-password-nbfc">
+            <span id="new-password-error-nbfc" class="error-message"></span>
+
+            <input type="password" placeholder="Confirm New Password" id="confirm-new-password-nbfc">
+            <span id="confirm-password-error-nbfc" class="error-message"></span>
+
+            <div class="footer-passwordchange-nbfc">
+                <a href="">Forgot Password</a>
+
+                <button id="password-change-save-nbfc">Save</button>
+
+            </div>
+        </div>
 
 
         <script>
 
             document.addEventListener('DOMContentLoaded', function () {
 
-
-                // Reference elements
                 const mobileMenuBtn = document.getElementById('nbfcMobileMenuBtn');
                 const mobileSidebar = document.querySelector('.nbfc-mobile-sidebar');
                 const mobileOverlay = document.querySelector('.nbfc-mobile-overlay');
-                const nbfcNavRight = document.querySelector('.nbfc-nav-right'); // Select nav-right
-
+                const nbfcNavRight = document.querySelector('.nbfc-nav-right');
 
                 // Select elements for menu items
                 const dashboardBtn = document.querySelector('.nbfc-mobile-menu-top li:nth-child(1)'); // Dashboard
@@ -950,6 +977,10 @@
                 const proposalsData = [
 
                 ];
+                passwordModelTriggerNbfc();
+                userPopopuOpenNbfc();
+
+
 
                 //toggle function
                 // Select the Dashboard and Inbox menu items
@@ -977,7 +1008,6 @@
                 // Run function on page load and window resize
                 checkWindowSize();
                 window.addEventListener('resize', checkWindowSize);
-
 
                 // Function to toggle the mobile sidebar and hide/show nav-right
                 function toggleMobileSidebar() {
@@ -1292,7 +1322,7 @@
 
 
 
-if (closeButton) {
+                if (closeButton) {
                     closeButton.addEventListener("click", function () {
                         modalContainer.style.display = "none"; // Hide the modal
                     });
@@ -1311,7 +1341,7 @@ if (closeButton) {
 
                 const initializeTraceViewNBFC = (requestsData, proposalsData) => {
 
-                    var user = @json(session('user'));
+                    var user = @json(session('nbfcuser'));
 
                     if (user && user.nbfc_id) {
                         const nbfcId = user.nbfc_id;
@@ -2756,7 +2786,62 @@ if (closeButton) {
 
             // Initialize when DOM is loaded
             document.addEventListener('DOMContentLoaded', initializeChats);
+            const passwordModelTriggerNbfc = () => {
+                const passwordTrigger = document.getElementById(".nbfc-profile .nbfc-dropdown-icon");
+                const passwordChangeContainer = document.querySelector(".password-change-container-nbfc");
+                const passwordContainerExit = document.querySelector(".password-change-container-nbfc .password-change-triggered-view-headersection-nbfc img");
+                const popupPasswordShow = document.querySelector(".popup-notify-list");
+                const arrowUp = document.querySelector(".nav-profilecontainer i");
 
+                if (passwordTrigger) {
+                    passwordTrigger.addEventListener("click", () => {
+                        if (passwordChangeContainer) {
+                            passwordChangeContainer.style.display = "flex";
+                        }
+                        if (popupPasswordShow) {
+                            popupPasswordShow.style.display = "none";
+
+                        }
+                        if (arrowUp.classList.contains('fa-chevron-up')) {
+                            arrowUp.classList.remove("fa-chevron-up");
+                            arrowUp.classList.add("fa-chevron-down");
+                            arrowUp.style.display = "flex";
+                        }
+
+
+                    })
+                }
+                if (passwordContainerExit) {
+                    passwordContainerExit.addEventListener("click", () => {
+                        if (passwordChangeContainer) {
+                            passwordChangeContainer.style.display = "none";
+                        }
+                    })
+                }
+
+            }
+
+    const userPopopuOpenNbfc = () => {
+        const userPopupTrigger = document.querySelector(".nbfc-profile .nbfc-dropdown-icon");
+        const userPopupList = document.querySelector(".popup-notify-list-nbfc");
+
+        if (userPopupTrigger) {
+            userPopupTrigger.addEventListener('click', () => {
+                if (userPopupTrigger.classList.contains("fa-chevron-down")) {
+                    userPopupTrigger.classList.remove("fa-chevron-down");
+                    userPopupTrigger.classList.add("fa-chevron-up");
+                    userPopupList.style.display = "flex";
+                } else {
+                    userPopupTrigger.classList.remove("fa-chevron-up");
+                    userPopupTrigger.classList.add("fa-chevron-down");
+                    userPopupList.style.display = "none";
+
+                }
+            });
+
+
+        }
+    }
 
 
 

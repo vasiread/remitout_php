@@ -117,6 +117,7 @@ Route::post('/verify-mobotp', [OTPMobController::class, 'verifyOTP']);
 Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFromProfile']);
 Route::post('/upload-profile-picture', [StudentDashboardController::class, 'uploadProfilePicture']);
 Route::post('/retrieve-profile-picture', [StudentDashboardController::class, 'retrieveProfilePicture']);
+Route::post('/passwordchange', [GoogleAuthController::class, 'passwordChange']);
 
 // Google Auth Routes
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');

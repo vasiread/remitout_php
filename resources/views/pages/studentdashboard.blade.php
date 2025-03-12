@@ -136,7 +136,7 @@
                     </div>
                 </div>
 
-                <div class="studentdashboardprofile-profilesection">
+                <div class="studentdashboardprofile-profilesection" id="intergratestudentdashboardprofile">
                     <img src="{{asset($profileImgPath)}}" class="profileImg" id="profile-photo-id" alt="">
                     <i class="fa-regular fa-pen-to-square"></i>
                     <input type="file" class="profile-upload" accept="image/*" enctype="multipart/form-data">

@@ -33,7 +33,7 @@ class LoginController extends Controller
                 return response()->json(['success' => false, 'message' => 'Invalid name or password']);
 
             }
-
+ 
             session(['scuser' => $scuser]);
             session()->put('scDetail', $scuser);
             session()->put('expires_at', now()->addSeconds(10000)); // Expire in 10,000 seconds
@@ -56,7 +56,7 @@ class LoginController extends Controller
             }
 
             session(['user' => $user]);
-            session()->put('expires_at', now()->addSeconds(10000)); // Expire in 10,000 seconds
+            session()->put('expires_at', now()->addSeconds(10000));
 
             return response()->json([
                 'success' => true,
@@ -75,8 +75,8 @@ class LoginController extends Controller
                 return response()->json(['success' => false, 'message' => 'Invalid name or password.']);
             }
 
-            session(['user' => $NBFCuser]);
-            session()->put('expires_at', now()->addSeconds(10000)); // Expire in 10,000 seconds
+            session(['nbfcuser' => $NBFCuser]);
+            session()->put('expires_at', now()->addSeconds(10000));  
 
             return response()->json([
                 'success' => true,

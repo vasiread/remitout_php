@@ -25,7 +25,6 @@ const initializeAdminSidebar = () => {
     const adminPromotionalEmail = document.querySelector("#promotional-composer-main-section-id");
     const nbfcAdminsideAddAuthority = document.querySelector(".add-nbfc-datasection");
 
-    const nbfcAdminsideAddAuthority = document.querySelector(".add-nbfc-datasection");
 
 
 
@@ -251,7 +250,6 @@ const initializeAdminSidebar = () => {
                 if (adminManageStudent) adminManageStudent.style.display = "flex";
                 if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
                 if (adminPropertyOne) adminPropertyOne.style.display = "none";
-
 
             }
             else if (index === 11) {
