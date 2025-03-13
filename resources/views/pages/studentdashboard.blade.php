@@ -16,36 +16,36 @@
     @section('studentdashboard')
 
             @php
-                $profileImgPath = '';
-                $uploadPanName = '';
-                $profileIconPath = "assets/images/account_circle.png";
-                $phoneIconPath = "assets/images/call.png";
-                $mailIconPath = "assets/images/mail.png";
-                $pindropIconPath = "assets/images/pin_drop.png";
-                $discordIconPath = "assets/images/icons/discordicon.png";
-                $viewIconPath = "assets/images/visibility.png";
+$profileImgPath = '';
+$uploadPanName = '';
+$profileIconPath = "assets/images/account_circle.png";
+$phoneIconPath = "assets/images/call.png";
+$mailIconPath = "assets/images/mail.png";
+$pindropIconPath = "assets/images/pin_drop.png";
+$discordIconPath = "assets/images/icons/discordicon.png";
+$viewIconPath = "assets/images/visibility.png";
 
 
-                $courseDetailsJson = json_encode($courseDetails);
+$courseDetailsJson = json_encode($courseDetails);
 
 
-                $bankName = 'bankName';
-                $bankMessage = 'bankMessage';
-                $loanStatusInfo = [
-                    [
-                        $bankName => "Bank Name",
-                        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-                    ],
-                    [
-                        $bankName => "Bank Name",
-                        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-                    ],
-                    [
-                        $bankName => "Bank Name",
-                        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-                    ],
+$bankName = 'bankName';
+$bankMessage = 'bankMessage';
+$loanStatusInfo = [
+    [
+        $bankName => "Bank Name",
+        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+    ],
+    [
+        $bankName => "Bank Name",
+        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+    ],
+    [
+        $bankName => "Bank Name",
+        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+    ],
 
-                ];
+];
 
             @endphp
 
@@ -67,9 +67,9 @@
                     <div class="studentdashboardprofile-firstrowtrackprogress">
                         <div class="trackprogress-leftsection">
                             <p style="font-weight:600;
-                                                        font-size:18px;
-                                                        color:rgba(0, 0, 0, 1); 
-                                                        padding:15px 0px 0px 24px">Loan
+                                                                        font-size:18px;
+                                                                        color:rgba(0, 0, 0, 1); 
+                                                                        padding:15px 0px 0px 24px">Loan
                                 Status</p>
 
                             <div class="leftsection-detailsinfo">
@@ -158,7 +158,7 @@
                                 <p> {{$userDetails[0]->email}}</p>
                             </li>
                             <li class="personal_info_state"><img src={{$pindropIconPath}} alt="">
-                                <p> {{ $personalDetails[0]->state }}</p>
+                                <p id="personal_state_id"> {{ $personalDetails[0]->state }}</p>
                             </li>
                         </ul>
                         <ul class="personalinfosecondrow-editsection">
@@ -170,11 +170,11 @@
                             </li>
                             <li class="personal_info_phone">
                                 <p>Phone</p>
-                                <input type="text" value="{{$personalDetails[0]->phone}}">
+                                <input type="text" value="{{$personalDetails[0]->phone}}" disabled>
                             </li>
                             <li class="personal_info_email">
                                 <p>Email</p>
-                                <input type="email" value="{{$userDetails[0]->email}}">
+                                <input type="email" value="{{$userDetails[0]->email}}" disabled>
                             </li>
                             <li class="personal_info_state">
                                 <p>State</p>
@@ -231,7 +231,7 @@
                         </div>
                         <div class="testscoreseditsection-secondrow">
                             @php
-                                $counter = 1; 
+$counter = 1; 
                             @endphp
 
                             @if (is_numeric($academicDetails[0]->ILETS) && !empty($academicDetails[0]->ILETS))
@@ -247,7 +247,7 @@
                             @endif
 
                             @php
-                                $others = json_decode($academicDetails[0]->Others, true);
+$others = json_decode($academicDetails[0]->Others, true);
                             @endphp
 
                             @if (isset($others['otherExamName']) && isset($others['otherExamScore']) && is_numeric($others['otherExamScore']) && !empty($others['otherExamScore']))
@@ -3053,6 +3053,8 @@
                         const tofelScore = document.querySelector(".testscoreseditsection-secondrow-editsection .tofel_score").value;
 
                         const planToStudy = document.getElementById("plan-to-study-edit").value;
+                        const planToStudyArray = planToStudy.split(',').map(item => item.trim());
+
                         const courseDuration = document.querySelector(".myapplication-fourthcolumn-additional input").value;
                         const loanAmount = document.querySelector(".myapplication-fourthcolumn input").value;
                         const referralCode = document.querySelector(".myapplication-fifthcolumn input").value;
@@ -3079,7 +3081,7 @@
                             iletsScore: iletsScore,
                             greScore: greScore,
                             tofelScore: tofelScore,
-                            planToStudy: planToStudy,
+                            planToStudy: planToStudyArray,
                             courseDuration: courseDuration,
                             loanAmount: loanAmount,
                             referralCode: referralCode,
@@ -3097,24 +3099,15 @@
                         })
                             .then(response => response.json())
                             .then(data => {
+                                console.log("Response Data:", data);
+                                if (editedName) {
+                                    document.querySelector("#referenceNameId p").textContent = editedName;
+                                    document.getElementById("personal_state_id").textContent = editedState;
+                                }
+                                
                                 if (data.errors) {
                                     console.error('Validation errors:', data.errors);
                                 } else {
-                                    saveChangesButton.style.display = "none";
-                                    savedMsg.style.display = "flex";
-                                    console.log("data");
-
-                                    setTimeout(() => {
-                                        const disabledInputs = document.querySelectorAll('.studentdashboardprofile-myapplication input[disabled]');
-                                        disabledInputs.forEach(inputItems => {
-                                            inputItems.removeAttribute('disabled');
-                                        });
-                                    }, 1200);
-
-                                    setTimeout(() => {
-                                        saveChangesButton.style.display = "flex";
-                                        savedMsg.style.display = 'none';
-                                    }, 1200);
                                     console.log("Success", data);
                                 }
                             })
@@ -3127,7 +3120,7 @@
 
             const degreeRadioButtons = document.querySelectorAll('input[name="education-level"]');
             degreeRadioButtons.forEach(button => {
-                button.addEventListener('change', toggleSaveState); // toggleSaveState is now defined
+                button.addEventListener('change', toggleSaveState); 
             });
         };
 

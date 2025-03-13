@@ -31,14 +31,14 @@
 
 
     @php
-$profileImgPath = 'images/admin-student-profile.png';
-$uploadPanName = '';
-$profileIconPath = "assets/images/account_circle.png";
-$phoneIconPath = "assets/images/call.png";
-$mailIconPath = "assets/images/mail.png";
-$pindropIconPath = "assets/images/pin_drop.png";
-$discordIconPath = "assets/images/icons/discordicon.png";
-$viewIconPath = "assets/images/visibility.png";
+        $profileImgPath = 'images/admin-student-profile.png';
+        $uploadPanName = '';
+        $profileIconPath = "assets/images/account_circle.png";
+        $phoneIconPath = "assets/images/call.png";
+        $mailIconPath = "assets/images/mail.png";
+        $pindropIconPath = "assets/images/pin_drop.png";
+        $discordIconPath = "assets/images/icons/discordicon.png";
+        $viewIconPath = "assets/images/visibility.png";
 
 
 
@@ -979,6 +979,7 @@ $viewIconPath = "assets/images/visibility.png";
                 ];
                 passwordModelTriggerNbfc();
                 userPopopuOpenNbfc();
+                passwordChangeCheckNbfc();
 
 
 
@@ -2147,87 +2148,7 @@ $viewIconPath = "assets/images/visibility.png";
 
             let isEditing = false; // Track whether we're in edit mode or not
 
-            const triggerEditButton = () => {
-                const saveChangesButton = document.querySelector(".personalinfo-firstrow button");
-                const savedMsg = document.querySelector(".saved-msg");
-                const inputs = document.querySelectorAll('.studentdashboardprofile-myapplication input');
-                const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-                const radioButtons = document.querySelectorAll('input[type="radio"]');
-
-                saveChangesButton.addEventListener('click', () => {
-                    if (isEditing) {
-                        // Save the changes if we're in edit mode
-                        const editedName = document.querySelector(".personalinfosecondrow-editsection .personal_info_name input").value;
-                        const editedPhone = document.querySelector(".personalinfosecondrow-editsection .personal_info_phone input").value;
-                        const editedEmail = document.querySelector(".personalinfosecondrow-editsection .personal_info_email input").value;
-                        const editedState = document.querySelector(".personalinfosecondrow-editsection .personal_info_state input").value;
-                        const planToStudy = document.getElementById("plan-to-study-edit").value;
-
-                        // Send the data to the server
-                        const updatedInfos = {
-                            editedName: editedName,
-                            editedPhone: editedPhone,
-                            editedEmail: editedEmail,
-                            editedState: editedState,
-                            planToStudy: planToStudy
-                        };
-
-                        fetch('/from-profileupdate', {
-                            method: "POST",
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                            },
-                            body: JSON.stringify(updatedInfos)
-                        })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.errors) {
-                                    console.error('Validation errors:', data.errors);
-                                } else {
-                                    // If save is successful, change the button to "Edit"
-                                    saveChangesButton.textContent = 'Edit'; // Change button back to "Edit"
-                                    saveChangesButton.style.backgroundColor = "transparent";
-                                    saveChangesButton.style.color = "#260254";
-
-                                    savedMsg.style.display = "flex"; // Show the "Saved" message
-
-                                    // Disable the form fields after saving
-                                    inputs.forEach(input => input.setAttribute('disabled', true));
-                                    checkboxes.forEach(checkbox => checkbox.setAttribute('disabled', true));
-                                    radioButtons.forEach(radio => radio.setAttribute('disabled', true));
-
-                                    // Hide the "Saved" message after a short delay
-                                    setTimeout(() => {
-                                        savedMsg.style.display = 'none';
-                                    }, 1200);
-
-                                    isEditing = false; // Exit edit mode
-                                }
-                            })
-                            .catch(error => {
-                                console.error("Error", error);
-                            });
-
-                    } else {
-                        // Enter Edit mode: Enable the fields for editing
-                        inputs.forEach(input => input.removeAttribute('disabled'));
-                        checkboxes.forEach(checkbox => checkbox.removeAttribute('disabled'));
-                        radioButtons.forEach(radio => radio.removeAttribute('disabled'));
-
-                        // Change the button text to "Save"
-                        saveChangesButton.textContent = 'Save';
-                        saveChangesButton.style.backgroundColor = "rgba(111, 37, 206, 1)";
-                        saveChangesButton.style.color = "#fff";
-
-                        // Hide the "Saved" message if it's visible
-                        savedMsg.style.display = 'none';
-
-                        isEditing = true; // Set to editing mode
-                    }
-                });
-            };
-
+       
             // Initialize the function when the page loads or when needed
             triggerEditButton();
 
@@ -2787,26 +2708,27 @@ $viewIconPath = "assets/images/visibility.png";
             // Initialize when DOM is loaded
             document.addEventListener('DOMContentLoaded', initializeChats);
             const passwordModelTriggerNbfc = () => {
-                const passwordTrigger = document.getElementById(".nbfc-profile .nbfc-dropdown-icon");
+                const passwordTrigger = document.getElementById("change-password-trigger-nbfc");
+
                 const passwordChangeContainer = document.querySelector(".password-change-container-nbfc");
                 const passwordContainerExit = document.querySelector(".password-change-container-nbfc .password-change-triggered-view-headersection-nbfc img");
-                const popupPasswordShow = document.querySelector(".popup-notify-list");
-                const arrowUp = document.querySelector(".nav-profilecontainer i");
+                const popupPasswordShow = document.querySelector(".popup-notify-list-nbfc");
+                const arrowUp = document.querySelector(".nbfc-profile .nbfc-dropdown-icon");
 
                 if (passwordTrigger) {
                     passwordTrigger.addEventListener("click", () => {
                         if (passwordChangeContainer) {
                             passwordChangeContainer.style.display = "flex";
-                        }
-                        if (popupPasswordShow) {
-                            popupPasswordShow.style.display = "none";
+                            if (popupPasswordShow) {
+                                popupPasswordShow.style.display = "none";
 
+                            }
+                            if (arrowUp) {
+                                arrowUp.style.transform = 'rotate(0deg)';
+                                
+                            }
                         }
-                        if (arrowUp.classList.contains('fa-chevron-up')) {
-                            arrowUp.classList.remove("fa-chevron-up");
-                            arrowUp.classList.add("fa-chevron-down");
-                            arrowUp.style.display = "flex";
-                        }
+
 
 
                     })
@@ -2821,29 +2743,117 @@ $viewIconPath = "assets/images/visibility.png";
 
             }
 
-    const userPopopuOpenNbfc = () => {
-        const userPopupTrigger = document.querySelector(".nbfc-profile .nbfc-dropdown-icon");
-        const userPopupList = document.querySelector(".popup-notify-list-nbfc");
+            const userPopopuOpenNbfc = () => {
+                const userPopupTrigger = document.querySelector(".nbfc-profile .nbfc-dropdown-icon");
+                const userPopupList = document.querySelector(".popup-notify-list-nbfc");
 
-        if (userPopupTrigger) {
-            userPopupTrigger.addEventListener('click', () => {
-                if (userPopupTrigger.classList.contains("fa-chevron-down")) {
-                    userPopupTrigger.classList.remove("fa-chevron-down");
-                    userPopupTrigger.classList.add("fa-chevron-up");
-                    userPopupList.style.display = "flex";
-                } else {
-                    userPopupTrigger.classList.remove("fa-chevron-up");
-                    userPopupTrigger.classList.add("fa-chevron-down");
-                    userPopupList.style.display = "none";
-
+                if (userPopupTrigger) {
+                    userPopupTrigger.addEventListener('click', () => {
+                        if (userPopupList.style.display === "none" || userPopupList.style.display === "") {
+                            userPopupTrigger.style.transform = 'rotate(180deg)';
+                            userPopupList.style.display = "flex";
+                        } else {
+                            userPopupTrigger.style.transform = 'rotate(0deg)';
+                            userPopupList.style.display = "none";
+                        }
+                    });
                 }
-            });
+            }
 
 
-        }
-    }
+            function displayError(elementId, message) {
+                var errorElement = document.getElementById(elementId);
+                errorElement.innerText = message;
+                errorElement.style.display = 'block';
+            }
+
+            function clearErrorMessages() {
+                var errorElements = document.getElementsByClassName('error-message');
+                for (var i = 0; i < errorElements.length; i++) {
+                    errorElements[i].innerText = '';
+                    errorElements[i].style.display = 'none';
+                }
+            }
 
 
+            const passwordChangeCheckNbfc = () => {
+                document.getElementById('password-change-save-nbfc').addEventListener('click', function () {
+                    let currentPassword = document.getElementById('current-password-nbfc').value.trim();
+                    let newPassword = document.getElementById('new-password-nbfc').value.trim();
+                    let confirmNewPassword = document.getElementById('confirm-new-password-nbfc').value.trim();
+                    const passwordChangeContainer = document.querySelector(".password-change-container-nbfc");
+
+
+                    clearErrorMessages();
+                    let valid = true;
+
+                    if (!currentPassword) {
+                        displayError('current-password-error-nbfc', 'Current password cannot be empty.');
+                        valid = false;
+                    }
+
+                    if (!newPassword) {
+                        displayError('new-password-error-nbfc', 'New password cannot be empty.');
+                        valid = false;
+                    } else if (newPassword.length < 8) {
+                        displayError('new-password-error-nbfc', 'New password must be at least 8 characters long.');
+                        valid = false;
+                    }
+
+                    if (newPassword !== confirmNewPassword) {
+                        displayError('confirm-password-error-nbfc', 'Passwords do not match.');
+                        valid = false;
+                    }
+
+                    if (!valid) return;
+
+                    console.log('Password change request is valid.');
+
+                    const nbfcuser = {!! json_encode(Session::get('nbfcuser')) !!};
+                    const userId = nbfcuser ? nbfcuser.nbfc_id : '';
+                    console.log(userId)
+
+
+
+
+                    const passwordChangeVariables = {
+                        userId,
+                        currentPassword,
+                        newPassword
+                    };
+
+ 
+                    fetch("/passwordchange", {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': "application/json",
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ""
+                        },
+                        body: JSON.stringify(passwordChangeVariables)
+                    })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            if (data.success) {
+                                console.log("Password changed successfully");
+                                alert("Password updated successfully.");
+
+                                if (passwordChangeContainer) {
+                                    passwordChangeContainer.style.display = "none";
+                                    document.getElementById('current-password-nbfc').value = '';
+                                    document.getElementById('new-password-nbfc').value = '';
+                                    document.getElementById('confirm-new-password-nbfc').value = '';
+                                }
+                            } else {
+                                console.error("Error:", data.message);
+                                alert(data.message);
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Fetch error:", error);
+                            alert("An unexpected error occurred.");
+                        });
+                });
+            };
 
         </script>
 

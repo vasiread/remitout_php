@@ -52,7 +52,7 @@
     <!-- Only show header component on home page -->
     @if(request()->is('/'))
         <x-header></x-header>
-    @elseif(!in_array(Route::currentRouteName(), ['login', 'signup', 'admin-page', 'nbfc-dashboard', 'sc-dashboard']))
+    @elseif(!in_array(Route::currentRouteName(), ['login', 'signup', 'admin-page', 'nbfc-dashboard']))
         <x-navbar></x-navbar>
     @endif
 
@@ -73,7 +73,7 @@
         @yield('homecontent')
     @endif
 
-    @if(Route::currentRouteName() !== 'login' && Route::currentRouteName() !== 'signup' && Route::currentRouteName() !== 'admin-page' && Route::currentRouteName() !== 'nbfc-dashboard' && Route::currentRouteName() !== 'sc-dashboard')
+    @if(Route::currentRouteName() !== 'login' && Route::currentRouteName() !== 'signup' && Route::currentRouteName() !== 'admin-page' && Route::currentRouteName() !== 'nbfc-dashboard' && Route::currentRouteName() !== 'sc-dashboard' && Route::currentRouteName() !== 'student-dashboard')
         <x-footer></x-footer>
     @endif
 

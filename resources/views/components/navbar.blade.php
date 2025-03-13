@@ -6,6 +6,8 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('assets/css/studentformquestionair.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="assets/css/studentformquestionair.css">
+
 
 </head>
 
@@ -14,9 +16,9 @@
         style="@if (request()->is('/')) position: absolute; top: 0; left: 0; width: 100%; z-index: 10; @else position: relative; @endif">
         <div class="{{ Request::is('/') ? 'nav-container' : 'nav-container fullopacity' }}">
             @php
-                $navImgPath = "assets/images/Remitoutcolored.png";
-                $navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
-                $NotificationBell = "assets/images/notifications_unread.png";
+$navImgPath = "assets/images/Remitoutcolored.png";
+$navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
+$NotificationBell = "assets/images/notifications_unread.png";
             @endphp
 
             <img onclick="window.location.href='{{ url(' ') }}'"
@@ -79,30 +81,6 @@
                     </div>
                 </div>
 
-            @elseif(session()->has('nbfcuser'))
-                <div class="nav-searchnotificationbars">
-                    <div class="input-container">
-                        <input type="text" placeholder="Search">
-                        <img src="assets/images/search.png" class="search-icon" alt="Search Icon">
-                    </div>
-                    <img src="{{ $NotificationBell }}" style="width:24px;height:24px" class="unread-notify" alt="">
-
-                    <div class="nav-profilecontainer">
-                        <img src="{{ asset('assets/images/Icons/account_circle.png') }}" id="nav-profile-photo-id"
-                            class="nav-profileimg" alt="Profile Image">
-                        <h3 style='width:100%'>{{ session('nbfcuser')->name }}</h3>
-                        <i class="fa-solid fa-chevron-down"></i>
-                        <div class="popup-notify-list" style="display:none">
-                            <p id="change-password-trigger">Change Password</p>
-                            <p>Logout</p>
-                        </div>
-                    </div>
-
-                    <div class="menubarcontainer-profile" id="scuser-dashboard-menu">
-                        <img src="{{ asset('assets/images/Icons/menu.png') }}" onclick="menuopenclose()" alt="">
-                    </div>
-                </div>
-
             @else
                 <div class="nav-buttons">
                     <button class="login-btn" onclick="window.location.href='{{ route('login') }}'">Log In</button>
@@ -150,7 +128,9 @@
             dynamicChangeNavMob();
             userPopopuOpen();
             passwordChangeCheck();
-            passwordModelTrigger()
+            passwordModelTrigger();
+
+
 
 
 
@@ -312,7 +292,7 @@
 
 
         const userPopopuOpen = () => {
-            const userPopupTrigger = document.querySelector("#notification-userprofile-section i");
+            const userPopupTrigger = document.querySelector(".nav-profilecontainer i");
             const userPopupList = document.querySelector(".popup-notify-list");
 
             if (userPopupTrigger) {
@@ -331,6 +311,11 @@
 
 
             }
+        }
+        function getCookie(name) {
+            let value = "; " + document.cookie;
+            let parts = value.split("; " + name + "=");
+            if (parts.length == 2) return parts.pop().split(";").shift();
         }
 
         const passwordChangeCheck = () => {
@@ -366,9 +351,28 @@
                 if (!valid) return;
 
                 console.log('Password change request is valid.');
+                const hasScUserSession = {{ session()->has('scuser') ? 'true' : 'false' }};
+                const hasUserSession = {{ session()->has('user') ? 'true' : 'false' }};
 
-                const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-                const userId = userIdElement ? userIdElement.textContent : '';
+                let userId = '';
+                if (hasScUserSession === true) {
+
+                    const User = JSON.parse(`{!! json_encode(session('scuser')) !!}`);
+
+                     userId = User.referral_code;
+
+                } else if (hasUserSession === true) {
+
+                    const User = JSON.parse(`{!! json_encode(session('user')) !!}`);
+
+                     userId = User.unique_id;
+
+                } else {
+                    console.log("No user session found.");
+                }
+
+
+
 
 
                 const passwordChangeVariables = {
@@ -377,7 +381,6 @@
                     newPassword
                 };
 
-                console.log(passwordChangeVariables);
 
                 fetch("/passwordchange", {
                     method: "POST",
@@ -454,6 +457,11 @@
                 passwordContainerExit.addEventListener("click", () => {
                     if (passwordChangeContainer) {
                         passwordChangeContainer.style.display = "none";
+                        document.getElementById('current-password').value = '';
+                        document.getElementById('new-password').value = '';
+                        document.getElementById('confirm-new-password').value = '';
+                        clearErrorMessages();
+
                     }
                 })
             }

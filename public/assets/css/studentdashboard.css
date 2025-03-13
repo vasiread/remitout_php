@@ -64,10 +64,15 @@ input[type="file"] {
     width: 100%;
     max-width: 100%;
     height: 54px;
+    display: flex;
+    gap: 6.07%;
+    align-items: center;
 
 
     border-radius: 4px;
     opacity: 0px;
+    padding-left: 11.74%;
+
 
 }
 
@@ -104,7 +109,7 @@ input[type="file"] {
     background: linear-gradient(88.18deg, #FFA048 3.11%, #FA7B15 98.46%);
     color: rgba(255, 255, 255, 1);
     display: flex;
-    gap: 18px;
+    gap: 6.07%;
 }
 
 
@@ -425,7 +430,6 @@ input[type="file"] {
 
 .studentdashboardprofile-trackprogress {
     display: flex;
-    max-width: 771px;
     width: 100%;
     padding: 0 1.5rem;
 
@@ -800,7 +804,7 @@ input[type="file"] {
 
 .studentdashboardprofile-myapplication {
     display: none;
-    max-width: 50%;
+    max-width: 48%;
     width: 100%;
     height: fit-content;
     background-color: rgba(255, 255, 255, 1);
@@ -1521,7 +1525,7 @@ input[type="file"] {
 }
 
 .personalinfosecondrow-editsection li input {
-      outline: none;
+    outline: none;
     padding: 0.2rem;
     border: 1px solid #c1c1c5;
     color: rgb(99 96 96 / 70%);
@@ -1678,7 +1682,7 @@ input[type="file"] {
 
     .studentdashboardprofile-togglesidebar ul li {
         font-size: 0.8rem;
-        padding: 0.93rem 0 0 0.93rem;
+ 
 
     }
 

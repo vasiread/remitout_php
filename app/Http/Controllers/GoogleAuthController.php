@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Nbfc;
+use App\Models\Scuser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
@@ -24,10 +26,17 @@ class GoogleAuthController extends Controller
             $request->validate([
                 'userId' => 'required|string',
                 'currentPassword' => 'required|string|min:8',
-                'newPassword' => 'required|string|min:8|different:currentPassword',  
+                'newPassword' => 'required|string|min:8|different:currentPassword',
             ]);
 
-            $user = User::where('unique_id', $request->userId)->first();
+            if (strpos($request->userId, "NBFC") !== false) {
+                $user = Nbfc::where('nbfc_id', $request->userId)->first();
+            } else if (strpos($request->userId, "SCREF") !== false) {
+                $user = Scuser::where('referral_code', $request->userId)->first();
+            } else {
+                $user = User::where('unique_id', $request->userId)->first();
+            }
+
 
             if (!$user) {
                 return response()->json([
@@ -36,20 +45,40 @@ class GoogleAuthController extends Controller
                 ], 404);
             }
 
-            if (!Hash::check($request->currentPassword, $user->password)) {
+            if (strpos($request->userId, "SCREF") !== false) {
+                if (!Hash::check($request->currentPassword, $user->passwordField)) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Current password is incorrect.',
+                    ], 401);
+                }
+                $user->passwordField = Hash::make($request->newPassword);
+                $user->save();
+
                 return response()->json([
-                    'success' => false,
-                    'message' => 'Current password is incorrect.',
-                ], 401);
+                    'success' => true,
+                    'message' => 'Password updated successfully.',
+                ], 200);
+            } else {
+                if (!Hash::check($request->currentPassword, $user->password)) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Current password is incorrect.',
+                    ], 401);
+                }
+                $user->password = Hash::make($request->newPassword);
+                $user->save();
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Password updated successfully.',
+                ], 200);
+
             }
 
-            $user->password = Hash::make($request->newPassword);
-            $user->save();
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Password updated successfully.',
-            ], 200);
+
+
 
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([

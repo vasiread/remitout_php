@@ -1608,10 +1608,18 @@
     .queryraisedcontainer-rightcontent .sort-by-contents {
         width: 70%;
     }
+        .commonsidebar-togglesidebar{
+            display: none;
+        
+        }
 
 }
 
 @media(max-width:767px) {
+    .commonsidebar-togglesidebar {
+            display: none;
+    
+        }
     .scdashboard-container {
         margin: 0 1.3rem;
         padding-top: 1.3rem;
