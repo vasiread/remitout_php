@@ -586,7 +586,7 @@ body {
 
 .line-1 {
   display: block;
-  font-weight: 600;
+  font-weight: 500;
    font-family: 'Poppins', sans-serif;
 }
 
@@ -595,7 +595,7 @@ body {
 }
 
 .line-2 .bold {
-  font-weight: 600;
+  font-weight: 500;
    font-family: 'Poppins', sans-serif;
 }
 
@@ -737,7 +737,7 @@ body {
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   .hero-section {
     padding-top: 80px;
-    min-height: auto;
+    min-height: 100vh;
   }
 
   .content-container {
@@ -816,7 +816,12 @@ body {
 }
 
 
-@media (max-width: 390x) {
+/* Ensure all containers stay within the viewport */
+* {
+  box-sizing: border-box;
+}
+
+@media (max-width: 390px) {
   .hero-section {
     min-height: 100vh;
     padding-top: 80px;
@@ -842,16 +847,21 @@ body {
   .right-content {
     width: 100%;
     align-items: center;
+    height:auto;
+    gap: 0;
   }
 
   .cta-buttons {
     flex-direction: column;
     align-items: center;
+     margin-bottom: 30px;
+
   }
 
   .secure-loan,
   .watch-demo {
-    width: 300px;
+    width:288px;
+   
   }
 }
 
@@ -1517,7 +1527,7 @@ body {
 .study-loans-left::before {
   content: '';
   position: absolute;
-  top: -170px;
+  top: -160px;
   left: -100px;
   width: 300px;
   height: 300px;
@@ -1685,13 +1695,19 @@ body {
   background-color: #fff;
 }
 
-.mobile-loan-step-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #55436B;
-  padding-top: 10px;
+        .mobile-loan-step-title {
+          font-size: 18px;
+          font-family: poppins;
+          font-weight: bold;
+          line-height:120%;
+           font-style: normal;
+        
+            color: #55436B;
+            padding-top: 10px;
 
-}
+        }
+  
+
 
 .mobile-loan-step-content p {
   font-family: 'Poppins', sans-serif;
@@ -1734,15 +1750,17 @@ body {
   margin-bottom: 20px;
 }
 
-.mobile-loan-bottom-step-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #55436B;
-  text-align: right;
-  margin-left: auto;
-  max-width: 80%;
-  padding-top: 10px;
-}
+        .mobile-loan-bottom-step-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #55436B;
+            text-align: right;
+            margin-left: auto;
+            max-width: 80%;
+            padding-top: 10px;
+            font-family: poppins;
+            line-height:120%;
+        }
 
 .mobile-loan-bottom-step-number {
   color: #E98635;
@@ -2874,7 +2892,6 @@ h1 {
   z-index: 10;
   font-family: 'Poppins', sans-serif;
   width: 100%;
-  margin-top: 8px;
 }
 
 .sort-dropdown.active {
@@ -2987,7 +3004,7 @@ h1 {
   justify-content: flex-end;
   align-items: center;
   gap: 16px;
-  padding: 16px 0;
+  padding: 20px 0;
   position: absolute;
   bottom: 32px;
   right: 32px;

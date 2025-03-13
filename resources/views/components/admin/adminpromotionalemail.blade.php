@@ -272,7 +272,7 @@
                         </select>
                         <div style="position: relative;">
                             <input type="text" placeholder="Search">
-                            <i class="fas fa-search search-icon"></i>
+                           
                         </div>
                     </div>
                 </div>

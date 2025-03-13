@@ -997,6 +997,7 @@ input[type="file"] {
     place-items: flex-start;
     margin-top: 10px;
     position: relative;
+     font-family: 'Poppins', sans-serif;
 }
 
 .myapplication-thirdcolumn .degreetypescheckboxes {

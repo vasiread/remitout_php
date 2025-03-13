@@ -1,3 +1,10 @@
+* {
+    box-sizing: border-box;
+     margin: 0;
+    padding: 0;
+}
+
+
 .nbfc-navbar {
     position: fixed;
     top: 0;
@@ -6,10 +13,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 30px;
+    padding: 10px 30px;
     background-color: white;
     border-bottom: 1px solid #f0f0f0;
-    height: 85px;
+    
     z-index: 9999;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -32,6 +39,7 @@
     gap: 24px;
     transition: opacity 0.3s ease;
     margin-left: 20px;
+    
 }
 
 .nbfc-nav-right.hide {
@@ -51,6 +59,7 @@
     font-family: 'Poppins', sans-serif;
     background-color: #ffffff;
     font-size: 12px;
+    
 }
 
 .nbfc-search-input::placeholder {
@@ -84,14 +93,14 @@
     vertical-align: middle;
 }
 
-.nbfc-profile {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 6px 12px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+        .nbfc-profile {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 6px 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
 .nbfc-avatar {
     width: 37px;
@@ -108,6 +117,7 @@
 .nbfc-profile-text {
     color: #260254;
     font-weight: 500;
+       font-family: 'Poppins', sans-serif;
 }
 
 .nbfc-dropdown-icon {
@@ -147,7 +157,7 @@
 
 .nbfc-mobile-sidebar {
     position: fixed;
-    top: 85px;
+    top: 75px;
     left: -100%;
     width: 100%;
     height: 90vh;
@@ -166,9 +176,8 @@
     visibility: visible;
 
 
-}
-
-.nbfc-mobile-overlay.active {
+        }
+        .nbfc-mobile-overlay.active {
     opacity: 1;
     visibility: visible;
     position: fixed;
@@ -279,106 +288,6 @@
     z-index: 999;
 }
 
-.password-change-container-nbfc {
-    transform: translate(-50%, -50%);
-    position: absolute;
-    z-index: 10;
-    top: 50%;
-    left: 50%;
-    display: none;
-    flex-direction: column;
-    background: rgba(255, 255, 255, 1);
-    box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
-    gap: 1.3rem;
-    height: fit-content;
-    max-width: 40%;
-    width: 100%;
-    padding: 1.5rem;
-
-}
-
-.password-change-container-nbfc input {
-    width: 100%;
-    min-height: 28px;
-    height: 100%;
-    border-radius: 2px;
-    border: 1px solid rgba(226, 226, 226, 1);
-    outline: none;
-    font-size: 0.6rem;
-    font-family: Poppins;
-    padding-left: 6px;
-
-
-}
-
-#password-change-save-nbfc {
-    cursor: pointer;
-    max-width: 126px;
-    width: 100%;
-    min-height: 35px;
-    border-radius: 4px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
-    background-color: rgba(111, 37, 206, 1);
-    color: rgba(255, 255, 255, 1);
-    border: none;
-    align-self: flex-end;
-}
-
-.password-change-triggered-view-headersection-nbfc {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    justify-content: space-between;
-}
-
-.password-change-triggered-view-headersection-nbfc h3 {
-    font-family: Poppins;
-    font-weight: 500;
-    font-size: clamp(8px, 4vw, 12px);
-    line-height: clamp(11px, 4vw, 27px);
-    color: rgba(233, 134, 53, 1);
-}
-
-.popup-notify-list-nbfc {
-    position: absolute;
-    flex-direction: column;
-    display: none;
-    top: 73%;
-    right: 3%;
-    background-color: #ffffff;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    gap: 1rem;
-    padding: 1rem 0;
-    border-radius: 5px;
-    z-index: 15;
-}
-
-.popup-notify-list-nbfc p {
-    font-family: Poppins;
-    font-size: 0.8rem;
-    padding: 0.4rem 0;
-    border-radius: 4px;
-    margin: 0 3px;
-    padding: 0.3rem;
-    color: rgba(38, 2, 84, 1);
-    height: 35px;
-    display: flex;
-    align-items: center;
-}
-
-.popup-notify-list-nbfc p:hover {
-    background: #f9f9f9;
-    cursor: pointer;
-}
-
-.footer-passwordchange-nbfc {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
 /*nav bar for tablets*/
 
@@ -420,7 +329,10 @@
         padding: 0;
     }
 
-
+    .nbfc-profile-text,
+    .nbfc-dropdown-icon {
+        display: none;
+    }
 
     .nbfc-avatar {
         width: 40px;
@@ -541,25 +453,41 @@
 }
 
 
+html, body {
+    height: 100%;
+    
+    background-color: #F5F5F5;
+}
+
+
+
 .nbfcstudentdashboardprofile-togglesidebar {
-    height: 635px;
+    width: 16%;
+    min-height: calc(100vh - 80px);
     padding: 35px 10px;
-    max-width: 19%;
-    width: 100%;
+    background-color: white;
     box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
-    background-color: rgba(255, 255, 255, 1);
+    position: fixed;
+    height: 75vh;
+    left: 0;
+    margin-top: 70px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow-x: hidden; 
+    overflow-y: hidden;
 }
 
+/* Ensure list items don't cause overflow */
 .nbfcstudentdashboardprofile-togglesidebar ul {
     list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     gap: 20px;
-
-    max-width: 100%;
+    width: 100%;
+    overflow-x: hidden; /* Add this to prevent horizontal scrolling */
 }
 
 .nbfcstudentdashboardprofile-togglesidebar ul li {
@@ -571,10 +499,13 @@
     color: rgba(38, 2, 84, 0.7);
     padding: 0.93rem;
     cursor: pointer;
-    width: 100%;
+    width: calc(100% - 1.86rem); 
+    box-sizing: border-box; 
     height: 54px;
     border-radius: 4px;
-    opacity: 0px;
+    white-space: nowrap;
+    overflow: hidden; 
+    text-overflow: ellipsis;
 }
 
 .nbfcstudentdashboardprofile-sidebarlists-bottom {
@@ -830,17 +761,6 @@
 
 
 
-.nbfcstudentdashboardprofile-togglesidebar {
-    width: 16%;
-    min-height: calc(100vh - 80px);
-    padding: 35px 10px;
-    background-color: white;
-    box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
-    position: fixed;
-    height: 75vh;
-    left: 0;
-    margin-top: 80px;
-}
 
 /*tablet toggle sidebar*/
 
@@ -922,12 +842,17 @@
 }
 
 /*nbfc main container for dashboard*/
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
 
 .dashboard-main-content {
     flex: 1;
     margin-left: 16%;
     padding: 18px;
     background-color: #F5F5F5;
+
 }
 
 .dashboard-sections-container {
@@ -1000,26 +925,54 @@
     top: 100%;
     left: 0;
     background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     z-index: 1;
+    width: 77px;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
 }
 
 .dashboard-sort-options button {
-    padding: 10px;
+    padding: 10px 16px;
     background-color: white;
     border: none;
     width: 100%;
     text-align: left;
+    color: #6b7280;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.dashboard-sort-options button:last-child {
+    border-bottom: none;
 }
 
 .dashboard-sort-options button:hover {
-    background-color: #f1f1f1;
+    background-color: #f9fafb;
 }
 
-.dashboard-sort-button:focus+.dashboard-sort-options {
+.dashboard-sort-button:focus + .dashboard-sort-options {
     display: block;
+}
+
+/* Additional CSS for the sort button that triggers the dropdown */
+.dashboard-sort-button {
+    background: transparent;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    width: 77px;
 }
 
 
@@ -1060,7 +1013,7 @@
     flex-direction: column;
     gap: 16px;
     background-color: white;
-    border-radius: 16px;
+    border-radius: 8px;
 }
 
 .dashboard-student-item {
@@ -1115,11 +1068,13 @@
     justify-content: center;
     padding: 8px;
     color: #6F25CE;
+    font-family: 'Poppins', sans-serif;
 }
 
 .dashboard-reject-button {
     color: #6F25CE;
     background: transparent;
+    font-family: 'Poppins', sans-serif;
 }
 
 .dashboard-nbfc-search-container {
@@ -1768,17 +1723,16 @@
 /*reject container*/
 
 .modal-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    /* Semi-transparent black for dimming */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black for dimming */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 .reject-application-modal {
@@ -1827,7 +1781,7 @@
     color: #666;
     cursor: pointer;
     font-size: 20px;
-}
+  }
 
 .reject-application-modal-content .remarks-textarea {
     width: 100%;
@@ -1838,7 +1792,7 @@
     font-size: 14px;
     resize: none;
     margin-bottom: 16px;
-}
+  }
 
 .reject-application-modal-content .actions {
     display: flex;
@@ -1855,16 +1809,16 @@
 
 .reject-application-modal-content .actions .cancel-button {
     background-color: #FFFFFF;
-    color: #260254;
+    color:#260254;
     border: none;
-    border: 1px solid #6F25CE;
-}
+      border: 1px solid #6F25CE; 
+  }
 
-.reject-application-modal-content .actions .reject-button {
+  .reject-application-modal-content .actions .reject-button {
     background-color: #6F25CE;
     color: white;
     border: none;
-}
+  }
 
 @media (max-width: 768px) {
     .reject-application-modal {
@@ -1931,30 +1885,45 @@
 }
 
 
-
+       
 .inbox-filters {
     position: relative;
     display: flex;
     align-items: center;
     gap: 10px;
     cursor: pointer;
-    border: 1px solid #ccc;
-    padding: 10px;
+    border: 1px solid #e5e7eb;
+    padding: 8px 12px;
     width: fit-content;
+    border-radius: 8px;
+    background-color: white;
+    font-family: 'Poppins', sans-serif;
 }
 
+.inbox-filters span {
+    margin-right: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.inbox-filters img {
+    width: 16px;
+}
+
+/* Dropdown styling to match the image */
 .sort-dropdown-nbfc {
     position: absolute;
-    top: 100%;
+    top: calc(100% + 5px);
     left: 0;
     background: white;
-    border: 1px solid #ddd;
+    border: 1px solid #e5e7eb;
     display: none;
     list-style: none;
     padding: 0;
-    margin: 5px 0;
+    margin: 0;
     z-index: 10;
-
+  
 }
 
 .sort-dropdown-nbfc.visible {
@@ -1962,36 +1931,26 @@
 }
 
 .sort-dropdown-nbfc li {
-    padding: 10px;
+    padding: 10px 16px;
     cursor: pointer;
     font-size: 14px;
-}
-
-.sort-dropdown-nbfc li:hover {
-    background-color: #f0f0f0;
-}
-
-#sortable-list {
-    margin-top: 10px;
-    padding: 0;
-    list-style: none;
-}
-
-#sortable-list li {
-    padding: 5px;
-    border: 1px solid #ddd;
-    margin: 2px 0;
-}
-
-#sort-options-index-nbfc {
-    width: 80px;
-}
-
-.inbox-filters span {
-    margin-right: 5px;
+    color: #6b7280;
+    border-bottom: 1px solid #f3f4f6;
     font-family: 'Poppins', sans-serif;
-    font-size: 12px;
+    font-weight: 400;
+}
 
+.sort-dropdown-nbfc li:last-child {
+    border-bottom: none;
+}
+#sort-options-index-nbfc{
+  width:80px;
+}
+.inbox-filters span {
+    margin-right: 5px;    
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px; 
+    
 }
 
 .inbox-filters img {
@@ -2103,7 +2062,8 @@
 
     height: 70px;
     border: 1px solid #e2e2e2;
-    padding: 4px;
+    padding: 20px 10px;
+    width:560px;
     padding-left: auto;
     border-radius: 5px;
     display: flex;
@@ -2289,6 +2249,7 @@
 
 .index-student-info {
     flex-grow: 1;
+    font-family: 'Poppins', sans-serif;
 }
 
 .index-student-name {
@@ -2372,6 +2333,7 @@
     border: 1px solid rgba(226, 226, 226, 1);
     font-size: 12px;
     color: rgba(144, 144, 144, 1);
+    font-family: 'Poppins', sans-serif;
 }
 
 .nbfc-bankmessages-buttoncontainer .nbfc-bankmessage-buttoncontainer-reject {
@@ -2444,24 +2406,49 @@
     height: 24px;
     opacity: 0.5;
 }
+.messages-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    overflow-y: auto;
+    background: #fff;
+}
+
+.message-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.message-bubble {
+    max-width: 80%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    overflow-wrap: break-word;
+    background: #f1f1f1; /* Optional: Light gray background for better visibility */
+}
 
 
 @media (min-width: 1700px) {
 
     .index-student-details-container {
         max-width: 1200px;
+           
+        }
 
-    }
 
 
-
-    .index-student-card {
-        padding: 20px 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-    }
+.index-student-card {
+    padding: 20px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+}
 
     .index-student-description {
         width: 700px;
@@ -2781,15 +2768,16 @@
     width: 100%;
     margin-left: 20px;
     margin-right: 0;
-
-
+  
+ 
 
 }
 
 .nbfc-student-dashboard-section-main-contents .studentdashboardprofile-profilesection {
     background-color: white;
-    margin-top: 19px;
+    margin-top: 0px;
     max-width: 100%;
+
 
 }
 
@@ -2941,20 +2929,20 @@
     z-index: 1000;
 }
 
-.nbfc-send-proposal-modal-content {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 24px;
-    width: 605px;
-}
+        .nbfc-send-proposal-modal-content {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+            width: 605px;
+        }
 
-.nbfc-send-proposal-modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
+        .nbfc-send-proposal-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
 
 .nbfc-send-proposal-modal-header h3 {
     color: #E98635;
@@ -2970,15 +2958,15 @@
     color: #666;
 }
 
-.nbfc-send-proposal-remarks-textarea {
-    width: 100%;
-    height: 120px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 12px;
-    margin-bottom: 20px;
-    resize: none;
-}
+        .nbfc-send-proposal-remarks-textarea {
+            width: 100%;
+            height: 120px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 12px;
+            margin-bottom: 20px;
+            resize: none;
+        }
 
 .nbfc-send-proposal-attachment-section {
     margin-bottom: 20px;
@@ -2990,20 +2978,20 @@
     display: block;
 }
 
-.nbfc-send-proposal-attachment-input {
-    display: none;
-}
+        .nbfc-send-proposal-attachment-input {
+            display: none;
+        }
 
-.nbfc-send-proposal-attachment-button {
-    padding: 6px 16px;
-    background: #fff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    cursor: pointer;
-    color: #666;
-    margin-bottom: 10px;
-    font-size: 12px;
-}
+        .nbfc-send-proposal-attachment-button {
+            padding: 6px 16px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #666;
+            margin-bottom: 10px;
+              font-size: 12px;
+        }
 
 .nbfc-send-proposal-attachment-preview {
     border: 1px solid #ccc;
@@ -3039,27 +3027,26 @@
 
 }
 
-.nbfc-send-proposal-cancel-button {
-    padding: 6px 24px;
-    background: white;
-    border: 1px solid #6F25CE;
-    color: #260254;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-}
+        .nbfc-send-proposal-cancel-button {
+            padding: 6px 24px;
+            background: white;
+            border: 1px solid #6F25CE;
+            color: #260254;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
 
-.nbfc-send-proposal-send-button {
-    padding: 6px 24px;
-    background: #6F25CE;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.chat-container {
+        .nbfc-send-proposal-send-button {
+            padding: 6px 24px;
+            background: #6F25CE;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+ .chat-container {
     display: flex;
     flex-direction: column;
     align-items: flex-end;

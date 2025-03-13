@@ -96,22 +96,28 @@
         }
 
         .btn-draft {
-            background: #f5f5f5;
+            background: white;
             color: #FA7B15;
             outline: 1px solid #FA7B15;
+               font-family: 'Poppins', sans-serif;
+
         }
 
         .btn-insert{
-             background: #f5f5f5;
+             background: white;
             color: #5D5C5C;
 
             outline: 1px solid #6F25CE;
+               font-family: 'Poppins', sans-serif;
+
         }
 
 
         .btn-send {
             background: #f86d21;
             color: white;
+               font-family: 'Poppins', sans-serif;
+
         }
 
         .promotional-toolbar {
@@ -128,6 +134,8 @@
             min-width: 80px;
             position: relative;
             display: flex;
+               font-family: 'Poppins', sans-serif;
+
              
         }
 
@@ -147,6 +155,7 @@
             background-repeat: no-repeat;
             background-position: right 5px center;
             background-size: 12px;
+             font-family: 'Poppins', sans-serif;
         }
 
         .promotional-toolbar-button {
@@ -181,7 +190,7 @@
             height: 250px;
             overflow: hidden;
             display: flex;
-         
+            justify-content: center;
             align-items: center;
         }
 
@@ -225,6 +234,8 @@
             background: none;
             color: #666;
             cursor: pointer;
+               font-family: 'Poppins', sans-serif;
+        
         }
 
         .know-more {
@@ -232,6 +243,7 @@
             text-decoration: none;
             font-weight: 500;
             cursor: pointer;
+            font-size: 13px;
         }
 
         .promotional-attachment-section {
@@ -242,6 +254,7 @@
         .attachment-buttons-promotional {
             display: flex;
             gap: 10px;
+        
           
         }
         .attachment-buttons-promotional .btn-promo btn-draft{
@@ -259,6 +272,8 @@
             border-radius: 4px;
             margin-top: 30px;
             width:350px;
+               font-family: 'Poppins', sans-serif;
+
         }
         .attachment-file-promotional span {
     font-size: 14px;
@@ -286,6 +301,7 @@
             width: 789px;
             height: 55px;
             background-color: #F6F6F6;
+            margin-bottom: 20px;
         }
 
         .promotional-footer-social {
@@ -294,11 +310,15 @@
         }
 
         .promotional-word-count {
-            color: #999;
-            font-size: 12px;
-            margin-top: 5px;
-            padding-left: 20px;
-        }
+    color: #999;
+    font-size: 12px;
+    margin-top: 5px;
+    padding-left: 20px;
+    background-color: #F6F6F6;
+    height: 40px;
+    display: flex;
+    align-items: center; /* Vertically center text */
+}
 
         /* Recipients Section Styles */
         .promotional-recipients-section {
@@ -332,6 +352,7 @@
             border-radius: 4px;
             background: white;
             font-size: 14px;
+             font-family: 'Poppins', sans-serif;
         }
 
         .promotional-recipients-filters select {
@@ -343,6 +364,7 @@
             background-position: right 5px center;
             background-size: 12px;
              font-family: 'Poppins', sans-serif;
+             color:#5D5C5C;
         }
 
         .promotional-recipients-filters input[type="text"] {
@@ -350,8 +372,13 @@
         }
 
         .search-icon {
-             color: #999;
-        }
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+   
+}
 
         .promotional-recipients-table {
             width: 100%;
@@ -440,8 +467,10 @@
         }
 
        .promotional-sub {
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             font-size: 14px;
-            color: #333;
+           color: #5D5C5CB3;
+
             line-height: 1.5;
+            font-family: 'Poppins', sans-serif;
         }

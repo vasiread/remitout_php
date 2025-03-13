@@ -348,7 +348,7 @@
                 font-size: 20px;
                 padding-top: 80px;
                 height: auto;
-                margin-left:40px;
+               
             }
 
             .header-signup-btn {
