@@ -163,6 +163,11 @@
             width: 403px;
             margin: 0;
         }
+        .company-info-container{
+            display:flex;
+            flex-direction:column;
+           
+        }
 
         .footer-logo {
             display: flex;
@@ -261,9 +266,13 @@
         /* Right Column - Navigation Links */
         .footer-links {
             width: 608px;
+            height:213px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 51px;
+        }
+        .footer-column{
+            height:auto;
         }
 
         .footer-column h3 {
@@ -271,7 +280,7 @@
             font-weight: 400;
             margin-bottom: 24px;
             color: #E6E5E6;
-          
+            
              font-family: 'Glacial Indifference', sans-serif;
 
 
@@ -290,6 +299,7 @@
             font-family-16px;
             font-weight:400;
             white-space: nowrap;
+            height:auto;
         }
 
         .copyright {
@@ -299,163 +309,238 @@
             font-size: 16px;
             font-family: 'Poppins', sans-serif;
             font-weight: 400;
-
-
         }
 
 
-@media screen and (max-width: 1024px) {
-    .footer-container {
-        max-width: 900px;
-    }
-    .signup-wrapper {
-        flex-direction: column;
-        height: auto;
-        padding: 30px;
-        text-align: center;
-    }
-    .signup-content {
-        width: 100%;
-        padding-right: 0;
-    }
-    .signup-form {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
-    .signup-form input {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-    .signup-form .footer-button {
-        width: 100%;
-
-    }
-    .footer-nav-section {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    .footer-logo {
-        justify-content: center;
-        margin-bottom: 20px;
-    }
-    .company-info {
-        width: 100%;
-        text-align: center;
-    }
-    .address-container, .phone-container {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    .social-links {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    .footer-links {
-        width: 100%;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 30px;
-        text-align: center;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .footer-section {
-        padding: 20px 0;
-    }
-    .signup-wrapper {
-        padding: 20px;
-        margin-top: 40px;
-    }
-    .signup-text h5 {
-        font-size: 18px;
-    }
-    .signup-text p {
-        font-size: 16px;
-    }
-    .signup-form input {
-        height: 50px;
-    }
-    .signup-form .footer-button {
-        height: 50px;
-        margin-left:0;
-    }
-    .footer-nav-section {
-        margin: 40px auto 20px;
-    }
-    .footer-logo {
-        justify-content: center;
-        margin-bottom: 20px;
-    }
-    .company-info {
-        text-align: center;
-    }
-    .address-container, .phone-container {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    .social-links {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    .footer-links {
-        grid-template-columns: repeat(1, 1fr);
-        gap: 20px;
-    }
-    .signup-image{
+/* Tablet Styles */
+@media screen and (max-width: 1023px) and (min-width: 767px) {
+  .footer-logo {
+    width: 100px;
+    align-items: center;
+    margin-top: -10px;
+  }
+  .signup-image img{
     display:none;
+  }
+  .signup-content {
+    width: 100%;
+    padding-right: 32px;
 }
+  .company-info {
+    width: 200px;
+    margin: 0;
+  }
+  .company-info-container {
+    display: flex;
+    flex-direction: column;
+    margin-top:200px;
+  }
+  .address-info {
+    width: 265px;
+  }
+  .company-info p {
+    white-space: nowrap;
+  }
+  .footer-links {
+    width: 600px;
+    height: 213px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0px;
+  }
+  .footer-column {
+    height: auto;
+    width: 150px;
+  }
+  .footer-nav-section {
+    gap:0px;
+  }
 }
 
+
+
+@media screen and (max-width: 767px) {
+  .footer-section {
+    padding: 20px 0;
+    text-align: center;
+  }
+  .footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .signup-wrapper {
+    padding: 20px;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .signup-text {
+    text-align: center;
+  }
+  .signup-text h5 {
+    font-size: 18px;
+    margin-left: 0;
+  }
+  .signup-text p {
+    font-size: 16px;
+    margin: 10px auto;
+  }
+  .signup-content {
+    width: 100%;
+    padding-right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .signup-form {
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    gap:20px;
+    
+  }
+  .signup-form input {
+    height: 50px;
+    width: 100%;
+    margin-bottom: 0px;
+  }
+  .signup-form .footer-button {
+    height: 50px;
+    margin-left: 0;
+    width: 100%;
+  }
+  .footer-nav-section {
+    margin: 40px auto 20px;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .company-info {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .company-info-container {
+    align-items: center;
+  }
+  .footer-logo {
+    justify-content: center;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .address-container, .phone-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+  }
+  .address-info {
+    width: 100%;
+    text-align: center;
+  }
+  .social-links {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+  }
+  .social-link {
+    margin: 5px;
+  }
+  .footer-links {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    margin-top: 30px;
+  }
+  .footer-column {
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .footer-column h3 {
+    margin-bottom: 15px;
+  }
+  .signup-image {
+    display: none;
+  }
+}
+
+/* Small Mobile Styles */
 @media screen and (max-width: 480px) {
-    .signup-wrapper {
-        padding: 15px;
-    }
-    .signup-text h5 {
-        font-size: 16px;
-    }
-    .signup-text p {
-        font-size: 14px;
-    }
-    .signup-form input {
-        height: 45px;
-    }
-    .signup-form .footer-button {
-        height: 45px;
-        font-size: 14px;
-    }
-    .footer-nav-section {
-        margin: 30px auto 10px;
-    }
-    .footer-logo {
-        justify-content: center;
-        margin-bottom: 15px;
-    }
-    .company-info {
-        text-align: center;
-    }
-    .address-container, .phone-container {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    .social-links {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    .footer-links {
-        grid-template-columns: repeat(1, 1fr);
-        margin-top:20px;
-    }
-    .copyright {
-        font-size: 14px;
-    }
+  .signup-wrapper {
+    height: auto;
+    padding: 25px 15px;
+  }
+  .signup-text h5 {
+    font-size: 20px;
+  }
+  .signup-text p {
+    font-size: 14px;
+  }
+  .signup-form {
+    max-width: 100%;
+  }
+  .signup-form input {
+    height: 45px;
+  }
+  .signup-form .footer-button {
+    height: 45px;
+    font-size: 14px;
+  }
+  .footer-nav-section {
+    margin: 30px auto 10px;
+    padding: 10px 0;
+  }
+  .footer-logo {
+    margin-bottom: 15px;
+  }
+  .logo-img {
+    width: 120px;
+    height: auto;
+    margin-bottom:0px;
+  }
+  .icon {
+    width: auto;
+    height: auto;
+  }
+ 
+  .social-link {
+    
+    height: 35px;
+  }
+  .footer-column {
+    margin-bottom: 20px;
+  }
+  .footer-column h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  .footer-column a {
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+  .copyright {
+    font-size: 14px;
+    padding: 10px 0;
+  }
+
 }
 </style>
 </head>
@@ -491,9 +576,11 @@
             <div class="footer-nav-section">
                 <!-- Company Info -->
                 <div class="company-info">
+              
                     <div class="footer-logo">
                         <img src="assets/images/footer-logo.png" alt="Remitout" class="logo-img">
                     </div>
+                <div class="company-info-container">
                     <div class="address-container">
                         <img src="assets/images/addres-icon.png " alt="Address" class="icon">
                         <div class="address-info">
@@ -528,6 +615,7 @@
                                 style="font-family: 'Poppins', sans-serif; font-weight: normal; font-size: 11px;">Facebook</span>
                         </a>
                     </div>
+                 </div>
                 </div>
 
                 <!-- Navigation Links -->

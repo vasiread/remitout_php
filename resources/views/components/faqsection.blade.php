@@ -67,6 +67,9 @@
         </div>
     </section>
 
+
+    
+
     <script>function displayFAQs(data = faqData) {
             const startIndex = currentPage * ITEMS_PER_PAGE;
             const endIndex = startIndex + ITEMS_PER_PAGE;

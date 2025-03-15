@@ -23,9 +23,14 @@
                 rgba(255, 255, 255, 0.25),
                 rgba(111, 37, 206, 0.15)
             );
+<<<<<<< Updated upstream
              box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);  
               font-family: 'Poppins', sans-serif;
            
+=======
+             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+           font-family: 'Poppins', sans-serif;
+>>>>>>> Stashed changes
         }
 
         /* Container */
@@ -76,7 +81,11 @@
             border-radius: 8px;
             transition: all 0.3s ease;
             padding: 0 20px;
+<<<<<<< Updated upstream
               font-family: 'Poppins', sans-serif;
+=======
+            font-family: 'Poppins', sans-serif;
+>>>>>>> Stashed changes
         }
 
         .header-login-btn {
@@ -162,7 +171,7 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                padding: 20px;
+                padding: 20px 60px;
                 position: relative;
             }
 
@@ -176,7 +185,7 @@
                 gap: 0;
                 position: absolute;
                 top: 85px;
-                 height: calc(100vh - 85px);
+                
                 left: 0;
                 width: 100%;
                 background-color: #FFFFFF;
@@ -288,7 +297,7 @@
         }
 
         /* Mobile Device */
-        @media (max-width: 768px) {
+        @media (max-width: 767px) {
             .header-container {
                 display: flex;
                 justify-content: space-between;
