@@ -17,36 +17,36 @@
     @section('studentdashboard')
 
             @php
-$profileImgPath = '';
-$uploadPanName = '';
-$profileIconPath = "assets/images/account_circle.png";
-$phoneIconPath = "assets/images/call.png";
-$mailIconPath = "assets/images/mail.png";
-$pindropIconPath = "assets/images/pin_drop.png";
-$discordIconPath = "assets/images/icons/discordicon.png";
-$viewIconPath = "assets/images/visibility.png";
+                $profileImgPath = '';
+                $uploadPanName = '';
+                $profileIconPath = "assets/images/account_circle.png";
+                $phoneIconPath = "assets/images/call.png";
+                $mailIconPath = "assets/images/mail.png";
+                $pindropIconPath = "assets/images/pin_drop.png";
+                $discordIconPath = "assets/images/icons/discordicon.png";
+                $viewIconPath = "assets/images/visibility.png";
 
 
-$courseDetailsJson = json_encode($courseDetails);
+                $courseDetailsJson = json_encode($courseDetails);
 
 
-$bankName = 'bankName';
-$bankMessage = 'bankMessage';
-$loanStatusInfo = [
-    [
-        $bankName => "Bank Name",
-        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-    ],
-    [
-        $bankName => "Bank Name",
-        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-    ],
-    [
-        $bankName => "Bank Name",
-        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-    ],
+                $bankName = 'bankName';
+                $bankMessage = 'bankMessage';
+                $loanStatusInfo = [
+                    [
+                        $bankName => "Bank Name",
+                        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+                    ],
+                    [
+                        $bankName => "Bank Name",
+                        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+                    ],
+                    [
+                        $bankName => "Bank Name",
+                        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
+                    ],
 
-];
+                ];
 
             @endphp
 
@@ -64,47 +64,58 @@ $loanStatusInfo = [
                     </ul>
                 </div>
                 <div class="studentdashboardprofile-trackprogress">
-                    <h1 class="trackprogress-header" style="margin:0">Track Progress</h1>
                     <div class="studentdashboardprofile-firstrowtrackprogress">
-                        <div class="trackprogress-leftsection">
-                            <p style="font-weight:600;
-                                                                        font-size:18px;
-                                                                        color:rgba(0, 0, 0, 1); 
-                                                                        padding:15px 0px 0px 24px">Loan
-                                Status</p>
+                        <div class="trackprogress-headercontainer">
+                            <h1 class="trackprogress-header" style="margin:0">Track Progress</h1>
 
-                            <div class="leftsection-detailsinfo">
-                                <div class="loan-receivedsection">
-                                    <h1 style="color:rgba(255, 154, 63, 1);">02</h1>
-                                    <p>Received</p>
+
+                        </div>
+                        <div class="trackprogress-contentcontainer">
+                            <div class="trackprogress-leftsection">
+                                <p
+                                    style="font-weight:600;
+                                                                                                                                                font-size:18px;
+                                                                                                                                                color:rgba(0, 0, 0, 1); 
+                                                                                                                                                padding:15px 0px 0px 24px">
+                                    Loan
+                                    Status</p>
+
+                                <div class="leftsection-detailsinfo">
+                                    <div class="loan-receivedsection">
+                                        <h1 style="color:rgba(255, 154, 63, 1);">02</h1>
+                                        <p>Received</p>
+                                    </div>
+                                    <div class="loan-onholdsection">
+                                        <h1>01</h1>
+                                        <p>On Hold </p>
+                                    </div>
+                                    <div class="loan-rejectedsection">
+                                        <h1>00</h1>
+                                        <p>Rejected</p>
+                                    </div>
                                 </div>
-                                <div class="loan-onholdsection">
-                                    <h1>01</h1>
-                                    <p>On Hold </p>
-                                </div>
-                                <div class="loan-rejectedsection">
-                                    <h1>00</h1>
-                                    <p>Rejected</p>
+                            </div>
+                            <div class="trackprogress-rightsection">
+                                <p
+                                    style="  font-size: 18px;font-weight: 600; line-height: 27px; color:rgba(0, 0, 0, 1);padding:15px 0px 0px 24px">
+                                    Document Status
+                                </p>
+                                <div class="rightsection-uploadsection">
+                                    <div class="uploadsectionsandglass">
+                                        <i class="fa-solid fa-hourglass"></i>
+                                        <p class="upload-status-hourglass">
+                                            Status : Pending
+                                        </p>
+                                    </div>
+                                    <button onclick="window.location.href='{{ asset('student-forms') }}'">
+                                        Upload
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                        <div class="trackprogress-rightsection">
-                            <p
-                                style="  font-size: 18px;font-weight: 600; line-height: 27px; color:rgba(0, 0, 0, 1);padding:15px 0px 0px 24px">
-                                Document Status
-                            </p>
-                            <div class="rightsection-uploadsection">
-                                <div class="uploadsectionsandglass">
-                                    <i class="fa-solid fa-hourglass"></i>
-                                    <p class="upload-status-hourglass">
-                                        Status : Pending
-                                    </p>
-                                </div>
-                                <button onclick="window.location.href='{{ asset('student-forms') }}'">
-                                    Upload
-                                </button>
-                            </div>
-                        </div>
+
+
+
                     </div>
 
                     <div class="studentdashboardprofile-loanproposals">
@@ -232,7 +243,7 @@ $loanStatusInfo = [
                         </div>
                         <div class="testscoreseditsection-secondrow">
                             @php
-$counter = 1; 
+                                $counter = 1; 
                             @endphp
 
                             @if (is_numeric($academicDetails[0]->ILETS) && !empty($academicDetails[0]->ILETS))
@@ -248,7 +259,7 @@ $counter = 1;
                             @endif
 
                             @php
-$others = json_decode($academicDetails[0]->Others, true);
+                                $others = json_decode($academicDetails[0]->Others, true);
                             @endphp
 
                             @if (isset($others['otherExamName']) && isset($others['otherExamScore']) && is_numeric($others['otherExamScore']) && !empty($others['otherExamScore']))
@@ -682,7 +693,6 @@ $others = json_decode($academicDetails[0]->Others, true);
             const courseDetails = {!! $courseDetailsJson !!};
 
             let planToStudy = courseDetails[0]['plan-to-study'].replace(/[\[\]"]/g, '');
-
             let selectedCountries = planToStudy.split(/\s*,\s*/);
 
             document.getElementById("plan-to-study-edit").value = planToStudy;
@@ -3036,7 +3046,8 @@ $others = json_decode($academicDetails[0]->Others, true);
 
                     if (isEditing) {
                         toggleSaveState(); // Call toggleSaveState function when entering edit mode
-                    } else {
+                    }
+                    else {
                         saveChangesButton.textContent = 'Edit';
                         saveChangesButton.style.backgroundColor = "transparent";
                         saveChangesButton.style.color = "#260254";
@@ -3053,8 +3064,32 @@ $others = json_decode($academicDetails[0]->Others, true);
                         const greScore = document.querySelector(".testscoreseditsection-secondrow-editsection .gre_score").value;
                         const tofelScore = document.querySelector(".testscoreseditsection-secondrow-editsection .tofel_score").value;
 
-                        const planToStudy = document.getElementById("plan-to-study-edit").value;
-                        const planToStudyArray = planToStudy.split(',').map(item => item.trim());
+                        // Fetch old values of "Plan to Study"
+                        const oldPlanToStudy = document.getElementById("plan-to-study-edit").value;
+                        const oldPlanToStudyArray = oldPlanToStudy ? oldPlanToStudy.split(',').map(item => item.trim()) : [];
+
+                        // Get current values from checkboxes (selected options)
+                        const checkboxes = document.querySelectorAll('input[name="study-location-edit"]:checked');
+                        let selectedCountries = Array.from(checkboxes).map(checkbox => checkbox.value);
+
+                        // Check if there's a custom country input and add it to the selected countries
+                        const customCountry = document.getElementById('country-edit').value.trim();
+                        if (customCountry) {
+                            selectedCountries.push(customCountry);
+                        }
+
+                        selectedCountries = selectedCountries.filter(item => item.toLowerCase() !== 'others');
+
+                        // Filter out 'Others' (case-insensitive) from oldPlanToStudyArray
+                        const finalPlanToStudy = oldPlanToStudyArray.filter(item => item.toLowerCase() !== 'others');
+
+                        // Merge old and new arrays, ensuring no duplicates
+                        let mergedPlanToStudy = [...new Set([...finalPlanToStudy, ...selectedCountries])];
+
+                        // Filter out 'Others' (case-insensitive) again from the final merged array
+                        mergedPlanToStudy = mergedPlanToStudy.filter(item => item.toLowerCase() !== 'other');
+
+
 
                         const courseDuration = document.querySelector(".myapplication-fourthcolumn-additional input").value;
                         const loanAmount = document.querySelector(".myapplication-fourthcolumn input").value;
@@ -3074,6 +3109,7 @@ $others = json_decode($academicDetails[0]->Others, true);
                             degreeType: updatedDegreeType
                         };
 
+                        // Updated data object, including the merged "Plan to Study" values
                         const updatedInfos = {
                             editedName: editedName,
                             editedPhone: editedPhone,
@@ -3082,13 +3118,18 @@ $others = json_decode($academicDetails[0]->Others, true);
                             iletsScore: iletsScore,
                             greScore: greScore,
                             tofelScore: tofelScore,
-                            planToStudy: planToStudyArray,
+                            planToStudy: mergedPlanToStudy,  // Final merged old and new values
                             courseDuration: courseDuration,
                             loanAmount: loanAmount,
                             referralCode: referralCode,
                             degreeType: updatedData.degreeType,
                             userId: userId
                         };
+
+                        console.log(updatedInfos);
+
+
+
 
                         fetch('/from-profileupdate', {
                             method: "POST",
@@ -3105,7 +3146,7 @@ $others = json_decode($academicDetails[0]->Others, true);
                                     document.querySelector("#referenceNameId p").textContent = editedName;
                                     document.getElementById("personal_state_id").textContent = editedState;
                                 }
-                                
+
                                 if (data.errors) {
                                     console.error('Validation errors:', data.errors);
                                 } else {
@@ -3121,7 +3162,7 @@ $others = json_decode($academicDetails[0]->Others, true);
 
             const degreeRadioButtons = document.querySelectorAll('input[name="education-level"]');
             degreeRadioButtons.forEach(button => {
-                button.addEventListener('change', toggleSaveState); 
+                button.addEventListener('change', toggleSaveState);
             });
         };
 

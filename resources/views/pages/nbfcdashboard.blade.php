@@ -302,7 +302,7 @@
                         <!-- <button>Edit</button> -->
                 
                 <div class="personalinfo-firstrow" id="personalinfo-firstrow-id">
-                    <button onClick="triggerEditButton()">Edit</button>
+                    <button>Edit</button>
                     <button class="saved-msg">Saved</button>
                 </div>
 
@@ -2148,19 +2148,7 @@
                 }
             });
 
-           
-            const initialiseSeventhcolumn = () => {
-                const section = document.querySelector('.seventhcolum-firstsection');
-
-                section.addEventListener('click', function () {
-                    if (section.style.height === '') {
-                        section.style.height = 'fit-content';
-                    } else {
-                        section.style.height = '';
-                    }
-                });
-            };
-
+        
             const initialiseSeventhAdditionalColumn = () => {
                 const section = document.querySelector('.seventhcolumn-additional-firstcolumn');
 
@@ -2173,9 +2161,7 @@
                 });
             };
 
-            // Initialize the columns
-            initialiseSeventhcolumn();
-            initialiseSeventhAdditionalColumn();
+           
 
          
 
@@ -2204,11 +2190,8 @@ const initialiseNinthcolumn = () => {
         }
     });
 }
-            let isEditing = false; // Track whether we're in edit mode or not
-
-       
-            // Initialize the function when the page loads or when needed
-            triggerEditButton();
+            let isEditing = false; 
+            
 
             const initialiseSeventhcolumn = () => {
                 const section = document.querySelector('.seventhcolum-firstsection');
@@ -4845,7 +4828,7 @@ initializeCoBorrowerDocumentUpload();
             };
 
         </script>
-
+    
 
 
 </body>

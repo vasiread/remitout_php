@@ -15,6 +15,9 @@
   <link rel="stylesheet" href="assets/css/navbar.css">
 
 
+      <script src="{{ asset('js/studentforms.js') }}"></script>
+
+
 </head>
 
 <body>
@@ -1250,7 +1253,6 @@
 
   <!-- #region -->
 
-      <script src="{{ asset('js/studentforms.js') }}"></script>
 
 </body>
 

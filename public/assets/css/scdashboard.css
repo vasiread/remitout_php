@@ -5,14 +5,12 @@
     max-width: 100%;
     width: clamp(65%, 100%, 100%);
     margin: 5% 15% 0% 25.5%;
+    background-color: #fff;
 
 }
 
-.scdashboard-parentcontainer.dull {
-    -webkit-filter: blur(5px) grayscale(50%);
-    -webkit-transform: scale(0.9);
-
-    /* Dull effect */
+.scdashboard-parentcontainer{
+    background-color: #fff;
 }
 
 .queryraisedcontainer-rightcontent .sort-by-contents,
@@ -328,6 +326,7 @@
 
 .scdashboard-parentcontainer {
     display: flex;
+    
 }
 
 .individualstudentapplication-status {
@@ -1397,7 +1396,8 @@
     }
 
     .scdashboard-dashboardcontent {
-        width: 74vw;
+        width: 100%;
+
         margin-top: 2rem;
         margin-left: 2rem;
     }

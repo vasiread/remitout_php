@@ -17,419 +17,419 @@
 
     @section('scdashboard')
             @php
-$profileIconPath = "assets/images/account_circle.png";
-$phoneIconPath = "assets/images/call.png";
-$mailIconPath = "assets/images/mail.png";
-$pindropIconPath = "assets/images/pin_drop.png";
+                $profileIconPath = "assets/images/account_circle.png";
+                $phoneIconPath = "assets/images/call.png";
+                $mailIconPath = "assets/images/mail.png";
+                $pindropIconPath = "assets/images/pin_drop.png";
 
 
 
-$questions = [
-    [
-        'queries' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et",
-        'queriesRaisedBy' => "Student",
-        'date_added' => '2025-04-11'
-    ],
-    [
-        'queries' => "worem ipsum dolor sit amet, consectetur elit, ",
-        'queriesRaisedBy' => "NBFC",
-        'date_added' => '2025-12-01'
+                $questions = [
+                    [
+                        'queries' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et",
+                        'queriesRaisedBy' => "Student",
+                        'date_added' => '2025-04-11'
+                    ],
+                    [
+                        'queries' => "worem ipsum dolor sit amet, consectetur elit, ",
+                        'queriesRaisedBy' => "NBFC",
+                        'date_added' => '2025-12-01'
 
-    ],
-    [
-        'queries' => "Lorem ipsum dolor sit amet, consectetur elit, ",
-        'queriesRaisedBy' => "Student",
-        'date_added' => '2025-10-29'
+                    ],
+                    [
+                        'queries' => "Lorem ipsum dolor sit amet, consectetur elit, ",
+                        'queriesRaisedBy' => "Student",
+                        'date_added' => '2025-10-29'
 
-    ],
-    [
-        'queries' => "oorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et ",
-        'queriesRaisedBy' => "NBFC",
-        'date_added' => '2023-09-01'
+                    ],
+                    [
+                        'queries' => "oorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et ",
+                        'queriesRaisedBy' => "NBFC",
+                        'date_added' => '2023-09-01'
 
-    ],
-    [
-        'queries' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et ",
-        'queriesRaisedBy' => "Student",
-        'date_added' => '2020-02-01'
+                    ],
+                    [
+                        'queries' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et ",
+                        'queriesRaisedBy' => "Student",
+                        'date_added' => '2020-02-01'
 
-    ],
-];
-$proposalsInfo = [
-    [
-        'NBFC' => 'NBFC Name',
-        'ProposalDate' => '20/11/2024',
-        'Status' => 'Approved'
+                    ],
+                ];
+                $proposalsInfo = [
+                    [
+                        'NBFC' => 'NBFC Name',
+                        'ProposalDate' => '20/11/2024',
+                        'Status' => 'Approved'
 
-    ],
-    [
-        'NBFC' => 'NBFC Name',
-        'ProposalDate' => '20/11/2024',
-        'Status' => 'Pending'
+                    ],
+                    [
+                        'NBFC' => 'NBFC Name',
+                        'ProposalDate' => '20/11/2024',
+                        'Status' => 'Pending'
 
-    ],
+                    ],
 
-];
+                ];
 
-$studentDocumentDetailsInfo = [
-    ['student_name' => 'Manish', 'DocumentFinalStatus' => 'Missing Documents: 01', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-07-01'],
-    ['student_name' => 'Kumar', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-02-01'],
-    ['student_name' => 'Raji', 'DocumentFinalStatus' => 'Missing Documents: 12', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-12-04'],
-    ['student_name' => 'Venkatesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-01'],
-    ['student_name' => 'Ramya', 'DocumentFinalStatus' => 'Missing Documents: 03', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-02-09'],
-    ['student_name' => 'Chinna', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2025-07-20'],
-    ['student_name' => 'Feroz', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-21'],
-    ['student_name' => 'Ramesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-29'],
-    ['student_name' => 'Vasi', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-09-30'],
-    ['student_name' => 'Aari', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-10-01'],
-    ['student_name' => 'Abinav', 'DocumentFinalStatus' => 'Missing Documents: 02', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-01'],
+                $studentDocumentDetailsInfo = [
+                    ['student_name' => 'Manish', 'DocumentFinalStatus' => 'Missing Documents: 01', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-07-01'],
+                    ['student_name' => 'Kumar', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-02-01'],
+                    ['student_name' => 'Raji', 'DocumentFinalStatus' => 'Missing Documents: 12', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-12-04'],
+                    ['student_name' => 'Venkatesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-01'],
+                    ['student_name' => 'Ramya', 'DocumentFinalStatus' => 'Missing Documents: 03', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-02-09'],
+                    ['student_name' => 'Chinna', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2025-07-20'],
+                    ['student_name' => 'Feroz', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-21'],
+                    ['student_name' => 'Ramesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-29'],
+                    ['student_name' => 'Vasi', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-09-30'],
+                    ['student_name' => 'Aari', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-10-01'],
+                    ['student_name' => 'Abinav', 'DocumentFinalStatus' => 'Missing Documents: 02', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-01'],
 
 
-];
+                ];
 
 
 
             @endphp
             <div class="scdashboard-parentcontainer">
-                <div class="commonsidebar-togglesidebar">
-                    <ul class="commonsidebar-sidebarlists-top">
-                        @foreach($sidebarItems as $item)
-                            <li class="{{ $item['active'] ? 'active' : '' }}">
-                                <i class="{{ $item['icon'] }}"></i>
-                                <p>{{ $item['name'] }}</p>
-                            </li>
-                        @endforeach
+            <div class="commonsidebar-togglesidebar">
+                <ul class="commonsidebar-sidebarlists-top">
+                    @foreach($sidebarItems as $item)
+                        <li class="{{ $item['active'] ? 'active' : '' }}">
+                            <i class="{{ $item['icon'] }}"></i>
+                            <p>{{ $item['name'] }}</p>
+                        </li>
+                    @endforeach
+                </ul>
+                <ul class="commonsidebar-sidebarlists-bottom">
+                    <li class="logoutBtn" onClick="sessionLogout()">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                    </li>
+                    <li>
+                        <img src="{{ asset('assets/images/Icons/support_agent.png') }}" alt=""> Support
+                    </li>
+                </ul>
+            </div>
+
+            <div class="scdashboard-container">
+
+                <div class="scdashboard-dashboardcontent">
+                    <div class="scdashboard-trackprogress">
+                        <div class="trackprogress-firstsection">
+
+                            <h1>Track Progress</h1>
+                            <button class="referral-Link-trigger-anotherbutton">Generate Referral Link</button>
+                            <button id="mobgeneratedreferralcode"> <img src="{{ asset('assets/images/Group icon.png') }}"
+                                    alt=""> Referral Code:
+                                45628</button>
+                        </div>
+                        <div class="trackprogress-secondsection">
+                            <div class="trackprogress-month">
+                                <h1>October</h1>
+                                <p>month</p>
+                            </div>
+                            <div class="trackprogress-noofstudent">
+                                <h1>07</h1>
+                                <p>no. of students</p>
+                            </div>
+                            <div class="trackprogress-amount">
+                                <h1>50,000</h1>
+                                <p>amount in rs.</p>
+                            </div>
+                            <div class="trackprogress-totalamount">
+                                <h1>1,00,000</h1>
+                                <p>total amount</p>
+                            </div>
+
+                        </div>
+                        <div class="trackprogress-thirdsection">
+                            <button id="pcviewgeneratedreferralcode"> <img src="{{ asset('assets/images/Group icon.png') }}"
+                                    alt=""> Referral Code:
+                                45628</button>
+                            <button> <img src="{{ asset('assets/images/dbicon.png') }}" alt="">Track Commission</button>
+                            <button id="mobgeneratedbutton" class="referral-Link-trigger-button">Generate Referral
+                                Link</button>
+                        </div>
+                    </div>
+
+                    <div class="scdashboard-studentapplication" id="studentapplicationfromstudentdashboard">
+                        <div class="studentapplication-header">
+                            <h1>Applications</h1>
+                            <div class="application-buttoncontainer">
+                                <button class="see-all">See all</button>
+                                <button class="start-new">Start New Registration</button>
+                            </div>
+                            <div class="studentadditbutton">
+                                <button class="start-new">+</button>
+
+                            </div>
+
+                        </div>
+
+                        <div id="user-list">
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="scdashboard-inboxcontent">
+                <div class="scmember-profilecontainer">
+                    <div class="scmember-profilecontainerimg">
+                        <img src="{{asset('assets/images/image-women.jpeg')}}" id="studentcounsellor-profile" alt="">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                        <input type="file" id="sc-profile-upload-cloud" display="none">
+                    </div>
+
+                    <div class="scmember-rowfirst">
+                        <h1>Student Counsellor</h1>
+
+                    </div>
+                    <p id="screferral-id-fromprofile">Referral Number: <span>{{ session('scuser')->referral_code }}</span>
+                    </p>
+                    <div id="screferral-dob-fromprofile" inputmode="Date">
+                        <i class="fa-solid fa-calendar"></i>
+                        <p></p>
+
+                    </div>
+                    <div id="screferral-dob-fromprofile-editmode" inputmode="Date">
+                        <i class="fa-solid fa-calendar"></i>
+                        <input type="text">
+
+                    </div>
+                    <ul class="scmember_personalinfo">
+
+                        <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
+                            <p> </p>
+                        </li>
+                        <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="">
+                            <p></p>
+                        </li>
+                        <li class="scmember_personal_info_email" style="word-break: break-all;" id="referenceEmailId">
+                            <img src="{{$mailIconPath}}" alt="">
+                            <p>{{ session('scuser')->email}}</p>
+                        </li>
+                        <li class="scmember_personal_info_state"><img src="{{$pindropIconPath}}" alt="">
+                            <p style="line-height:19px"></p>
+                        </li>
+
                     </ul>
-                    <ul class="commonsidebar-sidebarlists-bottom">
-                        <li class="logoutBtn" onClick="sessionLogout()">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                    <ul class="scmember_personalinfo_editmode">
+                        <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
+                            <input type="text">
+                        </li>
+                        <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="">
+                            <input type="text">
+                        </li>
+                        <li class="scmember_personal_info_email" id="referenceEmailId">
+                            <img src="{{$mailIconPath}}" alt="">
+                            <input type="text" disabled>
+                        </li>
+                        <li class="scmember_personal_info_state-edit">
+
+                            <div class="scmember-personal_address_header">
+                                <img src="{{$pindropIconPath}}" alt="">
+                                <input type="text" disabled>
+                            </div>
+
+
+
+                            <div class="subbranch-of-address">
+                                <input type="text" placeholder="area" id="scaddress-address">
+                                <input type="text" placeholder="city" id="scaddress-city">
+                                <input type="text" placeholder="state" id="scaddress-state">
+                                <input type="text" placeholder="pincode" id="scaddress-pincode">
+                            </div>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+                <div class="scdashboard-performancecontainer">
+                    <div class="performancecontainer-firstrow">
+                        <h3>Performance</h3>
+                        <button class="edit-scuser">Edit</button>
+                        <button class="save-scuser">Save</button>
+                    </div>
+                    <ul class="scdashboard-individual-performance">
+                        <li>
+                            <p>Average Leads/month</p>
+                            <span>10</span>
+
                         </li>
                         <li>
-                            <img src="{{ asset('assets/images/Icons/support_agent.png') }}" alt=""> Support
+                            <p>Total Leads</p>
+                            <span>20</span>
+
+                        </li>
+                        <li>
+                            <p>Total Commission</p>
+                            <span>10</span>
+
+                        </li>
+                        <li>
+                            <p>Pending Amount</p>
+                            <span>₹2000</span>
+
                         </li>
                     </ul>
-                </div>
-
-                <div class="scdashboard-container">
-
-                    <div class="scdashboard-dashboardcontent">
-                        <div class="scdashboard-trackprogress">
-                            <div class="trackprogress-firstsection">
-
-                                <h1>Track Progress</h1>
-                                <button class="referral-Link-trigger-anotherbutton">Generate Referral Link</button>
-                                <button id="mobgeneratedreferralcode"> <img src="{{ asset('assets/images/Group icon.png') }}"
-                                        alt=""> Referral Code:
-                                    45628</button>
-                            </div>
-                            <div class="trackprogress-secondsection">
-                                <div class="trackprogress-month">
-                                    <h1>October</h1>
-                                    <p>month</p>
-                                </div>
-                                <div class="trackprogress-noofstudent">
-                                    <h1>07</h1>
-                                    <p>no. of students</p>
-                                </div>
-                                <div class="trackprogress-amount">
-                                    <h1>50,000</h1>
-                                    <p>amount in rs.</p>
-                                </div>
-                                <div class="trackprogress-totalamount">
-                                    <h1>1,00,000</h1>
-                                    <p>total amount</p>
-                                </div>
-
-                            </div>
-                            <div class="trackprogress-thirdsection">
-                                <button id="pcviewgeneratedreferralcode"> <img src="{{ asset('assets/images/Group icon.png') }}"
-                                        alt=""> Referral Code:
-                                    45628</button>
-                                <button> <img src="{{ asset('assets/images/dbicon.png') }}" alt="">Track Commission</button>
-                                <button id="mobgeneratedbutton" class="referral-Link-trigger-button">Generate Referral
-                                    Link</button>
-                            </div>
-                        </div>
-
-                        <div class="scdashboard-studentapplication" id="studentapplicationfromstudentdashboard">
-                            <div class="studentapplication-header">
-                                <h1>Applications</h1>
-                                <div class="application-buttoncontainer">
-                                    <button class="see-all">See all</button>
-                                    <button class="start-new">Start New Registration</button>
-                                </div>
-                                <div class="studentadditbutton">
-                                    <button class="start-new">+</button>
-
-                                </div>
-
-                            </div>
-
-                            <div id="user-list">
-                            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        </div>
-                    </div>
-                </div>
-                <div class="scdashboard-inboxcontent">
-                    <div class="scmember-profilecontainer">
-                        <div class="scmember-profilecontainerimg">
-                            <img src="{{asset('assets/images/image-women.jpeg')}}" id="studentcounsellor-profile" alt="">
-                            <i class="fa-regular fa-pen-to-square"></i>
-                            <input type="file" id="sc-profile-upload-cloud" display="none">
-                        </div>
-
-                        <div class="scmember-rowfirst">
-                            <h1>Student Counsellor</h1>
-
-                        </div>
-                        <p id="screferral-id-fromprofile">Referral Number: <span>{{ session('scuser')->referral_code }}</span>
-                        </p>
-                        <div id="screferral-dob-fromprofile" inputmode="Date">
-                            <i class="fa-solid fa-calendar"></i>
-                            <p></p>
-
-                        </div>
-                        <div id="screferral-dob-fromprofile-editmode" inputmode="Date">
-                            <i class="fa-solid fa-calendar"></i>
-                            <input type="text">
-
-                        </div>
-                        <ul class="scmember_personalinfo">
-
-                            <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
-                                <p> </p>
-                            </li>
-                            <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="">
-                                <p></p>
-                            </li>
-                            <li class="scmember_personal_info_email" style="word-break: break-all;" id="referenceEmailId">
-                                <img src="{{$mailIconPath}}" alt="">
-                                <p>{{ session('scuser')->email}}</p>
-                            </li>
-                            <li class="scmember_personal_info_state"><img src="{{$pindropIconPath}}" alt="">
-                                <p style="line-height:19px"></p>
-                            </li>
-
-                        </ul>
-                        <ul class="scmember_personalinfo_editmode">
-                            <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
-                                <input type="text">
-                            </li>
-                            <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="">
-                                <input type="text">
-                            </li>
-                            <li class="scmember_personal_info_email" id="referenceEmailId">
-                                <img src="{{$mailIconPath}}" alt="">
-                                <input type="text" disabled>
-                            </li>
-                            <li class="scmember_personal_info_state-edit">
-
-                                <div class="scmember-personal_address_header">
-                                    <img src="{{$pindropIconPath}}" alt="">
-                                    <input type="text" disabled>
-                                </div>
-
-
-
-                                <div class="subbranch-of-address">
-                                    <input type="text" placeholder="area" id="scaddress-address">
-                                    <input type="text" placeholder="city" id="scaddress-city">
-                                    <input type="text" placeholder="state" id="scaddress-state">
-                                    <input type="text" placeholder="pincode" id="scaddress-pincode">
-                                </div>
-
-                            </li>
-
-                        </ul>
-
-                    </div>
-                    <div class="scdashboard-performancecontainer">
-                        <div class="performancecontainer-firstrow">
-                            <h3>Performance</h3>
-                            <button class="edit-scuser">Edit</button>
-                            <button class="save-scuser">Save</button>
-                        </div>
-                        <ul class="scdashboard-individual-performance">
-                            <li>
-                                <p>Average Leads/month</p>
-                                <span>10</span>
-
-                            </li>
-                            <li>
-                                <p>Total Leads</p>
-                                <span>20</span>
-
-                            </li>
-                            <li>
-                                <p>Total Commission</p>
-                                <span>10</span>
-
-                            </li>
-                            <li>
-                                <p>Pending Amount</p>
-                                <span>₹2000</span>
-
-                            </li>
-                        </ul>
-                        <div class="scdashboard-queryraisedcontainer">
-                            <div class="queryraisedcontainer-firstrow">
-                                <p id="queryraised-header">Queries Raised</p>
-                                <div class="queryraisedcontainer-rightcontent">
-                                    <button id="sort-by" style="cursor:pointer;">
-                                        <p>Sort by</p> <img src="assets/images/Icons/swap_vert.png" />
-                                    </button>
-                                    <div class="sort-by-contents">
-                                        <a href="" data-sort="newest">Newest</a>
-                                        <a href="" data-sort="oldest">Oldest</a>
-                                        <a href="" data-sort="alphabet">A-Z</a>
-                                        <a href="" data-sort="alphabet-reverse">Z-A</a>
-                                    </div>
-                                    <button id="raised-query">Raise Query</button>
-
-                                </div>
-
-                            </div>
-                            <div class="groupofraisedquestion-scdashboard">
-                                @foreach ($questions as $items)
-                                    <div class="individual-raisedquestions" data-added="{{ $items['date_added']}}">
-                                        <p id="queries-row">{{ $items['queries'] }}</p>
-                                        <p id="query-raisedbyrow">{{ $items['queriesRaisedBy']}}</p>
-                                    </div>
-                                @endforeach
-
-
-
-
-
-                            </div>
-                        </div>
-
-
-
-                    </div>
-
-                </div>
-                <div class="scdashboard-applicationstatus">
-                    <div class="scapplicationstatus-firstrow">
-                        <h1>Applications</h1>
-                        <div class="firstrowapplication-rightsidecontent">
-                            <button id="applicationstatus-sortby">Sort by <img src="assets/images/Icons/swap_vert.png" />
-                            </button>
-                            <div class="sort-by-contents-applications-studentnames">
-                                <a href="" data-sort="newest">Newest</a>
-                                <a href="" data-sort="oldest">Oldest</a>
-                                <a href="" data-sort="alphabet">A-Z</a>
-                                <a href="" data-sort="alphabet-reverse">Z-A</a>
-                            </div>
-                            <button id="mobwidthdownloadbutton">
-                                <img src="{{asset("assets/images/Icons/download-orange.png")}}" alt="">
-                            </button>
-                            <button id="sc-new-application-generate">Start New Application</button>
-                        </div>
-                    </div>
-                    @php
-$perPage = 3;
-$totalStudents = count($studentDocumentDetailsInfo);
-$totalPages = ceil($totalStudents / $perPage);  
-                    @endphp
-
-                    <div id="student-applicationdetailsstatus">
-                        @foreach (array_chunk($studentDocumentDetailsInfo, $perPage, true) as $page => $students)
-                            <div class="page-class student-page" data-page="{{ $page + 1 }}"
-                                style="display: {{ $page == 0 ? 'block' : 'none' }};">
-                                @foreach ($students as $student)
-                                    <div class="studentapplicationstatusreports-inscdashboard"
-                                        data-added="{{ $student['date_added'] }}">
-                                        <div class="reportsindashboard-firstrow">
-                                            <div class="reportsindashboard-leftcontentinfirstrow">
-                                                <p>{{ $student['student_name'] }}</p>
-                                                <span>Unique ID: HBJHKNJ776878</span>
-                                            </div>
-                                            <div class="reportsindashboard-rightcontentinfirstrow">
-                                                <div class="application-buttoncontainer reportsindashboard-buttoncontainer">
-                                                    <button id="reportsindashboard-firstrow-view" style="cursor:pointer">View</button>
-                                                    <button id="reportsindashboard-firstrow-edit" style="cursor:pointer">Edit</button>
-                                                    <button class="expand-arrow-reportsindashboard" style="cursor:pointer">
-                                                        <img src="{{ asset('assets/images/stat_minus_1.png') }}" alt="">
-                                                    </button>
-                                                </div>
-                                                <div class="application-shrinkwidtheditcontainer">
-                                                    <img src="{{ asset('assets/images/Icons/edit_icon.png') }}" alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="reportsindashboard-secondrow">
-                                            <p>{{ $student['DocumentFinalStatus'] }}</p>
-                                            <p>Application Date: {{ $student['DocumentFinalDate'] }}</p>
-                                            <p>Proposals received: {{ $student['ProposalReceived'] }}</p>
-                                            <p>Total Duration: {{ $student['TotalDuration'] }}</p>
-                                        </div>
-                                        <div class="reportsproposal-datalists">
-                                            @foreach ($student['proposalDetailInfo'] as $proposal)
-                                                <div class="reportsproposal-individualdatalists">
-                                                    <p>NFBC: &nbsp;&nbsp;{{ $proposal['NBFC'] }}</p>
-                                                    <p>Proposal Date: &nbsp;&nbsp;{{ $proposal['ProposalDate'] }}</p>
-                                                    <p id="reportspropsal-status-state" class="dynamic-status-hide">
-                                                        &nbsp;&nbsp;<span>{{ $proposal['Status'] }}</span>
-                                                    </p>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                @endforeach
-
-                            </div>
-                        @endforeach
-                    </div>
-
-                    <!-- Pagination Controls -->
-                    <div class="pagination-controls studentapplicaton-datashownpagination">
-                        <button id="prevstudents" onclick="prevdetail()">&lt;</button>
-                        <div id="pages-container">
-                            @for ($i = 1; $i <= $totalPages; $i++)
-                                <button class="page-class @if($i == 1) active @endif" id="page-{{ $i }}" data-page="{{ $i }}"
-                                    onclick="pageTrigger(event)">
-                                    {{ $i }}
+                    <div class="scdashboard-queryraisedcontainer">
+                        <div class="queryraisedcontainer-firstrow">
+                            <p id="queryraised-header">Queries Raised</p>
+                            <div class="queryraisedcontainer-rightcontent">
+                                <button id="sort-by" style="cursor:pointer;">
+                                    <p>Sort by</p> <img src="assets/images/Icons/swap_vert.png" />
                                 </button>
-                            @endfor
+                                <div class="sort-by-contents">
+                                    <a href="" data-sort="newest">Newest</a>
+                                    <a href="" data-sort="oldest">Oldest</a>
+                                    <a href="" data-sort="alphabet">A-Z</a>
+                                    <a href="" data-sort="alphabet-reverse">Z-A</a>
+                                </div>
+                                <button id="raised-query">Raise Query</button>
+
+                            </div>
+
                         </div>
-                        <button id="nextstudents" onclick="nextdetail()"> &gt; </button>
-                        <button id="download-detailsid">Download report</button>
+                        <div class="groupofraisedquestion-scdashboard">
+                            @foreach ($questions as $items)
+                                <div class="individual-raisedquestions" data-added="{{ $items['date_added']}}">
+                                    <p id="queries-row">{{ $items['queries'] }}</p>
+                                    <p id="query-raisedbyrow">{{ $items['queriesRaisedBy']}}</p>
+                                </div>
+                            @endforeach
+
+
+
+
+
+                        </div>
                     </div>
 
 
 
                 </div>
 
+            </div>
+            <div class="scdashboard-applicationstatus">
+                <div class="scapplicationstatus-firstrow">
+                    <h1>Applications</h1>
+                    <div class="firstrowapplication-rightsidecontent">
+                        <button id="applicationstatus-sortby">Sort by <img src="assets/images/Icons/swap_vert.png" />
+                        </button>
+                        <div class="sort-by-contents-applications-studentnames">
+                            <a href="" data-sort="newest">Newest</a>
+                            <a href="" data-sort="oldest">Oldest</a>
+                            <a href="" data-sort="alphabet">A-Z</a>
+                            <a href="" data-sort="alphabet-reverse">Z-A</a>
+                        </div>
+                        <button id="mobwidthdownloadbutton">
+                            <img src="{{asset("assets/images/Icons/download-orange.png")}}" alt="">
+                        </button>
+                        <button id="sc-new-application-generate">Start New Application</button>
+                    </div>
+                </div>
+                @php
+                    $perPage = 3;
+                    $totalStudents = count($studentDocumentDetailsInfo);
+                    $totalPages = ceil($totalStudents / $perPage);  
+                @endphp
+
+                <div id="student-applicationdetailsstatus">
+                    @foreach (array_chunk($studentDocumentDetailsInfo, $perPage, true) as $page => $students)
+                        <div class="page-class student-page" data-page="{{ $page + 1 }}"
+                            style="display: {{ $page == 0 ? 'block' : 'none' }};">
+                            @foreach ($students as $student)
+                                <div class="studentapplicationstatusreports-inscdashboard" data-added="{{ $student['date_added'] }}">
+                                    <div class="reportsindashboard-firstrow">
+                                        <div class="reportsindashboard-leftcontentinfirstrow">
+                                            <p>{{ $student['student_name'] }}</p>
+                                            <span>Unique ID: HBJHKNJ776878</span>
+                                        </div>
+                                        <div class="reportsindashboard-rightcontentinfirstrow">
+                                            <div class="application-buttoncontainer reportsindashboard-buttoncontainer">
+                                                <button id="reportsindashboard-firstrow-view" style="cursor:pointer">View</button>
+                                                <button id="reportsindashboard-firstrow-edit" style="cursor:pointer">Edit</button>
+                                                <button class="expand-arrow-reportsindashboard" style="cursor:pointer">
+                                                    <img src="{{ asset('assets/images/stat_minus_1.png') }}" alt="">
+                                                </button>
+                                            </div>
+                                            <div class="application-shrinkwidtheditcontainer">
+                                                <img src="{{ asset('assets/images/Icons/edit_icon.png') }}" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="reportsindashboard-secondrow">
+                                        <p>{{ $student['DocumentFinalStatus'] }}</p>
+                                        <p>Application Date: {{ $student['DocumentFinalDate'] }}</p>
+                                        <p>Proposals received: {{ $student['ProposalReceived'] }}</p>
+                                        <p>Total Duration: {{ $student['TotalDuration'] }}</p>
+                                    </div>
+                                    <div class="reportsproposal-datalists">
+                                        @foreach ($student['proposalDetailInfo'] as $proposal)
+                                            <div class="reportsproposal-individualdatalists">
+                                                <p>NFBC: &nbsp;&nbsp;{{ $proposal['NBFC'] }}</p>
+                                                <p>Proposal Date: &nbsp;&nbsp;{{ $proposal['ProposalDate'] }}</p>
+                                                <p id="reportspropsal-status-state" class="dynamic-status-hide">
+                                                    &nbsp;&nbsp;<span>{{ $proposal['Status'] }}</span>
+                                                </p>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endforeach
+
+                        </div>
+                    @endforeach
+                </div>
+
+                <!-- Pagination Controls -->
+                <div class="pagination-controls studentapplicaton-datashownpagination">
+                    <button id="prevstudents" onclick="prevdetail()">&lt;</button>
+                    <div id="pages-container">
+                        @for ($i = 1; $i <= $totalPages; $i++)
+                            <button class="page-class @if($i == 1) active @endif" id="page-{{ $i }}" data-page="{{ $i }}"
+                                onclick="pageTrigger(event)">
+                                {{ $i }}
+                            </button>
+                        @endfor
+                    </div>
+                    <button id="nextstudents" onclick="nextdetail()"> &gt; </button>
+                    <button id="download-detailsid">Download report</button>
+                </div>
 
 
 
             </div>
+            </div>
+
+
+
+
+
             <div class="studentAddBySCuserPopup">
                 <div class="studentAddByScuserPopup-headerpart">
                     <h3>Register Students</h3>
@@ -485,20 +485,20 @@ $totalPages = ceil($totalStudents / $perPage);
             initializeProfileViewScuser();
             initializeScUserOneView();
             getUsersByCounsellor();
-           const triggerExpandShrink = document.querySelectorAll("#reportsindashboard-firstrow-view");
+            const triggerExpandShrink = document.querySelectorAll("#reportsindashboard-firstrow-view");
 
             if (triggerExpandShrink) {
                 triggerExpandShrink.forEach((items, index) => {
 
-                    items.addEventListener("click",()=>{
- const progress = document.querySelectorAll(".reportsproposal-datalists");
-                    if (progress[index].style.display === "flex") {
-                        progress[index].style.display = "none";
-                    } else {
-                        progress[index].style.display = "flex";
-                    }
+                    items.addEventListener("click", () => {
+                        const progress = document.querySelectorAll(".reportsproposal-datalists");
+                        if (progress[index].style.display === "flex") {
+                            progress[index].style.display = "none";
+                        } else {
+                            progress[index].style.display = "flex";
+                        }
                     })
-                   
+
                 });
             }
 

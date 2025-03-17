@@ -752,7 +752,6 @@ class StudentDashboardController extends Controller
         $userId = $request->input('userId');
         $folderPath = "$userId/";
 
-        // List of all document folders you expect to be uploaded
         $expectedFolders = [
             'aadhar-card-name/',
             'co-aadhar-card-name/',

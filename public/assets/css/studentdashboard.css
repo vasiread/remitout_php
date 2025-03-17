@@ -13,7 +13,7 @@ input[type="file"] {
     max-width: 100%;
     width: 100%;
     display: flex;
-    /* flex-direction: column; */
+    background: none;
 
 
     gap: 2.28%;
@@ -44,6 +44,7 @@ input[type="file"] {
     gap: 20px;
     height: 202px;
     max-width: 100%;
+    align-items: center;
 
 }
 
@@ -52,7 +53,7 @@ input[type="file"] {
     height: 20px;
 }
 
-.studentdashboardprofile-togglesidebar ul li {
+.studentdashboardprofile-sidebarlists-top li {
     font-family: Poppins;
     font-size: 16px;
     font-weight: 500;
@@ -86,10 +87,27 @@ input[type="file"] {
     background-color: rgba(255, 255, 255, 1);
     display: flex;
     gap: 18px;
-    max-width: 100%;
+    max-width: 77.32%;
     width: 100%;
     margin: 0;
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.2px;
+    text-align: left;
+    color: rgba(38, 2, 84, 0.7);
+    padding: 0.93rem;
+    cursor: pointer;
+    width: 100%;
+    max-width: 77.32%;
+    height: 54px;
+    display: flex;
+    gap: 6.07%;
+    align-items: center;
 
+
+    border-radius: 4px;
+    opacity: 0px;
 
 
 }
@@ -101,7 +119,7 @@ input[type="file"] {
 
 .studentdashboardprofile-sidebarlists-top li {
     display: flex;
-    gap: 18px;
+    gap: 6.07%;
 
 }
 
@@ -160,6 +178,8 @@ input[type="file"] {
     position: relative;
     max-width: 21.80%;
     width: 100%;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
 
 }
 
@@ -404,11 +424,12 @@ input[type="file"] {
     flex-direction: column;
     max-width: 53.54%;
     width: 100%;
-    padding: 0 1.5rem;
+    /* padding: 0 1.5rem; */
     flex: 1;
     margin-top: 85px;
     max-width: 53.54%;
-
+    /* box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03); */
+}
 
 
 }
@@ -420,20 +441,12 @@ input[type="file"] {
     line-height: 33.89px;
     text-align: left;
     color: rgba(233, 134, 53, 1);
-    padding-top: 1.9rem;
-    padding-left: 1.4rem;
+
     /* margin: 30px 0px 30px 24px; */
 }
 
 
 
-
-.studentdashboardprofile-trackprogress {
-    display: flex;
-    width: 100%;
-    padding: 0 1.5rem;
-
-}
 
 .studentdashboardprofile-trackprogress h1 {
     font-family: Inter;
@@ -445,18 +458,35 @@ input[type="file"] {
     margin: 30px 0px 30px 24px;
 }
 
+.trackprogress-headercontainer {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 100%;
+}
+
+.trackprogress-contentcontainer {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    gap: 24px;
+}
+
 .studentdashboardprofile-firstrowtrackprogress {
     /* max-width: 722px; */
 
     max-width: 100%;
 
-    height: 135px;
+    height: fit-content;
+    width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     gap: 24px;
     background-color: rgba(255, 255, 255, 1);
     margin-top: 2.5rem;
+    padding: 29px 24px 25px 24px;
 
     box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
 
@@ -476,9 +506,8 @@ input[type="file"] {
 
 .leftsection-detailsinfo {
     display: flex;
-    justify-content: flex-start;
-    gap: 2.3rem;
-    padding-left: 15px;
+    justify-content: space-between;
+    padding: 0 15px;
 
 }
 
@@ -638,7 +667,7 @@ input[type="file"] {
     padding: 1rem 1.8rem;
 
     gap: 10px;
-    height: 95px;
+    height: fit-content;
     border-top: 1px solid rgba(229, 229, 229, 1);
 
 }
@@ -804,12 +833,12 @@ input[type="file"] {
 
 .studentdashboardprofile-myapplication {
     display: none;
-    max-width: 48%;
+    max-width: 53.54%;
     width: 100%;
     height: fit-content;
     background-color: rgba(255, 255, 255, 1);
     box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
-    margin: 90px 0;
+    margin: 105px 0;
     padding: 20px 24px;
     display: none;
     flex-direction: column;
@@ -997,7 +1026,7 @@ input[type="file"] {
     place-items: flex-start;
     margin-top: 10px;
     position: relative;
-     font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .myapplication-thirdcolumn .degreetypescheckboxes {
@@ -1639,7 +1668,7 @@ input[type="file"] {
 
 @media(max-width:1200px) {
 
-    .studentdashboardprofile-firstrowtrackprogress {
+    .trackprogress-contentcontainer {
         flex-direction: column;
         height: fit-content;
         padding-bottom: 1.2rem;
@@ -1683,7 +1712,7 @@ input[type="file"] {
 
     .studentdashboardprofile-togglesidebar ul li {
         font-size: 0.8rem;
- 
+        gap: 6.07%;
 
     }
 
@@ -1704,6 +1733,10 @@ input[type="file"] {
     .studentdashboardprofile-togglesidebar {
         display: none;
 
+    }
+
+    .trackprogress-contentcontainer {
+        align-items: center;
     }
 
     .studentdashboardprofile-firstrowtrackprogress {
@@ -1736,8 +1769,15 @@ input[type="file"] {
         padding: 1rem 0.6rem;
     }
 
+    .studentdashboardprofile-trackprogress {
+        display: flex;
+        max-width: 100%;
+        width: 100%;
+        padding: 0 1.5rem;
+
+    }
+
     .studentdashboardprofile-trackprogress .trackprogress-header {
-        padding-left: 0;
         font-size: 24px;
     }
 
@@ -1762,7 +1802,13 @@ input[type="file"] {
 
 }
 
+@media(max-width:480px) {
 
+    .trackprogress-leftsection,
+    .trackprogress-rightsection {
+        width: 100%;
+    }
+}
 
 /* @media(max-width:1200) {
     .studentdashboardprofile {
