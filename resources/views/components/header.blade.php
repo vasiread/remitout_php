@@ -23,14 +23,10 @@
                 rgba(255, 255, 255, 0.25),
                 rgba(111, 37, 206, 0.15)
             );
-<<<<<<< Updated upstream
              box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);  
               font-family: 'Poppins', sans-serif;
+              width:100%;
            
-=======
-             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-           font-family: 'Poppins', sans-serif;
->>>>>>> Stashed changes
         }
 
         /* Container */
@@ -43,6 +39,7 @@
             align-items: center;
             backdrop-filter: blur(2px);
             -webkit-backdrop-filter: blur(2px);
+            width:100%;
            
         }
 
@@ -55,7 +52,7 @@
         .header-logo-link .logo {
             width: 138px;
             height: auto;
-            margin-left: 45px;
+            margin-left: 15px;
             cursor: pointer;
         }
 
@@ -81,11 +78,7 @@
             border-radius: 8px;
             transition: all 0.3s ease;
             padding: 0 20px;
-<<<<<<< Updated upstream
               font-family: 'Poppins', sans-serif;
-=======
-            font-family: 'Poppins', sans-serif;
->>>>>>> Stashed changes
         }
 
         .header-login-btn {
@@ -153,7 +146,7 @@
 @media (min-width: 1513px) { 
     .header-container {
         height: 85px;
-        width: 1470px;
+        width: 1460px;
         padding: 20px 88px;
         display: flex;
         margin: 0 auto;
@@ -164,7 +157,7 @@
     }
 
 
-          }
+    }
 
         @media (max-width: 1024px){
              .header-container {
@@ -222,16 +215,17 @@
                 gap: 20px;
                 padding-bottom: 20px;
                 width: 100%;
-                margin: 0 auto;
+                margin: 40px auto;
                 font-size: 20px;
                 font-weight:500;
-                padding-top: 80px;
+            
                 height: auto;
+                padding:0px 40px;
             }
 
             .header-signup-btn {
                 width: 100%;
-                max-width: 480px;
+                max-width: 100%;
                 height: 54px;
                 font-size: 20px;
                 line-height: 54px;
@@ -243,11 +237,12 @@
                 background-color: #260254;
                 color: #FFFFFF;
                 border: none;
+                padding:0px 40px;
             }
 
             .header-login-btn {
                 width: 100%;
-                max-width: 480px;
+                max-width: 100%;
                 height: 54px;
                 font-size: 20px;
                 line-height: 54px;
@@ -259,6 +254,7 @@
                 border: 1px solid #260254;
                 background-color: #FFFFFF;
                 color: #260254;
+                 padding:0px 40px;
             }
 
             .header-menu-icon {
@@ -446,7 +442,7 @@
                 <a href="#resources" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Resources</a>
                 <a href="#deals" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Special Deals</a>
                 <a href="#services" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Our Service</a>
-                <a href="#schedule" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Schedule Call</a>
+               <a href="#" id="scheduleCallLink" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Schedule Call</a>
                 <a href="#support" class="header-mobile-link {{ Request::is('/') ? '' : 'fullopacitylinks' }}">Support</a>
                 <a href="#help" class="header-mobile-link {{ Request::is('/') ? '' : 'fullopacitylinks' }}">Help</a>
              
@@ -467,15 +463,78 @@
     </nav>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const menuIcon = document.getElementById('menu-icon'); 
-            const navLinks = document.querySelector('.header-links'); 
-
-            menuIcon.addEventListener('click', () => {
-                navLinks.classList.toggle('show');
-                menuIcon.classList.toggle('open');
-            });
+     document.addEventListener('DOMContentLoaded', function () {
+    // Menu icon functionality
+    const menuIcon = document.getElementById('menu-icon');
+    const navLinks = document.querySelector('.header-links');
+    
+    if (menuIcon) {
+        menuIcon.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+            menuIcon.classList.toggle('open');
         });
+    }
+    
+    // Schedule Call link functionality
+    const scheduleCallLink = document.getElementById('scheduleCallLink');
+    const contactFormPopup = document.getElementById('contactFormPopup');
+    const contactForm = document.getElementById('contact-form');
+    const contactCloseBtn = document.querySelector('.contact-close-btn');
+    
+    if (scheduleCallLink) {
+        scheduleCallLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            openContactForm();
+            
+            // If mobile menu is open, close it
+            if (navLinks.classList.contains('show')) {
+                navLinks.classList.remove('show');
+                menuIcon.classList.remove('open');
+            }
+        });
+    }
+    
+    // Function to open contact form
+    function openContactForm() {
+        if (contactFormPopup) {
+            contactFormPopup.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+    }
+    
+    // Close popup when close button is clicked
+    if (contactCloseBtn) {
+        contactCloseBtn.addEventListener('click', function() {
+            closeContactForm();
+        });
+    }
+    
+    // Close popup when clicking outside the form
+    if (contactFormPopup) {
+        contactFormPopup.addEventListener('click', function(event) {
+            if (event.target === contactFormPopup) {
+                closeContactForm();
+            }
+        });
+    }
+    
+    // Function to close contact form
+    function closeContactForm() {
+        if (contactFormPopup) {
+            contactFormPopup.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
+        }
+    }
+    
+    // Form submission
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Form submitted successfully!');
+            closeContactForm();
+        });
+    }
+});
     </script>
 </body>
 </html>

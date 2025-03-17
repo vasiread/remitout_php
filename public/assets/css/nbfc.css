@@ -1085,11 +1085,12 @@ html, body {
 
 .dashboard-nbfc-search-container-section {
     position: relative;
+     width:100%;
 
 }
 
 #dashboard-nbfc-search-container-id {
-    width: 200px;
+    width: 100%;
 }
 
 .dashboard-nbfc-search-input-sec {
@@ -1484,6 +1485,7 @@ html, body {
         grid-template-columns: 1fr;
         padding: 10px;
         width: 100%;
+        margin-top: 60px;
 
 
     }
@@ -1606,7 +1608,7 @@ html, body {
         padding: 8px 12px 8px 36px;
         border: 1px solid #e2e2e2;
         border-radius: 4px;
-        width: 100%;
+        
         font-family: 'Poppins', sans-serif;
         background-color: #ffffff;
         font-size: 12px;
@@ -1616,11 +1618,12 @@ html, body {
         grid-template-columns: 1fr;
         padding: 10px;
         width: auto;
+        margin-top: 60px;
     }
 
     .dashboard-section {
         width: 100%;
-        max-width: 320px;
+        max-width: 100%;
         padding: 0px;
         margin: 0 auto;
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -1709,16 +1712,125 @@ html, body {
 
 
 @media (max-width: 380px) {
-    .dashboard-nbfc-search-input {
+
+    .dashboard-main-content {
+        
+        padding: 10px;
+        margin: 10px auto;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+    }
+
+    .dashboard-nbfc-search-input-sec {
         padding: 8px 12px 8px 36px;
         border: 1px solid #e2e2e2;
         border-radius: 4px;
-        width: 190px;
+        width:220px;
         font-family: 'Poppins', sans-serif;
         background-color: #ffffff;
         font-size: 12px;
     }
+
+    .dashboard-sections-container {
+        grid-template-columns: 1fr;
+        padding: 10px;
+        width: auto;
+    }
+
+    .dashboard-section {
+        width: 100%;
+        max-width: 350px;
+        padding: 0px;
+        margin: 0 auto;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        background-color: white;
+    }
+
+    .dashboard-section-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 5px;
+        box-shadow: none;
+        background: white;
+        gap: 30px;
+        border-radius: 16px;
+    }
+
+    .dashboard-section-title {
+        text-align: left;
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .dashboard-header-controls {
+        align-items: flex-start;
+        gap: 12px;
+
+    }
+
+    .dashboard-nbfc-search-container {
+        width: 100x;
+    }
+
+    .dashboard-sort-button-container {
+        width: 100%;
+        order: 2;
+    }
+
+
+    .dashboard-sort-options {
+        top: 120%;
+    }
+
+    .dashboard-sort-button {
+        padding: 6px 10px;
+        font-size: 12px;
+
+    }
+
+    .dashboard-search-button {
+        display: none;
+    }
+
+    .dashboard-student-list {
+        padding: 10px;
+    }
+
+    .dashboard-student-item {
+        padding: 16px;
+    }
+
+    .dashboard-student-name {
+        font-size: 14px;
+    }
+
+    .dashboard-student-id {
+        font-size: 12px;
+    }
+
+    .dashboard-action-buttons {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .dashboard-reject-button {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .dashboard-view-button {
+        display: none;
+    }
+
+
 }
+
+
 
 /*reject container*/
 
@@ -1854,7 +1966,7 @@ html, body {
 /* Inbox Styles */
 
 #index-section-id-nbfc {
-    margin-top: 100px;
+    margin-top: 50px;
     overflow-x: hidden;
 }
 
@@ -2196,6 +2308,7 @@ html, body {
     background-color: #ffffff;
     font-size: 12px;
 }
+
 
 .index-search-input::placeholder {
     padding: 0px 10px;

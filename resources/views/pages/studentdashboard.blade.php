@@ -63,6 +63,7 @@ $loanStatusInfo = [
                     </ul>
                 </div>
                 <div class="studentdashboardprofile-trackprogress">
+               
                     <h1 class="trackprogress-header" style="margin:0">Track Progress</h1>
                     <div class="studentdashboardprofile-firstrowtrackprogress">
                         <div class="trackprogress-leftsection">
@@ -105,6 +106,8 @@ $loanStatusInfo = [
                             </div>
                         </div>
                     </div>
+               
+
 
                     <div class="studentdashboardprofile-loanproposals">
                         <h1 class="loanproposals-header" id="loanproposals-header">Loan Proposals</h1>

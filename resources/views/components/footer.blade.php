@@ -313,12 +313,16 @@
 
 
 /* Tablet Styles */
-@media screen and (max-width: 1023px) and (min-width: 767px) {
+@media screen and (max-width: 1024px) and (min-width: 767px) {
   .footer-logo {
     width: 100px;
     align-items: center;
     margin-top: -10px;
   }
+   .footer-container {
+    padding:0px 40px;
+
+   }
   .signup-image img{
     display:none;
   }
