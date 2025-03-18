@@ -31,14 +31,14 @@
 
 
     @php
-        $profileImgPath = 'images/admin-student-profile.png';
-        $uploadPanName = '';
-        $profileIconPath = "assets/images/account_circle.png";
-        $phoneIconPath = "assets/images/call.png";
-        $mailIconPath = "assets/images/mail.png";
-        $pindropIconPath = "assets/images/pin_drop.png";
-        $discordIconPath = "assets/images/icons/discordicon.png";
-        $viewIconPath = "assets/images/visibility.png";
+$profileImgPath = 'images/admin-student-profile.png';
+$uploadPanName = '';
+$profileIconPath = "assets/images/account_circle.png";
+$phoneIconPath = "assets/images/call.png";
+$mailIconPath = "assets/images/mail.png";
+$pindropIconPath = "assets/images/pin_drop.png";
+$discordIconPath = "assets/images/icons/discordicon.png";
+$viewIconPath = "assets/images/visibility.png";
 
 
 
@@ -193,513 +193,13 @@
             </section>
         </div>
 
-        <!---view trigger--->
-
-        <div class="nbfc-studentdashboardprofile-profile-section-container"
-            id="nbfc-studentdashboardprofile-profile-section-container-id">
-            <div class="nbfc-student-dashboard-section-main-contents"
-                id="nbfc-student-dashboard-section-main-contents-id">
-                <div class="studentdashboardprofile-profilesection" id="nbfc-studentdashboardprofile-profilesection">
-
-                    <img src="{{ asset('assets/images/admin-student-profile.png') }}" class="profileImg"
-                        id="profile-photo-id-nbfc" alt="Profile Image">
-
-                 
-                    <i class="fa-regular fa-pen-to-square" style="display: block;"></i>
-
-                    <input type="file" class="profile-upload" accept="image/*" enctype="multipart/form-data">
-                    <div class="studentdashboardprofile-personalinfo">
-                        <div class="personalinfo-firstrow" id="personalinfo-firstrow-id">
-                            <h1>My Profile</h1>
-                        </div>
-
-                        <ul class="personalinfo-secondrow" id="personalinfo-secondrow-id">
-                            <li style="margin-bottom: 3px; color: rgba(33, 33, 33, 1);">
-                                Unique ID : <span class="personal_info_id"
-                                    style="margin-left: 6px;">HBNKJI0000001</span>
-                            </li>
-                            <li class="personal_info_name" id="referenceNameId-nbfc">
-                                <img src="assets/images/account_circle.png" alt="">
-                                <p>John Doe</p>
-                            </li>
-                            <li class="personal_info_phone">
-                                <img src="assets/images/call.png" alt="">
-                                <p>+91 9876543210</p>
-                            </li>
-                            <li class="personal_info_email" id="referenceEmailId-nbfc">
-                                <img src="assets/images/mail.png" alt="">
-                                <p>john.doe@example.com</p>
-                            </li>
-                            <li class="personal_info_state">
-                                <img src="assets/images/pin_drop.png" alt="">
-                                <p>Karnataka</p>
-                            </li>
-                        </ul>
-
-                        <ul class="personalinfosecondrow-editsection">
-                            <li style="margin-bottom: 3px; color: rgba(33, 33, 33, 1);">
-                                Unique ID : <span style="margin-left: 6px;">123456789</span>
-                            </li>
-                            <li class="personal_info_name">
-                                <p>Name</p>
-                                <input type="text" value="John Doe">
-                            </li>
-                            <li class="personal_info_phone">
-                                <p>Phone</p>
-                                <input type="text" value="+91 9876543210">
-                            </li>
-                            <li class="personal_info_email">
-                                <p>Email</p>
-                                <input type="email" value="john.doe@example.com">
-                            </li>
-                            <li class="personal_info_state">
-                                <p>State</p>
-                                <input type="text" value="Karnataka">
-                            </li>
-                        </ul>
-                    </div>
-
-
-                    <div class="studentdashboardprofile-educationeditsection"
-                        id="studentdashboardprofile-educationeditsection-id-nbfc">
-                        <div class="educationeditsection-firstrow">
-                            <h1>Education</h1>
-                            <!-- <button>Edit</button> -->
-                        </div>
-                        <div class="educationeditsection-secondrow" id="educationeditsection-secondrow-id">
-                            <p>1. Bachelors</p>
-                            <p>2. Consequuntur magni dolores</p>
-                            <p>3. Voluptatem accusantium</p>
-                        </div>
-                    </div>
-
-                    <div class="studentdashboardprofile-testscoreseditsection"
-                        id="studentdashboardprofile-testscoreseditsection-id">
-                        <div class="testscoreseditsection-firstrow">
-                            <h1>Test Scores</h1>
-                        </div>
-                        <div class="testscoreseditsection-secondrow" id="testscoreseditsection-secondrow-id">
-                            <p>1. IELTS <span class="ilets_score">7.5</span></p>
-                            <p>2. GRE <span class="gre_score">320</span></p>
-                            <p>3. TOEFL <span class="tofel_score">110</span></p>
-                            <p>4. GMAT <span>650</span></p>
-                        </div>
-
-                        <div class="testscoreseditsection-secondrow-editsection" id="testscoreseditsection-secondrow-editsection-id">
-                            <p>IELTS</p>
-                            <input type="text" class="ilets_score" value="7.5">
-                            <p>GRE</p>
-                            <input type="text" class="gre_score" value="320">
-                            <p>TOEFL</p>
-                            <input type="text" class="tofel_score" value="110">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="studentdashboardprofile-myapplication" id="studentdashboardprofile-myapplication-id">
-                    <div class="myapplication-firstcolumn">
-                        <h1>Application Details</h1>
-                        <!-- <button>Edit</button> -->
-                
-                <div class="personalinfo-firstrow" id="personalinfo-firstrow-id">
-                    <button>Edit</button>
-                    <button class="saved-msg">Saved</button>
-                </div>
 
 
 
-                    </div>
-                    <div class="myapplication-secondcolumn" id="myapplication-secondcolumn-id">
-                        <p>1. Where are you planning to study</p>
-                        <input type="text" id="plan-to-study-edit" disabled>
-                        <div class="checkbox-group-edit" id="selected-study-location-edit">
-                            <label>
-                                <input type="checkbox" name="study-location-edit" value="USA" disabled> USA
-                            </label>
-                            <label>
-                                <input type="checkbox" name="study-location-edit" value="UK" disabled> UK
-                            </label>
-                            <label>
-                                <input type="checkbox" name="study-location-edit" value="Ireland" disabled> Ireland
-                            </label>
-                            <label>
-                                <input type="checkbox" name="study-location-edit" value="New Zealand" disabled> New
-                                Zealand
-                            </label>
-                            <label>
-                                <input type="checkbox" name="study-location-edit" value="Germany" disabled> Germany
-                            </label>
-                            <label>
-                                <input type="checkbox" name="study-location-edit" value="France" disabled> France
-                            </label>
-                            <label>
-                                <input type="checkbox" name="study-location-edit" value="Sweden" disabled> Sweden
-                            </label>
-                            <label>
-                                <input type="checkbox" name="study-location-edit" value="Other" id="other-checkbox-edit"
-                                    disabled> Other
-                            </label>
-                            <label>
-                                <input type="checkbox" name="study-location-edit" value="Italy" disabled> Italy
-                            </label>
-                            <label>
-                                <input type="checkbox" name="study-location-edit" value="Canada" disabled> Canada
-                            </label>
-                            <label>
-                                <input type="checkbox" name="study-location-edit" value="Australia" disabled> Australia
-                            </label>
-                            <label>
-                                <div class="add-country-box-edit">
-                                    <input type="text" id="country-edit" class="custom-country-edit"
-                                        placeholder="Add Country">
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="myapplication-thirdcolumn" id="myapplication-thirdcolumn-id">
-                        <h6>2. Type of Degree?</h6>
-                        <div class="degreetypescheckboxes">
-                            <!-- First radio button for Bachelors -->
-                            <label class="custom-radio">
-                                <input type="radio" name="education-level" value="Bachelors" checked
-                                    onclick="toggleOtherDegreeInput(event)" disabled>
-                                <span class="radio-button"></span>
-                                <p>Bachelors (only secured loan)</p>
-                            </label>
-
-                            <br>
-
-                            <!-- Second radio button for Masters -->
-                            <label class="custom-radio">
-                                <input type="radio" name="education-level" value="Masters" checked
-                                    onclick="toggleOtherDegreeInput(event)" disabled>
-                                <span class="radio-button"></span>
-                                <p>Masters</p>
-                            </label>
-
-                            <br>
-
-                            <!-- Third radio button for Others -->
-                            <label class="custom-radio">
-                                <input type="radio" name="education-level" value="Others" checked
-                                    onclick="toggleOtherDegreeInput(event)" disabled>
-                                <span class="radio-button"></span>
-                                <p>Others</p>
-                            </label>
-
-                        </div>
-
-                        <input type="text" placeholder="Enter degree type" value="Degree" id="otherDegreeInput"
-                            disabled>
-
-                    </div>
-
-                    <div class="myapplication-fourthcolumn-additional" id="myapplication-fourthcolumn-additional-id">
-                        <p>3. What is the duration of the course?</p>
-                        <input type="text" placeholder="2 years" value="2 years" disabled>
-                    </div>
-
-                    <div class="myapplication-fourthcolumn" id="myapplication-fourthcolumn-id">
-                        <p>4. What is the Loan amount required?</p>
-                        <input type="number" placeholder="10" value="10" disabled>
-                    </div>
-
-                    <div class="myapplication-fifthcolumn" id="myapplication-fifthcolumn-id">
-                        <p>Referral Code</p>
-                        <input type="text" placeholder="ABC123" value="ABC123" disabled>
-                    </div>
-
-                    <div class="myapplication-sixthcolumn" id="myapplication-sixthcolumn-id">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div>
 
 
-                     <div class="myapplication-seventhcolumn" id="myapplication-seventhcolumn-id">
-                        <h1>Attached Documents</h1>
-                        <div class="seventhcolum-firstsection" id="seventhcolum-firstsection-id">
-                            <div class="seventhcolumn-header">
-                                <p>Student KYC Document</p>
-                                <i class="fa-solid fa-angle-down"></i>
-                            </div>
-
-                            <div class="kycdocumentscolumn" id="kycdocumentscolumn-id">
-                                <div class="individualkycdocuments" id="individualkycdocuments-pan">
-                                    <p class="document-name">Pan Card</p>
-                                    <div class="inputfilecontainer">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="uploaded-pan-name">pan_card.jpg</p>
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="vieindividualkycdocuments-panw-pan-card" />
-                                    </div>
-
-                                    <!-- PDF Preview Modal (hidden by default) -->
-                                    <div id="pdf-preview-modal"
-                                        style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background-color:rgba(0, 0, 0, 0.7); z-index:1000;">
-                                        <div
-                                            style="position:relative; margin: auto; width: 80%; height: 80%; background-color: white; overflow: auto;">
-                                            <span id="close-modal"
-                                                style="position:absolute; top:10px; right:10px; cursor:pointer; color: red; font-size: 24px;">&times;</span>
-                                            <canvas id="pdf-preview-canvas" style="width: 100%;"></canvas>
-                                        </div>
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-pancard" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-
-                                <div class="individualkycdocuments" id="individualkycdocuments-aadhar">
-                                    <p class="document-name">Aadhar Card</p>
-                                    <div class="inputfilecontainer">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="uploaded-aadhar-name"> aadhar_card.jpg</p>
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-aadhar-card" />
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-aadhar" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-
-                                <div class="individualkycdocuments" id="individualkycdocuments-passport">
-                                    <p class="document-name">Passport</p>
-                                    <div class="inputfilecontainer">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="passport-name-selector"> Passport.pdf</p>
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-passport-card" />
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-passposrt" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="seventhcolumn-additional" id="seventhcolumn-additional-id">
-                        <div class="seventhcolumn-additional-firstcolumn" id="seventhcolumn-additional-firstcolumn-id">
-                            <div class="seventhcolumnadditional-header">
-                                <p>Academic Marksheets</p>
-                                <i class="fa-solid fa-angle-down"></i>
-                            </div>
-
-                            <div class="marksheetdocumentscolumn" id="marksheetdocumentscolumn-id">
-                                <div class="individualmarksheetdocuments" id="individualmarksheetdocuments-10th-grade">
-                                    <p class="document-name">10th grade marksheet</p>
-                                    <div class="inputfilecontainer-marksheet">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="sslc-marksheet"> 10th grade marksheet</p>
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-card" />
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-10th-marksheet" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-
-                                <div class="individualmarksheetdocuments" id="individualmarksheetdocuments-12th-grade">
-                                    <p class="document-name">12th grade marksheet</p>
-                                    <div class="inputfilecontainer-marksheet">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="hsc-marksheet"> 12th grade marksheet</p>
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-card" />
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-12th-marksheet" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-
-                                <div class="individualmarksheetdocuments" id="individualmarksheetdocuments-graduation">
-                                    <p class="document-name">Graduation marksheet</p>
-                                    <div class="inputfilecontainer-marksheet">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="graduation-marksheet"> Graduation Marksheet</p>
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-card" />
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-graduation-marksheet" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="myapplication-eightcolumn" id="myapplication-eightcolumn-id">
-                        <div class="eightcolumn-firstsection" id="eightcolumn-firstsection-id">
-                            <div class="eightcolumn-header">
-                                <p>Secured Admissions</p>
-                                <i class="fa-solid fa-angle-down"></i>
-                            </div>
-                            <div class="secured-admissioncolumn" id="secured-admissioncolumn-id">
-                                <div class="individual-secured-admission-documents"
-                                    id="individual-secured-admission-documents-10th-grade">
-                                    <p class="document-name">10th Grade
-                                    </p>
-                                    <div class="inputfilecontainer-secured-admission">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="sslc-grade">SSLC Grade</p>
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-grade"></>
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet">
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                                <div class="individual-secured-admission-documents"
-                                    id="individual-secured-admission-documents-12th-grade">
-                                    <p class="document-name">12th Grade
-                                    </p>
-                                    <div class="inputfilecontainer-secured-admission">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="hsc-grade">HSC Grade</p>
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-grade"></>
-
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet"
-                                        id="inputfilecontainer-real-marksheet-id">
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                                <div class="individual-secured-admission-documents"
-                                    id="individual-secured-admission-documents-graduation">
-                                    <p class="document-name">Graduation</p>
-                                    <div class="inputfilecontainer-secured-admission">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="graduation-grade">Graduation</p>
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-grade">
-                                        </>
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet">
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="myapplication-ninthcolumn" id="myapplication-ninthcolumn-id">
-                        <div class="ninthcolumn-firstsection">
-                            <div class="ninthcolumn-header">
-
-                                <p>Work Experience</p>
-                                <i class="fa-solid fa-angle-down"></i>
-                            </div>
-                            <div class="work-experiencecolumn" id="work-experiencecolumn-id">
-                                <div class="individual-work-experiencecolumn-documents" id="individual-work-experiencecolumn-documents-exp-letter">
-                                    <p class="document-name">Experience Letter
-                                    </p>
-                                    <div class="inputfilecontainer-work-experiencecolumn">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="experience-letter">Experience Letter</p>
-
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-experience-letter">
-                                        </>
-
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-work-experience">
-
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                                <div class="individual-work-experiencecolumn-documents" id="individual-work-experiencecolumn-documents-3-month-salary-slip">
-                                    <p class="document-name">3 month Salary Slip
-                                    </p>
-                                    <div class="inputfilecontainer-work-experiencecolumn">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="salary-slip">3 month salary slip</p>
-
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-salary-slip"></>
-
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet">
-
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                                <div class="individual-work-experiencecolumn-documents" id="individual-work-experiencecolumn-documents-office-ids">
-                                    <p class="document-name">Office ID
-                                    </p>
-                                    <div class="inputfilecontainer-work-experiencecolumn">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="office-id">Office ID</p>
-
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-office-id"></>
-
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet">
-
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-
-                                <div class="individual-work-experiencecolumn-documents" id="individual-work-experiencecolumn-documents-employment-join-id">
-                                    <p class="document-name">Employment Joining Letter
-                                    </p>
-                                    <div class="inputfilecontainer-work-experiencecolumn">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="joining-letter">Joining Letter</p>
-
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-joining-letter"></>
-
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet">
-
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="myapplication-tenthcolumn" id="myapplication-tenthcolumn-id">
-                        <div class="tenthcolumn-firstsection" id="tenthcolumn-firstsection-id">
-                            <div class="tenthcolumn-header">
-                                <p>Co-borrower Documents</p>
-                                <i class="fa-solid fa-angle-down"></i>
-                            </div>
-                            <div class="coborrower-kyccolumn" id="coborrower-kyccolumn-id">
-                                <div class="individual-coborrower-kyc-documents" id="individual-coborrower-kyc-documents-pan_card-kyc-id">
-                                    <p class="document-name">Pan Card
-                                    </p>
-                                    <div class="inputfilecontainer-coborrower-kyccolumn">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="coborrower-pan-card">Pan Card</p>
-
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-pan"></>
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-kyccoborrwer">
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                                <div class="individual-coborrower-kyc-documents" id="individual-coborrower-kyc-documents-aadhar-card-kyc-id">
-                                    <p class="document-name">Aadhar Card
-                                    </p>
-                                    <div class="inputfilecontainer-coborrower-kyccolumn">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="coborrower-aadharcard">Aadhar Card </p>
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-aadhar">
-                                        </>
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-kyccoborrwer">
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                                <div class="individual-coborrower-kyc-documents" id="individual-coborrower-kyc-documents-address-proof-kyc-id">
-                                    <p class="document-name">Address Proof
-                                    </p>
-                                    <div class="inputfilecontainer-coborrower-kyccolumn">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="coborrower-addressproof">Address Proof </p>
-                                        <img class="fa-eye" src="{{asset($viewIconPath)}}"
-                                            id="view-coborrower-addressproof"></>
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-kyccoborrwer">
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="myapplication-eleventhcolumn" id="myapplication-eleventhcolumn-id">
-
-                        <button class="nbfc-send-proposal-button" id="openModalBtn">Send Proposal</button>
-
-                        <div class="myapplication-eleventhcolumn-buttons">
-                            <button class="nbfc-message-button" id="send-proposal-message-id">Message</button>
-                            <button class="nbfc-reject-button" id="send-proposal-button-id">Reject</button>
-                        </div>
-                    </div>
 
 
-                </div>
-            </div>
-        </div>
 
 
         <div class="nbfc-send-proposal-modal-container" id="modelContainer-send-proposal">
@@ -733,8 +233,318 @@
         </div>
 
 
+        <div class="studentdashboardprofile-myapplication" id=nbfc-student-profile-details>
+            <div class="myapplication-firstcolumn">
+                <h1>Application Details</h1>
+                <div class="personalinfo-firstrow">
+                    <button onClick="triggerEditButton()">Edit</button>
+                    <button class="saved-msg">Saved</button>
+                </div>
+            </div>
 
+            <div class="myapplication-secondcolumn">
+                <p>1. Where are you planning to study</p>
+                <input type="text" id="plan-to-study-edit" value="{{ $courseDetails[0]->{'plan-to-study'} ?? '' }}"
+                    disabled>
+            </div>
 
+            <div class="myapplication-thirdcolumn">
+                <h6>2. Type of Degree?</h6>
+                <div class="degreetypescheckboxes">
+                    <label class="custom-radio">
+                        <input type="radio" name="education-level" value="Bachelors"
+                            @if(isset($courseDetails[0]->{'degree-type'}) && $courseDetails[0]->{'degree-type'} == 'Bachelors') checked @endif
+                            onclick="toggleOtherDegreeInput(event)" disabled>
+                        <span class="radio-button"></span>
+                        <p>Bachelors (only secured loan)</p>
+                    </label>
+                    <br>
+
+                    <label class="custom-radio">
+                        <input type="radio" name="education-level" value="Masters"
+                            @if(isset($courseDetails[0]->{'degree-type'}) && $courseDetails[0]->{'degree-type'} == 'Masters') checked @endif
+                            onclick="toggleOtherDegreeInput(event)" disabled>
+                        <span class="radio-button"></span>
+                        <p>Masters</p>
+                    </label>
+                    <br>
+
+                    <label class="custom-radio">
+                        <input type="radio" name="education-level" value="Others"
+                            @if(isset($courseDetails[0]->{'degree-type'}) && $courseDetails[0]->{'degree-type'} !== 'Bachelors' && $courseDetails[0]->{'degree-type'} !== 'Masters') checked @endif
+                            onclick="toggleOtherDegreeInput(event)" disabled>
+                        <span class="radio-button"></span>
+                        <p>Others</p>
+                    </label>
+                </div>
+
+                <input type="text" placeholder="Enter degree type"
+                    value="{{ $courseDetails[0]->{'degree-type'} ?? '' }}" id="otherDegreeInput"
+                    @if(!isset($courseDetails[0]->{'degree-type'}) || $courseDetails[0]->{'degree-type'} != 'Others')
+                    disabled @endif>
+            </div>
+
+            <div class="myapplication-fourthcolumn-additional">
+                <p>3. What is the duration of the course?</p>
+                <input type="text" placeholder="{{ $courseDetails[0]->{'course-duration'} ?? '' }}"
+                    value="{{ $courseDetails[0]->{'course-duration'} ?? '' }}" disabled>
+            </div>
+
+            <div class="myapplication-fourthcolumn">
+                <p>4. What is the Loan amount required?</p>
+                <input type="number" placeholder="{{ $courseDetails[0]->loan_amount_in_lakhs ?? '' }}"
+                    value="{{ $courseDetails[0]->loan_amount_in_lakhs ?? '' }}" disabled>
+            </div>
+
+            <div class="myapplication-fifthcolumn">
+                <p>Referral Code</p>
+                <input type="text" placeholder="{{ $personalDetails[0]->referral_code ?? '' }}"
+                    value="{{ $personalDetails[0]->referral_code ?? '' }}" disabled>
+            </div>
+
+            <div class="myapplication-sixthcolumn">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+
+            <div class="myapplication-seventhcolumn">
+                <h1>Attached Documents</h1>
+                <div class="seventhcolum-firstsection">
+                    <div class="seventhcolumn-header">
+                        <p>Student KYC Document</p>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+
+                    <div class="kycdocumentscolumn">
+                        <div class="individualkycdocuments">
+                            <p class="document-name">Pan Card</p>
+                            <div class="inputfilecontainer">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="uploaded-pan-name">{{ $kycDocuments[0]->pan_card ?? 'pan_card.jpg' }}</p>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-pan-card" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+
+                        <div class="individualkycdocuments">
+                            <p class="document-name">Aadhar Card</p>
+                            <div class="inputfilecontainer">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="uploaded-aadhar-name">{{ $kycDocuments[0]->aadhar_card ?? 'aadhar_card.jpg' }}
+                                </p>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-aadhar-card" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+
+                        <div class="individualkycdocuments">
+                            <p class="document-name">Passport</p>
+                            <div class="inputfilecontainer">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="passport-name-selector">{{ $kycDocuments[0]->passport ?? 'Passport.pdf' }}</p>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-passport-card" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="seventhcolumn-additional">
+                <div class="seventhcolumn-additional-firstcolumn">
+                    <div class="seventhcolumnadditional-header">
+                        <p>Academic Marksheets</p>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+
+                    <div class="marksheetdocumentscolumn">
+                        <div class="individualmarksheetdocuments">
+                            <p class="document-name">10th grade marksheet</p>
+                            <div class="inputfilecontainer-marksheet">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="sslc-marksheet">
+                                    {{ $academicDocuments[0]->sslc_marksheet ?? '10th grade marksheet' }}</p>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-sslc-card" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+
+                        <div class="individualmarksheetdocuments">
+                            <p class="document-name">12th grade marksheet</p>
+                            <div class="inputfilecontainer-marksheet">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="hsc-marksheet">
+                                    {{ $academicDocuments[0]->hsc_marksheet ?? '12th grade marksheet' }}</p>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-hsc-card" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+
+                        <div class="individualmarksheetdocuments">
+                            <p class="document-name">Graduation marksheet</p>
+                            <div class="inputfilecontainer-marksheet">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="graduation-marksheet">
+                                    {{ $academicDocuments[0]->graduation_marksheet ?? 'Graduation Marksheet' }}</p>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-graduation-card" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="myapplication-eightcolumn">
+                <div class="eightcolumn-firstsection">
+                    <div class="eightcolumn-header">
+                        <p>Secured Admissions</p>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                    <div class="secured-admissioncolumn">
+                        <div class="individual-secured-admission-documents">
+                            <p class="document-name">10th Grade</p>
+                            <div class="inputfilecontainer-secured-admission">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="sslc-grade">{{ $securedAdmissions[0]->sslc_grade ?? 'SSLC Grade' }}</p>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-sslc-grade" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-secured-admission-documents">
+                            <p class="document-name">12th Grade</p>
+                            <div class="inputfilecontainer-secured-admission">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="hsc-grade">{{ $securedAdmissions[0]->hsc_grade ?? 'HSC Grade' }}</p>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-hsc-grade" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-secured-admission-documents">
+                            <p class="document-name">Graduation</p>
+                            <div class="inputfilecontainer-secured-admission">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="graduation-grade">
+                                    {{ $securedAdmissions[0]->graduation_grade ?? 'Graduation' }}</p>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-graduation-grade" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="myapplication-ninthcolumn">
+                <div class="ninthcolumn-firstsection">
+                    <div class="ninthcolumn-header">
+                        <p>Work Experience</p>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                    <div class="work-experiencecolumn">
+                        <div class="individual-work-experiencecolumn-documents">
+                            <p class="document-name">Experience Letter</p>
+                            <div class="inputfilecontainer-work-experiencecolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="experience-letter">
+                                    {{ $workExperience[0]->experience_letter ?? 'Experience Letter' }}</p>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-experience-letter" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-work-experience" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-work-experiencecolumn-documents">
+                            <p class="document-name">3 month Salary Slip</p>
+                            <div class="inputfilecontainer-work-experiencecolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="salary-slip">{{ $workExperience[0]->salary_slip ?? '3 month salary slip' }}
+                                </p>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-salary-slip" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-work-experiencecolumn-documents">
+                            <p class="document-name">Office ID</p>
+                            <div class="inputfilecontainer-work-experiencecolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="office-id">{{ $workExperience[0]->office_id ?? 'Office ID' }}</p>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-office-id" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-work-experiencecolumn-documents">
+                            <p class="document-name">Employment Joining Letter</p>
+                            <div class="inputfilecontainer-work-experiencecolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="joining-letter">{{ $workExperience[0]->joining_letter ?? 'Joining Letter' }}
+                                </p>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-joining-letter" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real-marksheet" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="myapplication-tenthcolumn">
+                <div class="tenthcolumn-firstsection">
+                    <div class="tenthcolumn-header">
+                        <p>Co-borrower Documents</p>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                    <div class="coborrower-kyccolumn">
+                        <div class="individual-coborrower-kyc-documents">
+                            <p class="document-name">Pan Card</p>
+                            <div class="inputfilecontainer-coborrower-kyccolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="coborrower-pancard">{{ $coBorrowerDocuments[0]->pan_card ?? 'Pan Card' }}</p>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-coborrower-pan" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-kyccoborrwer" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-coborrower-kyc-documents">
+                            <p class="document-name">Aadhar Card</p>
+                            <div class="inputfilecontainer-coborrower-kyccolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="coborrower-aadharcard">
+                                    {{ $coBorrowerDocuments[0]->aadhar_card ?? 'Aadhar Card' }}</p>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-coborrower-aadhar" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-kyccoborrwer" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                        <div class="individual-coborrower-kyc-documents">
+                            <p class="document-name">Address Proof</p>
+                            <div class="inputfilecontainer-coborrower-kyccolumn">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="coborrower-addressproof">
+                                    {{ $coBorrowerDocuments[0]->address_proof ?? 'Address Proof' }}</p>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}"
+                                    id="view-coborrower-addressproof" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-kyccoborrwer" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="myapplication-eleventhcolumn">
+                <button class="mailnbfcbutton">Send Email to NBFCs</button>
+            </div>
+        </div>
 
 
 
@@ -934,6 +744,8 @@
 
         </section>
 
+
+
         </div>
         <div class="password-change-container-nbfc">
             <div class="password-change-triggered-view-headersection-nbfc">
@@ -984,7 +796,6 @@
                 passwordChangeCheckNbfc();
 
 
-
                 //toggle function
                 // Select the Dashboard and Inbox menu items
                 const dashboardMenuItem = document.querySelector(".nbfcstudentdashboardprofile-sidebarlists-top li:nth-child(1)");
@@ -993,7 +804,6 @@
                 // Select the containers
                 const dashboardSectionsContainer = document.querySelector(".dashboard-sections-container");
 
-                const profileContainer = document.querySelector(".nbfc-studentdashboardprofile-profile-section-container"); // Profile container
 
 
 
@@ -1203,7 +1013,6 @@
                     inboxContainer.style.display = "none";
                     dashboardSectionsContainer.style.display = "grid";
                     // Ensure profile container stays hidden until view button is clicked
-                    profileContainer.style.display = "none";
                     // Set active state for dashboard
                     setActiveMenuItem(dashboardMenuItem);
                 });
@@ -1215,7 +1024,6 @@
                     dashboardSectionsContainer.style.display = "none";
                     inboxContainer.style.display = "block";
                     // Hide profile container when inbox is clicked
-                    profileContainer.style.display = "none";
                     // Set active state for inbox
                     setActiveMenuItem(inboxMenuItem);
                 });
@@ -1224,7 +1032,6 @@
                 // Set initial states
                 dashboardSectionsContainer.style.display = "grid";
                 inboxContainer.style.display = "none";
-                profileContainer.style.display = "none"; // Ensure profile starts hidden
                 // Set initial active state to dashboard
                 setActiveMenuItem(dashboardMenuItem);
 
@@ -1427,98 +1234,6 @@
                 }
 
 
-
-                function createStudentListItem(student) {
-                    const listItem = document.createElement("div");
-                    listItem.classList.add("dashboard-student-item");
-                    listItem.setAttribute("data-id", student.id);
-
-                    const studentInfo = document.createElement("div");
-                    studentInfo.classList.add("dashboard-student-info");
-
-                    const studentName = document.createElement("div");
-                    studentName.classList.add("dashboard-student-name");
-                    studentName.textContent = student.name;
-
-                    const studentId = document.createElement("div");
-                    studentId.classList.add("dashboard-student-id");
-                    studentId.textContent = student.studentId;
-
-                    studentInfo.appendChild(studentName);
-                    studentInfo.appendChild(studentId);
-
-                    const actionButtons = document.createElement("div");
-                    actionButtons.classList.add("dashboard-action-buttons");
-
-                    const viewButton = document.createElement("button");
-                    viewButton.classList.add("dashboard-view-button");
-                    viewButton.innerHTML = '<i class="fa-solid fa-eye eye-icon"></i>';
-
-                    viewButton.addEventListener("click", function () {
-                        // Get all relevant containers
-                        const dashboardContainer = document.querySelector('.dashboard-sections-container');
-                        const profileContainer = document.querySelector('.nbfc-studentdashboardprofile-profile-section-container');
-                        const myApplicationContainer = document.querySelector('.studentdashboardprofile-myapplication');
-
-                        // Hide dashboard container
-                        dashboardContainer.style.display = 'none';
-
-                        // Show profile container
-                        profileContainer.style.display = 'block';
-
-                        // Show my application container and set its display to flex
-                        if (myApplicationContainer) {
-                            myApplicationContainer.style.display = 'flex';
-
-                        }
-                    });
-
-                    const rejectButton = document.createElement("button");
-                    rejectButton.classList.add("dashboard-reject-button");
-                    rejectButton.textContent = "Reject";
-                    rejectButton.addEventListener("click", function () {
-
-
-                        const modal = document.querySelector(".modal-container");
-                        if (modal) {
-                            modal.style.display = 'flex';
-                            alert(student.studentId);
-
-
-
-
-                        }
-
-                        const textArea = document.querySelector(".remarks-textarea");
-                        if (textArea) {
-                            console.log(textArea);
-                            textArea.placeholder = "Enter Remarks for " + student.name;
-                            const finalCallReject = document.querySelector(".reject-application-modal-content .actions .reject-button");
-                            if (finalCallReject) {
-                                finalCallReject.addEventListener('click', () => {
-                                    alert("success");
-
-                                })
-
-                            }
-
-                        } else {
-                            console.log("Textarea not found!");
-                        }
-                    });
-
-
-                    actionButtons.appendChild(viewButton);
-                    actionButtons.appendChild(rejectButton);
-
-                    listItem.appendChild(studentInfo);
-                    listItem.appendChild(actionButtons);
-
-                    return listItem;
-                }
-
-
-                const rejectButtons = document.querySelectorAll(".reject-button");
                 function createStudentListItem(student) {
                     const listItem = document.createElement("div");
                     listItem.classList.add("dashboard-student-item");
@@ -1545,81 +1260,67 @@
                     const viewButton = document.createElement("button");
                     viewButton.classList.add("dashboard-view-button");
                     viewButton.innerHTML = '<i class="fa-solid fa-eye eye-icon"></i>';
+                    viewProfileOfUsers(viewButton);
 
-                    viewButton.addEventListener("click", function () {
-                        const dashboardContainer = document.querySelector('.dashboard-sections-container');
-                        const profileContainer = document.querySelector('.nbfc-studentdashboardprofile-profile-section-container');
-                        const myApplicationContainer = document.querySelector('.studentdashboardprofile-myapplication');
-
-                        if (dashboardContainer && profileContainer) {
-                            dashboardContainer.style.display = 'none';
-                            profileContainer.style.display = 'block';
-                        }
-
-                        if (myApplicationContainer) {
-                            myApplicationContainer.style.display = 'flex';
-                        }
-                    });
 
                     const rejectButton = document.createElement("button");
                     rejectButton.classList.add("dashboard-reject-button");
                     rejectButton.textContent = "Reject";
+
                     rejectButton.addEventListener("click", function () {
                         const modal = document.querySelector(".modal-container");
                         if (modal) {
                             modal.style.display = 'flex';
-                            const textArea = document.querySelector(".remarks-textarea");
 
+                            const textArea = document.querySelector(".remarks-textarea");
                             if (textArea) {
                                 textArea.placeholder = "Enter Remarks for " + student.name;
 
                                 const finalCallReject = document.querySelector(".reject-application-modal-content .actions .reject-button");
 
-                                const newRejectButton = finalCallReject.cloneNode(true);
-                                finalCallReject.replaceWith(newRejectButton);
+                                if (finalCallReject) {
+                                    const newRejectButton = finalCallReject.cloneNode(true);
+                                    finalCallReject.replaceWith(newRejectButton);
 
-                                newRejectButton.addEventListener('click', () => {
-                                    var user = @json(session('user'));
+                                    newRejectButton.addEventListener('click', function () {
+                                        // Fetch session data
+                                        var user = @json(session('user'));
 
+                                        const nbfcId = user.nbfc_id;
+                                        const userId = student.studentId;
+                                        const remarks = textArea.value;
 
+                                        if (nbfcId && userId && remarks) {
+                                            const data = { userId, nbfcId, remarks };
 
-                                    const nbfcId = user.nbfc_id;
-                                    const userId = student.studentId;
-                                    const remarks = textArea.value;
-                                    if (nbfcId && userId && remarks) {
-
-                                        const data = {
-                                            userId, nbfcId, remarks
-                                        };
-
-                                        fetch('/del-user-id-request', {
-                                            method: "POST",
-                                            headers: {
-                                                'Content-Type': 'application/json',
-                                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                                            },
-                                            body: JSON.stringify(data)
-                                        })
-                                            .then((response) => response.json())
-                                            .then((data) => {
-                                                if (data.success) {
-                                                    console.log(data)
-                                                    alert("Remarks submitted for student ID: " + userId);
-                                                    initializeTraceViewNBFC(requestsData, proposalsData);
-
-
-                                                }
-                                                else if (data.error) {
-                                                    console.error(data.error)
-                                                }
+                                            fetch('/del-user-id-request', {
+                                                method: "POST",
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                                },
+                                                body: JSON.stringify(data)
                                             })
-                                            .catch((error) => {
-                                                console.error("Error del data", error);
-                                            })
+                                                .then((response) => response.json())
+                                                .then((data) => {
+                                                    if (data.success) {
+                                                        console.log(data);
+                                                        alert("Remarks submitted for student ID: " + userId);
+                                                        initializeTraceViewNBFC(requestsData, proposalsData);
+                                                    } else if (data.error) {
+                                                        console.error(data.error);
+                                                    }
+                                                })
+                                                .catch((error) => {
+                                                    console.error("Error del data", error);
+                                                });
+                                        }
 
-                                    }
-                                    modal.style.display = 'none';
-                                });
+                                        modal.style.display = 'none';
+                                    });
+                                }
+                            } else {
+                                console.log("Textarea not yet filled!");
                             }
                         } else {
                             console.log("Modal not found!");
@@ -1634,6 +1335,7 @@
 
                     return listItem;
                 }
+
 
 
                 // Populate both the "Requests" and "Proposals" lists
@@ -2057,7 +1759,6 @@
 
             //nbfc-student
             const modalContainer = document.getElementById('modelContainer-send-proposal');
-            const openModalBtn = document.getElementById('openModalBtn');
             const closeButtons = document.querySelectorAll('.nbfc-send-proposal-close-button');
             const fileInput = document.getElementById('fileInput');
             const attachmentBtn = document.getElementById('attachmentBtn');
@@ -2095,7 +1796,6 @@
             });
 
             removeAttachment.addEventListener('click', clearFileInput);
-            openModalBtn.addEventListener('click', openModal);
             closeButtons.forEach(button => button.addEventListener('click', closeModal));
             cancelButton.addEventListener('click', closeModal);
             sendButton.addEventListener('click', closeModal);
@@ -2130,15 +1830,7 @@
                     cancelButton.addEventListener("click", hideRejectModal);
                 }
 
-                // const rejectButtons = document.querySelectorAll(".reject-button");
-                // rejectButtons.forEach((rejectButton) => {
-                //     rejectButton.addEventListener("click", function () {
-                //         alert("Application Rejected");
 
-                //     });
-                // });
-
-                // Close modal when clicking outside the modal
                 if (modalContainer) {
                     modalContainer.addEventListener("click", function (event) {
                         if (event.target === modalContainer) {
@@ -2147,2137 +1839,6 @@
                     });
                 }
             });
-
-        
-            const initialiseSeventhAdditionalColumn = () => {
-                const section = document.querySelector('.seventhcolumn-additional-firstcolumn');
-
-                section.addEventListener('click', function () {
-                    if (section.style.height === '') {
-                        section.style.height = 'fit-content';
-                    } else {
-                        section.style.height = '';
-                    }
-                });
-            };
-
-           
-
-         
-
-// Function to initialize the eighth column
-const initialiseEightcolumn = () => {
-    const section = document.querySelector('.eightcolumn-firstsection');
-    
-    section.addEventListener('click', function() {
-        if (section.style.height === '') {
-            section.style.height = 'fit-content';
-        } else {
-            section.style.height = '';
-        }
-    });
-}
-
-// Function to initialize the ninth column
-const initialiseNinthcolumn = () => {
-    const section = document.querySelector('.ninthcolumn-firstsection');
-    
-    section.addEventListener('click', function() {
-        if (section.style.height === '') {
-            section.style.height = 'fit-content';
-        } else {
-            section.style.height = '';
-        }
-    });
-}
-            let isEditing = false; 
-            
-
-            const initialiseSeventhcolumn = () => {
-                const section = document.querySelector('.seventhcolum-firstsection');
-
-                section.addEventListener('click', function () {
-                    if (section.style.height === '') {
-                        section.style.height = 'fit-content';
-                    } else {
-                        section.style.height = '';
-                    }
-                });
-            };
-
-// Function to initialize the tenth column
-const initialiseTenthcolumn = () => {
-    const section = document.querySelector('.tenthcolumn-firstsection');
-    
-    section.addEventListener('click', function() {
-        if (section.style.height === '') {
-            section.style.height = 'fit-content';
-        } else {
-            section.style.height = '';
-        }
-    });
-}
-
-// Function to initialize all columns at once
-const initialiseAllColumns = () => {
-    initialiseEightcolumn();
-    initialiseNinthcolumn();
-    initialiseTenthcolumn();
-}
-
-// Call this when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', initialiseAllColumns);
-
-
-
-//Student KYC Document
-const initializeKycDocumentUpload = () => {
-    // Get the main container
-    const kycDocumentsColumn = document.getElementById('kycdocumentscolumn-id');
-    
-    // Check if the element exists
-    if (!kycDocumentsColumn) {
-        console.error("KYC documents column not found!");
-        return;
-    }
-    
-    // Get all individual KYC document containers
-    const individualKycDocumentsUpload = kycDocumentsColumn.querySelectorAll(".individualkycdocuments");
-
-    // Helper function to truncate long filenames
-    const truncateFileName = (fileName) => {
-        if (fileName.length > 20) {
-            const extension = fileName.slice(fileName.lastIndexOf('.'));
-            return fileName.slice(0, 17) + '...' + extension;
-        }
-        return fileName;
-    };
-
-    // Process each KYC document container
-    individualKycDocumentsUpload.forEach((card) => {
-        let uploadedFile = null;
-        const documentId = card.id; // Get the ID of the current document container
-        
-        // Get specific elements for this card based on its type
-        let fileInput, fileNameDisplay;
-        
-        if (documentId === 'individualkycdocuments-pan') {
-            fileInput = document.getElementById('inputfilecontainer-real-pancard');
-            fileNameDisplay = card.querySelector('.uploaded-pan-name');
-        } else if (documentId === 'individualkycdocuments-aadhar') {
-            fileInput = document.getElementById('inputfilecontainer-real-aadhar');
-            fileNameDisplay = card.querySelector('.uploaded-aadhar-name');
-        } else if (documentId === 'individualkycdocuments-passport') {
-            fileInput = document.getElementById('inputfilecontainer-real-passposrt');
-            fileNameDisplay = card.querySelector('.passport-name-selector');
-        } else {
-            console.error(`Unknown document type: ${documentId}`);
-            return;
-        }
-        
-        const statusDisplay = card.querySelector('.document-status');
-        const previewIcon = card.querySelector('.fa-eye');
-        
-        // Verify that required elements exist
-        if (!fileInput || !fileNameDisplay || !statusDisplay) {
-            console.error(`Missing required elements for ${documentId}`);
-            return;
-        }
-        
-        console.log(`Initializing ${documentId} with file input: ${fileInput.id}`);
-        
-        // Trigger file input when the container is clicked
-        card.querySelector('.inputfilecontainer').addEventListener('click', function(event) {
-            // Prevent triggering if the eye icon was clicked
-            if (event.target !== previewIcon && !event.target.closest('.fa-eye')) {
-                console.log(`Clicking container for ${documentId}`);
-                fileInput.click();
-            }
-        });
-
-        // Handle file selection and validation
-        fileInput.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-
-            // Ensure file is selected
-            if (!file) return;
-
-            console.log(`Selected file for ${documentId}:`, file);
-
-            // Allowed file types
-            const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
-            const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
-
-            // Validate file type
-            if (!allowedExtensions.includes(fileExtension)) {
-                alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
-                event.target.value = ''; // Clear the file input
-                fileNameDisplay.textContent = 'No file chosen';
-                return;
-            }
-
-            // Validate file size (5MB max)
-            if (file.size > 5 * 1024 * 1024) {
-                alert("Error: File size exceeds 5MB limit.");
-                event.target.value = ''; // Clear the file input
-                fileNameDisplay.textContent = 'No file chosen';
-                return;
-            }
-
-            // Store the file and update UI
-            uploadedFile = file;
-            const truncatedFileName = truncateFileName(file.name);
-            fileNameDisplay.textContent = truncatedFileName;
-
-            // Update file size display
-            const fileSize = file.size < 1024 * 1024
-                ? (file.size / 1024).toFixed(2) + ' KB'
-                : (file.size / (1024 * 1024)).toFixed(2) + ' MB';
-            statusDisplay.textContent = `${fileSize} uploaded`;
-
-            console.log(`File uploaded for ${documentId}:`, uploadedFile);
-        });
-
-        // Handle preview functionality
-        if (previewIcon) {
-            previewIcon.addEventListener('click', function(event) {
-                event.stopPropagation();
-                
-                if (previewIcon.classList.contains('preview-active')) {
-                    // Close preview if it's already active
-                    const previewWrapper = document.querySelector('.pdf-preview-wrapper');
-                    if (previewWrapper) previewWrapper.remove();
-                    const overlay = document.querySelector('.pdf-preview-overlay');
-                    if (overlay) overlay.remove();
-                    previewIcon.classList.remove('preview-active');
-                } else {
-                    // Open preview if a valid file exists
-                    if (uploadedFile && uploadedFile.type === 'application/pdf') {
-                        const reader = new FileReader();
-                        reader.onload = function(event) {
-                            // Create wrapper for the preview
-                            const previewWrapper = document.createElement('div');
-                            previewWrapper.className = 'pdf-preview-wrapper';
-                            previewWrapper.style.cssText = `
-                                position: fixed;
-                                top: 50%;
-                                left: 50%;
-                                transform: translate(-50%, -50%);
-                                width: 90%;
-                                height: 90vh;
-                                background-color: white;
-                                display: flex;
-                                flex-direction: column;
-                                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                                z-index: 1000;
-                            `;
-
-                            // Add overlay
-                            const overlay = document.createElement('div');
-                            overlay.className = 'pdf-preview-overlay';
-                            overlay.style.cssText = `
-                                position: fixed;
-                                top: 0;
-                                left: 0;
-                                width: 100%;
-                                height: 100%;
-                                background-color: rgba(0, 0, 0, 0.5);
-                                z-index: 999;
-                            `;
-
-                            // Create header
-                            const header = document.createElement('div');
-                            header.style.cssText = `
-                                display: flex;
-                                justify-content: space-between;
-                                align-items: center;
-                                padding: 8px 16px;
-                                background-color: #1a1a1a;
-                                color: white;
-                                height: 40px;
-                            `;
-
-                            // Left section with filename
-                            const fileNameSection = document.createElement('div');
-                            fileNameSection.style.cssText = `
-                                display: flex;
-                                align-items: center;
-                                gap: 8px;
-                            `;
-
-                            const fileName = document.createElement('span');
-                            fileName.textContent = uploadedFile.name;
-                            fileName.style.cssText = `
-                                color: white;
-                                font-size: 14px;
-                            `;
-                            fileNameSection.appendChild(fileName);
-
-                            // Middle section with zoom controls
-                            const zoomControls = document.createElement('div');
-                            zoomControls.style.cssText = `
-                                display: flex;
-                                align-items: center;
-                                gap: 12px;
-                                position: absolute;
-                                left: 50%;
-                                transform: translateX(-50%);
-                            `;
-
-                            const zoomOut = document.createElement('button');
-                            zoomOut.innerHTML = '&#8722;';
-                            const zoomIn = document.createElement('button');
-                            zoomIn.innerHTML = '&#43;';
-
-                            [zoomOut, zoomIn].forEach(btn => {
-                                btn.style.cssText = `
-                                    background: none;
-                                    border: none;
-                                    color: white;
-                                    font-size: 18px;
-                                    cursor: pointer;
-                                    padding: 4px 8px;
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                `;
-                            });
-
-                            zoomControls.appendChild(zoomOut);
-                            zoomControls.appendChild(zoomIn);
-
-                            // Close button
-                            const closeButton = document.createElement('button');
-                            closeButton.innerHTML = '&#10005;';
-                            closeButton.style.cssText = `
-                                background: none;
-                                border: none;
-                                color: white;
-                                font-size: 18px;
-                                cursor: pointer;
-                                padding: 4px;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                            `;
-
-                            const closePreview = () => {
-                                previewWrapper.remove();
-                                overlay.remove();
-                                previewIcon.classList.remove('preview-active');
-                            };
-
-                            closeButton.addEventListener('click', closePreview);
-                            overlay.addEventListener('click', closePreview);
-
-                            // Assemble header
-                            header.appendChild(fileNameSection);
-                            header.appendChild(zoomControls);
-                            header.appendChild(closeButton);
-
-                            // Create iframe for PDF content
-                            const iframe = document.createElement('iframe');
-                            iframe.src = event.target.result;
-                            iframe.style.cssText = `
-                                width: 100%;
-                                height: calc(100% - 40px);
-                                border: none;
-                                background-color: white;
-                            `;
-
-                            // Assemble the preview
-                            previewWrapper.appendChild(header);
-                            previewWrapper.appendChild(iframe);
-
-                            // Add to document body
-                            document.body.appendChild(overlay);
-                            document.body.appendChild(previewWrapper);
-
-                            // Add zoom functionality
-                            let currentZoom = 100;
-                            zoomIn.addEventListener('click', () => {
-                                currentZoom += 10;
-                                iframe.style.transform = `scale(${currentZoom / 100})`;
-                                iframe.style.transformOrigin = 'top center';
-                            });
-
-                            zoomOut.addEventListener('click', () => {
-                                currentZoom = Math.max(currentZoom - 10, 50);
-                                iframe.style.transform = `scale(${currentZoom / 100})`;
-                                iframe.style.transformOrigin = 'top center';
-                            });
-
-                            // Add keyboard shortcut for closing
-                            document.addEventListener('keydown', function(e) {
-                                if (e.key === 'Escape') {
-                                    closePreview();
-                                }
-                            });
-                        };
-                        reader.readAsDataURL(uploadedFile);
-                        previewIcon.classList.add('preview-active');
-                    } else if (uploadedFile && (uploadedFile.type.includes('image'))) {
-                        // Create image preview for image files
-                        const reader = new FileReader();
-                        reader.onload = function(event) {
-                            // Create overlay and wrapper similar to PDF preview
-                            const previewWrapper = document.createElement('div');
-                            previewWrapper.className = 'image-preview-wrapper';
-                            previewWrapper.style.cssText = `
-                                position: fixed;
-                                top: 50%;
-                                left: 50%;
-                                transform: translate(-50%, -50%);
-                                width: 90%;
-                                max-width: 800px;
-                                max-height: 90vh;
-                                background-color: white;
-                                display: flex;
-                                flex-direction: column;
-                                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                                z-index: 1000;
-                            `;
-
-                            const overlay = document.createElement('div');
-                            overlay.className = 'image-preview-overlay';
-                            overlay.style.cssText = `
-                                position: fixed;
-                                top: 0;
-                                left: 0;
-                                width: 100%;
-                                height: 100%;
-                                background-color: rgba(0, 0, 0, 0.5);
-                                z-index: 999;
-                            `;
-
-                            // Create header with filename and close button
-                            const header = document.createElement('div');
-                            header.style.cssText = `
-                                display: flex;
-                                justify-content: space-between;
-                                align-items: center;
-                                padding: 8px 16px;
-                                background-color: #1a1a1a;
-                                color: white;
-                                height: 40px;
-                            `;
-
-                            const fileName = document.createElement('span');
-                            fileName.textContent = uploadedFile.name;
-                            fileName.style.cssText = `
-                                color: white;
-                                font-size: 14px;
-                            `;
-
-                            const closeButton = document.createElement('button');
-                            closeButton.innerHTML = '&#10005;';
-                            closeButton.style.cssText = `
-                                background: none;
-                                border: none;
-                                color: white;
-                                font-size: 18px;
-                                cursor: pointer;
-                                padding: 4px;
-                            `;
-
-                            const closePreview = () => {
-                                previewWrapper.remove();
-                                overlay.remove();
-                                previewIcon.classList.remove('preview-active');
-                            };
-
-                            closeButton.addEventListener('click', closePreview);
-                            overlay.addEventListener('click', closePreview);
-
-                            header.appendChild(fileName);
-                            header.appendChild(closeButton);
-
-                            // Create image container
-                            const imageContainer = document.createElement('div');
-                            imageContainer.style.cssText = `
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-                                padding: 20px;
-                                overflow: auto;
-                                height: calc(100% - 40px);
-                                background-color: #f5f5f5;
-                            `;
-
-                            const img = document.createElement('img');
-                            img.src = event.target.result;
-                            img.style.cssText = `
-                                max-width: 100%;
-                                max-height: 100%;
-                                object-fit: contain;
-                            `;
-
-                            imageContainer.appendChild(img);
-                            previewWrapper.appendChild(header);
-                            previewWrapper.appendChild(imageContainer);
-
-                            document.body.appendChild(overlay);
-                            document.body.appendChild(previewWrapper);
-
-                            // Add keyboard shortcut for closing
-                            document.addEventListener('keydown', function(e) {
-                                if (e.key === 'Escape') {
-                                    closePreview();
-                                }
-                            });
-                        };
-                        reader.readAsDataURL(uploadedFile);
-                        previewIcon.classList.add('preview-active');
-                    } else {
-                        alert('Please upload a valid PDF or image file to preview.');
-                    }
-                }
-            });
-        }
-    });
-
-   
-};
-
-// Initialize when DOM is fully loaded
-document.addEventListener('DOMContentLoaded', function() {
-    initializeKycDocumentUpload();
-});
-
-
-//Academic Marksheets
-
-const initializeMarksheetDocumentUpload = () => {
-    const marksheetDocuments = document.querySelectorAll(".individualmarksheetdocuments");
-
-    marksheetDocuments.forEach((card) => {
-        let uploadedFile = null;
-        const inputId = card.querySelector('input[type="file"]').id;
-        const documentTypeText = card.querySelector('.document-name').textContent.trim();
-        
-        // Get the specific preview icon
-        const previewIconId = card.querySelector('.fa-eye').id;
-
-        // Trigger file input when the container is clicked
-        card.querySelector('.inputfilecontainer-marksheet').addEventListener('click', function (event) {
-            // Prevent triggering if clicking on the eye icon
-            if (!event.target.classList.contains('fa-eye') && !event.target.id.startsWith('view-')) {
-                card.querySelector(`#${inputId}`).click();
-            }
-        });
-
-        // Handle file selection and validation
-        card.querySelector(`#${inputId}`).addEventListener('change', function (event) {
-            const file = event.target.files[0];
-
-            // Ensure file is selected
-            if (!file) return;
-
-            console.log(`Selected file for ${documentTypeText}:`, file);  // Debug log
-
-            // Allowed file types
-            const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
-            const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
-
-            // Validate file type
-            if (!allowedExtensions.includes(fileExtension)) {
-                alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
-                event.target.value = ''; // Clear the file input
-                
-                // Reset the text inside the respective document type element
-                const documentTypeElement = getDocumentTypeElement(card);
-                if (documentTypeElement) {
-                    documentTypeElement.textContent = getOriginalText(documentTypeElement);
-                }
-                
-                return;
-            }
-
-            // Validate file size (5MB max)
-            if (file.size > 5 * 1024 * 1024) {
-                alert("Error: File size exceeds 5MB limit.");
-                event.target.value = ''; // Clear the file input
-                
-                // Reset the text inside the respective document type element
-                const documentTypeElement = getDocumentTypeElement(card);
-                if (documentTypeElement) {
-                    documentTypeElement.textContent = getOriginalText(documentTypeElement);
-                }
-                
-                return;
-            }
-
-            // Store the file and update UI
-            uploadedFile = file;
-            
-            // Update the text in the specific document type element
-            const documentTypeElement = getDocumentTypeElement(card);
-            if (documentTypeElement) {
-                documentTypeElement.textContent = truncateFileName(file.name);
-            }
-
-            const fileSize = file.size < 1024 * 1024
-                ? (file.size / 1024).toFixed(2) + ' KB'
-                : (file.size / (1024 * 1024)).toFixed(2) + ' MB';
-            card.querySelector('.document-status').textContent = `${fileSize} Uploaded`;
-
-            console.log(`File uploaded for ${documentTypeText}:`, uploadedFile);  // Debug log
-        });
-
-        // Helper function to get the correct document type element
-        function getDocumentTypeElement(card) {
-            if (card.querySelector('.sslc-marksheet')) return card.querySelector('.sslc-marksheet');
-            if (card.querySelector('.hsc-marksheet')) return card.querySelector('.hsc-marksheet');
-            if (card.querySelector('.graduation-marksheet')) return card.querySelector('.graduation-marksheet');
-            return null;
-        }
-        
-        // Helper function to get original text
-        function getOriginalText(element) {
-            if (element.classList.contains('sslc-marksheet')) return '10th grade marksheet';
-            if (element.classList.contains('hsc-marksheet')) return '12th grade marksheet';
-            if (element.classList.contains('graduation-marksheet')) return 'Graduation Marksheet';
-            return 'No file chosen';
-        }
-
-        // Handle preview functionality
-        card.querySelector(`#${previewIconId}`).addEventListener('click', function (event) {
-            event.stopPropagation();
-            
-            // Reference to preview icon
-            const eyeIcon = this;
-
-            if (eyeIcon.classList.contains('preview-active')) {
-                const previewWrapper = document.querySelector('.pdf-preview-wrapper, .image-preview-wrapper');
-                if (previewWrapper) previewWrapper.remove();
-                const overlay = document.querySelector('.pdf-preview-overlay, .image-preview-overlay');
-                if (overlay) overlay.remove();
-                eyeIcon.classList.remove('preview-active');
-            } else {
-                if (uploadedFile && uploadedFile.type === 'application/pdf') {
-                    const reader = new FileReader();
-                    reader.onload = function (event) {
-                        // Create wrapper for the preview
-                        const previewWrapper = document.createElement('div');
-                        previewWrapper.className = 'pdf-preview-wrapper';
-                        previewWrapper.style.cssText = `
-                            position: fixed;
-                            top: 50%;
-                            left: 50%;
-                            transform: translate(-50%, -50%);
-                            width: 98%;
-                            height: 90%;
-                            background-color: white;
-                            display: flex;
-                            flex-direction: column;
-                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                            z-index: 1000;
-                        `;
-
-                        // Add overlay
-                        const overlay = document.createElement('div');
-                        overlay.className = 'pdf-preview-overlay';
-                        overlay.style.cssText = `
-                            position: fixed;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            background-color: rgba(0, 0, 0, 0.5);
-                            z-index: 999;
-                        `;
-
-                        // Create a simple header with just filename and close button
-                        const header = document.createElement('div');
-                        header.className = 'pdf-preview-header';
-                        header.style.cssText = `
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            padding: 0 16px;
-                            background-color: #1a1a1a;
-                            color: white;
-                            height: 40px;
-                            width: 100%;
-                            margin-top:50px;
-                        `;
-
-                        // File name on left
-                        const fileNameElement = document.createElement('div');
-                        fileNameElement.className = 'pdf-filename';
-                        fileNameElement.textContent = uploadedFile.name;
-                        fileNameElement.style.cssText = `
-                            color: white;
-                            font-size: 14px;
-                            font-weight: normal;
-                            max-width: 80%;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            white-space: nowrap;
-                            padding: 8px 0;
-                        `;
-
-                        // Close button on right
-                        const closeBtn = document.createElement('button');
-                        closeBtn.className = 'pdf-close-button';
-                        closeBtn.innerHTML = '✕'; // X symbol
-                        closeBtn.style.cssText = `
-                            background: none;
-                            border: none;
-                            color: white;
-                            font-size: 20px;
-                            font-weight: bold;
-                            cursor: pointer;
-                            padding: 0 8px;
-                            line-height: 1;
-                        `;
-
-                        const closePreview = () => {
-                            previewWrapper.remove();
-                            overlay.remove();
-                            eyeIcon.classList.remove('preview-active');
-                        };
-
-                        closeBtn.addEventListener('click', closePreview);
-                        overlay.addEventListener('click', closePreview);
-
-                        // Add elements to header
-                        header.appendChild(fileNameElement);
-                        header.appendChild(closeBtn);
-
-                        // Create iframe for PDF content
-                        const iframe = document.createElement('iframe');
-                        iframe.src = event.target.result;
-                        iframe.style.cssText = `
-                            width: 100%;
-                            height: calc(100% - 40px);
-                            border: none;
-                            background-color: white;
-                        `;
-
-                        // Assemble the preview
-                        previewWrapper.appendChild(header);
-                        previewWrapper.appendChild(iframe);
-
-                        // Add to document body
-                        document.body.appendChild(overlay);
-                        document.body.appendChild(previewWrapper);
-
-                        // Add keyboard shortcut for closing
-                        document.addEventListener('keydown', function (e) {
-                            if (e.key === 'Escape') {
-                                closePreview();
-                            }
-                        });
-                    };
-                    reader.readAsDataURL(uploadedFile);
-                    eyeIcon.classList.add('preview-active');
-                } else if (uploadedFile && (uploadedFile.type.startsWith('image/'))) {
-                    // Image preview
-                    const reader = new FileReader();
-                    reader.onload = function (event) {
-                        // Create wrapper for the preview
-                        const previewWrapper = document.createElement('div');
-                        previewWrapper.className = 'image-preview-wrapper';
-                        previewWrapper.style.cssText = `
-                            position: fixed;
-                            top: 50%;
-                            left: 50%;
-                            transform: translate(-50%, -50%);
-                            width: 90%;
-                            max-width: 800px;
-                            max-height: 90vh;
-                            background-color: white;
-                            display: flex;
-                            flex-direction: column;
-                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                            z-index: 1000;
-                        `;
-
-                        // Add overlay
-                        const overlay = document.createElement('div');
-                        overlay.className = 'image-preview-overlay';
-                        overlay.style.cssText = `
-                            position: fixed;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            background-color: rgba(0, 0, 0, 0.5);
-                            z-index: 999;
-                        `;
-
-                        // Create a simple header with just filename and close button
-                        const header = document.createElement('div');
-                        header.className = 'image-preview-header';
-                        header.style.cssText = `
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            padding: 0 16px;
-                            background-color: #1a1a1a;
-                            color: white;
-                            height: 40px;
-                            width: 100%;
-                            margin-top:50px;
-                        `;
-
-                        // File name on left
-                        const fileNameElement = document.createElement('div');
-                        fileNameElement.className = 'image-filename';
-                        fileNameElement.textContent = uploadedFile.name;
-                        fileNameElement.style.cssText = `
-                            color: white;
-                            font-size: 14px;
-                            font-weight: normal;
-                            max-width: 80%;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            white-space: nowrap;
-                            padding: 8px 0;
-                        `;
-
-                        // Close button on right
-                        const closeBtn = document.createElement('button');
-                        closeBtn.className = 'image-close-button';
-                        closeBtn.innerHTML = '✕'; // X symbol
-                        closeBtn.style.cssText = `
-                            background: none;
-                            border: none;
-                            color: white;
-                            font-size: 20px;
-                            font-weight: bold;
-                            cursor: pointer;
-                            padding: 0 8px;
-                            line-height: 1;
-                        `;
-
-                        const closePreview = () => {
-                            previewWrapper.remove();
-                            overlay.remove();
-                            eyeIcon.classList.remove('preview-active');
-                        };
-
-                        closeBtn.addEventListener('click', closePreview);
-                        overlay.addEventListener('click', closePreview);
-
-                        // Add elements to header
-                        header.appendChild(fileNameElement);
-                        header.appendChild(closeBtn);
-
-                        // Create image element
-                        const imageContainer = document.createElement('div');
-                        imageContainer.style.cssText = `
-                            width: 100%;
-                            height: calc(100% - 40px);
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            overflow: auto;
-                            padding: 20px;
-                            background-color: #f0f0f0;
-                        `;
-
-                        const img = document.createElement('img');
-                        img.src = event.target.result;
-                        img.style.cssText = `
-                            max-width: 100%;
-                            max-height: 80vh;
-                            object-fit: contain;
-                        `;
-
-                        imageContainer.appendChild(img);
-
-                        // Assemble the preview
-                        previewWrapper.appendChild(header);
-                        previewWrapper.appendChild(imageContainer);
-
-                        // Add to document body
-                        document.body.appendChild(overlay);
-                        document.body.appendChild(previewWrapper);
-
-                        // Add keyboard shortcut for closing
-                        document.addEventListener('keydown', function (e) {
-                            if (e.key === 'Escape') {
-                                closePreview();
-                            }
-                        });
-                    };
-                    reader.readAsDataURL(uploadedFile);
-                    eyeIcon.classList.add('preview-active');
-                } else {
-                    alert('Please upload a valid PDF or image file to preview.');
-                }
-            }
-        });
-    });
-};
-
-// Helper function to truncate file names
-function truncateFileName(fileName) {
-    if (fileName.length <= 20) return fileName;
-    
-    const extension = fileName.slice(fileName.lastIndexOf('.'));
-    const name = fileName.slice(0, fileName.lastIndexOf('.'));
-    
-    return name.slice(0, 16) + '...' + extension;
-}
-
-// Initialize the marksheet document uploads when the page loads
-document.addEventListener('DOMContentLoaded', function() {
-    initializeMarksheetDocumentUpload();
-    
-   
-});
-
-
-
-//secure admission
-
-const initializeSecuredAdmissionDocumentUpload = () => {
-    const securedAdmissionDocuments = document.querySelectorAll(".individual-secured-admission-documents");
-
-    securedAdmissionDocuments.forEach((card) => {
-        let uploadedFile = null;
-        const inputId = card.querySelector('input[type="file"]').id;
-        const documentTypeText = card.querySelector('.document-name').textContent.trim();
-        
-        // Get the specific preview icon
-        const previewIconId = card.querySelector('.fa-eye').id;
-
-        // Trigger file input when the container is clicked
-        card.querySelector('.inputfilecontainer-secured-admission').addEventListener('click', function (event) {
-            // Prevent triggering if clicking on the eye icon
-            if (!event.target.classList.contains('fa-eye') && !event.target.id.startsWith('view-')) {
-                card.querySelector(`#${inputId}`).click();
-            }
-        });
-
-        // Handle file selection and validation
-        card.querySelector(`#${inputId}`).addEventListener('change', function (event) {
-            const file = event.target.files[0];
-
-            // Ensure file is selected
-            if (!file) return;
-
-            console.log(`Selected file for ${documentTypeText}:`, file);  // Debug log
-
-            // Allowed file types
-            const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
-            const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
-
-            // Validate file type
-            if (!allowedExtensions.includes(fileExtension)) {
-                alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
-                event.target.value = ''; // Clear the file input
-                
-                // Reset the text inside the respective document type element
-                const documentTypeElement = getDocumentTypeElement(card);
-                if (documentTypeElement) {
-                    documentTypeElement.textContent = getOriginalText(documentTypeElement);
-                }
-                
-                return;
-            }
-
-            // Validate file size (5MB max)
-            if (file.size > 5 * 1024 * 1024) {
-                alert("Error: File size exceeds 5MB limit.");
-                event.target.value = ''; // Clear the file input
-                
-                // Reset the text inside the respective document type element
-                const documentTypeElement = getDocumentTypeElement(card);
-                if (documentTypeElement) {
-                    documentTypeElement.textContent = getOriginalText(documentTypeElement);
-                }
-                
-                return;
-            }
-
-            // Store the file and update UI
-            uploadedFile = file;
-            
-            // Update the text in the specific document type element
-            const documentTypeElement = getDocumentTypeElement(card);
-            if (documentTypeElement) {
-                documentTypeElement.textContent = truncateFileName(file.name);
-            }
-
-            const fileSize = file.size < 1024 * 1024
-                ? (file.size / 1024).toFixed(2) + ' KB'
-                : (file.size / (1024 * 1024)).toFixed(2) + ' MB';
-            card.querySelector('.document-status').textContent = `${fileSize} Uploaded`;
-
-            console.log(`File uploaded for ${documentTypeText}:`, uploadedFile);  // Debug log
-        });
-
-        // Helper function to get the correct document type element
-        function getDocumentTypeElement(card) {
-            if (card.querySelector('.sslc-grade')) return card.querySelector('.sslc-grade');
-            if (card.querySelector('.hsc-grade')) return card.querySelector('.hsc-grade');
-            if (card.querySelector('.graduation-grade')) return card.querySelector('.graduation-grade');
-            return null;
-        }
-        
-        // Helper function to get original text
-        function getOriginalText(element) {
-            if (element.classList.contains('sslc-grade')) return 'SSLC Grade';
-            if (element.classList.contains('hsc-grade')) return 'HSC Grade';
-            if (element.classList.contains('graduation-grade')) return 'Graduation';
-            return 'No file chosen';
-        }
-
-        // Handle preview functionality
-        card.querySelector(`#${previewIconId}`).addEventListener('click', function (event) {
-            event.stopPropagation();
-            
-            // Reference to preview icon
-            const eyeIcon = this;
-
-            if (eyeIcon.classList.contains('preview-active')) {
-                const previewWrapper = document.querySelector('.pdf-preview-wrapper, .image-preview-wrapper');
-                if (previewWrapper) previewWrapper.remove();
-                const overlay = document.querySelector('.pdf-preview-overlay, .image-preview-overlay');
-                if (overlay) overlay.remove();
-                eyeIcon.classList.remove('preview-active');
-            } else {
-                if (uploadedFile && uploadedFile.type === 'application/pdf') {
-                    const reader = new FileReader();
-                    reader.onload = function (event) {
-                        // Create wrapper for the preview
-                        const previewWrapper = document.createElement('div');
-                        previewWrapper.className = 'pdf-preview-wrapper';
-                        previewWrapper.style.cssText = `
-                            position: fixed;
-                            top: 50%;
-                            left: 50%;
-                            transform: translate(-50%, -50%);
-                            width: 98%;
-                            height: 90%;
-                            background-color: white;
-                            display: flex;
-                            flex-direction: column;
-                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                            z-index: 1000;
-                        `;
-
-                        // Add overlay
-                        const overlay = document.createElement('div');
-                        overlay.className = 'pdf-preview-overlay';
-                        overlay.style.cssText = `
-                            position: fixed;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            background-color: rgba(0, 0, 0, 0.5);
-                            z-index: 999;
-                        `;
-
-                        // SIMPLIFIED HEADER APPROACH
-                        // Create a simple header with just filename and close button
-                        const header = document.createElement('div');
-                        header.className = 'pdf-preview-header';
-                        header.style.cssText = `
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            padding: 0 16px;
-                            background-color: #1a1a1a;
-                            color: white;
-                            height: 40px;
-                            width: 100%;
-                            margin-top:50px;
-                        `;
-
-                        // File name on left
-                        const fileNameElement = document.createElement('div');
-                        fileNameElement.className = 'pdf-filename';
-                        fileNameElement.textContent = uploadedFile.name;
-                        fileNameElement.style.cssText = `
-                            color: white;
-                            font-size: 14px;
-                            font-weight: normal;
-                            max-width: 80%;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            white-space: nowrap;
-                            padding: 8px 0;
-                        `;
-
-                        // Close button on right
-                        const closeBtn = document.createElement('button');
-                        closeBtn.className = 'pdf-close-button';
-                        closeBtn.innerHTML = '✕'; // X symbol
-                        closeBtn.style.cssText = `
-                            background: none;
-                            border: none;
-                            color: white;
-                            font-size: 20px;
-                            font-weight: bold;
-                            cursor: pointer;
-                            padding: 0 8px;
-                            line-height: 1;
-                        `;
-
-                        const closePreview = () => {
-                            previewWrapper.remove();
-                            overlay.remove();
-                            eyeIcon.classList.remove('preview-active');
-                        };
-
-                        closeBtn.addEventListener('click', closePreview);
-                        overlay.addEventListener('click', closePreview);
-
-                        // Add elements to header
-                        header.appendChild(fileNameElement);
-                        header.appendChild(closeBtn);
-
-                        // Create iframe for PDF content
-                        const iframe = document.createElement('iframe');
-                        iframe.src = event.target.result;
-                        iframe.style.cssText = `
-                            width: 100%;
-                            height: calc(100% - 40px);
-                            border: none;
-                            background-color: white;
-                        `;
-
-                        // Assemble the preview
-                        previewWrapper.appendChild(header);
-                        previewWrapper.appendChild(iframe);
-
-                        // Add to document body
-                        document.body.appendChild(overlay);
-                        document.body.appendChild(previewWrapper);
-
-                        // Add keyboard shortcut for closing
-                        document.addEventListener('keydown', function (e) {
-                            if (e.key === 'Escape') {
-                                closePreview();
-                            }
-                        });
-                    };
-                    reader.readAsDataURL(uploadedFile);
-                    eyeIcon.classList.add('preview-active');
-                } else if (uploadedFile && (uploadedFile.type.startsWith('image/'))) {
-                    // Image preview
-                    const reader = new FileReader();
-                    reader.onload = function (event) {
-                        // Create wrapper for the preview
-                        const previewWrapper = document.createElement('div');
-                        previewWrapper.className = 'image-preview-wrapper';
-                        previewWrapper.style.cssText = `
-                            position: fixed;
-                            top: 50%;
-                            left: 50%;
-                            transform: translate(-50%, -50%);
-                            width: 90%;
-                            max-width: 800px;
-                            max-height: 90vh;
-                            background-color: white;
-                            display: flex;
-                            flex-direction: column;
-                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                            z-index: 1000;
-                        `;
-
-                        // Add overlay
-                        const overlay = document.createElement('div');
-                        overlay.className = 'image-preview-overlay';
-                        overlay.style.cssText = `
-                            position: fixed;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            background-color: rgba(0, 0, 0, 0.5);
-                            z-index: 999;
-                        `;
-
-                        // Create a simple header with just filename and close button
-                        const header = document.createElement('div');
-                        header.className = 'image-preview-header';
-                        header.style.cssText = `
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            padding: 0 16px;
-                            background-color: #1a1a1a;
-                            color: white;
-                            height: 40px;
-                            width: 100%;
-                        `;
-
-                        // File name on left
-                        const fileNameElement = document.createElement('div');
-                        fileNameElement.className = 'image-filename';
-                        fileNameElement.textContent = uploadedFile.name;
-                        fileNameElement.style.cssText = `
-                            color: white;
-                            font-size: 14px;
-                            font-weight: normal;
-                            max-width: 80%;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            white-space: nowrap;
-                            padding: 8px 0;
-                        `;
-
-                        // Close button on right
-                        const closeBtn = document.createElement('button');
-                        closeBtn.className = 'image-close-button';
-                        closeBtn.innerHTML = '✕'; // X symbol
-                        closeBtn.style.cssText = `
-                            background: none;
-                            border: none;
-                            color: white;
-                            font-size: 20px;
-                            font-weight: bold;
-                            cursor: pointer;
-                            padding: 0 8px;
-                            line-height: 1;
-                        `;
-
-                        const closePreview = () => {
-                            previewWrapper.remove();
-                            overlay.remove();
-                            eyeIcon.classList.remove('preview-active');
-                        };
-
-                        closeBtn.addEventListener('click', closePreview);
-                        overlay.addEventListener('click', closePreview);
-
-                        // Add elements to header
-                        header.appendChild(fileNameElement);
-                        header.appendChild(closeBtn);
-
-                        // Create image element
-                        const imageContainer = document.createElement('div');
-                        imageContainer.style.cssText = `
-                            width: 100%;
-                            height: calc(100% - 40px);
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            overflow: auto;
-                            padding: 20px;
-                            background-color: #f0f0f0;
-                        `;
-
-                        const img = document.createElement('img');
-                        img.src = event.target.result;
-                        img.style.cssText = `
-                            max-width: 100%;
-                            max-height: 80vh;
-                            object-fit: contain;
-                        `;
-
-                        imageContainer.appendChild(img);
-
-                        // Assemble the preview
-                        previewWrapper.appendChild(header);
-                        previewWrapper.appendChild(imageContainer);
-
-                        // Add to document body
-                        document.body.appendChild(overlay);
-                        document.body.appendChild(previewWrapper);
-
-                        // Add keyboard shortcut for closing
-                        document.addEventListener('keydown', function (e) {
-                            if (e.key === 'Escape') {
-                                closePreview();
-                            }
-                        });
-                    };
-                    reader.readAsDataURL(uploadedFile);
-                    eyeIcon.classList.add('preview-active');
-                } else {
-                    alert('Please upload a valid PDF or image file to preview.');
-                }
-            }
-        });
-    });
-};
-
-// Helper function to truncate file names
-function truncateFileName(fileName) {
-    if (fileName.length <= 20) return fileName;
-    
-    const extension = fileName.slice(fileName.lastIndexOf('.'));
-    const name = fileName.slice(0, fileName.lastIndexOf('.'));
-    
-    return name.slice(0, 16) + '...' + extension;
-}
-
-// Initialize the document uploads when the page loads
-document.addEventListener('DOMContentLoaded', function() {
-    initializeSecuredAdmissionDocumentUpload();
-});
-
-
-
-
-//work experience
-
-const initializeWorkExperienceDocumentById = (documentId) => {
-    const card = document.getElementById(documentId);
-    
-    if (!card) {
-        console.error(`Element with ID '${documentId}' not found.`);
-        return;
-    }
-    
-    let uploadedFile = null;
-    const inputElement = card.querySelector('input[type="file"]');
-    const documentTypeText = card.querySelector('.document-name').textContent.trim();
-    const previewIcon = card.querySelector('.fa-eye');
-    
-    if (!inputElement || !previewIcon) {
-        console.error(`Required elements not found in '${documentId}'.`);
-        return;
-    }
-    
-    const inputId = inputElement.id;
-    const previewIconId = previewIcon.id;
-
-    // Trigger file input when the container is clicked
-    card.querySelector('.inputfilecontainer-work-experiencecolumn').addEventListener('click', function (event) {
-        // Prevent triggering if clicking on the eye icon
-        if (!event.target.classList.contains('fa-eye') && !event.target.id.startsWith('view-')) {
-            card.querySelector(`#${inputId}`).click();
-        }
-    });
-
-    // Handle file selection and validation
-    card.querySelector(`#${inputId}`).addEventListener('change', function (event) {
-        const file = event.target.files[0];
-
-        // Ensure file is selected
-        if (!file) return;
-
-        console.log(`Selected file for ${documentTypeText}:`, file);  // Debug log
-
-        // Allowed file types
-        const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
-        const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
-
-        // Validate file type
-        if (!allowedExtensions.includes(fileExtension)) {
-            alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
-            event.target.value = ''; // Clear the file input
-            
-            // Reset the text inside the respective document type element
-            const documentTypeElement = getDocumentTypeElement(card);
-            if (documentTypeElement) {
-                documentTypeElement.textContent = getOriginalText(documentTypeElement);
-            }
-            
-            return;
-        }
-
-        // Validate file size (5MB max)
-        if (file.size > 5 * 1024 * 1024) {
-            alert("Error: File size exceeds 5MB limit.");
-            event.target.value = ''; // Clear the file input
-            
-            // Reset the text inside the respective document type element
-            const documentTypeElement = getDocumentTypeElement(card);
-            if (documentTypeElement) {
-                documentTypeElement.textContent = getOriginalText(documentTypeElement);
-            }
-            
-            return;
-        }
-
-        // Store the file and update UI
-        uploadedFile = file;
-        
-        // Update the text in the specific document type element
-        const documentTypeElement = getDocumentTypeElement(card);
-        if (documentTypeElement) {
-            documentTypeElement.textContent = truncateFileName(file.name);
-        }
-
-        const fileSize = file.size < 1024 * 1024
-            ? (file.size / 1024).toFixed(2) + ' KB'
-            : (file.size / (1024 * 1024)).toFixed(2) + ' MB';
-        card.querySelector('.document-status').textContent = `${fileSize} Uploaded`;
-
-        console.log(`File uploaded for ${documentTypeText}:`, uploadedFile);  // Debug log
-    });
-
-    // Helper function to get the correct document type element
-    function getDocumentTypeElement(card) {
-        if (card.querySelector('.experience-letter')) return card.querySelector('.experience-letter');
-        if (card.querySelector('.salary-slip')) return card.querySelector('.salary-slip');
-        if (card.querySelector('.office-id')) return card.querySelector('.office-id');
-        if (card.querySelector('.joining-letter')) return card.querySelector('.joining-letter');
-        return null;
-    }
-    
-    // Helper function to get original text
-    function getOriginalText(element) {
-        if (element.classList.contains('experience-letter')) return 'Experience Letter';
-        if (element.classList.contains('salary-slip')) return '3 month salary slip';
-        if (element.classList.contains('office-id')) return 'Office ID';
-        if (element.classList.contains('joining-letter')) return 'Joining Letter';
-        return 'No file chosen';
-    }
-
-    // Handle preview functionality
-    card.querySelector(`#${previewIconId}`).addEventListener('click', function (event) {
-        event.stopPropagation();
-        
-        // Reference to preview icon
-        const eyeIcon = this;
-
-        if (eyeIcon.classList.contains('preview-active')) {
-            const previewWrapper = document.querySelector('.pdf-preview-wrapper, .image-preview-wrapper');
-            if (previewWrapper) previewWrapper.remove();
-            const overlay = document.querySelector('.pdf-preview-overlay, .image-preview-overlay');
-            if (overlay) overlay.remove();
-            eyeIcon.classList.remove('preview-active');
-        } else {
-            if (uploadedFile && uploadedFile.type === 'application/pdf') {
-                createPDFPreview(uploadedFile, eyeIcon);
-            } else if (uploadedFile && (uploadedFile.type.startsWith('image/'))) {
-                createImagePreview(uploadedFile, eyeIcon);
-            } else {
-                alert('Please upload a valid PDF or image file to preview.');
-            }
-        }
-    });
-
-    // Create PDF preview
-    function createPDFPreview(file, eyeIcon) {
-        const reader = new FileReader();
-        reader.onload = function (event) {
-            // Create wrapper for the preview
-            const previewWrapper = document.createElement('div');
-            previewWrapper.className = 'pdf-preview-wrapper';
-            previewWrapper.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 98%;
-                height: 90%;
-                background-color: white;
-                display: flex;
-                flex-direction: column;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                z-index: 1000;
-            `;
-
-            // Add overlay
-            const overlay = document.createElement('div');
-            overlay.className = 'pdf-preview-overlay';
-            overlay.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5);
-                z-index: 999;
-            `;
-
-            // Create header
-            const header = document.createElement('div');
-            header.className = 'pdf-preview-header';
-            header.style.cssText = `
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 0 16px;
-                background-color: #1a1a1a;
-                color: white;
-                height: 40px;
-                width: 100%;
-                margin-top:50px;
-            `;
-
-            // File name on left
-            const fileNameElement = document.createElement('div');
-            fileNameElement.className = 'pdf-filename';
-            fileNameElement.textContent = file.name;
-            fileNameElement.style.cssText = `
-                color: white;
-                font-size: 14px;
-                font-weight: normal;
-                max-width: 80%;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                padding: 8px 0;
-            `;
-
-            // Close button on right
-            const closeBtn = document.createElement('button');
-            closeBtn.className = 'pdf-close-button';
-            closeBtn.innerHTML = '✕'; // X symbol
-            closeBtn.style.cssText = `
-                background: none;
-                border: none;
-                color: white;
-                font-size: 20px;
-                font-weight: bold;
-                cursor: pointer;
-                padding: 0 8px;
-                line-height: 1;
-            `;
-
-            const closePreview = () => {
-                previewWrapper.remove();
-                overlay.remove();
-                eyeIcon.classList.remove('preview-active');
-            };
-
-            closeBtn.addEventListener('click', closePreview);
-            overlay.addEventListener('click', closePreview);
-
-            // Add elements to header
-            header.appendChild(fileNameElement);
-            header.appendChild(closeBtn);
-
-            // Create iframe for PDF content
-            const iframe = document.createElement('iframe');
-            iframe.src = event.target.result;
-            iframe.style.cssText = `
-                width: 100%;
-                height: calc(100% - 40px);
-                border: none;
-                background-color: white;
-            `;
-
-            // Assemble the preview
-            previewWrapper.appendChild(header);
-            previewWrapper.appendChild(iframe);
-
-            // Add to document body
-            document.body.appendChild(overlay);
-            document.body.appendChild(previewWrapper);
-
-            // Add keyboard shortcut for closing
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') {
-                    closePreview();
-                }
-            });
-        };
-        reader.readAsDataURL(file);
-        eyeIcon.classList.add('preview-active');
-    }
-
-    // Create image preview
-    function createImagePreview(file, eyeIcon) {
-        const reader = new FileReader();
-        reader.onload = function (event) {
-            // Create wrapper for the preview
-            const previewWrapper = document.createElement('div');
-            previewWrapper.className = 'image-preview-wrapper';
-            previewWrapper.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 90%;
-                max-width: 800px;
-                max-height: 90vh;
-                background-color: white;
-                display: flex;
-                flex-direction: column;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                z-index: 1000;
-            `;
-
-            // Add overlay
-            const overlay = document.createElement('div');
-            overlay.className = 'image-preview-overlay';
-            overlay.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5);
-                z-index: 999;
-            `;
-
-            // Create header
-            const header = document.createElement('div');
-            header.className = 'image-preview-header';
-            header.style.cssText = `
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 0 16px;
-                background-color: #1a1a1a;
-                color: white;
-                height: 40px;
-                width: 100%;
-            `;
-
-            // File name on left
-            const fileNameElement = document.createElement('div');
-            fileNameElement.className = 'image-filename';
-            fileNameElement.textContent = file.name;
-            fileNameElement.style.cssText = `
-                color: white;
-                font-size: 14px;
-                font-weight: normal;
-                max-width: 80%;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                padding: 8px 0;
-            `;
-
-            // Close button on right
-            const closeBtn = document.createElement('button');
-            closeBtn.className = 'image-close-button';
-            closeBtn.innerHTML = '✕'; // X symbol
-            closeBtn.style.cssText = `
-                background: none;
-                border: none;
-                color: white;
-                font-size: 20px;
-                font-weight: bold;
-                cursor: pointer;
-                padding: 0 8px;
-                line-height: 1;
-            `;
-
-            const closePreview = () => {
-                previewWrapper.remove();
-                overlay.remove();
-                eyeIcon.classList.remove('preview-active');
-            };
-
-            closeBtn.addEventListener('click', closePreview);
-            overlay.addEventListener('click', closePreview);
-
-            // Add elements to header
-            header.appendChild(fileNameElement);
-            header.appendChild(closeBtn);
-
-            // Create image element
-            const imageContainer = document.createElement('div');
-            imageContainer.style.cssText = `
-                width: 100%;
-                height: calc(100% - 40px);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                overflow: auto;
-                padding: 20px;
-                background-color: #f0f0f0;
-            `;
-
-            const img = document.createElement('img');
-            img.src = event.target.result;
-            img.style.cssText = `
-                max-width: 100%;
-                max-height: 80vh;
-                object-fit: contain;
-            `;
-
-            imageContainer.appendChild(img);
-
-            // Assemble the preview
-            previewWrapper.appendChild(header);
-            previewWrapper.appendChild(imageContainer);
-
-            // Add to document body
-            document.body.appendChild(overlay);
-            document.body.appendChild(previewWrapper);
-
-            // Add keyboard shortcut for closing
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') {
-                    closePreview();
-                }
-            });
-        };
-        reader.readAsDataURL(file);
-        eyeIcon.classList.add('preview-active');
-    }
-};
-
-// Helper function to truncate file names
-function truncateFileName(fileName) {
-    if (fileName.length <= 20) return fileName;
-    
-    const extension = fileName.slice(fileName.lastIndexOf('.'));
-    const name = fileName.slice(0, fileName.lastIndexOf('.'));
-    
-    return name.slice(0, 16) + '...' + extension;
-}
-
-// Example usage:
-// Initialize specific work experience document by ID
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all work experience documents
-    // initializeWorkExperienceDocumentById('individual-work-experiencecolumn-documents-exp-letter');
-    // initializeWorkExperienceDocumentById('individual-work-experiencecolumn-documents-3-month-salary-slip');
-    // initializeWorkExperienceDocumentById('individual-work-experiencecolumn-documents-office-ids');
-    // initializeWorkExperienceDocumentById('individual-work-experiencecolumn-documents-employment-join-id');
-    
-    // Or initialize all work experience documents at once
-    const workExperienceIds = [
-        'individual-work-experiencecolumn-documents-exp-letter',
-        'individual-work-experiencecolumn-documents-3-month-salary-slip',
-        'individual-work-experiencecolumn-documents-office-ids',
-        'individual-work-experiencecolumn-documents-employment-join-id'
-    ];
-    
-    workExperienceIds.forEach(id => initializeWorkExperienceDocumentById(id));
-});
-
-
-//co borrower section
-
-// Main initialization function
-const initializeCoBorrowerDocumentUpload = () => {
-    // Select all co-borrower document cards
-    const coBorrowerDocuments = document.querySelectorAll(".individual-coborrower-kyc-documents");
-    
-    coBorrowerDocuments.forEach((card) => {
-        // Store uploaded file for this card
-        let uploadedFile = null;
-        
-        // Get the input element and document type
-        const inputElement = card.querySelector('input[type="file"]');
-        const documentTypeText = card.querySelector('.document-name').textContent.trim();
-        
-        // Get the specific preview icon
-        const previewIcon = card.querySelector('.fa-eye');
-        
-        // Trigger file input when the container is clicked
-        card.querySelector('.inputfilecontainer-coborrower-kyccolumn').addEventListener('click', function(event) {
-            // Prevent triggering if clicking on the eye icon
-            if (!event.target.classList.contains('fa-eye') && event.target.tagName !== 'IMG') {
-                inputElement.click();
-            }
-        });
-        
-        // Handle file selection and validation
-        inputElement.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            
-            // Ensure file is selected
-            if (!file) return;
-            
-            console.log(`Selected file for ${documentTypeText}:`, file);  // Debug log
-            
-            // Allowed file types
-            const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
-            const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
-            
-            // Validate file type
-            if (!allowedExtensions.includes(fileExtension)) {
-                alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
-                event.target.value = ''; // Clear the file input
-                
-                // Reset the text inside the respective document type element
-                const documentTypeElement = getDocumentTypeElement(card);
-                if (documentTypeElement) {
-                    documentTypeElement.textContent = getOriginalText(documentTypeElement);
-                }
-                
-                return;
-            }
-            
-            // Validate file size (5MB max)
-            if (file.size > 5 * 1024 * 1024) {
-                alert("Error: File size exceeds 5MB limit.");
-                event.target.value = ''; // Clear the file input
-                
-                // Reset the text inside the respective document type element
-                const documentTypeElement = getDocumentTypeElement(card);
-                if (documentTypeElement) {
-                    documentTypeElement.textContent = getOriginalText(documentTypeElement);
-                }
-                
-                return;
-            }
-            
-            // Store the file and update UI
-            uploadedFile = file;
-            
-            // Update the text in the specific document type element
-            const documentTypeElement = getDocumentTypeElement(card);
-            if (documentTypeElement) {
-                documentTypeElement.textContent = truncateFileName(file.name);
-            }
-            
-            // Update file size display
-            const fileSize = file.size < 1024 * 1024
-                ? (file.size / 1024).toFixed(2) + ' KB'
-                : (file.size / (1024 * 1024)).toFixed(2) + ' MB';
-            
-            card.querySelector('.document-status').textContent = `${fileSize} Uploaded`;
-            
-            console.log(`File uploaded for ${documentTypeText}:`, uploadedFile);  // Debug log
-        });
-        
-        // Handle preview functionality
-        if (previewIcon) {
-            previewIcon.addEventListener('click', function(event) {
-                event.stopPropagation();
-                
-                if (this.classList.contains('preview-active')) {
-                    // Close preview if already open
-                    const previewWrapper = document.querySelector('.pdf-preview-wrapper, .image-preview-wrapper');
-                    if (previewWrapper) previewWrapper.remove();
-                    const overlay = document.querySelector('.pdf-preview-overlay, .image-preview-overlay');
-                    if (overlay) overlay.remove();
-                    this.classList.remove('preview-active');
-                } else {
-                    // Show preview if file is uploaded
-                    if (uploadedFile && uploadedFile.type === 'application/pdf') {
-                        showPDFPreview(uploadedFile, this);
-                    } else if (uploadedFile && uploadedFile.type.startsWith('image/')) {
-                        showImagePreview(uploadedFile, this);
-                    } else {
-                        alert('Please upload a valid PDF or image file to preview.');
-                    }
-                }
-            });
-        }
-    });
-    
-    // Helper function to get the correct document type element
-    function getDocumentTypeElement(card) {
-        if (card.querySelector('.coborrower-pancard')) return card.querySelector('.coborrower-pancard');
-        if (card.querySelector('.coborrower-aadharcard')) return card.querySelector('.coborrower-aadharcard');
-        if (card.querySelector('.coborrower-addressproof')) return card.querySelector('.coborrower-addressproof');
-        return null;
-    }
-    
-    // Helper function to get original text
-    function getOriginalText(element) {
-        if (element.classList.contains('coborrower-pancard')) return 'Pan Card';
-        if (element.classList.contains('coborrower-aadharcard')) return 'Aadhar Card';
-        if (element.classList.contains('coborrower-addressproof')) return 'Address Proof';
-        return 'No file chosen';
-    }
-    
-    // Function to show PDF preview
-    function showPDFPreview(file, eyeIcon) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            // Create wrapper for the preview
-            const previewWrapper = document.createElement('div');
-            previewWrapper.className = 'pdf-preview-wrapper';
-            previewWrapper.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 90%;
-                height: 90vh;
-                background-color: white;
-                display: flex;
-                flex-direction: column;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                z-index: 1000;
-            `;
-            
-            // Add overlay
-            const overlay = document.createElement('div');
-            overlay.className = 'pdf-preview-overlay';
-            overlay.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5);
-                z-index: 999;
-            `;
-            
-            // Create header
-            const header = document.createElement('div');
-            header.style.cssText = `
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 8px 16px;
-                background-color: #1a1a1a;
-                color: white;
-                height: 40px;
-            `;
-            
-            // Left section with filename
-            const fileNameSection = document.createElement('div');
-            fileNameSection.style.cssText = `
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            `;
-            
-            const fileName = document.createElement('span');
-            fileName.textContent = file.name;
-            fileName.style.cssText = `
-                color: white;
-                font-size: 14px;
-            `;
-            fileNameSection.appendChild(fileName);
-            
-            // Middle section with zoom controls
-            const zoomControls = document.createElement('div');
-            zoomControls.style.cssText = `
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
-            `;
-            
-            const zoomOut = document.createElement('button');
-            zoomOut.innerHTML = '&#8722;';
-            const zoomIn = document.createElement('button');
-            zoomIn.innerHTML = '&#43;';
-            
-            [zoomOut, zoomIn].forEach(btn => {
-                btn.style.cssText = `
-                    background: none;
-                    border: none;
-                    color: white;
-                    font-size: 18px;
-                    cursor: pointer;
-                    padding: 4px 8px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                `;
-            });
-            
-            zoomControls.appendChild(zoomOut);
-            zoomControls.appendChild(zoomIn);
-            
-            // Close button
-            const closeButton = document.createElement('button');
-            closeButton.innerHTML = '&#10005;';
-            closeButton.style.cssText = `
-                background: none;
-                border: none;
-                color: white;
-                font-size: 18px;
-                cursor: pointer;
-                padding: 4px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            `;
-            
-            const closePreview = () => {
-                previewWrapper.remove();
-                overlay.remove();
-                eyeIcon.classList.remove('preview-active');
-            };
-            
-            closeButton.addEventListener('click', closePreview);
-            overlay.addEventListener('click', closePreview);
-            
-            // Assemble header
-            header.appendChild(fileNameSection);
-            header.appendChild(zoomControls);
-            header.appendChild(closeButton);
-            
-            // Create iframe for PDF content
-            const iframe = document.createElement('iframe');
-            iframe.src = event.target.result;
-            iframe.style.cssText = `
-                width: 100%;
-                height: calc(100% - 40px);
-                border: none;
-                background-color: white;
-            `;
-            
-            // Assemble the preview
-            previewWrapper.appendChild(header);
-            previewWrapper.appendChild(iframe);
-            
-            // Add to document body
-            document.body.appendChild(overlay);
-            document.body.appendChild(previewWrapper);
-            
-            // Add zoom functionality
-            let currentZoom = 100;
-            zoomIn.addEventListener('click', () => {
-                currentZoom += 10;
-                iframe.style.transform = `scale(${currentZoom / 100})`;
-                iframe.style.transformOrigin = 'top center';
-            });
-            
-            zoomOut.addEventListener('click', () => {
-                currentZoom = Math.max(currentZoom - 10, 50);
-                iframe.style.transform = `scale(${currentZoom / 100})`;
-                iframe.style.transformOrigin = 'top center';
-            });
-            
-            // Add keyboard shortcut for closing
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    closePreview();
-                }
-            });
-        };
-        reader.readAsDataURL(file);
-        eyeIcon.classList.add('preview-active');
-    }
-    
-    // Function to show image preview
-    function showImagePreview(file, eyeIcon) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            // Create wrapper for the preview
-            const previewWrapper = document.createElement('div');
-            previewWrapper.className = 'image-preview-wrapper';
-            previewWrapper.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 90%;
-                max-width: 800px;
-                max-height: 90vh;
-                background-color: white;
-                display: flex;
-                flex-direction: column;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                z-index: 1000;
-            `;
-            
-            // Add overlay
-            const overlay = document.createElement('div');
-            overlay.className = 'image-preview-overlay';
-            overlay.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5);
-                z-index: 999;
-            `;
-            
-            // Create header
-            const header = document.createElement('div');
-            header.style.cssText = `
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 8px 16px;
-                background-color: #1a1a1a;
-                color: white;
-                height: 40px;
-            `;
-            
-            // Left section with filename
-            const fileNameSection = document.createElement('div');
-            fileNameSection.style.cssText = `
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            `;
-            
-            const fileName = document.createElement('span');
-            fileName.textContent = file.name;
-            fileName.style.cssText = `
-                color: white;
-                font-size: 14px;
-            `;
-            fileNameSection.appendChild(fileName);
-            
-            // Close button
-            const closeButton = document.createElement('button');
-            closeButton.innerHTML = '&#10005;';
-            closeButton.style.cssText = `
-                background: none;
-                border: none;
-                color: white;
-                font-size: 18px;
-                cursor: pointer;
-                padding: 4px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            `;
-            
-            const closePreview = () => {
-                previewWrapper.remove();
-                overlay.remove();
-                eyeIcon.classList.remove('preview-active');
-            };
-            
-            closeButton.addEventListener('click', closePreview);
-            overlay.addEventListener('click', closePreview);
-            
-            // Assemble header
-            header.appendChild(fileNameSection);
-            header.appendChild(closeButton);
-            
-            // Create image element
-            const imageContainer = document.createElement('div');
-            imageContainer.style.cssText = `
-                width: 100%;
-                height: calc(100% - 40px);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                overflow: auto;
-                padding: 20px;
-                background-color: #f0f0f0;
-            `;
-            
-            const img = document.createElement('img');
-            img.src = event.target.result;
-            img.style.cssText = `
-                max-width: 100%;
-                max-height: 80vh;
-                object-fit: contain;
-            `;
-            
-            imageContainer.appendChild(img);
-            
-            // Assemble the preview
-            previewWrapper.appendChild(header);
-            previewWrapper.appendChild(imageContainer);
-            
-            // Add to document body
-            document.body.appendChild(overlay);
-            document.body.appendChild(previewWrapper);
-            
-            // Add keyboard shortcut for closing
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    closePreview();
-                }
-            });
-        };
-        reader.readAsDataURL(file);
-        eyeIcon.classList.add('preview-active');
-    }
-};
-
-// Helper function to truncate file names
-function truncateFileName(fileName) {
-    if (fileName.length <= 20) return fileName;
-    
-    const extension = fileName.slice(fileName.lastIndexOf('.'));
-    const name = fileName.slice(0, fileName.lastIndexOf('.'));
-    
-    return name.slice(0, 16) + '...' + extension;
-}
-
-// Initialize document uploads
-initializeCoBorrowerDocumentUpload();
-
 
 
             //index
@@ -4697,7 +2258,7 @@ initializeCoBorrowerDocumentUpload();
                             }
                             if (arrowUp) {
                                 arrowUp.style.transform = 'rotate(0deg)';
-                                
+
                             }
                         }
 
@@ -4794,7 +2355,7 @@ initializeCoBorrowerDocumentUpload();
                         newPassword
                     };
 
- 
+
                     fetch("/passwordchange", {
                         method: "POST",
                         headers: {
@@ -4827,8 +2388,22 @@ initializeCoBorrowerDocumentUpload();
                 });
             };
 
+            const viewProfileOfUsers = (viewButton) => {
+                const profileViewContainerNbfc = document.getElementById("nbfc-student-profile-details");
+                viewButton.addEventListener('click', () => {
+                    console.log(viewButton);
+                    viewButton.style.backgroundColor = viewButton.style.backgroundColor === 'red' ? "transparent" : "red";
+                    profileViewContainerNbfc.style.display= profileViewContainerNbfc.style.display === "flex"?"none":"flex";
+
+
+                    
+                });
+            };
+
+
+
         </script>
-    
+
 
 
 </body>

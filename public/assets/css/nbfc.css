@@ -380,7 +380,12 @@
     align-items: center;
 }
 
-/*nav bar for tablets*/
+#nbfc-student-profile-details{
+    display: none;
+    width: 100%;
+    max-width: 100%;
+
+}
 
 @media screen and (max-width: 1023px) {
     .nbfc-navbar {
