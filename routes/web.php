@@ -118,6 +118,7 @@ Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFr
 Route::post('/upload-profile-picture', [StudentDashboardController::class, 'uploadProfilePicture']);
 Route::post('/retrieve-profile-picture', [StudentDashboardController::class, 'retrieveProfilePicture']);
 Route::post('/passwordchange', [GoogleAuthController::class, 'passwordChange']);
+Route::post('/students/import', [scDashboardController::class, 'import_excel_post'])->name('students.import');
 
 // Google Auth Routes
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');

@@ -424,7 +424,7 @@ input[type="file"] {
     flex-direction: column;
     max-width: 53.54%;
     width: 100%;
-    /* padding: 0 1.5rem; */
+     
     flex: 1;
     margin-top: 85px;
     max-width: 53.54%;
@@ -432,7 +432,7 @@ input[type="file"] {
 }
 
 
-}
+
 
 .studentdashboardprofile-trackprogress .trackprogress-header {
     font-family: Inter;

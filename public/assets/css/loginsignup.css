@@ -147,7 +147,7 @@
 
  .rightpanel-namecontainer,
  .rightpanel-emailcontainer,
- .rightpanel-passwordcontainer {
+ .rightpanel-passwordcontainer,.rightpanel-phonecontainer {
      width: 100%;
      max-width: 370px;
 

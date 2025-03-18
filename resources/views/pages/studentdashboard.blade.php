@@ -163,7 +163,7 @@
                                 <p> {{$userDetails[0]->name ?? 'Name not available'}}</p>
                             </li>
                             <li class="personal_info_phone"><img src={{$phoneIconPath}} alt="">
-                                <p>+91 {{$personalDetails[0]->phone}}</p>
+                                <p>+91 {{$userDetails[0]->phone}}</p>
                             </li>
                             <li class="personal_info_email" id="referenceEmailId">
                                 <img src={{$mailIconPath}} alt="">
@@ -182,7 +182,7 @@
                             </li>
                             <li class="personal_info_phone">
                                 <p>Phone</p>
-                                <input type="text" value="{{$personalDetails[0]->phone}}" disabled>
+                                <input type="text" value="{{$userDetails[0]->phone}}" disabled>
                             </li>
                             <li class="personal_info_email">
                                 <p>Email</p>

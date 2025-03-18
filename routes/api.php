@@ -10,6 +10,7 @@ use App\Http\Controllers\OTPMobController;
 use App\Http\Controllers\scDashboardController;
 use App\Http\Controllers\SidebarHandlingController;
 use App\Http\Controllers\StudentCounsellorController;
+use App\Http\Controllers\StudentDetailsController;
 use App\Http\Controllers\TrackController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +44,7 @@ Route::post('/update-user-id-request', [StudentDashboardController::class, 'upda
 Route::post('/send-mobotp', [OTPMobController::class, 'sendOTP']);
 Route::post('/verify-mobotp', [OTPMobController::class, 'verifyOTP']);
 Route::post('/emailuniquecheck', action: [RegisterController::class, 'emailUniqueCheck']);
+Route::post('/updatedetailsinfo', [StudentDetailsController::class, 'updateUserIds']);
 
 
 

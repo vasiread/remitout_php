@@ -46,7 +46,7 @@ class LoginController extends Controller
                     'success' => true,
                     'message' => 'Login successful',
                     'user' => $scuser,
-                    'redirect' => '/sc-dashboard'  // Redirect to the SC user dashboard
+                    'redirect' => '/sc-dashboard'  
                 ]);
 
             case 'User':

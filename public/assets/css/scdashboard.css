@@ -9,7 +9,7 @@
 
 }
 
-.scdashboard-parentcontainer{
+.scdashboard-parentcontainer {
     background-color: #fff;
 }
 
@@ -326,7 +326,7 @@
 
 .scdashboard-parentcontainer {
     display: flex;
-    
+
 }
 
 .individualstudentapplication-status {
@@ -563,31 +563,34 @@
     width: 83%;
     gap: 11px;
     margin-left: 14.90%;
-    
-}
-.subbranch-of-address input{
-     width: 100%;
-     border-radius: 2px;
- }
 
- .performancecontainer-firstrow .save-scuser{
-    display:none;   
- }
+}
+
+.subbranch-of-address input {
+    width: 100%;
+    border-radius: 2px;
+}
+
+.performancecontainer-firstrow .save-scuser {
+    display: none;
+}
 
 .scmember_personal_info_state-edit {
     display: flex;
     flex-direction: column;
-    
- 
+
+
 
 }
-.scmember_personal_info_state-edit .scmember-personal_address_header{
-    display:flex;
+
+.scmember_personal_info_state-edit .scmember-personal_address_header {
+    display: flex;
     width: 100%;
     gap: 20px;
-   
+
 }
-.scmember_personal_info_state input{
+
+.scmember_personal_info_state input {
     width: 100%;
 }
 
@@ -660,7 +663,8 @@
     color: #E98635;
 }
 
-.performancecontainer-firstrow .edit-scuser,.performancecontainer-firstrow .save-scuser {
+.performancecontainer-firstrow .edit-scuser,
+.performancecontainer-firstrow .save-scuser {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -674,12 +678,14 @@
     background: transparent;
 
 }
-.performancecontainer-firstrow .save-scuser{
-    display:none;
+
+.performancecontainer-firstrow .save-scuser {
+    display: none;
     background: #6F25CE;
-    color:#FFFFFF;
-    
+    color: #FFFFFF;
+
 }
+
 .scdashboard-individual-performance {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1373,7 +1379,33 @@
     width: 12px;
 }
 
-.referral-triggered-view-footer button:last-child {
+#file-upload-info {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+#remove-excel-btn {
+    background: none;
+    outline: none;
+    border: none;
+    color: #c3c0bb;
+    position: absolute;
+    right: 1rem;
+}
+#selected-file-name{
+    width: 100%;
+    border-radius: 6px;
+        font-size: 1rem;
+            font-weight: 400;
+            line-height: 1rem;
+            text-align: left;
+            color: #A6A5A5
+}
+
+.referral-triggered-view-footer button:last-child,
+#save-excelfile-btn {
     width: 126px;
     height: 35px;
     gap: 8px;
@@ -1608,18 +1640,20 @@
     .queryraisedcontainer-rightcontent .sort-by-contents {
         width: 70%;
     }
-        .commonsidebar-togglesidebar{
-            display: none;
-        
-        }
+
+    .commonsidebar-togglesidebar {
+        display: none;
+
+    }
 
 }
 
 @media(max-width:767px) {
     .commonsidebar-togglesidebar {
-            display: none;
-    
-        }
+        display: none;
+
+    }
+
     .scdashboard-container {
         margin: 0 1.3rem;
         padding-top: 1.3rem;

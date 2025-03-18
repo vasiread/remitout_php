@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\Log;
 
 class RegisterController extends Controller
 {
-  
+
     public function emailUniqueCheck(Request $request)
     {
-        $email = $request->phone;  // Get the email from the request
+        $email = $request->email;  // Get the email from the request
 
         // Check if email already exists in the database
         $emailUnique = User::where('email', $email)->exists();
@@ -36,19 +36,20 @@ class RegisterController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the incoming request
         $request->validate([
             'name' => 'required|string|max:255',
+            'email' => 'required|email',
             'phoneInput' => 'required',
             'password' => 'required|string|min:6',
         ]);
 
-        // Debugging: Output the request data (remove this in production)
-        // dd($request->all());
+
 
         $user = User::create([
             'name' => $request->name,
-            'email' => $request->phoneInput,
+            'email' => $request->email,
+            'phone' => $request->phoneInput,
+
             'password' => Hash::make($request->password),
         ]);
 
@@ -62,9 +63,9 @@ class RegisterController extends Controller
 
             session()->put('expires_at', now()->addSeconds(10000));
 
-           
 
-            
+
+
 
 
 
