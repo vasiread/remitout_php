@@ -63,7 +63,6 @@ $loanStatusInfo = [
                     </ul>
                 </div>
                 <div class="studentdashboardprofile-trackprogress">
-               
                     <h1 class="trackprogress-header" style="margin:0">Track Progress</h1>
                     <div class="studentdashboardprofile-firstrowtrackprogress">
                         <div class="trackprogress-leftsection">
@@ -106,8 +105,6 @@ $loanStatusInfo = [
                             </div>
                         </div>
                     </div>
-               
-
 
                     <div class="studentdashboardprofile-loanproposals">
                         <h1 class="loanproposals-header" id="loanproposals-header">Loan Proposals</h1>
@@ -126,6 +123,7 @@ $loanStatusInfo = [
                                         <button class="triggeredbutton">
                                             Message
                                         </button>
+                                        
                                     </div>
                                     <div class="individual-bankmessage-input">
                                         <input type="text" placeholder="Send message">
@@ -669,6 +667,7 @@ $loanStatusInfo = [
             initialisedocumentsCount();
             initialiseProfileUpload();
             initialiseProfileView();
+              initializeSimpleChat();
             initialiseAllViews()
                 .then(() => {
                     console.log("All URLs fetched successfully!");
@@ -1140,36 +1139,7 @@ $loanStatusInfo = [
         }
 
 
-        const initializeIndividualCards = () => {
-            const individualCards = document.querySelectorAll('.indivudalloanstatus-cards');
-
-            individualCards.forEach((card) => {
-                const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
-                const individualBankMessageInput = card.querySelector('.individual-bankmessage-input');
-
-                if (triggeredMessageButton) {
-                    triggeredMessageButton.addEventListener('click', () => {
-                        const isExpanded = card.style.height === "190px";
-
-                        individualCards.forEach((otherCard) => {
-                            otherCard.style.height = "95px";
-                            const otherMessageInput = otherCard.querySelector('.individual-bankmessage-input');
-                            if (otherMessageInput) {
-                                otherMessageInput.style.display = "none";
-                            }
-                        });
-
-                        if (isExpanded) {
-                            card.style.height = "95px";
-                            individualBankMessageInput.style.display = "none";
-                        } else {
-                            card.style.height = "190px";
-                            individualBankMessageInput.style.display = "flex";
-                        }
-                    });
-                }
-            });
-        };
+      
 
         const initializeKycDocumentUpload = () => {
             const individualKycDocumentsUpload = document.querySelectorAll(".individualkycdocuments");
@@ -3162,6 +3132,583 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
 
+
+
+function initializeSimpleChat() {
+    // Select all chat containers
+    const chatContainers = document.querySelectorAll('.individual-bankmessage-input');
+    
+    if (chatContainers.length === 0) return;
+    
+    chatContainers.forEach((chatContainer, index) => {
+        // Create unique identifier for this chat instance
+        const chatId = `loan-chat-${index}`;
+        chatContainer.setAttribute('data-chat-id', chatId);
+        
+        // Find parent container
+        const parentContainer = chatContainer.closest('.indivudalloanstatus-cards');
+        const messageButton = parentContainer ? parentContainer.querySelector('.triggeredbutton') : null;
+        
+        // Hide chat input by default
+        chatContainer.style.display = 'none';
+        
+        // Create messages wrapper if it doesn't exist
+        let messagesWrapper = parentContainer ? parentContainer.querySelector(`.messages-wrapper[data-chat-id="${chatId}"]`) : null;
+        
+        if (!messagesWrapper) {
+            messagesWrapper = document.createElement("div");
+            messagesWrapper.classList.add("messages-wrapper");
+            messagesWrapper.setAttribute('data-chat-id', chatId);
+            messagesWrapper.style.cssText = `
+                display: none;
+                flex-direction: column;
+                width: 100%;  
+                font-size: 14px;
+                color: #666;
+                line-height: 1.5; 
+                overflow-y: auto;
+                max-height: auto;
+                background: #fff;
+                font-family: 'Poppins', sans-serif;
+                margin-bottom: 10px;
+            `;
+            chatContainer.parentNode.insertBefore(messagesWrapper, chatContainer);
+        }
+        
+        // Create clear button
+        const clearButtonContainer = document.createElement("div");
+        clearButtonContainer.style.cssText = `
+            display: none;
+            justify-content: flex-end;
+            width: 100%;
+            margin-bottom: 10px;
+        `;
+        
+        const clearButton = document.createElement("button");
+        clearButton.textContent = "Clear Chat";
+        clearButton.style.cssText = `
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 20px;
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        `;
+        clearButton.addEventListener('click', function() {
+            clearChat(chatId);
+        });
+        
+        clearButtonContainer.appendChild(clearButton);
+        messagesWrapper.parentNode.insertBefore(clearButtonContainer, messagesWrapper);
+        
+        // Get elements within the container
+        const messageInput = chatContainer.querySelector("input[type='text']");
+        const sendButton = chatContainer.querySelector(".send-img");
+        const smileIcon = chatContainer.querySelector(".fa-face-smile");
+        const paperclipIcon = chatContainer.querySelector(".fa-paperclip");
+        
+        // Object to store file references
+        const fileStorage = {};
+        
+        // Function to show chat
+        function showChat() {
+            messagesWrapper.style.display = 'flex';
+            chatContainer.style.display = 'flex';
+            clearButtonContainer.style.display = 'flex';
+            
+            // Adjust parent container height if needed
+            if (parentContainer) {
+                parentContainer.style.height = "auto";
+            }
+            
+            // Update button text if needed
+            if (messageButton) {
+                messageButton.textContent = "Close";
+            }
+        }
+        
+        // Function to hide chat
+        function hideChat() {
+            messagesWrapper.style.display = 'none';
+            chatContainer.style.display = 'none';
+            clearButtonContainer.style.display = 'none';
+            
+            // Reset parent container height if needed
+            if (parentContainer) {
+                parentContainer.style.height = "95px";
+            }
+            
+            // Update button text if needed
+            if (messageButton) {
+                messageButton.textContent = "Message";
+            }
+        }
+        
+        // Function to remove a specific message
+        function removeMessage(messageElement, messageId) {
+            if (messageElement && messagesWrapper.contains(messageElement)) {
+                messagesWrapper.removeChild(messageElement);
+                
+                // Remove from localStorage if needed
+                const messages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
+                const fileMessages = JSON.parse(localStorage.getItem(`file-messages-${chatId}`) || '[]');
+                
+                // Remove file from storage
+                if (messageId && fileStorage[messageId]) {
+                    delete fileStorage[messageId];
+                    
+                    // Remove from file messages storage
+                    const updatedFileMessages = fileMessages.filter(fm => fm.id !== messageId);
+                    localStorage.setItem(`file-messages-${chatId}`, JSON.stringify(updatedFileMessages));
+                }
+            }
+        }
+        
+        // Function to clear chat
+        function clearChat(chatId) {
+            // Clear messages from UI
+            while (messagesWrapper.firstChild) {
+                messagesWrapper.removeChild(messagesWrapper.firstChild);
+            }
+            
+            // Clear from localStorage
+            localStorage.removeItem(`messages-${chatId}`);
+            localStorage.removeItem(`file-messages-${chatId}`);
+            
+            // Clear file storage
+            Object.keys(fileStorage).forEach(key => {
+                delete fileStorage[key];
+            });
+            
+            // Show confirmation message
+            const confirmationMsg = document.createElement("div");
+            confirmationMsg.style.cssText = `
+                width: 100%;
+                text-align: center;
+                padding: 10px;
+                color: #666;
+                font-style: italic;
+                font-size: 12px;
+            `;
+            confirmationMsg.textContent = "Chat history cleared";
+            messagesWrapper.appendChild(confirmationMsg);
+            
+            // Remove confirmation after 3 seconds
+            setTimeout(() => {
+                if (messagesWrapper.contains(confirmationMsg)) {
+                    messagesWrapper.removeChild(confirmationMsg);
+                }
+            }, 3000);
+        }
+        
+        // Toggle chat visibility
+        function toggleChat() {
+            if (messagesWrapper.style.display === 'none') {
+                showChat();
+            } else {
+                hideChat();
+            }
+        }
+        
+        // Add click event to message button
+        if (messageButton) {
+            messageButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                toggleChat();
+            });
+        }
+        
+        // Send message function
+        function sendMessage() {
+            if (!messageInput) return;
+            
+            const content = messageInput.value.trim();
+            if (content) {
+                showChat(); // Show chat when sending message
+                
+                // Create message element
+                const messageElement = document.createElement("div");
+                messageElement.style.cssText = `
+                    display: flex;
+                    justify-content: flex-end;
+                    width: 100%;
+                    margin-bottom: 10px;
+                `;
+                
+                const messageContent = document.createElement("div");
+                messageContent.style.cssText = `
+                    max-width: 80%;
+                    padding: 8px 12px;
+                    border-radius: 8px;
+                    word-wrap: break-word;
+                    font-family: 'Poppins', sans-serif;
+                `;
+                messageContent.textContent = content;
+                
+                messageElement.appendChild(messageContent);
+                messagesWrapper.appendChild(messageElement);
+                
+                // Clear input and scroll to bottom
+                messageInput.value = "";
+                messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
+                
+                // Save message
+                saveMessage(content, chatId);
+            }
+        }
+        
+        // Event listeners for input
+        if (messageInput) {
+            messageInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+        }
+        
+        // Add click event to send button
+        if (sendButton) {
+            sendButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                sendMessage();
+            });
+        }
+        
+        // Initialize emoji picker
+        if (smileIcon) {
+            smileIcon.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
+                
+                const existingPicker = document.querySelector(".emoji-picker");
+                if (existingPicker) {
+                    existingPicker.remove();
+                    return;
+                }
+                
+                const picker = document.createElement("div");
+                picker.classList.add("emoji-picker");
+                picker.style.cssText = `
+                    position: absolute;
+                    bottom: 100%;
+                    right: 0;
+                    background: white;
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
+                    padding: 5px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 5px;
+                    z-index: 1000;
+                    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                `;
+                
+                emojis.forEach(emoji => {
+                    const button = document.createElement("button");
+                    button.textContent = emoji;
+                    button.style.cssText = `
+                        border: none;
+                        background: none;
+                        font-size: 20px;
+                        cursor: pointer;
+                        padding: 5px;
+                    `;
+                    button.onclick = (e) => {
+                        e.stopPropagation();
+                        messageInput.value += emoji;
+                        picker.remove();
+                        messageInput.focus();
+                    };
+                    picker.appendChild(button);
+                });
+                
+                chatContainer.appendChild(picker);
+                
+                document.addEventListener("click", function closePicker(e) {
+                    if (!picker.contains(e.target) && e.target !== smileIcon) {
+                        picker.remove();
+                        document.removeEventListener("click", closePicker);
+                    }
+                });
+            });
+        }
+        
+        // Initialize file attachment
+        if (paperclipIcon) {
+            paperclipIcon.addEventListener('click', function() {
+                const fileInput = document.createElement("input");
+                fileInput.type = "file";
+                fileInput.accept = ".pdf,.jpeg,.png,.jpg";
+                fileInput.style.display = "none";
+                
+                fileInput.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        showChat();
+                        const fileName = file.name;
+                        const fileSize = (file.size / 1024 / 1024).toFixed(2);
+                        const fileId = `file-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+                        
+                        // Store file reference for later download
+                        fileStorage[fileId] = file;
+                        
+                        // Create message element
+                        const messageElement = document.createElement("div");
+                        messageElement.setAttribute('data-file-id', fileId);
+                        messageElement.style.cssText = `
+                            display: flex;
+                            justify-content: flex-end;
+                            width: 100%;
+                            margin-bottom: 10px;
+                        `;
+                        
+                        const fileContent = document.createElement("div");
+                        fileContent.style.cssText = `
+                            max-width: 80%;
+                            padding: 8px 12px;
+                            border-radius: 8px;
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            position: relative;
+                        `;
+                        
+                        // Create download link for the file
+                        const downloadLink = document.createElement("a");
+                        downloadLink.href = "#";
+                        downloadLink.style.cssText = `
+                            display: flex;
+                            align-items: center;
+                            gap: 5px;
+                            color: #666;
+                            text-decoration: none;
+                        `;
+                        downloadLink.innerHTML = `
+                            <i class="fa-solid fa-file"></i>
+                            <span>${fileName} (${fileSize} MB)</span>
+                        `;
+                        downloadLink.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            
+                            // Create download link for the file
+                            const url = URL.createObjectURL(fileStorage[fileId]);
+                            const tempLink = document.createElement("a");
+                            tempLink.href = url;
+                            tempLink.download = fileName;
+                            document.body.appendChild(tempLink);
+                            tempLink.click();
+                            document.body.removeChild(tempLink);
+                            URL.revokeObjectURL(url);
+                        });
+                        
+                        // Create remove button
+                        const removeButton = document.createElement("button");
+                        removeButton.innerHTML = `<i class="fa-solid fa-times"></i>`;
+                        removeButton.style.cssText = `
+                            background: none;
+                            border: none;
+                            color: #999;
+                            font-size: 12px;
+                            cursor: pointer;
+                            padding: 2px 5px;
+                            margin-left: 5px;
+                        `;
+                        removeButton.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            removeMessage(messageElement, fileId);
+                        });
+                        
+                        fileContent.appendChild(downloadLink);
+                        fileContent.appendChild(removeButton);
+                        messageElement.appendChild(fileContent);
+                        messagesWrapper.appendChild(messageElement);
+                        messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
+                        
+                        // Save file message with ID
+                        saveFileMessage({
+                            id: fileId,
+                            name: fileName,
+                            size: fileSize
+                        }, chatId);
+                    }
+                };
+                
+                document.body.appendChild(fileInput);
+                fileInput.click();
+                document.body.removeChild(fileInput);
+            });
+        }
+        
+        
+        // Load saved messages
+        const savedMessages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
+        if (savedMessages.length > 0) {
+            savedMessages.forEach(content => {
+                const messageElement = document.createElement("div");
+                messageElement.style.cssText = `
+                    display: flex;
+                    justify-content: flex-end;
+                    width: 100%;
+                    margin-bottom: 10px;
+                `;
+                
+                const messageContent = document.createElement("div");
+                messageContent.style.cssText = `
+                    max-width: 80%;
+                    padding: 8px 12px;
+                    border-radius: 8px;
+                    
+                    word-wrap: break-word;
+                    font-family: 'Poppins', sans-serif;
+                `;
+                messageContent.textContent = content;
+                
+                messageElement.appendChild(messageContent);
+                messagesWrapper.appendChild(messageElement);
+            });
+        }
+    });
+}
+
+function saveMessage(content, chatId) {
+    const messages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
+    messages.push(content);
+    localStorage.setItem(`messages-${chatId}`, JSON.stringify(messages));
+}
+
+// Initialize the chat when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initializeSimpleChat();
+});
+
+// Add this function to properly save file messages
+function saveFileMessage(fileData, chatId) {
+    const fileMessages = JSON.parse(localStorage.getItem(`file-messages-${chatId}`) || '[]');
+    fileMessages.push(fileData);
+    localStorage.setItem(`file-messages-${chatId}`, JSON.stringify(fileMessages));
+}
+
+// Modify the load saved messages section in initializeSimpleChat() function
+// Replace the existing "Load saved messages" section with this:
+function loadSavedMessages() {
+    // Load text messages
+    const savedMessages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
+    
+    // Load file messages
+    const savedFileMessages = JSON.parse(localStorage.getItem(`file-messages-${chatId}`) || '[]');
+    
+    // If there are any saved messages, we'll automatically show the chat area
+    if (savedMessages.length > 0 || savedFileMessages.length > 0) {
+        // Don't actually show the chat yet, just prepare to show it if user clicks
+        if (messageButton) {
+            messageButton.textContent = "Message";
+        }
+    }
+    
+    // Add text messages to UI
+    if (savedMessages.length > 0) {
+        savedMessages.forEach(content => {
+            const messageElement = document.createElement("div");
+            messageElement.style.cssText = `
+                display: flex;
+                justify-content: flex-end;
+                width: 100%;
+                margin-bottom: 10px;
+            `;
+            
+            const messageContent = document.createElement("div");
+            messageContent.style.cssText = `
+                max-width: 80%;
+                padding: 8px 12px;
+                border-radius: 8px;
+                word-wrap: break-word;
+                font-family: 'Poppins', sans-serif;
+            `;
+            messageContent.textContent = content;
+            
+            messageElement.appendChild(messageContent);
+            messagesWrapper.appendChild(messageElement);
+        });
+    }
+    
+    // Add file messages to UI
+    if (savedFileMessages.length > 0) {
+        savedFileMessages.forEach(fileData => {
+            const messageElement = document.createElement("div");
+            messageElement.setAttribute('data-file-id', fileData.id);
+            messageElement.style.cssText = `
+                display: flex;
+                justify-content: flex-end;
+                width: 100%;
+                margin-bottom: 10px;
+            `;
+            
+            const fileContent = document.createElement("div");
+            fileContent.style.cssText = `
+                max-width: 80%;
+                padding: 8px 12px;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                position: relative;
+            `;
+            
+            // Create download link for the file
+            const downloadLink = document.createElement("a");
+            downloadLink.href = "#";
+            downloadLink.style.cssText = `
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                color: #666;
+                text-decoration: none;
+            `;
+            downloadLink.innerHTML = `
+                <i class="fa-solid fa-file"></i>
+                <span>${fileData.name} (${fileData.size} MB)</span>
+            `;
+            downloadLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Alert user that the file needs to be re-uploaded after page refresh
+                alert("File attachments cannot be retrieved after page refresh. Please re-upload the file if needed.");
+            });
+            
+            // Create remove button
+            const removeButton = document.createElement("button");
+            removeButton.innerHTML = `<i class="fa-solid fa-times"></i>`;
+            removeButton.style.cssText = `
+                background: none;
+                border: none;
+                color: #999;
+                font-size: 12px;
+                cursor: pointer;
+                padding: 2px 5px;
+                margin-left: 5px;
+            `;
+            removeButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                removeMessage(messageElement, fileData.id);
+            });
+            
+            fileContent.appendChild(downloadLink);
+            fileContent.appendChild(removeButton);
+            messageElement.appendChild(fileContent);
+            messagesWrapper.appendChild(messageElement);
+        });
+    }
+}
+
+// Call this function at the end of the chatContainer.forEach loop
+loadSavedMessages();
 
     </script>
 

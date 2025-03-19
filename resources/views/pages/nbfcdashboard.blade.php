@@ -4255,148 +4255,177 @@ initializeCoBorrowerDocumentUpload();
 
 
 
+// Multi instance chat function of the NBFC
+// Initialize chat functionality for all message input containers
+function initializeChats() {
+    // Select all chat containers
+    const chatContainers = document.querySelectorAll('.nbfc-individual-bankmessage-input-message');
 
-            // Multi instance chat function of the NBFC
-            // Initialize chat functionality for all message input containers
-            function initializeChats() {
-                // Select all chat containers
-                const chatContainers = document.querySelectorAll('.nbfc-individual-bankmessage-input-message');
+    chatContainers.forEach((container, index) => {
+        // Create unique identifier for this chat instance
+        const chatId = `chat-${index}`;
+        container.setAttribute('data-chat-id', chatId);
 
-                chatContainers.forEach((container, index) => {
-                    // Create unique identifier for this chat instance
-                    const chatId = `chat-${index}`;
-                    container.setAttribute('data-chat-id', chatId);
+        // Find the parent container and view button
+        const parentContainer = container.closest('.index-student-message-container');
+        const viewButton = parentContainer.querySelector('.index-student-view-btn');
 
-                    // Find the parent container and view button
-                    const parentContainer = container.closest('.index-student-message-container');
-                    const viewButton = parentContainer.querySelector('.index-student-view-btn');
-
-                    // Create messages wrapper for this chat instance
-                    const messagesWrapper = document.createElement("div");
-                    messagesWrapper.classList.add("messages-wrapper");
-                    messagesWrapper.setAttribute('data-chat-id', chatId);
-                    messagesWrapper.style.cssText = `
+        // Create messages wrapper for this chat instance
+        const messagesWrapper = document.createElement("div");
+        messagesWrapper.classList.add("messages-wrapper");
+        messagesWrapper.setAttribute('data-chat-id', chatId);
+        messagesWrapper.style.cssText = `
             display: none;
             flex-direction: column;
             width: 100%;  
-           font-size: 14px;
+            font-size: 14px;
             color: #666;
-           line-height: 1.5; 
+            line-height: 1.5; 
             overflow-y: auto;
             background: #fff;
             font-family: 'Poppins', sans-serif;
         `;
-                    container.parentNode.insertBefore(messagesWrapper, container);
+        container.parentNode.insertBefore(messagesWrapper, container);
 
-                    // Get elements within this container
-                    const messageInput = container.querySelector(".nbfc-message-input");
-                    const sendButton = container.querySelector(".nbfc-send-img");
-                    const smileIcon = container.querySelector(".nbfc-face-smile");
-                    const paperclipIcon = container.querySelector(".nbfc-paperclip");
+        // Create clear chat button
+        const clearChatButton = document.createElement("button");
+        clearChatButton.textContent = "Clear Chat";
+        clearChatButton.style.cssText = `
+            align-self: flex-end;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            font-size: 12px;
+            font-family: 'Poppins', sans-serif;
+            display: none;
+        `;
+        messagesWrapper.parentNode.insertBefore(clearChatButton, messagesWrapper);
 
-                    // Function to show chat and update button
-                    function showChat() {
-                        messagesWrapper.style.display = 'flex';
-                        container.style.display = 'flex';
-                        if (viewButton) viewButton.textContent = 'Close';
-                    }
+        // Get elements within this container
+        const messageInput = container.querySelector(".nbfc-message-input");
+        const sendButton = container.querySelector(".nbfc-send-img");
+        const smileIcon = container.querySelector(".nbfc-face-smile");
+        const paperclipIcon = container.querySelector(".nbfc-paperclip");
 
-                    // Function to hide chat and update button
-                    function hideChat() {
-                        messagesWrapper.style.display = 'none';
-                        container.style.display = 'none';
-                        if (viewButton) viewButton.textContent = 'View';
-                    }
+        // Function to show chat and update button
+        function showChat() {
+            messagesWrapper.style.display = 'flex';
+            container.style.display = 'flex';
+            clearChatButton.style.display = 'block';
+            if (viewButton) viewButton.textContent = 'Close';
+        }
 
-                    // Send message function for this chat instance
-                    function sendMessage() {
-                        if (!messageInput) return;
+        // Function to hide chat and update button
+        function hideChat() {
+            messagesWrapper.style.display = 'none';
+            container.style.display = 'none';
+            clearChatButton.style.display = 'none';
+            if (viewButton) viewButton.textContent = 'View';
+        }
 
-                        const content = messageInput.value.trim();
-                        if (content) {
-                            showChat(); // Show chat when sending message
+        // Function to clear all messages in chat
+        function clearChat() {
+            messagesWrapper.innerHTML = '';
+            localStorage.removeItem(`messages-${chatId}`);
+            localStorage.removeItem(`files-${chatId}`);
+        }
 
-                            // Create message element
-                            const messageElement = document.createElement("div");
-                            messageElement.style.cssText = `
+        // Add click event to clear chat button
+        clearChatButton.addEventListener('click', clearChat);
+
+        // Send message function for this chat instance
+        function sendMessage() {
+            if (!messageInput) return;
+
+            const content = messageInput.value.trim();
+            if (content) {
+                showChat(); // Show chat when sending message
+
+                // Create message element
+                const messageElement = document.createElement("div");
+                messageElement.style.cssText = `
                     display: flex;
                     justify-content: flex-end;
                     width: 100%;
                     margin-bottom: 10px;
                 `;
 
-                            const messageContent = document.createElement("div");
-                            messageContent.style.cssText = `
+                const messageContent = document.createElement("div");
+                messageContent.style.cssText = `
                     max-width: 80%;
                     padding: 8px 12px;
                     border-radius: 8px;
                     word-wrap: break-word;
                     font-family: 'Poppins', sans-serif;
+                    background: #f0f0f0;
                 `;
-                            messageContent.textContent = content;
+                messageContent.textContent = content;
 
-                            messageElement.appendChild(messageContent);
-                            messagesWrapper.appendChild(messageElement);
+                messageElement.appendChild(messageContent);
+                messagesWrapper.appendChild(messageElement);
 
-                            // Clear input and scroll to bottom
-                            messageInput.value = "";
-                            messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
+                // Clear input and scroll to bottom
+                messageInput.value = "";
+                messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
 
-                            // Save message
-                            saveMessage(content, chatId);
-                        }
-                    }
+                // Save message
+                saveMessage(content, chatId);
+            }
+        }
 
-                    // Add click event to view/close button
-                    if (viewButton) {
-                        viewButton.addEventListener('click', function () {
-                            if (messagesWrapper.style.display === 'none') {
-                                showChat();
-                            } else {
-                                hideChat();
-                            }
-                        });
-                    }
+        // Add click event to view/close button
+        if (viewButton) {
+            viewButton.addEventListener('click', function () {
+                if (messagesWrapper.style.display === 'none') {
+                    showChat();
+                } else {
+                    hideChat();
+                }
+            });
+        }
 
-                    // Show chat when typing
-                    if (messageInput) {
-                        messageInput.addEventListener('input', function () {
-                            if (messagesWrapper.style.display === 'none') {
-                                showChat();
-                            }
-                        });
+        // Show chat when typing
+        if (messageInput) {
+            messageInput.addEventListener('input', function () {
+                if (messagesWrapper.style.display === 'none') {
+                    showChat();
+                }
+            });
 
-                        messageInput.addEventListener('keypress', function (e) {
-                            if (e.key === 'Enter') {
-                                e.preventDefault();
-                                sendMessage();
-                            }
-                        });
-                    }
+            messageInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+        }
 
-                    // Add click event to send button
-                    if (sendButton) {
-                        sendButton.addEventListener('click', function (e) {
-                            e.preventDefault();
-                            sendMessage();
-                        });
-                    }
+        // Add click event to send button
+        if (sendButton) {
+            sendButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                sendMessage();
+            });
+        }
 
-                    // Initialize emoji picker
-                    if (smileIcon) {
-                        smileIcon.addEventListener('click', function (e) {
-                            e.stopPropagation();
-                            const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
+        // Initialize emoji picker
+        if (smileIcon) {
+            smileIcon.addEventListener('click', function (e) {
+                e.stopPropagation();
+                const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
 
-                            const existingPicker = document.querySelector(".emoji-picker");
-                            if (existingPicker) {
-                                existingPicker.remove();
-                                return;
-                            }
+                const existingPicker = document.querySelector(".emoji-picker");
+                if (existingPicker) {
+                    existingPicker.remove();
+                    return;
+                }
 
-                            const picker = document.createElement("div");
-                            picker.classList.add("emoji-picker");
-                            picker.style.cssText = `
+                const picker = document.createElement("div");
+                picker.classList.add("emoji-picker");
+                picker.style.cssText = `
                     position: absolute;
                     bottom: 100%;
                     right: 0;
@@ -4407,139 +4436,264 @@ initializeCoBorrowerDocumentUpload();
                     flex-wrap: wrap;
                     gap: 5px;
                     z-index: 1000;
+                    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
                 `;
 
-                            emojis.forEach(emoji => {
-                                const button = document.createElement("button");
-                                button.textContent = emoji;
-                                button.style.cssText = `
+                emojis.forEach(emoji => {
+                    const button = document.createElement("button");
+                    button.textContent = emoji;
+                    button.style.cssText = `
                         border: none;
                         background: none;
                         font-size: 20px;
                         cursor: pointer;
                         padding: 5px;
                     `;
-                                button.onclick = (e) => {
-                                    e.stopPropagation();
-                                    messageInput.value += emoji;
-                                    picker.remove();
-                                    messageInput.focus();
-                                };
-                                picker.appendChild(button);
-                            });
+                    button.onclick = (e) => {
+                        e.stopPropagation();
+                        messageInput.value += emoji;
+                        picker.remove();
+                        messageInput.focus();
+                    };
+                    picker.appendChild(button);
+                });
 
-                            container.appendChild(picker);
+                container.appendChild(picker);
 
-                            document.addEventListener("click", function closePicker(e) {
-                                if (!picker.contains(e.target) && e.target !== smileIcon) {
-                                    picker.remove();
-                                    document.removeEventListener("click", closePicker);
-                                }
-                            });
-                        });
+                document.addEventListener("click", function closePicker(e) {
+                    if (!picker.contains(e.target) && e.target !== smileIcon) {
+                        picker.remove();
+                        document.removeEventListener("click", closePicker);
                     }
+                });
+            });
+        }
 
-                    // Initialize file attachment
-                    if (paperclipIcon) {
-                        paperclipIcon.addEventListener('click', function () {
-                            const fileInput = document.createElement("input");
-                            fileInput.type = "file";
-                            fileInput.accept = ".pdf,.jpeg.,.png,.jpg";
-                            fileInput.style.display = "none";
+        // Initialize file attachment
+        if (paperclipIcon) {
+            paperclipIcon.addEventListener('click', function () {
+                const fileInput = document.createElement("input");
+                fileInput.type = "file";
+                fileInput.accept = ".pdf,.jpeg,.png,.jpg";
+                fileInput.style.display = "none";
 
-                            fileInput.onchange = (e) => {
-                                const file = e.target.files[0];
-                                if (file) {
-                                    showChat();
-                                    const fileName = file.name;
-                                    const fileSize = (file.size / 1024 / 1024).toFixed(2);
-
-                                    const messageElement = document.createElement("div");
-                                    messageElement.style.cssText = `
-                            display: flex;
-                            justify-content: flex-end;
-                            width: 100%;
-                            margin-bottom: 10px;
-                        `;
-
-                                    const fileContent = document.createElement("div");
-                                    fileContent.style.cssText = `
-                            max-width: 80%;
-                            padding: 8px 12px;
-                            border-radius: 8px;
-                            display: flex;
-                            align-items: center;
-                            gap: 8px;
-                        `;
-                                    fileContent.innerHTML = `
-                          
-                            <span>${fileName} (${fileSize} MB)</span>
-                        `;
-
-                                    messageElement.appendChild(fileContent);
-                                    messagesWrapper.appendChild(messageElement);
-                                    messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
-                                }
+                fileInput.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        showChat();
+                        const fileName = file.name;
+                        const fileSize = (file.size / 1024 / 1024).toFixed(2);
+                        
+                        // Create unique file ID
+                        const fileId = `file-${Date.now()}`;
+                        
+                        // Store file in localStorage (as base64 for small files)
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            const fileData = {
+                                id: fileId,
+                                name: fileName,
+                                size: fileSize,
+                                type: file.type,
+                                data: event.target.result
                             };
+                            
+                            saveFile(fileData, chatId);
+                            
+                            const messageElement = document.createElement("div");
+                            messageElement.setAttribute('data-file-id', fileId);
+                            messageElement.style.cssText = `
+                                display: flex;
+                                justify-content: flex-end;
+                                width: 100%;
+                                margin-bottom: 10px;
+                            `;
 
-                            document.body.appendChild(fileInput);
-                            fileInput.click();
-                            document.body.removeChild(fileInput);
-                        });
+                            const fileContent = document.createElement("div");
+                            fileContent.style.cssText = `
+                                max-width: 80%;
+                                padding: 8px 12px;
+                                border-radius: 8px;
+                                display: flex;
+                                align-items: center;
+                                gap: 8px;
+                                background: #f0f0f0;
+                            `;
+                            
+                            // Create download link
+                            const downloadLink = document.createElement("a");
+                            downloadLink.href = event.target.result;
+                            downloadLink.download = fileName;
+                            downloadLink.style.cssText = `
+                                text-decoration: none;
+                                color: #0066cc;
+                                display: flex;
+                                align-items: center;
+                                gap: 5px;
+                            `;
+                            downloadLink.innerHTML = `
+                                <span>${fileName} (${fileSize} MB)</span>
+                            `;
+                            
+                            // Create remove button
+                            const removeButton = document.createElement("button");
+                            removeButton.innerHTML = "✕";
+                            removeButton.style.cssText = `
+                                background: none;
+                                border: none;
+                                color: #ff3333;
+                                cursor: pointer;
+                                font-size: 14px;
+                                padding: 0 5px;
+                            `;
+                            removeButton.onclick = function(e) {
+                                e.stopPropagation();
+                                messageElement.remove();
+                                removeFile(fileId, chatId);
+                            };
+                            
+                            fileContent.appendChild(downloadLink);
+                            fileContent.appendChild(removeButton);
+                            messageElement.appendChild(fileContent);
+                            messagesWrapper.appendChild(messageElement);
+                            messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
+                        };
+                        
+                        reader.readAsDataURL(file);
                     }
+                };
 
-                    // Initialize message button
-                    const messageBtn = parentContainer.querySelector('.index-student-message-btn');
-                    if (messageBtn) {
-                        messageBtn.addEventListener('click', function () {
-                            showChat();
-                        });
-                    }
+                document.body.appendChild(fileInput);
+                fileInput.click();
+                document.body.removeChild(fileInput);
+            });
+        }
 
-                    // Load saved messages
-                    const savedMessages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
-                    savedMessages.forEach(content => {
-                        const messageElement = document.createElement("div");
-                        messageElement.style.cssText = `
+        // Initialize message button
+        const messageBtn = parentContainer.querySelector('.index-student-message-btn');
+        if (messageBtn) {
+            messageBtn.addEventListener('click', function () {
+                showChat();
+            });
+        }
+
+        // Load saved messages
+        const savedMessages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
+        savedMessages.forEach(content => {
+            const messageElement = document.createElement("div");
+            messageElement.style.cssText = `
                 display: flex;
                 justify-content: flex-end;
                 width: 100%;
                 margin-bottom: 10px;
             `;
 
-                        const messageContent = document.createElement("div");
-                        messageContent.style.cssText = `
+            const messageContent = document.createElement("div");
+            messageContent.style.cssText = `
                 max-width: 80%;
                 padding: 8px 12px;
                 border-radius: 8px;
                 word-wrap: break-word;
+                background: #f0f0f0;
+                font-family: 'Poppins', sans-serif;
             `;
-                        messageContent.textContent = content;
+            messageContent.textContent = content;
 
-                        messageElement.appendChild(messageContent);
-                        messagesWrapper.appendChild(messageElement);
-                    });
-                });
-            }
+            messageElement.appendChild(messageContent);
+            messagesWrapper.appendChild(messageElement);
+        });
+        
+        // Load saved files
+        const savedFiles = JSON.parse(localStorage.getItem(`files-${chatId}`) || '[]');
+        savedFiles.forEach(fileData => {
+            const messageElement = document.createElement("div");
+            messageElement.setAttribute('data-file-id', fileData.id);
+            messageElement.style.cssText = `
+                display: flex;
+                justify-content: flex-end;
+                width: 100%;
+                margin-bottom: 10px;
+            `;
 
-            // Storage functions
-            function saveMessage(content, chatId) {
-                const messages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
-                messages.push(content);
-                localStorage.setItem(`messages-${chatId}`, JSON.stringify(messages));
-            }
-
-            // Initialize when DOM is loaded
-            document.addEventListener('DOMContentLoaded', initializeChats);
+            const fileContent = document.createElement("div");
+            fileContent.style.cssText = `
+                max-width: 80%;
+                padding: 8px 12px;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                background: #f0f0f0;
+                font-family: 'Poppins', sans-serif;
+            `;
             
+            // Create download link
+            const downloadLink = document.createElement("a");
+            downloadLink.href = fileData.data;
+            downloadLink.download = fileData.name;
+            downloadLink.style.cssText = `
+                text-decoration: none;
+                color: #0066cc;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            `;
+            downloadLink.innerHTML = `
+                <span>${fileData.name} (${fileData.size} MB)</span>
+            `;
+            
+            // Create remove button
+            const removeButton = document.createElement("button");
+            removeButton.innerHTML = "✕";
+            removeButton.style.cssText = `
+                background: none;
+                border: none;
+                color: #ff3333;
+                cursor: pointer;
+                font-size: 14px;
+                padding: 0 5px;
+            `;
+            removeButton.onclick = function(e) {
+                e.stopPropagation();
+                messageElement.remove();
+                removeFile(fileData.id, chatId);
+            };
+            
+            fileContent.appendChild(downloadLink);
+            fileContent.appendChild(removeButton);
+            messageElement.appendChild(fileContent);
+            messagesWrapper.appendChild(messageElement);
+        });
+    });
+}
 
-            function enableScroll() {
+// Storage functions
+function saveMessage(content, chatId) {
+    const messages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
+    messages.push(content);
+    localStorage.setItem(`messages-${chatId}`, JSON.stringify(messages));
+}
+
+function saveFile(fileData, chatId) {
+    const files = JSON.parse(localStorage.getItem(`files-${chatId}`) || '[]');
+    files.push(fileData);
+    localStorage.setItem(`files-${chatId}`, JSON.stringify(files));
+}
+
+function removeFile(fileId, chatId) {
+    const files = JSON.parse(localStorage.getItem(`files-${chatId}`) || '[]');
+    const updatedFiles = files.filter(file => file.id !== fileId);
+    localStorage.setItem(`files-${chatId}`, JSON.stringify(updatedFiles));
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeChats);
+
+// Enable scrolling function
+function enableScroll() {
     document.body.style.overflow = "auto"; // Enable scrolling
     document.documentElement.style.overflow = "auto"; // For <html>
 }
-
-
-
 
 
         </script>

@@ -2,9 +2,12 @@ body, html {
   margin: 0;
   padding: 0;
   width: 100%;
+  
   overflow-x: hidden;
   font-family: 'Poppins', sans-serif;
 }
+
+
 /* Navigation Bar Styles */
 .student-form-nav {
     background-color: #FFFFFF;
@@ -119,6 +122,21 @@ body, html {
 .student-form-nav-mobile {
     display: none;
 }
+@media (min-width: 1513px) {
+.student-form-nav {
+
+   width: 1460px;
+   margin:0 auto;
+
+}
+.registration-content{
+   width: 1460px;
+   margin:0 auto;
+
+}
+
+}
+
 
 @media (max-width: 768px) {
     .student-form-nav-container {
@@ -285,6 +303,12 @@ body, html {
   color:#FFFFFFCC;
 }
 
+
+@media (min-width: 1440px) {
+  .registration-section {
+    padding: 50px 200px; /* Increase padding for a better layout */
+  }
+}
 @media (max-width: 767px) {
   .registration-section {
      background-image: url("../images/student-dash-mobile.png");
@@ -1077,6 +1101,19 @@ input[type="number"]::-webkit-inner-spin-button {
 .dot.active {
   background: #FF7A00;
 }
+
+@media (min-width: 1513px) {
+.navigation {
+    width: 1460px;
+    padding-left: 300px;
+    
+  
+   
+}
+
+
+}
+
 @media (max-width: 768px) {
   .wrapper {
     display: flex;

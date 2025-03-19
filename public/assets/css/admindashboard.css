@@ -1,7 +1,7 @@
   .admindashboard-container {
     display:flex;
     flex-direction: column;
-    margin: 80px 20px 80px 20px;
+    margin: 80px 20px 80px 50px;
     max-width: 100%;
     width: 100%;
     padding-top: 53px;
