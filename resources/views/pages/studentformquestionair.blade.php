@@ -18,6 +18,8 @@
 </head>
 
 <body>
+
+
 <nav class="student-form-nav">
       <div class="student-form-nav-container">
         <img src="assets/images/student-form-logo.png" alt="Remitout Logo" class="student-form-logo">
@@ -30,10 +32,11 @@
           <a href="#support" class="student-form-nav-mobile">Support</a>
           <a href="#help" class="student-form-nav-mobile">Help</a>
 
-          <div class="student-form-nav-buttons">
-              <a href="#" class="student-form-login-btn">Log In</a>
-              <button class="student-form-signup-btn">Sign Up</button>
-          </div>
+        <div class="student-form-nav-buttons">
+           <button class="student-form-login-btn" onclick="window.location.href='http://127.0.0.1:8000/nbfc-dashboard'">Log In</button>
+              <button class="student-form-signup-btn" onclick="window.location.href='http://127.0.0.1:8000/signup'">Sign Up</button>
+        </div>
+
         </div>
         
       <div class="student-form-menu-left">
@@ -328,11 +331,12 @@
                 loan amount (numeric values only).</span>
             </div>
           </div>
+            <!-- Only this step has the button -->
+      <button type="submit" id="course-info-submit" class="next-btn-course">Next</button>
         </div>
       </div>
 
-      <!-- Only this step has the button -->
-      <button type="submit" id="course-info-submit" class="next-btn-course">Next</button>
+    
     </div>
 
   </div>
@@ -1213,14 +1217,17 @@
               <p>Please upload your office/shop photographs in jpg, png, or pdf format.</p>
             </div>
           </div>
-        </div>
+           <button type="submit" class="next-btn-kyc" id="saveandsubmit">Save and Submit</button>
+        </div>  
+
+        
       </div>
 
       <!-- Submit Button -->
 
-
+      
     </div>
-    <button type="submit" class="next-btn-kyc" id="saveandsubmit">Save and Submit</button>
+  
 
   </section>
 
@@ -1251,6 +1258,15 @@
   <!-- #region -->
 
       <script src="{{ asset('js/studentforms.js') }}"></script>
+      <script>
+      const studentFormMenuIcon = document.getElementById('student-form-menu-icon');
+const studentFormNavLinks = document.getElementById('student-form-nav-links');
+
+studentFormMenuIcon.addEventListener('click', () => {
+    studentFormMenuIcon.classList.toggle('active');
+    studentFormNavLinks.classList.toggle('active');
+});
+</script>
 
 </body>
 

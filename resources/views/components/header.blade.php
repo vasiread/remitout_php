@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* Header Navigation */
+    
         .header-nav {
             position: absolute;
             top: 0;
@@ -293,7 +293,7 @@
         }
 
         /* Mobile Device */
-        @media (max-width: 767px) {
+        @media (max-width: 768px) {
             .header-container {
                 display: flex;
                 justify-content: space-between;
@@ -353,6 +353,7 @@
                 font-size: 20px;
                 padding-top: 80px;
                 height: auto;
+            
                
             }
 
@@ -367,7 +368,7 @@
                 cursor: pointer;
                 box-sizing: border-box;
                 padding-left: 0;
-                background-color: #260254;
+                background-color: #6F25CE;
                 color: #FFFFFF;
                 border: none;
             }
@@ -383,9 +384,9 @@
                 cursor: pointer;
                 box-sizing: border-box;
                 padding-left: 0;
-                border: 1px solid #260254;
+                border: 1px solid #6F25CE;
                 background-color: #FFFFFF;
-                color: #260254;
+                color: #6F25CE;
             }
 
             .header-menu-icon {
