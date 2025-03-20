@@ -1,0 +1,343 @@
+.footersection {
+    background: rgba(111, 37, 206, 0.8);
+
+    height: 980px;
+    max-width: 100%;  
+    width: 100%;  
+    position: relative;
+    z-index: 2;
+    padding: 0 8.37rem;
+    display: flex;
+    flex-direction: column;
+    margin-top: 250px;
+
+
+
+
+
+}
+
+.footersection .footersection-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+.footersection-layers .firstlayer {
+    opacity: 0.6;
+    position: absolute;
+    z-index: -1;
+}
+
+.footersection-socialmediabuttons {
+    display: flex;
+    gap: 25px;
+    padding: 12px 0;
+}
+
+.footersection-socialmediabuttons button {
+    display: flex;
+
+    align-items: center;
+    gap: 10px;
+    padding: 16px 10px;
+
+    max-width: 121px;
+    width: 100%;
+    color: rgba(238, 238, 238, 1);
+
+
+    height: 40px;
+    border-radius: 8px;
+    border: 0.5px solid rgba(255, 255, 255, 0.41);
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.1);
+    background-color: transparent;
+
+
+
+
+
+}
+
+.footersection-socialmediabuttons i {
+    font-size: 12px;
+
+}
+
+.footersection-socialmediabuttons p {
+    font-family: Poppins;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 13.2px;
+    letter-spacing: 0.02em;
+    text-align: center;
+    color: rgba(238, 238, 238, 1);
+}
+
+.footersection-leftinsidecontainer {
+    max-width: 376px;
+    width: 100%;
+    height: 108px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+}
+
+.footersection-leftinsidecontainer p {
+    color: rgba(233, 232, 234, 0.8);
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25.6px;
+    text-align: left;
+
+
+    ;
+}
+
+.footer-smallinfo {
+    margin-top: 20px;
+}
+
+.footersection-addressinfo,
+.footersection-contactinfo {
+
+    display: flex;
+    gap: 32px;
+}
+
+.footersection-leftinsidecontainer img {
+    width: 142px;
+    height: 45px;
+}
+
+.footersection-addressinfo i,
+.footersection-contactinfo i {
+    background-color: rgba(255, 255, 255, 0.26);
+    max-width: 32px;
+    width: 100%;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 6px;
+    gap: 10px;
+    border-radius: 60px;
+
+
+}
+
+.footersection-insidecontainer {
+    display: flex;
+    max-width: 100%;
+    flex-direction: space-between;
+    gap: 165px;
+}
+
+.footer-firsthorizontalline {
+    margin-bottom: 2.5rem;
+    border: 0.78px solid rgba(213, 180, 255, 0.6)
+}
+
+.footer-secondhorizontalline {
+    margin-top: 17.2rem;
+    border: 0.78px solid rgba(213, 180, 255, 0.6)
+}
+
+
+.footer-rights {
+    max-width: 100%;
+    text-align: center;
+    padding: 2.5rem 8.37rem;
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28.8px;
+    text-align: center;
+    color: rgba(214, 211, 217, 1);
+
+
+
+
+}
+
+.footersection-rightinsidecontainer {
+    display: flex;
+    gap: 71px;
+    max-width: 608px;
+    width: 100%;
+}
+
+.footersection-rightinsidecontainer ul {
+    list-style: none;
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25.6px;
+    text-align: left;
+    color: rgba(216, 216, 216, 0.8);
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    max-width: 15.604rem;
+    width: 100%;
+
+
+}
+
+.footersection-rightinsidecontainer ul p {
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 21.6px;
+    text-align: left;
+    color: rgba(230, 229, 230, 1);
+    padding-bottom: 7px;
+
+
+}
+
+.footersection-reachoutsection {
+    height: 220px;
+    max-width: 1172px;
+    width: 100%;
+    background: linear-gradient(240.19deg, rgba(94, 39, 165, 0.4) -125.27%, rgba(42, 8, 86, 0.4) 49.85%);
+    border: 0.1px solid rgba(3, 3, 3, 0.1);
+    background: repeating-linear-gradient(240.19deg,
+            rgba(94, 39, 165, 0.4),
+            rgba(42, 8, 86, 0.4) 50%,
+            rgba(94, 39, 165, 0.4) 100%);
+
+
+
+    padding: 40px 30px;
+    gap: 24px;
+    border-radius: 8px;
+    opacity: 0px;
+    margin: 50px 0;
+
+
+}
+
+
+
+.reachoutinputemail {
+    position: relative;
+
+
+
+}
+
+.reachoutinputemail input {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    max-width: 388px;
+    width: 100%;
+    height: 56px;
+    padding: 22px 30px;
+    gap: 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(219, 219, 219, 0.3);
+    opacity: 0px;
+    background-color: transparent;
+    outline: none;
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 21.6px;
+    text-align: left;
+    color: rgba(255, 255, 255, 0.75);
+    display: flex;
+
+}
+
+.reachoutinputemail input::placeholder {
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 21.6px;
+    text-align: left;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 379px;
+    width: 100%;
+    height: 56px;
+
+}
+
+.footersection-reachoutinput {
+    display: flex;
+    gap: 20px;
+}
+
+.footersection-reachoutinput button {
+    max-width: 170px;
+    width: 100%;
+    height: 56px;
+    padding: 16px 24px;
+    gap: 8px;
+    border-radius: 8px;
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+    letter-spacing: 0.02em;
+    text-align: center;
+    background-color: rgba(111, 37, 206, 1);
+    color: #fff;
+    border: none;
+
+
+
+
+}
+
+.reachoutinputemail i {
+    position: absolute;
+    top: 31.5%;
+    left: 2%;
+    font-size: 18px;
+    color: #fff;    
+
+}
+
+.footersection-reachoutinside {
+    display: flex;
+    margin-top: -1rem;
+
+}
+
+.footersection-reachoutleft {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    max-width: 588px;
+    width: 100%;
+    height: 140px;
+}
+
+.footersection-reachoutleft h1 {
+    font-family: Poppins;
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 24px;
+    text-align: left;
+    color: rgba(230, 229, 230, 1);
+
+
+}
+
+.footersection-reachoutleft p {
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28.8px;
+    text-align: left;
+    color: rgba(230, 230, 232, 1);
+
+
+}

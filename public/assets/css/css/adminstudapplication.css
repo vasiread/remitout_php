@@ -1,0 +1,27 @@
+.admin-studnet-application-main-container{
+    display:flex;
+     border-radius: 8px;
+    padding: 20px;
+    flex-direction: column;
+    font-family: 'Poppins', sans-serif;
+    width: calc(100% - 18% - 20px);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: auto;
+    margin-left: auto;
+    margin-top: 40px;
+}
+
+
+
+#admin-studentdashboardprofile-myapplication-id {
+    display: flex !important;
+    max-width:100%;
+}
+
+
+#admin-studentdashboardprofile-profilesection{
+    max-width:340px;
+}
+

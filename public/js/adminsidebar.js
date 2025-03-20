@@ -29,7 +29,6 @@ const initializeAdminSidebar = () => {
 
 
 
-
     if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "none";
     if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
 
@@ -265,6 +264,7 @@ const initializeAdminSidebar = () => {
                 if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
                 if (adminPropertyOne) adminPropertyOne.style.display = "none";
                    if (studentApplication) studentApplication.style.display = "none";
+
 
             }
             else if (index === 11) {
