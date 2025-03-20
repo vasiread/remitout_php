@@ -1,11 +1,13 @@
+ 
   .admindashboard-container {
-      display: flex;
-      flex-direction: column;
-      margin: 80px 20px 80px 20px;
-      max-width: 100%;
-      width: 100%;
-      padding-top: 53px;
-  }
+        display: flex;
+            flex-direction: column;
+            margin: 80px 20px 80px 20px;
+            max-width: 100%;
+            width: 100%;
+            padding-top: 53px;
+            margin-left: 30.04%;
+   }
 
   .admindashboardcontainer-firstsection {
       display: flex;
