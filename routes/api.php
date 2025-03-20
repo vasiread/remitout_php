@@ -10,6 +10,7 @@ use App\Http\Controllers\OTPMobController;
 use App\Http\Controllers\scDashboardController;
 use App\Http\Controllers\SidebarHandlingController;
 use App\Http\Controllers\StudentCounsellorController;
+use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\StudentDetailsController;
 use App\Http\Controllers\TrackController;
 use Illuminate\Http\Request;
@@ -46,6 +47,7 @@ Route::post('/verify-mobotp', [OTPMobController::class, 'verifyOTP']);
 Route::post('/emailuniquecheck', action: [RegisterController::class, 'emailUniqueCheck']);
 Route::post('/updatedetailsinfo', [StudentDetailsController::class, 'updateUserIds']);
 
+Route::post('/getUserFromNbfc', [StudentDashboardController::class, 'getUserFromNbfc'])->name('getUserFromNbfc');
 
 
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');

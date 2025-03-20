@@ -380,11 +380,120 @@
     align-items: center;
 }
 
-#nbfc-student-profile-details{
-    display: none;
+#nbfc-student-profile-details {
+    display: flex;
     width: 100%;
-    max-width: 100%;
+    max-width: 69.52%;
 
+}
+
+.myapplication-seventhcolumn-headernbfc {
+    display: flex;
+    width: 100%;
+    height: 47px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    padding-top: 2rem;
+    border-top: 1.2px solid rgba(194, 194, 194, 0.7)
+}
+
+#nbfc-student-profile-details .myapplication-seventhcolumn h1 {
+    border: none;
+}
+
+.myapplication-nbfcapprovalcolumn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.myapplication-seventhcolumn-headernbfc button {
+    cursor: pointer;
+    width: 139px;
+    height: 35px;
+    border-radius: 4px;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
+    border: 1px solid rgba(111, 37, 206, 1);
+    background-color: rgba(255, 255, 255, 1);
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 120%;
+    color: rgba(38, 2, 84, 1);
+
+
+}
+
+
+.myapplication-nbfcapprovalcolumn button:first-child {
+    width: 126px;
+    height: 35px;
+    border-radius: 4px;
+    gap: 8px;
+    background: rgba(111, 37, 206, 1);
+    box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: flex-start;
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 120%;
+    color: rgba(255, 255, 255, 1);
+    border: none;
+    cursor: pointer;
+
+}
+
+.nbfcapprovalcolumnrightaligned {
+    display: flex;
+    gap: 2.1rem;
+
+
+}
+
+.nbfcapprovalcolumnrightaligned button:first-child,
+.nbfcapprovalcolumnrightaligned button:last-child {
+    cursor: pointer;
+    width: 109px;
+
+    height: 35px;
+    border-radius: 4px;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(111, 37, 206, 1);
+    box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 120%;
+    color: rgba(38, 2, 84, 1);
+    background-color: transparent;
+
+
+}
+
+.nbfcdashboard-studentlistscontainer {
+    display: none;
+    max-width:100%;
+    width: 100%;
+    justify-content: space-between;
+    margin-left: 1.3%;
+}
+
+#nbfc-list-of-student-profilesections {
+    display: flex;
+    max-width: 28.85%;
+    width: 100%;
 }
 
 @media screen and (max-width: 1023px) {
@@ -2833,19 +2942,21 @@
 
 }
 
-.nbfc-student-dashboard-section-main-contents .studentdashboardprofile-educationeditsection {
+ #nbfc-list-of-student-profilesections .studentdashboardprofile-educationeditsection {
+    display: flex;
+    flex-direction: column;
+    margin: 13px 0;
+
+
+}
+
+ #nbfc-list-of-student-profilesections .studentdashboardprofile-testscoreseditsection {
     display: flex;
     flex-direction: column;
     margin: 13px 0;
 
 }
 
-.nbfc-student-dashboard-section-main-contents .studentdashboardprofile-testscoreseditsection {
-    display: flex;
-    flex-direction: column;
-    margin: 13px 0;
-
-}
 
 .nbfc-student-dashboard-section-main-contents .myapplication-eleventhcolumn {
     display: flex;

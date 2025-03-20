@@ -90,6 +90,7 @@ Route::post('/update-courseinfo', [StudentDetailsController::class, 'updateCours
 Route::post('/update-academicsinfo', [StudentDetailsController::class, 'updateAcademicsInfo']);
 Route::post('/updatedetailsinfo', [StudentDetailsController::class, 'updateUserIds']);
 Route::post("/coborrowerData", [StudentDetailsController::class, 'updateCoborrowerInfo']);
+Route::post('/getUserFromNbfc', [StudentDashboardController::class, 'getUserFromNbfc'])->name('getUserFromNbfc');
 
 // Document Upload and Handling Routes
 Route::post('/remove-each-documents', [StudentDashboardController::class, 'removeFromServer']);

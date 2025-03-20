@@ -28,7 +28,10 @@ class StudentDashboardController extends Controller
 
         if (!$user) {
             return redirect()->route('login')->withErrors('Please log in to access your dashboard.');
+
+
         }
+
 
         $uniqueId = $user->unique_id;
 
@@ -40,14 +43,34 @@ class StudentDashboardController extends Controller
         $personalDetails = PersonalInfo::where('user_id', $uniqueId)->get();
 
 
-        // $personalInfo = $user->personalInfo;
-        // $academicDetails = $user->academicsInfo;
-
-        // Ensure this returns the view
         return view('pages.studentdashboard', compact('user', 'userDetails', 'personalDetails', 'courseDetails', 'academicDetails'));
     }
-    // In SidebarHandlingController (or any controller)
+    public function getUserFromNbfc(Request $request)
+    {
+        $request->validate([
+            "userId" => "string|required",
+        ]);
 
+        $userId = $request->input('userId');
+
+        if ($userId) {
+            $userDetails = User::where('unique_id', $userId)->get();
+            $courseDetails = CourseInfo::where('user_id', $userId)->get();
+            $academicDetails = Academics::where('user_id', $userId)->get();
+            $personalDetails = PersonalInfo::where('user_id', $userId)->get();
+
+            // Return as JSON
+            return response()->json([
+                'userDetails' => $userDetails,
+                'courseDetails' => $courseDetails,
+                'academicDetails' => $academicDetails,
+                'personalDetails' => $personalDetails,
+            ]);
+        }
+
+        // If no user found, return an error
+        return response()->json(['error' => 'User not found'], 404);
+    }
 
     public function pushUserIdToRequest(Request $request)
     {
@@ -93,7 +116,6 @@ class StudentDashboardController extends Controller
                 'remarks' => 'string'
             ]);
 
-            // Log incoming data to ensure it's correct
             \Log::info('Received request data:', [
                 'userId' => $request->input('userId'),
                 'nbfcId' => $request->input('nbfcId'),
@@ -104,29 +126,39 @@ class StudentDashboardController extends Controller
             $nbfcID = $request->input('nbfcId');
             $remarks = $request->input('remarks');
 
+            // Delete the user from Requestprogress
             $deleteQuery = Requestprogress::where('nbfc_id', $nbfcID)
                 ->where('user_id', $userID)
                 ->delete();
 
             if ($deleteQuery) {
-                $record = Rejectedbynbfc::create([
-                    'user_id' => $userID,
-                    'nbfc_id' => $nbfcID,
-                    'remarks' => $remarks
-                ]);
+                // Check if a record with the same nbfc_id and user_id already exists in Rejectedbynbfc
+                $record = Rejectedbynbfc::where('user_id', $userID)
+                    ->where('nbfc_id', $nbfcID)
+                    ->first();
+
+                if ($record) {
+                    Rejectedbynbfc::where('user_id', $userID)
+                        ->where('nbfc_id', $nbfcID)
+                        ->update([
+                            'remarks' => $remarks,
+                           
+                        ]);
+
+                } else {
+                    // If the record does not exist, create a new one
+                    Rejectedbynbfc::create([
+                        'user_id' => $userID,
+                        'nbfc_id' => $nbfcID,
+                        'remarks' => $remarks
+                    ]);
+                }
             }
 
-            if ($record) {
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Rejected Records stored successfully',
-                ], 200);
-            } else {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Failed to store rejected records'
-                ], 404);
-            }
+            return response()->json([
+                'success' => true,
+                'message' => 'Rejected Records stored or updated successfully',
+            ], 200);
 
         } catch (\Exception $e) {
             // Log the error for debugging
@@ -139,6 +171,8 @@ class StudentDashboardController extends Controller
             ], 500);
         }
     }
+
+
 
 
 
