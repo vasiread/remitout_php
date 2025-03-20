@@ -1,12 +1,12 @@
+ 
   .admindashboard-container {
-      display: none;
-      flex-direction: column;
-    margin: 80px 20px 80px 20px;
-
-      max-width: 100%;
-      width: 100%;
-    
-      padding-top: 53px;
+        display: flex;
+            flex-direction: column;
+            margin: 80px 20px 80px 20px;
+            max-width: 100%;
+            width: 100%;
+            padding-top: 53px;
+            margin-left: 30.04%;
    }
 
   .admindashboardcontainer-firstsection {
@@ -144,7 +144,7 @@
       border-radius: 4px;
       background-color: #6F25CE;
       color: #FFFFFF;
-      border: none;  
+      border: none;
       font-size: 14px;
 
 
@@ -152,15 +152,20 @@
 
   .admindashboardcontainer-thirdsection {
       display: flex;
-      gap: 12px;
+      gap: 1.19%;
       width: 100%;
+      max-width: 100%;
 
   }
 
   .reports-registeration {
       display: flex;
       flex-direction: column;
-      width: fit-content;
+      height: 220px;
+      width: 100%;
+
+
+      max-width: 100%;
       background-color: rgba(255, 255, 255, 1);
 
   }
@@ -168,7 +173,7 @@
   .admindashboard-firstpart,
   .admindashboard-secondpart,
   .admindashboard-thirdpart {
-      flex: 1;
+      max-width: 35.93%;
       width: 100%;
       flex-direction: column;
 
@@ -215,6 +220,8 @@
       background-color: rgba(255, 255, 255, 1);
       box-shadow: 0px 6.16px 15.41px 0px rgba(26, 2, 57, 0.03);
       width: 100%;
+      max-width: 100%;
+      height:220px;
   }
 
   .donutregistration-chart-container,
@@ -293,26 +300,28 @@
   .admindashboard-secondpart {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 11.8px;
       width: 100%;
 
   }
 
   .admindashboard-secondpart div {
       background-color: rgba(255, 255, 255, 1);
+      width: 100%;
 
 
   }
 
   .admindashboard-secondpart .totalundergrads-admin,
   .admindashboard-secondpart .totalpostgrads-admin {
-      padding: 20px 22px 14px 19px;
+    padding: 14px 22px 6px 19px;
       display: flex;
       flex-direction: column;
       height: 105px;
-      width: fit-content;
       justify-content: space-between;
       box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
+      width: 100%;
+      max-width: 100%;
 
   }
 
@@ -328,9 +337,10 @@
   .totalundergrads-info,
   .totalpostgrads-info {
       display: flex;
-      gap: 20px;
-      align-items: flex-end;
+      gap: 5.54%;
 
+      align-items: center;
+      width: 100%
   }
 
   .totalundergrads-info h1,
@@ -427,7 +437,11 @@
       display: flex;
       flex-direction: column;
       padding: 13px 13px 0 24px;
+      height: 220px;
   }
+  .ageratio-graph-admin{
+        padding-bottom: 33px;
+   }
 
   .ageratio-graph-admin {
       gap: 2rem;
@@ -540,7 +554,7 @@
 
   #funnelreport-rightsideid {
       background-color: transparent;
-      
+
   }
 
   #funnelreport-rightsideid p {
@@ -610,6 +624,6 @@
       font-weight: 600;
       line-height: 19.5px;
       display: flex;
-      gap:2.1rem;
+      gap: 2.1rem;
       padding: 2rem 0;
   }

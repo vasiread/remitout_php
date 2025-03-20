@@ -7,22 +7,23 @@
             display: none;
             flex-direction: column;
             font-family: 'Poppins', sans-serif;
-            max-width: 100%;
+            max-width: 71.04%;
             width: 100%;
+
+            margin-left: 23.04%;
             margin-top: 140px;
             margin-right: 85px;
             gap: 17px;
-            margin-left: 4.1%;
-        }
+         }
 
         .ticket-raised-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-          
+
             padding-bottom: 10px;
             border-bottom: 1px solid #eee;
-            padding:20px 0px 30px 0px;
+            padding: 20px 0px 30px 0px;
         }
 
         .ticket-raised-title {
@@ -104,7 +105,19 @@
             padding: 0 15px;
         }
 
-        .ticket-raised-meta-item {
+        .ticket-raised-meta-item-sc {
+            color: #666;
+            font-size: 14px !important;
+            text-align: center;
+        }
+
+        .ticket-raised-meta-item-student {
+            color: #666;
+            font-size: 14px !important;
+            text-align: center;
+        }
+
+        .ticket-raised-meta-item-date {
             color: #666;
             font-size: 14px !important;
             text-align: center;
@@ -131,7 +144,7 @@
             justify-content: center;
             width: 40px;
             height: 30px;
-          
+
             border-radius: 4px;
             cursor: pointer;
         }
@@ -220,6 +233,8 @@
             padding: 10px;
             cursor: pointer;
             transition: background-color 0.2s;
+            font-size: 10px;
+            font-family: 'Poppins', sans-serif;
         }
 
         .ticket-raised-sort-dropdown-nbfc li:hover {
@@ -270,3 +285,121 @@
             /* Hidden attribute to store date for sorting */
             display: none;
         }
+
+       
+        @media screen and (max-width: 768px) {
+            .ticket-raised-container {
+                width: 100%;
+                /* Full width */
+                max-width: 100%;
+                margin: 0;
+                /* Remove margins */
+                padding: 0;
+                /* Remove padding */
+                box-shadow: none;
+                /* Remove box shadow */
+                gap: 0;
+                background-color: transparent;
+            }
+
+            .ticket-raised-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px;
+                background-color: white;
+                border-bottom: 1px solid #eee;
+            }
+
+            .ticket-raised-title {
+                font-size: 18px;
+                color: #E98635;
+                font-weight: 600;
+            }
+
+            .ticket-raised-sort-dropdown {
+                position: relative;
+            }
+
+            .ticket-raised-tickets-container {
+                background-color: white;
+                margin-top: 10px;
+            }
+
+            .ticket-raised-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 15px;
+                border-bottom: 1px solid #eee;
+            }
+
+            .ticket-raised-content {
+                flex: 1;
+                margin-right: 10px;
+                color: #666;
+                font-size: 14px;
+                line-height: 1.4;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .ticket-raised-meta {
+                display: flex;
+                align-items: center;
+                min-width: auto;
+                justify-content: flex-end;
+                padding: 0;
+            }
+
+            .ticket-raised-meta-item {
+                color: #666;
+                font-size: 12px;
+                margin-left: 10px;
+            }
+
+            .ticket-raised-meta-item-date {
+                display: none;
+            }
+
+            .ticket-raised-meta-item-student {
+                display: none;
+            }
+
+
+
+            .ticket-raised-chat-icon-container {
+                margin-left: 10px;
+            }
+
+            .ticket-raised-chat-icon {
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .ticket-raised-view-more {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 15px;
+                background-color: white;
+                border-top: 1px solid #eee;
+                color: #6F25CE;
+                font-weight: 500;
+                cursor: pointer;
+            }
+
+            /* Ensure text truncation for long content */
+            .ticket-raised-content {
+                max-width: 150px;
+                /* Adjust as needed */
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+
+ 

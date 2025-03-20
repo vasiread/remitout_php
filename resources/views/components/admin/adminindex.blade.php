@@ -42,38 +42,54 @@
                         <span class="admin-index-count admin-index-count-gray" id="nbfc-index-count">00</span>
                     </div>
 
+           </div>  
+
+            <div class="mobile-inbox-container">
+           <span class="mobile-inbox-item active">Students</span>
+          <span class="mobile-inbox-item">Student Counsellors</span>
+          <span class="mobile-inbox-item">NBFCs</span>
+        </div>
+
+        </div>
+
+       
+
+
+        <div class="inbox-container" class id="index-container-id">
+            <div class="inbox-header">
+                <h2 class="dashboard-section-index">Student</h2>
+                <div class="inbox-controls">
+                    <div class="index-search-container" id="admin-search-container-id">
+                        <img src="assets/images/search.png" alt="Search" class="index-search-icon">
+                        <input type="text" class="index-search-input" id="admin-search-input-id" placeholder="Search">
+                    </div>
+                    <div class="admin-inbox-filters" id="admin-index-sort-id">
+                            <span>Sort</span>
+                            <img src="assets/images/filter-icon.png" alt="Filters">
+                            <ul class="admin-sort-dropdown" id="admin-index-sort-id">
+                                <li data-sort="az">A-Z</li>
+                                <li data-sort="za">Z-A</li>
+                                <li data-sort="newest">Newest</li>
+                                <li data-sort="oldest">Oldest</li>
+                            </ul>
+                        </div>
                 </div>
             </div>
 
-            <div class="inbox-container" class id="index-container-id">
-                <div class="inbox-header">
-                    <h2 class="dashboard-section-index">Student</h2>
-                    <div class="inbox-controls">
-                        <div class="index-search-container" id="index-search-container-id">
-                            <img src="assets/images/search.png" alt="Search" class="index-search-icon">
-                            <input type="text" class="index-search-input" placeholder="Search">
-                        </div>
-                        <div class="inbox-filters">
-                            <span>Sort</span>
-                            <img src="assets/images/filter-icon.png" alt="Filters">
+            <div class="message-thread" id="message-thread-id">
+                <div class="message-item">
+                    <div class="message-header">
+                        <h2 class="index-bank-name">Bank Name</h2>
+                        <div class="message-actions">
+                            <button class="admin-inbox-btn-view">View</button>
+                            <button class="admin-inbox-btn-close">Close</button>
                         </div>
                     </div>
+                    <p class="message-content">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                    </p>
                 </div>
-
-                <div class="message-thread" id="message-thread-id">
-                    <div class="message-item">
-                        <div class="message-header">
-                            <h2 class="index-bank-name">Bank Name</h2>
-                            <div class="message-actions">
-                                <button class="inbox-btn-view">View</button>
-                                <button class="inbox-btn-close">Close</button>
-                            </div>
-                        </div>
-                        <p class="message-content">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                        </p>
-                    </div>
 
                     <div class="message-response">
                         <div class="message-response-container">
@@ -88,12 +104,12 @@
                             </ol>
                         </div>
 
-                        <div class="nbfc-individual-bankmessage-input">
-                            <input type="text" placeholder="Send message" class="nbfc-message-input">
-                            <img class="nbfc-send-img" src="assets/images/send-nbfc.png" alt="send icon">
-                            <i class="fa-solid fa-paperclip nbfc-paperclip"></i>
-                            <i class="fa-regular fa-face-smile nbfc-face-smile"></i>
-                        </div>
+                    <div class="admin-individual-bankmessage-input">
+                        <input type="text" placeholder="Send message" class="admin-message-input">
+                        <img class="nbfc-send-img" src="assets/images/send-nbfc.png" alt="send icon">
+                        <i class="fa-solid fa-paperclip nbfc-paperclip"></i>
+                        <i class="fa-regular fa-face-smile nbfc-face-smile"></i>
+                    </div>
 
                     </div>
 
@@ -101,7 +117,7 @@
 
 
 
-                <div class="index-student-details-container" id="index-student-details-container-admin-id">
+             <div class="index-student-details-container" id="index-student-details-container-admin-id">
 
                     <!-- Student Message Card 1 -->
                     <div class="index-student-message-container" id="index-student-message-container-id">
@@ -220,85 +236,200 @@
 
     </div>
 
-    <script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Expanded Bank Names Array with more variety
+      const bankNames = [
+        'Bank of Baroda',
+        'State Bank of India (SBI)',
+        'HDFC Bank',
+        'ICICI Bank',
+        'Axis Bank',
+        'Canara Bank'
+    ];
+    // Enhanced Randomization Function
+    function getRandomBankName() {
+        return bankNames[Math.floor(Math.random() * bankNames.length)];
+    }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const messageButtons = document.querySelectorAll('.index-student-message-btn');
-            overAllCounts();
+    // Randomize Bank Names
+    function randomizeBankNames() {
+        const bankNameElements = document.querySelectorAll('.index-bank-name');
+        const usedBanks = new Set(); // Ensure no immediate repetition
 
+        bankNameElements.forEach(element => {
+            let bankName;
+            do {
+                bankName = getRandomBankName();
+            } while (usedBanks.has(bankName));
+            
+            usedBanks.add(bankName);
+            element.textContent = bankName;
+        });
+    }
 
-            messageButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    // Find the parent container
-                    const messageContainer = this.closest('.index-student-message-container');
+    // Call randomization on page load
+    randomizeBankNames();
 
-                    // Find the message input div within the container
-                    const messageInput = messageContainer.querySelector('.nbfc-individual-bankmessage-input-message');
+   // Search Functionality
+const searchInput = document.getElementById('admin-search-input-id');
+const studentCards = document.querySelectorAll('#index-student-message-container-id');
+const messageThread = document.getElementById('message-thread-id');
 
-                    // Toggle the visibility of the message input
-                    if (messageInput) {
-                        // Check if the message input is currently hidden
-                        const isHidden = messageInput.style.display === 'none' || !messageInput.style.display;
+if (searchInput) {
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase().trim();
 
-                        // Hide all message inputs first
-                        document.querySelectorAll('.nbfc-individual-bankmessage-input-message').forEach(input => {
-                            input.style.display = 'none';
-                        });
+        // Search in student cards
+        studentCards.forEach(card => {
+            const bankName = card.querySelector('#index-student-card-id .index-bank-name').textContent.toLowerCase();
+            const description = card.querySelector('#index-student-card-id .index-student-description').textContent.toLowerCase();
 
-                        // Show this message input if it was hidden
-                        if (isHidden) {
-                            messageInput.style.display = 'flex';
-                        }
-                    }
-                });
-            });
-
-
+            if (bankName.includes(searchTerm) || description.includes(searchTerm)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
         });
 
-        const overAllCounts = () => {
+        // Search in message thread
+        if (messageThread) {
+            const bankNameInThread = messageThread.querySelector('.index-bank-name');
+            const messageContent = messageThread.querySelector('.message-content');
+            const messageResponseContent = messageThread.querySelector('.message-content-container');
+            const messageList = messageThread.querySelector('.message-list');
 
-            fetch("/overallcounts", {
-                method: "GET",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Correctly fetch the CSRF token
+            let isVisible = false;
+
+            if (bankNameInThread && messageContent && messageResponseContent && messageList) {
+                const bankNameText = bankNameInThread.textContent.toLowerCase();
+                const messageText = messageContent.textContent.toLowerCase();
+                const responseText = messageResponseContent.textContent.toLowerCase();
+
+                // Check list items
+                const listItems = Array.from(messageList.querySelectorAll('li'))
+                    .map(li => li.textContent.toLowerCase());
+
+                // Check if search term is in any of the areas
+                if (
+                    bankNameText.includes(searchTerm) || 
+                    messageText.includes(searchTerm) || 
+                    responseText.includes(searchTerm) ||
+                    listItems.some(item => item.includes(searchTerm))
+                ) {
+                    messageThread.style.display = 'block';
+                    isVisible = true;
+                } else {
+                    messageThread.style.display = 'none';
                 }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        const students = data.receivedData.user < 10 ? "0" + data.receivedData.user : data.receivedData.user;
-                        const nbfc = data.receivedData.nbfc < 10 ? "0" + data.receivedData.nbfc : data.receivedData.nbfc;
-                        const counsellor = data.receivedData.counsellor < 10 ? "0" + data.receivedData.counsellor : data.receivedData.counsellor;
-                        const counsellorId = document.getElementById('counsellor-index-count');
-                        const studentId = document.getElementById('student-index-count');
-                        const nbfcId = document.getElementById('nbfc-index-count');
-
-                        if (counsellorId && studentId && nbfcId) {
-
-                            counsellorId.textContent = counsellor;
-                            studentId.textContent = students;
-                            nbfcId.textContent = nbfc;
-
-                        }
-
-
-                    }
-                    else if (data.error) {
-                        console.log(data.error)
-                    }
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                });
-
-
+            }
         }
+    });
+}
 
-    </script>
+    // Enhanced Sort Functionality
+    const sortTrigger = document.querySelector('.admin-inbox-filters#admin-index-sort-id');
+    const sortDropdown = sortTrigger.querySelector('.admin-sort-dropdown');
+    const sortOptions = sortDropdown.querySelectorAll('li');
+    const studentDetailsContainer = document.getElementById('index-student-details-container-admin-id');
 
+    // Toggle sort dropdown visibility
+    sortTrigger.addEventListener('click', function(event) {
+        event.stopPropagation();
+        sortDropdown.classList.toggle('active');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function() {
+        sortDropdown.classList.remove('active');
+    });
+
+    // Prevent dropdown from closing when clicking inside
+    sortDropdown.addEventListener('click', function(event) {
+        event.stopPropagation();
+    });
+
+    // Enhanced Sorting with Multiple Criteria
+    sortOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            const sortType = this.getAttribute('data-sort');
+            const cards = Array.from(studentDetailsContainer.querySelectorAll('.index-student-message-container'));
+
+            const sortedCards = cards.sort((a, b) => {
+                const bankNameA = a.querySelector('.index-bank-name').textContent;
+                const bankNameB = b.querySelector('.index-bank-name').textContent;
+                const descriptionA = a.querySelector('.index-student-description').textContent;
+                const descriptionB = b.querySelector('.index-student-description').textContent;
+
+                switch(sortType) {
+                    case 'az':
+                        return bankNameA.localeCompare(bankNameB);
+                    case 'za':
+                        return bankNameB.localeCompare(bankNameA);
+                    case 'newest':
+                        // Placeholder for most recent/latest description
+                        return descriptionA.length - descriptionB.length;
+                    case 'oldest':
+                        // Placeholder for oldest/shortest description
+                        return descriptionB.length - descriptionA.length;
+                    default:
+                        return 0;
+                }
+            });
+
+            // Clear and re-append sorted cards
+            studentDetailsContainer.innerHTML = '';
+            sortedCards.forEach(card => studentDetailsContainer.appendChild(card));
+
+            // Also sort the message thread based on the same criteria
+            if (messageThread) {
+                const messageBankName = messageThread.querySelector('.index-bank-name');
+                const messageContent = messageThread.querySelector('.message-content');
+
+                if (messageBankName && messageContent) {
+                    // Modify message thread's display based on the first sorted card's bank name
+                    const firstSortedBankName = sortedCards[0].querySelector('.index-bank-name').textContent;
+                    messageBankName.textContent = firstSortedBankName;
+                }
+            }
+
+            // Close dropdown after selection
+            sortDropdown.classList.remove('active');
+        });
+    });
+
+
+    // Message Button Functionality (Previous implementation remains the same)
+    const messageButtons = document.querySelectorAll('.index-student-message-btn');
+    messageButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const messageContainer = this.closest('.index-student-message-container');
+            const messageInput = messageContainer.querySelector('.admin-individual-bankmessage-input-message');
+            
+            if (messageInput) {
+                // Hide all message inputs first
+                document.querySelectorAll('.admin-individual-bankmessage-input-message').forEach(input => {
+                    input.style.display = 'none';
+                });
+                
+                // Toggle the clicked message input
+                messageInput.style.display = messageInput.style.display === 'flex' ? 'none' : 'flex';
+            }
+        });
+    });
+
+   
+
+    // Ensure sorting and randomization on page load
+    randomizeBankNames();
+});
+
+
+</script>
 
 
 </body>
 <html>
+
+
+

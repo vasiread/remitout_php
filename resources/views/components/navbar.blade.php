@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{{ asset('assets/css/studentformquestionair.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="assets/css/studentformquestionair.css">
+
+
 </head>
 
 <body>
@@ -37,14 +42,18 @@ $NotificationBell = "assets/images/notifications_unread.png";
                     </div>
                     <img src="{{ $NotificationBell }}" style="width:24px;height:24px" class="unread-notify" alt="">
 
-                    <div class="nav-profilecontainer">
-                        <img src="{{ asset('assets/images/Icons/account_circle.png') }}" id="nav-profile-photo-id" class="nav-profileimg"
-                            alt="Profile Image">
+                    <div class="nav-profilecontainer" id="notification-userprofile-section">
+                        <img src="{{ asset('assets/images/Icons/account_circle.png') }}" id="nav-profile-photo-id"
+                            class="nav-profileimg" alt="Profile Image">
                         <h3>{{ session('user')->name }}</h3>
-                        <i class="fa-solid fa-chevron-down"></i>
+                        <i class="fa-solid fa-chevron-down" style="cursor:pointer;"></i>
+                        <div class="popup-notify-list" style="display:none">
+                            <p id="change-password-trigger">Change Password</p>
+                            <p>Logout</p>
+                        </div>
                     </div>
 
-                    <div class="menubarcontainer-profile" id="user-dashboard-menu">
+                    <div class=" menubarcontainer-profile" id="user-dashboard-menu">
                         <img src="{{ asset('assets/images/Icons/menu.png') }}" alt="">
                     </div>
                 </div>
@@ -61,12 +70,17 @@ $NotificationBell = "assets/images/notifications_unread.png";
                             class="nav-profileimg" alt="Profile Image">
                         <h3 style='width:100%'>{{ session('scuser')->full_name }}</h3>
                         <i class="fa-solid fa-chevron-down"></i>
+                        <div class="popup-notify-list" style="display:none">
+                            <p id="change-password-trigger">Change Password</p>
+                            <p>Logout</p>
+                        </div>
                     </div>
 
                     <div class="menubarcontainer-profile" id="scuser-dashboard-menu">
                         <img src="{{ asset('assets/images/Icons/menu.png') }}" onclick="menuopenclose()" alt="">
                     </div>
                 </div>
+
             @else
                 <div class="nav-buttons">
                     <button class="login-btn" onclick="window.location.href='{{ route('login') }}'">Log In</button>
@@ -87,14 +101,43 @@ $NotificationBell = "assets/images/notifications_unread.png";
         </div>
     </nav>
 
+    <div class="password-change-container">
+        <div class="password-change-triggered-view-headersection">
+            <h3>Password Change Request</h3>
+            <img src="{{ asset('assets/images/Icons/close_small.png') }}" style="cursor:pointer" alt="">
+        </div>
+        <input type="password" placeholder="Current Password" id="current-password">
+        <span id="current-password-error" class="error-message"></span>
+
+        <input type="password" placeholder="New Password" id="new-password">
+        <span id="new-password-error" class="error-message"></span>
+
+        <input type="password" placeholder="Confirm New Password" id="confirm-new-password">
+        <span id="confirm-password-error" class="error-message"></span>
+
+        <div class="footer-passwordchange">
+            <a href="">Forgot Password</a>
+
+            <button id="password-change-save">Save</button>
+
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             dynamicChangeNavMob();
+            userPopopuOpen();
+            passwordChangeCheck();
+            passwordModelTrigger();
+
+
+
+
 
             const navButtons = document.querySelector(".nav-buttons");
             var currentRoute = window.location.pathname;
             console.log('Current Route:', currentRoute);
-             @if(session('scuser'))
+            @if(session('scuser'))
                 retrieveProfilePictureNavSc();
             @elseif(session('user'))
                 retrieveProfilePictureNav();
@@ -182,7 +225,7 @@ $NotificationBell = "assets/images/notifications_unread.png";
         };
 
         const retrieveProfilePictureNavSc = async () => {
-               const userSession = @json(session('scuser'));
+            const userSession = @json(session('scuser'));
             const scuserrefid = userSession.referral_code;
             const profileImgUpdate = document.querySelector(".nav-profilecontainer .nav-profileimg");
             const mobTabProfile = document.querySelector(".profile-photo-mobtab img");
@@ -244,6 +287,187 @@ $NotificationBell = "assets/images/notifications_unread.png";
         window.addEventListener("resize", () => {
             dynamicChangeNavMob();
         });
+
+
+
+
+        const userPopopuOpen = () => {
+            const userPopupTrigger = document.querySelector(".nav-profilecontainer i");
+            const userPopupList = document.querySelector(".popup-notify-list");
+
+            if (userPopupTrigger) {
+                userPopupTrigger.addEventListener('click', () => {
+                    if (userPopupTrigger.classList.contains("fa-chevron-down")) {
+                        userPopupTrigger.classList.remove("fa-chevron-down");
+                        userPopupTrigger.classList.add("fa-chevron-up");
+                        userPopupList.style.display = "flex";
+                    } else {
+                        userPopupTrigger.classList.remove("fa-chevron-up");
+                        userPopupTrigger.classList.add("fa-chevron-down");
+                        userPopupList.style.display = "none";
+
+                    }
+                });
+
+
+            }
+        }
+        function getCookie(name) {
+            let value = "; " + document.cookie;
+            let parts = value.split("; " + name + "=");
+            if (parts.length == 2) return parts.pop().split(";").shift();
+        }
+
+        const passwordChangeCheck = () => {
+            document.getElementById('password-change-save').addEventListener('click', function () {
+                let currentPassword = document.getElementById('current-password').value.trim();
+                let newPassword = document.getElementById('new-password').value.trim();
+                let confirmNewPassword = document.getElementById('confirm-new-password').value.trim();
+                const passwordChangeContainer = document.querySelector(".password-change-container");
+
+
+
+                clearErrorMessages();
+                let valid = true;
+
+                if (!currentPassword) {
+                    displayError('current-password-error', 'Current password cannot be empty.');
+                    valid = false;
+                }
+
+                if (!newPassword) {
+                    displayError('new-password-error', 'New password cannot be empty.');
+                    valid = false;
+                } else if (newPassword.length < 8) {
+                    displayError('new-password-error', 'New password must be at least 8 characters long.');
+                    valid = false;
+                }
+
+                if (newPassword !== confirmNewPassword) {
+                    displayError('confirm-password-error', 'Passwords do not match.');
+                    valid = false;
+                }
+
+                if (!valid) return;
+
+                console.log('Password change request is valid.');
+                const hasScUserSession = {{ session()->has('scuser') ? 'true' : 'false' }};
+                const hasUserSession = {{ session()->has('user') ? 'true' : 'false' }};
+
+                let userId = '';
+                if (hasScUserSession === true) {
+
+                    const User = JSON.parse(`{!! json_encode(session('scuser')) !!}`);
+
+                     userId = User.referral_code;
+
+                } else if (hasUserSession === true) {
+
+                    const User = JSON.parse(`{!! json_encode(session('user')) !!}`);
+
+                     userId = User.unique_id;
+
+                } else {
+                    console.log("No user session found.");
+                }
+
+
+
+
+
+                const passwordChangeVariables = {
+                    userId,
+                    currentPassword,
+                    newPassword
+                };
+
+
+                fetch("/passwordchange", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': "application/json",
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ""
+                    },
+                    body: JSON.stringify(passwordChangeVariables)
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.success) {
+                            console.log("Password changed successfully");
+                            alert("Password updated successfully.");
+
+                            if (passwordChangeContainer) {
+                                passwordChangeContainer.style.display = "none";
+                                document.getElementById('current-password').value = '';
+                                document.getElementById('new-password').value = '';
+                                document.getElementById('confirm-new-password').value = '';
+                            }
+                        } else {
+                            console.error("Error:", data.message);
+                            alert(data.message);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Fetch error:", error);
+                        alert("An unexpected error occurred.");
+                    });
+            });
+        };
+
+        function displayError(elementId, message) {
+            var errorElement = document.getElementById(elementId);
+            errorElement.innerText = message;
+            errorElement.style.display = 'block';
+        }
+
+        function clearErrorMessages() {
+            var errorElements = document.getElementsByClassName('error-message');
+            for (var i = 0; i < errorElements.length; i++) {
+                errorElements[i].innerText = '';
+                errorElements[i].style.display = 'none';
+            }
+        }
+
+        const passwordModelTrigger = () => {
+            const passwordTrigger = document.getElementById("change-password-trigger");
+            const passwordChangeContainer = document.querySelector(".password-change-container");
+            const passwordContainerExit = document.querySelector(".password-change-container .password-change-triggered-view-headersection img");
+            const popupPasswordShow = document.querySelector(".popup-notify-list");
+            const arrowUp = document.querySelector(".nav-profilecontainer i");
+
+            if (passwordTrigger) {
+                passwordTrigger.addEventListener("click", () => {
+                    if (passwordChangeContainer) {
+                        passwordChangeContainer.style.display = "flex";
+                    }
+                    if (popupPasswordShow) {
+                        popupPasswordShow.style.display = "none";
+
+                    }
+                    if (arrowUp.classList.contains('fa-chevron-up')) {
+                        arrowUp.classList.remove("fa-chevron-up");
+                        arrowUp.classList.add("fa-chevron-down");
+                        arrowUp.style.display = "flex";
+                    }
+
+
+                })
+            }
+            if (passwordContainerExit) {
+                passwordContainerExit.addEventListener("click", () => {
+                    if (passwordChangeContainer) {
+                        passwordChangeContainer.style.display = "none";
+                        document.getElementById('current-password').value = '';
+                        document.getElementById('new-password').value = '';
+                        document.getElementById('confirm-new-password').value = '';
+                        clearErrorMessages();
+
+                    }
+                })
+            }
+
+        }
+
 
     </script>
 

@@ -15,77 +15,86 @@ class LoginController extends Controller
 {
     public function loginFormData(Request $request)
     {
+        // Validate login input
         $request->validate([
             'loginName' => 'required|string|max:255',
             'loginPassword' => 'required|string|min:6',
+            'loginType' => 'required|string'  // Ensure login type is validated
         ]);
 
         $loginName = $request->loginName;
+        $loginType = $request->loginType;
 
-        if (strpos($loginName, 'SCREF') !== false) {
-            $scuser = Scuser::where('referral_code', $request->loginName)->first();
+        $isEmail = filter_var($loginName, FILTER_VALIDATE_EMAIL) !== false;
 
-            if (!$scuser) {
-                return response()->json(['success' => false, 'message' => 'Invalid name or password.']);
-            }
+        // Handle login based on the type of user and whether the input is email or ID
+        switch ($loginType) {
+            case 'Student Counsellor':
+                $scuser = $isEmail
+                    ? Scuser::where('email', $loginName)->first()  // If it's email, query by email
+                    : Scuser::where('referral_code', $loginName)->first();  // Otherwise, query by referral_code
 
-            if (!Hash::check($request->loginPassword, $scuser->passwordField)) {
-                return response()->json(['success' => false, 'message' => 'Invalid name or password']);
+                if (!$scuser || !Hash::check($request->loginPassword, $scuser->passwordField)) {
+                    return response()->json(['success' => false, 'message' => 'Invalid name, email, or password.']);
+                }
 
-            }
+                session(['scuser' => $scuser]);
+                session()->put('scDetail', $scuser);
+                session()->put('expires_at', now()->addSeconds(10000)); // Expire in 10,000 seconds
 
-            session(['scuser' => $scuser]);
-            session()->put('scDetail', $scuser);
-            session()->put('expires_at', now()->addSeconds(10000)); // Expire in 10,000 seconds
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Login successful',
+                    'user' => $scuser,
+                    'redirect' => '/sc-dashboard'  
+                ]);
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Login successful',
-                'user' => $scuser,
-            ]);
+            case 'User':
+                // Check email or unique_id
+                $user = $isEmail
+                    ? User::where('email', $loginName)->first()  // If it's email, query by email
+                    : User::where('unique_id', $loginName)->first();  // Otherwise, query by unique_id
 
-        } else if (strpos($loginName, 'HBNKJI') !== false) {
-            $user = User::where('unique_id', $request->loginName)->first();
+                if (!$user || !Hash::check($request->loginPassword, $user->password)) {
+                    return response()->json(['success' => false, 'message' => 'Invalid name, email, or password.']);
+                }
 
-            if (!$user) {
-                return response()->json(['success' => false, 'message' => 'Invalid name or password.']);
-            }
+                session(['user' => $user]);
+                session()->put('expires_at', now()->addSeconds(10000));
 
-            if (!Hash::check($request->loginPassword, $user->password)) {
-                return response()->json(['success' => false, 'message' => 'Invalid name or password.']);
-            }
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Login successful',
+                    'user' => $user,
+                    'redirect' => '/user-dashboard'  // Redirect to the normal user dashboard
+                ]);
 
-            session(['user' => $user]);
-            session()->put('expires_at', now()->addSeconds(10000)); // Expire in 10,000 seconds
+            case 'NBFC':
+                // Check email or nbfc_id
+                $NBFCuser = $isEmail
+                    ? Nbfc::where('nbfc_email', $loginName)->first()  // If it's email, query by nbfc_email
+                    : Nbfc::where('nbfc_id', $loginName)->first();  // Otherwise, query by nbfc_id
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Login successful',
-                'user' => $user,
-            ]);
+                if (!$NBFCuser || !Hash::check($request->loginPassword, $NBFCuser->password)) {
+                    return response()->json(['success' => false, 'message' => 'Invalid name, email, or password.']);
+                }
+
+                session(['nbfcuser' => $NBFCuser]);
+                session()->put('expires_at', now()->addSeconds(10000));
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Login successful',
+                    'user' => $NBFCuser,
+                    'redirect' => '/nbfc-dashboard'  // Redirect to the NBFC dashboard
+                ]);
+
+            default:
+                return response()->json(['success' => false, 'message' => 'Invalid login type.']);
         }
-        else if(strpos($loginName,'NBFC')!==false){
-            $NBFCuser = Nbfc::where('nbfc_id', $request->loginName)->first();
-
-            if (!$NBFCuser) {
-                return response()->json(['success' => false, 'message' => 'Invalid name or password.']);
-            }
-
-            if (!Hash::check($request->loginPassword, $NBFCuser->password)) {
-                return response()->json(['success' => false, 'message' => 'Invalid name or password.']);
-            }
-
-            session(['user' => $NBFCuser]);
-            session()->put('expires_at', now()->addSeconds(10000)); // Expire in 10,000 seconds
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Login successful',
-                'user' => $NBFCuser,
-            ]);
-        }
-
     }
+
+
 
     public function sessionLogout(Request $request)
     {

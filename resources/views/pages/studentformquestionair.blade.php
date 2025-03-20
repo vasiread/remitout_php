@@ -15,6 +15,9 @@
   <link rel="stylesheet" href="assets/css/navbar.css">
 
 
+      <script src="{{ asset('js/studentforms.js') }}"></script>
+
+
 </head>
 
 <body>
@@ -106,7 +109,7 @@
             <div class="input-content">
               <img src="./assets/images/person-icon.png" alt="Person Icon" class="icon" />
               <input type="text" placeholder="Full Name" name="full_name" id="personal-info-name"
-                value="{{ session('user')->name }}" required />
+                value="{{ session('user')->name }}" required disabled />
               <div class="validation-message" id="personal-info-name-error"></div>
             </div>
           </div>
@@ -117,8 +120,8 @@
           <div class="input-group">
             <div class="input-content">
               <img src="./assets/images/call-icon.png" alt="Phone Icon" class="icon" />
-              <input type="tel" placeholder="Phone Number" name="phone_number" id="personal-info-phone" value=""
-                required />
+              <input type="tel" placeholder="Phone Number" name="phone_number" id="personal-info-phone" value="{{ session('user')->phone }}"
+                required disabled />
               <div class="validation-message" id="personal-info-phone-error"></div>
             </div>
           </div>
@@ -139,7 +142,7 @@
             <div class="input-content">
               <img src="./assets/images/mail.png" alt="Mail Icon" class="icon" />
               <input type="email" placeholder="Email ID" name="email" id="personal-info-email"
-                value="{{ session('user')->email }}" required />
+                value="{{ session('user')->email }}" required disabled/>
               <div class="validation-message" id="personal-info-email-error"></div>
             </div>
           </div>
@@ -1250,7 +1253,6 @@
 
   <!-- #region -->
 
-      <script src="{{ asset('js/studentforms.js') }}"></script>
 
 </body>
 

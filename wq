@@ -1,0 +1,102 @@
+[33m58779c5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mc402569[m[33m, [m[1;31morigin/c402569[m[33m)[m HEAD@{0}: commit: fix merge conflicts
+[33m29ff836[m HEAD@{1}: commit: edit contents maxlength function
+[33m293c93e[m HEAD@{2}: commit: landing page css and dropdown
+[33mf09b8af[m HEAD@{3}: commit: landing page css and admin page containers
+[33m4879287[m HEAD@{4}: pull origin c402569 --rebase: Fast-forward
+[33mc33694c[m HEAD@{5}: reset: moving to HEAD~1
+[33m4879287[m HEAD@{6}: reset: moving to ORIG_HEAD
+[33m8cd4451[m HEAD@{7}: reset: moving to ORIG_HEAD
+[33m4879287[m HEAD@{8}: reset: moving to HEAD~1
+[33m8cd4451[m HEAD@{9}: commit: Save my changes before pulling
+[33m4879287[m HEAD@{10}: pull origin c402569 --rebase: Fast-forward
+[33madf52aa[m HEAD@{11}: reset: moving to HEAD
+[33madf52aa[m HEAD@{12}: checkout: moving from c402569 to c402569
+[33madf52aa[m HEAD@{13}: commit: admin page other sections
+[33m2002f0e[m HEAD@{14}: reset: moving to HEAD
+[33m2002f0e[m HEAD@{15}: reset: moving to HEAD
+[33m2002f0e[m HEAD@{16}: checkout: moving from c402569 to c402569
+[33m2002f0e[m HEAD@{17}: rebase (finish): returning to refs/heads/c402569
+[33m2002f0e[m HEAD@{18}: rebase (continue): fix the issue
+[33mfb31940[m HEAD@{19}: pull origin c402569 --rebase (start): checkout fb3194030ca9aebc99893d9f6acd4bca1ea03249
+[33m64cec72[m HEAD@{20}: commit: fix the issue
+[33m186aadf[m HEAD@{21}: reset: moving to HEAD~1
+[33m3d8c4d6[m HEAD@{22}: rebase (abort): returning to refs/heads/c402569
+[33mfb31940[m HEAD@{23}: pull origin c402569 --rebase (start): checkout fb3194030ca9aebc99893d9f6acd4bca1ea03249
+[33m3d8c4d6[m HEAD@{24}: commit: update student-dashboard and nbfc-dashboard
+[33m186aadf[m HEAD@{25}: commit: update student-dashboard and nbfc-dashboard
+[33m8d363ac[m HEAD@{26}: commit: landing pages responsiveness and its functionality profile card graph section for mobile devices
+[33mf7e7f04[m HEAD@{27}: commit: landing pages responsiveness and its functionality
+[33mcec9310[m HEAD@{28}: commit: landing page responsives and its functionality nav bar
+[33mfa62b07[m HEAD@{29}: pull origin c402569 --rebase: Fast-forward
+[33mdeccb64[m HEAD@{30}: rebase (abort): returning to refs/heads/c402569
+[33mdeccb64[m HEAD@{31}: rebase (abort): returning to refs/heads/c402569
+[33mb3b1256[m HEAD@{32}: checkout: moving from c402569 to c402569
+[33mb3b1256[m HEAD@{33}: rebase (continue): admin page index, ticket, manage student role management, promotion and its css and its functionality
+[33m0008153[m HEAD@{34}: commit: landing page responsives and its functionality nav bar
+[33mdeccb64[m HEAD@{35}: checkout: moving from bacd09ee7b829c362e8c04872ca4e904bcb9cb02 to c402569
+[33mbacd09e[m HEAD@{36}: commit: fix the issue
+[33m22ffc42[m HEAD@{37}: commit: admin page index, ticket, manage student role management, promotion and its css and its functionality
+[33me4e3a7e[m[33m ([m[1;31morigin/backend[m[33m)[m HEAD@{38}: pull origin c402569 --rebase (start): checkout e4e3a7ef449145556a0f2be6dbe60ec20237a3cc
+[33mdeccb64[m HEAD@{39}: commit: admin page index, ticket, manage student role management, promotion and its css and its functionality
+[33m370961d[m[33m ([m[1;32mbranch_name[m[33m)[m HEAD@{40}: checkout: moving from c402569 to c402569
+[33m370961d[m[33m ([m[1;32mbranch_name[m[33m)[m HEAD@{41}: reset: moving to 370961d
+[33m545d5a7[m HEAD@{42}: reset: moving to HEAD
+[33m545d5a7[m HEAD@{43}: reset: moving to HEAD
+[33m545d5a7[m HEAD@{44}: reset: moving to HEAD
+[33m545d5a7[m HEAD@{45}: reset: moving to HEAD
+[33m545d5a7[m HEAD@{46}: reset: moving to HEAD
+[33m545d5a7[m HEAD@{47}: reset: moving to HEAD
+[33m545d5a7[m HEAD@{48}: commit (merge): fix-merge
+[33ma1f1350[m HEAD@{49}: checkout: moving from branch_name to c402569
+[33m370961d[m[33m ([m[1;32mbranch_name[m[33m)[m HEAD@{50}: commit: NBFC and admin index frontend and its functionality
+[33ma1f1350[m HEAD@{51}: checkout: moving from c402569 to branch_name
+[33ma1f1350[m HEAD@{52}: commit: Normalize line endings
+[33m7d4c180[m HEAD@{53}: commit: Updated code for the nbfc dashboard
+[33m18c8aea[m HEAD@{54}: pull origin c402569: Merge made by the 'ort' strategy.
+[33m7eb28bb[m HEAD@{55}: commit: NBFC dashboard and its functionality with responsivenss
+[33m4207a56[m HEAD@{56}: reset: moving to HEAD
+[33m4207a56[m HEAD@{57}: pull origin c402569: Merge made by the 'ort' strategy.
+[33m83eb5fc[m HEAD@{58}: commit: Updated student form questionnaire styling and js
+[33m61f2396[m HEAD@{59}: checkout: moving from c402569 to c402569
+[33m61f2396[m HEAD@{60}: commit: Updated student form questionnaire styling and blade template
+[33m95445ec[m HEAD@{61}: commit: Updated student form questionnaire styling and blade template
+[33m6b08c6a[m HEAD@{62}: checkout: moving from c402569 to c402569
+[33m6b08c6a[m HEAD@{63}: pull origin c402569: Merge made by the 'ort' strategy.
+[33med51eda[m HEAD@{64}: checkout: moving from c402569 to c402569
+[33med51eda[m HEAD@{65}: checkout: moving from backend to c402569
+[33m079166b[m[33m ([m[1;32mbackend[m[33m)[m HEAD@{66}: checkout: moving from backend to backend
+[33m079166b[m[33m ([m[1;32mbackend[m[33m)[m HEAD@{67}: reset: moving to HEAD
+[33m079166b[m[33m ([m[1;32mbackend[m[33m)[m HEAD@{68}: checkout: moving from c402569 to backend
+[33med51eda[m HEAD@{69}: commit: fix issue
+[33m9d00c6d[m HEAD@{70}: commit: Fix the issue
+[33maa05eee[m HEAD@{71}: checkout: moving from c402569 to c402569
+[33maa05eee[m HEAD@{72}: reset: moving to HEAD
+[33maa05eee[m HEAD@{73}: reset: moving to aa05eee
+[33m10e60c9[m HEAD@{74}: checkout: moving from c402569 to c402569
+[33m10e60c9[m HEAD@{75}: pull origin c402569: Merge made by the 'ort' strategy.
+[33m96fef0f[m[33m ([m[1;31morigin/new-branch[m[33m)[m HEAD@{76}: reset: moving to 96fef0f
+[33maa05eee[m HEAD@{77}: reset: moving to origin/c402569
+[33m96fef0f[m[33m ([m[1;31morigin/new-branch[m[33m)[m HEAD@{78}: rebase (abort): returning to refs/heads/c402569
+[33mbb3d4f4[m HEAD@{79}: rebase (continue): git merge assets
+[33m5b7b723[m HEAD@{80}: rebase (continue): Add the functionality for preview document
+[33mdc0a215[m HEAD@{81}: pull --rebase origin c402569 (pick): Updated student form questionnaire form container and its css
+[33maa05eee[m HEAD@{82}: pull --rebase origin c402569 (start): checkout aa05eeee2674180815a63b3dc271ff94d60cda2f
+[33m96fef0f[m[33m ([m[1;31morigin/new-branch[m[33m)[m HEAD@{83}: reset: moving to HEAD~1
+[33m14ed801[m HEAD@{84}: pull origin c402569: Merge made by the 'ort' strategy.
+[33m96fef0f[m[33m ([m[1;31morigin/new-branch[m[33m)[m HEAD@{85}: reset: moving to HEAD
+[33m96fef0f[m[33m ([m[1;31morigin/new-branch[m[33m)[m HEAD@{86}: reset: moving to HEAD
+[33m96fef0f[m[33m ([m[1;31morigin/new-branch[m[33m)[m HEAD@{87}: checkout: moving from c402569 to c402569
+[33m96fef0f[m[33m ([m[1;31morigin/new-branch[m[33m)[m HEAD@{88}: checkout: moving from new-branch to c402569
+[33m96fef0f[m[33m ([m[1;31morigin/new-branch[m[33m)[m HEAD@{89}: checkout: moving from 2adf8026a966e17cec1479b7f2a9a1724ae39341 to new-branch
+[33m2adf802[m HEAD@{90}: commit: fixing the issue
+[33mdb42bef[m HEAD@{91}: pull origin backend: Fast-forward
+[33m4fa0556[m HEAD@{92}: reset: moving to HEAD~1
+[33m9b9e0ca[m HEAD@{93}: reset: moving to HEAD~1
+[33mdb42bef[m HEAD@{94}: checkout: moving from backend to db42bef
+[33m079166b[m[33m ([m[1;32mbackend[m[33m)[m HEAD@{95}: checkout: moving from backend to backend
+[33m079166b[m[33m ([m[1;32mbackend[m[33m)[m HEAD@{96}: checkout: moving from backend to backend
+[33m079166b[m[33m ([m[1;32mbackend[m[33m)[m HEAD@{97}: checkout: moving from 96fef0f1978a850768ab9989a7951173e495416d to backend
+[33m96fef0f[m[33m ([m[1;31morigin/new-branch[m[33m)[m HEAD@{98}: commit (merge): Updated student form questionnaire form container and its css
+[33mc1c547f[m HEAD@{99}: commit: Updated student form questionnaire form container and its css
+[33mc402569[m HEAD@{100}: checkout: moving from backend to c402569
+[33m0791

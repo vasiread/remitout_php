@@ -53,7 +53,7 @@
 
                     </div>
                     <div class="reports-registeration-graph">
-                        <div id="chart_div" style="width: 100%; height: 192px;"></div>
+                        <div id="chart_div" style="width: 100%; height: 162px;"></div>
                     </div>
                 </div>
                 <div class="source-registeration">

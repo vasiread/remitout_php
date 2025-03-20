@@ -20,7 +20,7 @@
                     <input type="text" class="role-management-search" placeholder="Search">
                     <div class="custom-dropdown">
                         <div class="custom-dropdown-toggle">
-                            Sort by
+                            Sort
                             <img src="assets/images/filter-icon.png" alt="Filter">
 
                         </div>

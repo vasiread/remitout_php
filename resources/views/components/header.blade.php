@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         /* Header Navigation */
         .header-nav {
@@ -22,9 +23,14 @@
                 rgba(255, 255, 255, 0.25),
                 rgba(111, 37, 206, 0.15)
             );
+<<<<<<< Updated upstream
              box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);  
               font-family: 'Poppins', sans-serif;
            
+=======
+             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+           font-family: 'Poppins', sans-serif;
+>>>>>>> Stashed changes
         }
 
         /* Container */
@@ -58,6 +64,7 @@
             display: flex;
             gap: 16px;
             align-items: center;
+           
         }
 
         .header-login-btn,
@@ -74,7 +81,11 @@
             border-radius: 8px;
             transition: all 0.3s ease;
             padding: 0 20px;
+<<<<<<< Updated upstream
               font-family: 'Poppins', sans-serif;
+=======
+            font-family: 'Poppins', sans-serif;
+>>>>>>> Stashed changes
         }
 
         .header-login-btn {
@@ -99,21 +110,21 @@
         /* Navigation Links */
         .header-links {
             display: flex;
-            gap: 43px;
+            gap: 48px;
             align-items: center;
         }
+        
 
         .header-links a {
             text-decoration: none;
             color: white;
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 400;
             transition: color 0.3s ease;
+          
         }
 
-        .header-links a:hover {
-            color: #e0e0e0;
-        }
+       
 
         .fullopacitylinks {
             color: #333 !important;
@@ -138,7 +149,8 @@
             background-color: white;
             border-radius: 2px;
         }
-        @media (min-width: 1513px) { 
+
+@media (min-width: 1513px) { 
     .header-container {
         height: 85px;
         width: 1470px;
@@ -212,6 +224,7 @@
                 width: 100%;
                 margin: 0 auto;
                 font-size: 20px;
+                font-weight:500;
                 padding-top: 80px;
                 height: auto;
             }
@@ -344,7 +357,7 @@
                 font-size: 20px;
                 padding-top: 80px;
                 height: auto;
-                margin-left:40px;
+               
             }
 
             .header-signup-btn {
@@ -436,12 +449,14 @@
                 <a href="#schedule" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Schedule Call</a>
                 <a href="#support" class="header-mobile-link {{ Request::is('/') ? '' : 'fullopacitylinks' }}">Support</a>
                 <a href="#help" class="header-mobile-link {{ Request::is('/') ? '' : 'fullopacitylinks' }}">Help</a>
-
-                <div class="header-buttons">
+             
+             <div class="header-buttons">
                     <button class="header-login-btn" onclick="window.location.href='{{ route('login') }}'">Log In</button>
                     <button class="header-signup-btn" onclick="window.location.href='{{ route('signup') }}'">Sign Up</button>
                 </div>
+                
             </div>
+            
 
             <div class="header-menu-icon" id="menu-icon">
                 <span class="bar"></span>

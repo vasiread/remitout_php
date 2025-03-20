@@ -1,8 +1,7 @@
 .role-management-admin-main-container {
-
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 150px; 
+    right: 40px; 
     background-color: white;
     border-radius: 8px;
     padding: 20px;
@@ -10,13 +9,12 @@
     display: none;
     flex-direction: column;
     font-family: 'Poppins', sans-serif;
-    width: calc(100% - 18% - 40px); /* Sidebar width + margin */
-    margin-left: 18%; /* Push content to the right of sidebar */
-    margin-right: 20px; /* Add spacing from the right */
-    height: 100vh;
+    width: calc(100% - 20% - 50px);
+    margin-left: 18%;
+
     overflow-y: auto;
-    margin-top: 150px; /* Match sidebar */
 }
+
 
 
 
@@ -24,7 +22,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    padding:20px 0px;
 }
 
 .role-management-title {
@@ -44,7 +42,7 @@
     border-radius: 8px;
     width: 200px;
     height: 38px;
-    font-size: 14px;
+    font-size: 14px !important;
     color: #909090;
     outline: none;
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>');
@@ -55,6 +53,7 @@
 
 .role-management-list {
     width: 100%;
+   
 }
 
 .role-management-row {
@@ -67,6 +66,7 @@
     color: #909090;
     gap: 10px;
     width: 100%;
+     font-family: 'Poppins', sans-serif;
 }
 
 .role-management-actions {
@@ -129,8 +129,8 @@
     padding: 5px 10px;
     color: #575555;
     outline: none;
+     font-family: 'Poppins', sans-serif;
 }
-
 .custom-dropdown {
     position: relative;
     width: 104px;
@@ -144,12 +144,11 @@
     background: white;
 }
 
-
-
 .custom-dropdown-toggle {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
 }
 
 .custom-dropdown-menu {
@@ -163,13 +162,128 @@
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1000;
+    margin-top: 5px;
 }
 
 .custom-dropdown-item {
-    padding: 8px;
+    padding: 10px 15px;
     cursor: pointer;
+    color: #666;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+}
+
+.custom-dropdown-item:last-child {
+    border-bottom: none;
 }
 
 .custom-dropdown-item:hover {
     background: #f5f5f5;
+}
+
+/* For functionality - add this class when dropdown is open */
+.custom-dropdown.active .custom-dropdown-menu {
+    display: block;
+}
+
+/* Mobile Media Query */
+@media screen and (max-width: 767px) {
+  .role-management-admin-main-container {
+    position: relative; 
+    right: auto; 
+    height: 100%;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 0 auto; 
+    width: 90%; 
+    max-width: 500px; 
+    top:100px;
+   
+  }
+  
+ 
+  
+  .role-management-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 10px 0;
+    margin-top: 20px;
+  }
+  
+  /* Rest of your CSS remains the same */
+  .role-management-row {
+    grid-template-columns: 1fr;
+    gap: 5px;
+    padding: 15px 0;
+  }
+  
+  .role-management-actions {
+    text-align: right;
+    margin-top: 10px;
+  }
+  
+  .role-management-btn {
+    width: 60px;
+  }
+  
+  .role-management-email, 
+  .role-management-select,
+  .role-management-email:disabled, 
+  .role-management-select:disabled,
+  .role-management-email:not([disabled]), 
+  .role-management-select:not([disabled]) {
+    width: 100%;
+  }
+  
+  /* Adjustments specific to match the image layout */
+  .role-management-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    width:300px;
+  }
+ 
+.role-management-row > div:first-child {
+      color: #5D5C5C;
+    padding:5px 10px;
+    font-size: 16px;
+    font-weight: 500;
+}
+.role-management-select:disabled {
+    color: #5D5C5C !important; /* Ensure text color applies */
+    opacity: 1 !important; /* Prevents default gray appearance */
+    -webkit-text-fill-color: #5D5C5C !important; /* Fix for Safari */
+    background-color: transparent !important; /* Ensures background does not affect readability */
+    border: none; /* Optional: removes border for a cleaner look */
+}
+
+
+  .role-management-actions {
+    position: absolute;
+    top: 15px;
+    right: 0;
+  }
+  
+  /* Styling for the "View More" button at the bottom */
+  .view-more-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    color: #6F25CE;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .view-more-button::after {
+    content: "▼";
+    margin-left: 5px;
+    font-size: 12px;
+  }
+  
+
+
+  
 }

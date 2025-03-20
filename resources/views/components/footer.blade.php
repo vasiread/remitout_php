@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Footer Section</title>
+<link href="https://fonts.googleapis.com/css2?family=Glacial+Indifference:wght@400;700&display=swap" rel="stylesheet">
 <style>
 /* Reset default margins and padding */
 * {
@@ -58,17 +59,22 @@
         }
 
         .signup-text h5 {
-            font-size: 20px !important;
-            line-height: 120%;
-            color: #E6E5E6;
-            margin-left: 10px;
+          font-family: 'Glacial Indifference', sans-serif;
+          font-weight: 400; 
+          font-style: normal; 
+          font-size: 20px !important;
+         line-height: 120%;
+         color: #E6E5E6;
+          margin-left: 10px;
         }
+
 
         .signup-text p {
             color: #E6E6E8;
             margin: 10px;
             font-family: 'Glacial Indifference', sans-serif;
-            font-size: 18px;
+            font-weight:300;
+            font-size: 16px;
             line-height: 160%;
         }
 
@@ -102,6 +108,7 @@
             height: 56px;
             outline: none;
             transition: all 0.3s ease;
+            font-family: 'Glacial Indifference', sans-serif;
         }
 
         .signup-form input:focus {
@@ -262,10 +269,10 @@
         .footer-column h3 {
             font-size: 18px;
             font-weight: 400;
-            /* Corrected property name */
             margin-bottom: 24px;
             color: #E6E5E6;
-            /* This will apply, as it overrides the previous color */
+          
+             font-family: 'Glacial Indifference', sans-serif;
 
 
 
@@ -275,12 +282,13 @@
             text-decoration: none;
             margin-bottom: 16px;
             display: block;
-            color: rgba(216, 216, 216, 0.8);
-            /* Set link color */
+           color: #D8D8D8CC;
             text-decoration: none;
             margin-bottom: 16px;
             line-height: 160%;
-            /* Set link line height */
+            font-family: 'Poppins', sans-serif;
+            font-family-16px;
+            font-weight:400;
             white-space: nowrap;
         }
 

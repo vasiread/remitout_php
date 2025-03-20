@@ -279,8 +279,222 @@
     z-index: 999;
 }
 
+.password-change-container-nbfc {
+    transform: translate(-50%, -50%);
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    display: none;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
+    gap: 1.3rem;
+    height: fit-content;
+    max-width: 40%;
+    width: 100%;
+    padding: 1.5rem;
 
-/*nav bar for tablets*/
+}
+
+.password-change-container-nbfc input {
+    width: 100%;
+    min-height: 28px;
+    height: 100%;
+    border-radius: 2px;
+    border: 1px solid rgba(226, 226, 226, 1);
+    outline: none;
+    font-size: 0.6rem;
+    font-family: Poppins;
+    padding-left: 6px;
+
+
+}
+
+#password-change-save-nbfc {
+    cursor: pointer;
+    max-width: 126px;
+    width: 100%;
+    min-height: 35px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
+    background-color: rgba(111, 37, 206, 1);
+    color: rgba(255, 255, 255, 1);
+    border: none;
+    align-self: flex-end;
+}
+
+.password-change-triggered-view-headersection-nbfc {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.password-change-triggered-view-headersection-nbfc h3 {
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: clamp(8px, 4vw, 12px);
+    line-height: clamp(11px, 4vw, 27px);
+    color: rgba(233, 134, 53, 1);
+}
+
+.popup-notify-list-nbfc {
+    position: absolute;
+    flex-direction: column;
+    display: none;
+    top: 73%;
+    right: 3%;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    gap: 1rem;
+    padding: 1rem 0;
+    border-radius: 5px;
+    z-index: 15;
+}
+
+.popup-notify-list-nbfc p {
+    font-family: Poppins;
+    font-size: 0.8rem;
+    padding: 0.4rem 0;
+    border-radius: 4px;
+    margin: 0 3px;
+    padding: 0.3rem;
+    color: rgba(38, 2, 84, 1);
+    height: 35px;
+    display: flex;
+    align-items: center;
+}
+
+.popup-notify-list-nbfc p:hover {
+    background: #f9f9f9;
+    cursor: pointer;
+}
+
+.footer-passwordchange-nbfc {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#nbfc-student-profile-details {
+    display: flex;
+    width: 100%;
+    max-width: 69.52%;
+
+}
+
+.myapplication-seventhcolumn-headernbfc {
+    display: flex;
+    width: 100%;
+    height: 47px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    padding-top: 2rem;
+    border-top: 1.2px solid rgba(194, 194, 194, 0.7)
+}
+
+#nbfc-student-profile-details .myapplication-seventhcolumn h1 {
+    border: none;
+}
+
+.myapplication-nbfcapprovalcolumn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.myapplication-seventhcolumn-headernbfc button {
+    cursor: pointer;
+    width: 139px;
+    height: 35px;
+    border-radius: 4px;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
+    border: 1px solid rgba(111, 37, 206, 1);
+    background-color: rgba(255, 255, 255, 1);
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 120%;
+    color: rgba(38, 2, 84, 1);
+
+
+}
+
+
+.myapplication-nbfcapprovalcolumn button:first-child {
+    width: 126px;
+    height: 35px;
+    border-radius: 4px;
+    gap: 8px;
+    background: rgba(111, 37, 206, 1);
+    box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: flex-start;
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 120%;
+    color: rgba(255, 255, 255, 1);
+    border: none;
+    cursor: pointer;
+
+}
+
+.nbfcapprovalcolumnrightaligned {
+    display: flex;
+    gap: 2.1rem;
+
+
+}
+
+.nbfcapprovalcolumnrightaligned button:first-child,
+.nbfcapprovalcolumnrightaligned button:last-child {
+    cursor: pointer;
+    width: 109px;
+
+    height: 35px;
+    border-radius: 4px;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(111, 37, 206, 1);
+    box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 120%;
+    color: rgba(38, 2, 84, 1);
+    background-color: transparent;
+
+
+}
+
+.nbfcdashboard-studentlistscontainer {
+    display: none;
+    max-width:100%;
+    width: 100%;
+    justify-content: space-between;
+    margin-left: 1.3%;
+}
+
+#nbfc-list-of-student-profilesections {
+    display: flex;
+    max-width: 28.85%;
+    width: 100%;
+}
 
 @media screen and (max-width: 1023px) {
     .nbfc-navbar {
@@ -320,10 +534,7 @@
         padding: 0;
     }
 
-    .nbfc-profile-text,
-    .nbfc-dropdown-icon {
-        display: none;
-    }
+
 
     .nbfc-avatar {
         width: 40px;
@@ -839,7 +1050,7 @@
     gap: 24px;
     padding: 10px;
     background-color: #F5F5F5;
-    margin-top: 85px;
+    margin-top: 70px;
 }
 
 
@@ -1803,7 +2014,7 @@
 /* Inbox Styles */
 
 #index-section-id-nbfc {
-    margin-top: 100px;
+    margin-top: 80px;
     overflow-x: hidden;
 }
 
@@ -1939,6 +2150,8 @@
 .message-item {
     padding: 24px 0;
 
+                font-family: 'Poppins', sans-serif;
+    
 }
 
 .message-header {
@@ -2171,6 +2384,8 @@
     flex-direction: column;
     border-bottom: 1px solid #E5E7EB;
 
+    font-family: 'Poppins', sans-serif;
+    
 }
 
 .index-student-details-container .index-student-message-container:last-child {
@@ -2262,6 +2477,7 @@
     align-items: center;
     display: none;
 }
+
 
 .nbfc-individual-bankmessage-input-message input,
 .nbfc-message-input {
@@ -2730,19 +2946,21 @@
 
 }
 
-.nbfc-student-dashboard-section-main-contents .studentdashboardprofile-educationeditsection {
+ #nbfc-list-of-student-profilesections .studentdashboardprofile-educationeditsection {
+    display: flex;
+    flex-direction: column;
+    margin: 13px 0;
+
+
+}
+
+ #nbfc-list-of-student-profilesections .studentdashboardprofile-testscoreseditsection {
     display: flex;
     flex-direction: column;
     margin: 13px 0;
 
 }
 
-.nbfc-student-dashboard-section-main-contents .studentdashboardprofile-testscoreseditsection {
-    display: flex;
-    flex-direction: column;
-    margin: 13px 0;
-
-}
 
 .nbfc-student-dashboard-section-main-contents .myapplication-eleventhcolumn {
     display: flex;

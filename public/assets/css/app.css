@@ -1,2 +1,21 @@
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
 
+/* In your app.css */
+@import "navbar.css";
+@import "footer.css";
+@import "loginsignup.css";
+@import "login.css";
+@import "studentdashboard.css";
+@import "scdashboard.css";
+@import "nbfc.css";
+@import "commonsidebar.css";
+@import "admindashboard.css";
+@import "adminstudent.css";
+@import "adminstudentcounsellor.css";
+@import "adminnbfc.css";
+@import "adminpage.css";
+@import "adminedit.css";
+@import "adminticketraised.css";
+@import "adminmanagestudent.css";
+@import "adminrolemanagement.css";
+@import "adminpromotional.css";

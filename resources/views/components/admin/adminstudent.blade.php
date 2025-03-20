@@ -12,7 +12,7 @@
 <body>
     @extends('layouts.app');
 
-    <div class="student-listcontainer">
+    <div class="student-listcontainer" id="student-admin-section-id">
         <div class="globallistcontainer-header" id="studentlistcontainer-headersection">
             <h2>Student List</h2>
             <h3 id="student-list-count">{{ count($userDetails) }}</h3>
@@ -72,110 +72,121 @@
                     <div class="studentapplication-lists-remainingdocuments" style="display:none">
                         <div class="document-container">
 
-                            <div class="document-box" id="pan-card-admin-view" style="display:none">
-                                <div class="document-name" id="pan-card-document-name" style="display: none;">PAN Card</div>
+                            <!-- PAN Card -->
+                            <div class="document-box" id="pan-card-admin-view-{{ $users->user_id }}" style="display:none">
+                                <div class="document-name" id="pan-card-document-name-{{ $users->user_id }}"
+                                    style="display: none;">PAN Card</div>
                                 <div class="upload-field">
-
-                                    <span id="pan-card-name">PAN Card</span>
-                                    <label for="pan-card" class="upload-icon" id="pan-card-upload-icon">
-                                        <img src="assets/images/upload.png" alt="Upload Icon" style="display:none">
+                                    <span id="pan-card-name-{{ $users->user_id }}">PAN Card</span>
+                                    <label for="pan-card-{{ $users->user_id }}" class="upload-icon"
+                                        id="pan-card-upload-icon-{{ $users->user_id }}">
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
-                                    <input type="file" id="pan-card" accept=".jpg, .png, .pdf"
-                                        onchange="handleFileUpload(event, 'pan-card-name', 'pan-card-upload-icon', 'pan-card-remove-icon','<?= $users->user_id ?>')">
-                                    <span id="pan-card-remove-icon" class="remove-icon" style="display: none;"
-                                        onclick="removeFile('pan-card', 'pan-card-name', 'pan-card-upload-icon', 'pan-card-remove-icon'),'<?= $users->user_id ?>'">✖</span>
-
+                                    <input type="file" id="pan-card-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
+                                        onchange="handleFileUpload(event, 'pan-card-name-{{ $users->user_id }}', 'pan-card-upload-icon-{{ $users->user_id }}', 'pan-card-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">
+                                    <span id="pan-card-remove-icon-{{ $users->user_id }}" class="remove-icon"
+                                        style="display: none;"
+                                        onclick="removeFile('pan-card-{{ $users->user_id }}', 'pan-card-name-{{ $users->user_id }}', 'pan-card-upload-icon-{{ $users->user_id }}', 'pan-card-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="tenth-grade-help">ⓘ Help</span>
+                                    <span class="help-trigger" data-target="pan-help-{{ $users->user_id }}">ⓘ Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
-                                <div class="help-container tenth-grade-help" style="display: none;">
+                                <div class="help-container pan-help-{{ $users->user_id }}" style="display: none;">
                                     <h3 class="help-title">Help</h3>
                                     <div class="help-content">
                                         <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
                                     </div>
                                 </div>
-
                             </div>
 
+
                             <!-- Aadhar Card -->
-                            <div class="document-box" id="aadhar-card-admin-view" style="display:none">
-                                <div class="document-name" id="aadhar-card-document-name" style="display: none;">Aadhar Card
-                                </div>
+                            <div class="document-box" id="aadhar-card-admin-view-{{ $users->user_id }}"
+                                style="display:none">
+                                <div class="document-name" id="aadhar-card-document-name-{{ $users->user_id }}"
+                                    style="display: none;">Aadhar
+                                    Card</div>
                                 <div class="upload-field">
-                                    <span id="aadhar-card-name">Aadhar Card</span>
-                                    <label for="aadhar-card" class="upload-icon" id="aadhar-card-upload-icon">
+                                    <span id="aadhar-card-name-{{ $users->user_id }}">Aadhar Card</span>
+                                    <label for="aadhar-card-{{ $users->user_id }}" class="upload-icon"
+                                        id="aadhar-card-upload-icon-{{ $users->user_id }}">
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
-                                    <input type="file" id="aadhar-card" accept=".jpg, .png, .pdf"
-                                        onchange="handleFileUpload(event, 'aadhar-card-name', 'aadhar-card-upload-icon', 'aadhar-card-remove-icon','<?= $users->user_id ?>')">
-                                    <span id="aadhar-card-remove-icon" class="remove-icon" style="display: none;"
-                                        onclick="removeFile('aadhar-card', 'aadhar-card-name', 'aadhar-card-upload-icon', 'aadhar-card-remove-icon'),'<?= $users->user_id ?>'">✖</span>
+                                    <input type="file" id="aadhar-card-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
+                                        onchange="handleFileUpload(event, 'aadhar-card-name-{{ $users->user_id }}', 'aadhar-card-upload-icon-{{ $users->user_id }}', 'aadhar-card-remove-icon-{{ $users->user_id }}', '<?= $users->user_id ?>')">
+                                    <span id="aadhar-card-remove-icon-{{ $users->user_id }}" class="remove-icon"
+                                        style="display: none;"
+                                        onclick="removeFile('aadhar-card-{{ $users->user_id }}', 'aadhar-card-name-{{ $users->user_id }}', 'aadhar-card-upload-icon-{{ $users->user_id }}', 'aadhar-card-remove-icon-{{ $users->user_id }},'<?= $users->user_id ?>'')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="tenth-grade-help">ⓘ Help</span>
+                                    <span class="help-trigger" data-target="aadhar-help-{{ $users->user_id }}">ⓘ Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
-                                <div class="help-container tenth-grade-help" style="display: none;">
+                                <div class="help-container aadhar-tenth-grade-help-{{ $users->user_id }}" style="display: none;">
                                     <h3 class="help-title">Help</h3>
                                     <div class="help-content">
                                         <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
                                     </div>
                                 </div>
-
                             </div>
 
                             <!-- Passport -->
-                            <div class="document-box" id="passport-admin-view" style="display:none">
-                                <div class="document-name" id="passport-document-name" style="display: none;">Passport</div>
+                            <div class="document-box" id="passport-admin-view-{{ $users->user_id }}" style="display:none">
+                                <div class="document-name" id="passport-document-name-{{ $users->user_id }}"
+                                    style="display: none;">Passport
+                                </div>
                                 <div class="upload-field">
-                                    <span id="passport-name">Passport</span>
-                                    <label for="passport" class="upload-icon" id="passport-upload-icon">
+                                    <span id="passport-name-{{ $users->user_id }}">Passport</span>
+                                    <label for="passport-{{ $users->user_id }}" class="upload-icon"
+                                        id="passport-upload-icon-{{ $users->user_id }}">
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
-                                    <input type="file" id="passport" accept=".jpg, .png, .pdf"
-                                        onchange="handleFileUpload(event, 'passport-name', 'passport-upload-icon', 'passport-remove-icon','<?= $users->user_id ?>')">
-                                    <span id="passport-remove-icon" class="remove-icon" style="display: none;"
-                                        onclick="removeFile('passport', 'passport-name', 'passport-upload-icon', 'passport-remove-icon','<?= $users->user_id ?>')">✖</span>
+                                    <input type="file" id="passport-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
+                                        onchange="handleFileUpload(event, 'passport-name-{{ $users->user_id }}', 'passport-upload-icon-{{ $users->user_id }}', 'passport-remove-icon-{{ $users->user_id }}', '<?= $users->user_id ?>')">
+                                    <span id="passport-remove-icon-{{ $users->user_id }}" class="remove-icon"
+                                        style="display: none;"
+                                        onclick="removeFile('passport-{{ $users->user_id }}', 'passport-name-{{ $users->user_id }}', 'passport-upload-icon-{{ $users->user_id }}', 'passport-remove-icon-{{ $users->user_id }}','<?= $users->user_id ?>')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="tenth-grade-help">ⓘ Help</span>
+                                    <span class="help-trigger" data-target="passport-help-{{ $users->user_id }}">ⓘ Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
-                                <div class="help-container tenth-grade-help" style="display: none;">
+                                <div class="help-container passport-help-{{ $users->user_id }}" style="display: none;">
                                     <h3 class="help-title">Help</h3>
                                     <div class="help-content">
                                         <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
                                     </div>
                                 </div>
-
                             </div>
 
                         </div>
+
                         <div class="document-container">
 
                             <!-- 10th Grade Mark Sheet -->
-                            <div class="document-box" id="sslc-grade-marksheet-adminview" style="display:none">
+                            <div class="document-box" id="sslc-grade-marksheet-adminview-{{ $users->user_id }}"
+                                style="display:none">
 
                                 <div class="document-name" id="10th-mark-sheet-id" style="display: none;">10th Mark Sheet
                                 </div>
                                 <div class="upload-field">
-                                    <span id="tenth-grade-name">10th Grade Mark Sheet</span>
-                                    <label for="tenth-grade" class="upload-icon" id="tenth-grade-upload-icon">
+                                    <span id="tenth-grade-name-{{ $users->user_id }}">10th Grade Mark Sheet</span>
+                                    <label for="tenth-grade-{{ $users->user_id }}" class="upload-icon"
+                                        id="tenth-grade-upload-icon-{{ $users->user_id }}">
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
-                                    <input type="file" id="tenth-grade" accept=".jpg, .png, .pdf"
-                                        onchange="handleFileUpload(event, 'tenth-grade-name', 'tenth-grade-upload-icon', 'tenth-grade-remove-icon','<?= $users->user_id ?>')">
-                                    <span id="tenth-grade-remove-icon" class="remove-icon" style="display:none;"
-                                        onclick="removeFile('tenth-grade', 'tenth-grade-name', 'tenth-grade-upload-icon', 'tenth-grade-remove-icon','<?= $users->user_id ?>')">✖</span>
+                                    <input type="file" id="tenth-grade-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
+                                        onchange="handleFileUpload(event, 'tenth-grade-name-{{ $users->user_id }}', 'tenth-grade-upload-icon-{{ $users->user_id }}', 'tenth-grade-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">
+                                    <span id="tenth-grade-remove-icon-{{ $users->user_id }}" class="remove-icon"
+                                        style="display:none;"
+                                        onclick="removeFile('tenth-grade-{{ $users->user_id }}', 'tenth-grade-name-{{ $users->user_id }}', 'tenth-grade-upload-icon-{{ $users->user_id }}', 'tenth-grade-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="tenth-grade-help">ⓘ Help</span>
+                                    <span class="help-trigger" data-target="tenth-marksheet-help-{{ $users->user_id }}">ⓘ Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
-                                <div class="help-container tenth-grade-help" style="display: none;">
+                                <div class="help-container tenth-marksheet-help-{{ $users->user_id }}" style="display: none;">
                                     <h3 class="help-title">Help</h3>
                                     <div class="help-content">
                                         <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
@@ -185,24 +196,29 @@
                             </div>
 
                             <!-- 12th Grade Mark Sheet -->
-                            <div class="document-box" id="hsc-grade-marksheet-adminview" style="display:none">
+                            <div class="document-box" id="hsc-grade-marksheet-adminview-{{ $users->user_id }}"
+                                style="display:none">
                                 <div class="document-name" id="12th-mark-sheet-id" style="display: none;">12th Mark Sheet
                                 </div>
                                 <div class="upload-field">
-                                    <span id="twelfth-grade-name">12th Grade Mark Sheet</span>
-                                    <label for="twelfth-grade" class="upload-icon" id="twelfth-grade-upload-icon">
+                                    <span id="twelfth-grade-name-{{ $users->user_id }}">12th Grade Mark Sheet</span>
+                                    <label for="twelfth-grade-{{ $users->user_id }}" class="upload-icon"
+                                        id="twelfth-grade-upload-icon-{{ $users->user_id }}">
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
-                                    <input type="file" id="twelfth-grade" accept=".jpg, .png, .pdf"
-                                        onchange="handleFileUpload(event, 'twelfth-grade-name', 'twelfth-grade-upload-icon', 'twelfth-grade-remove-icon','<?= $users->user_id ?>')">
-                                    <span id="twelfth-grade-remove-icon" class="remove-icon" style="display:none;"
-                                        onclick="removeFile('twelfth-grade', 'twelfth-grade-name', 'twelfth-grade-upload-icon', 'twelfth-grade-remove-icon','<?= $users->user_id ?>')">✖</span>
+                                    <input type="file" id="twelfth-grade-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
+                                        onchange="handleFileUpload(event, 'twelfth-grade-name-{{ $users->user_id }}', 'twelfth-grade-upload-icon-{{ $users->user_id }}', 'twelfth-grade-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">
+                                    <span id="twelfth-grade-remove-icon-{{ $users->user_id }}" class="remove-icon"
+                                        style="display:none;"
+                                        onclick="removeFile('twelfth-grade-{{ $users->user_id }}', 'twelfth-grade-name-{{ $users->user_id }}', 'twelfth-grade-upload-icon-{{ $users->user_id }}', 'twelfth-grade-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="tenth-grade-help">ⓘ Help</span>
+                                    <span class="help-trigger" data-target="twelfth-marksheet-help-{{ $users->user_id }}">ⓘ
+                                        Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
-                                <div class="help-container tenth-grade-help" style="display: none;">
+                                <div class="help-container twelfth-marksheet-help-{{ $users->user_id }}" id="twelfth-grade-help-{{ $users->user_id }}"
+                                    style="display: none;">
                                     <h3 class="help-title">Help</h3>
                                     <div class="help-content">
                                         <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
@@ -211,193 +227,222 @@
 
                             </div>
 
-                            <div class="document-box" id="degree-grade-marksheet-adminview" style="display: none;">
+                            <!-- Graduation Mark Sheet -->
+                            <div class="document-box" id="degree-grade-marksheet-adminview-{{ $users->user_id }}"
+                                style="display:none">
                                 <div class="document-name" id="graduation-mark-sheet-id" style="display: none;">Graduation
-                                    Mark
-                                    Sheet</div>
+                                    Mark Sheet</div>
                                 <div class="upload-field">
-                                    <span id="graduation-grade-name">Graduation Mark Sheet</span>
-                                    <label for="graduation-grade" class="upload-icon" id="graduation-grade-upload-icon">
+                                    <span id="graduation-grade-name-{{ $users->user_id }}">Graduation Mark Sheet</span>
+                                    <label for="graduation-grade-{{ $users->user_id }}" class="upload-icon"
+                                        id="graduation-grade-upload-icon-{{ $users->user_id }}">
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
-                                    <input type="file" id="graduation-grade" accept=".jpg, .png, .pdf"
-                                        onchange="handleFileUpload(event, 'graduation-grade-name', 'graduation-grade-upload-icon', 'graduation-grade-remove-icon','<?= $users->user_id ?>')">
-                                    <span id="graduation-grade-remove-icon" class="remove-icon" style="display:none;"
-                                        onclick="removeFile('graduation-grade', 'graduation-grade-name', 'graduation-grade-upload-icon', 'graduation-grade-remove-icon','<?= $users->user_id ?>')">✖</span>
+                                    <input type="file" id="graduation-grade-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
+                                        onchange="handleFileUpload(event, 'graduation-grade-name-{{ $users->user_id }}', 'graduation-grade-upload-icon-{{ $users->user_id }}', 'graduation-grade-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">
+                                    <span id="graduation-grade-remove-icon-{{ $users->user_id }}" class="remove-icon"
+                                        style="display:none;"
+                                        onclick="removeFile('graduation-grade-{{ $users->user_id }}', 'graduation-grade-name-{{ $users->user_id }}', 'graduation-grade-upload-icon-{{ $users->user_id }}', 'graduation-grade-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="tenth-grade-help">ⓘ Help</span>
+                                    <span class="help-trigger" data-target="graduation-marksheet-help-{{ $users->user_id }}">ⓘ
+                                        Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
-                                <div class="help-container tenth-grade-help" style="display: none;">
+                                <div class="help-container graduation-marksheet-help-{{ $users->user_id }}"
+                                    id="graduation-grade-help-{{ $users->user_id }}" style="display: none;">
                                     <h3 class="help-title">Help</h3>
                                     <div class="help-content">
                                         <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
+
                         <div class="document-container">
                             <!-- 10th Grade -->
-                            <div class="document-box" id="sslc-grade-adminview" style="display:none">
-                                <div class="document-name" id="10th-grades-id" style="display: none;">10th Grade</div>
+                            <div class="document-box" id="sslc-grade-adminview-{{ $users->user_id }}" style="display:none">
+                                <div class="document-name" id="10th-grades-id-{{ $users->user_id }}" style="display: none;">
+                                    10th Grade</div>
                                 <div class="upload-field">
-                                    <span id="secured-tenth-name">10th Grade</span>
-                                    <label for="secured-tenth" class="upload-icon" id="secured-tenth-upload-icon">
+                                    <span id="secured-tenth-name-{{ $users->user_id }}">10th Grade</span>
+                                    <label for="secured-tenth-{{ $users->user_id }}" class="upload-icon"
+                                        id="secured-tenth-upload-icon-{{ $users->user_id }}">
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
-                                    <input type="file" id="secured-tenth" accept=".jpg, .png, .pdf"
-                                        onchange="handleFileUpload(event, 'secured-tenth-name', 'secured-tenth-upload-icon', 'secured-tenth-remove-icon','<?= $users->user_id ?>')">
-                                    <span id="secured-tenth-remove-icon" class="remove-icon" style="display:none;"
-                                        onclick="removeFile('secured-tenth', 'secured-tenth-name', 'secured-tenth-upload-icon', 'secured-tenth-remove-icon','<?= $users->user_id ?>')">✖</span>
+                                    <input type="file" id="secured-tenth-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
+                                        onchange="handleFileUpload(event, 'secured-tenth-name-{{ $users->user_id }}', 'secured-tenth-upload-icon-{{ $users->user_id }}', 'secured-tenth-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">
+                                    <span id="secured-tenth-remove-icon-{{ $users->user_id }}" class="remove-icon"
+                                        style="display:none;"
+                                        onclick="removeFile('secured-tenth-{{ $users->user_id }}', 'secured-tenth-name-{{ $users->user_id }}', 'secured-tenth-upload-icon-{{ $users->user_id }}', 'secured-tenth-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="tenth-grade-help">ⓘ Help</span>
+                                    <span class="help-trigger" data-target="tenth-grade-help-{{ $users->user_id }}">ⓘ
+                                        Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
-                                <div class="help-container tenth-grade-help" style="display: none;">
+                                <div class="help-container tenth-grade-help-{{ $users->user_id }}" style="display: none;">
                                     <h3 class="help-title">Help</h3>
                                     <div class="help-content">
                                         <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
                                     </div>
                                 </div>
-
                             </div>
 
                             <!-- 12th Grade -->
-                            <div class="document-box" id="hsc-grade-adminview" style="display:none">
-                                <div class="document-name" id="12th-grade-id" style="display: none;">12th Grade</div>
+                            <div class="document-box" id="hsc-grade-adminview-{{ $users->user_id }}" style="display:none">
+                                <div class="document-name" id="12th-grade-id-{{ $users->user_id }}" style="display: none;">
+                                    12th Grade</div>
                                 <div class="upload-field">
-                                    <span id="secured-twelfth-name">12th Grade</span>
-                                    <label for="secured-twelfth" class="upload-icon" id="secured-twelfth-upload-icon">
+                                    <span id="secured-twelfth-name-{{ $users->user_id }}">12th Grade</span>
+                                    <label for="secured-twelfth-{{ $users->user_id }}" class="upload-icon"
+                                        id="secured-twelfth-upload-icon-{{ $users->user_id }}">
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
-                                    <input type="file" id="secured-twelfth" accept=".jpg, .png, .pdf"
-                                        onchange="handleFileUpload(event, 'secured-twelfth-name', 'secured-twelfth-upload-icon', 'secured-twelfth-remove-icon','<?= $users->user_id ?>')">
-                                    <span id="secured-twelfth-remove-icon" class="remove-icon" style="display:none;"
-                                        onclick="removeFile('secured-twelfth', 'secured-twelfth-name', 'secured-twelfth-upload-icon', 'secured-twelfth-remove-icon','<?= $users->user_id ?>')">✖</span>
+                                    <input type="file" id="secured-twelfth-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
+                                        onchange="handleFileUpload(event, 'secured-twelfth-name-{{ $users->user_id }}', 'secured-twelfth-upload-icon-{{ $users->user_id }}', 'secured-twelfth-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">
+                                    <span id="secured-twelfth-remove-icon-{{ $users->user_id }}" class="remove-icon"
+                                        style="display:none;"
+                                        onclick="removeFile('secured-twelfth-{{ $users->user_id }}', 'secured-twelfth-name-{{ $users->user_id }}', 'secured-twelfth-upload-icon-{{ $users->user_id }}', 'secured-twelfth-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="tenth-grade-help">ⓘ Help</span>
+                                    <span class="help-trigger" data-target="twelfth-grade-help-{{ $users->user_id }}">ⓘ
+                                        Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
-                                <div class="help-container tenth-grade-help" style="display: none;">
+                                <div class="help-container twelfth-grade-help-{{ $users->user_id }}" style="display: none;">
                                     <h3 class="help-title">Help</h3>
                                     <div class="help-content">
                                         <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
                                     </div>
                                 </div>
-
                             </div>
 
                             <!-- Graduation -->
-                            <div class="document-box" id="graduation-grade-adminview" style="display:none">
-                                <div class="document-name" id="Graduation-id" style="display: none;">Graduation</div>
+                            <div class="document-box" id="graduation-grade-adminview-{{ $users->user_id }}"
+                                style="display:none">
+                                <div class="document-name" id="graduation-id-{{ $users->user_id }}" style="display: none;">
+                                    Graduation</div>
                                 <div class="upload-field">
-                                    <span id="secured-graduation-name">Graduation</span>
-                                    <label for="secured-graduation" class="upload-icon" id="secured-graduation-upload-icon">
+                                    <span id="secured-graduation-name-{{ $users->user_id }}">Graduation</span>
+                                    <label for="secured-graduation-{{ $users->user_id }}" class="upload-icon"
+                                        id="secured-graduation-upload-icon-{{ $users->user_id }}">
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
-                                    <input type="file" id="secured-graduation" accept=".jpg, .png, .pdf"
-                                        onchange="handleFileUpload(event, 'secured-graduation-name', 'secured-graduation-upload-icon', 'secured-graduation-remove-icon','<?= $users->user_id ?>')">
-                                    <span id="secured-graduation-remove-icon" class="remove-icon" style="display:none;"
-                                        onclick="removeFile('secured-graduation', 'secured-graduation-name', 'secured-graduation-upload-icon', 'secured-graduation-remove-icon','<?= $users->user_id ?>')">✖</span>
+                                    <input type="file" id="secured-graduation-{{ $users->user_id }}"
+                                        accept=".jpg, .png, .pdf"
+                                        onchange="handleFileUpload(event, 'secured-graduation-name-{{ $users->user_id }}', 'secured-graduation-upload-icon-{{ $users->user_id }}', 'secured-graduation-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">
+                                    <span id="secured-graduation-remove-icon-{{ $users->user_id }}" class="remove-icon"
+                                        style="display:none;"
+                                        onclick="removeFile('secured-graduation-{{ $users->user_id }}', 'secured-graduation-name-{{ $users->user_id }}', 'secured-graduation-upload-icon-{{ $users->user_id }}', 'secured-graduation-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="tenth-grade-help">ⓘ Help</span>
+                                    <span class="help-trigger" data-target="graduation-grade-help-{{ $users->user_id }}">ⓘ
+                                        Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
-                                <div class="help-container tenth-grade-help" style="display: none;">
+                                <div class="help-container graduation-grade-help-{{ $users->user_id }}"
+                                    style="display: none;">
                                     <h3 class="help-title">Help</h3>
                                     <div class="help-content">
                                         <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
+
                         <div class="document-container">
 
                             <!-- PAN Card -->
-                            <div class="document-box" id="co-borrower-pan-admin-view" style="display:none">
-                                <div class="document-name" id="pan-card-ids" style="display: none;">PAN Card</div>
+                            <div class="document-box" id="co-borrower-pan-admin-view-{{ $users->user_id }}"
+                                style="display:none">
+                                <div class="document-name" id="pan-card-id-{{ $users->user_id }}" style="display: none;">PAN
+                                    Card</div>
                                 <div class="upload-field">
-                                    <span id="co-pan-card-name">Coborrower PAN Card</span>
-                                    <label for="co-pan-card" class="upload-icon" id="co-upload-icon">
+                                    <span id="co-pan-card-name-{{ $users->user_id }}">Coborrower PAN Card</span>
+                                    <label for="co-pan-card-{{ $users->user_id }}" class="upload-icon"
+                                        id="co-upload-icon-{{ $users->user_id }}">
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
-                                    <input type="file" id="co-pan-card" accept=".jpg, .png, .pdf"
-                                        onchange="handleFileUpload(event, 'co-pan-card-name', 'co-upload-icon', 'co-remove-icon','<?= $users->user_id ?>')">
-                                    <span id="co-remove-icon" class="remove-icon" style="display:none;"
-                                        onclick="removeFile('co-pan-card', 'co-pan-card-name', 'co-upload-icon', 'co-remove-icon','<?= $users->user_id ?>')">✖</span>
+                                    <input type="file" id="co-pan-card-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
+                                        onchange="handleFileUpload(event, 'co-pan-card-name-{{ $users->user_id }}', 'co-upload-icon-{{ $users->user_id }}', 'co-remove-icon-{{ $users->user_id }}', '<?= $users->user_id ?>')">
+                                    <span id="co-remove-icon-{{ $users->user_id }}" class="remove-icon"
+                                        style="display:none;"
+                                        onclick="removeFile('co-pan-card-{{ $users->user_id }}', 'co-pan-card-name-{{ $users->user_id }}', 'co-upload-icon-{{ $users->user_id }}', 'co-remove-icon-{{ $users->user_id }}', '<?= $users->user_id ?>')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="tenth-grade-help">ⓘ Help</span>
+                                    <span class="help-trigger" data-target="co-pan-help-{{ $users->user_id }}">ⓘ Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
-                                <div class="help-container tenth-grade-help" style="display: none;">
+                                <div class="help-container co-pan-help-{{ $users->user_id }}" style="display: none;">
                                     <h3 class="help-title">Help</h3>
                                     <div class="help-content">
                                         <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
                                     </div>
                                 </div>
-
                             </div>
 
                             <!-- Aadhar Card -->
-                            <div class="document-box" id="co-borrower-aadhar-admin-view" style="display:none">
-                                <div class="document-name" id="aadhar-card-id" style="display: none;">Aadhar Card</div>
+                            <div class="document-box" id="co-borrower-aadhar-admin-view-{{ $users->user_id }}"
+                                style="display:none">
+                                <div class="document-name" id="aadhar-card-id-{{ $users->user_id }}" style="display: none;">
+                                    Aadhar Card</div>
                                 <div class="upload-field">
-                                    <span id="co-aadhar-card-name">Coborrower Aadhar Card</span>
-                                    <label for="co-aadhar-card" class="upload-icon" id="co-aadhar-upload-icon">
+                                    <span id="co-aadhar-card-name-{{ $users->user_id }}">Coborrower Aadhar Card</span>
+                                    <label for="co-aadhar-card-{{ $users->user_id }}" class="upload-icon"
+                                        id="co-aadhar-upload-icon-{{ $users->user_id }}">
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
-                                    <input type="file" id="co-aadhar-card" accept=".jpg, .png, .pdf"
-                                        onchange="handleFileUpload(event, 'co-aadhar-card-name', 'co-aadhar-upload-icon', 'co-aadhar-remove-icon','<?= $users->user_id ?>')">
-                                    <span id="co-aadhar-remove-icon" class="remove-icon" style="display:none;"
-                                        onclick="removeFile('co-aadhar-card', 'co-aadhar-card-name', 'co-aadhar-upload-icon', 'co-aadhar-remove-icon','<?= $users->user_id ?>')">✖</span>
+                                    <input type="file" id="co-aadhar-card-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
+                                        onchange="handleFileUpload(event, 'co-aadhar-card-name-{{ $users->user_id }}', 'co-aadhar-upload-icon-{{ $users->user_id }}', 'co-aadhar-remove-icon-{{ $users->user_id }}', '<?= $users->user_id ?>')">
+                                    <span id="co-aadhar-remove-icon-{{ $users->user_id }}" class="remove-icon"
+                                        style="display:none;"
+                                        onclick="removeFile('co-aadhar-card-{{ $users->user_id }}', 'co-aadhar-card-name-{{ $users->user_id }}', 'co-aadhar-upload-icon-{{ $users->user_id }}', 'co-aadhar-remove-icon-{{ $users->user_id }}', '<?= $users->user_id ?>')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="tenth-grade-help">ⓘ Help</span>
+                                    <span class="help-trigger" data-target="co-aadhar-help-{{ $users->user_id }}">ⓘ Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
-                                <div class="help-container tenth-grade-help" style="display: none;">
+                                <div class="help-container co-aadhar-help-{{ $users->user_id }}" style="display: none;">
                                     <h3 class="help-title">Help</h3>
                                     <div class="help-content">
                                         <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
                                     </div>
                                 </div>
-
                             </div>
 
                             <!-- Passport (Address Proof) -->
-                            <div class="document-box" id="co-borrower-address-admin-view" style="display:none">
-                                <div class="document-name" id="address-proof-id" style="display: none;">Address Proof</div>
+                            <div class="document-box" id="co-borrower-address-admin-view-{{ $users->user_id }}"
+                                style="display:none">
+                                <div class="document-name" id="address-proof-id-{{ $users->user_id }}"
+                                    style="display: none;">Address Proof</div>
                                 <div class="upload-field">
-                                    <span id="co-addressproof">Coborrower Address Proof</span>
-                                    <label for="co-passport" class="upload-icon" id="co-passport-upload-icon">
+                                    <span id="co-addressproof-{{ $users->user_id }}">Coborrower Address Proof</span>
+                                    <label for="co-passport-{{ $users->user_id }}" class="upload-icon"
+                                        id="co-passport-upload-icon-{{ $users->user_id }}">
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
-                                    <input type="file" id="co-passport" accept=".jpg, .png, .pdf"
-                                        onchange="handleFileUpload(event, 'co-addressproof', 'co-passport-upload-icon', 'co-passport-remove-icon','<?= $users->user_id ?>')">
-                                    <span id="co-passport-remove-icon" class="remove-icon" style="display:none;"
-                                        onclick="removeFile('co-passport', 'co-addressproof', 'co-passport-upload-icon', 'co-passport-remove-icon','<?= $users->user_id ?>')">✖</span>
+                                    <input type="file" id="co-passport-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
+                                        onchange="handleFileUpload(event, 'co-addressproof-{{ $users->user_id }}', 'co-passport-upload-icon-{{ $users->user_id }}', 'co-passport-remove-icon-{{ $users->user_id }}', '<?= $users->user_id ?>')">
+                                    <span id="co-passport-remove-icon-{{ $users->user_id }}" class="remove-icon"
+                                        style="display:none;"
+                                        onclick="removeFile('co-passport-{{ $users->user_id }}', 'co-addressproof-{{ $users->user_id }}', 'co-passport-upload-icon-{{ $users->user_id }}', 'co-passport-remove-icon-{{ $users->user_id }}', '<?= $users->user_id ?>')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="tenth-grade-help">ⓘ Help</span>
+                                    <span class="help-trigger" data-target="co-address-help-{{ $users->user_id }}">ⓘ
+                                        Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
-                                <div class="help-container tenth-grade-help" style="display: none;">
+                                <div class="help-container co-address-help-{{ $users->user_id }}" style="display: none;">
                                     <h3 class="help-title">Help</h3>
                                     <div class="help-content">
                                         <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
                                     </div>
                                 </div>
-
                             </div>
 
                         </div>
+
                     </div>
                 </div>
 
@@ -483,7 +528,7 @@
             const documentsStatusBar = document.querySelectorAll(".studentapplication-lists-remainingdocuments");
             const studentId = document.querySelectorAll(".studentapplication-lists .firstsection-lists #hidden-id-elementforaccess");
 
-            let previousUserId = "";
+            let previousUserId = null;
             for (let [index, item] of viewButton.entries()) {
                 item.addEventListener('click', async () => {
                     if (listContainer[index] && documentsStatusBar[index] && studentId[index]) {
@@ -503,100 +548,53 @@
             }
         };
         const getRemainingDocuments = async (userId) => {
-            const documentIds = [
-                "pan-card-admin-view",
-                "aadhar-card-admin-view",
-                "passport-admin-view",
-                "sslc-grade-marksheet-adminview",
-                "hsc-grade-marksheet-adminview",
-                "degree-grade-marksheet-adminview",
-                "sslc-grade-adminview",
-                "hsc-grade-adminview",
-                "graduation-grade-adminview",
-                "co-borrower-pan-admin-view",
-                "co-borrower-aadhar-admin-view",
-                "co-borrower-address-admin-view"
-            ];
+            const documentIds = {
+                "pan-card-name/": `pan-card-admin-view-${userId}`,
+                "aadhar-card-name/": `aadhar-card-admin-view-${userId}`,
+                "passport-name/": `passport-admin-view-${userId}`,
+                "secured-tenth-name/": `sslc-grade-adminview-${userId}`,
+                "secured-twelfth-name/": `hsc-grade-adminview-${userId}`,
+                "secured-graduation-name/": `graduation-grade-adminview-${userId}`,
+                "tenth-grade-name/": `sslc-grade-marksheet-adminview-${userId}`,
+                "twelfth-grade-name/": `hsc-grade-marksheet-adminview-${userId}`,
+                "graduation-grade-name/": `degree-grade-marksheet-adminview-${userId}`,
+                "co-pan-card-name/": `co-borrower-pan-admin-view-${userId}`,
+                "co-aadhar-card-name/": `co-borrower-aadhar-admin-view-${userId}`,
+                "co-addressproof/": `co-borrower-address-admin-view-${userId}`
+            };
 
             console.log(userId);
 
-            await fetch("/remaining-documents", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({ userId })
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.message === "Documents count retrieved successfully") {
-                        const missingDocuments = data.missingDocuments;
-
-
-                        missingDocuments.forEach(missingDocument => {
-                            if (missingDocument === "aadhar-card-name/") {
-                                console.log("Missing: Aadhar Card");
-                                document.getElementById("aadhar-card-admin-view").style.display = "flex";
-                            }
-                            if (missingDocument === "co-aadhar-card-name/") {
-                                console.log("Missing: Co-borrower Aadhar Card");
-                                document.getElementById("co-borrower-aadhar-admin-view").style.display = "flex";
-                            }
-                            if (missingDocument === "co-addressproof/") {
-                                console.log("Missing: Co-borrower Address Proof");
-                                document.getElementById("co-borrower-address-admin-view").style.display = "flex";
-                            }
-                            if (missingDocument === "co-pan-card-name/") {
-                                console.log("Missing: Co-borrower PAN Card");
-                                document.getElementById("co-borrower-pan-admin-view").style.display = "flex";
-                            }
-                            if (missingDocument === "graduation-grade-name/") {
-                                console.log("Missing: Graduation Grade");
-                                document.getElementById("graduation-grade-adminview").style.display = "flex";
-                            }
-                            if (missingDocument === "tenth-grade-name/") {
-                                console.log("Missing: SSLC Grade");
-                                document.getElementById("sslc-grade-adminview").style.display = "flex";
-                            }
-                            if (missingDocument === "twelfth-grade-name/") {
-                                console.log("Missing: HSC Grade");
-                                document.getElementById("hsc-grade-adminview").style.display = "flex";
-                            }
-                            if (missingDocument === "secured-graduation-name/") {
-                                console.log("missing: Graduation secured");
-                                document.getElementById("degree-grade-marksheet-adminview").style.display = "flex";
-                            }
-                            if (missingDocument === "secured-tenth-name/") {
-                                console.log("missing: sslc secured");
-                                document.getElementById("sslc-grade-marksheet-adminview").style.display = "flex";
-
-                            }
-                            if (missingDocument === "secured-twelfth-name/") {
-                                console.log("missing: hsc secured")
-                                document.getElementById("hsc-grade-marksheet-adminview").style.display = "flex";
-                            }
-                            if (missingDocument === 'pan-card-name/') {
-                                console.log("Missing:Pan card missing")
-                                document.getElementById("pan-card-admin-view").style.display = "flex"
-                            }
-                            if (missingDocument === 'passport-name/') {
-                                console.log("missing: passport");
-                                document.getElementById("passport-admin-view").style.display = "flex"
-
-
-                            }
-                        });
-
-
-
-                    } else {
-                        console.error("Error Retrieving Missing Documents");
-                    }
-                })
-                .catch((error) => {
-                    console.error(error);
+            try {
+                const response = await fetch("/remaining-documents", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ userId })
                 });
+
+                const data = await response.json();
+
+                if (response.ok && data.message === "Documents count retrieved successfully") {
+                    const missingDocuments = data.missingDocuments;
+
+                    missingDocuments.forEach((missingDocument) => {
+                        const elementId = documentIds[missingDocument];
+                        if (elementId) {
+                            console.log(`Missing: ${missingDocument}`);
+                            document.getElementById(elementId).style.display = "flex";
+                        } else {
+                            console.warn(`Unknown document type: ${missingDocument}`);
+                        }
+                    });
+                } else {
+                    console.error("Error retrieving missing documents");
+                }
+            } catch (error) {
+                console.error("Fetch Error: ", error);
+            }
         };
 
     </script>

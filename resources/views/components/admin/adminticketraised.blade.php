@@ -41,9 +41,9 @@
                     <span class="ticket-raised-date">2025-02-15</span>
                 </div>
                 <div class="ticket-raised-meta">
-                    <div class="ticket-raised-meta-item">Student Counsellor</div>
-                    <div class="ticket-raised-meta-item">15/02/2025</div>
-                    <div class="ticket-raised-meta-item">Student</div>
+                     <div class="ticket-raised-meta-item-sc">Student Counsellor</div>
+                     <div class="ticket-raised-meta-item-date">12/01/2025</div>
+                     <div class="ticket-raised-meta-item-student">Student</div>
                 </div>
                 <div class="ticket-raised-chat-icon-container">
                     <div class="ticket-raised-chat-icon">
@@ -58,10 +58,10 @@
                     Course registration deadline - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     <span class="ticket-raised-date">2025-02-10</span>
                 </div>
-                <div class="ticket-raised-meta">
-                    <div class="ticket-raised-meta-item">Student Counsellor</div>
-                    <div class="ticket-raised-meta-item">10/02/2025</div>
-                    <div class="ticket-raised-meta-item">Student</div>
+                 <div class="ticket-raised-meta">
+                     <div class="ticket-raised-meta-item-sc">Student Counsellor</div>
+                     <div class="ticket-raised-meta-item-date">12/01/2025</div>
+                     <div class="ticket-raised-meta-item-student">Student</div>
                 </div>
                 <div class="ticket-raised-chat-icon-container">
                     <div class="ticket-raised-chat-icon">
@@ -93,9 +93,9 @@
                     <span class="ticket-raised-date">2025-02-05</span>
                 </div>
                 <div class="ticket-raised-meta">
-                    <div class="ticket-raised-meta-item">Student Counsellor</div>
-                    <div class="ticket-raised-meta-item">05/02/2025</div>
-                    <div class="ticket-raised-meta-item">Student</div>
+                      <div class="ticket-raised-meta-item-sc">Student Counsellor</div>
+                      <div class="ticket-raised-meta-item-date">12/01/2025</div>
+                      <div class="ticket-raised-meta-item-student">Student</div>
                 </div>
                 <div class="ticket-raised-chat-icon-container">
                     <div class="ticket-raised-chat-icon">
@@ -126,9 +126,9 @@
                     <span class="ticket-raised-date">2025-01-28</span>
                 </div>
                 <div class="ticket-raised-meta">
-                    <div class="ticket-raised-meta-item">Student Counsellor</div>
-                    <div class="ticket-raised-meta-item">28/01/2025</div>
-                    <div class="ticket-raised-meta-item">Student</div>
+                    <div class="ticket-raised-meta-item-sc">Student Counsellor</div>
+                    <div class="ticket-raised-meta-item-date">12/01/2025</div>
+                    <div class="ticket-raised-meta-item-student">Student</div>
                 </div>
                 <div class="ticket-raised-chat-icon-container">
                     <div class="ticket-raised-chat-icon">
@@ -144,9 +144,9 @@
                     <span class="ticket-raised-date">2025-01-20</span>
                 </div>
                 <div class="ticket-raised-meta">
-                    <div class="ticket-raised-meta-item">Student Counsellor</div>
-                    <div class="ticket-raised-meta-item">20/01/2025</div>
-                    <div class="ticket-raised-meta-item">Student</div>
+                   <div class="ticket-raised-meta-item-sc">Student Counsellor</div>
+                   <div class="ticket-raised-meta-item-date">12/01/2025</div>
+                   <div class="ticket-raised-meta-item-student">Student</div>
                 </div>
                 <div class="ticket-raised-chat-icon-container">
                     <div class="ticket-raised-chat-icon">
@@ -173,9 +173,9 @@
             <span class="ticket-raised-date">2025-01-15</span>
         </div>
         <div class="ticket-raised-meta">
-            <div class="ticket-raised-meta-item">Student Counsellor</div>
-            <div class="ticket-raised-meta-item">15/01/2025</div>
-            <div class="ticket-raised-meta-item">Student</div>
+            <div class="ticket-raised-meta-item-sc">Student Counsellor</div>
+            <div class="ticket-raised-meta-item-date">12/01/2025</div>
+            <div class="ticket-raised-meta-item-student">Student</div>
         </div>
         <div class="ticket-raised-chat-icon-container">
             <div class="ticket-raised-chat-icon">
@@ -203,9 +203,9 @@
             <span class="ticket-raised-date">2025-01-12</span>
         </div>
         <div class="ticket-raised-meta">
-            <div class="ticket-raised-meta-item">Student Counsellor</div>
-            <div class="ticket-raised-meta-item">12/01/2025</div>
-            <div class="ticket-raised-meta-item">Student</div>
+            <div class="ticket-raised-meta-item-sc">Student Counsellor</div>
+            <div class="ticket-raised-meta-item-date">12/01/2025</div>
+            <div class="ticket-raised-meta-item-student">Student</div>
         </div>
         <div class="ticket-raised-chat-icon-container">
             <div class="ticket-raised-chat-icon">
@@ -221,9 +221,9 @@
             <span class="ticket-raised-date">2025-01-10</span>
         </div>
         <div class="ticket-raised-meta">
-            <div class="ticket-raised-meta-item">Student Counsellor</div>
-            <div class="ticket-raised-meta-item">10/01/2025</div>
-            <div class="ticket-raised-meta-item">Student</div>
+           <div class="ticket-raised-meta-item-sc">Student Counsellor</div>
+            <div class="ticket-raised-meta-item-date">12/01/2025</div>
+            <div class="ticket-raised-meta-item-student">Student</div>
         </div>
         <div class="ticket-raised-chat-icon-container">
             <div class="ticket-raised-chat-icon">

@@ -807,6 +807,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function uploadFileToServer(file, userId, fileNameId) {
+        fileNameId = fileNameId.replace(`-${userId}`, '');  
+
+
+
         const formDetailsData = new FormData();
         formDetailsData.append('file', file);
         formDetailsData.append('userId', userId);
@@ -874,6 +878,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (studentId === null) {
             const userId = document.getElementById("personal-info-userid").value;
             await deleteFileToServer(userId, fileNameId);
+            console.log(fileNameId)
 
 
 
@@ -881,6 +886,7 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (studentId !== null) {
             const userId = studentId;
             await deleteFileToServer(userId, fileNameId);
+            console.log(fileNameId)
 
 
         }
@@ -890,6 +896,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function deleteFileToServer(userId, fileNameId) {
+        fileNameId = fileNameId.replace(`-${userId}`, '');  
+
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
         if (!csrfToken) {

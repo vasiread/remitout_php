@@ -43,13 +43,13 @@ Route::get('/login', function () {
 })->name('login');
 Route::get('/nbfc-dashboard', function () {
     return view('pages.nbfcdashboard');
-})->name('login');
+})->name('nbfcdashboard');
 
 
 Route::get('/admin-page', function () {
 
     $sidebarItems = (new SidebarHandlingController)->admindashboardItems();
-    $userDetails = (new StudentDashboardController)->getAllUsersFromAdmin();  // Example class name
+    $userDetails = (new StudentDashboardController)->getAllUsersFromAdmin();   
 
     return view('pages.adminpage', [
         'sidebarItems' => $sidebarItems,
@@ -90,6 +90,7 @@ Route::post('/update-courseinfo', [StudentDetailsController::class, 'updateCours
 Route::post('/update-academicsinfo', [StudentDetailsController::class, 'updateAcademicsInfo']);
 Route::post('/updatedetailsinfo', [StudentDetailsController::class, 'updateUserIds']);
 Route::post("/coborrowerData", [StudentDetailsController::class, 'updateCoborrowerInfo']);
+Route::post('/getUserFromNbfc', [StudentDashboardController::class, 'getUserFromNbfc'])->name('getUserFromNbfc');
 
 // Document Upload and Handling Routes
 Route::post('/remove-each-documents', [StudentDashboardController::class, 'removeFromServer']);
@@ -117,6 +118,8 @@ Route::post('/verify-mobotp', [OTPMobController::class, 'verifyOTP']);
 Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFromProfile']);
 Route::post('/upload-profile-picture', [StudentDashboardController::class, 'uploadProfilePicture']);
 Route::post('/retrieve-profile-picture', [StudentDashboardController::class, 'retrieveProfilePicture']);
+Route::post('/passwordchange', [GoogleAuthController::class, 'passwordChange']);
+Route::post('/students/import', [scDashboardController::class, 'import_excel_post'])->name('students.import');
 
 // Google Auth Routes
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');

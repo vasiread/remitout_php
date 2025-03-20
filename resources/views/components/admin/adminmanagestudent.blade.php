@@ -18,7 +18,8 @@
 
 
      @endphp
-<div class="manage-student-main-report-container" id="manage-student-main-admin-report-container-id">
+     
+<div class="manage-student-main-report-section" id="manage-student-main-admin-report-container-id">
  <div class="manage-student-main-admin-report-container">
         <div class="manage-student-report-header">
             <h1 class="manage-student-report-title">Manage Students Reports</h1>
@@ -73,6 +74,70 @@
                     </div>
                 </div>
             </div>
+            <!-- Add this mobile header section just after the opening div of manage-student-report-container -->
+<div class="mobile-report-header">
+    <div class="mobile-report-header-top">
+        <h2 class="mobile-report-title">Reports</h2>
+        <div class="mobile-header-actions">
+            <div class="mobile-search-container">
+                <input type="text" class="mobile-search-input" placeholder="Search">
+                <img src="assets/images/search.png" class="mobile-search-icon" alt="search">
+            </div>
+            <button class="mobile-filter-btn" id="show-mobile-filters">
+                Filters <span>⌄</span>
+            </button>
+            <button class="mobile-calendar-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                    <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2"/>
+                    <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+    <button class="mobile-export-btn">Export to Excel</button>
+</div>
+
+<!-- Add this mobile filters popup at the end of your body tag -->
+<div class="mobile-filters-popup" id="mobile-filters-popup">
+    <div class="mobile-filters-content">
+        <div class="mobile-filters-header">
+            <h3 class="mobile-filters-title">Filters</h3>
+            <button class="mobile-close-btn" id="close-mobile-filters">×</button>
+        </div>
+        <div class="mobile-filter-item">
+            <select>
+                <option>NBFC</option>
+            </select>
+        </div>
+        <div class="mobile-filter-item">
+            <select>
+                <option>Student Counsellor</option>
+            </select>
+        </div>
+        <div class="mobile-filter-item">
+            <select>
+                <option>Status</option>
+            </select>
+        </div>
+        <div class="mobile-filter-item">
+            <select>
+                <option>City</option>
+            </select>
+        </div>
+        <div class="mobile-filter-item">
+            <select>
+                <option>State</option>
+            </select>
+        </div>
+        <div class="mobile-filter-item">
+            <select>
+                <option>Country</option>
+            </select>
+        </div>
+    </div>
+</div>
 
             <table class="manage-student-report-table">
                 <thead>
@@ -460,6 +525,36 @@
         document.getElementById('manage-student-report-export-btn-pdf').addEventListener('click', () => {
             downloadPDF(manageStudentReportData);
         });
+
+   document.addEventListener('DOMContentLoaded', function() {
+    // Get elements
+    const showFiltersBtn = document.getElementById('show-mobile-filters');
+    const closeFiltersBtn = document.getElementById('close-mobile-filters');
+    const filtersPopup = document.getElementById('mobile-filters-popup');
+    
+    // Show filters popup when button is clicked
+    if (showFiltersBtn) {
+        showFiltersBtn.addEventListener('click', function() {
+            filtersPopup.style.display = 'flex'; // Changed from 'block' to 'flex'
+        });
+    }
+    
+    // Close filters popup
+    if (closeFiltersBtn) {
+        closeFiltersBtn.addEventListener('click', function() {
+            filtersPopup.style.display = 'none';
+        });
+    }
+    
+    // Close popup when clicking outside the content
+    if (filtersPopup) {
+        filtersPopup.addEventListener('click', function(e) {
+            if (e.target === filtersPopup) {
+                filtersPopup.style.display = 'none';
+            }
+        });
+    }
+});
     </script>
 
     </body>

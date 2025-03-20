@@ -24,6 +24,10 @@
                     <h1>Welcome back!</h1>
                     <form class="logincontainer-loginresources" id="loginForm" onsubmit="loginSubmitForm(event)">
                         <img src="assets/images/loginsinguprightsideimg.png" class="loginrightsidevector-img" alt="">
+
+
+
+                        <!-- Username and Password Fields -->
                         <div class="logincontainer-namecontainer">
                             <input type="text" placeholder="Unique ID" name="name" id="loginname">
                         </div>
@@ -32,6 +36,37 @@
                             <i class="fa-regular fa-eye-slash passwordClose" id="loginpasswordeyecloseicon"
                                 style="cursor: pointer;"></i>
                         </div>
+                        <!-- User Type Selection -->
+                        <div class="logincontainer-usertypecontainer">
+                            <h3>Select Login Type:</h3>
+                            <div class="logincontainer-radiooptions">
+                                <div class="radiooptions-users">
+                                    <input type="radio" id="user" name="loginType" value="User" required>
+                                    <label for="user">User</label>
+                                </div>
+                                <div class="radiooptions-users">
+                                    <input type="radio" id="student-counsellor" name="loginType" value="Student Counsellor"
+                                        required>
+                                    <label for="student-counsellor">SC user</label><br>
+
+                                </div>
+
+                                <div class="radiooptions-users">
+                                    <input type="radio" id="nbfc" name="loginType" value="NBFC" required>
+                                    <label for="nbfc">NBFC</label>
+                                </div>
+
+
+                                <div class="radiooptions-users">
+                                    <input type="radio" id="admin" name="loginType" value="Admin" required>
+                                    <label for="admin">Admin</label>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <!-- Agree to Terms and Sign-In Button -->
                         <div class="logincontainer-signupbuttoncontainer">
                             <div class="logincontainer-checkboxcontainer">
                                 <input type="checkbox" id="confirmpolicy" style="margin:0;padding:0px" required>
@@ -39,9 +74,12 @@
                             </div>
                             <button type="submit">Sign In</button>
                         </div>
+
                         <?php $googleIcon = "assets/images/googleicon.png" ?>
                         <?php $appleIcon = "assets/images/appleicon.png" ?>
                     </form>
+
+                    <!-- Sign In with Google/Apple -->
                     <div class="logincontainer-anotherresources">
                         <p>Or</p>
                         <div class="googlesigninbuttoncontainer">
@@ -52,6 +90,8 @@
                                 <img src="{{ asset('assets/images/appleicon.png') }}"> Sign in with Apple
                             </button>
                         </div>
+
+                        <!-- New User Sign Up Option -->
                         <div class="logincontainer-signinoption">
                             <p>New here? </p>
                             <span onclick="window.location.href='{{ route('signup') }}'">Sign Up</span>
@@ -59,6 +99,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
         <script>
@@ -67,7 +108,7 @@
                     alert("{{ session('session_expired') }}");
                     logoutSession();
                 @endif
-            });
+                                            });
 
             const passwordInput = document.getElementById('loginpasswordID');
             const passwordIcon = document.querySelector('.passwordClose');
@@ -122,6 +163,8 @@
                 const loginName = document.getElementById("loginname").value;
                 const loginPassword = document.getElementById("loginpasswordID").value;
                 const confirmPolicy = document.getElementById("confirmpolicy");
+                const loginType = document.querySelector('input[name="loginType"]:checked').value;
+
 
                 if (!confirmPolicy.checked) {
                     alert("You must agree to the terms & policy");
@@ -131,6 +174,8 @@
                 const loginFormData = {
                     loginName: loginName,
                     loginPassword: loginPassword,
+                    loginType: loginType,
+                    
                 };
 
                 const csrfToken = document.querySelector('meta[name="csrf-token"]');
@@ -160,7 +205,7 @@
                                 else if (data.user && data.user.nbfc_id) {
                                     window.location.href = '/nbfc-dashboard';
 
-                                }   
+                                }
 
                             } else {
                                 alert(data.message);

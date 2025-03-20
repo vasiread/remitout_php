@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
- 
+
 }
 
 input[type="file"] {
@@ -13,7 +13,7 @@ input[type="file"] {
     max-width: 100%;
     width: 100%;
     display: flex;
-    /* flex-direction: column; */
+    background: none;
 
 
     gap: 2.28%;
@@ -44,12 +44,16 @@ input[type="file"] {
     gap: 20px;
     height: 202px;
     max-width: 100%;
-    margin-left: 29px;
+    align-items: center;
 
 }
 
+.studentdashboardprofile-sidebarlists-bottom img {
+    width: 20px;
+    height: 20px;
+}
 
-.studentdashboardprofile-togglesidebar ul li {
+.studentdashboardprofile-sidebarlists-top li {
     font-family: Poppins;
     font-size: 16px;
     font-weight: 500;
@@ -59,11 +63,17 @@ input[type="file"] {
     padding: 0.93rem;
     cursor: pointer;
     width: 100%;
+    max-width: 100%;
     height: 54px;
+    display: flex;
+    gap: 6.07%;
+    align-items: center;
 
 
     border-radius: 4px;
     opacity: 0px;
+    padding-left: 11.74%;
+
 
 }
 
@@ -77,10 +87,27 @@ input[type="file"] {
     background-color: rgba(255, 255, 255, 1);
     display: flex;
     gap: 18px;
-    max-width: 100%;
+    max-width: 77.32%;
     width: 100%;
     margin: 0;
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.2px;
+    text-align: left;
+    color: rgba(38, 2, 84, 0.7);
+    padding: 0.93rem;
+    cursor: pointer;
+    width: 100%;
+    max-width: 77.32%;
+    height: 54px;
+    display: flex;
+    gap: 6.07%;
+    align-items: center;
 
+
+    border-radius: 4px;
+    opacity: 0px;
 
 
 }
@@ -92,7 +119,7 @@ input[type="file"] {
 
 .studentdashboardprofile-sidebarlists-top li {
     display: flex;
-    gap: 18px;
+    gap: 6.07%;
 
 }
 
@@ -100,7 +127,7 @@ input[type="file"] {
     background: linear-gradient(88.18deg, #FFA048 3.11%, #FA7B15 98.46%);
     color: rgba(255, 255, 255, 1);
     display: flex;
-    gap: 18px;
+    gap: 6.07%;
 }
 
 
@@ -132,14 +159,15 @@ input[type="file"] {
 
 }
 
-.nbfc-studentdashboard-profile-container{
-    display:flex;
+.nbfc-studentdashboard-profile-container {
+    display: flex;
 }
+
 .studentdashboardprofile-profilesection {
     margin-top: 105.8px;
     height: fit-content;
 
-    
+
     padding: 20px 20px 31px 22px;
     box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
     width: 100%;
@@ -150,6 +178,8 @@ input[type="file"] {
     position: relative;
     max-width: 21.80%;
     width: 100%;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
 
 }
 
@@ -392,16 +422,17 @@ input[type="file"] {
     display: flex;
     /* display: none; */
     flex-direction: column;
-    max-width: 53%;
+    max-width: 53.54%;
     width: 100%;
-    padding: 0 1.5rem;
+
     flex: 1;
     margin-top: 85px;
     max-width: 53.54%;
-
-
-
+    /* box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03); */
 }
+
+
+
 
 .studentdashboardprofile-trackprogress .trackprogress-header {
     font-family: Inter;
@@ -410,21 +441,12 @@ input[type="file"] {
     line-height: 33.89px;
     text-align: left;
     color: rgba(233, 134, 53, 1);
-    padding-top: 1.9rem;
-    padding-left: 1.4rem;
+
     /* margin: 30px 0px 30px 24px; */
 }
 
 
 
-
-.studentdashboardprofile-trackprogress {
-    display: flex;
-    max-width: 771px;
-    width: 100%;
-    padding: 0 1.5rem;
-
-}
 
 .studentdashboardprofile-trackprogress h1 {
     font-family: Inter;
@@ -436,22 +458,39 @@ input[type="file"] {
     margin: 30px 0px 30px 24px;
 }
 
+.trackprogress-headercontainer {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 100%;
+}
+
+.trackprogress-contentcontainer {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    gap: 24px;
+}
+
 .studentdashboardprofile-firstrowtrackprogress {
     /* max-width: 722px; */
 
     max-width: 100%;
 
-    height: 135px;
+    height: fit-content;
+    width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     gap: 24px;
     background-color: rgba(255, 255, 255, 1);
     margin-top: 2.5rem;
+    padding: 29px 24px 25px 24px;
 
     box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
 
- 
+
 }
 
 .trackprogress-leftsection {
@@ -467,9 +506,8 @@ input[type="file"] {
 
 .leftsection-detailsinfo {
     display: flex;
-    justify-content: flex-start;
-    gap: 2.3rem;
-    padding-left: 15px;
+    justify-content: space-between;
+    padding: 0 15px;
 
 }
 
@@ -629,7 +667,7 @@ input[type="file"] {
     padding: 1rem 1.8rem;
 
     gap: 10px;
-    height: 95px;
+    height: fit-content;
     border-top: 1px solid rgba(229, 229, 229, 1);
 
 }
@@ -795,12 +833,12 @@ input[type="file"] {
 
 .studentdashboardprofile-myapplication {
     display: none;
-    max-width: 815px;
+    max-width: 53.54%;
     width: 100%;
     height: fit-content;
     background-color: rgba(255, 255, 255, 1);
     box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
-    margin: 90px 0;
+    margin: 105px 0;
     padding: 20px 24px;
     display: none;
     flex-direction: column;
@@ -899,6 +937,7 @@ input[type="file"] {
     font-size: 14px;
     color: #75747C;
     cursor: pointer;
+    line-height: 1.2rem;
 }
 
 
@@ -987,11 +1026,13 @@ input[type="file"] {
     place-items: flex-start;
     margin-top: 10px;
     position: relative;
+    font-family: 'Poppins', sans-serif;
 }
 
 .myapplication-thirdcolumn .degreetypescheckboxes {
     display: flex;
     gap: 12px;
+    height: fit-content;
 }
 
 .myapplication-thirdcolumn h6 {
@@ -1182,7 +1223,7 @@ input[type="file"] {
     text-align: left;
     color: rgba(111, 37, 206, 1);
     border-top: 1.2px solid rgba(194, 194, 194, 0.7);
-    padding-top: 2rem;
+    padding: 2rem 0;
 
 }
 
@@ -1425,13 +1466,16 @@ input[type="file"] {
     background-color: rgba(111, 37, 206, 1);
     color: #fff
 }
-
+.educationeditsection-firstrow ,.testscoreseditsection-firstrow{
+    margin-bottom: 20px;
+}
 .studentdashboardprofile-educationeditsection {
     display: none;
     flex-direction: column;
     margin: 13px 0;
 
 }
+
 
 .educationeditsection-firstrow {
     display: flex;
@@ -1515,10 +1559,10 @@ input[type="file"] {
 }
 
 .personalinfosecondrow-editsection li input {
-    border: none;
-    border-bottom: 0.3px solid rgba(33, 33, 33, 0.5);
     outline: none;
-    color: rgba(33, 33, 33, 0.7);
+    padding: 0.2rem;
+    border: 1px solid #c1c1c5;
+    color: rgb(99 96 96 / 70%);
 }
 
 .studentdashboardprofile-myapplication .myapplication-firstcolumn .personalinfo-firstrow .saved-msg {
@@ -1609,7 +1653,7 @@ input[type="file"] {
     height: 833px;
     margin: 0 auto;
 
-    background: white;
+    background: #fff;
     position: fixed;
     top: 10%;
     left: 23%;
@@ -1626,15 +1670,93 @@ input[type="file"] {
     z-index: 999;
 }
 
+@media(max-width:1200px) {
 
-@media (max-width:428px) {
+    .trackprogress-contentcontainer {
+        flex-direction: column;
+        height: fit-content;
+        padding-bottom: 1.2rem;
+    }
+
+    .indivudalloanstatus-cards {
+        height: fit-content;
+    }
+
+    .individual-bankmessages {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .studentdashboardprofile {
+        gap: 1rem;
+    }
+
+    .myapplication-thirdcolumn .degreetypescheckboxes {
+        flex-direction: column;
+    }
+
+    .myapplication-seventhcolumn .kycdocumentscolumn,
+    .seventhcolumn-additional-firstcolumn .marksheetdocumentscolumn,
+    .secured-admissioncolumn,
+    .work-experiencecolumn,
+    .coborrower-kyccolumn {
+        display: flex;
+        flex-direction: column;
+
+
+    }
+}
+
+@media(max-width:1020px) {
+    .personalinfo-secondrow p{
+        font-size: 0.7rem;
+
+    }
+    .studentdashboardprofile {
+        gap: 0;
+
+    }
+
+    .studentdashboardprofile-loanproposals .loanproposals-header {
+        padding: 20px 24px;
+    }
+
+    .studentdashboardprofile-profilesection {
+        max-width: 31.8%;
+        width: 100%;
+    }
+
+
+
+
+    .studentdashboardprofile-togglesidebar ul li {
+        font-size: 0.8rem;
+        gap: 6.07%;
+
+    }
+
+    .checkbox-group-edit {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+
+@media (max-width:768px) {
     .studentdashboardprofile-profilesection {
         display: none;
+    }
+
+    .studentdashboardprofile-myapplication {
+        max-width: 100%;
     }
 
     .studentdashboardprofile-togglesidebar {
         display: none;
 
+    }
+
+    .trackprogress-contentcontainer {
+        align-items: center;
     }
 
     .studentdashboardprofile-firstrowtrackprogress {
@@ -1667,8 +1789,15 @@ input[type="file"] {
         padding: 1rem 0.6rem;
     }
 
+    .studentdashboardprofile-trackprogress {
+        display: flex;
+        max-width: 100%;
+        width: 100%;
+        padding: 0 1.5rem;
+
+    }
+
     .studentdashboardprofile-trackprogress .trackprogress-header {
-        padding-left: 0;
         font-size: 24px;
     }
 
@@ -1676,14 +1805,7 @@ input[type="file"] {
         margin: 0;
     }
 
-    .myapplication-seventhcolumn .kycdocumentscolumn,
-    .seventhcolumn-additional-firstcolumn .marksheetdocumentscolumn,
-    .secured-admissioncolumn,
-    .work-experiencecolumn,
-    .coborrower-kyccolumn {
-        display: flex;
-        flex-direction: column;
-    }
+
 
     .myapplication-thirdcolumn .degreetypescheckboxes {
         flex-direction: column;
@@ -1693,7 +1815,13 @@ input[type="file"] {
 
 }
 
+@media(max-width:480px) {
 
+    .trackprogress-leftsection,
+    .trackprogress-rightsection {
+        width: 100%;
+    }
+}
 
 /* @media(max-width:1200) {
     .studentdashboardprofile {

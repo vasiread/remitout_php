@@ -5,11 +5,13 @@ use App\Mail\SendScDetailsMail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\StudentsImport;
 use App\Models\PersonalInfo;
 use App\Models\Scuser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\QueryException;
 
 
 
@@ -139,10 +141,10 @@ class scDashboardController extends Controller
                 'phone' => $request->input('scContact'),
                 'address' => $request->input('scAddress'),
                 'passwordField' => $hashedPassword,
-                'street'=>'',
-                'district'=>'',
-                'state'=>'',
-                'pincode'=>''
+                'street' => '',
+                'district' => '',
+                'state' => '',
+                'pincode' => ''
             ]);
 
             $fileUrl = null;
@@ -187,7 +189,8 @@ class scDashboardController extends Controller
         }
     }
 
-    public function getScAllUsers (){
+    public function getScAllUsers()
+    {
 
         try {
             $scuser = Scuser::get();
@@ -298,7 +301,7 @@ class scDashboardController extends Controller
 
                 $fullAddress = $request->input('street') . ', ' . $request->input('district') . ', ' . $request->input('state') . ' - ' . $request->input('pincode');
 
-                if($fullAddress){
+                if ($fullAddress) {
                     $studentCounsellor->address = $fullAddress;
                 }
 
@@ -324,6 +327,54 @@ class scDashboardController extends Controller
             ], 500);
         }
     }
+
+
+
+
+    public function import_excel_post(Request $request)
+    {
+        $request->validate([
+            'excel_file' => 'required|mimes:xls,xlsx'
+        ]);
+
+        try {
+            // Create an instance of StudentsImport with a skipped count
+            $import = new StudentsImport();
+            Excel::import($import, $request->file('excel_file'));
+
+            // Get the count of skipped rows (duplicate emails)
+            $skippedRows = $import->getSkippedRows();
+
+            if ($skippedRows > 0) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Import completed, but some entries were skipped due to existing emails.',
+                    'skipped_rows' => $skippedRows
+                ], 200);
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'All students were registered successfully.',
+            ], 200);
+        } catch (QueryException $e) {
+            if ($e->errorInfo[1] == 1062) { // Duplicate entry error
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Duplicate entry found. Please check your file for existing student data.'
+                ], 400);
+            }
+
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while importing the file. Please try again.'
+            ], 500);
+        }
+    }
+
+
+
+
 
 
 
