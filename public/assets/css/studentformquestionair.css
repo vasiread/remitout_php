@@ -1823,9 +1823,6 @@ input[type="number"]::-webkit-inner-spin-button {
     display: flex;
     flex-direction: column; 
   }
-
-
-
   .navigation {
     order: 2; 
     justify-content: center; 
@@ -4461,12 +4458,12 @@ padding: 30px 40px;
 margin-left: 10px;
 }
 .kyc-section-marksheet{
-width: 90%;
-margin-left: 10px;
+width: 95%;
+transform: translateX(0px);
 }
 .kyc-section-Admission{
-  width: 90%;
-margin-left: 10px;
+  width: 95%;
+transform: translateX(0px);
 
 }
 }
@@ -4636,15 +4633,26 @@ transform: translateX(0px);
 }
 
 @media screen and (min-width: 900px) and (max-width: 1024px) {
-  .work-experience {
+   .work-experience {
+    width:90%;
+    padding:0px;
+    transform: translateX(0px);
+  }
+.work-experience-container {
     width: 90%;
-    padding: 30px 40px;
-    margin-left: 10px;
+    padding: 30px 0px;
+   
+ 
+  .kyc-section-co-borrower{
+    width: 90%;
+     padding: 30px 40px;
+    transform: translateX(0px);
   }
-  .work-experience-container {
-  width:90%;
-  }
+
 }
+}
+
+
 @media (max-width: 767px) {
 
   .work-experience {
