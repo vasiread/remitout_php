@@ -51,20 +51,20 @@
                 ];
 
             @endphp
-
+            <div class="studentdashboardprofile-togglesidebar">
+                <ul class="studentdashboardprofile-sidebarlists-top">
+                    <li class="active"> <i class="fa-solid fa-square-poll-vertical"></i> Dashboard</li>
+                    <li> <i class="fa-solid fa-inbox"></i> Inbox</li>
+                    <li> <i class="fa-regular fa-clipboard"></i> My Applications</li>
+                </ul>
+                <ul class="studentdashboardprofile-sidebarlists-bottom">
+                    <li class="logoutBtn" onClick="sessionLogout()"> <i class="fa-solid fa-arrow-right-from-bracket"></i>Log
+                        out</li>
+                    <li> <img src="assets/images/Icons/support_agent.png" alt=""> Support</li>
+                </ul>
+            </div>
             <div class="studentdashboardprofile">
-                <div class="studentdashboardprofile-togglesidebar">
-                    <ul class="studentdashboardprofile-sidebarlists-top">
-                        <li class="active"> <i class="fa-solid fa-square-poll-vertical"></i> Dashboard</li>
-                        <li> <i class="fa-solid fa-inbox"></i> Inbox</li>
-                        <li> <i class="fa-regular fa-clipboard"></i> My Applications</li>
-                    </ul>
-                    <ul class="studentdashboardprofile-sidebarlists-bottom">
-                        <li class="logoutBtn" onClick="sessionLogout()"> <i class="fa-solid fa-arrow-right-from-bracket"></i>Log
-                            out</li>
-                        <li> <img src="assets/images/Icons/support_agent.png" alt=""> Support</li>
-                    </ul>
-                </div>
+
                 <div class="studentdashboardprofile-trackprogress">
                     <div class="studentdashboardprofile-firstrowtrackprogress">
                         <div class="trackprogress-headercontainer">
@@ -76,9 +76,9 @@
                             <div class="trackprogress-leftsection">
                                 <p
                                     style="font-weight:600;
-                                                                                                                                                                        font-size:18px;
-                                                                                                                                                                        color:rgba(0, 0, 0, 1); 
-                                                                                                                                                                        padding:15px 0px 0px 24px">
+                                                                                                                                                                                font-size:18px;
+                                                                                                                                                                                color:rgba(0, 0, 0, 1); 
+                                                                                                                                                                                padding:15px 0px 0px 24px">
                                     Loan
                                     Status</p>
 

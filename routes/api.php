@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\NbfcController;
 use App\Http\Controllers\RegisterController;
@@ -62,8 +63,13 @@ Route::post('/getuserbyref', [scDashboardController::class, 'getUsersByCounsello
 
 Route::post("/register-studentcounsellor", [scDashboardController::class, 'uploadScUserInfo']);
 Route::post("/updatescuserdetails",[scDashboardController::class,'uploadScUserDetails']);
-Route::post("/scuserone",[scDashboardController::class,'retrieveOneScUser']);
+Route::post("/scuserone", [scDashboardController::class,'retrieveOneScUser']);
 Route::post("/trace-process",[TrackController::class,'traceuserprogress']);
 Route::get("/getnbfcdata", [TrackController::class, 'getnbfcdata']);
 Route::get("/overallcounts", [TrackController::class, 'counts']);
 Route::post("/addbulkusers", [NbfcController::class, 'addBulkNbfc']);
+
+
+
+Route::post('/send-message', action: [ChatController::class, 'sendMessage']);
+Route::get('/get-messages/{nbfc_id}/{student_id}', [ChatController::class, 'getMessages']); 
