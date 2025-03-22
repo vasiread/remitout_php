@@ -32,14 +32,14 @@
 
 
     @php
-        $profileImgPath = 'images/admin-student-profile.png';
-        $uploadPanName = '';
-        $profileIconPath = "assets/images/account_circle.png";
-        $phoneIconPath = "assets/images/call.png";
-        $mailIconPath = "assets/images/mail.png";
-        $pindropIconPath = "assets/images/pin_drop.png";
-        $discordIconPath = "assets/images/icons/discordicon.png";
-        $viewIconPath = "assets/images/visibility.png";
+$profileImgPath = 'images/admin-student-profile.png';
+$uploadPanName = '';
+$profileIconPath = "assets/images/account_circle.png";
+$phoneIconPath = "assets/images/call.png";
+$mailIconPath = "assets/images/mail.png";
+$pindropIconPath = "assets/images/pin_drop.png";
+$discordIconPath = "assets/images/icons/discordicon.png";
+$viewIconPath = "assets/images/visibility.png";
 
 
 
@@ -232,9 +232,18 @@
                 </div>
             </div>
         </div>
-        <div class="nbfcdashboard-studentlistscontainer">
+        <div class="nbfcdashboard-studentlistscontainer" style="gap:1.2%">
             <div class="studentdashboardprofile-profilesection" id="nbfc-list-of-student-profilesections">
                 <img src="{{asset($profileImgPath)}}" class="profileImg" id="profile-photo-id" alt="">
+                <div class="myapplication-nbfcapprovalcolumn" id="profilesection-nbfcapprovalcolumn">
+                    <button>Send Proposal</button>
+                    <div class="nbfcapprovalcolumnrightaligned">
+                        <button>Message</button>
+                        <button>Reject</button>
+                    </div>
+                
+                
+                </div>
                 <i class="fa-regular fa-pen-to-square"></i>
                 <input type="file" class="profile-upload" accept="image/*" enctype="multipart/form-data">
                 <div class="studentdashboardprofile-personalinfo">
@@ -279,7 +288,7 @@
                     </div>
                     <div class="testscoreseditsection-secondrow">
                         @php
-                            $counter = 1; 
+$counter = 1; 
                         @endphp
 
 
@@ -1316,7 +1325,7 @@
 
                                     // Check if both lists are empty and handle empty state
                                     if (requestsData.length === 0 && proposalsData.length === 0) {
-                                      
+
                                     }
 
                                 } else {
@@ -1332,7 +1341,7 @@
                     }
                 };
 
-               
+
                 initializeTraceViewNBFC(requestsData, proposalsData);
 
 
@@ -1388,6 +1397,7 @@
 
                             const textArea = document.querySelector(".remarks-textarea");
                             if (textArea) {
+                                textArea.value = '';
                                 textArea.placeholder = "Enter Remarks for " + student.name;
 
                                 const finalCallReject = document.querySelector(".reject-application-modal-content .actions .reject-button");

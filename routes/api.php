@@ -41,7 +41,7 @@ Route::post('/send-documents', [MailController::class, 'sendUserDocuments']);
 Route::post('/push-user-id-request', [StudentDashboardController::class, 'pushUserIdToRequest']);
 Route::post('/del-user-id-request', [StudentDashboardController::class, 'removeUserIdFromNBFCAndReject']);
 Route::post('/update-user-id-request', [StudentDashboardController::class, 'updateUserIdFromNBFC']);
- 
+
 
 Route::post('/send-mobotp', [OTPMobController::class, 'sendOTP']);
 Route::post('/verify-mobotp', [OTPMobController::class, 'verifyOTP']);
@@ -62,14 +62,14 @@ Route::post('/getuserbyref', [scDashboardController::class, 'getUsersByCounsello
 
 
 Route::post("/register-studentcounsellor", [scDashboardController::class, 'uploadScUserInfo']);
-Route::post("/updatescuserdetails",[scDashboardController::class,'uploadScUserDetails']);
-Route::post("/scuserone", [scDashboardController::class,'retrieveOneScUser']);
-Route::post("/trace-process",[TrackController::class,'traceuserprogress']);
+Route::post("/updatescuserdetails", [scDashboardController::class, 'uploadScUserDetails']);
+Route::post("/scuserone", [scDashboardController::class, 'retrieveOneScUser']);
+Route::post("/trace-process", [TrackController::class, 'traceuserprogress']);
 Route::get("/getnbfcdata", [TrackController::class, 'getnbfcdata']);
 Route::get("/overallcounts", [TrackController::class, 'counts']);
 Route::post("/addbulkusers", [NbfcController::class, 'addBulkNbfc']);
 
-
+Route::post("/downloadzip", [StudentDashboardController::class, 'downloadFilesAsZip']);
 
 Route::post('/send-message', action: [ChatController::class, 'sendMessage']);
-Route::get('/get-messages/{nbfc_id}/{student_id}', [ChatController::class, 'getMessages']); 
+Route::get('/get-messages/{nbfc_id}/{student_id}', [ChatController::class, 'getMessages']);

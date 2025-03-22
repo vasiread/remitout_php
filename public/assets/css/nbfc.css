@@ -482,9 +482,32 @@
 
 }
 
+#profilesection-nbfcapprovalcolumn {
+
+    max-width: 100%;
+    display: none;
+    flex-direction: column-reverse;
+    gap: 12px;
+    width: 100%;
+}
+
+#profilesection-nbfcapprovalcolumn button:first-child {
+    width: 100%;
+}
+
+#profilesection-nbfcapprovalcolumn .nbfcapprovalcolumnrightaligned {
+    width: 100%;
+
+}
+
+#profilesection-nbfcapprovalcolumn .nbfcapprovalcolumnrightaligned button {
+    width: 50%;
+    gap: 12px;
+}
+
 .nbfcdashboard-studentlistscontainer {
     display: none;
-    max-width:100%;
+    max-width: 100%;
     width: 100%;
     justify-content: space-between;
     margin-left: 1.3%;
@@ -569,6 +592,26 @@
 /*mobile responsive nav bar*/
 
 @media screen and (max-width: 768px) {
+    .myapplication-nbfcapprovalcolumn {
+        display: none;
+    }
+
+    #profilesection-nbfcapprovalcolumn {
+        display: flex;
+    }
+
+    #nbfc-student-profile-details {
+        display: flex;
+        width: 100%;
+        max-width: 100%;
+    }
+.nbfcdashboard-studentlistscontainer{
+    display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2%;
+}
+
     .nbfc-navbar {
         padding: 12px 20px;
         justify-content: end;
@@ -954,6 +997,9 @@
     height: 75vh;
     left: 0;
     margin-top: 80px;
+}
+#nbfc-list-of-student-profilesections {
+    max-width: 50%;
 }
 
 /*tablet toggle sidebar*/
@@ -2577,6 +2623,8 @@
 
     }
 
+
+
     .index-student-description {
         width: 700px;
     }
@@ -2942,7 +2990,7 @@
 
 }
 
- #nbfc-list-of-student-profilesections .studentdashboardprofile-educationeditsection {
+#nbfc-list-of-student-profilesections .studentdashboardprofile-educationeditsection {
     display: flex;
     flex-direction: column;
     margin: 13px 0;
@@ -2950,7 +2998,7 @@
 
 }
 
- #nbfc-list-of-student-profilesections .studentdashboardprofile-testscoreseditsection {
+#nbfc-list-of-student-profilesections .studentdashboardprofile-testscoreseditsection {
     display: flex;
     flex-direction: column;
     margin: 13px 0;

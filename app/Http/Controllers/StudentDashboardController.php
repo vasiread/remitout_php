@@ -9,11 +9,12 @@ use Illuminate\Support\Facades\Schema;
 use App\Models\Academics;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Storage; // Correct import for Storage facade
 use Illuminate\Support\Facades\DB;
 use App\Models\PersonalInfo;
 use App\Models\CourseInfo;
 use PhpParser\Node\Stmt\Catch_;
+use ZipArchive;
 class StudentDashboardController extends Controller
 {
     protected $tablesAndColumns = [
@@ -887,6 +888,64 @@ class StudentDashboardController extends Controller
         $student = Student::find($studentId);
         return view('pages.studentdashboard', compact('student'));
     }
+
+
+
+    public function downloadFilesAsZip(Request $request)
+    {
+         $request->validate([
+            'userId' => 'required|string',
+        ]);
+
+        $userId = $request->input('userId');
+        $folderPath = rtrim($userId, '/') . '/';  
+
+       
+        if (!Storage::disk('s3')->exists($folderPath)) {
+            dd("Folder path '$folderPath' does not exist on S3.");
+        }
+
+         $folders = Storage::disk("s3")->directories($folderPath);
+
+         if (empty($folders)) {
+            return response()->json([
+                'message' => 'No folders found in the specified directory.',
+            ], 404);
+        }
+
+         $zipFileName = $userId . '_files.zip';
+        $tempFile = tempnam(sys_get_temp_dir(), 'zip');
+
+        // Initialize the ZipArchive
+        $zip = new ZipArchive();
+        if ($zip->open($tempFile, ZipArchive::CREATE) === TRUE) {
+            foreach ($folders as $folder) {
+                $files = Storage::disk('s3')->files($folder);
+
+                foreach ($files as $file) {
+                     try {
+                        $fileContent = Storage::disk('s3')->get($file);
+                    } catch (\Exception $e) {
+                        return response()->json([
+                            'message' => 'Error retrieving file from S3: ' . $e->getMessage(),
+                        ], 500);
+                    }
+
+                     $zip->addFromString($file, $fileContent);
+                }
+            }
+
+             $zip->close();
+        } else {
+            return response()->json([
+                'message' => 'Failed to create ZIP file.',
+            ], 500);
+        }
+
+        // Return a response with the ZIP file download, and delete the temporary file after sending it
+        return response()->download($tempFile, $zipFileName)->deleteFileAfterSend(true);
+    }
+
 
 
 
