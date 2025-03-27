@@ -175,111 +175,121 @@ class StudentDashboardController extends Controller
     }
     public function updateFromProfile(Request $request)
     {
-        $validated = $request->validate([
-            'editedName' => 'nullable|string|max:255',
-            'editedPhone' => 'nullable|string|max:15',
-            'editedEmail' => 'nullable|email',
-            'editedState' => 'nullable|string|max:255',
-            'iletsScore' => 'nullable|numeric',
-            'greScore' => 'nullable|numeric',
-            'tofelScore' => 'nullable|numeric',
-            'degreeType' => 'nullable',
-            'planToStudy' => 'nullable',
-            'courseDuration' => 'nullable|numeric',
-            'loanAmount' => 'nullable|numeric',
-            'referralCode' => 'nullable|string',
-            'userId' => 'required'
-        ]);
+        try {
+            // Validate request data
+            $validated = $request->validate([
+                'editedName' => 'nullable|string|max:255',
+                'editedPhone' => 'nullable|string|max:15',
+                'editedEmail' => 'nullable|email',
+                'editedState' => 'nullable|string|max:255',
+                'iletsScore' => 'nullable|numeric',
+                'greScore' => 'nullable|numeric',
+                'tofelScore' => 'nullable|numeric',
+                'degreeType' => 'nullable|string',
+                'planToStudy' => 'nullable|array',
+                'courseDuration' => 'nullable|numeric',
+                'loanAmount' => 'nullable|numeric',
+                'referralCode' => 'nullable|string',
+                'userId' => 'required'
+            ]);
 
-        // Find the user by unique_id
-        $user = User::where('unique_id', $validated['userId'])->first();
+            // Find the user by unique_id
+            $user = User::where('unique_id', $validated['userId'])->first();
+            if (!$user) {
+                return response()->json(['message' => 'User not found.'], 404);
+            }
 
+            // Group 1: Update User details
+            $userData = array_filter([
+                'name' => $validated['editedName'] ?? null,
+                'email' => $validated['editedEmail'] ?? null,
+            ], function ($value) {
+                return $value !== null; // Exclude null values
+            });
+            $user->update($userData);
 
-        if ($user) {
-            // Update the User model's name and email
-            $user->name = $validated['editedName'];
-            $user->email = $validated['editedEmail'];
-            $user->save();
+            // Group 2: Update Personal Info details
             $personalInfo = PersonalInfo::where('user_id', $user->unique_id)->first();
+            $personalInfoData = array_filter([
+                'full_name' => $validated['editedName'] ?? null,
+                'email' => $validated['editedEmail'] ?? null,
+                'phone' => $validated['editedPhone'] ?? null,
+                'state' => $validated['editedState'] ?? null,
+                'referral_code' => $validated['referralCode'] ?? null,
+            ], function ($value) {
+                return $value !== null;
+            });
 
             if ($personalInfo) {
-                $personalInfo->phone = $validated['editedPhone'];
-                $personalInfo->state = $validated['editedState'];
-                $personalInfo->full_name = $validated['editedName'];
-                $personalInfo->email = $validated['editedEmail'];
-                $personalInfo->referral_code = $validated['referralCode'];
-                $personalInfo->save();
+                $personalInfo->update($personalInfoData);
             } else {
-                $personalInfo = PersonalInfo::create([
-                    'user_id' => $user->unique_id,
-                    'full_name' => $validated['editedName'],
-                    'email' => $validated['editedEmail'],
-                    'phone' => $validated['editedPhone'],
-                    'state' => $validated['editedState'],
-                    'referral_code' => $validated['referralCode']
-                ]);
+                PersonalInfo::create(array_merge($personalInfoData, ['user_id' => $user->unique_id]));
             }
 
+            // Group 3: Update Academic Scores
             $academicsScores = Academics::where('user_id', $user->unique_id)->first();
+            $academicsData = array_filter([
+                'ILETS' => $validated['iletsScore'] ?? null,
+                'GRE' => $validated['greScore'] ?? null,
+                'TOFEL' => $validated['tofelScore'] ?? null,
+            ], function ($value) {
+                return $value !== null;
+            });
 
             if ($academicsScores) {
-                $academicsScores->ILETS = $validated['iletsScore'];
-                $academicsScores->GRE = $validated['greScore'];
-                $academicsScores->TOFEL = $validated['tofelScore'];
-                $academicsScores->save();
+                $academicsScores->update($academicsData);
             } else {
-                $academicsScores = Academics::create([
-                    'user_id' => $user->unique_id,
-                    'ILETS' => $validated['iletsScore'],
-                    'GRE' => $validated['greScore'],
-                    'TOFEL' => $validated['tofelScore'],
-                ]);
-
+                Academics::create(array_merge($academicsData, ['user_id' => $user->unique_id]));
             }
 
-
-
-
+            // Group 4: Update Course Info
             $courseInfoData = CourseInfo::where('user_id', $user->unique_id)->first();
+            $planToStudy = $validated['planToStudy'] ?? null;
 
-
-
-            $planToStudy = is_array($validated['planToStudy'])
-                ? json_encode($validated['planToStudy'])
-                : json_encode(explode(',', $validated['planToStudy']));
-
+            $courseInfo = array_filter([
+                'plan-to-study' => $planToStudy,
+                'course-duration' => $validated['courseDuration'] ?? null,
+                'loan_amount_in_lakhs' => $validated['loanAmount'] ?? null,
+                'degree-type' => $validated['degreeType'] ?? null,
+            ], function ($value) {
+                return $value !== null;
+            });
 
             if ($courseInfoData) {
-                $courseInfoData->{"plan-to-study"} = $planToStudy;
-                $courseInfoData->{"course-duration"} = $validated['courseDuration'];
-                $courseInfoData->loan_amount_in_lakhs = $validated['loanAmount'];
-                $courseInfoData->{"degree-type"} = $validated['degreeType'];
-                $courseInfoData->save();
+                $courseInfoData->update($courseInfo);
             } else {
-                $courseInfoData = CourseInfo::create([
-                    'user_id' => $user->unique_id,
-                    'plan-to-study' => $planToStudy,
-                    'course-duration' => $validated['courseDuration'],
-                    'loan_amount_in_lakhs' => $validated['loanAmount'],
-                    'degree-type' => $validated['degreeType'],
-                ]);
-
+                CourseInfo::create(array_merge($courseInfo, ['user_id' => $user->unique_id]));
             }
 
-
+            // Refresh all models to return the latest data (check if each model exists)
             $user->refresh();
-            $personalInfo->refresh();
-            $academicsScores->refresh();
-            $courseInfoData->refresh();
+            if ($personalInfo)
+                $personalInfo->refresh();
+            if ($academicsScores)
+                $academicsScores->refresh();
+            if ($courseInfoData)
+                $courseInfoData->refresh();
 
+            // Return a JSON response with success message
             return response()->json([
                 'message' => 'User details updated successfully.',
                 'user' => $user,
                 'personalInfo' => $personalInfo,
-                'academicsScores' => $academicsScores
+                'academicsScores' => $academicsScores,
+                'courseInfo' => $courseInfoData
             ], 200);
-        } else {
-            return response()->json(['message' => 'User not found.'], 404);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Return validation errors as JSON
+            return response()->json([
+                'message' => 'Validation error.',
+                'errors' => $e->errors()
+            ], 422);
+        } catch (\Exception $e) {
+            // Catch any other errors
+            return response()->json([
+                'message' => 'An error occurred while updating the profile.',
+                'error' => $e->getMessage()
+            ], 500);
         }
     }
 

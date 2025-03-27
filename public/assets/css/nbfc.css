@@ -2661,7 +2661,7 @@ html, body {
 }
 
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 
     .index-section {
         grid-template-columns: 1fr;
@@ -2775,25 +2775,32 @@ html, body {
     }
 
     .message-response {
-        width: 100%;
+         width: 300px;
         padding: 0;
-        margin-left: 0;
+        margin-left: 5px;
+       
+      
+    }
+    .messages-wrapper{
+         width: 300px;
+        padding: 0;
+        margin-left: 5px;
+
     }
 
     .message-response-container {
-
-
         display: flex;
         flex-direction: column;
         align-items: flex-end;
         height: auto;
-        margin-left: 40px;
+        margin-left: 0px;
         border: 1px solid #e2e2e2;
+        width:300px;
 
     }
 
     .message-content-container {
-        font-size: 12px;
+        font-size: 12px; 
         height: auto;
     }
 

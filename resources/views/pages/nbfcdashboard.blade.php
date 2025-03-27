@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="assets/css/nbfc.css">
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
 
 
@@ -135,7 +137,7 @@
                 <div class="dashboard-section-header">
                     <h2 class="dashboard-section-title">Requests</h2>
                     <div class="dashboard-header-controls">
-                         <div class="dashboard-sort-button-container">
+                        <div class="dashboard-sort-button-container">
                             <button class="dashboard-sort-button">
                                 Sort
                                 <img src="assets/images/filter-icon.png" alt="Filter">
@@ -232,9 +234,18 @@
                 </div>
             </div>
         </div>
-        <div class="nbfcdashboard-studentlistscontainer">
+        <div class="nbfcdashboard-studentlistscontainer" style="gap:1.2%">
             <div class="studentdashboardprofile-profilesection" id="nbfc-list-of-student-profilesections">
                 <img src="{{asset($profileImgPath)}}" class="profileImg" id="profile-photo-id" alt="">
+                <div class="myapplication-nbfcapprovalcolumn" id="profilesection-nbfcapprovalcolumn">
+                    <button>Send Proposal</button>
+                    <div class="nbfcapprovalcolumnrightaligned">
+                        <button>Message</button>
+                        <button>Reject</button>
+                    </div>
+
+
+                </div>
                 <i class="fa-regular fa-pen-to-square"></i>
                 <input type="file" class="profile-upload" accept="image/*" enctype="multipart/form-data">
                 <div class="studentdashboardprofile-personalinfo">
@@ -679,154 +690,15 @@
                     </div>
                 </div>
 
-                <div class="message-thread">
-                    <div class="message-item">
-                        <div class="message-header">
-
-                            <h2 class="student-name">Student Name</h2>
-                            <div class="message-actions">
-                                <button class="inbox-btn-view">View</button>
-                                <button class="inbox-btn-close">Close</button>
-                            </div>
-                        </div>
-                        <p class="message-content">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                        </p>
-                    </div>
-
-                    <div class="message-response">
-                        <div class="message-response-container">
-                            <p class="message-content-container">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut
-                                Lorem ipsum dolor sit amet.
-                            </p>
-                            <ol class="message-list">
-                                <li>consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.</li>
-                                <li>eiusmod tempor incididunt ut.</li>
-                            </ol>
-                        </div>
-
-                        <div class="nbfc-individual-bankmessage-input">
-                            <input type="text" placeholder="Send message" class="nbfc-message-input">
-                            <img class="nbfc-send-img" src="assets/images/send-nbfc.png" alt="send icon">
-                            <i class="fa-solid fa-paperclip nbfc-paperclip"></i>
-                            <i class="fa-regular fa-face-smile nbfc-face-smile"></i>
-                        </div>
-
-                    </div>
-
-                </div>
 
 
 
                 <div class="index-student-details-container">
 
-                    <!-- Student Message Card 1 -->
-                    <div class="index-student-message-container">
-                        <div class="index-student-card">
-                            <div class="index-student-info">
-                                <h3 class="student-name">Student Name</h3>
-                                <p class="index-student-description">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut elit, sed do eiusmod tempor incididunt ut.
-                                </p>
-                            </div>
-                            <div class="index-student-button-group">
-                                <button class="index-student-message-btn">Message</button>
-                                <button class="index-student-view-btn">View</button>
-                            </div>
-                            <div class="index-student-send-btn-mobile">
-                                <img src="assets/images/send-index-btn.png" alt="the send image">
-                            </div>
-                        </div>
-                        <div class="nbfc-individual-bankmessage-input-message">
-                            <input type="text" placeholder="Send message" class="nbfc-message-input">
-                            <img class="nbfc-send-img" src="assets/images/send-nbfc.png" alt="send icon">
-                            <i class="fa-solid fa-paperclip nbfc-paperclip"></i>
-                            <i class="fa-regular fa-face-smile nbfc-face-smile"></i>
-                        </div>
-                    </div>
 
-                    <!-- Student Message Card 2 -->
-                    <div class="index-student-message-container">
-                        <div class="index-student-card">
-                            <div class="index-student-info">
-                                <h3 class="student-name">Student Name</h3>
-                                <p class="index-student-description">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut elit, sed do eiusmod tempor incididunt ut.
-                                </p>
-                            </div>
-                            <div class="index-student-button-group">
-                                <button class="index-student-message-btn">Message</button>
-                                <button class="index-student-view-btn">View</button>
-                            </div>
-                            <div class="index-student-send-btn-mobile">
-                                <img src="assets/images/send-index-btn.png" alt="the send image">
-                            </div>
-                        </div>
-                        <div class="nbfc-individual-bankmessage-input-message">
-                            <input type="text" placeholder="Send message" class="nbfc-message-input">
-                            <img class="nbfc-send-img" src="assets/images/send-nbfc.png" alt="send icon">
-                            <i class="fa-solid fa-paperclip nbfc-paperclip"></i>
-                            <i class="fa-regular fa-face-smile nbfc-face-smile"></i>
-                        </div>
-                    </div>
 
-                    <!-- Student Message Card 3 -->
-                    <div class="index-student-message-container">
-                        <div class="index-student-card">
-                            <div class="index-student-info">
-                                <h3 class="student-name">Student Name</h3>
-                                <p class="index-student-description">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut elit, sed do eiusmod tempor incididunt ut.
-                                </p>
 
-                            </div>
-                            <div class="index-student-button-group">
-                                <button class="index-student-message-btn">Message</button>
-                                <button class="index-student-view-btn">View</button>
-                            </div>
-                            <div class="index-student-send-btn-mobile">
-                                <img src="assets/images/send-index-btn.png" alt="the send image">
-                            </div>
-                        </div>
-                        <div class="nbfc-individual-bankmessage-input-message">
-                            <input type="text" placeholder="Send message" class="nbfc-message-input">
-                            <img class="nbfc-send-img" src="assets/images/send-nbfc.png" alt="send icon">
-                            <i class="fa-solid fa-paperclip nbfc-paperclip"></i>
-                            <i class="fa-regular fa-face-smile nbfc-face-smile"></i>
-                        </div>
-                    </div>
 
-                    <!-- Student Message Card 4 -->
-                    <div class="index-student-message-container">
-                        <div class="index-student-card">
-                            <div class="index-student-info">
-                                <h3 class="student-name">Student Name</h3>
-                                <p class="index-student-description">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut elit, sed do eiusmod tempor incididunt ut.
-                                </p>
-                            </div>
-                            <div class="index-student-button-group">
-                                <button class="index-student-message-btn">Message</button>
-                                <button class="index-student-view-btn">View</button>
-                            </div>
-                            <div class="index-student-send-btn-mobile">
-                                <img src="assets/images/send-index-btn.png" alt="the send image">
-                            </div>
-                        </div>
-                        <div class="nbfc-individual-bankmessage-input-message">
-                            <input type="text" placeholder="Send message" class="nbfc-message-input">
-                            <img class="nbfc-send-img" src="assets/images/send-nbfc.png" alt="send icon">
-                            <i class="fa-solid fa-paperclip nbfc-paperclip"></i>
-                            <i class="fa-regular fa-face-smile nbfc-face-smile"></i>
-                        </div>
-                    </div>
 
                 </div>
 
@@ -867,6 +739,9 @@
                 const mobileSidebar = document.querySelector('.nbfc-mobile-sidebar');
                 const mobileOverlay = document.querySelector('.nbfc-mobile-overlay');
                 const nbfcNavRight = document.querySelector('.nbfc-nav-right');
+                                 
+
+
 
                 // Select elements for menu items
                 const dashboardBtn = document.querySelector('.nbfc-mobile-menu-top li:nth-child(1)'); // Dashboard
@@ -903,8 +778,6 @@
 
                 // Select the containers
                 const dashboardSectionsContainer = document.querySelector(".dashboard-sections-container");
-
-
 
 
 
@@ -1316,7 +1189,7 @@
 
                                     // Check if both lists are empty and handle empty state
                                     if (requestsData.length === 0 && proposalsData.length === 0) {
-                                      
+
                                     }
 
                                 } else {
@@ -1332,7 +1205,7 @@
                     }
                 };
 
-               
+
                 initializeTraceViewNBFC(requestsData, proposalsData);
 
 
@@ -1370,11 +1243,21 @@
                     const actionButtons = document.createElement("div");
                     actionButtons.classList.add("dashboard-action-buttons");
 
-                    // View Button
                     const viewButton = document.createElement("button");
                     viewButton.classList.add("dashboard-view-button");
                     viewButton.innerHTML = '<i class="fa-solid fa-eye eye-icon"></i>';
-                    viewProfileOfUsers(viewButton, studentId);
+
+
+                    const loader = document.createElement('div');
+                    loader.classList.add('loader');
+                    loader.textContent = 'Loading...';
+                    loader.style.display = 'none';
+                    listItem.appendChild(loader);
+
+
+                    viewButton.addEventListener("click", () => {
+                        viewProfileOfUsers(viewButton, studentId, loader);
+                    });
 
 
                     const rejectButton = document.createElement("button");
@@ -1388,6 +1271,7 @@
 
                             const textArea = document.querySelector(".remarks-textarea");
                             if (textArea) {
+                                textArea.value = '';
                                 textArea.placeholder = "Enter Remarks for " + student.name;
 
                                 const finalCallReject = document.querySelector(".reject-application-modal-content .actions .reject-button");
@@ -1397,7 +1281,7 @@
                                     finalCallReject.replaceWith(newRejectButton);
 
                                     newRejectButton.addEventListener('click', async function () {
-                                        var user = @json(session('nbfcuser'));
+                                        var user = @json(session('user'));
 
                                         const nbfcId = user.nbfc_id;
                                         const userId = student.studentId;
@@ -1454,6 +1338,29 @@
 
                     return listItem;
                 }
+// Select all send buttons using querySelectorAll
+const sendButtons = document.querySelectorAll('.nbfc-send-proposal-send-button, .nbfc-send-img');
+
+// Add event listener to each send button
+sendButtons.forEach(sendButton => {
+    sendButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        sendMessage();
+        closeModal(); // If closeModal is a defined function
+    });
+});
+
+// Optional: Add enter key support for message inputs if needed
+const messageInputs = document.querySelectorAll('#messageInput'); // Adjust selector as needed
+messageInputs.forEach(messageInput => {
+    messageInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            sendMessage();
+            closeModal(); // If closeModal is a defined function
+        }
+    });
+});
 
 
 
@@ -1462,7 +1369,7 @@
                 //chat functionality
                 // Select elements
                 const messageInput = document.querySelector(".nbfc-message-input");
-                const sendButton = document.querySelector(".nbfc-send-img");
+              
                 const inputContainer = document.querySelector(".nbfc-individual-bankmessage-input");
                 const viewButton = document.querySelector(".view");
                 const smileIcon = document.querySelector(".nbfc-face-smile");
@@ -1497,7 +1404,6 @@
 
                 // Create message in the chat
                 function createMessage(content) {
-                    // Create the outer container for right alignment
                     const alignmentContainer = document.createElement("div");
                     alignmentContainer.style.cssText = `
             display: flex;
@@ -1527,7 +1433,7 @@
         `;
 
                     // Handle content formatting
-                    if (content.startsWith('📎')) {
+                    if (content.startsWith(' 📎')) {
                         messageContent.textContent = content;
                     } else if (content.includes("\n")) {
                         content.split("\n").forEach((line, index) => {
@@ -1551,32 +1457,7 @@
                     messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
                 }
 
-                // Function to send message
-                function sendMessage() {
-                    if (!messageInput) return;
-                    const content = messageInput.value.trim();
-                    if (content) {
-                        createMessage(content);
-
-                        // Save the message to localStorage
-                        let savedMessages = JSON.parse(localStorage.getItem('messages')) || [];
-                        savedMessages.push(content);
-                        localStorage.setItem('messages', JSON.stringify(savedMessages));
-
-                        messageInput.value = "";
-                    }
-                }
-
-                // Add event listeners
-                if (sendButton) sendButton.addEventListener("click", sendMessage);
-                if (messageInput) {
-                    messageInput.addEventListener("keypress", function (e) {
-                        if (e.key === "Enter") {
-                            e.preventDefault();
-                            sendMessage();
-                        }
-                    });
-                }
+               
 
                 // Emoji Picker functionality
                 if (smileIcon) {
@@ -1886,8 +1767,7 @@
             const fileName = document.querySelector('.nbfc-send-proposal-file-name');
             const fileSize = document.querySelector('.nbfc-send-proposal-file-size');
             const cancelButton = document.querySelector('.nbfc-send-proposal-cancel-button');
-            const sendButton = document.querySelector('.nbfc-send-proposal-send-button');
-
+           
             function openModal() {
                 modalContainer.style.display = 'flex';
             }
@@ -1917,7 +1797,7 @@
             removeAttachment.addEventListener('click', clearFileInput);
             closeButtons.forEach(button => button.addEventListener('click', closeModal));
             cancelButton.addEventListener('click', closeModal);
-            sendButton.addEventListener('click', closeModal);
+        
 
             //nbfc reject button
 
@@ -1960,46 +1840,140 @@
             });
 
 
-            //index
-            // Example student names (Replace this with actual data from API or database)
-            const studentNames = ["John Doe", "Jane Smith", "Alice Johnson", "Bob Brown", "Henry SKy"];
 
-            // Select all elements with class 'student-name'
-            const studentNameElements = document.querySelectorAll(".student-name");
 
-            // Assign names dynamically
-            studentNameElements.forEach((element, index) => {
-                if (studentNames[index]) {
-                    element.textContent = studentNames[index];
+
+            const getStudents = () => {
+                var user = @json(session('user'));
+
+                if (user && user.nbfc_id) {
+                    const nbfcId = user.nbfc_id;
+
+                    return fetch('/trace-process', {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({ nbfcId }) // Sending the NBFC ID
+                    })
+                        .then((response) => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            return response.json(); // Parse response to JSON
+                        })
+                        .then((data) => {
+                            if (data && data.returnValues && Array.isArray(data.returnValues)) {
+                                createContainerList(data.returnValues);
+                                return data.returnValues;
+                            } else {
+                                console.error("Invalid data structure or returnValues not found.");
+                            }
+                        })
+                        .catch((error) => {
+                            // Handle any errors during the fetch process
+                            console.error("Error fetching data:", error);
+                        });
+                } else {
+                    console.error('NBFC ID not found or user session is invalid.');
+                }
+            };
+
+
+            getStudents().then(studentData => {
+                if (studentData) {
+                    const studentNames = studentData.map(student => student.name);
+                    const studentNameElements = document.querySelectorAll(".student-name");
+                    const studentContainers = document.querySelectorAll(".index-student-message-container");
+                    const messageThreads = document.querySelectorAll(".nbfc-individual-bankmessage-input-message");
+                    const searchInput = document.querySelector(".index-search-input");
+
+                    const studentCards = document.querySelectorAll(".index-student-message-container");
+
+                    // Populate student names in the UI
+                    studentNameElements.forEach((element, index) => {
+                        if (studentNames[index]) {
+                            element.textContent = studentNames[index];
+                        }
+                    });
+
+                    // Add data attributes for sorting and sync message threads
+                    studentContainers.forEach((container, index) => {
+                        if (studentNames[index]) {
+                            container.querySelector(".student-name").textContent = studentNames[index];
+                            container.setAttribute("data-name", studentNames[index].toLowerCase()); // Store lowercase name for sorting
+                            messageThreads[index]?.setAttribute("data-name", studentNames[index].toLowerCase()); // Sync message-thread
+                        }
+                    });
+
+                    console.log("Student names: ", studentNames);
+
+                    // Sorting logic
+                    document.querySelectorAll(".sort-dropdown-nbfc li").forEach((item) => {
+                        item.addEventListener("click", function () {
+                            let sortType = this.getAttribute("data-sort");
+                            let sortedArray = [...studentContainers]; // Copy of student containers
+
+                            if (sortType === "az") {
+                                sortedArray.sort((a, b) => a.getAttribute("data-name").localeCompare(b.getAttribute("data-name")));
+                            } else if (sortType === "za") {
+                                sortedArray.sort((a, b) => b.getAttribute("data-name").localeCompare(a.getAttribute("data-name")));
+                            } else if (sortType === "newest") {
+                                sortedArray.sort((a, b) => studentNames.indexOf(b.querySelector(".student-name").textContent) - studentNames.indexOf(a.querySelector(".student-name").textContent));
+                            } else if (sortType === "oldest") {
+                                sortedArray.sort((a, b) => studentNames.indexOf(a.querySelector(".student-name").textContent) - studentNames.indexOf(b.querySelector(".student-name").textContent));
+                            }
+
+
+                            // Append sorted items back to the container
+                            let parent = document.querySelector(".index-student-details-container");
+                            parent.innerHTML = ""; // Clear existing items
+                            sortedArray.forEach((item) => {
+                                parent.appendChild(item);
+
+                                // Sync message-thread order
+                                let studentName = item.getAttribute("data-name");
+                                let correspondingThread = [...messageThreads].find(thread => thread.getAttribute("data-name") === studentName);
+                                if (correspondingThread) parent.appendChild(correspondingThread);
+                            });
+
+                            sortDropdown.classList.remove("visible");
+
+                            sortTrigger.click();
+                        });
+                    });
+
+                    searchInput.addEventListener("input", function () {
+                        const searchText = searchInput.value.toLowerCase().trim();
+
+                        // Filter Student Cards
+                        studentCards.forEach(card => {
+                            const studentNameElement = card.querySelector(".student-name");
+                            if (studentNameElement) {
+                                const studentName = studentNameElement.textContent.toLowerCase();
+                                card.style.display = studentName.includes(searchText) ? "block" : "none";
+                            }
+                        });
+
+                    });
+
                 }
             });
 
-            const searchInput = document.querySelector(".index-search-input");
 
-            const studentCards = document.querySelectorAll(".index-student-message-container");
+
             const messageThreads = document.querySelectorAll(".message-thread");
-
-            searchInput.addEventListener("input", function () {
-                const searchText = searchInput.value.toLowerCase().trim();
-
-                // Filter Student Cards
-                studentCards.forEach(card => {
-                    const studentNameElement = card.querySelector(".student-name");
-                    if (studentNameElement) {
-                        const studentName = studentNameElement.textContent.toLowerCase();
-                        card.style.display = studentName.includes(searchText) ? "block" : "none";
-                    }
-                });
-
-                // Filter Message Threads
-                messageThreads.forEach(thread => {
-                    const studentNameElement = thread.querySelector(".student-name");
-                    if (studentNameElement) {
-                        const studentName = studentNameElement.textContent.toLowerCase();
-                        thread.style.display = studentName.includes(searchText) ? "flex" : "none";
-                    }
-                });
+            messageThreads.forEach(thread => {
+                const studentNameElement = thread.querySelector(".student-name");
+                if (studentNameElement) {
+                    const studentName = studentNameElement.textContent.toLowerCase();
+                    thread.style.display = studentName.includes(searchText) ? "flex" : "none";
+                }
             });
+
+
+
 
             document.getElementById("nbfc-search-input-id").addEventListener("input", function () {
                 const searchTerm = this.value.toLowerCase();
@@ -2024,13 +1998,6 @@
             const sortTrigger = document.getElementById("index-nbfc-sort-id");
 
             // Assign student names dynamically
-            studentContainers.forEach((container, index) => {
-                if (studentNames[index]) {
-                    container.querySelector(".student-name").textContent = studentNames[index];
-                    container.setAttribute("data-name", studentNames[index].toLowerCase()); // Store lowercase name for sorting
-                    messageThreads[index]?.setAttribute("data-name", studentNames[index].toLowerCase()); // Sync message-thread
-                }
-            });
 
             // Toggle dropdown visibility
             sortTrigger.addEventListener("click", function (event) {
@@ -2045,40 +2012,6 @@
                 }
             });
 
-            // Sorting logic
-            document.querySelectorAll(".sort-dropdown-nbfc li").forEach((item) => {
-                item.addEventListener("click", function () {
-                    let sortType = this.getAttribute("data-sort");
-                    let sortedArray = [...studentContainers];
-
-                    if (sortType === "az") {
-                        sortedArray.sort((a, b) => a.getAttribute("data-name").localeCompare(b.getAttribute("data-name")));
-                    } else if (sortType === "za") {
-                        sortedArray.sort((a, b) => b.getAttribute("data-name").localeCompare(a.getAttribute("data-name")));
-                    } else if (sortType === "newest") {
-                        sortedArray.sort((a, b) => studentNames.indexOf(b.querySelector(".student-name").textContent) - studentNames.indexOf(a.querySelector(".student-name").textContent));
-                    } else if (sortType === "oldest") {
-                        sortedArray.sort((a, b) => studentNames.indexOf(a.querySelector(".student-name").textContent) - studentNames.indexOf(b.querySelector(".student-name").textContent));
-                    }
-
-                    // Append sorted items back to the container
-                    let parent = document.querySelector(".index-student-details-container");
-                    parent.innerHTML = ""; // Clear existing
-                    sortedArray.forEach((item) => {
-                        parent.appendChild(item);
-                        // Sync message-thread order
-                        let studentName = item.getAttribute("data-name");
-                        let correspondingThread = [...messageThreads].find(thread => thread.getAttribute("data-name") === studentName);
-                        if (correspondingThread) parent.appendChild(correspondingThread);
-                    });
-
-                    // Hide dropdown after selection
-                    sortDropdown.classList.remove("visible");
-
-                    // Simulate clicking the dropdown button to close it
-                    sortTrigger.click();
-                });
-            });
 
 
 
@@ -2118,7 +2051,7 @@
 
                     // Get elements within this container
                     const messageInput = container.querySelector(".nbfc-message-input");
-                    const sendButton = container.querySelector(".nbfc-send-img");
+                    
                     const smileIcon = container.querySelector(".nbfc-face-smile");
                     const paperclipIcon = container.querySelector(".nbfc-paperclip");
 
@@ -2129,7 +2062,6 @@
                         if (viewButton) viewButton.textContent = 'Close';
                     }
 
-                    // Function to hide chat and update button
                     function hideChat() {
                         messagesWrapper.style.display = 'none';
                         container.style.display = 'none';
@@ -2147,20 +2079,20 @@
                             // Create message element
                             const messageElement = document.createElement("div");
                             messageElement.style.cssText = `
-                    display: flex;
-                    justify-content: flex-end;
-                    width: 100%;
-                    margin-bottom: 10px;
-                `;
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+            margin-bottom: 10px;
+        `;
 
                             const messageContent = document.createElement("div");
                             messageContent.style.cssText = `
-                    max-width: 80%;
-                    padding: 8px 12px;
-                    border-radius: 8px;
-                    word-wrap: break-word;
-                    font-family: 'Poppins', sans-serif;
-                `;
+            max-width: 80%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            word-wrap: break-word;
+            font-family: 'Poppins', sans-serif;
+        `;
                             messageContent.textContent = content;
 
                             messageElement.appendChild(messageContent);
@@ -2170,8 +2102,49 @@
                             messageInput.value = "";
                             messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
 
-                            // Save message
-                            saveMessage(content, chatId);
+                            // Save message to backend and localStorage
+                            sendMessageToBackend(content);
+                        }
+                    }
+                    async function sendMessageToBackend(content) {
+                        var user = @json(session('user'));
+
+                        if (user && user.nbfc_id) {
+                            const nbfc_id = user.nbfc_id;
+                            sender_id = nbfc_id;
+                            
+                        }
+
+                        try {
+                            const payload = {
+                                nbfc_id: nbfcId,       // Replace with actual NBFC ID
+                                student_id: studentId, // Replace with actual Student ID
+                                sender_id: senderId,   // Replace with actual Sender ID
+                                receiver_id: receiverId, // Replace with actual Receiver ID
+                                message: content
+                            };
+
+                            // Send the message to the backend
+                            const response = await fetch('/send-message', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify(payload)
+                            });
+
+                            const data = await response.json();
+
+                            if (response.ok) {
+                                // If the message is successfully sent, store it in localStorage
+                                saveMessage(content, chatId);
+                                console.log('Message sent successfully:', data.message);
+                            } else {
+                                console.error('Failed to send message:', data.error || 'Unknown error');
+                            }
+
+                        } catch (error) {
+                            console.error('Error sending message:', error);
                         }
                     }
 
@@ -2202,13 +2175,6 @@
                         });
                     }
 
-                    // Add click event to send button
-                    if (sendButton) {
-                        sendButton.addEventListener('click', function (e) {
-                            e.preventDefault();
-                            sendMessage();
-                        });
-                    }
 
                     // Initialize emoji picker
                     if (smileIcon) {
@@ -2354,6 +2320,7 @@
             function saveMessage(content, chatId) {
                 const messages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
                 messages.push(content);
+                console.log(content)
                 localStorage.setItem(`messages-${chatId}`, JSON.stringify(messages));
             }
 
@@ -2507,17 +2474,29 @@
                 });
             };
 
-            const viewProfileOfUsers = (viewButton, studentId) => {
+            const viewProfileOfUsers = (viewButton, studentId, loaderElement) => {
                 viewButton.addEventListener('click', async () => {
-                    const userId = studentId.textContent; // Correct use of userId
-                    console.log(userId);
+                    // Get userId from the studentId element
+                    const userId = studentId.textContent;
+                    console.log("Fetching profile for user:", userId);
+
+                    // Show loader and disable further interactions
+                    loaderElement.style.display = 'block'; // Show loader
+                    viewButton.disabled = true; // Disable the button to prevent multiple clicks
 
                     try {
+                        // Wait for each function to complete
                         await retreiveUserDetails(userId);
                         await initialiseAllViews(userId);
-                        await initialiseProfileView(userId)
+                        await initialiseProfileView(userId);
+
+                        console.log("Profile loaded for user:", userId);
                     } catch (error) {
                         console.error("Error retrieving or initializing user details:", error);
+                    } finally {
+                        // Hide loader and re-enable interactions after all functions have completed
+                        loaderElement.style.display = 'none'; // Hide loader
+                        viewButton.disabled = false; // Re-enable the button
                     }
                 });
             };
@@ -4472,553 +4451,87 @@
                     });
             }
 
-            
-// Multi instance chat function of the NBFC
-// Initialize chat functionality for all message input containers
-// Multi instance chat function of the NBFC
-// Initialize chat functionality for all message input containers
-function initializeChats() {
-    // Select all chat containers
-    const chatContainers = document.querySelectorAll('.nbfc-individual-bankmessage-input-message');
+            const createContainerList = (data) => {
+                console.log(data);
 
-    chatContainers.forEach((container, index) => {
-        // Create unique identifier for this chat instance
-        const chatId = `chat-${index}`;
-        container.setAttribute('data-chat-id', chatId);
+                const parentContainer = document.querySelector(".index-student-details-container");
 
-        // Find the parent container and view button
-        const parentContainer = container.closest('.index-student-message-container');
-        const viewButton = parentContainer.querySelector('.index-student-view-btn');
+                data.forEach((item) => {
+                    const msgContainer = document.createElement("div");
+                    msgContainer.classList.add("index-student-message-container");
 
-        // Create messages wrapper for this chat instance
-        const messagesWrapper = document.createElement("div");
-        messagesWrapper.classList.add("messages-wrapper");
-        messagesWrapper.setAttribute('data-chat-id', chatId);
-        messagesWrapper.style.cssText = `
-            display: none;
-            flex-direction: column;
-            width: 100%;  
-            font-size: 14px;
-            color: #666;
-            line-height: 1.5; 
-            overflow-y: auto;
-            background: #fff;
-            font-family: 'Poppins', sans-serif;
-        `;
-        container.parentNode.insertBefore(messagesWrapper, container);
+                    const studentCard = document.createElement("div");
+                    studentCard.classList.add("index-student-card");
 
-        // Create clear chat button
-        const clearChatButton = document.createElement("button");
-        clearChatButton.textContent = "Clear Chat";
-        clearChatButton.style.cssText = `
-            align-self: flex-end;
-            background: #f0f0f0;
-            border: none;
-            border-radius: 4px;
-            padding: 5px 10px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            font-size: 12px;
-            font-family: 'Poppins', sans-serif;
-            display: none;
-        `;
-        messagesWrapper.parentNode.insertBefore(clearChatButton, messagesWrapper);
+                    const studentInfo = document.createElement("div");
+                    studentInfo.classList.add("index-student-info");
 
-        // Get elements within this container
-        const messageInput = container.querySelector(".nbfc-message-input");
-        const sendButton = container.querySelector(".nbfc-send-img");
-        const smileIcon = container.querySelector(".nbfc-face-smile");
-        const paperclipIcon = container.querySelector(".nbfc-paperclip");
+                    const studentInfoHeader = document.createElement("h3");
+                    studentInfoHeader.classList.add("student-name");
+                    studentInfoHeader.textContent = item.name;
 
-        // Function to show chat and update button
-        function showChat() {
-            messagesWrapper.style.display = 'flex';
-            container.style.display = 'flex';
-            clearChatButton.style.display = 'block';
-            if (viewButton) viewButton.textContent = 'Close';
-        }
+                    const studentInfoDesc = document.createElement("p");
+                    studentInfoDesc.classList.add("index-student-description");
+                    studentInfoDesc.textContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut elit, sed do eiusmod tempor incididunt ut.";
 
-        // Function to hide chat and update button
-        function hideChat() {
-            messagesWrapper.style.display = 'none';
-            container.style.display = 'none';
-            clearChatButton.style.display = 'none';
-            if (viewButton) viewButton.textContent = 'View';
-        }
+                    studentInfo.append(studentInfoHeader, studentInfoDesc);
 
-        // Enhanced clear chat function to handle both messages and responses
-        function clearChat() {
-            // Clear all messages in the messages wrapper
-            messagesWrapper.innerHTML = '';
-            
-            // Clear local storage for this chat
-            localStorage.removeItem(`messages-${chatId}`);
-            localStorage.removeItem(`responses-${chatId}`);
-            localStorage.removeItem(`files-${chatId}`);
-        }
+                    const buttonGroup = document.createElement("div");
+                    buttonGroup.classList.add("index-student-button-group");
 
-        // Add click event to clear chat button
-        clearChatButton.addEventListener('click', clearChat);
+                    const messageButton = document.createElement("button");
+                    messageButton.classList.add("index-student-message-btn");
+                    messageButton.textContent = "Message";
 
-        // Function to save message
-        function saveMessage(content, chatId) {
-            const messages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
-            messages.push(content);
-            localStorage.setItem(`messages-${chatId}`, JSON.stringify(messages));
-        }
+                    const viewButton = document.createElement("button");
+                    viewButton.classList.add("index-student-view-btn");
+                    viewButton.textContent = "View";
 
-        // Function to save response
-        function saveResponse(content, chatId) {
-            const responses = JSON.parse(localStorage.getItem(`responses-${chatId}`) || '[]');
-            responses.push(content);
-            localStorage.setItem(`responses-${chatId}`, JSON.stringify(responses));
-        }
+                    buttonGroup.append(messageButton, viewButton);
 
-        // Function to add a response message (to be used when receiving responses)
-        function addResponseMessage(content, chatId) {
-            // Create response message element
-            const responseElement = document.createElement("div");
-            responseElement.classList.add("response-message");
-            responseElement.style.cssText = `
-                display: flex;
-                justify-content: flex-start;
-                width: 100%;
-                margin-bottom: 10px;
-            `;
+                    const sendBtnMobile = document.createElement("div");
+                    sendBtnMobile.classList.add("index-student-send-btn-mobile");
 
-            const responseContent = document.createElement("div");
-            responseContent.style.cssText = `
-                max-width: 80%;
-                padding: 8px 12px;
-                border-radius: 8px;
-                word-wrap: break-word;
-                background-color: #f0f0f0;
-                font-family: 'Poppins', sans-serif;
-            `;
-            responseContent.textContent = content;
+                    const sendImg = document.createElement("img");
+                    sendImg.src = "assets/images/send-index-btn.png";
+                    sendImg.alt = "the send image";
 
-            responseElement.appendChild(responseContent);
-            messagesWrapper.appendChild(responseElement);
-            
-            // Save response
-            saveResponse(content, chatId);
-            
-            // Scroll to bottom
-            messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
-        }
+                    sendBtnMobile.appendChild(sendImg);
 
-        // Send message function for this chat instance
-        function sendMessage() {
-            if (!messageInput) return;
+                    const messageInputContainer = document.createElement("div");
+                    messageInputContainer.classList.add("nbfc-individual-bankmessage-input-message");
 
-            const content = messageInput.value.trim();
-            if (content) {
-                showChat(); // Show chat when sending message
+                    const messageInput = document.createElement("input");
+                    messageInput.type = "text";
+                    messageInput.placeholder = "Send message";
+                    messageInput.classList.add("nbfc-message-input");
 
-                // Create message element
-                const messageElement = document.createElement("div");
-                messageElement.classList.add("user-message");
-                messageElement.style.cssText = `
-                    display: flex;
-                    justify-content: flex-end;
-                    width: 100%;
-                    margin-bottom: 10px;
-                `;
+                    const sendIcon = document.createElement("img");
+                    sendIcon.src = "assets/images/send-nbfc.png";
+                    sendIcon.alt = "send icon";
+                    sendIcon.classList.add("nbfc-send-img");
 
-                const messageContent = document.createElement("div");
-                messageContent.style.cssText = `
-                    max-width: 80%;
-                    padding: 8px 12px;
-                    border-radius: 8px;
-                    word-wrap: break-word;
-                    font-family: 'Poppins', sans-serif;
-                `;
-                messageContent.textContent = content;
+                    const paperClipIcon = document.createElement("i");
+                    paperClipIcon.classList.add("fa-solid", "fa-paperclip", "nbfc-paperclip");
 
-                messageElement.appendChild(messageContent);
-                messagesWrapper.appendChild(messageElement);
+                    const smileIcon = document.createElement("i");
+                    smileIcon.classList.add("fa-regular", "fa-face-smile", "nbfc-face-smile");
 
-                // Clear input and scroll to bottom
-                messageInput.value = "";
-                messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
+                    messageInputContainer.append(messageInput, sendIcon, paperClipIcon, smileIcon);
 
-                // Save message
-                saveMessage(content, chatId);
-                
-                // Example: Add automated response after a short delay
-                // Uncomment this if you want to simulate responses
-                /*
-                setTimeout(() => {
-                    addResponseMessage("This is an automated response", chatId);
-                }, 1000);
-                */
-            }
-        }
+                    studentCard.append(studentInfo, buttonGroup, sendBtnMobile);
 
-        // Add click event to view/close button
-        if (viewButton) {
-            viewButton.addEventListener('click', function () {
-                if (messagesWrapper.style.display === 'none') {
-                    showChat();
-                } else {
-                    hideChat();
-                }
-            });
-        }
+                    msgContainer.append(studentCard, messageInputContainer);
 
-        // Show chat when typing
-        if (messageInput) {
-            messageInput.addEventListener('input', function () {
-                if (messagesWrapper.style.display === 'none') {
-                    showChat();
-                }
-            });
-
-            messageInput.addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    sendMessage();
-                }
-            });
-        }
-
-        // Add click event to send button
-        if (sendButton) {
-            sendButton.addEventListener('click', function (e) {
-                e.preventDefault();
-                sendMessage();
-            });
-        }
-
-        // Initialize emoji picker
-        if (smileIcon) {
-            smileIcon.addEventListener('click', function (e) {
-                e.stopPropagation();
-                const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
-
-                const existingPicker = document.querySelector(".emoji-picker");
-                if (existingPicker) {
-                    existingPicker.remove();
-                    return;
-                }
-
-                const picker = document.createElement("div");
-                picker.classList.add("emoji-picker");
-                picker.style.cssText = `
-                    position: absolute;
-                    bottom: 100%;
-                    right: 0;
-                    background: white;
-                    border-radius: 5px;
-                    padding: 5px;
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 5px;
-                    z-index: 1000;
-                    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-                `;
-
-                emojis.forEach(emoji => {
-                    const button = document.createElement("button");
-                    button.textContent = emoji;
-                    button.style.cssText = `
-                        border: none;
-                        background: none;
-                        font-size: 20px;
-                        cursor: pointer;
-                        padding: 5px;
-                    `;
-                    button.onclick = (e) => {
-                        e.stopPropagation();
-                        messageInput.value += emoji;
-                        picker.remove();
-                        messageInput.focus();
-                    };
-                    picker.appendChild(button);
+                    parentContainer.appendChild(msgContainer);
                 });
 
-                container.appendChild(picker);
 
-                document.addEventListener("click", function closePicker(e) {
-                    if (!picker.contains(e.target) && e.target !== smileIcon) {
-                        picker.remove();
-                        document.removeEventListener("click", closePicker);
-                    }
-                });
-            });
-        }
+            };
 
-        // Initialize file attachment
-        if (paperclipIcon) {
-            paperclipIcon.addEventListener('click', function () {
-                const fileInput = document.createElement("input");
-                fileInput.type = "file";
-                fileInput.accept = ".pdf,.jpeg,.png,.jpg";
-                fileInput.style.display = "none";
+            
 
-                fileInput.onchange = (e) => {
-                    const file = e.target.files[0];
-                    if (file) {
-                        showChat();
-                        const fileName = file.name;
-                        const fileSize = (file.size / 1024 / 1024).toFixed(2);
-                        
-                        // Create unique file ID
-                        const fileId = `file-${Date.now()}`;
-                        
-                        // Store file in localStorage (as base64 for small files)
-                        const reader = new FileReader();
-                        reader.onload = function(event) {
-                            const fileData = {
-                                id: fileId,
-                                name: fileName,
-                                size: fileSize,
-                                type: file.type,
-                                data: event.target.result
-                            };
-                            
-                            saveFile(fileData, chatId);
-                            
-                            const messageElement = document.createElement("div");
-                            messageElement.setAttribute('data-file-id', fileId);
-                            messageElement.style.cssText = `
-                                display: flex;
-                                justify-content: flex-end;
-                                width: 100%;
-                                margin-bottom: 10px;
-                            `;
-
-                            const fileContent = document.createElement("div");
-                            fileContent.style.cssText = `
-                                max-width: 80%;
-                                padding: 8px 12px;
-                                border-radius: 8px;
-                                display: flex;
-                                align-items: center;
-                                gap: 8px;
-                            `;
-                            
-                            // Create download link
-                            const downloadLink = document.createElement("a");
-                            downloadLink.href = event.target.result;
-                            downloadLink.download = fileName;
-                            downloadLink.style.cssText = `
-                                text-decoration: none;
-                                color: #0066cc;
-                                display: flex;
-                                align-items: center;
-                                gap: 5px;
-                            `;
-                            downloadLink.innerHTML = `
-                                <span>${fileName} (${fileSize} MB)</span>
-                            `;
-                            
-                            // Create remove button
-                            const removeButton = document.createElement("button");
-                            removeButton.innerHTML = "✕";
-                            removeButton.style.cssText = `
-                                background: none;
-                                border: none;
-                                color: #ff3333;
-                                cursor: pointer;
-                                font-size: 14px;
-                                padding: 0 5px;
-                            `;
-                            removeButton.onclick = function(e) {
-                                e.stopPropagation();
-                                messageElement.remove();
-                                removeFile(fileId, chatId);
-                            };
-                            
-                            fileContent.appendChild(downloadLink);
-                            fileContent.appendChild(removeButton);
-                            messageElement.appendChild(fileContent);
-                            messagesWrapper.appendChild(messageElement);
-                            messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
-                        };
-                        
-                        reader.readAsDataURL(file);
-                    }
-                };
-
-                document.body.appendChild(fileInput);
-                fileInput.click();
-                document.body.removeChild(fileInput);
-            });
-        }
-
-        // Initialize message button
-        const messageBtn = parentContainer.querySelector('.index-student-message-btn');
-        if (messageBtn) {
-            messageBtn.addEventListener('click', function () {
-                showChat();
-            });
-        }
-
-        // Load saved messages and responses
-        loadSavedMessagesAndResponses(chatId);
-        
-        // Load saved files
-        loadSavedFiles(chatId);
-    });
-}
-
-// Function to load saved messages and responses
-function loadSavedMessagesAndResponses(chatId) {
-    // Get the messages wrapper for this chat
-    const messagesWrapper = document.querySelector(`.messages-wrapper[data-chat-id="${chatId}"]`);
-    if (!messagesWrapper) return;
-    
-    // Load saved messages
-    const savedMessages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
-    savedMessages.forEach(content => {
-        const messageElement = document.createElement("div");
-        messageElement.classList.add("user-message");
-        messageElement.style.cssText = `
-            display: flex;
-            justify-content: flex-end;
-            width: 100%;
-            margin-bottom: 10px;
-        `;
-
-        const messageContent = document.createElement("div");
-        messageContent.style.cssText = `
-            max-width: 80%;
-            padding: 8px 12px;
-            border-radius: 8px;
-            word-wrap: break-word;
-            font-family: 'Poppins', sans-serif;
-        `;
-        messageContent.textContent = content;
-
-        messageElement.appendChild(messageContent);
-        messagesWrapper.appendChild(messageElement);
-    });
-    
-    // Load saved responses
-    const savedResponses = JSON.parse(localStorage.getItem(`responses-${chatId}`) || '[]');
-    savedResponses.forEach(content => {
-        const responseElement = document.createElement("div");
-        responseElement.classList.add("response-message");
-        responseElement.style.cssText = `
-            display: flex;
-            justify-content: flex-start;
-            width: 100%;
-            margin-bottom: 10px;
-        `;
-
-        const responseContent = document.createElement("div");
-        responseContent.style.cssText = `
-            max-width: 80%;
-            padding: 8px 12px;
-            border-radius: 8px;
-            word-wrap: break-word;
-            background-color: #f0f0f0;
-            font-family: 'Poppins', sans-serif;
-        `;
-        responseContent.textContent = content;
-
-        responseElement.appendChild(responseContent);
-        messagesWrapper.appendChild(responseElement);
-    });
-}
-
-// Function to load saved files
-function loadSavedFiles(chatId) {
-    // Get the messages wrapper for this chat
-    const messagesWrapper = document.querySelector(`.messages-wrapper[data-chat-id="${chatId}"]`);
-    if (!messagesWrapper) return;
-    
-    // Load saved files
-    const savedFiles = JSON.parse(localStorage.getItem(`files-${chatId}`) || '[]');
-    savedFiles.forEach(fileData => {
-        const messageElement = document.createElement("div");
-        messageElement.setAttribute('data-file-id', fileData.id);
-        messageElement.style.cssText = `
-            display: flex;
-            justify-content: flex-end;
-            width: 100%;
-            margin-bottom: 10px;
-        `;
-
-        const fileContent = document.createElement("div");
-        fileContent.style.cssText = `
-            max-width: 80%;
-            padding: 8px 12px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'Poppins', sans-serif;
-        `;
-        
-        // Create download link
-        const downloadLink = document.createElement("a");
-        downloadLink.href = fileData.data;
-        downloadLink.download = fileData.name;
-        downloadLink.style.cssText = `
-            text-decoration: none;
-            color: #0066cc;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        `;
-        downloadLink.innerHTML = `
-            <span>${fileData.name} (${fileData.size} MB)</span>
-        `;
-        
-        // Create remove button
-        const removeButton = document.createElement("button");
-        removeButton.innerHTML = "✕";
-        removeButton.style.cssText = `
-            background: none;
-            border: none;
-            color: #ff3333;
-            cursor: pointer;
-            font-size: 14px;
-            padding: 0 5px;
-        `;
-        removeButton.onclick = function(e) {
-            e.stopPropagation();
-            messageElement.remove();
-            removeFile(fileData.id, chatId);
-        };
-        
-        fileContent.appendChild(downloadLink);
-        fileContent.appendChild(removeButton);
-        messageElement.appendChild(fileContent);
-        messagesWrapper.appendChild(messageElement);
-    });
-}
-
-// Storage functions
-function saveFile(fileData, chatId) {
-    const files = JSON.parse(localStorage.getItem(`files-${chatId}`) || '[]');
-    files.push(fileData);
-    localStorage.setItem(`files-${chatId}`, JSON.stringify(files));
-}
-
-function removeFile(fileId, chatId) {
-    const files = JSON.parse(localStorage.getItem(`files-${chatId}`) || '[]');
-    const updatedFiles = files.filter(file => file.id !== fileId);
-    localStorage.setItem(`files-${chatId}`, JSON.stringify(updatedFiles));
-}
-
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', initializeChats);
-
-// Enable scrolling function
-function enableScroll() {
-    document.body.style.overflow = "auto"; // Enable scrolling
-    document.documentElement.style.overflow = "auto"; // For <html>
-}
-// Enable scrolling function
-function enableScroll() {
-    document.body.style.overflow = "auto"; // Enable scrolling
-    document.documentElement.style.overflow = "auto"; // For <html>
-}
-
-
+            
 
         </script>
 
