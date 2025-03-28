@@ -48,8 +48,7 @@ class TrackController extends Controller
 
             ]);
         } catch (\Exception $e) {
-            Log::error('Error updating personal info: ' . $e->getMessage());
-
+ 
             return response()->json(['success' => false, 'message' => 'An error occurred while updating your details.']);
         }
 
@@ -60,7 +59,7 @@ class TrackController extends Controller
     public function getnbfcdata()
     {
         try {
-            $nbfcdata = Nbfc::get();
+            $nbfcdata = Nbfc::select('nbfc_name', 'nbfc_email', 'nbfc_id')->get();
 
             return response()->json([
                 'success' => true,
@@ -76,6 +75,34 @@ class TrackController extends Controller
             ], 500);
         }
     }
+
+
+
+
+
+
+    public function getnbfcdataPackage()
+    {
+        try {
+            // Fetch the data from the database
+            $nbfcdata = Nbfc::select('nbfc_name', 'nbfc_email', 'nbfc_id')->get();
+
+            // Return data as a JSON response for the AJAX request
+            return response()->json([
+                'success' => true,
+                'recievedData' => $nbfcdata
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => 'An error occurred while fetching data.'
+            ]);
+        }
+    }
+
+
+
 
     public function counts()
     {

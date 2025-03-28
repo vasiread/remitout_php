@@ -1,12 +1,12 @@
  .student-listcontainer {
      display: none;
      flex-direction: column;
-    max-width: 100%;
-    width: 100%;
-    margin-top: 50px;
-    margin-right: 85px;
-    gap: 17px;
-    margin-left: 4.1%;
+     max-width: 100%;
+     width: 100%;
+     margin-top: 50px;
+     margin-right: 85px;
+     gap: 17px;
+     margin-left: 4.1%;
 
 
  }
@@ -24,7 +24,8 @@
  }
 
  .globallistcontainer-header h2 {
-     font-family: Poppins;
+     font-family: 'Poppins', sans-serif;
+
      font-size: 22px;
      font-weight: 600;
      line-height: 36px;
@@ -32,9 +33,11 @@
 
 
  }
-.globallistcontainer-header #student-list-count{
-    display:none
-}
+
+ .globallistcontainer-header #student-list-count {
+     display: none
+ }
+
  .headersection-rightsidecontent {
      display: flex;
      width: fit-content;
@@ -46,7 +49,8 @@
  #search-student-list {
      height: 100%;
      width: 100%;
-     font-family: Poppins;
+     font-family: 'Poppins', sans-serif;
+
      font-size: 16px;
      font-weight: 400;
      line-height: 19.2px;
@@ -63,9 +67,10 @@
      align-items: center;
 
  }
-#studentapplicationfromadminstudent {
-    margin-top: 0;
-}
+
+ #studentapplicationfromadminstudent {
+     margin-top: 0;
+ }
 
 
  .dropdown-filters {
@@ -207,7 +212,8 @@
  }
 
  .individualcounsellorlists-items p {
-     font-family: Poppins;
+     font-family: 'Poppins', sans-serif;
+
      font-weight: 600;
      font-size: 16px;
      line-height: 18px;
@@ -231,7 +237,8 @@
  }
 
  .individualcounsellorlists-header p {
-     font-family: Poppins;
+     font-family: 'Poppins', sans-serif;
+
      font-weight: 600;
      font-size: 16px;
      line-height: 18px;
@@ -271,7 +278,8 @@
  }
 
  .individualcounsellors-buttoncontainer button:last-child {
-     font-family: Poppins;
+     font-family: 'Poppins', sans-serif;
+
      font-weight: 500;
      font-size: 14px;
      line-height: 16.8px;
@@ -342,15 +350,16 @@
          display: none;
      }
 
-.globallistcontainer-header #student-list-count{
-    display:flex;
-    align-self: flex-end;
-    font-family: Poppins;
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 18px;
-        color:rgba(93, 92, 92, 1);
-}
+     .globallistcontainer-header #student-list-count {
+         display: flex;
+         align-self: flex-end;
+         font-family: 'Poppins', sans-serif;
+
+         font-weight: 600;
+         font-size: 14px;
+         line-height: 18px;
+         color: rgba(93, 92, 92, 1);
+     }
 
 
 

@@ -254,6 +254,9 @@
     max-width: 100%;
 }
 
+.index-student-info .student-ids {
+    display: none;
+}
 
 .nbfc-mobile-menu-top li i,
 .nbfc-mobile-menu-bottom li i {
@@ -305,7 +308,8 @@
     border: 1px solid rgba(226, 226, 226, 1);
     outline: none;
     font-size: 0.6rem;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     padding-left: 6px;
 
 
@@ -335,7 +339,8 @@
 }
 
 .password-change-triggered-view-headersection-nbfc h3 {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: clamp(8px, 4vw, 12px);
     line-height: clamp(11px, 4vw, 27px);
@@ -357,7 +362,8 @@
 }
 
 .popup-notify-list-nbfc p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 0.8rem;
     padding: 0.4rem 0;
     border-radius: 4px;
@@ -421,7 +427,8 @@
     box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
     border: 1px solid rgba(111, 37, 206, 1);
     background-color: rgba(255, 255, 255, 1);
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: 14px;
     line-height: 120%;
@@ -442,7 +449,8 @@
     align-items: center;
     justify-content: center;
     justify-self: flex-start;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: 14px;
     line-height: 120%;
@@ -472,7 +480,8 @@
     justify-content: center;
     border: 1px solid rgba(111, 37, 206, 1);
     box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: 14px;
     line-height: 120%;
@@ -605,12 +614,14 @@
         width: 100%;
         max-width: 100%;
     }
-.nbfcdashboard-studentlistscontainer{
-    display: flex;
+
+    .nbfcdashboard-studentlistscontainer {
+        display: flex;
         flex-direction: column;
         align-items: center;
         gap: 1.2%;
-}
+    }
+
 
     .nbfc-navbar {
         padding: 12px 20px;
@@ -720,7 +731,8 @@
 }
 
 .nbfcstudentdashboardprofile-togglesidebar ul li {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 500;
     line-height: 19.2px;
@@ -814,7 +826,8 @@
 }
 
 .nbfcstudentdashboardprofile-personalinfo .nbfcpersonalinfo-firstrow h1 {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 18px;
     font-weight: 600;
     line-height: 27px;
@@ -830,7 +843,8 @@
     padding: 16px 32px;
     gap: 8px;
     border-radius: 4px;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -853,7 +867,8 @@
 }
 
 .nbfcpersonalinfo-secondrow li {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 500;
     line-height: 15.6px;
@@ -874,7 +889,8 @@
 }
 
 .nbfcpersonalinfo-profilestatus h1 {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 500;
     line-height: 19.5px;
@@ -902,7 +918,8 @@
 }
 
 .nbfcprofilestatus-graph-section p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
@@ -912,7 +929,8 @@
 }
 
 .nbfcprofilestatus-graph-secondsection span {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 30px;
     font-weight: 600;
     line-height: 45px;
@@ -925,7 +943,8 @@
 
 .nbfcprofilestatus-graph-secondsection p {
     padding-top: 1rem;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 30px;
     font-weight: 500;
     line-height: 0px;
@@ -947,7 +966,8 @@
 }
 
 .nbfcprofilestatus-graph-secondsection .nbfcsecondsection-inside {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
@@ -972,7 +992,8 @@
 
 .nbfcstudentdashboardprofile-communityjoinsection p {
     color: rgba(38, 2, 84, 0.7);
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 500;
     line-height: 19.2px;
@@ -998,6 +1019,7 @@
     left: 0;
     margin-top: 80px;
 }
+
 #nbfc-list-of-student-profilesections {
     max-width: 50%;
 }
@@ -2356,7 +2378,8 @@
 
 .nbfc-individual-bankmessage-input input::placeholder,
 .nbfc-message-input::placeholder {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -2546,7 +2569,8 @@
 
 .nbfc-individual-bankmessage-input-message input::placeholder,
 .nbfc-message-input::placeholder {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -2960,7 +2984,8 @@
 }
 
 .nbfc-student-dashboard-section-main-contents .personalinfo-secondrow li {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 13px !important;
     font-weight: 500;
     line-height: 15.6px;
@@ -2979,7 +3004,8 @@
 .personal_info_phone,
 .personal_info_email,
 .personal_info_state {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 13px !important;
     font-weight: 500;
     line-height: 15.6px;
@@ -3030,7 +3056,8 @@
     border-radius: 4px;
     border: 1px solid rgba(111, 37, 206, 1);
     background: transparent;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -3054,7 +3081,8 @@
     border-radius: 4px;
 
     background: transparent;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -3078,7 +3106,8 @@
     border-radius: 4px;
     border: 1px solid rgba(111, 37, 206, 1);
     background: transparent;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;

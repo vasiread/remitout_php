@@ -13,9 +13,7 @@
       <img src="{{ asset('assets/images/globe-1.png') }}" alt="Globe Image" class="globe-image">
     </div>
   </div>
-  <div class="flowchart-section">
-     <img src="{{asset('assets/images/flowchat.png')}}" alt="Flowchart Image" class="flowchart-image">
-  </div>
+   
 </section>
 
 

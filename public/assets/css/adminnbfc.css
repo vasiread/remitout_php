@@ -34,7 +34,8 @@
 }
 
 .individualnbfclists-items p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 600;
     font-size: 16px;
     line-height: 18px;
@@ -58,7 +59,8 @@
 }
 
 .individualnbfclists-headerp {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 600;
     font-size: 16px;
     line-height: 18px;
@@ -98,7 +100,8 @@
 }
 
 .individualnbfcs-buttoncontainer button:last-child {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: 14px;
     line-height: 16.8px;
@@ -124,7 +127,8 @@
 }
 
 .add-nbfc-firstsection h3 {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 600;
     font-size: 24px;
     line-height: 36px;
@@ -140,11 +144,12 @@
     border-radius: 4px;
     border: none;
     color: rgba(255, 255, 255, 1);
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: 14px;
     line-height: 16.8px;
-    cursor:pointer;
+    cursor: pointer;
 
 
 }
@@ -171,7 +176,8 @@
     gap: 8px;
     border: 1px solid rgba(111, 37, 206, 1);
     box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: 14px;
     line-height: 16.8px;
@@ -186,13 +192,15 @@
     border-radius: 4px;
     background-color: rgba(111, 37, 206, 1);
     box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: 14px;
     line-height: 16.8px;
     border: none;
-    color:rgba(255, 255, 255, 1);
-    align-self: flex-end;margin-top: 22px;
+    color: rgba(255, 255, 255, 1);
+    align-self: flex-end;
+    margin-top: 22px;
 
 }
 
@@ -215,7 +223,8 @@
     height: 38px;
     border-radius: 4px;
     padding: 10px 13px;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: 14px;
     line-height: 18px;
@@ -249,7 +258,8 @@
 
 .nbfc-dropdown-content a {
     text-decoration: none;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: 14px;
     line-height: 18px;
@@ -269,7 +279,8 @@
     border: 1px solid rgba(226, 226, 226, 1);
     padding: 10px 13px;
     border-radius: 4px;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: 14px;
     line-height: 18px;
@@ -278,7 +289,8 @@
 }
 
 .formsection-addnbfcuser input::placeholder {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: 14px;
     line-height: 18px;

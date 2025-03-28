@@ -10,7 +10,7 @@
     padding: 35px 0px;
     position: fixed;
     z-index: 50;
-  
+
     top: 0;
     left: 0;
     margin-top: 90px;
@@ -56,7 +56,7 @@
     flex-direction: column;
     gap: 20px;
     height: 202px;
-    max-width: 100%;    
+    max-width: 100%;
     width: 90%;
     border-radius: 4px;
     margin-left: 8px;
@@ -65,7 +65,8 @@
 
 
 .commonsidebar-togglesidebar .commonsidebar-sidebarlists-top li {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 15px;
     font-weight: 500;
     line-height: 18px;
@@ -84,11 +85,13 @@
     position: relative;
 
 }
+
 #expanded-studentcounsellor-admin-side,
-#expanded-student-admin-side{
+#expanded-student-admin-side {
     display: none;
     flex-direction: column;
 }
+
 #expand-icon-Student,
 #expand-icon-StudentCounsellor {
 
@@ -126,7 +129,8 @@
     width: 80%;
     height: 54px;
     padding-left: 1rem;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 500;
     line-height: 19.2px;
@@ -270,7 +274,8 @@
     }
 
     .commonsidebar-sidebarlists-top p {
-        font-family: Poppins;
+        font-family: 'Poppins', sans-serif;
+
         font-size: 1rem;
         font-weight: 500;
         line-height: 24px;

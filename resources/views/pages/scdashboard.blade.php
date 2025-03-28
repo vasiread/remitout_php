@@ -1322,7 +1322,7 @@ $totalPages = ceil($totalStudents / $perPage);
         };
 
 
-     const triggerExcelRegistration = () => {
+        const triggerExcelRegistration = () => {
             const excelUpload = document.getElementById("excel-upload-trigger");
             const excelUploadEvent = document.getElementById("excel-sheet-student-update");
             const fileNameDisplay = document.getElementById("selected-file-name");

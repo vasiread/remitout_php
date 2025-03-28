@@ -25,7 +25,7 @@ input[type="file"] {
 .studentdashboardprofile-togglesidebar {
     height: 100vh;
     padding: 35px 0px;
-    position:fixed;
+    position: fixed;
 
 
     box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
@@ -57,7 +57,8 @@ input[type="file"] {
 }
 
 .studentdashboardprofile-sidebarlists-top li {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 500;
     line-height: 19.2px;
@@ -93,7 +94,8 @@ input[type="file"] {
     max-width: 77.32%;
     width: 100%;
     margin: 0;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 500;
     line-height: 19.2px;
@@ -227,7 +229,8 @@ input[type="file"] {
 }
 
 .studentdashboardprofile-personalinfo .personalinfo-firstrow h1 {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 18px;
     font-weight: 600;
     line-height: 27px;
@@ -244,7 +247,8 @@ input[type="file"] {
     padding: 16px 32px;
     gap: 8px;
     border-radius: 4px;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -268,7 +272,8 @@ input[type="file"] {
 }
 
 .personalinfo-secondrow li {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 500;
     line-height: 15.6px;
@@ -293,7 +298,8 @@ input[type="file"] {
 
 .personalinfo-profilestatus h1 {
 
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 500;
     line-height: 19.5px;
@@ -324,7 +330,8 @@ input[type="file"] {
 }
 
 .profilestatus-graph-section p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
@@ -337,7 +344,8 @@ input[type="file"] {
 }
 
 .profilestatus-graph-secondsection span {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 30px;
     font-weight: 600;
     line-height: 45px;
@@ -352,7 +360,8 @@ input[type="file"] {
 
 .profilestatus-graph-secondsection p {
     padding-top: 1rem;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 30px;
     font-weight: 500;
     line-height: 0px;
@@ -376,7 +385,8 @@ input[type="file"] {
 }
 
 .profilestatus-graph-secondsection .secondsection-inside {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
@@ -409,7 +419,8 @@ input[type="file"] {
 
 .studentdashboardprofile-communityjoinsection p {
     color: rgba(38, 2, 84, 0.7);
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 500;
     line-height: 19.2px;
@@ -526,7 +537,8 @@ input[type="file"] {
 }
 
 .trackprogress-leftsection p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
@@ -536,7 +548,8 @@ input[type="file"] {
 }
 
 .trackprogress-leftsection h1 {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 30px;
     font-weight: 600;
     line-height: 45px;
@@ -595,7 +608,8 @@ input[type="file"] {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -614,7 +628,8 @@ input[type="file"] {
 
 .uploadsectionsandglass .upload-status-hourglass {
     color: rgba(144, 144, 144, 1);
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
@@ -623,7 +638,8 @@ input[type="file"] {
 }
 
 .trackprogress-rightsection p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 18px;
     font-weight: 600;
     line-height: 27px;
@@ -676,7 +692,8 @@ input[type="file"] {
 }
 
 .indivudalloanstatus-cards h1 {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 600;
     line-height: 18px;
@@ -691,7 +708,8 @@ input[type="file"] {
 }
 
 .indivudalloanstatus-cards p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
@@ -721,7 +739,8 @@ input[type="file"] {
     padding: 16px 32px;
     gap: 8px;
     border-radius: 4px;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -748,7 +767,8 @@ input[type="file"] {
     padding: 16px 32px;
     gap: 8px;
     border-radius: 4px;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -783,7 +803,8 @@ input[type="file"] {
     gap: 8px;
     border-radius: 4px;
     border: 1px solid rgba(226, 226, 226, 1);
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     color: rgba(144, 144, 144, 1);
 
 }
@@ -800,7 +821,8 @@ input[type="file"] {
 }
 
 .individual-bankmessage-input input::placeholder {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -836,7 +858,7 @@ input[type="file"] {
 
 .studentdashboardprofile-myapplication {
     display: none;
-    max-width: 53.54%;
+    max-width: 49.54%;
     width: 100%;
     height: fit-content;
     background-color: rgba(255, 255, 255, 1);
@@ -874,7 +896,8 @@ input[type="file"] {
     gap: 8px;
     border-radius: 4px;
     border: 1px solid rgba(111, 37, 206, 1);
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -897,7 +920,8 @@ input[type="file"] {
 }
 
 .myapplication-secondcolumn p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 500;
     line-height: 19.2px;
@@ -1039,7 +1063,8 @@ input[type="file"] {
 }
 
 .myapplication-thirdcolumn h6 {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 500;
     line-height: 19.2px;
@@ -1049,7 +1074,8 @@ input[type="file"] {
 }
 
 .myapplication-thirdcolumn p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 15px;
     font-weight: 400;
     line-height: 28.8px;
@@ -1119,7 +1145,8 @@ input[type="file"] {
 }
 
 .studentdashboardprofile-myapplication input[type="text"]::placeholder {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
@@ -1139,7 +1166,8 @@ input[type="file"] {
 
 .myapplication-fourthcolumn p,
 .myapplication-fourthcolumn-additional p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 500;
     line-height: 19.2px;
@@ -1169,7 +1197,8 @@ input[type="file"] {
 }
 
 .myapplication-fifthcolumn p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 500;
     line-height: 19.2px;
@@ -1198,7 +1227,8 @@ input[type="file"] {
 }
 
 .myapplication-sixthcolumn p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 500;
     line-height: 19.5px;
@@ -1218,7 +1248,8 @@ input[type="file"] {
 }
 
 .myapplication-seventhcolumn h1 {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 500;
     line-height: 19.2px;
@@ -1239,7 +1270,8 @@ input[type="file"] {
 }
 
 .myapplication-seventhcolum-documentscolumn h4 {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 15px;
     font-weight: 500;
     line-height: 18px;
@@ -1285,7 +1317,8 @@ input[type="file"] {
 }
 
 .individualkycdocuments .document-name {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 400;
     line-height: 21px;
@@ -1294,7 +1327,8 @@ input[type="file"] {
 }
 
 .individualkycdocuments .document-status {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 12px;
     font-weight: 400;
     line-height: 18px;
@@ -1304,7 +1338,8 @@ input[type="file"] {
 
 .inputfilecontainer p {
     width: 204px;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 21px;
@@ -1319,7 +1354,8 @@ input[type="file"] {
 .inputfilecontainer-work-experiencecolumn p,
 .inputfilecontainer-coborrower-kyccolumn p {
     width: 204px;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 21px;
@@ -1360,7 +1396,8 @@ input[type="file"] {
 .individual-secured-admission-documents .document-name,
 .individual-work-experiencecolumn-documents .document-name,
 .individual-coborrower-kyc-documents .document-name {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 400;
     line-height: 21px;
@@ -1372,7 +1409,8 @@ input[type="file"] {
 .individual-secured-admission-documents .document-status,
 .individual-work-experiencecolumn-documents .document-status,
 .individual-coborrower-kyc-documents .document-status {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 12px;
     font-weight: 400;
     line-height: 18px;
@@ -1390,7 +1428,8 @@ input[type="file"] {
 .myapplication-ninthcolumn,
 .myapplication-tenthcolumn {
     display: flex;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 15px;
     font-weight: 500;
     line-height: 18px;
@@ -1451,7 +1490,8 @@ input[type="file"] {
     border-radius: 4px;
     border: 1px solid rgba(111, 37, 206, 1);
     background: transparent;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -1469,9 +1509,12 @@ input[type="file"] {
     background-color: rgba(111, 37, 206, 1);
     color: #fff
 }
-.educationeditsection-firstrow ,.testscoreseditsection-firstrow{
+
+.educationeditsection-firstrow,
+.testscoreseditsection-firstrow {
     margin-bottom: 20px;
 }
+
 .studentdashboardprofile-educationeditsection {
     display: none;
     flex-direction: column;
@@ -1487,7 +1530,8 @@ input[type="file"] {
 }
 
 .educationeditsection-firstrow h1 {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 18px;
     font-weight: 600;
     line-height: 27px;
@@ -1504,7 +1548,8 @@ input[type="file"] {
     padding: 16px 32px;
     gap: 8px;
     border-radius: 4px;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -1524,7 +1569,8 @@ input[type="file"] {
 }
 
 .educationeditsection-secondrow p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 500;
     line-height: 15.6px;
@@ -1547,7 +1593,8 @@ input[type="file"] {
 .personalinfosecondrow-editsection li {
     display: flex;
     flex-direction: column;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 500;
     line-height: 13.6px;
@@ -1601,7 +1648,8 @@ input[type="file"] {
 }
 
 .testscoreseditsection-firstrow h1 {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 18px;
     font-weight: 600;
     line-height: 27px;
@@ -1618,7 +1666,8 @@ input[type="file"] {
     padding: 16px 32px;
     gap: 8px;
     border-radius: 4px;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -1638,7 +1687,8 @@ input[type="file"] {
 }
 
 .testscoreseditsection-secondrow p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 500;
     line-height: 15.6px;
@@ -1677,6 +1727,7 @@ input[type="file"] {
 
     .trackprogress-contentcontainer {
         flex-direction: column;
+        align-items: center;
         height: fit-content;
         padding-bottom: 1.2rem;
     }
@@ -1711,10 +1762,11 @@ input[type="file"] {
 }
 
 @media(max-width:1020px) {
-    .personalinfo-secondrow p{
+    .personalinfo-secondrow p {
         font-size: 0.7rem;
 
     }
+
     .studentdashboardprofile {
         gap: 0;
 
@@ -1747,6 +1799,10 @@ input[type="file"] {
 @media (max-width:768px) {
     .studentdashboardprofile-profilesection {
         display: none;
+    }
+
+    .studentdashboardprofile {
+        margin: 0;
     }
 
     .studentdashboardprofile-myapplication {
@@ -1825,10 +1881,3 @@ input[type="file"] {
         width: 100%;
     }
 }
-
-/* @media(max-width:1200) {
-    .studentdashboardprofile {
-        width: 83.19%;
-
-    }
-} */

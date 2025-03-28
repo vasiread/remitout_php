@@ -14,7 +14,8 @@
   }
 
   .admindashboardcontainer-firstsection h1 {
-      font-family: Poppins;
+                      font-family: 'Poppins', sans-serif;
+
       font-size: 28px;
       font-weight: 600;
       line-height: 42px;
@@ -32,7 +33,8 @@
       width: 169px;
       height: 35px;
       background-color: #FFFFFF;
-      font-family: Poppins;
+                      font-family: 'Poppins', sans-serif;
+
       font-size: 14px;
       font-weight: 500;
       line-height: 16.8px;
@@ -50,7 +52,8 @@
   }
 
   .admindashboardcontainer-secondsection h1 {
-      font-family: Poppins;
+                      font-family: 'Poppins', sans-serif;
+
       font-size: 24px;
       font-weight: 500;
       line-height: 36px;
@@ -86,7 +89,8 @@
       gap: 10px;
       border-radius: 4px;
       border: 1px solid #5252523D;
-      font-family: Poppins;
+                      font-family: 'Poppins', sans-serif;
+
       font-size: 12px;
       font-weight: 500;
       line-height: 18px;
@@ -102,7 +106,8 @@
       gap: 10px;
       border-radius: 4px;
       border: 1px solid #5252523D;
-      font-family: Poppins;
+                      font-family: 'Poppins', sans-serif;
+
       font-size: 12px;
       font-weight: 500;
       line-height: 18px;
@@ -195,7 +200,8 @@
   }
 
   .reports-registeration-sectionone p {
-      font-family: Poppins;
+                      font-family: 'Poppins', sans-serif;
+
       font-size: 14px;
       font-weight: 500;
       line-height: 18.36px;
@@ -236,7 +242,8 @@
   }
 
   #source-registeration-header {
-      font-family: Poppins;
+                      font-family: 'Poppins', sans-serif;
+
       font-size: 14px;
       font-weight: 500;
       line-height: 18.36px;
@@ -282,7 +289,8 @@
 
   .graphviewofregistrations-firstpart p,
   .graphviewofregistrations-secondpart p {
-      font-family: Poppins;
+                      font-family: 'Poppins', sans-serif;
+
       font-size: 12px;
       font-weight: 500;
       line-height: 18px;
@@ -325,7 +333,8 @@
 
   .admindashboard-secondpart .totalundergrads-admin h4,
   .admindashboard-secondpart .totalpostgrads-admin h4 {
-      font-family: Poppins;
+                      font-family: 'Poppins', sans-serif;
+
       font-size: 14px;
       font-weight: 500;
       line-height: 23.83px;
@@ -344,7 +353,8 @@
   .totalundergrads-info h1,
   .totalpostgrads-info h1 {
       margin-right: 23px;
-      font-family: Poppins;
+                      font-family: 'Poppins', sans-serif;
+
       font-size: 35px;
       font-weight: 500;
       line-height: 30.5px;
@@ -354,7 +364,8 @@
 
   .totalundergrads-info p,
   .totalpostgrads-info p {
-      font-family: Poppins;
+                      font-family: 'Poppins', sans-serif;
+
       font-size: 12px;
       font-weight: 500;
       line-height: 23.83px;
@@ -390,7 +401,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-family: Poppins;
+                      font-family: 'Poppins', sans-serif;
+
       font-size: 12px;
       font-weight: 500;
       line-height: 18px;
@@ -453,7 +465,8 @@
   }
 
   .agerationcolumn-firstsection #ageratio-header {
-      font-family: Poppins;
+                      font-family: 'Poppins', sans-serif;
+
       font-size: 14px;
       font-weight: 500;
       line-height: 24.53px;
@@ -461,7 +474,8 @@
   }
 
   .ageratio-graphviewofratios p {
-      font-family: Poppins;
+                      font-family: 'Poppins', sans-serif;
+
       font-size: 12px;
       font-weight: 500;
       line-height: 18px;
@@ -488,7 +502,8 @@
   }
 
   #funnel-analyze-header {
-      font-family: Poppins;
+                      font-family: 'Poppins', sans-serif;
+
       font-size: 14px;
       font-weight: 500;
       line-height: 24.53px;
@@ -530,7 +545,8 @@
   }
 
   .funnelreport-analyze-diagram p {
-      font-family: Poppins;
+                      font-family: 'Poppins', sans-serif;
+
       font-size: 12px;
       font-weight: 500;
       line-height: 18px;
@@ -557,7 +573,8 @@
 
   #funnelreport-rightsideid p {
       color: rgba(103, 44, 179, 1);
-      font-family: Poppins;
+                      font-family: 'Poppins', sans-serif;
+
       font-size: 13px;
       font-weight: 600;
       line-height: 14px;
@@ -605,7 +622,8 @@
   }
 
   .funnelreport-analyze-diagram div p {
-      font-family: Poppins;
+                      font-family: 'Poppins', sans-serif;
+
       font-size: 12px;
       font-weight: 500;
       line-height: 18px;
@@ -617,7 +635,8 @@
   .funnelreport-analyse-right {
       background-color: #fff;
       color: rgba(103, 44, 179, 1);
-      font-family: Poppins;
+                      font-family: 'Poppins', sans-serif;
+
       font-size: 13px;
       font-weight: 600;
       line-height: 19.5px;

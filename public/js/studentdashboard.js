@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    initializeSideBarTabs();
+    bankListedThroughNBFC();
     initializeIndividualCards();
     initializeKycDocumentUpload();
     initializeMarksheetUpload();
@@ -8,25 +8,16 @@ document.addEventListener('DOMContentLoaded', function () {
     initialisedocumentsCount();
     initialiseProfileUpload();
     initialiseProfileView();
-    initialiseAllViews()
-        .then(() => {
-            console.log("All URLs fetched successfully!");
-        })
-        .catch((error) => {
-            console.error("Error during initialization:", error);
-        });
+
+
     initialiseSeventhcolumn();
     initialiseSeventhAdditionalColumn();
     initialiseEightcolumn();
     initialiseNinthcolumn();
     initialiseTenthcolumn();
-
     const courseDetailsElement = document.getElementById('course-details-container');
     const courseDetails = JSON.parse(courseDetailsElement.getAttribute('data-course-details'));
     const personalDetails = JSON.parse(courseDetailsElement.getAttribute('data-personal-details'));
-
-    // Now you can use courseDetails and personalDetails in your JS
-    console.log(courseDetails, personalDetails);
 
     let planToStudy = courseDetails[0]['plan-to-study'].replace(/[\[\]"]/g, '');
     let selectedCountries = planToStudy.split(/\s*,\s*/);
@@ -68,27 +59,30 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
-
 const initializeSideBarTabs = () => {
     const sideBarTopItems = document.querySelectorAll('.studentdashboardprofile-sidebarlists-top li');
     const lastTabHiddenDiv = document.querySelector(".studentdashboardprofile-trackprogress");
     const lastTabVisibleDiv = document.querySelector(".studentdashboardprofile-myapplication");
     const dynamicHeader = document.getElementById('loanproposals-header');
-    const individualCards = document.querySelectorAll('.indivudalloanstatus-cards');
+
+    const individualCards = document.querySelectorAll('.loanproposals-loanstatuscards .indivudalloanstatus-cards');
     const communityJoinCard = document.querySelector('.studentdashboardprofile-communityjoinsection');
     const profileStatusCard = document.querySelector(".personalinfo-profilestatus");
     const profileImgEditIcon = document.querySelector(".studentdashboardprofile-profilesection .fa-pen-to-square");
     const educationEditSection = document.querySelector(".studentdashboardprofile-educationeditsection");
     const testScoresEditSection = document.querySelector(".studentdashboardprofile-testscoreseditsection");
 
+    console.log('Initializing sidebar tabs...');
+
 
     sideBarTopItems.forEach((item, index) => {
         item.addEventListener('click', () => {
+            console.log('Clicked item index:', index);
             sideBarTopItems.forEach(i => i.classList.remove('active'));
             item.classList.add('active');
 
             if (index === 1) {
+                console.log('Inbox tab selected');
                 lastTabHiddenDiv.style.display = "flex";
                 lastTabVisibleDiv.style.display = "none";
                 communityJoinCard.style.display = "flex";
@@ -97,7 +91,9 @@ const initializeSideBarTabs = () => {
                 educationEditSection.style.display = "none";
                 testScoresEditSection.style.display = "none";
 
+
                 individualCards.forEach((card) => {
+                    console.log('Updating individual card', card);
                     const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
                     const groupButtonContainer = card.querySelector('.individual-bankmessages-buttoncontainer');
 
@@ -106,8 +102,11 @@ const initializeSideBarTabs = () => {
                         groupButtonContainer.style.display = "none";
                     }
                 });
+
+
                 dynamicHeader.textContent = "Inbox";
             } else if (index === 0) {
+                console.log('Loan Proposals tab selected');
                 lastTabHiddenDiv.style.display = "flex";
                 lastTabVisibleDiv.style.display = "none";
                 communityJoinCard.style.display = "flex";
@@ -117,11 +116,12 @@ const initializeSideBarTabs = () => {
                 testScoresEditSection.style.display = "none";
 
                 individualCards.forEach((card) => {
+                    console.log('Updating card for loan proposals', card);
                     const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
                     const groupButtonContainer = card.querySelector('.individual-bankmessages-buttoncontainer');
                     const individualBankMessageInput = card.querySelector('.individual-bankmessage-input');
 
-                    card.style.height = "95px";
+                    card.style.height = "fit-content";
                     if (individualBankMessageInput) {
                         individualBankMessageInput.style.display = "none";
                     }
@@ -130,8 +130,17 @@ const initializeSideBarTabs = () => {
                         groupButtonContainer.style.display = "flex";
                     }
                 });
+
                 dynamicHeader.textContent = "Loan Proposals";
             } else if (index === 2) {
+                console.log('My Application tab selected');
+                initialiseAllViews()
+                    .then(() => {
+                        console.log("All URLs fetched successfully!");
+                    })
+                    .catch((error) => {
+                        console.error("Error during initialization:", error);
+                    });
                 lastTabHiddenDiv.style.display = "none";
                 lastTabVisibleDiv.style.display = "flex";
                 communityJoinCard.style.display = "none";
@@ -141,9 +150,12 @@ const initializeSideBarTabs = () => {
                 testScoresEditSection.style.display = "flex";
             }
         });
-    });
-};
 
+
+
+
+    });
+}
 function sendDocumenttoEmail(event) {
     console.log(event);
 
@@ -290,13 +302,15 @@ const initialiseAllViews = () => {
     return Promise.all(endpoints.map(fetchWithUrl));
 };
 
+
 const triggerEditButton = () => {
-    const disabledInputs = document.querySelectorAll('.studentdashboardprofile-myapplication input[disabled]');
+    const disabledInputs = document.querySelectorAll('.studentdashboardprofile-myapplication input');
+    const defaultDisabledInput = document.getElementById("plan-to-study-edit");
     disabledInputs.forEach(inputItems => {
         inputItems.removeAttribute('disabled');
     });
+    defaultDisabledInput.setAttribute('disabled')
 
-    // Enable custom radio buttons (if disabled)
     const disabledRadios = document.querySelectorAll('.studentdashboardprofile-myapplication input[type="radio"][disabled]');
     disabledRadios.forEach(radio => {
         radio.removeAttribute('disabled');
@@ -307,6 +321,9 @@ const triggerEditButton = () => {
         otherDegreeInput.removeAttribute('disabled');
     }
 };
+
+
+
 const initialiseProfileUpload = () => {
     const editIcon = document.querySelector('.studentdashboardprofile-profilesection .fa-pen-to-square');
     const profileImageInput = document.querySelector('.studentdashboardprofile-profilesection .profile-upload');
@@ -315,6 +332,7 @@ const initialiseProfileUpload = () => {
         editIcon.addEventListener('click', function () {
             profileImageInput.click();
         });
+
 
         profileImageInput.addEventListener('change', function (event) {
             const file = event.target.files[0];
@@ -383,6 +401,8 @@ const initialiseProfileUpload = () => {
         });
     }
 };
+
+
 const initialiseEightcolumn = () => {
     const section = document.querySelector('.eightcolumn-firstsection');
 
@@ -419,8 +439,8 @@ const initialiseSeventhAdditionalColumn = () => {
 
 }
 const initialiseNinthcolumn = () => {
-    const section = document.querySelector('.ninthcolumn-firstsection');
 
+    const section = document.querySelector('.ninthcolumn-firstsection');
     section.addEventListener('click', function () {
         if (section.style.height === '') {
             section.style.height = 'fit-content';
@@ -430,6 +450,11 @@ const initialiseNinthcolumn = () => {
     });
 
 }
+
+
+
+
+
 const initialiseTenthcolumn = () => {
     const section = document.querySelector(".tenthcolumn-firstsection");
     section.addEventListener('click', function () {
@@ -489,6 +514,8 @@ const initializeIndividualCards = () => {
         if (triggeredMessageButton) {
             triggeredMessageButton.addEventListener('click', () => {
                 const isExpanded = card.style.height === "95px";
+                console.log(triggeredMessageButton)
+
 
                 individualCards.forEach((otherCard) => {
                     otherCard.style.height = "fit-content";
@@ -499,7 +526,7 @@ const initializeIndividualCards = () => {
                 });
 
                 if (isExpanded) {
-                    card.style.height = "95px";
+                    card.style.height = "fit-content";
                     individualBankMessageInput.style.display = "none";
                 } else {
                     card.style.height = "fit-content";
@@ -523,7 +550,7 @@ const initializeKycDocumentUpload = () => {
         card.querySelector('#inputfilecontainer-real').addEventListener('change', function (event) {
             const file = event.target.files[0];
 
-             if (!file) return;
+            if (!file) return;
 
             console.log("Selected file: ", file);  // Debug log
 
@@ -982,18 +1009,15 @@ const initializeSecuredAdmissionDocumentUpload = () => {
             // Ensure file is selected
             if (!file) return;
 
-            console.log(`Selected file for ${documentTypeText}:`, file);  // Debug log
+            console.log(`Selected file for ${documentTypeText}:`, file);
 
-            // Allowed file types
             const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
             const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
 
-            // Validate file type
             if (!allowedExtensions.includes(fileExtension)) {
                 alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
                 event.target.value = ''; // Clear the file input
 
-                // Reset the text inside the respective document type element
                 const documentTypeElement = getDocumentTypeElement(card);
                 if (documentTypeElement) {
                     documentTypeElement.textContent = getOriginalText(documentTypeElement);
@@ -1002,7 +1026,6 @@ const initializeSecuredAdmissionDocumentUpload = () => {
                 return;
             }
 
-            // Validate file size (5MB max)
             if (file.size > 5 * 1024 * 1024) {
                 alert("Error: File size exceeds 5MB limit.");
                 event.target.value = ''; // Clear the file input
@@ -1016,10 +1039,8 @@ const initializeSecuredAdmissionDocumentUpload = () => {
                 return;
             }
 
-            // Store the file and update UI
             uploadedFile = file;
 
-            // Update the text in the specific document type element
             const documentTypeElement = getDocumentTypeElement(card);
             if (documentTypeElement) {
                 documentTypeElement.textContent = truncateFileName(file.name);
@@ -1041,7 +1062,6 @@ const initializeSecuredAdmissionDocumentUpload = () => {
             return null;
         }
 
-        // Helper function to get original text
         function getOriginalText(element) {
             if (element.classList.contains('sslc-grade')) return 'SSLC Grade';
             if (element.classList.contains('hsc-grade')) return 'HSC Grade';
@@ -1366,7 +1386,7 @@ const initializeSecuredAdmissionDocumentUpload = () => {
     });
 };
 
- function truncateFileName(fileName) {
+function truncateFileName(fileName) {
     if (fileName.length <= 20) return fileName;
 
     const extension = fileName.slice(fileName.lastIndexOf('.'));
@@ -1375,7 +1395,7 @@ const initializeSecuredAdmissionDocumentUpload = () => {
     return name.slice(0, 16) + '...' + extension;
 }
 
- document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
     initializeSecuredAdmissionDocumentUpload();
 });
 
@@ -1792,6 +1812,143 @@ const initializeWorkExperienceDocumentUpload = () => {
         });
     });
 };
+const bankListedThroughNBFC = async () => {
+
+
+
+    const nbfcContainer = document.querySelector(".loanproposals-loanstatuscards");
+
+    if (nbfcContainer) {
+        const nbfcNames = nbfcContainer.querySelectorAll(".indivudalloanstatus-cards .individual-bankname h1");
+
+        fetch("/getnbfcdata", {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+        })
+            .then(response => response.json())
+            .then(async data => {
+                if (data.success) {
+                    console.log("Data retrieved successfully");
+                    const container = document.querySelector(".loanproposals-loanstatuscards");
+
+                    console.log(data);
+                    const finalData = data.receivedData;
+
+                    finalData.forEach((items, index) => {
+                        const eachCards = document.createElement('div');
+                        eachCards.classList.add("indivudalloanstatus-cards");
+
+
+                        const insideCard = document.createElement('div');
+                        insideCard.classList.add("individual-bankname");
+                        const header = document.createElement("h1");
+                        const messageInputNbfcids = document.createElement("p");
+                        messageInputNbfcids.classList.add("messageinputnbfcids");
+                        messageInputNbfcids.textContent = items.nbfc_id;
+
+
+
+                        header.textContent = items.nbfc_name;
+                        insideCard.append(header, messageInputNbfcids);
+
+
+
+                        const insideSecond = document.createElement("div");
+                        insideSecond.classList.add("individual-bankmessages");
+                        const buttonContainer = document.createElement("div");
+                        buttonContainer.classList.add('individual-bankmessages-buttoncontainer');
+
+
+
+
+
+
+                        const firstButton = document.createElement("button");
+                        const secondButton = document.createElement("button");
+                        const thirdButton = document.createElement("button");
+                        const fourthButton = document.createElement("button");
+
+
+
+                        firstButton.textContent = "View";
+                        secondButton.textContent = "Accept";
+                        thirdButton.textContent = "Reject";
+                        thirdButton.classList.add("bankmessage-buttoncontainer-reject");
+
+
+                        fourthButton.textContent = "Message";
+                        fourthButton.classList.add("triggeredbutton");
+
+                        const bankMessage = document.createElement("p");
+                        bankMessage.textContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut";
+                        insideSecond.append(bankMessage);
+                        buttonContainer.append(firstButton, secondButton, thirdButton)
+                        insideSecond.append(buttonContainer, fourthButton);
+
+
+                        const bankMessageContainer = document.createElement("div");
+
+                        bankMessageContainer.classList.add("individual-bankmessage-input");
+
+                        const messageInput = document.createElement("input");
+                        messageInput.placeholder = "Send message";
+                        messageInput.type = "text";
+
+                        const sendIcon = document.createElement("img");
+                        sendIcon.classList.add("send-img");
+                        sendIcon.src = 'assets/images/send.png';
+
+                        const documentAttach = document.createElement("i");
+                        const smileAttach = document.createElement("i");
+
+                        documentAttach.classList.add("fa-solid", "fa-paperclip");
+                        smileAttach.classList.add("fa-regular", "fa-face-smile");
+
+
+                        bankMessageContainer.append(messageInput, sendIcon, documentAttach, smileAttach);
+
+
+
+
+
+
+
+                        eachCards.append(insideCard);
+                        eachCards.append(insideSecond);
+                        eachCards.append(bankMessageContainer);
+
+
+
+
+
+                        container.append(eachCards);
+
+
+
+
+                    })
+
+                    await initializeSideBarTabs();
+                    await initializeIndividualCards();
+                    await initializeSimpleChat();
+
+
+
+
+
+
+                } else if (data.error) {
+                    console.error("Error: ", data.error);
+                }
+            })
+            .catch((error) => {
+                console.error("Error caused in server: ", error);
+            });
+    }
+};
 
 // Helper function to truncate file names
 function truncateFileName(fileName) {
@@ -1810,7 +1967,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-//co-borrower document
+
 const initializeCoBorrowerDocumentUpload = () => {
     const coBorrowerDocuments = document.querySelectorAll(".individual-coborrower-kyc-documents");
 
@@ -2220,7 +2377,6 @@ const initializeCoBorrowerDocumentUpload = () => {
     });
 };
 
-// Helper function to truncate file names
 function truncateFileName(fileName) {
     if (fileName.length <= 20) return fileName;
 
@@ -2230,7 +2386,6 @@ function truncateFileName(fileName) {
     return name.slice(0, 16) + '...' + extension;
 }
 
-// Initialize the document uploads when the page loads
 document.addEventListener('DOMContentLoaded', function () {
     initializeCoBorrowerDocumentUpload();
 });
@@ -2304,11 +2459,7 @@ const initialisedocumentsCount = () => {
 
                 }
 
-                // }
-                // else{
-                // documentCountText.textContent = "0" + data.documentscount;
 
-                // }
 
             } else if (data.error) {
                 console.error(data.error);
@@ -2325,6 +2476,7 @@ const triggerSave = (event) => {
     console.log(event);
 
 }
+
 document.querySelectorAll('input[name="education-level"]').forEach(radio => {
     radio.addEventListener('change', function () {
         var otherInput = document.getElementById('otherDegreeInput');
@@ -2358,7 +2510,6 @@ const saveChangesFunctionality = () => {
         saveChangesButton.textContent = 'Save';
         saveChangesButton.style.backgroundColor = "rgba(111, 37, 206, 1)";
         saveChangesButton.style.color = "#fff";
-
         personalDivContainerEdit.style.display = "flex";
         personalDivContainer.style.display = "none";
         academicsMarksDivEdit.style.display = "flex";
@@ -2394,15 +2545,12 @@ const saveChangesFunctionality = () => {
                 const greScore = document.querySelector(".testscoreseditsection-secondrow-editsection .gre_score").value;
                 const tofelScore = document.querySelector(".testscoreseditsection-secondrow-editsection .tofel_score").value;
 
-                // Fetch old values of "Plan to Study"
                 const oldPlanToStudy = document.getElementById("plan-to-study-edit").value;
                 const oldPlanToStudyArray = oldPlanToStudy ? oldPlanToStudy.split(',').map(item => item.trim()) : [];
 
-                // Get current values from checkboxes (selected options)
                 const checkboxes = document.querySelectorAll('input[name="study-location-edit"]:checked');
                 let selectedCountries = Array.from(checkboxes).map(checkbox => checkbox.value);
 
-                // Check if there's a custom country input and add it to the selected countries
                 const customCountry = document.getElementById('country-edit').value.trim();
                 if (customCountry) {
                     selectedCountries.push(customCountry);
@@ -2410,13 +2558,10 @@ const saveChangesFunctionality = () => {
 
                 selectedCountries = selectedCountries.filter(item => item.toLowerCase() !== 'others');
 
-                // Filter out 'Others' (case-insensitive) from oldPlanToStudyArray
                 const finalPlanToStudy = oldPlanToStudyArray.filter(item => item.toLowerCase() !== 'others');
 
-                // Merge old and new arrays, ensuring no duplicates
                 let mergedPlanToStudy = [...new Set([...finalPlanToStudy, ...selectedCountries])];
 
-                // Filter out 'Others' (case-insensitive) again from the final merged array
                 mergedPlanToStudy = mergedPlanToStudy.filter(item => item.toLowerCase() !== 'other');
 
 
@@ -2439,7 +2584,6 @@ const saveChangesFunctionality = () => {
                     degreeType: updatedDegreeType
                 };
 
-                // Updated data object, including the merged "Plan to Study" values
                 const updatedInfos = {
                     editedName: editedName,
                     editedPhone: editedPhone,
@@ -2448,7 +2592,7 @@ const saveChangesFunctionality = () => {
                     iletsScore: iletsScore,
                     greScore: greScore,
                     tofelScore: tofelScore,
-                    planToStudy: mergedPlanToStudy,  // Final merged old and new values
+                    planToStudy: mergedPlanToStudy,
                     courseDuration: courseDuration,
                     loanAmount: loanAmount,
                     referralCode: referralCode,
@@ -2495,6 +2639,732 @@ const saveChangesFunctionality = () => {
         button.addEventListener('change', toggleSaveState);
     });
 };
+
+
+
+function initializeSimpleChat() {
+    const chatContainers = document.querySelectorAll('.individual-bankmessage-input');
+
+    if (chatContainers.length === 0) return;
+
+    chatContainers.forEach((chatContainer, index) => {
+
+        const chatId = `loan-chat-${index}`;
+        chatContainer.setAttribute('data-chat-id', chatId);
+
+        const parentContainer = chatContainer.closest('.indivudalloanstatus-cards');
+        const messageButton = parentContainer ? parentContainer.querySelector('.triggeredbutton') : null;
+
+        // Hide chat input by default
+        chatContainer.style.display = 'none';
+
+        // Create messages wrapper if it doesn't exist
+        let messagesWrapper = parentContainer ? parentContainer.querySelector(`.messages-wrapper[data-chat-id="${chatId}"]`) : null;
+
+        if (!messagesWrapper) {
+            messagesWrapper = document.createElement("div");
+            messagesWrapper.classList.add("messages-wrapper");
+            messagesWrapper.setAttribute('data-chat-id', chatId);
+            messagesWrapper.style.cssText = `
+        display: none;
+        flex-direction: column;
+        width: 100%;  
+        font-size: 14px;
+        color: #666;
+        line-height: 1.5; 
+        overflow-y: auto;
+        max-height: 300px;
+        background: #fff;
+        font-family: 'Poppins', sans-serif;
+        margin-bottom: 10px;
+    `;
+            chatContainer.parentNode.insertBefore(messagesWrapper, chatContainer);
+        }
+
+
+
+
+
+        const clearButtonContainer = document.createElement("div");
+        clearButtonContainer.style.cssText = `
+            display: none;
+            justify-content: flex-end;
+            width: 100%;
+            margin-bottom: 10px;
+        `;
+
+        const clearButton = document.createElement("button");
+        clearButton.textContent = "Clear Chat";
+        clearButton.style.cssText = `
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 20px;
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        `;
+        clearButton.addEventListener('click', function () {
+            clearChat(chatId);
+        });
+
+        clearButtonContainer.appendChild(clearButton);
+        messagesWrapper.parentNode.insertBefore(clearButtonContainer, messagesWrapper);
+        // Get elements within the container
+        const messageInput = chatContainer.querySelector("input[type='text']");
+        const sendButton = chatContainer.querySelector(".send-img");
+        const smileIcon = chatContainer.querySelector(".fa-face-smile");
+        const paperclipIcon = chatContainer.querySelector(".fa-paperclip");
+
+        // Object to store file references
+        const fileStorage = {};
+
+        // Function to show chat
+        function showChat() {
+            messagesWrapper.style.display = 'flex';
+            chatContainer.style.display = 'flex';
+            clearButtonContainer.style.display = 'flex';
+
+            if (parentContainer) {
+                parentContainer.style.height = "auto";
+            }
+
+            // Update button text if needed
+            if (messageButton) {
+                messageButton.textContent = "Close";
+            }
+        }
+
+        // Function to hide chat
+        function hideChat() {
+            messagesWrapper.style.display = 'none';
+            chatContainer.style.display = 'none';
+            clearButtonContainer.style.display = 'none';
+
+            if (parentContainer) {
+                parentContainer.style.height = "fit-content";
+            }
+
+            if (messageButton) {
+                messageButton.textContent = "Message";
+            }
+        }
+
+        function removeMessage(messageElement, messageId) {
+            if (messageElement && messagesWrapper.contains(messageElement)) {
+                messagesWrapper.removeChild(messageElement);
+
+                const messages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
+                const fileMessages = JSON.parse(localStorage.getItem(`file-messages-${chatId}`) || '[]');
+
+                if (messageId && fileStorage[messageId]) {
+                    delete fileStorage[messageId];
+
+                    const updatedFileMessages = fileMessages.filter(fm => fm.id !== messageId);
+                    localStorage.setItem(`file-messages-${chatId}`, JSON.stringify(updatedFileMessages));
+                }
+            }
+        }
+
+        function clearChat(chatId) {
+            while (messagesWrapper.firstChild) {
+                messagesWrapper.removeChild(messagesWrapper.firstChild);
+            }
+
+            // Clear from localStorage
+            localStorage.removeItem(`messages-${chatId}`);
+            localStorage.removeItem(`file-messages-${chatId}`);
+
+            // Clear file storage
+            Object.keys(fileStorage).forEach(key => {
+                delete fileStorage[key];
+            });
+
+            // Show confirmation message
+            const confirmationMsg = document.createElement("div");
+            confirmationMsg.style.cssText = `
+                width: 100%;
+                text-align: center;
+                padding: 10px;
+                color: #666;
+                font-style: italic;
+                font-size: 12px;
+            `;
+            confirmationMsg.textContent = "Chat history cleared";
+            messagesWrapper.appendChild(confirmationMsg);
+
+            // Remove confirmation after 3 seconds
+            setTimeout(() => {
+                if (messagesWrapper.contains(confirmationMsg)) {
+                    messagesWrapper.removeChild(confirmationMsg);
+                }
+            }, 3000);
+        }
+
+        // Toggle chat visibility
+        function toggleChat(student_id, messageInputNbfcids) {
+
+
+
+
+
+            if (messagesWrapper.style.display === 'none') {
+                viewChat(student_id, messageInputNbfcids);
+            } else {
+                hideChat(student_id, messageInputNbfcids);
+            }
+        }
+
+        // Add click event to message button
+        if (messageButton) {
+            messageButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                const student_id = document.querySelector(".personalinfo-secondrow .personal_info_id").textContent;
+                var messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
+
+                messageInputNbfcids = messageInputNbfcids[index].textContent;
+
+
+                toggleChat(student_id, messageInputNbfcids);
+            });
+        }
+
+        function sendMessage(messageInput, messageInputNbfcids) {
+            if (!messageInput) return;
+            console.log(messageInput.value);
+
+
+            const content = messageInput.value.trim();
+            if (content) {
+                showChat();
+
+                const messageElement = document.createElement("div");
+                messageElement.style.cssText = `
+                    display: flex;
+                    justify-content: flex-end;
+                    width: 100%;
+                    margin-bottom: 10px;
+                `;
+
+                const messageContent = document.createElement("div");
+                messageContent.style.cssText = `
+                    max-width: 80%;
+                    padding: 8px 12px;
+                    border-radius: 8px;
+                    word-wrap: break-word;
+                    font-family: 'Poppins', sans-serif;
+                `;
+                messageContent.textContent = content;
+
+                messageElement.appendChild(messageContent);
+                // messagesWrapper.appendChild(messageElement);
+
+                 messageInput.value = "";
+                messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
+
+                 sendMessageToBackend(content, messageInputNbfcids);
+
+            }
+        }
+        async function sendMessageToBackend(content, messageInputNbfcids) {
+            const nbfcId = messageInputNbfcids;
+            const receiverId = nbfcId;
+            const student_id = document.querySelector(".personalinfo-secondrow .personal_info_id").textContent;
+
+            if (!student_id) {
+                console.error('User not found or invalid student_id');
+                return;
+            }
+
+            const senderId = student_id; 
+            try {
+                const payload = {
+                    nbfc_id: nbfcId,
+                    student_id: student_id,
+                    sender_id: senderId,
+                    receiver_id: receiverId,
+                    message: content
+                };
+
+                const response = await fetch('/send-message', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ""
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    console.log('Message sent successfully:', data.message);
+
+                     const messageElement = document.createElement("div");
+                    messageElement.style.cssText = `
+                display: flex;
+                justify-content: flex-end;
+                width: 100%;
+                margin-bottom: 10px;
+            `;
+                    const messageContent = document.createElement("div");
+                    messageContent.style.cssText = `
+                max-width: 80%;
+                padding: 8px 12px;
+                border-radius: 8px;
+                background-color: #DCF8C6;
+                word-wrap: break-word;
+                font-family: 'Poppins', sans-serif;
+                box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            `;
+                    messageContent.textContent = content; 
+
+                     messagesWrapper.appendChild(messageElement);
+
+                     scrollToBottom();
+
+                     viewChat(student_id, nbfcId);
+                } else {
+                    console.error('Failed to send message:', data.error || 'Unknown error');
+                }
+            } catch (error) {
+                console.error('Error sending message:', error);
+            }
+        }
+
+
+
+
+        if (messageInput) {
+            messageInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    var messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
+                    console.log(messageInputNbfcids[index].textContent);
+
+                    messageInputNbfcids = messageInputNbfcids[index].textContent;
+
+
+                    e.preventDefault();
+
+                    sendMessage(messageInput, messageInputNbfcids);
+
+
+                }
+            });
+        }
+
+
+        // Add click event to send button
+        if (sendButton) {
+
+            sendButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                var messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
+                console.log(messageInputNbfcids[index].textContent);
+
+                messageInputNbfcids = messageInputNbfcids[index].textContent;
+                sendMessage(messageInput, messageInputNbfcids);
+             });
+        }
+
+         if (smileIcon) {
+            smileIcon.addEventListener('click', function (e) {
+                e.stopPropagation();
+                const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
+
+                const existingPicker = document.querySelector(".emoji-picker");
+                if (existingPicker) {
+                    existingPicker.remove();
+                    return;
+                }
+
+                const picker = document.createElement("div");
+                picker.classList.add("emoji-picker");
+                picker.style.cssText = `
+                    position: absolute;
+                    bottom: 100%;
+                    right: 0;
+                    background: white;
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
+                    padding: 5px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 5px;
+                    z-index: 1000;
+                    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                `;
+
+                emojis.forEach(emoji => {
+                    const button = document.createElement("button");
+                    button.textContent = emoji;
+                    button.style.cssText = `
+                        border: none;
+                        background: none;
+                        font-size: 20px;
+                        cursor: pointer;
+                        padding: 5px;
+                    `;
+                    button.onclick = (e) => {
+                        e.stopPropagation();
+                        messageInput.value += emoji;
+                        picker.remove();
+                        messageInput.focus();
+                    };
+                    picker.appendChild(button);
+                });
+
+                chatContainer.appendChild(picker);
+
+                document.addEventListener("click", function closePicker(e) {
+                    if (!picker.contains(e.target) && e.target !== smileIcon) {
+                        picker.remove();
+                        document.removeEventListener("click", closePicker);
+                    }
+                });
+            });
+        }
+
+        // Initialize file attachment
+        if (paperclipIcon) {
+            paperclipIcon.addEventListener('click', function () {
+                const fileInput = document.createElement("input");
+                fileInput.type = "file";
+                fileInput.accept = ".pdf,.jpeg,.png,.jpg";
+                fileInput.style.display = "none";
+
+                fileInput.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        showChat();
+                        const fileName = file.name;
+                        const fileSize = (file.size / 1024 / 1024).toFixed(2);
+                        const fileId = `file-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+
+                        // Store file reference for later download
+                        fileStorage[fileId] = file;
+
+                        // Create message element
+                        const messageElement = document.createElement("div");
+                        messageElement.setAttribute('data-file-id', fileId);
+                        messageElement.style.cssText = `
+                            display: flex;
+                            justify-content: flex-end;
+                            width: 100%;
+                            margin-bottom: 10px;
+                        `;
+
+                        const fileContent = document.createElement("div");
+                        fileContent.style.cssText = `
+                            max-width: 80%;
+                            padding: 8px 12px;
+                            border-radius: 8px;
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            position: relative;
+                        `;
+
+                         const downloadLink = document.createElement("a");
+                        downloadLink.href = "#";
+                        downloadLink.style.cssText = `
+                            display: flex;
+                            align-items: center;
+                            gap: 5px;
+                            color: #666;
+                            text-decoration: none;
+                        `;
+                        downloadLink.innerHTML = `
+                            <i class="fa-solid fa-file"></i>
+                            <span>${fileName} (${fileSize} MB)</span>
+                        `;
+                        downloadLink.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+
+                            // Create download link for the file
+                            const url = URL.createObjectURL(fileStorage[fileId]);
+                            const tempLink = document.createElement("a");
+                            tempLink.href = url;
+                            tempLink.download = fileName;
+                            document.body.appendChild(tempLink);
+                            tempLink.click();
+                            document.body.removeChild(tempLink);
+                            URL.revokeObjectURL(url);
+                        });
+
+                        // Create remove button
+                        const removeButton = document.createElement("button");
+                        removeButton.innerHTML = `<i class="fa-solid fa-times"></i>`;
+                        removeButton.style.cssText = `
+                            background: none;
+                            border: none;
+                            color: #999;
+                            font-size: 12px;
+                            cursor: pointer;
+                            padding: 2px 5px;
+                            margin-left: 5px;
+                        `;
+                        removeButton.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            removeMessage(messageElement, fileId);
+                        });
+
+                        fileContent.appendChild(downloadLink);
+                        fileContent.appendChild(removeButton);
+                        messageElement.appendChild(fileContent);
+                        messagesWrapper.appendChild(messageElement);
+                        messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
+
+                        // Save file message with ID
+                        saveFileMessage({
+                            id: fileId,
+                            name: fileName,
+                            size: fileSize
+                        }, chatId);
+                    }
+                };
+
+                document.body.appendChild(fileInput);
+                fileInput.click();
+                document.body.removeChild(fileInput);
+            });
+        }
+
+
+        const savedMessages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
+        console.log(savedMessages)
+        // if (savedMessages.length > 0) {
+        //     savedMessages.forEach(content => {
+        //         const messageElement = document.createElement("div");
+        //         messageElement.style.cssText = `
+        //             display: flex;
+        //             justify-content: flex-end;
+        //             width: 100%;
+        //             margin-bottom: 10px;
+        //         `;
+
+        //         const messageContent = document.createElement("div");
+        //         messageContent.style.cssText = `
+        //             max-width: 80%;
+        //             padding: 8px 12px;
+        //             border-radius: 8px;
+
+        //             word-wrap: break-word;
+        //             font-family: 'Poppins', sans-serif;
+        //         `;
+        //         messageContent.textContent = content;
+
+        //         messageElement.appendChild(messageContent);
+        //         messagesWrapper.appendChild(messageElement);
+        //     });
+        // }
+        function viewChat(student_id, messageInputNbfcids) {
+             student_id = student_id.trim();
+
+            const nbfc_id = messageInputNbfcids;
+            const chatId = `${nbfc_id}-${student_id}`;
+            const apiUrl = `/get-messages/${nbfc_id}/${student_id}`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('API response:', data);  
+                    if (data && data.messages && data.messages.length > 0) {
+                         data.messages.forEach(message => {
+                             const existingMessage = messagesWrapper.querySelector(`[data-message-id="${message.id}"]`);
+                            if (!existingMessage) {
+                                const messageElement = document.createElement("div");
+                                messageElement.setAttribute('data-message-id', message.id); // Unique message ID for checking duplicates
+                                messageElement.style.cssText = `
+                            display: flex;
+                            justify-content: ${message.sender_id === student_id ? 'flex-end' : 'flex-start'};
+                            width: 100%;
+                            margin-bottom: 10px;
+                        `;
+                                const messageContent = document.createElement("div");
+                                messageContent.style.cssText = `
+                            max-width: 80%;
+                            padding: 8px 12px;
+                            border-radius: 8px;
+                            background-color: ${message.sender_id === student_id ? '#DCF8C6' : '#FFF'};
+                            word-wrap: break-word;
+                            font-family: 'Poppins', sans-serif;
+                            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+                        `;
+                                messageContent.textContent = message.message; // Display the message content
+
+                                messageElement.appendChild(messageContent);
+                                messagesWrapper.appendChild(messageElement);
+
+                                 scrollToBottom();
+                            }
+                        });
+                    } else {
+                        console.log('No messages found');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching messages:', error);
+                });
+
+            // Ensure the chat container stays visible without being reset
+            messagesWrapper.style.display = 'flex';
+            chatContainer.style.display = 'flex';
+            clearButtonContainer.style.display = 'flex';
+
+            // Adjust parent container height if needed
+            if (parentContainer) {
+                parentContainer.style.height = "auto";
+            }
+
+            // Update button text if needed
+            if (messageButton) {
+                messageButton.textContent = "Close";
+            }
+        }
+
+        // Function to scroll to the bottom of the messagesWrapper
+        function scrollToBottom() {
+            messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
+        }
+
+    });
+}
+
+function saveMessage(content, chatId) {
+    const messages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
+    messages.push(content);
+    localStorage.setItem(`messages-${chatId}`, JSON.stringify(messages));
+}
+
+
+// Add this function to properly save file messages
+function saveFileMessage(fileData, chatId) {
+    const fileMessages = JSON.parse(localStorage.getItem(`file-messages-${chatId}`) || '[]');
+    fileMessages.push(fileData);
+    localStorage.setItem(`file-messages-${chatId}`, JSON.stringify(fileMessages));
+}
+
+// Modify the load saved messages section in initializeSimpleChat() function
+// Replace the existing "Load saved messages" section with this:
+function loadSavedMessages() {
+    // Load text messages
+    const savedMessages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
+
+    // Load file messages
+    const savedFileMessages = JSON.parse(localStorage.getItem(`file-messages-${chatId}`) || '[]');
+
+    // If there are any saved messages, we'll automatically show the chat area
+    if (savedMessages.length > 0 || savedFileMessages.length > 0) {
+        // Don't actually show the chat yet, just prepare to show it if user clicks
+        if (messageButton) {
+            messageButton.textContent = "Message";
+        }
+    }
+
+    // Add text messages to UI
+    if (savedMessages.length > 0) {
+        savedMessages.forEach(content => {
+            const messageElement = document.createElement("div");
+            messageElement.style.cssText = `
+                display: flex;
+                justify-content: flex-end;
+                width: 100%;
+                margin-bottom: 10px;
+            `;
+
+            const messageContent = document.createElement("div");
+            messageContent.style.cssText = `
+                max-width: 80%;
+                padding: 8px 12px;
+                border-radius: 8px;
+                word-wrap: break-word;
+                font-family: 'Poppins', sans-serif;
+            `;
+            messageContent.textContent = content;
+
+            messageElement.appendChild(messageContent);
+            messagesWrapper.appendChild(messageElement);
+        });
+    }
+
+    // Add file messages to UI
+    if (savedFileMessages.length > 0) {
+        savedFileMessages.forEach(fileData => {
+            const messageElement = document.createElement("div");
+            messageElement.setAttribute('data-file-id', fileData.id);
+            messageElement.style.cssText = `
+                display: flex;
+                justify-content: flex-end;
+                width: 100%;
+                margin-bottom: 10px;
+            `;
+
+            const fileContent = document.createElement("div");
+            fileContent.style.cssText = `
+                max-width: 80%;
+                padding: 8px 12px;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                position: relative;
+            `;
+
+            // Create download link for the file
+            const downloadLink = document.createElement("a");
+            downloadLink.href = "#";
+            downloadLink.style.cssText = `
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                color: #666;
+                text-decoration: none;
+            `;
+            downloadLink.innerHTML = `
+                <i class="fa-solid fa-file"></i>
+                <span>${fileData.name} (${fileData.size} MB)</span>
+            `;
+            downloadLink.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Alert user that the file needs to be re-uploaded after page refresh
+                alert("File attachments cannot be retrieved after page refresh. Please re-upload the file if needed.");
+            });
+
+            // Create remove button
+            const removeButton = document.createElement("button");
+            removeButton.innerHTML = `<i class="fa-solid fa-times"></i>`;
+            removeButton.style.cssText = `
+                background: none;
+                border: none;
+                color: #999;
+                font-size: 12px;
+                cursor: pointer;
+                padding: 2px 5px;
+                margin-left: 5px;
+            `;
+            removeButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                removeMessage(messageElement, fileData.id);
+            });
+
+            fileContent.appendChild(downloadLink);
+            fileContent.appendChild(removeButton);
+            messageElement.appendChild(fileContent);
+            messagesWrapper.appendChild(messageElement);
+        });
+    }
+}
+
+loadSavedMessages();
+
+
 
 
 

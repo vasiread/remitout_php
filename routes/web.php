@@ -12,6 +12,7 @@ use App\Http\Controllers\{
     StudentDetailsController,
     TrackController
 };
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\NbfcController;
 use App\Http\Controllers\scDashboardController;
@@ -49,13 +50,16 @@ Route::get('/nbfc-dashboard', function () {
 Route::get('/admin-page', function () {
 
     $sidebarItems = (new SidebarHandlingController)->admindashboardItems();
-    $userDetails = (new StudentDashboardController)->getAllUsersFromAdmin();   
+    $userDetails = (new StudentDashboardController)->getAllUsersFromAdmin();
 
     return view('pages.adminpage', [
         'sidebarItems' => $sidebarItems,
         'userDetails' => $userDetails,
     ]);
 })->name('admin-page');
+Route::get('/getnbfcdatapackage', [TrackController::class, 'getnbfcdataPackage']);
+Route::post('/send-message', action: [ChatController::class, 'sendMessage']);
+
 Route::get('/sc-dashboard', function () {
     $sidebarItems = (new SidebarHandlingController)->scdashboardItems();
     $userByRef = (new scDashboardController)->getUsersByCounsellor();
@@ -120,7 +124,7 @@ Route::post('/upload-profile-picture', [StudentDashboardController::class, 'uplo
 Route::post('/retrieve-profile-picture', [StudentDashboardController::class, 'retrieveProfilePicture']);
 Route::post('/passwordchange', [GoogleAuthController::class, 'passwordChange']);
 Route::post('/students/import', [scDashboardController::class, 'import_excel_post'])->name('students.import');
-
+Route::get('/get-messages/{nbfc_id}/{student_id}', [ChatController::class, 'getMessages']);
 // Google Auth Routes
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
 Route::get('auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle']);

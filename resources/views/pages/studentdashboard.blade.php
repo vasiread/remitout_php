@@ -30,25 +30,7 @@
 
 
                 $courseDetailsJson = json_encode($courseDetails);
-
-
-                $bankName = 'bankName';
-                $bankMessage = 'bankMessage';
-                $loanStatusInfo = [
-                    [
-                        $bankName => "Bank Name",
-                        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-                    ],
-                    [
-                        $bankName => "Bank Name",
-                        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-                    ],
-                    [
-                        $bankName => "Bank Name",
-                        $bankMessage => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut"
-                    ],
-
-                ];
+                $nbfcdata = [];
 
             @endphp
             <div class="studentdashboardprofile-togglesidebar">
@@ -76,9 +58,9 @@
                             <div class="trackprogress-leftsection">
                                 <p
                                     style="font-weight:600;
-                                                                                                                                                                                font-size:18px;
-                                                                                                                                                                                color:rgba(0, 0, 0, 1); 
-                                                                                                                                                                                padding:15px 0px 0px 24px">
+                                                                                                                                                                                                                            font-size:18px;
+                                                                                                                                                                                                                            color:rgba(0, 0, 0, 1); 
+                                                                                                                                                                                                                            padding:15px 0px 0px 24px">
                                     Loan
                                     Status</p>
 
@@ -123,29 +105,8 @@
                     <div class="studentdashboardprofile-loanproposals">
                         <h1 class="loanproposals-header" id="loanproposals-header">Loan Proposals</h1>
                         <div class="loanproposals-loanstatuscards">
-                            @foreach ($loanStatusInfo as $loanDetails)
-                                <div class="indivudalloanstatus-cards">
-                                    <div class="individual-bankname">
-                                        <h1>{{ $loanDetails[$bankName] }}</h1>
-                                    </div>
-                                    <div class="individual-bankmessages">
-                                        <p>{{ $loanDetails[$bankMessage] }}</p>
-                                        <div class="individual-bankmessages-buttoncontainer">
-                                            <button>View</button><button>Accept</button><button
-                                                class="bankmessage-buttoncontainer-reject">Reject</button>
-                                        </div>
-                                        <button class="triggeredbutton">
-                                            Message
-                                        </button>
-                                    </div>
-                                    <div class="individual-bankmessage-input">
-                                        <input type="text" placeholder="Send message">
-                                        <img class="send-img" src="assets/images/send.png" alt="">
-                                        <i class="fa-solid fa-paperclip"></i>
-                                        <i class="fa-regular fa-face-smile"></i>
-                                    </div>
-                                </div>
-                            @endforeach
+
+
                         </div>
                     </div>
                 </div>
@@ -536,7 +497,6 @@
 
                                     </div>
                                     <input type="file" id="inputfilecontainer-real-marksheet">
-
                                     <span class="document-status">420 MB uploaded</span>
                                 </div>
                             </div>

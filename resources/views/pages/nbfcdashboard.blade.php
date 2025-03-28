@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="assets/css/nbfc.css">
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
 
 
@@ -241,8 +243,8 @@ $viewIconPath = "assets/images/visibility.png";
                         <button>Message</button>
                         <button>Reject</button>
                     </div>
-                
-                
+
+
                 </div>
                 <i class="fa-regular fa-pen-to-square"></i>
                 <input type="file" class="profile-upload" accept="image/*" enctype="multipart/form-data">
@@ -688,155 +690,10 @@ $counter = 1;
                     </div>
                 </div>
 
-                <div class="message-thread">
-                    <div class="message-item">
-                        <div class="message-header">
-
-                            <h2 class="student-name">Student Name</h2>
-                            <div class="message-actions">
-                                <button class="inbox-btn-view">View</button>
-                                <button class="inbox-btn-close">Close</button>
-                            </div>
-                        </div>
-                        <p class="message-content">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                        </p>
-                    </div>
-
-                    <div class="message-response">
-                        <div class="message-response-container">
-                            <p class="message-content-container">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut
-                                Lorem ipsum dolor sit amet.
-                            </p>
-                            <ol class="message-list">
-                                <li>consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.</li>
-                                <li>eiusmod tempor incididunt ut.</li>
-                            </ol>
-                        </div>
-
-                        <div class="nbfc-individual-bankmessage-input">
-                            <input type="text" placeholder="Send message" class="nbfc-message-input">
-                            <img class="nbfc-send-img" src="assets/images/send-nbfc.png" alt="send icon">
-                            <i class="fa-solid fa-paperclip nbfc-paperclip"></i>
-                            <i class="fa-regular fa-face-smile nbfc-face-smile"></i>
-                        </div>
-
-                    </div>
-
-                </div>
 
 
 
                 <div class="index-student-details-container">
-
-                    <!-- Student Message Card 1 -->
-                    <div class="index-student-message-container">
-                        <div class="index-student-card">
-                            <div class="index-student-info">
-                                <h3 class="student-name">Student Name</h3>
-                                <p class="index-student-description">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut elit, sed do eiusmod tempor incididunt ut.
-                                </p>
-                            </div>
-                            <div class="index-student-button-group">
-                                <button class="index-student-message-btn">Message</button>
-                                <button class="index-student-view-btn">View</button>
-                            </div>
-                            <div class="index-student-send-btn-mobile">
-                                <img src="assets/images/send-index-btn.png" alt="the send image">
-                            </div>
-                        </div>
-                        <div class="nbfc-individual-bankmessage-input-message">
-                            <input type="text" placeholder="Send message" class="nbfc-message-input">
-                            <img class="nbfc-send-img" src="assets/images/send-nbfc.png" alt="send icon">
-                            <i class="fa-solid fa-paperclip nbfc-paperclip"></i>
-                            <i class="fa-regular fa-face-smile nbfc-face-smile"></i>
-                        </div>
-                    </div>
-
-                    <!-- Student Message Card 2 -->
-                    <div class="index-student-message-container">
-                        <div class="index-student-card">
-                            <div class="index-student-info">
-                                <h3 class="student-name">Student Name</h3>
-                                <p class="index-student-description">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut elit, sed do eiusmod tempor incididunt ut.
-                                </p>
-                            </div>
-                            <div class="index-student-button-group">
-                                <button class="index-student-message-btn">Message</button>
-                                <button class="index-student-view-btn">View</button>
-                            </div>
-                            <div class="index-student-send-btn-mobile">
-                                <img src="assets/images/send-index-btn.png" alt="the send image">
-                            </div>
-                        </div>
-                        <div class="nbfc-individual-bankmessage-input-message">
-                            <input type="text" placeholder="Send message" class="nbfc-message-input">
-                            <img class="nbfc-send-img" src="assets/images/send-nbfc.png" alt="send icon">
-                            <i class="fa-solid fa-paperclip nbfc-paperclip"></i>
-                            <i class="fa-regular fa-face-smile nbfc-face-smile"></i>
-                        </div>
-                    </div>
-
-                    <!-- Student Message Card 3 -->
-                    <div class="index-student-message-container">
-                        <div class="index-student-card">
-                            <div class="index-student-info">
-                                <h3 class="student-name">Student Name</h3>
-                                <p class="index-student-description">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut elit, sed do eiusmod tempor incididunt ut.
-                                </p>
-
-                            </div>
-                            <div class="index-student-button-group">
-                                <button class="index-student-message-btn">Message</button>
-                                <button class="index-student-view-btn">View</button>
-                            </div>
-                            <div class="index-student-send-btn-mobile">
-                                <img src="assets/images/send-index-btn.png" alt="the send image">
-                            </div>
-                        </div>
-                        <div class="nbfc-individual-bankmessage-input-message">
-                            <input type="text" placeholder="Send message" class="nbfc-message-input">
-                            <img class="nbfc-send-img" src="assets/images/send-nbfc.png" alt="send icon">
-                            <i class="fa-solid fa-paperclip nbfc-paperclip"></i>
-                            <i class="fa-regular fa-face-smile nbfc-face-smile"></i>
-                        </div>
-                    </div>
-
-                    <!-- Student Message Card 4 -->
-                    <div class="index-student-message-container">
-                        <div class="index-student-card">
-                            <div class="index-student-info">
-                                <h3 class="student-name">Student Name</h3>
-                                <p class="index-student-description">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut elit, sed do eiusmod tempor incididunt ut.
-                                </p>
-                            </div>
-                            <div class="index-student-button-group">
-                                <button class="index-student-message-btn">Message</button>
-                                <button class="index-student-view-btn">View</button>
-                            </div>
-                            <div class="index-student-send-btn-mobile">
-                                <img src="assets/images/send-index-btn.png" alt="the send image">
-                            </div>
-                        </div>
-                        <div class="nbfc-individual-bankmessage-input-message">
-                            <input type="text" placeholder="Send message" class="nbfc-message-input">
-                            <img class="nbfc-send-img" src="assets/images/send-nbfc.png" alt="send icon">
-                            <i class="fa-solid fa-paperclip nbfc-paperclip"></i>
-                            <i class="fa-regular fa-face-smile nbfc-face-smile"></i>
-                        </div>
-                    </div>
-
                 </div>
 
 
@@ -844,7 +701,6 @@ $counter = 1;
 
 
 
-        </div>
         <div class="password-change-container-nbfc">
             <div class="password-change-triggered-view-headersection-nbfc">
                 <h3>Password Change Request</h3>
@@ -902,6 +758,8 @@ $counter = 1;
                 initializeMarksheetUpload();
                 initializeSecuredAdmissionDocumentUpload();
                 initializeWorkExperienceDocumentUpload();
+
+
 
 
 
@@ -1171,7 +1029,6 @@ $counter = 1;
 
                 messageButtons.forEach(button => {
                     button.addEventListener("click", function () {
-                        // Find the closest parent container (index-student-message-container)
                         const parentContainer = this.closest(".index-student-message-container");
 
                         // Find the corresponding message input box inside the same container
@@ -1348,7 +1205,7 @@ $counter = 1;
                 function populateStudentList(sectionId, data) {
                     const studentListContainer = document.getElementById(sectionId);
 
-                    studentListContainer.innerHTML = ""; // Clear existing list items
+                    studentListContainer.innerHTML = "";
 
                     data.forEach((student) => {
                         const studentListItem = createStudentListItem(student);
@@ -1379,11 +1236,21 @@ $counter = 1;
                     const actionButtons = document.createElement("div");
                     actionButtons.classList.add("dashboard-action-buttons");
 
-                    // View Button
                     const viewButton = document.createElement("button");
                     viewButton.classList.add("dashboard-view-button");
                     viewButton.innerHTML = '<i class="fa-solid fa-eye eye-icon"></i>';
-                    viewProfileOfUsers(viewButton, studentId);
+
+
+                    const loader = document.createElement('div');
+                    loader.classList.add('loader');
+                    loader.textContent = 'Loading...';
+                    loader.style.display = 'none';
+                    listItem.appendChild(loader);
+
+
+                    viewButton.addEventListener("click", () => {
+                        viewProfileOfUsers(viewButton, studentId, loader);
+                    });
 
 
                     const rejectButton = document.createElement("button");
@@ -1471,7 +1338,7 @@ $counter = 1;
 
                 //chat functionality
                 // Select elements
-                const messageInput = document.querySelector(".nbfc-message-input");
+                const messageInputs = document.querySelector(".nbfc-message-input");
                 const sendButton = document.querySelector(".nbfc-send-img");
                 const inputContainer = document.querySelector(".nbfc-individual-bankmessage-input");
                 const viewButton = document.querySelector(".view");
@@ -1507,7 +1374,6 @@ $counter = 1;
 
                 // Create message in the chat
                 function createMessage(content) {
-                    // Create the outer container for right alignment
                     const alignmentContainer = document.createElement("div");
                     alignmentContainer.style.cssText = `
             display: flex;
@@ -1537,7 +1403,7 @@ $counter = 1;
         `;
 
                     // Handle content formatting
-                    if (content.startsWith('📎')) {
+                    if (content.startsWith(' 📎')) {
                         messageContent.textContent = content;
                     } else if (content.includes("\n")) {
                         content.split("\n").forEach((line, index) => {
@@ -1561,32 +1427,6 @@ $counter = 1;
                     messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
                 }
 
-                // Function to send message
-                function sendMessage() {
-                    if (!messageInput) return;
-                    const content = messageInput.value.trim();
-                    if (content) {
-                        createMessage(content);
-
-                        // Save the message to localStorage
-                        let savedMessages = JSON.parse(localStorage.getItem('messages')) || [];
-                        savedMessages.push(content);
-                        localStorage.setItem('messages', JSON.stringify(savedMessages));
-
-                        messageInput.value = "";
-                    }
-                }
-
-                // Add event listeners
-                if (sendButton) sendButton.addEventListener("click", sendMessage);
-                if (messageInput) {
-                    messageInput.addEventListener("keypress", function (e) {
-                        if (e.key === "Enter") {
-                            e.preventDefault();
-                            sendMessage();
-                        }
-                    });
-                }
 
                 // Emoji Picker functionality
                 if (smileIcon) {
@@ -1938,10 +1778,7 @@ $counter = 1;
                 const cancelButton = document.getElementById("cancel-button-id");
                 const sendProposalRejectButton = document.getElementById("send-proposal-button-id");
 
-                // Function to show the modal
 
-
-                // Function to hide the modal
                 function hideRejectModal() {
                     if (modalContainer) {
                         modalContainer.style.display = "none"; // Hide modal
@@ -1970,46 +1807,147 @@ $counter = 1;
             });
 
 
-            //index
-            // Example student names (Replace this with actual data from API or database)
-            const studentNames = ["John Doe", "Jane Smith", "Alice Johnson", "Bob Brown", "Henry SKy"];
 
-            // Select all elements with class 'student-name'
-            const studentNameElements = document.querySelectorAll(".student-name");
+            const getStudents = () => {
+                var user = @json(session('nbfcuser'));
 
-            // Assign names dynamically
-            studentNameElements.forEach((element, index) => {
-                if (studentNames[index]) {
-                    element.textContent = studentNames[index];
+                if (user && user.nbfc_id) {
+                    const nbfcId = user.nbfc_id;
+
+                    return fetch('/trace-process', {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({ nbfcId }) // Sending the NBFC ID
+                    })
+                        .then((response) => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            return response.json(); // Parse response to JSON
+                        })
+                        .then((data) => {
+                            if (data && data.returnValues && Array.isArray(data.returnValues)) {
+                                createContainerList(data.returnValues);
+                                return data.returnValues;
+                            } else {
+                                console.error("Invalid data structure or returnValues not found.");
+                            }
+                        })
+                        .catch((error) => {
+                            // Handle any errors during the fetch process
+                            console.error("Error fetching data:", error);
+                        });
+                } else {
+                    console.error('NBFC ID not found or user session is invalid.');
+                }
+            };
+
+
+            getStudents().then(studentData => {
+                if (studentData) {
+                    const studentNames = studentData.map(student => student.name);
+                    const studentIds = studentData.map(student => student.unique_id)
+                    const studentNameElements = document.querySelectorAll(".student-name");
+                    const studentNameElementIds = document.queryselectorAll(".student-ids");
+                    const studentContainers = document.querySelectorAll(".index-student-message-container");
+                    const messageThreads = document.querySelectorAll(".nbfc-individual-bankmessage-input-message");
+                    const searchInput = document.querySelector(".index-search-input");
+
+                    const studentCards = document.querySelectorAll(".index-student-message-container");
+
+                    // Populate student names in the UI
+                    studentNameElementIds.forEach((element, index) => {
+                        if (studentIds[index]) {
+                            element.textContent = studentIds[index];
+
+                        }
+                    })
+                    studentNameElements.forEach((element, index) => {
+                        if (studentNames[index]) {
+                            element.textContent = studentNames[index];
+
+                        }
+                    });
+
+                    // Add data attributes for sorting and sync message threads
+                    studentContainers.forEach((container, index) => {
+                        if (studentNames[index]) {
+                            container.querySelector(".student-name").textContent = studentNames[index];
+                            container.setAttribute("data-name", studentNames[index].toLowerCase()); // Store lowercase name for sorting
+                            messageThreads[index]?.setAttribute("data-name", studentNames[index].toLowerCase()); // Sync message-thread
+                        }
+                    });
+
+                    console.log("Student names: ", studentNames);
+
+                    // Sorting logic
+                    document.querySelectorAll(".sort-dropdown-nbfc li").forEach((item) => {
+                        item.addEventListener("click", function () {
+                            let sortType = this.getAttribute("data-sort");
+                            let sortedArray = [...studentContainers]; // Copy of student containers
+
+                            if (sortType === "az") {
+                                sortedArray.sort((a, b) => a.getAttribute("data-name").localeCompare(b.getAttribute("data-name")));
+                            } else if (sortType === "za") {
+                                sortedArray.sort((a, b) => b.getAttribute("data-name").localeCompare(a.getAttribute("data-name")));
+                            } else if (sortType === "newest") {
+                                sortedArray.sort((a, b) => studentNames.indexOf(b.querySelector(".student-name").textContent) - studentNames.indexOf(a.querySelector(".student-name").textContent));
+                            } else if (sortType === "oldest") {
+                                sortedArray.sort((a, b) => studentNames.indexOf(a.querySelector(".student-name").textContent) - studentNames.indexOf(b.querySelector(".student-name").textContent));
+                            }
+
+
+                            // Append sorted items back to the container
+                            let parent = document.querySelector(".index-student-details-container");
+                            parent.innerHTML = ""; // Clear existing items
+                            sortedArray.forEach((item) => {
+                                parent.appendChild(item);
+
+                                // Sync message-thread order
+                                let studentName = item.getAttribute("data-name");
+                                let correspondingThread = [...messageThreads].find(thread => thread.getAttribute("data-name") === studentName);
+                                if (correspondingThread) parent.appendChild(correspondingThread);
+                            });
+
+                            sortDropdown.classList.remove("visible");
+
+                            sortTrigger.click();
+                        });
+                    });
+
+                    searchInput.addEventListener("input", function () {
+                        const searchText = searchInput.value.toLowerCase().trim();
+
+                        // Filter Student Cards
+                        studentCards.forEach(card => {
+                            const studentNameElement = card.querySelector(".student-name");
+                            if (studentNameElement) {
+                                const studentName = studentNameElement.textContent.toLowerCase();
+                                card.style.display = studentName.includes(searchText) ? "block" : "none";
+                            }
+                        });
+
+                    });
+
                 }
             });
 
-            const searchInput = document.querySelector(".index-search-input");
 
-            const studentCards = document.querySelectorAll(".index-student-message-container");
+
             const messageThreads = document.querySelectorAll(".message-thread");
-
-            searchInput.addEventListener("input", function () {
-                const searchText = searchInput.value.toLowerCase().trim();
-
-                // Filter Student Cards
-                studentCards.forEach(card => {
-                    const studentNameElement = card.querySelector(".student-name");
-                    if (studentNameElement) {
-                        const studentName = studentNameElement.textContent.toLowerCase();
-                        card.style.display = studentName.includes(searchText) ? "block" : "none";
-                    }
-                });
-
-                // Filter Message Threads
-                messageThreads.forEach(thread => {
-                    const studentNameElement = thread.querySelector(".student-name");
-                    if (studentNameElement) {
-                        const studentName = studentNameElement.textContent.toLowerCase();
-                        thread.style.display = studentName.includes(searchText) ? "flex" : "none";
-                    }
-                });
+            messageThreads.forEach(thread => {
+                const studentNameElement = thread.querySelector(".student-name");
+                if (studentNameElement) {
+                    const studentName = studentNameElement.textContent.toLowerCase();
+                    thread.style.display = studentName.includes(searchText) ? "flex" : "none";
+                }
             });
+
+
+
 
             document.getElementById("nbfc-search-input-id").addEventListener("input", function () {
                 const searchTerm = this.value.toLowerCase();
@@ -2034,13 +1972,6 @@ $counter = 1;
             const sortTrigger = document.getElementById("index-nbfc-sort-id");
 
             // Assign student names dynamically
-            studentContainers.forEach((container, index) => {
-                if (studentNames[index]) {
-                    container.querySelector(".student-name").textContent = studentNames[index];
-                    container.setAttribute("data-name", studentNames[index].toLowerCase()); // Store lowercase name for sorting
-                    messageThreads[index]?.setAttribute("data-name", studentNames[index].toLowerCase()); // Sync message-thread
-                }
-            });
 
             // Toggle dropdown visibility
             sortTrigger.addEventListener("click", function (event) {
@@ -2053,41 +1984,6 @@ $counter = 1;
                 if (!sortTrigger.contains(event.target) && !sortDropdown.contains(event.target)) {
                     sortDropdown.classList.remove("visible");
                 }
-            });
-
-            // Sorting logic
-            document.querySelectorAll(".sort-dropdown-nbfc li").forEach((item) => {
-                item.addEventListener("click", function () {
-                    let sortType = this.getAttribute("data-sort");
-                    let sortedArray = [...studentContainers];
-
-                    if (sortType === "az") {
-                        sortedArray.sort((a, b) => a.getAttribute("data-name").localeCompare(b.getAttribute("data-name")));
-                    } else if (sortType === "za") {
-                        sortedArray.sort((a, b) => b.getAttribute("data-name").localeCompare(a.getAttribute("data-name")));
-                    } else if (sortType === "newest") {
-                        sortedArray.sort((a, b) => studentNames.indexOf(b.querySelector(".student-name").textContent) - studentNames.indexOf(a.querySelector(".student-name").textContent));
-                    } else if (sortType === "oldest") {
-                        sortedArray.sort((a, b) => studentNames.indexOf(a.querySelector(".student-name").textContent) - studentNames.indexOf(b.querySelector(".student-name").textContent));
-                    }
-
-                    // Append sorted items back to the container
-                    let parent = document.querySelector(".index-student-details-container");
-                    parent.innerHTML = ""; // Clear existing
-                    sortedArray.forEach((item) => {
-                        parent.appendChild(item);
-                        // Sync message-thread order
-                        let studentName = item.getAttribute("data-name");
-                        let correspondingThread = [...messageThreads].find(thread => thread.getAttribute("data-name") === studentName);
-                        if (correspondingThread) parent.appendChild(correspondingThread);
-                    });
-
-                    // Hide dropdown after selection
-                    sortDropdown.classList.remove("visible");
-
-                    // Simulate clicking the dropdown button to close it
-                    sortTrigger.click();
-                });
             });
 
 
@@ -2127,7 +2023,7 @@ $counter = 1;
                     container.parentNode.insertBefore(messagesWrapper, container);
 
                     // Get elements within this container
-                    const messageInput = container.querySelector(".nbfc-message-input");
+                    const messageInput = container.querySelectorAll(".nbfc-message-input");
                     const sendButton = container.querySelector(".nbfc-send-img");
                     const smileIcon = container.querySelector(".nbfc-face-smile");
                     const paperclipIcon = container.querySelector(".nbfc-paperclip");
@@ -2139,7 +2035,6 @@ $counter = 1;
                         if (viewButton) viewButton.textContent = 'Close';
                     }
 
-                    // Function to hide chat and update button
                     function hideChat() {
                         messagesWrapper.style.display = 'none';
                         container.style.display = 'none';
@@ -2147,30 +2042,33 @@ $counter = 1;
                     }
 
                     // Send message function for this chat instance
-                    function sendMessage() {
+                    function sendMessage(messageInput, messageUserId) {
+                        console.log(messageInput,messageUserId)
                         if (!messageInput) return;
 
                         const content = messageInput.value.trim();
                         if (content) {
                             showChat(); // Show chat when sending message
 
+
+
                             // Create message element
                             const messageElement = document.createElement("div");
                             messageElement.style.cssText = `
-                    display: flex;
-                    justify-content: flex-end;
-                    width: 100%;
-                    margin-bottom: 10px;
-                `;
+                                display: flex;
+                                justify-content: flex-end;
+                                width: 100%;
+                                margin-bottom: 10px;
+                            `;
 
                             const messageContent = document.createElement("div");
                             messageContent.style.cssText = `
-                    max-width: 80%;
-                    padding: 8px 12px;
-                    border-radius: 8px;
-                    word-wrap: break-word;
-                    font-family: 'Poppins', sans-serif;
-                `;
+                                    max-width: 80%;
+                                    padding: 8px 12px;
+                                    border-radius: 8px;
+                                    word-wrap: break-word;
+                                    font-family: 'Poppins', sans-serif;
+                                `;
                             messageContent.textContent = content;
 
                             messageElement.appendChild(messageContent);
@@ -2180,12 +2078,58 @@ $counter = 1;
                             messageInput.value = "";
                             messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
 
-                            // Save message
-                            saveMessage(content, chatId);
+                            // Save message to backend and localStorage
+                            sendMessageToBackend(content, messageUserId);
+                        }
+                    }
+                    async function sendMessageToBackend(content, messageUserId) {
+                        const studentId = messageUserId; // Assuming messageUserId corresponds to studentId
+                        const receiverId = studentId; // If receiverId is different, retrieve it accordingly
+ 
+                    
+                        var user = @json(session('nbfcuser'));
+
+                        if (!user || !user.nbfc_id) {
+                            console.error('User not found or invalid nbfc_id');
+                            return;
+                        }
+
+                        const nbfc_id = user.nbfc_id; // Current user nbfc_id
+                        const senderId = nbfc_id; // Assuming the sender is the current user
+
+                        try {
+                            const payload = {
+                                nbfc_id: nbfc_id,
+                                student_id: studentId,
+                                sender_id: senderId,
+                                receiver_id: receiverId,
+                                message: content
+                            };
+
+                            const response = await fetch('/send-message', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ""
+
+                                },
+                                body: JSON.stringify(payload)
+                            });
+
+                            const data = await response.json();
+
+                            if (response.ok) {
+                                // If `chatId` is dynamic, make sure it's passed here
+                                saveMessage(content, chatId);
+                                console.log('Message sent successfully:', data.message);
+                            } else {
+                                console.error('Failed to send message:', data.error || 'Unknown error');
+                            }
+                        } catch (error) {
+                            console.error('Error sending message:', error);
                         }
                     }
 
-                    // Add click event to view/close button
                     if (viewButton) {
                         viewButton.addEventListener('click', function () {
                             if (messagesWrapper.style.display === 'none') {
@@ -2195,30 +2139,48 @@ $counter = 1;
                             }
                         });
                     }
+ 
+                    messageInput.forEach((messageInput, index) => {
+                        if (messageInput) {
+                            messageInput.addEventListener('input', function () {
+                                if (messagesWrapper.style.display === 'none') {
+                                    showChat();
+                                }
+                            });
 
-                    // Show chat when typing
-                    if (messageInput) {
-                        messageInput.addEventListener('input', function () {
-                            if (messagesWrapper.style.display === 'none') {
-                                showChat();
-                            }
-                        });
+                            messageInput.addEventListener('keypress', function (e) {
+                                if (e.key === 'Enter') {
+                                    e.preventDefault();
+                                    const messageUserId = messageUserIds[index].textContent
 
-                        messageInput.addEventListener('keypress', function (e) {
-                            if (e.key === 'Enter') {
+                                    sendMessage(messageInput, messageUserId);
+                                      if (messagesWrapper.style.display === 'none') {
+                                        showChat();
+                                    }
+
+
+                                }
+                            });
+                        }
+                    })
+
+
+                    const messageUserIds = document.querySelectorAll(".index-student-info .student-ids");
+                    const sendButtons = document.querySelectorAll(".nbfc-individual-bankmessage-input-message .nbfc-send-img");
+                    const inputs = document.querySelectorAll(".nbfc-message-input");
+
+                    sendButtons.forEach((sendButton,index) => {
+                        if (sendButton) {
+                            sendButton.addEventListener('click', function (e) {
                                 e.preventDefault();
-                                sendMessage();
-                            }
-                        });
-                    }
+                                const messageUserId = messageUserIds[index].textContent;
+                                const messageInput = inputs[index];
+                                
+                                sendMessage(messageInput, messageUserId);
+                             });
+                        }
+                    })
 
-                    // Add click event to send button
-                    if (sendButton) {
-                        sendButton.addEventListener('click', function (e) {
-                            e.preventDefault();
-                            sendMessage();
-                        });
-                    }
 
                     // Initialize emoji picker
                     if (smileIcon) {
@@ -2259,14 +2221,17 @@ $counter = 1;
                     `;
                                 button.onclick = (e) => {
                                     e.stopPropagation();
-                                    messageInput.value += emoji;
+                                    messageInput[index].value += emoji;
                                     picker.remove();
-                                    messageInput.focus();
+                                    messageInput[index].focus();
                                 };
                                 picker.appendChild(button);
                             });
 
-                            container.appendChild(picker);
+                            container.appendChild(picker);                        
+
+
+                            
 
                             document.addEventListener("click", function closePicker(e) {
                                 if (!picker.contains(e.target) && e.target !== smileIcon) {
@@ -2364,6 +2329,7 @@ $counter = 1;
             function saveMessage(content, chatId) {
                 const messages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
                 messages.push(content);
+                console.log(content)
                 localStorage.setItem(`messages-${chatId}`, JSON.stringify(messages));
             }
 
@@ -2517,21 +2483,30 @@ $counter = 1;
                 });
             };
 
-            const viewProfileOfUsers = (viewButton, studentId) => {
-                viewButton.addEventListener('click', async () => {
-                    const userId = studentId.textContent; // Correct use of userId
-                    console.log(userId);
+            const viewProfileOfUsers = async (viewButton, studentId, loaderElement) => {
+                // Get userId from the studentId element
+                const userId = studentId.textContent;
+                console.log("Fetching profile for user:", userId);
 
-                    try {
-                        await retreiveUserDetails(userId);
-                        await initialiseAllViews(userId);
-                        await initialiseProfileView(userId)
-                    } catch (error) {
-                        console.error("Error retrieving or initializing user details:", error);
-                    }
-                });
-            };
-            const initializeCoBorrowerDocumentUpload = () => {
+                // Show loader and disable further interactions
+                loaderElement.style.display = 'block'; // Show loader
+                viewButton.disabled = true; // Disable the button to prevent multiple clicks
+
+                try {
+                    // Wait for each function to complete
+                    await retreiveUserDetails(userId);
+                    await initialiseAllViews(userId);
+                    await initialiseProfileView(userId);
+
+                    console.log("Profile loaded for user:", userId);
+                } catch (error) {
+                    console.error("Error retrieving or initializing user details:", error);
+                } finally {
+                    // Hide loader and re-enable interactions after all functions have completed
+                    loaderElement.style.display = 'none'; // Hide loader
+                    viewButton.disabled = false; // Re-enable the button
+                }
+            }; const initializeCoBorrowerDocumentUpload = () => {
                 const coBorrowerDocuments = document.querySelectorAll(".individual-coborrower-kyc-documents");
 
                 coBorrowerDocuments.forEach((card) => {
@@ -3795,72 +3770,6 @@ $counter = 1;
                     });
                 });
             };
-            const initialiseAllViews = (userId) => {
-                const endpoints = [
-                    { url: '/retrieve-file', selector: ".uploaded-aadhar-name", fileType: "aadhar-card-name" },
-                    { url: '/retrieve-file', selector: ".uploaded-pan-name", fileType: "pan-card-name" },
-                    { url: '/retrieve-file', selector: ".passport-name-selector", fileType: "passport-name" },
-                    { url: '/retrieve-file', selector: ".sslc-marksheet", fileType: "tenth-grade-name" },
-                    { url: '/retrieve-file', selector: ".hsc-marksheet", fileType: "twelfth-grade-name" },
-                    { url: '/retrieve-file', selector: ".graduation-marksheet", fileType: "graduation-grade-name" },
-                    { url: '/retrieve-file', selector: ".sslc-grade", fileType: "secured-tenth-name" },
-                    { url: '/retrieve-file', selector: ".hsc-grade", fileType: "secured-twelfth-name" },
-                    { url: '/retrieve-file', selector: ".graduation-grade", fileType: "secured-graduation-name" },
-                    { url: '/retrieve-file', selector: ".experience-letter", fileType: "work-experience-experience-letter" },
-                    { url: '/retrieve-file', selector: ".salary-slip", fileType: "work-experience-monthly-slip" },
-                    { url: '/retrieve-file', selector: ".office-id", fileType: "work-experience-office-id" },
-                    { url: '/retrieve-file', selector: ".joining-letter", fileType: "work-experience-joining-letter" },
-                    { url: '/retrieve-file', selector: ".coborrower-pancard", fileType: "co-pan-card-name" },
-                    { url: '/retrieve-file', selector: ".coborrower-aadharcard", fileType: "co-aadhar-card-name" },
-                    { url: '/retrieve-file', selector: ".coborrower-addressproof", fileType: "co-addressproof" },
-
-
-                ];
-
-                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-                if (!csrfToken || !userId) {
-                    console.error("CSRF token or User ID is missing");
-                    return Promise.reject("CSRF token or User ID is missing");
-                }
-
-
-                const fetchWithUrl = ({ url, selector, fileType }) => {
-                    return fetch(url, {
-                        method: "POST",
-                        headers: {
-                            'X-CSRF-TOKEN': csrfToken,
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            userId: userId,
-                            fileType: fileType,
-                        }),
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.fileUrl) {
-                                const fileName = data.fileUrl.split('/').pop();
-                                const element = document.querySelector(selector);
-                                if (element) {
-                                    element.textContent = fileName; // Update the element with the file name
-                                    console.log(`Fetched ${fileType}:`, data.fileUrl);
-
-                                } else {
-                                    console.log(`Element not found for selector: ${selector}`);
-                                }
-                            } else {
-                                console.log(`No fileUrl returned for ${fileType}`, data);
-                            }
-                        })
-                        .catch(error => {
-                            console.error(`Error fetching ${fileType}:`, error);
-                        });
-                };
-
-                return Promise.all(endpoints.map(fetchWithUrl));
-            };
 
 
             const initialiseEightcolumn = () => {
@@ -3921,6 +3830,10 @@ $counter = 1;
                         section.style.height = '';
                     }
                 });
+
+            }
+            const forgotPassword = () => {
+
 
             }
             const initializeWorkExperienceDocumentUpload = () => {
@@ -4150,13 +4063,11 @@ $counter = 1;
                                     closeButton.addEventListener('click', closePreview);
                                     overlay.addEventListener('click', closePreview);
 
-                                    // Assemble header
-                                    header.appendChild(fileNameSection);
+                                     header.appendChild(fileNameSection);
                                     header.appendChild(zoomControls);
                                     header.appendChild(closeButton);
 
-                                    // Create iframe for PDF content
-                                    const iframe = document.createElement('iframe');
+                                     const iframe = document.createElement('iframe');
                                     iframe.src = event.target.result;
                                     iframe.style.cssText = `
                             width: 100%;
@@ -4334,31 +4245,53 @@ $counter = 1;
                     });
                 });
             };
-            const retreiveUserDetails = (userId) => {
+            let userDataCache = {};
+
+            const retreiveUserDetails = async (userId) => {
                 const profileViewContainerNbfc = document.getElementById("nbfc-student-profile-details");
                 const nbfcListUsers = document.querySelector(".dashboard-sections-container");
                 const profileContainerSection = document.querySelector("#nbfc-list-of-student-profilesections");
-
                 const parentContainerNBFC = document.querySelector(".nbfcdashboard-studentlistscontainer");
-                fetch('/getUserFromNbfc', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({ userId: userId })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        updateProfileView(profileViewContainerNbfc, profileContainerSection, data);
 
-                        nbfcListUsers.style.display = "none";
-                        parentContainerNBFC.style.display = "flex";
+                // Check if the user data is already cached
+                if (userDataCache[userId]) {
+                    console.log("Loading cached data for user:", userId);
 
-                    })
-                    .catch(error => console.error('Error fetching user details:', error));
+                    // Await the async function to update the profile view
+                    await updateProfileView(profileViewContainerNbfc, profileContainerSection, userDataCache[userId]);
+                    nbfcListUsers.style.display = "none";
+                    parentContainerNBFC.style.display = "flex";
 
-            }
+                    // Return a resolved promise since the data was cached
+                    return Promise.resolve();
+                }
+
+                // If not cached, fetch the data
+                try {
+                    const response = await fetch('/getUserFromNbfc', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({ userId: userId })
+                    });
+
+                    const data = await response.json();
+
+                    // Cache the user data
+                    userDataCache[userId] = data;
+
+                    // Update the view with the fetched data (await the async function)
+                    await updateProfileView(profileViewContainerNbfc, profileContainerSection, data);
+
+                    // Hide the list and show the profile
+                    nbfcListUsers.style.display = "none";
+                    parentContainerNBFC.style.display = "flex";
+                } catch (error) {
+                    console.error('Error fetching user details:', error);
+                }
+            };
             const updateProfileView = (container, usersListcontainer, data) => {
                 let courseInput = container.querySelector("#plan-to-study-edit");
                 const degreeRadioBachelors = container.querySelector('input[name="education-level"][value="Bachelors"]');
@@ -4383,6 +4316,8 @@ $counter = 1;
 
 
                 userName ? userName.textContent = data.personalDetails[0]['full_name'] : "";
+                console.log(data.personalDetails[0]);
+
 
 
                 userPhone ? userPhone.textContent = data.userDetails[0]['phone'] : "";
@@ -4448,6 +4383,76 @@ $counter = 1;
                     otherDegreeInputNBFC.value = degreeType;
                 }
             };
+
+            const endpoints = [
+                { url: '/retrieve-file', selector: ".uploaded-aadhar-name", fileType: "aadhar-card-name" },
+                { url: '/retrieve-file', selector: ".uploaded-pan-name", fileType: "pan-card-name" },
+                { url: '/retrieve-file', selector: ".passport-name-selector", fileType: "passport-name" },
+                { url: '/retrieve-file', selector: ".sslc-marksheet", fileType: "tenth-grade-name" },
+                { url: '/retrieve-file', selector: ".hsc-marksheet", fileType: "twelfth-grade-name" },
+                { url: '/retrieve-file', selector: ".graduation-marksheet", fileType: "graduation-grade-name" },
+                { url: '/retrieve-file', selector: ".sslc-grade", fileType: "secured-tenth-name" },
+                { url: '/retrieve-file', selector: ".hsc-grade", fileType: "secured-twelfth-name" },
+                { url: '/retrieve-file', selector: ".graduation-grade", fileType: "secured-graduation-name" },
+                { url: '/retrieve-file', selector: ".experience-letter", fileType: "work-experience-experience-letter" },
+                { url: '/retrieve-file', selector: ".salary-slip", fileType: "work-experience-monthly-slip" },
+                { url: '/retrieve-file', selector: ".office-id", fileType: "work-experience-office-id" },
+                { url: '/retrieve-file', selector: ".joining-letter", fileType: "work-experience-joining-letter" },
+                { url: '/retrieve-file', selector: ".coborrower-pancard", fileType: "co-pan-card-name" },
+                { url: '/retrieve-file', selector: ".coborrower-aadharcard", fileType: "co-aadhar-card-name" },
+                { url: '/retrieve-file', selector: ".coborrower-addressproof", fileType: "co-addressproof" },
+
+
+            ];
+
+
+            const initialiseAllViews = (userId) => {
+
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                if (!csrfToken || !userId) {
+                    console.error("CSRF token or User ID is missing");
+                    return Promise.reject("CSRF token or User ID is missing");
+                }
+
+
+                const fetchWithUrl = ({ url, selector, fileType }) => {
+                    return fetch(url, {
+                        method: "POST",
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken,
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            userId: userId,
+                            fileType: fileType,
+                        }),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.fileUrl) {
+                                const fileName = data.fileUrl.split('/').pop();
+                                const element = document.querySelector(selector);
+                                if (element) {
+                                    element.textContent = fileName; // Update the element with the file name
+                                    console.log(`Fetched ${fileType}:`, data.fileUrl);
+
+                                } else {
+                                    console.log(`Element not found for selector: ${selector}`);
+                                }
+                            } else {
+                                console.log(`No fileUrl returned for ${fileType}`, data);
+                            }
+                        })
+                        .catch(error => {
+                            console.error(`Error fetching ${fileType}:`, error);
+                        });
+                };
+
+                return Promise.all(endpoints.map(fetchWithUrl));
+            };
+
             const initialiseProfileView = (userId) => {
 
 
@@ -4482,7 +4487,90 @@ $counter = 1;
                     });
             }
 
+            const createContainerList = (data) => {
+                console.log(data);
 
+                const parentContainer = document.querySelector(".index-student-details-container");
+
+                data.forEach((item) => {
+                    const msgContainer = document.createElement("div");
+                    msgContainer.classList.add("index-student-message-container");
+
+                    const studentCard = document.createElement("div");
+                    studentCard.classList.add("index-student-card");
+
+                    const studentInfo = document.createElement("div");
+                    studentInfo.classList.add("index-student-info");
+
+                    const studentInfoHeader = document.createElement("h3");
+                    studentInfoHeader.classList.add("student-name");
+                    studentInfoHeader.textContent = item.name;
+
+                    const studentIds = document.createElement("p");
+                    studentIds.classList.add("student-ids");
+                    studentIds.textContent = item.unique_id;
+
+
+                    const studentInfoDesc = document.createElement("p");
+                    studentInfoDesc.classList.add("index-student-description");
+                    studentInfoDesc.textContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut elit, sed do eiusmod tempor incididunt ut.";
+
+                    studentInfo.append(studentInfoHeader, studentIds, studentInfoDesc);
+
+                    const buttonGroup = document.createElement("div");
+                    buttonGroup.classList.add("index-student-button-group");
+
+                    const messageButton = document.createElement("button");
+                    messageButton.classList.add("index-student-message-btn");
+                    messageButton.textContent = "Message";
+
+                    const viewButton = document.createElement("button");
+                    viewButton.classList.add("index-student-view-btn");
+                    viewButton.textContent = "View";
+
+                    buttonGroup.append(messageButton, viewButton);
+
+                    const sendBtnMobile = document.createElement("div");
+                    sendBtnMobile.classList.add("index-student-send-btn-mobile");
+
+                    const sendImg = document.createElement("img");
+                    sendImg.src = "assets/images/send-index-btn.png";
+                    sendImg.alt = "the send image";
+
+
+
+                    sendBtnMobile.appendChild(sendImg);
+
+                    const messageInputContainer = document.createElement("div");
+                    messageInputContainer.classList.add("nbfc-individual-bankmessage-input-message");
+
+                    const messageInput = document.createElement("input");
+                    messageInput.type = "text";
+                    messageInput.placeholder = "Send message";
+                    messageInput.classList.add("nbfc-message-input");
+
+                    const sendIcon = document.createElement("img");
+                    sendIcon.src = "assets/images/send-nbfc.png";
+                    sendIcon.alt = "send icon";
+                    sendIcon.classList.add("nbfc-send-img");
+
+                    const paperClipIcon = document.createElement("i");
+                    paperClipIcon.classList.add("fa-solid", "fa-paperclip", "nbfc-paperclip");
+
+                    const smileIcon = document.createElement("i");
+                    smileIcon.classList.add("fa-regular", "fa-face-smile", "nbfc-face-smile");
+
+                    messageInputContainer.append(messageInput, sendIcon, paperClipIcon, smileIcon);
+
+                    studentCard.append(studentInfo, buttonGroup, sendBtnMobile);
+
+                    msgContainer.append(studentCard, messageInputContainer);
+
+                    parentContainer.appendChild(msgContainer);
+                });
+
+
+            };
 
         </script>
 

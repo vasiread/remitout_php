@@ -47,18 +47,29 @@ class ChatController extends Controller
 
     public function getMessages($nbfc_id, $student_id)
     {
-        // Find the conversation
-        $conversation = Conversation::where('nbfc_id', $nbfc_id)
+      
+
+        // Find the conversation and eager-load the messages
+        $conversation = Conversation::with('messages')
+            ->where('nbfc_id', $nbfc_id)
             ->where('student_id', $student_id)
             ->first();
 
+        // If no conversation is found, return an error message
         if (!$conversation) {
-            return response()->json(['message' => 'No conversation found'], 404);
+            return response()->json(['error' => 'No conversation found'], 404);
         }
 
-        // Get all messages in this conversation
-        $messages = $conversation->messages;
+        // Check if there are no messages in the conversation
+        if ($conversation->messages->isEmpty()) {
+            return response()->json(['message' => 'No messages found in the conversation'], 200);
+        }
 
-        return response()->json(['messages' => $messages], 200);
+        // Return all messages from the conversation
+        return response()->json([
+            'messages' => $conversation->messages,
+            'conversation_id' => $conversation->id
+        ], 200);
     }
+
 }
