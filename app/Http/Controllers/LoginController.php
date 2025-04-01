@@ -46,7 +46,7 @@ class LoginController extends Controller
                     'success' => true,
                     'message' => 'Login successful',
                     'user' => $scuser,
-                    'redirect' => '/sc-dashboard'  
+                    'redirect' => '/sc-dashboard'
                 ]);
 
             case 'User':
@@ -101,11 +101,8 @@ class LoginController extends Controller
         Session::flush();
 
 
-        $request->session()->invalidate();
+        Auth::logout();
 
-        $request->session()->regenerateToken();
-
-
-        return redirect()->route('login');
+         return redirect()->route('login')->with('message', 'You have been logged out.');
     }
 }

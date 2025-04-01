@@ -49,7 +49,7 @@ Route::post('/emailuniquecheck', action: [RegisterController::class, 'emailUniqu
 Route::post('/updatedetailsinfo', [StudentDetailsController::class, 'updateUserIds']);
 
 Route::post('/getUserFromNbfc', [StudentDashboardController::class, 'getUserFromNbfc'])->name('getUserFromNbfc');
-
+Route::post("/send-proposals-with-file", [NbfcController::class, 'sendProposalsWithFiles']);
 
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
 Route::get('auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle']);

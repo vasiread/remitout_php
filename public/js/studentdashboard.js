@@ -552,14 +552,15 @@ const initializeKycDocumentUpload = () => {
 
             if (!file) return;
 
-            console.log("Selected file: ", file);  // Debug log
+            console.log("Selected file: ", file);
 
-            // Allowed file types
+            // Allowed file types based on MIME type
+            const allowedMimeTypes = ['image/jpeg', 'image/png', 'application/pdf'];
             const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
             const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
 
-            // Validate file type
-            if (!allowedExtensions.includes(fileExtension)) {
+            // Validate file type (extension and MIME)
+            if (!allowedExtensions.includes(fileExtension) || !allowedMimeTypes.includes(file.type)) {
                 alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
                 event.target.value = ''; // Clear the file input
                 card.querySelector('.inputfilecontainer p').textContent = 'No file chosen';
@@ -584,31 +585,55 @@ const initializeKycDocumentUpload = () => {
                 : (file.size / (1024 * 1024)).toFixed(2) + ' MB';
             card.querySelector('.document-status').textContent = `${fileSize} Uploaded`;
 
-            console.log("File uploaded:", uploadedFile);  // Debug log
+            console.log("File uploaded:", uploadedFile);
         });
-
-
 
         card.querySelector('.fa-eye').addEventListener('click', function (event) {
             event.stopPropagation();
-            const previewContainer = card.querySelector('.inputfilecontainer');
             const eyeIcon = this;
 
             if (eyeIcon.classList.contains('preview-active')) {
+                closePreview();
+            } else {
+                if (uploadedFile && uploadedFile.type === 'application/pdf') {
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        openPdfPreview(event.target.result, uploadedFile.name);
+                    };
+                    reader.readAsDataURL(uploadedFile);
+                    eyeIcon.classList.add('preview-active');
+                    eyeIcon.classList.replace('fa-eye', 'fa-times');
+                } else {
+                    alert('Please upload a valid PDF file to preview.');
+                }
+            }
+
+            function closePreview() {
                 const previewWrapper = document.querySelector('.pdf-preview-wrapper');
                 if (previewWrapper) previewWrapper.remove();
                 const overlay = document.querySelector('.pdf-preview-overlay');
                 if (overlay) overlay.remove();
                 eyeIcon.classList.remove('preview-active');
                 eyeIcon.classList.replace('fa-times', 'fa-eye');
-            } else {
-                if (uploadedFile && uploadedFile.type === 'application/pdf') {
-                    const reader = new FileReader();
-                    reader.onload = function (event) {
-                        // Create wrapper for the preview
-                        const previewWrapper = document.createElement('div');
-                        previewWrapper.className = 'pdf-preview-wrapper';
-                        previewWrapper.style.cssText = `
+            }
+
+            function openPdfPreview(pdfDataUrl, fileName) {
+                // Create overlay and preview wrapper
+                const overlay = document.createElement('div');
+                overlay.className = 'pdf-preview-overlay';
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 999;
+                `;
+
+                const previewWrapper = document.createElement('div');
+                previewWrapper.className = 'pdf-preview-wrapper';
+                previewWrapper.style.cssText = `
                     position: fixed;
                     top: 50%;
                     left: 50%;
@@ -622,22 +647,9 @@ const initializeKycDocumentUpload = () => {
                     z-index: 1000;
                 `;
 
-                        // Add overlay
-                        const overlay = document.createElement('div');
-                        overlay.className = 'pdf-preview-overlay';
-                        overlay.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: rgba(0, 0, 0, 0.5);
-                    z-index: 999;
-                `;
-
-                        // Create header
-                        const header = document.createElement('div');
-                        header.style.cssText = `
+                // Create header
+                const header = document.createElement('div');
+                header.style.cssText = `
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
@@ -647,134 +659,46 @@ const initializeKycDocumentUpload = () => {
                     height: 40px;
                 `;
 
-                        // Left section with filename
-                        const fileNameSection = document.createElement('div');
-                        fileNameSection.style.cssText = `
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                `;
+                const fileNameSection = document.createElement('span');
+                fileNameSection.textContent = fileName;
+                fileNameSection.style.cssText = 'color: white; font-size: 14px;';
 
-                        const fileName = document.createElement('span');
-                        fileName.textContent = uploadedFile.name;
-                        fileName.style.cssText = `
-                    color: white;
-                    font-size: 14px;
-                `;
-                        fileNameSection.appendChild(fileName);
-
-                        // Middle section with zoom controls
-                        const zoomControls = document.createElement('div');
-                        zoomControls.style.cssText = `
-                    display: flex;
-                    align-items: center;
-                    gap: 12px;
-                    position: absolute;
-                    left: 50%;
-                    transform: translateX(-50%);
-                `;
-
-                        const zoomOut = document.createElement('button');
-                        zoomOut.innerHTML = '&#8722;';
-                        const zoomIn = document.createElement('button');
-                        zoomIn.innerHTML = '&#43;';
-
-                        [zoomOut, zoomIn].forEach(btn => {
-                            btn.style.cssText = `
-                        background: none;
-                        border: none;
-                        color: white;
-                        font-size: 18px;
-                        cursor: pointer;
-                        padding: 4px 8px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    `;
-                        });
-
-                        zoomControls.appendChild(zoomOut);
-                        zoomControls.appendChild(zoomIn);
-
-                        // Close button
-                        const closeButton = document.createElement('button');
-                        closeButton.innerHTML = '&#10005;';
-                        closeButton.style.cssText = `
+                // Close button
+                const closeButton = document.createElement('button');
+                closeButton.innerHTML = '&#10005;';
+                closeButton.style.cssText = `
                     background: none;
                     border: none;
                     color: white;
                     font-size: 18px;
                     cursor: pointer;
                     padding: 4px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
                 `;
 
-                        const closePreview = () => {
-                            previewWrapper.remove();
-                            overlay.remove();
-                            eyeIcon.classList.remove('preview-active');
-                            eyeIcon.classList.replace('fa-times', 'fa-eye');
-                        };
+                closeButton.addEventListener('click', closePreview);
+                overlay.addEventListener('click', closePreview);
 
-                        closeButton.addEventListener('click', closePreview);
-                        overlay.addEventListener('click', closePreview);
-
-                        // Assemble header
-                        header.appendChild(fileNameSection);
-                        header.appendChild(zoomControls);
-                        header.appendChild(closeButton);
-
-                        // Create iframe for PDF content
-                        const iframe = document.createElement('iframe');
-                        iframe.src = event.target.result;
-                        iframe.style.cssText = `
+                // Create iframe for PDF preview
+                const iframe = document.createElement('iframe');
+                iframe.src = pdfDataUrl;
+                iframe.style.cssText = `
                     width: 100%;
                     height: calc(100% - 40px);
                     border: none;
-                    background-color: white;
                 `;
 
-                        // Assemble the preview
-                        previewWrapper.appendChild(header);
-                        previewWrapper.appendChild(iframe);
-
-                        // Add to document body
-                        document.body.appendChild(overlay);
-                        document.body.appendChild(previewWrapper);
-
-                        // Add zoom functionality
-                        let currentZoom = 100;
-                        zoomIn.addEventListener('click', () => {
-                            currentZoom += 10;
-                            iframe.style.transform = `scale(${currentZoom / 100})`;
-                            iframe.style.transformOrigin = 'top center';
-                        });
-
-                        zoomOut.addEventListener('click', () => {
-                            currentZoom = Math.max(currentZoom - 10, 50);
-                            iframe.style.transform = `scale(${currentZoom / 100})`;
-                            iframe.style.transformOrigin = 'top center';
-                        });
-
-                        // Add keyboard shortcut for closing
-                        document.addEventListener('keydown', function (e) {
-                            if (e.key === 'Escape') {
-                                closePreview();
-                            }
-                        });
-                    };
-                    reader.readAsDataURL(uploadedFile);
-                    eyeIcon.classList.add('preview-active');
-                    eyeIcon.classList.replace('fa-eye', 'fa-times');
-                } else {
-                    alert('Please upload a valid PDF file to preview.');
-                }
+                // Assemble the preview
+                header.appendChild(fileNameSection);
+                header.appendChild(closeButton);
+                previewWrapper.appendChild(header);
+                previewWrapper.appendChild(iframe);
+                document.body.appendChild(overlay);
+                document.body.appendChild(previewWrapper);
             }
         });
     });
 };
+
 
 const initializeMarksheetUpload = () => {
     const individualMarksheetDocumentsUpload = document.querySelectorAll(".individualmarksheetdocuments");
@@ -2360,8 +2284,7 @@ const initializeCoBorrowerDocumentUpload = () => {
                         document.body.appendChild(overlay);
                         document.body.appendChild(previewWrapper);
 
-                        // Add keyboard shortcut for closing
-                        document.addEventListener('keydown', function (e) {
+                         document.addEventListener('keydown', function (e) {
                             if (e.key === 'Escape') {
                                 closePreview();
                             }
@@ -2655,10 +2578,8 @@ function initializeSimpleChat() {
         const parentContainer = chatContainer.closest('.indivudalloanstatus-cards');
         const messageButton = parentContainer ? parentContainer.querySelector('.triggeredbutton') : null;
 
-        // Hide chat input by default
         chatContainer.style.display = 'none';
 
-        // Create messages wrapper if it doesn't exist
         let messagesWrapper = parentContainer ? parentContainer.querySelector(`.messages-wrapper[data-chat-id="${chatId}"]`) : null;
 
         if (!messagesWrapper) {
@@ -2733,6 +2654,7 @@ function initializeSimpleChat() {
             // Update button text if needed
             if (messageButton) {
                 messageButton.textContent = "Close";
+                
             }
         }
 
@@ -2819,6 +2741,9 @@ function initializeSimpleChat() {
         // Add click event to message button
         if (messageButton) {
             messageButton.addEventListener('click', function (e) {
+                console.log("code here ")
+                console.log(messagesWrapper)
+
                 e.preventDefault();
                 const student_id = document.querySelector(".personalinfo-secondrow .personal_info_id").textContent;
                 var messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
@@ -2839,31 +2764,31 @@ function initializeSimpleChat() {
             if (content) {
                 showChat();
 
-                const messageElement = document.createElement("div");
-                messageElement.style.cssText = `
-                    display: flex;
-                    justify-content: flex-end;
-                    width: 100%;
-                    margin-bottom: 10px;
-                `;
+                // const messageElement = document.createElement("div");
+                // messageElement.style.cssText = `
+                //     display: flex;
+                //     justify-content: flex-end;
+                //     width: 100%;
+                //     margin-bottom: 10px;
+                // `;
 
-                const messageContent = document.createElement("div");
-                messageContent.style.cssText = `
-                    max-width: 80%;
-                    padding: 8px 12px;
-                    border-radius: 8px;
-                    word-wrap: break-word;
-                    font-family: 'Poppins', sans-serif;
-                `;
-                messageContent.textContent = content;
+                // const messageContent = document.createElement("div");
+                // messageContent.style.cssText = `
+                //     max-width: 80%;
+                //     padding: 8px 12px;
+                //     border-radius: 8px;
+                //     word-wrap: break-word;
+                //     font-family: 'Poppins', sans-serif;
+                // `;
+                // messageContent.textContent = content;
 
-                messageElement.appendChild(messageContent);
+                // messageElement.appendChild(messageContent);
                 // messagesWrapper.appendChild(messageElement);
 
-                 messageInput.value = "";
-                messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
+                messageInput.value = "";
+                // messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
 
-                 sendMessageToBackend(content, messageInputNbfcids);
+                sendMessageToBackend(content, messageInputNbfcids);
 
             }
         }
@@ -2877,7 +2802,7 @@ function initializeSimpleChat() {
                 return;
             }
 
-            const senderId = student_id; 
+            const senderId = student_id;
             try {
                 const payload = {
                     nbfc_id: nbfcId,
@@ -2901,30 +2826,30 @@ function initializeSimpleChat() {
                 if (response.ok) {
                     console.log('Message sent successfully:', data.message);
 
-                     const messageElement = document.createElement("div");
-                    messageElement.style.cssText = `
-                display: flex;
-                justify-content: flex-end;
-                width: 100%;
-                margin-bottom: 10px;
-            `;
-                    const messageContent = document.createElement("div");
-                    messageContent.style.cssText = `
-                max-width: 80%;
-                padding: 8px 12px;
-                border-radius: 8px;
-                background-color: #DCF8C6;
-                word-wrap: break-word;
-                font-family: 'Poppins', sans-serif;
-                box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-            `;
-                    messageContent.textContent = content; 
+            //         const messageElement = document.createElement("div");
+            //         messageElement.style.cssText = `
+            //     display: flex;
+            //     justify-content: flex-end;
+            //     width: 100%;
+            //     margin-bottom: 10px;
+            // `;
+            //         const messageContent = document.createElement("div");
+            //         messageContent.style.cssText = `
+            //     max-width: 80%;
+            //     padding: 8px 12px;
+            //     border-radius: 8px;
+            //     background-color: #DCF8C6;
+            //     word-wrap: break-word;
+            //     font-family: 'Poppins', sans-serif;
+            //     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            // `;
+            //         messageContent.textContent = content;
 
-                     messagesWrapper.appendChild(messageElement);
+            //         messagesWrapper.appendChild(messageElement);
 
-                     scrollToBottom();
+                    scrollToBottom();
 
-                     viewChat(student_id, nbfcId);
+                    viewChat(student_id, nbfcId);
                 } else {
                     console.error('Failed to send message:', data.error || 'Unknown error');
                 }
@@ -2965,10 +2890,10 @@ function initializeSimpleChat() {
 
                 messageInputNbfcids = messageInputNbfcids[index].textContent;
                 sendMessage(messageInput, messageInputNbfcids);
-             });
+            });
         }
 
-         if (smileIcon) {
+        if (smileIcon) {
             smileIcon.addEventListener('click', function (e) {
                 e.stopPropagation();
                 const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
@@ -3066,7 +2991,7 @@ function initializeSimpleChat() {
                             position: relative;
                         `;
 
-                         const downloadLink = document.createElement("a");
+                        const downloadLink = document.createElement("a");
                         downloadLink.href = "#";
                         downloadLink.style.cssText = `
                             display: flex;
@@ -3161,8 +3086,8 @@ function initializeSimpleChat() {
         //         messagesWrapper.appendChild(messageElement);
         //     });
         // }
-        function viewChat(student_id, messageInputNbfcids) {
-             student_id = student_id.trim();
+        function  viewChat(student_id, messageInputNbfcids) {
+            student_id = student_id.trim();
 
             const nbfc_id = messageInputNbfcids;
             const chatId = `${nbfc_id}-${student_id}`;
@@ -3171,10 +3096,10 @@ function initializeSimpleChat() {
             fetch(apiUrl)
                 .then(response => response.json())
                 .then(data => {
-                    console.log('API response:', data);  
+                    console.log('API response:', data); // Log the full response to check its structure
                     if (data && data.messages && data.messages.length > 0) {
-                         data.messages.forEach(message => {
-                             const existingMessage = messagesWrapper.querySelector(`[data-message-id="${message.id}"]`);
+                        data.messages.forEach(message => {
+                            const existingMessage = messagesWrapper.querySelector(`[data-message-id="${message.id}"]`);
                             if (!existingMessage) {
                                 const messageElement = document.createElement("div");
                                 messageElement.setAttribute('data-message-id', message.id); // Unique message ID for checking duplicates
@@ -3199,7 +3124,7 @@ function initializeSimpleChat() {
                                 messageElement.appendChild(messageContent);
                                 messagesWrapper.appendChild(messageElement);
 
-                                 scrollToBottom();
+                                scrollToBottom();
                             }
                         });
                     } else {
@@ -3210,23 +3135,20 @@ function initializeSimpleChat() {
                     console.error('Error fetching messages:', error);
                 });
 
-            // Ensure the chat container stays visible without being reset
             messagesWrapper.style.display = 'flex';
             chatContainer.style.display = 'flex';
             clearButtonContainer.style.display = 'flex';
 
-            // Adjust parent container height if needed
             if (parentContainer) {
                 parentContainer.style.height = "auto";
             }
 
-            // Update button text if needed
             if (messageButton) {
                 messageButton.textContent = "Close";
             }
         }
 
-        // Function to scroll to the bottom of the messagesWrapper
+
         function scrollToBottom() {
             messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
         }

@@ -34,14 +34,14 @@
 
 
     @php
-$profileImgPath = 'images/admin-student-profile.png';
-$uploadPanName = '';
-$profileIconPath = "assets/images/account_circle.png";
-$phoneIconPath = "assets/images/call.png";
-$mailIconPath = "assets/images/mail.png";
-$pindropIconPath = "assets/images/pin_drop.png";
-$discordIconPath = "assets/images/icons/discordicon.png";
-$viewIconPath = "assets/images/visibility.png";
+        $profileImgPath = 'images/admin-student-profile.png';
+        $uploadPanName = '';
+        $profileIconPath = "assets/images/account_circle.png";
+        $phoneIconPath = "assets/images/call.png";
+        $mailIconPath = "assets/images/mail.png";
+        $pindropIconPath = "assets/images/pin_drop.png";
+        $discordIconPath = "assets/images/icons/discordicon.png";
+        $viewIconPath = "assets/images/visibility.png";
 
 
 
@@ -75,7 +75,7 @@ $viewIconPath = "assets/images/visibility.png";
 
             <div class="popup-notify-list-nbfc">
                 <p id="change-password-trigger-nbfc">Change Password</p>
-                <p>Logout</p>
+                <p class='nbfclogoutBtn'>Logout</p>
             </div>
         </div>
 
@@ -118,7 +118,7 @@ $viewIconPath = "assets/images/visibility.png";
         </ul>
 
         <ul class="nbfcstudentdashboardprofile-sidebarlists-bottom">
-            <li class="nbfclogoutBtn" onClick="sessionLogout()">
+            <li class="nbfclogoutBtn">
                 <img src="assets/images/logout-icon.png" alt="Logout Icon" /> Log out
             </li>
             <li>
@@ -256,7 +256,7 @@ $viewIconPath = "assets/images/visibility.png";
                         <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span
                                 class="personal_info_id" style="margin-left: 6px;"> </span> </li>
                         <li class="personal_info_name" id="referenceNameId"><img src={{$profileIconPath}} alt="">
-                            <p> </p>
+                            <p></p>
                         </li>
                         <li class="personal_info_phone"><img src={{$phoneIconPath}} alt="">
                             <p></p>
@@ -290,7 +290,7 @@ $viewIconPath = "assets/images/visibility.png";
                     </div>
                     <div class="testscoreseditsection-secondrow">
                         @php
-$counter = 1; 
+                            $counter = 1; 
                         @endphp
 
 
@@ -633,10 +633,10 @@ $counter = 1;
                 </div>
 
                 <div class="myapplication-nbfcapprovalcolumn">
-                    <button>Send Proposal</button>
+                    <button id="sendproposal-trigger">Send Proposal</button>
                     <div class="nbfcapprovalcolumnrightaligned">
                         <button>Message</button>
-                        <button>Reject</button>
+                        <button class='dashboard-inside-reject-button'>Reject</button>
                     </div>
 
 
@@ -748,7 +748,8 @@ $counter = 1;
 
                 passwordModelTriggerNbfc();
                 userPopopuOpenNbfc();
-                passwordChangeCheckNbfc(); initialiseEightcolumn();
+                passwordChangeCheckNbfc();
+                initialiseEightcolumn();
                 initialiseSeventhcolumn();
                 initialiseSeventhAdditionalColumn();
                 initialiseNinthcolumn();
@@ -785,13 +786,13 @@ $counter = 1;
                     }
                 }
 
-                // Run function on page load and window resize
+
                 checkWindowSize();
                 window.addEventListener('resize', checkWindowSize);
 
-                // Function to toggle the mobile sidebar and hide/show nav-right
+
                 function toggleMobileSidebar() {
-                    // Only toggle sidebar on mobile
+
                     if (window.innerWidth <= 768) {
                         mobileSidebar.classList.toggle('active');
                         mobileOverlay.classList.toggle('active');
@@ -1025,25 +1026,6 @@ $counter = 1;
 
 
                 // Select all message buttons
-                const messageButtons = document.querySelectorAll(".index-student-message-btn");
-
-                messageButtons.forEach(button => {
-                    button.addEventListener("click", function () {
-                        const parentContainer = this.closest(".index-student-message-container");
-
-                        // Find the corresponding message input box inside the same container
-                        const messageInputBox = parentContainer.querySelector(".nbfc-individual-bankmessage-input-message");
-
-                        // Toggle visibility
-                        if (messageInputBox.style.display === "none" || messageInputBox.style.display === "") {
-                            messageInputBox.style.display = "flex";
-                        } else {
-                            messageInputBox.style.display = "none";
-                        }
-                    });
-                });
-
-
 
 
 
@@ -1125,7 +1107,6 @@ $counter = 1;
 
 
 
-                // Sample Data for Requests and Proposals
 
                 const initializeTraceViewNBFC = (requestsData, proposalsData) => {
 
@@ -1134,7 +1115,7 @@ $counter = 1;
                     if (user && user.nbfc_id) {
                         const nbfcId = user.nbfc_id;
 
-                        // Make a POST request to /trace-process
+
                         fetch('/trace-process', {
                             method: "POST",
                             headers: {
@@ -1215,12 +1196,14 @@ $counter = 1;
 
 
                 function createStudentListItem(student) {
+
                     const listItem = document.createElement("div");
                     listItem.classList.add("dashboard-student-item");
                     listItem.setAttribute("data-id", student.id);
 
                     const studentInfo = document.createElement("div");
                     studentInfo.classList.add("dashboard-student-info");
+
 
                     const studentName = document.createElement("div");
                     studentName.classList.add("dashboard-student-name");
@@ -1241,16 +1224,18 @@ $counter = 1;
                     viewButton.innerHTML = '<i class="fa-solid fa-eye eye-icon"></i>';
 
 
+                    viewButton.addEventListener("click", () => {
+                        viewProfileOfUsers(viewButton, studentId, loader);
+                        studentApplicationInsideRejection(student);
+                        handleSendProposalProcess(studentId);
+
+                    });
                     const loader = document.createElement('div');
                     loader.classList.add('loader');
-                    loader.textContent = 'Loading...';
+                    loader.textContent = 'Loading.....';
                     loader.style.display = 'none';
                     listItem.appendChild(loader);
 
-
-                    viewButton.addEventListener("click", () => {
-                        viewProfileOfUsers(viewButton, studentId, loader);
-                    });
 
 
                     const rejectButton = document.createElement("button");
@@ -1258,69 +1243,7 @@ $counter = 1;
                     rejectButton.textContent = "Reject";
 
                     rejectButton.addEventListener("click", async function () {
-                        const modal = document.querySelector(".modal-container");
-                        if (modal) {
-                            modal.style.display = 'flex';
-
-                            const textArea = document.querySelector(".remarks-textarea");
-                            if (textArea) {
-                                textArea.value = '';
-                                textArea.placeholder = "Enter Remarks for " + student.name;
-
-                                const finalCallReject = document.querySelector(".reject-application-modal-content .actions .reject-button");
-
-                                if (finalCallReject) {
-                                    const newRejectButton = finalCallReject.cloneNode(true);
-                                    finalCallReject.replaceWith(newRejectButton);
-
-                                    newRejectButton.addEventListener('click', async function () {
-                                        var user = @json(session('nbfcuser'));
-
-                                        const nbfcId = user.nbfc_id;
-                                        const userId = student.studentId;
-                                        const remarks = textArea.value;
-
-                                        if (nbfcId && userId && remarks) {
-                                            const data = { userId, nbfcId, remarks };
-
-                                            try {
-                                                const response = await fetch('/del-user-id-request', {
-                                                    method: "POST",
-                                                    headers: {
-                                                        'Content-Type': 'application/json',
-                                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                                                    },
-                                                    body: JSON.stringify(data)
-                                                });
-
-                                                const result = await response.json();
-
-                                                if (result.success) {
-                                                    console.log(result);
-                                                    alert("Remarks submitted for student ID: " + userId);
-
-                                                    // Reinitialize the data after submission
-                                                    await initializeTraceViewNBFC(requestsData, proposalsData);
-
-                                                    // Clear the textarea
-                                                    textArea.value = ''; // Clear the textarea after submission
-                                                } else if (result.error) {
-                                                    console.error(result.error);
-                                                }
-                                            } catch (error) {
-                                                console.error("Error del data", error);
-                                            }
-                                        }
-
-                                        modal.style.display = 'none';
-                                    });
-                                }
-                            } else {
-                                console.log("Textarea not yet filled!");
-                            }
-                        } else {
-                            console.log("Modal not found!");
-                        }
+                        handleRejectionProcess(student);
                     });
 
                     actionButtons.appendChild(viewButton);
@@ -1329,15 +1252,109 @@ $counter = 1;
                     listItem.appendChild(studentInfo);
                     listItem.appendChild(actionButtons);
 
+                    const sessionLogout = document.querySelector(".nbfclogoutBtn");
+                    sessionLogout.addEventListener('click', () => {
+
+                        sessionLogoutInitial();
+
+                    })
+
                     return listItem;
                 }
 
 
 
-                // Populate both the "Requests" and "Proposals" lists
+                const studentApplicationInsideRejection = (student) => {
+                    const rejectButtonInside = document.querySelector(".dashboard-inside-reject-button");
 
-                //chat functionality
-                // Select elements
+                    if (rejectButtonInside) {
+                        rejectButtonInside.addEventListener("click", function () {
+                            handleRejectionProcess(student);
+                        });
+                    }
+                };
+
+                const handleSendProposalProcess = (studentId) => {
+                    const sendProposalTrigger = document.querySelector(".myapplication-nbfcapprovalcolumn #sendproposal-trigger");
+
+                    if (sendProposalTrigger) {
+                        const newTrigger = sendProposalTrigger.cloneNode(true);
+                        sendProposalTrigger.parentNode.replaceChild(newTrigger, sendProposalTrigger);
+
+                        newTrigger.addEventListener("click", () => {
+                            console.log("Clicked");
+                            console.log(studentId);
+                            openModal(studentId);
+                        });
+                    }
+                };
+
+
+                const handleRejectionProcess = async (student) => {
+                    const modal = document.querySelector(".modal-container");
+                    if (modal) {
+                        modal.style.display = 'flex';
+                        const textArea = document.querySelector(".remarks-textarea");
+                        if (textArea) {
+                            textArea.value = '';
+                            textArea.placeholder = "Enter Remarks for " + student.name;
+
+                            const finalCallReject = document.querySelector(".reject-application-modal-content .actions .reject-button");
+
+                            if (finalCallReject) {
+                                const newRejectButton = finalCallReject.cloneNode(true);
+                                finalCallReject.replaceWith(newRejectButton);
+
+                                newRejectButton.addEventListener('click', async function () {
+                                    var user = @json(session('nbfcuser'));
+                                    const nbfcId = user.nbfc_id;
+                                    const userId = student.studentId;
+                                    const remarks = textArea.value;
+
+                                    if (nbfcId && userId && remarks) {
+                                        const data = { userId, nbfcId, remarks };
+
+                                        try {
+                                            const response = await fetch('/del-user-id-request', {
+                                                method: "POST",
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                                },
+                                                body: JSON.stringify(data)
+                                            });
+
+                                            const result = await response.json();
+
+                                            if (result.success) {
+                                                console.log(result);
+                                                alert("Remarks submitted for student ID: " + userId);
+                                                await initializeTraceViewNBFC(requestsData, proposalsData);
+
+                                                textArea.value = '';
+                                            } else if (result.error) {
+                                                console.error(result.error);
+                                            }
+                                        } catch (error) {
+                                            console.error("Error del data", error);
+                                        }
+                                    }
+
+                                    modal.style.display = 'none';
+                                });
+                            }
+                        } else {
+                            console.log("Textarea not yet filled!");
+                        }
+                    } else {
+                        console.log("Modal not found!");
+                    }
+                };
+
+
+
+
+
                 const messageInputs = document.querySelector(".nbfc-message-input");
                 const sendButton = document.querySelector(".nbfc-send-img");
                 const inputContainer = document.querySelector(".nbfc-individual-bankmessage-input");
@@ -1347,30 +1364,36 @@ $counter = 1;
 
                 let isNBFC = true;
 
-                // Create messages wrapper if it doesn't exist
-                let messagesWrapper = document.querySelector(".messages-wrapper");
+                let messagesWrapper = parentContainer ? parentContainer.querySelector(`.messages-wrapper[data-chat-id="${chatId}"]`) : null;
+
+
                 if (!messagesWrapper) {
                     messagesWrapper = document.createElement("div");
                     messagesWrapper.classList.add("messages-wrapper");
+                    messagesWrapper.setAttribute('data-chat-id', chatId);
                     messagesWrapper.style.cssText = `
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            gap: 20px;
-            padding: 20px 0;
-        `;
+        display: none;
+        flex-direction: column;
+        width: 100%;  
+        font-size: 14px;
+        color: #666;
+        line-height: 1.5; 
+        overflow-y: auto;
+        max-height: 300px;
+        background: #fff;
+        font-family: 'Poppins', sans-serif;
+        margin-bottom: 10px;
+    `;
                     inputContainer.parentNode.insertBefore(messagesWrapper, inputContainer);
                 }
 
-                // Load messages from localStorage if any
-                function loadMessages() {
-                    const savedMessages = JSON.parse(localStorage.getItem('messages'));
-                    if (savedMessages && Array.isArray(savedMessages)) {
-                        savedMessages.forEach(content => {
-                            createMessage(content);
-                        });
-                    }
-                }
+                // function loadMessages() {
+                //     if (savedMessages && Array.isArray(savedMessages)) {
+                //         savedMessages.forEach(content => {
+                //             createMessage(content);
+                //         });
+                //     }
+                // }
 
                 // Create message in the chat
                 function createMessage(content) {
@@ -1424,7 +1447,6 @@ $counter = 1;
                     messagesWrapper.appendChild(alignmentContainer);
 
                     // Scroll only the chat container to the latest message
-                    messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
                 }
 
 
@@ -1573,7 +1595,6 @@ $counter = 1;
                                 messagesWrapper.appendChild(alignmentContainer);
 
                                 // Scroll to the bottom of the chat
-                                messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
 
                                 // Save file data to localStorage
                                 let savedFiles = JSON.parse(localStorage.getItem('files')) || [];
@@ -1662,7 +1683,6 @@ $counter = 1;
                             messagesWrapper.appendChild(alignmentContainer);
 
                             // Scroll to the bottom of the chat
-                            messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
                         });
                     }
                 }
@@ -1715,10 +1735,8 @@ $counter = 1;
                     });
                 }
 
-                // Function to handle "Close" button click
                 if (closeButtonIndex) {
                     closeButtonIndex.addEventListener("click", function () {
-                        // Hide the message response container
                         messageResponse.style.display = "none";
                     });
                 }
@@ -1726,7 +1744,6 @@ $counter = 1;
 
             });
 
-            //nbfc-student
             const modalContainer = document.getElementById('modelContainer-send-proposal');
             const closeButtons = document.querySelectorAll('.nbfc-send-proposal-close-button');
             const fileInput = document.getElementById('fileInput');
@@ -1738,21 +1755,130 @@ $counter = 1;
             const cancelButton = document.querySelector('.nbfc-send-proposal-cancel-button');
             const sendButton = document.querySelector('.nbfc-send-proposal-send-button');
 
-            function openModal() {
-                modalContainer.style.display = 'flex';
+            function openModal(studentId) {
+                console.log(studentId)
+                const placeHolder = document.querySelector(".nbfc-send-proposal-remarks-textarea");
+
+
+                if (modalContainer) {
+                    modalContainer.style.display = 'flex';
+
+
+
+                    if (placeHolder) {
+                        placeHolder.value = '';
+
+                        if (studentId) {
+                            studentId = studentId.textContent;
+                            placeHolder.placeholder = `Remarks ${studentId}`;
+                            attachmentBtn.addEventListener('click', () => fileInput.click());
+                            fileInput.addEventListener('change', (e) => {
+                                const file = e.target.files[0];
+                                if (file) {
+                                    fileName.textContent = file.name;
+                                    fileSize.textContent = (file.size / 1024).toFixed(2) + ' KB';
+                                    attachmentPreview.style.display = 'flex';
+
+                                    const sendProposalTrigger = document.querySelector(".nbfc-send-proposal-send-button");
+                                    if (sendProposalTrigger) {
+
+                                        sendProposalTrigger.addEventListener('click', () => {
+                                            var user = @json(session('nbfcuser'));
+                                            const nbfcId = user.nbfc_id;
+                                            if (nbfcId) {
+                                                sendProposalByNbfc(file, studentId, nbfcId, placeHolder)
+
+                                            }
+
+                                        })
+
+                                    }
+
+
+
+
+                                }
+                            });
+
+                        }
+                    }
+                }
             }
 
             function closeModal() {
+
+
                 modalContainer.style.display = 'none';
                 clearFileInput();
             }
 
+
+
             function clearFileInput() {
+                const placeHolder = document.querySelector(".nbfc-send-proposal-remarks-textarea");
+                placeHolder.placeholder = '';
                 fileInput.value = '';
                 attachmentPreview.style.display = 'none';
                 fileName.textContent = 'No file selected';
                 fileSize.textContent = '';
             }
+            const sendProposalByNbfc = (file, studentId, nbfcId, placeHolder) => {
+
+
+                const remarks = placeHolder.value;
+
+                const sendProposalDetails = new FormData();
+
+                sendProposalDetails.append('file', file);
+                sendProposalDetails.append('userId', studentId);
+                sendProposalDetails.append('nbfcId', nbfcId)
+                sendProposalDetails.append('remarks', remarks);
+
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                if (!csrfToken) {
+                    console.error('CSRF token not found');
+                    return;
+                }
+
+                // Check if the file is present
+                if (!file) {
+                    console.error('No file provided');
+                    return;
+                }
+
+                // Sending the request
+                fetch('/send-proposals-with-file', {
+                    method: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json',
+                    },
+                    body: sendProposalDetails,
+                })
+                    .then(response => {
+                        // Handle errors in response
+                        if (!response.ok) {
+                            return response.json().then(errorData => {
+                                throw new Error(`${response.status}: ${errorData.message || 'Network response was not ok'}`);
+                            });
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data) {
+                            alert(data.message);
+
+                        } else {
+                            console.error("Error: No file URL returned from the server", data);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error uploading file", error);
+                        // Optional: Display a friendly error message to the user, like a notification
+                    });
+            };
+
 
             attachmentBtn.addEventListener('click', () => fileInput.click());
             fileInput.addEventListener('change', (e) => {
@@ -1769,10 +1895,8 @@ $counter = 1;
             cancelButton.addEventListener('click', closeModal);
             sendButton.addEventListener('click', closeModal);
 
-            //nbfc reject button
 
             document.addEventListener("DOMContentLoaded", function () {
-                // Select modal elements
                 const modalContainer = document.getElementById("model-container-reject-container");
                 const closeButton = document.getElementById("close-button-id");
                 const cancelButton = document.getElementById("cancel-button-id");
@@ -1781,13 +1905,13 @@ $counter = 1;
 
                 function hideRejectModal() {
                     if (modalContainer) {
-                        modalContainer.style.display = "none"; // Hide modal
+                        modalContainer.style.display = "none";
                     }
                 }
 
 
 
-                // Close modal when clicking "X" or "Cancel"
+
                 if (closeButton) {
                     closeButton.addEventListener("click", hideRejectModal);
                 }
@@ -1965,15 +2089,13 @@ $counter = 1;
                 });
             });
 
-            //sort functionality
+
 
             const studentContainers = document.querySelectorAll(".index-student-message-container");
             const sortDropdown = document.getElementById("sort-options-index-nbfc");
             const sortTrigger = document.getElementById("index-nbfc-sort-id");
 
-            // Assign student names dynamically
 
-            // Toggle dropdown visibility
             sortTrigger.addEventListener("click", function (event) {
                 event.stopPropagation();
                 sortDropdown.classList.toggle("visible");
@@ -1990,46 +2112,46 @@ $counter = 1;
 
 
 
-            // Multi instance chat function of the NBFC
-            // Initialize chat functionality for all message input containers
-            function initializeChats() {
-                // Select all chat containers
-                const chatContainers = document.querySelectorAll('.nbfc-individual-bankmessage-input-message');
 
-                chatContainers.forEach((container, index) => {
-                    // Create unique identifier for this chat instance
+            function initializeChats() {
+                const chatContainer = document.querySelectorAll('.nbfc-individual-bankmessage-input-message');
+
+                chatContainer.forEach((container, index) => {
                     const chatId = `chat-${index}`;
                     container.setAttribute('data-chat-id', chatId);
 
-                    // Find the parent container and view button
                     const parentContainer = container.closest('.index-student-message-container');
                     const viewButton = parentContainer.querySelector('.index-student-view-btn');
 
-                    // Create messages wrapper for this chat instance
                     const messagesWrapper = document.createElement("div");
                     messagesWrapper.classList.add("messages-wrapper");
                     messagesWrapper.setAttribute('data-chat-id', chatId);
                     messagesWrapper.style.cssText = `
-            display: none;
-            flex-direction: column;
-            width: 100%;  
-           font-size: 14px;
-            color: #666;
-           line-height: 1.5; 
-            overflow-y: auto;
-            background: #fff;
-            font-family: 'Poppins', sans-serif;
+        display: none;
+        flex-direction: column;
+        width: 100%;  
+        font-size: 14px;
+        color: #666;
+        line-height: 1.5; 
+        overflow-y: auto;
+        max-height: 300px;
+        background: #fff;
+        font-family: 'Poppins', sans-serif;
+        margin-bottom: 10px;
+        padding-top:10px;
         `;
-                    container.parentNode.insertBefore(messagesWrapper, container);
 
+
+                    container.parentNode.insertBefore(messagesWrapper, container);
+                    console.log(container)
                     // Get elements within this container
                     const messageInput = container.querySelectorAll(".nbfc-message-input");
                     const sendButton = container.querySelector(".nbfc-send-img");
                     const smileIcon = container.querySelector(".nbfc-face-smile");
                     const paperclipIcon = container.querySelector(".nbfc-paperclip");
 
-                    // Function to show chat and update button
                     function showChat() {
+
                         messagesWrapper.style.display = 'flex';
                         container.style.display = 'flex';
                         if (viewButton) viewButton.textContent = 'Close';
@@ -2041,53 +2163,50 @@ $counter = 1;
                         if (viewButton) viewButton.textContent = 'View';
                     }
 
-                    // Send message function for this chat instance
                     function sendMessage(messageInput, messageUserId) {
-                        console.log(messageInput,messageUserId)
+                        console.log(messageInput, messageUserId)
                         if (!messageInput) return;
 
                         const content = messageInput.value.trim();
                         if (content) {
-                            showChat(); // Show chat when sending message
+                            showChat();
 
 
 
-                            // Create message element
-                            const messageElement = document.createElement("div");
-                            messageElement.style.cssText = `
-                                display: flex;
-                                justify-content: flex-end;
-                                width: 100%;
-                                margin-bottom: 10px;
-                            `;
 
-                            const messageContent = document.createElement("div");
-                            messageContent.style.cssText = `
-                                    max-width: 80%;
-                                    padding: 8px 12px;
-                                    border-radius: 8px;
-                                    word-wrap: break-word;
-                                    font-family: 'Poppins', sans-serif;
-                                `;
-                            messageContent.textContent = content;
+                            // const messageElement = document.createElement("div");
+                            // messageElement.style.cssText = `
+                            //     display: flex;
+                            //     justify-content: flex-end;
+                            //     width: 100%;
+                            //     margin-bottom: 10px;
+                            // `;
 
-                            messageElement.appendChild(messageContent);
-                            messagesWrapper.appendChild(messageElement);
+                            // const messageContent = document.createElement("div");
+                            // messageContent.style.cssText = `
+                            //         max-width: 80%;
+                            //         padding: 8px 12px;
+                            //         border-radius: 8px;
+                            //         word-wrap: break-word;
+                            //         font-family: 'Poppins', sans-serif;
+                            //     `;
+                            // messageContent.textContent = content;
 
-                            // Clear input and scroll to bottom
+                            // messageElement.appendChild(messageContent);
+                            // messagesWrapper.appendChild(messageElement);
+
                             messageInput.value = "";
-                            messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
 
-                            // Save message to backend and localStorage
                             sendMessageToBackend(content, messageUserId);
                         }
                     }
                     async function sendMessageToBackend(content, messageUserId) {
-                        const studentId = messageUserId; // Assuming messageUserId corresponds to studentId
-                        const receiverId = studentId; // If receiverId is different, retrieve it accordingly
- 
-                    
+                        const studentId = messageUserId;
+                        const receiverId = studentId;
+
+
                         var user = @json(session('nbfcuser'));
+                        console.log(studentId + "----");
 
                         if (!user || !user.nbfc_id) {
                             console.error('User not found or invalid nbfc_id');
@@ -2095,7 +2214,7 @@ $counter = 1;
                         }
 
                         const nbfc_id = user.nbfc_id; // Current user nbfc_id
-                        const senderId = nbfc_id; // Assuming the sender is the current user
+                        const senderId = nbfc_id;
 
                         try {
                             const payload = {
@@ -2119,9 +2238,32 @@ $counter = 1;
                             const data = await response.json();
 
                             if (response.ok) {
-                                // If `chatId` is dynamic, make sure it's passed here
-                                saveMessage(content, chatId);
                                 console.log('Message sent successfully:', data.message);
+
+                                //                     const messageElement = document.createElement("div");
+                                //                     messageElement.style.cssText = `
+                                //     display: flex;
+                                //     justify-content: flex-end;
+                                //     width: 100%;
+                                //     margin-bottom: 10px;
+                                // `;
+                                //                     const messageContent = document.createElement("div");
+                                //                     messageContent.style.cssText = `
+                                //     max-width: 80%;
+                                //     padding: 8px 12px;
+                                //     border-radius: 8px;
+                                //     background-color: #DCF8C6;
+                                //     word-wrap: break-word;
+                                //     font-family: 'Poppins', sans-serif;
+                                //     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+                                // `;
+                                //                     messageContent.textContent = content;
+
+                                //                     messagesWrapper.appendChild(messageElement);
+
+                                scrollToBottom();
+
+                                viewChat(nbfc_id, messageInputStudentids);
                             } else {
                                 console.error('Failed to send message:', data.error || 'Unknown error');
                             }
@@ -2134,12 +2276,15 @@ $counter = 1;
                         viewButton.addEventListener('click', function () {
                             if (messagesWrapper.style.display === 'none') {
                                 showChat();
+
+
+
                             } else {
                                 hideChat();
                             }
                         });
                     }
- 
+
                     messageInput.forEach((messageInput, index) => {
                         if (messageInput) {
                             messageInput.addEventListener('input', function () {
@@ -2151,16 +2296,18 @@ $counter = 1;
                             messageInput.addEventListener('keypress', function (e) {
                                 if (e.key === 'Enter') {
                                     e.preventDefault();
-                                    const messageUserId = messageUserIds[index].textContent
 
-                                    sendMessage(messageInput, messageUserId);
-                                      if (messagesWrapper.style.display === 'none') {
-                                        showChat();
-                                    }
+                                    const messageUserId = messageUserIds[index].textContent;
+                                    console.log(`${messageUserId}here}`)
 
+                                    // if (messagesWrapper.style.display === 'none') {
+                                    //     showChat();
+                                    // }
 
+                                    sendMessage(messageInput, messageUserId); // This should only run when the Enter key is pressed
                                 }
                             });
+
                         }
                     })
 
@@ -2169,20 +2316,133 @@ $counter = 1;
                     const sendButtons = document.querySelectorAll(".nbfc-individual-bankmessage-input-message .nbfc-send-img");
                     const inputs = document.querySelectorAll(".nbfc-message-input");
 
-                    sendButtons.forEach((sendButton,index) => {
+
+                    sendButtons.forEach((sendButton, index) => {
                         if (sendButton) {
                             sendButton.addEventListener('click', function (e) {
                                 e.preventDefault();
                                 const messageUserId = messageUserIds[index].textContent;
                                 const messageInput = inputs[index];
-                                
+
                                 sendMessage(messageInput, messageUserId);
-                             });
+                            });
                         }
                     })
+                    function viewChat(nbfc_id, messageInputStudentids) {
+                        const student_id = messageInputStudentids;
+                        nbfc_id = nbfc_id.trim();
+                        const chatId = `chat-${index}`;
+
+                        messagesWrapper.innerHTML = '';
+
+                        if (chatId) {
+                            const apiUrl = `/get-messages/${nbfc_id}/${student_id}`;
+
+                            fetch(apiUrl)
+                                .then(response => response.json())
+                                .then(data => {
+                                    console.log('API response:', data);
+                                    if (data && data.messages && data.messages.length > 0) {
+                                        // Sort messages by ID to ensure chronological order
+                                        data.messages.sort((a, b) => a.id - b.id);
+
+                                        data.messages.forEach(message => {
+                                            const messageElement = document.createElement("div");
+                                            messageElement.setAttribute('data-chat-id', chatId);
+
+                                            // Determine if the sender is the NBFC (right side) or student (left side)
+                                            const isNbfcSender = message.sender_id === nbfc_id;
+
+                                            messageElement.style.cssText = `
+                            display: flex;
+                            justify-content: ${isNbfcSender ? 'flex-end' : 'flex-start'};
+                            width: 100%;
+                            margin-bottom: 10px;
+                            padding-top: 10px;
+                        `;
+
+                                            const messageContent = document.createElement("div");
+                                            messageContent.style.cssText = `
+                            max-width: 80%;
+                            padding: 8px 12px;
+                            border-radius: 8px;
+                            background-color: ${isNbfcSender ? '#DCF8C6' : '#FFF'};
+                            overflow-wrap: break-word;
+                            font-family: 'Poppins', sans-serif;
+                            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+                        `;
+
+                                            messageContent.textContent = message.message;
+                                            messageElement.appendChild(messageContent);
+                                            messagesWrapper.appendChild(messageElement);
+                                        });
+
+                                        // Scroll to the bottom after loading messages
+                                        scrollToBottom(messagesWrapper);
+                                    } else {
+                                        console.log('No messages found');
+                                        // Optionally display a "No messages" placeholder
+                                        const noMessages = document.createElement("div");
+                                        noMessages.textContent = "No messages yet";
+                                        noMessages.style.textAlign = "center";
+                                        noMessages.style.padding = "20px";
+                                        noMessages.style.color = "#999";
+                                        messagesWrapper.appendChild(noMessages);
+                                    }
+
+                                    // Add the chat ID to the set of loaded chats
+                                    loadedChats.add(chatId);
+                                })
+                                .catch(error => {
+                                    console.error('Error fetching messages:', error);
+                                    // Optionally display an error message
+                                    const errorElement = document.createElement("div");
+                                    errorElement.textContent = "Error loading messages";
+                                    errorElement.style.color = "red";
+                                    errorElement.style.padding = "20px";
+                                    errorElement.style.textAlign = "center";
+                                    messagesWrapper.appendChild(errorElement);
+                                });
+                        }
+
+                        messagesWrapper.style.display = 'flex';
+                        container.style.display = 'flex';
+
+                        if (parentContainer) {
+                            parentContainer.style.height = "auto";
+                        }
+                    }
+
+                    function scrollToBottom(element) {
+                        element.scrollTop = element.scrollHeight;
+                    }
+                    function scrollToBottom(element) {
+                        element.scrollTop = element.scrollHeight;
+                    }
 
 
-                    // Initialize emoji picker
+                    function scrollToBottom() {
+
+
+                        messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
+                    }
+                    var messageBtns = document.querySelectorAll('.index-student-message-btn');
+ 
+                    if (messageBtns.length > 0) {
+                        messageBtns[index].addEventListener('click', function () {
+                            showChat();
+                            var user = @json(session('nbfcuser'));
+                            const nbfc_id = user.nbfc_id;
+                            console.log(nbfc_id);
+
+                            console.log(messageUserIds[index].textContent);
+                            const messageInputStudentids = messageUserIds[index].textContent;
+                            console.log(messageInputStudentids);
+
+                            viewChat(nbfc_id, messageInputStudentids);
+                        });
+                    }
+
                     if (smileIcon) {
                         smileIcon.addEventListener('click', function (e) {
                             e.stopPropagation();
@@ -2228,10 +2488,10 @@ $counter = 1;
                                 picker.appendChild(button);
                             });
 
-                            container.appendChild(picker);                        
+                            container.appendChild(picker);
 
 
-                            
+
 
                             document.addEventListener("click", function closePicker(e) {
                                 if (!picker.contains(e.target) && e.target !== smileIcon) {
@@ -2242,7 +2502,6 @@ $counter = 1;
                         });
                     }
 
-                    // Initialize file attachment
                     if (paperclipIcon) {
                         paperclipIcon.addEventListener('click', function () {
                             const fileInput = document.createElement("input");
@@ -2281,7 +2540,6 @@ $counter = 1;
 
                                     messageElement.appendChild(fileContent);
                                     messagesWrapper.appendChild(messageElement);
-                                    messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
                                 }
                             };
 
@@ -2292,46 +2550,39 @@ $counter = 1;
                     }
 
                     // Initialize message button
-                    const messageBtn = parentContainer.querySelector('.index-student-message-btn');
-                    if (messageBtn) {
-                        messageBtn.addEventListener('click', function () {
-                            showChat();
-                        });
-                    }
+
+
+
 
                     // Load saved messages
-                    const savedMessages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
-                    savedMessages.forEach(content => {
-                        const messageElement = document.createElement("div");
-                        messageElement.style.cssText = `
-                display: flex;
-                justify-content: flex-end;
-                width: 100%;
-                margin-bottom: 10px;
-            `;
+                    //         savedMessages.forEach(content => {
+                    //             const messageElement = document.createElement("div");
+                    //             messageElement.style.cssText = `
+                    //     display: flex;
+                    //     justify-content: flex-end;
+                    //     width: 100%;
+                    //     margin-bottom: 10px;
+                    // `;
 
-                        const messageContent = document.createElement("div");
-                        messageContent.style.cssText = `
-                max-width: 80%;
-                padding: 8px 12px;
-                border-radius: 8px;
-                word-wrap: break-word;
-            `;
-                        messageContent.textContent = content;
+                    //             const messageContent = document.createElement("div");
+                    //             messageContent.style.cssText = `
+                    //     max-width: 80%;
+                    //     padding: 8px 12px;
+                    //     border-radius: 8px;
+                    //     word-wrap: break-word;
+                    // `;
+                    //             messageContent.textContent = content;
 
-                        messageElement.appendChild(messageContent);
-                        messagesWrapper.appendChild(messageElement);
-                    });
+                    //             messageElement.appendChild(messageContent);
+                    //             messagesWrapper.appendChild(messageElement);
+                    //         });
                 });
             }
 
-            // Storage functions
-            function saveMessage(content, chatId) {
-                const messages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
-                messages.push(content);
-                console.log(content)
-                localStorage.setItem(`messages-${chatId}`, JSON.stringify(messages));
-            }
+            let loadedChats = new Set();
+
+
+
 
             // Initialize when DOM is loaded
             document.addEventListener('DOMContentLoaded', initializeChats);
@@ -2498,6 +2749,7 @@ $counter = 1;
                     await initialiseAllViews(userId);
                     await initialiseProfileView(userId);
 
+
                     console.log("Profile loaded for user:", userId);
                 } catch (error) {
                     console.error("Error retrieving or initializing user details:", error);
@@ -2506,7 +2758,8 @@ $counter = 1;
                     loaderElement.style.display = 'none'; // Hide loader
                     viewButton.disabled = false; // Re-enable the button
                 }
-            }; const initializeCoBorrowerDocumentUpload = () => {
+            };
+            const initializeCoBorrowerDocumentUpload = () => {
                 const coBorrowerDocuments = document.querySelectorAll(".individual-coborrower-kyc-documents");
 
                 coBorrowerDocuments.forEach((card) => {
@@ -2930,14 +3183,15 @@ $counter = 1;
 
                         if (!file) return;
 
-                        console.log("Selected file: ", file);  // Debug log
+                        console.log("Selected file: ", file);
 
-                        // Allowed file types
+                        // Allowed file types based on MIME type
+                        const allowedMimeTypes = ['image/jpeg', 'image/png', 'application/pdf'];
                         const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
                         const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
 
-                        // Validate file type
-                        if (!allowedExtensions.includes(fileExtension)) {
+                        // Validate file type (extension and MIME)
+                        if (!allowedExtensions.includes(fileExtension) || !allowedMimeTypes.includes(file.type)) {
                             alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
                             event.target.value = ''; // Clear the file input
                             card.querySelector('.inputfilecontainer p').textContent = 'No file chosen';
@@ -2962,31 +3216,55 @@ $counter = 1;
                             : (file.size / (1024 * 1024)).toFixed(2) + ' MB';
                         card.querySelector('.document-status').textContent = `${fileSize} Uploaded`;
 
-                        console.log("File uploaded:", uploadedFile);  // Debug log
+                        console.log("File uploaded:", uploadedFile);
                     });
-
-
 
                     card.querySelector('.fa-eye').addEventListener('click', function (event) {
                         event.stopPropagation();
-                        const previewContainer = card.querySelector('.inputfilecontainer');
                         const eyeIcon = this;
 
                         if (eyeIcon.classList.contains('preview-active')) {
+                            closePreview();
+                        } else {
+                            if (uploadedFile && uploadedFile.type === 'application/pdf') {
+                                const reader = new FileReader();
+                                reader.onload = function (event) {
+                                    openPdfPreview(event.target.result, uploadedFile.name);
+                                };
+                                reader.readAsDataURL(uploadedFile);
+                                eyeIcon.classList.add('preview-active');
+                                eyeIcon.classList.replace('fa-eye', 'fa-times');
+                            } else {
+                                alert('Please upload a valid PDF file to preview.');
+                            }
+                        }
+
+                        function closePreview() {
                             const previewWrapper = document.querySelector('.pdf-preview-wrapper');
                             if (previewWrapper) previewWrapper.remove();
                             const overlay = document.querySelector('.pdf-preview-overlay');
                             if (overlay) overlay.remove();
                             eyeIcon.classList.remove('preview-active');
                             eyeIcon.classList.replace('fa-times', 'fa-eye');
-                        } else {
-                            if (uploadedFile && uploadedFile.type === 'application/pdf') {
-                                const reader = new FileReader();
-                                reader.onload = function (event) {
-                                    // Create wrapper for the preview
-                                    const previewWrapper = document.createElement('div');
-                                    previewWrapper.className = 'pdf-preview-wrapper';
-                                    previewWrapper.style.cssText = `
+                        }
+
+                        function openPdfPreview(pdfDataUrl, fileName) {
+                            // Create overlay and preview wrapper
+                            const overlay = document.createElement('div');
+                            overlay.className = 'pdf-preview-overlay';
+                            overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 999;
+                `;
+
+                            const previewWrapper = document.createElement('div');
+                            previewWrapper.className = 'pdf-preview-wrapper';
+                            previewWrapper.style.cssText = `
                     position: fixed;
                     top: 50%;
                     left: 50%;
@@ -3000,22 +3278,9 @@ $counter = 1;
                     z-index: 1000;
                 `;
 
-                                    // Add overlay
-                                    const overlay = document.createElement('div');
-                                    overlay.className = 'pdf-preview-overlay';
-                                    overlay.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: rgba(0, 0, 0, 0.5);
-                    z-index: 999;
-                `;
-
-                                    // Create header
-                                    const header = document.createElement('div');
-                                    header.style.cssText = `
+                            // Create header
+                            const header = document.createElement('div');
+                            header.style.cssText = `
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
@@ -3025,135 +3290,45 @@ $counter = 1;
                     height: 40px;
                 `;
 
-                                    // Left section with filename
-                                    const fileNameSection = document.createElement('div');
-                                    fileNameSection.style.cssText = `
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                `;
+                            const fileNameSection = document.createElement('span');
+                            fileNameSection.textContent = fileName;
+                            fileNameSection.style.cssText = 'color: white; font-size: 14px;';
 
-                                    const fileName = document.createElement('span');
-                                    fileName.textContent = uploadedFile.name;
-                                    fileName.style.cssText = `
-                    color: white;
-                    font-size: 14px;
-                `;
-                                    fileNameSection.appendChild(fileName);
-
-                                    // Middle section with zoom controls
-                                    const zoomControls = document.createElement('div');
-                                    zoomControls.style.cssText = `
-                    display: flex;
-                    align-items: center;
-                    gap: 12px;
-                    position: absolute;
-                    left: 50%;
-                    transform: translateX(-50%);
-                `;
-
-                                    const zoomOut = document.createElement('button');
-                                    zoomOut.innerHTML = '&#8722;';
-                                    const zoomIn = document.createElement('button');
-                                    zoomIn.innerHTML = '&#43;';
-
-                                    [zoomOut, zoomIn].forEach(btn => {
-                                        btn.style.cssText = `
-                        background: none;
-                        border: none;
-                        color: white;
-                        font-size: 18px;
-                        cursor: pointer;
-                        padding: 4px 8px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    `;
-                                    });
-
-                                    zoomControls.appendChild(zoomOut);
-                                    zoomControls.appendChild(zoomIn);
-
-                                    // Close button
-                                    const closeButton = document.createElement('button');
-                                    closeButton.innerHTML = '&#10005;';
-                                    closeButton.style.cssText = `
+                            // Close button
+                            const closeButton = document.createElement('button');
+                            closeButton.innerHTML = '&#10005;';
+                            closeButton.style.cssText = `
                     background: none;
                     border: none;
                     color: white;
                     font-size: 18px;
                     cursor: pointer;
                     padding: 4px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
                 `;
 
-                                    const closePreview = () => {
-                                        previewWrapper.remove();
-                                        overlay.remove();
-                                        eyeIcon.classList.remove('preview-active');
-                                        eyeIcon.classList.replace('fa-times', 'fa-eye');
-                                    };
+                            closeButton.addEventListener('click', closePreview);
+                            overlay.addEventListener('click', closePreview);
 
-                                    closeButton.addEventListener('click', closePreview);
-                                    overlay.addEventListener('click', closePreview);
-
-                                    // Assemble header
-                                    header.appendChild(fileNameSection);
-                                    header.appendChild(zoomControls);
-                                    header.appendChild(closeButton);
-
-                                    // Create iframe for PDF content
-                                    const iframe = document.createElement('iframe');
-                                    iframe.src = event.target.result;
-                                    iframe.style.cssText = `
+                            // Create iframe for PDF preview
+                            const iframe = document.createElement('iframe');
+                            iframe.src = pdfDataUrl;
+                            iframe.style.cssText = `
                     width: 100%;
                     height: calc(100% - 40px);
                     border: none;
-                    background-color: white;
                 `;
 
-                                    // Assemble the preview
-                                    previewWrapper.appendChild(header);
-                                    previewWrapper.appendChild(iframe);
-
-                                    // Add to document body
-                                    document.body.appendChild(overlay);
-                                    document.body.appendChild(previewWrapper);
-
-                                    // Add zoom functionality
-                                    let currentZoom = 100;
-                                    zoomIn.addEventListener('click', () => {
-                                        currentZoom += 10;
-                                        iframe.style.transform = `scale(${currentZoom / 100})`;
-                                        iframe.style.transformOrigin = 'top center';
-                                    });
-
-                                    zoomOut.addEventListener('click', () => {
-                                        currentZoom = Math.max(currentZoom - 10, 50);
-                                        iframe.style.transform = `scale(${currentZoom / 100})`;
-                                        iframe.style.transformOrigin = 'top center';
-                                    });
-
-                                    // Add keyboard shortcut for closing
-                                    document.addEventListener('keydown', function (e) {
-                                        if (e.key === 'Escape') {
-                                            closePreview();
-                                        }
-                                    });
-                                };
-                                reader.readAsDataURL(uploadedFile);
-                                eyeIcon.classList.add('preview-active');
-                                eyeIcon.classList.replace('fa-eye', 'fa-times');
-                            } else {
-                                alert('Please upload a valid PDF file to preview.');
-                            }
+                            // Assemble the preview
+                            header.appendChild(fileNameSection);
+                            header.appendChild(closeButton);
+                            previewWrapper.appendChild(header);
+                            previewWrapper.appendChild(iframe);
+                            document.body.appendChild(overlay);
+                            document.body.appendChild(previewWrapper);
                         }
                     });
                 });
             };
-
             const initializeMarksheetUpload = () => {
                 const individualMarksheetDocumentsUpload = document.querySelectorAll(".individualmarksheetdocuments");
 
@@ -4063,11 +4238,11 @@ $counter = 1;
                                     closeButton.addEventListener('click', closePreview);
                                     overlay.addEventListener('click', closePreview);
 
-                                     header.appendChild(fileNameSection);
+                                    header.appendChild(fileNameSection);
                                     header.appendChild(zoomControls);
                                     header.appendChild(closeButton);
 
-                                     const iframe = document.createElement('iframe');
+                                    const iframe = document.createElement('iframe');
                                     iframe.src = event.target.result;
                                     iframe.style.cssText = `
                             width: 100%;
@@ -4487,6 +4662,20 @@ $counter = 1;
                     });
             }
 
+            const sessionLogoutInitial = () => {
+                fetch("{{ route('logout') }}", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({})
+                }).then(response => {
+                    if (response.ok) {
+                        window.location.href = "{{ route('login') }}";
+                    }
+                });
+            }
             const createContainerList = (data) => {
                 console.log(data);
 

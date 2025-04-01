@@ -152,3 +152,5 @@ Route::post("/trace-process", [TrackController::class, 'traceuserprogress']);
 Route::get("/getnbfcdata", [TrackController::class, 'getnbfcdata']);
 
 Route::post("/addbulkusers", [NbfcController::class, 'addBulkNbfc']);
+Route::post("/send-proposals-with-file", [NbfcController::class, 'sendProposalsWithFiles']);
+Route::post('/logout', [LoginController::class, 'sessionLogout'])->name('logout');
