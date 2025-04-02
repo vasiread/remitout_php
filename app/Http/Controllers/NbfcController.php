@@ -129,7 +129,7 @@ class NbfcController extends Controller
                     'nbfc_id' => $nbfcId
                 ],
                 [
-                    'remarks' => $remarks,
+                    'remarks' => $remarks,    
                     'status_modified_by_students' => Proposals::PENDING
                 ]
             );

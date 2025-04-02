@@ -34,14 +34,14 @@
 
 
     @php
-        $profileImgPath = 'images/admin-student-profile.png';
-        $uploadPanName = '';
-        $profileIconPath = "assets/images/account_circle.png";
-        $phoneIconPath = "assets/images/call.png";
-        $mailIconPath = "assets/images/mail.png";
-        $pindropIconPath = "assets/images/pin_drop.png";
-        $discordIconPath = "assets/images/icons/discordicon.png";
-        $viewIconPath = "assets/images/visibility.png";
+$profileImgPath = 'images/admin-student-profile.png';
+$uploadPanName = '';
+$profileIconPath = "assets/images/account_circle.png";
+$phoneIconPath = "assets/images/call.png";
+$mailIconPath = "assets/images/mail.png";
+$pindropIconPath = "assets/images/pin_drop.png";
+$discordIconPath = "assets/images/icons/discordicon.png";
+$viewIconPath = "assets/images/visibility.png";
 
 
 
@@ -290,7 +290,7 @@
                     </div>
                     <div class="testscoreseditsection-secondrow">
                         @php
-                            $counter = 1; 
+$counter = 1; 
                         @endphp
 
 
@@ -635,7 +635,7 @@
                 <div class="myapplication-nbfcapprovalcolumn">
                     <button id="sendproposal-trigger">Send Proposal</button>
                     <div class="nbfcapprovalcolumnrightaligned">
-                        <button>Message</button>
+                        <button id="index-student-message-btn">Message</button>
                         <button class='dashboard-inside-reject-button'>Reject</button>
                     </div>
 
@@ -759,6 +759,9 @@
                 initializeMarksheetUpload();
                 initializeSecuredAdmissionDocumentUpload();
                 initializeWorkExperienceDocumentUpload();
+
+
+
 
 
 
@@ -1228,6 +1231,7 @@
                         viewProfileOfUsers(viewButton, studentId, loader);
                         studentApplicationInsideRejection(student);
                         handleSendProposalProcess(studentId);
+                        // handleMessageTrigger(studentId);
 
                     });
                     const loader = document.createElement('div');
@@ -1288,6 +1292,8 @@
                         });
                     }
                 };
+
+
 
 
                 const handleRejectionProcess = async (student) => {
@@ -1931,6 +1937,15 @@
             });
 
 
+            // const handleMessageTrigger = (studentId) => {
+                
+
+
+            // }
+
+
+
+
 
             const getStudents = () => {
                 var user = @json(session('nbfcuser'));
@@ -2263,7 +2278,7 @@
 
                                 scrollToBottom();
 
-                                viewChat(nbfc_id, messageInputStudentids);
+                                await viewChat(nbfc_id, messageInputStudentids);
                             } else {
                                 console.error('Failed to send message:', data.error || 'Unknown error');
                             }
@@ -2378,7 +2393,7 @@
                                         });
 
                                         // Scroll to the bottom after loading messages
-                                        scrollToBottom(messagesWrapper);
+                                        scrollToBottom();
                                     } else {
                                         console.log('No messages found');
                                         // Optionally display a "No messages" placeholder
@@ -2413,12 +2428,8 @@
                         }
                     }
 
-                    function scrollToBottom(element) {
-                        element.scrollTop = element.scrollHeight;
-                    }
-                    function scrollToBottom(element) {
-                        element.scrollTop = element.scrollHeight;
-                    }
+                   
+                   
 
 
                     function scrollToBottom() {
@@ -2427,7 +2438,7 @@
                         messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
                     }
                     var messageBtns = document.querySelectorAll('.index-student-message-btn');
- 
+
                     if (messageBtns.length > 0) {
                         messageBtns[index].addEventListener('click', function () {
                             showChat();
@@ -2443,6 +2454,26 @@
                         });
                     }
 
+                
+                    const messageTriggerImplement = document.querySelector('#index-student-message-btn');
+
+                     if (messageTriggerImplement) {
+                        // const newTrigger = messageTriggerImplement.cloneNode(true);
+                        // messageTriggerImplement.parentNode.replaceChild(newTrigger, messageTriggerImplement);
+
+                        messageTriggerImplement.addEventListener('click', () => {
+                             const messageInputStudentids = messageUserIds[index].textContent;
+                            console.log(messageInputStudentids);
+                            const userId = messageInputStudentids;
+                             var user = @json(session('nbfcuser'));
+                            const nbfc_id = user.nbfc_id;
+                            messagesWrapper.style.display = 'flex';
+                            container.style.display = 'flex';
+
+                        })
+
+
+                    }    
                     if (smileIcon) {
                         smileIcon.addEventListener('click', function (e) {
                             e.stopPropagation();
@@ -4760,6 +4791,30 @@
 
 
             };
+
+
+            const insideMessageTrigger = () => {
+                // if (messageBtnInside) {
+                //     messageBtnInside.addEventListener('click', () => {
+                //         if (messageBtns.length > 0) {
+                //             messageBtns[index].addEventListener('click', function () {
+                //                 showChat();
+                //                 var user = @json(session('nbfcuser'));
+                //                 const nbfc_id = user.nbfc_id;
+                //                 console.log(nbfc_id);
+
+                //                 console.log(messageUserIds[index].textContent);
+                //                 const messageInputStudentids = messageUserIds[index].textContent;
+                //                 console.log(messageInputStudentids);
+
+                //                 viewChat(nbfc_id, messageInputStudentids);
+                //             });
+                //         }
+                //     })
+                // }
+                console.log("insidetrigger")
+
+            }
 
         </script>
 

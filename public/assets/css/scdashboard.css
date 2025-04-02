@@ -21,7 +21,7 @@
     flex-direction: column;
     top: 40px;
     gap: 9px;
-    height: 157px;
+    height: fit-content;
     left: 1px;
     border-radius: 4px;
     width: 42%;

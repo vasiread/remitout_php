@@ -72,9 +72,9 @@
                     <div class="logincontainer-anotherresources">
                         <p>Or</p>
                         <div class="googlesigninbuttoncontainer">
-                            <button class="googlesigninbutton" onclick="window.location.href='{{ route('google-auth') }}'">
+                            <button class="googlesigninbutton" onclick="window.location.href='{{ route('google.login') }}'">
                                 <img src="{{ asset('assets/images/googleicon.png') }}"> Sign in with Google
-                            </button>
+                            </button>   
                             <button class="iossigninbutton">
                                 <img src="{{ asset('assets/images/appleicon.png') }}"> Sign in with Apple
                             </button>

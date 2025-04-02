@@ -173,10 +173,6 @@ class StudentDashboardController extends Controller
         }
     }
 
-
-
-
-
     public function updateUserIdFromNBFC(Request $request)
     {
         try {
@@ -240,8 +236,7 @@ class StudentDashboardController extends Controller
     public function updateFromProfile(Request $request)
     {
         try {
-            // Validate request data
-            $validated = $request->validate([
+             $validated = $request->validate([
                 'editedName' => 'nullable|string|max:255',
                 'editedPhone' => 'nullable|string|max:15',
                 'editedEmail' => 'nullable|email',

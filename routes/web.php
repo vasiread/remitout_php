@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\{
-    AuthController,
     GoogleAuthController,
     LoginController,
     MailController,
@@ -16,6 +15,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\NbfcController;
 use App\Http\Controllers\scDashboardController;
+// use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\StudentCounsellorController;
 use Illuminate\Support\Facades\Route;
 
@@ -79,9 +79,8 @@ Route::get('/student-forms', function () {
 Route::get('pages/student-dashboard', [TrackController::class, 'loanTracker']);
 
 // Google Authentication Routes
-Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
-Route::get('auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle']);
-
+// Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
+ 
 // Form Submission Routes
 Route::post('/registerformdata', [RegisterController::class, 'store'])->name('registerformdata');
 Route::post('/emailuniquecheck', [RegisterController::class, 'emailUniqueCheck'])->name('emailUniqueCheck');
@@ -126,9 +125,8 @@ Route::post('/passwordchange', [GoogleAuthController::class, 'passwordChange']);
 Route::post('/students/import', [scDashboardController::class, 'import_excel_post'])->name('students.import');
 Route::get('/get-messages/{nbfc_id}/{student_id}', [ChatController::class, 'getMessages']);
 // Google Auth Routes
-Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
-Route::get('auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle']);
-
+// Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
+ 
 // Miscellaneous API-like Routes
 Route::post('/retrieve-file', [StudentDashboardController::class, 'retrieveFile']);
 Route::get("/getalluserdetailsfromadmin", [StudentDashboardController::class, 'getAllUsersFromAdmin']);
@@ -154,3 +152,12 @@ Route::get("/getnbfcdata", [TrackController::class, 'getnbfcdata']);
 Route::post("/addbulkusers", [NbfcController::class, 'addBulkNbfc']);
 Route::post("/send-proposals-with-file", [NbfcController::class, 'sendProposalsWithFiles']);
 Route::post('/logout', [LoginController::class, 'sessionLogout'])->name('logout');
+
+
+// Route::get('login/google', [GoogleAuthController::class, 'redirectToGoogle']);
+
+// Google callback URL
+// Route::get('login/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('google-auth');
+
+Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('/auth/google/call-back', [GoogleAuthController::class, 'handleGoogleCallback']);

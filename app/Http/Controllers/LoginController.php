@@ -15,7 +15,6 @@ class LoginController extends Controller
 {
     public function loginFormData(Request $request)
     {
-        // Validate login input
         $request->validate([
             'loginName' => 'required|string|max:255',
             'loginPassword' => 'required|string|min:6',

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Nbfc;
+use App\Models\PersonalInfo;
 use App\Models\Scuser;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -13,13 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 class GoogleAuthController extends Controller
 {
-    public function redirect()
-    {
-        return Socialite::driver('google')->redirect();
 
-
-
-    }
     public function passwordChange(Request $request)
     {
         try {
@@ -96,30 +91,39 @@ class GoogleAuthController extends Controller
         }
     }
 
-    public function callbackGoogle()
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback()
     {
         try {
-            $googleUser = Socialite::driver('google')->user();
+            $googleUser = Socialite::driver('google')->stateless()->user();
 
-            $user = User::firstOrCreate(
-                ['email' => $googleUser->getEmail()],
-                [
+             $user = PersonalInfo::where('email', $googleUser->getEmail())->first();
+
+            if (!$user) {
+
+                $user = User::create([
                     'name' => $googleUser->getName(),
-                    'password' => bcrypt('random_password'),
-                    'unique_id' => 'HBNKJI' . str_pad(User::count() + 1, 7, '0', STR_PAD_LEFT),
-                ]
-            );
+                    'email' => $googleUser->getEmail(),
+                    'password' => bcrypt(uniqid()), // Random password
+                    'google_id' => $googleUser->getId(),
+                ]);
 
-            session(['user' => $user]);
-            session()->put('expires_at', now()->addSeconds(10000));
+                session(['user' => $user]);  
+                return redirect('/student-forms')->with('success', 'Logged in successfully with Google');
+            }
 
-            return redirect()->intended('/student-forms');
+            session(['user' => $user]); 
+            return redirect('/student-dashboard')->with('success', 'Logged in successfully with Google');
+
         } catch (\Exception $e) {
-            Log::error('Google login error: ' . $e->getMessage());
-
-            return redirect('login')->with('error', 'Google login failed. Please try again.');
+            return redirect('/login')->with('error', 'Google login failed. Try again.');
         }
     }
+
 
 
 
