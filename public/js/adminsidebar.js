@@ -12,7 +12,7 @@ const initializeAdminSidebar = () => {
 
     const adminCounsellorAdd = document.querySelector(".add-studentcounsellor-adminside");
     const studentListContainer = document.querySelector(".student-listcontainer");
-    const studentApplication = document.querySelector("#nbfc-studentdashboardprofile-profile-section-container-id");
+    const studentApplication = document.querySelector("#admin-student-form-edit-container");
     const editContainerAdmin = document.querySelector("#edit-content-main-section");
 
     const studentCounsellorList = document.querySelector(".studentcounsellorlist-adminside");

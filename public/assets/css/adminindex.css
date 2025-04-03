@@ -181,6 +181,7 @@ body {
 }
 #index-container-id{
     width:100%;
+    max-width: 100%;
     margin:0 auto;
     margin-top: 20px;
 }

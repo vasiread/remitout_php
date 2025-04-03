@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const breadcrumbDots = [
         2,
         4,
-        2,
+        3,
         3,
         6
     ];

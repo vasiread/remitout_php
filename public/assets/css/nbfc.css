@@ -108,7 +108,10 @@
 .nbfc-profile-text {
     color: #260254;
     font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+
 }
+
 
 .nbfc-dropdown-icon {
     display: inline-block;
@@ -387,7 +390,7 @@
 }
 
 #nbfc-student-profile-details {
-    display: flex;
+    display: none;
     width: 100%;
     max-width: 69.52%;
 
@@ -527,6 +530,30 @@
     max-width: 28.85%;
     width: 100%;
 }
+
+.nbfcstudentdashboardprofile-togglesidebar {
+    max-width: 18.93%;
+    width: 100%;
+
+    padding: 35px 10px;
+    box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
+    position: fixed;
+    height: 90vh;
+    left: 0;
+    margin-top: 85px;
+    background-color: rgba(255, 255, 255, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 2;
+
+}
+
+#nbfc-list-of-student-profilesections {
+    max-width: 50%;
+}
+
+/*nav bar for tablets*/
 
 @media screen and (max-width: 1023px) {
     .nbfc-navbar {
@@ -708,10 +735,10 @@
     left: 3px;
 }
 
+/* 
 
 .nbfcstudentdashboardprofile-togglesidebar {
-    height: 635px;
-    padding: 35px 10px;
+     padding: 35px 10px;
     max-width: 19%;
     width: 100%;
     box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
@@ -719,7 +746,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
+} */
 
 .nbfcstudentdashboardprofile-togglesidebar ul {
     list-style: none;
@@ -1008,21 +1035,6 @@
 
 
 
-.nbfcstudentdashboardprofile-togglesidebar {
-    width: 16%;
-    min-height: calc(100vh - 80px);
-    padding: 35px 10px;
-    background-color: white;
-    box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
-    position: fixed;
-    height: 75vh;
-    left: 0;
-    margin-top: 80px;
-}
-
-#nbfc-list-of-student-profilesections {
-    max-width: 50%;
-}
 
 /*tablet toggle sidebar*/
 
@@ -1106,14 +1118,16 @@
 /*nbfc main container for dashboard*/
 
 .dashboard-main-content {
-    flex: 1;
+    display: flex;
+
     margin-left: 16%;
     padding: 18px;
     background-color: #F5F5F5;
 }
 
 .dashboard-sections-container {
-    display: grid !important;
+    display: grid;
+    margin-left: 4.09%;
     grid-template-columns: 1fr 1fr;
     gap: 24px;
     padding: 10px;
@@ -1237,6 +1251,7 @@
     height: 38px;
 }
 
+
 .dashboard-student-list {
     display: flex;
     flex-direction: column;
@@ -1302,6 +1317,7 @@
 .dashboard-reject-button {
     color: #6F25CE;
     background: transparent;
+    font-family: 'Poppins', sans-serif;
 }
 
 .dashboard-nbfc-search-container {
@@ -1407,6 +1423,10 @@
 @media (max-width: 767px) {
     .dashboard-nbfc-search-container {
         display: block;
+    }
+
+    .dashboard-sections-container {
+        margin-left: 1rem;
     }
 
     .dashboard-nbfc-search-input {
@@ -2001,6 +2021,7 @@
     font-size: 18px;
     font-weight: 500;
     color: #E98635;
+    font-family: 'Poppins', sans-serif;
 }
 
 .reject-application-modal-header .close-button {
@@ -2029,7 +2050,7 @@
 
 .reject-application-modal-content .actions button {
     margin-left: 8px;
-    padding: 8px 16px;
+
     font-size: 14px;
     border-radius: 4px;
     cursor: pointer;
@@ -2038,7 +2059,6 @@
 .reject-application-modal-content .actions .cancel-button {
     background-color: #FFFFFF;
     color: #260254;
-    border: none;
     border: 1px solid #6F25CE;
 }
 
@@ -2084,6 +2104,9 @@
 #index-section-id-nbfc {
     margin-top: 80px;
     overflow-x: hidden;
+    max-width: 100%;
+    width: 100%;
+    margin-left: 4.09%;
 }
 
 .index-section {
@@ -2111,7 +2134,6 @@
     font-weight: 700;
     font-size: 28px;
 }
-
 
 
 .inbox-filters {
@@ -2218,8 +2240,8 @@
 .message-item {
     padding: 24px 0;
 
-                font-family: 'Poppins', sans-serif;
-    
+    font-family: 'Poppins', sans-serif;
+
 }
 
 .message-header {
@@ -2445,7 +2467,7 @@
 /*index container*/
 
 .index-student-details-container {
-    max-width: 1000px;
+    max-width: 100%;
 }
 
 .index-student-details-container .index-student-message-container {
@@ -2453,8 +2475,6 @@
     flex-direction: column;
     border-bottom: 1px solid #E5E7EB;
 
-    font-family: 'Poppins', sans-serif;
-    
 }
 
 .index-student-details-container .index-student-message-container:last-child {
@@ -2466,6 +2486,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-family: 'Poppins', sans-serif;
 
 
 }
@@ -2651,8 +2672,6 @@
 
     }
 
-
-
     .index-student-description {
         width: 700px;
     }
@@ -2681,7 +2700,7 @@
 }
 
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 
     .index-section {
         grid-template-columns: 1fr;
@@ -2689,6 +2708,8 @@
     }
 
     .inbox-container {
+        max-width: 100%;
+        width: 100%;
         background: white;
         border-radius: 8px;
         padding: 24px;
@@ -2795,20 +2816,28 @@
     }
 
     .message-response {
-        width: 100%;
+        width: 300px;
         padding: 0;
-        margin-left: 0;
+        margin-left: 5px;
+
+
+    }
+
+    .messages-wrapper {
+        width: 300px;
+        padding: 0;
+        margin-left: 5px;
+
     }
 
     .message-response-container {
-
-
         display: flex;
         flex-direction: column;
         align-items: flex-end;
         height: auto;
-        margin-left: 40px;
+        margin-left: 0px;
         border: 1px solid #e2e2e2;
+        width: 300px;
 
     }
 

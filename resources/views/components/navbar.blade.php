@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('assets/css/studentformquestionair.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -16,15 +17,14 @@
         style="@if (request()->is('/')) position: absolute; top: 0; left: 0; width: 100%; z-index: 10; @else position: relative; @endif">
         <div class="{{ Request::is('/') ? 'nav-container' : 'nav-container fullopacity' }}">
             @php
-$navImgPath = "assets/images/Remitoutcolored.png";
-$navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
-$NotificationBell = "assets/images/notifications_unread.png";
+                $navImgPath = "assets/images/Remitoutcolored.png";
+                $navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
+                $NotificationBell = "assets/images/notifications_unread.png";
             @endphp
 
             <img onclick="window.location.href='{{ url(' ') }}'"
                 src="{{ asset(Request::is('/') ? $navImgPathWhite : $navImgPath) }}" alt="Logo" class="logo"
                 id="profile-logo">
-
 
             <div class="nav-links">
                 <a class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}" href="{{url('/')}}">Home</a>
@@ -77,7 +77,7 @@ $NotificationBell = "assets/images/notifications_unread.png";
                     </div>
 
                     <div class="menubarcontainer-profile" id="scuser-dashboard-menu">
-                        <img src="{{ asset('assets/images/Icons/menu.png') }}" onclick="menuopenclose()" alt="">
+
                     </div>
                 </div>
 
@@ -87,7 +87,6 @@ $NotificationBell = "assets/images/notifications_unread.png";
                     <button class="signup-btn" onclick="window.location.href='{{ route('signup') }}'">Sign Up</button>
                 </div>
             @endif
-
 
             <div class="profile-photo-mobtab" style="display:none">
                 <img src="" id="nav-profile-photo-id" class="nav-profileimg" alt="">
@@ -148,7 +147,7 @@ $NotificationBell = "assets/images/notifications_unread.png";
 
             if (currentRoute.includes("/student-dashboard") || currentRoute.includes("/student-forms") || currentRoute.includes("/sc-dashboard")) {
                 console.log('Dashboard or Forms detected');
-                if (window.innerWidth <= 420) {
+                if (window.innerWidth <= 768) {
                     document.querySelector('.nav-searchnotificationbars').style.display = "none";
                     document.querySelector('.profile-photo-mobtab').style.display = "block";
                 } else {
@@ -158,18 +157,74 @@ $NotificationBell = "assets/images/notifications_unread.png";
                 document.querySelector('.nav-links').style.display = "none";
                 if (navButtons) {
                     navButtons.style.display = "none";
-
-
                 }
             } else {
                 console.log('Other route detected');
                 document.querySelector('.nav-searchnotificationbars').style.display = "none";
-                document.querySelector('.nav-links').style.display = "flex";
-                if (navButtons) {
-                    navButtons.style.display = "flex";
 
 
+                if (window.innerWidth <= 768) {
+                    document.querySelector('.nav-links').style.display = "none";
+                    if (navButtons) {
+                        navButtons.style.display = "none";
+                    }
+                    document.getElementById('menu-icon').style.display = "flex";
+                } else {
+                    document.querySelector('.nav-links').style.display = "flex";
+                    if (navButtons) {
+                        navButtons.style.display = "flex";
+                    }
+                    document.getElementById('menu-icon').style.display = "none";
                 }
+            }
+
+            // Set up mobile menu click handler
+            const menuIcon = document.getElementById('menu-icon');
+            if (menuIcon && !menuIcon.hasAttribute('data-initialized')) {
+                menuIcon.setAttribute('data-initialized', 'true');
+                menuIcon.addEventListener('click', function () {
+                    const mobileSidebar = document.getElementById('mobile-sidebar');
+                    const overlay = document.getElementById('sidebar-overlay');
+
+
+                    if (mobileSidebar && overlay) {
+                        // Toggle sidebar visibility
+                        if (mobileSidebar.classList.contains('active')) {
+                            // Close the sidebar
+                            mobileSidebar.classList.remove('active');
+                            overlay.style.display = 'none';
+                            document.body.style.overfl
+                            ow = '';
+                            // Change back to hamburger icon
+                            this.innerHTML = '<span class="bar"></span><span class="bar"></span><span class="bar"></span>';
+                            this.classList.remove('menu-open');
+                        } else {
+                            // Open the sidebar
+                            mobileSidebar.classList.add('active');
+                            overlay.style.display = 'block';
+                            document.body.style.overflow = 'hidden';
+                            // Change to close icon
+                            this.innerHTML = '<i class="fas fa-times"></i>';
+                            this.classList.add('menu-open');
+                        }
+                    } else {
+                        // Create the sidebar and overlay if they don't exist
+                        createMobileSi
+                        debar();
+
+                        // Now that they exist, show them
+                        const newMobileSidebar = document.getElementById('mobile-sidebar');
+                        const newOverlay = document.getElementById('sidebar-overlay');
+                        if (newMobileSidebar && newOverlay) {
+                            newMobileSidebar.classList.add('active');
+                            newOverlay.style.display = 'block';
+                            document.body.style.overflow = 'hidden';
+                            // Change to close icon
+                            this.innerHTML = '<i class="fas fa-times"></i>';
+                            this.classList.add('menu-open');
+                        }
+                    }
+                });
             }
         });
 
@@ -183,7 +238,6 @@ $NotificationBell = "assets/images/notifications_unread.png";
                 img.src = '{{ asset('assets/images/Icons/menu.png') }}';
                 triggeredSideBar.style.display = 'none';
             }
-
         }
 
         const retrieveProfilePictureNav = async () => {
@@ -267,30 +321,147 @@ $NotificationBell = "assets/images/notifications_unread.png";
             const unreadNofifyProfile = document.querySelector(".nav-searchnotificationbars .unread-notify");
             const nameFromProfile = document.querySelector(".nav-searchnotificationbars .nav-profilecontainer h3");
             const iconFromProfile = document.querySelector(".nav-searchnotificationbars .nav-profilecontainer i");
-            const menuBarFromProfile = document.querySelector(".menubarcontainer-profile img")
+            const menuBarFromProfile = document.querySelector(".menubarcontainer-profile img");
+            const mobileNavLinks = document.querySelector(".nav-links");
+            const navButtons = document.querySelector(".nav-buttons");
+            const menuIcon = document.getElementById('menu-icon');
 
-            if (window.innerWidth <= 640) {
-                searchTextBoxProfile.style.display = "none";
-                unreadNofifyProfile.style.display = "none";
-                nameFromProfile.style.display = "none";
-                iconFromProfile.style.display = "none";
-                menuBarFromProfile.style.display = "block";
+            if (window.innerWidth <= 768) {
+                if (searchTextBoxProfile) searchTextBoxProfile.style.display = "none";
+                if (unreadNofifyProfile) unreadNofifyProfile.style.display = "none";
+                if (nameFromProfile) nameFromProfile.style.display = "none";
+                if (iconFromProfile) iconFromProfile.style.display = "none";
+                if (menuBarFromProfile) menuBarFromProfile.style.display =
+                    "block";
+
+                // Hide desktop navigation on mobile
+                if (mobileNavLinks) mobileNavLinks.style.display = "none";
+
+
+                // Show menu icon on mobile
+                if (menuIcon) menuIcon.style.display = "flex";
             } else {
-                searchTextBoxProfile.style.display = "block";
-                unreadNofifyProfile.style.display = "block";
-                nameFromProfile.style.display = "block";
-                iconFromProfile.style.display = "block";
-                menuBarFromProfile.style.display = "none";
+                if (searchTextBoxProfile) searchTextBoxProfile.style.display = "block";
+                if (unreadNofifyProfile) unreadNofifyProfile.style.display = "block";
+                if (nameFromProfile) nameFromProfile.style.display = "block";
+                if (iconFromProfile) iconFromProfile.style.display = "block";
+                if (menuBarFromProfile) menuBarFromProfile.style.display = "none";
+
+
+                // Show desktop navigation on tablet/desktop
+                if (mobileNavLinks) mobileNavLinks.style.display = "flex";
+
+
+                // Hide menu icon on desktop
+                if (menuIcon) menuIcon.style.display = "none";
+
+
+                // Check current route to determine nav display
+                var currentRoute = window.location.pathname;
+                if (currentRoute.includes("/student-dashboard") || currentRoute.includes("/student-forms") || currentRoute.includes("/sc-dashboard")) {
+                    if (mobileNavLinks) mobileNavLinks.style.display = "none";
+                    if (navButtons) navButtons.style.display = "none";
+                } else {
+                    if (mobileNavLinks) mobileNavLinks.style.display = "flex";
+                    if (navButtons) navButtons.style.display = "flex";
+                }
             }
         };
 
-        window.addEventListener("resize", () => {
-            dynamicChangeNavMob();
-        });
+        function createMobileSidebar() {
+            // Create overlay if it doesn't exist
+            let overlay = document.getElementById('sidebar-overlay');
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.id = 'sidebar-overlay';
+                overlay.className = 'overlay';
+                document.body.appendChild(overlay);
+            }
+
+
+            // Create sidebar if it doesn't exist
+            let mobileSidebar = document.getElementById('mobile-sidebar');
+            if (!mobileSidebar) {
+                mobileSidebar = document.createElement('div');
+                mobileSidebar.id = 'mobile-sidebar';
+                mobileSidebar.className = 'mobile-sidebar';
+
+
+                // Sidebar HTML with close icon and updated content - using data attributes instead of hrefs
+                mobileSidebar.innerHTML = `
+            
+                                            <div class="sidebar-menu">
+                                        <a href="javascript:void(0)" class="menu-item active" data-container="studentdashboardprofile-trackprogress">
+                                            <i class="fa-solid fa-square-poll-vertical"></i> Dashboard
+                                        </a>
+                                        <a href="javascript:void(0)" class="menu-item" data-container="studentdashboardprofile-inbox">
+                                            <i class="fa-solid fa-inbox"></i> Inbox
+                                        </a>
+                                        <a href="javascript:void(0)" class="menu-item" data-container="studentdashboardprofile-myapplication">
+                                            <i class="fa-regular fa-clipboard"></i> My Applications
+                                        </a>
+                                    </div>
+
+                                <div class="sidebar-footer">
+                                    <a href="javascript:void(0)" class="menu-item logoutBtn" onclick="sessionLogout()">
+                                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                                    </a>
+                                    <a href="javascript:void(0)" class="menu-item" data-container="studentdashboardprofile-support">
+                                        <img src="assets/images/Icons/support_agent.png" alt=""> Support
+                                    </a>
+                                </div>
+                            `;
+
+
+                document.body.appendChild(mobileSidebar);
+
+
+                // Event listener for the overlay - to close menu
+                overlay.addEventListener('click', function () {
+                    mobileSidebar.classList.remove('active');
+                    overlay.style.display = 'none';
+                    document.body.style.overflow = '';
+
+                    // Change close icon back to hamburger icon
+                    const menuIcon = document.getElementById('menu-icon');
+                    if (menuIcon) {
+                        menuIcon.innerHTML = '<span class="bar"></span><span class="bar"></span><span class="bar"></span>';
+                        menuIcon.classList.remove('menu-open');
+                    }
+                });
 
 
 
 
+
+                function getCookie(name) {
+                    let value = "; " + document.cookie;
+                    let parts = value.split("; " + name + "=");
+                    if (parts.length == 2) return parts.pop().split(";").shift();
+
+                }
+
+
+                function displayError(elementId, message) {
+                    var errorElement = document.getElementById(elementId);
+                    errorElement.innerText = message;
+                    errorElement.style.display = 'block';
+                }
+
+                function clearErrorMessages() {
+                    var errorElements = document.getElementsByClassName('error-message');
+                    for (var i = 0; i < errorElements.length; i++) {
+                        errorElements[i].innerText = '';
+                        errorElements[i].style.display = 'none';
+                    }
+
+                }
+
+
+
+
+            }
+        }
         const userPopopuOpen = () => {
             const userPopupTrigger = document.querySelector(".nav-profilecontainer i");
             const userPopupList = document.querySelector(".popup-notify-list");
@@ -312,12 +483,6 @@ $NotificationBell = "assets/images/notifications_unread.png";
 
             }
         }
-        function getCookie(name) {
-            let value = "; " + document.cookie;
-            let parts = value.split("; " + name + "=");
-            if (parts.length == 2) return parts.pop().split(";").shift();
-        }
-
         const passwordChangeCheck = () => {
             document.getElementById('password-change-save').addEventListener('click', function () {
                 let currentPassword = document.getElementById('current-password').value.trim();
@@ -359,13 +524,13 @@ $NotificationBell = "assets/images/notifications_unread.png";
 
                     const User = JSON.parse(`{!! json_encode(session('scuser')) !!}`);
 
-                     userId = User.referral_code;
+                    userId = User.referral_code;
 
                 } else if (hasUserSession === true) {
 
                     const User = JSON.parse(`{!! json_encode(session('user')) !!}`);
 
-                     userId = User.unique_id;
+                    userId = User.unique_id;
 
                 } else {
                     console.log("No user session found.");
@@ -413,21 +578,6 @@ $NotificationBell = "assets/images/notifications_unread.png";
                     });
             });
         };
-
-        function displayError(elementId, message) {
-            var errorElement = document.getElementById(elementId);
-            errorElement.innerText = message;
-            errorElement.style.display = 'block';
-        }
-
-        function clearErrorMessages() {
-            var errorElements = document.getElementsByClassName('error-message');
-            for (var i = 0; i < errorElements.length; i++) {
-                errorElements[i].innerText = '';
-                errorElements[i].style.display = 'none';
-            }
-        }
-
         const passwordModelTrigger = () => {
             const passwordTrigger = document.getElementById("change-password-trigger");
             const passwordChangeContainer = document.querySelector(".password-change-container");

@@ -17,8 +17,14 @@
 
 #commonsidebar-admin {
     height: fit-content;
-    position: absolute;
+    position: fixed;
+    height: 100vh;
+    scrollbar-width: none;
 
+
+}
+#commonsidebar-admin::-webkit-scrollbar{
+    display:none
 }
 
 #commonsidebar-admin .commonsidebar-sidebarlists-bottom {

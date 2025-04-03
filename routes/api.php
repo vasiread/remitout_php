@@ -42,6 +42,7 @@ Route::post('/push-user-id-request', [StudentDashboardController::class, 'pushUs
 Route::post('/del-user-id-request', [StudentDashboardController::class, 'removeUserIdFromNBFCAndReject']);
 Route::post('/update-user-id-request', [StudentDashboardController::class, 'updateUserIdFromNBFC']);
 
+Route::post('/registerformdata', [RegisterController::class, 'store'])->name('registerformdata');
 
 Route::post('/send-mobotp', [OTPMobController::class, 'sendOTP']);
 Route::post('/verify-mobotp', [OTPMobController::class, 'verifyOTP']);

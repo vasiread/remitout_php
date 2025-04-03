@@ -231,6 +231,13 @@
                     smart lending
                 </h1>
 
+               <div class="mobile-right-image-smart-lending">
+               
+                 <img src="assets/images/tablet-group-image.png" alt="Smart Lending Image">
+              
+              </div>
+
+
                 <div class="features-list">
                     <div class="feature-item">
                         <img src="assets/images/icon-1.png" alt="Support Icon">
@@ -341,18 +348,21 @@ $icons = [
                             Sign up easily online with your PAN and address.</p>
                     </div>
 
-                    <div class="effort-icons-image">
+                   
+
+                    <!-- Stats Grid -->
+                     <div class="effort-icons-image">
                         <img src="assets/images/account_circle.png" alt="Students Icon" class="effort-icon">
                         <img src="assets/images/account_balance.png" alt="NBFCs Icon" class="effort-icon">
                         <img src="assets/images/flag.png" alt="Countries Icon" class="effort-icon">
                         <img src="assets/images/sentiment_very_satisfied.png" alt="Customers Icon" class="effort-icon">
                     </div>
-
-                    <!-- Stats Grid -->
+                    
+                        
                     <div class="effort-stats-grid">
                         <?php
-foreach ($stats as $key => $value) {
-    echo "
+                           foreach ($stats as $key => $value) {
+                            echo "
                             <div class=\"effort-stat-card\">
                                 <div class=\"effort-stat-value\">{$value}</div>
                                 <div class=\"effort-stat-label\">{$labels[$key]}</div>

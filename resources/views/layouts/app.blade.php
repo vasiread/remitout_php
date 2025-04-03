@@ -31,7 +31,7 @@
 
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap">
-    
+
 
     <!-- Preload Raleway Font -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Raleway:wght@100..900&display=swap" as="style"
@@ -82,6 +82,46 @@
     @endif
 
     <script src="{{ asset('js/app.js') }}"></script>
+
+    <!-- Add this script to fix mobile navigation issues -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Fix for mobile navigation if it exists on the page
+            const mobileMenuBtn = document.getElementById('menu-icon');
+            if (mobileMenuBtn) {
+                const mobileNav = document.getElementById('mobile-nav-links') || document.querySelector('.header-links');
+
+                mobileMenuBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    mobileNav.classList.toggle('show');
+                    mobileMenuBtn.classList.toggle('open');
+                });
+
+                // Close menu when clicking outside
+                document.addEventListener('click', function (e) {
+                    if (mobileNav.classList.contains('show') &&
+                        !mobileNav.contains(e.target) &&
+                        !mobileMenuBtn.contains(e.target)) {
+                        mobileNav.classList.remove('show');
+                        mobileMenuBtn.classList.remove('open');
+                    }
+                });
+
+                // Ensure menu links are properly clickable
+                if (mobileNav) {
+                    const mobileLinks = mobileNav.querySelectorAll('a');
+                    mobileLinks.forEach(link => {
+                        link.addEventListener('click', function (e) {
+                            if (this.getAttribute('href').startsWith('#')) {
+                                mobileNav.classList.remove('show');
+                                mobileMenuBtn.classList.remove('open');
+                            }
+                        });
+                    });
+                };
+            }
+        });
+    </script>
 </body>
 
 </html>

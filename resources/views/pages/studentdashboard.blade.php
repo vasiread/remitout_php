@@ -1,5 +1,4 @@
 <html lang="en">
-<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -58,9 +57,9 @@
                             <div class="trackprogress-leftsection">
                                 <p
                                     style="font-weight:600;
-                                                                                                                                                                                                                            font-size:18px;
-                                                                                                                                                                                                                            color:rgba(0, 0, 0, 1); 
-                                                                                                                                                                                                                            padding:15px 0px 0px 24px">
+                                                                                                                                                                                                                                                                    font-size:18px;
+                                                                                                                                                                                                                                                                    color:rgba(0, 0, 0, 1); 
+                                                                                                                                                                                                                                                                    padding:15px 0px 0px 24px">
                                     Loan
                                     Status</p>
 
@@ -624,7 +623,7 @@
 
             </div>
 
-            </div>
+
     @endsection
 
 

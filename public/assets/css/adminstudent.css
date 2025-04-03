@@ -1,13 +1,12 @@
  .student-listcontainer {
-     display: none;
-     flex-direction: column;
-     max-width: 100%;
-     width: 100%;
-     margin-top: 50px;
-     margin-right: 85px;
-     gap: 17px;
-     margin-left: 4.1%;
-
+        display: none;
+            flex-direction: column;
+            max-width: 71.04%;
+            width: 83%;
+            margin-top: 50px;
+            margin-right: 85px;
+            gap: 17px;
+            margin-left: 23.1%;
 
  }
 

@@ -161,108 +161,143 @@ menuIcon.addEventListener('click', () => {
     menuIcon.classList.toggle('open');
 });
 
+    const testimonialSlider = document.querySelector('.testimonial-slider');
+    const prevButton = document.querySelector('.nav-arrow.left');
+    const nextButton = document.querySelector('.nav-arrow.right');
+    const slides = document.querySelectorAll('.profilecardsection-individual');
+    const dots = document.querySelectorAll('.dot-container span');
+    let currentIndex = 0;
     
-const testimonialSlider = document.querySelector('.testimonial-slider');
-const prevButton = document.querySelector('.nav-arrow.left');
-const nextButton = document.querySelector('.nav-arrow.right');
-const slides = document.querySelectorAll('.profilecardsection-individual');
-const dots = document.querySelectorAll('.dot-container span');
-let currentIndex = 0;
-const cardsPerView = 2; // Number of cards visible at a time
-
-// Function to calculate slide width dynamically
-function getSlideWidth() {
-    const style = window.getComputedStyle(slides[0]);
-    const margin = parseFloat(style.marginRight) + parseFloat(style.marginLeft);
-    return slides[0].offsetWidth + margin;
-}
-
-let slideWidth = getSlideWidth();
-
-// Function to update slider position
-function updateSlider() {
-    const translateX = -(currentIndex * slideWidth * cardsPerView);
-    testimonialSlider.style.transform = `translateX(${translateX}px)`;
-    updateDots();
-    toggleButtonState(); // Update the button states after sliding
-}
-
-// Function to update active dot
-function updateDots() {
-    // Remove active class from all dots
-    dots.forEach(dot => {
-        dot.classList.remove('active');
-    });
-    
-    // Add active class to the current dot
-    // For your specific 3-dot case with 4 cards total (2 visible at a time):
-    // - First dot active when showing cards 1-2 (index 0)
-    // - Second dot active when showing cards 3-4 (index 1)
-    // - Third dot not used in this case
-    if (currentIndex < dots.length) {
-        dots[currentIndex].classList.add('active');
-    }
-}
-
-// Function to disable/enable navigation buttons
-function toggleButtonState() {
-    // Disable 'prevButton' if at the first position
-    if (currentIndex === 0) {
-        prevButton.disabled = true;
-        prevButton.classList.add('disabled');
-    } else {
-        prevButton.disabled = false;
-        prevButton.classList.remove('disabled');
+    // Responsive cards per view - 1 on mobile, 2 on desktop
+    function getCardsPerView() {
+        return window.innerWidth <= 768 ? 1 : 2;
     }
     
-    // For exactly 4 cards with 2 visible at a time, we only have 2 positions (0 and 1)
-    // So disable 'nextButton' if at position 1
-    if (currentIndex === 1) {
-        nextButton.disabled = true;
-        nextButton.classList.add('disabled');
-    } else {
-        nextButton.disabled = false;
-        nextButton.classList.remove('disabled');
+    let cardsPerView = getCardsPerView();
+    
+    // Function to calculate slide width dynamically
+    function getSlideWidth() {
+        const style = window.getComputedStyle(slides[0]);
+        const margin = parseFloat(style.marginRight) + parseFloat(style.marginLeft);
+        return slides[0].offsetWidth + margin;
     }
-}
-
-// Event listener for the 'prev' button
-prevButton.addEventListener('click', () => {
-    if (currentIndex > 0) {
-        currentIndex -= 1;
-        updateSlider();
+    
+    let slideWidth = getSlideWidth();
+    
+    // Function to update slider position
+    function updateSlider() {
+        const translateX = -(currentIndex * slideWidth);
+        testimonialSlider.style.transform = `translateX(${translateX}px)`;
+        updateDots();
+        toggleButtonState();
     }
-});
-
-// Event listener for the 'next' button
-nextButton.addEventListener('click', () => {
-    if (currentIndex < 1) { // With 4 cards and 2 visible, we only have 2 positions (0 and 1)
-        currentIndex += 1;
-        updateSlider();
+    
+    // Function to update active dot
+    function updateDots() {
+        // Remove active class from all dots
+        dots.forEach(dot => {
+            dot.classList.remove('active');
+        });
+        
+        // Calculate which dot should be active based on current index
+        const totalPositions = Math.ceil(slides.length / cardsPerView);
+        
+        // Map the currentIndex to a dot index (0, 1, or 2)
+        const activeDotIndex = Math.min(
+            Math.floor(currentIndex / cardsPerView),
+            dots.length - 1
+        );
+        
+        // Add active class to the current dot
+        if (activeDotIndex < dots.length) {
+            dots[activeDotIndex].classList.add('active');
+        }
     }
-});
-
-// Add click events for the dots
-dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-        // Only navigate to valid positions (0 or 1 in your case)
-        if (index <= 1) {
-            currentIndex = index;
+    
+    // Function to disable/enable navigation buttons
+    function toggleButtonState() {
+        // Disable 'prevButton' if at the first position
+        if (currentIndex === 0) {
+            prevButton.disabled = true;
+            prevButton.classList.add('disabled');
+        } else {
+            prevButton.disabled = false;
+            prevButton.classList.remove('disabled');
+        }
+        
+        // Calculate max index based on cardsPerView
+        const maxIndex = slides.length - cardsPerView;
+        
+        // Disable 'nextButton' if at the last position
+        if (currentIndex >= maxIndex) {
+            nextButton.disabled = true;
+            nextButton.classList.add('disabled');
+        } else {
+            nextButton.disabled = false;
+            nextButton.classList.remove('disabled');
+        }
+    }
+    
+    // Event listener for the 'prev' button
+    prevButton.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex -= 1;
             updateSlider();
         }
     });
-});
-
-// Recalculate slide width and update slider on window resize
-window.addEventListener('resize', () => {
-    slideWidth = getSlideWidth();
+    
+    // Event listener for the 'next' button
+    nextButton.addEventListener('click', () => {
+        const maxIndex = slides.length - cardsPerView;
+        if (currentIndex < maxIndex) {
+            currentIndex += 1;
+            updateSlider();
+        }
+    });
+    
+    // Add click events for the dots
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            const totalPositions = Math.ceil(slides.length / cardsPerView);
+            
+            // Only navigate to valid positions
+            if (index < totalPositions) {
+                // Calculate the slide index based on dot index and cardsPerView
+                currentIndex = index * cardsPerView;
+                
+                // Make sure we don't exceed maximum index
+                const maxIndex = slides.length - cardsPerView;
+                if (currentIndex > maxIndex) {
+                    currentIndex = maxIndex;
+                }
+                
+                updateSlider();
+            }
+        });
+    });
+    
+    // Recalculate everything on window resize
+    window.addEventListener('resize', () => {
+        // Update cardsPerView based on screen size
+        cardsPerView = getCardsPerView();
+        
+        // Recalculate slide width
+        slideWidth = getSlideWidth();
+        
+        // Make sure currentIndex is still valid with new cardsPerView
+        const maxIndex = slides.length - cardsPerView;
+        if (currentIndex > maxIndex) {
+            currentIndex = maxIndex;
+        }
+        
+        // Update the slider
+        updateSlider();
+    });
+    
+    // Initialize slider
+    updateDots();
+    toggleButtonState();
     updateSlider();
-});
-
-// Initialize slider - make sure buttons and dots are in correct state from the start
-updateDots();
-toggleButtonState();
-updateSlider();
     
 
     // Logo scrolling effect
