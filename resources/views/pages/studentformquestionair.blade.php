@@ -636,14 +636,14 @@
         <div class="document-box">
           <div class="document-name" id="passport-document-name" style="display: none;">Passport</div>
           <div class="upload-field">
-            <span id="passport-name">Passport</span>
+            <span id="passport-card-name">Passport</span>
             <label for="passport" class="upload-icon" id="passport-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
             <input type="file" id="passport" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'passport-name', 'passport-upload-icon', 'passport-remove-icon')">
+              onchange="handleFileUpload(event, 'passport-card-name', 'passport-upload-icon', 'passport-remove-icon')">
             <span id="passport-remove-icon" class="remove-icon" style="display: none;"
-              onclick="removeFile('passport', 'passport-name', 'passport-upload-icon', 'passport-remove-icon')">✖</span>
+              onclick="removeFile('passport', 'passport-card-name', 'passport-upload-icon', 'passport-remove-icon')">✖</span>
           </div>
           <div class="info">
             <span class="help-trigger" data-target="passport-help">ⓘ Help</span>
