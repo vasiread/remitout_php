@@ -1126,6 +1126,7 @@ html, body {
     width: 77px;
     overflow: hidden;
     font-family: 'Poppins', sans-serif;
+    margin-top: 5px;
 }
 
 .dashboard-sort-options button {
@@ -1170,20 +1171,6 @@ html, body {
 }
 
 
-.dashboard-search-button {
-    padding: 8px 12px;
-    border: 1px solid #E2E2E2;
-    border-radius: 4px;
-    background: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    height: 38px;
-    width: 39px;
-}
-
 .dashboard-sort-button {
     padding: 8px 12px;
     border: 1px solid #E2E2E2;
@@ -1202,6 +1189,20 @@ html, body {
     height: 38px;
 }
 
+
+.dashboard-search-button {
+    padding: 8px 12px;
+    border: 1px solid #E2E2E2;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 38px;
+    width: 39px;
+}
 
 .dashboard-student-list {
     display: flex;

@@ -263,53 +263,84 @@
             }
         }
 
-        // Sort tickets function
-        function sortTickets(sortType) {
-            const ticketsContainer = document.getElementById('ticket-raised-tickets-list');
-            const tickets = Array.from(ticketsContainer.getElementsByClassName('ticket-raised-item'));
-            const activeSort = document.querySelector('.ticket-raised-active-sort');
 
-            // Update active sort in dropdown
-            const sortOptions = document.querySelectorAll('#ticket-raised-sort-options-index-nbfc li');
+ // Sort tickets function
+      function sortTickets(sortType) {
+    try {
+        // Get container and ticket elements
+        const ticketsContainer = document.getElementById('ticket-raised-tickets-list');
+        if (!ticketsContainer) {
+            console.error('Tickets container not found');
+            return;
+        }
+        
+        const tickets = Array.from(ticketsContainer.getElementsByClassName('ticket-raised-item'));
+        if (tickets.length === 0) {
+            console.error('No ticket items found');
+            return;
+        }
+        
+        // Update active sort in dropdown - safely
+        const sortOptions = document.querySelectorAll('#ticket-raised-sort-options-index-nbfc li');
+        if (sortOptions && sortOptions.length > 0) {
             sortOptions.forEach(option => {
-                option.classList.remove('active');
-                if (option.getAttribute('data-sort') === sortType) {
-                    option.classList.add('active');
+                if (option) { // Check if option exists
+                    option.classList.remove('active');
+                    if (option.getAttribute('data-sort') === sortType) {
+                        option.classList.add('active');
+                    }
                 }
             });
+        }
 
-            // Update displayed sort option
-            activeSort.textContent = sortType.charAt(0).toUpperCase() + sortType.slice(1);
+        // Sort tickets based on selected option
+        tickets.sort((a, b) => {
+            const titleA = a && a.getAttribute ? (a.getAttribute('data-title') || '') : '';
+            const titleB = b && b.getAttribute ? (b.getAttribute('data-title') || '') : '';
+            const dateA = a && a.getAttribute ? (a.getAttribute('data-date') || '') : '';
+            const dateB = b && b.getAttribute ? (b.getAttribute('data-date') || '') : '';
+            
+            switch (sortType) {
+                case 'az':
+                    return titleA.localeCompare(titleB);
+                case 'za':
+                    return titleB.localeCompare(titleA);
+                case 'newest':
+                    return new Date(dateB) - new Date(dateA);
+                case 'oldest':
+                    return new Date(dateA) - new Date(dateB);
+                default:
+                    return 0;
+            }
+        });
 
-            // Sort tickets based on selected option
-            tickets.sort((a, b) => {
-                switch (sortType) {
-                    case 'az':
-                        return a.getAttribute('data-title').localeCompare(b.getAttribute('data-title'));
-                    case 'za':
-                        return b.getAttribute('data-title').localeCompare(a.getAttribute('data-title'));
-                    case 'newest':
-                        return new Date(b.getAttribute('data-date')) - new Date(a.getAttribute('data-date'));
-                    case 'oldest':
-                        return new Date(a.getAttribute('data-date')) - new Date(b.getAttribute('data-date'));
-                    default:
-                        return 0;
-                }
-            });
+        // Clear and rebuild the container safely
+        if (ticketsContainer && ticketsContainer.firstChild) {
+            // Remove all tickets from container
+            while (ticketsContainer.firstChild) {
+                ticketsContainer.removeChild(ticketsContainer.firstChild);
+            }
 
             // Reappend sorted tickets
             tickets.forEach(ticket => {
-                ticketsContainer.appendChild(ticket);
+                if (ticket) { // Check if ticket exists
+                    ticketsContainer.appendChild(ticket);
+                }
             });
-
-            // Hide dropdown after selection
-            document.getElementById('ticket-raised-sort-options-index-nbfc').classList.remove('ticket-raised-visible');
         }
 
-        // Initialize with default sort (newest)
-        document.addEventListener('DOMContentLoaded', function () {
-            sortTickets('newest');
-        });
+        // Hide dropdown after selection - safely
+        const dropdown = document.getElementById('ticket-raised-sort-options-index-nbfc');
+        if (dropdown) {
+            dropdown.classList.remove('ticket-raised-visible');
+        }
+
+        // Don't try to update any status or result elements unless you confirm they exist
+        // If you have code that updates a status element, add it here with proper null checks
+    } catch (error) {
+        console.error('Error in sortTickets function:', error);
+    }
+}
     </script>
 </body>
 

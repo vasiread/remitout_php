@@ -143,6 +143,63 @@
                     });
             });
         };
+
+
+// Get the search input element
+const searchInput = document.getElementById('search-student-list');
+
+// Add event listener for input changes
+searchInput.addEventListener('input', function() {
+    searchStudents(this.value.trim().toLowerCase());
+});
+
+/**
+ * Search functionality for student list
+ * @param {string} searchTerm - The term to search for
+ */
+function searchStudents(searchTerm) {
+    // Get all student application elements
+    const studentElements = document.querySelectorAll('#studentapplicationfromadminstudent .studentapplication-lists');
+    
+    // Initialize counter for visible students
+    let visibleStudents = 0;
+    
+    // Loop through each student element
+    studentElements.forEach(studentElement => {
+        // Get the student name
+        const studentName = studentElement.querySelector('.firstsection-lists h1').textContent.toLowerCase();
+        
+        // Get the student ID
+        const studentId = studentElement.querySelector('#hidden-id-elementforaccess').textContent.toLowerCase();
+        
+        // Get NBFC name if it exists
+        const nbfcElement = studentElement.querySelector('.scdashboard-nbfcnamecontainer p:last-child');
+        const nbfcName = nbfcElement ? nbfcElement.textContent.toLowerCase() : '';
+        
+        // Get status if it exists
+        const statusElement = studentElement.querySelector('.scdashboard-nbfcstatus-pending span');
+        const status = statusElement ? statusElement.textContent.toLowerCase() : '';
+        
+        // Check if any of the fields match the search term
+        if (studentName.includes(searchTerm) || 
+            studentId.includes(searchTerm) || 
+            nbfcName.includes(searchTerm) || 
+            status.includes(searchTerm)) {
+            // Show this student element
+            studentElement.style.display = 'block';
+            visibleStudents++;
+        } else {
+            // Hide this student element
+            studentElement.style.display = 'none';
+        }
+    });
+    
+    // Update the student count display
+    const studentCountElement = document.getElementById('student-list-count');
+    if (studentCountElement) {
+        studentCountElement.textContent = visibleStudents;
+    }
+}
     </script>
 </body>
 
