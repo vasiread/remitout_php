@@ -3768,7 +3768,7 @@ messageInputs.forEach(messageInput => {
                 const endpoints = [
                     { url: '/retrieve-file', selector: ".uploaded-aadhar-name", fileType: "aadhar-card-name" },
                     { url: '/retrieve-file', selector: ".uploaded-pan-name", fileType: "pan-card-name" },
-                    { url: '/retrieve-file', selector: ".passport-name-selector", fileType: "passport-name" },
+                    { url: '/retrieve-file', selector: ".passport-name-selector", fileType: "passport-card-name" },
                     { url: '/retrieve-file', selector: ".sslc-marksheet", fileType: "tenth-grade-name" },
                     { url: '/retrieve-file', selector: ".hsc-marksheet", fileType: "twelfth-grade-name" },
                     { url: '/retrieve-file', selector: ".graduation-marksheet", fileType: "graduation-grade-name" },

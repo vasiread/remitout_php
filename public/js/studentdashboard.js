@@ -1,25 +1,36 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Initialize UI components that don't depend on documentUrls
     initializeSideBarTabs();
     initializeIndividualCards();
-    initializeKycDocumentUpload();
-    initializeMarksheetUpload();
     initializeProgressRing();
     saveChangesFunctionality();
     initialisedocumentsCount();
     initialiseProfileUpload();
-    initialiseProfileView();
-    initialiseAllViews()
-        .then(() => {
-            console.log("All URLs fetched successfully!");
-        })
-        .catch((error) => {
-            console.error("Error during initialization:", error);
-        });
     initialiseSeventhcolumn();
     initialiseSeventhAdditionalColumn();
     initialiseEightcolumn();
     initialiseNinthcolumn();
     initialiseTenthcolumn();
+    initializeSimpleChat();
+
+    // Fetch all URLs first
+    Promise.all([
+        initialiseProfileView(),
+        initialiseAllViews()
+    ])
+        .then(() => {
+            console.log("All URLs fetched successfully!", documentUrls);
+
+            // Initialize document upload/preview functions after URLs are fetched
+            initializeKycDocumentUpload();
+            initializeMarksheetUpload();
+            initializeSecuredAdmissionDocumentUpload();
+            initializeWorkExperienceDocumentUpload();
+            initializeCoBorrowerDocumentUpload();
+        })
+        .catch((error) => {
+            console.error("Error during initialization:", error);
+        });
 
     const courseDetailsElement = document.getElementById('course-details-container');
     const courseDetails = JSON.parse(courseDetailsElement.getAttribute('data-course-details'));
@@ -223,10 +234,13 @@ function addUserToRequest(userId) {
         });
 }
 
+// Global object to store document URLs
+const documentUrls = {};
+
 const endpoints = [
     { url: '/retrieve-file', selector: ".uploaded-aadhar-name", fileType: "aadhar-card-name" },
     { url: '/retrieve-file', selector: ".uploaded-pan-name", fileType: "pan-card-name" },
-    { url: '/retrieve-file', selector: ".passport-name-selector", fileType: "passport-name" },
+    { url: '/retrieve-file', selector: ".passport-name-selector", fileType: "passport-card-name" },
     { url: '/retrieve-file', selector: ".sslc-marksheet", fileType: "tenth-grade-name" },
     { url: '/retrieve-file', selector: ".hsc-marksheet", fileType: "twelfth-grade-name" },
     { url: '/retrieve-file', selector: ".graduation-marksheet", fileType: "graduation-grade-name" },
@@ -270,11 +284,16 @@ const initialiseAllViews = () => {
             .then(response => response.json())
             .then(data => {
                 if (data.fileUrl) {
+                    // Store the URL in documentUrls
+                    documentUrls[fileType] = data.fileUrl;
+                    console.log(`Stored ${fileType}: ${data.fileUrl}`);
+
+                    // Update the UI with the file name
                     const fileName = data.fileUrl.split('/').pop();
                     const element = document.querySelector(selector);
                     if (element) {
-                        element.textContent = fileName; // Update the element with the file name
-                        console.log(`Fetched ${fileType}:`, data.fileUrl);
+                        element.textContent = fileName;
+                        console.log(`Updated UI for ${fileType}: ${fileName}`);
                     } else {
                         console.log(`Element not found for selector: ${selector}`);
                     }
@@ -287,7 +306,9 @@ const initialiseAllViews = () => {
             });
     };
 
-    return Promise.all(endpoints.map(fetchWithUrl));
+    return Promise.all(endpoints.map(fetchWithUrl)).then(() => {
+        console.log('All document URLs fetched and stored successfully!', documentUrls);
+    });
 };
 
 const triggerEditButton = () => {
@@ -442,6 +463,7 @@ const initialiseTenthcolumn = () => {
 
 }
 
+
 const initialiseProfileView = () => {
 
     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
@@ -479,6 +501,7 @@ const initialiseProfileView = () => {
 }
 
 
+
 const initializeIndividualCards = () => {
     const individualCards = document.querySelectorAll('.indivudalloanstatus-cards');
 
@@ -514,237 +537,201 @@ const initializeKycDocumentUpload = () => {
     const individualKycDocumentsUpload = document.querySelectorAll(".individualkycdocuments");
 
     individualKycDocumentsUpload.forEach((card) => {
-        let uploadedFile = null;
+        const eyeIcon = card.querySelector('.fa-eye');
 
-        card.querySelector('.inputfilecontainer').addEventListener('click', function () {
-            card.querySelector('#inputfilecontainer-real').click();
-        });
+        if (!eyeIcon) {
+            console.error("Eye icon not found in card:", card);
+            return;
+        }
 
-        card.querySelector('#inputfilecontainer-real').addEventListener('change', function (event) {
-            const file = event.target.files[0];
-
-             if (!file) return;
-
-            console.log("Selected file: ", file);  // Debug log
-
-            // Allowed file types
-            const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
-            const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
-
-            // Validate file type
-            if (!allowedExtensions.includes(fileExtension)) {
-                alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
-                event.target.value = ''; // Clear the file input
-                card.querySelector('.inputfilecontainer p').textContent = 'No file chosen';
-                return;
-            }
-
-            // Validate file size (5MB max)
-            if (file.size > 5 * 1024 * 1024) {
-                alert("Error: File size exceeds 5MB limit.");
-                event.target.value = ''; // Clear the file input
-                card.querySelector('.inputfilecontainer p').textContent = 'No file chosen';
-                return;
-            }
-
-            // Store the file and update UI
-            uploadedFile = file;
-            const truncatedFileName = truncateFileName(file.name);
-            card.querySelector('.inputfilecontainer p').textContent = truncatedFileName;
-
-            const fileSize = file.size < 1024 * 1024
-                ? (file.size / 1024).toFixed(2) + ' KB'
-                : (file.size / (1024 * 1024)).toFixed(2) + ' MB';
-            card.querySelector('.document-status').textContent = `${fileSize} Uploaded`;
-
-            console.log("File uploaded:", uploadedFile);  // Debug log
-        });
-
-
-
-        card.querySelector('.fa-eye').addEventListener('click', function (event) {
+        eyeIcon.addEventListener('click', function (event) {
             event.stopPropagation();
-            const previewContainer = card.querySelector('.inputfilecontainer');
-            const eyeIcon = this;
 
+            const documentType = eyeIcon.id.replace('view-', '').replace('-card', ''); // e.g., "aadhar-card"
+            const fileTypeKey = `${documentType}-card-name`;
+            const fileUrl = documentUrls[fileTypeKey];
+            const fileNameElement = card.querySelector(`.uploaded-${documentType}-name`);
+            const fileName = fileNameElement ? fileNameElement.textContent : 'Document.pdf';
+
+            console.log(`Previewing ${documentType}: ${fileUrl}`);
+
+            // Check if a preview is already active
             if (eyeIcon.classList.contains('preview-active')) {
                 const previewWrapper = document.querySelector('.pdf-preview-wrapper');
-                if (previewWrapper) previewWrapper.remove();
                 const overlay = document.querySelector('.pdf-preview-overlay');
+                if (previewWrapper) previewWrapper.remove();
                 if (overlay) overlay.remove();
                 eyeIcon.classList.remove('preview-active');
-                eyeIcon.classList.replace('fa-times', 'fa-eye');
-            } else {
-                if (uploadedFile && uploadedFile.type === 'application/pdf') {
-                    const reader = new FileReader();
-                    reader.onload = function (event) {
-                        // Create wrapper for the preview
-                        const previewWrapper = document.createElement('div');
-                        previewWrapper.className = 'pdf-preview-wrapper';
-                        previewWrapper.style.cssText = `
-                    position: fixed;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    width: 90%;
-                    height: 90vh;
-                    background-color: white;
-                    display: flex;
-                    flex-direction: column;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                    z-index: 1000;
-                `;
+                eyeIcon.src = "/assets/images/visibility.png"; // Update with your actual path
+                return;
+            }
 
-                        // Add overlay
-                        const overlay = document.createElement('div');
-                        overlay.className = 'pdf-preview-overlay';
-                        overlay.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: rgba(0, 0, 0, 0.5);
-                    z-index: 999;
-                `;
+            // If no file URL, show an alert
+            if (!fileUrl) {
+                alert('No document found to preview.');
+                return;
+            }
 
-                        // Create header
-                        const header = document.createElement('div');
-                        header.style.cssText = `
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 8px 16px;
-                    background-color: #1a1a1a;
-                    color: white;
-                    height: 40px;
-                `;
+            // Create the preview modal
+            const previewWrapper = document.createElement('div');
+            previewWrapper.className = 'pdf-preview-wrapper';
+            previewWrapper.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 60%;
+                height: 80vh;
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 1000;
+                border-radius: 8px;
+            `;
 
-                        // Left section with filename
-                        const fileNameSection = document.createElement('div');
-                        fileNameSection.style.cssText = `
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                `;
+            const overlay = document.createElement('div');
+            overlay.className = 'pdf-preview-overlay';
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            `;
 
-                        const fileName = document.createElement('span');
-                        fileName.textContent = uploadedFile.name;
-                        fileName.style.cssText = `
-                    color: white;
-                    font-size: 14px;
-                `;
-                        fileNameSection.appendChild(fileName);
+            const header = document.createElement('div');
+            header.style.cssText = `
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 8px 16px;
+                background-color: #1a1a1a;
+                color: white;
+                height: 40px;
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+            `;
 
-                        // Middle section with zoom controls
-                        const zoomControls = document.createElement('div');
-                        zoomControls.style.cssText = `
-                    display: flex;
-                    align-items: center;
-                    gap: 12px;
-                    position: absolute;
-                    left: 50%;
-                    transform: translateX(-50%);
-                `;
+            const fileNameSection = document.createElement('div');
+            fileNameSection.style.cssText = `
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            `;
 
-                        const zoomOut = document.createElement('button');
-                        zoomOut.innerHTML = '&#8722;';
-                        const zoomIn = document.createElement('button');
-                        zoomIn.innerHTML = '&#43;';
+            const fileNameSpan = document.createElement('span');
+            fileNameSpan.textContent = fileName;
+            fileNameSpan.style.cssText = `
+                color: white;
+                font-size: 14px;
+                font-family: 'Poppins', sans-serif;
+            `;
+            fileNameSection.appendChild(fileNameSpan);
 
-                        [zoomOut, zoomIn].forEach(btn => {
-                            btn.style.cssText = `
-                        background: none;
-                        border: none;
-                        color: white;
-                        font-size: 18px;
-                        cursor: pointer;
-                        padding: 4px 8px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    `;
-                        });
+            const zoomControls = document.createElement('div');
+            zoomControls.style.cssText = `
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            `;
 
-                        zoomControls.appendChild(zoomOut);
-                        zoomControls.appendChild(zoomIn);
+            const zoomOut = document.createElement('button');
+            zoomOut.innerHTML = '−';
+            const zoomIn = document.createElement('button');
+            zoomIn.innerHTML = '+';
 
-                        // Close button
-                        const closeButton = document.createElement('button');
-                        closeButton.innerHTML = '&#10005;';
-                        closeButton.style.cssText = `
+            [zoomOut, zoomIn].forEach(btn => {
+                btn.style.cssText = `
                     background: none;
-                    border: none;
+                    border: 1px solid #fff;
+                    border-radius: 4px;
                     color: white;
-                    font-size: 18px;
+                    font-size: 16px;
                     cursor: pointer;
-                    padding: 4px;
+                    padding: 2px 8px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    font-family: 'Poppins', sans-serif;
                 `;
+            });
 
-                        const closePreview = () => {
-                            previewWrapper.remove();
-                            overlay.remove();
-                            eyeIcon.classList.remove('preview-active');
-                            eyeIcon.classList.replace('fa-times', 'fa-eye');
-                        };
+            zoomControls.appendChild(zoomOut);
+            zoomControls.appendChild(zoomIn);
 
-                        closeButton.addEventListener('click', closePreview);
-                        overlay.addEventListener('click', closePreview);
+            const closeButton = document.createElement('button');
+            closeButton.innerHTML = '✕';
+            closeButton.style.cssText = `
+                background: none;
+                border: none;
+                color: white;
+                font-size: 18px;
+                cursor: pointer;
+                padding: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: 'Poppins', sans-serif;
+            `;
 
-                        // Assemble header
-                        header.appendChild(fileNameSection);
-                        header.appendChild(zoomControls);
-                        header.appendChild(closeButton);
+            const closePreview = () => {
+                previewWrapper.remove();
+                overlay.remove();
+                eyeIcon.classList.remove('preview-active');
+                eyeIcon.src = "/assets/images/visibility.png"; // Update with your actual path
+            };
 
-                        // Create iframe for PDF content
-                        const iframe = document.createElement('iframe');
-                        iframe.src = event.target.result;
-                        iframe.style.cssText = `
-                    width: 100%;
-                    height: calc(100% - 40px);
-                    border: none;
-                    background-color: white;
-                `;
+            closeButton.addEventListener('click', closePreview);
+            overlay.addEventListener('click', closePreview);
 
-                        // Assemble the preview
-                        previewWrapper.appendChild(header);
-                        previewWrapper.appendChild(iframe);
+            header.appendChild(fileNameSection);
+            header.appendChild(zoomControls);
+            header.appendChild(closeButton);
 
-                        // Add to document body
-                        document.body.appendChild(overlay);
-                        document.body.appendChild(previewWrapper);
+            const iframe = document.createElement('iframe');
+            iframe.src = fileUrl;
+            iframe.style.cssText = `
+                width: 100%;
+                height: calc(100% - 40px);
+                border: none;
+                background-color: white;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+            `;
 
-                        // Add zoom functionality
-                        let currentZoom = 100;
-                        zoomIn.addEventListener('click', () => {
-                            currentZoom += 10;
-                            iframe.style.transform = `scale(${currentZoom / 100})`;
-                            iframe.style.transformOrigin = 'top center';
-                        });
+            previewWrapper.appendChild(header);
+            previewWrapper.appendChild(iframe);
 
-                        zoomOut.addEventListener('click', () => {
-                            currentZoom = Math.max(currentZoom - 10, 50);
-                            iframe.style.transform = `scale(${currentZoom / 100})`;
-                            iframe.style.transformOrigin = 'top center';
-                        });
+            document.body.appendChild(overlay);
+            document.body.appendChild(previewWrapper);
 
-                        // Add keyboard shortcut for closing
-                        document.addEventListener('keydown', function (e) {
-                            if (e.key === 'Escape') {
-                                closePreview();
-                            }
-                        });
-                    };
-                    reader.readAsDataURL(uploadedFile);
-                    eyeIcon.classList.add('preview-active');
-                    eyeIcon.classList.replace('fa-eye', 'fa-times');
-                } else {
-                    alert('Please upload a valid PDF file to preview.');
+            let currentZoom = 1;
+            zoomIn.addEventListener('click', () => {
+                currentZoom += 0.1;
+                iframe.style.transform = `scale(${currentZoom})`;
+                iframe.style.transformOrigin = 'top center';
+            });
+
+            zoomOut.addEventListener('click', () => {
+                currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                iframe.style.transform = `scale(${currentZoom})`;
+                iframe.style.transformOrigin = 'top center';
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    closePreview();
                 }
-            }
+            });
+
+            eyeIcon.classList.add('preview-active');
+            eyeIcon.src = "/assets/images/close.png"; // Update with your actual path
         });
     });
 };
@@ -753,57 +740,287 @@ const initializeMarksheetUpload = () => {
     const individualMarksheetDocumentsUpload = document.querySelectorAll(".individualmarksheetdocuments");
 
     individualMarksheetDocumentsUpload.forEach((card) => {
-        let uploadedFile = null;
+        const eyeIcon = card.querySelector('.fa-eye');
 
-        card.querySelector('.inputfilecontainer-marksheet').addEventListener('click', function () {
-            card.querySelector('#inputfilecontainer-real-marksheet').click();
-        });
+        if (!eyeIcon) {
+            console.error("Eye icon not found in card:", card);
+            return;
+        }
 
-        card.querySelector('#inputfilecontainer-real-marksheet').addEventListener('change', function (event) {
-            const file = event.target.files[0];
-            if (file) {
-                uploadedFile = file;
-                card.querySelector('.inputfilecontainer-marksheet p').textContent = file.name;
-                const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
-                const filesizeviewer = card.querySelector('.document-status');
-                filesizeviewer.textContent = `${fileSizeMB} MB Uploaded`;
-            }
-        });
-
-        card.querySelector('.fa-eye').addEventListener('click', function (event) {
+        eyeIcon.addEventListener('click', function (event) {
             event.stopPropagation();
-            const previewContainer = card.querySelector('.inputfilecontainer-marksheet');
-            const eyeIcon = this;
+
+            // Get the document type from the eye icon's ID
+            const documentType = eyeIcon.id.replace('view-', '').replace('-card', ''); 
+            
+            // Construct the fileType key used in documentUrls based on the class name
+            let fileTypeKey;
+            if (card.querySelector('.sslc-marksheet')) {
+                fileTypeKey = "tenth-grade-name";
+            } else if (card.querySelector('.hsc-marksheet')) {
+                fileTypeKey = "twelfth-grade-name";
+            } else if (card.querySelector('.graduation-marksheet')) {
+                fileTypeKey = "graduation-grade-name";
+            }
+            
+            // Get the URL from documentUrls
+            const fileUrl = documentUrls[fileTypeKey];
+            const fileNameElement = card.querySelector(`.${fileTypeKey.replace('-name', '-marksheet')}`);
+            const fileName = fileNameElement ? fileNameElement.textContent : 'Document.pdf';
+
+            console.log(`Previewing marksheet (${fileTypeKey}):`, fileUrl);
 
             if (eyeIcon.classList.contains('preview-active')) {
-                const previewWrapper = previewContainer.querySelector('.pdf-preview-wrapper');
+                const previewWrapper = document.querySelector('.pdf-preview-wrapper');
+                const overlay = document.querySelector('.pdf-preview-overlay');
                 if (previewWrapper) previewWrapper.remove();
+                if (overlay) overlay.remove();
                 eyeIcon.classList.remove('preview-active');
-                eyeIcon.classList.replace('fa-times', 'fa-eye');
-            } else {
-                if (uploadedFile && uploadedFile.type === 'application/pdf') {
-                    const reader = new FileReader();
-                    reader.onload = function (event) {
-                        // Create wrapper for the preview
-                        const previewWrapper = document.createElement('div');
-                        previewWrapper.className = 'pdf-preview-wrapper';
-                        previewWrapper.style.cssText = `
+                eyeIcon.src = "/assets/images/visibility.png";
+                return;
+            }
+
+            if (!fileUrl) {
+                alert('No document found to preview.');
+                return;
+            }
+
+            // Create the preview modal
+            const previewWrapper = document.createElement('div');
+            previewWrapper.className = 'pdf-preview-wrapper';
+            previewWrapper.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 60%;
+                height: 80vh;
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 1000;
+                border-radius: 8px;
+            `;
+
+            const overlay = document.createElement('div');
+            overlay.className = 'pdf-preview-overlay';
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            `;
+
+            const header = document.createElement('div');
+            header.style.cssText = `
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 8px 16px;
+                background-color: #1a1a1a;
+                color: white;
+                height: 40px;
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+            `;
+
+            const fileNameSection = document.createElement('div');
+            fileNameSection.style.cssText = `
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            `;
+
+            const fileNameSpan = document.createElement('span');
+            fileNameSpan.textContent = fileName;
+            fileNameSpan.style.cssText = `
+                color: white;
+                font-size: 14px;
+                font-family: 'Poppins', sans-serif;
+            `;
+            fileNameSection.appendChild(fileNameSpan);
+
+            const zoomControls = document.createElement('div');
+            zoomControls.style.cssText = `
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            `;
+
+            const zoomOut = document.createElement('button');
+            zoomOut.innerHTML = '−';
+            const zoomIn = document.createElement('button');
+            zoomIn.innerHTML = '+';
+
+            [zoomOut, zoomIn].forEach(btn => {
+                btn.style.cssText = `
+                    background: none;
+                    border: 1px solid #fff;
+                    border-radius: 4px;
+                    color: white;
+                    font-size: 16px;
+                    cursor: pointer;
+                    padding: 2px 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Poppins', sans-serif;
+                `;
+            });
+
+            zoomControls.appendChild(zoomOut);
+            zoomControls.appendChild(zoomIn);
+
+            const closeButton = document.createElement('button');
+            closeButton.innerHTML = '✕';
+            closeButton.style.cssText = `
+                background: none;
+                border: none;
+                color: white;
+                font-size: 18px;
+                cursor: pointer;
+                padding: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: 'Poppins', sans-serif;
+            `;
+
+            const closePreview = () => {
+                previewWrapper.remove();
+                overlay.remove();
+                eyeIcon.classList.remove('preview-active');
+                eyeIcon.src = "/assets/images/visibility.png";
+            };
+
+            closeButton.addEventListener('click', closePreview);
+            overlay.addEventListener('click', closePreview);
+
+            header.appendChild(fileNameSection);
+            header.appendChild(zoomControls);
+            header.appendChild(closeButton);
+
+            const iframe = document.createElement('iframe');
+            iframe.src = fileUrl;
+            iframe.style.cssText = `
+                width: 100%;
+                height: calc(100% - 40px);
+                border: none;
+                background-color: white;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+            `;
+
+            previewWrapper.appendChild(header);
+            previewWrapper.appendChild(iframe);
+
+            document.body.appendChild(overlay);
+            document.body.appendChild(previewWrapper);
+
+            let currentZoom = 1;
+            zoomIn.addEventListener('click', () => {
+                currentZoom += 0.1;
+                iframe.style.transform = `scale(${currentZoom})`;
+                iframe.style.transformOrigin = 'top center';
+            });
+
+            zoomOut.addEventListener('click', () => {
+                currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                iframe.style.transform = `scale(${currentZoom})`;
+                iframe.style.transformOrigin = 'top center';
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    closePreview();
+                }
+            });
+
+            eyeIcon.classList.add('preview-active');
+            eyeIcon.src = "/assets/images/close.png";
+        });
+    });
+};
+
+const initializeSecuredAdmissionDocumentUpload = () => {
+    const securedAdmissionDocuments = document.querySelectorAll(".individual-secured-admission-documents");
+
+    securedAdmissionDocuments.forEach((card) => {
+        const eyeIcon = card.querySelector('.fa-eye');
+
+        if (!eyeIcon) {
+            console.error("Eye icon not found in card:", card);
+            return;
+        }
+
+        eyeIcon.addEventListener('click', function (event) {
+            event.stopPropagation();
+
+            // Determine document type based on which element exists
+            let fileTypeKey;
+            if (card.querySelector('.sslc-grade')) {
+                fileTypeKey = "secured-tenth-name";
+            } else if (card.querySelector('.hsc-grade')) {
+                fileTypeKey = "secured-twelfth-name";
+            } else if (card.querySelector('.graduation-grade')) {
+                fileTypeKey = "secured-graduation-name";
+            }
+
+            // Get the URL from documentUrls
+            const fileUrl = documentUrls[fileTypeKey];
+            const fileNameElement = card.querySelector(`.${fileTypeKey.replace('-name', '-grade')}`);
+            const fileName = fileNameElement ? fileNameElement.textContent : 'Document.pdf';
+
+            console.log(`Previewing secured admission (${fileTypeKey}):`, fileUrl);
+
+            if (eyeIcon.classList.contains('preview-active')) {
+                const previewWrapper = document.querySelector('.pdf-preview-wrapper, .image-preview-wrapper');
+                const overlay = document.querySelector('.pdf-preview-overlay, .image-preview-overlay');
+                if (previewWrapper) previewWrapper.remove();
+                if (overlay) overlay.remove();
+                eyeIcon.classList.remove('preview-active');
+                eyeIcon.src = "/assets/images/visibility.png";
+                return;
+            }
+
+            if (!fileUrl) {
+                alert('No document found to preview.');
+                return;
+            }
+
+            // Check if it's a PDF or image based on file extension
+            const isPDF = fileUrl.toLowerCase().endsWith('.pdf');
+            const isImage = ['.jpg', '.jpeg', '.png'].some(ext => fileUrl.toLowerCase().endsWith(ext));
+
+            if (isPDF) {
+                // PDF Preview
+                const previewWrapper = document.createElement('div');
+                previewWrapper.className = 'pdf-preview-wrapper';
+                previewWrapper.style.cssText = `
                     position: fixed;
                     top: 50%;
                     left: 50%;
                     transform: translate(-50%, -50%);
-                    width: 90%;
-                    height: 90vh;
+                    width: 60%;
+                    height: 80vh;
                     background-color: white;
                     display: flex;
                     flex-direction: column;
                     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
                     z-index: 1000;
+                    border-radius: 8px;
                 `;
 
-                        // Add overlay
-                        const overlay = document.createElement('div');
-                        overlay.style.cssText = `
+                const overlay = document.createElement('div');
+                overlay.className = 'pdf-preview-overlay';
+                overlay.style.cssText = `
                     position: fixed;
                     top: 0;
                     left: 0;
@@ -813,9 +1030,8 @@ const initializeMarksheetUpload = () => {
                     z-index: 999;
                 `;
 
-                        // Create header
-                        const header = document.createElement('div');
-                        header.style.cssText = `
+                const header = document.createElement('div');
+                header.style.cssText = `
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
@@ -823,27 +1039,28 @@ const initializeMarksheetUpload = () => {
                     background-color: #1a1a1a;
                     color: white;
                     height: 40px;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
                 `;
 
-                        // Left section with filename
-                        const fileNameSection = document.createElement('div');
-                        fileNameSection.style.cssText = `
+                const fileNameSection = document.createElement('div');
+                fileNameSection.style.cssText = `
                     display: flex;
                     align-items: center;
                     gap: 8px;
                 `;
 
-                        const fileName = document.createElement('span');
-                        fileName.textContent = uploadedFile.name;
-                        fileName.style.cssText = `
+                const fileNameSpan = document.createElement('span');
+                fileNameSpan.textContent = fileName;
+                fileNameSpan.style.cssText = `
                     color: white;
                     font-size: 14px;
+                    font-family: 'Poppins', sans-serif;
                 `;
-                        fileNameSection.appendChild(fileName);
+                fileNameSection.appendChild(fileNameSpan);
 
-                        // Middle section with zoom controls
-                        const zoomControls = document.createElement('div');
-                        zoomControls.style.cssText = `
+                const zoomControls = document.createElement('div');
+                zoomControls.style.cssText = `
                     display: flex;
                     align-items: center;
                     gap: 12px;
@@ -852,32 +1069,33 @@ const initializeMarksheetUpload = () => {
                     transform: translateX(-50%);
                 `;
 
-                        const zoomOut = document.createElement('button');
-                        zoomOut.innerHTML = '&#8722;';
-                        const zoomIn = document.createElement('button');
-                        zoomIn.innerHTML = '&#43;';
+                const zoomOut = document.createElement('button');
+                zoomOut.innerHTML = '−';
+                const zoomIn = document.createElement('button');
+                zoomIn.innerHTML = '+';
 
-                        [zoomOut, zoomIn].forEach(btn => {
-                            btn.style.cssText = `
+                [zoomOut, zoomIn].forEach(btn => {
+                    btn.style.cssText = `
                         background: none;
-                        border: none;
+                        border: 1px solid #fff;
+                        border-radius: 4px;
                         color: white;
-                        font-size: 18px;
+                        font-size: 16px;
                         cursor: pointer;
-                        padding: 4px 8px;
+                        padding: 2px 8px;
                         display: flex;
                         align-items: center;
                         justify-content: center;
+                        font-family: 'Poppins', sans-serif;
                     `;
-                        });
+                });
 
-                        zoomControls.appendChild(zoomOut);
-                        zoomControls.appendChild(zoomIn);
+                zoomControls.appendChild(zoomOut);
+                zoomControls.appendChild(zoomIn);
 
-                        // Close button
-                        const closeButton = document.createElement('button');
-                        closeButton.innerHTML = '&#10005;';
-                        closeButton.style.cssText = `
+                const closeButton = document.createElement('button');
+                closeButton.innerHTML = '✕';
+                closeButton.style.cssText = `
                     background: none;
                     border: none;
                     color: white;
@@ -887,480 +1105,189 @@ const initializeMarksheetUpload = () => {
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    font-family: 'Poppins', sans-serif;
                 `;
 
-                        const closePreview = () => {
-                            previewWrapper.remove();
-                            overlay.remove();
-                            eyeIcon.classList.remove('preview-active');
-                            eyeIcon.classList.replace('fa-times', 'fa-eye');
-                        };
+                const closePreview = () => {
+                    previewWrapper.remove();
+                    overlay.remove();
+                    eyeIcon.classList.remove('preview-active');
+                    eyeIcon.src = "/assets/images/visibility.png";
+                };
 
-                        closeButton.addEventListener('click', closePreview);
-                        overlay.addEventListener('click', closePreview);
+                closeButton.addEventListener('click', closePreview);
+                overlay.addEventListener('click', closePreview);
 
-                        // Assemble header
-                        header.appendChild(fileNameSection);
-                        header.appendChild(zoomControls);
-                        header.appendChild(closeButton);
+                header.appendChild(fileNameSection);
+                header.appendChild(zoomControls);
+                header.appendChild(closeButton);
 
-                        // Create iframe for PDF content
-                        const iframe = document.createElement('iframe');
-                        iframe.src = event.target.result;
-                        iframe.style.cssText = `
+                const iframe = document.createElement('iframe');
+                iframe.src = fileUrl;
+                iframe.style.cssText = `
                     width: 100%;
                     height: calc(100% - 40px);
                     border: none;
                     background-color: white;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
                 `;
 
-                        // Assemble the preview
-                        previewWrapper.appendChild(header);
-                        previewWrapper.appendChild(iframe);
+                previewWrapper.appendChild(header);
+                previewWrapper.appendChild(iframe);
 
-                        // Add to document body
-                        document.body.appendChild(overlay);
-                        document.body.appendChild(previewWrapper);
+                document.body.appendChild(overlay);
+                document.body.appendChild(previewWrapper);
 
-                        // Add zoom functionality
-                        let currentZoom = 100;
-                        zoomIn.addEventListener('click', () => {
-                            currentZoom += 10;
-                            iframe.style.transform = `scale(${currentZoom / 100})`;
-                            iframe.style.transformOrigin = 'top center';
-                        });
+                let currentZoom = 1;
+                zoomIn.addEventListener('click', () => {
+                    currentZoom += 0.1;
+                    iframe.style.transform = `scale(${currentZoom})`;
+                    iframe.style.transformOrigin = 'top center';
+                });
 
-                        zoomOut.addEventListener('click', () => {
-                            currentZoom = Math.max(currentZoom - 10, 50);
-                            iframe.style.transform = `scale(${currentZoom / 100})`;
-                            iframe.style.transformOrigin = 'top center';
-                        });
+                zoomOut.addEventListener('click', () => {
+                    currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                    iframe.style.transform = `scale(${currentZoom})`;
+                    iframe.style.transformOrigin = 'top center';
+                });
 
-                        // Add keyboard shortcut for closing
-                        document.addEventListener('keydown', function (e) {
-                            if (e.key === 'Escape') {
-                                closePreview();
-                            }
-                        });
-                    };
-                    reader.readAsDataURL(uploadedFile);
-                    eyeIcon.classList.add('preview-active');
-                    eyeIcon.classList.replace('fa-eye', 'fa-times');
-                } else {
-                    alert('Please upload a valid PDF file to preview.');
-                }
-            }
-        });
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') {
+                        closePreview();
+                    }
+                });
 
+                eyeIcon.classList.add('preview-active');
+                eyeIcon.src = "/assets/images/close.png";
+            } else if (isImage) {
+                // Image Preview
+                const previewWrapper = document.createElement('div');
+                previewWrapper.className = 'image-preview-wrapper';
+                previewWrapper.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 90%;
+                    max-width: 800px;
+                    max-height: 90vh;
+                    background-color: white;
+                    display: flex;
+                    flex-direction: column;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    z-index: 1000;
+                    border-radius: 8px;
+                `;
 
-    });
-};
+                const overlay = document.createElement('div');
+                overlay.className = 'image-preview-overlay';
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 999;
+                `;
 
-const initializeSecuredAdmissionDocumentUpload = () => {
-    const securedAdmissionDocuments = document.querySelectorAll(".individual-secured-admission-documents");
+                const header = document.createElement('div');
+                header.style.cssText = `
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 8px 16px;
+                    background-color: #1a1a1a;
+                    color: white;
+                    height: 40px;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
+                `;
 
-    securedAdmissionDocuments.forEach((card, index) => {
-        let uploadedFile = null;
-        const inputId = card.querySelector('input[type="file"]').id;
-        const documentTypeText = card.querySelector('.document-name').textContent.trim();
+                const fileNameSection = document.createElement('div');
+                fileNameSection.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                `;
 
-        // Get the specific preview icon
-        const previewIconId = card.querySelector('.fa-eye').id;
+                const fileNameSpan = document.createElement('span');
+                fileNameSpan.textContent = fileName;
+                fileNameSpan.style.cssText = `
+                    color: white;
+                    font-size: 14px;
+                    font-family: 'Poppins', sans-serif;
+                `;
+                fileNameSection.appendChild(fileNameSpan);
 
-        // Trigger file input when the container is clicked
-        card.querySelector('.inputfilecontainer-secured-admission').addEventListener('click', function (event) {
-            // Prevent triggering if clicking on the eye icon
-            if (!event.target.classList.contains('fa-eye') && !event.target.id.startsWith('view-')) {
-                card.querySelector(`#${inputId}`).click();
-            }
-        });
+                const closeButton = document.createElement('button');
+                closeButton.innerHTML = '✕';
+                closeButton.style.cssText = `
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 18px;
+                    cursor: pointer;
+                    padding: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Poppins', sans-serif;
+                `;
 
-        // Handle file selection and validation
-        card.querySelector(`#${inputId}`).addEventListener('change', function (event) {
-            const file = event.target.files[0];
+                const closePreview = () => {
+                    previewWrapper.remove();
+                    overlay.remove();
+                    eyeIcon.classList.remove('preview-active');
+                    eyeIcon.src = "/assets/images/visibility.png";
+                };
 
-            // Ensure file is selected
-            if (!file) return;
+                closeButton.addEventListener('click', closePreview);
+                overlay.addEventListener('click', closePreview);
 
-            console.log(`Selected file for ${documentTypeText}:`, file);  // Debug log
+                header.appendChild(fileNameSection);
+                header.appendChild(closeButton);
 
-            // Allowed file types
-            const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
-            const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
+                const imageContainer = document.createElement('div');
+                imageContainer.style.cssText = `
+                    width: 100%;
+                    height: calc(100% - 40px);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: auto;
+                    padding: 20px;
+                    background-color: #f0f0f0;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                `;
 
-            // Validate file type
-            if (!allowedExtensions.includes(fileExtension)) {
-                alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
-                event.target.value = ''; // Clear the file input
+                const img = document.createElement('img');
+                img.src = fileUrl;
+                img.style.cssText = `
+                    max-width: 100%;
+                    max-height: 80vh;
+                    object-fit: contain;
+                `;
 
-                // Reset the text inside the respective document type element
-                const documentTypeElement = getDocumentTypeElement(card);
-                if (documentTypeElement) {
-                    documentTypeElement.textContent = getOriginalText(documentTypeElement);
-                }
+                imageContainer.appendChild(img);
+                previewWrapper.appendChild(header);
+                previewWrapper.appendChild(imageContainer);
 
-                return;
-            }
+                document.body.appendChild(overlay);
+                document.body.appendChild(previewWrapper);
 
-            // Validate file size (5MB max)
-            if (file.size > 5 * 1024 * 1024) {
-                alert("Error: File size exceeds 5MB limit.");
-                event.target.value = ''; // Clear the file input
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') {
+                        closePreview();
+                    }
+                });
 
-                // Reset the text inside the respective document type element
-                const documentTypeElement = getDocumentTypeElement(card);
-                if (documentTypeElement) {
-                    documentTypeElement.textContent = getOriginalText(documentTypeElement);
-                }
-
-                return;
-            }
-
-            // Store the file and update UI
-            uploadedFile = file;
-
-            // Update the text in the specific document type element
-            const documentTypeElement = getDocumentTypeElement(card);
-            if (documentTypeElement) {
-                documentTypeElement.textContent = truncateFileName(file.name);
-            }
-
-            const fileSize = file.size < 1024 * 1024
-                ? (file.size / 1024).toFixed(2) + ' KB'
-                : (file.size / (1024 * 1024)).toFixed(2) + ' MB';
-            card.querySelector('.document-status').textContent = `${fileSize} Uploaded`;
-
-            console.log(`File uploaded for ${documentTypeText}:`, uploadedFile);  // Debug log
-        });
-
-        // Helper function to get the correct document type element
-        function getDocumentTypeElement(card) {
-            if (card.querySelector('.sslc-grade')) return card.querySelector('.sslc-grade');
-            if (card.querySelector('.hsc-grade')) return card.querySelector('.hsc-grade');
-            if (card.querySelector('.graduation-grade')) return card.querySelector('.graduation-grade');
-            return null;
-        }
-
-        // Helper function to get original text
-        function getOriginalText(element) {
-            if (element.classList.contains('sslc-grade')) return 'SSLC Grade';
-            if (element.classList.contains('hsc-grade')) return 'HSC Grade';
-            if (element.classList.contains('graduation-grade')) return 'Graduation';
-            return 'No file chosen';
-        }
-
-        // Handle preview functionality
-        card.querySelector(`#${previewIconId}`).addEventListener('click', function (event) {
-            event.stopPropagation();
-
-            // Reference to preview icon
-            const eyeIcon = this;
-
-            if (eyeIcon.classList.contains('preview-active')) {
-                const previewWrapper = document.querySelector('.pdf-preview-wrapper');
-                if (previewWrapper) previewWrapper.remove();
-                const overlay = document.querySelector('.pdf-preview-overlay');
-                if (overlay) overlay.remove();
-                eyeIcon.classList.remove('preview-active');
+                eyeIcon.classList.add('preview-active');
+                eyeIcon.src = "/assets/images/close.png";
             } else {
-                if (uploadedFile && uploadedFile.type === 'application/pdf') {
-                    const reader = new FileReader();
-                    reader.onload = function (event) {
-                        // Create wrapper for the preview
-                        const previewWrapper = document.createElement('div');
-                        previewWrapper.className = 'pdf-preview-wrapper';
-                        previewWrapper.style.cssText = `
-                            position: fixed;
-                            top: 50%;
-                            left: 50%;
-                            transform: translate(-50%, -50%);
-                            width: 90%;
-                            height: 90vh;
-                            background-color: white;
-                            display: flex;
-                            flex-direction: column;
-                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                            z-index: 1000;
-                        `;
-
-                        // Add overlay
-                        const overlay = document.createElement('div');
-                        overlay.className = 'pdf-preview-overlay';
-                        overlay.style.cssText = `
-                            position: fixed;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            background-color: rgba(0, 0, 0, 0.5);
-                            z-index: 999;
-                        `;
-
-                        // Create header
-                        const header = document.createElement('div');
-                        header.style.cssText = `
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            padding: 8px 16px;
-                            background-color: #1a1a1a;
-                            color: white;
-                            height: 40px;
-                        `;
-
-                        // Left section with filename
-                        const fileNameSection = document.createElement('div');
-                        fileNameSection.style.cssText = `
-                            display: flex;
-                            align-items: center;
-                            gap: 8px;
-                        `;
-
-                        const fileName = document.createElement('span');
-                        fileName.textContent = uploadedFile.name;
-                        fileName.style.cssText = `
-                            color: white;
-                            font-size: 14px;
-                        `;
-                        fileNameSection.appendChild(fileName);
-
-                        // Middle section with zoom controls
-                        const zoomControls = document.createElement('div');
-                        zoomControls.style.cssText = `
-                            display: flex;
-                            align-items: center;
-                            gap: 12px;
-                            position: absolute;
-                            left: 50%;
-                            transform: translateX(-50%);
-                        `;
-
-                        const zoomOut = document.createElement('button');
-                        zoomOut.innerHTML = '&#8722;';
-                        const zoomIn = document.createElement('button');
-                        zoomIn.innerHTML = '&#43;';
-
-                        [zoomOut, zoomIn].forEach(btn => {
-                            btn.style.cssText = `
-                                background: none;
-                                border: none;
-                                color: white;
-                                font-size: 18px;
-                                cursor: pointer;
-                                padding: 4px 8px;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                            `;
-                        });
-
-                        zoomControls.appendChild(zoomOut);
-                        zoomControls.appendChild(zoomIn);
-
-                        // Close button
-                        const closeButton = document.createElement('button');
-                        closeButton.innerHTML = '&#10005;';
-                        closeButton.style.cssText = `
-                            background: none;
-                            border: none;
-                            color: white;
-                            font-size: 18px;
-                            cursor: pointer;
-                            padding: 4px;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                        `;
-
-                        const closePreview = () => {
-                            previewWrapper.remove();
-                            overlay.remove();
-                            eyeIcon.classList.remove('preview-active');
-                        };
-
-                        closeButton.addEventListener('click', closePreview);
-                        overlay.addEventListener('click', closePreview);
-
-                        // Assemble header
-                        header.appendChild(fileNameSection);
-                        header.appendChild(zoomControls);
-                        header.appendChild(closeButton);
-
-                        // Create iframe for PDF content
-                        const iframe = document.createElement('iframe');
-                        iframe.src = event.target.result;
-                        iframe.style.cssText = `
-                            width: 100%;
-                            height: calc(100% - 40px);
-                            border: none;
-                            background-color: white;
-                        `;
-
-                        // Assemble the preview
-                        previewWrapper.appendChild(header);
-                        previewWrapper.appendChild(iframe);
-
-                        // Add to document body
-                        document.body.appendChild(overlay);
-                        document.body.appendChild(previewWrapper);
-
-                        // Add zoom functionality
-                        let currentZoom = 100;
-                        zoomIn.addEventListener('click', () => {
-                            currentZoom += 10;
-                            iframe.style.transform = `scale(${currentZoom / 100})`;
-                            iframe.style.transformOrigin = 'top center';
-                        });
-
-                        zoomOut.addEventListener('click', () => {
-                            currentZoom = Math.max(currentZoom - 10, 50);
-                            iframe.style.transform = `scale(${currentZoom / 100})`;
-                            iframe.style.transformOrigin = 'top center';
-                        });
-
-                        // Add keyboard shortcut for closing
-                        document.addEventListener('keydown', function (e) {
-                            if (e.key === 'Escape') {
-                                closePreview();
-                            }
-                        });
-                    };
-                    reader.readAsDataURL(uploadedFile);
-                    eyeIcon.classList.add('preview-active');
-                } else if (uploadedFile && (uploadedFile.type.startsWith('image/'))) {
-                    // Image preview
-                    const reader = new FileReader();
-                    reader.onload = function (event) {
-                        // Create wrapper for the preview
-                        const previewWrapper = document.createElement('div');
-                        previewWrapper.className = 'image-preview-wrapper';
-                        previewWrapper.style.cssText = `
-                            position: fixed;
-                            top: 50%;
-                            left: 50%;
-                            transform: translate(-50%, -50%);
-                            width: 90%;
-                            max-width: 800px;
-                            max-height: 90vh;
-                            background-color: white;
-                            display: flex;
-                            flex-direction: column;
-                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                            z-index: 1000;
-                        `;
-
-                        // Add overlay
-                        const overlay = document.createElement('div');
-                        overlay.className = 'image-preview-overlay';
-                        overlay.style.cssText = `
-                            position: fixed;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            background-color: rgba(0, 0, 0, 0.5);
-                            z-index: 999;
-                        `;
-
-                        // Create header
-                        const header = document.createElement('div');
-                        header.style.cssText = `
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            padding: 8px 16px;
-                            background-color: #1a1a1a;
-                            color: white;
-                            height: 40px;
-                        `;
-
-                        // Left section with filename
-                        const fileNameSection = document.createElement('div');
-                        fileNameSection.style.cssText = `
-                            display: flex;
-                            align-items: center;
-                            gap: 8px;
-                        `;
-
-                        const fileName = document.createElement('span');
-                        fileName.textContent = uploadedFile.name;
-                        fileName.style.cssText = `
-                            color: white;
-                            font-size: 14px;
-                        `;
-                        fileNameSection.appendChild(fileName);
-
-                        // Close button
-                        const closeButton = document.createElement('button');
-                        closeButton.innerHTML = '&#10005;';
-                        closeButton.style.cssText = `
-                            background: none;
-                            border: none;
-                            color: white;
-                            font-size: 18px;
-                            cursor: pointer;
-                            padding: 4px;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                        `;
-
-                        const closePreview = () => {
-                            previewWrapper.remove();
-                            overlay.remove();
-                            eyeIcon.classList.remove('preview-active');
-                        };
-
-                        closeButton.addEventListener('click', closePreview);
-                        overlay.addEventListener('click', closePreview);
-
-                        // Assemble header
-                        header.appendChild(fileNameSection);
-                        header.appendChild(closeButton);
-
-                        // Create image element
-                        const imageContainer = document.createElement('div');
-                        imageContainer.style.cssText = `
-                            width: 100%;
-                            height: calc(100% - 40px);
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            overflow: auto;
-                            padding: 20px;
-                            background-color: #f0f0f0;
-                        `;
-
-                        const img = document.createElement('img');
-                        img.src = event.target.result;
-                        img.style.cssText = `
-                            max-width: 100%;
-                            max-height: 80vh;
-                            object-fit: contain;
-                        `;
-
-                        imageContainer.appendChild(img);
-
-                        // Assemble the preview
-                        previewWrapper.appendChild(header);
-                        previewWrapper.appendChild(imageContainer);
-
-                        // Add to document body
-                        document.body.appendChild(overlay);
-                        document.body.appendChild(previewWrapper);
-
-                        // Add keyboard shortcut for closing
-                        document.addEventListener('keydown', function (e) {
-                            if (e.key === 'Escape') {
-                                closePreview();
-                            }
-                        });
-                    };
-                    reader.readAsDataURL(uploadedFile);
-                    eyeIcon.classList.add('preview-active');
-                } else {
-                    alert('Please upload a valid PDF or image file to preview.');
-                }
+                alert('Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported.');
             }
         });
     });
@@ -1375,9 +1302,9 @@ const initializeSecuredAdmissionDocumentUpload = () => {
     return name.slice(0, 16) + '...' + extension;
 }
 
- document.addEventListener('DOMContentLoaded', function () {
-    initializeSecuredAdmissionDocumentUpload();
-});
+//  document.addEventListener('DOMContentLoaded', function () {
+//     initializeSecuredAdmissionDocumentUpload();
+// });
 
 
 
@@ -1385,409 +1312,343 @@ const initializeWorkExperienceDocumentUpload = () => {
     const workExperienceDocuments = document.querySelectorAll(".individual-work-experiencecolumn-documents");
 
     workExperienceDocuments.forEach((card) => {
-        let uploadedFile = null;
-        const inputId = card.querySelector('input[type="file"]').id;
-        const documentTypeText = card.querySelector('.document-name').textContent.trim();
+        const eyeIcon = card.querySelector('.fa-eye');
 
-        // Get the specific preview icon
-        const previewIconId = card.querySelector('.fa-eye').id;
-
-        // Trigger file input when the container is clicked
-        card.querySelector('.inputfilecontainer-work-experiencecolumn').addEventListener('click', function (event) {
-            // Prevent triggering if clicking on the eye icon
-            if (!event.target.classList.contains('fa-eye') && !event.target.id.startsWith('view-')) {
-                card.querySelector(`#${inputId}`).click();
-            }
-        });
-
-        // Handle file selection and validation
-        card.querySelector(`#${inputId}`).addEventListener('change', function (event) {
-            const file = event.target.files[0];
-
-            // Ensure file is selected
-            if (!file) return;
-
-            console.log(`Selected file for ${documentTypeText}:`, file);  // Debug log
-
-            // Allowed file types
-            const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
-            const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
-
-            // Validate file type
-            if (!allowedExtensions.includes(fileExtension)) {
-                alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
-                event.target.value = ''; // Clear the file input
-
-                // Reset the text inside the respective document type element
-                const documentTypeElement = getDocumentTypeElement(card);
-                if (documentTypeElement) {
-                    documentTypeElement.textContent = getOriginalText(documentTypeElement);
-                }
-
-                return;
-            }
-
-            // Validate file size (5MB max)
-            if (file.size > 5 * 1024 * 1024) {
-                alert("Error: File size exceeds 5MB limit.");
-                event.target.value = ''; // Clear the file input
-
-                // Reset the text inside the respective document type element
-                const documentTypeElement = getDocumentTypeElement(card);
-                if (documentTypeElement) {
-                    documentTypeElement.textContent = getOriginalText(documentTypeElement);
-                }
-
-                return;
-            }
-
-            // Store the file and update UI
-            uploadedFile = file;
-
-            // Update the text in the specific document type element
-            const documentTypeElement = getDocumentTypeElement(card);
-            if (documentTypeElement) {
-                documentTypeElement.textContent = truncateFileName(file.name);
-            }
-
-            const fileSize = file.size < 1024 * 1024
-                ? (file.size / 1024).toFixed(2) + ' KB'
-                : (file.size / (1024 * 1024)).toFixed(2) + ' MB';
-            card.querySelector('.document-status').textContent = `${fileSize} Uploaded`;
-
-            console.log(`File uploaded for ${documentTypeText}:`, uploadedFile);  // Debug log
-        });
-
-        // Helper function to get the correct document type element
-        function getDocumentTypeElement(card) {
-            if (card.querySelector('.experience-letter')) return card.querySelector('.experience-letter');
-            if (card.querySelector('.salary-slip')) return card.querySelector('.salary-slip');
-            if (card.querySelector('.office-id')) return card.querySelector('.office-id');
-            if (card.querySelector('.joining-letter')) return card.querySelector('.joining-letter');
-            return null;
+        if (!eyeIcon) {
+            console.error("Eye icon not found in card:", card);
+            return;
         }
 
-        // Helper function to get original text
-        function getOriginalText(element) {
-            if (element.classList.contains('experience-letter')) return 'Experience Letter';
-            if (element.classList.contains('salary-slip')) return '3 month salary slip';
-            if (element.classList.contains('office-id')) return 'Office ID';
-            if (element.classList.contains('joining-letter')) return 'Joining Letter';
-            return 'No file chosen';
-        }
-
-        // Handle preview functionality
-        card.querySelector(`#${previewIconId}`).addEventListener('click', function (event) {
+        eyeIcon.addEventListener('click', function (event) {
             event.stopPropagation();
 
-            // Reference to preview icon
-            const eyeIcon = this;
+            // Determine document type based on which element exists
+            let fileTypeKey;
+            if (card.querySelector('.experience-letter')) {
+                fileTypeKey = "work-experience-experience-letter";
+            } else if (card.querySelector('.salary-slip')) {
+                fileTypeKey = "work-experience-monthly-slip";
+            } else if (card.querySelector('.office-id')) {
+                fileTypeKey = "work-experience-office-id";
+            } else if (card.querySelector('.joining-letter')) {
+                fileTypeKey = "work-experience-joining-letter";
+            }
+
+            // Get the URL from documentUrls
+            const fileUrl = documentUrls[fileTypeKey];
+            const fileNameElement = card.querySelector(`.${fileTypeKey.split('-').slice(2).join('-')}`);
+            const fileName = fileNameElement ? fileNameElement.textContent : 'Document.pdf';
+
+            console.log(`Previewing work experience (${fileTypeKey}):`, fileUrl);
 
             if (eyeIcon.classList.contains('preview-active')) {
-                const previewWrapper = document.querySelector('.pdf-preview-wrapper');
+                const previewWrapper = document.querySelector('.pdf-preview-wrapper, .image-preview-wrapper');
+                const overlay = document.querySelector('.pdf-preview-overlay, .image-preview-overlay');
                 if (previewWrapper) previewWrapper.remove();
-                const overlay = document.querySelector('.pdf-preview-overlay');
                 if (overlay) overlay.remove();
                 eyeIcon.classList.remove('preview-active');
+                eyeIcon.src = "/assets/images/visibility.png";
+                return;
+            }
+
+            if (!fileUrl) {
+                alert('No document found to preview.');
+                return;
+            }
+
+            // Check if it's a PDF or image based on file extension
+            const isPDF = fileUrl.toLowerCase().endsWith('.pdf');
+            const isImage = ['.jpg', '.jpeg', '.png'].some(ext => fileUrl.toLowerCase().endsWith(ext));
+
+            if (isPDF) {
+                // PDF Preview
+                const previewWrapper = document.createElement('div');
+                previewWrapper.className = 'pdf-preview-wrapper';
+                previewWrapper.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 60%;
+                    height: 80vh;
+                    background-color: white;
+                    display: flex;
+                    flex-direction: column;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    z-index: 1000;
+                    border-radius: 8px;
+                `;
+
+                const overlay = document.createElement('div');
+                overlay.className = 'pdf-preview-overlay';
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 999;
+                `;
+
+                const header = document.createElement('div');
+                header.style.cssText = `
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 8px 16px;
+                    background-color: #1a1a1a;
+                    color: white;
+                    height: 40px;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
+                `;
+
+                const fileNameSection = document.createElement('div');
+                fileNameSection.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                `;
+
+                const fileNameSpan = document.createElement('span');
+                fileNameSpan.textContent = fileName;
+                fileNameSpan.style.cssText = `
+                    color: white;
+                    font-size: 14px;
+                    font-family: 'Poppins', sans-serif;
+                `;
+                fileNameSection.appendChild(fileNameSpan);
+
+                const zoomControls = document.createElement('div');
+                zoomControls.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                `;
+
+                const zoomOut = document.createElement('button');
+                zoomOut.innerHTML = '−';
+                const zoomIn = document.createElement('button');
+                zoomIn.innerHTML = '+';
+
+                [zoomOut, zoomIn].forEach(btn => {
+                    btn.style.cssText = `
+                        background: none;
+                        border: 1px solid #fff;
+                        border-radius: 4px;
+                        color: white;
+                        font-size: 16px;
+                        cursor: pointer;
+                        padding: 2px 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-family: 'Poppins', sans-serif;
+                    `;
+                });
+
+                zoomControls.appendChild(zoomOut);
+                zoomControls.appendChild(zoomIn);
+
+                const closeButton = document.createElement('button');
+                closeButton.innerHTML = '✕';
+                closeButton.style.cssText = `
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 18px;
+                    cursor: pointer;
+                    padding: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Poppins', sans-serif;
+                `;
+
+                const closePreview = () => {
+                    previewWrapper.remove();
+                    overlay.remove();
+                    eyeIcon.classList.remove('preview-active');
+                    eyeIcon.src = "/assets/images/visibility.png";
+                };
+
+                closeButton.addEventListener('click', closePreview);
+                overlay.addEventListener('click', closePreview);
+
+                header.appendChild(fileNameSection);
+                header.appendChild(zoomControls);
+                header.appendChild(closeButton);
+
+                const iframe = document.createElement('iframe');
+                iframe.src = fileUrl;
+                iframe.style.cssText = `
+                    width: 100%;
+                    height: calc(100% - 40px);
+                    border: none;
+                    background-color: white;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                `;
+
+                previewWrapper.appendChild(header);
+                previewWrapper.appendChild(iframe);
+
+                document.body.appendChild(overlay);
+                document.body.appendChild(previewWrapper);
+
+                let currentZoom = 1;
+                zoomIn.addEventListener('click', () => {
+                    currentZoom += 0.1;
+                    iframe.style.transform = `scale(${currentZoom})`;
+                    iframe.style.transformOrigin = 'top center';
+                });
+
+                zoomOut.addEventListener('click', () => {
+                    currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                    iframe.style.transform = `scale(${currentZoom})`;
+                    iframe.style.transformOrigin = 'top center';
+                });
+
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') {
+                        closePreview();
+                    }
+                });
+
+                eyeIcon.classList.add('preview-active');
+                eyeIcon.src = "/assets/images/close.png";
+            } else if (isImage) {
+                // Image Preview
+                const previewWrapper = document.createElement('div');
+                previewWrapper.className = 'image-preview-wrapper';
+                previewWrapper.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 90%;
+                    max-width: 800px;
+                    max-height: 90vh;
+                    background-color: white;
+                    display: flex;
+                    flex-direction: column;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    z-index: 1000;
+                    border-radius: 8px;
+                `;
+
+                const overlay = document.createElement('div');
+                overlay.className = 'image-preview-overlay';
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 999;
+                `;
+
+                const header = document.createElement('div');
+                header.style.cssText = `
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 8px 16px;
+                    background-color: #1a1a1a;
+                    color: white;
+                    height: 40px;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
+                `;
+
+                const fileNameSection = document.createElement('div');
+                fileNameSection.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                `;
+
+                const fileNameSpan = document.createElement('span');
+                fileNameSpan.textContent = fileName;
+                fileNameSpan.style.cssText = `
+                    color: white;
+                    font-size: 14px;
+                    font-family: 'Poppins', sans-serif;
+                `;
+                fileNameSection.appendChild(fileNameSpan);
+
+                const closeButton = document.createElement('button');
+                closeButton.innerHTML = '✕';
+                closeButton.style.cssText = `
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 18px;
+                    cursor: pointer;
+                    padding: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Poppins', sans-serif;
+                `;
+
+                const closePreview = () => {
+                    previewWrapper.remove();
+                    overlay.remove();
+                    eyeIcon.classList.remove('preview-active');
+                    eyeIcon.src = "/assets/images/visibility.png";
+                };
+
+                closeButton.addEventListener('click', closePreview);
+                overlay.addEventListener('click', closePreview);
+
+                header.appendChild(fileNameSection);
+                header.appendChild(closeButton);
+
+                const imageContainer = document.createElement('div');
+                imageContainer.style.cssText = `
+                    width: 100%;
+                    height: calc(100% - 40px);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: auto;
+                    padding: 20px;
+                    background-color: #f0f0f0;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                `;
+
+                const img = document.createElement('img');
+                img.src = fileUrl;
+                img.style.cssText = `
+                    max-width: 100%;
+                    max-height: 80vh;
+                    object-fit: contain;
+                `;
+
+                imageContainer.appendChild(img);
+                previewWrapper.appendChild(header);
+                previewWrapper.appendChild(imageContainer);
+
+                document.body.appendChild(overlay);
+                document.body.appendChild(previewWrapper);
+
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') {
+                        closePreview();
+                    }
+                });
+
+                eyeIcon.classList.add('preview-active');
+                eyeIcon.src = "/assets/images/close.png";
             } else {
-                if (uploadedFile && uploadedFile.type === 'application/pdf') {
-                    const reader = new FileReader();
-                    reader.onload = function (event) {
-                        // Create wrapper for the preview
-                        const previewWrapper = document.createElement('div');
-                        previewWrapper.className = 'pdf-preview-wrapper';
-                        previewWrapper.style.cssText = `
-                            position: fixed;
-                            top: 50%;
-                            left: 50%;
-                            transform: translate(-50%, -50%);
-                            width: 90%;
-                            height: 90vh;
-                            background-color: white;
-                            display: flex;
-                            flex-direction: column;
-                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                            z-index: 1000;
-                        `;
-
-                        // Add overlay
-                        const overlay = document.createElement('div');
-                        overlay.className = 'pdf-preview-overlay';
-                        overlay.style.cssText = `
-                            position: fixed;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            background-color: rgba(0, 0, 0, 0.5);
-                            z-index: 999;
-                        `;
-
-                        // Create header
-                        const header = document.createElement('div');
-                        header.style.cssText = `
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            padding: 8px 16px;
-                            background-color: #1a1a1a;
-                            color: white;
-                            height: 40px;
-                        `;
-
-                        // Left section with filename
-                        const fileNameSection = document.createElement('div');
-                        fileNameSection.style.cssText = `
-                            display: flex;
-                            align-items: center;
-                            gap: 8px;
-                        `;
-
-                        const fileName = document.createElement('span');
-                        fileName.textContent = uploadedFile.name;
-                        fileName.style.cssText = `
-                            color: white;
-                            font-size: 14px;
-                        `;
-                        fileNameSection.appendChild(fileName);
-
-                        // Middle section with zoom controls
-                        const zoomControls = document.createElement('div');
-                        zoomControls.style.cssText = `
-                            display: flex;
-                            align-items: center;
-                            gap: 12px;
-                            position: absolute;
-                            left: 50%;
-                            transform: translateX(-50%);
-                        `;
-
-                        const zoomOut = document.createElement('button');
-                        zoomOut.innerHTML = '&#8722;';
-                        const zoomIn = document.createElement('button');
-                        zoomIn.innerHTML = '&#43;';
-
-                        [zoomOut, zoomIn].forEach(btn => {
-                            btn.style.cssText = `
-                                background: none;
-                                border: none;
-                                color: white;
-                                font-size: 18px;
-                                cursor: pointer;
-                                padding: 4px 8px;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                            `;
-                        });
-
-                        zoomControls.appendChild(zoomOut);
-                        zoomControls.appendChild(zoomIn);
-
-                        // Close button
-                        const closeButton = document.createElement('button');
-                        closeButton.innerHTML = '&#10005;';
-                        closeButton.style.cssText = `
-                            background: none;
-                            border: none;
-                            color: white;
-                            font-size: 18px;
-                            cursor: pointer;
-                            padding: 4px;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                        `;
-
-                        const closePreview = () => {
-                            previewWrapper.remove();
-                            overlay.remove();
-                            eyeIcon.classList.remove('preview-active');
-                        };
-
-                        closeButton.addEventListener('click', closePreview);
-                        overlay.addEventListener('click', closePreview);
-
-                        // Assemble header
-                        header.appendChild(fileNameSection);
-                        header.appendChild(zoomControls);
-                        header.appendChild(closeButton);
-
-                        // Create iframe for PDF content
-                        const iframe = document.createElement('iframe');
-                        iframe.src = event.target.result;
-                        iframe.style.cssText = `
-                            width: 100%;
-                            height: calc(100% - 40px);
-                            border: none;
-                            background-color: white;
-                        `;
-
-                        // Assemble the preview
-                        previewWrapper.appendChild(header);
-                        previewWrapper.appendChild(iframe);
-
-                        // Add to document body
-                        document.body.appendChild(overlay);
-                        document.body.appendChild(previewWrapper);
-
-                        // Add zoom functionality
-                        let currentZoom = 100;
-                        zoomIn.addEventListener('click', () => {
-                            currentZoom += 10;
-                            iframe.style.transform = `scale(${currentZoom / 100})`;
-                            iframe.style.transformOrigin = 'top center';
-                        });
-
-                        zoomOut.addEventListener('click', () => {
-                            currentZoom = Math.max(currentZoom - 10, 50);
-                            iframe.style.transform = `scale(${currentZoom / 100})`;
-                            iframe.style.transformOrigin = 'top center';
-                        });
-
-                        // Add keyboard shortcut for closing
-                        document.addEventListener('keydown', function (e) {
-                            if (e.key === 'Escape') {
-                                closePreview();
-                            }
-                        });
-                    };
-                    reader.readAsDataURL(uploadedFile);
-                    eyeIcon.classList.add('preview-active');
-                } else if (uploadedFile && (uploadedFile.type.startsWith('image/'))) {
-                    // Image preview
-                    const reader = new FileReader();
-                    reader.onload = function (event) {
-                        // Create wrapper for the preview
-                        const previewWrapper = document.createElement('div');
-                        previewWrapper.className = 'image-preview-wrapper';
-                        previewWrapper.style.cssText = `
-                            position: fixed;
-                            top: 50%;
-                            left: 50%;
-                            transform: translate(-50%, -50%);
-                            width: 90%;
-                            max-width: 800px;
-                            max-height: 90vh;
-                            background-color: white;
-                            display: flex;
-                            flex-direction: column;
-                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                            z-index: 1000;
-                        `;
-
-                        // Add overlay
-                        const overlay = document.createElement('div');
-                        overlay.className = 'image-preview-overlay';
-                        overlay.style.cssText = `
-                            position: fixed;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            background-color: rgba(0, 0, 0, 0.5);
-                            z-index: 999;
-                        `;
-
-                        // Create header
-                        const header = document.createElement('div');
-                        header.style.cssText = `
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            padding: 8px 16px;
-                            background-color: #1a1a1a;
-                            color: white;
-                            height: 40px;
-                        `;
-
-                        // Left section with filename
-                        const fileNameSection = document.createElement('div');
-                        fileNameSection.style.cssText = `
-                            display: flex;
-                            align-items: center;
-                            gap: 8px;
-                        `;
-
-                        const fileName = document.createElement('span');
-                        fileName.textContent = uploadedFile.name;
-                        fileName.style.cssText = `
-                            color: white;
-                            font-size: 14px;
-                        `;
-                        fileNameSection.appendChild(fileName);
-
-                        // Close button
-                        const closeButton = document.createElement('button');
-                        closeButton.innerHTML = '&#10005;';
-                        closeButton.style.cssText = `
-                            background: none;
-                            border: none;
-                            color: white;
-                            font-size: 18px;
-                            cursor: pointer;
-                            padding: 4px;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                        `;
-
-                        const closePreview = () => {
-                            previewWrapper.remove();
-                            overlay.remove();
-                            eyeIcon.classList.remove('preview-active');
-                        };
-
-                        closeButton.addEventListener('click', closePreview);
-                        overlay.addEventListener('click', closePreview);
-
-                        // Assemble header
-                        header.appendChild(fileNameSection);
-                        header.appendChild(closeButton);
-
-                        // Create image element
-                        const imageContainer = document.createElement('div');
-                        imageContainer.style.cssText = `
-                            width: 100%;
-                            height: calc(100% - 40px);
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            overflow: auto;
-                            padding: 20px;
-                            background-color: #f0f0f0;
-                        `;
-
-                        const img = document.createElement('img');
-                        img.src = event.target.result;
-                        img.style.cssText = `
-                            max-width: 100%;
-                            max-height: 80vh;
-                            object-fit: contain;
-                        `;
-
-                        imageContainer.appendChild(img);
-
-                        // Assemble the preview
-                        previewWrapper.appendChild(header);
-                        previewWrapper.appendChild(imageContainer);
-
-                        // Add to document body
-                        document.body.appendChild(overlay);
-                        document.body.appendChild(previewWrapper);
-
-                        // Add keyboard shortcut for closing
-                        document.addEventListener('keydown', function (e) {
-                            if (e.key === 'Escape') {
-                                closePreview();
-                            }
-                        });
-                    };
-                    reader.readAsDataURL(uploadedFile);
-                    eyeIcon.classList.add('preview-active');
-                } else {
-                    alert('Please upload a valid PDF or image file to preview.');
-                }
+                alert('Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported.');
             }
         });
     });
@@ -1804,9 +1665,9 @@ function truncateFileName(fileName) {
 }
 
 // Initialize the document uploads when the page loads
-document.addEventListener('DOMContentLoaded', function () {
-    initializeWorkExperienceDocumentUpload();
-});
+// document.addEventListener('DOMContentLoaded', function () {
+//     initializeWorkExperienceDocumentUpload();
+// });
 
 
 
@@ -1815,406 +1676,341 @@ const initializeCoBorrowerDocumentUpload = () => {
     const coBorrowerDocuments = document.querySelectorAll(".individual-coborrower-kyc-documents");
 
     coBorrowerDocuments.forEach((card) => {
-        let uploadedFile = null;
-        const inputId = card.querySelector('input[type="file"]').id;
-        const documentTypeText = card.querySelector('.document-name').textContent.trim();
+        const eyeIcon = card.querySelector('.fa-eye');
 
-        // Get the specific preview icon
-        const previewIconId = card.querySelector('.fa-eye').id;
-
-        // Trigger file input when the container is clicked
-        card.querySelector('.inputfilecontainer-coborrower-kyccolumn').addEventListener('click', function (event) {
-            if (!event.target.classList.contains('fa-eye') && !event.target.id.startsWith('view-')) {
-                card.querySelector(`#${inputId}`).click();
-            }
-        });
-
-        // Handle file selection and validation
-        card.querySelector(`#${inputId}`).addEventListener('change', function (event) {
-            const file = event.target.files[0];
-
-            // Ensure file is selected
-            if (!file) return;
-
-            console.log(`Selected file for ${documentTypeText}:`, file);  // Debug log
-
-            // Allowed file types
-            const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
-            const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
-
-            // Validate file type
-            if (!allowedExtensions.includes(fileExtension)) {
-                alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
-                event.target.value = ''; // Clear the file input
-
-                // Reset the text inside the respective document type element
-                const documentTypeElement = getDocumentTypeElement(card);
-                if (documentTypeElement) {
-                    documentTypeElement.textContent = getOriginalText(documentTypeElement);
-                }
-
-                return;
-            }
-
-            // Validate file size (5MB max)
-            if (file.size > 5 * 1024 * 1024) {
-                alert("Error: File size exceeds 5MB limit.");
-                event.target.value = ''; // Clear the file input
-
-                // Reset the text inside the respective document type element
-                const documentTypeElement = getDocumentTypeElement(card);
-                if (documentTypeElement) {
-                    documentTypeElement.textContent = getOriginalText(documentTypeElement);
-                }
-
-                return;
-            }
-
-            // Store the file and update UI
-            uploadedFile = file;
-
-            // Update the text in the specific document type element
-            const documentTypeElement = getDocumentTypeElement(card);
-            if (documentTypeElement) {
-                documentTypeElement.textContent = truncateFileName(file.name);
-            }
-
-            const fileSize = file.size < 1024 * 1024
-                ? (file.size / 1024).toFixed(2) + ' KB'
-                : (file.size / (1024 * 1024)).toFixed(2) + ' MB';
-            card.querySelector('.document-status').textContent = `${fileSize} Uploaded`;
-
-            console.log(`File uploaded for ${documentTypeText}:`, uploadedFile);  // Debug log
-        });
-
-        // Helper function to get the correct document type element
-        function getDocumentTypeElement(card) {
-            if (card.querySelector('.coborrower-pancard')) return card.querySelector('.coborrower-pancard');
-            if (card.querySelector('.coborrower-aadharcard')) return card.querySelector('.coborrower-aadharcard');
-            if (card.querySelector('.coborrower-addressproof')) return card.querySelector('.coborrower-addressproof');
-            return null;
+        if (!eyeIcon) {
+            console.error("Eye icon not found in card:", card);
+            return;
         }
 
-        // Helper function to get original text
-        function getOriginalText(element) {
-            if (element.classList.contains('coborrower-pancard')) return 'Pan Card';
-            if (element.classList.contains('coborrower-aadharcard')) return 'Aadhar Card';
-            if (element.classList.contains('coborrower-addressproof')) return 'Address Proof';
-            return 'No file chosen';
-        }
-
-        // Handle preview functionality
-        card.querySelector(`#${previewIconId}`).addEventListener('click', function (event) {
+        eyeIcon.addEventListener('click', function (event) {
             event.stopPropagation();
 
-            // Reference to preview icon
-            const eyeIcon = this;
+            // Determine document type based on which element exists
+            let fileTypeKey;
+            if (card.querySelector('.coborrower-pancard')) {
+                fileTypeKey = "co-pan-card-name";
+            } else if (card.querySelector('.coborrower-aadharcard')) {
+                fileTypeKey = "co-aadhar-card-name";
+            } else if (card.querySelector('.coborrower-addressproof')) {
+                fileTypeKey = "co-addressproof";
+            }
+
+            // Get the URL from documentUrls
+            const fileUrl = documentUrls[fileTypeKey];
+            const fileNameElement = card.querySelector(`.${fileTypeKey.replace('co-', 'coborrower-').replace('-name', '')}`);
+            const fileName = fileNameElement ? fileNameElement.textContent : 'Document.pdf';
+
+            console.log(`Previewing co-borrower document (${fileTypeKey}):`, fileUrl);
 
             if (eyeIcon.classList.contains('preview-active')) {
                 const previewWrapper = document.querySelector('.pdf-preview-wrapper, .image-preview-wrapper');
-                if (previewWrapper) previewWrapper.remove();
                 const overlay = document.querySelector('.pdf-preview-overlay, .image-preview-overlay');
+                if (previewWrapper) previewWrapper.remove();
                 if (overlay) overlay.remove();
                 eyeIcon.classList.remove('preview-active');
+                eyeIcon.src = "/assets/images/visibility.png";
+                return;
+            }
+
+            if (!fileUrl) {
+                alert('No document found to preview.');
+                return;
+            }
+
+            // Check if it's a PDF or image based on file extension
+            const isPDF = fileUrl.toLowerCase().endsWith('.pdf');
+            const isImage = ['.jpg', '.jpeg', '.png'].some(ext => fileUrl.toLowerCase().endsWith(ext));
+
+            if (isPDF) {
+                // PDF Preview
+                const previewWrapper = document.createElement('div');
+                previewWrapper.className = 'pdf-preview-wrapper';
+                previewWrapper.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 60%;
+                    height: 80vh;
+                    background-color: white;
+                    display: flex;
+                    flex-direction: column;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    z-index: 1000;
+                    border-radius: 8px;
+                `;
+
+                const overlay = document.createElement('div');
+                overlay.className = 'pdf-preview-overlay';
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 999;
+                `;
+
+                const header = document.createElement('div');
+                header.style.cssText = `
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 8px 16px;
+                    background-color: #1a1a1a;
+                    color: white;
+                    height: 40px;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
+                `;
+
+                const fileNameSection = document.createElement('div');
+                fileNameSection.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                `;
+
+                const fileNameSpan = document.createElement('span');
+                fileNameSpan.textContent = fileName;
+                fileNameSpan.style.cssText = `
+                    color: white;
+                    font-size: 14px;
+                    font-family: 'Poppins', sans-serif;
+                `;
+                fileNameSection.appendChild(fileNameSpan);
+
+                const zoomControls = document.createElement('div');
+                zoomControls.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                `;
+
+                const zoomOut = document.createElement('button');
+                zoomOut.innerHTML = '−';
+                const zoomIn = document.createElement('button');
+                zoomIn.innerHTML = '+';
+
+                [zoomOut, zoomIn].forEach(btn => {
+                    btn.style.cssText = `
+                        background: none;
+                        border: 1px solid #fff;
+                        border-radius: 4px;
+                        color: white;
+                        font-size: 16px;
+                        cursor: pointer;
+                        padding: 2px 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-family: 'Poppins', sans-serif;
+                    `;
+                });
+
+                zoomControls.appendChild(zoomOut);
+                zoomControls.appendChild(zoomIn);
+
+                const closeButton = document.createElement('button');
+                closeButton.innerHTML = '✕';
+                closeButton.style.cssText = `
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 18px;
+                    cursor: pointer;
+                    padding: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Poppins', sans-serif;
+                `;
+
+                const closePreview = () => {
+                    previewWrapper.remove();
+                    overlay.remove();
+                    eyeIcon.classList.remove('preview-active');
+                    eyeIcon.src = "/assets/images/visibility.png";
+                };
+
+                closeButton.addEventListener('click', closePreview);
+                overlay.addEventListener('click', closePreview);
+
+                header.appendChild(fileNameSection);
+                header.appendChild(zoomControls);
+                header.appendChild(closeButton);
+
+                const iframe = document.createElement('iframe');
+                iframe.src = fileUrl;
+                iframe.style.cssText = `
+                    width: 100%;
+                    height: calc(100% - 40px);
+                    border: none;
+                    background-color: white;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                `;
+
+                previewWrapper.appendChild(header);
+                previewWrapper.appendChild(iframe);
+
+                document.body.appendChild(overlay);
+                document.body.appendChild(previewWrapper);
+
+                let currentZoom = 1;
+                zoomIn.addEventListener('click', () => {
+                    currentZoom += 0.1;
+                    iframe.style.transform = `scale(${currentZoom})`;
+                    iframe.style.transformOrigin = 'top center';
+                });
+
+                zoomOut.addEventListener('click', () => {
+                    currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                    iframe.style.transform = `scale(${currentZoom})`;
+                    iframe.style.transformOrigin = 'top center';
+                });
+
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') {
+                        closePreview();
+                    }
+                });
+
+                eyeIcon.classList.add('preview-active');
+                eyeIcon.src = "/assets/images/close.png";
+            } else if (isImage) {
+                // Image Preview
+                const previewWrapper = document.createElement('div');
+                previewWrapper.className = 'image-preview-wrapper';
+                previewWrapper.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 90%;
+                    max-width: 800px;
+                    max-height: 90vh;
+                    background-color: white;
+                    display: flex;
+                    flex-direction: column;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    z-index: 1000;
+                    border-radius: 8px;
+                `;
+
+                const overlay = document.createElement('div');
+                overlay.className = 'image-preview-overlay';
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 999;
+                `;
+
+                const header = document.createElement('div');
+                header.style.cssText = `
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 8px 16px;
+                    background-color: #1a1a1a;
+                    color: white;
+                    height: 40px;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
+                `;
+
+                const fileNameSection = document.createElement('div');
+                fileNameSection.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                `;
+
+                const fileNameSpan = document.createElement('span');
+                fileNameSpan.textContent = fileName;
+                fileNameSpan.style.cssText = `
+                    color: white;
+                    font-size: 14px;
+                    font-family: 'Poppins', sans-serif;
+                `;
+                fileNameSection.appendChild(fileNameSpan);
+
+                const closeButton = document.createElement('button');
+                closeButton.innerHTML = '✕';
+                closeButton.style.cssText = `
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 18px;
+                    cursor: pointer;
+                    padding: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Poppins', sans-serif;
+                `;
+
+                const closePreview = () => {
+                    previewWrapper.remove();
+                    overlay.remove();
+                    eyeIcon.classList.remove('preview-active');
+                    eyeIcon.src = "/assets/images/visibility.png";
+                };
+
+                closeButton.addEventListener('click', closePreview);
+                overlay.addEventListener('click', closePreview);
+
+                header.appendChild(fileNameSection);
+                header.appendChild(closeButton);
+
+                const imageContainer = document.createElement('div');
+                imageContainer.style.cssText = `
+                    width: 100%;
+                    height: calc(100% - 40px);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: auto;
+                    padding: 20px;
+                    background-color: #f0f0f0;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                `;
+
+                const img = document.createElement('img');
+                img.src = fileUrl;
+                img.style.cssText = `
+                    max-width: 100%;
+                    max-height: 80vh;
+                    object-fit: contain;
+                `;
+
+                imageContainer.appendChild(img);
+                previewWrapper.appendChild(header);
+                previewWrapper.appendChild(imageContainer);
+
+                document.body.appendChild(overlay);
+                document.body.appendChild(previewWrapper);
+
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') {
+                        closePreview();
+                    }
+                });
+
+                eyeIcon.classList.add('preview-active');
+                eyeIcon.src = "/assets/images/close.png";
             } else {
-                if (uploadedFile && uploadedFile.type === 'application/pdf') {
-                    const reader = new FileReader();
-                    reader.onload = function (event) {
-                        // Create wrapper for the preview
-                        const previewWrapper = document.createElement('div');
-                        previewWrapper.className = 'pdf-preview-wrapper';
-                        previewWrapper.style.cssText = `
-                            position: fixed;
-                            top: 50%;
-                            left: 50%;
-                            transform: translate(-50%, -50%);
-                            width: 90%;
-                            height: 90vh;
-                            background-color: white;
-                            display: flex;
-                            flex-direction: column;
-                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                            z-index: 1000;
-                        `;
-
-                        // Add overlay
-                        const overlay = document.createElement('div');
-                        overlay.className = 'pdf-preview-overlay';
-                        overlay.style.cssText = `
-                            position: fixed;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            background-color: rgba(0, 0, 0, 0.5);
-                            z-index: 999;
-                        `;
-
-                        // Create header
-                        const header = document.createElement('div');
-                        header.style.cssText = `
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            padding: 8px 16px;
-                            background-color: #1a1a1a;
-                            color: white;
-                            height: 40px;
-                        `;
-
-                        // Left section with filename
-                        const fileNameSection = document.createElement('div');
-                        fileNameSection.style.cssText = `
-                            display: flex;
-                            align-items: center;
-                            gap: 8px;
-                        `;
-
-                        const fileName = document.createElement('span');
-                        fileName.textContent = uploadedFile.name;
-                        fileName.style.cssText = `
-                            color: white;
-                            font-size: 14px;
-                        `;
-                        fileNameSection.appendChild(fileName);
-
-                        // Middle section with zoom controls
-                        const zoomControls = document.createElement('div');
-                        zoomControls.style.cssText = `
-                            display: flex;
-                            align-items: center;
-                            gap: 12px;
-                            position: absolute;
-                            left: 50%;
-                            transform: translateX(-50%);
-                        `;
-
-                        const zoomOut = document.createElement('button');
-                        zoomOut.innerHTML = '&#8722;';
-                        const zoomIn = document.createElement('button');
-                        zoomIn.innerHTML = '&#43;';
-
-                        [zoomOut, zoomIn].forEach(btn => {
-                            btn.style.cssText = `
-                                background: none;
-                                border: none;
-                                color: white;
-                                font-size: 18px;
-                                cursor: pointer;
-                                padding: 4px 8px;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                            `;
-                        });
-
-                        zoomControls.appendChild(zoomOut);
-                        zoomControls.appendChild(zoomIn);
-
-                        // Close button
-                        const closeButton = document.createElement('button');
-                        closeButton.innerHTML = '&#10005;';
-                        closeButton.style.cssText = `
-                            background: none;
-                            border: none;
-                            color: white;
-                            font-size: 18px;
-                            cursor: pointer;
-                            padding: 4px;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                        `;
-
-                        const closePreview = () => {
-                            previewWrapper.remove();
-                            overlay.remove();
-                            eyeIcon.classList.remove('preview-active');
-                        };
-
-                        closeButton.addEventListener('click', closePreview);
-                        overlay.addEventListener('click', closePreview);
-
-                        // Assemble header
-                        header.appendChild(fileNameSection);
-                        header.appendChild(zoomControls);
-                        header.appendChild(closeButton);
-
-                        // Create iframe for PDF content
-                        const iframe = document.createElement('iframe');
-                        iframe.src = event.target.result;
-                        iframe.style.cssText = `
-                            width: 100%;
-                            height: calc(100% - 40px);
-                            border: none;
-                            background-color: white;
-                        `;
-
-                        // Assemble the preview
-                        previewWrapper.appendChild(header);
-                        previewWrapper.appendChild(iframe);
-
-                        // Add to document body
-                        document.body.appendChild(overlay);
-                        document.body.appendChild(previewWrapper);
-
-                        // Add zoom functionality
-                        let currentZoom = 100;
-                        zoomIn.addEventListener('click', () => {
-                            currentZoom += 10;
-                            iframe.style.transform = `scale(${currentZoom / 100})`;
-                            iframe.style.transformOrigin = 'top center';
-                        });
-
-                        zoomOut.addEventListener('click', () => {
-                            currentZoom = Math.max(currentZoom - 10, 50);
-                            iframe.style.transform = `scale(${currentZoom / 100})`;
-                            iframe.style.transformOrigin = 'top center';
-                        });
-
-                        // Add keyboard shortcut for closing
-                        document.addEventListener('keydown', function (e) {
-                            if (e.key === 'Escape') {
-                                closePreview();
-                            }
-                        });
-                    };
-                    reader.readAsDataURL(uploadedFile);
-                    eyeIcon.classList.add('preview-active');
-                } else if (uploadedFile && (uploadedFile.type.startsWith('image/'))) {
-                    // Image preview
-                    const reader = new FileReader();
-                    reader.onload = function (event) {
-                        // Create wrapper for the preview
-                        const previewWrapper = document.createElement('div');
-                        previewWrapper.className = 'image-preview-wrapper';
-                        previewWrapper.style.cssText = `
-                            position: fixed;
-                            top: 50%;
-                            left: 50%;
-                            transform: translate(-50%, -50%);
-                            width: 90%;
-                            max-width: 800px;
-                            max-height: 90vh;
-                            background-color: white;
-                            display: flex;
-                            flex-direction: column;
-                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                            z-index: 1000;
-                        `;
-
-                        // Add overlay
-                        const overlay = document.createElement('div');
-                        overlay.className = 'image-preview-overlay';
-                        overlay.style.cssText = `
-                            position: fixed;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            background-color: rgba(0, 0, 0, 0.5);
-                            z-index: 999;
-                        `;
-
-                        // Create header
-                        const header = document.createElement('div');
-                        header.style.cssText = `
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            padding: 8px 16px;
-                            background-color: #1a1a1a;
-                            color: white;
-                            height: 40px;
-                        `;
-
-                        // Left section with filename
-                        const fileNameSection = document.createElement('div');
-                        fileNameSection.style.cssText = `
-                            display: flex;
-                            align-items: center;
-                            gap: 8px;
-                        `;
-
-                        const fileName = document.createElement('span');
-                        fileName.textContent = uploadedFile.name;
-                        fileName.style.cssText = `
-                            color: white;
-                            font-size: 14px;
-                        `;
-                        fileNameSection.appendChild(fileName);
-
-                        // Close button
-                        const closeButton = document.createElement('button');
-                        closeButton.innerHTML = '&#10005;';
-                        closeButton.style.cssText = `
-                            background: none;
-                            border: none;
-                            color: white;
-                            font-size: 18px;
-                            cursor: pointer;
-                            padding: 4px;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                        `;
-
-                        const closePreview = () => {
-                            previewWrapper.remove();
-                            overlay.remove();
-                            eyeIcon.classList.remove('preview-active');
-                        };
-
-                        closeButton.addEventListener('click', closePreview);
-                        overlay.addEventListener('click', closePreview);
-
-                        // Assemble header
-                        header.appendChild(fileNameSection);
-                        header.appendChild(closeButton);
-
-                        // Create image element
-                        const imageContainer = document.createElement('div');
-                        imageContainer.style.cssText = `
-                            width: 100%;
-                            height: calc(100% - 40px);
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            overflow: auto;
-                            padding: 20px;
-                            background-color: #f0f0f0;
-                        `;
-
-                        const img = document.createElement('img');
-                        img.src = event.target.result;
-                        img.style.cssText = `
-                            max-width: 100%;
-                            max-height: 80vh;
-                            object-fit: contain;
-                        `;
-
-                        imageContainer.appendChild(img);
-
-                        // Assemble the preview
-                        previewWrapper.appendChild(header);
-                        previewWrapper.appendChild(imageContainer);
-
-                        // Add to document body
-                        document.body.appendChild(overlay);
-                        document.body.appendChild(previewWrapper);
-
-                        // Add keyboard shortcut for closing
-                        document.addEventListener('keydown', function (e) {
-                            if (e.key === 'Escape') {
-                                closePreview();
-                            }
-                        });
-                    };
-                    reader.readAsDataURL(uploadedFile);
-                    eyeIcon.classList.add('preview-active');
-                } else {
-                    alert('Please upload a valid PDF or image file to preview.');
-                }
+                alert('Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported.');
             }
         });
     });
@@ -2231,9 +2027,9 @@ function truncateFileName(fileName) {
 }
 
 // Initialize the document uploads when the page loads
-document.addEventListener('DOMContentLoaded', function () {
-    initializeCoBorrowerDocumentUpload();
-});
+// document.addEventListener('DOMContentLoaded', function () {
+//     initializeCoBorrowerDocumentUpload();
+// });
 
 function toggleOtherDegreeInput(event) {
     const otherDegreeInput = document.getElementById('otherDegreeInput');
