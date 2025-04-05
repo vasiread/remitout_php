@@ -214,12 +214,9 @@
                                 </div>
                             </div>
                         </div>
-
-
               </div> 
 
-
-                <!--course details 2-->
+                         <!--course details 2-->
 
                         <div class="admin-student-form-question-course-degree" id="admin-student-form-question-course-degree">   
                             <div class="admin-student-question-row-course-degree" id="admin-student-course-second">
@@ -229,7 +226,113 @@
                                     <span class="admin-student-dropdown-icon-course"></span>
                                 </div>
                             </div>
+
+                            <div class="options-section" id="option-section-degree-container">
+                                <div class="options-header">
+                                   <div class="admin-student-options-label">Options:</div>
+                                </div>
+
+                                <div class="option-grid course-degree" id="optionsContainer">
+                                    <div class="option-item">
+                                        <input type="checkbox" class="option-checkbox">
+                                        <div class="option-name">Bachelors (only secured loan)</div>
+                                    </div>
+                                    <div class="option-item">
+                                        <input type="checkbox" class="option-checkbox">
+                                        <div class="option-name">Masters</div>
+                                    </div>
+                                    <div class="option-item">
+                                        <input type="checkbox" class="option-checkbox">
+                                        <div class="option-name">Others</div>
+                                    </div>
+                                    <div class="add-checkbox-container-degree" id="addSection">
+                                        <div class="add-text">Add</div>
+                                        <div class="add-icon">+</div>
+                                    </div>
+                                                                           
+                                </div>
+                           </div>
+                        </div>   
+
+                           <div class="admin-student-form-question-month">
+                                <div class="admin-student-question-row-month" id="course-row-month-id">
+                                <div class="admin-student-question-title">3. What is the duration of the course?</div>
+                                    <div class="admin-student-dropdown-field" id="course-dropdown-month-id">
+                                        <span class="admin-student-field-text">Drop Down List</span>
+                                        <span class="admin-student-dropdown-icon"></span>
+                                    </div>
+                                </div>
+
+                                  <div class="admin-student-options-section" id="course-duration-section-month">
+                                    <div class="admin-student-options-label">Options:</div>
+                                          <div class="admin-course-option-main-container">
+                                             <div class="course-options">
+                                                <div class="course-option">
+                                                    <span class="course-name">12 Months</span>
+                                                    <span class="course-remove">×</span>
+                                                </div>
+
+                                                <div class="course-option">
+                                                    <span class="course-name">24 Months</span>
+                                                    <span class="course-remove">×</span>
+                                                </div>
+
+                                                <div class="course-option">
+                                                    <span class="course-name">36 Months</span>
+                                                    <span class="course-remove">×</span>
+                                                </div>
+                                          </div>
+
+                                        <div class="add-course">
+                                            <span class="add-text">Add</span>
+                                            <span class="add-icon">+</span>
+                                        </div>
+
+                                      </div>
+                                     </div>
+                                 </div>
+
+
+                     <!-- Academic Details Section -->
+                    <div class="admin-student-form-section-academic-details">
+                        <div class="admin-student-section-header-academic">
+                            <div class="admin-student-section-title-academic">Academic details</div>
+                            <span class="admin-student-question-count-academic">4 Questions</span>
+                            <div class="admin-student-arrow-icon-academic">
+                                <img src="assets/images/admin-drop.png" alt="Arrow Icon"
+                                    class="admin-student-arrow-down-academic" />
+                            </div>
+                        </div>
                     </div>
+
+                      <!-- Co-borrower Info Section -->
+                    <div class="admin-student-form-section-co-borrower-info">
+                        <div class="admin-student-section-header-co-borrower">
+                            <div class="admin-student-section-title-co-borrower">Co-borrower Info</div>
+                            <span class="admin-student-question-count-co-borrower">4 Questions</span>
+                            <div class="admin-student-arrow-icon-co-borrower">
+                                <img src="assets/images/admin-drop.png" alt="Arrow Icon"
+                                    class="admin-student-arrow-down-co-borrow" />
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <!-- Document Upload Section -->
+                    <div class="admin-student-form-section-document-upload">
+                        <div class="admin-student-section-header-document-upload">
+                            <div class="admin-student-section-title-document-upload">Document Upload</div>
+                            <span class="admin-student-question-count-document-upload">4 Questions</span>
+                            <div class="admin-student-arrow-icon-document-upload">
+                                <img src="assets/images/admin-drop.png" alt="Arrow Icon"
+                                    class="admin-student-arrow-down-document-upload" />
+                            </div>
+                        </div>
+                    </div>
+
+
+
 
                     </div>
                 </div>
@@ -240,7 +343,7 @@
    
 
  <script>
-        document.addEventListener('DOMContentLoaded', function () {
+         document.addEventListener('DOMContentLoaded', function () {
             // Toggle section content and arrow direction
             const sectionHeader = document.querySelector('.admin-student-section-header');
             const sectionContent = document.querySelector('.admin-student-section-content');
@@ -730,6 +833,78 @@ if (addSection && optionsGrid) {
 } else {
     console.error('Could not find addSection or optionsGrid elements');
 }
+
+
+ // Course duration month dropdown functionality
+       
+      function toggleOptionsDisplay() {
+    const optionsSection = document.getElementById('course-duration-section-month');
+    const isCurrentlyHidden = optionsSection.style.display === 'none' || !optionsSection.style.display;
+    const dropdownIcon = document.querySelector('.admin-student-dropdown-icon');
+
+    optionsSection.style.display = isCurrentlyHidden ? 'block' : 'none';
+
+    if (dropdownIcon) {
+        dropdownIcon.classList.toggle('rotated', isCurrentlyHidden);
+    }
+
+    document.querySelector('.admin-student-form-question-month').classList.toggle('active', isCurrentlyHidden);
+}
+
+document.getElementById('course-row-month-id').addEventListener('click', function (event) {
+    toggleOptionsDisplay();
+});
+
+document.getElementById('course-dropdown-month-id').addEventListener('click', function (event) {
+    // Prevent this click from bubbling up to the row click handler
+    event.stopPropagation();
+    toggleOptionsDisplay();
+});
+
+document.querySelectorAll('.course-remove').forEach(function (removeButton) {
+    removeButton.addEventListener('click', function (event) {
+        // Prevent the click from bubbling up to the row
+        event.stopPropagation();
+        this.parentElement.remove();
+    });
+});
+
+document.querySelector('.add-course').addEventListener('click', function (event) {
+    event.stopPropagation();
+
+    const userInput = prompt("Enter course duration option", "");
+
+    if (userInput && userInput.trim() !== "") {
+        const newOption = document.createElement('div');
+        newOption.className = 'course-option';
+
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'course-name';
+        nameSpan.textContent = userInput.trim();
+
+        const removeSpan = document.createElement('span');
+        removeSpan.className = 'course-remove';
+        removeSpan.textContent = '×';
+
+        removeSpan.addEventListener('click', function (event) {
+            // Prevent the click from bubbling up
+            event.stopPropagation();
+            newOption.remove();
+        });
+
+        newOption.appendChild(nameSpan);
+        newOption.appendChild(removeSpan);
+
+        const optionsContainer = document.querySelector('.course-options');
+        optionsContainer.appendChild(newOption);
+    }
+});
+
+const optionsSection = document.getElementById('course-duration-section-month');
+if (optionsSection) {
+    optionsSection.style.display = 'none';
+}
+
     
 });
 
