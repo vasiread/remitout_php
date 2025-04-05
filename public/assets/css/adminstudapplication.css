@@ -21,8 +21,6 @@
 
 
     #admin-student-form-edit-container {
-
-
         overflow-x: hidden;
         width: 100%;
     }
@@ -218,8 +216,6 @@
 
     /* Bottom border line inside */
 
-
-
     .admin-student-options-label {
         font-size: 14px;
         color: #555;
@@ -334,11 +330,6 @@
     }
 
 
-    .add-text {
-        font-size: 14px;
-        font-weight: 500;
-        color: #FF8A00;
-    }
 
     .add-icon {
         display: flex;
@@ -583,17 +574,7 @@
             margin-right: 10px;
         }
 
-        .add-icon {
-            font-size: 18px;
-            border: 1px solid #FF8A00;
-           
-            width: 24px;
-            height: 24px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
+      
 
          .admin-student-form-question {
             border: none;
@@ -607,12 +588,6 @@
             border: 1px solid #ccc;
         }
 
-        .admin-student-question-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
 
         .admin-student-question-title {
             font-size: 14px;
@@ -648,14 +623,7 @@
             color: #212121;
         }
 
-        .admin-student-dropdown-icon {
-            width: 8px;
-            height: 8px;
-            transform: rotate(45deg);
-            border-right: 2px solid rgb(25, 24, 37);
-            border-bottom: 2px solid rgb(25, 24, 37);
-            transition: transform 0.3s;
-        }
+     
 
         .admin-student-options-section {
             transition: max-height 0.4s ease;
@@ -713,13 +681,7 @@
             border-bottom: 1px solid #FF8A00;
         }
 
-        .admin-student-form-question {
-            border: none;
-            border-radius: 4px;
-            padding: 15px;
-            background-color: #fff;
-            margin-bottom: 20px;
-        }
+    
 
         .admin-student-form-question.active {
             border: 1px solid #ccc;
@@ -732,39 +694,7 @@
             margin-bottom: 15px;
         }
 
-        .admin-student-question-title {
-            font-size: 14px;
-            font-weight: 400;
-            color: #333;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px;
-            width: 515px;
-            background-color: #fff;
-            cursor: pointer;
-            position: relative;
-            border: none;
-            border-bottom: 1px solid #888;
-        }
-
-        .admin-student-dropdown-field {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px;
-            width: 400px;
-            background-color: #fff;
-            cursor: pointer;
-            position: relative;
-            border: none;
-            border-bottom: 1px solid #888;
-        }
-
-        .admin-student-field-text {
-            font-size: 14px;
-            color: #212121;
-        }
+     
 
         .admin-student-dropdown-icon {
             width: 8px;
@@ -779,9 +709,7 @@
             transform: rotate(-135deg);
         }
 
-        .options-section {
-            padding: 15px 0;
-        }
+      
 
         .options-label {
             font-size: 14px;
@@ -794,190 +722,4 @@
             margin-bottom: 10px;
         }
 
-        /* New Checkbox Styles */
-        .checkbox-option input[type="checkbox"] {
-            appearance: none;
-            width: 22px;
-            height: 22px;
-            border: 2px solid #E2E8F0;
-            border-radius: 2px;
-            outline: none;
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
-            position: relative;
-            vertical-align: middle;
-            margin-right: 10px;
-        }
-
-        .checkbox-option input[type="checkbox"]:checked {
-            border-color: #E98635;
-        }
-
-        .checkbox-option input[type="checkbox"]:checked:before {
-            content: '';
-            width: 12px;
-            height: 12px;
-            background-color: #E98635;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 2px;
-        }
-
-        .checkbox-option label {
-            font-size: 14px;
-            color: #333;
-        }
-
-        .add-option {
-            display: flex;
-            align-items: center;
-            color: #FF8A00;
-            margin-top: 10px;
-            cursor: pointer;
-            width: fit-content;
-        }
-
-        .add-option-text {
-            margin-right: 5px;
-        }
-
-        .add-option-icon {
-            font-size: 16px;
-            font-weight: bold;
-        }
-          .admin-student-form-question {
-            border: none;
-            border-radius: 4px;
-            padding: 15px;
-            background-color: #fff;
-            margin-bottom: 20px;
-        }
-
-        .admin-student-form-question.active {
-            border: 1px solid #ccc;
-        }
-
-        .admin-student-question-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            cursor: pointer;
-            /* Added cursor pointer to show it's clickable */
-        }
-
-        .admin-student-question-title {
-            font-size: 14px;
-            font-weight: 400;
-            color: #333;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px;
-            width: 515px;
-            background-color: #fff;
-            position: relative;
-            border: none;
-            border-bottom: 1px solid #888;
-        }
-
-        .admin-student-dropdown-field {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px;
-            width: 400px;
-            background-color: #fff;
-            position: relative;
-            border: none;
-            border-bottom: 1px solid #888;
-        }
-
-        .admin-student-field-text {
-            font-size: 14px;
-            color: #212121;
-        }
-
-        .admin-student-dropdown-icon {
-            width: 8px;
-            height: 8px;
-            transform: rotate(45deg);
-            border-right: 2px solid rgb(25, 24, 37);
-            border-bottom: 2px solid rgb(25, 24, 37);
-            transition: transform 0.3s;
-        }
-
-        .admin-student-dropdown-icon.rotated {
-            transform: rotate(-135deg);
-        }
-
-        .options-section {
-            padding: 15px 0;
-        }
-
-        .options-label {
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .checkbox-option {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        /* New Checkbox Styles */
-        .checkbox-option input[type="checkbox"] {
-            appearance: none;
-            width: 22px;
-            height: 22px;
-            border: 2px solid #E2E8F0;
-            border-radius: 2px;
-            outline: none;
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
-            position: relative;
-            vertical-align: middle;
-            margin-right: 10px;
-        }
-
-        .checkbox-option input[type="checkbox"]:checked {
-            border-color: #E98635;
-        }
-
-        .checkbox-option input[type="checkbox"]:checked:before {
-            content: '';
-            width: 12px;
-            height: 12px;
-            background-color: #E98635;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 2px;
-        }
-
-        .checkbox-option label {
-            font-size: 14px;
-            color: #333;
-        }
-
-        .add-option {
-            display: flex;
-            align-items: center;
-            color: #FF8A00;
-            margin-top: 10px;
-            cursor: pointer;
-            width: fit-content;
-        }
-
-        .add-option-text {
-            margin-right: 5px;
-        }
-
-        .add-option-icon {
-            font-size: 16px;
-            font-weight: bold;
-        }
+    
