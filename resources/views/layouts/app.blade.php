@@ -68,9 +68,10 @@
     @endif
     
     <!-- Footer component except on specific pages -->
-    @if(!in_array(Route::currentRouteName(), ['login', 'signup', 'admin-page', 'nbfc-dashboard', 'sc-dashboard']))
-        <x-footer></x-footer>
-    @endif
+   @if(!in_array(Route::currentRouteName(), ['login', 'signup', 'admin-page', 'nbfc-dashboard', 'sc-dashboard', 'student-dashboard']))
+    <x-footer></x-footer>
+   @endif
+
     
     <script src="{{ asset('js/app.js') }}"></script>
     
