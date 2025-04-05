@@ -53,7 +53,7 @@ Route::post('/getUserFromNbfc', [StudentDashboardController::class, 'getUserFrom
 Route::post("/send-proposals-with-file", [NbfcController::class, 'sendProposalsWithFiles']);
 
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
- Route::post('/passwordchange', [GoogleAuthController::class, 'passwordChange']);
+Route::post('/passwordchange', [GoogleAuthController::class, 'passwordChange']);
 Route::get("/getalluserdetailsfromadmin", [StudentDashboardController::class, 'getAllUsersFromAdmin']);
 Route::post('/retrieve-file', action: [StudentDashboardController::class, 'retrieveFile']);
 Route::post('/remove-each-documents', [StudentDashboardController::class, 'removeFromServer']);
@@ -73,3 +73,8 @@ Route::post("/downloadzip", [StudentDashboardController::class, 'downloadFilesAs
 
 Route::post('/send-message', action: [ChatController::class, 'sendMessage']);
 Route::get('/get-messages/{nbfc_id}/{student_id}', [ChatController::class, 'getMessages']);
+
+Route::post('/update-personalinfo', [StudentDetailsController::class, 'updatePersonalInfo']);
+
+Route::post('/get-queries', [StudentDashboardController::class, 'getScuserQueryRaised']);
+Route::post('/getstatusofusers', [scDashboardController::class, 'getStatusOfUsers']);

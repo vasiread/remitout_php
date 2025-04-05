@@ -15,6 +15,13 @@ document.addEventListener('DOMContentLoaded', function () {
     initialiseEightcolumn();
     initialiseNinthcolumn();
     initialiseTenthcolumn();
+    initialiseAllViews()
+        .then(() => {
+            console.log("All URLs fetched successfully!");
+        })
+        .catch((error) => {
+            console.error("Error during initialization:", error);
+        });
     const courseDetailsElement = document.getElementById('course-details-container');
     const courseDetails = JSON.parse(courseDetailsElement.getAttribute('data-course-details'));
     const personalDetails = JSON.parse(courseDetailsElement.getAttribute('data-personal-details'));
@@ -134,13 +141,7 @@ const initializeSideBarTabs = () => {
                 dynamicHeader.textContent = "Loan Proposals";
             } else if (index === 2) {
                 console.log('My Application tab selected');
-                initialiseAllViews()
-                    .then(() => {
-                        console.log("All URLs fetched successfully!");
-                    })
-                    .catch((error) => {
-                        console.error("Error during initialization:", error);
-                    });
+               
                 lastTabHiddenDiv.style.display = "none";
                 lastTabVisibleDiv.style.display = "flex";
                 communityJoinCard.style.display = "none";

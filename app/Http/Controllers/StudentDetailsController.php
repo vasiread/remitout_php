@@ -6,6 +6,7 @@ use App\Models\Academics;
 use App\Models\CoBorrowerInfo;
 use App\Models\CourseInfo;
 use App\Models\PersonalInfo;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -16,30 +17,51 @@ class StudentDetailsController extends Controller
     public function updatePersonalInfo(Request $request)
     {
         try {
-            Log::info($request->all());
+            // Log the request input
+            Log::info('Request received:', $request->all());
 
+            // Fetch the personal info and user models
             $personalInfoDetail = PersonalInfo::find($request->personalInfoId);
+            $user = User::where('unique_id', $request->personalInfoId)->first();
 
-
-            if (!$personalInfoDetail) {
-                return response()->json(['success' => false, 'message' => 'User not found.']);
+            // Check if either is missing
+            if (!$personalInfoDetail || !$user) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'User not found.'
+                ]);
             }
 
+            // Log the user object safely
+            Log::info('User found:', ['user' => $user]);
+
+            // Update fields
             $personalInfoDetail->full_name = $request->input('personalInfoName');
             $personalInfoDetail->referral_code = $request->input('personalInfoReferral');
             $personalInfoDetail->email = $request->input('personalInfoEmail');
             $personalInfoDetail->state = $request->input('personalInfoCity');
             $personalInfoDetail->linked_through = $request->input('personalInfoFindOut');
 
-            $personalInfoDetail->save();
+            $user->referral_code = $request->input('personalInfoReferral');
 
-            return response()->json(['success' => true, 'message' => 'Your details have been updated successfully.']);
+            // Save both
+            $personalInfoDetail->save();
+            $user->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Your details have been updated successfully.'
+            ]);
         } catch (\Exception $e) {
             Log::error('Error updating personal info: ' . $e->getMessage());
 
-            return response()->json(['success' => false, 'message' => 'An error occurred while updating your details.']);
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while updating your details.'
+            ]);
         }
     }
+
     public function updateCourseInfo(Request $request)
     {
         try {

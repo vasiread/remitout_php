@@ -2782,6 +2782,8 @@ $counter = 1;
             // Get userId from the studentId element
             const userId = studentId.textContent;
             console.log("Fetching profile for user:", userId);
+            const inboxContainer = document.getElementById("index-section-id-nbfc");
+            inboxContainer.style.display="block";
 
             // Show loader and disable further interactions
             loaderElement.style.display = 'block'; // Show loader

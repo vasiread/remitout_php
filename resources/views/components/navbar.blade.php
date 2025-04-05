@@ -17,9 +17,9 @@
         style="@if (request()->is('/')) position: absolute; top: 0; left: 0; width: 100%; z-index: 10; @else position: relative; @endif">
         <div class="{{ Request::is('/') ? 'nav-container' : 'nav-container fullopacity' }}">
             @php
-                $navImgPath = "assets/images/Remitoutcolored.png";
-                $navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
-                $NotificationBell = "assets/images/notifications_unread.png";
+$navImgPath = "assets/images/Remitoutcolored.png";
+$navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
+$NotificationBell = "assets/images/notifications_unread.png";
             @endphp
 
             <img onclick="window.location.href='{{ url(' ') }}'"
@@ -442,26 +442,27 @@
                 }
 
 
-                function displayError(elementId, message) {
-                    var errorElement = document.getElementById(elementId);
-                    errorElement.innerText = message;
-                    errorElement.style.display = 'block';
-                }
-
-                function clearErrorMessages() {
-                    var errorElements = document.getElementsByClassName('error-message');
-                    for (var i = 0; i < errorElements.length; i++) {
-                        errorElements[i].innerText = '';
-                        errorElements[i].style.display = 'none';
-                    }
-
-                }
+               
 
 
 
 
             }
         }
+         function displayError(elementId, message) {
+                var errorElement = document.getElementById(elementId);
+                errorElement.innerText = message;
+                errorElement.style.display = 'block';
+            }
+
+            function clearErrorMessages() {
+                var errorElements = document.getElementsByClassName('error-message');
+                for (var i = 0; i < errorElements.length; i++) {
+                    errorElements[i].innerText = '';
+                    errorElements[i].style.display = 'none';
+                }
+
+            }
         const userPopopuOpen = () => {
             const userPopupTrigger = document.querySelector(".nav-profilecontainer i");
             const userPopupList = document.querySelector(".popup-notify-list");
@@ -578,6 +579,7 @@
                     });
             });
         };
+    
         const passwordModelTrigger = () => {
             const passwordTrigger = document.getElementById("change-password-trigger");
             const passwordChangeContainer = document.querySelector(".password-change-container");

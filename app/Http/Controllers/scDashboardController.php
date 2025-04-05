@@ -2,8 +2,13 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SendScDetailsMail;
+use App\Models\Requestprogress;
+use App\Models\User;
+use Exception;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\StudentsImport;
@@ -12,6 +17,7 @@ use App\Models\Scuser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\QueryException;
+use Psy\Readline\Hoa\Console;
 
 
 
@@ -226,6 +232,66 @@ class scDashboardController extends Controller
 
 
     }
+
+    public function getStatusOfUsers(Request $request)
+    {
+        try {
+            $request->validate([
+                'scReferralId' => 'required|string',
+            ]);
+
+            $scUserId = $request->input('scReferralId');
+            $users = DB::table('users')->where('referral_code', $scUserId)->get();
+
+            if ($users->isEmpty()) {
+                return response()->json(['message' => 'No user found for this referral'], 404);
+            }
+
+            $allProposals = [];
+
+            foreach ($users as $user) {
+                $userId = $user->unique_id;
+
+                $Accepted = DB::table('traceprogress')
+                    ->join('nbfc', 'traceprogress.nbfc_id', '=', 'nbfc.nbfc_id')
+                    ->where('traceprogress.user_id', $userId)
+                    ->select('nbfc.nbfc_name', 'traceprogress.created_at', 'traceprogress.user_id')
+                    ->get();
+
+
+
+                $Pending = DB::table('requestedbyusers')
+                    ->join('nbfc', 'requestedbyusers.nbfcid', '=', 'nbfc.nbfc_id')
+                    ->where('requestedbyusers.userid', $userId)
+                    ->select('nbfc.nbfc_name', 'requestedbyusers.created_at', 'requestedbyusers.userid')
+                    ->get();
+
+                $Rejected = DB::table('rejectedbynbfc')
+                    ->join('nbfc', 'rejectedbynbfc.nbfc_id', '=', 'nbfc.nbfc_id')
+                    ->where('rejectedbynbfc.user_id', 'HBNKJI0000002')
+                    ->select('nbfc.nbfc_name', 'rejectedbynbfc.created_at', 'rejectedbynbfc.user_id')
+                    ->get();
+
+
+
+
+            }
+
+            return response()->json([
+                'success' => true,
+                'data' => $Rejected
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error Retrieving Status',
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+
+
 
 
 

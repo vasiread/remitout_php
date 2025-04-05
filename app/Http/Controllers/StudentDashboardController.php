@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 use App\Models\Nbfc;
+use App\Models\Queries;
 use App\Models\Rejectedbynbfc;
+use App\Models\Requestedbyusers;
 use App\Models\Requestprogress;
+use Exception;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Academics;
@@ -91,14 +94,24 @@ class StudentDashboardController extends Controller
                         ->exists();
 
                     if (!$existingRecord) {
-                        Requestprogress::create([
+                        $pushRequest = Requestprogress::create([
                             'nbfc_id' => $data->nbfc_id,
                             'user_id' => $userId,
                             'type' => Requestprogress::TYPE_REQUEST,
                         ]);
+                        if ($pushRequest) {
+                            Requestedbyusers::create([
+                                'userid' => $userId,
+                                'nbfcid' => $data->nbfc_id
+                            ]);
+                        }
                     }
+                    
+
+
                 }
             }
+
 
         }
 
@@ -143,7 +156,7 @@ class StudentDashboardController extends Controller
                         ->where('nbfc_id', $nbfcID)
                         ->update([
                             'remarks' => $remarks,
-                           
+
                         ]);
 
                 } else {
@@ -218,6 +231,42 @@ class StudentDashboardController extends Controller
 
     }
 
+    public function getScuserQueryRaised(Request $request)
+    {
+        try {
+
+            $request->validate([
+                'scUserId' => 'string|required'
+            ]);
+
+            $scUserId = $request->input('scUserId');
+
+
+            $queries = Queries::where('scuserid', $scUserId)->get();
+
+
+
+
+
+
+
+            return response()->json([
+                'scuserid' => $queries,
+                'success' => true,
+                'message' => "successfully fetched Queries"
+
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An Error Occured While retrieve scuser queries',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+
+    }
+
     public function getAllUsersFromAdmin()
     {
 
@@ -236,7 +285,7 @@ class StudentDashboardController extends Controller
     public function updateFromProfile(Request $request)
     {
         try {
-             $validated = $request->validate([
+            $validated = $request->validate([
                 'editedName' => 'nullable|string|max:255',
                 'editedPhone' => 'nullable|string|max:15',
                 'editedEmail' => 'nullable|email',
@@ -888,27 +937,27 @@ class StudentDashboardController extends Controller
 
     public function downloadFilesAsZip(Request $request)
     {
-         $request->validate([
+        $request->validate([
             'userId' => 'required|string',
         ]);
 
         $userId = $request->input('userId');
-        $folderPath = rtrim($userId, '/') . '/';  
+        $folderPath = rtrim($userId, '/') . '/';
 
-       
+
         if (!Storage::disk('s3')->exists($folderPath)) {
             dd("Folder path '$folderPath' does not exist on S3.");
         }
 
-         $folders = Storage::disk("s3")->directories($folderPath);
+        $folders = Storage::disk("s3")->directories($folderPath);
 
-         if (empty($folders)) {
+        if (empty($folders)) {
             return response()->json([
                 'message' => 'No folders found in the specified directory.',
             ], 404);
         }
 
-         $zipFileName = $userId . '_files.zip';
+        $zipFileName = $userId . '_files.zip';
         $tempFile = tempnam(sys_get_temp_dir(), 'zip');
 
         // Initialize the ZipArchive
@@ -918,7 +967,7 @@ class StudentDashboardController extends Controller
                 $files = Storage::disk('s3')->files($folder);
 
                 foreach ($files as $file) {
-                     try {
+                    try {
                         $fileContent = Storage::disk('s3')->get($file);
                     } catch (\Exception $e) {
                         return response()->json([
@@ -926,11 +975,11 @@ class StudentDashboardController extends Controller
                         ], 500);
                     }
 
-                     $zip->addFromString($file, $fileContent);
+                    $zip->addFromString($file, $fileContent);
                 }
             }
 
-             $zip->close();
+            $zip->close();
         } else {
             return response()->json([
                 'message' => 'Failed to create ZIP file.',

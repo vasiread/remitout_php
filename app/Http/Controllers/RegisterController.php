@@ -101,8 +101,7 @@ class RegisterController extends Controller
             return redirect()->back()->with('error', 'Personal information not found');
         }
 
-        // Pass the user data to the student dashboard view
-        return view('pages.studentdashboard', compact('user'));
+         return view('pages.studentdashboard', compact('user'));
     }
 
 
