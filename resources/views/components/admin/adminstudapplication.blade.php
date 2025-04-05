@@ -247,39 +247,41 @@
                             </div>
                         </div>
 
-                        <div class="admin-student-form-question">
-                            <div class="admin-student-question-row">
-                                <div class="admin-student-question-title">3. What is the duration of the course?</div>
-                                <div class="admin-student-dropdown-field" id="course-dropdown-course-id">
-                                    <span class="admin-student-field-text">Drop Down List</span>
-                                    <span class="admin-student-dropdown-icon"></span>
-                                </div>
-                            </div>
+                         <div class="admin-student-form-question">
+        <div class="admin-student-question-row">
+            <div class="admin-student-question-title">3. What is the duration of the course?</div>
+            <div class="admin-student-dropdown-field" id="course-dropdown-course-id">
+                <span class="admin-student-field-text">Drop Down List</span>
+                <span class="admin-student-dropdown-icon"></span>
+            </div>
+        </div>
 
-                            <div class="admin-student-options-section" id="course-duration-section">
-                                <div class="admin-student-options-label">Options:</div>
-                                <div class="admin-course-option-main-container">
-                                    <div class="course-options">
-                                        <div class="course-option">
-                                            <span class="course-name">Bachelors (only secured loan)</span>
-                                            <span class="course-remove">×</span>
-                                        </div>
-                                        <div class="course-option">
-                                            <span class="course-name">Masters</span>
-                                            <span class="course-remove">×</span>
-                                        </div>
-                                        <div class="course-option">
-                                            <span class="course-name">Others</span>
-                                            <span class="course-remove">×</span>
-                                        </div>
-                                    </div>
-                                    <div class="add-course">
-                                        <span class="add-text">Add</span>
-                                        <span class="add-icon">+</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <div class="admin-student-options-section" id="course-duration-section">
+            <div class="admin-student-options-label">Options:</div>
+            <div class="admin-course-option-main-container">
+                <div class="course-options">
+                    <div class="course-option">
+                        <span class="course-name">Bachelors (only secured loan)</span>
+                        <span class="course-remove">×</span>
+                    </div>
+                    <div class="course-option">
+                        <span class="course-name">Masters</span>
+                        <span class="course-remove">×</span>
+                    </div>
+                    <div class="course-option">
+                        <span class="course-name">Others</span>
+                        <span class="course-remove">×</span>
+                    </div>
+                </div>
+                <div class="add-course">
+                    <span class="add-text">Add</span>
+                    <span class="add-icon">+</span>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+
                     </div>
                 </div>
             </div>
@@ -747,6 +749,49 @@
                     optionsContainer.appendChild(addSection);
                 }
             };
+
+            document.getElementById('course-dropdown-course-id').addEventListener('click', function () {
+            const optionsSection = document.getElementById('course-duration-section');
+            const isCurrentlyHidden = optionsSection.style.display === 'none';
+
+            optionsSection.style.display = isCurrentlyHidden ? 'block' : 'none';
+
+            // Optional: Add visual feedback when dropdown is active
+            this.closest('.admin-student-form-question').classList.toggle('active', isCurrentlyHidden);
+        });
+
+        document.querySelector('.add-course').addEventListener('click', function () {
+            const userInput = prompt("Enter course duration option", "");
+
+            if (userInput && userInput.trim() !== "") {
+                const newOption = document.createElement('div');
+                newOption.className = 'course-option';
+
+                const nameSpan = document.createElement('span');
+                nameSpan.className = 'course-name';
+                nameSpan.textContent = userInput.trim();
+
+                const removeSpan = document.createElement('span');
+                removeSpan.className = 'course-remove';
+                removeSpan.textContent = '×';
+
+                removeSpan.addEventListener('click', function () {
+                    newOption.remove();
+                });
+
+                newOption.appendChild(nameSpan);
+                newOption.appendChild(removeSpan);
+
+                const optionsContainer = document.querySelector('.course-options');
+                optionsContainer.appendChild(newOption);
+            }
+        });
+
+        document.querySelectorAll('.course-remove').forEach(function (removeButton) {
+            removeButton.addEventListener('click', function () {
+                this.parentElement.remove();
+            });
+        });
           
      
 
