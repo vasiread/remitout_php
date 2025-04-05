@@ -89,19 +89,20 @@
 
                 </div>
 
-                <div class="dropdown-filters" id="studentlistcontainer-filters">
-                    <button class="dropdown-button-filters">
-                        <img src="{{asset('assets/images/Icons/filter_icon.png')}}" alt="">
-                        Sort by
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </button>
-                    <div class="dropdown-content-filters">
-                        <a href="#" data-sort="newest">Newest</a>
-                        <a href="#" data-sort="oldest">Oldest</a>
-                        <a href="#" data-sort="alphabet">A-Z</a>
-                        <a href="#" data-sort="alphabet-reverse">Z-A</a>
-                    </div>
-                </div>
+                <div class="dashboard-sort-button-container">
+                  <button class="dashboard-sort-button" onclick="toggleSortOptions()">
+                      Sort
+                      <img src="assets/images/filter-icon.png" alt="Filter">
+                  </button>
+
+                   <div class="dashboard-sort-options" id="dashboardSortOptions">
+                      <button class="dashboard-sort-option" data-sort="alphabet">A-Z</button>
+                      <button class="dashboard-sort-option" data-sort="alphabet-reverse">Z-A</button>
+                      <button class="dashboard-sort-option" data-sort="newest">Newest</button>
+                     <button class="dashboard-sort-option" data-sort="oldest">Oldest</button>
+                   </div>
+               </div>
+
                 <button class="studentlist-add-button">Add</button>
 
 

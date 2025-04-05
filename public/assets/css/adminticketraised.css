@@ -197,15 +197,35 @@
         }
 
         .ticket-raised-inbox-filters {
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            border: 1px solid #ccc;
-            padding: 10px;
-            width: fit-content;
-        }
+             position: relative;
+             display: flex;
+             align-items: center;
+             gap: 10px;
+             cursor: pointer;
+             border: 1px solid #ccc;
+             padding: 10px;
+             width: fit-content;
+             background: white;
+             border-radius: 8px;
+           }
+      
+           /* Sort Button */
+        #ticket-raised-index-nbfc-sort-id {
+          border-radius: 8px;
+          background: white;
+          border: 1px solid #E2E2E2;
+          padding: 8px 12px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          cursor: pointer;
+          font-family: 'Poppins', sans-serif;
+          font-size: 14px;
+          font-weight: 500;
+          color: #909090;
+          height: 38px;
+          width: 110px;
+         }
 
         .ticket-raised-sort-dropdown-nbfc {
             position: absolute;
@@ -216,11 +236,12 @@
             display: none;
             list-style: none;
             padding: 0;
-            margin: 5px 0;
+            margin-top: 5px;
             z-index: 10;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 4px;
-            min-width: 120px;
+            border-radius: 8px;
+            min-width: 100px;
+            overflow: hidden;
         }
 
         .ticket-raised-sort-dropdown-nbfc.ticket-raised-visible {
@@ -228,20 +249,22 @@
         }
 
         .ticket-raised-sort-dropdown-nbfc li {
-            padding: 10px;
-            cursor: pointer;
-            transition: background-color 0.2s;
+           padding: 10px;
+           cursor: pointer;
+           font-family: 'Poppins', sans-serif;
+           font-size: 14px;
+           color: #666;
+           text-align: center;
+           border-bottom: 1px solid #f3f4f6;
+           transition: background-color 0.2s;
+           justify-content: center;
         }
 
         .ticket-raised-sort-dropdown-nbfc li:hover {
             background-color: #f0f0f0;
         }
 
-        .ticket-raised-sort-dropdown-nbfc li.active {
-            background-color: #f0f0f0;
-            font-weight: 500;
-        }
-
+     
         #ticket-raised-sortable-list {
             margin-top: 10px;
             padding: 0;
@@ -255,7 +278,7 @@
         }
 
         #ticket-raised-sort-options-index-nbfc {
-            width: 120px;
+            width: 110px;
         }
 
         .ticket-raised-inbox-filters span {
@@ -278,7 +301,7 @@
         }
 
         .ticket-raised-date {
-            /* Hidden attribute to store date for sorting */
+           
             display: none;
         }
         /* Mobile-specific adjustments */

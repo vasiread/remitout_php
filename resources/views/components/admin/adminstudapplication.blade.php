@@ -257,6 +257,46 @@
                            </div>
                         </div>   
 
+                          <div class="admin-student-form-question-month">
+        <div class="admin-student-question-row-month">
+            <div class="admin-student-question-title">3. What is the duration of the course?</div>
+            <div class="admin-student-dropdown-field" id="course-dropdown-month-id">
+                <span class="admin-student-field-text">Drop Down List</span>
+                <span class="admin-student-dropdown-icon"></span>
+            </div>
+        </div>
+
+        <div class="admin-student-options-section" id="course-duration-section-month">
+            <div class="admin-student-options-label">Options:</div>
+            <div class="admin-course-option-main-container">
+                <div class="course-options">
+                    <div class="course-option">
+                        <span class="course-name">12 Months</span>
+                        <span class="course-remove">×</span>
+                    </div>
+
+                    <div class="course-option">
+                        <span class="course-name">24 Months</span>
+                        <span class="course-remove">×</span>
+                    </div>
+
+                    <div class="course-option">
+                        <span class="course-name">36 Months</span>
+                        <span class="course-remove">×</span>
+                    </div>
+                </div>
+
+                <div class="add-course">
+                    <span class="add-text">Add</span>
+                    <span class="add-icon">+</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
 
 
 

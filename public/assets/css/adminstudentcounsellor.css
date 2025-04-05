@@ -16,7 +16,7 @@
 .add-studentcounsellor-adminside {
     margin: 20px 24px;
 } */
-#studentcounsellor-requiredfields-admin-startdate {}
+
 
 .studentcounsellor-requiredfields-admin {
     display: grid;
@@ -24,6 +24,65 @@
     grid-template-rows: repeat(2, 1fr);
     gap: 22px;
 
+}
+.dashboard-sort-button-container {
+    display: inline-block;
+    position: relative;
+}
+
+.dashboard-sort-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    width: 77px;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+
+.dashboard-sort-options button {
+    padding: 10px 16px;
+    background-color: white;
+    border: none;
+    width: 100%;
+    text-align: left;
+    color: #6b7280;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.dashboard-sort-options button:last-child {
+    border-bottom: none;
+}
+
+.dashboard-sort-options button:hover {
+    background-color: #f9fafb;
+}
+
+.dashboard-sort-button {
+    background: white;
+    border: 1px solid #E2E2E2;
+    border-radius: 4px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #909090;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    height: 38px;
+    cursor: pointer;
 }
 
 

@@ -2799,21 +2799,21 @@ h2 {
   }
 
   .next-btn-course {
-     padding: 10px 20px;
-  width: 120px;
-  height: 50px;
-  background-color: #6f42c1;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 100px;
-  margin-bottom: 100px;
-  margin-right:150px;
-  position: absolute;
-  right: 0;
-  z-index: 10;  
+   padding: 10px 20px;
+        width: 120px;
+        height: 50px;
+        background-color: #6f42c1;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 350px;
+     
+        margin-right: 120px;
+        position: absolute;
+        right: 0;
+        z-index: 10;
   }
 }
 

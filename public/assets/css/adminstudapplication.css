@@ -133,11 +133,12 @@
 
     }
 
-    .admin-student-section-content-course {}
+
 
     .admin-student-form-question,
     .admin-student-form-question-course,
-    .admin-student-form-question-course-degree {
+    .admin-student-form-question-course-degree,
+     .admin-student-form-question-month {
         border: none;
         border-radius: 4px;
         padding: 15px;
@@ -152,7 +153,8 @@
 
     .admin-student-question-row,
     .admin-student-question-row-course,
-    .admin-student-question-row-course-degree {
+    .admin-student-question-row-course-degree,
+    .admin-student-question-row-month {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -161,7 +163,8 @@
 
     .admin-student-question-title,
     .admin-student-question-title-course,
-    .admin-student-question-title-course-degree {
+    .admin-student-question-title-course-degree,
+      .admin-student-question-title-month {
         font-size: 14px;
         font-weight: 400;
         color: #333;
@@ -179,7 +182,9 @@
 
     .admin-student-dropdown-field,
     .admin-student-dropdown-field-course,
-    .admin-student-dropdown-field-course-degree {
+    .admin-student-dropdown-field-course-degree,
+    
+       .admin-student-dropdown-field-month {
         display: flex;
         align-items: center;
         justify-content: space-between;
