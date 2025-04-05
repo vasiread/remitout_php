@@ -681,7 +681,7 @@
             border-bottom: 1px solid #FF8A00;
         }
 
-    
+
 
         .admin-student-form-question.active {
             border: 1px solid #ccc;
@@ -694,7 +694,7 @@
             margin-bottom: 15px;
         }
 
-     
+
 
         .admin-student-dropdown-icon {
             width: 8px;
@@ -704,12 +704,6 @@
             border-bottom: 2px solid rgb(25, 24, 37);
             transition: transform 0.3s;
         }
-
-        .admin-student-dropdown-icon.rotated {
-            transform: rotate(-135deg);
-        }
-
-      
 
         .options-label {
             font-size: 14px;
@@ -721,3 +715,4 @@
             align-items: center;
             margin-bottom: 10px;
         }
+

@@ -229,116 +229,6 @@
                                     <span class="admin-student-dropdown-icon-course"></span>
                                 </div>
                             </div>
-
-                            <div class="options-section" id="option-section-degree-container">
-                                <div class="options-header">
-                                   <div class="admin-student-options-label">Options:</div>
-                                </div>
-
-                                <div class="option-grid course-degree" id="optionsContainer">
-                                    <div class="option-item">
-                                        <input type="checkbox" class="option-checkbox">
-                                        <div class="option-name">Bachelors (only secured loan)</div>
-                                    </div>
-                                    <div class="option-item">
-                                        <input type="checkbox" class="option-checkbox">
-                                        <div class="option-name">Masters</div>
-                                    </div>
-                                    <div class="option-item">
-                                        <input type="checkbox" class="option-checkbox">
-                                        <div class="option-name">Others</div>
-                                    </div>
-                                    <div class="add-checkbox-container-degree" id="addSection">
-                                        <div class="add-text">Add</div>
-                                        <div class="add-icon">+</div>
-                                    </div>
-                                                                           
-                                </div>
-                           </div>
-                        </div>   
-
-                          <div class="admin-student-form-question-month">
-        <div class="admin-student-question-row-month">
-            <div class="admin-student-question-title">3. What is the duration of the course?</div>
-            <div class="admin-student-dropdown-field" id="course-dropdown-month-id">
-                <span class="admin-student-field-text">Drop Down List</span>
-                <span class="admin-student-dropdown-icon"></span>
-            </div>
-        </div>
-
-        <div class="admin-student-options-section" id="course-duration-section-month">
-            <div class="admin-student-options-label">Options:</div>
-            <div class="admin-course-option-main-container">
-                <div class="course-options">
-                    <div class="course-option">
-                        <span class="course-name">12 Months</span>
-                        <span class="course-remove">×</span>
-                    </div>
-
-                    <div class="course-option">
-                        <span class="course-name">24 Months</span>
-                        <span class="course-remove">×</span>
-                    </div>
-
-                    <div class="course-option">
-                        <span class="course-name">36 Months</span>
-                        <span class="course-remove">×</span>
-                    </div>
-                </div>
-
-                <div class="add-course">
-                    <span class="add-text">Add</span>
-                    <span class="add-icon">+</span>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-
-        </div>
-    </div>
-      
-                   <!-- Academic Details Section -->
-                    <div class="admin-student-form-section-academic-details">
-                        <div class="admin-student-section-header-academic">
-                            <div class="admin-student-section-title-academic">Academic details</div>
-                            <span class="admin-student-question-count-academic">4 Questions</span>
-                            <div class="admin-student-arrow-icon-academic">
-                                <img src="assets/images/admin-drop.png" alt="Arrow Icon"
-                                    class="admin-student-arrow-down-academic" />
-                            </div>
-                        </div>
-                    </div>
-
-                      <!-- Co-borrower Info Section -->
-                    <div class="admin-student-form-section-co-borrower-info">
-                        <div class="admin-student-section-header-co-borrower">
-                            <div class="admin-student-section-title-co-borrower">Co-borrower Info</div>
-                            <span class="admin-student-question-count-co-borrower">4 Questions</span>
-                            <div class="admin-student-arrow-icon-co-borrower">
-                                <img src="assets/images/admin-drop.png" alt="Arrow Icon"
-                                    class="admin-student-arrow-down-co-borrow" />
-                            </div>
-                        </div>
-                    </div>
-
-                    
-
-                    <!-- Document Upload Section -->
-                    <div class="admin-student-form-section-document-upload">
-                        <div class="admin-student-section-header-document-upload">
-                            <div class="admin-student-section-title-document-upload">Document Upload</div>
-                            <span class="admin-student-question-count-document-upload">4 Questions</span>
-                            <div class="admin-student-arrow-icon-document-upload">
-                                <img src="assets/images/admin-drop.png" alt="Arrow Icon"
-                                    class="admin-student-arrow-down-document-upload" />
-                            </div>
-                        </div>
                     </div>
 
 
@@ -846,7 +736,6 @@ if (addSection && optionsGrid) {
 }
     
 });
-
 
 
     </script>
