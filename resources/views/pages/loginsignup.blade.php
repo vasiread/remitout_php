@@ -121,6 +121,15 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
         let generatedOTP = '';
         let registerFormData = {};
 
+        // Function to get query parameter from URL
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    // Extract ref from the current URL
+    const refParam = getQueryParam('ref');
+
         function restrictToNumbers(input) {
             let value = input.value;
             value = value.replace(/[^0-9]/g, '');
@@ -331,7 +340,7 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
                     if (data.success === false) {
                         alert(data.message);
                     } else if (data.success === true) {
-
+                      
 
                         triggerOtpSection();
                     }
@@ -383,7 +392,9 @@ $signupmainimgupside = "assets/images/signupmainimgupside.png";
                 .then(data => {
                     if (data.success) {
                         alert("Registration is Successful");
-                        window.location.href = '/student-forms';
+                        // Redirect with ref query parameter if it exists
+                    const redirectUrl = refParam ? `/student-forms?ref=${encodeURIComponent(refParam)}` : '/student-forms';
+                    window.location.href = redirectUrl;
                     } else {
                         alert(data.error || 'Something went wrong. Please try again.');
                     }

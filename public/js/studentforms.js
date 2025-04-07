@@ -1,5 +1,45 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // Function to get query parameter from URL
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    // Secret key for decryption (must match the key used in generateReferLinkPopup)
+    const secretKey = "rJXU0e4lTP7G+KP9dH5V1pq9P7vP8d8sravZmzMGUKM="; // Replace with the exact key used for encryption
+
+    // Extract ref from URL and decrypt it
+    const refParam = getQueryParam('ref');
+    const referralInput = document.getElementById('personal-info-referral');
+
+    if (refParam && referralInput) {
+        try {
+            // Check if CryptoJS is available
+            if (typeof CryptoJS === "undefined") {
+                console.error("CryptoJS library is not loaded. Please include it in your HTML.");
+                referralInput.value = refParam; // Fallback to encrypted value if CryptoJS is missing
+            } else {
+                // Decrypt the ref parameter
+                const bytes = CryptoJS.AES.decrypt(decodeURIComponent(refParam), secretKey);
+                const decryptedRef = bytes.toString(CryptoJS.enc.Utf8);
+
+                if (decryptedRef) {
+                    referralInput.value = decryptedRef; // Set the decrypted original ref ID
+                } else {
+                    console.error("Decryption failed: Invalid key or corrupted data");
+                    referralInput.value = refParam; // Fallback to encrypted value
+                }
+            }
+            // Disable the input field after setting the value
+            referralInput.disabled = true;
+        } catch (error) {
+            console.error("Error decrypting ref parameter:", error);
+            referralInput.value = refParam; // Fallback to encrypted value on error
+            referralInput.disabled = true;  // Disable even on error
+        }
+    }
+
     window.handleFileUpload = handleFileUpload;
     window.removeFile = removeFile;
 
