@@ -18,8 +18,6 @@
         margin-top: 100px;
     }
 
-
-
     #admin-student-form-edit-container {
         overflow-x: hidden;
         width: 100%;
@@ -33,7 +31,6 @@
         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
         font-family: 'Poppins', sans-serif;
         border-radius: 8px;
-
     }
 
     .admin-student-form-header {
@@ -125,8 +122,6 @@
 
     }
 
-
-
     .admin-student-form-question,
     .admin-student-form-question-course,
     .admin-student-form-question-course-degree,
@@ -138,10 +133,9 @@
         margin-bottom: 20px;
     }
 
-    .admin-student-form-question.active {
+    /*--.admin-student-form-question.active {
         border: 1px solid #ccc;
-    }
-
+    }--*/
 
     .admin-student-question-row,
     .admin-student-question-row-course,
@@ -175,7 +169,6 @@
     .admin-student-dropdown-field,
     .admin-student-dropdown-field-course,
     .admin-student-dropdown-field-course-degree,
-    
        .admin-student-dropdown-field-month {
         display: flex;
         align-items: center;
@@ -188,7 +181,6 @@
         border: none;
         border-bottom: 1px solid #888;
     }
-
 
     .admin-student-field-text,
     .admin-student-field-text-course {
@@ -207,9 +199,6 @@
         
     }
 
-
-    /* Bottom border line inside */
-
     .admin-student-options-label {
         font-size: 14px;
         color: #555;
@@ -222,7 +211,6 @@
         gap: 20px;
     }
 
-    /* Your updated input styles */
     .input-row {
         display: flex;
         gap: 25px;
@@ -295,7 +283,6 @@
         margin-top: 10px;
         position: relative;
         margin-bottom: 25px;
-        /* Add space for error message */
     }
 
     .remove-option {
@@ -320,10 +307,7 @@
         cursor: pointer;
         border: none;
         border-bottom: 1px solid #FF8A00;
-        /* Orange underline */
     }
-
-
 
     .add-icon {
         display: flex;
@@ -332,12 +316,9 @@
         width: 24px;
         height: 24px;
         color: #FF8A00;
-        border: 1px solid #FF8A00;
-        border-radius: 50%;
         font-size: 16px;
     }
 
-    /* Second question styles */
     .second-question-options {
         display: flex;
         flex-direction: column;
@@ -567,10 +548,6 @@
             font-size: 14px;
             margin-right: 10px;
         }
-
-      
-      
-
          .admin-student-form-question {
             border: none;
             border-radius: 4px;
@@ -578,11 +555,6 @@
             background-color: #fff;
             margin-bottom: 20px;
         }
-
-        .admin-student-form-question.active {
-            border: 1px solid #ccc;
-        }
-
 
         .admin-student-question-title {
             font-size: 14px;
@@ -617,9 +589,6 @@
             font-size: 14px;
             color: #212121;
         }
-
-     
-     
 
         .admin-student-options-section {
             transition: max-height 0.4s ease;
@@ -678,21 +647,12 @@
         }
 
 
-
-
-        .admin-student-form-question.active {
-            border: 1px solid #ccc;
-        }
-
         .admin-student-question-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
         }
-
-
-
 
         .admin-student-dropdown-icon {
             width: 8px;
@@ -711,6 +671,75 @@
         .checkbox-option {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
+            margin:15px 0px;
         }
 
+ .admin-student-dropdown-icon.rotated {
+            transform: rotate(-135deg);
+        }
+
+        .options-section {
+            padding: 15px 0;
+        }
+        .checkbox-coures-main-container{
+            display:flex;
+            gap:100px;
+        }
+
+           /* New Checkbox Styles */
+        .checkbox-option input[type="checkbox"] {
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border: 2px solid #E2E8F0;
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .checkbox-option input[type="checkbox"]:checked {
+            border-color: #E98635;
+        }
+           .checkbox-option input[type="checkbox"]:checked:before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background-color: #E98635;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 2px;
+        }
+        .checkbox-option label {
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .add-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 290px;
+            height: 46px;
+            margin-top: 10px;
+            padding: 0 10px;
+            color: #FF8A00;
+            cursor: pointer;
+            border: none;
+            border-bottom: 1px solid #FF8A00;
+        }
+        .add-option-text {
+            margin-right: 5px;
+        }
+
+        .add-option-icon {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+    

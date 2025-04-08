@@ -842,30 +842,7 @@ if (searchInput) {
         }
     }
     
-    // Function to generate auto responses
-    function getAutoResponse(message, bankName) {
-        const lowerMessage = message.toLowerCase();
-        const bankNameText = bankName || 'Bank';
-        
-        if (lowerMessage.includes('loan') || lowerMessage.includes('application')) {
-            return `Your loan application is being processed by ${bankNameText}. We'll update you shortly.`;
-        } else if (lowerMessage.includes('time') || lowerMessage.includes('when')) {
-            return `${bankNameText} typically processes requests within 2-3 business days.`;
-        } else if (lowerMessage.includes('document') || lowerMessage.includes('upload')) {
-            return `All required documents have been received by ${bankNameText}. No further action is needed.`;
-        } else if (lowerMessage.includes('status') || lowerMessage.includes('update')) {
-            return `Your application status at ${bankNameText} is currently "In Review". We'll notify you of any changes.`;
-        } else if (lowerMessage.includes('payment') || lowerMessage.includes('fee')) {
-            return `${bankNameText} will send payment details once your application is approved.`;
-        } else if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
-            return `Hello from ${bankNameText}! How can we assist you today?`;
-        } else if (lowerMessage.includes('thank')) {
-            return `You're welcome! ${bankNameText} is happy to help.`;
-        } else {
-            return `Thank you for your message. ${bankNameText} team will respond shortly.`;
-        }
-    }
-
+   z
     
 </script>
 

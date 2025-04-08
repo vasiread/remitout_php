@@ -24,6 +24,28 @@
                 <button id="referral-link-admindashboard">Generate Referral Link</button>
             </div>
         </div>
+
+        <div class="backdrop" id="backdrop"></div>
+
+                <!-- Referral Modal -->
+            <div class="referral-triggered-view hidden" id="referralModal">
+                <div class="referral-triggered-view-headersection">
+                    <h3>Generate Referral Link</h3>
+                    <span class="close-icon" id="closeModal">&#10005;</span>
+                </div>
+                <div class="referral-triggered-view-content">
+                    <input type="text" id="referralLink" placeholder="Copy Link here">
+                </div>
+                <div class="referral-triggered-view-footer">
+                    <button id="cancelBtn">
+                        <span class="cancel-icon">&#10005;</span> Cancel
+                    </button>
+                    <button id="generateBtn">Generate</button>
+                </div>
+            </div>
+
+
+
         <div class="admindashboardcontainer-secondsection">
             <h1>Reports</h1>
             <div class="admindashboardsecondsection-buttongroups">
@@ -509,7 +531,7 @@ $registrationSourceAnalysis = [
 
 
     <script>
-       document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", () => {
     initializeRegisterationLineGraph();
     initializeDonutGraphSource();
     initializeDonutGraphAgeRatio();
@@ -901,6 +923,36 @@ const initializeLeadChart = () => {
 
 // Call the lead chart initialization
 document.addEventListener("DOMContentLoaded", initializeLeadChart);
+
+ // Get button reference from your admin dashboard
+        const referralLinkBtn = document.getElementById('referral-link-admindashboard');
+        const modal = document.getElementById('referralModal');
+        const backdrop = document.getElementById('backdrop');
+        const closeBtn = document.getElementById('closeModal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const generateBtn = document.getElementById('generateBtn');
+        const inputField = document.getElementById('referralLink');
+
+        // Event listener for the Generate Referral Link button
+        referralLinkBtn.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+            backdrop.classList.add('active'); // Show the backdrop with blur
+        });
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            backdrop.classList.remove('active'); // Hide the backdrop
+            inputField.value = '';
+        }
+
+        closeBtn.addEventListener('click', closeModal);
+        cancelBtn.addEventListener('click', closeModal);
+        backdrop.addEventListener('click', closeModal); // Close when clicking outside
+
+        generateBtn.addEventListener('click', () => {
+            const generatedLink = `https://example.com/referral?code=${Math.random().toString(36).substr(2, 8)}`;
+            inputField.value = generatedLink;
+        });
 
 
 

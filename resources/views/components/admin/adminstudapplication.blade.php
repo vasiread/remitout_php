@@ -108,15 +108,15 @@
                     </div>
 
                     <!-- Second Question: How did you find about us -->
-                    <div class="admin-student-form-question">
-                        <div class="admin-student-question-row" id="admin-student-about-us">
-                            <div class="admin-student-question-title">2. How did you find about us?</div>
-                            <div class="admin-student-dropdown-field">
-                                <span class="admin-student-field-text">Drop Down List</span>
-                                <span class="admin-student-dropdown-icon"></span>
+                      <div class="admin-student-form-question">
+                            <div class="admin-student-question-row" id="admin-student-about-us">
+                                <div class="admin-student-question-title">2. How did you find about us?</div>
+                                <div class="admin-student-dropdown-field">
+                                    <span class="admin-student-field-text">Drop Down List</span>
+                                    <span class="admin-student-dropdown-icon"></span>
+                                </div>
                             </div>
-                        </div>
-                        
+                            
                         <div class="admin-student-options-section" id="about-us-section" style="display: none;">
                             <div class="admin-student-options-label">Options:</div>
                             <div class="second-main-section-container">
@@ -214,57 +214,122 @@
                                 </div>
                             </div>
                         </div>
-
-
               </div> 
 
 
                 <!--course details 2-->
-
-                        <div class="admin-student-form-question-course-degree" id="admin-student-form-question-course-degree">   
-                            <div class="admin-student-question-row-course-degree" id="admin-student-course-second">
-                                <div class="admin-student-question-title-course-degree">2. Select the type of degree you want to pursue:</div>
+                <div class="admin-student-form-question-course-degree" id="admin-student-form-question-course-degree">   
+                    <div class="admin-student-question-row-course-degree" id="admin-student-course-second">
+                            <div class="admin-student-question-title-course-degree">2. Select the type of degree you want to pursue:</div>
                                 <div class="admin-student-dropdown-field-course-degree">
                                     <span class="admin-student-field-text-course">Check Box</span>
-                                    <span class="admin-student-dropdown-icon-course"></span>
+                                     <span class="admin-student-dropdown-icon-course"></span>
                                 </div>
                             </div>
 
                             <div class="options-section" id="option-section-degree-container">
                                 <div class="options-header">
-                                   <div class="admin-student-options-label">Options:</div>
+                                <div class="admin-student-options-label">Options:</div>
+                            </div>
+
+                            <div class="option-grid course-degree" id="optionsContainer">
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox">
+                                <div class="option-name">Bachelors (only secured loan)</div>
+                            </div>
+                            
+                            <div class="option-item">
+                                <input type="checkbox" class="option-checkbox">
+                                <div class="option-name">Masters</div>
+                            </div>
+                                        
+                            <div class="option-item">
+                                <input type="checkbox" class="option-checkbox">
+                                <div class="option-name">Others</div>
+                            </div>
+                                        
+                            <div class="add-checkbox-container-degree" id="addSection">
+                                <div class="add-text">Add</div>
+                                <div class="add-icon">+</div>
+                            </div>
+                                                                            
+                        </div>
+                    </div>
+                 </div>   
+
+                <div class="admin-student-form-question-month">
+                    <div class="admin-student-question-row-month" id="course-row-month-id">
+                        <div class="admin-student-question-title">3. What is the duration of the course?</div>
+                            <div class="admin-student-dropdown-field" id="course-dropdown-month-id">
+                                <span class="admin-student-field-text">Drop Down List</span>
+                                <span class="admin-student-dropdown-icon" id="admin-student-dropdown-icon-id"></span>
+                            </div>
+                        </div>
+
+                    <div class="admin-student-options-section" id="course-duration-section-month">
+                       <div class="admin-student-options-label">Options:</div>
+                         <div class="admin-course-option-main-container">
+                              <div class="course-options">
+                                <div class="course-option">
+                                    <span class="course-name">12 Months</span>
+                                    <span class="course-remove">×</span>
                                 </div>
 
-                                <div class="option-grid course-degree" id="optionsContainer">
-                                    <div class="option-item">
-                                        <input type="checkbox" class="option-checkbox">
-                                        <div class="option-name">Bachelors (only secured loan)</div>
-                                    </div>
-                                    <div class="option-item">
-                                        <input type="checkbox" class="option-checkbox">
-                                        <div class="option-name">Masters</div>
-                                    </div>
-                                    <div class="option-item">
-                                        <input type="checkbox" class="option-checkbox">
-                                        <div class="option-name">Others</div>
-                                    </div>
-                                    <div class="add-checkbox-container-degree" id="addSection">
-                                        <div class="add-text">Add</div>
-                                        <div class="add-icon">+</div>
-                                    </div>
-                                                                           
+                                <div class="course-option">
+                                    <span class="course-name">24 Months</span>
+                                    <span class="course-remove">×</span>
                                 </div>
-                           </div>
-                        </div>   
 
+                                <div class="course-option">
+                                    <span class="course-name">36 Months</span>
+                                    <span class="course-remove">×</span>
+                                </div>
+                            </div>
 
+                            <div class="add-course">
+                                <span class="add-text">Add</span>
+                                <span class="add-icon">+</span>
+                            </div>
 
+                 </div>
+             </div>
+         </div>
 
+       <div class="admin-student-form-question" id="course-details-container">
+        <div class="admin-student-question-row" id="course-details-row">
+            <div class="admin-student-question-title">4. Course Details</div>
+            <div class="admin-student-dropdown-field" id="course-details-dropdown">
+                <span class="admin-student-field-text">Check Box</span>
+                <span class="admin-student-dropdown-icon"></span>
+            </div>
+        </div>
+
+        <div class="options-section" id="course-details-options" style="display: none;">
+            <div class="options-label">Options:</div>
+        <div class="checkbox-coures-main-container">
+            <div class="checkbox-options-container">
+                <div class="checkbox-option">
+                    <input type="checkbox" id="with-expenses" name="course-options">
+                    <label for="with-expenses">With living expenses</label>
+                </div>
+                <div class="checkbox-option">
+                    <input type="checkbox" id="without-expenses" name="course-options">
+                    <label for="without-expenses">Without living expenses</label>
+                </div>
+            </div>
+            <div class="add-option" id="add-option-btn">
+                <span class="add-option-text">Add</span>
+                <span class="add-option-icon">+</span>
+            </div>
+        </div>    
         </div>
     </div>
-      
-                   <!-- Academic Details Section -->
-                    <div class="admin-student-form-section-academic-details">
+
+
+    </div>
+ </div>
+
+                   <div class="admin-student-form-section-academic-details">
                         <div class="admin-student-section-header-academic">
                             <div class="admin-student-section-title-academic">Academic details</div>
                             <span class="admin-student-question-count-academic">4 Questions</span>
@@ -275,7 +340,7 @@
                         </div>
                     </div>
 
-                      <!-- Co-borrower Info Section -->
+                       <!-- Co-borrower Info Section -->
                     <div class="admin-student-form-section-co-borrower-info">
                         <div class="admin-student-section-header-co-borrower">
                             <div class="admin-student-section-title-co-borrower">Co-borrower Info</div>
@@ -287,9 +352,7 @@
                         </div>
                     </div>
 
-                    
-
-                    <!-- Document Upload Section -->
+                      <!-- Document Upload Section -->
                     <div class="admin-student-form-section-document-upload">
                         <div class="admin-student-section-header-document-upload">
                             <div class="admin-student-section-title-document-upload">Document Upload</div>
@@ -302,6 +365,11 @@
                     </div>
 
 
+    
+
+      
+
+                   
 
 
 
@@ -314,7 +382,7 @@
    
 
  <script>
-        document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
             // Toggle section content and arrow direction
             const sectionHeader = document.querySelector('.admin-student-section-header');
             const sectionContent = document.querySelector('.admin-student-section-content');
@@ -663,151 +731,278 @@
              let container = document.getElementById("studentFormContainer"); // Replace with your actual ID
 
 
-// 2. Course Details Section container 1
-const checkboxContainer = document.getElementById('selected-study-location');
-const addCheckboxContainer = document.querySelector('.add-checkbox-container');
+            // 2. Course Details Section container 1
+            const checkboxContainer = document.getElementById('selected-study-location');
+            const addCheckboxContainer = document.querySelector('.add-checkbox-container');
 
-// Comprehensive error checking
-if (!checkboxContainer) {
-    console.error('Checkbox container not found');
-    return;
-}
-
-if (!addCheckboxContainer) {
-    console.error('Add checkbox container not found');
-    return;
-}
-
-function addNewCheckbox() {
-    // Prompt user for input
-    const newCountry = prompt("Enter country name", "");
-    
-    // Only proceed if the user entered something
-    if (newCountry && newCountry.trim() !== "") {
-        // Check if country already exists
-        const existingCountries = Array.from(checkboxContainer.querySelectorAll('input[type="checkbox"]'))
-            .map(checkbox => checkbox.value.toLowerCase());
-        
-        if (existingCountries.includes(newCountry.toLowerCase())) {
-            alert('This country is already in the list');
-            return;
-        }
-        
-        // Create new checkbox element
-        const newLabel = document.createElement('label');
-        const newCheckbox = document.createElement('input');
-        
-        // Configure checkbox
-        newCheckbox.type = 'checkbox';
-        newCheckbox.name = 'study-location';
-        newCheckbox.value = newCountry;
-        newCheckbox.checked = true;
-        
-        // Create label with checkbox and text
-        newLabel.appendChild(newCheckbox);
-        newLabel.appendChild(document.createTextNode(' ' + newCountry));
-        
-        // Insert new checkbox before the add container
-        checkboxContainer.insertBefore(newLabel, addCheckboxContainer);
-    }
-}
-
-// Add click event to the entire add-checkbox-container instead of just the button
-addCheckboxContainer.addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent any default form submission
-    addNewCheckbox();
-});
-
-// Toggle functionality for admin-student-options-section-course
-const questionRow = document.querySelector('.admin-student-question-row-course');
-const optionsSection = document.querySelector('.admin-student-options-section-course');
-
-// Hide the options section by default
-if (optionsSection) {
-    optionsSection.style.display = 'none';
-}
-
-// Add click event listener to the question row
-if (questionRow) {
-    questionRow.addEventListener('click', function() {
-        // Toggle the visibility of the options section
-        if (optionsSection) {
-            if (optionsSection.style.display === 'none') {
-                optionsSection.style.display = 'block';
-            } else {
-                optionsSection.style.display = 'none';
+            // Comprehensive error checking
+            if (!checkboxContainer) {
+                console.error('Checkbox container not found');
+                return;
             }
+
+            if (!addCheckboxContainer) {
+                console.error('Add checkbox container not found');
+                return;
+            }
+
+            function addNewCheckbox() {
+                // Prompt user for input
+                const newCountry = prompt("Enter country name", "");
+                
+                // Only proceed if the user entered something
+                if (newCountry && newCountry.trim() !== "") {
+                    // Check if country already exists
+                    const existingCountries = Array.from(checkboxContainer.querySelectorAll('input[type="checkbox"]'))
+                        .map(checkbox => checkbox.value.toLowerCase());
+                    
+                    if (existingCountries.includes(newCountry.toLowerCase())) {
+                        alert('This country is already in the list');
+                        return;
+                    }
+                    
+                    // Create new checkbox element
+                    const newLabel = document.createElement('label');
+                    const newCheckbox = document.createElement('input');
+                    
+                    // Configure checkbox
+                    newCheckbox.type = 'checkbox';
+                    newCheckbox.name = 'study-location';
+                    newCheckbox.value = newCountry;
+                    newCheckbox.checked = true;
+                    
+                    // Create label with checkbox and text
+                    newLabel.appendChild(newCheckbox);
+                    newLabel.appendChild(document.createTextNode(' ' + newCountry));
+                    
+                    // Insert new checkbox before the add container
+                    checkboxContainer.insertBefore(newLabel, addCheckboxContainer);
+                }
+            }
+
+            // Add click event to the entire add-checkbox-container instead of just the button
+            addCheckboxContainer.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent any default form submission
+                addNewCheckbox();
+            });
+
+        // Toggle functionality for admin-student-options-section-course
+        const questionRow = document.querySelector('.admin-student-question-row-course');
+        const optionsSection = document.querySelector('.admin-student-options-section-course');
+
+        // Hide the options section by default
+        if (optionsSection) {
+            optionsSection.style.display = 'none';
         }
-    });
-} else {
-    console.error('Question row element not found');
-}
 
-//coures details 2 container
- // Find where you have this section in your existing code:
-//coures details 2 container
-const optionsContainer = document.getElementById('option-section-degree-container');
-const dropdownTrigger = document.getElementById('admin-student-course-second');
-
-// 2. Hide the options container by default
-if (optionsContainer) {
-    optionsContainer.style.display = 'none';
-    console.log('Options container hidden on load');
-} else {
-    console.error('Could not find options container element');
-}
-
-// 3. Add click event to show/hide the options container
-if (dropdownTrigger) {
-    dropdownTrigger.addEventListener('click', function(e) {
-        e.stopPropagation(); // Prevent event bubbling
-        if (optionsContainer.style.display === 'none') {
-            optionsContainer.style.display = 'block';
-            console.log('Options container shown');
+        // Add click event listener to the question row
+        if (questionRow) {
+            questionRow.addEventListener('click', function() {
+                // Toggle the visibility of the options section
+                if (optionsSection) {
+                    if (optionsSection.style.display === 'none') {
+                        optionsSection.style.display = 'block';
+                    } else {
+                        optionsSection.style.display = 'none';
+                    }
+                }
+            });
         } else {
+            console.error('Question row element not found');
+        }
+
+        //coures details 2 container
+        // Find where you have this section in your existing code:
+        //coures details 2 container
+        const optionsContainer = document.getElementById('option-section-degree-container');
+        const dropdownTrigger = document.getElementById('admin-student-course-second');
+
+        // 2. Hide the options container by default
+        if (optionsContainer) {
             optionsContainer.style.display = 'none';
-            console.log('Options container hidden');
+            console.log('Options container hidden on load');
+        } else {
+            console.error('Could not find options container element');
         }
-    });
-} else {
-    console.error('Could not find dropdown trigger element');
-}
 
-// 4. Keep the existing add functionality
-const addSection = document.getElementById('addSection');
-const optionsGrid = document.getElementById('optionsContainer');
-
-if (addSection && optionsGrid) {
-    addSection.onclick = function(e) {
-        e.stopPropagation(); // Stop event from reaching document click handler
-        const newOptionName = prompt('Enter new option:');
-        if (newOptionName && newOptionName.trim() !== '') {
-            // Remove the add section
-            optionsGrid.removeChild(addSection);
-            
-            // Create the new option item
-            const newOptionItem = document.createElement('div');
-            newOptionItem.className = 'option-item';
-            newOptionItem.innerHTML = `
-                <input type="checkbox" class="option-checkbox">
-                <div class="option-name">${newOptionName.trim()}</div>
-            `;
-            
-            // Add the new option to the grid
-            optionsGrid.appendChild(newOptionItem);
-            
-            // Add back the add section
-            optionsGrid.appendChild(addSection);
-            console.log('New option added: ' + newOptionName);
+        // 3. Add click event to show/hide the options container
+        if (dropdownTrigger) {
+            dropdownTrigger.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent event bubbling
+                if (optionsContainer.style.display === 'none') {
+                    optionsContainer.style.display = 'block';
+                    console.log('Options container shown');
+                } else {
+                    optionsContainer.style.display = 'none';
+                    console.log('Options container hidden');
+                }
+            });
+        } else {
+            console.error('Could not find dropdown trigger element');
         }
-    };
-} else {
-    console.error('Could not find addSection or optionsGrid elements');
-}
-    
-});
+
+        // 4. Keep the existing add functionality
+        const addSection = document.getElementById('addSection');
+        const optionsGrid = document.getElementById('optionsContainer');
+
+        if (addSection && optionsGrid) {
+            addSection.onclick = function(e) {
+                e.stopPropagation(); // Stop event from reaching document click handler
+                const newOptionName = prompt('Enter new option:');
+                if (newOptionName && newOptionName.trim() !== '') {
+                    // Remove the add section
+                    optionsGrid.removeChild(addSection);
+                    
+                    // Create the new option item
+                    const newOptionItem = document.createElement('div');
+                    newOptionItem.className = 'option-item';
+                    newOptionItem.innerHTML = `
+                        <input type="checkbox" class="option-checkbox">
+                        <div class="option-name">${newOptionName.trim()}</div>
+                    `;
+                    
+                    // Add the new option to the grid
+                    optionsGrid.appendChild(newOptionItem);
+                    
+                    // Add back the add section
+                    optionsGrid.appendChild(addSection);
+                    console.log('New option added: ' + newOptionName);
+                }
+            };
+        } else {
+            console.error('Could not find addSection or optionsGrid elements');
+        }
+
+            
+        }); //
 
 
+                function toggleOptionsDisplay() {
+            const optionsSection = document.getElementById('course-duration-section-month');
+            const isCurrentlyHidden = optionsSection.style.display === 'none' || !optionsSection.style.display;
+            const dropdownIcon = document.querySelector('.admin-student-dropdown-icon');
+
+            optionsSection.style.display = isCurrentlyHidden ? 'block' : 'none';
+
+            if (dropdownIcon) {
+                dropdownIcon.classList.toggle('rotated', isCurrentlyHidden);
+            }
+
+            document.querySelector('.admin-student-form-question-month').classList.toggle('active', isCurrentlyHidden);
+        }
+
+        document.getElementById('course-row-month-id').addEventListener('click', function (event) {
+            toggleOptionsDisplay();
+        });
+
+        document.getElementById('course-dropdown-month-id').addEventListener('click', function (event) {
+            // Prevent this click from bubbling up to the row click handler
+            event.stopPropagation();
+            toggleOptionsDisplay();
+        });
+
+        document.querySelectorAll('.course-remove').forEach(function (removeButton) {
+            removeButton.addEventListener('click', function (event) {
+                // Prevent the click from bubbling up to the row
+                event.stopPropagation();
+                this.parentElement.remove();
+            });
+        });
+
+        document.querySelector('.add-course').addEventListener('click', function (event) {
+            event.stopPropagation();
+
+            const userInput = prompt("Enter course duration option", "");
+
+            if (userInput && userInput.trim() !== "") {
+                const newOption = document.createElement('div');
+                newOption.className = 'course-option';
+
+                const nameSpan = document.createElement('span');
+                nameSpan.className = 'course-name';
+                nameSpan.textContent = userInput.trim();
+
+                const removeSpan = document.createElement('span');
+                removeSpan.className = 'course-remove';
+                removeSpan.textContent = '×';
+
+                removeSpan.addEventListener('click', function (event) {
+                    // Prevent the click from bubbling up
+                    event.stopPropagation();
+                    newOption.remove();
+                });
+
+                newOption.appendChild(nameSpan);
+                newOption.appendChild(removeSpan);
+
+                const optionsContainer = document.querySelector('.course-options');
+                optionsContainer.appendChild(newOption);
+            }
+        });
+
+        const optionsSection = document.getElementById('course-duration-section-month');
+        if (optionsSection) {
+            optionsSection.style.display = 'none';
+        }
+
+        //course 4 container
+        const courseDetailsContainer = document.getElementById('course-details-container');
+
+        // Target the entire row instead of just the dropdown
+        const courseDetailsRow = courseDetailsContainer.querySelector('#course-details-row');
+        const dropdownIcon = courseDetailsContainer.querySelector('.admin-student-dropdown-icon');
+
+        // Add click event to the entire row
+        courseDetailsRow.addEventListener('click', function () {
+            const optionsSection = courseDetailsContainer.querySelector('#course-details-options');
+            const isVisible = optionsSection.style.display !== 'none';
+
+            // Toggle visibility
+            optionsSection.style.display = isVisible ? 'none' : 'block';
+
+            // Toggle active class on container
+            courseDetailsContainer.classList.toggle('active', !isVisible);
+
+            // Rotate the dropdown icon
+            dropdownIcon.classList.toggle('rotated', !isVisible);
+        });
+
+        // Target the add option button within the container
+        const addOptionBtn = courseDetailsContainer.querySelector('#add-option-btn');
+        addOptionBtn.addEventListener('click', function (event) {
+            // Prevent the click from bubbling up to the row and toggling the dropdown
+            event.stopPropagation();
+
+            const userInput = prompt("Enter new option", "");
+
+            if (userInput && userInput.trim() !== "") {
+                const optionsContainer = courseDetailsContainer.querySelector('.checkbox-options-container');
+
+                const newOption = document.createElement('div');
+                newOption.className = 'checkbox-option';
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = 'option-' + Date.now();
+                checkbox.name = 'course-options';
+
+                const label = document.createElement('label');
+                label.htmlFor = checkbox.id;
+                label.textContent = userInput.trim();
+
+                newOption.appendChild(checkbox);
+                newOption.appendChild(label);
+                optionsContainer.appendChild(newOption);
+            }
+        });
+
+        // Prevent clicks on checkboxes from toggling the dropdown
+        const checkboxContainer = courseDetailsContainer.querySelector('.checkbox-options-container');
+        checkboxContainer.addEventListener('click', function (event) {
+            event.stopPropagation();
+        });
+
+      
 
     </script>
 
