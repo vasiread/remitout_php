@@ -1582,7 +1582,8 @@
             display: none;
         }
 
-        @media (max-width: 768px) {
+
+@media (max-width: 768px) {
     .backdrop {
         width: 100vw;
         height: 100vh;
@@ -1679,7 +1680,7 @@
     }
 }
 
-/* Additional adjustments for very small screens (e.g., below 480px) */
+
 @media (max-width: 480px) {
     .referral-triggered-view {
         max-width: 95%;
