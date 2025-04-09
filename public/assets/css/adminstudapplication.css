@@ -18,8 +18,6 @@
         margin-top: 100px;
     }
 
-
-
     #admin-student-form-edit-container {
         overflow-x: hidden;
         width: 100%;
@@ -33,7 +31,6 @@
         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
         font-family: 'Poppins', sans-serif;
         border-radius: 8px;
-
     }
 
     .admin-student-form-header {
@@ -47,19 +44,19 @@
     }
 
     .admin-student-form-section,
-    .admin-student-form-section-course-details,
-    .admin-student-form-section-academic-details,
     .admin-student-form-section-co-borrower-info,
     .admin-student-form-section-document-upload {
         margin-bottom: 20px;
-
         border-bottom: 1px solid #f0f0f0;
         padding: 15px 0;
     }
+      .admin-student-form-section-course-details{
+          margin-bottom: 20px;
+           padding: 15px 0;
+      }
 
     .admin-student-section-header,
     .admin-student-section-header-course,
-    .admin-student-section-header-academic,
     .admin-student-section-header-co-borrower,
     .admin-student-section-header-document-upload {
         display: flex;
@@ -69,7 +66,6 @@
 
     .admin-student-section-title,
     .admin-student-section-title-course,
-    .admin-student-section-title-academic,
     .admin-student-section-title-co-borrower,
     .admin-student-section-title-document-upload {
         font-size: 16px;
@@ -80,7 +76,6 @@
 
     .admin-student-question-count,
     .admin-student-question-count-course,
-    .admin-student-question-count-academic,
     .admin-student-question-count-co-borrower,
     .admin-student-question-count-document-upload {
         font-size: 12px;
@@ -90,7 +85,6 @@
 
     .admin-student-arrow-icon,
     .admin-student-arrow-icon-course,
-    .admin-student-arrow-icon-academic,
     .admin-student-arrow-icon-co-borrower,
     .admin-student-arrow-icon-document-upload {
         display: flex;
@@ -125,8 +119,6 @@
 
     }
 
-
-
     .admin-student-form-question,
     .admin-student-form-question-course,
     .admin-student-form-question-course-degree,
@@ -135,13 +127,12 @@
         border-radius: 4px;
         padding: 15px;
         background-color: #fff;
-        margin-bottom: 20px;
+        margin-bottom:0px;
     }
 
-    .admin-student-form-question.active {
+    /*--.admin-student-form-question.active {
         border: 1px solid #ccc;
-    }
-
+    }--*/
 
     .admin-student-question-row,
     .admin-student-question-row-course,
@@ -150,7 +141,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 15px;
+        margin-bottom: 5px;
     }
 
     .admin-student-question-title,
@@ -175,7 +166,6 @@
     .admin-student-dropdown-field,
     .admin-student-dropdown-field-course,
     .admin-student-dropdown-field-course-degree,
-    
        .admin-student-dropdown-field-month {
         display: flex;
         align-items: center;
@@ -188,7 +178,6 @@
         border: none;
         border-bottom: 1px solid #888;
     }
-
 
     .admin-student-field-text,
     .admin-student-field-text-course {
@@ -207,9 +196,6 @@
         
     }
 
-
-    /* Bottom border line inside */
-
     .admin-student-options-label {
         font-size: 14px;
         color: #555;
@@ -222,13 +208,12 @@
         gap: 20px;
     }
 
-    /* Your updated input styles */
     .input-row {
         display: flex;
         gap: 25px;
         justify-content: flex-start;
         flex-wrap: wrap;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 
     .input-group {
@@ -295,7 +280,6 @@
         margin-top: 10px;
         position: relative;
         margin-bottom: 25px;
-        /* Add space for error message */
     }
 
     .remove-option {
@@ -320,10 +304,7 @@
         cursor: pointer;
         border: none;
         border-bottom: 1px solid #FF8A00;
-        /* Orange underline */
     }
-
-
 
     .add-icon {
         display: flex;
@@ -332,12 +313,9 @@
         width: 24px;
         height: 24px;
         color: #FF8A00;
-        border: 1px solid #FF8A00;
-        border-radius: 50%;
         font-size: 16px;
     }
 
-    /* Second question styles */
     .second-question-options {
         display: flex;
         flex-direction: column;
@@ -495,11 +473,10 @@
             opacity: 0.7;
         }
 
-        /*second container*/
           .option-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 0px;
         }
 
         .option-item {
@@ -567,23 +544,7 @@
             font-size: 14px;
             margin-right: 10px;
         }
-
-      
-      
-
-         .admin-student-form-question {
-            border: none;
-            border-radius: 4px;
-            padding: 15px;
-            background-color: #fff;
-            margin-bottom: 20px;
-        }
-
-        .admin-student-form-question.active {
-            border: 1px solid #ccc;
-        }
-
-
+    
         .admin-student-question-title {
             font-size: 14px;
             font-weight: 400;
@@ -600,27 +561,6 @@
             border-bottom: 1px solid #888;
         }
 
-        .admin-student-dropdown-field {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px;
-            width: 400px;
-            background-color: #fff;
-            cursor: pointer;
-            position: relative;
-            border: none;
-            border-bottom: 1px solid #888;
-        }
-
-        .admin-student-field-text {
-            font-size: 14px;
-            color: #212121;
-        }
-
-     
-     
-
         .admin-student-options-section {
             transition: max-height 0.4s ease;
             overflow-x: hidden;
@@ -633,9 +573,10 @@
             gap: 20px;
         }
 
-        .admin-student-options-label {
-            font-size: 14px;
-            margin-bottom: 10px;
+        .admin-student-options-label-about{
+             font-size: 14px;
+             padding:15px 0px;
+
         }
 
         .course-options {
@@ -676,33 +617,6 @@
             border: none;
             border-bottom: 1px solid #FF8A00;
         }
-
-
-
-
-        .admin-student-form-question.active {
-            border: 1px solid #ccc;
-        }
-
-        .admin-student-question-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-
-
-
-        .admin-student-dropdown-icon {
-            width: 8px;
-            height: 8px;
-            transform: rotate(45deg);
-            border-right: 2px solid rgb(25, 24, 37);
-            border-bottom: 2px solid rgb(25, 24, 37);
-            transition: transform 0.3s;
-        }
-
         .options-label {
             font-size: 14px;
             margin-bottom: 10px;
@@ -711,6 +625,336 @@
         .checkbox-option {
             display: flex;
             align-items: center;
+            margin:15px 0px;
+        }
+
+ .admin-student-dropdown-icon.rotated {
+            transform: rotate(-135deg);
+        }
+        .checkbox-coures-main-container{
+            display:flex;
+            gap:100px;
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border: 2px solid #E2E8F0;
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .checkbox-option input[type="checkbox"]:checked {
+            border-color: #E98635;
+        }
+           .checkbox-option input[type="checkbox"]:checked:before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background-color: #E98635;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 2px;
+        }
+        .checkbox-option label {
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .add-option {
+               display: flex;
+            align-items: center;
+            color: #FF8A00;
+            background: none;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            justify-content: space-between;
+            width: 290px;
+            height: 46px;
+            margin-top: 10px;
+            padding: 0 10px;
+            border-bottom: 1px solid #FF8A00;
+        }
+        .add-option-text {
+            margin-right: 5px;
+        }
+
+        .add-option-icon {
+            font-size: 16px;
+            font-weight: bold;
+        }
+       
+        /*academic details*/
+
+        .admin-student-form-section-academic-details {
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 15px 0;
+            cursor: pointer;
+        }
+
+        .admin-student-section-header-academic {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 15px;
+        }
+
+        .admin-student-section-title-academic {
+            font-size: 16px;
+            font-weight: 500;
+            color: #6366f1;
+        }
+
+        .admin-student-question-count-academic {
+            font-size: 14px;
+            color: #64748b;
+            margin-left: auto;
+            margin-right: 20px;
+        }
+
+        .admin-student-arrow-icon-academic {
+            transition: transform 0.3s ease;
+        }
+
+        .admin-student-arrow-icon-academic.rotated {
+            transform: rotate(180deg);
+        }
+
+        .admin-student-arrow-down-academic {
+            width: 16px;
+            height: 16px;
+        }
+
+        .admin-student-section-content-academic {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .admin-student-section-content-academic.expanded {
+            max-height: 2000px;
+        }
+
+        .admin-student-dropdown-icon.rotated {
+            transform: rotate(-135deg);
+        }
+
+        .options-section {
+            padding: 15px 0;
+            display: none;
+        }
+
+        .academic-options {
+            display: flex;
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .academic-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .academic-option input[type="radio"] {
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border: 2px solid #E2E8F0;
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            margin-right: 10px;
+        }
+
+        .academic-option input[type="radio"]:checked {
+            border-color: #E98635;
+        }
+
+        .academic-option input[type="radio"]:checked:before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background-color: #E98635;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 2px;
+        }
+
+        .academic-option label {
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            color: #4A5568;
+            cursor: pointer;
+            margin-right: 20px;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .academic-reason {
+            display: none;
+            flex-direction: column;
+            gap: 30px;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+            margin-top: -38px;
+        }
+
+        .academic-reason.visible {
+            display: flex;
+            opacity: 1;
+        }
+
+        .academic-reason label {
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            color: #191825;
+        }
+
+        textarea {
+            width: 450px;
+            height: 77px;
+            padding: 10px;
+            border: 1px solid #E2E8F0;
+            border-radius: 4px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            color: #191825;
+            resize: none;
+        }
+
+        textarea:focus {
+            outline: none;
+        }
+
+        textarea::placeholder {
+            color: #838383;
+        }
+
+        .education-container {
+            border: none;
+            border-radius: 4px;
+            padding: 15px;
+            background-color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .education-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .education-title {
+            font-size: 14px;
+            font-weight: 400;
+            color: #333;
+            padding: 16px;
+            width: 515px;
+            border-bottom: 1px solid #888;
+        }
+
+        .education-dropdown-field {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            width: 400px;
+            position: relative;
+            border: none;
+            border-bottom: 1px solid #888;
+        }
+
+        .education-section {
+            padding: 15px 0;
+            display: none;
+        }
+
+        .education-label {
+            font-size: 14px;
+            color: #64748b;
             margin-bottom: 10px;
         }
 
+        /* Education row layout */
+        .education-row {
+            display: flex;
+            justify-content: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .education-field {
+            width: 400px;
+            position: relative;
+        }
+
+        .education-field input {
+            width: 100%;
+            padding: 12px;
+            padding-right: 30px;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .remove-field-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+        }
+
+        .add-education-field-btn {
+            display: flex;
+            align-items: center;
+            color: #FF8A00;
+            background: none;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            justify-content: space-between;
+            width: 290px;
+            height: 46px;
+            margin-top: 10px;
+            padding: 0 10px;
+            border-bottom: 1px solid #FF8A00;
+        }
+
+        .add-education-icon {
+            margin-right: 8px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+       

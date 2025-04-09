@@ -209,7 +209,6 @@
              border-radius: 8px;
            }
       
-           /* Sort Button */
         #ticket-raised-index-nbfc-sort-id {
           border-radius: 8px;
           background: white;
@@ -304,15 +303,14 @@
            
             display: none;
         }
-        /* Mobile-specific adjustments */
-
+       
  @media screen and (max-width: 768px) {
     .ticket-raised-container {
-        width: 100%; /* Full width */
+        width: 100%; 
         max-width: 100%;
-        margin: 0; /* Remove margins */
-        padding: 0; /* Remove padding */
-        box-shadow: none; /* Remove box shadow */
+        margin: 0; 
+        padding: 0; 
+        box-shadow: none;
         gap: 0;
         background-color: transparent;
     }
@@ -407,10 +405,8 @@
         font-weight: 500;
         cursor: pointer;
     }
-
-    /* Ensure text truncation for long content */
     .ticket-raised-content {
-        max-width: 150px; /* Adjust as needed */
+        max-width: 150px; 
         overflow: hidden;
         text-overflow: ellipsis;
     }
