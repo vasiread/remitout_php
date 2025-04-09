@@ -118,7 +118,7 @@
                             </div>
                             
                         <div class="admin-student-options-section" id="about-us-section" style="display: none;">
-                            <div class="admin-student-options-label">Options:</div>
+                           <div class="admin-student-options-label">Options:</div>
                             <div class="second-main-section-container">
                                 <div class="second-question-options">
                                     <div class="social-option">
@@ -170,6 +170,7 @@
                         </div>
 
                         <div class="admin-student-options-section-course" id="person-info-section-course">
+                             <div class="admin-student-options-label-about">Options:</div>
                              <div class="admin-student-options-label">Options:</div>
                             <div class="checkbox-group" id="selected-study-location">
                                 <label>
@@ -227,6 +228,9 @@
                                 </div>
                             </div>
 
+                            <div class="options-section" id="option-section-degree-container">
+                                <div class="options-header">
+                                <div class="admin-student-options-label">Options:</div>
                             <div class="options-section" id="option-section-degree-container">
                                 <div class="options-header">
                                 <div class="admin-student-options-label">Options:</div>
@@ -381,6 +385,35 @@
 </div> 
    
 
+<script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all components
+    SectionToggler.init();
+    InputFieldManager.init();
+    FormValidator.init();
+    CityAutocomplete.init();
+    SocialOptionsManager.init();
+    CourseLocationManager.init();
+    CourseOptionsManager.init();
+    CourseDurationManager.init();
+    CourseDetailsManager.init();
+});
+
+/**
+ * Handles section toggling functionality
+ */
+const SectionToggler = {
+    init: function() {
+        this.setupMainSectionToggle();
+        this.setupPersonInfoToggle();
+        this.setupAboutUsToggle();
+    },
+
+    setupMainSectionToggle: function() {
+        const sectionHeader = document.querySelector('.admin-student-section-header');
+        const sectionContent = document.querySelector('.admin-student-section-content');
+        const arrowIcon = document.querySelector('.admin-student-arrow-icon img');
  <script>
     document.addEventListener('DOMContentLoaded', function () {
             // Toggle section content and arrow direction
@@ -388,304 +421,357 @@
             const sectionContent = document.querySelector('.admin-student-section-content');
             const arrowIcon = document.querySelector('.admin-student-arrow-icon img');
 
-            // By default section is expanded (content visible, arrow up)
-            sectionContent.style.display = 'block';
-            arrowIcon.classList.add('admin-student-arrow-up');
-            arrowIcon.classList.remove('admin-student-arrow-down');
+        // By default section is expanded (content visible, arrow up)
+        sectionContent.style.display = 'block';
+        arrowIcon.classList.add('admin-student-arrow-up');
+        arrowIcon.classList.remove('admin-student-arrow-down');
 
-            sectionHeader.addEventListener('click', function () {
-                const isContentVisible = sectionContent.style.display === 'block';
+        sectionHeader.addEventListener('click', function() {
+            const isContentVisible = sectionContent.style.display === 'block';
 
-                // Toggle content visibility
-                sectionContent.style.display = isContentVisible ? 'none' : 'block';
+            // Toggle content visibility
+            sectionContent.style.display = isContentVisible ? 'none' : 'block';
 
-                // Toggle arrow direction
-                if (isContentVisible) {
-                    // Content is being hidden, arrow points down
-                    arrowIcon.classList.add('admin-student-arrow-down');
-                    arrowIcon.classList.remove('admin-student-arrow-up');
+            // Toggle arrow direction
+            if (isContentVisible) {
+                // Content is being hidden, arrow points down
+                arrowIcon.classList.add('admin-student-arrow-down');
+                arrowIcon.classList.remove('admin-student-arrow-up');
+            } else {
+                // Content is being shown, arrow points up
+                arrowIcon.classList.add('admin-student-arrow-up');
+                arrowIcon.classList.remove('admin-student-arrow-down');
+            }
+        });
+    },
+
+    setupPersonInfoToggle: function() {
+        this.setupSectionToggle('admin-student-person-info', 'person-info-section');
+    },
+
+    setupAboutUsToggle: function() {
+        this.setupSectionToggle('admin-student-about-us', 'about-us-section');
+    },
+
+    setupSectionToggle: function(questionRowId, sectionId) {
+        const questionRow = document.getElementById(questionRowId);
+        const section = document.getElementById(sectionId);
+
+        if (questionRow && section) {
+            questionRow.addEventListener('click', function() {
+                if (section.style.display === "none" || section.style.display === "") {
+                    section.style.display = "block";
                 } else {
-                    // Content is being shown, arrow points up
-                    arrowIcon.classList.add('admin-student-arrow-up');
-                    arrowIcon.classList.remove('admin-student-arrow-down');
+                    section.style.display = "none";
                 }
             });
+        }
+    }
+};
 
-            // Remove option functionality
-            document.addEventListener('click', function (e) {
-                if (e.target.classList.contains('remove-option')) {
-                    e.target.closest('.input-group').remove();
-                    reorganizeInputs();
-                } else if (e.target.classList.contains('social-remove')) {
-                    e.target.closest('.social-option').remove();
-                }
+/**
+ * Manages input fields (add, remove, reorganize)
+ */
+const InputFieldManager = {
+    init: function() {
+        this.setupRemoveOption();
+        this.setupAddField();
+    },
+
+    setupRemoveOption: function() {
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-option')) {
+                e.target.closest('.input-group').remove();
+                InputFieldManager.reorganizeInputs();
+            }
+        });
+    },
+
+    setupAddField: function() {
+        const addInputField = document.getElementById('add-input-field');
+        if (addInputField) {
+            addInputField.addEventListener('click', function() {
+                InputFieldManager.showInputPrompt();
             });
+        }
+    },
 
-            // Add field functionality 
-            const addInputField = document.getElementById('add-input-field');
+    showInputPrompt: function() {
+        const fieldType = prompt("Enter field type (e.g., Country, Pincode):");
+        if (fieldType && fieldType.trim() !== "") {
+            this.addNewInputField(fieldType);
+        }
+    },
 
-            addInputField.addEventListener('click', function () {
-                showInputPrompt();
+    addNewInputField: function(fieldType) {
+        // Icon mapping based on field type (case insensitive)
+        const iconMap = {
+            'name': './assets/images/person-icon.png',
+            'full name': './assets/images/person-icon.png',
+            'first name': './assets/images/person-icon.png',
+            'last name': './assets/images/person-icon.png',
+            'phone': './assets/images/call-icon.png',
+            'phone number': './assets/images/call-icon.png',
+            'mobile': './assets/images/call-icon.png',
+            'email': './assets/images/mail.png',
+            'email id': './assets/images/mail.png',
+            'city': './assets/images/pin_drop.png',
+            'address': './assets/images/pin_drop.png',
+            'location': './assets/images/pin_drop.png',
+            'country': './assets/images/pin_drop.png',
+            'state': './assets/images/pin_drop.png',
+            'pincode': './assets/images/pin_drop.png',
+            'zip code': './assets/images/pin_drop.png',
+            'postal code': './assets/images/pin_drop.png',
+            'referral': './assets/images/school.png',
+            'referral code': './assets/images/school.png',
+            'code': './assets/images/school.png',
+        };
+
+        // Check for icon match (case insensitive)
+        const fieldTypeLower = fieldType.toLowerCase();
+        let iconSrc = './assets/images/pin_drop.png'; // default icon
+
+        // Find matching icon
+        for (const [key, value] of Object.entries(iconMap)) {
+            if (fieldTypeLower.includes(key) || key.includes(fieldTypeLower)) {
+                iconSrc = value;
+                break;
+            }
+        }
+
+        const newInput = document.createElement('div');
+        newInput.className = 'input-group';
+        newInput.innerHTML = `
+            <div class="input-content">
+                <img src="${iconSrc}" alt="${fieldType} Icon" class="icon" />
+                <input type="text" placeholder="${fieldType}" name="${fieldTypeLower.replace(/\s+/g, '_')}" required />
+            </div>
+            <span class="remove-option">×</span>
+            <div class="validation-message" id="${fieldTypeLower.replace(/\s+/g, '_')}-error"></div>
+        `;
+
+        // Find the current parent of the add button
+        const addButton = document.getElementById('add-input-field');
+        const addButtonParent = addButton.parentNode;
+
+        // Add the new input field before the add button
+        addButtonParent.insertBefore(newInput, addButton);
+
+        // Reorganize inputs to maintain exactly 3 per row
+        this.reorganizeInputs();
+    },
+
+    reorganizeInputs: function() {
+        // Get all input groups and the add field
+        const allInputs = document.querySelectorAll('.input-group');
+        const addField = document.getElementById('add-input-field');
+
+        // Get or create rows as needed
+        let row1 = document.getElementById('input-row-1');
+        let row2 = document.getElementById('input-row-2');
+
+        if (!row1 || !row2) return;
+
+        // Clear all rows
+        row1.innerHTML = '';
+        row2.innerHTML = '';
+
+        // Remove any existing row3
+        const existingRow3 = document.getElementById('input-row-3');
+        if (existingRow3) {
+            existingRow3.remove();
+        }
+
+        // Create row3 if needed
+        let row3 = null;
+        if (allInputs.length > 6) {
+            row3 = document.createElement('div');
+            row3.className = 'input-row';
+            row3.id = 'input-row-3';
+            row2.parentNode.insertBefore(row3, row2.nextSibling);
+        }
+
+        // Distribute inputs, exactly 3 per row
+        for (let i = 0; i < allInputs.length; i++) {
+            if (i < 3) {
+                row1.appendChild(allInputs[i]);
+            } else if (i < 6) {
+                row2.appendChild(allInputs[i]);
+            } else if (row3) {
+                row3.appendChild(allInputs[i]);
+            }
+        }
+
+        // Determine where to place the add button
+        const lastRow = row3 || (allInputs.length > 3 ? row2 : row1);
+        const inputsInLastRow = lastRow.querySelectorAll('.input-group').length;
+
+        // Only add the add button if there's room (less than 3 inputs)
+        if (inputsInLastRow < 3) {
+            lastRow.appendChild(addField);
+        } else {
+            // Create a new row for the add button
+            const newRow = document.createElement('div');
+            newRow.className = 'input-row';
+            newRow.id = 'input-row-' + (row3 ? '4' : (row2.children.length > 0 ? '3' : '2'));
+            newRow.appendChild(addField);
+            lastRow.parentNode.insertBefore(newRow, lastRow.nextSibling);
+        }
+    }
+};
+
+/**
+ * Handles form validation
+ */
+const FormValidator = {
+    init: function() {
+        this.setupFieldValidation();
+    },
+
+    setupFieldValidation: function() {
+        const inputs = document.querySelectorAll('input[required]');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                FormValidator.validateField(this);
             });
+        });
+    },
 
-            // Function to show input prompt
-            function showInputPrompt() {
-                const fieldType = prompt("Enter field type (e.g., Country, Pincode):");
-                if (fieldType && fieldType.trim() !== "") {
-                    addNewInputField(fieldType);
-                }
-            }
+    validateField: function(field) {
+        // Find the error element associated with this field
+        const errorId = field.id + "-error";
+        const errorElement = document.getElementById(errorId);
 
-            // Function to add a new input field
-            // Function to add a new input field with appropriate icons
-            function addNewInputField(fieldType) {
-                // Icon mapping based on field type (case insensitive)
-                const iconMap = {
-                    'name': './assets/images/person-icon.png',
-                    'full name': './assets/images/person-icon.png',
-                    'first name': './assets/images/person-icon.png',
-                    'last name': './assets/images/person-icon.png',
-                    'phone': './assets/images/call-icon.png',
-                    'phone number': './assets/images/call-icon.png',
-                    'mobile': './assets/images/call-icon.png',
-                    'email': './assets/images/mail.png',
-                    'email id': './assets/images/mail.png',
-                    'city': './assets/images/pin_drop.png',
-                    'address': './assets/images/pin_drop.png',
-                    'location': './assets/images/pin_drop.png',
-                    'country': './assets/images/pin_drop.png',
-                    'state': './assets/images/pin_drop.png',
-                    'pincode': './assets/images/pin_drop.png',
-                    'zip code': './assets/images/pin_drop.png',
-                    'postal code': './assets/images/pin_drop.png',
-                    'referral': './assets/images/school.png',
-                    'referral code': './assets/images/school.png',
-                    'code': './assets/images/school.png',
-                    // Add more mappings as needed
-                };
+        if (!errorElement) return; // Skip if no error element exists
 
-                // Check for icon match (case insensitive)
-                const fieldTypeLower = fieldType.toLowerCase();
-                let iconSrc = './assets/images/pin_drop.png'; // default icon
+        const inputGroup = field.closest('.input-group');
 
-                // Find matching icon
-                for (const [key, value] of Object.entries(iconMap)) {
-                    if (fieldTypeLower.includes(key) || key.includes(fieldTypeLower)) {
-                        iconSrc = value;
-                        break;
-                    }
-                }
+        // Reset previous error styling
+        inputGroup.style.borderColor = '';
 
-                const newInput = document.createElement('div');
-                newInput.className = 'input-group';
-                newInput.innerHTML = `
-        <div class="input-content">
-            <img src="${iconSrc}" alt="${fieldType} Icon" class="icon" />
-            <input type="text" placeholder="${fieldType}" name="${fieldTypeLower.replace(/\s+/g, '_')}" required />
-        </div>
-        <span class="remove-option">×</span>
-        <div class="validation-message" id="${fieldTypeLower.replace(/\s+/g, '_')}-error"></div>
-    `;
+        // Check for errors
+        if (!field.value.trim()) {
+            errorElement.textContent = `Please enter a valid ${field.placeholder.toLowerCase()}`;
+            errorElement.style.display = 'block';
+            inputGroup.style.borderColor = 'red';
+        } else if (field.type === 'email' && !this.isValidEmail(field.value)) {
+            errorElement.textContent = 'Please enter a valid email address';
+            errorElement.style.display = 'block';
+            inputGroup.style.borderColor = 'red';
+        } else if (field.id === 'phone' && !this.isValidPhone(field.value)) {
+            errorElement.textContent = 'Please enter a valid 10-digit phone number.';
+            errorElement.style.display = 'block';
+            inputGroup.style.borderColor = 'red';
+        } else {
+            // Clear error message
+            errorElement.textContent = '';
+            errorElement.style.display = 'none';
+        }
+    },
 
-                // Find the current parent of the add button
-                const addButton = document.getElementById('add-input-field');
-                const addButtonParent = addButton.parentNode;
+    isValidEmail: function(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    },
 
-                // Add the new input field before the add button
-                addButtonParent.insertBefore(newInput, addButton);
+    isValidPhone: function(phone) {
+        const phoneRegex = /^\d{10}$/;
+        return phoneRegex.test(phone);
+    }
+};
 
-                // Reorganize inputs to maintain exactly 3 per row
-                reorganizeInputs();
-            }
-            // Function to reorganize inputs to maintain exactly 3 per row
-            function reorganizeInputs() {
-                // Get all input groups and the add field
-                const allInputs = document.querySelectorAll('.input-group');
-                const addField = document.getElementById('add-input-field');
+/**
+ * City autocomplete functionality
+ */
+const CityAutocomplete = {
+    cities: ['Mumbai', 'Delhi', 'Bangalore', 'Chennai', 'Kolkata', 'Hyderabad', 'Pune', 'Ahmedabad'],
+    
+    init: function() {
+        const cityInput = document.getElementById('city-input');
+        const suggestionsContainer = document.getElementById('suggestions');
+        
+        if (!cityInput || !suggestionsContainer) return;
+        
+        this.setupCityAutocomplete(cityInput, suggestionsContainer);
+    },
+    
+    setupCityAutocomplete: function(cityInput, suggestionsContainer) {
+        cityInput.addEventListener('input', function() {
+            const inputValue = this.value.toLowerCase();
 
-                // Get or create rows as needed
-                let row1 = document.getElementById('input-row-1');
-                let row2 = document.getElementById('input-row-2');
+            // Clear previous suggestions
+            suggestionsContainer.innerHTML = '';
 
-                // Clear all rows
-                row1.innerHTML = '';
-                row2.innerHTML = '';
+            if (inputValue.length > 0) {
+                // Filter cities that match input
+                const matchedCities = CityAutocomplete.cities.filter(city =>
+                    city.toLowerCase().startsWith(inputValue)
+                );
 
-                // Remove any existing row3
-                const existingRow3 = document.getElementById('input-row-3');
-                if (existingRow3) {
-                    existingRow3.remove();
-                }
+                if (matchedCities.length > 0) {
+                    suggestionsContainer.style.display = 'block';
 
-                // Create row3 if needed
-                let row3 = null;
-                if (allInputs.length > 6) {
-                    row3 = document.createElement('div');
-                    row3.className = 'input-row';
-                    row3.id = 'input-row-3';
-                    row2.parentNode.insertBefore(row3, row2.nextSibling);
-                }
+                    // Create suggestion elements
+                    matchedCities.forEach(city => {
+                        const div = document.createElement('div');
+                        div.textContent = city;
+                        div.style.padding = '8px 10px';
+                        div.style.cursor = 'pointer';
 
-                // Distribute inputs, exactly 3 per row
-                for (let i = 0; i < allInputs.length; i++) {
-                    if (i < 3) {
-                        row1.appendChild(allInputs[i]);
-                    } else if (i < 6) {
-                        row2.appendChild(allInputs[i]);
-                    } else if (row3) {
-                        row3.appendChild(allInputs[i]);
-                    }
-                }
-
-                // Determine where to place the add button
-                const lastRow = row3 || (allInputs.length > 3 ? row2 : row1);
-                const inputsInLastRow = lastRow.querySelectorAll('.input-group').length;
-
-                // Only add the add button if there's room (less than 3 inputs)
-                if (inputsInLastRow < 3) {
-                    lastRow.appendChild(addField);
-                } else {
-                    // Create a new row for the add button
-                    const newRow = document.createElement('div');
-                    newRow.className = 'input-row';
-                    newRow.id = 'input-row-' + (row3 ? '4' : (row2.children.length > 0 ? '3' : '2'));
-                    newRow.appendChild(addField);
-                    lastRow.parentNode.insertBefore(newRow, lastRow.nextSibling);
-                }
-            }
-
-
-
-            // Basic form validation
-            const inputs = document.querySelectorAll('input[required]');
-            inputs.forEach(input => {
-                input.addEventListener('blur', function () {
-                    validateField(this);
-                });
-            });
-
-            function validateField(field) {
-                // Find the error element associated with this field
-                const errorId = field.id + "-error";
-                const errorElement = document.getElementById(errorId);
-
-                if (!errorElement) return; // Skip if no error element exists
-
-                const inputGroup = field.closest('.input-group');
-
-                // Reset previous error styling
-                inputGroup.style.borderColor = '';
-
-                // Check for errors
-                if (!field.value.trim()) {
-                    errorElement.textContent = `Please enter a valid ${field.placeholder.toLowerCase()}`;
-                    errorElement.style.display = 'block';
-                    inputGroup.style.borderColor = 'red';
-                } else if (field.type === 'email' && !isValidEmail(field.value)) {
-                    errorElement.textContent = 'Please enter a valid email address';
-                    errorElement.style.display = 'block';
-                    inputGroup.style.borderColor = 'red';
-                } else if (field.id === 'phone' && !isValidPhone(field.value)) {
-                    errorElement.textContent = 'Please enter a valid 10-digit phone number.';
-                    errorElement.style.display = 'block';
-                    inputGroup.style.borderColor = 'red';
-                } else {
-                    // Clear error message
-                    errorElement.textContent = '';
-                    errorElement.style.display = 'none';
-                }
-            }
-
-            function isValidEmail(email) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                return emailRegex.test(email);
-            }
-
-            function isValidPhone(phone) {
-                const phoneRegex = /^\d{10}$/;
-                return phoneRegex.test(phone);
-            }
-
-            // City input suggestions
-            const cityInput = document.getElementById('city-input');
-            const suggestionsContainer = document.getElementById('suggestions');
-
-            // Example city list (you would replace this with your actual city data)
-            const cities = ['Mumbai', 'Delhi', 'Bangalore', 'Chennai', 'Kolkata', 'Hyderabad', 'Pune', 'Ahmedabad'];
-
-            cityInput.addEventListener('input', function () {
-                const inputValue = this.value.toLowerCase();
-
-                // Clear previous suggestions
-                suggestionsContainer.innerHTML = '';
-
-                if (inputValue.length > 0) {
-                    // Filter cities that match input
-                    const matchedCities = cities.filter(city =>
-                        city.toLowerCase().startsWith(inputValue)
-                    );
-
-                    if (matchedCities.length > 0) {
-                        suggestionsContainer.style.display = 'block';
-
-                        // Create suggestion elements
-                        matchedCities.forEach(city => {
-                            const div = document.createElement('div');
-                            div.textContent = city;
-                            div.style.padding = '8px 10px';
-                            div.style.cursor = 'pointer';
-
-                            div.addEventListener('click', function () {
-                                cityInput.value = city;
-                                suggestionsContainer.style.display = 'none';
-                                validateField(cityInput);
-                            });
-
-                            div.addEventListener('mouseover', function () {
-                                this.style.backgroundColor = '#f0f0f0';
-                            });
-
-                            div.addEventListener('mouseout', function () {
-                                this.style.backgroundColor = 'transparent';
-                            });
-
-                            suggestionsContainer.appendChild(div);
+                        div.addEventListener('click', function() {
+                            cityInput.value = city;
+                            suggestionsContainer.style.display = 'none';
+                            FormValidator.validateField(cityInput);
                         });
-                    } else {
-                        suggestionsContainer.style.display = 'none';
-                    }
+
+                        div.addEventListener('mouseover', function() {
+                            this.style.backgroundColor = '#f0f0f0';
+                        });
+
+                        div.addEventListener('mouseout', function() {
+                            this.style.backgroundColor = 'transparent';
+                        });
+
+                        suggestionsContainer.appendChild(div);
+                    });
                 } else {
                     suggestionsContainer.style.display = 'none';
                 }
-            });
-
-            // Hide suggestions when clicking outside
-            document.addEventListener('click', function (e) {
-                if (e.target !== cityInput && e.target !== suggestionsContainer) {
-                    suggestionsContainer.style.display = 'none';
-                }
-            });
-
-            // Function to toggle visibility
-            function toggleSection(questionRowId, sectionId) {
-                const questionRow = document.getElementById(questionRowId);
-                const section = document.getElementById(sectionId);
-
-                questionRow.addEventListener('click', function () {
-                    if (section.style.display === "none" || section.style.display === "") {
-                        section.style.display = "block";
-                    } else {
-                        section.style.display = "none";
-                    }
-                });
+            } else {
+                suggestionsContainer.style.display = 'none';
             }
+        });
 
-            // Call the function for both sections
-            toggleSection('admin-student-person-info', 'person-info-section');
-            toggleSection('admin-student-about-us', 'about-us-section');
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', function(e) {
+            if (e.target !== cityInput && e.target !== suggestionsContainer) {
+                suggestionsContainer.style.display = 'none';
+            }
+        });
+    }
+};
 
-
-            document.querySelector('.add-social').addEventListener('click', function () {
+/**
+ * Social options manager
+ */
+const SocialOptionsManager = {
+    init: function() {
+        this.setupSocialButtons();
+    },
+    
+    setupSocialButtons: function() {
+        // Setup existing remove buttons
+        document.querySelectorAll('.social-remove').forEach(function(removeButton) {
+            removeButton.addEventListener('click', function() {
+                this.parentElement.remove();
+            });
+        });
+        
+        // Setup add button
+        const addSocialButton = document.querySelector('.add-social');
+        if (addSocialButton) {
+            addSocialButton.addEventListener('click', function() {
                 // Prompt user for input
                 const userInput = prompt("Enter dropdown option", "");
 
@@ -698,7 +784,7 @@
                     // Create the name span with the user's input
                     const nameSpan = document.createElement('span');
                     nameSpan.className = 'social-name';
-                    nameSpan.textContent = userInput.trim(); // Display what the user typed
+                    nameSpan.textContent = userInput.trim();
 
                     // Create the remove button
                     const removeSpan = document.createElement('span');
@@ -706,7 +792,7 @@
                     removeSpan.textContent = '×';
 
                     // Add event listener to the remove button
-                    removeSpan.addEventListener('click', function () {
+                    removeSpan.addEventListener('click', function() {
                         newOption.remove();
                     });
 
@@ -718,6 +804,120 @@
                     const optionsContainer = document.querySelector('.second-question-options');
 
                     // Append the new option to the container
+                    if (optionsContainer) {
+                        optionsContainer.appendChild(newOption);
+                    }
+                }
+            });
+        }
+    }
+};
+
+/**
+ * Course location manager
+ */
+const CourseLocationManager = {
+    init: function() {
+        this.setupLocationControls();
+    },
+    
+    setupLocationControls: function() {
+        const checkboxContainer = document.getElementById('selected-study-location');
+        const addCheckboxContainer = document.querySelector('.add-checkbox-container');
+        
+        if (!checkboxContainer || !addCheckboxContainer) {
+            console.error('Course location containers not found');
+            return;
+        }
+        
+        addCheckboxContainer.addEventListener('click', function(event) {
+            event.preventDefault();
+            CourseLocationManager.addNewCheckbox(checkboxContainer, addCheckboxContainer);
+        });
+        
+        // Setup toggle for course options section
+        const questionRow = document.querySelector('.admin-student-question-row-course');
+        const optionsSection = document.querySelector('.admin-student-options-section-course');
+
+        if (questionRow && optionsSection) {
+            // Hide the options section by default
+            optionsSection.style.display = 'none';
+            
+            questionRow.addEventListener('click', function() {
+                // Toggle the visibility of the options section
+                optionsSection.style.display = optionsSection.style.display === 'none' ? 'block' : 'none';
+            });
+        }
+    },
+    
+    addNewCheckbox: function(checkboxContainer, addCheckboxContainer) {
+        // Prompt user for input
+        const newCountry = prompt("Enter country name", "");
+        
+        // Only proceed if the user entered something
+        if (newCountry && newCountry.trim() !== "") {
+            // Check if country already exists
+            const existingCountries = Array.from(checkboxContainer.querySelectorAll('input[type="checkbox"]'))
+                .map(checkbox => checkbox.value.toLowerCase());
+            
+            if (existingCountries.includes(newCountry.toLowerCase())) {
+                alert('This country is already in the list');
+                return;
+            }
+            
+            // Create new checkbox element
+            const newLabel = document.createElement('label');
+            const newCheckbox = document.createElement('input');
+            
+            // Configure checkbox
+            newCheckbox.type = 'checkbox';
+            newCheckbox.name = 'study-location';
+            newCheckbox.value = newCountry;
+            newCheckbox.checked = true;
+            
+            // Create label with checkbox and text
+            newLabel.appendChild(newCheckbox);
+            newLabel.appendChild(document.createTextNode(' ' + newCountry));
+            
+            // Insert new checkbox before the add container
+            checkboxContainer.insertBefore(newLabel, addCheckboxContainer);
+        }
+    }
+};
+
+/**
+ * Course options manager
+ */
+const CourseOptionsManager = {
+    init: function() {
+        this.setupDegreeOptions();
+    },
+    
+    setupDegreeOptions: function() {
+        const optionsContainer = document.getElementById('option-section-degree-container');
+        const dropdownTrigger = document.getElementById('admin-student-course-second');
+        
+        if (!optionsContainer || !dropdownTrigger) {
+            console.error('Degree options elements not found');
+            return;
+        }
+        
+        // Hide options container by default
+        optionsContainer.style.display = 'none';
+        
+        // Toggle visibility on click
+        dropdownTrigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            optionsContainer.style.display = optionsContainer.style.display === 'none' ? 'block' : 'none';
+        });
+        
+        // Handle add new option
+        const addSection = document.getElementById('addSection');
+        const optionsGrid = document.getElementById('optionsContainer');
+        
+        if (addSection && optionsGrid) {
+            addSection.onclick = function(e) {
+                e.stopPropagation();
                     optionsContainer.appendChild(newOption);
                 }
             });
@@ -866,6 +1066,7 @@
                     
                     // Add back the add section
                     optionsGrid.appendChild(addSection);
+                    optionsGrid.appendChild(addSection);
                     console.log('New option added: ' + newOptionName);
                 }
             };
@@ -914,30 +1115,331 @@
 
             const userInput = prompt("Enter course duration option", "");
 
-            if (userInput && userInput.trim() !== "") {
-                const newOption = document.createElement('div');
-                newOption.className = 'course-option';
+        if (userInput && userInput.trim() !== "") {
+            const newOption = document.createElement('div');
+            newOption.className = 'course-option';
 
-                const nameSpan = document.createElement('span');
-                nameSpan.className = 'course-name';
-                nameSpan.textContent = userInput.trim();
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'course-name';
+            nameSpan.textContent = userInput.trim();
 
-                const removeSpan = document.createElement('span');
-                removeSpan.className = 'course-remove';
-                removeSpan.textContent = '×';
+            const removeSpan = document.createElement('span');
+            removeSpan.className = 'course-remove';
+            removeSpan.textContent = '×';
 
+            removeSpan.addEventListener('click', function(event) {
+                event.stopPropagation();
+                newOption.remove();
+            });
                 removeSpan.addEventListener('click', function (event) {
                     // Prevent the click from bubbling up
                     event.stopPropagation();
                     newOption.remove();
                 });
 
-                newOption.appendChild(nameSpan);
-                newOption.appendChild(removeSpan);
+            newOption.appendChild(nameSpan);
+            newOption.appendChild(removeSpan);
 
-                const optionsContainer = document.querySelector('.course-options');
+            const optionsContainer = document.querySelector('.course-options');
+            if (optionsContainer) {
                 optionsContainer.appendChild(newOption);
             }
+        }
+    }
+};
+
+/**
+ * Course details manager
+ */
+const CourseDetailsManager = {
+    init: function() {
+        this.setupCourseDetails();
+    },
+    
+    setupCourseDetails: function() {
+        const courseDetailsContainer = document.getElementById('course-details-container');
+        if (!courseDetailsContainer) {
+            console.error('Course details container not found');
+            return;
+        }
+        
+        const courseDetailsRow = courseDetailsContainer.querySelector('#course-details-row');
+        const dropdownIcon = courseDetailsContainer.querySelector('.admin-student-dropdown-icon');
+        const optionsSection = courseDetailsContainer.querySelector('#course-details-options');
+        
+        if (!courseDetailsRow || !dropdownIcon || !optionsSection) {
+            console.error('Course details elements not found');
+            return;
+        }
+        
+        // Hide options by default
+        optionsSection.style.display = 'none';
+        
+        // Toggle on row click
+        courseDetailsRow.addEventListener('click', function() {
+            const isVisible = optionsSection.style.display !== 'none';
+
+            // Toggle visibility
+            optionsSection.style.display = isVisible ? 'none' : 'block';
+
+            // Toggle active class on container
+            courseDetailsContainer.classList.toggle('active', !isVisible);
+
+            // Rotate the dropdown icon
+            dropdownIcon.classList.toggle('rotated', !isVisible);
+        });
+        
+        // Add option button
+        const addOptionBtn = courseDetailsContainer.querySelector('#add-option-btn');
+        if (addOptionBtn) {
+            addOptionBtn.addEventListener('click', function(event) {
+                event.stopPropagation();
+                CourseDetailsManager.addNewCourseOption(courseDetailsContainer);
+            });
+        }
+        
+        // Prevent clicks on checkboxes from toggling the dropdown
+        const checkboxContainer = courseDetailsContainer.querySelector('.checkbox-options-container');
+        if (checkboxContainer) {
+            checkboxContainer.addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
+        }
+    },
+    
+    addNewCourseOption: function(courseDetailsContainer) {
+        const userInput = prompt("Enter new option", "");
+
+        if (userInput && userInput.trim() !== "") {
+            const optionsContainer = courseDetailsContainer.querySelector('.checkbox-options-container');
+            if (!optionsContainer) return;
+
+            const newOption = document.createElement('div');
+            newOption.className = 'checkbox-option';
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.id = 'option-' + Date.now();
+            checkbox.name = 'course-options';
+
+            const label = document.createElement('label');
+            label.htmlFor = checkbox.id;
+            label.textContent = userInput.trim();
+
+            newOption.appendChild(checkbox);
+            newOption.appendChild(label);
+            optionsContainer.appendChild(newOption);
+        }
+    }
+};
+
+//academic details
+  
+        const academicDetailsSection = document.getElementById('academic-details-section');
+        const academicDetailsContent = document.getElementById('academic-details-content');
+        const arrowIcon = document.querySelector('.admin-student-arrow-icon-academic');
+
+        academicDetailsSection.addEventListener('click', function () {
+            academicDetailsContent.classList.toggle('expanded');
+            arrowIcon.classList.toggle('rotated');
+        });
+
+        const educationContainer = document.getElementById('education-container');
+        const educationHeaderRow = document.getElementById('education-header-row');
+        const educationDropdownIcon = educationContainer.querySelector('.admin-student-dropdown-icon');
+        const educationSection = document.getElementById('education-section');
+
+        educationHeaderRow.addEventListener('click', function (event) {
+            event.stopPropagation();
+
+            const isVisible = educationSection.style.display === 'block';
+            educationSection.style.display = isVisible ? 'none' : 'block';
+            educationContainer.classList.toggle('active', !isVisible);
+
+            educationDropdownIcon.classList.toggle('rotated', !isVisible);
+        });
+
+        // Initialize field counter
+        let fieldCount = 2;
+        let rowCount = 1;
+
+        // Function to create remove button functionality
+        function setupRemoveButtons() {
+            const removeButtons = document.querySelectorAll('.remove-field-btn');
+            removeButtons.forEach(button => {
+                button.addEventListener('click', function (event) {
+                    event.stopPropagation();
+                    const fieldElement = this.parentNode;
+                    const rowElement = fieldElement.parentNode;
+
+                    // Remove the field
+                    fieldElement.remove();
+
+                    // If row is empty, remove the row
+                    if (rowElement.children.length === 0) {
+                        rowElement.remove();
+                    }
+
+                    // Decrement field count
+                    fieldCount--;
+                });
+            });
+        }
+
+        // Setup initial remove buttons
+        setupRemoveButtons();
+
+        const addEducationFieldBtn = document.getElementById('add-education-field-btn');
+
+        const educationFields = document.querySelectorAll('.education-field');
+        educationFields.forEach(field => {
+            field.addEventListener('click', function (event) {
+                event.stopPropagation();
+            });
+        });
+
+        addEducationFieldBtn.addEventListener('click', function (event) {
+            event.stopPropagation();
+            const fieldName = prompt("Enter new field name (e.g., Graduation Year):", "");
+
+            if (fieldName && fieldName.trim() !== "") {
+                // Create new field with input and remove button
+                const newField = document.createElement('div');
+                newField.className = 'education-field';
+
+                const newInput = document.createElement('input');
+                newInput.type = 'text';
+                newInput.placeholder = fieldName.trim();
+                newInput.name = fieldName.toLowerCase().replace(/\s+/g, '-');
+
+                const removeBtn = document.createElement('button');
+                removeBtn.type = 'button';
+                removeBtn.className = 'remove-field-btn';
+                removeBtn.textContent = '✕';
+                removeBtn.addEventListener('click', function (event) {
+                    event.stopPropagation();
+                    newField.remove();
+                    fieldCount--;
+
+                    // If row becomes empty, remove it
+                    const parentRow = this.parentNode.parentNode;
+                    if (parentRow.children.length === 0) {
+                        parentRow.remove();
+                    }
+                });
+
+                newField.appendChild(newInput);
+                newField.appendChild(removeBtn);
+
+                // Ensure maximum 2 fields per row
+                let currentRow;
+
+                // Check if we need a new row
+                if (fieldCount % 2 === 0) {
+                    // Create new row
+                    rowCount++;
+                    currentRow = document.createElement('div');
+                    currentRow.className = 'education-row';
+                    currentRow.id = 'education-row-' + rowCount;
+                    educationSection.insertBefore(currentRow, addEducationFieldBtn);
+                } else {
+                    // Use last row
+                    currentRow = document.getElementById('education-row-' + rowCount);
+
+                    // If somehow the row doesn't exist, create it
+                    if (!currentRow) {
+                        currentRow = document.createElement('div');
+                        currentRow.className = 'education-row';
+                        currentRow.id = 'education-row-' + rowCount;
+                        educationSection.insertBefore(currentRow, addEducationFieldBtn);
+                    }
+                }
+
+                // Add field to row
+                currentRow.appendChild(newField);
+                fieldCount++;
+            }
+        });
+
+        const academicGapContainer = document.getElementById('academic-gap-container');
+        const academicGapRow = academicGapContainer.querySelector('#academic-gap-row');
+        const dropdownIcon = academicGapContainer.querySelector('.admin-student-dropdown-icon');
+        const optionsSection = academicGapContainer.querySelector('#academic-gap-options');
+
+        academicGapRow.addEventListener('click', function (event) {
+            event.stopPropagation();
+
+            const isVisible = optionsSection.style.display === 'block';
+            optionsSection.style.display = isVisible ? 'none' : 'block';
+            academicGapContainer.classList.toggle('active', !isVisible);
+            dropdownIcon.classList.toggle('rotated', !isVisible);
+        });
+
+        const academicOptions = academicGapContainer.querySelector('.academic-options');
+        academicOptions.addEventListener('click', function (event) {
+            event.stopPropagation();
+        });
+
+        const addBtn = academicGapContainer.querySelector('#add-academic-option-btn');
+        addBtn.addEventListener('click', function (event) {
+            event.stopPropagation();
+            const userInput = prompt("Enter new option", "");
+
+            if (userInput && userInput.trim() !== "") {
+                const optionsContainer = academicGapContainer.querySelector('.academic-options');
+
+                const newOption = document.createElement('div');
+                newOption.className = 'academic-option';
+
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.id = 'academic-option-' + Date.now();
+                radio.name = 'academics-gap';
+                radio.value = userInput.toLowerCase().replace(/\s+/g, '-');
+
+                const label = document.createElement('label');
+                label.htmlFor = radio.id;
+                label.textContent = userInput.trim();
+
+                newOption.appendChild(radio);
+                newOption.appendChild(label);
+                optionsContainer.appendChild(newOption);
+            }
+        });
+
+        const academicYesRadio = document.getElementById('academic-yes');
+        const academicNoRadio = document.getElementById('academic-no');
+
+        academicYesRadio.addEventListener('change', function () {
+            let reasonSection = academicGapContainer.querySelector('.academic-reason');
+
+            if (!reasonSection) {
+                reasonSection = document.createElement('div');
+                reasonSection.className = 'academic-reason';
+
+                const reasonLabel = document.createElement('label');
+                reasonLabel.textContent = 'Please state the reason for the gap:';
+
+                const reasonTextarea = document.createElement('textarea');
+                reasonTextarea.placeholder = 'Enter your reason here...';
+
+                reasonSection.appendChild(reasonLabel);
+                reasonSection.appendChild(reasonTextarea);
+
+                academicOptions.parentNode.insertBefore(reasonSection, academicOptions.nextSibling);
+            }
+
+            setTimeout(() => {
+                reasonSection.classList.add('visible');
+            }, 10);
+        });
+
+        academicNoRadio.addEventListener('change', function () {
+            const reasonSection = academicGapContainer.querySelector('.academic-reason');
+            if (reasonSection) {
+                reasonSection.classList.remove('visible');
+            }
+        });
         });
 
         const optionsSection = document.getElementById('course-duration-section-month');

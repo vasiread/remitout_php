@@ -407,10 +407,8 @@
         font-weight: 500;
         cursor: pointer;
     }
-
-    /* Ensure text truncation for long content */
     .ticket-raised-content {
-        max-width: 150px; /* Adjust as needed */
+        max-width: 150px; 
         overflow: hidden;
         text-overflow: ellipsis;
     }

@@ -44,15 +44,19 @@
     }
 
     .admin-student-form-section,
-    .admin-student-form-section-course-details,
+  
     .admin-student-form-section-academic-details,
     .admin-student-form-section-co-borrower-info,
     .admin-student-form-section-document-upload {
         margin-bottom: 20px;
-
         border-bottom: 1px solid #f0f0f0;
         padding: 15px 0;
     }
+      .admin-student-form-section-course-details{
+          margin-bottom: 20px;
+           padding: 15px 0;
+
+      }
 
     .admin-student-section-header,
     .admin-student-section-header-course,
@@ -121,8 +125,6 @@
         padding-top: 15px;
 
     }
-
-    .admin-student-form-question,
     .admin-student-form-question-course,
     .admin-student-form-question-course-degree,
      .admin-student-form-question-month {
@@ -130,7 +132,7 @@
         border-radius: 4px;
         padding: 15px;
         background-color: #fff;
-        margin-bottom: 20px;
+        margin-bottom:0px;
     }
 
     /*--.admin-student-form-question.active {
@@ -144,10 +146,10 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 15px;
+        margin-bottom: 5px;
     }
 
-    .admin-student-question-title,
+   
     .admin-student-question-title-course,
     .admin-student-question-title-course-degree,
       .admin-student-question-title-month {
@@ -166,7 +168,7 @@
         border-bottom: 1px solid #888;
     }
 
-    .admin-student-dropdown-field,
+   
     .admin-student-dropdown-field-course,
     .admin-student-dropdown-field-course-degree,
        .admin-student-dropdown-field-month {
@@ -216,7 +218,7 @@
         gap: 25px;
         justify-content: flex-start;
         flex-wrap: wrap;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 
     .input-group {
@@ -480,7 +482,7 @@
           .option-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 0px;
         }
 
         .option-item {
@@ -551,10 +553,11 @@
          .admin-student-form-question {
             border: none;
             border-radius: 4px;
-            padding: 15px;
+            padding: 5px;
             background-color: #fff;
-            margin-bottom: 20px;
+            margin-bottom: 0px;
         }
+         
 
         .admin-student-question-title {
             font-size: 14px;
@@ -606,6 +609,11 @@
             font-size: 14px;
             margin-bottom: 10px;
         }
+        .admin-student-options-label-about{
+             font-size: 14px;
+             padding:15px 0px;
+
+        }
 
         .course-options {
             display: flex;
@@ -652,6 +660,39 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .admin-student-question-title {
+            font-size: 14px;
+            font-weight: 400;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            width: 515px;
+            background-color: #fff;
+            position: relative;
+            border: none;
+            border-bottom: 1px solid #888;
+        }
+
+        .admin-student-dropdown-field {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            width: 400px;
+            background-color: #fff;
+            position: relative;
+            border: none;
+            border-bottom: 1px solid #888;
+        }
+
+        .admin-student-field-text {
+            font-size: 14px;
+            color: #212121;
         }
 
         .admin-student-dropdown-icon {
@@ -663,15 +704,33 @@
             transition: transform 0.3s;
         }
 
+        .admin-student-dropdown-icon.rotated {
+            transform: rotate(-135deg);
+        }
+
+        /* Options styles */
+        .options-section {
+            padding: 15px 0;
+            display: none;
+        }
+
         .options-label {
             font-size: 14px;
             margin-bottom: 10px;
         }
 
-        .checkbox-option {
+
+        /* Academic options styles */
+        .academic-options {
+            display: flex;
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .academic-option {
             display: flex;
             align-items: center;
-            margin:15px 0px;
+            gap: 8px;
         }
 
  .admin-student-dropdown-icon.rotated {
@@ -717,7 +776,78 @@
         }
         .checkbox-option label {
             font-size: 14px;
+            color: #4A5568;
+            cursor: pointer;
+            margin-right: 20px;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .academic-reason {
+            display: none;
+            flex-direction: column;
+            gap: 30px;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+            margin-top: -38px;
+        }
+
+        .academic-reason.visible {
+            display: flex;
+            opacity: 1;
+        }
+
+        .academic-reason label {
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            color: #191825;
+        }
+
+        textarea {
+            width: 450px;
+            height: 77px;
+            padding: 10px;
+            border: 1px solid #E2E8F0;
+            border-radius: 4px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            color: #191825;
+            resize: none;
+        }
+
+        textarea:focus {
+            outline: none;
+        }
+
+        textarea::placeholder {
+            color: #838383;
+        }
+
+        .education-container {
+            border: none;
+            border-radius: 4px;
+            padding: 15px;
+            background-color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .education-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+
+        }
+
+        .education-title {
+            font-size: 14px;
+            font-weight: 400;
             color: #333;
+            padding: 16px;
+            width: 515px;
+            border-bottom: 1px solid #888;
         }
         
         .add-option {
@@ -737,9 +867,8 @@
             margin-right: 5px;
         }
 
-        .add-option-icon {
+        .add-education-icon {
+            margin-right: 8px;
             font-size: 16px;
             font-weight: bold;
         }
-
-    

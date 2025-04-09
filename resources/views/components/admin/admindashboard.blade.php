@@ -49,7 +49,25 @@
         <div class="admindashboardcontainer-secondsection">
             <h1>Reports</h1>
             <div class="admindashboardsecondsection-buttongroups">
-                <button id="showall-buttongroups">Show All <i class="fa-solid fa-chevron-down"></i></button>
+                 <div class="show-all-admin-button-container">
+                    <button id="showall-buttongroups">Show All <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="show-all-admin-options" id="dropdown-options">
+                        <button>Registration Reports</button>
+                        <button>No of grads</button>
+                        <button>Registration Source</button>
+                        <button>Age ratio Reports</button>
+                        <button>Funnel Reports</button>
+                        <button>Destination countries</button>
+                        <button>Cities</button>
+                        <button>NBFC: Generation Leads</button>
+                        <button>Point of entry</button>
+                        <button>SC: Generation Leads</button>
+                        <button>Sem Rush</button>
+                    </div>
+                </div>
+
+
+                
                 <div class="postgrad-buttongroups" id="postgrad-reports">
                     <div id="postgrad-buttongroups-insideshow">
                         Graduate <i class="fa-solid fa-chevron-down"></i>
@@ -61,9 +79,85 @@
                     </div>
                 </div>
 
-                <button id="calender-buttongroups"> Calendar <img src="assets/images/Icons/calendar_month.png"
-                        alt=""></button>
-                <button id="download-buttongroups">Download Report</button>
+
+    <div class="calendar-wrapper">
+        <button id="calender-buttongroups"> Calendar <img src="assets/images/Icons/calendar_month.png" alt=""></button>
+        <button id="download-buttongroups">Download Report</button>
+
+        <div class="calendar-container">
+            <div class="calendar-input-container">
+                <div class="calendar-date-input calendar-active" id="calendar-start-date-input">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    <span>Start Date</span>
+                </div>
+                <div class="calendar-date-input" id="calendar-end-date-input">
+                    <span>End Date</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" style="margin-left: auto;">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="calendar-header">
+                <button class="calendar-nav-btn calendar-prev-month">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <div class="calendar-month-year-selector">
+                    <select id="calendar-month-select">
+                        <option value="0">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
+                    </select>
+                    <select id="calendar-year-select">
+                        <!-- Years will be populated by JavaScript -->
+                    </select>
+                </div>
+                <button class="calendar-nav-btn calendar-next-month">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="calendar-grid">
+                <div class="calendar-weekday">Mo</div>
+                <div class="calendar-weekday">Tu</div>
+                <div class="calendar-weekday">We</div>
+                <div class="calendar-weekday">Th</div>
+                <div class="calendar-weekday">Fr</div>
+                <div class="calendar-weekday">Sa</div>
+                <div class="calendar-weekday">Su</div>
+            </div>
+        </div>
+    </div>
+                
+
+                
+
+
             </div>
         </div>
         <div class="admindashboardcontainer-thirdsection">
@@ -85,13 +179,14 @@
                     <div class="donutregistration-chart-container">
                         <canvas id="donutRegistrationChart"></canvas>
                         <div class="donutgraphinfos">
-                            @php
-$registrationSourceAnalysis = [
-    ['color' => 'rgba(111, 37, 206, 1)', 'AnalyseName' => 'ADDS', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '13%'],
-    ['color' => 'rgba(181, 142, 229, 1)', 'AnalyseName' => 'Organic', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '77%'],
-    ['color' => 'rgba(226, 211, 245, 1)', 'AnalyseName' => 'SC Referral', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '10%'],
-];
-                            @endphp
+                        
+                          @php
+                            $registrationSourceAnalysis = [
+                                ['color' => 'rgba(111, 37, 206, 1)', 'AnalyseName' => 'ADDS', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '13%'],
+                                ['color' => 'rgba(181, 142, 229, 1)', 'AnalyseName' => 'Organic', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '77%'],
+                                ['color' => 'rgba(226, 211, 245, 1)', 'AnalyseName' => 'SC Referral', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '10%'],
+                            ];
+                          @endphp
 
                             @foreach ($registrationSourceAnalysis as $source)
                                 <div class="graphviewofregistrations">
@@ -151,12 +246,12 @@ $registrationSourceAnalysis = [
                         <canvas id="ageratio-donutRegistrationChart"></canvas>
                         <div class="ageratio-donutgraphinfos">
                             @php
-$registrationSourceAnalysis = [
-    ['color' => 'rgba(111, 37, 206, 1)', 'studentRangeValue' => '16 - 20'],
-    ['color' => 'rgba(167, 121, 224, 1)', 'studentRangeValue' => '21 - 25'],
-    ['color' => 'rgba(203, 176, 237, 1)', 'studentRangeValue' => '26 - 30'],
-    ['color' => 'rgba(226, 211, 245, 1)', 'studentRangeValue' => '30 - 40'],
-];
+                                $registrationSourceAnalysis = [
+                                    ['color' => 'rgba(111, 37, 206, 1)', 'studentRangeValue' => '16 - 20'],
+                                    ['color' => 'rgba(167, 121, 224, 1)', 'studentRangeValue' => '21 - 25'],
+                                    ['color' => 'rgba(203, 176, 237, 1)', 'studentRangeValue' => '26 - 30'],
+                                    ['color' => 'rgba(226, 211, 245, 1)', 'studentRangeValue' => '30 - 40'],
+                                ];
                             @endphp
 
                             @foreach ($registrationSourceAnalysis as $source)
@@ -535,7 +630,8 @@ $registrationSourceAnalysis = [
     initializeRegisterationLineGraph();
     initializeDonutGraphSource();
     initializeDonutGraphAgeRatio();
-    initializeNewDonutChart(); // Add this new function
+    initializeNewDonutChart(); 
+    initializeLeadChart();
 });
 
 const initializeRegisterationLineGraph = () => {
@@ -921,8 +1017,367 @@ const initializeLeadChart = () => {
     });
 };
 
-// Call the lead chart initialization
-document.addEventListener("DOMContentLoaded", initializeLeadChart);
+  const dropdownButton = document.getElementById('showall-buttongroups');
+        const dropdownOptions = document.getElementById('dropdown-options');
+        const icon = document.querySelector('.fa-chevron-down');
+
+        // Toggle dropdown on button click
+        dropdownButton.addEventListener('click', function (event) {
+            event.stopPropagation();
+            dropdownOptions.classList.toggle('show');
+            icon.classList.toggle('show-all-admin-rotate-icon');
+        });
+
+        // Close dropdown when clicking on an option
+        const options = document.querySelectorAll('.show-all-admin-options button');
+        options.forEach(option => {
+            option.addEventListener('click', function () {
+                console.log('Selected:', this.textContent);
+                dropdownOptions.classList.remove('show');
+                icon.classList.remove('show-all-admin-rotate-icon');
+                // You can add custom functionality here
+            });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function (event) {
+            if (!event.target.closest('.show-all-admin-button-container')) {
+                dropdownOptions.classList.remove('show');
+                icon.classList.remove('show-all-admin-rotate-icon');
+            }
+        });
+
+
+       const calendarGrid = document.querySelector('.calendar-grid');
+            const monthSelect = document.getElementById('calendar-month-select');
+            const yearSelect = document.getElementById('calendar-year-select');
+            const startDateInput = document.getElementById('calendar-start-date-input');
+            const endDateInput = document.getElementById('calendar-end-date-input');
+            const prevMonthBtn = document.querySelector('.calendar-prev-month');
+            const nextMonthBtn = document.querySelector('.calendar-next-month');
+            const calendarButton = document.getElementById('calender-buttongroups');
+            const calendarContainer = document.querySelector('.calendar-container');
+            const calendarWrapper = document.querySelector('.calendar-wrapper');
+
+            let currentDate = new Date();
+            let startDate = null;
+            let endDate = null;
+            let selectionMode = 'start'; // 'start' or 'end'
+            let isCalendarOpen = false;
+
+            // Populate year select with a range of years
+            const currentYear = new Date().getFullYear();
+            for (let year = currentYear - 5; year <= currentYear + 10; year++) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                if (year === currentYear) {
+                    option.selected = true;
+                }
+                yearSelect.appendChild(option);
+            }
+
+            // Initialize the calendar
+            updateMonthYearSelects();
+            renderCalendar();
+
+            // Allow clicking on the input fields to switch selection mode
+            startDateInput.addEventListener('click', function (e) {
+                e.stopPropagation();
+                selectionMode = 'start';
+                startDateInput.classList.add('calendar-active');
+                endDateInput.classList.remove('calendar-active');
+            });
+
+            endDateInput.addEventListener('click', function (e) {
+                e.stopPropagation();
+                selectionMode = 'end';
+                startDateInput.classList.remove('calendar-active');
+                endDateInput.classList.add('calendar-active');
+            });
+
+            // Calendar button to toggle calendar visibility
+            calendarButton.addEventListener('click', function (e) {
+                e.stopPropagation();
+                toggleCalendar();
+            });
+
+            // Handle clicks inside the calendar (prevent propagation)
+            calendarContainer.addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
+
+            // Handle clicks outside the calendar to close it
+            document.addEventListener('click', function (e) {
+                // If calendar is open and click is outside calendar container and button
+                if (isCalendarOpen && !calendarContainer.contains(e.target) && e.target !== calendarButton) {
+                    closeCalendar();
+                }
+            });
+
+            // Calendar navigation
+            prevMonthBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                updateMonthYearSelects();
+                renderCalendar();
+            });
+
+            nextMonthBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                updateMonthYearSelects();
+                renderCalendar();
+            });
+
+            // Month and year selection
+            monthSelect.addEventListener('change', function (e) {
+                e.stopPropagation();
+                currentDate.setMonth(parseInt(this.value));
+                renderCalendar();
+            });
+
+            yearSelect.addEventListener('change', function (e) {
+                e.stopPropagation();
+                currentDate.setFullYear(parseInt(this.value));
+                renderCalendar();
+            });
+
+            function toggleCalendar() {
+                if (isCalendarOpen) {
+                    closeCalendar();
+                } else {
+                    openCalendar();
+                }
+            }
+
+            function openCalendar() {
+                calendarContainer.style.display = 'block';
+                isCalendarOpen = true;
+            }
+
+            function closeCalendar() {
+                calendarContainer.style.display = 'none';
+                isCalendarOpen = false;
+            }
+
+            function updateMonthYearSelects() {
+                monthSelect.value = currentDate.getMonth();
+                yearSelect.value = currentDate.getFullYear();
+            }
+
+            function renderCalendar() {
+                // Clear the days part of the grid
+                const dayElements = calendarGrid.querySelectorAll('.calendar-day');
+                dayElements.forEach(el => el.remove());
+
+                // Get first day of month and last day of month
+                const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+                const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+
+                // Get the day of week of the first day (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+                // Adjust for Monday as first day of week
+                let firstDayIndex = firstDay.getDay() - 1;
+                if (firstDayIndex < 0) firstDayIndex = 6; // Sunday becomes last day (index 6)
+
+                // Get days from previous month to fill the calendar
+                const prevMonthLastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+
+                // Fill calendar with days
+                for (let i = prevMonthLastDay - firstDayIndex + 1; i <= prevMonthLastDay; i++) {
+                    addDayToCalendar(i, 'calendar-other-month', new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, i));
+                }
+
+                // Current month days
+                const today = new Date();
+                for (let i = 1; i <= lastDay.getDate(); i++) {
+                    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
+                    const classes = [];
+
+                    // Check if this day is today
+                    if (today.getDate() === i &&
+                        today.getMonth() === currentDate.getMonth() &&
+                        today.getFullYear() === currentDate.getFullYear()) {
+                        classes.push('calendar-today');
+                    }
+
+                    // Check if this day is selected start date
+                    if (startDate &&
+                        date.getDate() === startDate.getDate() &&
+                        date.getMonth() === startDate.getMonth() &&
+                        date.getFullYear() === startDate.getFullYear()) {
+                        classes.push('calendar-selected-start');
+                    }
+
+                    // Check if this day is selected end date
+                    if (endDate &&
+                        date.getDate() === endDate.getDate() &&
+                        date.getMonth() === endDate.getMonth() &&
+                        date.getFullYear() === endDate.getFullYear()) {
+                        classes.push('calendar-selected-end');
+                    }
+
+                    // Check if this day is in date range
+                    if (startDate && endDate && date > startDate && date < endDate) {
+                        classes.push('calendar-in-range');
+
+                        // Add classes for first and last days in range for rounded corners
+                        if (i === 1 || new Date(currentDate.getFullYear(), currentDate.getMonth(), i - 1) <= startDate) {
+                            classes.push('calendar-first-in-range');
+                        }
+                        if (i === lastDay.getDate() || new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1) >= endDate) {
+                            classes.push('calendar-last-in-range');
+                        }
+                    }
+
+                    addDayToCalendar(i, classes.join(' '), date);
+                }
+
+                // Next month days to fill remaining cells
+                const daysRendered = firstDayIndex + lastDay.getDate();
+                const remainingDays = 7 - (daysRendered % 7);
+                if (remainingDays < 7) {
+                    for (let i = 1; i <= remainingDays; i++) {
+                        addDayToCalendar(i, 'calendar-other-month', new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, i));
+                    }
+                }
+            }
+
+            function addDayToCalendar(dayNumber, classes, date) {
+                const dayElement = document.createElement('div');
+                dayElement.className = `calendar-day ${classes}`;
+                dayElement.textContent = dayNumber;
+
+                // Add date selection behavior
+                if (!classes.includes('calendar-other-month')) {
+                    dayElement.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        if (selectionMode === 'start') {
+                            startDate = new Date(date);
+
+                            // If end date is before start date, reset end date
+                            if (endDate && endDate < startDate) {
+                                endDate = null;
+                            }
+
+                            // Auto switch to end date mode after selecting start date
+                            selectionMode = 'end';
+                            startDateInput.classList.remove('calendar-active');
+                            endDateInput.classList.add('calendar-active');
+                        } else {
+                            // Only set end date if we already have a start date
+                            if (startDate) {
+                                endDate = new Date(date);
+
+                                // Swap dates if end date is before start date
+                                if (endDate < startDate) {
+                                    const temp = startDate;
+                                    startDate = endDate;
+                                    endDate = temp;
+                                }
+                            } else {
+                                // If no start date, set start date instead
+                                startDate = new Date(date);
+                                selectionMode = 'end';
+                                startDateInput.classList.remove('calendar-active');
+                                endDateInput.classList.add('calendar-active');
+                            }
+                        }
+
+                        updateInputs();
+                        renderCalendar();
+                    });
+                }
+
+                calendarGrid.appendChild(dayElement);
+            }
+
+            function updateInputs() {
+                // Format and update start date input
+                if (startDate) {
+                    const formattedStartDate = `${startDate.getDate().toString().padStart(2, '0')}/${(startDate.getMonth() + 1).toString().padStart(2, '0')}/${startDate.getFullYear()}`;
+                    startDateInput.innerHTML = `
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        ${formattedStartDate}
+                    `;
+                } else {
+                    startDateInput.innerHTML = `
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        <span>Start Date</span>
+                    `;
+                }
+
+                // Format and update end date input
+                if (endDate) {
+                    const formattedEndDate = `${endDate.getDate().toString().padStart(2, '0')}/${(endDate.getMonth() + 1).toString().padStart(2, '0')}/${endDate.getFullYear()}`;
+                    endDateInput.innerHTML = `
+                        ${formattedEndDate}
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: auto;">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                    `;
+                } else {
+                    endDateInput.innerHTML = `
+                        <span>End Date</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: auto;">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                    `;
+                }
+            }
+            
+
+        // Call the lead chart initialization
+        // Get button reference from your admin dashboard
+        const referralLinkBtn = document.getElementById('referral-link-admindashboard');
+        const modal = document.getElementById('referralModal');
+        const backdrop = document.getElementById('backdrop');
+        const closeBtn = document.getElementById('closeModal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const generateBtn = document.getElementById('generateBtn');
+        const inputField = document.getElementById('referralLink');
+
+        // Event listener for the Generate Referral Link button
+        referralLinkBtn.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+            backdrop.classList.add('active'); // Show the backdrop with blur
+        });
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            backdrop.classList.remove('active'); // Hide the backdrop
+            inputField.value = '';
+        }
+
+        closeBtn.addEventListener('click', closeModal);
+        cancelBtn.addEventListener('click', closeModal);
+        backdrop.addEventListener('click', closeModal); // Close when clicking outside
+
+        generateBtn.addEventListener('click', () => {
+            const generatedLink = `https://example.com/referral?code=${Math.random().toString(36).substr(2, 8)}`;
+            inputField.value = generatedLink;
+        });
+
+       
+       
+         
+       
 
  // Get button reference from your admin dashboard
         const referralLinkBtn = document.getElementById('referral-link-admindashboard');
