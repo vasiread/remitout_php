@@ -1,7 +1,7 @@
  * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
  }
  .admin-studnet-application-main-container {
         display: flex;
@@ -44,7 +44,6 @@
     }
 
     .admin-student-form-section,
-    .admin-student-form-section-academic-details,
     .admin-student-form-section-co-borrower-info,
     .admin-student-form-section-document-upload {
         margin-bottom: 20px;
@@ -59,7 +58,6 @@
 
     .admin-student-section-header,
     .admin-student-section-header-course,
-    .admin-student-section-header-academic,
     .admin-student-section-header-co-borrower,
     .admin-student-section-header-document-upload {
         display: flex;
@@ -69,7 +67,6 @@
 
     .admin-student-section-title,
     .admin-student-section-title-course,
-    .admin-student-section-title-academic,
     .admin-student-section-title-co-borrower,
     .admin-student-section-title-document-upload {
         font-size: 16px;
@@ -80,7 +77,6 @@
 
     .admin-student-question-count,
     .admin-student-question-count-course,
-    .admin-student-question-count-academic,
     .admin-student-question-count-co-borrower,
     .admin-student-question-count-document-upload {
         font-size: 12px;
@@ -90,7 +86,6 @@
 
     .admin-student-arrow-icon,
     .admin-student-arrow-icon-course,
-    .admin-student-arrow-icon-academic,
     .admin-student-arrow-icon-co-borrower,
     .admin-student-arrow-icon-document-upload {
         display: flex;
@@ -124,6 +119,8 @@
         padding-top: 15px;
 
     }
+
+    .admin-student-form-question,
     .admin-student-form-question-course,
     .admin-student-form-question-course-degree,
      .admin-student-form-question-month {
@@ -148,7 +145,7 @@
         margin-bottom: 5px;
     }
 
-   
+    .admin-student-question-title,
     .admin-student-question-title-course,
     .admin-student-question-title-course-degree,
       .admin-student-question-title-month {
@@ -167,7 +164,7 @@
         border-bottom: 1px solid #888;
     }
 
-   
+    .admin-student-dropdown-field,
     .admin-student-dropdown-field-course,
     .admin-student-dropdown-field-course-degree,
        .admin-student-dropdown-field-month {
@@ -549,18 +546,46 @@
             font-size: 14px;
             margin-right: 10px;
         }
-<<<<<<< Updated upstream
-         .admin-student-form-question {
-            border: none;
-            border-radius: 4px;
-            padding: 5px;
+    
+        .admin-student-question-title {
+            font-size: 14px;
+            font-weight: 400;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            width: 515px;
             background-color: #fff;
-            margin-bottom: 0px;
+            cursor: pointer;
+            position: relative;
+            border: none;
+            border-bottom: 1px solid #888;
         }
-         
-=======
->>>>>>> Stashed changes
 
+        .admin-student-dropdown-field {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            width: 400px;
+            background-color: #fff;
+            cursor: pointer;
+            position: relative;
+            border: none;
+            border-bottom: 1px solid #888;
+        }
+
+        .admin-student-field-text {
+            font-size: 14px;
+            color: #212121;
+        }
+
+        .admin-student-options-section {
+            transition: max-height 0.4s ease;
+            overflow-x: hidden;
+
+        }
 
         .admin-course-option-main-container {
             display: flex;
@@ -617,8 +642,23 @@
             border-bottom: 1px solid #FF8A00;
         }
 
-<<<<<<< Updated upstream
-=======
+
+        .admin-student-question-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .admin-student-dropdown-icon {
+            width: 8px;
+            height: 8px;
+            transform: rotate(45deg);
+            border-right: 2px solid rgb(25, 24, 37);
+            border-bottom: 2px solid rgb(25, 24, 37);
+            transition: transform 0.3s;
+        }
+
         .options-label {
             font-size: 14px;
             margin-bottom: 10px;
@@ -632,10 +672,6 @@
 
  .admin-student-dropdown-icon.rotated {
             transform: rotate(-135deg);
-        }
-
-        .options-section {
-            padding: 15px 0;
         }
         .checkbox-coures-main-container{
             display:flex;
@@ -703,6 +739,33 @@
        
         /*academic details*/
 
+        .admin-student-form-section-academic-details {
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 15px 0;
+            cursor: pointer;
+        }
+
+        .admin-student-section-header-academic {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 15px;
+        }
+
+        .admin-student-section-title-academic {
+            font-size: 16px;
+            font-weight: 500;
+            color: #6366f1;
+        }
+
+        .admin-student-question-count-academic {
+            font-size: 14px;
+            color: #64748b;
+            margin-left: auto;
+            margin-right: 20px;
+        }
+
         .admin-student-arrow-icon-academic {
             transition: transform 0.3s ease;
         }
@@ -727,7 +790,7 @@
             max-height: 2000px;
         }
 
-        /* Form question styles */
+   
         .admin-student-form-question {
             border: none;
             border-radius: 4px;
@@ -736,7 +799,6 @@
             margin-bottom:0px;
 
         }
->>>>>>> Stashed changes
 
         .admin-student-question-row {
             display: flex;
@@ -746,33 +808,7 @@
             cursor: pointer;
         }
 
-        .admin-student-question-title {
-            font-size: 14px;
-            font-weight: 400;
-            color: #333;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px;
-            width: 515px;
-            background-color: #fff;
-            position: relative;
-            border: none;
-            border-bottom: 1px solid #888;
-        }
-
-        .admin-student-dropdown-field {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px;
-            width: 400px;
-            background-color: #fff;
-            position: relative;
-            border: none;
-            border-bottom: 1px solid #888;
-        }
-
+       
         .admin-student-field-text {
             font-size: 14px;
             color: #212121;
@@ -791,6 +827,12 @@
             transform: rotate(-135deg);
         }
 
+        .options-section {
+            padding: 15px 0;
+            display: none;
+        }
+
+    
         .academic-options {
             display: flex;
             gap: 18px;
@@ -803,20 +845,7 @@
             gap: 8px;
         }
 
- .admin-student-dropdown-icon.rotated {
-            transform: rotate(-135deg);
-        }
-
-        .options-section {
-            padding: 15px 0;
-        }
-        .checkbox-coures-main-container{
-            display:flex;
-            gap:100px;
-        }
-
-           /* New Checkbox Styles */
-        .checkbox-option input[type="checkbox"] {
+        .academic-option input[type="radio"] {
             appearance: none;
             width: 22px;
             height: 22px;
@@ -826,14 +855,14 @@
             cursor: pointer;
             transition: all 0.3s ease-in-out;
             position: relative;
-            vertical-align: middle;
             margin-right: 10px;
         }
 
-        .checkbox-option input[type="checkbox"]:checked {
+        .academic-option input[type="radio"]:checked {
             border-color: #E98635;
         }
-           .checkbox-option input[type="checkbox"]:checked:before {
+
+        .academic-option input[type="radio"]:checked:before {
             content: '';
             width: 12px;
             height: 12px;
@@ -844,7 +873,9 @@
             transform: translate(-50%, -50%);
             border-radius: 2px;
         }
-        .checkbox-option label {
+
+        .academic-option label {
+            font-family: 'Poppins', sans-serif;
             font-size: 14px;
             color: #4A5568;
             cursor: pointer;
@@ -919,13 +950,11 @@
             width: 515px;
             border-bottom: 1px solid #888;
         }
-        
-        .add-option {
+
+        .education-dropdown-field {
             display: flex;
             align-items: center;
             justify-content: space-between;
-<<<<<<< Updated upstream
-=======
             padding: 16px;
             width: 400px;
             position: relative;
@@ -944,6 +973,7 @@
             margin-bottom: 10px;
         }
 
+        /* Education row layout */
         .education-row {
             display: flex;
             justify-content: flex-start;
@@ -994,23 +1024,16 @@
             font-size: 14px;
             cursor: pointer;
             justify-content: space-between;
->>>>>>> Stashed changes
             width: 290px;
             height: 46px;
             margin-top: 10px;
             padding: 0 10px;
-            color: #FF8A00;
-            cursor: pointer;
-            border: none;
             border-bottom: 1px solid #FF8A00;
-        }
-        .add-option-text {
-            margin-right: 5px;
         }
 
         .add-education-icon {
             margin-right: 8px;
             font-size: 16px;
-        
             font-weight: bold;
         }
+       

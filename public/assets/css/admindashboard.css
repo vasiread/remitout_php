@@ -41,8 +41,6 @@
       border-radius: 4px;
       border: 1px solid #E98635;
        cursor: pointer;
-      border: 1px solid #E98635;
-       cursor: pointer;
   }
 
   .admindashboardcontainer-secondsection {
@@ -1461,128 +1459,6 @@
     object-fit: contain;
     display: block;
 }
-
- .backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(5px);
-            z-index: 999;
-            display: none;
-        }
-
-        .backdrop.active {
-            display: block;
-        }
-
-    
-        .referral-triggered-view {
-            display: flex;
-            flex-direction: column;
-            background: #fff;
-            position: fixed;
-            max-width: 42.01%;
-            width: 100%;
-            height: fit-content;
-            top: 50%;
-            left: 52%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0px 8px 20px rgba(26, 2, 57, 0.03);
-            padding: 20px 24px;
-            gap: 17px;
-            z-index: 1000;
-            border-radius: 10px;
-        }
-
-        .referral-triggered-view-headersection {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            justify-content: space-between;
-        }
-
-        .referral-triggered-view-headersection h3 {
-            font-weight: 500;
-            font-size: 18px;
-            line-height: 27px;
-            color: rgba(233, 134, 53, 1);
-        }
-
-        .close-icon {
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-            color: #666;
-        }
-
-        .close-icon:hover {
-            color: #333;
-        }
-
-        .referral-triggered-view-content input::placeholder {
-            text-align: center;
-        }
-
-        .referral-triggered-view-content input {
-            width: 100%;
-            height: 128px;
-            padding: 0 2rem;
-            border: 1px solid rgba(226, 226, 226, 1);
-            border-radius: 4px;
-            outline: none;
-            word-wrap: break-word;
-            white-space: normal;
-            text-align: center;
-        }
-
-        .referral-triggered-view-footer {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .referral-triggered-view-footer button:first-child {
-            width: 109px;
-            height: 35px;
-            gap: 8px;
-            border-radius: 4px;
-            padding: 1rem 2rem;
-            border: 1px solid rgba(233, 134, 53, 1);
-            background: #fff;
-            font-weight: 500;
-            font-size: 14px;
-            line-height: 16.8px;
-            color: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .cancel-icon {
-            font-size: 12px;
-            margin-right: 5px;
-        }
-
-        .referral-triggered-view-footer button:last-child {
-            width: 126px;
-            height: 35px;
-            gap: 8px;
-            border-radius: 4px;
-            background-color: rgba(111, 37, 206, 1);
-            box-shadow: 0px 0px 10px rgba(146, 136, 155, 0.13);
-            font-weight: 500;
-            font-size: 14px;
-            line-height: 16.8px;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-
-        .referral-triggered-view.hidden {
-            display: none;
-        }
 
  .backdrop {
             position: fixed;

@@ -171,7 +171,6 @@
 
                         <div class="admin-student-options-section-course" id="person-info-section-course">
                              <div class="admin-student-options-label-about">Options:</div>
-                             <div class="admin-student-options-label">Options:</div>
                             <div class="checkbox-group" id="selected-study-location">
                                 <label>
                                     <input type="checkbox" name="study-location" value="USA"> USA
@@ -228,9 +227,6 @@
                                 </div>
                             </div>
 
-                            <div class="options-section" id="option-section-degree-container">
-                                <div class="options-header">
-                                <div class="admin-student-options-label">Options:</div>
                             <div class="options-section" id="option-section-degree-container">
                                 <div class="options-header">
                                 <div class="admin-student-options-label">Options:</div>
@@ -333,16 +329,79 @@
     </div>
  </div>
 
-                   <div class="admin-student-form-section-academic-details">
-                        <div class="admin-student-section-header-academic">
-                            <div class="admin-student-section-title-academic">Academic details</div>
-                            <span class="admin-student-question-count-academic">4 Questions</span>
-                            <div class="admin-student-arrow-icon-academic">
-                                <img src="assets/images/admin-drop.png" alt="Arrow Icon"
-                                    class="admin-student-arrow-down-academic" />
-                            </div>
-                        </div>
+    <div class="admin-student-form-section-academic-details" id="academic-details-section">
+        <div class="admin-student-section-header-academic">
+            <div class="admin-student-section-title-academic">Academic details</div>
+            <span class="admin-student-question-count-academic">04 Questions</span>
+            <div class="admin-student-arrow-icon-academic rotated">
+                <img src="assets/images/admin-drop.png" alt="Arrow Icon" class="admin-student-arrow-down-academic">
+            </div>
+        </div>
+    </div>
+
+   <div class="admin-student-section-content-academic expanded" id="academic-details-content">
+        <!-- Education Container (styled like the academic gap) -->
+        <div class="education-container" id="education-container">
+            <div class="education-header-row" id="education-header-row">
+                <div class="education-title">1. Academic details </div>
+                <div class="education-dropdown-field" id="education-dropdown">
+                    <span class="admin-student-field-text">Textfield</span>
+                    <span class="admin-student-dropdown-icon"></span>
+                </div>
+            </div>
+
+            <div class="education-section" id="education-section">
+                <div class="education-label">Education</div>
+                <div class="education-row" id="education-row-1">
+                    <div class="education-field">
+                        <input type="text" placeholder="University/School">
+                        <button type="button" class="remove-field-btn">✕</button>
                     </div>
+                    <div class="education-field">
+                        <input type="text" placeholder="Course Name">
+                        <button type="button" class="remove-field-btn">✕</button>
+                    </div>
+                </div>
+
+                <button type="button" class="add-education-field-btn" id="add-education-field-btn">
+                    <span>Add</span>
+                    <span class="add-education-icon">+</span>
+
+                </button>
+            </div>
+        </div>
+
+        <!-- Academic Gap Question -->
+        <div class="admin-student-form-question" id="academic-gap-container">
+            <div class="admin-student-question-row" id="academic-gap-row">
+                <div class="admin-student-question-title">2. Do you have any gap in your academics?</div>
+                <div class="admin-student-dropdown-field" id="academic-gap-dropdown">
+                    <span class="admin-student-field-text">Check Box</span>
+                    <span class="admin-student-dropdown-icon"></span>
+                </div>
+            </div>
+
+            <div class="options-section" id="academic-gap-options">
+                <div class="options-label">Options:</div>
+                <div class="academic-options">
+                    <div class="academic-option">
+                        <input type="radio" id="academic-yes" name="academics-gap" value="yes">
+                        <label for="academic-yes">Yes</label>
+                    </div>
+                    <div class="academic-option">
+                        <input type="radio" id="academic-no" name="academics-gap" value="no">
+                        <label for="academic-no">No (only secured loan)</label>
+                    </div>
+                </div>
+                <div class="add-option" id="add-academic-option-btn">
+                    <span class="add-option-text">Add</span>
+                    <span class="add-option-icon">+</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional questions can be added here -->
+    </div>
 
                        <!-- Co-borrower Info Section -->
                     <div class="admin-student-form-section-co-borrower-info">
@@ -414,12 +473,6 @@ const SectionToggler = {
         const sectionHeader = document.querySelector('.admin-student-section-header');
         const sectionContent = document.querySelector('.admin-student-section-content');
         const arrowIcon = document.querySelector('.admin-student-arrow-icon img');
- <script>
-    document.addEventListener('DOMContentLoaded', function () {
-            // Toggle section content and arrow direction
-            const sectionHeader = document.querySelector('.admin-student-section-header');
-            const sectionContent = document.querySelector('.admin-student-section-content');
-            const arrowIcon = document.querySelector('.admin-student-arrow-icon img');
 
         // By default section is expanded (content visible, arrow up)
         sectionContent.style.display = 'block';
@@ -918,136 +971,6 @@ const CourseOptionsManager = {
         if (addSection && optionsGrid) {
             addSection.onclick = function(e) {
                 e.stopPropagation();
-                    optionsContainer.appendChild(newOption);
-                }
-            });
-
-            // Add this for existing remove buttons
-            document.querySelectorAll('.social-remove').forEach(function (removeButton) {
-                removeButton.addEventListener('click', function () {
-                    this.parentElement.remove();
-                });
-            });
-             let container = document.getElementById("studentFormContainer"); // Replace with your actual ID
-
-
-            // 2. Course Details Section container 1
-            const checkboxContainer = document.getElementById('selected-study-location');
-            const addCheckboxContainer = document.querySelector('.add-checkbox-container');
-
-            // Comprehensive error checking
-            if (!checkboxContainer) {
-                console.error('Checkbox container not found');
-                return;
-            }
-
-            if (!addCheckboxContainer) {
-                console.error('Add checkbox container not found');
-                return;
-            }
-
-            function addNewCheckbox() {
-                // Prompt user for input
-                const newCountry = prompt("Enter country name", "");
-                
-                // Only proceed if the user entered something
-                if (newCountry && newCountry.trim() !== "") {
-                    // Check if country already exists
-                    const existingCountries = Array.from(checkboxContainer.querySelectorAll('input[type="checkbox"]'))
-                        .map(checkbox => checkbox.value.toLowerCase());
-                    
-                    if (existingCountries.includes(newCountry.toLowerCase())) {
-                        alert('This country is already in the list');
-                        return;
-                    }
-                    
-                    // Create new checkbox element
-                    const newLabel = document.createElement('label');
-                    const newCheckbox = document.createElement('input');
-                    
-                    // Configure checkbox
-                    newCheckbox.type = 'checkbox';
-                    newCheckbox.name = 'study-location';
-                    newCheckbox.value = newCountry;
-                    newCheckbox.checked = true;
-                    
-                    // Create label with checkbox and text
-                    newLabel.appendChild(newCheckbox);
-                    newLabel.appendChild(document.createTextNode(' ' + newCountry));
-                    
-                    // Insert new checkbox before the add container
-                    checkboxContainer.insertBefore(newLabel, addCheckboxContainer);
-                }
-            }
-
-            // Add click event to the entire add-checkbox-container instead of just the button
-            addCheckboxContainer.addEventListener('click', function(event) {
-                event.preventDefault(); // Prevent any default form submission
-                addNewCheckbox();
-            });
-
-        // Toggle functionality for admin-student-options-section-course
-        const questionRow = document.querySelector('.admin-student-question-row-course');
-        const optionsSection = document.querySelector('.admin-student-options-section-course');
-
-        // Hide the options section by default
-        if (optionsSection) {
-            optionsSection.style.display = 'none';
-        }
-
-        // Add click event listener to the question row
-        if (questionRow) {
-            questionRow.addEventListener('click', function() {
-                // Toggle the visibility of the options section
-                if (optionsSection) {
-                    if (optionsSection.style.display === 'none') {
-                        optionsSection.style.display = 'block';
-                    } else {
-                        optionsSection.style.display = 'none';
-                    }
-                }
-            });
-        } else {
-            console.error('Question row element not found');
-        }
-
-        //coures details 2 container
-        // Find where you have this section in your existing code:
-        //coures details 2 container
-        const optionsContainer = document.getElementById('option-section-degree-container');
-        const dropdownTrigger = document.getElementById('admin-student-course-second');
-
-        // 2. Hide the options container by default
-        if (optionsContainer) {
-            optionsContainer.style.display = 'none';
-            console.log('Options container hidden on load');
-        } else {
-            console.error('Could not find options container element');
-        }
-
-        // 3. Add click event to show/hide the options container
-        if (dropdownTrigger) {
-            dropdownTrigger.addEventListener('click', function(e) {
-                e.stopPropagation(); // Prevent event bubbling
-                if (optionsContainer.style.display === 'none') {
-                    optionsContainer.style.display = 'block';
-                    console.log('Options container shown');
-                } else {
-                    optionsContainer.style.display = 'none';
-                    console.log('Options container hidden');
-                }
-            });
-        } else {
-            console.error('Could not find dropdown trigger element');
-        }
-
-        // 4. Keep the existing add functionality
-        const addSection = document.getElementById('addSection');
-        const optionsGrid = document.getElementById('optionsContainer');
-
-        if (addSection && optionsGrid) {
-            addSection.onclick = function(e) {
-                e.stopPropagation(); // Stop event from reaching document click handler
                 const newOptionName = prompt('Enter new option:');
                 if (newOptionName && newOptionName.trim() !== '') {
                     // Remove the add section
@@ -1066,54 +989,76 @@ const CourseOptionsManager = {
                     
                     // Add back the add section
                     optionsGrid.appendChild(addSection);
-                    optionsGrid.appendChild(addSection);
-                    console.log('New option added: ' + newOptionName);
                 }
             };
-        } else {
-            console.error('Could not find addSection or optionsGrid elements');
         }
+    }
+};
 
-            
-        }); //
-
-
-                function toggleOptionsDisplay() {
-            const optionsSection = document.getElementById('course-duration-section-month');
-            const isCurrentlyHidden = optionsSection.style.display === 'none' || !optionsSection.style.display;
-            const dropdownIcon = document.querySelector('.admin-student-dropdown-icon');
-
-            optionsSection.style.display = isCurrentlyHidden ? 'block' : 'none';
-
-            if (dropdownIcon) {
-                dropdownIcon.classList.toggle('rotated', isCurrentlyHidden);
-            }
-
-            document.querySelector('.admin-student-form-question-month').classList.toggle('active', isCurrentlyHidden);
+/**
+ * Course duration manager
+ */
+const CourseDurationManager = {
+    init: function() {
+        this.setupCourseDuration();
+    },
+    
+    setupCourseDuration: function() {
+        const rowElement = document.getElementById('course-row-month-id');
+        const dropdownElement = document.getElementById('course-dropdown-month-id');
+        const optionsSection = document.getElementById('course-duration-section-month');
+        
+        if (!rowElement || !dropdownElement || !optionsSection) {
+            console.error('Course duration elements not found');
+            return;
         }
-
-        document.getElementById('course-row-month-id').addEventListener('click', function (event) {
-            toggleOptionsDisplay();
+        
+        // Hide options by default
+        optionsSection.style.display = 'none';
+        
+        // Setup click handlers
+        rowElement.addEventListener('click', function() {
+            CourseDurationManager.toggleOptionsDisplay(optionsSection);
         });
-
-        document.getElementById('course-dropdown-month-id').addEventListener('click', function (event) {
-            // Prevent this click from bubbling up to the row click handler
+        
+        dropdownElement.addEventListener('click', function(event) {
             event.stopPropagation();
-            toggleOptionsDisplay();
+            CourseDurationManager.toggleOptionsDisplay(optionsSection);
         });
-
-        document.querySelectorAll('.course-remove').forEach(function (removeButton) {
-            removeButton.addEventListener('click', function (event) {
-                // Prevent the click from bubbling up to the row
+        
+        // Setup existing remove buttons
+        document.querySelectorAll('.course-remove').forEach(function(removeButton) {
+            removeButton.addEventListener('click', function(event) {
                 event.stopPropagation();
                 this.parentElement.remove();
             });
         });
+        
+        // Setup add button
+        const addButton = document.querySelector('.add-course');
+        if (addButton) {
+            addButton.addEventListener('click', function(event) {
+                event.stopPropagation();
+                CourseDurationManager.addNewDurationOption();
+            });
+        }
+    },
+    
+    toggleOptionsDisplay: function(optionsSection) {
+        const isCurrentlyHidden = optionsSection.style.display === 'none' || !optionsSection.style.display;
+        const dropdownIcon = document.querySelector('.admin-student-dropdown-icon');
 
-        document.querySelector('.add-course').addEventListener('click', function (event) {
-            event.stopPropagation();
+        optionsSection.style.display = isCurrentlyHidden ? 'block' : 'none';
 
-            const userInput = prompt("Enter course duration option", "");
+        if (dropdownIcon) {
+            dropdownIcon.classList.toggle('rotated', isCurrentlyHidden);
+        }
+
+        document.querySelector('.admin-student-form-question-month').classList.toggle('active', isCurrentlyHidden);
+    },
+    
+    addNewDurationOption: function() {
+        const userInput = prompt("Enter course duration option", "");
 
         if (userInput && userInput.trim() !== "") {
             const newOption = document.createElement('div');
@@ -1131,11 +1076,6 @@ const CourseOptionsManager = {
                 event.stopPropagation();
                 newOption.remove();
             });
-                removeSpan.addEventListener('click', function (event) {
-                    // Prevent the click from bubbling up
-                    event.stopPropagation();
-                    newOption.remove();
-                });
 
             newOption.appendChild(nameSpan);
             newOption.appendChild(removeSpan);
@@ -1440,71 +1380,6 @@ const CourseDetailsManager = {
                 reasonSection.classList.remove('visible');
             }
         });
-        });
-
-        const optionsSection = document.getElementById('course-duration-section-month');
-        if (optionsSection) {
-            optionsSection.style.display = 'none';
-        }
-
-        //course 4 container
-        const courseDetailsContainer = document.getElementById('course-details-container');
-
-        // Target the entire row instead of just the dropdown
-        const courseDetailsRow = courseDetailsContainer.querySelector('#course-details-row');
-        const dropdownIcon = courseDetailsContainer.querySelector('.admin-student-dropdown-icon');
-
-        // Add click event to the entire row
-        courseDetailsRow.addEventListener('click', function () {
-            const optionsSection = courseDetailsContainer.querySelector('#course-details-options');
-            const isVisible = optionsSection.style.display !== 'none';
-
-            // Toggle visibility
-            optionsSection.style.display = isVisible ? 'none' : 'block';
-
-            // Toggle active class on container
-            courseDetailsContainer.classList.toggle('active', !isVisible);
-
-            // Rotate the dropdown icon
-            dropdownIcon.classList.toggle('rotated', !isVisible);
-        });
-
-        // Target the add option button within the container
-        const addOptionBtn = courseDetailsContainer.querySelector('#add-option-btn');
-        addOptionBtn.addEventListener('click', function (event) {
-            // Prevent the click from bubbling up to the row and toggling the dropdown
-            event.stopPropagation();
-
-            const userInput = prompt("Enter new option", "");
-
-            if (userInput && userInput.trim() !== "") {
-                const optionsContainer = courseDetailsContainer.querySelector('.checkbox-options-container');
-
-                const newOption = document.createElement('div');
-                newOption.className = 'checkbox-option';
-
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.id = 'option-' + Date.now();
-                checkbox.name = 'course-options';
-
-                const label = document.createElement('label');
-                label.htmlFor = checkbox.id;
-                label.textContent = userInput.trim();
-
-                newOption.appendChild(checkbox);
-                newOption.appendChild(label);
-                optionsContainer.appendChild(newOption);
-            }
-        });
-
-        // Prevent clicks on checkboxes from toggling the dropdown
-        const checkboxContainer = courseDetailsContainer.querySelector('.checkbox-options-container');
-        checkboxContainer.addEventListener('click', function (event) {
-            event.stopPropagation();
-        });
-
-      
 
     </script>
 

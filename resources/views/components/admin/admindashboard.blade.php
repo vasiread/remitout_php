@@ -1379,36 +1379,6 @@ const initializeLeadChart = () => {
          
        
 
- // Get button reference from your admin dashboard
-        const referralLinkBtn = document.getElementById('referral-link-admindashboard');
-        const modal = document.getElementById('referralModal');
-        const backdrop = document.getElementById('backdrop');
-        const closeBtn = document.getElementById('closeModal');
-        const cancelBtn = document.getElementById('cancelBtn');
-        const generateBtn = document.getElementById('generateBtn');
-        const inputField = document.getElementById('referralLink');
-
-        // Event listener for the Generate Referral Link button
-        referralLinkBtn.addEventListener('click', () => {
-            modal.classList.remove('hidden');
-            backdrop.classList.add('active'); // Show the backdrop with blur
-        });
-
-        function closeModal() {
-            modal.classList.add('hidden');
-            backdrop.classList.remove('active'); // Hide the backdrop
-            inputField.value = '';
-        }
-
-        closeBtn.addEventListener('click', closeModal);
-        cancelBtn.addEventListener('click', closeModal);
-        backdrop.addEventListener('click', closeModal); // Close when clicking outside
-
-        generateBtn.addEventListener('click', () => {
-            const generatedLink = `https://example.com/referral?code=${Math.random().toString(36).substr(2, 8)}`;
-            inputField.value = generatedLink;
-        });
-
 
 
     </script>
