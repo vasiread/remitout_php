@@ -166,7 +166,7 @@
     .admin-student-dropdown-field,
     .admin-student-dropdown-field-course,
     .admin-student-dropdown-field-course-degree,
-       .admin-student-dropdown-field-month {
+    .admin-student-dropdown-field-month {
         display: flex;
         align-items: center;
         justify-content: space-between;

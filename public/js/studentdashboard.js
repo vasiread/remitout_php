@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
     // Initialize UI components that don't depend on documentUrls
     initializeSideBarTabs();
     initializeIndividualCards();
@@ -14,10 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initializeSimpleChat();
 
     // Fetch all URLs first
-    Promise.all([
-        initialiseProfileView(),
-        initialiseAllViews()
-    ])
+    Promise.all([initialiseProfileView(), initialiseAllViews()])
         .then(() => {
             console.log("All URLs fetched successfully!", documentUrls);
 
@@ -32,72 +29,90 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error("Error during initialization:", error);
         });
 
-    const courseDetailsElement = document.getElementById('course-details-container');
-    const courseDetails = JSON.parse(courseDetailsElement.getAttribute('data-course-details'));
-    const personalDetails = JSON.parse(courseDetailsElement.getAttribute('data-personal-details'));
+    const courseDetailsElement = document.getElementById(
+        "course-details-container"
+    );
+    const courseDetails = JSON.parse(
+        courseDetailsElement.getAttribute("data-course-details")
+    );
+    const personalDetails = JSON.parse(
+        courseDetailsElement.getAttribute("data-personal-details")
+    );
 
     // Now you can use courseDetails and personalDetails in your JS
     console.log(courseDetails, personalDetails);
 
-    let planToStudy = courseDetails[0]['plan-to-study'].replace(/[\[\]"]/g, '');
+    let planToStudy = courseDetails[0]["plan-to-study"].replace(/[\[\]"]/g, "");
     let selectedCountries = planToStudy.split(/\s*,\s*/);
 
     document.getElementById("plan-to-study-edit").value = planToStudy;
 
-    document.querySelectorAll('input[name="study-location-edit"]').forEach(checkbox => {
-        if (selectedCountries.includes(checkbox.value)) {
-            checkbox.checked = true;
-        }
-    });
+    document
+        .querySelectorAll('input[name="study-location-edit"]')
+        .forEach((checkbox) => {
+            if (selectedCountries.includes(checkbox.value)) {
+                checkbox.checked = true;
+            }
+        });
 
-    const otherCheckbox = document.querySelector('#other-checkbox-edit');
-    const addCountryBox = document.querySelector('.add-country-box-edit');
-    const customCountryInput = document.querySelector('#country-edit');
+    const otherCheckbox = document.querySelector("#other-checkbox-edit");
+    const addCountryBox = document.querySelector(".add-country-box-edit");
+    const customCountryInput = document.querySelector("#country-edit");
 
     if (selectedCountries.includes("Other")) {
         otherCheckbox.checked = true;
-        addCountryBox.style.display = 'block';
+        addCountryBox.style.display = "block";
     } else {
-        addCountryBox.style.display = 'none';
+        addCountryBox.style.display = "none";
     }
 
-    otherCheckbox.addEventListener('change', () => {
+    otherCheckbox.addEventListener("change", () => {
         if (otherCheckbox.checked) {
-            addCountryBox.style.display = 'block';
+            addCountryBox.style.display = "block";
         } else {
-            addCountryBox.style.display = 'none';
-            customCountryInput.value = '';
+            addCountryBox.style.display = "none";
+            customCountryInput.value = "";
         }
     });
-    document.querySelector('.mailnbfcbutton').addEventListener('click', () => {
+    document.querySelector(".mailnbfcbutton").addEventListener("click", () => {
         sendDocumenttoEmail();
     });
-
-
-
-
 });
 
-
-
-
 const initializeSideBarTabs = () => {
-    const sideBarTopItems = document.querySelectorAll('.studentdashboardprofile-sidebarlists-top li');
-    const lastTabHiddenDiv = document.querySelector(".studentdashboardprofile-trackprogress");
-    const lastTabVisibleDiv = document.querySelector(".studentdashboardprofile-myapplication");
-    const dynamicHeader = document.getElementById('loanproposals-header');
-    const individualCards = document.querySelectorAll('.indivudalloanstatus-cards');
-    const communityJoinCard = document.querySelector('.studentdashboardprofile-communityjoinsection');
-    const profileStatusCard = document.querySelector(".personalinfo-profilestatus");
-    const profileImgEditIcon = document.querySelector(".studentdashboardprofile-profilesection .fa-pen-to-square");
-    const educationEditSection = document.querySelector(".studentdashboardprofile-educationeditsection");
-    const testScoresEditSection = document.querySelector(".studentdashboardprofile-testscoreseditsection");
-
+    const sideBarTopItems = document.querySelectorAll(
+        ".studentdashboardprofile-sidebarlists-top li"
+    );
+    const lastTabHiddenDiv = document.querySelector(
+        ".studentdashboardprofile-trackprogress"
+    );
+    const lastTabVisibleDiv = document.querySelector(
+        ".studentdashboardprofile-myapplication"
+    );
+    const dynamicHeader = document.getElementById("loanproposals-header");
+    const individualCards = document.querySelectorAll(
+        ".indivudalloanstatus-cards"
+    );
+    const communityJoinCard = document.querySelector(
+        ".studentdashboardprofile-communityjoinsection"
+    );
+    const profileStatusCard = document.querySelector(
+        ".personalinfo-profilestatus"
+    );
+    const profileImgEditIcon = document.querySelector(
+        ".studentdashboardprofile-profilesection .fa-pen-to-square"
+    );
+    const educationEditSection = document.querySelector(
+        ".studentdashboardprofile-educationeditsection"
+    );
+    const testScoresEditSection = document.querySelector(
+        ".studentdashboardprofile-testscoreseditsection"
+    );
 
     sideBarTopItems.forEach((item, index) => {
-        item.addEventListener('click', () => {
-            sideBarTopItems.forEach(i => i.classList.remove('active'));
-            item.classList.add('active');
+        item.addEventListener("click", () => {
+            sideBarTopItems.forEach((i) => i.classList.remove("active"));
+            item.classList.add("active");
 
             if (index === 1) {
                 lastTabHiddenDiv.style.display = "flex";
@@ -109,8 +124,12 @@ const initializeSideBarTabs = () => {
                 testScoresEditSection.style.display = "none";
 
                 individualCards.forEach((card) => {
-                    const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
-                    const groupButtonContainer = card.querySelector('.individual-bankmessages-buttoncontainer');
+                    const triggeredMessageButton = card.querySelector(
+                        ".individual-bankmessages .triggeredbutton"
+                    );
+                    const groupButtonContainer = card.querySelector(
+                        ".individual-bankmessages-buttoncontainer"
+                    );
 
                     if (triggeredMessageButton && groupButtonContainer) {
                         triggeredMessageButton.style.display = "flex";
@@ -128,9 +147,15 @@ const initializeSideBarTabs = () => {
                 testScoresEditSection.style.display = "none";
 
                 individualCards.forEach((card) => {
-                    const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
-                    const groupButtonContainer = card.querySelector('.individual-bankmessages-buttoncontainer');
-                    const individualBankMessageInput = card.querySelector('.individual-bankmessage-input');
+                    const triggeredMessageButton = card.querySelector(
+                        ".individual-bankmessages .triggeredbutton"
+                    );
+                    const groupButtonContainer = card.querySelector(
+                        ".individual-bankmessages-buttoncontainer"
+                    );
+                    const individualBankMessageInput = card.querySelector(
+                        ".individual-bankmessage-input"
+                    );
 
                     card.style.height = "95px";
                     if (individualBankMessageInput) {
@@ -158,14 +183,20 @@ const initializeSideBarTabs = () => {
 function sendDocumenttoEmail(event) {
     console.log(event);
 
-    const uniqueIdElement = document.querySelector('.personal_info_id');
-    const userId = uniqueIdElement ? uniqueIdElement.textContent || uniqueIdElement.innerHTML : null;
+    const uniqueIdElement = document.querySelector(".personal_info_id");
+    const userId = uniqueIdElement
+        ? uniqueIdElement.textContent || uniqueIdElement.innerHTML
+        : null;
 
     const emailElement = document.querySelector("#referenceEmailId p");
-    const email = emailElement ? emailElement.textContent || emailElement.innerHTML : null;
+    const email = emailElement
+        ? emailElement.textContent || emailElement.innerHTML
+        : null;
 
     const userNameElement = document.querySelector("#referenceNameId p");
-    const name = userNameElement ? userNameElement.textContent || userNameElement.innerHTML : null;
+    const name = userNameElement
+        ? userNameElement.textContent || userNameElement.innerHTML
+        : null;
 
     if (userId && email && name) {
         console.log("Unique ID:", userId, "Email:", email, "Name:", name);
@@ -177,32 +208,33 @@ function sendDocumenttoEmail(event) {
     const sendDocumentsRequiredDetails = {
         userId: userId,
         email: email,
-        name: name
+        name: name,
     };
 
-    fetch('/send-documents', {
+    fetch("/send-documents", {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content"),
         },
-        body: JSON.stringify(sendDocumentsRequiredDetails)
+        body: JSON.stringify(sendDocumentsRequiredDetails),
     })
-        .then(response => {
+        .then((response) => {
             if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
+                throw new Error(
+                    "Network response was not ok " + response.statusText
+                );
             }
             return response.json();
         })
-        .then(data => {
-
+        .then((data) => {
             console.log("Success:", data.message);
 
-
             addUserToRequest(userId);
-
         })
-        .catch(error => {
+        .catch((error) => {
             console.error("Error:", error);
         });
 
@@ -216,10 +248,12 @@ function addUserToRequest(userId) {
     fetch("/push-user-id-request", {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content"),
         },
-        body: JSON.stringify({ userId: userId.trim() })
+        body: JSON.stringify({ userId: userId.trim() }),
     })
         .then((response) => response.json())
         .then((data) => {
@@ -238,30 +272,96 @@ function addUserToRequest(userId) {
 const documentUrls = {};
 
 const endpoints = [
-    { url: '/retrieve-file', selector: ".uploaded-aadhar-name", fileType: "aadhar-card-name" },
-    { url: '/retrieve-file', selector: ".uploaded-pan-name", fileType: "pan-card-name" },
-    { url: '/retrieve-file', selector: ".passport-name-selector", fileType: "passport-card-name" },
-    { url: '/retrieve-file', selector: ".sslc-marksheet", fileType: "tenth-grade-name" },
-    { url: '/retrieve-file', selector: ".hsc-marksheet", fileType: "twelfth-grade-name" },
-    { url: '/retrieve-file', selector: ".graduation-marksheet", fileType: "graduation-grade-name" },
-    { url: '/retrieve-file', selector: ".sslc-grade", fileType: "secured-tenth-name" },
-    { url: '/retrieve-file', selector: ".hsc-grade", fileType: "secured-twelfth-name" },
-    { url: '/retrieve-file', selector: ".graduation-grade", fileType: "secured-graduation-name" },
-    { url: '/retrieve-file', selector: ".experience-letter", fileType: "work-experience-experience-letter" },
-    { url: '/retrieve-file', selector: ".salary-slip", fileType: "work-experience-monthly-slip" },
-    { url: '/retrieve-file', selector: ".office-id", fileType: "work-experience-office-id" },
-    { url: '/retrieve-file', selector: ".joining-letter", fileType: "work-experience-joining-letter" },
-    { url: '/retrieve-file', selector: ".coborrower-pancard", fileType: "co-pan-card-name" },
-    { url: '/retrieve-file', selector: ".coborrower-aadharcard", fileType: "co-aadhar-card-name" },
-    { url: '/retrieve-file', selector: ".coborrower-addressproof", fileType: "co-addressproof" },
-
-
+    {
+        url: "/retrieve-file",
+        selector: ".uploaded-aadhar-name",
+        fileType: "aadhar-card-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".uploaded-pan-name",
+        fileType: "pan-card-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".passport-name-selector",
+        fileType: "passport-card-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".sslc-marksheet",
+        fileType: "tenth-grade-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".hsc-marksheet",
+        fileType: "twelfth-grade-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".graduation-marksheet",
+        fileType: "graduation-grade-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".sslc-grade",
+        fileType: "secured-tenth-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".hsc-grade",
+        fileType: "secured-twelfth-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".graduation-grade",
+        fileType: "secured-graduation-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".experience-letter",
+        fileType: "work-experience-experience-letter",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".salary-slip",
+        fileType: "work-experience-monthly-slip",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".office-id",
+        fileType: "work-experience-office-id",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".joining-letter",
+        fileType: "work-experience-joining-letter",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".coborrower-pancard",
+        fileType: "co-pan-card-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".coborrower-aadharcard",
+        fileType: "co-aadhar-card-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".coborrower-addressproof",
+        fileType: "co-addressproof",
+    },
 ];
 
 const initialiseAllViews = () => {
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-    const userId = userIdElement ? userIdElement.textContent.trim() : '';
+    const csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content");
+    const userIdElement = document.querySelector(
+        ".personalinfo-secondrow .personal_info_id"
+    );
+    const userId = userIdElement ? userIdElement.textContent.trim() : "";
 
     if (!csrfToken || !userId) {
         console.error("CSRF token or User ID is missing");
@@ -272,221 +372,247 @@ const initialiseAllViews = () => {
         return fetch(url, {
             method: "POST",
             headers: {
-                'X-CSRF-TOKEN': csrfToken,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
+                "X-CSRF-TOKEN": csrfToken,
+                Accept: "application/json",
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 userId: userId,
                 fileType: fileType,
             }),
         })
-            .then(response => response.json())
-            .then(data => {
+            .then((response) => response.json())
+            .then((data) => {
                 if (data.fileUrl) {
                     // Store the URL in documentUrls
                     documentUrls[fileType] = data.fileUrl;
                     console.log(`Stored ${fileType}: ${data.fileUrl}`);
 
                     // Update the UI with the file name
-                    const fileName = data.fileUrl.split('/').pop();
+                    const fileName = data.fileUrl.split("/").pop();
                     const element = document.querySelector(selector);
                     if (element) {
                         element.textContent = fileName;
                         console.log(`Updated UI for ${fileType}: ${fileName}`);
                     } else {
-                        console.log(`Element not found for selector: ${selector}`);
+                        console.log(
+                            `Element not found for selector: ${selector}`
+                        );
                     }
                 } else {
                     console.log(`No fileUrl returned for ${fileType}`, data);
                 }
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error(`Error fetching ${fileType}:`, error);
             });
     };
 
     return Promise.all(endpoints.map(fetchWithUrl)).then(() => {
-        console.log('All document URLs fetched and stored successfully!', documentUrls);
+        console.log(
+            "All document URLs fetched and stored successfully!",
+            documentUrls
+        );
     });
 };
 
 const triggerEditButton = () => {
-    const disabledInputs = document.querySelectorAll('.studentdashboardprofile-myapplication input[disabled]');
-    disabledInputs.forEach(inputItems => {
-        inputItems.removeAttribute('disabled');
+    const disabledInputs = document.querySelectorAll(
+        ".studentdashboardprofile-myapplication input[disabled]"
+    );
+    disabledInputs.forEach((inputItems) => {
+        inputItems.removeAttribute("disabled");
     });
 
     // Enable custom radio buttons (if disabled)
-    const disabledRadios = document.querySelectorAll('.studentdashboardprofile-myapplication input[type="radio"][disabled]');
-    disabledRadios.forEach(radio => {
-        radio.removeAttribute('disabled');
+    const disabledRadios = document.querySelectorAll(
+        '.studentdashboardprofile-myapplication input[type="radio"][disabled]'
+    );
+    disabledRadios.forEach((radio) => {
+        radio.removeAttribute("disabled");
     });
 
     const otherDegreeInput = document.getElementById("otherDegreeInput");
     if (otherDegreeInput && otherDegreeInput.disabled) {
-        otherDegreeInput.removeAttribute('disabled');
+        otherDegreeInput.removeAttribute("disabled");
     }
 };
 const initialiseProfileUpload = () => {
-    const editIcon = document.querySelector('.studentdashboardprofile-profilesection .fa-pen-to-square');
-    const profileImageInput = document.querySelector('.studentdashboardprofile-profilesection .profile-upload');
+    const editIcon = document.querySelector(
+        ".studentdashboardprofile-profilesection .fa-pen-to-square"
+    );
+    const profileImageInput = document.querySelector(
+        ".studentdashboardprofile-profilesection .profile-upload"
+    );
 
     if (editIcon && profileImageInput) {
-        editIcon.addEventListener('click', function () {
+        editIcon.addEventListener("click", function () {
             profileImageInput.click();
         });
 
-        profileImageInput.addEventListener('change', function (event) {
+        profileImageInput.addEventListener("change", function (event) {
             const file = event.target.files[0];
 
             if (!file) {
-                console.error('No file selected');
+                console.error("No file selected");
                 return;
             }
-            const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+            const userIdElement = document.querySelector(
+                ".personalinfo-secondrow .personal_info_id"
+            );
 
-            const userId = userIdElement ? userIdElement.textContent : '';
+            const userId = userIdElement ? userIdElement.textContent : "";
 
             const fileName = file.name;
             const fileType = file.type;
             console.log(fileType + "." + fileName);
 
-            const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
             if (!allowedTypes.includes(fileType)) {
-                console.error('Invalid file type. Only jpg, png, and gif are allowed.');
+                console.error(
+                    "Invalid file type. Only jpg, png, and gif are allowed."
+                );
                 return;
             }
 
             const formDetailsData = new FormData();
-            formDetailsData.append('file', file);
-            formDetailsData.append('userId', userId);
+            formDetailsData.append("file", file);
+            formDetailsData.append("userId", userId);
 
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const csrfToken = document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content");
 
             if (!csrfToken) {
-                console.error('CSRF token not found');
+                console.error("CSRF token not found");
                 return;
             }
 
-            fetch('/upload-profile-picture', {
+            fetch("/upload-profile-picture", {
                 method: "POST",
                 headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Accept': 'application/json',
+                    "X-CSRF-TOKEN": csrfToken,
+                    Accept: "application/json",
                 },
                 body: formDetailsData,
             })
-                .then(response => {
+                .then((response) => {
                     if (!response.ok) {
-                        return response.json().then(errorData => {
-                            throw new Error(errorData.error || 'Network response was not ok');
+                        return response.json().then((errorData) => {
+                            throw new Error(
+                                errorData.error || "Network response was not ok"
+                            );
                         });
                     }
                     return response.json();
                 })
-                .then(data => {
+                .then((data) => {
                     if (data) {
                         console.log("File uploaded successfully", data);
-                        const imgElement = document.querySelector("#profile-photo-id");
+                        const imgElement =
+                            document.querySelector("#profile-photo-id");
                         imgElement.src = data.file_path;
-                        const navImageElement = document.querySelector("#nav-profile-photo-id");
+                        const navImageElement = document.querySelector(
+                            "#nav-profile-photo-id"
+                        );
                         navImageElement.src = data.file_path;
-                        console.log(data)
+                        console.log(data);
                     } else {
-                        console.error("Error: No URL returned from the server", data);
+                        console.error(
+                            "Error: No URL returned from the server",
+                            data
+                        );
                     }
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error("Error uploading file", error);
                 });
-
         });
     }
 };
 const initialiseEightcolumn = () => {
-    const section = document.querySelector('.eightcolumn-firstsection');
+    const section = document.querySelector(".eightcolumn-firstsection");
 
-    section.addEventListener('click', function () {
-        if (section.style.height === '') {
-            section.style.height = 'fit-content';
+    section.addEventListener("click", function () {
+        if (section.style.height === "") {
+            section.style.height = "fit-content";
         } else {
-            section.style.height = '';
+            section.style.height = "";
         }
     });
-}
+};
 const initialiseSeventhcolumn = () => {
-    const section = document.querySelector('.seventhcolum-firstsection');
+    const section = document.querySelector(".seventhcolum-firstsection");
 
-    section.addEventListener('click', function () {
-        if (section.style.height === '') {
-            section.style.height = 'fit-content';
+    section.addEventListener("click", function () {
+        if (section.style.height === "") {
+            section.style.height = "fit-content";
         } else {
-            section.style.height = '';
+            section.style.height = "";
         }
     });
-
-}
+};
 const initialiseSeventhAdditionalColumn = () => {
-    const section = document.querySelector('.seventhcolumn-additional-firstcolumn');
+    const section = document.querySelector(
+        ".seventhcolumn-additional-firstcolumn"
+    );
 
-    section.addEventListener('click', function () {
-        if (section.style.height === '') {
-            section.style.height = 'fit-content';
+    section.addEventListener("click", function () {
+        if (section.style.height === "") {
+            section.style.height = "fit-content";
         } else {
-            section.style.height = '';
+            section.style.height = "";
         }
     });
-
-}
+};
 const initialiseNinthcolumn = () => {
-    const section = document.querySelector('.ninthcolumn-firstsection');
+    const section = document.querySelector(".ninthcolumn-firstsection");
 
-    section.addEventListener('click', function () {
-        if (section.style.height === '') {
-            section.style.height = 'fit-content';
+    section.addEventListener("click", function () {
+        if (section.style.height === "") {
+            section.style.height = "fit-content";
         } else {
-            section.style.height = '';
+            section.style.height = "";
         }
     });
-
-}
+};
 const initialiseTenthcolumn = () => {
     const section = document.querySelector(".tenthcolumn-firstsection");
-    section.addEventListener('click', function () {
-        if (section.style.height === '') {
-            section.style.height = 'fit-content';
+    section.addEventListener("click", function () {
+        if (section.style.height === "") {
+            section.style.height = "fit-content";
         } else {
-            section.style.height = '';
+            section.style.height = "";
         }
     });
-
-}
-
+};
 
 const initialiseProfileView = () => {
+    const userIdElement = document.querySelector(
+        ".personalinfo-secondrow .personal_info_id"
+    );
+    const userId = userIdElement ? userIdElement.textContent : "";
 
-    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-    const userId = userIdElement ? userIdElement.textContent : '';
-
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    const csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content");
 
     if (!csrfToken) {
-        console.error('CSRF token not found');
+        console.error("CSRF token not found");
         return;
     }
 
-    fetch('/retrieve-profile-picture', {
+    fetch("/retrieve-profile-picture", {
         method: "POST",
         headers: {
-            'X-CSRF-TOKEN': csrfToken,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            "X-CSRF-TOKEN": csrfToken,
+            Accept: "application/json",
+            "Content-Type": "application/json",
         },
-        body: JSON.stringify({ userId: userId })
+        body: JSON.stringify({ userId: userId }),
     })
-        .then(response => response.json())
-        .then(data => {
+        .then((response) => response.json())
+        .then((data) => {
             if (data.fileUrl) {
                 console.log("Profile Picture URL:", data.fileUrl);
                 const imgElement = document.querySelector("#profile-photo-id");
@@ -495,27 +621,33 @@ const initialiseProfileView = () => {
                 console.error("Error: No URL returned from the server", data);
             }
         })
-        .catch(error => {
+        .catch((error) => {
             console.error("Error retrieving profile picture", error);
         });
-}
-
-
+};
 
 const initializeIndividualCards = () => {
-    const individualCards = document.querySelectorAll('.indivudalloanstatus-cards');
+    const individualCards = document.querySelectorAll(
+        ".indivudalloanstatus-cards"
+    );
 
     individualCards.forEach((card) => {
-        const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
-        const individualBankMessageInput = card.querySelector('.individual-bankmessage-input');
+        const triggeredMessageButton = card.querySelector(
+            ".individual-bankmessages .triggeredbutton"
+        );
+        const individualBankMessageInput = card.querySelector(
+            ".individual-bankmessage-input"
+        );
 
         if (triggeredMessageButton) {
-            triggeredMessageButton.addEventListener('click', () => {
+            triggeredMessageButton.addEventListener("click", () => {
                 const isExpanded = card.style.height === "95px";
 
                 individualCards.forEach((otherCard) => {
                     otherCard.style.height = "fit-content";
-                    const otherMessageInput = otherCard.querySelector('.individual-bankmessage-input');
+                    const otherMessageInput = otherCard.querySelector(
+                        ".individual-bankmessage-input"
+                    );
                     if (otherMessageInput) {
                         otherMessageInput.style.display = "none";
                     }
@@ -534,47 +666,57 @@ const initializeIndividualCards = () => {
 };
 
 const initializeKycDocumentUpload = () => {
-    const individualKycDocumentsUpload = document.querySelectorAll(".individualkycdocuments");
+    const individualKycDocumentsUpload = document.querySelectorAll(
+        ".individualkycdocuments"
+    );
 
     individualKycDocumentsUpload.forEach((card) => {
-        const eyeIcon = card.querySelector('.fa-eye');
+        const eyeIcon = card.querySelector(".fa-eye");
 
         if (!eyeIcon) {
             console.error("Eye icon not found in card:", card);
             return;
         }
 
-        eyeIcon.addEventListener('click', function (event) {
+        eyeIcon.addEventListener("click", function (event) {
             event.stopPropagation();
 
-            const documentType = eyeIcon.id.replace('view-', '').replace('-card', ''); // e.g., "aadhar-card"
+            const documentType = eyeIcon.id
+                .replace("view-", "")
+                .replace("-card", ""); // e.g., "aadhar-card"
             const fileTypeKey = `${documentType}-card-name`;
             const fileUrl = documentUrls[fileTypeKey];
-            const fileNameElement = card.querySelector(`.uploaded-${documentType}-name`);
-            const fileName = fileNameElement ? fileNameElement.textContent : 'Document.pdf';
+            const fileNameElement = card.querySelector(
+                `.uploaded-${documentType}-name`
+            );
+            const fileName = fileNameElement
+                ? fileNameElement.textContent
+                : "Document.pdf";
 
             console.log(`Previewing ${documentType}: ${fileUrl}`);
 
             // Check if a preview is already active
-            if (eyeIcon.classList.contains('preview-active')) {
-                const previewWrapper = document.querySelector('.pdf-preview-wrapper');
-                const overlay = document.querySelector('.pdf-preview-overlay');
+            if (eyeIcon.classList.contains("preview-active")) {
+                const previewWrapper = document.querySelector(
+                    ".pdf-preview-wrapper"
+                );
+                const overlay = document.querySelector(".pdf-preview-overlay");
                 if (previewWrapper) previewWrapper.remove();
                 if (overlay) overlay.remove();
-                eyeIcon.classList.remove('preview-active');
+                eyeIcon.classList.remove("preview-active");
                 eyeIcon.src = "/assets/images/visibility.png"; // Update with your actual path
                 return;
             }
 
             // If no file URL, show an alert
             if (!fileUrl) {
-                alert('No document found to preview.');
+                alert("No document found to preview.");
                 return;
             }
 
             // Create the preview modal
-            const previewWrapper = document.createElement('div');
-            previewWrapper.className = 'pdf-preview-wrapper';
+            const previewWrapper = document.createElement("div");
+            previewWrapper.className = "pdf-preview-wrapper";
             previewWrapper.style.cssText = `
                 position: fixed;
                 top: 50%;
@@ -590,8 +732,8 @@ const initializeKycDocumentUpload = () => {
                 border-radius: 8px;
             `;
 
-            const overlay = document.createElement('div');
-            overlay.className = 'pdf-preview-overlay';
+            const overlay = document.createElement("div");
+            overlay.className = "pdf-preview-overlay";
             overlay.style.cssText = `
                 position: fixed;
                 top: 0;
@@ -602,7 +744,7 @@ const initializeKycDocumentUpload = () => {
                 z-index: 999;
             `;
 
-            const header = document.createElement('div');
+            const header = document.createElement("div");
             header.style.cssText = `
                 display: flex;
                 justify-content: space-between;
@@ -615,14 +757,14 @@ const initializeKycDocumentUpload = () => {
                 border-top-right-radius: 8px;
             `;
 
-            const fileNameSection = document.createElement('div');
+            const fileNameSection = document.createElement("div");
             fileNameSection.style.cssText = `
                 display: flex;
                 align-items: center;
                 gap: 8px;
             `;
 
-            const fileNameSpan = document.createElement('span');
+            const fileNameSpan = document.createElement("span");
             fileNameSpan.textContent = fileName;
             fileNameSpan.style.cssText = `
                 color: white;
@@ -631,7 +773,7 @@ const initializeKycDocumentUpload = () => {
             `;
             fileNameSection.appendChild(fileNameSpan);
 
-            const zoomControls = document.createElement('div');
+            const zoomControls = document.createElement("div");
             zoomControls.style.cssText = `
                 display: flex;
                 align-items: center;
@@ -641,12 +783,12 @@ const initializeKycDocumentUpload = () => {
                 transform: translateX(-50%);
             `;
 
-            const zoomOut = document.createElement('button');
-            zoomOut.innerHTML = '−';
-            const zoomIn = document.createElement('button');
-            zoomIn.innerHTML = '+';
+            const zoomOut = document.createElement("button");
+            zoomOut.innerHTML = "−";
+            const zoomIn = document.createElement("button");
+            zoomIn.innerHTML = "+";
 
-            [zoomOut, zoomIn].forEach(btn => {
+            [zoomOut, zoomIn].forEach((btn) => {
                 btn.style.cssText = `
                     background: none;
                     border: 1px solid #fff;
@@ -665,8 +807,8 @@ const initializeKycDocumentUpload = () => {
             zoomControls.appendChild(zoomOut);
             zoomControls.appendChild(zoomIn);
 
-            const closeButton = document.createElement('button');
-            closeButton.innerHTML = '✕';
+            const closeButton = document.createElement("button");
+            closeButton.innerHTML = "✕";
             closeButton.style.cssText = `
                 background: none;
                 border: none;
@@ -683,18 +825,18 @@ const initializeKycDocumentUpload = () => {
             const closePreview = () => {
                 previewWrapper.remove();
                 overlay.remove();
-                eyeIcon.classList.remove('preview-active');
+                eyeIcon.classList.remove("preview-active");
                 eyeIcon.src = "/assets/images/visibility.png"; // Update with your actual path
             };
 
-            closeButton.addEventListener('click', closePreview);
-            overlay.addEventListener('click', closePreview);
+            closeButton.addEventListener("click", closePreview);
+            overlay.addEventListener("click", closePreview);
 
             header.appendChild(fileNameSection);
             header.appendChild(zoomControls);
             header.appendChild(closeButton);
 
-            const iframe = document.createElement('iframe');
+            const iframe = document.createElement("iframe");
             iframe.src = fileUrl;
             iframe.style.cssText = `
                 width: 100%;
@@ -712,82 +854,92 @@ const initializeKycDocumentUpload = () => {
             document.body.appendChild(previewWrapper);
 
             let currentZoom = 1;
-            zoomIn.addEventListener('click', () => {
+            zoomIn.addEventListener("click", () => {
                 currentZoom += 0.1;
                 iframe.style.transform = `scale(${currentZoom})`;
-                iframe.style.transformOrigin = 'top center';
+                iframe.style.transformOrigin = "top center";
             });
 
-            zoomOut.addEventListener('click', () => {
+            zoomOut.addEventListener("click", () => {
                 currentZoom = Math.max(currentZoom - 0.1, 0.5);
                 iframe.style.transform = `scale(${currentZoom})`;
-                iframe.style.transformOrigin = 'top center';
+                iframe.style.transformOrigin = "top center";
             });
 
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') {
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "Escape") {
                     closePreview();
                 }
             });
 
-            eyeIcon.classList.add('preview-active');
+            eyeIcon.classList.add("preview-active");
             eyeIcon.src = "/assets/images/close.png"; // Update with your actual path
         });
     });
 };
 
 const initializeMarksheetUpload = () => {
-    const individualMarksheetDocumentsUpload = document.querySelectorAll(".individualmarksheetdocuments");
+    const individualMarksheetDocumentsUpload = document.querySelectorAll(
+        ".individualmarksheetdocuments"
+    );
 
     individualMarksheetDocumentsUpload.forEach((card) => {
-        const eyeIcon = card.querySelector('.fa-eye');
+        const eyeIcon = card.querySelector(".fa-eye");
 
         if (!eyeIcon) {
             console.error("Eye icon not found in card:", card);
             return;
         }
 
-        eyeIcon.addEventListener('click', function (event) {
+        eyeIcon.addEventListener("click", function (event) {
             event.stopPropagation();
 
             // Get the document type from the eye icon's ID
-            const documentType = eyeIcon.id.replace('view-', '').replace('-card', ''); 
-            
+            const documentType = eyeIcon.id
+                .replace("view-", "")
+                .replace("-card", "");
+
             // Construct the fileType key used in documentUrls based on the class name
             let fileTypeKey;
-            if (card.querySelector('.sslc-marksheet')) {
+            if (card.querySelector(".sslc-marksheet")) {
                 fileTypeKey = "tenth-grade-name";
-            } else if (card.querySelector('.hsc-marksheet')) {
+            } else if (card.querySelector(".hsc-marksheet")) {
                 fileTypeKey = "twelfth-grade-name";
-            } else if (card.querySelector('.graduation-marksheet')) {
+            } else if (card.querySelector(".graduation-marksheet")) {
                 fileTypeKey = "graduation-grade-name";
             }
-            
+
             // Get the URL from documentUrls
             const fileUrl = documentUrls[fileTypeKey];
-            const fileNameElement = card.querySelector(`.${fileTypeKey.replace('-name', '-marksheet')}`);
-            const fileName = fileNameElement ? fileNameElement.textContent : 'Document.pdf';
+            const fileNameElement = card.querySelector(
+                `.${fileTypeKey.replace("-name", "-marksheet")}`
+            );
+            const fileName = fileNameElement
+                ? fileNameElement.textContent
+                : "Document.pdf";
 
             console.log(`Previewing marksheet (${fileTypeKey}):`, fileUrl);
 
-            if (eyeIcon.classList.contains('preview-active')) {
-                const previewWrapper = document.querySelector('.pdf-preview-wrapper');
-                const overlay = document.querySelector('.pdf-preview-overlay');
+            if (eyeIcon.classList.contains("preview-active")) {
+                const previewWrapper = document.querySelector(
+                    ".pdf-preview-wrapper"
+                );
+                const overlay = document.querySelector(".pdf-preview-overlay");
                 if (previewWrapper) previewWrapper.remove();
                 if (overlay) overlay.remove();
-                eyeIcon.classList.remove('preview-active');
+                eyeIcon.classList.remove("preview-active");
                 eyeIcon.src = "/assets/images/visibility.png";
                 return;
             }
 
             if (!fileUrl) {
-                alert('No document found to preview.');
+                alert("No document found to preview.");
                 return;
             }
 
             // Create the preview modal
-            const previewWrapper = document.createElement('div');
-            previewWrapper.className = 'pdf-preview-wrapper';
+            const previewWrapper = document.createElement("div");
+            previewWrapper.className = "pdf-preview-wrapper";
             previewWrapper.style.cssText = `
                 position: fixed;
                 top: 50%;
@@ -803,8 +955,8 @@ const initializeMarksheetUpload = () => {
                 border-radius: 8px;
             `;
 
-            const overlay = document.createElement('div');
-            overlay.className = 'pdf-preview-overlay';
+            const overlay = document.createElement("div");
+            overlay.className = "pdf-preview-overlay";
             overlay.style.cssText = `
                 position: fixed;
                 top: 0;
@@ -815,7 +967,7 @@ const initializeMarksheetUpload = () => {
                 z-index: 999;
             `;
 
-            const header = document.createElement('div');
+            const header = document.createElement("div");
             header.style.cssText = `
                 display: flex;
                 justify-content: space-between;
@@ -828,14 +980,14 @@ const initializeMarksheetUpload = () => {
                 border-top-right-radius: 8px;
             `;
 
-            const fileNameSection = document.createElement('div');
+            const fileNameSection = document.createElement("div");
             fileNameSection.style.cssText = `
                 display: flex;
                 align-items: center;
                 gap: 8px;
             `;
 
-            const fileNameSpan = document.createElement('span');
+            const fileNameSpan = document.createElement("span");
             fileNameSpan.textContent = fileName;
             fileNameSpan.style.cssText = `
                 color: white;
@@ -844,7 +996,7 @@ const initializeMarksheetUpload = () => {
             `;
             fileNameSection.appendChild(fileNameSpan);
 
-            const zoomControls = document.createElement('div');
+            const zoomControls = document.createElement("div");
             zoomControls.style.cssText = `
                 display: flex;
                 align-items: center;
@@ -854,12 +1006,12 @@ const initializeMarksheetUpload = () => {
                 transform: translateX(-50%);
             `;
 
-            const zoomOut = document.createElement('button');
-            zoomOut.innerHTML = '−';
-            const zoomIn = document.createElement('button');
-            zoomIn.innerHTML = '+';
+            const zoomOut = document.createElement("button");
+            zoomOut.innerHTML = "−";
+            const zoomIn = document.createElement("button");
+            zoomIn.innerHTML = "+";
 
-            [zoomOut, zoomIn].forEach(btn => {
+            [zoomOut, zoomIn].forEach((btn) => {
                 btn.style.cssText = `
                     background: none;
                     border: 1px solid #fff;
@@ -878,8 +1030,8 @@ const initializeMarksheetUpload = () => {
             zoomControls.appendChild(zoomOut);
             zoomControls.appendChild(zoomIn);
 
-            const closeButton = document.createElement('button');
-            closeButton.innerHTML = '✕';
+            const closeButton = document.createElement("button");
+            closeButton.innerHTML = "✕";
             closeButton.style.cssText = `
                 background: none;
                 border: none;
@@ -896,18 +1048,18 @@ const initializeMarksheetUpload = () => {
             const closePreview = () => {
                 previewWrapper.remove();
                 overlay.remove();
-                eyeIcon.classList.remove('preview-active');
+                eyeIcon.classList.remove("preview-active");
                 eyeIcon.src = "/assets/images/visibility.png";
             };
 
-            closeButton.addEventListener('click', closePreview);
-            overlay.addEventListener('click', closePreview);
+            closeButton.addEventListener("click", closePreview);
+            overlay.addEventListener("click", closePreview);
 
             header.appendChild(fileNameSection);
             header.appendChild(zoomControls);
             header.appendChild(closeButton);
 
-            const iframe = document.createElement('iframe');
+            const iframe = document.createElement("iframe");
             iframe.src = fileUrl;
             iframe.style.cssText = `
                 width: 100%;
@@ -925,84 +1077,99 @@ const initializeMarksheetUpload = () => {
             document.body.appendChild(previewWrapper);
 
             let currentZoom = 1;
-            zoomIn.addEventListener('click', () => {
+            zoomIn.addEventListener("click", () => {
                 currentZoom += 0.1;
                 iframe.style.transform = `scale(${currentZoom})`;
-                iframe.style.transformOrigin = 'top center';
+                iframe.style.transformOrigin = "top center";
             });
 
-            zoomOut.addEventListener('click', () => {
+            zoomOut.addEventListener("click", () => {
                 currentZoom = Math.max(currentZoom - 0.1, 0.5);
                 iframe.style.transform = `scale(${currentZoom})`;
-                iframe.style.transformOrigin = 'top center';
+                iframe.style.transformOrigin = "top center";
             });
 
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') {
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "Escape") {
                     closePreview();
                 }
             });
 
-            eyeIcon.classList.add('preview-active');
+            eyeIcon.classList.add("preview-active");
             eyeIcon.src = "/assets/images/close.png";
         });
     });
 };
 
 const initializeSecuredAdmissionDocumentUpload = () => {
-    const securedAdmissionDocuments = document.querySelectorAll(".individual-secured-admission-documents");
+    const securedAdmissionDocuments = document.querySelectorAll(
+        ".individual-secured-admission-documents"
+    );
 
     securedAdmissionDocuments.forEach((card) => {
-        const eyeIcon = card.querySelector('.fa-eye');
+        const eyeIcon = card.querySelector(".fa-eye");
 
         if (!eyeIcon) {
             console.error("Eye icon not found in card:", card);
             return;
         }
 
-        eyeIcon.addEventListener('click', function (event) {
+        eyeIcon.addEventListener("click", function (event) {
             event.stopPropagation();
 
             // Determine document type based on which element exists
             let fileTypeKey;
-            if (card.querySelector('.sslc-grade')) {
+            if (card.querySelector(".sslc-grade")) {
                 fileTypeKey = "secured-tenth-name";
-            } else if (card.querySelector('.hsc-grade')) {
+            } else if (card.querySelector(".hsc-grade")) {
                 fileTypeKey = "secured-twelfth-name";
-            } else if (card.querySelector('.graduation-grade')) {
+            } else if (card.querySelector(".graduation-grade")) {
                 fileTypeKey = "secured-graduation-name";
             }
 
             // Get the URL from documentUrls
             const fileUrl = documentUrls[fileTypeKey];
-            const fileNameElement = card.querySelector(`.${fileTypeKey.replace('-name', '-grade')}`);
-            const fileName = fileNameElement ? fileNameElement.textContent : 'Document.pdf';
+            const fileNameElement = card.querySelector(
+                `.${fileTypeKey.replace("-name", "-grade")}`
+            );
+            const fileName = fileNameElement
+                ? fileNameElement.textContent
+                : "Document.pdf";
 
-            console.log(`Previewing secured admission (${fileTypeKey}):`, fileUrl);
+            console.log(
+                `Previewing secured admission (${fileTypeKey}):`,
+                fileUrl
+            );
 
-            if (eyeIcon.classList.contains('preview-active')) {
-                const previewWrapper = document.querySelector('.pdf-preview-wrapper, .image-preview-wrapper');
-                const overlay = document.querySelector('.pdf-preview-overlay, .image-preview-overlay');
+            if (eyeIcon.classList.contains("preview-active")) {
+                const previewWrapper = document.querySelector(
+                    ".pdf-preview-wrapper, .image-preview-wrapper"
+                );
+                const overlay = document.querySelector(
+                    ".pdf-preview-overlay, .image-preview-overlay"
+                );
                 if (previewWrapper) previewWrapper.remove();
                 if (overlay) overlay.remove();
-                eyeIcon.classList.remove('preview-active');
+                eyeIcon.classList.remove("preview-active");
                 eyeIcon.src = "/assets/images/visibility.png";
                 return;
             }
 
             if (!fileUrl) {
-                alert('No document found to preview.');
+                alert("No document found to preview.");
                 return;
             }
 
             // Check if it's a PDF or image based on file extension
-            const isPDF = fileUrl.toLowerCase().endsWith('.pdf');
-            const isImage = ['.jpg', '.jpeg', '.png'].some(ext => fileUrl.toLowerCase().endsWith(ext));
+            const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
+            const isImage = [".jpg", ".jpeg", ".png"].some((ext) =>
+                fileUrl.toLowerCase().endsWith(ext)
+            );
 
             if (isPDF) {
                 // PDF Preview
-                const previewWrapper = document.createElement('div');
-                previewWrapper.className = 'pdf-preview-wrapper';
+                const previewWrapper = document.createElement("div");
+                previewWrapper.className = "pdf-preview-wrapper";
                 previewWrapper.style.cssText = `
                     position: fixed;
                     top: 50%;
@@ -1018,8 +1185,8 @@ const initializeSecuredAdmissionDocumentUpload = () => {
                     border-radius: 8px;
                 `;
 
-                const overlay = document.createElement('div');
-                overlay.className = 'pdf-preview-overlay';
+                const overlay = document.createElement("div");
+                overlay.className = "pdf-preview-overlay";
                 overlay.style.cssText = `
                     position: fixed;
                     top: 0;
@@ -1030,7 +1197,7 @@ const initializeSecuredAdmissionDocumentUpload = () => {
                     z-index: 999;
                 `;
 
-                const header = document.createElement('div');
+                const header = document.createElement("div");
                 header.style.cssText = `
                     display: flex;
                     justify-content: space-between;
@@ -1043,14 +1210,14 @@ const initializeSecuredAdmissionDocumentUpload = () => {
                     border-top-right-radius: 8px;
                 `;
 
-                const fileNameSection = document.createElement('div');
+                const fileNameSection = document.createElement("div");
                 fileNameSection.style.cssText = `
                     display: flex;
                     align-items: center;
                     gap: 8px;
                 `;
 
-                const fileNameSpan = document.createElement('span');
+                const fileNameSpan = document.createElement("span");
                 fileNameSpan.textContent = fileName;
                 fileNameSpan.style.cssText = `
                     color: white;
@@ -1059,7 +1226,7 @@ const initializeSecuredAdmissionDocumentUpload = () => {
                 `;
                 fileNameSection.appendChild(fileNameSpan);
 
-                const zoomControls = document.createElement('div');
+                const zoomControls = document.createElement("div");
                 zoomControls.style.cssText = `
                     display: flex;
                     align-items: center;
@@ -1069,12 +1236,12 @@ const initializeSecuredAdmissionDocumentUpload = () => {
                     transform: translateX(-50%);
                 `;
 
-                const zoomOut = document.createElement('button');
-                zoomOut.innerHTML = '−';
-                const zoomIn = document.createElement('button');
-                zoomIn.innerHTML = '+';
+                const zoomOut = document.createElement("button");
+                zoomOut.innerHTML = "−";
+                const zoomIn = document.createElement("button");
+                zoomIn.innerHTML = "+";
 
-                [zoomOut, zoomIn].forEach(btn => {
+                [zoomOut, zoomIn].forEach((btn) => {
                     btn.style.cssText = `
                         background: none;
                         border: 1px solid #fff;
@@ -1093,8 +1260,8 @@ const initializeSecuredAdmissionDocumentUpload = () => {
                 zoomControls.appendChild(zoomOut);
                 zoomControls.appendChild(zoomIn);
 
-                const closeButton = document.createElement('button');
-                closeButton.innerHTML = '✕';
+                const closeButton = document.createElement("button");
+                closeButton.innerHTML = "✕";
                 closeButton.style.cssText = `
                     background: none;
                     border: none;
@@ -1111,18 +1278,18 @@ const initializeSecuredAdmissionDocumentUpload = () => {
                 const closePreview = () => {
                     previewWrapper.remove();
                     overlay.remove();
-                    eyeIcon.classList.remove('preview-active');
+                    eyeIcon.classList.remove("preview-active");
                     eyeIcon.src = "/assets/images/visibility.png";
                 };
 
-                closeButton.addEventListener('click', closePreview);
-                overlay.addEventListener('click', closePreview);
+                closeButton.addEventListener("click", closePreview);
+                overlay.addEventListener("click", closePreview);
 
                 header.appendChild(fileNameSection);
                 header.appendChild(zoomControls);
                 header.appendChild(closeButton);
 
-                const iframe = document.createElement('iframe');
+                const iframe = document.createElement("iframe");
                 iframe.src = fileUrl;
                 iframe.style.cssText = `
                     width: 100%;
@@ -1140,30 +1307,30 @@ const initializeSecuredAdmissionDocumentUpload = () => {
                 document.body.appendChild(previewWrapper);
 
                 let currentZoom = 1;
-                zoomIn.addEventListener('click', () => {
+                zoomIn.addEventListener("click", () => {
                     currentZoom += 0.1;
                     iframe.style.transform = `scale(${currentZoom})`;
-                    iframe.style.transformOrigin = 'top center';
+                    iframe.style.transformOrigin = "top center";
                 });
 
-                zoomOut.addEventListener('click', () => {
+                zoomOut.addEventListener("click", () => {
                     currentZoom = Math.max(currentZoom - 0.1, 0.5);
                     iframe.style.transform = `scale(${currentZoom})`;
-                    iframe.style.transformOrigin = 'top center';
+                    iframe.style.transformOrigin = "top center";
                 });
 
-                document.addEventListener('keydown', function (e) {
-                    if (e.key === 'Escape') {
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape") {
                         closePreview();
                     }
                 });
 
-                eyeIcon.classList.add('preview-active');
+                eyeIcon.classList.add("preview-active");
                 eyeIcon.src = "/assets/images/close.png";
             } else if (isImage) {
                 // Image Preview
-                const previewWrapper = document.createElement('div');
-                previewWrapper.className = 'image-preview-wrapper';
+                const previewWrapper = document.createElement("div");
+                previewWrapper.className = "image-preview-wrapper";
                 previewWrapper.style.cssText = `
                     position: fixed;
                     top: 50%;
@@ -1180,8 +1347,8 @@ const initializeSecuredAdmissionDocumentUpload = () => {
                     border-radius: 8px;
                 `;
 
-                const overlay = document.createElement('div');
-                overlay.className = 'image-preview-overlay';
+                const overlay = document.createElement("div");
+                overlay.className = "image-preview-overlay";
                 overlay.style.cssText = `
                     position: fixed;
                     top: 0;
@@ -1192,7 +1359,7 @@ const initializeSecuredAdmissionDocumentUpload = () => {
                     z-index: 999;
                 `;
 
-                const header = document.createElement('div');
+                const header = document.createElement("div");
                 header.style.cssText = `
                     display: flex;
                     justify-content: space-between;
@@ -1205,14 +1372,14 @@ const initializeSecuredAdmissionDocumentUpload = () => {
                     border-top-right-radius: 8px;
                 `;
 
-                const fileNameSection = document.createElement('div');
+                const fileNameSection = document.createElement("div");
                 fileNameSection.style.cssText = `
                     display: flex;
                     align-items: center;
                     gap: 8px;
                 `;
 
-                const fileNameSpan = document.createElement('span');
+                const fileNameSpan = document.createElement("span");
                 fileNameSpan.textContent = fileName;
                 fileNameSpan.style.cssText = `
                     color: white;
@@ -1221,8 +1388,8 @@ const initializeSecuredAdmissionDocumentUpload = () => {
                 `;
                 fileNameSection.appendChild(fileNameSpan);
 
-                const closeButton = document.createElement('button');
-                closeButton.innerHTML = '✕';
+                const closeButton = document.createElement("button");
+                closeButton.innerHTML = "✕";
                 closeButton.style.cssText = `
                     background: none;
                     border: none;
@@ -1239,17 +1406,17 @@ const initializeSecuredAdmissionDocumentUpload = () => {
                 const closePreview = () => {
                     previewWrapper.remove();
                     overlay.remove();
-                    eyeIcon.classList.remove('preview-active');
+                    eyeIcon.classList.remove("preview-active");
                     eyeIcon.src = "/assets/images/visibility.png";
                 };
 
-                closeButton.addEventListener('click', closePreview);
-                overlay.addEventListener('click', closePreview);
+                closeButton.addEventListener("click", closePreview);
+                overlay.addEventListener("click", closePreview);
 
                 header.appendChild(fileNameSection);
                 header.appendChild(closeButton);
 
-                const imageContainer = document.createElement('div');
+                const imageContainer = document.createElement("div");
                 imageContainer.style.cssText = `
                     width: 100%;
                     height: calc(100% - 40px);
@@ -1263,7 +1430,7 @@ const initializeSecuredAdmissionDocumentUpload = () => {
                     border-bottom-right-radius: 8px;
                 `;
 
-                const img = document.createElement('img');
+                const img = document.createElement("img");
                 img.src = fileUrl;
                 img.style.cssText = `
                     max-width: 100%;
@@ -1278,92 +1445,107 @@ const initializeSecuredAdmissionDocumentUpload = () => {
                 document.body.appendChild(overlay);
                 document.body.appendChild(previewWrapper);
 
-                document.addEventListener('keydown', function (e) {
-                    if (e.key === 'Escape') {
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape") {
                         closePreview();
                     }
                 });
 
-                eyeIcon.classList.add('preview-active');
+                eyeIcon.classList.add("preview-active");
                 eyeIcon.src = "/assets/images/close.png";
             } else {
-                alert('Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported.');
+                alert(
+                    "Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported."
+                );
             }
         });
     });
 };
 
- function truncateFileName(fileName) {
+function truncateFileName(fileName) {
     if (fileName.length <= 20) return fileName;
 
-    const extension = fileName.slice(fileName.lastIndexOf('.'));
-    const name = fileName.slice(0, fileName.lastIndexOf('.'));
+    const extension = fileName.slice(fileName.lastIndexOf("."));
+    const name = fileName.slice(0, fileName.lastIndexOf("."));
 
-    return name.slice(0, 16) + '...' + extension;
+    return name.slice(0, 16) + "..." + extension;
 }
 
 //  document.addEventListener('DOMContentLoaded', function () {
 //     initializeSecuredAdmissionDocumentUpload();
 // });
 
-
-
 const initializeWorkExperienceDocumentUpload = () => {
-    const workExperienceDocuments = document.querySelectorAll(".individual-work-experiencecolumn-documents");
+    const workExperienceDocuments = document.querySelectorAll(
+        ".individual-work-experiencecolumn-documents"
+    );
 
     workExperienceDocuments.forEach((card) => {
-        const eyeIcon = card.querySelector('.fa-eye');
+        const eyeIcon = card.querySelector(".fa-eye");
 
         if (!eyeIcon) {
             console.error("Eye icon not found in card:", card);
             return;
         }
 
-        eyeIcon.addEventListener('click', function (event) {
+        eyeIcon.addEventListener("click", function (event) {
             event.stopPropagation();
 
             // Determine document type based on which element exists
             let fileTypeKey;
-            if (card.querySelector('.experience-letter')) {
+            if (card.querySelector(".experience-letter")) {
                 fileTypeKey = "work-experience-experience-letter";
-            } else if (card.querySelector('.salary-slip')) {
+            } else if (card.querySelector(".salary-slip")) {
                 fileTypeKey = "work-experience-monthly-slip";
-            } else if (card.querySelector('.office-id')) {
+            } else if (card.querySelector(".office-id")) {
                 fileTypeKey = "work-experience-office-id";
-            } else if (card.querySelector('.joining-letter')) {
+            } else if (card.querySelector(".joining-letter")) {
                 fileTypeKey = "work-experience-joining-letter";
             }
 
             // Get the URL from documentUrls
             const fileUrl = documentUrls[fileTypeKey];
-            const fileNameElement = card.querySelector(`.${fileTypeKey.split('-').slice(2).join('-')}`);
-            const fileName = fileNameElement ? fileNameElement.textContent : 'Document.pdf';
+            const fileNameElement = card.querySelector(
+                `.${fileTypeKey.split("-").slice(2).join("-")}`
+            );
+            const fileName = fileNameElement
+                ? fileNameElement.textContent
+                : "Document.pdf";
 
-            console.log(`Previewing work experience (${fileTypeKey}):`, fileUrl);
+            console.log(
+                `Previewing work experience (${fileTypeKey}):`,
+                fileUrl
+            );
 
-            if (eyeIcon.classList.contains('preview-active')) {
-                const previewWrapper = document.querySelector('.pdf-preview-wrapper, .image-preview-wrapper');
-                const overlay = document.querySelector('.pdf-preview-overlay, .image-preview-overlay');
+            if (eyeIcon.classList.contains("preview-active")) {
+                const previewWrapper = document.querySelector(
+                    ".pdf-preview-wrapper, .image-preview-wrapper"
+                );
+                const overlay = document.querySelector(
+                    ".pdf-preview-overlay, .image-preview-overlay"
+                );
                 if (previewWrapper) previewWrapper.remove();
                 if (overlay) overlay.remove();
-                eyeIcon.classList.remove('preview-active');
+                eyeIcon.classList.remove("preview-active");
                 eyeIcon.src = "/assets/images/visibility.png";
                 return;
             }
 
             if (!fileUrl) {
-                alert('No document found to preview.');
+                alert("No document found to preview.");
                 return;
             }
 
             // Check if it's a PDF or image based on file extension
-            const isPDF = fileUrl.toLowerCase().endsWith('.pdf');
-            const isImage = ['.jpg', '.jpeg', '.png'].some(ext => fileUrl.toLowerCase().endsWith(ext));
+            const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
+            const isImage = [".jpg", ".jpeg", ".png"].some((ext) =>
+                fileUrl.toLowerCase().endsWith(ext)
+            );
 
             if (isPDF) {
                 // PDF Preview
-                const previewWrapper = document.createElement('div');
-                previewWrapper.className = 'pdf-preview-wrapper';
+                const previewWrapper = document.createElement("div");
+                previewWrapper.className = "pdf-preview-wrapper";
                 previewWrapper.style.cssText = `
                     position: fixed;
                     top: 50%;
@@ -1379,8 +1561,8 @@ const initializeWorkExperienceDocumentUpload = () => {
                     border-radius: 8px;
                 `;
 
-                const overlay = document.createElement('div');
-                overlay.className = 'pdf-preview-overlay';
+                const overlay = document.createElement("div");
+                overlay.className = "pdf-preview-overlay";
                 overlay.style.cssText = `
                     position: fixed;
                     top: 0;
@@ -1391,7 +1573,7 @@ const initializeWorkExperienceDocumentUpload = () => {
                     z-index: 999;
                 `;
 
-                const header = document.createElement('div');
+                const header = document.createElement("div");
                 header.style.cssText = `
                     display: flex;
                     justify-content: space-between;
@@ -1404,14 +1586,14 @@ const initializeWorkExperienceDocumentUpload = () => {
                     border-top-right-radius: 8px;
                 `;
 
-                const fileNameSection = document.createElement('div');
+                const fileNameSection = document.createElement("div");
                 fileNameSection.style.cssText = `
                     display: flex;
                     align-items: center;
                     gap: 8px;
                 `;
 
-                const fileNameSpan = document.createElement('span');
+                const fileNameSpan = document.createElement("span");
                 fileNameSpan.textContent = fileName;
                 fileNameSpan.style.cssText = `
                     color: white;
@@ -1420,7 +1602,7 @@ const initializeWorkExperienceDocumentUpload = () => {
                 `;
                 fileNameSection.appendChild(fileNameSpan);
 
-                const zoomControls = document.createElement('div');
+                const zoomControls = document.createElement("div");
                 zoomControls.style.cssText = `
                     display: flex;
                     align-items: center;
@@ -1430,12 +1612,12 @@ const initializeWorkExperienceDocumentUpload = () => {
                     transform: translateX(-50%);
                 `;
 
-                const zoomOut = document.createElement('button');
-                zoomOut.innerHTML = '−';
-                const zoomIn = document.createElement('button');
-                zoomIn.innerHTML = '+';
+                const zoomOut = document.createElement("button");
+                zoomOut.innerHTML = "−";
+                const zoomIn = document.createElement("button");
+                zoomIn.innerHTML = "+";
 
-                [zoomOut, zoomIn].forEach(btn => {
+                [zoomOut, zoomIn].forEach((btn) => {
                     btn.style.cssText = `
                         background: none;
                         border: 1px solid #fff;
@@ -1454,8 +1636,8 @@ const initializeWorkExperienceDocumentUpload = () => {
                 zoomControls.appendChild(zoomOut);
                 zoomControls.appendChild(zoomIn);
 
-                const closeButton = document.createElement('button');
-                closeButton.innerHTML = '✕';
+                const closeButton = document.createElement("button");
+                closeButton.innerHTML = "✕";
                 closeButton.style.cssText = `
                     background: none;
                     border: none;
@@ -1472,18 +1654,18 @@ const initializeWorkExperienceDocumentUpload = () => {
                 const closePreview = () => {
                     previewWrapper.remove();
                     overlay.remove();
-                    eyeIcon.classList.remove('preview-active');
+                    eyeIcon.classList.remove("preview-active");
                     eyeIcon.src = "/assets/images/visibility.png";
                 };
 
-                closeButton.addEventListener('click', closePreview);
-                overlay.addEventListener('click', closePreview);
+                closeButton.addEventListener("click", closePreview);
+                overlay.addEventListener("click", closePreview);
 
                 header.appendChild(fileNameSection);
                 header.appendChild(zoomControls);
                 header.appendChild(closeButton);
 
-                const iframe = document.createElement('iframe');
+                const iframe = document.createElement("iframe");
                 iframe.src = fileUrl;
                 iframe.style.cssText = `
                     width: 100%;
@@ -1501,30 +1683,30 @@ const initializeWorkExperienceDocumentUpload = () => {
                 document.body.appendChild(previewWrapper);
 
                 let currentZoom = 1;
-                zoomIn.addEventListener('click', () => {
+                zoomIn.addEventListener("click", () => {
                     currentZoom += 0.1;
                     iframe.style.transform = `scale(${currentZoom})`;
-                    iframe.style.transformOrigin = 'top center';
+                    iframe.style.transformOrigin = "top center";
                 });
 
-                zoomOut.addEventListener('click', () => {
+                zoomOut.addEventListener("click", () => {
                     currentZoom = Math.max(currentZoom - 0.1, 0.5);
                     iframe.style.transform = `scale(${currentZoom})`;
-                    iframe.style.transformOrigin = 'top center';
+                    iframe.style.transformOrigin = "top center";
                 });
 
-                document.addEventListener('keydown', function (e) {
-                    if (e.key === 'Escape') {
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape") {
                         closePreview();
                     }
                 });
 
-                eyeIcon.classList.add('preview-active');
+                eyeIcon.classList.add("preview-active");
                 eyeIcon.src = "/assets/images/close.png";
             } else if (isImage) {
                 // Image Preview
-                const previewWrapper = document.createElement('div');
-                previewWrapper.className = 'image-preview-wrapper';
+                const previewWrapper = document.createElement("div");
+                previewWrapper.className = "image-preview-wrapper";
                 previewWrapper.style.cssText = `
                     position: fixed;
                     top: 50%;
@@ -1541,8 +1723,8 @@ const initializeWorkExperienceDocumentUpload = () => {
                     border-radius: 8px;
                 `;
 
-                const overlay = document.createElement('div');
-                overlay.className = 'image-preview-overlay';
+                const overlay = document.createElement("div");
+                overlay.className = "image-preview-overlay";
                 overlay.style.cssText = `
                     position: fixed;
                     top: 0;
@@ -1553,7 +1735,7 @@ const initializeWorkExperienceDocumentUpload = () => {
                     z-index: 999;
                 `;
 
-                const header = document.createElement('div');
+                const header = document.createElement("div");
                 header.style.cssText = `
                     display: flex;
                     justify-content: space-between;
@@ -1566,14 +1748,14 @@ const initializeWorkExperienceDocumentUpload = () => {
                     border-top-right-radius: 8px;
                 `;
 
-                const fileNameSection = document.createElement('div');
+                const fileNameSection = document.createElement("div");
                 fileNameSection.style.cssText = `
                     display: flex;
                     align-items: center;
                     gap: 8px;
                 `;
 
-                const fileNameSpan = document.createElement('span');
+                const fileNameSpan = document.createElement("span");
                 fileNameSpan.textContent = fileName;
                 fileNameSpan.style.cssText = `
                     color: white;
@@ -1582,8 +1764,8 @@ const initializeWorkExperienceDocumentUpload = () => {
                 `;
                 fileNameSection.appendChild(fileNameSpan);
 
-                const closeButton = document.createElement('button');
-                closeButton.innerHTML = '✕';
+                const closeButton = document.createElement("button");
+                closeButton.innerHTML = "✕";
                 closeButton.style.cssText = `
                     background: none;
                     border: none;
@@ -1600,17 +1782,17 @@ const initializeWorkExperienceDocumentUpload = () => {
                 const closePreview = () => {
                     previewWrapper.remove();
                     overlay.remove();
-                    eyeIcon.classList.remove('preview-active');
+                    eyeIcon.classList.remove("preview-active");
                     eyeIcon.src = "/assets/images/visibility.png";
                 };
 
-                closeButton.addEventListener('click', closePreview);
-                overlay.addEventListener('click', closePreview);
+                closeButton.addEventListener("click", closePreview);
+                overlay.addEventListener("click", closePreview);
 
                 header.appendChild(fileNameSection);
                 header.appendChild(closeButton);
 
-                const imageContainer = document.createElement('div');
+                const imageContainer = document.createElement("div");
                 imageContainer.style.cssText = `
                     width: 100%;
                     height: calc(100% - 40px);
@@ -1624,7 +1806,7 @@ const initializeWorkExperienceDocumentUpload = () => {
                     border-bottom-right-radius: 8px;
                 `;
 
-                const img = document.createElement('img');
+                const img = document.createElement("img");
                 img.src = fileUrl;
                 img.style.cssText = `
                     max-width: 100%;
@@ -1639,16 +1821,18 @@ const initializeWorkExperienceDocumentUpload = () => {
                 document.body.appendChild(overlay);
                 document.body.appendChild(previewWrapper);
 
-                document.addEventListener('keydown', function (e) {
-                    if (e.key === 'Escape') {
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape") {
                         closePreview();
                     }
                 });
 
-                eyeIcon.classList.add('preview-active');
+                eyeIcon.classList.add("preview-active");
                 eyeIcon.src = "/assets/images/close.png";
             } else {
-                alert('Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported.');
+                alert(
+                    "Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported."
+                );
             }
         });
     });
@@ -1658,10 +1842,10 @@ const initializeWorkExperienceDocumentUpload = () => {
 function truncateFileName(fileName) {
     if (fileName.length <= 20) return fileName;
 
-    const extension = fileName.slice(fileName.lastIndexOf('.'));
-    const name = fileName.slice(0, fileName.lastIndexOf('.'));
+    const extension = fileName.slice(fileName.lastIndexOf("."));
+    const name = fileName.slice(0, fileName.lastIndexOf("."));
 
-    return name.slice(0, 16) + '...' + extension;
+    return name.slice(0, 16) + "..." + extension;
 }
 
 // Initialize the document uploads when the page loads
@@ -1669,63 +1853,78 @@ function truncateFileName(fileName) {
 //     initializeWorkExperienceDocumentUpload();
 // });
 
-
-
 //co-borrower document
 const initializeCoBorrowerDocumentUpload = () => {
-    const coBorrowerDocuments = document.querySelectorAll(".individual-coborrower-kyc-documents");
+    const coBorrowerDocuments = document.querySelectorAll(
+        ".individual-coborrower-kyc-documents"
+    );
 
     coBorrowerDocuments.forEach((card) => {
-        const eyeIcon = card.querySelector('.fa-eye');
+        const eyeIcon = card.querySelector(".fa-eye");
 
         if (!eyeIcon) {
             console.error("Eye icon not found in card:", card);
             return;
         }
 
-        eyeIcon.addEventListener('click', function (event) {
+        eyeIcon.addEventListener("click", function (event) {
             event.stopPropagation();
 
             // Determine document type based on which element exists
             let fileTypeKey;
-            if (card.querySelector('.coborrower-pancard')) {
+            if (card.querySelector(".coborrower-pancard")) {
                 fileTypeKey = "co-pan-card-name";
-            } else if (card.querySelector('.coborrower-aadharcard')) {
+            } else if (card.querySelector(".coborrower-aadharcard")) {
                 fileTypeKey = "co-aadhar-card-name";
-            } else if (card.querySelector('.coborrower-addressproof')) {
+            } else if (card.querySelector(".coborrower-addressproof")) {
                 fileTypeKey = "co-addressproof";
             }
 
             // Get the URL from documentUrls
             const fileUrl = documentUrls[fileTypeKey];
-            const fileNameElement = card.querySelector(`.${fileTypeKey.replace('co-', 'coborrower-').replace('-name', '')}`);
-            const fileName = fileNameElement ? fileNameElement.textContent : 'Document.pdf';
+            const fileNameElement = card.querySelector(
+                `.${fileTypeKey
+                    .replace("co-", "coborrower-")
+                    .replace("-name", "")}`
+            );
+            const fileName = fileNameElement
+                ? fileNameElement.textContent
+                : "Document.pdf";
 
-            console.log(`Previewing co-borrower document (${fileTypeKey}):`, fileUrl);
+            console.log(
+                `Previewing co-borrower document (${fileTypeKey}):`,
+                fileUrl
+            );
 
-            if (eyeIcon.classList.contains('preview-active')) {
-                const previewWrapper = document.querySelector('.pdf-preview-wrapper, .image-preview-wrapper');
-                const overlay = document.querySelector('.pdf-preview-overlay, .image-preview-overlay');
+            if (eyeIcon.classList.contains("preview-active")) {
+                const previewWrapper = document.querySelector(
+                    ".pdf-preview-wrapper, .image-preview-wrapper"
+                );
+                const overlay = document.querySelector(
+                    ".pdf-preview-overlay, .image-preview-overlay"
+                );
                 if (previewWrapper) previewWrapper.remove();
                 if (overlay) overlay.remove();
-                eyeIcon.classList.remove('preview-active');
+                eyeIcon.classList.remove("preview-active");
                 eyeIcon.src = "/assets/images/visibility.png";
                 return;
             }
 
             if (!fileUrl) {
-                alert('No document found to preview.');
+                alert("No document found to preview.");
                 return;
             }
 
             // Check if it's a PDF or image based on file extension
-            const isPDF = fileUrl.toLowerCase().endsWith('.pdf');
-            const isImage = ['.jpg', '.jpeg', '.png'].some(ext => fileUrl.toLowerCase().endsWith(ext));
+            const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
+            const isImage = [".jpg", ".jpeg", ".png"].some((ext) =>
+                fileUrl.toLowerCase().endsWith(ext)
+            );
 
             if (isPDF) {
                 // PDF Preview
-                const previewWrapper = document.createElement('div');
-                previewWrapper.className = 'pdf-preview-wrapper';
+                const previewWrapper = document.createElement("div");
+                previewWrapper.className = "pdf-preview-wrapper";
                 previewWrapper.style.cssText = `
                     position: fixed;
                     top: 50%;
@@ -1741,8 +1940,8 @@ const initializeCoBorrowerDocumentUpload = () => {
                     border-radius: 8px;
                 `;
 
-                const overlay = document.createElement('div');
-                overlay.className = 'pdf-preview-overlay';
+                const overlay = document.createElement("div");
+                overlay.className = "pdf-preview-overlay";
                 overlay.style.cssText = `
                     position: fixed;
                     top: 0;
@@ -1753,7 +1952,7 @@ const initializeCoBorrowerDocumentUpload = () => {
                     z-index: 999;
                 `;
 
-                const header = document.createElement('div');
+                const header = document.createElement("div");
                 header.style.cssText = `
                     display: flex;
                     justify-content: space-between;
@@ -1766,14 +1965,14 @@ const initializeCoBorrowerDocumentUpload = () => {
                     border-top-right-radius: 8px;
                 `;
 
-                const fileNameSection = document.createElement('div');
+                const fileNameSection = document.createElement("div");
                 fileNameSection.style.cssText = `
                     display: flex;
                     align-items: center;
                     gap: 8px;
                 `;
 
-                const fileNameSpan = document.createElement('span');
+                const fileNameSpan = document.createElement("span");
                 fileNameSpan.textContent = fileName;
                 fileNameSpan.style.cssText = `
                     color: white;
@@ -1782,7 +1981,7 @@ const initializeCoBorrowerDocumentUpload = () => {
                 `;
                 fileNameSection.appendChild(fileNameSpan);
 
-                const zoomControls = document.createElement('div');
+                const zoomControls = document.createElement("div");
                 zoomControls.style.cssText = `
                     display: flex;
                     align-items: center;
@@ -1792,12 +1991,12 @@ const initializeCoBorrowerDocumentUpload = () => {
                     transform: translateX(-50%);
                 `;
 
-                const zoomOut = document.createElement('button');
-                zoomOut.innerHTML = '−';
-                const zoomIn = document.createElement('button');
-                zoomIn.innerHTML = '+';
+                const zoomOut = document.createElement("button");
+                zoomOut.innerHTML = "−";
+                const zoomIn = document.createElement("button");
+                zoomIn.innerHTML = "+";
 
-                [zoomOut, zoomIn].forEach(btn => {
+                [zoomOut, zoomIn].forEach((btn) => {
                     btn.style.cssText = `
                         background: none;
                         border: 1px solid #fff;
@@ -1816,8 +2015,8 @@ const initializeCoBorrowerDocumentUpload = () => {
                 zoomControls.appendChild(zoomOut);
                 zoomControls.appendChild(zoomIn);
 
-                const closeButton = document.createElement('button');
-                closeButton.innerHTML = '✕';
+                const closeButton = document.createElement("button");
+                closeButton.innerHTML = "✕";
                 closeButton.style.cssText = `
                     background: none;
                     border: none;
@@ -1834,18 +2033,18 @@ const initializeCoBorrowerDocumentUpload = () => {
                 const closePreview = () => {
                     previewWrapper.remove();
                     overlay.remove();
-                    eyeIcon.classList.remove('preview-active');
+                    eyeIcon.classList.remove("preview-active");
                     eyeIcon.src = "/assets/images/visibility.png";
                 };
 
-                closeButton.addEventListener('click', closePreview);
-                overlay.addEventListener('click', closePreview);
+                closeButton.addEventListener("click", closePreview);
+                overlay.addEventListener("click", closePreview);
 
                 header.appendChild(fileNameSection);
                 header.appendChild(zoomControls);
                 header.appendChild(closeButton);
 
-                const iframe = document.createElement('iframe');
+                const iframe = document.createElement("iframe");
                 iframe.src = fileUrl;
                 iframe.style.cssText = `
                     width: 100%;
@@ -1863,30 +2062,30 @@ const initializeCoBorrowerDocumentUpload = () => {
                 document.body.appendChild(previewWrapper);
 
                 let currentZoom = 1;
-                zoomIn.addEventListener('click', () => {
+                zoomIn.addEventListener("click", () => {
                     currentZoom += 0.1;
                     iframe.style.transform = `scale(${currentZoom})`;
-                    iframe.style.transformOrigin = 'top center';
+                    iframe.style.transformOrigin = "top center";
                 });
 
-                zoomOut.addEventListener('click', () => {
+                zoomOut.addEventListener("click", () => {
                     currentZoom = Math.max(currentZoom - 0.1, 0.5);
                     iframe.style.transform = `scale(${currentZoom})`;
-                    iframe.style.transformOrigin = 'top center';
+                    iframe.style.transformOrigin = "top center";
                 });
 
-                document.addEventListener('keydown', function (e) {
-                    if (e.key === 'Escape') {
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape") {
                         closePreview();
                     }
                 });
 
-                eyeIcon.classList.add('preview-active');
+                eyeIcon.classList.add("preview-active");
                 eyeIcon.src = "/assets/images/close.png";
             } else if (isImage) {
                 // Image Preview
-                const previewWrapper = document.createElement('div');
-                previewWrapper.className = 'image-preview-wrapper';
+                const previewWrapper = document.createElement("div");
+                previewWrapper.className = "image-preview-wrapper";
                 previewWrapper.style.cssText = `
                     position: fixed;
                     top: 50%;
@@ -1903,8 +2102,8 @@ const initializeCoBorrowerDocumentUpload = () => {
                     border-radius: 8px;
                 `;
 
-                const overlay = document.createElement('div');
-                overlay.className = 'image-preview-overlay';
+                const overlay = document.createElement("div");
+                overlay.className = "image-preview-overlay";
                 overlay.style.cssText = `
                     position: fixed;
                     top: 0;
@@ -1915,7 +2114,7 @@ const initializeCoBorrowerDocumentUpload = () => {
                     z-index: 999;
                 `;
 
-                const header = document.createElement('div');
+                const header = document.createElement("div");
                 header.style.cssText = `
                     display: flex;
                     justify-content: space-between;
@@ -1928,14 +2127,14 @@ const initializeCoBorrowerDocumentUpload = () => {
                     border-top-right-radius: 8px;
                 `;
 
-                const fileNameSection = document.createElement('div');
+                const fileNameSection = document.createElement("div");
                 fileNameSection.style.cssText = `
                     display: flex;
                     align-items: center;
                     gap: 8px;
                 `;
 
-                const fileNameSpan = document.createElement('span');
+                const fileNameSpan = document.createElement("span");
                 fileNameSpan.textContent = fileName;
                 fileNameSpan.style.cssText = `
                     color: white;
@@ -1944,8 +2143,8 @@ const initializeCoBorrowerDocumentUpload = () => {
                 `;
                 fileNameSection.appendChild(fileNameSpan);
 
-                const closeButton = document.createElement('button');
-                closeButton.innerHTML = '✕';
+                const closeButton = document.createElement("button");
+                closeButton.innerHTML = "✕";
                 closeButton.style.cssText = `
                     background: none;
                     border: none;
@@ -1962,17 +2161,17 @@ const initializeCoBorrowerDocumentUpload = () => {
                 const closePreview = () => {
                     previewWrapper.remove();
                     overlay.remove();
-                    eyeIcon.classList.remove('preview-active');
+                    eyeIcon.classList.remove("preview-active");
                     eyeIcon.src = "/assets/images/visibility.png";
                 };
 
-                closeButton.addEventListener('click', closePreview);
-                overlay.addEventListener('click', closePreview);
+                closeButton.addEventListener("click", closePreview);
+                overlay.addEventListener("click", closePreview);
 
                 header.appendChild(fileNameSection);
                 header.appendChild(closeButton);
 
-                const imageContainer = document.createElement('div');
+                const imageContainer = document.createElement("div");
                 imageContainer.style.cssText = `
                     width: 100%;
                     height: calc(100% - 40px);
@@ -1986,7 +2185,7 @@ const initializeCoBorrowerDocumentUpload = () => {
                     border-bottom-right-radius: 8px;
                 `;
 
-                const img = document.createElement('img');
+                const img = document.createElement("img");
                 img.src = fileUrl;
                 img.style.cssText = `
                     max-width: 100%;
@@ -2001,16 +2200,18 @@ const initializeCoBorrowerDocumentUpload = () => {
                 document.body.appendChild(overlay);
                 document.body.appendChild(previewWrapper);
 
-                document.addEventListener('keydown', function (e) {
-                    if (e.key === 'Escape') {
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape") {
                         closePreview();
                     }
                 });
 
-                eyeIcon.classList.add('preview-active');
+                eyeIcon.classList.add("preview-active");
                 eyeIcon.src = "/assets/images/close.png";
             } else {
-                alert('Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported.');
+                alert(
+                    "Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported."
+                );
             }
         });
     });
@@ -2020,10 +2221,10 @@ const initializeCoBorrowerDocumentUpload = () => {
 function truncateFileName(fileName) {
     if (fileName.length <= 20) return fileName;
 
-    const extension = fileName.slice(fileName.lastIndexOf('.'));
-    const name = fileName.slice(0, fileName.lastIndexOf('.'));
+    const extension = fileName.slice(fileName.lastIndexOf("."));
+    const name = fileName.slice(0, fileName.lastIndexOf("."));
 
-    return name.slice(0, 16) + '...' + extension;
+    return name.slice(0, 16) + "..." + extension;
 }
 
 // Initialize the document uploads when the page loads
@@ -2032,17 +2233,17 @@ function truncateFileName(fileName) {
 // });
 
 function toggleOtherDegreeInput(event) {
-    const otherDegreeInput = document.getElementById('otherDegreeInput');
+    const otherDegreeInput = document.getElementById("otherDegreeInput");
 
     if (event && event.target && event.target.value) {
-        if (event.target.value === 'Others') {
+        if (event.target.value === "Others") {
             otherDegreeInput.disabled = false;
-            otherDegreeInput.placeholder = 'Enter here';
-            otherDegreeInput.value = '';
+            otherDegreeInput.placeholder = "Enter here";
+            otherDegreeInput.value = "";
         } else {
             otherDegreeInput.disabled = true;
             otherDegreeInput.value = event.target.value; // Set the value to Bachelors or Masters
-            otherDegreeInput.placeholder = 'Enter degree type'; // Reset placeholder if needed
+            otherDegreeInput.placeholder = "Enter degree type"; // Reset placeholder if needed
         }
 
         // Trigger the "Save" state on degree type change
@@ -2056,8 +2257,8 @@ const initializeProgressRing = () => {
     const circumference = 2 * Math.PI * radius;
     const percentage = 0.01;
     const offset = circumference * (1 - percentage);
-    const progressRingFill = document.querySelector('.progress-ring-fill');
-    const progressText = document.querySelector('.progress-ring-text');
+    const progressRingFill = document.querySelector(".progress-ring-fill");
+    const progressText = document.querySelector(".progress-ring-text");
 
     progressRingFill.style.strokeDasharray = `${circumference} ${circumference}`;
     progressRingFill.style.strokeDashoffset = offset;
@@ -2065,39 +2266,49 @@ const initializeProgressRing = () => {
 };
 
 const initialisedocumentsCount = () => {
-    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+    const userIdElement = document.querySelector(
+        ".personalinfo-secondrow .personal_info_id"
+    );
 
-    const userId = userIdElement ? userIdElement.textContent : '';
+    const userId = userIdElement ? userIdElement.textContent : "";
 
     fetch("/count-documents", {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content"),
         },
-        body: JSON.stringify({ userId })
+        body: JSON.stringify({ userId }),
     })
         .then((response) => response.json())
         .then((data) => {
             if (data) {
                 console.log(data.documentscount);
-                const documentCountText = document.querySelector(".profilestatus-graph-secondsection .profilestatus-noofdocuments-section p");
+                const documentCountText = document.querySelector(
+                    ".profilestatus-graph-secondsection .profilestatus-noofdocuments-section p"
+                );
                 // if(data.documentscount<10){
-                if (data.documentscount < 10 && data.documentscound >= 0 && documentCountText && data && data.documentscount !== undefined) {
+                if (
+                    data.documentscount < 10 &&
+                    data.documentscound >= 0 &&
+                    documentCountText &&
+                    data &&
+                    data.documentscount !== undefined
+                ) {
                     documentCountText.textContent = "0" + data.documentscount;
-                }
-                else if (data.documentscount < 0) {
+                } else if (data.documentscount < 0) {
                     documentCountText.textContent = "00";
-
-
-                }
-                else if (data.documentscount >= 10 && documentCountText && data && data.documentscount !== undefined) {
+                } else if (
+                    data.documentscount >= 10 &&
+                    documentCountText &&
+                    data &&
+                    data.documentscount !== undefined
+                ) {
                     documentCountText.textContent = data.documentscount;
-
                 } else {
-                    console.error('Element not found or data is invalid');
-
-
+                    console.error("Element not found or data is invalid");
                 }
 
                 // }
@@ -2105,7 +2316,6 @@ const initialisedocumentsCount = () => {
                 // documentCountText.textContent = "0" + data.documentscount;
 
                 // }
-
             } else if (data.error) {
                 console.error(data.error);
             }
@@ -2115,16 +2325,13 @@ const initialisedocumentsCount = () => {
         });
 };
 
-
-
 const triggerSave = (event) => {
     console.log(event);
-
-}
-document.querySelectorAll('input[name="education-level"]').forEach(radio => {
-    radio.addEventListener('change', function () {
-        var otherInput = document.getElementById('otherDegreeInput');
-        if (this.value === 'Others' && this.checked) {
+};
+document.querySelectorAll('input[name="education-level"]').forEach((radio) => {
+    radio.addEventListener("change", function () {
+        var otherInput = document.getElementById("otherDegreeInput");
+        if (this.value === "Others" && this.checked) {
             otherInput.disabled = false;
         } else {
             otherInput.disabled = true;
@@ -2132,26 +2339,33 @@ document.querySelectorAll('input[name="education-level"]').forEach(radio => {
     });
 });
 
-
-
-
-
-
 const saveChangesFunctionality = () => {
     let isEditing = false;
-    const saveChangesButton = document.querySelector(".personalinfo-firstrow button");
-    const savedMsg = document.querySelector(".studentdashboardprofile-myapplication .myapplication-firstcolumn .personalinfo-firstrow .saved-msg");
-    const personalDivContainer = document.querySelector(".personalinfo-secondrow");
-    const personalDivContainerEdit = document.querySelector(".personalinfosecondrow-editsection");
-    const academicsMarksDivEdit = document.querySelector(".testscoreseditsection-secondrow-editsection");
-    const academicsMarksDiv = document.querySelector(".testscoreseditsection-secondrow");
+    const saveChangesButton = document.querySelector(
+        ".personalinfo-firstrow button"
+    );
+    const savedMsg = document.querySelector(
+        ".studentdashboardprofile-myapplication .myapplication-firstcolumn .personalinfo-firstrow .saved-msg"
+    );
+    const personalDivContainer = document.querySelector(
+        ".personalinfo-secondrow"
+    );
+    const personalDivContainerEdit = document.querySelector(
+        ".personalinfosecondrow-editsection"
+    );
+    const academicsMarksDivEdit = document.querySelector(
+        ".testscoreseditsection-secondrow-editsection"
+    );
+    const academicsMarksDiv = document.querySelector(
+        ".testscoreseditsection-secondrow"
+    );
 
     const planToStudy = document.getElementById("plan-to-study-edit");
 
     const toggleSaveState = () => {
         isEditing = true;
 
-        saveChangesButton.textContent = 'Save';
+        saveChangesButton.textContent = "Save";
         saveChangesButton.style.backgroundColor = "rgba(111, 37, 206, 1)";
         saveChangesButton.style.color = "#fff";
 
@@ -2162,19 +2376,17 @@ const saveChangesFunctionality = () => {
     };
 
     if (saveChangesButton) {
-        saveChangesButton.textContent = 'Edit';
+        saveChangesButton.textContent = "Edit";
         saveChangesButton.style.backgroundColor = "transparent";
         saveChangesButton.style.color = "#260254";
 
-        saveChangesButton.addEventListener('click', (event) => {
-
+        saveChangesButton.addEventListener("click", (event) => {
             isEditing = !isEditing;
 
             if (isEditing) {
                 toggleSaveState(); // Call toggleSaveState function when entering edit mode
-            }
-            else {
-                saveChangesButton.textContent = 'Edit';
+            } else {
+                saveChangesButton.textContent = "Edit";
                 saveChangesButton.style.backgroundColor = "transparent";
                 saveChangesButton.style.color = "#260254";
                 personalDivContainer.style.display = "flex";
@@ -2182,57 +2394,106 @@ const saveChangesFunctionality = () => {
                 academicsMarksDivEdit.style.display = "none";
                 academicsMarksDiv.style.display = "flex";
 
-                const editedName = document.querySelector(".personalinfosecondrow-editsection .personal_info_name input").value;
-                const editedPhone = document.querySelector(".personalinfosecondrow-editsection .personal_info_phone input").value;
-                const editedEmail = document.querySelector(".personalinfosecondrow-editsection .personal_info_email input").value;
-                const editedState = document.querySelector(".personalinfosecondrow-editsection .personal_info_state input").value;
-                const iletsScore = document.querySelector(".testscoreseditsection-secondrow-editsection .ilets_score").value;
-                const greScore = document.querySelector(".testscoreseditsection-secondrow-editsection .gre_score").value;
-                const tofelScore = document.querySelector(".testscoreseditsection-secondrow-editsection .tofel_score").value;
+                const editedName = document.querySelector(
+                    ".personalinfosecondrow-editsection .personal_info_name input"
+                ).value;
+                const editedPhone = document.querySelector(
+                    ".personalinfosecondrow-editsection .personal_info_phone input"
+                ).value;
+                const editedEmail = document.querySelector(
+                    ".personalinfosecondrow-editsection .personal_info_email input"
+                ).value;
+                const editedState = document.querySelector(
+                    ".personalinfosecondrow-editsection .personal_info_state input"
+                ).value;
+                const iletsScore = document.querySelector(
+                    ".testscoreseditsection-secondrow-editsection .ilets_score"
+                ).value;
+                const greScore = document.querySelector(
+                    ".testscoreseditsection-secondrow-editsection .gre_score"
+                ).value;
+                const tofelScore = document.querySelector(
+                    ".testscoreseditsection-secondrow-editsection .tofel_score"
+                ).value;
 
                 // Fetch old values of "Plan to Study"
-                const oldPlanToStudy = document.getElementById("plan-to-study-edit").value;
-                const oldPlanToStudyArray = oldPlanToStudy ? oldPlanToStudy.split(',').map(item => item.trim()) : [];
+                const oldPlanToStudy =
+                    document.getElementById("plan-to-study-edit").value;
+                const oldPlanToStudyArray = oldPlanToStudy
+                    ? oldPlanToStudy.split(",").map((item) => item.trim())
+                    : [];
 
                 // Get current values from checkboxes (selected options)
-                const checkboxes = document.querySelectorAll('input[name="study-location-edit"]:checked');
-                let selectedCountries = Array.from(checkboxes).map(checkbox => checkbox.value);
+                const checkboxes = document.querySelectorAll(
+                    'input[name="study-location-edit"]:checked'
+                );
+                let selectedCountries = Array.from(checkboxes).map(
+                    (checkbox) => checkbox.value
+                );
 
                 // Check if there's a custom country input and add it to the selected countries
-                const customCountry = document.getElementById('country-edit').value.trim();
+                const customCountry = document
+                    .getElementById("country-edit")
+                    .value.trim();
                 if (customCountry) {
                     selectedCountries.push(customCountry);
                 }
 
-                selectedCountries = selectedCountries.filter(item => item.toLowerCase() !== 'others');
+                selectedCountries = selectedCountries.filter(
+                    (item) => item.toLowerCase() !== "others"
+                );
 
                 // Filter out 'Others' (case-insensitive) from oldPlanToStudyArray
-                const finalPlanToStudy = oldPlanToStudyArray.filter(item => item.toLowerCase() !== 'others');
+                const finalPlanToStudy = oldPlanToStudyArray.filter(
+                    (item) => item.toLowerCase() !== "others"
+                );
 
                 // Merge old and new arrays, ensuring no duplicates
-                let mergedPlanToStudy = [...new Set([...finalPlanToStudy, ...selectedCountries])];
+                let mergedPlanToStudy = [
+                    ...new Set([...finalPlanToStudy, ...selectedCountries]),
+                ];
 
                 // Filter out 'Others' (case-insensitive) again from the final merged array
-                mergedPlanToStudy = mergedPlanToStudy.filter(item => item.toLowerCase() !== 'other');
+                mergedPlanToStudy = mergedPlanToStudy.filter(
+                    (item) => item.toLowerCase() !== "other"
+                );
 
+                const courseDuration = document.querySelector(
+                    ".myapplication-fourthcolumn-additional input"
+                ).value;
+                const loanAmount = document.querySelector(
+                    ".myapplication-fourthcolumn input"
+                ).value;
+                const referralCode = document.querySelector(
+                    ".myapplication-fifthcolumn input"
+                ).value;
 
+                const userIdElement = document.querySelector(
+                    ".personalinfo-secondrow .personal_info_id"
+                );
+                const userId = userIdElement ? userIdElement.textContent : "";
 
-                const courseDuration = document.querySelector(".myapplication-fourthcolumn-additional input").value;
-                const loanAmount = document.querySelector(".myapplication-fourthcolumn input").value;
-                const referralCode = document.querySelector(".myapplication-fifthcolumn input").value;
+                console.log(
+                    editedName,
+                    editedPhone,
+                    editedEmail,
+                    editedState,
+                    userId
+                );
 
-                const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-                const userId = userIdElement ? userIdElement.textContent : '';
+                const selectedDegree = document.querySelector(
+                    'input[name="education-level"]:checked'
+                ).value;
+                const otherDegreeInput =
+                    document.getElementById("otherDegreeInput").value;
 
-                console.log(editedName, editedPhone, editedEmail, editedState, userId);
-
-                const selectedDegree = document.querySelector('input[name="education-level"]:checked').value;
-                const otherDegreeInput = document.getElementById('otherDegreeInput').value;
-
-                const updatedDegreeType = selectedDegree === 'Others' ? otherDegreeInput : selectedDegree;
+                const updatedDegreeType =
+                    selectedDegree === "Others"
+                        ? otherDegreeInput
+                        : selectedDegree;
 
                 const updatedData = {
-                    degreeType: updatedDegreeType
+                    degreeType: updatedDegreeType,
                 };
 
                 // Updated data object, including the merged "Plan to Study" values
@@ -2244,83 +2505,96 @@ const saveChangesFunctionality = () => {
                     iletsScore: iletsScore,
                     greScore: greScore,
                     tofelScore: tofelScore,
-                    planToStudy: mergedPlanToStudy,  // Final merged old and new values
+                    planToStudy: mergedPlanToStudy, // Final merged old and new values
                     courseDuration: courseDuration,
                     loanAmount: loanAmount,
                     referralCode: referralCode,
                     degreeType: updatedData.degreeType,
-                    userId: userId
+                    userId: userId,
                 };
 
                 console.log(updatedInfos);
 
-
-
-
-                fetch('/from-profileupdate', {
+                fetch("/from-profileupdate", {
                     method: "POST",
                     headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document
+                            .querySelector('meta[name="csrf-token"]')
+                            .getAttribute("content"),
                     },
-                    body: JSON.stringify(updatedInfos)
+                    body: JSON.stringify(updatedInfos),
                 })
-                    .then(response => response.json())
-                    .then(data => {
+                    .then((response) => response.json())
+                    .then((data) => {
                         console.log("Response Data:", data);
                         if (editedName) {
-                            document.querySelector("#referenceNameId p").textContent = editedName;
-                            document.getElementById("personal_state_id").textContent = editedState;
+                            document.querySelector(
+                                "#referenceNameId p"
+                            ).textContent = editedName;
+                            document.getElementById(
+                                "personal_state_id"
+                            ).textContent = editedState;
                         }
 
                         if (data.errors) {
-                            console.error('Validation errors:', data.errors);
+                            console.error("Validation errors:", data.errors);
                         } else {
                             console.log("Success", data);
                         }
                     })
-                    .catch(error => {
+                    .catch((error) => {
                         console.error("Error", error);
                     });
             }
         });
     }
 
-    const degreeRadioButtons = document.querySelectorAll('input[name="education-level"]');
-    degreeRadioButtons.forEach(button => {
-        button.addEventListener('change', toggleSaveState);
+    const degreeRadioButtons = document.querySelectorAll(
+        'input[name="education-level"]'
+    );
+    degreeRadioButtons.forEach((button) => {
+        button.addEventListener("change", toggleSaveState);
     });
 };
 
 //chat functionality
 
-
-
 function initializeSimpleChat() {
     // Select all chat containers
-    const chatContainers = document.querySelectorAll('.individual-bankmessage-input');
-    
+    const chatContainers = document.querySelectorAll(
+        ".individual-bankmessage-input"
+    );
+
     if (chatContainers.length === 0) return;
-    
+
     chatContainers.forEach((chatContainer, index) => {
         // Create unique identifier for this chat instance
         const chatId = `loan-chat-${index}`;
-        chatContainer.setAttribute('data-chat-id', chatId);
-        
+        chatContainer.setAttribute("data-chat-id", chatId);
+
         // Find parent container
-        const parentContainer = chatContainer.closest('.indivudalloanstatus-cards');
-        const messageButton = parentContainer ? parentContainer.querySelector('.triggeredbutton') : null;
-        
+        const parentContainer = chatContainer.closest(
+            ".indivudalloanstatus-cards"
+        );
+        const messageButton = parentContainer
+            ? parentContainer.querySelector(".triggeredbutton")
+            : null;
+
         // Hide chat input by default
-        chatContainer.style.display = 'none';
-        
+        chatContainer.style.display = "none";
+
         // Create messages wrapper if it doesn't exist
-        let messagesWrapper = parentContainer ? parentContainer.querySelector(`.messages-wrapper[data-chat-id="${chatId}"]`) : null;
-        
+        let messagesWrapper = parentContainer
+            ? parentContainer.querySelector(
+                  `.messages-wrapper[data-chat-id="${chatId}"]`
+              )
+            : null;
+
         if (!messagesWrapper) {
             messagesWrapper = document.createElement("div");
             messagesWrapper.classList.add("messages-wrapper");
-            messagesWrapper.setAttribute('data-chat-id', chatId);
+            messagesWrapper.setAttribute("data-chat-id", chatId);
             messagesWrapper.style.cssText = `
                 display: none;
                 flex-direction: column;
@@ -2334,9 +2608,12 @@ function initializeSimpleChat() {
                 font-family: 'Poppins', sans-serif;
                 margin-bottom: 10px;
             `;
-            chatContainer.parentNode.insertBefore(messagesWrapper, chatContainer);
+            chatContainer.parentNode.insertBefore(
+                messagesWrapper,
+                chatContainer
+            );
         }
-        
+
         // Create clear button
         const clearButtonContainer = document.createElement("div");
         clearButtonContainer.style.cssText = `
@@ -2345,7 +2622,7 @@ function initializeSimpleChat() {
             width: 100%;
             margin-bottom: 10px;
         `;
-        
+
         const clearButton = document.createElement("button");
         clearButton.textContent = "Clear Chat";
         clearButton.style.cssText = `
@@ -2358,92 +2635,104 @@ function initializeSimpleChat() {
             cursor: pointer;
             font-family: 'Poppins', sans-serif;
         `;
-        clearButton.addEventListener('click', function() {
+        clearButton.addEventListener("click", function () {
             clearChat(chatId);
         });
-        
+
         clearButtonContainer.appendChild(clearButton);
-        messagesWrapper.parentNode.insertBefore(clearButtonContainer, messagesWrapper);
-        
+        messagesWrapper.parentNode.insertBefore(
+            clearButtonContainer,
+            messagesWrapper
+        );
+
         // Get elements within the container
         const messageInput = chatContainer.querySelector("input[type='text']");
         const sendButton = chatContainer.querySelector(".send-img");
         const smileIcon = chatContainer.querySelector(".fa-face-smile");
         const paperclipIcon = chatContainer.querySelector(".fa-paperclip");
-        
+
         // Object to store file references
         const fileStorage = {};
-        
+
         // Function to show chat
         function showChat() {
-            messagesWrapper.style.display = 'flex';
-            chatContainer.style.display = 'flex';
-            clearButtonContainer.style.display = 'flex';
-            
+            messagesWrapper.style.display = "flex";
+            chatContainer.style.display = "flex";
+            clearButtonContainer.style.display = "flex";
+
             // Adjust parent container height if needed
             if (parentContainer) {
                 parentContainer.style.height = "auto";
             }
-            
+
             // Update button text if needed
             if (messageButton) {
                 messageButton.textContent = "Close";
             }
         }
-        
+
         // Function to hide chat
         function hideChat() {
-            messagesWrapper.style.display = 'none';
-            chatContainer.style.display = 'none';
-            clearButtonContainer.style.display = 'none';
-            
+            messagesWrapper.style.display = "none";
+            chatContainer.style.display = "none";
+            clearButtonContainer.style.display = "none";
+
             // Reset parent container height if needed
             if (parentContainer) {
                 parentContainer.style.height = "95px";
             }
-            
+
             // Update button text if needed
             if (messageButton) {
                 messageButton.textContent = "Message";
             }
         }
-        
+
         // Function to remove a specific message
         function removeMessage(messageElement, messageId) {
             if (messageElement && messagesWrapper.contains(messageElement)) {
                 messagesWrapper.removeChild(messageElement);
-                
+
                 // Remove from localStorage if needed
-                const messages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
-                const fileMessages = JSON.parse(localStorage.getItem(`file-messages-${chatId}`) || '[]');
-                
+                const messages = JSON.parse(
+                    localStorage.getItem(`messages-${chatId}`) || "[]"
+                );
+                const fileMessages = JSON.parse(
+                    localStorage.getItem(`file-messages-${chatId}`) || "[]"
+                );
+
                 // Remove file from storage
                 if (messageId && fileStorage[messageId]) {
                     delete fileStorage[messageId];
-                    
+
                     // Remove from file messages storage
-                    const updatedFileMessages = fileMessages.filter(fm => fm.id !== messageId);
-                    localStorage.setItem(`file-messages-${chatId}`, JSON.stringify(updatedFileMessages));
+                    const updatedFileMessages = fileMessages.filter(
+                        (fm) => fm.id !== messageId
+                    );
+                    localStorage.setItem(
+                        `file-messages-${chatId}`,
+                        JSON.stringify(updatedFileMessages)
+                    );
                 }
             }
         }
-        
+
         // Function to clear chat
         function clearChat(chatId) {
             // Clear messages from UI
             while (messagesWrapper.firstChild) {
                 messagesWrapper.removeChild(messagesWrapper.firstChild);
             }
-            
+
             // Clear from localStorage
             localStorage.removeItem(`messages-${chatId}`);
             localStorage.removeItem(`file-messages-${chatId}`);
-            
+
             // Clear file storage
-            Object.keys(fileStorage).forEach(key => {
+            Object.keys(fileStorage).forEach((key) => {
                 delete fileStorage[key];
             });
-            
+
             // Show confirmation message
             const confirmationMsg = document.createElement("div");
             confirmationMsg.style.cssText = `
@@ -2456,7 +2745,7 @@ function initializeSimpleChat() {
             `;
             confirmationMsg.textContent = "Chat history cleared";
             messagesWrapper.appendChild(confirmationMsg);
-            
+
             // Remove confirmation after 3 seconds
             setTimeout(() => {
                 if (messagesWrapper.contains(confirmationMsg)) {
@@ -2464,32 +2753,32 @@ function initializeSimpleChat() {
                 }
             }, 3000);
         }
-        
+
         // Toggle chat visibility
         function toggleChat() {
-            if (messagesWrapper.style.display === 'none') {
+            if (messagesWrapper.style.display === "none") {
                 showChat();
             } else {
                 hideChat();
             }
         }
-        
+
         // Add click event to message button
         if (messageButton) {
-            messageButton.addEventListener('click', function(e) {
+            messageButton.addEventListener("click", function (e) {
                 e.preventDefault();
                 toggleChat();
             });
         }
-        
+
         // Send message function
         function sendMessage() {
             if (!messageInput) return;
-            
+
             const content = messageInput.value.trim();
             if (content) {
                 showChat(); // Show chat when sending message
-                
+
                 // Create message element
                 const messageElement = document.createElement("div");
                 messageElement.style.cssText = `
@@ -2498,7 +2787,7 @@ function initializeSimpleChat() {
                     width: 100%;
                     margin-bottom: 10px;
                 `;
-                
+
                 const messageContent = document.createElement("div");
                 messageContent.style.cssText = `
                     max-width: 80%;
@@ -2508,49 +2797,49 @@ function initializeSimpleChat() {
                     font-family: 'Poppins', sans-serif;
                 `;
                 messageContent.textContent = content;
-                
+
                 messageElement.appendChild(messageContent);
                 messagesWrapper.appendChild(messageElement);
-                
+
                 // Clear input and scroll to bottom
                 messageInput.value = "";
                 messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
-                
+
                 // Save message
                 saveMessage(content, chatId);
             }
         }
-        
+
         // Event listeners for input
         if (messageInput) {
-            messageInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
+            messageInput.addEventListener("keypress", function (e) {
+                if (e.key === "Enter") {
                     e.preventDefault();
                     sendMessage();
                 }
             });
         }
-        
+
         // Add click event to send button
         if (sendButton) {
-            sendButton.addEventListener('click', function(e) {
+            sendButton.addEventListener("click", function (e) {
                 e.preventDefault();
                 sendMessage();
             });
         }
-        
+
         // Initialize emoji picker
         if (smileIcon) {
-            smileIcon.addEventListener('click', function(e) {
+            smileIcon.addEventListener("click", function (e) {
                 e.stopPropagation();
                 const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
-                
+
                 const existingPicker = document.querySelector(".emoji-picker");
                 if (existingPicker) {
                     existingPicker.remove();
                     return;
                 }
-                
+
                 const picker = document.createElement("div");
                 picker.classList.add("emoji-picker");
                 picker.style.cssText = `
@@ -2567,8 +2856,8 @@ function initializeSimpleChat() {
                     z-index: 1000;
                     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
                 `;
-                
-                emojis.forEach(emoji => {
+
+                emojis.forEach((emoji) => {
                     const button = document.createElement("button");
                     button.textContent = emoji;
                     button.style.cssText = `
@@ -2586,9 +2875,9 @@ function initializeSimpleChat() {
                     };
                     picker.appendChild(button);
                 });
-                
+
                 chatContainer.appendChild(picker);
-                
+
                 document.addEventListener("click", function closePicker(e) {
                     if (!picker.contains(e.target) && e.target !== smileIcon) {
                         picker.remove();
@@ -2597,36 +2886,38 @@ function initializeSimpleChat() {
                 });
             });
         }
-        
+
         // Initialize file attachment
         if (paperclipIcon) {
-            paperclipIcon.addEventListener('click', function() {
+            paperclipIcon.addEventListener("click", function () {
                 const fileInput = document.createElement("input");
                 fileInput.type = "file";
                 fileInput.accept = ".pdf,.jpeg,.png,.jpg";
                 fileInput.style.display = "none";
-                
+
                 fileInput.onchange = (e) => {
                     const file = e.target.files[0];
                     if (file) {
                         showChat();
                         const fileName = file.name;
                         const fileSize = (file.size / 1024 / 1024).toFixed(2);
-                        const fileId = `file-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-                        
+                        const fileId = `file-${Date.now()}-${Math.random()
+                            .toString(36)
+                            .substr(2, 9)}`;
+
                         // Store file reference for later download
                         fileStorage[fileId] = file;
-                        
+
                         // Create message element
                         const messageElement = document.createElement("div");
-                        messageElement.setAttribute('data-file-id', fileId);
+                        messageElement.setAttribute("data-file-id", fileId);
                         messageElement.style.cssText = `
                             display: flex;
                             justify-content: flex-end;
                             width: 100%;
                             margin-bottom: 10px;
                         `;
-                        
+
                         const fileContent = document.createElement("div");
                         fileContent.style.cssText = `
                             max-width: 80%;
@@ -2637,7 +2928,7 @@ function initializeSimpleChat() {
                             gap: 8px;
                             position: relative;
                         `;
-                        
+
                         // Create download link for the file
                         const downloadLink = document.createElement("a");
                         downloadLink.href = "#";
@@ -2652,12 +2943,14 @@ function initializeSimpleChat() {
                             <i class="fa-solid fa-file"></i>
                             <span>${fileName} (${fileSize} MB)</span>
                         `;
-                        downloadLink.addEventListener('click', function(e) {
+                        downloadLink.addEventListener("click", function (e) {
                             e.preventDefault();
                             e.stopPropagation();
-                            
+
                             // Create download link for the file
-                            const url = URL.createObjectURL(fileStorage[fileId]);
+                            const url = URL.createObjectURL(
+                                fileStorage[fileId]
+                            );
                             const tempLink = document.createElement("a");
                             tempLink.href = url;
                             tempLink.download = fileName;
@@ -2666,7 +2959,7 @@ function initializeSimpleChat() {
                             document.body.removeChild(tempLink);
                             URL.revokeObjectURL(url);
                         });
-                        
+
                         // Create remove button
                         const removeButton = document.createElement("button");
                         removeButton.innerHTML = `<i class="fa-solid fa-times"></i>`;
@@ -2679,38 +2972,43 @@ function initializeSimpleChat() {
                             padding: 2px 5px;
                             margin-left: 5px;
                         `;
-                        removeButton.addEventListener('click', function(e) {
+                        removeButton.addEventListener("click", function (e) {
                             e.preventDefault();
                             e.stopPropagation();
                             removeMessage(messageElement, fileId);
                         });
-                        
+
                         fileContent.appendChild(downloadLink);
                         fileContent.appendChild(removeButton);
                         messageElement.appendChild(fileContent);
                         messagesWrapper.appendChild(messageElement);
-                        messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
-                        
+                        messagesWrapper.scrollTop =
+                            messagesWrapper.scrollHeight;
+
                         // Save file message with ID
-                        saveFileMessage({
-                            id: fileId,
-                            name: fileName,
-                            size: fileSize
-                        }, chatId);
+                        saveFileMessage(
+                            {
+                                id: fileId,
+                                name: fileName,
+                                size: fileSize,
+                            },
+                            chatId
+                        );
                     }
                 };
-                
+
                 document.body.appendChild(fileInput);
                 fileInput.click();
                 document.body.removeChild(fileInput);
             });
         }
-        
-        
+
         // Load saved messages
-        const savedMessages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
+        const savedMessages = JSON.parse(
+            localStorage.getItem(`messages-${chatId}`) || "[]"
+        );
         if (savedMessages.length > 0) {
-            savedMessages.forEach(content => {
+            savedMessages.forEach((content) => {
                 const messageElement = document.createElement("div");
                 messageElement.style.cssText = `
                     display: flex;
@@ -2718,7 +3016,7 @@ function initializeSimpleChat() {
                     width: 100%;
                     margin-bottom: 10px;
                 `;
-                
+
                 const messageContent = document.createElement("div");
                 messageContent.style.cssText = `
                     max-width: 80%;
@@ -2729,7 +3027,7 @@ function initializeSimpleChat() {
                     font-family: 'Poppins', sans-serif;
                 `;
                 messageContent.textContent = content;
-                
+
                 messageElement.appendChild(messageContent);
                 messagesWrapper.appendChild(messageElement);
             });
@@ -2738,32 +3036,43 @@ function initializeSimpleChat() {
 }
 
 function saveMessage(content, chatId) {
-    const messages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
+    const messages = JSON.parse(
+        localStorage.getItem(`messages-${chatId}`) || "[]"
+    );
     messages.push(content);
     localStorage.setItem(`messages-${chatId}`, JSON.stringify(messages));
 }
 
 // Initialize the chat when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function () {
     initializeSimpleChat();
 });
 
 // Add this function to properly save file messages
 function saveFileMessage(fileData, chatId) {
-    const fileMessages = JSON.parse(localStorage.getItem(`file-messages-${chatId}`) || '[]');
+    const fileMessages = JSON.parse(
+        localStorage.getItem(`file-messages-${chatId}`) || "[]"
+    );
     fileMessages.push(fileData);
-    localStorage.setItem(`file-messages-${chatId}`, JSON.stringify(fileMessages));
+    localStorage.setItem(
+        `file-messages-${chatId}`,
+        JSON.stringify(fileMessages)
+    );
 }
 
 // Modify the load saved messages section in initializeSimpleChat() function
 // Replace the existing "Load saved messages" section with this:
 function loadSavedMessages() {
     // Load text messages
-    const savedMessages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
-    
+    const savedMessages = JSON.parse(
+        localStorage.getItem(`messages-${chatId}`) || "[]"
+    );
+
     // Load file messages
-    const savedFileMessages = JSON.parse(localStorage.getItem(`file-messages-${chatId}`) || '[]');
-    
+    const savedFileMessages = JSON.parse(
+        localStorage.getItem(`file-messages-${chatId}`) || "[]"
+    );
+
     // If there are any saved messages, we'll automatically show the chat area
     if (savedMessages.length > 0 || savedFileMessages.length > 0) {
         // Don't actually show the chat yet, just prepare to show it if user clicks
@@ -2771,10 +3080,10 @@ function loadSavedMessages() {
             messageButton.textContent = "Message";
         }
     }
-    
+
     // Add text messages to UI
     if (savedMessages.length > 0) {
-        savedMessages.forEach(content => {
+        savedMessages.forEach((content) => {
             const messageElement = document.createElement("div");
             messageElement.style.cssText = `
                 display: flex;
@@ -2782,7 +3091,7 @@ function loadSavedMessages() {
                 width: 100%;
                 margin-bottom: 10px;
             `;
-            
+
             const messageContent = document.createElement("div");
             messageContent.style.cssText = `
                 max-width: 80%;
@@ -2792,24 +3101,24 @@ function loadSavedMessages() {
                 font-family: 'Poppins', sans-serif;
             `;
             messageContent.textContent = content;
-            
+
             messageElement.appendChild(messageContent);
             messagesWrapper.appendChild(messageElement);
         });
     }
-    
+
     // Add file messages to UI
     if (savedFileMessages.length > 0) {
-        savedFileMessages.forEach(fileData => {
+        savedFileMessages.forEach((fileData) => {
             const messageElement = document.createElement("div");
-            messageElement.setAttribute('data-file-id', fileData.id);
+            messageElement.setAttribute("data-file-id", fileData.id);
             messageElement.style.cssText = `
                 display: flex;
                 justify-content: flex-end;
                 width: 100%;
                 margin-bottom: 10px;
             `;
-            
+
             const fileContent = document.createElement("div");
             fileContent.style.cssText = `
                 max-width: 80%;
@@ -2820,7 +3129,7 @@ function loadSavedMessages() {
                 gap: 8px;
                 position: relative;
             `;
-            
+
             // Create download link for the file
             const downloadLink = document.createElement("a");
             downloadLink.href = "#";
@@ -2835,14 +3144,16 @@ function loadSavedMessages() {
                 <i class="fa-solid fa-file"></i>
                 <span>${fileData.name} (${fileData.size} MB)</span>
             `;
-            downloadLink.addEventListener('click', function(e) {
+            downloadLink.addEventListener("click", function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-                
+
                 // Alert user that the file needs to be re-uploaded after page refresh
-                alert("File attachments cannot be retrieved after page refresh. Please re-upload the file if needed.");
+                alert(
+                    "File attachments cannot be retrieved after page refresh. Please re-upload the file if needed."
+                );
             });
-            
+
             // Create remove button
             const removeButton = document.createElement("button");
             removeButton.innerHTML = `<i class="fa-solid fa-times"></i>`;
@@ -2855,12 +3166,12 @@ function loadSavedMessages() {
                 padding: 2px 5px;
                 margin-left: 5px;
             `;
-            removeButton.addEventListener('click', function(e) {
+            removeButton.addEventListener("click", function (e) {
                 e.preventDefault();
                 e.stopPropagation();
                 removeMessage(messageElement, fileData.id);
             });
-            
+
             fileContent.appendChild(downloadLink);
             fileContent.appendChild(removeButton);
             messageElement.appendChild(fileContent);

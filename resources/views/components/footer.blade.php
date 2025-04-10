@@ -23,7 +23,7 @@
 
         .footer-section {
             width: 100%;
-            background-image: url('assets/images/foooter-image.png');
+            background-image: url("../../assets/images/foooter-image.png");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -279,12 +279,8 @@
             font-size: 18px;
             font-weight: 400;
             margin-bottom: 24px;
-            color: #E6E5E6;
-            
-             font-family: 'Glacial Indifference', sans-serif;
-
-
-
+            color: #E6E5E6; 
+            font-family: 'Glacial Indifference', sans-serif;
         }
 
         .footer-column a {
