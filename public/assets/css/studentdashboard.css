@@ -201,6 +201,7 @@ input[type="file"] {
     border-radius: 6px;
     position: relative;
     height: 122px;
+    width: 100%;
 
 }
 
