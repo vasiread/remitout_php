@@ -98,14 +98,14 @@
                 });
 
                 // Close menu when clicking outside
-                document.addEventListener('click', function (e) {
-                    if (mobileNav.classList.contains('show') &&
-                        !mobileNav.contains(e.target) &&
-                        !mobileMenuBtn.contains(e.target)) {
-                        mobileNav.classList.remove('show');
-                        mobileMenuBtn.classList.remove('open');
-                    }
-                });
+                // document.addEventListener('click', function (e) {
+                //     if (mobileNav.classList.contains('show') &&
+                //         !mobileNav.contains(e.target) &&
+                //         !mobileMenuBtn.contains(e.target)) {
+                //         mobileNav.classList.remove('show');
+                //         mobileMenuBtn.classList.remove('open');
+                //     }
+                // });
 
                 // Ensure menu links are properly clickable
                 if (mobileNav) {

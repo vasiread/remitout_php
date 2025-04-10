@@ -1,4 +1,7 @@
+
 document.addEventListener('DOMContentLoaded', function () {
+
+
     bankListedThroughNBFC();
     initializeIndividualCards();
     initializeKycDocumentUpload();
@@ -10,11 +13,24 @@ document.addEventListener('DOMContentLoaded', function () {
     initialiseProfileView();
 
 
+
+
+
     initialiseSeventhcolumn();
     initialiseSeventhAdditionalColumn();
     initialiseEightcolumn();
     initialiseNinthcolumn();
     initialiseTenthcolumn();
+
+
+    // setTimeout(() => {
+    //     console.log("Calling fetchUnreadCount every 3 seconds");
+    //     try {
+    //         unReadDots();
+    //     } catch (err) {
+    //         console.error("fetchUnreadCount failed in setInterval:", err);
+    //     }
+    // }, 5000);
     initialiseAllViews()
         .then(() => {
             console.log("All URLs fetched successfully!");
@@ -22,9 +38,19 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch((error) => {
             console.error("Error during initialization:", error);
         });
+    markAsRead();
+    const sessionLogout = document.querySelector(".logoutBtn");
+    sessionLogout.addEventListener('click', () => {
+
+        sessionLogoutInitial();
+
+    })
+
     const courseDetailsElement = document.getElementById('course-details-container');
     const courseDetails = JSON.parse(courseDetailsElement.getAttribute('data-course-details'));
-    const personalDetails = JSON.parse(courseDetailsElement.getAttribute('data-personal-details'));
+    // const personalDetails = JSON.parse(courseDetailsElement.getAttribute('data-personal-details'));
+    // const acceptTriggers = document.querySelectorAll(".user-accept-trigger");
+    // const rejectTriggers = document.querySelectorAll(".bankmessage-buttoncontainer-reject");
 
     let planToStudy = courseDetails[0]['plan-to-study'].replace(/[\[\]"]/g, '');
     let selectedCountries = planToStudy.split(/\s*,\s*/);
@@ -60,7 +86,14 @@ document.addEventListener('DOMContentLoaded', function () {
         sendDocumenttoEmail();
     });
 
-
+    setInterval(() => {
+        console.log("Calling fetchUnreadCount every 3 seconds");
+        try {
+            fetchUnreadCount();
+        } catch (err) {
+            console.error("fetchUnreadCount failed in setInterval:", err);
+        }
+    }, 3000);
 
 
 });
@@ -97,6 +130,9 @@ const initializeSideBarTabs = () => {
                 profileImgEditIcon.style.display = "none";
                 educationEditSection.style.display = "none";
                 testScoresEditSection.style.display = "none";
+
+
+                
 
 
                 individualCards.forEach((card) => {
@@ -141,7 +177,7 @@ const initializeSideBarTabs = () => {
                 dynamicHeader.textContent = "Loan Proposals";
             } else if (index === 2) {
                 console.log('My Application tab selected');
-               
+
                 lastTabHiddenDiv.style.display = "none";
                 lastTabVisibleDiv.style.display = "flex";
                 communityJoinCard.style.display = "none";
@@ -516,6 +552,7 @@ const initializeIndividualCards = () => {
             triggeredMessageButton.addEventListener('click', () => {
                 const isExpanded = card.style.height === "95px";
                 console.log(triggeredMessageButton)
+                console.log("-=-=-=-=-=-=-=-=-=-=-=")
 
 
                 individualCards.forEach((otherCard) => {
@@ -1739,131 +1776,113 @@ const initializeWorkExperienceDocumentUpload = () => {
 };
 const bankListedThroughNBFC = async () => {
 
-
+    // console.log("_______")
 
     const nbfcContainer = document.querySelector(".loanproposals-loanstatuscards");
 
     if (nbfcContainer) {
-        const nbfcNames = nbfcContainer.querySelectorAll(".indivudalloanstatus-cards .individual-bankname h1");
+        // consle.log("______")
 
-        fetch("/getnbfcdata", {
-            method: "GET",
+        const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+        const userId = userIdElement ? userIdElement.textContent : '';
+
+        fetch("/getnbfcdata-proposals", {
+            method: "POST",
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
+            body: JSON.stringify({ userId })
         })
             .then(response => response.json())
             .then(async data => {
                 if (data.success) {
-                    console.log("Data retrieved successfully");
-                    const container = document.querySelector(".loanproposals-loanstatuscards");
-
-                    console.log(data);
-                    const finalData = data.receivedData;
-
-                    finalData.forEach((items, index) => {
-                        const eachCards = document.createElement('div');
-                        eachCards.classList.add("indivudalloanstatus-cards");
+                    console.log(data)
+                    const finalData = data.result;
 
 
-                        const insideCard = document.createElement('div');
-                        insideCard.classList.add("individual-bankname");
-                        const header = document.createElement("h1");
-                        const messageInputNbfcids = document.createElement("p");
-                        messageInputNbfcids.classList.add("messageinputnbfcids");
-                        messageInputNbfcids.textContent = items.nbfc_id;
+                    // if (!finalData) {
+                    //     const noDataMessage = document.createElement("p");
+                    //     noDataMessage.textContent = "No Proposals Yet";
+                    //     noDataMessage.classList.add("no-proposals-message");
+                    //     nbfcContainer.append(noDataMessage);
+                    //     return;
+                    // }
 
 
 
-                        header.textContent = items.nbfc_name;
-                        insideCard.append(header, messageInputNbfcids);
+                    if (finalData) {
+                        finalData.forEach(async (items) => {
+                            const eachCards = document.createElement('div');
+                            eachCards.classList.add("indivudalloanstatus-cards");
+
+                            const insideCard = document.createElement('div');
+                            insideCard.classList.add("individual-bankname");
+
+                            const header = document.createElement("h1");
+                            header.textContent = items.nbfc_name;
+
+                            const messageInputNbfcids = document.createElement("p");
+                            messageInputNbfcids.classList.add("messageinputnbfcids");
+                            messageInputNbfcids.textContent = items.nbfc_id;
 
 
+                            const fourthButton = document.createElement("button");
+                            fourthButton.textContent = "Message";
+                            fourthButton.classList.add("triggeredbutton");
 
-                        const insideSecond = document.createElement("div");
-                        insideSecond.classList.add("individual-bankmessages");
-                        const buttonContainer = document.createElement("div");
-                        buttonContainer.classList.add('individual-bankmessages-buttoncontainer');
-
-
-
-
-
-
-                        const firstButton = document.createElement("button");
-                        const secondButton = document.createElement("button");
-                        const thirdButton = document.createElement("button");
-                        const fourthButton = document.createElement("button");
-
-
-
-                        firstButton.textContent = "View";
-                        secondButton.textContent = "Accept";
-                        thirdButton.textContent = "Reject";
-                        thirdButton.classList.add("bankmessage-buttoncontainer-reject");
-
-
-                        fourthButton.textContent = "Message";
-                        fourthButton.classList.add("triggeredbutton");
-
-                        const bankMessage = document.createElement("p");
-                        bankMessage.textContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut";
-                        insideSecond.append(bankMessage);
-                        buttonContainer.append(firstButton, secondButton, thirdButton)
-                        insideSecond.append(buttonContainer, fourthButton);
-
-
-                        const bankMessageContainer = document.createElement("div");
-
-                        bankMessageContainer.classList.add("individual-bankmessage-input");
-
-                        const messageInput = document.createElement("input");
-                        messageInput.placeholder = "Send message";
-                        messageInput.type = "text";
-
-                        const sendIcon = document.createElement("img");
-                        sendIcon.classList.add("send-img");
-                        sendIcon.src = 'assets/images/send.png';
-
-                        const documentAttach = document.createElement("i");
-                        const smileAttach = document.createElement("i");
-
-                        documentAttach.classList.add("fa-solid", "fa-paperclip");
-                        smileAttach.classList.add("fa-regular", "fa-face-smile");
-
-
-                        bankMessageContainer.append(messageInput, sendIcon, documentAttach, smileAttach);
+                            insideCard.append(header, messageInputNbfcids);
 
 
 
 
 
+                            const insideSecond = document.createElement("div");
+                            insideSecond.classList.add("individual-bankmessages");
 
+                            const bankMessage = document.createElement("p");
+                            bankMessage.textContent = "Lorem ipsum dolor sit amet...";
+                            insideSecond.append(bankMessage);
 
-                        eachCards.append(insideCard);
-                        eachCards.append(insideSecond);
-                        eachCards.append(bankMessageContainer);
-
-
-
-
-
-                        container.append(eachCards);
+                            await fetchStatus(items.nbfc_id, insideSecond,items,fourthButton);
 
 
 
 
-                    })
+                            const buttonContainer = document.createElement("div");
+                            buttonContainer.classList.add('individual-bankmessages-buttoncontainer');
+                            const bankMessageContainer = document.createElement("div");
+                            bankMessageContainer.classList.add("individual-bankmessage-input");
+
+                            const messageInput = document.createElement("input");
+                            messageInput.placeholder = "Send message";
+                            messageInput.type = "text";
+
+                            const sendIcon = document.createElement("img");
+                            sendIcon.classList.add("send-img");
+                            sendIcon.src = 'assets/images/send.png';
+
+                            const documentAttach = document.createElement("i");
+                            documentAttach.classList.add("fa-solid", "fa-paperclip");
+
+                            const smileAttach = document.createElement("i");
+                            smileAttach.classList.add("fa-regular", "fa-face-smile");
+
+                            bankMessageContainer.append(messageInput, sendIcon, documentAttach, smileAttach);
+
+                            eachCards.append(insideCard, insideSecond, bankMessageContainer);
+                            nbfcContainer.append(eachCards);
+                        });
+
+                        // bindAcceptRejectButtons(finalData);
+
+                    }
+
+                     
 
                     await initializeSideBarTabs();
                     await initializeIndividualCards();
                     await initializeSimpleChat();
-
-
-
-
-
 
                 } else if (data.error) {
                     console.error("Error: ", data.error);
@@ -1873,6 +1892,7 @@ const bankListedThroughNBFC = async () => {
                 console.error("Error caused in server: ", error);
             });
     }
+
 };
 
 // Helper function to truncate file names
@@ -2285,7 +2305,7 @@ const initializeCoBorrowerDocumentUpload = () => {
                         document.body.appendChild(overlay);
                         document.body.appendChild(previewWrapper);
 
-                         document.addEventListener('keydown', function (e) {
+                        document.addEventListener('keydown', function (e) {
                             if (e.key === 'Escape') {
                                 closePreview();
                             }
@@ -2337,7 +2357,7 @@ function toggleOtherDegreeInput(event) {
 const initializeProgressRing = () => {
     const radius = 52;
     const circumference = 2 * Math.PI * radius;
-    const percentage = 0.01;
+    const percentage = 0.50;
     const offset = circumference * (1 - percentage);
     const progressRingFill = document.querySelector('.progress-ring-fill');
     const progressText = document.querySelector('.progress-ring-text');
@@ -2346,11 +2366,15 @@ const initializeProgressRing = () => {
     progressRingFill.style.strokeDashoffset = offset;
     progressText.textContent = `${Math.round(percentage * 100)}%`;
 };
-
 const initialisedocumentsCount = () => {
     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+    const userId = userIdElement ? userIdElement.textContent.trim() : '';
+    const documentCountText = document.querySelector(".profilestatus-graph-secondsection .profilestatus-noofdocuments-section p");
 
-    const userId = userIdElement ? userIdElement.textContent : '';
+    if (!userId || !documentCountText) {
+        console.error("User ID or count element not found.");
+        return;
+    }
 
     fetch("/count-documents", {
         method: "POST",
@@ -2360,39 +2384,29 @@ const initialisedocumentsCount = () => {
         },
         body: JSON.stringify({ userId })
     })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data) {
-                console.log(data.documentscount);
-                const documentCountText = document.querySelector(".profilestatus-graph-secondsection .profilestatus-noofdocuments-section p");
-                // if(data.documentscount<10){
-                if (data.documentscount < 10 && data.documentscound >= 0 && documentCountText && data && data.documentscount !== undefined) {
-                    documentCountText.textContent = "0" + data.documentscount;
-                }
-                else if (data.documentscount < 0) {
-                    documentCountText.textContent = "00";
+        .then(response => response.json())
+        .then(data => {
+            if (data && typeof data.documentscount === 'number') {
+                const count = data.documentscount;
 
-
-                }
-                else if (data.documentscount >= 10 && documentCountText && data && data.documentscount !== undefined) {
-                    documentCountText.textContent = data.documentscount;
-
+                if (count >= 0 && count < 10) {
+                    documentCountText.textContent = "0" + count;
+                } else if (count >= 10) {
+                    documentCountText.textContent = count;
                 } else {
-                    console.error('Element not found or data is invalid');
-
-
+                    documentCountText.textContent = "00";
                 }
-
-
-
             } else if (data.error) {
-                console.error(data.error);
+                console.error("Server Error:", data.error);
+            } else {
+                console.error("Unexpected response format:", data);
             }
         })
-        .catch((error) => {
-            console.error(error);
+        .catch(error => {
+            console.error("Fetch Error:", error);
         });
 };
+
 
 
 
@@ -2655,7 +2669,7 @@ function initializeSimpleChat() {
             // Update button text if needed
             if (messageButton) {
                 messageButton.textContent = "Close";
-                
+
             }
         }
 
@@ -2739,7 +2753,7 @@ function initializeSimpleChat() {
             }
         }
 
-        // Add click event to message button
+
         if (messageButton) {
             messageButton.addEventListener('click', function (e) {
                 console.log("code here ")
@@ -2810,7 +2824,9 @@ function initializeSimpleChat() {
                     student_id: student_id,
                     sender_id: senderId,
                     receiver_id: receiverId,
-                    message: content
+                    message: content,
+                    is_read: false,
+
                 };
 
                 const response = await fetch('/send-message', {
@@ -2827,26 +2843,26 @@ function initializeSimpleChat() {
                 if (response.ok) {
                     console.log('Message sent successfully:', data.message);
 
-            //         const messageElement = document.createElement("div");
-            //         messageElement.style.cssText = `
-            //     display: flex;
-            //     justify-content: flex-end;
-            //     width: 100%;
-            //     margin-bottom: 10px;
-            // `;
-            //         const messageContent = document.createElement("div");
-            //         messageContent.style.cssText = `
-            //     max-width: 80%;
-            //     padding: 8px 12px;
-            //     border-radius: 8px;
-            //     background-color: #DCF8C6;
-            //     word-wrap: break-word;
-            //     font-family: 'Poppins', sans-serif;
-            //     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-            // `;
-            //         messageContent.textContent = content;
+                    //         const messageElement = document.createElement("div");
+                    //         messageElement.style.cssText = `
+                    //     display: flex;
+                    //     justify-content: flex-end;
+                    //     width: 100%;
+                    //     margin-bottom: 10px;
+                    // `;
+                    //         const messageContent = document.createElement("div");
+                    //         messageContent.style.cssText = `
+                    //     max-width: 80%;
+                    //     padding: 8px 12px;
+                    //     border-radius: 8px;
+                    //     background-color: #DCF8C6;
+                    //     word-wrap: break-word;
+                    //     font-family: 'Poppins', sans-serif;
+                    //     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+                    // `;
+                    //         messageContent.textContent = content;
 
-            //         messagesWrapper.appendChild(messageElement);
+                    //         messagesWrapper.appendChild(messageElement);
 
                     scrollToBottom();
 
@@ -2858,6 +2874,8 @@ function initializeSimpleChat() {
                 console.error('Error sending message:', error);
             }
         }
+
+
 
 
 
@@ -2968,10 +2986,8 @@ function initializeSimpleChat() {
                         const fileSize = (file.size / 1024 / 1024).toFixed(2);
                         const fileId = `file-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
-                        // Store file reference for later download
                         fileStorage[fileId] = file;
 
-                        // Create message element
                         const messageElement = document.createElement("div");
                         messageElement.setAttribute('data-file-id', fileId);
                         messageElement.style.cssText = `
@@ -2980,7 +2996,6 @@ function initializeSimpleChat() {
                             width: 100%;
                             margin-bottom: 10px;
                         `;
-
                         const fileContent = document.createElement("div");
                         fileContent.style.cssText = `
                             max-width: 80%;
@@ -3087,7 +3102,7 @@ function initializeSimpleChat() {
         //         messagesWrapper.appendChild(messageElement);
         //     });
         // }
-        function  viewChat(student_id, messageInputNbfcids) {
+        function viewChat(student_id, messageInputNbfcids) {
             student_id = student_id.trim();
 
             const nbfc_id = messageInputNbfcids;
@@ -3171,8 +3186,7 @@ function saveFileMessage(fileData, chatId) {
     localStorage.setItem(`file-messages-${chatId}`, JSON.stringify(fileMessages));
 }
 
-// Modify the load saved messages section in initializeSimpleChat() function
-// Replace the existing "Load saved messages" section with this:
+
 function loadSavedMessages() {
     // Load text messages
     const savedMessages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
@@ -3286,6 +3300,388 @@ function loadSavedMessages() {
 }
 
 loadSavedMessages();
+function fetchUnreadCount() {
+    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+    const userId = userIdElement ? userIdElement.textContent.trim() : '';
+    const receiverId = userId;
+
+    if (!receiverId) return;
+
+    fetch('/unread-message-count', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({ receiverId })
+    })
+        .then(res => res.json())
+        .then(data => {
+            const countNotify = document.querySelector(".unread-notify-container p");
+            if (data.success && data.count > 0 && countNotify) {
+                console.log(data.count);
+                countNotify.style.display = "flex";
+                countNotify.textContent = data.count;
+            } else if (countNotify) {
+                countNotify.style.display = "none";
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching unread count:', error);
+        });
+}
+
+function sessionLogoutInitial() {
+    fetch("{{ route('logout') }}", {
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({})
+    }).then(response => {
+        if (response.ok) {
+            window.location.href = "{{ route('login') }}";
+        }
+    });
+}
+
+
+
+
+
+function markAsRead() {
+    const notifyContainer = document.querySelector(".nav-searchnotificationbars .unread-notify");
+    const sideBarTopItems = document.querySelectorAll('.studentdashboardprofile-sidebarlists-top li');
+    const lastTabHiddenDiv = document.querySelector(".studentdashboardprofile-trackprogress");
+    const lastTabVisibleDiv = document.querySelector(".studentdashboardprofile-myapplication");
+    const dynamicHeader = document.getElementById('loanproposals-header');
+
+    const individualCards = document.querySelectorAll('.loanproposals-loanstatuscards .indivudalloanstatus-cards');
+    const communityJoinCard = document.querySelector('.studentdashboardprofile-communityjoinsection');
+    const profileStatusCard = document.querySelector(".personalinfo-profilestatus");
+    const profileImgEditIcon = document.querySelector(".studentdashboardprofile-profilesection .fa-pen-to-square");
+    const educationEditSection = document.querySelector(".studentdashboardprofile-educationeditsection");
+    const testScoresEditSection = document.querySelector(".studentdashboardprofile-testscoreseditsection");
+
+    if (notifyContainer && sideBarTopItems.length > 1) {
+        notifyContainer.addEventListener('click', () => {
+            sideBarTopItems.forEach(i => i.classList.remove('active'));
+            sideBarTopItems[1].classList.add('active');
+            console.log('Inbox tab selected and activated');
+
+            if (lastTabHiddenDiv) lastTabHiddenDiv.style.display = "flex";
+            if (lastTabVisibleDiv) lastTabVisibleDiv.style.display = "none";
+            if (communityJoinCard) communityJoinCard.style.display = "flex";
+            if (profileStatusCard) profileStatusCard.style.display = "block";
+            if (profileImgEditIcon) profileImgEditIcon.style.display = "none";
+            if (educationEditSection) educationEditSection.style.display = "none";
+            if (testScoresEditSection) testScoresEditSection.style.display = "none";
+            const buttonGroups = document.querySelectorAll(".individual-bankmessages-buttoncontainer");
+            const triggeredMessageButton = document.querySelectorAll('.individual-bankmessages .triggeredbutton');
+
+            if (buttonGroups) {
+                buttonGroups.forEach((buttonGroups, index) => {
+                    buttonGroups.style.display = "none";
+                    triggeredMessageButton[index].style.display = "flex";
+
+                })
+            }
+
+
+
+            if (dynamicHeader) dynamicHeader.textContent = "Inbox";
+
+            const currentScroll = window.scrollY;
+
+            if (currentScroll !== 300) {
+                window.scrollTo({
+                    top: 300,
+                    left: 0,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
+}
+
+
+
+function unReadDots() {
+    const messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
+
+    if (messageInputNbfcids.length > 0) {
+        console.log(messageInputNbfcids);
+    }
+
+    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+    const userId = userIdElement ? userIdElement.textContent.trim() : '';
+
+    if (userId) {
+        messageInputNbfcids.forEach((item) => {
+            const nbfc_id = item.getAttribute('data-nbfc-id');
+            const student_id = item.getAttribute('data-student-id');
+
+            if (nbfc_id && student_id) {
+                fetch(`/get-messages-byconversations/${nbfc_id}/${student_id}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({})
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(`Messages for NBFC ${nbfc_id} and student ${student_id}:`, data);
+                        if (data.unreadCount && data.unreadCount > 0) {
+                            const triggeredButton = document.querySelector('.triggeredbutton');
+                            if (triggeredButton) {
+                                triggeredButton.classList.add('has-unread');
+                                console.log(triggeredButton);
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error fetching messages:", error);
+                    });
+            }
+        });
+    }
+}
+
+
+async function bindAcceptRejectButtons (finalData) {
+        const acceptButtons = document.querySelectorAll(".user-accept-trigger");
+    const rejectButtons = document.querySelectorAll(".bankmessage-buttoncontainer-reject");
+
+
+
+
+   await acceptButtons.forEach((btn, index) => {
+        btn.addEventListener("click", () => {
+            const proposal = finalData;
+            console.log(proposal[0].user_id)
+            const data = {
+                user_id: proposal[0].user_id,
+                nbfc_id: proposal[0].nbfc_id,
+                proposal_accept: true
+            };
+
+            fetch('/proposalcompletion', {
+                method: "POST",
+                headers: {
+                    'Content-Type': "application/json",
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(result => {
+                    console.log("✅ Accepted:", proposal);
+                    console.log("✅ Server Response:", result);
+                    if (btn && rejectButtons) {
+                        btn.style.backgroundColor = "transparent";
+                        btn.style.color = "#4CAF50";
+                        btn.textContent = "Accepted"
+                        btn.style.width = "82px"
+                        btn.style.border = "none"
+                        rejectButtons[index].style.display = "none"
+                    }
+                })
+                .catch(error => {
+                    console.error("❌ Error during fetch (Accept):", error);
+                });
+        });
+    });
+
+   await rejectButtons.forEach((btn, index) => {
+        btn.addEventListener("click", () => {
+            const proposal = finalData;
+             
+ 
+            console.log("----------")
+            const data = {
+                user_id: proposal[0].user_id,
+                nbfc_id: proposal[0].nbfc_id,
+                proposal_accept: false
+            };
+
+            fetch('/proposalcompletion', {
+                method: "POST",
+                headers: {
+                    'Content-Type': "application/json",
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(result => {
+                    console.log("❌ Rejected:", proposal);
+                    console.log("❌ Server Response:", result);
+                    if (btn && acceptButtons) {
+                        btn.style.backgroundColor = "transparent";
+                        btn.style.color = "#dc3545";
+                        btn.textContent = "Rejected"    
+                        btn.style.width = "82px"
+                        btn.style.border = "none"
+                        acceptButtons[index].style.display = "none"
+                    }
+                })
+                .catch(error => {
+                    console.error("❌ Error during fetch (Reject):", error);
+                });
+        });
+    });
+}
+
+
+
+
+
+const findOutAcceptedOrNot = () => {
+    fetch('/proposalcompletion', {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json",
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.json())
+        .then(result => {
+            console.log("✅ Accepted:", proposal);
+            console.log("✅ Server Response:", result);
+            if (btn && rejectButtons) {
+                btn.style.backgroundColor = "transparent";
+                btn.style.color = "#4CAF50";
+                btn.textContent = "Accepted"
+                btn.style.width = "82px"
+                btn.style.border = "none"
+                rejectButtons[index].style.display = "none"
+            }
+        })
+        .catch(error => {
+            console.error("❌ Error during fetch (Accept):", error);
+        });
+}
+
+
+
+
+
+async function fetchStatus(nbfcId, insideSecond,currentItem,fourthButton) {
+
+    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+    const userId = userIdElement ? userIdElement.textContent.trim() : '';
+
+    // console.log(nbfcId)
+    fetch("/check_userid", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({ user_id: userId, nbfc_id: nbfcId })
+    })
+        .then(response => {
+            if (!response.ok) throw new Error("Network response was not ok");
+            return response.json();
+
+        })
+        .then(result => {
+            console.log(result);
+
+            const data = result?.data;
+            const proposal_accept_update = data?.proposal_accept;
+
+            if (!data) {
+                const buttonContainer = document.createElement("div");
+                buttonContainer.classList.add('individual-bankmessages-buttoncontainer');
+
+                const firstButton = document.createElement("button");
+                firstButton.textContent = "View";
+
+                const secondButton = document.createElement("button");
+                secondButton.textContent = "Accept";
+                secondButton.classList.add('user-accept-trigger');
+
+                const thirdButton = document.createElement("button");
+                thirdButton.textContent = "Reject";
+                thirdButton.classList.add("bankmessage-buttoncontainer-reject");
+
+             
+
+                buttonContainer.append(firstButton, secondButton, thirdButton);
+                insideSecond.append(buttonContainer, fourthButton);
+
+                bindAcceptRejectButtons([currentItem]);
+            } else if (proposal_accept_update) {
+
+                const buttonContainer = document.createElement("div");
+                buttonContainer.classList.add('individual-bankmessages-buttoncontainer');
+
+
+                const firstButton = document.createElement("button");
+                firstButton.textContent = "View";
+
+                const secondButton = document.createElement("button");
+                secondButton.textContent = "Accepted";
+                secondButton.classList.add('user-accept-trigger');
+
+
+
+                const fourthButton = document.createElement("button");
+                fourthButton.textContent = "Message";
+                fourthButton.classList.add("triggeredbutton");
+
+                buttonContainer.append(firstButton, secondButton);
+                insideSecond.append(buttonContainer, fourthButton);
+
+
+
+
+                secondButton.style.backgroundColor = "transparent";
+                secondButton.style.color = "#4CAF50";
+                secondButton.style.width = "82px"
+                secondButton.style.border = "none"
+            } else if (!proposal_accept_update) {
+                const buttonContainer = document.createElement("div");
+                buttonContainer.classList.add('individual-bankmessages-buttoncontainer');
+
+                const firstButton = document.createElement("button");
+                firstButton.textContent = "View";
+
+
+                const thirdButton = document.createElement("button");
+                thirdButton.textContent = "Rejected";
+                thirdButton.classList.add("bankmessage-buttoncontainer-reject");
+
+               
+
+                buttonContainer.append(firstButton, thirdButton);
+                insideSecond.append(buttonContainer, fourthButton);
+
+
+
+
+                thirdButton.style.backgroundColor = "transparent";
+                thirdButton.style.color = "#dc3545";
+                thirdButton.style.width = "82px"
+                thirdButton.style.border = "none"
+
+            }
+
+
+
+        })
+        .catch(error => {
+            console.error("Error checking user ID:", error);
+        });
+
+
+
+}
 
 
 

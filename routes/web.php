@@ -163,3 +163,10 @@ Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->n
 Route::get('/auth/google/call-back', [GoogleAuthController::class, 'handleGoogleCallback']);
 Route::post('/get-queries', [StudentDashboardController::class, 'getScuserQueryRaised']);
 Route::post('/getstatusofusers', [scDashboardController::class, 'getStatusOfUsers']);
+
+Route::post('/unread-message-count', [StudentDashboardController::class, 'unreadMessageCount']);
+Route::get('/get-messages-byconversations/{nbfc_id}/{student_id}', [ChatController::class, 'groupCountingChats']);
+Route::post('/getnbfcdata-proposals', [StudentDashboardController::class, 'nbfcProposals']);
+
+Route::post('/proposalcompletion', [StudentDashboardController::class, 'proposalCompletion']);
+Route::post('/check_userid', [StudentDashboardController::class, 'checkUserId']);

@@ -2057,6 +2057,7 @@
 
     font-size: 14px;
     border-radius: 4px;
+    width:62px;
     cursor: pointer;
 }
 
@@ -2064,6 +2065,7 @@
     background-color: #FFFFFF;
     color: #260254;
     border: 1px solid #6F25CE;
+    width:62px;
 }
 
 .reject-application-modal-content .actions .reject-button {
@@ -2096,6 +2098,7 @@
     .reject-application-modal-content .actions .cancel-button,
     .reject-application-modal-content .actions .reject-button {
         font-size: 12px;
+        width:62px;
     }
 
     .reject-application-modal-header .close-button {

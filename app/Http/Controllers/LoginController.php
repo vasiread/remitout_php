@@ -65,7 +65,7 @@ class LoginController extends Controller
                     'success' => true,
                     'message' => 'Login successful',
                     'user' => $user,
-                    'redirect' => '/user-dashboard'  // Redirect to the normal user dashboard
+                    'redirect' => '/student-dashboard'  // Redirect to the normal user dashboard
                 ]);
 
             case 'NBFC':
@@ -102,6 +102,6 @@ class LoginController extends Controller
 
         Auth::logout();
 
-         return redirect()->route('login')->with('message', 'You have been logged out.');
+        return redirect()->route('login')->with('message', 'You have been logged out.');
     }
 }

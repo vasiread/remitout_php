@@ -2250,7 +2250,8 @@ $counter = 1;
                             student_id: studentId,
                             sender_id: senderId,
                             receiver_id: receiverId,
-                            message: content
+                            message: content,
+                            is_read:false,
                         };
 
                         const response = await fetch('/send-message', {

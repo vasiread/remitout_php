@@ -17,9 +17,9 @@
         style="@if (request()->is('/')) position: absolute; top: 0; left: 0; width: 100%; z-index: 10; @else position: relative; @endif">
         <div class="{{ Request::is('/') ? 'nav-container' : 'nav-container fullopacity' }}">
             @php
-$navImgPath = "assets/images/Remitoutcolored.png";
-$navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
-$NotificationBell = "assets/images/notifications_unread.png";
+                $navImgPath = "assets/images/Remitoutcolored.png";
+                $navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
+                $NotificationBell = "assets/images/notifications_unread.png";
             @endphp
 
             <img onclick="window.location.href='{{ url(' ') }}'"
@@ -40,7 +40,11 @@ $NotificationBell = "assets/images/notifications_unread.png";
                         <input type="text" placeholder="Search">
                         <img src="assets/images/search.png" class="search-icon" alt="Search Icon">
                     </div>
-                    <img src="{{ $NotificationBell }}" style="width:24px;height:24px" class="unread-notify" alt="">
+                    <div class="unread-notify-container">
+                        <img src="{{ $NotificationBell }}" class="unread-notify" id="userNotification" alt="">
+                        <p></p>
+
+                    </div>
 
                     <div class="nav-profilecontainer" id="notification-userprofile-section">
                         <img src="{{ asset('assets/images/Icons/account_circle.png') }}" id="nav-profile-photo-id"
@@ -63,7 +67,7 @@ $NotificationBell = "assets/images/notifications_unread.png";
                         <input type="text" placeholder="Search">
                         <img src="assets/images/search.png" class="search-icon" alt="Search Icon">
                     </div>
-                    <img src="{{ $NotificationBell }}" style="width:24px;height:24px" class="unread-notify" alt="">
+                    <img src="{{ $NotificationBell }}" class="unread-notify" alt="">
 
                     <div class="nav-profilecontainer">
                         <img src="{{ asset('assets/images/Icons/account_circle.png') }}" id="nav-profile-photo-id"
@@ -140,6 +144,7 @@ $NotificationBell = "assets/images/notifications_unread.png";
                 retrieveProfilePictureNavSc();
             @elseif(session('user'))
                 retrieveProfilePictureNav();
+                fetchUnreadCount();
             @endif
 
 
@@ -442,27 +447,27 @@ $NotificationBell = "assets/images/notifications_unread.png";
                 }
 
 
-               
+
 
 
 
 
             }
         }
-         function displayError(elementId, message) {
-                var errorElement = document.getElementById(elementId);
-                errorElement.innerText = message;
-                errorElement.style.display = 'block';
+        function displayError(elementId, message) {
+            var errorElement = document.getElementById(elementId);
+            errorElement.innerText = message;
+            errorElement.style.display = 'block';
+        }
+
+        function clearErrorMessages() {
+            var errorElements = document.getElementsByClassName('error-message');
+            for (var i = 0; i < errorElements.length; i++) {
+                errorElements[i].innerText = '';
+                errorElements[i].style.display = 'none';
             }
 
-            function clearErrorMessages() {
-                var errorElements = document.getElementsByClassName('error-message');
-                for (var i = 0; i < errorElements.length; i++) {
-                    errorElements[i].innerText = '';
-                    errorElements[i].style.display = 'none';
-                }
-
-            }
+        }
         const userPopopuOpen = () => {
             const userPopupTrigger = document.querySelector(".nav-profilecontainer i");
             const userPopupList = document.querySelector(".popup-notify-list");
@@ -579,7 +584,7 @@ $NotificationBell = "assets/images/notifications_unread.png";
                     });
             });
         };
-    
+
         const passwordModelTrigger = () => {
             const passwordTrigger = document.getElementById("change-password-trigger");
             const passwordChangeContainer = document.querySelector(".password-change-container");
@@ -619,7 +624,7 @@ $NotificationBell = "assets/images/notifications_unread.png";
             }
 
         }
-
+      
 
     </script>
 

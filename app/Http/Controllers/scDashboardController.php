@@ -233,6 +233,8 @@ class scDashboardController extends Controller
 
     }
 
+    // use Illuminate\Support\Facades\Log;
+
     public function getStatusOfUsers(Request $request)
     {
         try {
@@ -247,7 +249,9 @@ class scDashboardController extends Controller
                 return response()->json(['message' => 'No user found for this referral'], 404);
             }
 
-            $allProposals = [];
+            Log::info('Found users:', $users->toArray());
+
+            $allStatuses = [];
 
             foreach ($users as $user) {
                 $userId = $user->unique_id;
@@ -255,41 +259,75 @@ class scDashboardController extends Controller
                 $Accepted = DB::table('traceprogress')
                     ->join('nbfc', 'traceprogress.nbfc_id', '=', 'nbfc.nbfc_id')
                     ->where('traceprogress.user_id', $userId)
-                    ->select('nbfc.nbfc_name', 'traceprogress.created_at', 'traceprogress.user_id')
+                    ->select(
+                        'nbfc.nbfc_name',
+                        'traceprogress.created_at',
+                        DB::raw("'Accepted' as status_type"),
+                        'traceprogress.user_id'
+                    )
                     ->get();
 
-
+                Log::info("Accepted for {$userId}:", $Accepted->toArray());
 
                 $Pending = DB::table('requestedbyusers')
                     ->join('nbfc', 'requestedbyusers.nbfcid', '=', 'nbfc.nbfc_id')
                     ->where('requestedbyusers.userid', $userId)
-                    ->select('nbfc.nbfc_name', 'requestedbyusers.created_at', 'requestedbyusers.userid')
+                    ->select(
+                        'nbfc.nbfc_name',
+                        'requestedbyusers.created_at',
+                        DB::raw("'Pending' as status_type"),
+                        'requestedbyusers.userid as user_id'
+                    )
                     ->get();
+
+                Log::info("Pending for {$userId}:", $Pending->toArray());
 
                 $Rejected = DB::table('rejectedbynbfc')
                     ->join('nbfc', 'rejectedbynbfc.nbfc_id', '=', 'nbfc.nbfc_id')
-                    ->where('rejectedbynbfc.user_id', 'HBNKJI0000002')
-                    ->select('nbfc.nbfc_name', 'rejectedbynbfc.created_at', 'rejectedbynbfc.user_id')
+                    ->where('rejectedbynbfc.user_id', $userId)
+                    ->select(
+                        'nbfc.nbfc_name',
+                        'rejectedbynbfc.created_at',
+                        DB::raw("'Rejected' as status_type"),
+                        'rejectedbynbfc.user_id'
+                    )
                     ->get();
 
+                Log::info("Rejected for {$userId}:", $Rejected->toArray());
 
-
-
+                $merged = collect($Accepted)->merge($Pending)->merge($Rejected);
+                $allStatuses = array_merge($allStatuses, $merged->toArray());
             }
+
+            if (empty($allStatuses)) {
+                return response()->json(['message' => 'No statuses found for users'], 404);
+            }
+
+            // Group by nbfc and sort by created_at
+            $grouped = collect($allStatuses)
+                ->groupBy('nbfc_name')
+                ->map(function ($items, $nbfcName) {
+                    return [
+                        'nbfc_name' => $nbfcName,
+                        'statuses' => collect($items)->sortBy('created_at')->values(),
+                    ];
+                })
+                ->values();
 
             return response()->json([
                 'success' => true,
-                'data' => $Rejected
+                'data' => $grouped,
             ]);
-
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error Retrieving Status',
-                'error' => $e->getMessage()
-            ]);
+                'message' => 'Error retrieving status',
+                'error' => $e->getMessage(),
+            ], 500);
         }
     }
+
+
 
 
 

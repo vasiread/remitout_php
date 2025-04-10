@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Message;
 use App\Models\Nbfc;
+use App\Models\proposalcompletion;
 use App\Models\Queries;
 use App\Models\Rejectedbynbfc;
 use App\Models\Requestedbyusers;
@@ -75,6 +77,124 @@ class StudentDashboardController extends Controller
         // If no user found, return an error
         return response()->json(['error' => 'User not found'], 404);
     }
+    public function checkUserId(Request $request)
+    {
+        try {
+            $request->validate([
+                'user_id' => 'required|string',
+                'nbfc_id' => 'required|string',
+
+            ]);
+
+            $user_id = $request->input("user_id");
+            $nbfc_id = $request->input("nbfc_id");
+
+            $proposal = proposalcompletion::where('user_id', $user_id)
+                ->where('nbfc_id', $nbfc_id)
+                ->first();
+
+            if ($proposal) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Proposal found',
+                    'data' => $proposal
+                ]);
+            }
+
+            // Nothing found: return empty or just success=false
+            return response()->json([
+                'success' => false,
+                'message' => 'No proposal found for this user and NBFC.'
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function nbfcProposals(Request $request)
+    {
+
+        try {
+
+            $request->validate([
+                'userId' => 'string|required'
+            ]);
+
+            $userId = $request->input('userId');
+
+            $query = DB::table('traceprogress')
+                ->join('nbfc', 'traceprogress.nbfc_id', '=', 'nbfc.nbfc_id') // assuming nbfc_id is the common key
+                ->where('traceprogress.user_id', $userId)
+                ->where('traceprogress.type', Requestprogress::TYPE_PROPOSAL)
+                ->select('traceprogress.*', 'nbfc.nbfc_name') // select whatever you need
+                ->get();
+            ;
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Proposals Retrieved Successfully',
+                'result' => $query
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'There is an error while retreiving proposals',
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function proposalCompletion(Request $request)
+    {
+
+        try {
+            $request->validate([
+                'user_id' => 'string|required',
+                'nbfc_id' => 'string|required',
+                'proposal_accept' => 'boolean|required'
+            ]);
+
+            $userId = $request->input('user_id');
+            $nbfc_id = $request->input('nbfc_id');
+            $proposal_accept = $request->input('proposal_accept');
+
+
+            $query = proposalcompletion::insert([
+                'user_id' => $userId,
+                'nbfc_id' => $nbfc_id,
+                'proposal_accept' => $proposal_accept,
+                'created_at' => now()
+
+            ]);
+
+          
+
+
+            return response()->json([
+                'success' => true,
+                'message' => 'proposal final completion status updated',
+
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error caught in proposal Completion',
+                'error' => $e->getMessage()
+
+
+            ]);
+
+        }
+
+
+    }
+
+
 
     public function pushUserIdToRequest(Request $request)
     {
@@ -106,7 +226,7 @@ class StudentDashboardController extends Controller
                             ]);
                         }
                     }
-                    
+
 
 
                 }
@@ -120,6 +240,8 @@ class StudentDashboardController extends Controller
             'recievedData' => $getNbfcData,
         ], 200);
     }
+
+
 
     public function removeUserIdFromNBFCAndReject(Request $request)
     {
@@ -935,6 +1057,7 @@ class StudentDashboardController extends Controller
 
 
 
+
     public function downloadFilesAsZip(Request $request)
     {
         $request->validate([
@@ -989,6 +1112,72 @@ class StudentDashboardController extends Controller
         // Return a response with the ZIP file download, and delete the temporary file after sending it
         return response()->download($tempFile, $zipFileName)->deleteFileAfterSend(true);
     }
+
+    public function updateReadMessage(Request $request)
+    {
+
+        $request->validate([
+            'conversation_id' => 'required|',
+            'receiverId' => 'receiverId'
+        ]);
+
+        $conversationId = $request->input('conversation_id');
+        $receiverId = $request->input('receiverId');
+
+        $updatedRead = Message::where('conversation_id', $conversationId)
+            ->where('receiver_id', $receiverId)
+            ->where('is_read', 0)
+            ->update([
+                'is_read' => 1,
+            ]);
+
+
+
+
+
+
+
+
+
+
+
+    }
+    public function unreadMessageCount(Request $request)
+    {
+
+        try {
+            $request->validate([
+                'receiverId' => 'string|required'
+            ]);
+
+            $receiverId = $request->input('receiverId');
+
+            $count = Message::where('receiver_id', $receiverId)
+                ->where('is_read', false)->count();
+
+
+            return response()->json([
+                'success' => true,
+                'message' => "Message Count Retrieved",
+                'count' => $count
+
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+
+
+
+
+
+
+    }
+
+
 
 
 
