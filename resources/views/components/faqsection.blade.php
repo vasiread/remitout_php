@@ -67,8 +67,8 @@
         </div>
     </section>
 
+<script>
 
-    <script>
 // FAQ Data
 
 const faqData = [
