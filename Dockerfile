@@ -1,36 +1,36 @@
-# Use the official PHP image as the base image
 FROM php:8.1-fpm
 
-# Set the working directory inside the container
-WORKDIR /var/www
-
-# Install system dependencies and PHP extensions
+# Install dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpng-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
     libzip-dev \
+    libpq-dev \
     zip \
     unzip \
     git \
     curl \
-    && docker-php-ext-install pdo_mysql gd zip
+    nginx \
+    && docker-php-ext-install pdo_pgsql gd zip
 
-# Install Composer globally
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copy the Laravel application files to the container
-COPY . /var/www
+# Copy code
+WORKDIR /var/www
+COPY . .
 
-# Set the proper file permissions
+# Permissions
 RUN chown -R www-data:www-data /var/www
+RUN chmod -R 755 /var/www/storage /var/www/bootstrap/cache
 
-# Change the current user to www-data
-USER www-data
+# Nginx config
+COPY nginx.conf /etc/nginx/sites-available/default
 
-# Expose port 8000 to be used for Laravel development
-EXPOSE 8000
+# Start script
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
 
-# Start the PHP FastCGI Process Manager (FPM)
-CMD ["php-fpm"]
+CMD ["/start.sh"]
