@@ -329,6 +329,7 @@
     </div>
  </div>
 
+
     <div class="admin-student-form-section-academic-details" id="academic-details-section">
         <div class="admin-student-section-header-academic">
             <div class="admin-student-section-title-academic">Academic details</div>
@@ -339,6 +340,7 @@
         </div>
     </div>
 
+   <!-- Academic container -->
    <div class="admin-student-section-content-academic expanded" id="academic-details-content">
         <!-- Education Container (styled like the academic gap) -->
         <div class="education-container" id="education-container">
@@ -371,50 +373,230 @@
             </div>
         </div>
 
-        <!-- Academic Gap Question -->
-        <div class="admin-student-form-question" id="academic-gap-container">
-            <div class="admin-student-question-row" id="academic-gap-row">
-                <div class="admin-student-question-title">2. Do you have any gap in your academics?</div>
-                <div class="admin-student-dropdown-field" id="academic-gap-dropdown">
-                    <span class="admin-student-field-text">Check Box</span>
-                    <span class="admin-student-dropdown-icon"></span>
-                </div>
-            </div>
 
-            <div class="options-section" id="academic-gap-options">
-                <div class="options-label">Options:</div>
-                <div class="academic-options">
-                    <div class="academic-option">
-                        <input type="radio" id="academic-yes" name="academics-gap" value="yes">
-                        <label for="academic-yes">Yes</label>
-                    </div>
-                    <div class="academic-option">
-                        <input type="radio" id="academic-no" name="academics-gap" value="no">
-                        <label for="academic-no">No (only secured loan)</label>
-                    </div>
-                </div>
-                <div class="add-option" id="add-academic-option-btn">
-                    <span class="add-option-text">Add</span>
-                    <span class="add-option-icon">+</span>
-                </div>
-            </div>
+          <!-- Academic Gap Question -->
+      <div class="admin-student-form-question" id="academic-gap-container">
+        <div class="admin-student-question-row" id="academic-gap-row">
+          <div class="admin-student-question-title">
+            2. Do you have any gap in your academics?
+          </div>
+          <div class="admin-student-dropdown-field" id="academic-gap-dropdown">
+            <span class="admin-student-field-text">Check Box</span>
+            <span class="admin-student-dropdown-icon"></span>
+          </div>
         </div>
+
+        <div class="options-section" id="academic-gap-options">
+          <div class="options-label">Options:</div>
+          <div class="academic-options-container">
+            <div class="academic-options">
+              <div class="academic-option">
+                <input
+                  type="radio"
+                  id="academic-yes"
+                  name="academics-gap"
+                  value="yes"
+                />
+                <label for="academic-yes">Yes</label>
+              </div>
+              <div class="academic-option">
+                <input
+                  type="radio"
+                  id="academic-no"
+                  name="academics-gap"
+                  value="no"
+                />
+                <label for="academic-no">No (only secured loan)</label>
+              </div>
+            </div>
+            <div class="add-option" id="add-academic-option-btn">
+              <span class="add-option-text">Add</span>
+              <span class="add-option-icon">+</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
         <!-- Additional questions can be added here -->
     </div>
 
-                       <!-- Co-borrower Info Section -->
-                    <div class="admin-student-form-section-co-borrower-info">
-                        <div class="admin-student-section-header-co-borrower">
-                            <div class="admin-student-section-title-co-borrower">Co-borrower Info</div>
-                            <span class="admin-student-question-count-co-borrower">4 Questions</span>
-                            <div class="admin-student-arrow-icon-co-borrower">
-                                <img src="assets/images/admin-drop.png" alt="Arrow Icon"
-                                    class="admin-student-arrow-down-co-borrow" />
-                            </div>
-                        </div>
-                    </div>
+    <div class="admin-student-form-section-co-borrower-info">
+      <div class="admin-student-section-header-co-borrower">
+        <div class="admin-student-section-title-co-borrower">
+          Co-borrower Info
+        </div>
+        <span class="admin-student-question-count-co-borrower"
+          >3 Questions</span
+        >
+        <div class="admin-student-arrow-icon-co-borrower">
+          <img
+            src="assets/images/admin-drop.png"
+            alt="Arrow Icon"
+            class="admin-student-arrow-down-co-borrow"
+          />
+        </div>
+      </div>
+    </div>
 
+    <!-- First Container: How is the co-borrower related to you? -->
+    <div class="admin-student-form-question" id="co-borrower-container">
+      <div class="admin-student-question-row" id="co-borrower-row">
+        <div class="admin-student-question-title">
+          How is the co-borrower related to you?
+        </div>
+        <div class="admin-student-dropdown-field" id="co-borrower-dropdown">
+          <span class="admin-student-field-text">Check Box</span>
+          <span class="admin-student-dropdown-icon"></span>
+        </div>
+      </div>
+
+      <div
+        class="options-section"
+        id="co-borrower-options"
+        style="display: none"
+      >
+        <div class="checkbox-options-container">
+          <div class="checkbox-option">
+            <input
+              type="checkbox"
+              id="co-borrower-parent"
+              name="co-borrower-options"
+            />
+            <label for="co-borrower-parent">Parent</label>
+          </div>
+          <div class="checkbox-option">
+            <input
+              type="checkbox"
+              id="co-borrower-spouse"
+              name="co-borrower-options"
+            />
+            <label for="co-borrower-spouse">Spouse</label>
+          </div>
+          <div class="checkbox-option">
+            <input
+              type="checkbox"
+              id="co-borrower-blood-relative"
+              name="co-borrower-options"
+            />
+            <label for="co-borrower-blood-relative">Blood relative</label>
+          </div>
+          <div class="add-option" id="add-option-btn">
+            <span class="add-option-text">Add</span>
+            <span class="add-option-icon">+</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Second Container: What is the gross monthly income of co-borrower? -->
+    <div class="admin-student-form-question" id="income-container">
+      <div class="admin-student-question-row" id="income-row">
+        <div class="admin-student-question-title">
+          What is the gross monthly income of co-borrower?
+        </div>
+        <div class="admin-student-dropdown-field" id="income-dropdown">
+          <span class="admin-student-field-text">Text Field</span>
+          <span class="admin-student-dropdown-icon"></span>
+        </div>
+      </div>
+
+      <div class="options-section" id="income-options" style="display: none">
+        <div class="fields-row-container">
+          <div class="field-container">
+            <input
+              type="text"
+              class="text-input"
+              placeholder=" ₹ Rupees in thousands"
+            />
+            <button class="delete-field">✕</button>
+            <p class="minimum-amount">
+              *minimum amount of 5% after deductions for eligibility
+            </p>
+          </div>
+          <div class="add-option" id="add-income-field-btn">
+            <span class="add-option-text">Add</span>
+            <span class="add-option-icon">+</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Third Container: Is there any existing co-borrower monthly liability? -->
+    <div class="admin-student-form-question" id="liability-container">
+      <div class="admin-student-question-row" id="liability-row">
+        <div class="admin-student-question-title">
+          Is there any existing co-borrower monthly liability?
+        </div>
+        <div class="admin-student-dropdown-field" id="liability-dropdown">
+          <span class="admin-student-field-text">Check Box</span>
+          <span class="admin-student-dropdown-icon"></span>
+        </div>
+      </div>
+
+      <div class="options-section" id="liability-options" style="display: none">
+        <div class="liability-content-container">
+          <!-- Monthly liability option with horizontal layout -->
+          <div class="monthly-liability-option">
+            <!-- Radio buttons on the left -->
+            <div class="monthly-liability-radio-buttons">
+              <label>
+                <input
+                  type="radio"
+                  name="co-borrower-liability"
+                  id="yes-liability"
+                  value="Yes"
+                />
+                Yes
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="co-borrower-liability"
+                  id="no-liability"
+                  value="No"
+                />
+                No
+              </label>
+            </div>
+
+            <!-- EMI field and add button on the right, in the same row -->
+            <div class="emi-row">
+              <div class="emi-content">
+                <p class="amount-thousand-mobile">
+                  Enter the amount in thousands
+                </p>
+                <input
+                  type="text"
+                  id="emi-amount"
+                  class="emi-content-container"
+                  placeholder="Enter EMI amount"
+                />
+                <span
+                  id="emi-error-message"
+                  class="error-message"
+                  style="display: none; color: red"
+                  >Please enter a valid EMI amount (numeric values only).</span
+                >
+              </div>
+              <div class="add-option" id="add-liability-btn">
+                <span class="add-option-text">Add</span>
+                <span class="add-option-icon">+</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Container for additional liability fields - vertically aligned under the EMI content -->
+          <div
+            id="additional-liability-fields"
+            class="additional-liability-fields"
+          >
+            <!-- Additional fields will be added here dynamically -->
+          </div>
+        </div>
+      </div>
+    </div>
                       <!-- Document Upload Section -->
                     <div class="admin-student-form-section-document-upload">
                         <div class="admin-student-section-header-document-upload">
@@ -1175,211 +1357,550 @@ const CourseDetailsManager = {
 
 //academic details
   
-        const academicDetailsSection = document.getElementById('academic-details-section');
-        const academicDetailsContent = document.getElementById('academic-details-content');
-        const arrowIcon = document.querySelector('.admin-student-arrow-icon-academic');
+       const academicDetailsSection = document.getElementById(
+        "academic-details-section"
+      );
+      const academicDetailsContent = document.getElementById(
+        "academic-details-content"
+      );
+      const arrowIcon = document.querySelector(
+        ".admin-student-arrow-icon-academic"
+      );
 
-        academicDetailsSection.addEventListener('click', function () {
-            academicDetailsContent.classList.toggle('expanded');
-            arrowIcon.classList.toggle('rotated');
-        });
+      academicDetailsSection.addEventListener("click", function () {
+        academicDetailsContent.classList.toggle("expanded");
+        arrowIcon.classList.toggle("rotated");
+      });
 
-        const educationContainer = document.getElementById('education-container');
-        const educationHeaderRow = document.getElementById('education-header-row');
-        const educationDropdownIcon = educationContainer.querySelector('.admin-student-dropdown-icon');
-        const educationSection = document.getElementById('education-section');
+      const educationContainer = document.getElementById("education-container");
+      const educationHeaderRow = document.getElementById(
+        "education-header-row"
+      );
+      const educationDropdownIcon = educationContainer.querySelector(
+        ".admin-student-dropdown-icon"
+      );
+      const educationSection = document.getElementById("education-section");
 
-        educationHeaderRow.addEventListener('click', function (event) {
+      educationHeaderRow.addEventListener("click", function (event) {
+        event.stopPropagation();
+
+        const isVisible = educationSection.style.display === "block";
+        educationSection.style.display = isVisible ? "none" : "block";
+        educationContainer.classList.toggle("active", !isVisible);
+
+        educationDropdownIcon.classList.toggle("rotated", !isVisible);
+      });
+
+      // Initialize field counter
+      let fieldCount = 2;
+      let rowCount = 1;
+
+      // Function to create remove button functionality
+      function setupRemoveButtons() {
+        const removeButtons = document.querySelectorAll(".remove-field-btn");
+        removeButtons.forEach((button) => {
+          button.addEventListener("click", function (event) {
             event.stopPropagation();
+            const fieldElement = this.parentNode;
+            const rowElement = fieldElement.parentNode;
 
-            const isVisible = educationSection.style.display === 'block';
-            educationSection.style.display = isVisible ? 'none' : 'block';
-            educationContainer.classList.toggle('active', !isVisible);
+            // Remove the field
+            fieldElement.remove();
 
-            educationDropdownIcon.classList.toggle('rotated', !isVisible);
+            // If row is empty, remove the row
+            if (rowElement.children.length === 0) {
+              rowElement.remove();
+            }
+
+            // Decrement field count
+            fieldCount--;
+          });
         });
+      }
 
-        // Initialize field counter
-        let fieldCount = 2;
-        let rowCount = 1;
+      // Setup initial remove buttons
+      setupRemoveButtons();
 
-        // Function to create remove button functionality
-        function setupRemoveButtons() {
-            const removeButtons = document.querySelectorAll('.remove-field-btn');
-            removeButtons.forEach(button => {
-                button.addEventListener('click', function (event) {
-                    event.stopPropagation();
-                    const fieldElement = this.parentNode;
-                    const rowElement = fieldElement.parentNode;
+      const addEducationFieldBtn = document.getElementById(
+        "add-education-field-btn"
+      );
 
-                    // Remove the field
-                    fieldElement.remove();
+      const educationFields = document.querySelectorAll(".education-field");
+      educationFields.forEach((field) => {
+        field.addEventListener("click", function (event) {
+          event.stopPropagation();
+        });
+      });
 
-                    // If row is empty, remove the row
-                    if (rowElement.children.length === 0) {
-                        rowElement.remove();
-                    }
+      addEducationFieldBtn.addEventListener("click", function (event) {
+        event.stopPropagation();
+        const fieldName = prompt(
+          "Enter new field name (e.g., Graduation Year):",
+          ""
+        );
 
-                    // Decrement field count
-                    fieldCount--;
-                });
-            });
+        if (fieldName && fieldName.trim() !== "") {
+          // Create new field with input and remove button
+          const newField = document.createElement("div");
+          newField.className = "education-field";
+
+          const newInput = document.createElement("input");
+          newInput.type = "text";
+          newInput.placeholder = fieldName.trim();
+          newInput.name = fieldName.toLowerCase().replace(/\s+/g, "-");
+
+          const removeBtn = document.createElement("button");
+          removeBtn.type = "button";
+          removeBtn.className = "remove-field-btn";
+          removeBtn.textContent = "✕";
+          removeBtn.addEventListener("click", function (event) {
+            event.stopPropagation();
+            newField.remove();
+            fieldCount--;
+
+            // If row becomes empty, remove it
+            const parentRow = this.parentNode.parentNode;
+            if (parentRow.children.length === 0) {
+              parentRow.remove();
+            }
+          });
+
+          newField.appendChild(newInput);
+          newField.appendChild(removeBtn);
+
+          // Ensure maximum 2 fields per row
+          let currentRow;
+
+          // Check if we need a new row
+          if (fieldCount % 2 === 0) {
+            // Create new row
+            rowCount++;
+            currentRow = document.createElement("div");
+            currentRow.className = "education-row";
+            currentRow.id = "education-row-" + rowCount;
+            educationSection.insertBefore(currentRow, addEducationFieldBtn);
+          } else {
+            // Use last row
+            currentRow = document.getElementById("education-row-" + rowCount);
+
+            // If somehow the row doesn't exist, create it
+            if (!currentRow) {
+              currentRow = document.createElement("div");
+              currentRow.className = "education-row";
+              currentRow.id = "education-row-" + rowCount;
+              educationSection.insertBefore(currentRow, addEducationFieldBtn);
+            }
+          }
+
+          // Add field to row
+          currentRow.appendChild(newField);
+          fieldCount++;
+        }
+      });
+
+      const academicGapContainer = document.getElementById(
+        "academic-gap-container"
+      );
+      const academicGapRow =
+        academicGapContainer.querySelector("#academic-gap-row");
+      const dropdownIcon = academicGapContainer.querySelector(
+        ".admin-student-dropdown-icon"
+      );
+      const optionsSection = academicGapContainer.querySelector(
+        "#academic-gap-options"
+      );
+
+      academicGapRow.addEventListener("click", function (event) {
+        event.stopPropagation();
+
+        const isVisible = optionsSection.style.display === "block";
+        optionsSection.style.display = isVisible ? "none" : "block";
+        academicGapContainer.classList.toggle("active", !isVisible);
+        dropdownIcon.classList.toggle("rotated", !isVisible);
+      });
+
+      const academicOptions =
+        academicGapContainer.querySelector(".academic-options");
+      academicOptions.addEventListener("click", function (event) {
+        event.stopPropagation();
+      });
+
+      const addBtn = academicGapContainer.querySelector(
+        "#add-academic-option-btn"
+      );
+      addBtn.addEventListener("click", function (event) {
+        event.stopPropagation();
+        const userInput = prompt("Enter new option", "");
+
+        if (userInput && userInput.trim() !== "") {
+          const optionsContainer =
+            academicGapContainer.querySelector(".academic-options");
+
+          const newOption = document.createElement("div");
+          newOption.className = "academic-option";
+
+          const radio = document.createElement("input");
+          radio.type = "radio";
+          radio.id = "academic-option-" + Date.now();
+          radio.name = "academics-gap";
+          radio.value = userInput.toLowerCase().replace(/\s+/g, "-");
+
+          const label = document.createElement("label");
+          label.htmlFor = radio.id;
+          label.textContent = userInput.trim();
+
+          newOption.appendChild(radio);
+          newOption.appendChild(label);
+          optionsContainer.appendChild(newOption);
+        }
+      });
+
+      const academicYesRadio = document.getElementById("academic-yes");
+      const academicNoRadio = document.getElementById("academic-no");
+
+      academicYesRadio.addEventListener("change", function () {
+        let reasonSection =
+          academicGapContainer.querySelector(".academic-reason");
+
+        if (!reasonSection) {
+          reasonSection = document.createElement("div");
+          reasonSection.className = "academic-reason";
+
+          const reasonLabel = document.createElement("label");
+          reasonLabel.textContent = "Please state the reason for the gap:";
+
+          const reasonTextarea = document.createElement("textarea");
+          reasonTextarea.placeholder = "Enter your reason here...";
+
+          reasonSection.appendChild(reasonLabel);
+          reasonSection.appendChild(reasonTextarea);
+
+          // Insert after the academic-options-container
+          const optionsContainer = academicGapContainer.querySelector(
+            ".academic-options-container"
+          );
+          optionsContainer.parentNode.insertBefore(
+            reasonSection,
+            optionsContainer.nextSibling
+          );
         }
 
-        // Setup initial remove buttons
-        setupRemoveButtons();
+        setTimeout(() => {
+          reasonSection.classList.add("visible");
+        }, 10);
+      });
 
-        const addEducationFieldBtn = document.getElementById('add-education-field-btn');
+      academicNoRadio.addEventListener("change", function () {
+        const reasonSection =
+          academicGapContainer.querySelector(".academic-reason");
+        if (reasonSection) {
+          reasonSection.classList.remove("visible");
+        }
+      });
 
-        const educationFields = document.querySelectorAll('.education-field');
-        educationFields.forEach(field => {
-            field.addEventListener('click', function (event) {
-                event.stopPropagation();
-            });
+     //co borrower section
+      function setupDropdown(containerId, rowId, optionsId) {
+        const container = document.getElementById(containerId);
+        const row = document.getElementById(rowId);
+        const options = document.getElementById(optionsId);
+        const dropdownIcon = row.querySelector(".admin-student-dropdown-icon");
+
+        row.addEventListener("click", function () {
+          const isVisible = options.style.display !== "none";
+
+          // Toggle visibility
+          options.style.display = isVisible ? "none" : "block";
+
+          // Toggle active class on container
+          container.classList.toggle("active", !isVisible);
+
+          // Rotate the dropdown icon
+          dropdownIcon.classList.toggle("rotated", !isVisible);
         });
+      }
 
-        addEducationFieldBtn.addEventListener('click', function (event) {
-            event.stopPropagation();
-            const fieldName = prompt("Enter new field name (e.g., Graduation Year):", "");
+      // Set up dropdowns for all containers
+      setupDropdown(
+        "co-borrower-container",
+        "co-borrower-row",
+        "co-borrower-options"
+      );
+      setupDropdown("income-container", "income-row", "income-options");
+      setupDropdown(
+        "liability-container",
+        "liability-row",
+        "liability-options"
+      );
 
-            if (fieldName && fieldName.trim() !== "") {
-                // Create new field with input and remove button
-                const newField = document.createElement('div');
-                newField.className = 'education-field';
+      // First container - add option button
+      const addOptionBtn = document.getElementById("add-option-btn");
+      addOptionBtn.addEventListener("click", function (event) {
+        event.stopPropagation();
 
-                const newInput = document.createElement('input');
-                newInput.type = 'text';
-                newInput.placeholder = fieldName.trim();
-                newInput.name = fieldName.toLowerCase().replace(/\s+/g, '-');
+        const userInput = prompt("Enter new option", "");
 
-                const removeBtn = document.createElement('button');
-                removeBtn.type = 'button';
-                removeBtn.className = 'remove-field-btn';
-                removeBtn.textContent = '✕';
-                removeBtn.addEventListener('click', function (event) {
-                    event.stopPropagation();
-                    newField.remove();
-                    fieldCount--;
+        if (userInput && userInput.trim() !== "") {
+          const optionsContainer = document.querySelector(
+            ".checkbox-options-container"
+          );
 
-                    // If row becomes empty, remove it
-                    const parentRow = this.parentNode.parentNode;
-                    if (parentRow.children.length === 0) {
-                        parentRow.remove();
-                    }
+          // Create checkbox option
+          const newOption = document.createElement("div");
+          newOption.className = "checkbox-option";
+
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.id =
+            "co-borrower-" +
+            userInput.trim().toLowerCase().replace(/\s+/g, "-");
+          checkbox.name = "co-borrower-options";
+
+          const label = document.createElement("label");
+          label.htmlFor = checkbox.id;
+          label.textContent = userInput.trim();
+
+          newOption.appendChild(checkbox);
+          newOption.appendChild(label);
+
+          // Insert the new option before the add button
+          optionsContainer.insertBefore(newOption, addOptionBtn);
+
+          // Make the new checkbox work as radio button
+          checkbox.addEventListener("change", function () {
+            if (this.checked) {
+              document
+                .querySelectorAll('input[name="co-borrower-options"]')
+                .forEach((cb) => {
+                  if (cb !== this) cb.checked = false;
                 });
-
-                newField.appendChild(newInput);
-                newField.appendChild(removeBtn);
-
-                // Ensure maximum 2 fields per row
-                let currentRow;
-
-                // Check if we need a new row
-                if (fieldCount % 2 === 0) {
-                    // Create new row
-                    rowCount++;
-                    currentRow = document.createElement('div');
-                    currentRow.className = 'education-row';
-                    currentRow.id = 'education-row-' + rowCount;
-                    educationSection.insertBefore(currentRow, addEducationFieldBtn);
-                } else {
-                    // Use last row
-                    currentRow = document.getElementById('education-row-' + rowCount);
-
-                    // If somehow the row doesn't exist, create it
-                    if (!currentRow) {
-                        currentRow = document.createElement('div');
-                        currentRow.className = 'education-row';
-                        currentRow.id = 'education-row-' + rowCount;
-                        educationSection.insertBefore(currentRow, addEducationFieldBtn);
-                    }
-                }
-
-                // Add field to row
-                currentRow.appendChild(newField);
-                fieldCount++;
             }
+          });
+        }
+      });
+
+      // Function to create delete button functionality
+      function setupDeleteButton(deleteButton) {
+        deleteButton.addEventListener("click", function (event) {
+          event.stopPropagation();
+          // Get the parent container of the button
+          const fieldContainer =
+            this.closest(".field-container") ||
+            this.closest(".liability-input-container");
+          // Remove the field container from the DOM
+          fieldContainer.remove();
         });
+      }
 
-        const academicGapContainer = document.getElementById('academic-gap-container');
-        const academicGapRow = academicGapContainer.querySelector('#academic-gap-row');
-        const dropdownIcon = academicGapContainer.querySelector('.admin-student-dropdown-icon');
-        const optionsSection = academicGapContainer.querySelector('#academic-gap-options');
+      // Setup delete buttons for existing fields
+      document.querySelectorAll(".delete-field").forEach((button) => {
+        setupDeleteButton(button);
+      });
 
-        academicGapRow.addEventListener('click', function (event) {
-            event.stopPropagation();
+      // Second container - add income field button
+      const addIncomeFieldBtn = document.getElementById("add-income-field-btn");
+      addIncomeFieldBtn.addEventListener("click", function (event) {
+        event.stopPropagation();
 
-            const isVisible = optionsSection.style.display === 'block';
-            optionsSection.style.display = isVisible ? 'none' : 'block';
-            academicGapContainer.classList.toggle('active', !isVisible);
-            dropdownIcon.classList.toggle('rotated', !isVisible);
-        });
+        // Get user input through prompt
+        const userInput = prompt("Enter field name", "");
 
-        const academicOptions = academicGapContainer.querySelector('.academic-options');
-        academicOptions.addEventListener('click', function (event) {
-            event.stopPropagation();
-        });
+        if (userInput && userInput.trim() !== "") {
+          // Get the container for fields
+          const fieldsRowContainer = document.querySelector(
+            ".fields-row-container"
+          );
 
-        const addBtn = academicGapContainer.querySelector('#add-academic-option-btn');
-        addBtn.addEventListener('click', function (event) {
-            event.stopPropagation();
-            const userInput = prompt("Enter new option", "");
+          // Create a new field container
+          const fieldContainer = document.createElement("div");
+          fieldContainer.className = "field-container";
 
-            if (userInput && userInput.trim() !== "") {
-                const optionsContainer = academicGapContainer.querySelector('.academic-options');
+          // Create new income input field
+          const newIncomeField = document.createElement("input");
+          newIncomeField.type = "text";
+          newIncomeField.className = "text-input";
+          newIncomeField.value = userInput.trim(); // Set the value to what the user entered
 
-                const newOption = document.createElement('div');
-                newOption.className = 'academic-option';
+          // Create delete button
+          const deleteButton = document.createElement("button");
+          deleteButton.className = "delete-field";
+          deleteButton.textContent = "✕";
 
-                const radio = document.createElement('input');
-                radio.type = 'radio';
-                radio.id = 'academic-option-' + Date.now();
-                radio.name = 'academics-gap';
-                radio.value = userInput.toLowerCase().replace(/\s+/g, '-');
+          // Append elements to field container
+          fieldContainer.appendChild(newIncomeField);
+          fieldContainer.appendChild(deleteButton);
 
-                const label = document.createElement('label');
-                label.htmlFor = radio.id;
-                label.textContent = userInput.trim();
+          // Insert the new field before the add button
+          fieldsRowContainer.insertBefore(fieldContainer, addIncomeFieldBtn);
 
-                newOption.appendChild(radio);
-                newOption.appendChild(label);
-                optionsContainer.appendChild(newOption);
+          // Set up delete button functionality
+          setupDeleteButton(deleteButton);
+
+          // Add validation event listener
+          newIncomeField.addEventListener("input", validateNumericField);
+        }
+      });
+
+      // Third container - Radio button functionality and add button
+      // Handle Yes/No radio button functionality
+      document
+        .querySelectorAll('input[name="co-borrower-liability"]')
+        .forEach((radio) => {
+          radio.addEventListener("change", function () {
+            const emiInput = document.getElementById("emi-amount");
+            const additionalFields = document.getElementById(
+              "additional-liability-fields"
+            );
+            const addLiabilityBtn =
+              document.getElementById("add-liability-btn");
+
+            if (this.id === "yes-liability" && this.checked) {
+              // Enable input field and show add button when Yes is selected
+              emiInput.disabled = false;
+              additionalFields.style.display = "flex";
+              addLiabilityBtn.style.display = "flex";
+            } else if (this.id === "no-liability" && this.checked) {
+              // Disable input field and hide add button when No is selected
+              emiInput.disabled = true;
+              emiInput.value = "";
+              additionalFields.style.display = "none";
+              addLiabilityBtn.style.display = "none";
+
+              // Clear all additional liability fields
+              while (additionalFields.firstChild) {
+                additionalFields.removeChild(additionalFields.firstChild);
+              }
             }
+          });
         });
 
-        const academicYesRadio = document.getElementById('academic-yes');
-        const academicNoRadio = document.getElementById('academic-no');
+      // Third container - add liability field button
+      const addLiabilityBtn = document.getElementById("add-liability-btn");
+      addLiabilityBtn.addEventListener("click", function (event) {
+        event.stopPropagation();
 
-        academicYesRadio.addEventListener('change', function () {
-            let reasonSection = academicGapContainer.querySelector('.academic-reason');
+        // Get user input through prompt
+        const userInput = prompt("Enter field name for liability", "");
 
-            if (!reasonSection) {
-                reasonSection = document.createElement('div');
-                reasonSection.className = 'academic-reason';
+        if (userInput && userInput.trim() !== "") {
+          // Get the container for additional liability fields
+          const additionalFieldsContainer = document.getElementById(
+            "additional-liability-fields"
+          );
 
-                const reasonLabel = document.createElement('label');
-                reasonLabel.textContent = 'Please state the reason for the gap:';
+          const fieldContainer = document.createElement("div");
+          fieldContainer.className = "liability-input-container";
 
-                const reasonTextarea = document.createElement('textarea');
-                reasonTextarea.placeholder = 'Enter your reason here...';
+       
+          const newField = document.createElement("input");
+          newField.type = "text";
+          newField.className = "liability-input";
+          newField.placeholder = userInput.trim();
 
-                reasonSection.appendChild(reasonLabel);
-                reasonSection.appendChild(reasonTextarea);
+         
+          const deleteButton = document.createElement("button");
+          deleteButton.className = "delete-liability-field";
+          deleteButton.textContent = "✕";
+          deleteButton.setAttribute("aria-label", "Delete field");
 
-                academicOptions.parentNode.insertBefore(reasonSection, academicOptions.nextSibling);
+    
+          deleteButton.addEventListener("click", function (e) {
+            e.stopPropagation();
+            fieldContainer.remove();
+          });
+
+          // Add validation to the new field
+          newField.addEventListener("input", function () {
+            const value = this.value.replace(/[^0-9]/g, "");
+            if (value === "" || isNaN(value)) {
+              this.style.borderColor = "red";
+            } else {
+              this.style.borderColor = "#ccc";
             }
+          });
 
-            setTimeout(() => {
-                reasonSection.classList.add('visible');
-            }, 10);
+       
+          fieldContainer.appendChild(newField);
+          fieldContainer.appendChild(deleteButton);
+          additionalFieldsContainer.appendChild(fieldContainer);
+        }
+      });
+
+      function validateNumericField() {
+        const value = this.value.replace(/[^0-9]/g, "");
+        // Find the closest error message
+        const errorMessage =
+          this.closest(".field-container")?.querySelector(".error-message") ||
+          document.getElementById("emi-error-message");
+
+        if (errorMessage) {
+          if (value === "" || isNaN(value)) {
+            errorMessage.style.display = "block";
+            this.style.borderColor = "red";
+          } else {
+            errorMessage.style.display = "none";
+            this.style.borderColor = "#ccc";
+          }
+        }
+      }
+
+
+      document.querySelectorAll(".text-input").forEach((input) => {
+        input.addEventListener("input", validateNumericField);
+      });
+
+  
+      const emiAmount = document.getElementById("emi-amount");
+      emiAmount.addEventListener("input", validateNumericField);
+
+      // Prevent field clicks from toggling the dropdown
+      document.querySelectorAll(".options-section").forEach((section) => {
+        section.addEventListener("click", function (event) {
+          event.stopPropagation();
         });
+      });
 
-        academicNoRadio.addEventListener('change', function () {
-            const reasonSection = academicGapContainer.querySelector('.academic-reason');
-            if (reasonSection) {
-                reasonSection.classList.remove('visible');
+      // Make checkboxes in first container work as radio buttons
+      document
+        .querySelectorAll('input[name="co-borrower-options"]')
+        .forEach((checkbox) => {
+          checkbox.addEventListener("change", function () {
+            if (this.checked) {
+              document
+                .querySelectorAll('input[name="co-borrower-options"]')
+                .forEach((cb) => {
+                  if (cb !== this) cb.checked = false;
+                });
             }
+          });
         });
+
+      // Co-borrower info section toggle
+      const coborrowerHeader = document.querySelector(
+        ".admin-student-section-header-co-borrower"
+      );
+      const coborrowerArrow = document.querySelector(
+        ".admin-student-arrow-icon-co-borrower"
+      );
+      const formQuestions = document.querySelectorAll(
+        ".admin-student-form-question"
+      );
+
+      // Set initial state - containers are hidden by default
+      let containersVisible = false;
+
+      coborrowerHeader.addEventListener("click", function () {
+        // Toggle visibility of the form questions
+        containersVisible = !containersVisible;
+
+        formQuestions.forEach((question) => {
+          question.style.display = containersVisible ? "block" : "none";
+        });
+
+        // Rotate arrow - proper direction based on state
+        coborrowerArrow.style.transform = containersVisible
+          ? "rotate(180deg)"
+          : "rotate(0deg)";
+      });
 
     </script>
 

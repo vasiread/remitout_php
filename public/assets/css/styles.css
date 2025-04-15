@@ -402,7 +402,7 @@ body {
     .content-container {
         grid-template-columns: 1fr;
         padding: 2rem;
-        margin-top: 20px;
+        margin-top: 60px;
     }
 
     .left-container {
@@ -3137,7 +3137,7 @@ h1 {
     align-items: center;
     margin-bottom: 5px;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 4px;
     padding: 8px 12px;
     font-size: 14px;
     font-family: "Poppins", sans-serif;

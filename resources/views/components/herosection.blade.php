@@ -88,19 +88,19 @@
             
             <form id="contact-form">
                 <div class="contact-input-group" id="nameGroup">
-                    <img src="https://via.placeholder.com/20" alt="User icon" class="contact-icon">
+                    <img src="assets/images/full-name.png" alt="User icon" class="contact-icon">
                     <input type="text" id="fullName" placeholder="Full Name" required class="contact-input">
                 </div>
                 <span class="error-message" id="nameError"></span>
                 
                 <div class="contact-input-group" id="emailGroup">
-                    <img src="https://via.placeholder.com/20" alt="Email icon" class="contact-icon">
+                    <img src="assets/images/mail.png" alt="Email icon" class="contact-icon">
                     <input type="email" id="email" placeholder="Email ID" required class="contact-input">
                 </div>
                 <span class="error-message" id="emailError"></span>
                 
                 <div class="contact-input-group" id="phoneGroup">
-                    <img src="https://via.placeholder.com/20" alt="Phone icon" class="contact-icon">
+                    <img src="assets/images/call.png" alt="Phone icon" class="contact-icon">
                     <input type="tel" id="phone" placeholder="Phone Number" required class="contact-input">
                 </div>
                 <span class="error-message" id="phoneError"></span>

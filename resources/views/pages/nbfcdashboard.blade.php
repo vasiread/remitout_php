@@ -198,13 +198,6 @@
 
 
 
-
-
-
-
-
-
-
         <div class="nbfc-send-proposal-modal-container" id="modelContainer-send-proposal">
             <div class="nbfc-send-proposal-modal-content">
                 <div class="nbfc-send-proposal-modal-header">
@@ -690,15 +683,7 @@
                     </div>
                 </div>
 
-
-
-
                 <div class="index-student-details-container">
-
-
-
-
-
 
                 </div>
 
