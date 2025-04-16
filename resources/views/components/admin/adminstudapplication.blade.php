@@ -628,731 +628,536 @@
 
 <script>
 
-  document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all components
-    SectionToggler.init();
-    InputFieldManager.init();
-    FormValidator.init();
-    CityAutocomplete.init();
-    SocialOptionsManager.init();
-    CourseLocationManager.init();
-    CourseOptionsManager.init();
-    CourseDurationManager.init();
-    CourseDetailsManager.init();
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize all modules
+  SectionToggleManager.init();
+  InputFieldManager.init();
+  FormValidator.init();
+  CityAutocomplete.init();
+  SocialOptionsManager.init();
+  CourseLocationManager.init();
+  CourseOptionsManager.init();
+  CourseDurationManager.init();
+  CourseDetailsManager.init();
+  AcademicDetailsManager.init();
+  CoBorrowerManager.init();
 });
 
-/**
- * Handles section toggling functionality
- */
-const SectionToggler = {
-    init: function() {
-        this.setupMainSectionToggle();
-        this.setupPersonInfoToggle();
-        this.setupAboutUsToggle();
-    },
+// Utility function for class toggling
+const toggleClass = (element, className, condition) => {
+  element.classList[condition ? 'add' : 'remove'](className);
+};
 
-    setupMainSectionToggle: function() {
-        const sectionHeader = document.querySelector('.admin-student-section-header');
-        const sectionContent = document.querySelector('.admin-student-section-content');
-        const arrowIcon = document.querySelector('.admin-student-arrow-icon img');
-
-        // By default section is expanded (content visible, arrow up)
-        sectionContent.style.display = 'block';
-        arrowIcon.classList.add('admin-student-arrow-up');
-        arrowIcon.classList.remove('admin-student-arrow-down');
-
-        sectionHeader.addEventListener('click', function() {
-            const isContentVisible = sectionContent.style.display === 'block';
-
-            // Toggle content visibility
-            sectionContent.style.display = isContentVisible ? 'none' : 'block';
-
-            // Toggle arrow direction
-            if (isContentVisible) {
-                // Content is being hidden, arrow points down
-                arrowIcon.classList.add('admin-student-arrow-down');
-                arrowIcon.classList.remove('admin-student-arrow-up');
-            } else {
-                // Content is being shown, arrow points up
-                arrowIcon.classList.add('admin-student-arrow-up');
-                arrowIcon.classList.remove('admin-student-arrow-down');
-            }
-        });
-    },
-
-    setupPersonInfoToggle: function() {
-        this.setupSectionToggle('admin-student-person-info', 'person-info-section');
-    },
-
-    setupAboutUsToggle: function() {
-        this.setupSectionToggle('admin-student-about-us', 'about-us-section');
-    },
-
-    setupSectionToggle: function(questionRowId, sectionId) {
-        const questionRow = document.getElementById(questionRowId);
-        const section = document.getElementById(sectionId);
-
-        if (questionRow && section) {
-            questionRow.addEventListener('click', function() {
-                if (section.style.display === "none" || section.style.display === "") {
-                    section.style.display = "block";
-                } else {
-                    section.style.display = "none";
-                }
-            });
-        }
-    }
+// Utility function to toggle visibility
+const toggleVisibility = (element, isVisible) => {
+  element.style.display = isVisible ? 'block' : 'none';
 };
 
 /**
- * Manages input fields (add, remove, reorganize)
+ * Manages section toggling for all collapsible sections
+ */
+const SectionToggleManager = {
+  sections: [
+    {
+      header: '.admin-student-section-header',
+      content: '.admin-student-section-content',
+      arrow: '.admin-student-arrow-icon img',
+      arrowUpClass: 'admin-student-arrow-up',
+      arrowDownClass: 'admin-student-arrow-down',
+    },
+    {
+      header: '.admin-student-section-header-course',
+      content: '.admin-student-section-content-course',
+      arrow: '.admin-student-arrow-icon-course img',
+      arrowUpClass: 'admin-student-arrow-up-course',
+      arrowDownClass: 'admin-student-arrow-down-course',
+    },
+    {
+      header: '.admin-student-section-header-academic',
+      content: '.admin-student-section-content-academic',
+      arrow: '.admin-student-arrow-icon-academic img',
+      arrowUpClass: 'rotated',
+      arrowDownClass: '',
+    },
+    {
+      header: '.admin-student-section-header-co-borrower',
+      content: '.admin-student-form-question',
+      arrow: '.admin-student-arrow-icon-co-borrower',
+      arrowUpClass: '',
+      arrowDownClass: '',
+      multipleContents: true,
+    },
+  ],
+
+  init() {
+    this.sections.forEach(section => this.setupSectionToggle(section));
+  },
+
+  setupSectionToggle({ header, content, arrow, arrowUpClass, arrowDownClass, multipleContents }) {
+    const headerEl = document.querySelector(header);
+    if (!headerEl) return;
+
+    const contentEls = multipleContents
+      ? document.querySelectorAll(content)
+      : [document.querySelector(content)];
+    const arrowEl = document.querySelector(arrow);
+
+    if (!contentEls.length || !contentEls[0]) return;
+
+    // Set initial state: visible
+    contentEls.forEach(el => toggleVisibility(el, true));
+    if (arrowEl && arrowUpClass) {
+      toggleClass(arrowEl, arrowUpClass, true);
+      toggleClass(arrowEl, arrowDownClass, false);
+    }
+    if (header === '.admin-student-section-header-co-borrower') {
+      arrowEl.style.transform = 'rotate(180deg)';
+      contentEls.forEach(el => toggleVisibility(el, false));
+    }
+
+    headerEl.addEventListener('click', () => {
+      const isVisible = contentEls[0].style.display !== 'none';
+      contentEls.forEach(el => toggleVisibility(el, !isVisible));
+
+      if (arrowEl && arrowUpClass) {
+        toggleClass(arrowEl, arrowUpClass, !isVisible);
+        toggleClass(arrowEl, arrowDownClass, isVisible);
+      }
+
+      if (header === '.admin-student-section-header-co-borrower') {
+        arrowEl.style.transform = !isVisible ? 'rotate(180deg)' : 'rotate(0deg)';
+      }
+    });
+  },
+};
+
+/**
+ * Manages dynamic input fields
  */
 const InputFieldManager = {
-    init: function() {
-        this.setupRemoveOption();
-        this.setupAddField();
-    },
+  iconMap: {
+    name: './assets/images/person-icon.png',
+    phone: './assets/images/call-icon.png',
+    email: './assets/images/mail.png',
+    city: './assets/images/pin_drop.png',
+    country: './assets/images/pin_drop.png',
+    pincode: './assets/images/pin_drop.png',
+    referral: './assets/images/school.png',
+  },
 
-    setupRemoveOption: function() {
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('remove-option')) {
-                e.target.closest('.input-group').remove();
-                InputFieldManager.reorganizeInputs();
-            }
-        });
-    },
+  init() {
+    const container = document.querySelector('.admin-student-form-section');
+    if (!container) return;
 
-    setupAddField: function() {
-        const addInputField = document.getElementById('add-input-field');
-        if (addInputField) {
-            addInputField.addEventListener('click', function() {
-                InputFieldManager.showInputPrompt();
-            });
-        }
-    },
-
-    showInputPrompt: function() {
-        const fieldType = prompt("Enter field type (e.g., Country, Pincode):");
-        if (fieldType && fieldType.trim() !== "") {
-            this.addNewInputField(fieldType);
-        }
-    },
-
-    addNewInputField: function(fieldType) {
-        // Icon mapping based on field type (case insensitive)
-        const iconMap = {
-            'name': './assets/images/person-icon.png',
-            'full name': './assets/images/person-icon.png',
-            'first name': './assets/images/person-icon.png',
-            'last name': './assets/images/person-icon.png',
-            'phone': './assets/images/call-icon.png',
-            'phone number': './assets/images/call-icon.png',
-            'mobile': './assets/images/call-icon.png',
-            'email': './assets/images/mail.png',
-            'email id': './assets/images/mail.png',
-            'city': './assets/images/pin_drop.png',
-            'address': './assets/images/pin_drop.png',
-            'location': './assets/images/pin_drop.png',
-            'country': './assets/images/pin_drop.png',
-            'state': './assets/images/pin_drop.png',
-            'pincode': './assets/images/pin_drop.png',
-            'zip code': './assets/images/pin_drop.png',
-            'postal code': './assets/images/pin_drop.png',
-            'referral': './assets/images/school.png',
-            'referral code': './assets/images/school.png',
-            'code': './assets/images/school.png',
-        };
-
-        // Check for icon match (case insensitive)
-        const fieldTypeLower = fieldType.toLowerCase();
-        let iconSrc = './assets/images/pin_drop.png'; // default icon
-
-        // Find matching icon
-        for (const [key, value] of Object.entries(iconMap)) {
-            if (fieldTypeLower.includes(key) || key.includes(fieldTypeLower)) {
-                iconSrc = value;
-                break;
-            }
-        }
-
-        const newInput = document.createElement('div');
-        newInput.className = 'input-group';
-        newInput.innerHTML = `
-            <div class="input-content">
-                <img src="${iconSrc}" alt="${fieldType} Icon" class="icon" />
-                <input type="text" placeholder="${fieldType}" name="${fieldTypeLower.replace(/\s+/g, '_')}" required />
-            </div>
-            <span class="remove-option">×</span>
-            <div class="validation-message" id="${fieldTypeLower.replace(/\s+/g, '_')}-error"></div>
-        `;
-
-        // Find the current parent of the add button
-        const addButton = document.getElementById('add-input-field');
-        const addButtonParent = addButton.parentNode;
-
-        // Add the new input field before the add button
-        addButtonParent.insertBefore(newInput, addButton);
-
-        // Reorganize inputs to maintain exactly 3 per row
+    container.addEventListener('click', event => {
+      if (event.target.classList.contains('remove-option')) {
+        event.target.closest('.input-group').remove();
         this.reorganizeInputs();
-    },
+      }
+      if (event.target.closest('#add-input-field')) {
+        this.showInputPrompt();
+      }
+    });
+  },
 
-    reorganizeInputs: function() {
-        // Get all input groups and the add field
-        const allInputs = document.querySelectorAll('.input-group');
-        const addField = document.getElementById('add-input-field');
+  showInputPrompt() {
+    const fieldType = prompt('Enter field type (e.g., Country, Pincode):')?.trim();
+    if (fieldType) this.addNewInputField(fieldType);
+  },
 
-        // Get or create rows as needed
-        let row1 = document.getElementById('input-row-1');
-        let row2 = document.getElementById('input-row-2');
+  addNewInputField(fieldType) {
+    const fieldTypeLower = fieldType.toLowerCase();
+    const iconSrc = Object.keys(this.iconMap).reduce((src, key) => {
+      return fieldTypeLower.includes(key) ? this.iconMap[key] : src;
+    }, './assets/images/pin_drop.png');
 
-        if (!row1 || !row2) return;
+    const newInput = document.createElement('div');
+    newInput.className = 'input-group';
+    newInput.innerHTML = `
+      <div class="input-content">
+        <img src="${iconSrc}" alt="${fieldType} Icon" class="icon" />
+        <input type="text" placeholder="${fieldType}" name="${fieldTypeLower.replace(/\s+/g, '_')}" required />
+      </div>
+      <span class="remove-option">×</span>
+      <div class="validation-message" id="${fieldTypeLower.replace(/\s+/g, '_')}-error"></div>
+    `;
 
-        // Clear all rows
-        row1.innerHTML = '';
-        row2.innerHTML = '';
+    const addButton = document.getElementById('add-input-field');
+    addButton.parentNode.insertBefore(newInput, addButton);
+    this.reorganizeInputs();
+  },
 
-        // Remove any existing row3
-        const existingRow3 = document.getElementById('input-row-3');
-        if (existingRow3) {
-            existingRow3.remove();
-        }
+  reorganizeInputs() {
+    const allInputs = document.querySelectorAll('.input-group');
+    const addField = document.getElementById('add-input-field');
+    let row1 = document.getElementById('input-row-1');
+    let row2 = document.getElementById('input-row-2');
 
-        // Create row3 if needed
-        let row3 = null;
-        if (allInputs.length > 6) {
-            row3 = document.createElement('div');
-            row3.className = 'input-row';
-            row3.id = 'input-row-3';
-            row2.parentNode.insertBefore(row3, row2.nextSibling);
-        }
+    if (!row1 || !row2) return;
 
-        // Distribute inputs, exactly 3 per row
-        for (let i = 0; i < allInputs.length; i++) {
-            if (i < 3) {
-                row1.appendChild(allInputs[i]);
-            } else if (i < 6) {
-                row2.appendChild(allInputs[i]);
-            } else if (row3) {
-                row3.appendChild(allInputs[i]);
-            }
-        }
+    row1.innerHTML = '';
+    row2.innerHTML = '';
 
-        // Determine where to place the add button
-        const lastRow = row3 || (allInputs.length > 3 ? row2 : row1);
-        const inputsInLastRow = lastRow.querySelectorAll('.input-group').length;
+    const row3 = document.getElementById('input-row-3');
+    if (row3) row3.remove();
 
-        // Only add the add button if there's room (less than 3 inputs)
-        if (inputsInLastRow < 3) {
-            lastRow.appendChild(addField);
-        } else {
-            // Create a new row for the add button
-            const newRow = document.createElement('div');
-            newRow.className = 'input-row';
-            newRow.id = 'input-row-' + (row3 ? '4' : (row2.children.length > 0 ? '3' : '2'));
-            newRow.appendChild(addField);
-            lastRow.parentNode.insertBefore(newRow, lastRow.nextSibling);
-        }
+    let currentRow = row1;
+    let inputCount = 0;
+
+    allInputs.forEach(input => {
+      if (inputCount >= 3) {
+        currentRow = row2;
+      }
+      if (inputCount >= 6) {
+        currentRow = document.createElement('div');
+        currentRow.className = 'input-row';
+        currentRow.id = 'input-row-3';
+        row2.parentNode.appendChild(currentRow);
+      }
+      currentRow.appendChild(input);
+      inputCount++;
+    });
+
+    const lastRow = inputCount > 3 ? (inputCount > 6 ? currentRow : row2) : row1;
+    if (lastRow.querySelectorAll('.input-group').length < 3) {
+      lastRow.appendChild(addField);
+    } else {
+      const newRow = document.createElement('div');
+      newRow.className = 'input-row';
+      newRow.id = `input-row-${inputCount > 6 ? 4 : 3}`;
+      newRow.appendChild(addField);
+      lastRow.parentNode.appendChild(newRow);
     }
+  },
 };
 
 /**
  * Handles form validation
  */
 const FormValidator = {
-    init: function() {
-        this.setupFieldValidation();
-    },
+  init() {
+    const inputs = document.querySelectorAll('input[required]');
+    inputs.forEach(input => {
+      input.addEventListener('blur', () => this.validateField(input));
+    });
+  },
 
-    setupFieldValidation: function() {
-        const inputs = document.querySelectorAll('input[required]');
-        inputs.forEach(input => {
-            input.addEventListener('blur', function() {
-                FormValidator.validateField(this);
-            });
-        });
-    },
+  validateField(field) {
+    const errorElement = document.getElementById(`${field.id}-error`);
+    if (!errorElement) return;
 
-    validateField: function(field) {
-        // Find the error element associated with this field
-        const errorId = field.id + "-error";
-        const errorElement = document.getElementById(errorId);
+    const inputGroup = field.closest('.input-group');
+    inputGroup.style.borderColor = '';
 
-        if (!errorElement) return; // Skip if no error element exists
-
-        const inputGroup = field.closest('.input-group');
-
-        // Reset previous error styling
-        inputGroup.style.borderColor = '';
-
-        // Check for errors
-        if (!field.value.trim()) {
-            errorElement.textContent = `Please enter a valid ${field.placeholder.toLowerCase()}`;
-            errorElement.style.display = 'block';
-            inputGroup.style.borderColor = 'red';
-        } else if (field.type === 'email' && !this.isValidEmail(field.value)) {
-            errorElement.textContent = 'Please enter a valid email address';
-            errorElement.style.display = 'block';
-            inputGroup.style.borderColor = 'red';
-        } else if (field.id === 'phone' && !this.isValidPhone(field.value)) {
-            errorElement.textContent = 'Please enter a valid 10-digit phone number.';
-            errorElement.style.display = 'block';
-            inputGroup.style.borderColor = 'red';
-        } else {
-            // Clear error message
-            errorElement.textContent = '';
-            errorElement.style.display = 'none';
-        }
-    },
-
-    isValidEmail: function(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    },
-
-    isValidPhone: function(phone) {
-        const phoneRegex = /^\d{10}$/;
-        return phoneRegex.test(phone);
+    if (!field.value.trim()) {
+      errorElement.textContent = `Please enter a valid ${field.placeholder.toLowerCase()}`;
+      errorElement.style.display = 'block';
+      inputGroup.style.borderColor = 'red';
+    } else if (field.type === 'email' && !this.isValidEmail(field.value)) {
+      errorElement.textContent = 'Please enter a valid email address';
+      errorElement.style.display = 'block';
+      inputGroup.style.borderColor = 'red';
+    } else if (field.id === 'phone' && !this.isValidPhone(field.value)) {
+      errorElement.textContent = 'Please enter a valid 10-digit phone number';
+      errorElement.style.display = 'block';
+      inputGroup.style.borderColor = 'red';
+    } else {
+      errorElement.textContent = '';
+      errorElement.style.display = 'none';
     }
+  },
+
+  isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  },
+
+  isValidPhone(phone) {
+    return /^\d{10}$/.test(phone);
+  },
 };
 
 /**
  * City autocomplete functionality
  */
 const CityAutocomplete = {
-    cities: ['Mumbai', 'Delhi', 'Bangalore', 'Chennai', 'Kolkata', 'Hyderabad', 'Pune', 'Ahmedabad'],
-    
-    init: function() {
-        const cityInput = document.getElementById('city-input');
-        const suggestionsContainer = document.getElementById('suggestions');
-        
-        if (!cityInput || !suggestionsContainer) return;
-        
-        this.setupCityAutocomplete(cityInput, suggestionsContainer);
-    },
-    
-    setupCityAutocomplete: function(cityInput, suggestionsContainer) {
-        cityInput.addEventListener('input', function() {
-            const inputValue = this.value.toLowerCase();
+  cities: ['Mumbai', 'Delhi', 'Bangalore', 'Chennai', 'Kolkata', 'Hyderabad', 'Pune', 'Ahmedabad'],
 
-            // Clear previous suggestions
-            suggestionsContainer.innerHTML = '';
+  init() {
+    const cityInput = document.getElementById('city-input');
+    const suggestionsContainer = document.getElementById('suggestions');
+    if (!cityInput || !suggestionsContainer) return;
 
-            if (inputValue.length > 0) {
-                // Filter cities that match input
-                const matchedCities = CityAutocomplete.cities.filter(city =>
-                    city.toLowerCase().startsWith(inputValue)
-                );
+    cityInput.addEventListener('input', () => {
+      const inputValue = cityInput.value.toLowerCase();
+      suggestionsContainer.innerHTML = '';
 
-                if (matchedCities.length > 0) {
-                    suggestionsContainer.style.display = 'block';
+      if (inputValue.length === 0) {
+        suggestionsContainer.style.display = 'none';
+        return;
+      }
 
-                    // Create suggestion elements
-                    matchedCities.forEach(city => {
-                        const div = document.createElement('div');
-                        div.textContent = city;
-                        div.style.padding = '8px 10px';
-                        div.style.cursor = 'pointer';
+      const matchedCities = this.cities.filter(city => city.toLowerCase().startsWith(inputValue));
+      if (matchedCities.length === 0) {
+        suggestionsContainer.style.display = 'none';
+        return;
+      }
 
-                        div.addEventListener('click', function() {
-                            cityInput.value = city;
-                            suggestionsContainer.style.display = 'none';
-                            FormValidator.validateField(cityInput);
-                        });
-
-                        div.addEventListener('mouseover', function() {
-                            this.style.backgroundColor = '#f0f0f0';
-                        });
-
-                        div.addEventListener('mouseout', function() {
-                            this.style.backgroundColor = 'transparent';
-                        });
-
-                        suggestionsContainer.appendChild(div);
-                    });
-                } else {
-                    suggestionsContainer.style.display = 'none';
-                }
-            } else {
-                suggestionsContainer.style.display = 'none';
-            }
+      suggestionsContainer.style.display = 'block';
+      matchedCities.forEach(city => {
+        const div = document.createElement('div');
+        div.textContent = city;
+        div.style.cssText = 'padding: 8px 10px; cursor: pointer;';
+        div.addEventListener('click', () => {
+          cityInput.value = city;
+          suggestionsContainer.style.display = 'none';
+          FormValidator.validateField(cityInput);
         });
+        div.addEventListener('mouseover', () => div.style.backgroundColor = '#f0f0f0');
+        div.addEventListener('mouseout', () => div.style.backgroundColor = 'transparent');
+        suggestionsContainer.appendChild(div);
+      });
+    });
 
-        // Hide suggestions when clicking outside
-        document.addEventListener('click', function(e) {
-            if (e.target !== cityInput && e.target !== suggestionsContainer) {
-                suggestionsContainer.style.display = 'none';
-            }
-        });
-    }
+    document.addEventListener('click', e => {
+      if (e.target !== cityInput && e.target !== suggestionsContainer) {
+        suggestionsContainer.style.display = 'none';
+      }
+    });
+  },
 };
 
 /**
  * Social options manager
  */
 const SocialOptionsManager = {
-    init: function() {
-        this.setupSocialButtons();
-    },
-    
-    setupSocialButtons: function() {
-        // Setup existing remove buttons
-        document.querySelectorAll('.social-remove').forEach(function(removeButton) {
-            removeButton.addEventListener('click', function() {
-                this.parentElement.remove();
-            });
-        });
-        
-        // Setup add button
-        const addSocialButton = document.querySelector('.add-social');
-        if (addSocialButton) {
-            addSocialButton.addEventListener('click', function() {
-                // Prompt user for input
-                const userInput = prompt("Enter dropdown option", "");
+  init() {
+    const container = document.querySelector('.second-main-section-container');
+    if (!container) return;
 
-                // Only proceed if the user entered something
-                if (userInput && userInput.trim() !== "") {
-                    // Create new option
-                    const newOption = document.createElement('div');
-                    newOption.className = 'social-option';
+    container.addEventListener('click', event => {
+      if (event.target.classList.contains('social-remove')) {
+        event.target.closest('.social-option').remove();
+      }
+      if (event.target.closest('.add-social')) {
+        const userInput = prompt('Enter dropdown option:')?.trim();
+        if (userInput) this.addSocialOption(userInput);
+      }
+    });
 
-                    // Create the name span with the user's input
-                    const nameSpan = document.createElement('span');
-                    nameSpan.className = 'social-name';
-                    nameSpan.textContent = userInput.trim();
+    this.setupSectionToggle('admin-student-about-us', 'about-us-section');
+  },
 
-                    // Create the remove button
-                    const removeSpan = document.createElement('span');
-                    removeSpan.className = 'social-remove';
-                    removeSpan.textContent = '×';
+  addSocialOption(userInput) {
+    const newOption = document.createElement('div');
+    newOption.className = 'social-option';
+    newOption.innerHTML = `
+      <span class="social-name">${userInput}</span>
+      <span class="social-remove">×</span>
+    `;
+    document.querySelector('.second-question-options').appendChild(newOption);
+  },
 
-                    // Add event listener to the remove button
-                    removeSpan.addEventListener('click', function() {
-                        newOption.remove();
-                    });
+  setupSectionToggle(rowId, sectionId) {
+    const row = document.getElementById(rowId);
+    const section = document.getElementById(sectionId);
+    if (!row || !section) return;
 
-                    // Append the spans to the new option
-                    newOption.appendChild(nameSpan);
-                    newOption.appendChild(removeSpan);
-
-                    // Get the parent container
-                    const optionsContainer = document.querySelector('.second-question-options');
-
-                    // Append the new option to the container
-                    if (optionsContainer) {
-                        optionsContainer.appendChild(newOption);
-                    }
-                }
-            });
-        }
-    }
+    row.addEventListener('click', () => {
+      toggleVisibility(section, section.style.display === 'none');
+    });
+  },
 };
 
 /**
  * Course location manager
  */
 const CourseLocationManager = {
-    init: function() {
-        this.setupLocationControls();
-    },
-    
-    setupLocationControls: function() {
-        const checkboxContainer = document.getElementById('selected-study-location');
-        const addCheckboxContainer = document.querySelector('.add-checkbox-container');
-        
-        if (!checkboxContainer || !addCheckboxContainer) {
-            console.error('Course location containers not found');
-            return;
-        }
-        
-        addCheckboxContainer.addEventListener('click', function(event) {
-            event.preventDefault();
-            CourseLocationManager.addNewCheckbox(checkboxContainer, addCheckboxContainer);
-        });
-        
-        // Setup toggle for course options section
-        const questionRow = document.querySelector('.admin-student-question-row-course');
-        const optionsSection = document.querySelector('.admin-student-options-section-course');
+  init() {
+    const container = document.getElementById('selected-study-location');
+    if (!container) return;
 
-        if (questionRow && optionsSection) {
-            // Hide the options section by default
-            optionsSection.style.display = 'none';
-            
-            questionRow.addEventListener('click', function() {
-                // Toggle the visibility of the options section
-                optionsSection.style.display = optionsSection.style.display === 'none' ? 'block' : 'none';
-            });
-        }
-    },
-    
-    addNewCheckbox: function(checkboxContainer, addCheckboxContainer) {
-        // Prompt user for input
-        const newCountry = prompt("Enter country name", "");
-        
-        // Only proceed if the user entered something
-        if (newCountry && newCountry.trim() !== "") {
-            // Check if country already exists
-            const existingCountries = Array.from(checkboxContainer.querySelectorAll('input[type="checkbox"]'))
-                .map(checkbox => checkbox.value.toLowerCase());
-            
-            if (existingCountries.includes(newCountry.toLowerCase())) {
-                alert('This country is already in the list');
-                return;
-            }
-            
-            // Create new checkbox element
-            const newLabel = document.createElement('label');
-            const newCheckbox = document.createElement('input');
-            
-            // Configure checkbox
-            newCheckbox.type = 'checkbox';
-            newCheckbox.name = 'study-location';
-            newCheckbox.value = newCountry;
-            newCheckbox.checked = true;
-            
-            // Create label with checkbox and text
-            newLabel.appendChild(newCheckbox);
-            newLabel.appendChild(document.createTextNode(' ' + newCountry));
-            
-            // Insert new checkbox before the add container
-            checkboxContainer.insertBefore(newLabel, addCheckboxContainer);
-        }
+    container.addEventListener('click', event => {
+      if (event.target.closest('.add-checkbox-container')) {
+        event.preventDefault();
+        this.addNewCheckbox(container);
+      }
+    });
+
+    this.setupSectionToggle('admin-student-course', 'person-info-section-course');
+  },
+
+  addNewCheckbox(container) {
+    const newCountry = prompt('Enter country name:')?.trim();
+    if (!newCountry) return;
+
+    const existingCountries = Array.from(container.querySelectorAll('input[type="checkbox"]'))
+      .map(cb => cb.value.toLowerCase());
+    if (existingCountries.includes(newCountry.toLowerCase())) {
+      alert('This country is already in the list');
+      return;
     }
+
+    const newLabel = document.createElement('label');
+    newLabel.innerHTML = `<input type="checkbox" name="study-location" value="${newCountry}" checked> ${newCountry}`;
+    container.insertBefore(newLabel, container.querySelector('.add-checkbox-container'));
+  },
+
+  setupSectionToggle(rowId, sectionId) {
+    const row = document.getElementById(rowId);
+    const section = document.getElementById(sectionId);
+    if (!row || !section) return;
+
+    section.style.display = 'none';
+    row.addEventListener('click', () => {
+      toggleVisibility(section, section.style.display === 'none');
+    });
+  },
 };
 
 /**
  * Course options manager
  */
 const CourseOptionsManager = {
-    init: function() {
-        this.setupDegreeOptions();
-    },
-    
-    setupDegreeOptions: function() {
-        const optionsContainer = document.getElementById('option-section-degree-container');
-        const dropdownTrigger = document.getElementById('admin-student-course-second');
-        
-        if (!optionsContainer || !dropdownTrigger) {
-            console.error('Degree options elements not found');
-            return;
-        }
-        
-        // Hide options container by default
-        optionsContainer.style.display = 'none';
-        
-        // Toggle visibility on click
-        dropdownTrigger.addEventListener('click', function(e) {
-            e.stopPropagation();
-            optionsContainer.style.display = optionsContainer.style.display === 'none' ? 'block' : 'none';
-        });
-        
-        // Handle add new option
-        const addSection = document.getElementById('addSection');
-        const optionsGrid = document.getElementById('optionsContainer');
-        
-        if (addSection && optionsGrid) {
-            addSection.onclick = function(e) {
-                e.stopPropagation();
-                const newOptionName = prompt('Enter new option:');
-                if (newOptionName && newOptionName.trim() !== '') {
-                    // Remove the add section
-                    optionsGrid.removeChild(addSection);
-                    
-                    // Create the new option item
-                    const newOptionItem = document.createElement('div');
-                    newOptionItem.className = 'option-item';
-                    newOptionItem.innerHTML = `
-                        <input type="checkbox" class="option-checkbox">
-                        <div class="option-name">${newOptionName.trim()}</div>
-                    `;
-                    
-                    // Add the new option to the grid
-                    optionsGrid.appendChild(newOptionItem);
-                    
-                    // Add back the add section
-                    optionsGrid.appendChild(addSection);
-                }
-            };
-        }
-    }
+  init() {
+    const container = document.getElementById('admin-student-form-question-course-degree');
+    if (!container) return;
+
+    container.addEventListener('click', event => {
+      if (event.target.closest('#addSection')) {
+        event.stopPropagation();
+        this.addNewOption();
+      }
+    });
+
+    this.setupSectionToggle('admin-student-course-second', 'option-section-degree-container');
+  },
+
+  addNewOption() {
+    const newOptionName = prompt('Enter new option:')?.trim();
+    if (!newOptionName) return;
+
+    const optionsGrid = document.getElementById('optionsContainer');
+    const addSection = document.getElementById('addSection');
+
+    optionsGrid.removeChild(addSection);
+    const newOptionItem = document.createElement('div');
+    newOptionItem.className = 'option-item';
+    newOptionItem.innerHTML = `
+      <input type="checkbox" class="option-checkbox">
+      <div class="option-name">${newOptionName}</div>
+    `;
+    optionsGrid.appendChild(newOptionItem);
+    optionsGrid.appendChild(addSection);
+  },
+
+  setupSectionToggle(rowId, sectionId) {
+    const row = document.getElementById(rowId);
+    const section = document.getElementById(sectionId);
+    if (!row || !section) return;
+
+    section.style.display = 'none';
+    row.addEventListener('click', () => {
+      toggleVisibility(section, section.style.display === 'none');
+    });
+  },
 };
 
 /**
  * Course duration manager
  */
 const CourseDurationManager = {
-    init: function() {
-        this.setupCourseDuration();
-    },
-    
-    setupCourseDuration: function() {
-        const rowElement = document.getElementById('course-row-month-id');
-        const dropdownElement = document.getElementById('course-dropdown-month-id');
-        const optionsSection = document.getElementById('course-duration-section-month');
-        
-        if (!rowElement || !dropdownElement || !optionsSection) {
-            console.error('Course duration elements not found');
-            return;
-        }
-        
-        // Hide options by default
-        optionsSection.style.display = 'none';
-        
-        // Setup click handlers
-        rowElement.addEventListener('click', function() {
-            CourseDurationManager.toggleOptionsDisplay(optionsSection);
-        });
-        
-        dropdownElement.addEventListener('click', function(event) {
-            event.stopPropagation();
-            CourseDurationManager.toggleOptionsDisplay(optionsSection);
-        });
-        
-        // Setup existing remove buttons
-        document.querySelectorAll('.course-remove').forEach(function(removeButton) {
-            removeButton.addEventListener('click', function(event) {
-                event.stopPropagation();
-                this.parentElement.remove();
-            });
-        });
-        
-        // Setup add button
-        const addButton = document.querySelector('.add-course');
-        if (addButton) {
-            addButton.addEventListener('click', function(event) {
-                event.stopPropagation();
-                CourseDurationManager.addNewDurationOption();
-            });
-        }
-    },
-    
-    toggleOptionsDisplay: function(optionsSection) {
-        const isCurrentlyHidden = optionsSection.style.display === 'none' || !optionsSection.style.display;
-        const dropdownIcon = document.querySelector('.admin-student-dropdown-icon');
+  init() {
+    const container = document.getElementById('course-duration-section-month');
+    if (!container) return;
 
-        optionsSection.style.display = isCurrentlyHidden ? 'block' : 'none';
+    container.style.display = 'none';
+    container.addEventListener('click', event => {
+      if (event.target.classList.contains('course-remove')) {
+        event.stopPropagation();
+        event.target.closest('.course-option').remove();
+      }
+      if (event.target.closest('.add-course')) {
+        event.stopPropagation();
+        this.addNewDurationOption();
+      }
+    });
 
-        if (dropdownIcon) {
-            dropdownIcon.classList.toggle('rotated', isCurrentlyHidden);
-        }
-
-        document.querySelector('.admin-student-form-question-month').classList.toggle('active', isCurrentlyHidden);
-    },
-    
-    addNewDurationOption: function() {
-        const userInput = prompt("Enter course duration option", "");
-
-        if (userInput && userInput.trim() !== "") {
-            const newOption = document.createElement('div');
-            newOption.className = 'course-option';
-
-            const nameSpan = document.createElement('span');
-            nameSpan.className = 'course-name';
-            nameSpan.textContent = userInput.trim();
-
-            const removeSpan = document.createElement('span');
-            removeSpan.className = 'course-remove';
-            removeSpan.textContent = '×';
-
-            removeSpan.addEventListener('click', function(event) {
-                event.stopPropagation();
-                newOption.remove();
-            });
-
-            newOption.appendChild(nameSpan);
-            newOption.appendChild(removeSpan);
-
-            const optionsContainer = document.querySelector('.course-options');
-            if (optionsContainer) {
-                optionsContainer.appendChild(newOption);
-            }
-        }
+    const row = document.getElementById('course-row-month-id');
+    const dropdown = document.getElementById('course-dropdown-month-id');
+    if (row && dropdown) {
+      row.addEventListener('click', () => this.toggleOptionsDisplay(container));
+      dropdown.addEventListener('click', event => {
+        event.stopPropagation();
+        this.toggleOptionsDisplay(container);
+      });
     }
+  },
+
+  toggleOptionsDisplay(section) {
+    const isVisible = section.style.display !== 'none';
+    toggleVisibility(section, !isVisible);
+    const dropdownIcon = document.querySelector('#admin-student-dropdown-icon-id');
+    if (dropdownIcon) toggleClass(dropdownIcon, 'rotated', !isVisible);
+    document.querySelector('.admin-student-form-question-month').classList.toggle('active', !isVisible);
+  },
+
+  addNewDurationOption() {
+    const userInput = prompt('Enter course duration option:')?.trim();
+    if (!userInput) return;
+
+    const newOption = document.createElement('div');
+    newOption.className = 'course-option';
+    newOption.innerHTML = `
+      <span class="course-name">${userInput}</span>
+      <span class="course-remove">×</span>
+    `;
+    document.querySelector('.course-options').appendChild(newOption);
+  },
 };
 
 /**
  * Course details manager
  */
 const CourseDetailsManager = {
-    init: function() {
-        this.setupCourseDetails();
-    },
-    
-    setupCourseDetails: function() {
-        const courseDetailsContainer = document.getElementById('course-details-container');
-        if (!courseDetailsContainer) {
-            console.error('Course details container not found');
-            return;
-        }
-        
-        const courseDetailsRow = courseDetailsContainer.querySelector('#course-details-row');
-        const dropdownIcon = courseDetailsContainer.querySelector('.admin-student-dropdown-icon');
-        const optionsSection = courseDetailsContainer.querySelector('#course-details-options');
-        
-        if (!courseDetailsRow || !dropdownIcon || !optionsSection) {
-            console.error('Course details elements not found');
-            return;
-        }
-        
-        // Hide options by default
-        optionsSection.style.display = 'none';
-        
-        // Toggle on row click
-        courseDetailsRow.addEventListener('click', function() {
-            const isVisible = optionsSection.style.display !== 'none';
+  init() {
+    const container = document.getElementById('course-details-container');
+    if (!container) return;
 
-            // Toggle visibility
-            optionsSection.style.display = isVisible ? 'none' : 'block';
+    const optionsSection = container.querySelector('#course-details-options');
+    optionsSection.style.display = 'none';
 
-            // Toggle active class on container
-            courseDetailsContainer.classList.toggle('active', !isVisible);
+    container.addEventListener('click', event => {
+      if (event.target.closest('#course-details-row')) {
+        const isVisible = optionsSection.style.display !== 'none';
+        toggleVisibility(optionsSection, !isVisible);
+        container.classList.toggle('active', !isVisible);
+        const dropdownIcon = container.querySelector('.admin-student-dropdown-icon');
+        if (dropdownIcon) toggleClass(dropdownIcon, 'rotated', !isVisible);
+      }
+      if (event.target.closest('#add-option-btn')) {
+        event.stopPropagation();
+        this.addNewCourseOption(container);
+      }
+      if (event.target.closest('.checkbox-options-container')) {
+        event.stopPropagation();
+      }
+    });
+  },
 
-            // Rotate the dropdown icon
-            dropdownIcon.classList.toggle('rotated', !isVisible);
-        });
-        
-        // Add option button
-        const addOptionBtn = courseDetailsContainer.querySelector('#add-option-btn');
-        if (addOptionBtn) {
-            addOptionBtn.addEventListener('click', function(event) {
-                event.stopPropagation();
-                CourseDetailsManager.addNewCourseOption(courseDetailsContainer);
-            });
-        }
-        
-        // Prevent clicks on checkboxes from toggling the dropdown
-        const checkboxContainer = courseDetailsContainer.querySelector('.checkbox-options-container');
-        if (checkboxContainer) {
-            checkboxContainer.addEventListener('click', function(event) {
-                event.stopPropagation();
-            });
-        }
-    },
-    
-    addNewCourseOption: function(courseDetailsContainer) {
-        const userInput = prompt("Enter new option", "");
+  addNewCourseOption(container) {
+    const userInput = prompt('Enter new option:')?.trim();
+    if (!userInput) return;
 
-        if (userInput && userInput.trim() !== "") {
-            const optionsContainer = courseDetailsContainer.querySelector('.checkbox-options-container');
-            if (!optionsContainer) return;
-
-            const newOption = document.createElement('div');
-            newOption.className = 'checkbox-option';
-
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.id = 'option-' + Date.now();
-            checkbox.name = 'course-options';
-
-            const label = document.createElement('label');
-            label.htmlFor = checkbox.id;
-            label.textContent = userInput.trim();
-
-            newOption.appendChild(checkbox);
-            newOption.appendChild(label);
-            optionsContainer.appendChild(newOption);
-        }
-    }
+    const optionsContainer = container.querySelector('.checkbox-options-container');
+    const newOption = document.createElement('div');
+    newOption.className = 'checkbox-option';
+    const checkboxId = `option-${Date.now()}`;
+    newOption.innerHTML = `
+      <input type="checkbox" id="${checkboxId}" name="course-options">
+      <label for="${checkboxId}">${userInput}</label>
+    `;
+    optionsContainer.appendChild(newOption);
+  },
 };
 
 //academic details

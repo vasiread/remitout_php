@@ -1061,6 +1061,21 @@ canvas {
         padding: 0;
         margin: 0 auto;
         width: 100%;
+        max-width: 380px;
+        margin: 0 auto;
+    }
+
+    .totalundergrads-admin {
+        width: 380px;
+    }
+    .totalpostgrads-admin {
+        width: 380px;
+    }
+
+    .source-registeration {
+        order: 3 !important;
+        width: 100%;
+        max-width: 380px;
     }
     .admindashboard-firstpart,
     .admindashboard-secondpart,

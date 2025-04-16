@@ -1,7 +1,6 @@
 * {
     margin: 0;
     padding: 0;
-
 }
 
 input[type="file"] {
@@ -16,17 +15,13 @@ input[type="file"] {
     background: none;
     margin-left: 19.43%;
 
-
     gap: 2.28%;
-
-
 }
 
 .studentdashboardprofile-togglesidebar {
     height: 100vh;
     padding: 35px 0px;
-    position:fixed;
-
+    position: fixed;
 
     box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
     background-color: rgba(255, 255, 255, 1);
@@ -36,8 +31,6 @@ input[type="file"] {
     margin-top: 85px;
     max-width: 17.43%;
     width: 100%;
-
-
 }
 
 .studentdashboardprofile-togglesidebar ul {
@@ -48,7 +41,6 @@ input[type="file"] {
     height: 202px;
     max-width: 100%;
     align-items: center;
-
 }
 
 .studentdashboardprofile-sidebarlists-bottom img {
@@ -72,12 +64,9 @@ input[type="file"] {
     gap: 6.07%;
     align-items: center;
 
-
     border-radius: 4px;
     opacity: 0px;
     padding-left: 11.74%;
-
-
 }
 
 .studentdashboardprofile-sidebarlists-bottom {
@@ -108,11 +97,8 @@ input[type="file"] {
     gap: 6.07%;
     align-items: center;
 
-
     border-radius: 4px;
     opacity: 0px;
-
-
 }
 
 .personalinfo-secondrow li img {
@@ -123,22 +109,14 @@ input[type="file"] {
 .studentdashboardprofile-sidebarlists-top li {
     display: flex;
     gap: 6.07%;
-
 }
 
 .studentdashboardprofile-sidebarlists-top li.active {
-    background: linear-gradient(88.18deg, #FFA048 3.11%, #FA7B15 98.46%);
+    background: linear-gradient(88.18deg, #ffa048 3.11%, #fa7b15 98.46%);
     color: rgba(255, 255, 255, 1);
     display: flex;
     gap: 6.07%;
 }
-
-
-
-
-
-
-
 
 /* profilesection */
 .testscoreseditsection-secondrow-editsection {
@@ -159,7 +137,6 @@ input[type="file"] {
     color: rgba(33, 33, 33, 0.7);
     font-size: 0.8rem;
     margin: 0.2rem 0;
-
 }
 
 .nbfc-studentdashboard-profile-container {
@@ -170,7 +147,6 @@ input[type="file"] {
     margin-top: 105.8px;
     height: fit-content;
 
-
     padding: 20px 20px 31px 22px;
     box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
     width: 100%;
@@ -179,11 +155,10 @@ input[type="file"] {
     gap: 22px;
     flex: 1;
     position: relative;
-    max-width: 21.80%;
+    max-width: 21.8%;
     width: 100%;
     background: rgba(255, 255, 255, 1);
     box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
-
 }
 
 .studentdashboardprofile-profilesection .fa-pen-to-square {
@@ -194,7 +169,6 @@ input[type="file"] {
     color: rgba(38, 2, 84, 0.7);
     display: none;
     cursor: pointer;
-
 }
 
 .studentdashboardprofile-profilesection .profileImg {
@@ -202,10 +176,7 @@ input[type="file"] {
     position: relative;
     height: 122px;
     width: 100%;
-
 }
-
-
 
 .studentdashboardprofile-personalinfo {
     height: 262px;
@@ -216,7 +187,6 @@ input[type="file"] {
     flex-direction: column;
     align-items: space-between;
     justify-content: flex-start;
-
 }
 
 .studentdashboardprofile-personalinfo .personalinfo-firstrow {
@@ -224,7 +194,6 @@ input[type="file"] {
     justify-content: space-between;
     align-items: center;
     padding: 1.4rem 0;
-
 }
 
 .studentdashboardprofile-personalinfo .personalinfo-firstrow h1 {
@@ -256,7 +225,6 @@ input[type="file"] {
     color: rgba(111, 37, 206, 0.87);
     cursor: pointer;
     background-color: transparent;
-
 }
 
 .studentdashboardprofile-personalinfo .personalinfo-secondrow {
@@ -279,8 +247,6 @@ input[type="file"] {
     gap: 20px;
 }
 
-
-
 .studentdashboardprofile-profilesection .progress-ring-circle {
     stroke-dasharray: 330;
     stroke-dashoffset: 0;
@@ -291,9 +257,7 @@ input[type="file"] {
     stroke-dashoffset: 330;
 }
 
-
 .personalinfo-profilestatus h1 {
-
     font-family: Poppins;
     font-size: 13px;
     font-weight: 500;
@@ -302,7 +266,6 @@ input[type="file"] {
     text-align: left;
     color: rgba(0, 0, 0, 1);
     padding-bottom: 1rem;
-
 }
 
 .profilestatus-graph-section {
@@ -315,13 +278,11 @@ input[type="file"] {
     gap: 1rem;
     border: 1px solid rgba(229, 229, 229, 1);
     color: rgba(255, 255, 255, 1);
-
 }
 
 .personalinfo-graphsectioncontainer {
     display: flex;
     gap: 20.99px;
-
 }
 
 .profilestatus-graph-section p {
@@ -333,8 +294,6 @@ input[type="file"] {
 
     color: rgba(255, 154, 63, 1);
     padding: 12px;
-
-
 }
 
 .profilestatus-graph-secondsection span {
@@ -347,9 +306,7 @@ input[type="file"] {
     color: rgba(131, 131, 131, 0.3);
     margin-left: 2rem;
     margin-bottom: 2rem;
-
 }
-
 
 .profilestatus-graph-secondsection p {
     padding-top: 1rem;
@@ -373,7 +330,6 @@ input[type="file"] {
     justify-content: flex-end;
     gap: 1rem;
     border: 1px solid rgba(229, 229, 229, 1);
-
 }
 
 .profilestatus-graph-secondsection .secondsection-inside {
@@ -385,14 +341,9 @@ input[type="file"] {
 
     color: rgba(255, 154, 63, 1);
     padding: 12px;
-
-
-
-
 }
 
 .studentdashboardprofile-communityjoinsection {
-
     max-width: 100%;
     display: flex;
     gap: 15px;
@@ -404,8 +355,7 @@ input[type="file"] {
     border-radius: 4px;
     cursor: pointer;
 
-
-    border: 1px solid rgba(222, 222, 222, 0.8)
+    border: 1px solid rgba(222, 222, 222, 0.8);
 }
 
 .studentdashboardprofile-communityjoinsection p {
@@ -414,15 +364,9 @@ input[type="file"] {
     font-size: 16px;
     font-weight: 500;
     line-height: 19.2px;
-
-
-
 }
 
-
-
 .studentdashboardprofile-trackprogress {
-
     display: flex;
     /* display: none; */
     flex-direction: column;
@@ -435,9 +379,6 @@ input[type="file"] {
     /* box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03); */
 }
 
-
-
-
 .studentdashboardprofile-trackprogress .trackprogress-header {
     font-family: Inter;
     font-size: 28px;
@@ -448,9 +389,6 @@ input[type="file"] {
 
     /* margin: 30px 0px 30px 24px; */
 }
-
-
-
 
 .studentdashboardprofile-trackprogress h1 {
     font-family: Inter;
@@ -493,8 +431,6 @@ input[type="file"] {
     padding: 29px 24px 25px 24px;
 
     box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
-
-
 }
 
 .trackprogress-leftsection {
@@ -512,14 +448,12 @@ input[type="file"] {
     display: flex;
     justify-content: space-between;
     padding: 0 15px;
-
 }
 
 .leftsection-detailsinfo div {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-
 }
 
 .leftsection-detailsinfo div h1 {
@@ -565,15 +499,11 @@ input[type="file"] {
     display: flex;
     flex-direction: column;
     gap: 24px;
-
-
 }
 
 .uploadsectionsandglass i {
     color: rgba(210, 210, 210, 1);
     font-size: 30px;
-
-
 }
 
 .rightsection-uploadsection {
@@ -602,7 +532,6 @@ input[type="file"] {
     line-height: 16.8px;
     color: rgba(255, 255, 255, 1);
     border: none;
-
 }
 
 .uploadsectionsandglass {
@@ -610,7 +539,6 @@ input[type="file"] {
     flex-direction: column;
     align-items: center;
     gap: 0.3rem;
-
 }
 
 .uploadsectionsandglass .upload-status-hourglass {
@@ -620,7 +548,6 @@ input[type="file"] {
     font-weight: 500;
     line-height: 18px;
     letter-spacing: -0.01em;
-
 }
 
 .trackprogress-rightsection p {
@@ -636,7 +563,6 @@ input[type="file"] {
 
 .rightsection-uploadsection .uploadsectionsandglass {
     display: flex;
-
 }
 
 .studentdashboardprofile-loanproposals {
@@ -644,7 +570,6 @@ input[type="file"] {
     box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
     background-color: rgba(255, 255, 255, 1);
     padding-bottom: 1.5rem;
-
 }
 
 .studentdashboardprofile-loanproposals .loanproposals-header {
@@ -673,7 +598,6 @@ input[type="file"] {
     gap: 10px;
     height: fit-content;
     border-top: 1px solid rgba(229, 229, 229, 1);
-
 }
 
 .indivudalloanstatus-cards h1 {
@@ -685,8 +609,6 @@ input[type="file"] {
     text-align: left;
     margin: 0;
     padding: 0;
-
-
 
     color: rgba(93, 92, 92, 1);
 }
@@ -701,13 +623,11 @@ input[type="file"] {
     color: rgba(144, 144, 144, 1);
     max-width: 370px;
     width: 100%;
-
 }
 
 .individual-bankmessages {
     display: flex;
     justify-content: space-between;
-
 }
 
 .individual-bankmessages-buttoncontainer {
@@ -735,7 +655,6 @@ input[type="file"] {
     border: 1px solid rgba(111, 37, 206, 1);
     cursor: pointer;
     background-color: transparent;
-
 }
 
 .individual-bankmessages-buttoncontainer button:hover {
@@ -761,8 +680,6 @@ input[type="file"] {
     border: none;
     display: none;
     cursor: pointer;
-
-
 }
 
 .individual-bankmessage-input {
@@ -786,16 +703,15 @@ input[type="file"] {
     border: 1px solid rgba(226, 226, 226, 1);
     font-family: Poppins;
     color: rgba(144, 144, 144, 1);
-
 }
 
 .individual-bankmessages-buttoncontainer .bankmessage-buttoncontainer-reject {
-    color: #FF7A00;
-    border: 1px solid #E2E2E2;
+    color: #ff7a00;
+    border: 1px solid #e2e2e2;
 }
 
-.individual-bankmessages-buttoncontainer .bankmessage-buttoncontainer-reject:hover {
-
+.individual-bankmessages-buttoncontainer
+    .bankmessage-buttoncontainer-reject:hover {
     background-color: rgba(111, 37, 206, 1);
     color: rgba(255, 255, 255, 0.87);
 }
@@ -813,7 +729,6 @@ input[type="file"] {
     font-size: 1.2rem;
     color: rgba(187, 187, 187, 1);
     cursor: pointer;
-
 }
 
 .individual-bankmessage-input .send-img {
@@ -822,16 +737,12 @@ input[type="file"] {
     right: 15%;
     padding: 0px 9px 0px 0;
 
-
     z-index: 2;
 }
 
 .personalinfo-secondrow i {
     font-size: 18px;
-
 }
-
-
 
 /* --------------------My Application------------- */
 
@@ -847,16 +758,12 @@ input[type="file"] {
     display: none;
     flex-direction: column;
     gap: 1.87rem;
-
-
-
 }
 
 .myapplication-firstcolumn {
     display: flex;
     justify-content: space-between;
     width: 100%;
-
 }
 
 .myapplication-firstcolumn h1 {
@@ -885,16 +792,12 @@ input[type="file"] {
     display: flex;
     justify-content: center;
     align-items: center;
-
-
 }
 
 .myapplication-secondcolumn {
     display: flex;
     flex-direction: column;
     gap: 12px;
-
-
 }
 
 .myapplication-secondcolumn p {
@@ -922,7 +825,6 @@ input[type="file"] {
     display: flex;
     flex-direction: column;
     gap: 12px;
-
 }
 
 .checkbox-group-edit {
@@ -933,17 +835,15 @@ input[type="file"] {
     position: relative;
 }
 
-
 .checkbox-group-edit label {
     display: flex;
     align-items: center;
     gap: 4px;
     font-size: 14px;
-    color: #75747C;
+    color: #75747c;
     cursor: pointer;
     line-height: 1.2rem;
 }
-
 
 .checkbox-group-edit input[type="checkbox"] {
     -webkit-appearance: none;
@@ -951,27 +851,25 @@ input[type="file"] {
     appearance: none;
     width: 22px;
     height: 22px;
-    border: 2px solid #E2E8F0;
+    border: 2px solid #e2e8f0;
     border-radius: 2px;
     outline: none;
     cursor: pointer;
     position: relative;
     margin-right: 10px;
     transition: all 0.3s ease-in-out;
-    color: #DFDFDF;
+    color: #dfdfdf;
 }
-
 
 .checkbox-group-edit input[type="checkbox"]:checked {
-    border-color: #E98635;
+    border-color: #e98635;
 }
 
-
 .checkbox-group-edit input[type="checkbox"]:checked::before {
-    content: '';
+    content: "";
     width: 12px;
     height: 12px;
-    background-color: #E98635;
+    background-color: #e98635;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -1009,7 +907,7 @@ input[type="file"] {
     width: 142px;
     padding: 8px;
     font-size: 14px;
-    color: #75747C;
+    color: #75747c;
     border-radius: 6px;
     outline: none;
     position: absolute;
@@ -1017,10 +915,9 @@ input[type="file"] {
     border: 1px solid #ccc;
 }
 
-
 .custom-country-edit::placeholder {
     font-size: 14px;
-    color: #B0B0B0;
+    color: #b0b0b0;
 }
 
 .checkbox-group-edit {
@@ -1030,7 +927,7 @@ input[type="file"] {
     place-items: flex-start;
     margin-top: 10px;
     position: relative;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 .myapplication-thirdcolumn .degreetypescheckboxes {
@@ -1056,7 +953,6 @@ input[type="file"] {
     line-height: 28.8px;
     letter-spacing: -0.01em;
     color: rgba(25, 24, 37, 0.6);
-
 }
 
 .custom-radio input[type="radio"] {
@@ -1078,7 +974,6 @@ input[type="file"] {
     vertical-align: middle;
     cursor: pointer;
     transition: background-color 0.3s, border-color 0.3s;
-
 }
 
 .custom-radio .radio-button::after {
@@ -1096,7 +991,7 @@ input[type="file"] {
     transition: opacity 0.3s ease;
 }
 
-.custom-radio input[type="radio"]:checked+.radio-button::after {
+.custom-radio input[type="radio"]:checked + .radio-button::after {
     opacity: 1;
 }
 
@@ -1104,7 +999,7 @@ input[type="file"] {
     border-color: rgba(233, 134, 53, 1);
 }
 
-.custom-radio input[type="radio"]:focus+.radio-button {
+.custom-radio input[type="radio"]:focus + .radio-button {
     box-shadow: 0 0 0 3px rgba(233, 134, 53, 0.5);
 }
 
@@ -1134,8 +1029,6 @@ input[type="file"] {
     display: flex;
     flex-direction: column;
     gap: 12px;
-
-
 }
 
 .myapplication-fourthcolumn p,
@@ -1165,8 +1058,6 @@ input[type="file"] {
     display: flex;
     flex-direction: column;
     gap: 12px;
-
-
 }
 
 .myapplication-fifthcolumn p {
@@ -1189,7 +1080,6 @@ input[type="file"] {
     border: 1px solid rgba(226, 226, 226, 1);
     outline: none;
 }
-
 
 .myapplication-sixthcolumn {
     width: 100%;
@@ -1228,7 +1118,6 @@ input[type="file"] {
     color: rgba(111, 37, 206, 1);
     border-top: 1.2px solid rgba(194, 194, 194, 0.7);
     padding: 2rem 0;
-
 }
 
 .myapplication-seventhcolum-documentscolumn {
@@ -1236,7 +1125,6 @@ input[type="file"] {
     flex-direction: column;
     margin: 2rem 0;
     gap: 2rem;
-
 }
 
 .myapplication-seventhcolum-documentscolumn h4 {
@@ -1312,7 +1200,6 @@ input[type="file"] {
     color: rgba(131, 131, 131, 1);
 
     overflow: hidden;
-
 }
 
 .inputfilecontainer-marksheet p,
@@ -1325,7 +1212,6 @@ input[type="file"] {
     font-weight: 500;
     line-height: 21px;
     color: rgba(131, 131, 131, 1);
-
 }
 
 .myapplication-seventhcolumn .kycdocumentscolumn {
@@ -1343,10 +1229,7 @@ input[type="file"] {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     width: 100%;
-
 }
-
-
 
 .individualmarksheetdocuments,
 .individual-secured-admission-documents,
@@ -1415,7 +1298,6 @@ input[type="file"] {
 
 .fa-solid.fa-image {
     color: rgba(233, 134, 53, 1);
-
 }
 
 .myapplication-ninthcolumn .ninthcolumn-firstsection,
@@ -1434,7 +1316,6 @@ input[type="file"] {
     height: 20px;
     transition: height 0.5s ease;
     overflow: hidden;
-
 }
 
 .myapplication-eleventhcolumn {
@@ -1443,7 +1324,9 @@ input[type="file"] {
     justify-content: flex-end;
 }
 
-.studentdashboardprofile-myapplication .myapplication-eleventhcolumn .mailnbfcbutton {
+.studentdashboardprofile-myapplication
+    .myapplication-eleventhcolumn
+    .mailnbfcbutton {
     max-width: 168px;
     width: 100%;
     height: 35px;
@@ -1462,29 +1345,27 @@ input[type="file"] {
     align-items: center;
     justify-content: center;
     box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
-
-
 }
 
-.studentdashboardprofile-myapplication .myapplication-eleventhcolumn .mailnbfcbutton:hover {
+.studentdashboardprofile-myapplication
+    .myapplication-eleventhcolumn
+    .mailnbfcbutton:hover {
     background-color: rgba(111, 37, 206, 1);
-    color: #fff
+    color: #fff;
 }
-.educationeditsection-firstrow ,.testscoreseditsection-firstrow{
+.educationeditsection-firstrow,
+.testscoreseditsection-firstrow {
     margin-bottom: 20px;
 }
 .studentdashboardprofile-educationeditsection {
     display: none;
     flex-direction: column;
     margin: 13px 0;
-
 }
-
 
 .educationeditsection-firstrow {
     display: flex;
     justify-content: space-between;
-
 }
 
 .educationeditsection-firstrow h1 {
@@ -1531,7 +1412,6 @@ input[type="file"] {
     line-height: 15.6px;
     text-align: left;
     color: rgba(33, 33, 33, 0.5);
-
 }
 
 .personalinfosecondrow-editsection {
@@ -1557,9 +1437,6 @@ input[type="file"] {
     display: flex;
     gap: 0.2rem;
     margin: 0.2rem 0;
-
-
-
 }
 
 .personalinfosecondrow-editsection li input {
@@ -1569,36 +1446,25 @@ input[type="file"] {
     color: rgb(99 96 96 / 70%);
 }
 
-.studentdashboardprofile-myapplication .myapplication-firstcolumn .personalinfo-firstrow .saved-msg {
+.studentdashboardprofile-myapplication
+    .myapplication-firstcolumn
+    .personalinfo-firstrow
+    .saved-msg {
     color: rgb(104, 198, 121);
     display: none;
     justify-content: center;
     align-items: center;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 .studentdashboardprofile-testscoreseditsection {
     display: none;
     flex-direction: column;
     margin: 13px 0;
-
 }
 
 .testscoreseditsection-firstrow {
     display: flex;
     justify-content: space-between;
-
 }
 
 .testscoreseditsection-firstrow h1 {
@@ -1648,9 +1514,7 @@ input[type="file"] {
     display: flex;
     justify-content: space-between;
     /*  padding: 0 1rem; */
-
 }
-
 
 .pdf-viewer-container {
     width: 57%;
@@ -1674,8 +1538,7 @@ input[type="file"] {
     z-index: 999;
 }
 
-@media(max-width:1200px) {
-
+@media (max-width: 1200px) {
     .trackprogress-contentcontainer {
         flex-direction: column;
         height: fit-content;
@@ -1706,19 +1569,15 @@ input[type="file"] {
     .coborrower-kyccolumn {
         display: flex;
         flex-direction: column;
-
-
     }
 }
 
-@media(max-width:1020px) {
-    .personalinfo-secondrow p{
+@media (max-width: 1020px) {
+    .personalinfo-secondrow p {
         font-size: 0.7rem;
-
     }
     .studentdashboardprofile {
         gap: 0;
-
     }
 
     .studentdashboardprofile-loanproposals .loanproposals-header {
@@ -1730,13 +1589,9 @@ input[type="file"] {
         width: 100%;
     }
 
-
-
-
     .studentdashboardprofile-togglesidebar ul li {
         font-size: 0.8rem;
         gap: 6.07%;
-
     }
 
     .checkbox-group-edit {
@@ -1744,8 +1599,11 @@ input[type="file"] {
     }
 }
 
-
-@media (max-width:768px) {
+@media (max-width: 768px) {
+    .studentdashboardprofile {
+        gap: 0;
+        margin: 0px;
+    }
     .studentdashboardprofile-profilesection {
         display: none;
     }
@@ -1756,7 +1614,6 @@ input[type="file"] {
 
     .studentdashboardprofile-togglesidebar {
         display: none;
-
     }
 
     .trackprogress-contentcontainer {
@@ -1766,19 +1623,16 @@ input[type="file"] {
     .studentdashboardprofile-firstrowtrackprogress {
         flex-direction: column;
         height: fit-content;
-
     }
 
     .individual-bankmessages {
         flex-direction: column;
         height: fit-content;
         gap: 1rem;
-
     }
 
     .loanproposals-loanstatuscards {
         gap: 4rem;
-
     }
 
     .individual-bankmessages-buttoncontainer {
@@ -1798,7 +1652,6 @@ input[type="file"] {
         max-width: 100%;
         width: 100%;
         padding: 0 1.5rem;
-
     }
 
     .studentdashboardprofile-trackprogress .trackprogress-header {
@@ -1809,18 +1662,13 @@ input[type="file"] {
         margin: 0;
     }
 
-
-
     .myapplication-thirdcolumn .degreetypescheckboxes {
         flex-direction: column;
         gap: 0;
     }
-
-
 }
 
-@media(max-width:480px) {
-
+@media (max-width: 480px) {
     .trackprogress-leftsection,
     .trackprogress-rightsection {
         width: 100%;
