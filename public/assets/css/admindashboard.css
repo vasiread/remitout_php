@@ -419,34 +419,32 @@
         height: 103px;
     }
 
+.admindashboard-secondpart {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 340px;
+}
 
-
-  .admindashboard-secondpart {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      width: 100%;
-      max-width:340px;
-
-  }
-
-  .admindashboard-secondpart div {
-      background-color: rgba(255, 255, 255, 1);
-
-
-  }
-
-  .admindashboard-secondpart .totalundergrads-admin,
-  .admindashboard-secondpart .totalpostgrads-admin {
-      padding: 22px 12px 18px 12px;
-      display: flex;
-      flex-direction: column;
-      height: 105px;
-       width:340px;
-      justify-content: space-between;
-      box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
-
-  }
+.admindashboard-second-main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: #f5f5f5;
+    max-width: 340px;
+}
+.admindashboard-secondpart .totalundergrads-admin,
+.admindashboard-secondpart .totalpostgrads-admin {
+    padding: 22px 12px 18px 12px;
+    display: flex;
+    flex-direction: column;
+    height: 105px;
+    justify-content: space-between;
+    box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
+    background-color: white;
+    border-radius: 8px;
+}
 
   .admindashboard-secondpart .totalundergrads-admin h4,
   .admindashboard-secondpart .totalpostgrads-admin h4 {
@@ -761,16 +759,49 @@
       padding: 2rem 0;
   }
 
-
-  /*mobile devices*/
-  
-@media screen and (max-width: 768px) {
-    .admindashboard-firstpart {
+@media (max-width: 768px) {
+    .admindashboardcontainer-thirdsection {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0;
+        margin: 0 auto;
         width: 100%;
-        max-width:400px;
-        margin:0 auto;
-        justify-items: center;
-    
+    }
+    .admindashboard-firstpart,
+    .admindashboard-secondpart,
+    .admindashboard-thirdpart {
+        order: unset;
+        width: 100%;
+        max-width: 380px;
+        margin: 0 auto;
+    }
+
+    .reports-registeration {
+        order: 1;
+        width: 100%;
+        max-width: 380px;
+        margin: 0 auto;
+    }
+
+    .admindashboard-second-main-container {
+        order: 2 !important;
+        width: 100%;
+        max-width: 380px;
+        margin: 0 auto;
+    }
+
+    .totalundergrads-admin {
+        width: 380px;
+    }
+    .totalpostgrads-admin {
+        width: 380px;
+    }
+
+    .source-registeration {
+        order: 3 !important;
+        width: 100%;
+        max-width: 380px;
     }
 
     .admindashboard-secondpart,
