@@ -192,7 +192,7 @@ const initializeAdminSidebar = () => {
                 if (adminRoleManagement) adminRoleManagement.style.display = "none";
                 if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
                 if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
-                   if (studentApplication) studentApplication.style.display = "none";
+                if (studentApplication) studentApplication.style.display = "none";
 
 
 
@@ -211,7 +211,6 @@ const initializeAdminSidebar = () => {
 
                 if (index === 8) {
                     if (adminCounsellorAdd) adminCounsellorAdd.style.display = "flex";
-
                     if (studentTicketRaised) studentTicketRaised.style.display = "none";
                     if (adminManageStudent) adminManageStudent.style.display = "none";
                     if (studentEditIndex) studentEditIndex.style.display = "none";
@@ -221,7 +220,7 @@ const initializeAdminSidebar = () => {
                     if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
                     if (studentListContainer) studentListContainer.style.display = "none";
                     if (studentCounsellorList) studentCounsellorList.style.display = "none";
-                       if (studentApplication) studentApplication.style.display = "none";
+                    if (studentApplication) studentApplication.style.display = "none";
 
 
                 }
@@ -263,7 +262,8 @@ const initializeAdminSidebar = () => {
                 if (adminManageStudent) adminManageStudent.style.display = "flex";
                 if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
                 if (adminPropertyOne) adminPropertyOne.style.display = "none";
-                   if (studentApplication) studentApplication.style.display = "none";
+                if (studentApplication) studentApplication.style.display = "none";
+
 
 
             }
@@ -300,8 +300,8 @@ const initializeAdminSidebar = () => {
                     if (nbfcAdminsideAddAuthority) nbfcAdminsideAddAuthority.style.display = "none";
                     if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
                     if (adminManageStudent) adminManageStudent.style.display = "none";
-                   if (adminPropertyOne) adminPropertyOne.style.display = "none";
-                   if (studentApplication) studentApplication.style.display = "none";
+                    if (adminPropertyOne) adminPropertyOne.style.display = "none";
+                    if (studentApplication) studentApplication.style.display = "none";
 
                 
             }

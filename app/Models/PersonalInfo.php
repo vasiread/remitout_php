@@ -12,7 +12,6 @@ class PersonalInfo extends Model
     protected $fillable = [
         'user_id',
         'full_name',
-        'phone',
         'referral_code',
         'email',
         'state',

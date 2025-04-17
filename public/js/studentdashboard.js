@@ -1,7 +1,8 @@
+
 document.addEventListener('DOMContentLoaded', function () {
-    // Initialize UI components that don't depend on documentUrls
-    initializeSideBarTabs();
-    initializeIndividualCards();
+
+
+    bankListedThroughNBFC();
     initializeProgressRing();
     saveChangesFunctionality();
     initialisedocumentsCount();
@@ -11,12 +12,11 @@ document.addEventListener('DOMContentLoaded', function () {
     initialiseEightcolumn();
     initialiseNinthcolumn();
     initialiseTenthcolumn();
-    initializeSimpleChat();
 
     // Fetch all URLs first
     Promise.all([
         initialiseProfileView(),
-        initialiseAllViews()
+        initialiseAllViews(),
     ])
         .then(() => {
             console.log("All URLs fetched successfully!", documentUrls);
@@ -31,13 +31,19 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch((error) => {
             console.error("Error during initialization:", error);
         });
+    markAsRead();
+    const sessionLogout = document.querySelector(".logoutBtn");
+    sessionLogout.addEventListener('click', () => {
+
+        sessionLogoutInitial();
+
+    })
 
     const courseDetailsElement = document.getElementById('course-details-container');
     const courseDetails = JSON.parse(courseDetailsElement.getAttribute('data-course-details'));
-    const personalDetails = JSON.parse(courseDetailsElement.getAttribute('data-personal-details'));
-
-    // Now you can use courseDetails and personalDetails in your JS
-    console.log(courseDetails, personalDetails);
+    // const personalDetails = JSON.parse(courseDetailsElement.getAttribute('data-personal-details'));
+    // const acceptTriggers = document.querySelectorAll(".user-accept-trigger");
+    // const rejectTriggers = document.querySelectorAll(".bankmessage-buttoncontainer-reject");
 
     let planToStudy = courseDetails[0]['plan-to-study'].replace(/[\[\]"]/g, '');
     let selectedCountries = planToStudy.split(/\s*,\s*/);
@@ -73,66 +79,41 @@ document.addEventListener('DOMContentLoaded', function () {
         sendDocumenttoEmail();
     });
 
-
+    setInterval(() => {
+        console.log("Calling fetchUnreadCount every 3 seconds");
+        try {
+            fetchUnreadCount();
+        } catch (err) {
+            console.error("fetchUnreadCount failed in setInterval:", err);
+        }
+    }, 3000);
 
 
 });
 
+function handleIndividualCards(mode = 'index1') {
+    const checkInterval = setInterval(() => {
+        const individualCards = document.querySelectorAll('.indivudalloanstatus-cards');
 
+        if (individualCards.length > 0) {
+            console.log('Cards are now available for', mode);
+            clearInterval(checkInterval);
 
+            individualCards.forEach((card) => {
+                const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
+                const groupButtonContainer = card.querySelector('.individual-bankmessages-buttoncontainer');
+                const individualBankMessageInput = card.querySelector('.individual-bankmessage-input');
 
-const initializeSideBarTabs = () => {
-    const sideBarTopItems = document.querySelectorAll('.studentdashboardprofile-sidebarlists-top li');
-    const lastTabHiddenDiv = document.querySelector(".studentdashboardprofile-trackprogress");
-    const lastTabVisibleDiv = document.querySelector(".studentdashboardprofile-myapplication");
-    const dynamicHeader = document.getElementById('loanproposals-header');
-    const individualCards = document.querySelectorAll('.indivudalloanstatus-cards');
-    const communityJoinCard = document.querySelector('.studentdashboardprofile-communityjoinsection');
-    const profileStatusCard = document.querySelector(".personalinfo-profilestatus");
-    const profileImgEditIcon = document.querySelector(".studentdashboardprofile-profilesection .fa-pen-to-square");
-    const educationEditSection = document.querySelector(".studentdashboardprofile-educationeditsection");
-    const testScoresEditSection = document.querySelector(".studentdashboardprofile-testscoreseditsection");
-
-
-    sideBarTopItems.forEach((item, index) => {
-        item.addEventListener('click', () => {
-            sideBarTopItems.forEach(i => i.classList.remove('active'));
-            item.classList.add('active');
-
-            if (index === 1) {
-                lastTabHiddenDiv.style.display = "flex";
-                lastTabVisibleDiv.style.display = "none";
-                communityJoinCard.style.display = "flex";
-                profileStatusCard.style.display = "block";
-                profileImgEditIcon.style.display = "none";
-                educationEditSection.style.display = "none";
-                testScoresEditSection.style.display = "none";
-
-                individualCards.forEach((card) => {
-                    const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
-                    const groupButtonContainer = card.querySelector('.individual-bankmessages-buttoncontainer');
-
+                if (mode === 'index1') {
+                    // Inbox behavior (Index 1)
                     if (triggeredMessageButton && groupButtonContainer) {
                         triggeredMessageButton.style.display = "flex";
                         groupButtonContainer.style.display = "none";
                     }
-                });
-                dynamicHeader.textContent = "Inbox";
-            } else if (index === 0) {
-                lastTabHiddenDiv.style.display = "flex";
-                lastTabVisibleDiv.style.display = "none";
-                communityJoinCard.style.display = "flex";
-                profileStatusCard.style.display = "block";
-                profileImgEditIcon.style.display = "none";
-                educationEditSection.style.display = "none";
-                testScoresEditSection.style.display = "none";
+                } else if (mode === 'index0') {
+                    // Loan Proposals behavior (Index 0)
+                    card.style.height = "fit-content";
 
-                individualCards.forEach((card) => {
-                    const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
-                    const groupButtonContainer = card.querySelector('.individual-bankmessages-buttoncontainer');
-                    const individualBankMessageInput = card.querySelector('.individual-bankmessage-input');
-
-                    card.style.height = "95px";
                     if (individualBankMessageInput) {
                         individualBankMessageInput.style.display = "none";
                     }
@@ -140,9 +121,83 @@ const initializeSideBarTabs = () => {
                         triggeredMessageButton.style.display = "none";
                         groupButtonContainer.style.display = "flex";
                     }
-                });
+                }
+            });
+        } else {
+            console.log(`Waiting for individual cards for ${mode}...`);
+        }
+    }, 50);
+}
+
+const initializeSideBarTabs = () => {
+    const sideBarTopItems = document.querySelectorAll('.studentdashboardprofile-sidebarlists-top li');
+    const lastTabHiddenDiv = document.querySelector(".studentdashboardprofile-trackprogress");
+    const lastTabVisibleDiv = document.querySelector(".studentdashboardprofile-myapplication");
+    const dynamicHeader = document.getElementById('loanproposals-header');
+
+
+
+    const communityJoinCard = document.querySelector('.studentdashboardprofile-communityjoinsection');
+    const profileStatusCard = document.querySelector(".personalinfo-profilestatus");
+    const profileImgEditIcon = document.querySelector(".studentdashboardprofile-profilesection .fa-pen-to-square");
+    const educationEditSection = document.querySelector(".studentdashboardprofile-educationeditsection");
+    const testScoresEditSection = document.querySelector(".studentdashboardprofile-testscoreseditsection");
+
+    console.log('Initializing sidebar tabs...');
+
+
+    sideBarTopItems.forEach((item, index) => {
+        item.addEventListener('click', () => {
+            console.log('Clicked item index:', index);
+            sideBarTopItems.forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+
+            if (index === 1) {
+                console.log('Inbox tab selected');
+                lastTabHiddenDiv.style.display = "flex";
+                lastTabVisibleDiv.style.display = "none";
+                communityJoinCard.style.display = "flex";
+                profileStatusCard.style.display = "block";
+                profileImgEditIcon.style.display = "none";
+                educationEditSection.style.display = "none";
+                testScoresEditSection.style.display = "none";
+
+                handleIndividualCards('index1');
+
+
+
+
+
+
+
+
+
+                dynamicHeader.textContent = "Inbox";
+            } else if (index === 0) {
+                console.log('Loan Proposals tab selected');
+                lastTabHiddenDiv.style.display = "flex";
+                lastTabVisibleDiv.style.display = "none";
+                communityJoinCard.style.display = "flex";
+                profileStatusCard.style.display = "block";
+                profileImgEditIcon.style.display = "none";
+                educationEditSection.style.display = "none";
+                testScoresEditSection.style.display = "none";
+
+                handleIndividualCards('index0');
+
+
                 dynamicHeader.textContent = "Loan Proposals";
+
+
+
+
+
+
+
+
             } else if (index === 2) {
+                console.log('My Application tab selected');
+
                 lastTabHiddenDiv.style.display = "none";
                 lastTabVisibleDiv.style.display = "flex";
                 communityJoinCard.style.display = "none";
@@ -152,8 +207,13 @@ const initializeSideBarTabs = () => {
                 testScoresEditSection.style.display = "flex";
             }
         });
+
+
+
+
     });
-};
+}
+
 
 function sendDocumenttoEmail(event) {
     console.log(event);
@@ -311,13 +371,15 @@ const initialiseAllViews = () => {
     });
 };
 
+
 const triggerEditButton = () => {
-    const disabledInputs = document.querySelectorAll('.studentdashboardprofile-myapplication input[disabled]');
+    const disabledInputs = document.querySelectorAll('.studentdashboardprofile-myapplication input');
+    const defaultDisabledInput = document.getElementById("plan-to-study-edit");
     disabledInputs.forEach(inputItems => {
         inputItems.removeAttribute('disabled');
     });
+    defaultDisabledInput.setAttribute('disabled')
 
-    // Enable custom radio buttons (if disabled)
     const disabledRadios = document.querySelectorAll('.studentdashboardprofile-myapplication input[type="radio"][disabled]');
     disabledRadios.forEach(radio => {
         radio.removeAttribute('disabled');
@@ -328,6 +390,9 @@ const triggerEditButton = () => {
         otherDegreeInput.removeAttribute('disabled');
     }
 };
+
+
+
 const initialiseProfileUpload = () => {
     const editIcon = document.querySelector('.studentdashboardprofile-profilesection .fa-pen-to-square');
     const profileImageInput = document.querySelector('.studentdashboardprofile-profilesection .profile-upload');
@@ -336,6 +401,7 @@ const initialiseProfileUpload = () => {
         editIcon.addEventListener('click', function () {
             profileImageInput.click();
         });
+
 
         profileImageInput.addEventListener('change', function (event) {
             const file = event.target.files[0];
@@ -404,6 +470,8 @@ const initialiseProfileUpload = () => {
         });
     }
 };
+
+
 const initialiseEightcolumn = () => {
     const section = document.querySelector('.eightcolumn-firstsection');
 
@@ -440,8 +508,8 @@ const initialiseSeventhAdditionalColumn = () => {
 
 }
 const initialiseNinthcolumn = () => {
-    const section = document.querySelector('.ninthcolumn-firstsection');
 
+    const section = document.querySelector('.ninthcolumn-firstsection');
     section.addEventListener('click', function () {
         if (section.style.height === '') {
             section.style.height = 'fit-content';
@@ -451,6 +519,11 @@ const initialiseNinthcolumn = () => {
     });
 
 }
+
+
+
+
+
 const initialiseTenthcolumn = () => {
     const section = document.querySelector(".tenthcolumn-firstsection");
     section.addEventListener('click', function () {
@@ -463,6 +536,615 @@ const initialiseTenthcolumn = () => {
 
 }
 
+
+function initializeSimpleChat() {
+
+    console.log("inizializesimplechat")
+    const chatContainers = document.querySelectorAll('.individual-bankmessage-input');
+
+    console.log(chatContainers)
+    if (chatContainers.length === 0) return;
+
+    chatContainers.forEach((chatContainer, index) => {
+
+        const chatId = `loan-chat-${index}`;
+        chatContainer.setAttribute('data-chat-id', chatId);
+
+        const parentContainer = chatContainer.closest('.indivudalloanstatus-cards');
+        const messageButton = parentContainer ? parentContainer.querySelector('.triggeredbutton') : null;
+
+        console.log("====")
+        console.log(messageButton)
+
+        chatContainer.style.display = 'none';
+
+        let messagesWrapper = parentContainer ? parentContainer.querySelector(`.messages-wrapper[data-chat-id="${chatId}"]`) : null;
+
+        if (!messagesWrapper) {
+            messagesWrapper = document.createElement("div");
+            messagesWrapper.classList.add("messages-wrapper");
+            messagesWrapper.setAttribute('data-chat-id', chatId);
+            messagesWrapper.style.cssText = `
+        display: none;
+        flex-direction: column;
+        width: 100%;  
+        font-size: 14px;
+        color: #666;
+        line-height: 1.5; 
+        overflow-y: auto;
+        max-height: 300px;
+        background: #fff;
+        font-family: 'Poppins', sans-serif;
+        margin-bottom: 10px;
+    `;
+            chatContainer.parentNode.insertBefore(messagesWrapper, chatContainer);
+        }
+
+
+
+
+
+        const clearButtonContainer = document.createElement("div");
+        clearButtonContainer.style.cssText = `
+            display: none;
+            justify-content: flex-end;
+            width: 100%;
+            margin-bottom: 10px;
+        `;
+
+        const clearButton = document.createElement("button");
+        clearButton.textContent = "Clear Chat";
+        clearButton.style.cssText = `
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 20px;
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        `;
+        clearButton.addEventListener('click', function () {
+            clearChat(chatId);
+        });
+
+        clearButtonContainer.appendChild(clearButton);
+        messagesWrapper.parentNode.insertBefore(clearButtonContainer, messagesWrapper);
+        // Get elements within the container
+        const messageInput = chatContainer.querySelector("input[type='text']");
+        const sendButton = chatContainer.querySelector(".send-img");
+        const smileIcon = chatContainer.querySelector(".fa-face-smile");
+        const paperclipIcon = chatContainer.querySelector(".fa-paperclip");
+
+        // Object to store file references
+        const fileStorage = {};
+
+        // Function to show chat
+        function showChat() {
+            messagesWrapper.style.display = 'flex';
+            chatContainer.style.display = 'flex';
+            clearButtonContainer.style.display = 'flex';
+
+            if (parentContainer) {
+                parentContainer.style.height = "auto";
+            }
+
+            // Update button text if needed
+            if (messageButton) {
+                messageButton.textContent = "Close";
+
+            }
+        }
+
+        // Function to hide chat
+        function hideChat() {
+            messagesWrapper.style.display = 'none';
+            chatContainer.style.display = 'none';
+            clearButtonContainer.style.display = 'none';
+
+            if (parentContainer) {
+                parentContainer.style.height = "fit-content";
+            }
+
+            if (messageButton) {
+                messageButton.textContent = "Message";
+            }
+        }
+
+        function removeMessage(messageElement, messageId) {
+            if (messageElement && messagesWrapper.contains(messageElement)) {
+                messagesWrapper.removeChild(messageElement);
+
+                const messages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
+                const fileMessages = JSON.parse(localStorage.getItem(`file-messages-${chatId}`) || '[]');
+
+                if (messageId && fileStorage[messageId]) {
+                    delete fileStorage[messageId];
+
+                    const updatedFileMessages = fileMessages.filter(fm => fm.id !== messageId);
+                    localStorage.setItem(`file-messages-${chatId}`, JSON.stringify(updatedFileMessages));
+                }
+            }
+        }
+
+        function clearChat(chatId) {
+            while (messagesWrapper.firstChild) {
+                messagesWrapper.removeChild(messagesWrapper.firstChild);
+            }
+
+            // Clear from localStorage
+            localStorage.removeItem(`messages-${chatId}`);
+            localStorage.removeItem(`file-messages-${chatId}`);
+
+            // Clear file storage
+            Object.keys(fileStorage).forEach(key => {
+                delete fileStorage[key];
+            });
+
+            // Show confirmation message
+            const confirmationMsg = document.createElement("div");
+            confirmationMsg.style.cssText = `
+                width: 100%;
+                text-align: center;
+                padding: 10px;
+                color: #666;
+                font-style: italic;
+                font-size: 12px;
+            `;
+            confirmationMsg.textContent = "Chat history cleared";
+            messagesWrapper.appendChild(confirmationMsg);
+
+            // Remove confirmation after 3 seconds
+            setTimeout(() => {
+                if (messagesWrapper.contains(confirmationMsg)) {
+                    messagesWrapper.removeChild(confirmationMsg);
+                }
+            }, 3000);
+        }
+
+        // Toggle chat visibility
+        function toggleChat(student_id, messageInputNbfcids, messagesWrapper) {
+
+            if (messagesWrapper.style.display === 'none') {
+                viewChat(student_id, messageInputNbfcids);
+            } else {
+                hideChat(student_id, messageInputNbfcids);
+            }
+        }
+
+
+        if (messageButton) {
+            messageButton.addEventListener('click', function (e) {
+                console.log("code here ")
+                console.log(messagesWrapper)
+
+                e.preventDefault();
+                const student_id = document.querySelector(".personalinfo-secondrow .personal_info_id").textContent;
+                var messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
+
+                messageInputNbfcids = messageInputNbfcids[index].textContent;
+
+
+                toggleChat(student_id, messageInputNbfcids, messagesWrapper);
+            });
+        }
+
+        function sendMessage(messageInput, messageInputNbfcids) {
+            if (!messageInput) return;
+            console.log(messageInput.value);
+
+
+            const content = messageInput.value.trim();
+            if (content) {
+                showChat();
+
+                // const messageElement = document.createElement("div");
+                // messageElement.style.cssText = `
+                //     display: flex;
+                //     justify-content: flex-end;
+                //     width: 100%;
+                //     margin-bottom: 10px;
+                // `;
+
+                // const messageContent = document.createElement("div");
+                // messageContent.style.cssText = `
+                //     max-width: 80%;
+                //     padding: 8px 12px;
+                //     border-radius: 8px;
+                //     word-wrap: break-word;
+                //     font-family: 'Poppins', sans-serif;
+                // `;
+                // messageContent.textContent = content;
+
+                // messageElement.appendChild(messageContent);
+                // messagesWrapper.appendChild(messageElement);
+
+                messageInput.value = "";
+                // messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
+
+                sendMessageToBackend(content, messageInputNbfcids);
+
+            }
+        }
+        async function sendMessageToBackend(content, messageInputNbfcids) {
+            const nbfcId = messageInputNbfcids;
+            const receiverId = nbfcId;
+            const student_id = document.querySelector(".personalinfo-secondrow .personal_info_id").textContent;
+
+            if (!student_id) {
+                console.error('User not found or invalid student_id');
+                return;
+            }
+
+            const senderId = student_id;
+            try {
+                const payload = {
+                    nbfc_id: nbfcId,
+                    student_id: student_id,
+                    sender_id: senderId,
+                    receiver_id: receiverId,
+                    message: content,
+                    is_read: false,
+
+                };
+
+                const response = await fetch('/send-message', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ""
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    console.log('Message sent successfully:', data.message);
+
+                    //         const messageElement = document.createElement("div");
+                    //         messageElement.style.cssText = `
+                    //     display: flex;
+                    //     justify-content: flex-end;
+                    //     width: 100%;
+                    //     margin-bottom: 10px;
+                    // `;
+                    //         const messageContent = document.createElement("div");
+                    //         messageContent.style.cssText = `
+                    //     max-width: 80%;
+                    //     padding: 8px 12px;
+                    //     border-radius: 8px;
+                    //     background-color: #DCF8C6;
+                    //     word-wrap: break-word;
+                    //     font-family: 'Poppins', sans-serif;
+                    //     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+                    // `;
+                    //         messageContent.textContent = content;
+
+                    //         messagesWrapper.appendChild(messageElement);
+
+                    scrollToBottom();
+
+                    viewChat(student_id, nbfcId);
+                } else {
+                    console.error('Failed to send message:', data.error || 'Unknown error');
+                }
+            } catch (error) {
+                console.error('Error sending message:', error);
+            }
+        }
+
+
+
+
+
+
+        if (messageInput) {
+            messageInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    var messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
+                    console.log(messageInputNbfcids[index].textContent);
+
+                    messageInputNbfcids = messageInputNbfcids[index].textContent;
+
+
+                    e.preventDefault();
+
+                    sendMessage(messageInput, messageInputNbfcids);
+
+
+                }
+            });
+        }
+
+
+        // Add click event to send button
+        if (sendButton) {
+
+            sendButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                var messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
+                console.log(messageInputNbfcids[index].textContent);
+
+                messageInputNbfcids = messageInputNbfcids[index].textContent;
+                sendMessage(messageInput, messageInputNbfcids);
+            });
+        }
+
+        if (smileIcon) {
+            smileIcon.addEventListener('click', function (e) {
+                e.stopPropagation();
+                const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
+
+                const existingPicker = document.querySelector(".emoji-picker");
+                if (existingPicker) {
+                    existingPicker.remove();
+                    return;
+                }
+
+                const picker = document.createElement("div");
+                picker.classList.add("emoji-picker");
+                picker.style.cssText = `
+                    position: absolute;
+                    bottom: 100%;
+                    right: 0;
+                    background: white;
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
+                    padding: 5px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 5px;
+                    z-index: 1000;
+                    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                `;
+
+                emojis.forEach(emoji => {
+                    const button = document.createElement("button");
+                    button.textContent = emoji;
+                    button.style.cssText = `
+                        border: none;
+                        background: none;
+                        font-size: 20px;
+                        cursor: pointer;
+                        padding: 5px;
+                    `;
+                    button.onclick = (e) => {
+                        e.stopPropagation();
+                        messageInput.value += emoji;
+                        picker.remove();
+                        messageInput.focus();
+                    };
+                    picker.appendChild(button);
+                });
+
+                chatContainer.appendChild(picker);
+
+                document.addEventListener("click", function closePicker(e) {
+                    if (!picker.contains(e.target) && e.target !== smileIcon) {
+                        picker.remove();
+                        document.removeEventListener("click", closePicker);
+                    }
+                });
+            });
+        }
+
+        // Initialize file attachment
+        if (paperclipIcon) {
+            paperclipIcon.addEventListener('click', function () {
+                const fileInput = document.createElement("input");
+                fileInput.type = "file";
+                fileInput.accept = ".pdf,.jpeg,.png,.jpg";
+                fileInput.style.display = "none";
+
+                fileInput.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        showChat();
+                        const fileName = file.name;
+                        const fileSize = (file.size / 1024 / 1024).toFixed(2);
+                        const fileId = `file-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+
+                        fileStorage[fileId] = file;
+
+                        const messageElement = document.createElement("div");
+                        messageElement.setAttribute('data-file-id', fileId);
+                        messageElement.style.cssText = `
+                            display: flex;
+                            justify-content: flex-end;
+                            width: 100%;
+                            margin-bottom: 10px;
+                        `;
+                        const fileContent = document.createElement("div");
+                        fileContent.style.cssText = `
+                            max-width: 80%;
+                            padding: 8px 12px;
+                            border-radius: 8px;
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            position: relative;
+                        `;
+
+                        const downloadLink = document.createElement("a");
+                        downloadLink.href = "#";
+                        downloadLink.style.cssText = `
+                            display: flex;
+                            align-items: center;
+                            gap: 5px;
+                            color: #666;
+                            text-decoration: none;
+                        `;
+                        downloadLink.innerHTML = `
+                            <i class="fa-solid fa-file"></i>
+                            <span>${fileName} (${fileSize} MB)</span>
+                        `;
+                        downloadLink.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+
+                            // Create download link for the file
+                            const url = URL.createObjectURL(fileStorage[fileId]);
+                            const tempLink = document.createElement("a");
+                            tempLink.href = url;
+                            tempLink.download = fileName;
+                            document.body.appendChild(tempLink);
+                            tempLink.click();
+                            document.body.removeChild(tempLink);
+                            URL.revokeObjectURL(url);
+                        });
+
+                        // Create remove button
+                        const removeButton = document.createElement("button");
+                        removeButton.innerHTML = `<i class="fa-solid fa-times"></i>`;
+                        removeButton.style.cssText = `
+                            background: none;
+                            border: none;
+                            color: #999;
+                            font-size: 12px;
+                            cursor: pointer;
+                            padding: 2px 5px;
+                            margin-left: 5px;
+                        `;
+                        removeButton.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            removeMessage(messageElement, fileId);
+                        });
+
+                        fileContent.appendChild(downloadLink);
+                        fileContent.appendChild(removeButton);
+                        messageElement.appendChild(fileContent);
+                        messagesWrapper.appendChild(messageElement);
+                        messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
+
+                        // Save file message with ID
+                        saveFileMessage({
+                            id: fileId,
+                            name: fileName,
+                            size: fileSize
+                        }, chatId);
+                    }
+                };
+
+                document.body.appendChild(fileInput);
+                fileInput.click();
+                document.body.removeChild(fileInput);
+            });
+        }
+
+
+        const savedMessages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
+        console.log(savedMessages)
+        // if (savedMessages.length > 0) {
+        //     savedMessages.forEach(content => {
+        //         const messageElement = document.createElement("div");
+        //         messageElement.style.cssText = `
+        //             display: flex;
+        //             justify-content: flex-end;
+        //             width: 100%;
+        //             margin-bottom: 10px;
+        //         `;
+
+        //         const messageContent = document.createElement("div");
+        //         messageContent.style.cssText = `
+        //             max-width: 80%;
+        //             padding: 8px 12px;
+        //             border-radius: 8px;
+
+        //             word-wrap: break-word;
+        //             font-family: 'Poppins', sans-serif;
+        //         `;
+        //         messageContent.textContent = content;
+
+        //         messageElement.appendChild(messageContent);
+        //         messagesWrapper.appendChild(messageElement);
+        //     });
+        // }
+        function viewChat(student_id, messageInputNbfcids) {
+            student_id = student_id.trim();
+
+            const nbfc_id = messageInputNbfcids;
+            const chatId = `${nbfc_id}-${student_id}`;
+            const apiUrl = `/get-messages/${nbfc_id}/${student_id}`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('API response:', data); // Log the full response to check its structure
+                    if (data && data.messages && data.messages.length > 0) {
+                        data.messages.forEach(message => {
+                            const existingMessage = messagesWrapper.querySelector(`[data-message-id="${message.id}"]`);
+                            if (!existingMessage) {
+                                const messageElement = document.createElement("div");
+                                messageElement.setAttribute('data-message-id', message.id); // Unique message ID for checking duplicates
+                                messageElement.style.cssText = `
+                            display: flex;
+                            justify-content: ${message.sender_id === student_id ? 'flex-end' : 'flex-start'};
+                            width: 100%;
+                            margin-bottom: 10px;
+                        `;
+                                const messageContent = document.createElement("div");
+                                messageContent.style.cssText = `
+                            max-width: 80%;
+                            padding: 8px 12px;
+                            border-radius: 8px;
+                            background-color: ${message.sender_id === student_id ? '#DCF8C6' : '#FFF'};
+                            word-wrap: break-word;
+                            font-family: 'Poppins', sans-serif;
+                            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+                        `;
+                                messageContent.textContent = message.message; // Display the message content
+
+                                messageElement.appendChild(messageContent);
+                                messagesWrapper.appendChild(messageElement);
+
+                                scrollToBottom();
+                            }
+                        });
+                    } else {
+                        console.log('No messages found');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching messages:', error);
+                });
+
+            messagesWrapper.style.display = 'flex';
+            chatContainer.style.display = 'flex';
+            clearButtonContainer.style.display = 'flex';
+
+            if (parentContainer) {
+                parentContainer.style.height = "auto";
+            }
+
+            if (messageButton) {
+                messageButton.textContent = "Close";
+            }
+        }
+
+
+        function scrollToBottom() {
+            messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
+        }
+
+    });
+
+}
+
+function saveMessage(content, chatId) {
+    const messages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
+    messages.push(content);
+    localStorage.setItem(`messages-${chatId}`, JSON.stringify(messages));
+}
+
+
+// Add this function to properly save file messages
+function saveFileMessage(fileData, chatId) {
+    const fileMessages = JSON.parse(localStorage.getItem(`file-messages-${chatId}`) || '[]');
+    fileMessages.push(fileData);
+    localStorage.setItem(`file-messages-${chatId}`, JSON.stringify(fileMessages));
+}
 
 const initialiseProfileView = () => {
 
@@ -499,39 +1181,151 @@ const initialiseProfileView = () => {
             console.error("Error retrieving profile picture", error);
         });
 }
+const checkUserStatusCount = () => {
+    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+    const userId = userIdElement ? userIdElement.textContent.trim() : '';
+
+    return fetch('/count-user-status', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ""
+        },
+        body: JSON.stringify({ userId })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log("Successfully retrieved count");
+                const finalCounting = data.count;
+                return finalCounting - 1; // <-- this will now resolve correctly
+            } else {
+                throw new Error("Failed to retrieve count");
+            }
+        });
+};
+
+const waitForCards = () => {
+    return new Promise(resolve => {
+        const observer = new MutationObserver(async (mutations, obs) => {
+            const cards = document.querySelectorAll('.indivudalloanstatus-cards');
+
+            const retrieveCount = await checkUserStatusCount();
 
 
+            if (cards.length > retrieveCount) {
 
-const initializeIndividualCards = () => {
-    const individualCards = document.querySelectorAll('.indivudalloanstatus-cards');
+                obs.disconnect();
+                resolve(cards);
+            }
+        });
 
-    individualCards.forEach((card) => {
-        const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
-        const individualBankMessageInput = card.querySelector('.individual-bankmessage-input');
-
-        if (triggeredMessageButton) {
-            triggeredMessageButton.addEventListener('click', () => {
-                const isExpanded = card.style.height === "95px";
-
-                individualCards.forEach((otherCard) => {
-                    otherCard.style.height = "fit-content";
-                    const otherMessageInput = otherCard.querySelector('.individual-bankmessage-input');
-                    if (otherMessageInput) {
-                        otherMessageInput.style.display = "none";
-                    }
-                });
-
-                if (isExpanded) {
-                    card.style.height = "95px";
-                    individualBankMessageInput.style.display = "none";
-                } else {
-                    card.style.height = "fit-content";
-                    individualBankMessageInput.style.display = "flex";
-                }
-            });
-        }
+        observer.observe(document.body, { childList: true, subtree: true });
     });
 };
+
+const initializeIndividualCards = () => {
+    let checkInterval;
+    let isInitialized = false;
+
+    const cleanup = () => {
+        if (checkInterval) {
+            clearInterval(checkInterval);
+        }
+    };
+
+    const handleCardClick = (card, messageInput, index) => {
+        return () => {
+            const computedStyle = window.getComputedStyle(messageInput);
+            const isInputVisible = computedStyle.display === 'flex';
+
+            console.log(`Card ${index} clicked, input currently ${isInputVisible ? 'visible' : 'hidden'}`);
+
+            // Collapse all other inputs
+            document.querySelectorAll('.individual-bankmessage-input').forEach(input => {
+                if (input !== messageInput) {
+                    input.style.display = 'none';
+                    const parentCard = input.closest('.individual-card');
+                    if (parentCard) {
+                        parentCard.style.height = 'fit-content';
+                    }
+                }
+            });
+
+            // Toggle the clicked input
+            messageInput.style.display = isInputVisible ? 'none' : 'flex';
+            card.style.height = 'fit-content';
+
+
+
+            // e.preventDefault();
+            const student_id = document.querySelector(".personalinfo-secondrow .personal_info_id").textContent;
+            var messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
+
+            messageInputNbfcids = messageInputNbfcids[index].textContent;
+
+
+
+
+
+
+        };
+    };
+
+    const initCards = async () => {
+        try {
+            const individualCards = await waitForCards();
+
+            if (individualCards.length > 0 && !isInitialized) {
+                cleanup();
+                isInitialized = true;
+                console.log("Cards loaded. Binding click listeners...");
+                console.log("----------------------------");
+
+                individualCards.forEach((card, index) => {
+                    console.log(`Initializing card ${index}:`, card);
+
+                    const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
+                    const messageInput = card.querySelector('.individual-bankmessage-input');
+
+                    if (triggeredMessageButton && messageInput) {
+                        // Clone and replace button to avoid duplicate listeners
+                        const newButton = triggeredMessageButton.cloneNode(true);
+                        triggeredMessageButton.replaceWith(newButton);
+
+                        newButton.addEventListener('click', handleCardClick(card, messageInput, index));
+                    }
+                });
+                await initializeSimpleChat();
+
+                return true;
+            }
+            return false;
+        } catch (error) {
+            console.error("Error initializing cards:", error);
+            return false;
+        }
+    };
+
+    // Initial check
+    initCards().then(initialized => {
+        if (!initialized) {
+            checkInterval = setInterval(async () => {
+                const initialized = await initCards();
+                if (initialized) {
+                    cleanup();
+                }
+            }, 500);
+        }
+    });
+
+    // Return cleanup function for external management
+    return cleanup;
+};
+
+
+
+
 
 const initializeKycDocumentUpload = () => {
     const individualKycDocumentsUpload = document.querySelectorAll(".individualkycdocuments");
@@ -558,11 +1352,11 @@ const initializeKycDocumentUpload = () => {
             // Check if a preview is already active
             if (eyeIcon.classList.contains('preview-active')) {
                 const previewWrapper = document.querySelector('.pdf-preview-wrapper');
-                const overlay = document.querySelector('.pdf-preview-overlay');
                 if (previewWrapper) previewWrapper.remove();
+                const overlay = document.querySelector('.pdf-preview-overlay');
                 if (overlay) overlay.remove();
                 eyeIcon.classList.remove('preview-active');
-                eyeIcon.src = "/assets/images/visibility.png"; // Update with your actual path
+                eyeIcon.src = "/assets/images/visibility.png";
                 return;
             }
 
@@ -665,26 +1459,26 @@ const initializeKycDocumentUpload = () => {
             zoomControls.appendChild(zoomOut);
             zoomControls.appendChild(zoomIn);
 
+            // Close button
             const closeButton = document.createElement('button');
-            closeButton.innerHTML = '✕';
+            closeButton.innerHTML = '&#10005;';
             closeButton.style.cssText = `
-                background: none;
-                border: none;
-                color: white;
-                font-size: 18px;
-                cursor: pointer;
-                padding: 4px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-family: 'Poppins', sans-serif;
-            `;
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 18px;
+                    cursor: pointer;
+                    padding: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                `;
 
             const closePreview = () => {
                 previewWrapper.remove();
                 overlay.remove();
                 eyeIcon.classList.remove('preview-active');
-                eyeIcon.src = "/assets/images/visibility.png"; // Update with your actual path
+                eyeIcon.classList.replace('fa-times', 'fa-eye');
             };
 
             closeButton.addEventListener('click', closePreview);
@@ -736,6 +1530,7 @@ const initializeKycDocumentUpload = () => {
     });
 };
 
+
 const initializeMarksheetUpload = () => {
     const individualMarksheetDocumentsUpload = document.querySelectorAll(".individualmarksheetdocuments");
 
@@ -751,8 +1546,8 @@ const initializeMarksheetUpload = () => {
             event.stopPropagation();
 
             // Get the document type from the eye icon's ID
-            const documentType = eyeIcon.id.replace('view-', '').replace('-card', ''); 
-            
+            const documentType = eyeIcon.id.replace('view-', '').replace('-card', '');
+
             // Construct the fileType key used in documentUrls based on the class name
             let fileTypeKey;
             if (card.querySelector('.sslc-marksheet')) {
@@ -762,7 +1557,7 @@ const initializeMarksheetUpload = () => {
             } else if (card.querySelector('.graduation-marksheet')) {
                 fileTypeKey = "graduation-grade-name";
             }
-            
+
             // Get the URL from documentUrls
             const fileUrl = documentUrls[fileTypeKey];
             const fileNameElement = card.querySelector(`.${fileTypeKey.replace('-name', '-marksheet')}`);
@@ -1293,7 +2088,7 @@ const initializeSecuredAdmissionDocumentUpload = () => {
     });
 };
 
- function truncateFileName(fileName) {
+function truncateFileName(fileName) {
     if (fileName.length <= 20) return fileName;
 
     const extension = fileName.slice(fileName.lastIndexOf('.'));
@@ -1653,6 +2448,125 @@ const initializeWorkExperienceDocumentUpload = () => {
         });
     });
 };
+const bankListedThroughNBFC = async () => {
+
+    // console.log("_______")
+
+    const nbfcContainer = document.querySelector(".loanproposals-loanstatuscards");
+
+    if (nbfcContainer) {
+        // consle.log("______")
+
+        const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+        const userId = userIdElement ? userIdElement.textContent : '';
+
+        fetch("/getnbfcdata-proposals", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({ userId })
+        })
+            .then(response => response.json())
+            .then(async data => {
+                if (data.success) {
+                    console.log(data)
+                    const finalData = data.result;
+
+
+                    // if (!finalData) {
+                    //     const noDataMessage = document.createElement("p");
+                    //     noDataMessage.textContent = "No Proposals Yet";
+                    //     noDataMessage.classList.add("no-proposals-message");
+                    //     nbfcContainer.append(noDataMessage);
+                    //     return;
+                    // }
+
+
+
+                    if (finalData) {
+                        finalData.forEach(async (items) => {
+                            const eachCards = document.createElement('div');
+                            eachCards.classList.add("indivudalloanstatus-cards");
+
+                            const insideCard = document.createElement('div');
+                            insideCard.classList.add("individual-bankname");
+
+                            const header = document.createElement("h1");
+                            header.textContent = items.nbfc_name;
+
+                            const messageInputNbfcids = document.createElement("p");
+                            messageInputNbfcids.classList.add("messageinputnbfcids");
+                            messageInputNbfcids.textContent = items.nbfc_id;
+
+
+
+
+                            insideCard.append(header, messageInputNbfcids);
+
+
+
+
+
+                            const insideSecond = document.createElement("div");
+                            insideSecond.classList.add("individual-bankmessages");
+
+                            const bankMessage = document.createElement("p");
+                            bankMessage.textContent = "Lorem ipsum dolor sit amet...";
+                            insideSecond.append(bankMessage);
+
+                            await fetchStatus(items.nbfc_id, insideSecond, items);
+
+
+
+
+                            const buttonContainer = document.createElement("div");
+                            buttonContainer.classList.add('individual-bankmessages-buttoncontainer');
+                            const bankMessageContainer = document.createElement("div");
+                            bankMessageContainer.classList.add("individual-bankmessage-input");
+
+                            const messageInput = document.createElement("input");
+                            messageInput.placeholder = "Send message";
+                            messageInput.type = "text";
+
+                            const sendIcon = document.createElement("img");
+                            sendIcon.classList.add("send-img");
+                            sendIcon.src = 'assets/images/send.png';
+
+                            const documentAttach = document.createElement("i");
+                            documentAttach.classList.add("fa-solid", "fa-paperclip");
+
+                            const smileAttach = document.createElement("i");
+                            smileAttach.classList.add("fa-regular", "fa-face-smile");
+
+                            bankMessageContainer.append(messageInput, sendIcon, documentAttach, smileAttach);
+
+                            eachCards.append(insideCard, insideSecond, bankMessageContainer);
+                            nbfcContainer.append(eachCards);
+                        });
+
+                        bindAcceptRejectButtons(finalData);
+
+
+                    }
+
+
+
+                    await initializeSideBarTabs();
+                    await initializeIndividualCards();
+                    await initializeSimpleChat();
+
+                } else if (data.error) {
+                    console.error("Error: ", data.error);
+                }
+            })
+            .catch((error) => {
+                console.error("Error caused in server: ", error);
+            });
+    }
+
+};
 
 // Helper function to truncate file names
 function truncateFileName(fileName) {
@@ -1671,7 +2585,7 @@ function truncateFileName(fileName) {
 
 
 
-//co-borrower document
+
 const initializeCoBorrowerDocumentUpload = () => {
     const coBorrowerDocuments = document.querySelectorAll(".individual-coborrower-kyc-documents");
 
@@ -2001,22 +2915,26 @@ const initializeCoBorrowerDocumentUpload = () => {
                 document.body.appendChild(overlay);
                 document.body.appendChild(previewWrapper);
 
-                document.addEventListener('keydown', function (e) {
+                // Add keyboard shortcut for closing
+                const handleEscape = (e) => {
                     if (e.key === 'Escape') {
                         closePreview();
+                        document.removeEventListener('keydown', handleEscape);
                     }
-                });
+                };
 
+                document.addEventListener('keydown', handleEscape);
+
+                reader.readAsDataURL(uploadedFile);
                 eyeIcon.classList.add('preview-active');
-                eyeIcon.src = "/assets/images/close.png";
             } else {
-                alert('Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported.');
+                alert('Please upload a valid PDF or image file to preview.');
             }
+
         });
     });
 };
 
-// Helper function to truncate file names
 function truncateFileName(fileName) {
     if (fileName.length <= 20) return fileName;
 
@@ -2027,9 +2945,9 @@ function truncateFileName(fileName) {
 }
 
 // Initialize the document uploads when the page loads
-// document.addEventListener('DOMContentLoaded', function () {
-//     initializeCoBorrowerDocumentUpload();
-// });
+document.addEventListener('DOMContentLoaded', function () {
+    initializeCoBorrowerDocumentUpload();
+});
 
 function toggleOtherDegreeInput(event) {
     const otherDegreeInput = document.getElementById('otherDegreeInput');
@@ -2054,7 +2972,7 @@ function toggleOtherDegreeInput(event) {
 const initializeProgressRing = () => {
     const radius = 52;
     const circumference = 2 * Math.PI * radius;
-    const percentage = 0.01;
+    const percentage = 0.50;
     const offset = circumference * (1 - percentage);
     const progressRingFill = document.querySelector('.progress-ring-fill');
     const progressText = document.querySelector('.progress-ring-text');
@@ -2063,11 +2981,15 @@ const initializeProgressRing = () => {
     progressRingFill.style.strokeDashoffset = offset;
     progressText.textContent = `${Math.round(percentage * 100)}%`;
 };
-
 const initialisedocumentsCount = () => {
     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+    const userId = userIdElement ? userIdElement.textContent.trim() : '';
+    const documentCountText = document.querySelector(".profilestatus-graph-secondsection .profilestatus-noofdocuments-section p");
 
-    const userId = userIdElement ? userIdElement.textContent : '';
+    if (!userId || !documentCountText) {
+        console.error("User ID or count element not found.");
+        return;
+    }
 
     fetch("/count-documents", {
         method: "POST",
@@ -2077,43 +2999,29 @@ const initialisedocumentsCount = () => {
         },
         body: JSON.stringify({ userId })
     })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data) {
-                console.log(data.documentscount);
-                const documentCountText = document.querySelector(".profilestatus-graph-secondsection .profilestatus-noofdocuments-section p");
-                // if(data.documentscount<10){
-                if (data.documentscount < 10 && data.documentscound >= 0 && documentCountText && data && data.documentscount !== undefined) {
-                    documentCountText.textContent = "0" + data.documentscount;
-                }
-                else if (data.documentscount < 0) {
-                    documentCountText.textContent = "00";
+        .then(response => response.json())
+        .then(data => {
+            if (data && typeof data.documentscount === 'number') {
+                const count = data.documentscount;
 
-
-                }
-                else if (data.documentscount >= 10 && documentCountText && data && data.documentscount !== undefined) {
-                    documentCountText.textContent = data.documentscount;
-
+                if (count >= 0 && count < 10) {
+                    documentCountText.textContent = "0" + count;
+                } else if (count >= 10) {
+                    documentCountText.textContent = count;
                 } else {
-                    console.error('Element not found or data is invalid');
-
-
+                    documentCountText.textContent = "00";
                 }
-
-                // }
-                // else{
-                // documentCountText.textContent = "0" + data.documentscount;
-
-                // }
-
             } else if (data.error) {
-                console.error(data.error);
+                console.error("Server Error:", data.error);
+            } else {
+                console.error("Unexpected response format:", data);
             }
         })
-        .catch((error) => {
-            console.error(error);
+        .catch(error => {
+            console.error("Fetch Error:", error);
         });
 };
+
 
 
 
@@ -2121,6 +3029,7 @@ const triggerSave = (event) => {
     console.log(event);
 
 }
+
 document.querySelectorAll('input[name="education-level"]').forEach(radio => {
     radio.addEventListener('change', function () {
         var otherInput = document.getElementById('otherDegreeInput');
@@ -2154,7 +3063,6 @@ const saveChangesFunctionality = () => {
         saveChangesButton.textContent = 'Save';
         saveChangesButton.style.backgroundColor = "rgba(111, 37, 206, 1)";
         saveChangesButton.style.color = "#fff";
-
         personalDivContainerEdit.style.display = "flex";
         personalDivContainer.style.display = "none";
         academicsMarksDivEdit.style.display = "flex";
@@ -2190,15 +3098,12 @@ const saveChangesFunctionality = () => {
                 const greScore = document.querySelector(".testscoreseditsection-secondrow-editsection .gre_score").value;
                 const tofelScore = document.querySelector(".testscoreseditsection-secondrow-editsection .tofel_score").value;
 
-                // Fetch old values of "Plan to Study"
                 const oldPlanToStudy = document.getElementById("plan-to-study-edit").value;
                 const oldPlanToStudyArray = oldPlanToStudy ? oldPlanToStudy.split(',').map(item => item.trim()) : [];
 
-                // Get current values from checkboxes (selected options)
                 const checkboxes = document.querySelectorAll('input[name="study-location-edit"]:checked');
                 let selectedCountries = Array.from(checkboxes).map(checkbox => checkbox.value);
 
-                // Check if there's a custom country input and add it to the selected countries
                 const customCountry = document.getElementById('country-edit').value.trim();
                 if (customCountry) {
                     selectedCountries.push(customCountry);
@@ -2206,13 +3111,10 @@ const saveChangesFunctionality = () => {
 
                 selectedCountries = selectedCountries.filter(item => item.toLowerCase() !== 'others');
 
-                // Filter out 'Others' (case-insensitive) from oldPlanToStudyArray
                 const finalPlanToStudy = oldPlanToStudyArray.filter(item => item.toLowerCase() !== 'others');
 
-                // Merge old and new arrays, ensuring no duplicates
                 let mergedPlanToStudy = [...new Set([...finalPlanToStudy, ...selectedCountries])];
 
-                // Filter out 'Others' (case-insensitive) again from the final merged array
                 mergedPlanToStudy = mergedPlanToStudy.filter(item => item.toLowerCase() !== 'other');
 
 
@@ -2235,7 +3137,6 @@ const saveChangesFunctionality = () => {
                     degreeType: updatedDegreeType
                 };
 
-                // Updated data object, including the merged "Plan to Study" values
                 const updatedInfos = {
                     editedName: editedName,
                     editedPhone: editedPhone,
@@ -2244,7 +3145,7 @@ const saveChangesFunctionality = () => {
                     iletsScore: iletsScore,
                     greScore: greScore,
                     tofelScore: tofelScore,
-                    planToStudy: mergedPlanToStudy,  // Final merged old and new values
+                    planToStudy: mergedPlanToStudy,
                     courseDuration: courseDuration,
                     loanAmount: loanAmount,
                     referralCode: referralCode,
@@ -2292,478 +3193,16 @@ const saveChangesFunctionality = () => {
     });
 };
 
-//chat functionality
 
 
 
-function initializeSimpleChat() {
-    // Select all chat containers
-    const chatContainers = document.querySelectorAll('.individual-bankmessage-input');
-    
-    if (chatContainers.length === 0) return;
-    
-    chatContainers.forEach((chatContainer, index) => {
-        // Create unique identifier for this chat instance
-        const chatId = `loan-chat-${index}`;
-        chatContainer.setAttribute('data-chat-id', chatId);
-        
-        // Find parent container
-        const parentContainer = chatContainer.closest('.indivudalloanstatus-cards');
-        const messageButton = parentContainer ? parentContainer.querySelector('.triggeredbutton') : null;
-        
-        // Hide chat input by default
-        chatContainer.style.display = 'none';
-        
-        // Create messages wrapper if it doesn't exist
-        let messagesWrapper = parentContainer ? parentContainer.querySelector(`.messages-wrapper[data-chat-id="${chatId}"]`) : null;
-        
-        if (!messagesWrapper) {
-            messagesWrapper = document.createElement("div");
-            messagesWrapper.classList.add("messages-wrapper");
-            messagesWrapper.setAttribute('data-chat-id', chatId);
-            messagesWrapper.style.cssText = `
-                display: none;
-                flex-direction: column;
-                width: 100%;  
-                font-size: 14px;
-                color: #666;
-                line-height: 1.5; 
-                overflow-y: auto;
-                max-height: auto;
-                background: #fff;
-                font-family: 'Poppins', sans-serif;
-                margin-bottom: 10px;
-            `;
-            chatContainer.parentNode.insertBefore(messagesWrapper, chatContainer);
-        }
-        
-        // Create clear button
-        const clearButtonContainer = document.createElement("div");
-        clearButtonContainer.style.cssText = `
-            display: none;
-            justify-content: flex-end;
-            width: 100%;
-            margin-bottom: 10px;
-        `;
-        
-        const clearButton = document.createElement("button");
-        clearButton.textContent = "Clear Chat";
-        clearButton.style.cssText = `
-            background-color: #f0f0f0;
-            border: none;
-            border-radius: 4px;
-            padding: 6px 20px;
-            font-size: 12px;
-            color: #666;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-        `;
-        clearButton.addEventListener('click', function() {
-            clearChat(chatId);
-        });
-        
-        clearButtonContainer.appendChild(clearButton);
-        messagesWrapper.parentNode.insertBefore(clearButtonContainer, messagesWrapper);
-        
-        // Get elements within the container
-        const messageInput = chatContainer.querySelector("input[type='text']");
-        const sendButton = chatContainer.querySelector(".send-img");
-        const smileIcon = chatContainer.querySelector(".fa-face-smile");
-        const paperclipIcon = chatContainer.querySelector(".fa-paperclip");
-        
-        // Object to store file references
-        const fileStorage = {};
-        
-        // Function to show chat
-        function showChat() {
-            messagesWrapper.style.display = 'flex';
-            chatContainer.style.display = 'flex';
-            clearButtonContainer.style.display = 'flex';
-            
-            // Adjust parent container height if needed
-            if (parentContainer) {
-                parentContainer.style.height = "auto";
-            }
-            
-            // Update button text if needed
-            if (messageButton) {
-                messageButton.textContent = "Close";
-            }
-        }
-        
-        // Function to hide chat
-        function hideChat() {
-            messagesWrapper.style.display = 'none';
-            chatContainer.style.display = 'none';
-            clearButtonContainer.style.display = 'none';
-            
-            // Reset parent container height if needed
-            if (parentContainer) {
-                parentContainer.style.height = "95px";
-            }
-            
-            // Update button text if needed
-            if (messageButton) {
-                messageButton.textContent = "Message";
-            }
-        }
-        
-        // Function to remove a specific message
-        function removeMessage(messageElement, messageId) {
-            if (messageElement && messagesWrapper.contains(messageElement)) {
-                messagesWrapper.removeChild(messageElement);
-                
-                // Remove from localStorage if needed
-                const messages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
-                const fileMessages = JSON.parse(localStorage.getItem(`file-messages-${chatId}`) || '[]');
-                
-                // Remove file from storage
-                if (messageId && fileStorage[messageId]) {
-                    delete fileStorage[messageId];
-                    
-                    // Remove from file messages storage
-                    const updatedFileMessages = fileMessages.filter(fm => fm.id !== messageId);
-                    localStorage.setItem(`file-messages-${chatId}`, JSON.stringify(updatedFileMessages));
-                }
-            }
-        }
-        
-        // Function to clear chat
-        function clearChat(chatId) {
-            // Clear messages from UI
-            while (messagesWrapper.firstChild) {
-                messagesWrapper.removeChild(messagesWrapper.firstChild);
-            }
-            
-            // Clear from localStorage
-            localStorage.removeItem(`messages-${chatId}`);
-            localStorage.removeItem(`file-messages-${chatId}`);
-            
-            // Clear file storage
-            Object.keys(fileStorage).forEach(key => {
-                delete fileStorage[key];
-            });
-            
-            // Show confirmation message
-            const confirmationMsg = document.createElement("div");
-            confirmationMsg.style.cssText = `
-                width: 100%;
-                text-align: center;
-                padding: 10px;
-                color: #666;
-                font-style: italic;
-                font-size: 12px;
-            `;
-            confirmationMsg.textContent = "Chat history cleared";
-            messagesWrapper.appendChild(confirmationMsg);
-            
-            // Remove confirmation after 3 seconds
-            setTimeout(() => {
-                if (messagesWrapper.contains(confirmationMsg)) {
-                    messagesWrapper.removeChild(confirmationMsg);
-                }
-            }, 3000);
-        }
-        
-        // Toggle chat visibility
-        function toggleChat() {
-            if (messagesWrapper.style.display === 'none') {
-                showChat();
-            } else {
-                hideChat();
-            }
-        }
-        
-        // Add click event to message button
-        if (messageButton) {
-            messageButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                toggleChat();
-            });
-        }
-        
-        // Send message function
-        function sendMessage() {
-            if (!messageInput) return;
-            
-            const content = messageInput.value.trim();
-            if (content) {
-                showChat(); // Show chat when sending message
-                
-                // Create message element
-                const messageElement = document.createElement("div");
-                messageElement.style.cssText = `
-                    display: flex;
-                    justify-content: flex-end;
-                    width: 100%;
-                    margin-bottom: 10px;
-                `;
-                
-                const messageContent = document.createElement("div");
-                messageContent.style.cssText = `
-                    max-width: 80%;
-                    padding: 8px 12px;
-                    border-radius: 8px;
-                    word-wrap: break-word;
-                    font-family: 'Poppins', sans-serif;
-                `;
-                messageContent.textContent = content;
-                
-                messageElement.appendChild(messageContent);
-                messagesWrapper.appendChild(messageElement);
-                
-                // Clear input and scroll to bottom
-                messageInput.value = "";
-                messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
-                
-                // Save message
-                saveMessage(content, chatId);
-            }
-        }
-        
-        // Event listeners for input
-        if (messageInput) {
-            messageInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    sendMessage();
-                }
-            });
-        }
-        
-        // Add click event to send button
-        if (sendButton) {
-            sendButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                sendMessage();
-            });
-        }
-        
-        // Initialize emoji picker
-        if (smileIcon) {
-            smileIcon.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
-                
-                const existingPicker = document.querySelector(".emoji-picker");
-                if (existingPicker) {
-                    existingPicker.remove();
-                    return;
-                }
-                
-                const picker = document.createElement("div");
-                picker.classList.add("emoji-picker");
-                picker.style.cssText = `
-                    position: absolute;
-                    bottom: 100%;
-                    right: 0;
-                    background: white;
-                    border: 1px solid #ddd;
-                    border-radius: 5px;
-                    padding: 5px;
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 5px;
-                    z-index: 1000;
-                    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-                `;
-                
-                emojis.forEach(emoji => {
-                    const button = document.createElement("button");
-                    button.textContent = emoji;
-                    button.style.cssText = `
-                        border: none;
-                        background: none;
-                        font-size: 20px;
-                        cursor: pointer;
-                        padding: 5px;
-                    `;
-                    button.onclick = (e) => {
-                        e.stopPropagation();
-                        messageInput.value += emoji;
-                        picker.remove();
-                        messageInput.focus();
-                    };
-                    picker.appendChild(button);
-                });
-                
-                chatContainer.appendChild(picker);
-                
-                document.addEventListener("click", function closePicker(e) {
-                    if (!picker.contains(e.target) && e.target !== smileIcon) {
-                        picker.remove();
-                        document.removeEventListener("click", closePicker);
-                    }
-                });
-            });
-        }
-        
-        // Initialize file attachment
-        if (paperclipIcon) {
-            paperclipIcon.addEventListener('click', function() {
-                const fileInput = document.createElement("input");
-                fileInput.type = "file";
-                fileInput.accept = ".pdf,.jpeg,.png,.jpg";
-                fileInput.style.display = "none";
-                
-                fileInput.onchange = (e) => {
-                    const file = e.target.files[0];
-                    if (file) {
-                        showChat();
-                        const fileName = file.name;
-                        const fileSize = (file.size / 1024 / 1024).toFixed(2);
-                        const fileId = `file-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-                        
-                        // Store file reference for later download
-                        fileStorage[fileId] = file;
-                        
-                        // Create message element
-                        const messageElement = document.createElement("div");
-                        messageElement.setAttribute('data-file-id', fileId);
-                        messageElement.style.cssText = `
-                            display: flex;
-                            justify-content: flex-end;
-                            width: 100%;
-                            margin-bottom: 10px;
-                        `;
-                        
-                        const fileContent = document.createElement("div");
-                        fileContent.style.cssText = `
-                            max-width: 80%;
-                            padding: 8px 12px;
-                            border-radius: 8px;
-                            display: flex;
-                            align-items: center;
-                            gap: 8px;
-                            position: relative;
-                        `;
-                        
-                        // Create download link for the file
-                        const downloadLink = document.createElement("a");
-                        downloadLink.href = "#";
-                        downloadLink.style.cssText = `
-                            display: flex;
-                            align-items: center;
-                            gap: 5px;
-                            color: #666;
-                            text-decoration: none;
-                        `;
-                        downloadLink.innerHTML = `
-                            <i class="fa-solid fa-file"></i>
-                            <span>${fileName} (${fileSize} MB)</span>
-                        `;
-                        downloadLink.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            
-                            // Create download link for the file
-                            const url = URL.createObjectURL(fileStorage[fileId]);
-                            const tempLink = document.createElement("a");
-                            tempLink.href = url;
-                            tempLink.download = fileName;
-                            document.body.appendChild(tempLink);
-                            tempLink.click();
-                            document.body.removeChild(tempLink);
-                            URL.revokeObjectURL(url);
-                        });
-                        
-                        // Create remove button
-                        const removeButton = document.createElement("button");
-                        removeButton.innerHTML = `<i class="fa-solid fa-times"></i>`;
-                        removeButton.style.cssText = `
-                            background: none;
-                            border: none;
-                            color: #999;
-                            font-size: 12px;
-                            cursor: pointer;
-                            padding: 2px 5px;
-                            margin-left: 5px;
-                        `;
-                        removeButton.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            removeMessage(messageElement, fileId);
-                        });
-                        
-                        fileContent.appendChild(downloadLink);
-                        fileContent.appendChild(removeButton);
-                        messageElement.appendChild(fileContent);
-                        messagesWrapper.appendChild(messageElement);
-                        messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
-                        
-                        // Save file message with ID
-                        saveFileMessage({
-                            id: fileId,
-                            name: fileName,
-                            size: fileSize
-                        }, chatId);
-                    }
-                };
-                
-                document.body.appendChild(fileInput);
-                fileInput.click();
-                document.body.removeChild(fileInput);
-            });
-        }
-        
-        
-        // Load saved messages
-        const savedMessages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
-        if (savedMessages.length > 0) {
-            savedMessages.forEach(content => {
-                const messageElement = document.createElement("div");
-                messageElement.style.cssText = `
-                    display: flex;
-                    justify-content: flex-end;
-                    width: 100%;
-                    margin-bottom: 10px;
-                `;
-                
-                const messageContent = document.createElement("div");
-                messageContent.style.cssText = `
-                    max-width: 80%;
-                    padding: 8px 12px;
-                    border-radius: 8px;
-                    
-                    word-wrap: break-word;
-                    font-family: 'Poppins', sans-serif;
-                `;
-                messageContent.textContent = content;
-                
-                messageElement.appendChild(messageContent);
-                messagesWrapper.appendChild(messageElement);
-            });
-        }
-    });
-}
-
-function saveMessage(content, chatId) {
-    const messages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
-    messages.push(content);
-    localStorage.setItem(`messages-${chatId}`, JSON.stringify(messages));
-}
-
-// Initialize the chat when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', function() {
-    initializeSimpleChat();
-});
-
-// Add this function to properly save file messages
-function saveFileMessage(fileData, chatId) {
-    const fileMessages = JSON.parse(localStorage.getItem(`file-messages-${chatId}`) || '[]');
-    fileMessages.push(fileData);
-    localStorage.setItem(`file-messages-${chatId}`, JSON.stringify(fileMessages));
-}
-
-// Modify the load saved messages section in initializeSimpleChat() function
-// Replace the existing "Load saved messages" section with this:
 function loadSavedMessages() {
     // Load text messages
     const savedMessages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
-    
+
     // Load file messages
     const savedFileMessages = JSON.parse(localStorage.getItem(`file-messages-${chatId}`) || '[]');
-    
+
     // If there are any saved messages, we'll automatically show the chat area
     if (savedMessages.length > 0 || savedFileMessages.length > 0) {
         // Don't actually show the chat yet, just prepare to show it if user clicks
@@ -2771,7 +3210,7 @@ function loadSavedMessages() {
             messageButton.textContent = "Message";
         }
     }
-    
+
     // Add text messages to UI
     if (savedMessages.length > 0) {
         savedMessages.forEach(content => {
@@ -2782,7 +3221,7 @@ function loadSavedMessages() {
                 width: 100%;
                 margin-bottom: 10px;
             `;
-            
+
             const messageContent = document.createElement("div");
             messageContent.style.cssText = `
                 max-width: 80%;
@@ -2792,12 +3231,12 @@ function loadSavedMessages() {
                 font-family: 'Poppins', sans-serif;
             `;
             messageContent.textContent = content;
-            
+
             messageElement.appendChild(messageContent);
             messagesWrapper.appendChild(messageElement);
         });
     }
-    
+
     // Add file messages to UI
     if (savedFileMessages.length > 0) {
         savedFileMessages.forEach(fileData => {
@@ -2809,7 +3248,7 @@ function loadSavedMessages() {
                 width: 100%;
                 margin-bottom: 10px;
             `;
-            
+
             const fileContent = document.createElement("div");
             fileContent.style.cssText = `
                 max-width: 80%;
@@ -2820,7 +3259,7 @@ function loadSavedMessages() {
                 gap: 8px;
                 position: relative;
             `;
-            
+
             // Create download link for the file
             const downloadLink = document.createElement("a");
             downloadLink.href = "#";
@@ -2835,14 +3274,14 @@ function loadSavedMessages() {
                 <i class="fa-solid fa-file"></i>
                 <span>${fileData.name} (${fileData.size} MB)</span>
             `;
-            downloadLink.addEventListener('click', function(e) {
+            downloadLink.addEventListener('click', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-                
+
                 // Alert user that the file needs to be re-uploaded after page refresh
                 alert("File attachments cannot be retrieved after page refresh. Please re-upload the file if needed.");
             });
-            
+
             // Create remove button
             const removeButton = document.createElement("button");
             removeButton.innerHTML = `<i class="fa-solid fa-times"></i>`;
@@ -2855,12 +3294,12 @@ function loadSavedMessages() {
                 padding: 2px 5px;
                 margin-left: 5px;
             `;
-            removeButton.addEventListener('click', function(e) {
+            removeButton.addEventListener('click', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
                 removeMessage(messageElement, fileData.id);
             });
-            
+
             fileContent.appendChild(downloadLink);
             fileContent.appendChild(removeButton);
             messageElement.appendChild(fileContent);
@@ -2869,5 +3308,411 @@ function loadSavedMessages() {
     }
 }
 
-// Call this function at the end of the chatContainer.forEach loop
-loadSavedMessages();
+// loadSavedMessages();
+function fetchUnreadCount() {
+    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+    const userId = userIdElement ? userIdElement.textContent.trim() : '';
+    const receiverId = userId;
+
+    if (!receiverId) return;
+
+    fetch('/unread-message-count', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({ receiverId })
+    })
+        .then(res => res.json())
+        .then(data => {
+            const countNotify = document.querySelector(".unread-notify-container p");
+            if (data.success && data.count > 0 && countNotify) {
+                console.log(data.count);
+                countNotify.style.display = "flex";
+                countNotify.textContent = data.count;
+            } else if (countNotify) {
+                countNotify.style.display = "none";
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching unread count:', error);
+        });
+}
+
+function sessionLogoutInitial() {
+    fetch("{{ route('logout') }}", {
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({})
+    }).then(response => {
+        if (response.ok) {
+            window.location.href = "{{ route('login') }}";
+        }
+    });
+}
+
+
+
+
+
+function markAsRead() {
+    const notifyContainer = document.querySelector(".nav-searchnotificationbars .unread-notify");
+    const sideBarTopItems = document.querySelectorAll('.studentdashboardprofile-sidebarlists-top li');
+    const lastTabHiddenDiv = document.querySelector(".studentdashboardprofile-trackprogress");
+    const lastTabVisibleDiv = document.querySelector(".studentdashboardprofile-myapplication");
+    const dynamicHeader = document.getElementById('loanproposals-header');
+
+    const individualCards = document.querySelectorAll('.loanproposals-loanstatuscards .indivudalloanstatus-cards');
+    const communityJoinCard = document.querySelector('.studentdashboardprofile-communityjoinsection');
+    const profileStatusCard = document.querySelector(".personalinfo-profilestatus");
+    const profileImgEditIcon = document.querySelector(".studentdashboardprofile-profilesection .fa-pen-to-square");
+    const educationEditSection = document.querySelector(".studentdashboardprofile-educationeditsection");
+    const testScoresEditSection = document.querySelector(".studentdashboardprofile-testscoreseditsection");
+
+    if (notifyContainer && sideBarTopItems.length > 1) {
+        notifyContainer.addEventListener('click', () => {
+            sideBarTopItems.forEach(i => i.classList.remove('active'));
+            sideBarTopItems[1].classList.add('active');
+            console.log('Inbox tab selected and activated');
+
+            if (lastTabHiddenDiv) lastTabHiddenDiv.style.display = "flex";
+            if (lastTabVisibleDiv) lastTabVisibleDiv.style.display = "none";
+            if (communityJoinCard) communityJoinCard.style.display = "flex";
+            if (profileStatusCard) profileStatusCard.style.display = "block";
+            if (profileImgEditIcon) profileImgEditIcon.style.display = "none";
+            if (educationEditSection) educationEditSection.style.display = "none";
+            if (testScoresEditSection) testScoresEditSection.style.display = "none";
+            const buttonGroups = document.querySelectorAll(".individual-bankmessages-buttoncontainer");
+            const triggeredMessageButton = document.querySelectorAll('.individual-bankmessages .triggeredbutton');
+
+            if (buttonGroups) {
+                buttonGroups.forEach((buttonGroups, index) => {
+                    buttonGroups.style.display = "none";
+                    triggeredMessageButton[index].style.display = "flex";
+
+                })
+            }
+
+
+
+            if (dynamicHeader) dynamicHeader.textContent = "Inbox";
+
+            const currentScroll = window.scrollY;
+
+            if (currentScroll !== 300) {
+                window.scrollTo({
+                    top: 300,
+                    left: 0,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
+}
+
+
+
+function unReadDots() {
+    const messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
+
+    if (messageInputNbfcids.length > 0) {
+        console.log(messageInputNbfcids);
+    }
+
+    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+    const userId = userIdElement ? userIdElement.textContent.trim() : '';
+
+    if (userId) {
+        messageInputNbfcids.forEach((item) => {
+            const nbfc_id = item.getAttribute('data-nbfc-id');
+            const student_id = item.getAttribute('data-student-id');
+
+            if (nbfc_id && student_id) {
+                fetch(`/get-messages-byconversations/${nbfc_id}/${student_id}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({})
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(`Messages for NBFC ${nbfc_id} and student ${student_id}:`, data);
+                        if (data.unreadCount && data.unreadCount > 0) {
+                            const triggeredButton = document.querySelector('.triggeredbutton');
+                            if (triggeredButton) {
+                                triggeredButton.classList.add('has-unread');
+                                console.log(triggeredButton);
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error fetching messages:", error);
+                    });
+            }
+        });
+    }
+}
+
+
+async function bindAcceptRejectButtons(finalData) {
+    console.log("Binding buttons for:", finalData);
+
+    finalData.forEach((item) => {
+        const { acceptButton, rejectButton, user_id, nbfc_id } = item;
+
+        if (acceptButton && acceptButton.textContent === "Accept") {
+            acceptButton.addEventListener("click", async () => {
+                const data = {
+                    user_id,
+                    nbfc_id,
+                    proposal_accept: true
+                };
+
+                try {
+                    const response = await fetch('/proposalcompletion', {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': "application/json",
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    const result = await response.json();
+                    console.log("✅ Accepted:", item);
+                    console.log("✅ Server Response:", result);
+
+                    acceptButton.style.backgroundColor = "transparent";
+                    acceptButton.style.color = "#4CAF50";
+                    acceptButton.textContent = "Accepted";
+                    acceptButton.style.width = "82px";
+                    acceptButton.style.border = "none";
+
+                    if (rejectButton) {
+                        rejectButton.style.display = "none";
+                    }
+                } catch (error) {
+                    console.error("Error during fetch (Accept):", error);
+                }
+            });
+        }
+
+        if (rejectButton && rejectButton.textContent === "Reject") {
+            rejectButton.addEventListener("click", async () => {
+                const data = {
+                    user_id,
+                    nbfc_id,
+                    proposal_accept: false
+                };
+
+                try {
+                    const response = await fetch('/proposalcompletion', {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': "application/json",
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    const result = await response.json();
+                    console.log("❌ Rejected:", item);
+                    console.log("❌ Server Response:", result);
+
+                    rejectButton.style.backgroundColor = "transparent";
+                    rejectButton.style.color = "#dc3545";
+                    rejectButton.textContent = "Rejected";
+                    rejectButton.style.width = "82px";
+                    rejectButton.style.border = "none";
+
+                    if (acceptButton) {
+                        acceptButton.style.display = "none";
+                    }
+                } catch (error) {
+                    console.error("Error during fetch (Reject):", error);
+                }
+            });
+        }
+    });
+
+
+}
+
+
+
+
+
+
+const findOutAcceptedOrNot = async () => {
+    fetch('/proposalcompletion', {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json",
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.json())
+        .then(result => {
+            console.log("✅ Accepted:", proposal);
+            console.log("✅ Server Response:", result);
+            if (btn && rejectButtons) {
+                btn.style.backgroundColor = "transparent";
+                btn.style.color = "#4CAF50";
+                btn.textContent = "Accepted"
+                btn.style.width = "82px"
+                btn.style.border = "none"
+                rejectButtons[index].style.display = "none"
+            }
+        })
+        .catch(error => {
+            console.error("❌ Error during fetch (Accept):", error);
+        });
+
+
+
+}
+
+
+
+
+
+async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = null) {
+    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+    const userId = userIdElement ? userIdElement.textContent.trim() : '';
+    let statusCount = 0;
+
+    try {
+        const response = await fetch("/check_userid", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({ user_id: userId, nbfc_id: nbfcId })
+        });
+
+        if (!response.ok) throw new Error("Network response was not ok");
+        const result = await response.json();
+        console.log(result);
+
+        const data = result?.data;
+        const proposal_accept_update = data?.proposal_accept;
+        const itemsNeedingButtons = [];
+
+        // Create button container
+        const buttonContainer = document.createElement("div");
+        buttonContainer.classList.add('individual-bankmessages-buttoncontainer');
+
+        // Always create the "View" button
+        const firstButton = document.createElement("button");
+        firstButton.textContent = "View";
+
+        if (!data) {
+            // Case: No data returned (initial state)
+            const secondButton = document.createElement("button");
+            secondButton.textContent = "Accept";
+            secondButton.classList.add('user-accept-trigger');
+
+            const thirdButton = document.createElement("button");
+            thirdButton.textContent = "Reject";
+            thirdButton.classList.add("bankmessage-buttoncontainer-reject");
+
+            const fourthButton = document.createElement("button");
+            fourthButton.textContent = "Message";
+            fourthButton.classList.add("triggeredbutton");
+
+            buttonContainer.append(firstButton, secondButton, thirdButton);
+            insideSecond.append(buttonContainer, fourthButton);
+
+            // Add to itemsNeedingButtons with necessary data
+            itemsNeedingButtons.push({
+                user_id: userId,
+                nbfc_id: nbfcId,
+                element: currentItem,
+                acceptButton: secondButton,
+                rejectButton: thirdButton
+            });
+
+        } else if (proposal_accept_update) {
+            // Case: Proposal accepted
+            const secondButton = document.createElement("button");
+            secondButton.textContent = "Accepted";
+            secondButton.classList.add('user-accept-trigger');
+            secondButton.style.backgroundColor = "transparent";
+            secondButton.style.color = "#4CAF50";
+            secondButton.style.width = "82px";
+            secondButton.style.border = "none";
+
+            const fourthButton = document.createElement("button");
+            fourthButton.textContent = "Message";
+            fourthButton.classList.add("triggeredbutton");
+
+            buttonContainer.append(firstButton, secondButton);
+            insideSecond.append(buttonContainer, fourthButton);
+
+            // Add to itemsNeedingButtons
+            itemsNeedingButtons.push({
+                user_id: userId,
+                nbfc_id: nbfcId,
+                element: currentItem,
+                acceptButton: secondButton,
+                rejectButton: null // No reject button in this case
+            });
+
+            statusCount++;
+
+        } else {
+            // Case: Proposal rejected
+            const thirdButton = document.createElement("button");
+            thirdButton.textContent = "Rejected";
+            thirdButton.classList.add("bankmessage-buttoncontainer-reject");
+            thirdButton.style.backgroundColor = "transparent";
+            thirdButton.style.color = "#dc3545";
+            thirdButton.style.width = "82px";
+            thirdButton.style.border = "none";
+
+            const fourthButton = document.createElement("button");
+            fourthButton.textContent = "Message";
+            fourthButton.classList.add("triggeredbutton");
+
+            buttonContainer.append(firstButton, thirdButton);
+
+
+            insideSecond.append(buttonContainer, fourthButton);
+
+
+            itemsNeedingButtons.push({
+                user_id: userId,
+                nbfc_id: nbfcId,
+                element: currentItem,
+                acceptButton: null,
+                rejectButton: thirdButton
+            });
+
+            statusCount++;
+        }
+
+        bindAcceptRejectButtons(itemsNeedingButtons);
+
+
+
+
+        return statusCount;
+
+    } catch (error) {
+        console.error("Error checking user ID:", error);
+    }
+}
+
+
+
+
+
+

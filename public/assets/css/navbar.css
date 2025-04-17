@@ -33,7 +33,7 @@
     position: fixed;
     top: 0;
     z-index: 50;
-    
+
 }
 
 .logo {
@@ -105,7 +105,8 @@
 
 .nav-links a.fullopacitylinks {
     color: rgba(38, 2, 84, 1);
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 400;
     line-height: 19.2px;
@@ -138,8 +139,9 @@
 
 .menubarcontainer-profile img {
     display: none;
- }
-.menubarcontainer-profile{
+}
+
+.menubarcontainer-profile {
     cursor: pointer;
 }
 
@@ -189,10 +191,12 @@
 }
 
 .nav-searchnotificationbars .nav-profilecontainer {
-    width: fit-content;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    width: 100%;
+
 
 }
 
@@ -203,13 +207,48 @@
     margin-bottom: 0.5rem;
     padding-right: 0.3rem;
 
-
 }
 
 .nav-searchnotificationbars .unread-notify {
-    width: 17px;
-    height: 17px;
+    width: 24px;
+    height: 24px;
     margin: 0 1.18rem;
+    position: relative;
+    z-index: 2;
+    cursor:pointer;
+}
+
+.nav-searchnotificationbars .unread-notify::after {
+    content: '';
+    background-color: red;
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 10px;
+    height: 10px;
+    z-index: 5;
+    border-radius: 50%;
+}
+
+.unread-notify-container {
+    position: relative;
+ }
+
+.unread-notify-container p {
+    content: '';
+    background-color: #FF7A00;
+    position: absolute;
+    top: -1px;
+    right: 18px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    z-index: 5;
+    font-size: 9px;
+    border-radius: 50%;
+    color:#fff;
 }
 
 .nav-searchnotificationbars .nav-profileimg {
@@ -238,7 +277,8 @@
     gap: 10px;
     border-radius: 4px;
     border: 1px solid rgba(222, 222, 222, 0.7);
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 400;
     line-height: 19.2px;
@@ -250,7 +290,8 @@
 
 .nav-searchnotificationbars input::placeholder {
     margin-left: 1.5rem;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 400;
     line-height: 19.2px;
@@ -268,7 +309,8 @@
 }
 
 .nav-searchnotificationbars h3 {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 400;
     line-height: 19.2px;
@@ -280,6 +322,53 @@
     margin: 0 1.18rem;
 }
 
+
+.popup-notify-list {
+    position: absolute;
+    flex-direction: column;
+    top: 67%;
+    left: 34%;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    gap: 1rem;
+    padding: 1rem 0;
+    border-radius: 5px;
+}
+
+.popup-notify-list p {
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 0.8rem;
+    padding: 0.4rem 0;
+    border-radius: 4px;
+    margin: 0 3px;
+    padding: 0.3rem;
+    color: rgba(38, 2, 84, 1);
+    height: 35px;
+    display: flex;
+    align-items: center;
+}
+
+.popup-notify-list p:hover {
+    background: #f9f9f9;
+    cursor: pointer;
+}
+
+.footer-passwordchange {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-passwordchange a {
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 0.7rem;
+    text-decoration: none;
+    padding-left: 6px;
+}
+
+
 @media screen and (max-width: 1024px) {
     /* .nav-container {
     padding: 20px 50px;
@@ -288,6 +377,71 @@
   .nav-links {
     gap: 20px;
   } */
+}
+
+.password-change-container {
+    transform: translate(-50%, -50%);
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    display: none;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
+    gap: 1.3rem;
+    height: fit-content;
+    max-width: 40%;
+    width: 100%;
+    padding: 1.5rem;
+
+}
+
+.password-change-container input {
+    width: 100%;
+    min-height: 28px;
+    height: 100%;
+    border-radius: 2px;
+    border: 1px solid rgba(226, 226, 226, 1);
+    outline: none;
+    font-size: 0.6rem;
+    font-family: 'Poppins', sans-serif;
+
+    padding-left: 6px;
+
+
+}
+
+#password-change-save {
+    cursor: pointer;
+    max-width: 126px;
+    width: 100%;
+    min-height: 35px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
+    background-color: rgba(111, 37, 206, 1);
+    color: rgba(255, 255, 255, 1);
+    border: none;
+    align-self: flex-end;
+}
+
+.password-change-triggered-view-headersection {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.password-change-triggered-view-headersection h3 {
+    font-family: 'Poppins', sans-serif;
+
+    font-weight: 500;
+    font-size: clamp(8px, 4vw, 12px);
+    line-height: clamp(11px, 4vw, 27px);
+    color: rgba(233, 134, 53, 1);
 }
 
 @media screen and (max-width:640px) {
@@ -299,15 +453,16 @@
 
     .nav-container.fullopacity #profile-logo {
         margin-left: 1rem;
-       
+
         width: auto;
         height: auto;
-       
+
     }
 }
 
 .menu-open i {
-    font-size: 24px; /* Adjust size as needed */
+    font-size: 24px;
+    /* Adjust size as needed */
 }
 
 /* Mobile Sidebar Styles */
@@ -330,8 +485,8 @@
 
 .mobile-sidebar.active {
     transform: translateX(0);
-    width:100%;
-  
+    width: 100%;
+
 }
 
 .sidebar-header {
@@ -355,12 +510,12 @@
 }
 
 .sidebar-menu {
-  
+
     flex-grow: 1;
 }
 
 .menu-item {
-     display: flex;
+    display: flex;
     align-items: center;
     gap: 12px;
     padding: 20px 24px;
@@ -372,11 +527,11 @@
     text-decoration: none;
 
     border-bottom: 1px solid #E8E8E8;
-    gap:20px;
+    gap: 20px;
 }
 
-.menu-item:last-child{
-     border-bottom: none;
+.menu-item:last-child {
+    border-bottom: none;
 }
 
 /* Active menu item styling */
@@ -384,11 +539,13 @@
     color: #FF7A00;
     font-weight: 500;
 }
+
 .menu-item:hover {
     background-color: #f5f5f5;
 }
 
-.menu-item i, .menu-item img {
+.menu-item i,
+.menu-item img {
     margin-right: 15px;
     width: 20px;
     height: 20px;
@@ -417,12 +574,13 @@
     position: fixed;
     top: 0;
     left: 0;
-   
+
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
     display: none;
 }
+
 .sidebar-footer .menu-item {
     display: flex;
     align-items: center;
@@ -475,34 +633,37 @@
     .menu-icon {
         display: flex;
     }
-    
+
     .logo {
         margin-left: 20px !important;
     }
-    
+
     .nav-container.fullopacity {
         padding: 15px 0;
     }
+
     .menu-icon {
-   
-    margin-right: 20px;
-   
-}
-.menu-icon .bar {
-    width: 21px;
-    height: 3px;
-   
-}
-.nav-searchnotificationbars .nav-profileimg {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background-size: cover;
-    background-position: center;
-    object-fit: cover;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-left: 150px;
-    overflow-x: hidden;
-}
+
+        margin-right: 20px;
+
+    }
+
+    .menu-icon .bar {
+        width: 21px;
+        height: 3px;
+
+    }
+
+    .nav-searchnotificationbars .nav-profileimg {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-size: cover;
+        background-position: center;
+        object-fit: cover;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        margin-left: 150px;
+        overflow-x: hidden;
+    }
 
 }

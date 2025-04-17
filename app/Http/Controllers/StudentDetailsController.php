@@ -6,6 +6,7 @@ use App\Models\Academics;
 use App\Models\CoBorrowerInfo;
 use App\Models\CourseInfo;
 use App\Models\PersonalInfo;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -16,31 +17,51 @@ class StudentDetailsController extends Controller
     public function updatePersonalInfo(Request $request)
     {
         try {
-            Log::info($request->all());
+            // Log the request input
+            Log::info('Request received:', $request->all());
 
+            // Fetch the personal info and user models
             $personalInfoDetail = PersonalInfo::find($request->personalInfoId);
+            $user = User::where('unique_id', $request->personalInfoId)->first();
 
-
-            if (!$personalInfoDetail) {
-                return response()->json(['success' => false, 'message' => 'User not found.']);
+            // Check if either is missing
+            if (!$personalInfoDetail || !$user) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'User not found.'
+                ]);
             }
 
+            // Log the user object safely
+            Log::info('User found:', ['user' => $user]);
+
+            // Update fields
             $personalInfoDetail->full_name = $request->input('personalInfoName');
-            $personalInfoDetail->phone = $request->input('personalInfoPhone');
             $personalInfoDetail->referral_code = $request->input('personalInfoReferral');
             $personalInfoDetail->email = $request->input('personalInfoEmail');
             $personalInfoDetail->state = $request->input('personalInfoCity');
             $personalInfoDetail->linked_through = $request->input('personalInfoFindOut');
 
-            $personalInfoDetail->save();
+            $user->referral_code = $request->input('personalInfoReferral');
 
-            return response()->json(['success' => true, 'message' => 'Your details have been updated successfully.']);
+            // Save both
+            $personalInfoDetail->save();
+            $user->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Your details have been updated successfully.'
+            ]);
         } catch (\Exception $e) {
             Log::error('Error updating personal info: ' . $e->getMessage());
 
-            return response()->json(['success' => false, 'message' => 'An error occurred while updating your details.']);
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while updating your details.'
+            ]);
         }
     }
+
     public function updateCourseInfo(Request $request)
     {
         try {
@@ -71,16 +92,15 @@ class StudentDetailsController extends Controller
 
     public function updateUserIds(Request $request)
     {
+        // Validate that personalInfoId is provided
+        $request->validate([
+            'personalInfoId' => 'required',
+        ]);
+
         $personalInfoId = $request->personalInfoId;
 
-        // Validate that personalInfoId is provided
-        if ($personalInfoId === '') {
-            return response()->json(['success' => false, 'message' => 'personalInfoId is required']);
-        }
-
-
-
         try {
+            // Retrieve existing records
             $existingPersonalInfo = PersonalInfo::where('user_id', $personalInfoId)->first();
             $existingCourseInfo = CourseInfo::where('user_id', $personalInfoId)->first();
             $existingAcademics = Academics::where('user_id', $personalInfoId)->first();
@@ -88,34 +108,42 @@ class StudentDetailsController extends Controller
 
             session(['existing_personal_info' => $existingPersonalInfo]);
 
-
-            if (!$existingPersonalInfo && !$existingCourseInfo && !$existingAcademics && !$existingCoborrwer) {
-                // If no records exist with the same user_id, create new records
+            // Check if PersonalInfo exists or not
+            if (!$existingPersonalInfo) {
+                // Create PersonalInfo if it doesn't exist
                 $personalInfoDetail = PersonalInfo::create([
                     'user_id' => $personalInfoId,
                 ]);
+            }
 
+            // Check if CourseInfo, Academics, and CoBorrowerInfo exist, and create them if not
+            if (!$existingCourseInfo) {
                 $courseInfoDetail = CourseInfo::create([
                     'user_id' => $personalInfoId,
                 ]);
-
-                $AcademicsDetail = Academics::create([
-                    'user_id' => $personalInfoId,
-                ]);
-                $CoborrowerDetail = CoBorrowerInfo::create([
-                    'user_id' => $personalInfoId,
-                ]);
-            } else {
-                // If any of the records already exist with the same user_id
-                return response()->json(['message' => 'User ID already exists in one of the tables.'], 400);
             }
 
-        } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => $e->getMessage()]);
-        }
+            if (!$existingAcademics) {
+                $academicsDetail = Academics::create([
+                    'user_id' => $personalInfoId,
+                ]);
+            }
 
-        return response()->json(['success' => true, 'message' => $personalInfoId]);
+            if (!$existingCoborrwer) {
+                $coBorrowerDetail = CoBorrowerInfo::create([
+                    'user_id' => $personalInfoId,
+                ]);
+            }
+
+            // Return success response
+            return response()->json(['success' => true, 'message' => 'Data updated or created successfully.']);
+
+        } catch (\Exception $e) {
+            // Handle any exceptions
+            return response()->json(['success' => false, 'message' => 'An error occurred: ' . $e->getMessage()]);
+        }
     }
+
 
     public function updateAcademicsInfo(Request $request)
     {

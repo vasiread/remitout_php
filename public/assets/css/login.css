@@ -1,7 +1,7 @@
 * {
    margin: 0;
    padding: 0;
- }
+}
 
 .logincontainer {
    max-width: 100%;
@@ -64,7 +64,7 @@
    flex-direction: column;
    justify-content: center;
    align-items: center;
-   position:relative
+   position: relative
 }
 
 .logincontainer-rightinside h1 {
@@ -95,7 +95,8 @@
 }
 
 .logincontainer-loginresources input:not([type="checkbox"])::placeholder {
-   font-family: Poppins;
+   font-family: 'Poppins', sans-serif;
+
    font-size: 14px;
    font-weight: 500;
    line-height: 21px;
@@ -121,7 +122,8 @@
    height: 40px;
    /* Set height explicitly */
    border: 0.5px solid rgba(174, 174, 174, 1);
-   font-family: Poppins;
+   font-family: 'Poppins', sans-serif;
+
    font-size: 14px;
    font-weight: 500;
    line-height: 21px;
@@ -132,7 +134,8 @@
 
 .logincontainer-namecontainer input:not([type="checkbox"]),
 .logincontainer-passwordcontainer input:not([type="checkbox"]) {
-   font-family: Poppins;
+   font-family: 'Poppins', sans-serif;
+
    font-size: 14px;
    font-weight: 500;
    line-height: 21px;
@@ -184,7 +187,8 @@
 
 
 .logincontainer-signupbuttoncontainer p {
-   font-family: Poppins;
+   font-family: 'Poppins', sans-serif;
+
    font-size: 12px;
    font-weight: 500;
    line-height: 18px;
@@ -202,7 +206,8 @@
 }
 
 .logincontainer-signupbuttoncontainer p span {
-   font-family: Poppins;
+   font-family: 'Poppins', sans-serif;
+
    font-size: 12px;
    font-weight: 500;
    line-height: 18px;
@@ -224,7 +229,8 @@
    gap: 10px;
    border-radius: 4px;
    background-color: rgba(111, 37, 206, 1);
-   font-family: Poppins;
+   font-family: 'Poppins', sans-serif;
+
    font-size: 16px;
    font-weight: 600;
    line-height: 24px;
@@ -234,12 +240,15 @@
    cursor: pointer;
 
 }
-.logincontainer-anotherresources{
+
+.logincontainer-anotherresources {
    max-width: 370px;
    width: 100%;
 }
+
 .logincontainer-anotherresources p {
-   font-family: Poppins;
+   font-family: 'Poppins', sans-serif;
+
    font-size: 9px;
    font-weight: 600;
    line-height: 13.5px;
@@ -282,7 +291,8 @@
    align-items: center;
    justify-content: center;
    gap: 10px;
-   font-family: Poppins;
+   font-family: 'Poppins', sans-serif;
+
    font-size: 12px;
    font-weight: 500;
    line-height: 18px;
@@ -290,31 +300,76 @@
    color: rgba(131, 131, 131, 1);
 
 }
-.logincontainer-signinoption{
+
+.logincontainer-signinoption {
    display: flex;
    justify-content: center;
    align-items: center;
    gap: 0.94rem;
 }
-.logincontainer-signinoption p{
-   font-family: Poppins;
-      font-size: 12px;
-      font-weight: 500;
-      line-height: 18px;
-      text-align: center;
-      color:rgba(131, 131, 131, 1);
-   
-}
-.logincontainer-signinoption span{
-   font-family: Poppins;
-      font-size: 12px;
-      font-weight: 500;
-      line-height: 18px;
-      text-align: left;
-      color:rgba(255, 115, 0, 1);
-      cursor:pointer;
-      border-bottom: 1px solid rgba(255, 115, 0, 1);
 
+.logincontainer-signinoption p {
+   font-family: 'Poppins', sans-serif;
+
+   font-size: 12px;
+   font-weight: 500;
+   line-height: 18px;
+   text-align: center;
+   color: rgba(131, 131, 131, 1);
+
+}
+
+.logincontainer-signinoption span {
+   font-family: 'Poppins', sans-serif;
+
+   font-size: 12px;
+   font-weight: 500;
+   line-height: 18px;
+   text-align: left;
+   color: rgba(255, 115, 0, 1);
+   cursor: pointer;
+   border-bottom: 1px solid rgba(255, 115, 0, 1);
+
+}
+
+
+.logincontainer-radiooptions {
+   display: flex;
+   justify-content: space-between;
+
+}
+
+.logincontainer-usertypecontainer h3 {
+   font-family: 'Poppins', sans-serif;
+
+   font-weight: 500;
+   line-height: 21px;
+   text-align: left;
+   outline: none;
+   color: rgba(131, 131, 131, 1);
+
+
+}
+
+.radiooptions-users {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+}
+
+.logincontainer-usertypecontainer .radiooptions-users input {
+   width: 20px;
+}
+
+.logincontainer-usertypecontainer .radiooptions-users label {
+   font-family: 'Poppins', sans-serif;
+
+   font-size: 14px;
+   font-weight: 500;
+   line-height: 21px;
+   text-align: left;
+   outline: none;
+   color: rgba(131, 131, 131, 1);
 }
 
 /* Media Queries for responsiveness */

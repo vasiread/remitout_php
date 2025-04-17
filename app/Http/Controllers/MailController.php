@@ -121,8 +121,7 @@ class MailController extends Controller
                     'message' => 'All available documents sent as attachments successfully.',
                 ], 200);
             } catch (\Exception $e) {
-                // Handle any errors while sending the email
-                \Log::error("Error sending email: " . $e->getMessage());
+                 \Log::error("Error sending email: " . $e->getMessage());
                 return response()->json([
                     'message' => 'An error occurred while sending the documents.',
                 ], 500);

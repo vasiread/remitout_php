@@ -1,19 +1,25 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Message;
 use App\Models\Nbfc;
+use App\Models\proposalcompletion;
+use App\Models\Queries;
 use App\Models\Rejectedbynbfc;
+use App\Models\Requestedbyusers;
 use App\Models\Requestprogress;
+use Exception;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Academics;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Storage; // Correct import for Storage facade
 use Illuminate\Support\Facades\DB;
 use App\Models\PersonalInfo;
 use App\Models\CourseInfo;
 use PhpParser\Node\Stmt\Catch_;
+use ZipArchive;
 class StudentDashboardController extends Controller
 {
     protected $tablesAndColumns = [
@@ -28,7 +34,10 @@ class StudentDashboardController extends Controller
 
         if (!$user) {
             return redirect()->route('login')->withErrors('Please log in to access your dashboard.');
+
+
         }
+
 
         $uniqueId = $user->unique_id;
 
@@ -40,13 +49,151 @@ class StudentDashboardController extends Controller
         $personalDetails = PersonalInfo::where('user_id', $uniqueId)->get();
 
 
-        // $personalInfo = $user->personalInfo;
-        // $academicDetails = $user->academicsInfo;
-
-        // Ensure this returns the view
         return view('pages.studentdashboard', compact('user', 'userDetails', 'personalDetails', 'courseDetails', 'academicDetails'));
     }
-    // In SidebarHandlingController (or any controller)
+    public function getUserFromNbfc(Request $request)
+    {
+        $request->validate([
+            "userId" => "string|required",
+        ]);
+
+        $userId = $request->input('userId');
+
+        if ($userId) {
+            $userDetails = User::where('unique_id', $userId)->get();
+            $courseDetails = CourseInfo::where('user_id', $userId)->get();
+            $academicDetails = Academics::where('user_id', $userId)->get();
+            $personalDetails = PersonalInfo::where('user_id', $userId)->get();
+
+            // Return as JSON
+            return response()->json([
+                'userDetails' => $userDetails,
+                'courseDetails' => $courseDetails,
+                'academicDetails' => $academicDetails,
+                'personalDetails' => $personalDetails,
+            ]);
+        }
+
+        // If no user found, return an error
+        return response()->json(['error' => 'User not found'], 404);
+    }
+    public function checkUserId(Request $request)
+    {
+        try {
+            $request->validate([
+                'user_id' => 'required|string',
+                'nbfc_id' => 'required|string',
+
+            ]);
+
+            $user_id = $request->input("user_id");
+            $nbfc_id = $request->input("nbfc_id");
+
+            $proposal = proposalcompletion::where('user_id', $user_id)
+                ->where('nbfc_id', $nbfc_id)
+                ->first();
+
+            if ($proposal) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Proposal found',
+                    'data' => $proposal
+                ]);
+            }
+
+            // Nothing found: return empty or just success=false
+            return response()->json([
+                'success' => false,
+                'message' => 'No proposal found for this user and NBFC.'
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function nbfcProposals(Request $request)
+    {
+
+        try {
+
+            $request->validate([
+                'userId' => 'string|required'
+            ]);
+
+            $userId = $request->input('userId');
+
+            $query = DB::table('traceprogress')
+                ->join('nbfc', 'traceprogress.nbfc_id', '=', 'nbfc.nbfc_id') // assuming nbfc_id is the common key
+                ->where('traceprogress.user_id', $userId)
+                ->where('traceprogress.type', Requestprogress::TYPE_PROPOSAL)
+                ->select('traceprogress.*', 'nbfc.nbfc_name') // select whatever you need
+                ->get();
+            ;
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Proposals Retrieved Successfully',
+                'result' => $query
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'There is an error while retreiving proposals',
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function proposalCompletion(Request $request)
+    {
+
+        try {
+            $request->validate([
+                'user_id' => 'string|required',
+                'nbfc_id' => 'string|required',
+                'proposal_accept' => 'boolean|required'
+            ]);
+
+            $userId = $request->input('user_id');
+            $nbfc_id = $request->input('nbfc_id');
+            $proposal_accept = $request->input('proposal_accept');
+
+
+            $query = proposalcompletion::insert([
+                'user_id' => $userId,
+                'nbfc_id' => $nbfc_id,
+                'proposal_accept' => $proposal_accept,
+                'created_at' => now()
+
+            ]);
+
+
+
+
+            return response()->json([
+                'success' => true,
+                'message' => 'proposal final completion status updated',
+
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error caught in proposal Completion',
+                'error' => $e->getMessage()
+
+
+            ]);
+
+        }
+
+
+    }
+
 
 
     public function pushUserIdToRequest(Request $request)
@@ -62,13 +209,30 @@ class StudentDashboardController extends Controller
 
             if ($getNbfcData) {
                 foreach ($getNbfcData as $data) {
-                    Requestprogress::create([
-                        'nbfc_id' => $data->nbfc_id,
-                        'user_id' => $userId,
-                        'type' => Requestprogress::TYPE_REQUEST,
-                    ]);
+                    $existingRecord = Requestprogress::where('nbfc_id', $data->nbfc_id)
+                        ->where('user_id', $userId)
+                        ->exists();
+
+                    if (!$existingRecord) {
+                        $pushRequest = Requestprogress::create([
+                            'nbfc_id' => $data->nbfc_id,
+                            'user_id' => $userId,
+                            'type' => Requestprogress::TYPE_REQUEST,
+                        ]);
+                        if ($pushRequest) {
+                            Requestedbyusers::create([
+                                'userid' => $userId,
+                                'nbfcid' => $data->nbfc_id
+                            ]);
+                        }
+                    }
+
+
+
                 }
             }
+
+
         }
 
         return response()->json([
@@ -77,39 +241,65 @@ class StudentDashboardController extends Controller
         ], 200);
     }
 
+
+
     public function removeUserIdFromNBFCAndReject(Request $request)
     {
         try {
             $request->validate([
                 'userId' => 'string|required',
                 'nbfcId' => 'string|required',
-                'remarks' => 'string' // changed from 'text' to 'string'
+                'remarks' => 'string'
+            ]);
+
+            \Log::info('Received request data:', [
+                'userId' => $request->input('userId'),
+                'nbfcId' => $request->input('nbfcId'),
+                'remarks' => $request->input('remarks')
             ]);
 
             $userID = $request->input('userId');
             $nbfcID = $request->input('nbfcId');
             $remarks = $request->input('remarks');
 
-            // Create new record in 'rejectedbynbfc' table without manually adding timestamps
-            $record = Rejectedbynbfc::create([
-                'user_id' => $userID,
-                'nbfc_id' => $nbfcID,
-                'remarks' => $remarks
-            ]);
+            // Delete the user from Requestprogress
+            $deleteQuery = Requestprogress::where('nbfc_id', $nbfcID)
+                ->where('user_id', $userID)
+                ->delete();
 
-            if ($record) {
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Rejected Records stored successfully',
-                ], 200);
-            } else {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Failed to store rejected records'
-                ], 404);
+            if ($deleteQuery) {
+                // Check if a record with the same nbfc_id and user_id already exists in Rejectedbynbfc
+                $record = Rejectedbynbfc::where('user_id', $userID)
+                    ->where('nbfc_id', $nbfcID)
+                    ->first();
+
+                if ($record) {
+                    Rejectedbynbfc::where('user_id', $userID)
+                        ->where('nbfc_id', $nbfcID)
+                        ->update([
+                            'remarks' => $remarks,
+
+                        ]);
+
+                } else {
+                    // If the record does not exist, create a new one
+                    Rejectedbynbfc::create([
+                        'user_id' => $userID,
+                        'nbfc_id' => $nbfcID,
+                        'remarks' => $remarks
+                    ]);
+                }
             }
 
+            return response()->json([
+                'success' => true,
+                'message' => 'Rejected Records stored or updated successfully',
+            ], 200);
+
         } catch (\Exception $e) {
+            // Log the error for debugging
+            \Log::error('Error during rejection process:', ['error' => $e->getMessage()]);
+
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred during the rejection process',
@@ -117,7 +307,6 @@ class StudentDashboardController extends Controller
             ], 500);
         }
     }
-
 
     public function updateUserIdFromNBFC(Request $request)
     {
@@ -135,7 +324,7 @@ class StudentDashboardController extends Controller
                 ->where('nbfc_id', $nbfcID)
                 ->update([
                     'type' => Requestprogress::TYPE_PROPOSAL,
- 
+
                 ]);
 
             if ($updatedCount > 0) {
@@ -164,19 +353,60 @@ class StudentDashboardController extends Controller
 
     }
 
+    public function getScuserQueryRaised(Request $request)
+    {
+        try {
+
+            $request->validate([
+                'scUserId' => 'string|required'
+            ]);
+
+            $scUserId = $request->input('scUserId');
+
+
+            $queries = Queries::where('scuserid', $scUserId)->get();
+
+
+
+
+
+
+
+            return response()->json([
+                'scuserid' => $queries,
+                'success' => true,
+                'message' => "successfully fetched Queries"
+
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An Error Occured While retrieve scuser queries',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+
+    }
+
     public function getAllUsersFromAdmin()
     {
 
-        $userDetails = User::all();
+        $userDetails = DB::table('traceprogress')
+            ->join('users', 'traceprogress.user_id', '=', 'users.unique_id')->join('nbfc', 'traceprogress.nbfc_id', '=', 'nbfc.nbfc_id')
+            ->where('traceprogress.type', Requestprogress::TYPE_PROPOSAL)
+            ->select('traceprogress.*', 'users.name as user_name', 'nbfc.nbfc_name') // Select all requestprogress data and the names
+            ->get();
 
-        return User::all();
+
+
+        return $userDetails;
 
 
     }
     public function updateFromProfile(Request $request)
     {
         try {
-            // Validate request data
             $validated = $request->validate([
                 'editedName' => 'nullable|string|max:255',
                 'editedPhone' => 'nullable|string|max:15',
@@ -292,6 +522,11 @@ class StudentDashboardController extends Controller
             ], 500);
         }
     }
+
+
+
+
+
 
     public function uploadMultipleDocuments(Request $request)
     {
@@ -677,10 +912,10 @@ class StudentDashboardController extends Controller
             ], 200);
         }
 
-         return response()->json([
+        return response()->json([
             'message' => 'No file found for the specified type.',
-            'fileUrl' => null,  
-        ], 200); 
+            'fileUrl' => null,
+        ], 200);
     }
 
 
@@ -707,6 +942,55 @@ class StudentDashboardController extends Controller
 
 
     }
+
+
+    public function getRemainingNonUploadedFiles(Request $request)
+    {
+        $request->validate([
+            'userId' => 'required|string'
+        ]);
+
+        $userId = $request->input('userId');
+        $folderPath = "$userId/";
+
+        $expectedFolders = [
+            'aadhar-card-name/',
+            'co-aadhar-card-name/',
+            'co-addressproof/',
+            'co-pan-card-name/',
+            'graduation-grade-name/',
+            'pan-card-name/',
+            'passport-name/',
+            'salary-upload-address-proof-name/',
+            'salary-upload-salary-slip-name/',
+            'secured-graduation-name/',
+            'secured-tenth-name/',
+            'secured-twelfth-name/',
+            'tenth-grade-name/',
+            'twelfth-grade-name/',
+            'work-experience-experience-letter/',
+            'work-experience-joining-letter/',
+            'work-experience-monthly-slip/',
+            'work-experience-office-id/'
+        ];
+
+        $missingDocuments = [];
+
+        foreach ($expectedFolders as $folder) {
+            $filesInFolder = Storage::disk("s3")->files($folderPath . $folder);
+
+            if (empty($filesInFolder)) {
+                $missingDocuments[] = $folder;
+            }
+        }
+
+        return response()->json([
+            'message' => 'Documents count retrieved successfully',
+            'missingDocuments' => $missingDocuments,
+        ], 200);
+    }
+
+
 
 
 
@@ -770,6 +1054,167 @@ class StudentDashboardController extends Controller
         $student = Student::find($studentId);
         return view('pages.studentdashboard', compact('student'));
     }
+
+
+
+
+    public function downloadFilesAsZip(Request $request)
+    {
+        $request->validate([
+            'userId' => 'required|string',
+        ]);
+
+        $userId = $request->input('userId');
+        $folderPath = rtrim($userId, '/') . '/';
+
+
+        if (!Storage::disk('s3')->exists($folderPath)) {
+            dd("Folder path '$folderPath' does not exist on S3.");
+        }
+
+        $folders = Storage::disk("s3")->directories($folderPath);
+
+        if (empty($folders)) {
+            return response()->json([
+                'message' => 'No folders found in the specified directory.',
+            ], 404);
+        }
+
+        $zipFileName = $userId . '_files.zip';
+        $tempFile = tempnam(sys_get_temp_dir(), 'zip');
+
+        // Initialize the ZipArchive
+        $zip = new ZipArchive();
+        if ($zip->open($tempFile, ZipArchive::CREATE) === TRUE) {
+            foreach ($folders as $folder) {
+                $files = Storage::disk('s3')->files($folder);
+
+                foreach ($files as $file) {
+                    try {
+                        $fileContent = Storage::disk('s3')->get($file);
+                    } catch (\Exception $e) {
+                        return response()->json([
+                            'message' => 'Error retrieving file from S3: ' . $e->getMessage(),
+                        ], 500);
+                    }
+
+                    $zip->addFromString($file, $fileContent);
+                }
+            }
+
+            $zip->close();
+        } else {
+            return response()->json([
+                'message' => 'Failed to create ZIP file.',
+            ], 500);
+        }
+
+        // Return a response with the ZIP file download, and delete the temporary file after sending it
+        return response()->download($tempFile, $zipFileName)->deleteFileAfterSend(true);
+    }
+
+    public function updateReadMessage(Request $request)
+    {
+
+        $request->validate([
+            'conversation_id' => 'required|',
+            'receiverId' => 'receiverId'
+        ]);
+
+        $conversationId = $request->input('conversation_id');
+        $receiverId = $request->input('receiverId');
+
+        $updatedRead = Message::where('conversation_id', $conversationId)
+            ->where('receiver_id', $receiverId)
+            ->where('is_read', 0)
+            ->update([
+                'is_read' => 1,
+            ]);
+
+
+
+
+
+
+
+
+
+
+    }
+    public function getStatusCount(Request $request)
+    {
+
+        try {
+
+
+
+            $request->validate([
+                'userId' => 'string|required'
+            ]);
+
+            $userId = $request->input('userId');
+
+            $query = Requestprogress::where("user_id",$userId)
+            ->where('type','proposal')
+            ->count();
+
+
+
+
+
+            return response()->json([
+                'success' => true,
+                'message' => "count retrieved",
+                'count' => $query
+            ]);
+
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => "count not retrieved",
+                'error' => $e->getMessage()
+            ]);
+        }
+
+    }
+    public function unreadMessageCount(Request $request)
+    {
+
+        try {
+            $request->validate([
+                'receiverId' => 'string|required'
+            ]);
+
+            $receiverId = $request->input('receiverId');
+
+            $count = Message::where('receiver_id', $receiverId)
+                ->where('is_read', false)->count();
+
+
+            return response()->json([
+                'success' => true,
+                'message' => "Message Count Retrieved",
+                'count' => $count
+
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+
+
+
+
+
+
+    }
+
+
+
 
 
 

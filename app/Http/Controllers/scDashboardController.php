@@ -2,14 +2,22 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SendScDetailsMail;
+use App\Models\Requestprogress;
+use App\Models\User;
+use Exception;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\StudentsImport;
 use App\Models\PersonalInfo;
 use App\Models\Scuser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\QueryException;
+use Psy\Readline\Hoa\Console;
 
 
 
@@ -139,10 +147,10 @@ class scDashboardController extends Controller
                 'phone' => $request->input('scContact'),
                 'address' => $request->input('scAddress'),
                 'passwordField' => $hashedPassword,
-                'street'=>'',
-                'district'=>'',
-                'state'=>'',
-                'pincode'=>''
+                'street' => '',
+                'district' => '',
+                'state' => '',
+                'pincode' => ''
             ]);
 
             $fileUrl = null;
@@ -187,7 +195,8 @@ class scDashboardController extends Controller
         }
     }
 
-    public function getScAllUsers (){
+    public function getScAllUsers()
+    {
 
         try {
             $scuser = Scuser::get();
@@ -223,6 +232,104 @@ class scDashboardController extends Controller
 
 
     }
+
+    // use Illuminate\Support\Facades\Log;
+
+    public function getStatusOfUsers(Request $request)
+    {
+        try {
+            $request->validate([
+                'scReferralId' => 'required|string',
+            ]);
+
+            $scUserId = $request->input('scReferralId');
+            $users = DB::table('users')->where('referral_code', $scUserId)->get();
+
+            if ($users->isEmpty()) {
+                return response()->json(['message' => 'No user found for this referral'], 404);
+            }
+
+            Log::info('Found users:', $users->toArray());
+
+            $allStatuses = [];
+
+            foreach ($users as $user) {
+                $userId = $user->unique_id;
+
+                $Accepted = DB::table('traceprogress')
+                    ->join('nbfc', 'traceprogress.nbfc_id', '=', 'nbfc.nbfc_id')
+                    ->where('traceprogress.user_id', $userId)
+                    ->select(
+                        'nbfc.nbfc_name',
+                        'traceprogress.created_at',
+                        DB::raw("'Accepted' as status_type"),
+                        'traceprogress.user_id'
+                    )
+                    ->get();
+
+                Log::info("Accepted for {$userId}:", $Accepted->toArray());
+
+                $Pending = DB::table('requestedbyusers')
+                    ->join('nbfc', 'requestedbyusers.nbfcid', '=', 'nbfc.nbfc_id')
+                    ->where('requestedbyusers.userid', $userId)
+                    ->select(
+                        'nbfc.nbfc_name',
+                        'requestedbyusers.created_at',
+                        DB::raw("'Pending' as status_type"),
+                        'requestedbyusers.userid as user_id'
+                    )
+                    ->get();
+
+                Log::info("Pending for {$userId}:", $Pending->toArray());
+
+                $Rejected = DB::table('rejectedbynbfc')
+                    ->join('nbfc', 'rejectedbynbfc.nbfc_id', '=', 'nbfc.nbfc_id')
+                    ->where('rejectedbynbfc.user_id', $userId)
+                    ->select(
+                        'nbfc.nbfc_name',
+                        'rejectedbynbfc.created_at',
+                        DB::raw("'Rejected' as status_type"),
+                        'rejectedbynbfc.user_id'
+                    )
+                    ->get();
+
+                Log::info("Rejected for {$userId}:", $Rejected->toArray());
+
+                $merged = collect($Accepted)->merge($Pending)->merge($Rejected);
+                $allStatuses = array_merge($allStatuses, $merged->toArray());
+            }
+
+            if (empty($allStatuses)) {
+                return response()->json(['message' => 'No statuses found for users'], 404);
+            }
+
+            // Group by nbfc and sort by created_at
+            $grouped = collect($allStatuses)
+                ->groupBy('nbfc_name')
+                ->map(function ($items, $nbfcName) {
+                    return [
+                        'nbfc_name' => $nbfcName,
+                        'statuses' => collect($items)->sortBy('created_at')->values(),
+                    ];
+                })
+                ->values();
+
+            return response()->json([
+                'success' => true,
+                'data' => $grouped,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error retrieving status',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+
+
+
 
 
 
@@ -298,7 +405,7 @@ class scDashboardController extends Controller
 
                 $fullAddress = $request->input('street') . ', ' . $request->input('district') . ', ' . $request->input('state') . ' - ' . $request->input('pincode');
 
-                if($fullAddress){
+                if ($fullAddress) {
                     $studentCounsellor->address = $fullAddress;
                 }
 
@@ -324,6 +431,54 @@ class scDashboardController extends Controller
             ], 500);
         }
     }
+
+
+
+
+    public function import_excel_post(Request $request)
+    {
+        $request->validate([
+            'excel_file' => 'required|mimes:xls,xlsx'
+        ]);
+
+        try {
+            // Create an instance of StudentsImport with a skipped count
+            $import = new StudentsImport();
+            Excel::import($import, $request->file('excel_file'));
+
+            // Get the count of skipped rows (duplicate emails)
+            $skippedRows = $import->getSkippedRows();
+
+            if ($skippedRows > 0) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Import completed, but some entries were skipped due to existing emails.',
+                    'skipped_rows' => $skippedRows
+                ], 200);
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'All students were registered successfully.',
+            ], 200);
+        } catch (QueryException $e) {
+            if ($e->errorInfo[1] == 1062) { // Duplicate entry error
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Duplicate entry found. Please check your file for existing student data.'
+                ], 400);
+            }
+
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while importing the file. Please try again.'
+            ], 500);
+        }
+    }
+
+
+
+
 
 
 

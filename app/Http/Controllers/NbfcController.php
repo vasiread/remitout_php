@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Mail\SendScDetailsMail;
 use App\Models\Nbfc;
+use App\Models\Proposals;
+use App\Models\Requestprogress;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Storage;
 
 class NbfcController extends Controller
 {
@@ -28,7 +31,7 @@ class NbfcController extends Controller
 
             if ($validator->fails()) {
                 $errors[$index] = $validator->errors()->all();
-                continue;   
+                continue;
             }
 
             try {
@@ -79,6 +82,88 @@ class NbfcController extends Controller
             'message' => "$successCount users registered successfully!",
         ], 200);
     }
+
+    public function sendProposalsWithFiles(Request $request)
+    {
+        // Validate incoming request
+        $request->validate([
+            'file' => 'required|file',
+            'userId' => 'required|string',
+            'nbfcId' => 'required|string',
+            'remarks' => 'string'
+        ]);
+
+        $userId = $request->input('userId');
+        $nbfcId = $request->input('nbfcId');
+        $remarks = $request->input('remarks');
+        $fileDirectory = "ProposalDocuments By Nbfc's/$userId"; // Folder name for each user
+        $file = $request->file('file');
+
+        // Check if a file is uploaded
+        if (!$file) {
+            return response()->json(['message' => 'No file uploaded'], 400);
+        }
+
+        // Generate a unique file name to avoid overwriting files
+        $fileName = time() . '-' . $file->getClientOriginalName();
+
+        // Check for existing files in the folder for this user and delete them
+        $existingFiles = Storage::disk('s3')->files($fileDirectory);
+
+        // Delete existing files in the user folder if any (only the files for this user, not other users)
+        if (!empty($existingFiles)) {
+            foreach ($existingFiles as $existingFile) {
+                // Delete the existing files for the user
+                Storage::disk('s3')->delete($existingFile);
+            }
+        }
+
+        try {
+            // Perform update to progress
+            $updateSuccess = Requestprogress::where('user_id', $userId)
+                ->where('nbfc_id', $nbfcId)
+                ->update(['type' => 'proposal']);
+            $pushProposalTable = Proposals::updateOrCreate(
+                [
+                    'student_id' => $userId,
+                    'nbfc_id' => $nbfcId
+                ],
+                [
+                    'remarks' => $remarks,    
+                    'status_modified_by_students' => Proposals::PENDING
+                ]
+            );
+
+            if ($updateSuccess && $pushProposalTable) {
+                $filePath = $file->storeAs(
+                    $fileDirectory,
+                    $fileName,
+                    [
+                        'disk' => 's3',
+                        'visibility' => 'public', // Make it public
+                    ]
+                );
+
+                // Get the URL for the uploaded file
+                $fileUrl = Storage::disk('s3')->url($filePath);
+
+                // Return the success response with file details
+                return response()->json([
+                    'message' => 'Proposal Sent Successfully!',
+                    'file_name' => $fileName,
+                    'file_path' => $fileUrl,
+                ]);
+            } else {
+                // Handle failure to update progress
+                return response()->json(['message' => 'Failed to update progress'], 500);
+            }
+
+        } catch (\Exception $e) {
+            // Handle error during file upload
+            return response()->json(['message' => 'Failed to upload file', 'error' => $e->getMessage()], 500);
+        }
+    }
+
 
 
 

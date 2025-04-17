@@ -5,14 +5,12 @@
     max-width: 100%;
     width: clamp(65%, 100%, 100%);
     margin: 5% 15% 0% 25.5%;
+    background-color: #fff;
 
 }
 
-.scdashboard-parentcontainer.dull {
-    -webkit-filter: blur(5px) grayscale(50%);
-    -webkit-transform: scale(0.9);
-
-    /* Dull effect */
+.scdashboard-parentcontainer {
+    background-color: #fff;
 }
 
 .queryraisedcontainer-rightcontent .sort-by-contents,
@@ -23,7 +21,7 @@
     flex-direction: column;
     top: 40px;
     gap: 9px;
-    height: 157px;
+    height: fit-content;
     left: 1px;
     border-radius: 4px;
     width: 42%;
@@ -130,7 +128,8 @@
 }
 
 .trackprogress-secondsection h1 {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 30px;
     font-weight: 600;
     line-height: 45px;
@@ -141,7 +140,8 @@
 }
 
 .trackprogress-secondsection p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 600;
     line-height: 21px;
@@ -165,7 +165,8 @@
     border-radius: 4px;
     border: 1px solid #E5E5E5;
     background-color: transparent;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 23.83px;
@@ -202,7 +203,8 @@
 }
 
 .studentapplication-header h1 {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 18px;
     font-weight: 600;
     line-height: 21px;
@@ -284,7 +286,8 @@
 }
 
 .firstsection-lists h1 {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 600;
     line-height: 18px;
@@ -328,6 +331,7 @@
 
 .scdashboard-parentcontainer {
     display: flex;
+
 }
 
 .individualstudentapplication-status {
@@ -343,6 +347,10 @@
     gap: 0.6rem;
 }
 
+.messageinputnbfcids {
+    display: none;
+}
+
 .scdashboard-nbfcstatus-pending {
     margin-left: 20px;
 }
@@ -352,7 +360,8 @@
 .scdashboard-nbfcstatus-pending span,
 .scdashboard-missingdocumentsstatus p,
 .scdashboard-missingdocumentsstatus span {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
@@ -453,7 +462,8 @@
 }
 
 .scmember-rowfirst h1 {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 18px;
     font-weight: 600;
     line-height: 27px;
@@ -470,7 +480,8 @@
     padding: 1rem 2rem;
     justify-content: center;
     align-items: center;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -479,7 +490,8 @@
 }
 
 #screferral-id-fromprofile {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: 13px;
     line-height: 15.6px;
@@ -487,7 +499,8 @@
 }
 
 #screferral-id-fromprofile span {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 500;
     line-height: 15.6px;
@@ -497,7 +510,8 @@
 #screferral-dob-fromprofile,
 #screferral-dob-fromprofile-editmode {
     display: flex;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     align-items: center;
     font-size: 13px;
     font-weight: 500;
@@ -520,7 +534,8 @@
 
 #screferral-dob-fromprofile p,
 #screferral-dob-fromprofile-editmode p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: 13px;
     line-height: 15.6px;
@@ -538,7 +553,8 @@
 }
 
 .scmember_personalinfo p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 500;
     line-height: 15.6px;
@@ -564,31 +580,34 @@
     width: 83%;
     gap: 11px;
     margin-left: 14.90%;
-    
-}
-.subbranch-of-address input{
-     width: 100%;
-     border-radius: 2px;
- }
 
- .performancecontainer-firstrow .save-scuser{
-    display:none;   
- }
+}
+
+.subbranch-of-address input {
+    width: 100%;
+    border-radius: 2px;
+}
+
+.performancecontainer-firstrow .save-scuser {
+    display: none;
+}
 
 .scmember_personal_info_state-edit {
     display: flex;
     flex-direction: column;
-    
- 
+
+
 
 }
-.scmember_personal_info_state-edit .scmember-personal_address_header{
-    display:flex;
+
+.scmember_personal_info_state-edit .scmember-personal_address_header {
+    display: flex;
     width: 100%;
     gap: 20px;
-   
+
 }
-.scmember_personal_info_state input{
+
+.scmember_personal_info_state input {
     width: 100%;
 }
 
@@ -617,7 +636,8 @@
 #screferral-dob-fromprofile-editmode input {
     border: 1px solid #E5E5E5;
     outline: none;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 11.5px;
     font-weight: 500;
     line-height: 15.6px;
@@ -654,14 +674,16 @@
 }
 
 .performancecontainer-firstrow h3 {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 22px;
     font-weight: 600;
     line-height: 26.4px;
     color: #E98635;
 }
 
-.performancecontainer-firstrow .edit-scuser,.performancecontainer-firstrow .save-scuser {
+.performancecontainer-firstrow .edit-scuser,
+.performancecontainer-firstrow .save-scuser {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -675,12 +697,14 @@
     background: transparent;
 
 }
-.performancecontainer-firstrow .save-scuser{
-    display:none;
+
+.performancecontainer-firstrow .save-scuser {
+    display: none;
     background: #6F25CE;
-    color:#FFFFFF;
-    
+    color: #FFFFFF;
+
 }
+
 .scdashboard-individual-performance {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -709,7 +733,8 @@
 }
 
 .scdashboard-individual-performance li p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
@@ -743,7 +768,8 @@
 }
 
 .queryraisedcontainer-firstrow #queryraised-header {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 18px;
     font-weight: 600;
     line-height: 27px;
@@ -771,7 +797,8 @@
 }
 
 #sort-by p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
@@ -791,7 +818,8 @@
     border-radius: 4px;
     border: 1px solid #6F25CE;
     box-shadow: 0px 0px 10px 0px #92889B21;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 12.8px;
@@ -817,7 +845,8 @@
 
 .individual-raisedquestions #queries-row {
     width: 60%;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
@@ -826,7 +855,8 @@
 }
 
 .individual-raisedquestions #query-raisedbyrow {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
@@ -910,7 +940,8 @@
     gap: 10px;
     border-radius: 4px;
     border: 1px solid #5252523D;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 12px;
     font-weight: 500;
     line-height: 18px;
@@ -932,7 +963,8 @@
     background-color: #6F25CE;
     border: none;
     box-shadow: 0px 0px 10px 0px #92889B21;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -972,7 +1004,8 @@
 }
 
 .reportsindashboard-leftcontentinfirstrow p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 600;
     line-height: 18px;
@@ -981,7 +1014,8 @@
 }
 
 .reportsindashboard-leftcontentinfirstrow span {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
@@ -989,7 +1023,8 @@
 }
 
 .reportsproposal-individualdatalists span {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
@@ -1017,7 +1052,8 @@
 }
 
 .reportsindashboard-secondrow p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
@@ -1025,7 +1061,8 @@
 }
 
 .reportsproposal-individualdatalists p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
@@ -1045,7 +1082,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -1121,7 +1159,8 @@
     border-radius: 4px;
     border: 1px solid #E6E6E6;
     color: #B8B8B8;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 12px;
     font-weight: 500;
     line-height: 18px;
@@ -1146,7 +1185,8 @@
     background-color: #FA7B15;
     box-shadow: 0px 0px 10px 0px #92889B21;
     color: #FFFFFF;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -1197,7 +1237,8 @@
 
 .studentAddByScuserPopup-headerpart h3,
 .referral-triggered-view-headersection h3 {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: 18px;
     line-height: 27px;
@@ -1221,7 +1262,8 @@
 }
 
 .studentAddByScuserPopup-contentpart input::placeholder {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: 14px;
     line-height: 18px;
@@ -1258,7 +1300,8 @@
     border-radius: 4px;
     gap: 8px;
     border: 1px solid rgba(111, 37, 206, 1);
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: 14px;
     line-height: 16.8px;
@@ -1274,7 +1317,8 @@
 }
 
 .studentAddByScuserPopup-footerpart button {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: 14px;
     line-height: 16.8px;
@@ -1359,7 +1403,8 @@
     padding: 1rem 2rem;
     border: 1px solid rgba(233, 134, 53, 1);
     background: rgba(255, 255, 255, 1);
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: 14px;
     line-height: 16.8px;
@@ -1374,14 +1419,42 @@
     width: 12px;
 }
 
-.referral-triggered-view-footer button:last-child {
+#file-upload-info {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+#remove-excel-btn {
+    background: none;
+    outline: none;
+    border: none;
+    color: #c3c0bb;
+    position: absolute;
+    right: 1rem;
+}
+
+#selected-file-name {
+    width: 100%;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1rem;
+    text-align: left;
+    color: #A6A5A5
+}
+
+.referral-triggered-view-footer button:last-child,
+#save-excelfile-btn {
     width: 126px;
     height: 35px;
     gap: 8px;
     border-radius: 4px;
     background-color: rgba(111, 37, 206, 1);
     box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: 14px;
     line-height: 16.8px;
@@ -1397,7 +1470,8 @@
     }
 
     .scdashboard-dashboardcontent {
-        width: 74vw;
+        width: 100%;
+
         margin-top: 2rem;
         margin-left: 2rem;
     }
@@ -1609,9 +1683,19 @@
         width: 70%;
     }
 
+    .commonsidebar-togglesidebar {
+        display: none;
+
+    }
+
 }
 
 @media(max-width:767px) {
+    .commonsidebar-togglesidebar {
+        display: none;
+
+    }
+
     .scdashboard-container {
         margin: 0 1.3rem;
         padding-top: 1.3rem;

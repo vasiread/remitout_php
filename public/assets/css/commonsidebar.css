@@ -1,7 +1,7 @@
 .commonsidebar-togglesidebar {
     height: 88vh;
-    width: 18%;
-    max-width: 100%;
+    max-width: 18.95%;
+    width: 100%;
     box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
     background-color: rgba(255, 255, 255, 1);
     display: flex;
@@ -10,16 +10,21 @@
     padding: 35px 0px;
     position: fixed;
     z-index: 50;
-  
-    top: 0;
+    top: 90px;
     left: 0;
-    margin-top: 90px;
+    overflow-y: auto; /* Enables sidebar scrolling */
 }
 
 #commonsidebar-admin {
     height: fit-content;
-    position: sticky;
+    position: fixed;
+    height: 100vh;
+    scrollbar-width: none;
 
+
+}
+#commonsidebar-admin::-webkit-scrollbar{
+    display:none
 }
 
 #commonsidebar-admin .commonsidebar-sidebarlists-bottom {
@@ -56,7 +61,7 @@
     flex-direction: column;
     gap: 20px;
     height: 202px;
-    max-width: 100%;    
+    max-width: 100%;
     width: 90%;
     border-radius: 4px;
     margin-left: 8px;
@@ -65,7 +70,8 @@
 
 
 .commonsidebar-togglesidebar .commonsidebar-sidebarlists-top li {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 15px;
     font-weight: 500;
     line-height: 18px;
@@ -84,11 +90,13 @@
     position: relative;
 
 }
+
 #expanded-studentcounsellor-admin-side,
-#expanded-student-admin-side{
+#expanded-student-admin-side {
     display: none;
     flex-direction: column;
 }
+
 #expand-icon-Student,
 #expand-icon-StudentCounsellor {
 
@@ -126,7 +134,8 @@
     width: 80%;
     height: 54px;
     padding-left: 1rem;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 500;
     line-height: 19.2px;
@@ -270,7 +279,8 @@
     }
 
     .commonsidebar-sidebarlists-top p {
-        font-family: Poppins;
+        font-family: 'Poppins', sans-serif;
+
         font-size: 1rem;
         font-weight: 500;
         line-height: 24px;

@@ -18,7 +18,8 @@
 
 
      @endphp
-<div class="manage-student-main-report-container" id="manage-student-main-admin-report-container-id">
+     
+<div class="manage-student-main-report-section" id="manage-student-main-admin-report-container-id">
  <div class="manage-student-main-admin-report-container">
         <div class="manage-student-report-header">
             <h1 class="manage-student-report-title">Manage Students Reports</h1>

@@ -1,21 +1,15 @@
-* {
-    box-sizing: border-box;
-     margin: 0;
-    padding: 0;
-}
-
 .nbfc-navbar {
-  position: fixed;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 30px;
+    padding: 12px 30px;
     background-color: white;
     border-bottom: 1px solid #f0f0f0;
-    height:85px;
+    height: 85px;
     z-index: 9999;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -114,9 +108,10 @@
 .nbfc-profile-text {
     color: #260254;
     font-weight: 500;
-      font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
 
 }
+
 
 .nbfc-dropdown-icon {
     display: inline-block;
@@ -154,8 +149,8 @@
 }
 
 .nbfc-mobile-sidebar {
-   position: fixed;
-    top: 75px;
+    position: fixed;
+    top: 85px;
     left: -100%;
     width: 100%;
     height: 90vh;
@@ -262,6 +257,9 @@
     max-width: 100%;
 }
 
+.index-student-info .student-ids {
+    display: none;
+}
 
 .nbfc-mobile-menu-top li i,
 .nbfc-mobile-menu-bottom li i {
@@ -313,7 +311,8 @@
     border: 1px solid rgba(226, 226, 226, 1);
     outline: none;
     font-size: 0.6rem;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     padding-left: 6px;
 
 
@@ -343,7 +342,8 @@
 }
 
 .password-change-triggered-view-headersection-nbfc h3 {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: clamp(8px, 4vw, 12px);
     line-height: clamp(11px, 4vw, 27px);
@@ -365,7 +365,8 @@
 }
 
 .popup-notify-list-nbfc p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 0.8rem;
     padding: 0.4rem 0;
     border-radius: 4px;
@@ -389,10 +390,10 @@
 }
 
 #nbfc-student-profile-details {
-    display: flex;
+    display: none;
     width: 100%;
-    max-width: 69.52%;
-
+ max-width: 100%;
+ border-radius: 8px;
 }
 
 .myapplication-seventhcolumn-headernbfc {
@@ -429,7 +430,8 @@
     box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
     border: 1px solid rgba(111, 37, 206, 1);
     background-color: rgba(255, 255, 255, 1);
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: 14px;
     line-height: 120%;
@@ -450,7 +452,8 @@
     align-items: center;
     justify-content: center;
     justify-self: flex-start;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: 14px;
     line-height: 120%;
@@ -480,7 +483,8 @@
     justify-content: center;
     border: 1px solid rgba(111, 37, 206, 1);
     box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-weight: 500;
     font-size: 14px;
     line-height: 120%;
@@ -490,19 +494,69 @@
 
 }
 
+#profilesection-nbfcapprovalcolumn {
+
+    max-width: 100%;
+    display: none;
+    flex-direction: column-reverse;
+    gap: 12px;
+    width: 100%;
+}
+
+#profilesection-nbfcapprovalcolumn button:first-child {
+    width: 100%;
+}
+
+#profilesection-nbfcapprovalcolumn .nbfcapprovalcolumnrightaligned {
+    width: 100%;
+
+}
+
+#profilesection-nbfcapprovalcolumn .nbfcapprovalcolumnrightaligned button {
+    width: 50%;
+    gap: 12px;
+}
+
 .nbfcdashboard-studentlistscontainer {
     display: none;
-    max-width:100%;
+    max-width: 100%;
     width: 100%;
     justify-content: space-between;
     margin-left: 1.3%;
+    
 }
 
 #nbfc-list-of-student-profilesections {
     display: flex;
-    max-width: 28.85%;
+    max-width: 100%;
     width: 100%;
+    border-radius: 8px;
+     
 }
+
+.nbfcstudentdashboardprofile-togglesidebar {
+    max-width: 18.93%;
+    width: 100%;
+
+    padding: 35px 10px;
+    box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
+    position: fixed;
+    height: 90vh;
+    left: 0;
+    margin-top: 85px;
+    background-color: rgba(255, 255, 255, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 2;
+
+}
+
+/* #nbfc-list-of-student-profilesections {
+    max-width: 50%;
+} */
+
+/*nav bar for tablets*/
 
 @media screen and (max-width: 1023px) {
     .nbfc-navbar {
@@ -577,6 +631,28 @@
 /*mobile responsive nav bar*/
 
 @media screen and (max-width: 768px) {
+    .myapplication-nbfcapprovalcolumn {
+        display: none;
+    }
+
+    #profilesection-nbfcapprovalcolumn {
+        display: flex;
+    }
+
+    #nbfc-student-profile-details {
+        display: flex;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .nbfcdashboard-studentlistscontainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2%;
+    }
+
+
     .nbfc-navbar {
         padding: 12px 20px;
         justify-content: end;
@@ -661,41 +737,32 @@
     top: 0;
     left: 3px;
 }
-html, body {
-    height: 100%;
-    background-color: #F5F5F5;
-}
 
+/* 
 
 .nbfcstudentdashboardprofile-togglesidebar {
-   width: 16%;
-    min-height: calc(100vh - 85px);
-    padding: 35px 10px;
-    background-color: white;
+     padding: 35px 10px;
+    max-width: 19%;
+    width: 100%;
     box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
-    position: fixed;
-    height: 80vh;
-    left: 0;
-    margin-top: 90px;
+    background-color: rgba(255, 255, 255, 1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    overflow-x: hidden; 
-    overflow-y: hidden;
-}
+} */
 
 .nbfcstudentdashboardprofile-togglesidebar ul {
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: 20px;
-     overflow-x: hidden;
+
     max-width: 100%;
-    
 }
 
 .nbfcstudentdashboardprofile-togglesidebar ul li {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 500;
     line-height: 19.2px;
@@ -789,7 +856,8 @@ html, body {
 }
 
 .nbfcstudentdashboardprofile-personalinfo .nbfcpersonalinfo-firstrow h1 {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 18px;
     font-weight: 600;
     line-height: 27px;
@@ -805,7 +873,8 @@ html, body {
     padding: 16px 32px;
     gap: 8px;
     border-radius: 4px;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -828,7 +897,8 @@ html, body {
 }
 
 .nbfcpersonalinfo-secondrow li {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 500;
     line-height: 15.6px;
@@ -849,7 +919,8 @@ html, body {
 }
 
 .nbfcpersonalinfo-profilestatus h1 {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 13px;
     font-weight: 500;
     line-height: 19.5px;
@@ -877,7 +948,8 @@ html, body {
 }
 
 .nbfcprofilestatus-graph-section p {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
@@ -887,7 +959,8 @@ html, body {
 }
 
 .nbfcprofilestatus-graph-secondsection span {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 30px;
     font-weight: 600;
     line-height: 45px;
@@ -900,7 +973,8 @@ html, body {
 
 .nbfcprofilestatus-graph-secondsection p {
     padding-top: 1rem;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 30px;
     font-weight: 500;
     line-height: 0px;
@@ -922,7 +996,8 @@ html, body {
 }
 
 .nbfcprofilestatus-graph-secondsection .nbfcsecondsection-inside {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
@@ -947,7 +1022,8 @@ html, body {
 
 .nbfcstudentdashboardprofile-communityjoinsection p {
     color: rgba(38, 2, 84, 0.7);
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 16px;
     font-weight: 500;
     line-height: 19.2px;
@@ -959,6 +1035,8 @@ html, body {
     height: auto;
 
 }
+
+
 
 
 /*tablet toggle sidebar*/
@@ -1043,19 +1121,22 @@ html, body {
 /*nbfc main container for dashboard*/
 
 .dashboard-main-content {
-    flex: 1;
-    margin-left: 16%;
+    display: flex;
+
+    margin-left: 17.2%;
+    gap: 1.25%;
     padding: 18px;
     background-color: #F5F5F5;
 }
 
 .dashboard-sections-container {
-    display: grid !important;
+    display: grid;
+    margin-left: 4.09%;
     grid-template-columns: 1fr 1fr;
     gap: 24px;
     padding: 10px;
     background-color: #F5F5F5;
-    margin-top: 85px;
+    margin-top: 70px;
 }
 
 
@@ -1119,9 +1200,9 @@ html, body {
     top: 100%;
     left: 0;
     background-color: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1;
     width: 77px;
     overflow: hidden;
@@ -1130,29 +1211,18 @@ html, body {
 }
 
 .dashboard-sort-options button {
-    padding: 10px 16px;
+    padding: 10px;
     background-color: white;
     border: none;
     width: 100%;
     text-align: left;
-    color: #6b7280;
-    font-size: 14px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    border-bottom: 1px solid #f3f4f6;
-}
-
-.dashboard-sort-options button:last-child {
-    border-bottom: none;
 }
 
 .dashboard-sort-options button:hover {
-    background-color: #f9fafb;
+    background-color: #f1f1f1;
 }
 
-.dashboard-sort-button:focus + .dashboard-sort-options {
+.dashboard-sort-button:focus+.dashboard-sort-options {
     display: block;
 }
 
@@ -1209,7 +1279,7 @@ html, body {
     flex-direction: column;
     gap: 16px;
     background-color: white;
-    border-radius: 8px;
+    border-radius: 16px;
 }
 
 .dashboard-student-item {
@@ -1269,7 +1339,7 @@ html, body {
 .dashboard-reject-button {
     color: #6F25CE;
     background: transparent;
-     font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .dashboard-nbfc-search-container {
@@ -1375,6 +1445,10 @@ html, body {
 @media (max-width: 767px) {
     .dashboard-nbfc-search-container {
         display: block;
+    }
+
+    .dashboard-sections-container {
+        margin-left: 1rem;
     }
 
     .dashboard-nbfc-search-input {
@@ -1929,7 +2003,6 @@ html, body {
     justify-content: center;
     align-items: center;
     z-index: 1000;
-     font-family: 'Poppins', sans-serif;
 }
 
 .reject-application-modal {
@@ -1970,7 +2043,7 @@ html, body {
     font-size: 18px;
     font-weight: 500;
     color: #E98635;
-     font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .reject-application-modal-header .close-button {
@@ -1979,7 +2052,6 @@ html, body {
     color: #666;
     cursor: pointer;
     font-size: 20px;
-     font-family: 'Poppins', sans-serif;
 }
 
 .reject-application-modal-content .remarks-textarea {
@@ -1991,7 +2063,6 @@ html, body {
     font-size: 14px;
     resize: none;
     margin-bottom: 16px;
-     font-family: 'Poppins', sans-serif;
 }
 
 .reject-application-modal-content .actions {
@@ -2001,31 +2072,24 @@ html, body {
 
 .reject-application-modal-content .actions button {
     margin-left: 8px;
-   
+
     font-size: 14px;
     border-radius: 4px;
+    width:62px;
     cursor: pointer;
 }
 
 .reject-application-modal-content .actions .cancel-button {
     background-color: #FFFFFF;
     color: #260254;
-    border: none;
     border: 1px solid #6F25CE;
-    width:109px;
-    height:35px;
-      font-size: 14px;
-     font-family: 'Poppins', sans-serif;
+    width:62px;
 }
 
 .reject-application-modal-content .actions .reject-button {
     background-color: #6F25CE;
     color: white;
     border: none;
-    width:126px;
-    height:35px;
-    font-size: 14px;
-    font-family: 'Poppins', sans-serif;
 }
 
 @media (max-width: 768px) {
@@ -2052,6 +2116,7 @@ html, body {
     .reject-application-modal-content .actions .cancel-button,
     .reject-application-modal-content .actions .reject-button {
         font-size: 12px;
+        width:62px;
     }
 
     .reject-application-modal-header .close-button {
@@ -2062,8 +2127,11 @@ html, body {
 /* Inbox Styles */
 
 #index-section-id-nbfc {
-    margin-top: 100px;
+    margin-top: 80px;
     overflow-x: hidden;
+    max-width: 100%;
+    width: 100%;
+    margin-left: 4.09%;
 }
 
 .index-section {
@@ -2092,45 +2160,30 @@ html, body {
     font-size: 28px;
 }
 
-      
+
 .inbox-filters {
     position: relative;
     display: flex;
     align-items: center;
     gap: 10px;
     cursor: pointer;
-    border: 1px solid #e5e7eb;
-    padding: 8px 12px;
+    border: 1px solid #ccc;
+    padding: 10px;
     width: fit-content;
-    border-radius: 8px;
-    background-color: white;
-    font-family: 'Poppins', sans-serif;
 }
 
-.inbox-filters span {
-    margin-right: 5px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    color: #6b7280;
-}
-
-.inbox-filters img {
-    width: 16px;
-}
-
-/* Dropdown styling to match the image */
 .sort-dropdown-nbfc {
     position: absolute;
-    top: calc(100% + 5px);
+    top: 100%;
     left: 0;
     background: white;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #ddd;
     display: none;
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 5px 0;
     z-index: 10;
-  
+
 }
 
 .sort-dropdown-nbfc.visible {
@@ -2138,26 +2191,36 @@ html, body {
 }
 
 .sort-dropdown-nbfc li {
-    padding: 10px 16px;
+    padding: 10px;
     cursor: pointer;
     font-size: 14px;
-    color: #6b7280;
-    border-bottom: 1px solid #f3f4f6;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
 }
 
-.sort-dropdown-nbfc li:last-child {
-    border-bottom: none;
+.sort-dropdown-nbfc li:hover {
+    background-color: #f0f0f0;
 }
-#sort-options-index-nbfc{
-  width:80px;
+
+#sortable-list {
+    margin-top: 10px;
+    padding: 0;
+    list-style: none;
 }
+
+#sortable-list li {
+    padding: 5px;
+    border: 1px solid #ddd;
+    margin: 2px 0;
+}
+
+#sort-options-index-nbfc {
+    width: 80px;
+}
+
 .inbox-filters span {
-    margin-right: 5px;    
+    margin-right: 5px;
     font-family: 'Poppins', sans-serif;
-    font-size: 12px; 
-    
+    font-size: 12px;
+
 }
 
 .inbox-filters img {
@@ -2201,6 +2264,8 @@ html, body {
 
 .message-item {
     padding: 24px 0;
+
+    font-family: 'Poppins', sans-serif;
 
 }
 
@@ -2269,8 +2334,7 @@ html, body {
 
     height: 70px;
     border: 1px solid #e2e2e2;
-    padding: 20px 10px;
-    width:570px;
+    padding: 4px;
     padding-left: auto;
     border-radius: 5px;
     display: flex;
@@ -2363,7 +2427,8 @@ html, body {
 
 .nbfc-individual-bankmessage-input input::placeholder,
 .nbfc-message-input::placeholder {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -2434,8 +2499,6 @@ html, body {
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid #E5E7EB;
-     font-family: 'Poppins', sans-serif;
-
 
 }
 
@@ -2448,7 +2511,7 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-     font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
 
 
 }
@@ -2542,7 +2605,6 @@ html, body {
     border: 1px solid rgba(226, 226, 226, 1);
     font-size: 12px;
     color: rgba(144, 144, 144, 1);
-    font-family: 'Poppins', sans-serif;
 }
 
 .nbfc-bankmessages-buttoncontainer .nbfc-bankmessage-buttoncontainer-reject {
@@ -2557,7 +2619,8 @@ html, body {
 
 .nbfc-individual-bankmessage-input-message input::placeholder,
 .nbfc-message-input::placeholder {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -2670,6 +2733,8 @@ html, body {
     }
 
     .inbox-container {
+        max-width: 100%;
+        width: 100%;
         background: white;
         border-radius: 8px;
         padding: 24px;
@@ -2776,14 +2841,15 @@ html, body {
     }
 
     .message-response {
-         width: 300px;
+        width: 300px;
         padding: 0;
         margin-left: 5px;
-       
-      
+
+
     }
-    .messages-wrapper{
-         width: 300px;
+
+    .messages-wrapper {
+        width: 300px;
         padding: 0;
         margin-left: 5px;
 
@@ -2796,12 +2862,12 @@ html, body {
         height: auto;
         margin-left: 0px;
         border: 1px solid #e2e2e2;
-        width:300px;
+        width: 300px;
 
     }
 
     .message-content-container {
-        font-size: 12px; 
+        font-size: 12px;
         height: auto;
     }
 
@@ -2976,7 +3042,8 @@ html, body {
 }
 
 .nbfc-student-dashboard-section-main-contents .personalinfo-secondrow li {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 13px !important;
     font-weight: 500;
     line-height: 15.6px;
@@ -2995,7 +3062,8 @@ html, body {
 .personal_info_phone,
 .personal_info_email,
 .personal_info_state {
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 13px !important;
     font-weight: 500;
     line-height: 15.6px;
@@ -3006,7 +3074,7 @@ html, body {
 
 }
 
- #nbfc-list-of-student-profilesections .studentdashboardprofile-educationeditsection {
+#nbfc-list-of-student-profilesections .studentdashboardprofile-educationeditsection {
     display: flex;
     flex-direction: column;
     margin: 13px 0;
@@ -3014,7 +3082,7 @@ html, body {
 
 }
 
- #nbfc-list-of-student-profilesections .studentdashboardprofile-testscoreseditsection {
+#nbfc-list-of-student-profilesections .studentdashboardprofile-testscoreseditsection {
     display: flex;
     flex-direction: column;
     margin: 13px 0;
@@ -3046,7 +3114,8 @@ html, body {
     border-radius: 4px;
     border: 1px solid rgba(111, 37, 206, 1);
     background: transparent;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -3070,7 +3139,8 @@ html, body {
     border-radius: 4px;
 
     background: transparent;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -3094,7 +3164,8 @@ html, body {
     border-radius: 4px;
     border: 1px solid rgba(111, 37, 206, 1);
     background: transparent;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
+
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;

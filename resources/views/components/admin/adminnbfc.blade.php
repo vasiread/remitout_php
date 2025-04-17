@@ -212,21 +212,21 @@
 
             dynamicChangesThroughWindow();
 
-            sortLinks.forEach(items => {
-                items.addEventListener('click', function (e) {
+            sortLinks.forEach(item => {
+                item.addEventListener('click', function (e) {
                     e.preventDefault();
                     const sortType = this.getAttribute('data-sort');
-                    const items = Array.from(counsellorList.querySelectorAll('#nbfc-list .individualnbfclists-items'));
+                    const items = Array.from(counsellorList.querySelectorAll('.individualnbfclists-items'));
 
                     // Sorting logic
                     if (sortType === 'newest') {
-                        items.sort((a, b) => new Date(b.dataset.added) - new Date(a.dataset.added));
+                        items.sort((a, b) => new Date(b.querySelector('.individualnbfclists-content').getAttribute('data-added')) - new Date(a.querySelector('.individualnbfclists-content').getAttribute('data-added')));
                     } else if (sortType === 'oldest') {
-                        items.sort((a, b) => new Date(a.dataset.added) - new Date(b.dataset.added));
+                        items.sort((a, b) => new Date(a.querySelector('.individualnbfclists-content').getAttribute('data-added')) - new Date(b.querySelector('.individualnbfclists-content').getAttribute('data-added')));
                     } else if (sortType === 'alphabet') {
-                        items.sort((a, b) => a.textContent.trim().localeCompare(b.textContent.trim()));
+                        items.sort((a, b) => a.querySelector('#nbfc-name-id').textContent.trim().localeCompare(b.querySelector('#nbfc-name-id').textContent.trim()));
                     } else if (sortType === 'alphabet-reverse') {
-                        items.sort((a, b) => b.textContent.trim().localeCompare(a.textContent.trim()));
+                        items.sort((a, b) => b.querySelector('#nbfc-name-id').textContent.trim().localeCompare(a.querySelector('#nbfc-name-id').textContent.trim()));
                     }
 
                     // Append sorted items back to the list
@@ -342,27 +342,23 @@
 
                         const nbfcListContainer = document.getElementById("nbfc-list");
 
-                        // Clear existing content
                         nbfcListContainer.innerHTML = '';
 
-                        // Loop through the received data
                         data.receivedData.forEach((item) => {
-                            // Create a new div for each NBFC item
                             const nbfcItemDiv = document.createElement('div');
                             nbfcItemDiv.classList.add('individualnbfclists-items');
 
-                            // Add the NBFC content (name, type, etc.)
                             nbfcItemDiv.innerHTML = `
-                    <div class="individualnbfclists-content">
-                        <p id="nbfc-name-id">${item.nbfc_name}</p>
-                        <p>${item.nbfc_type}</p>
-                        </div>
-                    <div class="individualnbfcs-buttoncontainer">
-                        <button> <img src="{{asset("assets/images/Icons/visibility.png")}}"> </button>
-                        <button> <img src="{{asset("assets/images/Icons/edit_purple.png")}}"></button>
-                        <button>Suspend</button>
-                    </div>
-                `;
+            <div class="individualnbfclists-content" data-added="${item.created_at}">
+                <p id="nbfc-name-id">${item.nbfc_name}</p>
+                <p>${item.nbfc_type}</p>
+            </div>
+            <div class="individualnbfcs-buttoncontainer">
+                <button> <img src="{{asset('assets/images/Icons/visibility.png')}}"> </button>
+                <button> <img src="{{asset('assets/images/Icons/edit_purple.png')}}"></button>
+                <button>Suspend</button>
+            </div>
+        `;
 
                             // Append the newly created div to the list container
                             nbfcListContainer.appendChild(nbfcItemDiv);
@@ -409,7 +405,7 @@
                     if (data.success) {
                         console.log(data.message);
                         const newForm = document.querySelectorAll(".formsection-addnbfcuser");
-                        newForm.forEach((item,index) => {
+                        newForm.forEach((item, index) => {
                             if (index > 0) {
                                 item.remove();
 

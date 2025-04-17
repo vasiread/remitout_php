@@ -14,10 +14,10 @@ class CourseInfo extends Model
 
     protected $fillable = [
         'user_id',
-        'plan_to_study',
-        'degree_type',
-        'course_duration',
-        'course_details',
+        'plan-to-study',
+        'degree-type',
+        'course-duration',
+        'course-details',
         'loan_amount_in_lakhs',
     ];
 

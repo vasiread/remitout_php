@@ -7,6 +7,7 @@
     <title>Student Counsellor Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/studentformquestionair.css') }}">
 
 </head>
 
@@ -406,7 +407,6 @@ $totalPages = ceil($totalStudents / $perPage);
                         @endforeach
                     </div>
 
-                    <!-- Pagination Controls -->
                     <div class="pagination-controls studentapplicaton-datashownpagination">
                         <button id="prevstudents" onclick="prevdetail()">&lt;</button>
                         <div id="pages-container">
@@ -424,11 +424,12 @@ $totalPages = ceil($totalStudents / $perPage);
 
 
                 </div>
-
-
-
-
             </div>
+
+
+
+
+
             <div class="studentAddBySCuserPopup">
                 <div class="studentAddByScuserPopup-headerpart">
                     <h3>Register Students</h3>
@@ -442,14 +443,37 @@ $totalPages = ceil($totalStudents / $perPage);
                     <button id="dynamic-add-student-button" style="cursor:pointer">Add Student</buttonstyle>
 
                 </div>
-                <div class="studentAddByScuserPopup-footerpart">
+                <form id="excel-form" enctype="multipart/form-data">
+                    @csrf
+                    <div class="studentAddByScuserPopup-footerpart">
+                        <!-- Excel Upload Button -->
+                        <button id="excel-upload-trigger" type="button" style="cursor:pointer">
+                            Upload xlsx <img src="{{ asset('assets/images/Icons/upload.png') }}" />
+                        </button>
+                        <button type="button" style="cursor:pointer">Add Student</button>
+                        <button type="button" style="cursor:pointer">Save Student details</button>
+                    </div>
 
-                    <button id='excel-upload-trigger' style="cursor:pointer">Upload xlsl <img
-                            src="{{ asset('assets/images/Icons/upload.png') }}" /> </button>
-                    <button style="cursor:pointer">Add Student</buttonstyle>
-                        <button style="cursor:pointer">Save Student details</button>
-                </div>
-                <input type="file" id="excel-sheet-student-update" style="display:none">
+                    <!-- Hidden File Input -->
+                    <input type="file" id="excel-sheet-student-update" name="excel_file" accept=".xls,.xlsx"
+                        style="display:none">
+
+                    <!-- Section to Display File Name and Save Button -->
+                    <div id="file-upload-info" style="display:none">
+                        <!-- Display the Selected File Name with Remove Button -->
+                        <div id="file-container" style="display: flex; align-items: center; gap: 10px;position:relative;">
+                            <input id="selected-file-name" readonly style="border: 1px solid #ccc; padding: 5px;" />
+                            <button id="remove-excel-btn" type="button" style="cursor:pointer;">X</button>
+                        </div>
+
+                        <!-- Save Excel File Button -->
+                        <button id="save-excelfile-btn" type="button" style="cursor:pointer;">
+                            Save Excel File
+                        </button>
+                    </div>
+                </form>
+
+
 
             </div>
 
@@ -484,28 +508,29 @@ $totalPages = ceil($totalStudents / $perPage);
             initializeProfileViewScuser();
             initializeScUserOneView();
             getUsersByCounsellor();
-           const triggerExpandShrink = document.querySelectorAll("#reportsindashboard-firstrow-view");
+            triggerExcelRegistration();
+            queryDetails();
+            const triggerExpandShrink = document.querySelectorAll("#reportsindashboard-firstrow-view");
 
             if (triggerExpandShrink) {
                 triggerExpandShrink.forEach((items, index) => {
 
-                    items.addEventListener("click",()=>{
- const progress = document.querySelectorAll(".reportsproposal-datalists");
-                    if (progress[index].style.display === "flex") {
-                        progress[index].style.display = "none";
-                    } else {
-                        progress[index].style.display = "flex";
-                    }
+                    items.addEventListener("click", () => {
+                        const progress = document.querySelectorAll(".reportsproposal-datalists");
+                        if (progress[index].style.display === "flex") {
+                            progress[index].style.display = "none";
+                        } else {
+                            progress[index].style.display = "flex";
+                        }
                     })
-                   
+
                 });
             }
 
             const backgroundContainer = document.querySelector('.scdashboard-parentcontainer');
 
 
-            const triggeredExcelStudentUploadAction = document.querySelector("#excel-sheet-student-update");
-            const triggeredExcelStudentUploadButton = document.querySelector("#excel-upload-trigger");
+
 
         })
 
@@ -1032,6 +1057,7 @@ $totalPages = ceil($totalStudents / $perPage);
         const getUsersByCounsellor = () => {
             const getRefCode = document.querySelector("#screferral-id-fromprofile span");
             const referralId = getRefCode ? getRefCode.textContent : '';
+            // console.log(referralId)
 
             if (!referralId) {
                 console.error("Referral ID is missing");
@@ -1132,6 +1158,43 @@ $totalPages = ceil($totalStudents / $perPage);
         };
 
 
+        const queryDetails = () => {
+
+            const scuser = @json(session('scuser'));
+            const scUserId = scuser.referral_code;
+
+            if (scUserId) {
+
+                fetch('/get-queries', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')                    },
+                    body: JSON.stringify({ scUserId })
+
+
+
+                })
+
+                    .then((response) => { response.json() })
+                    .then((data) => {
+                        if (data.success) {
+                            console.log("Data Retrieved Successfully");
+                            console.log(data.queries);
+                        }
+                        else if (data.error) {
+                            console.error("Data Fetch Error", data.error)
+                        }
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    })
+
+            }
+
+        }
+
+
         const updateScUserProfileInfos = () => {
             const personalEditMode = document.querySelector(".scmember_personalinfo_editmode");
             const personalScInfoContainer = document.querySelector(".scmember_personalinfo");
@@ -1176,7 +1239,7 @@ $totalPages = ceil($totalStudents / $perPage);
 
             if (!street || !district || !state || !pincode) {
                 alert("Please fill in all the address fields: street, district, state, and pincode.");
-                return; // Stop the execution if any field is missing, preventing fetch
+                return;  
             }
 
 
@@ -1294,6 +1357,88 @@ $totalPages = ceil($totalStudents / $perPage);
                 .catch((error) => {
                     console.error("Error retrieving data: ", error);
                 });
+        };
+
+
+        const triggerExcelRegistration = () => {
+            const excelUpload = document.getElementById("excel-upload-trigger");
+            const excelUploadEvent = document.getElementById("excel-sheet-student-update");
+            const fileNameDisplay = document.getElementById("selected-file-name");
+            const fileUploadInfo = document.getElementById("file-upload-info");
+            const removeFileBtn = document.getElementById("remove-excel-btn");
+            const saveExcelFileBtn = document.getElementById("save-excelfile-btn");
+
+            // Trigger file input when clicking on the upload button
+            if (excelUpload) {
+                excelUpload.addEventListener('click', () => {
+                    if (excelUploadEvent) {
+                        excelUploadEvent.click();
+                    }
+                });
+            }
+
+            // Show the file name and "Save Excel File" button after a file is selected
+            if (excelUploadEvent) {
+                excelUploadEvent.addEventListener('change', (event) => {
+                    const file = event.target.files[0];
+                    if (file) {
+                        fileNameDisplay.value = `${file.name}`;
+                        fileUploadInfo.style.display = "flex"; // Show the file info section
+                    } else {
+                        fileNameDisplay.value = "";
+                        fileUploadInfo.style.display = "none"; // Hide the file info section if no file
+                    }
+                });
+            }
+
+            // Remove the selected file and hide the file upload info section
+            if (removeFileBtn) {
+                removeFileBtn.addEventListener('click', () => {
+                    fileNameDisplay.value = "";
+                    excelUploadEvent.value = "";
+                    fileUploadInfo.style.display = "none";
+                });
+            }
+
+            // Save the Excel file via AJAX when clicking the save button
+            if (saveExcelFileBtn) {
+                saveExcelFileBtn.addEventListener('click', () => {
+                    const formData = new FormData();
+                    const file = excelUploadEvent.files[0]; // Get the selected file
+
+                    if (!file) {
+                        alert("Please select an Excel file to upload.");
+                        return;
+                    }
+
+                    formData.append('excel_file', file); // Add the file to the formData
+
+                    // Send AJAX request
+                    fetch('{{ route("students.import") }}', {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+                        },
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert(data.message); // Show success message
+                            } else {
+                                alert(data.message); // Show error message
+                            }
+                            // Reset the form and hide file info
+                            fileNameDisplay.value = "";
+                            excelUploadEvent.value = "";
+                            fileUploadInfo.style.display = "none";
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('An error occurred while uploading the file.');
+                        });
+                });
+            }
         };
 
 

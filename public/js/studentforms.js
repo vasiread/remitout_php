@@ -706,8 +706,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    async function handleFileUpload(event, fileNameId, uploadIconId, removeIconId) {
-        console.log(event, fileNameId, uploadIconId, removeIconId)
+    async function handleFileUpload(event, fileNameId, uploadIconId, removeIconId, studentId = null) {
+        console.log(event, fileNameId, uploadIconId, removeIconId, studentId)
         const fileInput = event.target;
         const fileNameElement = document.getElementById(fileNameId);
         const uploadIcon = document.getElementById(uploadIconId);
@@ -728,7 +728,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (file.size > 5 * 1024 * 1024) {
             alert("Error: File size exceeds 5MB limit.");
-            fileInput.value = '';  
+            fileInput.value = '';
             fileNameElement.textContent = 'No file chosen';
             uploadIcon.style.display = 'inline';
             removeIcon.style.display = 'none';
@@ -751,7 +751,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-         const fileSizeInKB = (file.size / 1024).toFixed(2);
+        const fileSizeInKB = (file.size / 1024).toFixed(2);
         const fileSizeDisplay = fileSizeInKB > 1024
             ? `${(fileSizeInKB / 1024).toFixed(2)} MB`
             : `${fileSizeInKB} KB`;
@@ -778,7 +778,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const existingIcon = fileNameElement.querySelector('img');
         if (existingIcon) {
-            existingIcon.remove(); 
+            existingIcon.remove();
         }
         fileNameElement.insertBefore(fileIcon, fileNameElement.firstChild);
 
@@ -786,15 +786,31 @@ document.addEventListener('DOMContentLoaded', () => {
             documentElement.style.display = 'block';  // Display all document names
         });
 
-        const userId = document.getElementById("personal-info-userid").value;
+        if (studentId === null) {
+            const userId = document.getElementById("personal-info-userid").value;
+            await uploadFileToServer(file, userId, fileNameId);
 
 
 
-        await uploadFileToServer(file, userId, fileNameId);
+        }
+        else if (studentId !== null) {
+            const userId = studentId;
+            await uploadFileToServer(file, userId, fileNameId);
+
+
+        }
+
+
+
+
 
     }
 
     function uploadFileToServer(file, userId, fileNameId) {
+        fileNameId = fileNameId.replace(`-${userId}`, '');  
+
+
+
         const formDetailsData = new FormData();
         formDetailsData.append('file', file);
         formDetailsData.append('userId', userId);
@@ -837,7 +853,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(file, userId, fileNameId);
     }
 
-    async function removeFile(fileInputId, fileNameId, uploadIconId, removeIconId) {
+    async function removeFile(fileInputId, fileNameId, uploadIconId, removeIconId, studentId = null) {
         const fileInput = document.getElementById(fileInputId);
         const fileNameElement = document.getElementById(fileNameId);
         const uploadIcon = document.getElementById(uploadIconId);
@@ -859,14 +875,29 @@ document.addEventListener('DOMContentLoaded', () => {
         if (fileIcon) {
             fileIcon.remove();
         }
-        const userId = document.getElementById("personal-info-userid").value;
+        if (studentId === null) {
+            const userId = document.getElementById("personal-info-userid").value;
+            await deleteFileToServer(userId, fileNameId);
+            console.log(fileNameId)
 
-        await deleteFileToServer(userId, fileNameId);
+
+
+        }
+        else if (studentId !== null) {
+            const userId = studentId;
+            await deleteFileToServer(userId, fileNameId);
+            console.log(fileNameId)
+
+
+        }
+
 
     }
 
 
     function deleteFileToServer(userId, fileNameId) {
+        fileNameId = fileNameId.replace(`-${userId}`, '');  
+
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
         if (!csrfToken) {

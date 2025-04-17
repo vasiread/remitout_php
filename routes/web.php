@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\{
-    AuthController,
     GoogleAuthController,
     LoginController,
     MailController,
@@ -12,9 +11,11 @@ use App\Http\Controllers\{
     StudentDetailsController,
     TrackController
 };
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\NbfcController;
 use App\Http\Controllers\scDashboardController;
+// use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\StudentCounsellorController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,19 +44,22 @@ Route::get('/login', function () {
 })->name('login');
 Route::get('/nbfc-dashboard', function () {
     return view('pages.nbfcdashboard');
-})->name('login');
+})->name('nbfcdashboard');
 
 
 Route::get('/admin-page', function () {
 
     $sidebarItems = (new SidebarHandlingController)->admindashboardItems();
-    $userDetails = (new StudentDashboardController)->getAllUsersFromAdmin();  // Example class name
+    $userDetails = (new StudentDashboardController)->getAllUsersFromAdmin();
 
     return view('pages.adminpage', [
         'sidebarItems' => $sidebarItems,
         'userDetails' => $userDetails,
     ]);
 })->name('admin-page');
+Route::get('/getnbfcdatapackage', [TrackController::class, 'getnbfcdataPackage']);
+Route::post('/send-message', action: [ChatController::class, 'sendMessage']);
+
 Route::get('/sc-dashboard', function () {
     $sidebarItems = (new SidebarHandlingController)->scdashboardItems();
     $userByRef = (new scDashboardController)->getUsersByCounsellor();
@@ -75,9 +79,8 @@ Route::get('/student-forms', function () {
 Route::get('pages/student-dashboard', [TrackController::class, 'loanTracker']);
 
 // Google Authentication Routes
-Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
-Route::get('auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle']);
-
+// Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
+ 
 // Form Submission Routes
 Route::post('/registerformdata', [RegisterController::class, 'store'])->name('registerformdata');
 Route::post('/emailuniquecheck', [RegisterController::class, 'emailUniqueCheck'])->name('emailUniqueCheck');
@@ -90,11 +93,15 @@ Route::post('/update-courseinfo', [StudentDetailsController::class, 'updateCours
 Route::post('/update-academicsinfo', [StudentDetailsController::class, 'updateAcademicsInfo']);
 Route::post('/updatedetailsinfo', [StudentDetailsController::class, 'updateUserIds']);
 Route::post("/coborrowerData", [StudentDetailsController::class, 'updateCoborrowerInfo']);
+Route::post('/getUserFromNbfc', [StudentDashboardController::class, 'getUserFromNbfc'])->name('getUserFromNbfc');
 
 // Document Upload and Handling Routes
 Route::post('/remove-each-documents', [StudentDashboardController::class, 'removeFromServer']);
 Route::post('/upload-each-documents', [StudentDashboardController::class, 'uploadMultipleDocuments']);
 Route::post('/count-documents', [StudentDashboardController::class, 'countFilesInBucket']);
+Route::post('/remaining-documents', [StudentDashboardController::class, 'getRemainingNonUploadedFiles']);
+Route::get("/overallcounts", [TrackController::class, 'counts']);
+
 Route::post('/check-columns', [StudentDashboardController::class, 'validateTablesAndColumns']);
 Route::post('/send-documents', [MailController::class, 'sendUserDocuments']);
 Route::post('/retrieve-file', [StudentDashboardController::class, 'retrieveFile']);
@@ -114,11 +121,12 @@ Route::post('/verify-mobotp', [OTPMobController::class, 'verifyOTP']);
 Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFromProfile']);
 Route::post('/upload-profile-picture', [StudentDashboardController::class, 'uploadProfilePicture']);
 Route::post('/retrieve-profile-picture', [StudentDashboardController::class, 'retrieveProfilePicture']);
-
+Route::post('/passwordchange', [GoogleAuthController::class, 'passwordChange']);
+Route::post('/students/import', [scDashboardController::class, 'import_excel_post'])->name('students.import');
+Route::get('/get-messages/{nbfc_id}/{student_id}', [ChatController::class, 'getMessages']);
 // Google Auth Routes
-Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
-Route::get('auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle']);
-
+// Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
+ 
 // Miscellaneous API-like Routes
 Route::post('/retrieve-file', [StudentDashboardController::class, 'retrieveFile']);
 Route::get("/getalluserdetailsfromadmin", [StudentDashboardController::class, 'getAllUsersFromAdmin']);
@@ -142,3 +150,24 @@ Route::post("/trace-process", [TrackController::class, 'traceuserprogress']);
 Route::get("/getnbfcdata", [TrackController::class, 'getnbfcdata']);
 
 Route::post("/addbulkusers", [NbfcController::class, 'addBulkNbfc']);
+Route::post("/send-proposals-with-file", [NbfcController::class, 'sendProposalsWithFiles']);
+Route::post('/logout', [LoginController::class, 'sessionLogout'])->name('logout');
+
+
+// Route::get('login/google', [GoogleAuthController::class, 'redirectToGoogle']);
+
+// Google callback URL
+// Route::get('login/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('google-auth');
+
+Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('/auth/google/call-back', [GoogleAuthController::class, 'handleGoogleCallback']);
+Route::post('/get-queries', [StudentDashboardController::class, 'getScuserQueryRaised']);
+Route::post('/getstatusofusers', [scDashboardController::class, 'getStatusOfUsers']);
+
+Route::post('/unread-message-count', [StudentDashboardController::class, 'unreadMessageCount']);
+Route::get('/get-messages-byconversations/{nbfc_id}/{student_id}', [ChatController::class, 'groupCountingChats']);
+Route::post('/getnbfcdata-proposals', [StudentDashboardController::class, 'nbfcProposals']);
+
+Route::post('/proposalcompletion', [StudentDashboardController::class, 'proposalCompletion']);
+Route::post('/check_userid', [StudentDashboardController::class, 'checkUserId']);
+Route::post('/count-user-status', [StudentDashboardController::class, 'getStatusCount']);
