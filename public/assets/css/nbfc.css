@@ -112,7 +112,6 @@
 
 }
 
-
 .nbfc-dropdown-icon {
     display: inline-block;
     width: 14px;
@@ -1204,6 +1203,9 @@
     border-radius: 4px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1;
+    width: 77px;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
 }
 
 .dashboard-sort-options button {
@@ -1222,20 +1224,20 @@
     display: block;
 }
 
-
-.dashboard-search-button {
+/* Additional CSS for the sort button that triggers the dropdown */
+.dashboard-sort-button {
+    background: transparent;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
     padding: 8px 12px;
-    border: 1px solid #E2E2E2;
-    border-radius: 4px;
-    background: white;
-    cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
-    height: 38px;
-    width: 39px;
+    position: relative;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    width: 77px;
 }
+
 
 .dashboard-sort-button {
     padding: 8px 12px;
@@ -1255,6 +1257,20 @@
     height: 38px;
 }
 
+
+.dashboard-search-button {
+    padding: 8px 12px;
+    border: 1px solid #E2E2E2;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 38px;
+    width: 39px;
+}
 
 .dashboard-student-list {
     display: flex;

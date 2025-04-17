@@ -73,6 +73,7 @@ Route::post("/downloadzip", [StudentDashboardController::class, 'downloadFilesAs
 
 Route::post('/send-message', action: [ChatController::class, 'sendMessage']);
 Route::get('/get-messages/{nbfc_id}/{student_id}', [ChatController::class, 'getMessages']);
+Route::post('/count-user-status', [StudentDashboardController::class, 'getStatusCount']);
 Route::get('/get-messages-byconversations/{nbfc_id}/{student_id}', [ChatController::class, 'groupCountingChats']);
 
 Route::post('/update-personalinfo', [StudentDetailsController::class, 'updatePersonalInfo']);
@@ -88,3 +89,5 @@ Route::post('/unread-message-count', [StudentDashboardController::class, 'unread
 Route::post('/getnbfcdata-proposals', [StudentDashboardController::class, 'nbfcProposals']);
 Route::post('/proposalcompletion', [StudentDashboardController::class, 'proposalCompletion']);
 Route::post('/check_userid', [StudentDashboardController::class, 'checkUserId']);
+
+

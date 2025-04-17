@@ -368,7 +368,7 @@
 
             .header-signup-btn {
                 width: 100%;
-                max-width: 480px;
+             
                 height: 54px;
                 font-size: 20px;
                 line-height: 54px;
@@ -384,7 +384,6 @@
 
             .header-login-btn {
                 width: 100%;
-                max-width: 480px;
                 height: 54px;
                 font-size: 20px;
                 line-height: 54px;

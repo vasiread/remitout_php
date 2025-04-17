@@ -66,10 +66,22 @@
      align-items: center;
 
  }
+#studentapplicationfromadminstudent {
+    margin-top: 0;
+}
+#search-student-list {
+    font-size: 12px;
+    font-family: 'Poppins', sans-serif;
+    color: #5D5C5C;
+}
 
- #studentapplicationfromadminstudent {
-     margin-top: 0;
- }
+#search-student-list::placeholder {
+    font-size: 12px;
+    font-family: 'Poppins', sans-serif;
+    color: #5D5C5C;
+    opacity: 1; /* Ensures visibility */
+}
+
 
 
 .dropdown-filters {
@@ -192,7 +204,7 @@
 }
 
 
-#counsellorlistcontainer-headersection {}
+
 
 .individualcounsellorlists-admin {
     padding: 24px 20px;

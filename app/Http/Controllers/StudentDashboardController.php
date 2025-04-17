@@ -172,7 +172,7 @@ class StudentDashboardController extends Controller
 
             ]);
 
-          
+
 
 
             return response()->json([
@@ -1140,6 +1140,42 @@ class StudentDashboardController extends Controller
 
 
 
+    }
+    public function getStatusCount(Request $request)
+    {
+
+        try {
+
+
+
+            $request->validate([
+                'userId' => 'string|required'
+            ]);
+
+            $userId = $request->input('userId');
+
+            $query = Requestprogress::where("user_id",$userId)
+            ->where('type','proposal')
+            ->count();
+
+
+
+
+
+            return response()->json([
+                'success' => true,
+                'message' => "count retrieved",
+                'count' => $query
+            ]);
+
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => "count not retrieved",
+                'error' => $e->getMessage()
+            ]);
+        }
 
     }
     public function unreadMessageCount(Request $request)

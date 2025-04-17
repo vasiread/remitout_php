@@ -680,7 +680,8 @@ input[type="file"] {
     /* background-color: red; */
 }
 
-.indivudalloanstatus-cards {
+.indivudalloanstatus-cards
+ {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

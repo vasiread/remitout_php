@@ -144,7 +144,7 @@
                 retrieveProfilePictureNavSc();
             @elseif(session('user'))
                 retrieveProfilePictureNav();
-                fetchUnreadCount();
+                // fetchUnreadCount();
             @endif
 
 
