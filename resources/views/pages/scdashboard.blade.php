@@ -7,6 +7,8 @@
     <title>Student Counsellor Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- Add CryptoJS CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/studentformquestionair.css') }}">
 
 </head>
@@ -1133,29 +1135,108 @@ $totalPages = ceil($totalStudents / $perPage);
 
 
         const generateReferLinkPopup = () => {
-            const triggeredReferralButtons = document.querySelectorAll(".referral-Link-trigger-button, .referral-Link-trigger-anotherbutton");
-            const referralTriggeredView = document.querySelector(".referral-triggered-view");
-            const closeReferralTriggerView = document.querySelector(".referral-triggered-view-headersection img");
+    // DOM Elements
+    const triggeredReferralButtons = document.querySelectorAll(".referral-Link-trigger-button, .referral-Link-trigger-anotherbutton");
+    const referralTriggeredView = document.querySelector(".referral-triggered-view");
+    const closeReferralTriggerView = document.querySelector(".referral-triggered-view-headersection img");
+    const generateButton = document.querySelector(".referral-triggered-view-footer button:nth-child(2)"); // "Generate"
+    const cancelButton = document.querySelector(".referral-triggered-view-footer button:nth-child(1)"); // "Cancel"
+    const referralInput = document.querySelector(".referral-triggered-view-content input");
+    const backgroundContainer = document.querySelector(".scdashboard-parentcontainer");
+    const referralCodeElement = document.querySelector("#screferral-id-fromprofile span");
 
-            triggeredReferralButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    if (referralTriggeredView) {
-                        referralTriggeredView.style.display = "flex";
-                        backgroundContainer.classList.add('dull'); // Dull the background
+    // Base URL for local development
+    const baseUrl = "http://localhost:8000/signup";
 
-                    }
-                });
-            });
-            if (closeReferralTriggerView) {
-                closeReferralTriggerView.addEventListener('click', () => {
-                    if (referralTriggeredView) {
-                        referralTriggeredView.style.display = "none";
-                        backgroundContainer.classList.remove('dull'); // Dull the background
+    // Secret key for encryption (keep this secure and consistent)
+    const secretKey = "rJXU0e4lTP7G+KP9dH5V1pq9P7vP8d8sravZmzMGUKM="; // Replace with a strong, unique key
 
-                    }
-                })
+    // Validation: Check if critical elements exist
+    if (!triggeredReferralButtons.length || !referralTriggeredView || !referralInput || !backgroundContainer || !referralCodeElement) {
+        console.error("Required DOM elements are missing for generateReferLinkPopup:", {
+            triggeredReferralButtons: !!triggeredReferralButtons.length,
+            referralTriggeredView: !!referralTriggeredView,
+            referralInput: !!referralInput,
+            backgroundContainer: !!backgroundContainer,
+            referralCodeElement: !!referralCodeElement
+        });
+        return;
+    }
+
+    // Check if CryptoJS is loaded
+    if (typeof CryptoJS === "undefined") {
+        console.error("CryptoJS library is not loaded. Please include it in your HTML.");
+        return;
+    }
+
+    // Get referral code
+    const referralCode = referralCodeElement.textContent.trim();
+    if (!referralCode) {
+        console.error("Referral code is empty or not found");
+        return;
+    }
+
+    // Encrypt the referral code using AES
+    const encryptedRef = CryptoJS.AES.encrypt(referralCode, secretKey).toString();
+    const encodedEncryptedRef = encodeURIComponent(encryptedRef); // URL-safe encoding
+
+    // Construct referral link with encrypted ref
+    const referralLink = `${baseUrl}?ref=${encodedEncryptedRef}`;
+
+    // Helper function to remove existing listeners (prevent stacking)
+    const removeExistingListeners = (element, event, handler) => {
+        element.removeEventListener(event, handler);
+        element.addEventListener(event, handler);
+    };
+
+    // Show popup
+    triggeredReferralButtons.forEach(button => {
+        const showPopup = () => {
+            referralTriggeredView.style.display = "flex";
+            backgroundContainer.classList.add("dull");
+            referralInput.value = ""; // Reset input
+        };
+        removeExistingListeners(button, "click", showPopup);
+    });
+
+    // Hide popup (shared logic for close and cancel)
+    const hidePopup = () => {
+        referralTriggeredView.style.display = "none";
+        backgroundContainer.classList.remove("dull");
+    };
+
+    // Close button
+    if (closeReferralTriggerView) {
+        removeExistingListeners(closeReferralTriggerView, "click", hidePopup);
+    }
+
+    // Cancel button
+    if (cancelButton) {
+        removeExistingListeners(cancelButton, "click", hidePopup);
+    }
+
+    // Generate button
+    if (generateButton) {
+        const generateLink = async () => {
+            referralInput.value = referralLink;
+            try {
+                // Use modern Clipboard API
+                await navigator.clipboard.writeText(referralLink);
+                alert("Referral link copied to clipboard!");
+            } catch (err) {
+                console.warn("Clipboard copy failed:", err);
+                // Fallback for older browsers
+                referralInput.select();
+                if (document.execCommand("copy")) {
+                    alert("Referral link copied to clipboard!");
+                } else {
+                    alert("Please copy the link manually.");
+                }
             }
         };
+        removeExistingListeners(generateButton, "click", generateLink);
+    }
+};
 
 
         const queryDetails = () => {

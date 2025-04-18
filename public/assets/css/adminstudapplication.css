@@ -1,716 +1,1162 @@
- * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
- }
- .admin-studnet-application-main-container {
-        display: flex;
-        border-radius: 8px;
-        padding: 20px;
-        flex-direction: column;
-        font-family: 'Poppins', sans-serif;
-        width: calc(100% - 18% - 20px);
-        position: absolute;
-        top: 0;
-        right: 0;
-        left: auto;
-        margin-left: auto;
-        margin-top: 100px;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.admin-studnet-application-main-container {
+    display: flex;
+    border-radius: 8px;
+    padding: 20px;
+    flex-direction: column;
+    font-family: "Poppins", sans-serif;
+    width: calc(100% - 18% - 20px);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: auto;
+    margin-left: auto;
+    margin-top: 100px;
+}
 
+#admin-student-form-edit-container {
+    overflow-x: hidden;
+    width: 100%;
+}
 
+.admin-student-form-container {
+    width: 100%;
+    max-width: 1000px;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    font-family: "Poppins", sans-serif;
+    border-radius: 8px;
+}
 
-    #admin-student-form-edit-container {
-        overflow-x: hidden;
-        width: 100%;
-    }
+.admin-student-form-header {
+    margin-bottom: 20px;
+}
 
-    .admin-student-form-container {
-        width: 100%;
-        max-width: 1000px;
-        background-color: white;
-        padding: 20px;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-        font-family: 'Poppins', sans-serif;
-        border-radius: 8px;
+.admin-student-form-header h1 {
+    font-size: 24px;
+    font-weight: 500;
+    color: #ff8a00;
+}
 
-    }
+.admin-student-form-section,
+.admin-student-form-section-co-borrower-info,
+.admin-student-form-section-academic-details,
+.admin-student-form-section-document-upload {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 15px 0;
+}
+.admin-student-form-section-course-details {
+    margin-bottom: 20px;
+    padding: 15px 0;
+}
 
-    .admin-student-form-header {
-        margin-bottom: 20px;
-    }
+.admin-student-section-header,
+.admin-student-section-header-co-borrower,
+.admin-student-section-header-academic,
+.admin-student-section-header-document-upload {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
 
-    .admin-student-form-header h1 {
-        font-size: 24px;
-        font-weight: 500;
-        color: #FF8A00;
-    }
+.admin-student-section-header-course {
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
 
-    .admin-student-form-section,
-    .admin-student-form-section-course-details,
-    .admin-student-form-section-academic-details,
-    .admin-student-form-section-co-borrower-info,
-    .admin-student-form-section-document-upload {
-        margin-bottom: 20px;
+.admin-student-section-title,
+.admin-student-section-title-course,
+.admin-student-section-title-academic,
+.admin-student-section-title-co-borrower,
+.admin-student-section-title-document-upload {
+    font-size: 16px;
+    font-weight: 500;
+    color: #6c14ff;
+    margin-right: 15px;
+}
 
-        border-bottom: 1px solid #f0f0f0;
-        padding: 15px 0;
-    }
+.admin-student-question-count,
+.admin-student-question-count-course,
+.admin-student-question-count-co-borrower,
+.admin-student-question-count-academic,
+.admin-student-question-count-document-upload {
+    font-size: 12px;
+    color: #555;
+    font-weight: 400;
+}
 
-    .admin-student-section-header,
-    .admin-student-section-header-course,
-    .admin-student-section-header-academic,
-    .admin-student-section-header-co-borrower,
-    .admin-student-section-header-document-upload {
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-    }
+.admin-student-arrow-icon,
+.admin-student-arrow-icon-course,
+.admin-student-arrow-icon-co-borrower,
+.admin-student-arrow-icon-academic,
+.admin-student-arrow-icon-document-upload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    margin-left: auto;
+}
 
-    .admin-student-section-title,
-    .admin-student-section-title-course,
-    .admin-student-section-title-academic,
-    .admin-student-section-title-co-borrower,
-    .admin-student-section-title-document-upload {
-        font-size: 16px;
-        font-weight: 500;
-        color: #6C14FF;
-        margin-right: 15px;
-    }
+.admin-student-arrow-icon img,
+.admin-student-arrow-icon-course img,
+.admin-student-arrow-icon-academic img,
+.admin-student-arrow-icon-co-borrower img,
+.admin-student-arrow-icon-document-upload img {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+}
 
-    .admin-student-question-count,
-    .admin-student-question-count-course,
-    .admin-student-question-count-academic,
-    .admin-student-question-count-co-borrower,
-    .admin-student-question-count-document-upload {
-        font-size: 12px;
-        color: #555;
-        font-weight: 400;
-    }
+.admin-student-arrow-down {
+    transform: rotate(0deg);
+}
 
-    .admin-student-arrow-icon,
-    .admin-student-arrow-icon-course,
-    .admin-student-arrow-icon-academic,
-    .admin-student-arrow-icon-co-borrower,
-    .admin-student-arrow-icon-document-upload {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 24px;
-        height: 24px;
-        margin-left: auto;
-    }
+.admin-student-arrow-up {
+    transform: rotate(180deg);
+}
 
-    .admin-student-arrow-icon img,
-    .admin-student-arrow-icon-course img,
-    .admin-student-arrow-icon-academic img,
-    .admin-student-arrow-icon-co-borrower img,
-    .admin-student-arrow-icon-document-upload img {
-        width: 24px;
-        height: 24px;
-        transition: transform 0.3s ease;
-    }
+.admin-student-section-content {
+    display: none;
+    padding-top: 15px;
+}
 
-    .admin-student-arrow-down {
-        transform: rotate(0deg);
-    }
+.admin-student-form-question,
+.admin-student-form-question-course,
+.admin-student-form-question-course-degree,
+.admin-student-form-question-month {
+    border: none;
+    border-radius: 4px;
+    padding: 15px;
+    background-color: #fff;
+    margin-bottom: 0px;
+}
 
-    .admin-student-arrow-up {
-        transform: rotate(180deg);
-    }
-
-    .admin-student-section-content {
-        display: none;
-        padding-top: 15px;
-
-    }
-
-
-
-    .admin-student-form-question,
-    .admin-student-form-question-course,
-    .admin-student-form-question-course-degree,
-     .admin-student-form-question-month {
-        border: none;
-        border-radius: 4px;
-        padding: 15px;
-        background-color: #fff;
-        margin-bottom: 20px;
-    }
-
-    .admin-student-form-question.active {
+/*--.admin-student-form-question.active {
         border: 1px solid #ccc;
-    }
+    }--*/
 
+.admin-student-question-row,
+.admin-student-question-row-course,
+.admin-student-question-row-course-degree,
+.admin-student-question-row-month {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
 
-    .admin-student-question-row,
-    .admin-student-question-row-course,
-    .admin-student-question-row-course-degree,
-    .admin-student-question-row-month {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 15px;
+.admin-student-question-title,
+.admin-student-question-title-course,
+.admin-student-question-title-course-degree,
+.admin-student-question-title-month {
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    width: 515px;
+    background-color: #fff;
+    cursor: pointer;
+    position: relative;
+    border: none;
+    border-bottom: 1px solid #888;
+}
+
+.admin-student-dropdown-field,
+.admin-student-dropdown-field-course,
+.admin-student-dropdown-field-course-degree,
+.admin-student-dropdown-field-month {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    width: 400px;
+    background-color: #fff;
+    cursor: pointer;
+    position: relative;
+    border: none;
+    border-bottom: 1px solid #888;
+}
+
+.admin-student-field-text,
+.admin-student-field-text-course {
+    font-size: 14px;
+    color: #212121;
+}
+
+.admin-student-dropdown-icon,
+.admin-student-dropdown-icon-course {
+    width: 8px;
+    height: 8px;
+    transform: rotate(45deg);
+    border-right: 2px solid rgb(25, 24, 37);
+    border-bottom: 2px solid rgb(25, 24, 37);
+    transition: transform 0.3s;
+}
+
+.admin-student-options-label {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.second-main-section-container {
+    display: flex;
+    gap: 20px;
+}
+
+.input-row {
+    display: flex;
+    gap: 25px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    width: 290px;
+    height: 46px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0 10px;
+    background-color: #fff;
+    margin-top: 10px;
+    position: relative;
+}
+
+.input-content {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.input-content .icon {
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.input-content input {
+    width: 100%;
+    padding: 12px 16px;
+    padding-left: 35px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: #75747c;
+    background-color: transparent;
+    font-family: "Poppins", sans-serif;
+}
+
+.validation-message {
+    font-size: 12px;
+    color: red;
+    margin-top: 5px;
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    display: none;
+}
+
+.remove-option {
+    cursor: pointer;
+    color: #888;
+    font-size: 16px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.add-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 290px;
+    height: 46px;
+    margin-top: 10px;
+    padding: 0 10px;
+    color: #ff8a00;
+    cursor: pointer;
+    border: none;
+    border-bottom: 1px solid #ff8a00;
+}
+
+.add-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    color: #ff8a00;
+    font-size: 16px;
+}
+
+.second-question-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 377px;
+}
+
+.social-option {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.social-name {
+    font-size: 14px;
+    color: #333;
+}
+
+.social-remove {
+    cursor: pointer;
+    color: #888;
+    font-size: 16px;
+}
+
+.add-social {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 290px;
+    height: 46px;
+    margin-top: 10px;
+    padding: 0 10px;
+    color: #ff8a00;
+    cursor: pointer;
+    border: none;
+    border-bottom: 1px solid #ff8a00;
+}
+
+.suggestions-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    z-index: 10;
+    display: none;
+}
+
+.admin-student-options-section {
+    transition: max-height 0.4s ease;
+    overflow-x: hidden;
+}
+.admin-student-options-course-label {
+    color: #191825;
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+}
+
+/*course details*/
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+    margin-top: 10px;
+    position: relative;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    color: #75747c;
+    cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #e2e8f0;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    margin-right: 10px;
+    transition: all 0.3s ease-in-out;
+    color: #dfdfdf;
+}
+
+.checkbox-group input[type="checkbox"]:checked {
+    border-color: #e98635;
+}
+
+.checkbox-group input[type="checkbox"]:checked::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background-color: #e98635;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 2px;
+}
+
+.add-checkbox-container {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    height: 46px;
+    width: auto;
+    border-bottom: 1px solid #ff8a00;
+}
+
+.add-checkbox-input {
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 14px;
+    width: 120px;
+    background: transparent;
+}
+
+.add-checkbox-btn {
+    background-color: transparent;
+    color: #ff8a00;
+    border: none;
+    width: 20px;
+    height: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.add-checkbox-btn:hover {
+    background-color: rgba(255, 138, 0, 0.1);
+}
+
+.add-checkbox-input::placeholder {
+    color: #ff8a00;
+    opacity: 0.7;
+}
+
+.option-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0px;
+}
+
+.option-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+
+    border-radius: 4px;
+}
+
+/* Custom Checkbox Styling */
+.course-degree input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #e2e8f0;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    margin-right: 10px;
+}
+
+.course-degree input[type="checkbox"]:checked {
+    border-color: #e98635;
+}
+
+.course-degree input[type="checkbox"]:checked:before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background-color: #e98635;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 2px;
+}
+
+.option-name {
+    font-size: 14px;
+    color: #333;
+    flex-grow: 1;
+}
+.add-checkbox-container-degree {
+    display: flex;
+    justify-content: space-between;
+    width: 240px;
+    height: 46px;
+    border-bottom: 1px solid #ff8a00;
+    margin: 8px 15px;
+}
+
+.add-section {
+    display: flex;
+    align-items: center;
+    color: #ff8a00;
+    cursor: pointer;
+}
+
+.add-text {
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.admin-course-option-main-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.admin-student-options-label-about {
+    font-size: 14px;
+    padding: 15px 0px;
+}
+
+.course-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 377px;
+}
+
+.course-option {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.course-name {
+    font-size: 14px;
+    color: #333;
+}
+
+.course-remove {
+    cursor: pointer;
+    color: #888;
+    font-size: 16px;
+}
+
+.add-course {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 290px;
+    height: 46px;
+    margin-top: 10px;
+    padding: 0 10px;
+    color: #ff8a00;
+    cursor: pointer;
+    border: none;
+    border-bottom: 1px solid #ff8a00;
+}
+.options-label {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.checkbox-option {
+    display: flex;
+    align-items: center;
+    margin: 15px 0px;
+}
+
+.admin-student-dropdown-icon.rotated {
+    transform: rotate(-135deg);
+}
+.checkbox-coures-main-container {
+    display: flex;
+    gap: 100px;
+}
+
+.checkbox-option input[type="checkbox"] {
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #e2e8f0;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.checkbox-option input[type="checkbox"]:checked {
+    border-color: #e98635;
+}
+.checkbox-option input[type="checkbox"]:checked:before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background-color: #e98635;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 2px;
+}
+.checkbox-option label {
+    font-size: 14px;
+    color: #333;
+}
+
+.add-option {
+    display: inline-flex;
+    align-items: center;
+    color: #ff8a00;
+    background: none;
+    border: none;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    justify-content: space-between;
+    height: 22px;
+    margin-left: 20px;
+    padding: 0 10px;
+    border-bottom: 1px solid #ff8a00;
+    width: 290px;
+    height: 46px;
+}
+.add-option-text {
+    margin-right: 5px;
+}
+
+.add-option-icon {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/*academic details*/
+
+.admin-student-arrow-icon-academic {
+    transition: transform 0.3s ease;
+}
+
+.admin-student-arrow-icon-academic.rotated {
+    transform: rotate(180deg);
+}
+
+.admin-student-arrow-down-academic {
+    width: 16px;
+    height: 16px;
+}
+
+/* Section content styles */
+.admin-student-section-content-academic {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.admin-student-section-content-academic.expanded {
+    max-height: 2000px;
+}
+
+/*.admin-student-form-question.active {
+    border: 1px solid #ccc;
+}*/
+
+.options-section {
+    padding: 15px 0;
+    display: none;
+}
+
+.academic-options-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.academic-options {
+    display: flex;
+    gap: 18px;
+}
+
+.academic-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.academic-option input[type="radio"] {
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #e2e8f0;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    margin-right: 10px;
+}
+
+.academic-option input[type="radio"]:checked {
+    border-color: #e98635;
+}
+
+.academic-option input[type="radio"]:checked:before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background-color: #e98635;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 2px;
+}
+
+.academic-option label {
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    color: #4a5568;
+    cursor: pointer;
+    margin-right: 20px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.academic-reason {
+    display: none;
+    flex-direction: column;
+    gap: 30px;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    margin-top: 15px;
+}
+
+.academic-reason.visible {
+    display: flex;
+    opacity: 1;
+}
+
+.academic-reason label {
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #191825;
+}
+
+textarea {
+    width: 450px;
+    height: 77px;
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    color: #191825;
+    resize: none;
+}
+
+textarea:focus {
+    outline: none;
+}
+
+textarea::placeholder {
+    color: #838383;
+}
+
+.education-container {
+    border: none;
+    border-radius: 4px;
+    padding: 15px;
+    background-color: #fff;
+    margin-bottom: 20px;
+}
+
+/*.education-container.active {
+    border: 1px solid #ccc;
+}*/
+
+.education-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.education-title {
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+    padding: 16px;
+    width: 515px;
+    border-bottom: 1px solid #888;
+}
+
+.education-dropdown-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    width: 400px;
+    position: relative;
+    border: none;
+    border-bottom: 1px solid #888;
+}
+
+.education-section {
+    padding: 15px 0;
+    display: none;
+}
+
+.education-label {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 10px;
+}
+
+.education-row {
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.education-field {
+    width: 500px;
+    position: relative;
+}
+
+.education-field input {
+    width: 100%;
+    padding: 12px;
+    padding-right: 30px;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.remove-field-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+}
+
+.add-education-field-btn {
+    display: flex;
+    align-items: center;
+    color: #ff8a00;
+    background: none;
+    border: none;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    justify-content: space-between;
+    width: 290px;
+    height: 46px;
+    margin-top: 10px;
+    padding: 0 10px;
+    border-bottom: 1px solid #ff8a00;
+}
+
+.add-education-icon {
+    margin-right: 8px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/*--co-borrower--*/
+
+.admin-student-arrow-icon-co-borrower {
+    transform: rotate(0deg);
+    transition: transform 0.3s;
+}
+
+.admin-student-arrow-down-co-borrow {
+    width: 16px;
+    height: 16px;
+}
+
+.checkbox-options-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.fields-row-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.field-container {
+    position: relative;
+    margin-bottom: 15px;
+    width: calc(33.33% - 10px);
+    min-width: 250px;
+}
+
+.text-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding-right: 30px;
+}
+
+.text-input:focus {
+    outline: none;
+}
+
+.delete-field {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #888;
+    background: none;
+    border: none;
+    padding: 5px;
+    z-index: 2;
+}
+
+.delete-field:hover {
+    color: #333;
+}
+
+.minimum-amount {
+    font-size: 12px;
+    color: #838383;
+    margin-top: 5px;
+    margin-left: 0;
+}
+
+.error-message {
+    font-size: 12px;
+    color: red;
+    display: none;
+    margin-top: 5px;
+}
+
+.monthly-liability-option {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.monthly-liability-radio-buttons {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    width: 230px;
+}
+
+.monthly-liability-option label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #191825;
+    cursor: pointer;
+    gap: 16px;
+}
+
+.monthly-liability-option input[type="radio"] {
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #dfdfdf;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+
+.monthly-liability-option input[type="radio"]:checked {
+    border-color: #e98635;
+}
+
+.monthly-liability-option input[type="radio"]:checked:before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background-color: #e98635;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 2px;
+}
+
+.emi-row {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 15px;
+    width: calc(100% - 230px);
+}
+
+.emi-content {
+    display: flex;
+    flex-direction: column;
+
+    margin-right: 15px;
+}
+
+.emi-content-container {
+    width: 500px;
+    height: 45px;
+    font-size: 16px;
+    font-family: "Poppins", sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.amount-thousand-mobile {
+    font-size: 12px;
+    color: #838383;
+    margin-bottom: 5px;
+}
+
+.additional-liability-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-left: 230px;
+    width: calc(100% - 230px);
+    margin-bottom: 15px;
+}
+
+.liability-input-container {
+    position: relative;
+    width: 500px;
+    display: flex;
+}
+
+.liability-input {
+    flex: 1;
+    height: 45px;
+    font-size: 16px;
+    font-family: "Poppins", sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0 10px;
+    padding-right: 30px;
+    box-sizing: border-box;
+    width: 500px;
+}
+
+.delete-liability-field {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 16px;
+    color: #888;
+    background: none;
+    border: none;
+    padding: 5px;
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+    .admin-student-question-row {
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .admin-student-question-title,
-    .admin-student-question-title-course,
-    .admin-student-question-title-course-degree,
-      .admin-student-question-title-month {
-        font-size: 14px;
-        font-weight: 400;
-        color: #333;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 16px;
-        width: 515px;
-        background-color: #fff;
-        cursor: pointer;
-        position: relative;
-        border: none;
-        border-bottom: 1px solid #888;
-    }
-
-    .admin-student-dropdown-field,
-    .admin-student-dropdown-field-course,
-    .admin-student-dropdown-field-course-degree,
-    
-       .admin-student-dropdown-field-month {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 16px;
-        width: 400px;
-        background-color: #fff;
-        cursor: pointer;
-        position: relative;
-        border: none;
-        border-bottom: 1px solid #888;
-    }
-
-
-    .admin-student-field-text,
-    .admin-student-field-text-course {
-        font-size: 14px;
-        color: #212121;
-    }
-
-    .admin-student-dropdown-icon,
-    .admin-student-dropdown-icon-course {
-        width: 8px;
-        height: 8px;
-        transform: rotate(45deg);
-        border-right: 2px solid rgb(25, 24, 37);
-        border-bottom: 2px solid rgb(25, 24, 37);
-        transition: transform 0.3s;
-        
-    }
-
-
-    /* Bottom border line inside */
-
-    .admin-student-options-label {
-        font-size: 14px;
-        color: #555;
+    .admin-student-dropdown-field {
+        width: 100%;
         margin-bottom: 10px;
-        display: block;
     }
 
-    .second-main-section-container {
-        display: flex;
-        gap: 20px;
-    }
-
-    /* Your updated input styles */
-    .input-row {
-        display: flex;
-        gap: 25px;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-        margin-bottom: 20px;
-    }
-
-    .input-group {
-        display: flex;
-        align-items: center;
-        width: 290px;
-        height: 46px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        padding: 0 10px;
-        background-color: #fff;
-        margin-top: 10px;
-        position: relative;
-    }
-
-    .input-content {
-        display: flex;
-        align-items: center;
-        position: relative;
-        width: 100%;
-    }
-
-    .input-content .icon {
-        position: absolute;
-        left: 5px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 24px;
-        height: 24px;
-        object-fit: contain;
-    }
-
-    .input-content input {
-        width: 100%;
-        padding: 12px 16px;
-        padding-left: 35px;
-        border: none;
-        outline: none;
-        font-size: 14px;
-        color: #75747C;
-        background-color: transparent;
-        font-family: 'Poppins', sans-serif;
-    }
-
-    .validation-message {
-        font-size: 12px;
-        color: red;
-        margin-top: 5px;
-        position: absolute;
-        bottom: -20px;
-        left: 0;
-        display: none;
-    }
-
-    .input-group {
-        display: flex;
-        align-items: center;
-        width: 290px;
-        height: 46px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        padding: 0 10px;
-        background-color: #fff;
-        margin-top: 10px;
-        position: relative;
-        margin-bottom: 25px;
-        /* Add space for error message */
-    }
-
-    .remove-option {
-        cursor: pointer;
-        color: #888;
-        font-size: 16px;
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    .add-field {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 290px;
-        height: 46px;
-        margin-top: 10px;
-        padding: 0 10px;
-        color: #FF8A00;
-        cursor: pointer;
-        border: none;
-        border-bottom: 1px solid #FF8A00;
-        /* Orange underline */
-    }
-
-
-
-    .add-icon {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 24px;
-        height: 24px;
-        color: #FF8A00;
-        border: 1px solid #FF8A00;
-        border-radius: 50%;
-        font-size: 16px;
-    }
-
-    /* Second question styles */
-    .second-question-options {
-        display: flex;
+    .monthly-liability-option {
         flex-direction: column;
-        gap: 10px;
-        width: 377px;
+        align-items: flex-start;
+        gap: 15px;
     }
 
-    .social-option {
-        display: flex;
-        justify-content: space-between;
-        padding: 8px 10px;
-        border-bottom: 1px solid #eee;
-    }
-
-    .social-name {
-        font-size: 14px;
-        color: #333;
-    }
-
-    .social-remove {
-        cursor: pointer;
-        color: #888;
-        font-size: 16px;
-    }
-
-    .add-social {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 290px;
-        height: 46px;
-        margin-top: 10px;
-        padding: 0 10px;
-        color: #FF8A00;
-        cursor: pointer;
-        border: none;
-        border-bottom: 1px solid #FF8A00;
-        /* Orange underline */
-
-    }
-
-    .suggestions-container {
-        position: absolute;
-        top: 100%;
-        left: 0;
+    .emi-row {
         width: 100%;
-        max-height: 150px;
-        overflow-y: auto;
-        background-color: white;
-        border: 1px solid #ccc;
-        border-top: none;
-        border-radius: 0 0 4px 4px;
-        z-index: 10;
-        display: none;
+        margin-left: 0;
     }
 
-    .admin-student-options-section {
-        transition: max-height 0.4s ease;
-        overflow-x: hidden;
-    }
-    .admin-student-options-course-label{
-        color:#191825;
-        font-size: 14px;
-        font-family: 'Poppins', sans-serif;
+    .emi-content {
+        width: 100%;
+        margin-bottom: 10px;
     }
 
-    /*course details*/
-    .checkbox-group {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-gap: 20px;
-        margin-top: 10px;
-        position: relative;
+    .emi-content-container,
+    .liability-input,
+    .liability-input-container {
+        width: 100%;
+        max-width: 500px;
     }
 
-    .checkbox-group label {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        font-size: 14px;
-        color: #75747C;
-        cursor: pointer;
+    .additional-liability-fields {
+        width: 100%;
+        margin-left: 0;
     }
 
-    .checkbox-group input[type="checkbox"] {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        width: 22px;
-        height: 22px;
-        border: 2px solid #E2E8F0;
-        border-radius: 2px;
-        outline: none;
-        cursor: pointer;
-        position: relative;
-        margin-right: 10px;
-        transition: all 0.3s ease-in-out;
-        color: #DFDFDF;
+    .field-container {
+        width: 100%;
     }
-
-    .checkbox-group input[type="checkbox"]:checked {
-        border-color: #E98635;
-    }
-
-    .checkbox-group input[type="checkbox"]:checked::before {
-        content: '';
-        width: 12px;
-        height: 12px;
-        background-color: #E98635;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        border-radius: 2px;
-    }
-
-    .add-checkbox-container {
-            display: flex;
-           justify-content: space-between;
-            width:300px;
-            height: 46px;
-            width: auto;
-            border-bottom: 1px solid #FF8A00;
-        }
-
-        .add-checkbox-input {
-            border: none;
-            outline: none;
-            padding: 10px;
-            font-size: 14px;
-            width: 120px;
-            background: transparent;
-        }
-
-        .add-checkbox-btn {
-            background-color: transparent;
-            color: #FF8A00;
-            border: none;
-            width: 20px;
-            height: 100%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .add-checkbox-btn:hover {
-            background-color: rgba(255, 138, 0, 0.1);
-        }
-
-        .add-checkbox-input::placeholder {
-            color: #FF8A00;
-            opacity: 0.7;
-        }
-
-        /*second container*/
-          .option-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .option-item {
-            display: flex;
-            align-items: center;
-            padding: 8px 15px;
-           
-            border-radius: 4px;
-        }
-
-        /* Custom Checkbox Styling */
-        .course-degree input[type="checkbox"] {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            width: 22px;
-            height: 22px;
-            border: 2px solid #E2E8F0;
-            border-radius: 2px;
-            outline: none;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.3s ease-in-out;
-            margin-right: 10px;
-        }
-
-        .course-degree input[type="checkbox"]:checked {
-            border-color: #E98635;
-        }
-
-        .course-degree input[type="checkbox"]:checked:before {
-            content: '';
-            width: 12px;
-            height: 12px;
-            background-color: #E98635;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 2px;
-        }
-
-        .option-name {
-            font-size: 14px;
-            color: #333;
-            flex-grow: 1;
-        }
-        .add-checkbox-container-degree{
-             display: flex;
-           justify-content: space-between;
-            width:240px;
-            height: 46px;
-            border-bottom: 1px solid #FF8A00;
-            margin:8px 15px;
-        }
-
-        .add-section {
-            display: flex;
-            align-items: center;
-            color: #FF8A00;
-            cursor: pointer;
-        }
-
-        .add-text {
-            font-size: 14px;
-            margin-right: 10px;
-        }
-
-      
-      
-
-         .admin-student-form-question {
-            border: none;
-            border-radius: 4px;
-            padding: 15px;
-            background-color: #fff;
-            margin-bottom: 20px;
-        }
-
-        .admin-student-form-question.active {
-            border: 1px solid #ccc;
-        }
-
-
-        .admin-student-question-title {
-            font-size: 14px;
-            font-weight: 400;
-            color: #333;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px;
-            width: 515px;
-            background-color: #fff;
-            cursor: pointer;
-            position: relative;
-            border: none;
-            border-bottom: 1px solid #888;
-        }
-
-        .admin-student-dropdown-field {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px;
-            width: 400px;
-            background-color: #fff;
-            cursor: pointer;
-            position: relative;
-            border: none;
-            border-bottom: 1px solid #888;
-        }
-
-        .admin-student-field-text {
-            font-size: 14px;
-            color: #212121;
-        }
-
-     
-     
-
-        .admin-student-options-section {
-            transition: max-height 0.4s ease;
-            overflow-x: hidden;
-
-        }
-
-        .admin-course-option-main-container {
-            display: flex;
-            flex-direction: row;
-            gap: 20px;
-        }
-
-        .admin-student-options-label {
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .course-options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            width: 377px;
-        }
-
-        .course-option {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 10px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .course-name {
-            font-size: 14px;
-            color: #333;
-        }
-
-        .course-remove {
-            cursor: pointer;
-            color: #888;
-            font-size: 16px;
-        }
-
-        .add-course {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 290px;
-            height: 46px;
-            margin-top: 10px;
-            padding: 0 10px;
-            color: #FF8A00;
-            cursor: pointer;
-            border: none;
-            border-bottom: 1px solid #FF8A00;
-        }
-
-
-
-
-        .admin-student-form-question.active {
-            border: 1px solid #ccc;
-        }
-
-        .admin-student-question-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-
-
-
-        .admin-student-dropdown-icon {
-            width: 8px;
-            height: 8px;
-            transform: rotate(45deg);
-            border-right: 2px solid rgb(25, 24, 37);
-            border-bottom: 2px solid rgb(25, 24, 37);
-            transition: transform 0.3s;
-        }
-
-        .options-label {
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .checkbox-option {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
+}

@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch((error) => {
             console.error("Error during initialization:", error);
         });
-    markAsRead();
+    // markAsRead();
     const sessionLogout = document.querySelector(".logoutBtn");
     sessionLogout.addEventListener('click', () => {
 
@@ -39,43 +39,68 @@ document.addEventListener('DOMContentLoaded', function () {
 
     })
 
-    const courseDetailsElement = document.getElementById('course-details-container');
-    const courseDetails = JSON.parse(courseDetailsElement.getAttribute('data-course-details'));
-    // const personalDetails = JSON.parse(courseDetailsElement.getAttribute('data-personal-details'));
-    // const acceptTriggers = document.querySelectorAll(".user-accept-trigger");
-    // const rejectTriggers = document.querySelectorAll(".bankmessage-buttoncontainer-reject");
+    // Fetch all URLs first
+    Promise.all([initialiseProfileView(), initialiseAllViews()])
+        .then(() => {
+            console.log("All URLs fetched successfully!", documentUrls);
 
-    let planToStudy = courseDetails[0]['plan-to-study'].replace(/[\[\]"]/g, '');
+            // Initialize document upload/preview functions after URLs are fetched
+            initializeKycDocumentUpload();
+            initializeMarksheetUpload();
+            initializeSecuredAdmissionDocumentUpload();
+            initializeWorkExperienceDocumentUpload();
+            initializeCoBorrowerDocumentUpload();
+        })
+        .catch((error) => {
+            console.error("Error during initialization:", error);
+        });
+
+    const courseDetailsElement = document.getElementById(
+        "course-details-container"
+    );
+    const courseDetails = JSON.parse(
+        courseDetailsElement.getAttribute("data-course-details")
+    );
+    const personalDetails = JSON.parse(
+        courseDetailsElement.getAttribute("data-personal-details")
+    );
+
+    // Now you can use courseDetails and personalDetails in your JS
+    console.log(courseDetails, personalDetails);
+
+    let planToStudy = courseDetails[0]["plan-to-study"].replace(/[\[\]"]/g, "");
     let selectedCountries = planToStudy.split(/\s*,\s*/);
 
     document.getElementById("plan-to-study-edit").value = planToStudy;
 
-    document.querySelectorAll('input[name="study-location-edit"]').forEach(checkbox => {
-        if (selectedCountries.includes(checkbox.value)) {
-            checkbox.checked = true;
-        }
-    });
+    document
+        .querySelectorAll('input[name="study-location-edit"]')
+        .forEach((checkbox) => {
+            if (selectedCountries.includes(checkbox.value)) {
+                checkbox.checked = true;
+            }
+        });
 
-    const otherCheckbox = document.querySelector('#other-checkbox-edit');
-    const addCountryBox = document.querySelector('.add-country-box-edit');
-    const customCountryInput = document.querySelector('#country-edit');
+    const otherCheckbox = document.querySelector("#other-checkbox-edit");
+    const addCountryBox = document.querySelector(".add-country-box-edit");
+    const customCountryInput = document.querySelector("#country-edit");
 
     if (selectedCountries.includes("Other")) {
         otherCheckbox.checked = true;
-        addCountryBox.style.display = 'block';
+        addCountryBox.style.display = "block";
     } else {
-        addCountryBox.style.display = 'none';
+        addCountryBox.style.display = "none";
     }
 
-    otherCheckbox.addEventListener('change', () => {
+    otherCheckbox.addEventListener("change", () => {
         if (otherCheckbox.checked) {
-            addCountryBox.style.display = 'block';
+            addCountryBox.style.display = "block";
         } else {
-            addCountryBox.style.display = 'none';
-            customCountryInput.value = '';
+            addCountryBox.style.display = "none";
+            customCountryInput.value = "";
         }
     });
-    document.querySelector('.mailnbfcbutton').addEventListener('click', () => {
+    document.querySelector(".mailnbfcbutton").addEventListener("click", () => {
         sendDocumenttoEmail();
     });
 
@@ -218,14 +243,20 @@ const initializeSideBarTabs = () => {
 function sendDocumenttoEmail(event) {
     console.log(event);
 
-    const uniqueIdElement = document.querySelector('.personal_info_id');
-    const userId = uniqueIdElement ? uniqueIdElement.textContent || uniqueIdElement.innerHTML : null;
+    const uniqueIdElement = document.querySelector(".personal_info_id");
+    const userId = uniqueIdElement
+        ? uniqueIdElement.textContent || uniqueIdElement.innerHTML
+        : null;
 
     const emailElement = document.querySelector("#referenceEmailId p");
-    const email = emailElement ? emailElement.textContent || emailElement.innerHTML : null;
+    const email = emailElement
+        ? emailElement.textContent || emailElement.innerHTML
+        : null;
 
     const userNameElement = document.querySelector("#referenceNameId p");
-    const name = userNameElement ? userNameElement.textContent || userNameElement.innerHTML : null;
+    const name = userNameElement
+        ? userNameElement.textContent || userNameElement.innerHTML
+        : null;
 
     if (userId && email && name) {
         console.log("Unique ID:", userId, "Email:", email, "Name:", name);
@@ -237,32 +268,33 @@ function sendDocumenttoEmail(event) {
     const sendDocumentsRequiredDetails = {
         userId: userId,
         email: email,
-        name: name
+        name: name,
     };
 
-    fetch('/send-documents', {
+    fetch("/send-documents", {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content"),
         },
-        body: JSON.stringify(sendDocumentsRequiredDetails)
+        body: JSON.stringify(sendDocumentsRequiredDetails),
     })
-        .then(response => {
+        .then((response) => {
             if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
+                throw new Error(
+                    "Network response was not ok " + response.statusText
+                );
             }
             return response.json();
         })
-        .then(data => {
-
+        .then((data) => {
             console.log("Success:", data.message);
 
-
             addUserToRequest(userId);
-
         })
-        .catch(error => {
+        .catch((error) => {
             console.error("Error:", error);
         });
 
@@ -276,10 +308,12 @@ function addUserToRequest(userId) {
     fetch("/push-user-id-request", {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content"),
         },
-        body: JSON.stringify({ userId: userId.trim() })
+        body: JSON.stringify({ userId: userId.trim() }),
     })
         .then((response) => response.json())
         .then((data) => {
@@ -297,31 +331,99 @@ function addUserToRequest(userId) {
 // Global object to store document URLs
 const documentUrls = {};
 
+// Global object to store document URLs
+ 
 const endpoints = [
-    { url: '/retrieve-file', selector: ".uploaded-aadhar-name", fileType: "aadhar-card-name" },
-    { url: '/retrieve-file', selector: ".uploaded-pan-name", fileType: "pan-card-name" },
-    { url: '/retrieve-file', selector: ".passport-name-selector", fileType: "passport-card-name" },
-    { url: '/retrieve-file', selector: ".sslc-marksheet", fileType: "tenth-grade-name" },
-    { url: '/retrieve-file', selector: ".hsc-marksheet", fileType: "twelfth-grade-name" },
-    { url: '/retrieve-file', selector: ".graduation-marksheet", fileType: "graduation-grade-name" },
-    { url: '/retrieve-file', selector: ".sslc-grade", fileType: "secured-tenth-name" },
-    { url: '/retrieve-file', selector: ".hsc-grade", fileType: "secured-twelfth-name" },
-    { url: '/retrieve-file', selector: ".graduation-grade", fileType: "secured-graduation-name" },
-    { url: '/retrieve-file', selector: ".experience-letter", fileType: "work-experience-experience-letter" },
-    { url: '/retrieve-file', selector: ".salary-slip", fileType: "work-experience-monthly-slip" },
-    { url: '/retrieve-file', selector: ".office-id", fileType: "work-experience-office-id" },
-    { url: '/retrieve-file', selector: ".joining-letter", fileType: "work-experience-joining-letter" },
-    { url: '/retrieve-file', selector: ".coborrower-pancard", fileType: "co-pan-card-name" },
-    { url: '/retrieve-file', selector: ".coborrower-aadharcard", fileType: "co-aadhar-card-name" },
-    { url: '/retrieve-file', selector: ".coborrower-addressproof", fileType: "co-addressproof" },
-
-
+    {
+        url: "/retrieve-file",
+        selector: ".uploaded-aadhar-name",
+        fileType: "aadhar-card-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".uploaded-pan-name",
+        fileType: "pan-card-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".passport-name-selector",
+        fileType: "passport-card-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".sslc-marksheet",
+        fileType: "tenth-grade-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".hsc-marksheet",
+        fileType: "twelfth-grade-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".graduation-marksheet",
+        fileType: "graduation-grade-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".sslc-grade",
+        fileType: "secured-tenth-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".hsc-grade",
+        fileType: "secured-twelfth-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".graduation-grade",
+        fileType: "secured-graduation-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".experience-letter",
+        fileType: "work-experience-experience-letter",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".salary-slip",
+        fileType: "work-experience-monthly-slip",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".office-id",
+        fileType: "work-experience-office-id",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".joining-letter",
+        fileType: "work-experience-joining-letter",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".coborrower-pancard",
+        fileType: "co-pan-card-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".coborrower-aadharcard",
+        fileType: "co-aadhar-card-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".coborrower-addressproof",
+        fileType: "co-addressproof",
+    },
 ];
 
 const initialiseAllViews = () => {
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-    const userId = userIdElement ? userIdElement.textContent.trim() : '';
+    const csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content");
+    const userIdElement = document.querySelector(
+        ".personalinfo-secondrow .personal_info_id"
+    );
+    const userId = userIdElement ? userIdElement.textContent.trim() : "";
 
     if (!csrfToken || !userId) {
         console.error("CSRF token or User ID is missing");
@@ -332,42 +434,47 @@ const initialiseAllViews = () => {
         return fetch(url, {
             method: "POST",
             headers: {
-                'X-CSRF-TOKEN': csrfToken,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
+                "X-CSRF-TOKEN": csrfToken,
+                Accept: "application/json",
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 userId: userId,
                 fileType: fileType,
             }),
         })
-            .then(response => response.json())
-            .then(data => {
+            .then((response) => response.json())
+            .then((data) => {
                 if (data.fileUrl) {
                     // Store the URL in documentUrls
                     documentUrls[fileType] = data.fileUrl;
                     console.log(`Stored ${fileType}: ${data.fileUrl}`);
 
                     // Update the UI with the file name
-                    const fileName = data.fileUrl.split('/').pop();
+                    const fileName = data.fileUrl.split("/").pop();
                     const element = document.querySelector(selector);
                     if (element) {
                         element.textContent = fileName;
                         console.log(`Updated UI for ${fileType}: ${fileName}`);
                     } else {
-                        console.log(`Element not found for selector: ${selector}`);
+                        console.log(
+                            `Element not found for selector: ${selector}`
+                        );
                     }
                 } else {
                     console.log(`No fileUrl returned for ${fileType}`, data);
                 }
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error(`Error fetching ${fileType}:`, error);
             });
     };
 
     return Promise.all(endpoints.map(fetchWithUrl)).then(() => {
-        console.log('All document URLs fetched and stored successfully!', documentUrls);
+        console.log(
+            "All document URLs fetched and stored successfully!",
+            documentUrls
+        );
     });
 };
 
@@ -387,154 +494,2104 @@ const triggerEditButton = () => {
 
     const otherDegreeInput = document.getElementById("otherDegreeInput");
     if (otherDegreeInput && otherDegreeInput.disabled) {
-        otherDegreeInput.removeAttribute('disabled');
+        otherDegreeInput.removeAttribute("disabled");
     }
 };
 
 
 
 const initialiseProfileUpload = () => {
-    const editIcon = document.querySelector('.studentdashboardprofile-profilesection .fa-pen-to-square');
-    const profileImageInput = document.querySelector('.studentdashboardprofile-profilesection .profile-upload');
+    const editIcon = document.querySelector(
+        ".studentdashboardprofile-profilesection .fa-pen-to-square"
+    );
+    const profileImageInput = document.querySelector(
+        ".studentdashboardprofile-profilesection .profile-upload"
+    );
 
     if (editIcon && profileImageInput) {
-        editIcon.addEventListener('click', function () {
+        editIcon.addEventListener("click", function () {
             profileImageInput.click();
         });
 
 
-        profileImageInput.addEventListener('change', function (event) {
+        profileImageInput.addEventListener("change", function (event) {
             const file = event.target.files[0];
 
             if (!file) {
-                console.error('No file selected');
+                console.error("No file selected");
                 return;
             }
-            const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+            const userIdElement = document.querySelector(
+                ".personalinfo-secondrow .personal_info_id"
+            );
 
-            const userId = userIdElement ? userIdElement.textContent : '';
+            const userId = userIdElement ? userIdElement.textContent : "";
 
             const fileName = file.name;
             const fileType = file.type;
             console.log(fileType + "." + fileName);
 
-            const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
             if (!allowedTypes.includes(fileType)) {
-                console.error('Invalid file type. Only jpg, png, and gif are allowed.');
+                console.error(
+                    "Invalid file type. Only jpg, png, and gif are allowed."
+                );
                 return;
             }
 
             const formDetailsData = new FormData();
-            formDetailsData.append('file', file);
-            formDetailsData.append('userId', userId);
+            formDetailsData.append("file", file);
+            formDetailsData.append("userId", userId);
 
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const csrfToken = document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content");
 
             if (!csrfToken) {
-                console.error('CSRF token not found');
+                console.error("CSRF token not found");
                 return;
             }
 
-            fetch('/upload-profile-picture', {
+            fetch("/upload-profile-picture", {
                 method: "POST",
                 headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Accept': 'application/json',
+                    "X-CSRF-TOKEN": csrfToken,
+                    Accept: "application/json",
                 },
                 body: formDetailsData,
             })
-                .then(response => {
+                .then((response) => {
                     if (!response.ok) {
-                        return response.json().then(errorData => {
-                            throw new Error(errorData.error || 'Network response was not ok');
+                        return response.json().then((errorData) => {
+                            throw new Error(
+                                errorData.error || "Network response was not ok"
+                            );
                         });
                     }
                     return response.json();
                 })
-                .then(data => {
+                .then((data) => {
                     if (data) {
                         console.log("File uploaded successfully", data);
-                        const imgElement = document.querySelector("#profile-photo-id");
+                        const imgElement =
+                            document.querySelector("#profile-photo-id");
                         imgElement.src = data.file_path;
-                        const navImageElement = document.querySelector("#nav-profile-photo-id");
+                        const navImageElement = document.querySelector(
+                            "#nav-profile-photo-id"
+                        );
                         navImageElement.src = data.file_path;
-                        console.log(data)
+                        console.log(data);
                     } else {
-                        console.error("Error: No URL returned from the server", data);
+                        console.error(
+                            "Error: No URL returned from the server",
+                            data
+                        );
                     }
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error("Error uploading file", error);
                 });
-
         });
     }
 };
 
 
 const initialiseEightcolumn = () => {
-    const section = document.querySelector('.eightcolumn-firstsection');
+    const section = document.querySelector(".eightcolumn-firstsection");
 
-    section.addEventListener('click', function () {
-        if (section.style.height === '') {
-            section.style.height = 'fit-content';
+    section.addEventListener("click", function () {
+        if (section.style.height === "") {
+            section.style.height = "fit-content";
         } else {
-            section.style.height = '';
+            section.style.height = "";
         }
     });
-}
+};
 const initialiseSeventhcolumn = () => {
-    const section = document.querySelector('.seventhcolum-firstsection');
+    const section = document.querySelector(".seventhcolum-firstsection");
 
-    section.addEventListener('click', function () {
-        if (section.style.height === '') {
-            section.style.height = 'fit-content';
+    section.addEventListener("click", function () {
+        if (section.style.height === "") {
+            section.style.height = "fit-content";
         } else {
-            section.style.height = '';
+            section.style.height = "";
         }
     });
-
-}
+};
 const initialiseSeventhAdditionalColumn = () => {
-    const section = document.querySelector('.seventhcolumn-additional-firstcolumn');
+    const section = document.querySelector(
+        ".seventhcolumn-additional-firstcolumn"
+    );
 
-    section.addEventListener('click', function () {
-        if (section.style.height === '') {
-            section.style.height = 'fit-content';
+    section.addEventListener("click", function () {
+        if (section.style.height === "") {
+            section.style.height = "fit-content";
         } else {
-            section.style.height = '';
+            section.style.height = "";
         }
     });
-
-}
+};
 const initialiseNinthcolumn = () => {
+    const section = document.querySelector(".ninthcolumn-firstsection");
 
-    const section = document.querySelector('.ninthcolumn-firstsection');
-    section.addEventListener('click', function () {
-        if (section.style.height === '') {
-            section.style.height = 'fit-content';
+    section.addEventListener("click", function () {
+        if (section.style.height === "") {
+            section.style.height = "fit-content";
         } else {
-            section.style.height = '';
+            section.style.height = "";
         }
     });
-
-}
-
-
-
-
-
+};
 const initialiseTenthcolumn = () => {
     const section = document.querySelector(".tenthcolumn-firstsection");
-    section.addEventListener('click', function () {
-        if (section.style.height === '') {
-            section.style.height = 'fit-content';
+    section.addEventListener("click", function () {
+        if (section.style.height === "") {
+            section.style.height = "fit-content";
         } else {
-            section.style.height = '';
+            section.style.height = "";
+        }
+    });
+};
+
+const initialiseProfileView = () => {
+    const userIdElement = document.querySelector(
+        ".personalinfo-secondrow .personal_info_id"
+    );
+    const userId = userIdElement ? userIdElement.textContent : "";
+
+    const csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content");
+
+    if (!csrfToken) {
+        console.error("CSRF token not found");
+        return;
+    }
+
+    fetch("/retrieve-profile-picture", {
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": csrfToken,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: userId }),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.fileUrl) {
+                console.log("Profile Picture URL:", data.fileUrl);
+                const imgElement = document.querySelector("#profile-photo-id");
+                imgElement.src = data.fileUrl;
+            } else {
+                console.error("Error: No URL returned from the server", data);
+            }
+        })
+        .catch((error) => {
+            console.error("Error retrieving profile picture", error);
+        });
+}
+
+const checkUserStatusCount = () => {
+    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+    const userId = userIdElement ? userIdElement.textContent.trim() : '';
+
+    return fetch('/count-user-status', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ""
+        },
+        body: JSON.stringify({ userId })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log("Successfully retrieved count");
+                const finalCounting = data.count;
+                return finalCounting - 1; // <-- this will now resolve correctly
+            } else {
+                throw new Error("Failed to retrieve count");
+            }
+        });
+};
+
+
+const waitForCards = () => {
+    return new Promise(resolve => {
+        const observer = new MutationObserver(async (mutations, obs) => {
+            const cards = document.querySelectorAll('.indivudalloanstatus-cards');
+
+            const retrieveCount = await checkUserStatusCount();
+
+
+            if (cards.length > retrieveCount) {
+
+                obs.disconnect();
+                resolve(cards);
+            }
+        });
+
+        observer.observe(document.body, { childList: true, subtree: true });
+    });
+};
+
+
+
+const initializeIndividualCards = () => {
+    let checkInterval;
+    let isInitialized = false;
+
+    const cleanup = () => {
+        if (checkInterval) {
+            clearInterval(checkInterval);
+        }
+    };
+
+    const handleCardClick = (card, messageInput, index) => {
+        return () => {
+            const computedStyle = window.getComputedStyle(messageInput);
+            const isInputVisible = computedStyle.display === 'flex';
+
+            console.log(`Card ${index} clicked, input currently ${isInputVisible ? 'visible' : 'hidden'}`);
+
+            // Collapse all other inputs
+            document.querySelectorAll('.individual-bankmessage-input').forEach(input => {
+                if (input !== messageInput) {
+                    input.style.display = 'none';
+                    const parentCard = input.closest('.individual-card');
+                    if (parentCard) {
+                        parentCard.style.height = 'fit-content';
+                    }
+                }
+            });
+
+            // Toggle the clicked input
+            messageInput.style.display = isInputVisible ? 'none' : 'flex';
+            card.style.height = 'fit-content';
+
+
+
+            // e.preventDefault();
+            const student_id = document.querySelector(".personalinfo-secondrow .personal_info_id").textContent;
+            var messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
+
+            messageInputNbfcids = messageInputNbfcids[index].textContent;
+
+
+
+
+
+
+        };
+    };
+
+    const initCards = async () => {
+        try {
+            const individualCards = await waitForCards();
+
+            if (individualCards.length > 0 && !isInitialized) {
+                cleanup();
+                isInitialized = true;
+                console.log("Cards loaded. Binding click listeners...");
+                console.log("----------------------------");
+
+                individualCards.forEach((card, index) => {
+                    console.log(`Initializing card ${index}:`, card);
+
+                    const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
+                    const messageInput = card.querySelector('.individual-bankmessage-input');
+
+                    if (triggeredMessageButton && messageInput) {
+                        // Clone and replace button to avoid duplicate listeners
+                        const newButton = triggeredMessageButton.cloneNode(true);
+                        triggeredMessageButton.replaceWith(newButton);
+
+                        newButton.addEventListener('click', handleCardClick(card, messageInput, index));
+                    }
+                });
+                await initializeSimpleChat();
+
+                return true;
+            }
+            return false;
+        } catch (error) {
+            console.error("Error initializing cards:", error);
+            return false;
+        }
+    };
+
+    // Initial check
+    initCards().then(initialized => {
+        if (!initialized) {
+            checkInterval = setInterval(async () => {
+                const initialized = await initCards();
+                if (initialized) {
+                    cleanup();
+                }
+            }, 500);
         }
     });
 
+    // Return cleanup function for external management
+    return cleanup;
+};
+
+
+
+
+
+const initializeKycDocumentUpload = () => {
+    const individualKycDocumentsUpload = document.querySelectorAll(
+        ".individualkycdocuments"
+    );
+
+    individualKycDocumentsUpload.forEach((card) => {
+        const eyeIcon = card.querySelector(".fa-eye");
+
+        if (!eyeIcon) {
+            console.error("Eye icon not found in card:", card);
+            return;
+        }
+
+        eyeIcon.addEventListener("click", function (event) {
+            event.stopPropagation();
+
+            const documentType = eyeIcon.id
+                .replace("view-", "")
+                .replace("-card", ""); // e.g., "aadhar-card"
+            const fileTypeKey = `${documentType}-card-name`;
+            const fileUrl = documentUrls[fileTypeKey];
+            const fileNameElement = card.querySelector(
+                `.uploaded-${documentType}-name`
+            );
+            const fileName = fileNameElement
+                ? fileNameElement.textContent
+                : "Document.pdf";
+
+            console.log(`Previewing ${documentType}: ${fileUrl}`);
+
+            // Check if a preview is already active
+            if (eyeIcon.classList.contains("preview-active")) {
+                const previewWrapper = document.querySelector(
+                    ".pdf-preview-wrapper"
+                );
+                const overlay = document.querySelector(".pdf-preview-overlay");
+                if (previewWrapper) previewWrapper.remove();
+                if (overlay) overlay.remove();
+                eyeIcon.classList.remove("preview-active");
+                eyeIcon.src = "/assets/images/visibility.png"; // Update with your actual path
+                return;
+            }
+
+            // If no file URL, show an alert
+            if (!fileUrl) {
+                alert("No document found to preview.");
+                return;
+            }
+
+            // Create the preview modal
+            const previewWrapper = document.createElement("div");
+            previewWrapper.className = "pdf-preview-wrapper";
+            previewWrapper.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 60%;
+                height: 80vh;
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 1000;
+                border-radius: 8px;
+            `;
+
+            const overlay = document.createElement("div");
+            overlay.className = "pdf-preview-overlay";
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            `;
+
+            const header = document.createElement("div");
+            header.style.cssText = `
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 8px 16px;
+                background-color: #1a1a1a;
+                color: white;
+                height: 40px;
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+            `;
+
+            const fileNameSection = document.createElement("div");
+            fileNameSection.style.cssText = `
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            `;
+
+            const fileNameSpan = document.createElement("span");
+            fileNameSpan.textContent = fileName;
+            fileNameSpan.style.cssText = `
+                color: white;
+                font-size: 14px;
+                font-family: 'Poppins', sans-serif;
+            `;
+            fileNameSection.appendChild(fileNameSpan);
+
+            const zoomControls = document.createElement("div");
+            zoomControls.style.cssText = `
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            `;
+
+            const zoomOut = document.createElement("button");
+            zoomOut.innerHTML = "−";
+            const zoomIn = document.createElement("button");
+            zoomIn.innerHTML = "+";
+
+            [zoomOut, zoomIn].forEach((btn) => {
+                btn.style.cssText = `
+                    background: none;
+                    border: 1px solid #fff;
+                    border-radius: 4px;
+                    color: white;
+                    font-size: 16px;
+                    cursor: pointer;
+                    padding: 2px 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Poppins', sans-serif;
+                `;
+            });
+
+            zoomControls.appendChild(zoomOut);
+            zoomControls.appendChild(zoomIn);
+
+            const closeButton = document.createElement("button");
+            closeButton.innerHTML = "✕";
+            closeButton.style.cssText = `
+                background: none;
+                border: none;
+                color: white;
+                font-size: 18px;
+                cursor: pointer;
+                padding: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: 'Poppins', sans-serif;
+            `;
+
+            const closePreview = () => {
+                previewWrapper.remove();
+                overlay.remove();
+                eyeIcon.classList.remove("preview-active");
+                eyeIcon.src = "/assets/images/visibility.png"; // Update with your actual path
+            };
+
+            closeButton.addEventListener("click", closePreview);
+            overlay.addEventListener("click", closePreview);
+
+            header.appendChild(fileNameSection);
+            header.appendChild(zoomControls);
+            header.appendChild(closeButton);
+
+            const iframe = document.createElement("iframe");
+            iframe.src = fileUrl;
+            iframe.style.cssText = `
+                width: 100%;
+                height: calc(100% - 40px);
+                border: none;
+                background-color: white;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+            `;
+
+            previewWrapper.appendChild(header);
+            previewWrapper.appendChild(iframe);
+
+            document.body.appendChild(overlay);
+            document.body.appendChild(previewWrapper);
+
+            let currentZoom = 1;
+            zoomIn.addEventListener("click", () => {
+                currentZoom += 0.1;
+                iframe.style.transform = `scale(${currentZoom})`;
+                iframe.style.transformOrigin = "top center";
+            });
+
+            zoomOut.addEventListener("click", () => {
+                currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                iframe.style.transform = `scale(${currentZoom})`;
+                iframe.style.transformOrigin = "top center";
+            });
+
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "Escape") {
+                    closePreview();
+                }
+            });
+
+            eyeIcon.classList.add("preview-active");
+            eyeIcon.src = "/assets/images/close.png"; // Update with your actual path
+        });
+    });
+};
+
+
+const initializeMarksheetUpload = () => {
+    const individualMarksheetDocumentsUpload = document.querySelectorAll(
+        ".individualmarksheetdocuments"
+    );
+
+    individualMarksheetDocumentsUpload.forEach((card) => {
+        const eyeIcon = card.querySelector(".fa-eye");
+
+        if (!eyeIcon) {
+            console.error("Eye icon not found in card:", card);
+            return;
+        }
+
+        eyeIcon.addEventListener("click", function (event) {
+            event.stopPropagation();
+
+            // Get the document type from the eye icon's ID
+            const documentType = eyeIcon.id
+                .replace("view-", "")
+                .replace("-card", "");
+
+            // Construct the fileType key used in documentUrls based on the class name
+            let fileTypeKey;
+            if (card.querySelector(".sslc-marksheet")) {
+                fileTypeKey = "tenth-grade-name";
+            } else if (card.querySelector(".hsc-marksheet")) {
+                fileTypeKey = "twelfth-grade-name";
+            } else if (card.querySelector(".graduation-marksheet")) {
+                fileTypeKey = "graduation-grade-name";
+            }
+
+            // Get the URL from documentUrls
+            const fileUrl = documentUrls[fileTypeKey];
+            const fileNameElement = card.querySelector(
+                `.${fileTypeKey.replace("-name", "-marksheet")}`
+            );
+            const fileName = fileNameElement
+                ? fileNameElement.textContent
+                : "Document.pdf";
+
+            console.log(`Previewing marksheet (${fileTypeKey}):`, fileUrl);
+
+            if (eyeIcon.classList.contains("preview-active")) {
+                const previewWrapper = document.querySelector(
+                    ".pdf-preview-wrapper"
+                );
+                const overlay = document.querySelector(".pdf-preview-overlay");
+                if (previewWrapper) previewWrapper.remove();
+                if (overlay) overlay.remove();
+                eyeIcon.classList.remove("preview-active");
+                eyeIcon.src = "/assets/images/visibility.png";
+                return;
+            }
+
+            if (!fileUrl) {
+                alert("No document found to preview.");
+                return;
+            }
+
+            // Create the preview modal
+            const previewWrapper = document.createElement("div");
+            previewWrapper.className = "pdf-preview-wrapper";
+            previewWrapper.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 60%;
+                height: 80vh;
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 1000;
+                border-radius: 8px;
+            `;
+
+            const overlay = document.createElement("div");
+            overlay.className = "pdf-preview-overlay";
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            `;
+
+            const header = document.createElement("div");
+            header.style.cssText = `
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 8px 16px;
+                background-color: #1a1a1a;
+                color: white;
+                height: 40px;
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+            `;
+
+            const fileNameSection = document.createElement("div");
+            fileNameSection.style.cssText = `
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            `;
+
+            const fileNameSpan = document.createElement("span");
+            fileNameSpan.textContent = fileName;
+            fileNameSpan.style.cssText = `
+                color: white;
+                font-size: 14px;
+                font-family: 'Poppins', sans-serif;
+            `;
+            fileNameSection.appendChild(fileNameSpan);
+
+            const zoomControls = document.createElement("div");
+            zoomControls.style.cssText = `
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            `;
+
+            const zoomOut = document.createElement("button");
+            zoomOut.innerHTML = "−";
+            const zoomIn = document.createElement("button");
+            zoomIn.innerHTML = "+";
+
+            [zoomOut, zoomIn].forEach((btn) => {
+                btn.style.cssText = `
+                    background: none;
+                    border: 1px solid #fff;
+                    border-radius: 4px;
+                    color: white;
+                    font-size: 16px;
+                    cursor: pointer;
+                    padding: 2px 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Poppins', sans-serif;
+                `;
+            });
+
+            zoomControls.appendChild(zoomOut);
+            zoomControls.appendChild(zoomIn);
+
+            const closeButton = document.createElement("button");
+            closeButton.innerHTML = "✕";
+            closeButton.style.cssText = `
+                background: none;
+                border: none;
+                color: white;
+                font-size: 18px;
+                cursor: pointer;
+                padding: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: 'Poppins', sans-serif;
+            `;
+
+            const closePreview = () => {
+                previewWrapper.remove();
+                overlay.remove();
+                eyeIcon.classList.remove("preview-active");
+                eyeIcon.src = "/assets/images/visibility.png";
+            };
+
+            closeButton.addEventListener("click", closePreview);
+            overlay.addEventListener("click", closePreview);
+
+            header.appendChild(fileNameSection);
+            header.appendChild(zoomControls);
+            header.appendChild(closeButton);
+
+            const iframe = document.createElement("iframe");
+            iframe.src = fileUrl;
+            iframe.style.cssText = `
+                width: 100%;
+                height: calc(100% - 40px);
+                border: none;
+                background-color: white;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+            `;
+
+            previewWrapper.appendChild(header);
+            previewWrapper.appendChild(iframe);
+
+            document.body.appendChild(overlay);
+            document.body.appendChild(previewWrapper);
+
+            let currentZoom = 1;
+            zoomIn.addEventListener("click", () => {
+                currentZoom += 0.1;
+                iframe.style.transform = `scale(${currentZoom})`;
+                iframe.style.transformOrigin = "top center";
+            });
+
+            zoomOut.addEventListener("click", () => {
+                currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                iframe.style.transform = `scale(${currentZoom})`;
+                iframe.style.transformOrigin = "top center";
+            });
+
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "Escape") {
+                    closePreview();
+                }
+            });
+
+            eyeIcon.classList.add("preview-active");
+            eyeIcon.src = "/assets/images/close.png";
+        });
+    });
+};
+
+const initializeSecuredAdmissionDocumentUpload = () => {
+    const securedAdmissionDocuments = document.querySelectorAll(
+        ".individual-secured-admission-documents"
+    );
+
+    securedAdmissionDocuments.forEach((card) => {
+        const eyeIcon = card.querySelector(".fa-eye");
+
+        if (!eyeIcon) {
+            console.error("Eye icon not found in card:", card);
+            return;
+        }
+
+        eyeIcon.addEventListener("click", function (event) {
+            event.stopPropagation();
+
+            // Determine document type based on which element exists
+            let fileTypeKey;
+            if (card.querySelector(".sslc-grade")) {
+                fileTypeKey = "secured-tenth-name";
+            } else if (card.querySelector(".hsc-grade")) {
+                fileTypeKey = "secured-twelfth-name";
+            } else if (card.querySelector(".graduation-grade")) {
+                fileTypeKey = "secured-graduation-name";
+            }
+
+            // Get the URL from documentUrls
+            const fileUrl = documentUrls[fileTypeKey];
+            const fileNameElement = card.querySelector(
+                `.${fileTypeKey.replace("-name", "-grade")}`
+            );
+            const fileName = fileNameElement
+                ? fileNameElement.textContent
+                : "Document.pdf";
+
+            console.log(
+                `Previewing secured admission (${fileTypeKey}):`,
+                fileUrl
+            );
+
+            if (eyeIcon.classList.contains("preview-active")) {
+                const previewWrapper = document.querySelector(
+                    ".pdf-preview-wrapper, .image-preview-wrapper"
+                );
+                const overlay = document.querySelector(
+                    ".pdf-preview-overlay, .image-preview-overlay"
+                );
+                if (previewWrapper) previewWrapper.remove();
+                if (overlay) overlay.remove();
+                eyeIcon.classList.remove("preview-active");
+                eyeIcon.src = "/assets/images/visibility.png";
+                return;
+            }
+
+            if (!fileUrl) {
+                alert("No document found to preview.");
+                return;
+            }
+
+            // Check if it's a PDF or image based on file extension
+            const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
+            const isImage = [".jpg", ".jpeg", ".png"].some((ext) =>
+                fileUrl.toLowerCase().endsWith(ext)
+            );
+
+            if (isPDF) {
+                // PDF Preview
+                const previewWrapper = document.createElement("div");
+                previewWrapper.className = "pdf-preview-wrapper";
+                previewWrapper.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 60%;
+                    height: 80vh;
+                    background-color: white;
+                    display: flex;
+                    flex-direction: column;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    z-index: 1000;
+                    border-radius: 8px;
+                `;
+
+                const overlay = document.createElement("div");
+                overlay.className = "pdf-preview-overlay";
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 999;
+                `;
+
+                const header = document.createElement("div");
+                header.style.cssText = `
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 8px 16px;
+                    background-color: #1a1a1a;
+                    color: white;
+                    height: 40px;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
+                `;
+
+                const fileNameSection = document.createElement("div");
+                fileNameSection.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                `;
+
+                const fileNameSpan = document.createElement("span");
+                fileNameSpan.textContent = fileName;
+                fileNameSpan.style.cssText = `
+                    color: white;
+                    font-size: 14px;
+                    font-family: 'Poppins', sans-serif;
+                `;
+                fileNameSection.appendChild(fileNameSpan);
+
+                const zoomControls = document.createElement("div");
+                zoomControls.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                `;
+
+                const zoomOut = document.createElement("button");
+                zoomOut.innerHTML = "−";
+                const zoomIn = document.createElement("button");
+                zoomIn.innerHTML = "+";
+
+                [zoomOut, zoomIn].forEach((btn) => {
+                    btn.style.cssText = `
+                        background: none;
+                        border: 1px solid #fff;
+                        border-radius: 4px;
+                        color: white;
+                        font-size: 16px;
+                        cursor: pointer;
+                        padding: 2px 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-family: 'Poppins', sans-serif;
+                    `;
+                });
+
+                zoomControls.appendChild(zoomOut);
+                zoomControls.appendChild(zoomIn);
+
+                const closeButton = document.createElement("button");
+                closeButton.innerHTML = "✕";
+                closeButton.style.cssText = `
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 18px;
+                    cursor: pointer;
+                    padding: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Poppins', sans-serif;
+                `;
+
+                const closePreview = () => {
+                    previewWrapper.remove();
+                    overlay.remove();
+                    eyeIcon.classList.remove("preview-active");
+                    eyeIcon.src = "/assets/images/visibility.png";
+                };
+
+                closeButton.addEventListener("click", closePreview);
+                overlay.addEventListener("click", closePreview);
+
+                header.appendChild(fileNameSection);
+                header.appendChild(zoomControls);
+                header.appendChild(closeButton);
+
+                const iframe = document.createElement("iframe");
+                iframe.src = fileUrl;
+                iframe.style.cssText = `
+                    width: 100%;
+                    height: calc(100% - 40px);
+                    border: none;
+                    background-color: white;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                `;
+
+                previewWrapper.appendChild(header);
+                previewWrapper.appendChild(iframe);
+
+                document.body.appendChild(overlay);
+                document.body.appendChild(previewWrapper);
+
+                let currentZoom = 1;
+                zoomIn.addEventListener("click", () => {
+                    currentZoom += 0.1;
+                    iframe.style.transform = `scale(${currentZoom})`;
+                    iframe.style.transformOrigin = "top center";
+                });
+
+                zoomOut.addEventListener("click", () => {
+                    currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                    iframe.style.transform = `scale(${currentZoom})`;
+                    iframe.style.transformOrigin = "top center";
+                });
+
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape") {
+                        closePreview();
+                    }
+                });
+
+                eyeIcon.classList.add("preview-active");
+                eyeIcon.src = "/assets/images/close.png";
+            } else if (isImage) {
+                // Image Preview
+                const previewWrapper = document.createElement("div");
+                previewWrapper.className = "image-preview-wrapper";
+                previewWrapper.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 90%;
+                    max-width: 800px;
+                    max-height: 90vh;
+                    background-color: white;
+                    display: flex;
+                    flex-direction: column;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    z-index: 1000;
+                    border-radius: 8px;
+                `;
+
+                const overlay = document.createElement("div");
+                overlay.className = "image-preview-overlay";
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 999;
+                `;
+
+                const header = document.createElement("div");
+                header.style.cssText = `
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 8px 16px;
+                    background-color: #1a1a1a;
+                    color: white;
+                    height: 40px;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
+                `;
+
+                const fileNameSection = document.createElement("div");
+                fileNameSection.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                `;
+
+                const fileNameSpan = document.createElement("span");
+                fileNameSpan.textContent = fileName;
+                fileNameSpan.style.cssText = `
+                    color: white;
+                    font-size: 14px;
+                    font-family: 'Poppins', sans-serif;
+                `;
+                fileNameSection.appendChild(fileNameSpan);
+
+                const closeButton = document.createElement("button");
+                closeButton.innerHTML = "✕";
+                closeButton.style.cssText = `
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 18px;
+                    cursor: pointer;
+                    padding: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Poppins', sans-serif;
+                `;
+
+                const closePreview = () => {
+                    previewWrapper.remove();
+                    overlay.remove();
+                    eyeIcon.classList.remove("preview-active");
+                    eyeIcon.src = "/assets/images/visibility.png";
+                };
+
+                closeButton.addEventListener("click", closePreview);
+                overlay.addEventListener("click", closePreview);
+
+                header.appendChild(fileNameSection);
+                header.appendChild(closeButton);
+
+                const imageContainer = document.createElement("div");
+                imageContainer.style.cssText = `
+                    width: 100%;
+                    height: calc(100% - 40px);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: auto;
+                    padding: 20px;
+                    background-color: #f0f0f0;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                `;
+
+                const img = document.createElement("img");
+                img.src = fileUrl;
+                img.style.cssText = `
+                    max-width: 100%;
+                    max-height: 80vh;
+                    object-fit: contain;
+                `;
+
+                imageContainer.appendChild(img);
+                previewWrapper.appendChild(header);
+                previewWrapper.appendChild(imageContainer);
+
+                document.body.appendChild(overlay);
+                document.body.appendChild(previewWrapper);
+
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape") {
+                        closePreview();
+                    }
+                });
+
+                eyeIcon.classList.add("preview-active");
+                eyeIcon.src = "/assets/images/close.png";
+            } else {
+                alert(
+                    "Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported."
+                );
+            }
+        });
+    });
+};
+
+function truncateFileName(fileName) {
+    if (fileName.length <= 20) return fileName;
+
+    const extension = fileName.slice(fileName.lastIndexOf("."));
+    const name = fileName.slice(0, fileName.lastIndexOf("."));
+
+    return name.slice(0, 16) + "..." + extension;
 }
+
+//  document.addEventListener('DOMContentLoaded', function () {
+//     initializeSecuredAdmissionDocumentUpload();
+// });
+
+
+
+const initializeWorkExperienceDocumentUpload = () => {
+    const workExperienceDocuments = document.querySelectorAll(
+        ".individual-work-experiencecolumn-documents"
+    );
+
+    workExperienceDocuments.forEach((card) => {
+        const eyeIcon = card.querySelector(".fa-eye");
+
+        if (!eyeIcon) {
+            console.error("Eye icon not found in card:", card);
+            return;
+        }
+
+        eyeIcon.addEventListener("click", function (event) {
+            event.stopPropagation();
+
+            // Determine document type based on which element exists
+            let fileTypeKey;
+            if (card.querySelector(".experience-letter")) {
+                fileTypeKey = "work-experience-experience-letter";
+            } else if (card.querySelector(".salary-slip")) {
+                fileTypeKey = "work-experience-monthly-slip";
+            } else if (card.querySelector(".office-id")) {
+                fileTypeKey = "work-experience-office-id";
+            } else if (card.querySelector(".joining-letter")) {
+                fileTypeKey = "work-experience-joining-letter";
+            }
+
+            // Get the URL from documentUrls
+            const fileUrl = documentUrls[fileTypeKey];
+            const fileNameElement = card.querySelector(
+                `.${fileTypeKey.split("-").slice(2).join("-")}`
+            );
+            const fileName = fileNameElement
+                ? fileNameElement.textContent
+                : "Document.pdf";
+
+            console.log(
+                `Previewing work experience (${fileTypeKey}):`,
+                fileUrl
+            );
+
+            if (eyeIcon.classList.contains("preview-active")) {
+                const previewWrapper = document.querySelector(
+                    ".pdf-preview-wrapper, .image-preview-wrapper"
+                );
+                const overlay = document.querySelector(
+                    ".pdf-preview-overlay, .image-preview-overlay"
+                );
+                if (previewWrapper) previewWrapper.remove();
+                if (overlay) overlay.remove();
+                eyeIcon.classList.remove("preview-active");
+                eyeIcon.src = "/assets/images/visibility.png";
+                return;
+            }
+
+            if (!fileUrl) {
+                alert("No document found to preview.");
+                return;
+            }
+
+            // Check if it's a PDF or image based on file extension
+            const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
+            const isImage = [".jpg", ".jpeg", ".png"].some((ext) =>
+                fileUrl.toLowerCase().endsWith(ext)
+            );
+
+            if (isPDF) {
+                // PDF Preview
+                const previewWrapper = document.createElement("div");
+                previewWrapper.className = "pdf-preview-wrapper";
+                previewWrapper.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 60%;
+                    height: 80vh;
+                    background-color: white;
+                    display: flex;
+                    flex-direction: column;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    z-index: 1000;
+                    border-radius: 8px;
+                `;
+
+                const overlay = document.createElement("div");
+                overlay.className = "pdf-preview-overlay";
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 999;
+                `;
+
+                const header = document.createElement("div");
+                header.style.cssText = `
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 8px 16px;
+                    background-color: #1a1a1a;
+                    color: white;
+                    height: 40px;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
+                `;
+
+                const fileNameSection = document.createElement("div");
+                fileNameSection.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                `;
+
+                const fileNameSpan = document.createElement("span");
+                fileNameSpan.textContent = fileName;
+                fileNameSpan.style.cssText = `
+                    color: white;
+                    font-size: 14px;
+                    font-family: 'Poppins', sans-serif;
+                `;
+                fileNameSection.appendChild(fileNameSpan);
+
+                const zoomControls = document.createElement("div");
+                zoomControls.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                `;
+
+                const zoomOut = document.createElement("button");
+                zoomOut.innerHTML = "−";
+                const zoomIn = document.createElement("button");
+                zoomIn.innerHTML = "+";
+
+                [zoomOut, zoomIn].forEach((btn) => {
+                    btn.style.cssText = `
+                        background: none;
+                        border: 1px solid #fff;
+                        border-radius: 4px;
+                        color: white;
+                        font-size: 16px;
+                        cursor: pointer;
+                        padding: 2px 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-family: 'Poppins', sans-serif;
+                    `;
+                });
+
+                zoomControls.appendChild(zoomOut);
+                zoomControls.appendChild(zoomIn);
+
+                const closeButton = document.createElement("button");
+                closeButton.innerHTML = "✕";
+                closeButton.style.cssText = `
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 18px;
+                    cursor: pointer;
+                    padding: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Poppins', sans-serif;
+                `;
+
+                const closePreview = () => {
+                    previewWrapper.remove();
+                    overlay.remove();
+                    eyeIcon.classList.remove("preview-active");
+                    eyeIcon.src = "/assets/images/visibility.png";
+                };
+
+                closeButton.addEventListener("click", closePreview);
+                overlay.addEventListener("click", closePreview);
+
+                header.appendChild(fileNameSection);
+                header.appendChild(zoomControls);
+                header.appendChild(closeButton);
+
+                const iframe = document.createElement("iframe");
+                iframe.src = fileUrl;
+                iframe.style.cssText = `
+                    width: 100%;
+                    height: calc(100% - 40px);
+                    border: none;
+                    background-color: white;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                `;
+
+                previewWrapper.appendChild(header);
+                previewWrapper.appendChild(iframe);
+
+                document.body.appendChild(overlay);
+                document.body.appendChild(previewWrapper);
+
+                let currentZoom = 1;
+                zoomIn.addEventListener("click", () => {
+                    currentZoom += 0.1;
+                    iframe.style.transform = `scale(${currentZoom})`;
+                    iframe.style.transformOrigin = "top center";
+                });
+
+                zoomOut.addEventListener("click", () => {
+                    currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                    iframe.style.transform = `scale(${currentZoom})`;
+                    iframe.style.transformOrigin = "top center";
+                });
+
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape") {
+                        closePreview();
+                    }
+                });
+
+                eyeIcon.classList.add("preview-active");
+                eyeIcon.src = "/assets/images/close.png";
+            } else if (isImage) {
+                // Image Preview
+                const previewWrapper = document.createElement("div");
+                previewWrapper.className = "image-preview-wrapper";
+                previewWrapper.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 90%;
+                    max-width: 800px;
+                    max-height: 90vh;
+                    background-color: white;
+                    display: flex;
+                    flex-direction: column;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    z-index: 1000;
+                    border-radius: 8px;
+                `;
+
+                const overlay = document.createElement("div");
+                overlay.className = "image-preview-overlay";
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 999;
+                `;
+
+                const header = document.createElement("div");
+                header.style.cssText = `
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 8px 16px;
+                    background-color: #1a1a1a;
+                    color: white;
+                    height: 40px;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
+                `;
+
+                const fileNameSection = document.createElement("div");
+                fileNameSection.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                `;
+
+                const fileNameSpan = document.createElement("span");
+                fileNameSpan.textContent = fileName;
+                fileNameSpan.style.cssText = `
+                    color: white;
+                    font-size: 14px;
+                    font-family: 'Poppins', sans-serif;
+                `;
+                fileNameSection.appendChild(fileNameSpan);
+
+                const closeButton = document.createElement("button");
+                closeButton.innerHTML = "✕";
+                closeButton.style.cssText = `
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 18px;
+                    cursor: pointer;
+                    padding: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Poppins', sans-serif;
+                `;
+
+                const closePreview = () => {
+                    previewWrapper.remove();
+                    overlay.remove();
+                    eyeIcon.classList.remove("preview-active");
+                    eyeIcon.src = "/assets/images/visibility.png";
+                };
+
+                closeButton.addEventListener("click", closePreview);
+                overlay.addEventListener("click", closePreview);
+
+                header.appendChild(fileNameSection);
+                header.appendChild(closeButton);
+
+                const imageContainer = document.createElement("div");
+                imageContainer.style.cssText = `
+                    width: 100%;
+                    height: calc(100% - 40px);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: auto;
+                    padding: 20px;
+                    background-color: #f0f0f0;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                `;
+
+                const img = document.createElement("img");
+                img.src = fileUrl;
+                img.style.cssText = `
+                    max-width: 100%;
+                    max-height: 80vh;
+                    object-fit: contain;
+                `;
+
+                imageContainer.appendChild(img);
+                previewWrapper.appendChild(header);
+                previewWrapper.appendChild(imageContainer);
+
+                document.body.appendChild(overlay);
+                document.body.appendChild(previewWrapper);
+
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape") {
+                        closePreview();
+                    }
+                });
+
+                eyeIcon.classList.add("preview-active");
+                eyeIcon.src = "/assets/images/close.png";
+            } else {
+                alert(
+                    "Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported."
+                );
+            }
+        });
+    });
+};
+const bankListedThroughNBFC = async () => {
+
+    // console.log("_______")
+
+    const nbfcContainer = document.querySelector(".loanproposals-loanstatuscards");
+
+    if (nbfcContainer) {
+        // consle.log("______")
+
+        const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+        const userId = userIdElement ? userIdElement.textContent : '';
+
+        fetch("/getnbfcdata-proposals", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({ userId })
+        })
+            .then(response => response.json())
+            .then(async data => {
+                if (data.success) {
+                    console.log(data)
+                    const finalData = data.result;
+
+
+                    // if (!finalData) {
+                    //     const noDataMessage = document.createElement("p");
+                    //     noDataMessage.textContent = "No Proposals Yet";
+                    //     noDataMessage.classList.add("no-proposals-message");
+                    //     nbfcContainer.append(noDataMessage);
+                    //     return;
+                    // }
+
+
+
+                    if (finalData) {
+                        finalData.forEach(async (items) => {
+                            const eachCards = document.createElement('div');
+                            eachCards.classList.add("indivudalloanstatus-cards");
+
+                            const insideCard = document.createElement('div');
+                            insideCard.classList.add("individual-bankname");
+
+                            const header = document.createElement("h1");
+                            header.textContent = items.nbfc_name;
+
+                            const messageInputNbfcids = document.createElement("p");
+                            messageInputNbfcids.classList.add("messageinputnbfcids");
+                            messageInputNbfcids.textContent = items.nbfc_id;
+
+
+
+
+                            insideCard.append(header, messageInputNbfcids);
+
+
+
+
+
+                            const insideSecond = document.createElement("div");
+                            insideSecond.classList.add("individual-bankmessages");
+
+                            const bankMessage = document.createElement("p");
+                            bankMessage.textContent = "Lorem ipsum dolor sit amet...";
+                            insideSecond.append(bankMessage);
+
+                            await fetchStatus(items.nbfc_id, insideSecond, items);
+
+
+
+
+                            const buttonContainer = document.createElement("div");
+                            buttonContainer.classList.add('individual-bankmessages-buttoncontainer');
+                            const bankMessageContainer = document.createElement("div");
+                            bankMessageContainer.classList.add("individual-bankmessage-input");
+
+                            const messageInput = document.createElement("input");
+                            messageInput.placeholder = "Send message";
+                            messageInput.type = "text";
+
+                            const sendIcon = document.createElement("img");
+                            sendIcon.classList.add("send-img");
+                            sendIcon.src = 'assets/images/send.png';
+
+                            const documentAttach = document.createElement("i");
+                            documentAttach.classList.add("fa-solid", "fa-paperclip");
+
+                            const smileAttach = document.createElement("i");
+                            smileAttach.classList.add("fa-regular", "fa-face-smile");
+
+                            bankMessageContainer.append(messageInput, sendIcon, documentAttach, smileAttach);
+
+                            eachCards.append(insideCard, insideSecond, bankMessageContainer);
+                            nbfcContainer.append(eachCards);
+                        });
+
+                        bindAcceptRejectButtons(finalData);
+
+
+                    }
+
+
+
+                    await initializeSideBarTabs();
+                    await initializeIndividualCards();
+                    await initializeSimpleChat();
+
+                } else if (data.error) {
+                    console.error("Error: ", data.error);
+                }
+            })
+            .catch((error) => {
+                console.error("Error caused in server: ", error);
+            });
+    }
+
+};
+
+// Helper function to truncate file names
+function truncateFileName(fileName) {
+    if (fileName.length <= 20) return fileName;
+
+    const extension = fileName.slice(fileName.lastIndexOf('.'));
+    const name = fileName.slice(0, fileName.lastIndexOf('.'));
+
+    return name.slice(0, 16) + '...' + extension;
+}
+
+// Initialize the document uploads when the page loads
+// document.addEventListener('DOMContentLoaded', function () {
+//     initializeWorkExperienceDocumentUpload();
+// });
+
+
+
+
+const initializeCoBorrowerDocumentUpload = () => {
+    const coBorrowerDocuments = document.querySelectorAll(".individual-coborrower-kyc-documents");
+
+    coBorrowerDocuments.forEach((card) => {
+        const eyeIcon = card.querySelector('.fa-eye');
+
+        if (!eyeIcon) {
+            console.error("Eye icon not found in card:", card);
+            return;
+        }
+
+        eyeIcon.addEventListener('click', function (event) {
+            event.stopPropagation();
+
+            // Determine document type based on which element exists
+            let fileTypeKey;
+            if (card.querySelector('.coborrower-pancard')) {
+                fileTypeKey = "co-pan-card-name";
+            } else if (card.querySelector('.coborrower-aadharcard')) {
+                fileTypeKey = "co-aadhar-card-name";
+            } else if (card.querySelector('.coborrower-addressproof')) {
+                fileTypeKey = "co-addressproof";
+            }
+
+            // Get the URL from documentUrls
+            const fileUrl = documentUrls[fileTypeKey];
+            const fileNameElement = card.querySelector(`.${fileTypeKey.replace('co-', 'coborrower-').replace('-name', '')}`);
+            const fileName = fileNameElement ? fileNameElement.textContent : 'Document.pdf';
+
+            console.log(`Previewing co-borrower document (${fileTypeKey}):`, fileUrl);
+
+            if (eyeIcon.classList.contains('preview-active')) {
+                const previewWrapper = document.querySelector('.pdf-preview-wrapper, .image-preview-wrapper');
+                const overlay = document.querySelector('.pdf-preview-overlay, .image-preview-overlay');
+                if (previewWrapper) previewWrapper.remove();
+                if (overlay) overlay.remove();
+                eyeIcon.classList.remove('preview-active');
+                eyeIcon.src = "/assets/images/visibility.png";
+                return;
+            }
+
+            if (!fileUrl) {
+                alert('No document found to preview.');
+                return;
+            }
+
+            // Check if it's a PDF or image based on file extension
+            const isPDF = fileUrl.toLowerCase().endsWith('.pdf');
+            const isImage = ['.jpg', '.jpeg', '.png'].some(ext => fileUrl.toLowerCase().endsWith(ext));
+
+            if (isPDF) {
+                // PDF Preview
+                const previewWrapper = document.createElement('div');
+                previewWrapper.className = 'pdf-preview-wrapper';
+                previewWrapper.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 60%;
+                    height: 80vh;
+                    background-color: white;
+                    display: flex;
+                    flex-direction: column;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    z-index: 1000;
+                    border-radius: 8px;
+                `;
+
+                const overlay = document.createElement('div');
+                overlay.className = 'pdf-preview-overlay';
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 999;
+                `;
+
+                const header = document.createElement('div');
+                header.style.cssText = `
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 8px 16px;
+                    background-color: #1a1a1a;
+                    color: white;
+                    height: 40px;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
+                `;
+
+                const fileNameSection = document.createElement('div');
+                fileNameSection.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                `;
+
+                const fileNameSpan = document.createElement("span");
+                fileNameSpan.textContent = fileName;
+                fileNameSpan.style.cssText = `
+                    color: white;
+                    font-size: 14px;
+                    font-family: 'Poppins', sans-serif;
+                `;
+                fileNameSection.appendChild(fileNameSpan);
+
+                const zoomControls = document.createElement("div");
+                zoomControls.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                `;
+
+                const zoomOut = document.createElement("button");
+                zoomOut.innerHTML = "−";
+                const zoomIn = document.createElement("button");
+                zoomIn.innerHTML = "+";
+
+                [zoomOut, zoomIn].forEach((btn) => {
+                    btn.style.cssText = `
+                        background: none;
+                        border: 1px solid #fff;
+                        border-radius: 4px;
+                        color: white;
+                        font-size: 16px;
+                        cursor: pointer;
+                        padding: 2px 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-family: 'Poppins', sans-serif;
+                    `;
+                });
+
+                zoomControls.appendChild(zoomOut);
+                zoomControls.appendChild(zoomIn);
+
+                const closeButton = document.createElement("button");
+                closeButton.innerHTML = "✕";
+                closeButton.style.cssText = `
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 18px;
+                    cursor: pointer;
+                    padding: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Poppins', sans-serif;
+                `;
+
+                const closePreview = () => {
+                    previewWrapper.remove();
+                    overlay.remove();
+                    eyeIcon.classList.remove("preview-active");
+                    eyeIcon.src = "/assets/images/visibility.png";
+                };
+
+                closeButton.addEventListener('click', closePreview);
+                overlay.addEventListener('click', closePreview);
+
+                header.appendChild(fileNameSection);
+                header.appendChild(zoomControls);
+                header.appendChild(closeButton);
+                header.appendChild(fileNameSection);
+                header.appendChild(zoomControls);
+                header.appendChild(closeButton);
+
+                const iframe = document.createElement("iframe");
+                iframe.src = fileUrl;
+                iframe.style.cssText = `
+                    width: 100%;
+                    height: calc(100% - 40px);
+                    border: none;
+                    background-color: white;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                `;
+
+                previewWrapper.appendChild(header);
+                previewWrapper.appendChild(iframe);
+
+                document.body.appendChild(overlay);
+                document.body.appendChild(previewWrapper);
+
+                let currentZoom = 1;
+                zoomIn.addEventListener("click", () => {
+                    currentZoom += 0.1;
+                    iframe.style.transform = `scale(${currentZoom})`;
+                    iframe.style.transformOrigin = "top center";
+                });
+
+                zoomOut.addEventListener("click", () => {
+                    currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                    iframe.style.transform = `scale(${currentZoom})`;
+                    iframe.style.transformOrigin = "top center";
+                });
+
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape") {
+                        closePreview();
+                    }
+                });
+
+                eyeIcon.classList.add("preview-active");
+                eyeIcon.src = "/assets/images/close.png";
+            } else if (isImage) {
+                // Image Preview
+                const previewWrapper = document.createElement("div");
+                previewWrapper.className = "image-preview-wrapper";
+                previewWrapper.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 90%;
+                    max-width: 800px;
+                    max-height: 90vh;
+                    background-color: white;
+                    display: flex;
+                    flex-direction: column;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    z-index: 1000;
+                    border-radius: 8px;
+                `;
+
+                const overlay = document.createElement("div");
+                overlay.className = "image-preview-overlay";
+                overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 999;
+                `;
+
+                const header = document.createElement("div");
+                header.style.cssText = `
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 8px 16px;
+                    background-color: #1a1a1a;
+                    color: white;
+                    height: 40px;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
+                `;
+
+                const fileNameSection = document.createElement("div");
+                fileNameSection.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                `;
+
+                const fileNameSpan = document.createElement("span");
+                fileNameSpan.textContent = fileName;
+                fileNameSpan.style.cssText = `
+                    color: white;
+                    font-size: 14px;
+                    font-family: 'Poppins', sans-serif;
+                `;
+                fileNameSection.appendChild(fileNameSpan);
+
+                const closeButton = document.createElement("button");
+                closeButton.innerHTML = "✕";
+                closeButton.style.cssText = `
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 18px;
+                    cursor: pointer;
+                    padding: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Poppins', sans-serif;
+                `;
+
+                const closePreview = () => {
+                    previewWrapper.remove();
+                    overlay.remove();
+                    eyeIcon.classList.remove("preview-active");
+                    eyeIcon.src = "/assets/images/visibility.png";
+                };
+
+                closeButton.addEventListener("click", closePreview);
+                overlay.addEventListener("click", closePreview);
+
+                header.appendChild(fileNameSection);
+                header.appendChild(closeButton);
+
+                const imageContainer = document.createElement("div");
+                imageContainer.style.cssText = `
+                    width: 100%;
+                    height: calc(100% - 40px);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: auto;
+                    padding: 20px;
+                    background-color: #f0f0f0;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                `;
+
+                const img = document.createElement("img");
+                img.src = fileUrl;
+                img.style.cssText = `
+                    max-width: 100%;
+                    max-height: 80vh;
+                    object-fit: contain;
+                `;
+
+                imageContainer.appendChild(img);
+                previewWrapper.appendChild(header);
+                previewWrapper.appendChild(imageContainer);
+
+                document.body.appendChild(overlay);
+                document.body.appendChild(previewWrapper);
+
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape") {
+                        closePreview();
+                    }
+                });
+
+                eyeIcon.classList.add("preview-active");
+                eyeIcon.src = "/assets/images/close.png";
+            } else {
+                alert(
+                    "Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported."
+                );
+            }
+        });
+    });
+};
+
+function truncateFileName(fileName) {
+    if (fileName.length <= 20) return fileName;
+
+    const extension = fileName.slice(fileName.lastIndexOf("."));
+    const name = fileName.slice(0, fileName.lastIndexOf("."));
+
+    return name.slice(0, 16) + "..." + extension;
+}
+
+// Initialize the document uploads when the page loads
+// document.addEventListener('DOMContentLoaded', function () {
+//     initializeCoBorrowerDocumentUpload();
+// });
+
+function toggleOtherDegreeInput(event) {
+    const otherDegreeInput = document.getElementById("otherDegreeInput");
+
+    if (event && event.target && event.target.value) {
+        if (event.target.value === "Others") {
+            otherDegreeInput.disabled = false;
+            otherDegreeInput.placeholder = "Enter here";
+            otherDegreeInput.value = "";
+        } else {
+            otherDegreeInput.disabled = true;
+            otherDegreeInput.value = event.target.value; // Set the value to Bachelors or Masters
+            otherDegreeInput.placeholder = "Enter degree type"; // Reset placeholder if needed
+        }
+
+        // Trigger the "Save" state on degree type change
+        toggleSaveState();
+    } else {
+        console.error("Error: Event or target value is undefined.");
+    }
+}
+const initializeProgressRing = () => {
+    const radius = 52;
+    const circumference = 2 * Math.PI * radius;
+    const percentage = 0.50;
+    const offset = circumference * (1 - percentage);
+    const progressRingFill = document.querySelector(".progress-ring-fill");
+    const progressText = document.querySelector(".progress-ring-text");
+
+    progressRingFill.style.strokeDasharray = `${circumference} ${circumference}`;
+    progressRingFill.style.strokeDashoffset = offset;
+    progressText.textContent = `${Math.round(percentage * 100)}%`;
+};
+const initialisedocumentsCount = () => {
+  
+    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+    const userId = userIdElement ? userIdElement.textContent.trim() : '';
+    const documentCountText = document.querySelector(".profilestatus-graph-secondsection .profilestatus-noofdocuments-section p");
+
+    if (!userId || !documentCountText) {
+        console.error("User ID or count element not found.");
+        return;
+    }
+
+    fetch("/count-documents", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content"),
+        },
+        body: JSON.stringify({ userId }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data && typeof data.documentscount === 'number') {
+                const count = data.documentscount;
+
+                if (count >= 0 && count < 10) {
+                    documentCountText.textContent = "0" + count;
+                } else if (count >= 10) {
+                    documentCountText.textContent = count;
+                } else {
+                    documentCountText.textContent = "00";
+                }
+            } else if (data.error) {
+                console.error("Server Error:", data.error);
+            } else {
+                console.error("Unexpected response format:", data);
+            }
+        })
+        .catch(error => {
+            console.error("Fetch Error:", error);
+        });
+};
 
 
 function initializeSimpleChat() {
@@ -730,41 +2787,6 @@ function initializeSimpleChat() {
         }
 
         function sendMessage(messageInput, messageInputNbfcids) {
-            if (!messageInput) return;
-            console.log(messageInput.value);
-
-
-            const content = messageInput.value.trim();
-            if (content) {
-                showChat();
-
-                // const messageElement = document.createElement("div");
-                // messageElement.style.cssText = `
-                //     display: flex;
-                //     justify-content: flex-end;
-                //     width: 100%;
-                //     margin-bottom: 10px;
-                // `;
-
-                // const messageContent = document.createElement("div");
-                // messageContent.style.cssText = `
-                //     max-width: 80%;
-                //     padding: 8px 12px;
-                //     border-radius: 8px;
-                //     word-wrap: break-word;
-                //     font-family: 'Poppins', sans-serif;
-                // `;
-                // messageContent.textContent = content;
-
-                // messageElement.appendChild(messageContent);
-                // messagesWrapper.appendChild(messageElement);
-
-                messageInput.value = "";
-                // messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
-
-                sendMessageToBackend(content, messageInputNbfcids);
-
-            }
         }
         async function sendMessageToBackend(content, messageInputNbfcids) {
             const nbfcId = messageInputNbfcids;
@@ -1132,1920 +3154,14 @@ function initializeSimpleChat() {
 
 }
 
-function saveMessage(content, chatId) {
-    const messages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
-    messages.push(content);
-    localStorage.setItem(`messages-${chatId}`, JSON.stringify(messages));
-}
-
-
-// Add this function to properly save file messages
-function saveFileMessage(fileData, chatId) {
-    const fileMessages = JSON.parse(localStorage.getItem(`file-messages-${chatId}`) || '[]');
-    fileMessages.push(fileData);
-    localStorage.setItem(`file-messages-${chatId}`, JSON.stringify(fileMessages));
-}
-
-const initialiseProfileView = () => {
-
-    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-    const userId = userIdElement ? userIdElement.textContent : '';
-
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-    if (!csrfToken) {
-        console.error('CSRF token not found');
-        return;
-    }
-
-    fetch('/retrieve-profile-picture', {
-        method: "POST",
-        headers: {
-            'X-CSRF-TOKEN': csrfToken,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ userId: userId })
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.fileUrl) {
-                console.log("Profile Picture URL:", data.fileUrl);
-                const imgElement = document.querySelector("#profile-photo-id");
-                imgElement.src = data.fileUrl;
-            } else {
-                console.error("Error: No URL returned from the server", data);
-            }
-        })
-        .catch(error => {
-            console.error("Error retrieving profile picture", error);
-        });
-}
-const checkUserStatusCount = () => {
-    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-    const userId = userIdElement ? userIdElement.textContent.trim() : '';
-
-    return fetch('/count-user-status', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ""
-        },
-        body: JSON.stringify({ userId })
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log("Successfully retrieved count");
-                const finalCounting = data.count;
-                return finalCounting - 1; // <-- this will now resolve correctly
-            } else {
-                throw new Error("Failed to retrieve count");
-            }
-        });
-};
-
-const waitForCards = () => {
-    return new Promise(resolve => {
-        const observer = new MutationObserver(async (mutations, obs) => {
-            const cards = document.querySelectorAll('.indivudalloanstatus-cards');
-
-            const retrieveCount = await checkUserStatusCount();
-
-
-            if (cards.length > retrieveCount) {
-
-                obs.disconnect();
-                resolve(cards);
-            }
-        });
-
-        observer.observe(document.body, { childList: true, subtree: true });
-    });
-};
-
-const initializeIndividualCards = () => {
-    let checkInterval;
-    let isInitialized = false;
-
-    const cleanup = () => {
-        if (checkInterval) {
-            clearInterval(checkInterval);
-        }
-    };
-
-    const handleCardClick = (card, messageInput, index) => {
-        return () => {
-            const computedStyle = window.getComputedStyle(messageInput);
-            const isInputVisible = computedStyle.display === 'flex';
-
-            console.log(`Card ${index} clicked, input currently ${isInputVisible ? 'visible' : 'hidden'}`);
-
-            // Collapse all other inputs
-            document.querySelectorAll('.individual-bankmessage-input').forEach(input => {
-                if (input !== messageInput) {
-                    input.style.display = 'none';
-                    const parentCard = input.closest('.individual-card');
-                    if (parentCard) {
-                        parentCard.style.height = 'fit-content';
-                    }
-                }
-            });
-
-            // Toggle the clicked input
-            messageInput.style.display = isInputVisible ? 'none' : 'flex';
-            card.style.height = 'fit-content';
-
-
-
-            // e.preventDefault();
-            const student_id = document.querySelector(".personalinfo-secondrow .personal_info_id").textContent;
-            var messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
-
-            messageInputNbfcids = messageInputNbfcids[index].textContent;
-
-
-
-
-
-
-        };
-    };
-
-    const initCards = async () => {
-        try {
-            const individualCards = await waitForCards();
-
-            if (individualCards.length > 0 && !isInitialized) {
-                cleanup();
-                isInitialized = true;
-                console.log("Cards loaded. Binding click listeners...");
-                console.log("----------------------------");
-
-                individualCards.forEach((card, index) => {
-                    console.log(`Initializing card ${index}:`, card);
-
-                    const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
-                    const messageInput = card.querySelector('.individual-bankmessage-input');
-
-                    if (triggeredMessageButton && messageInput) {
-                        // Clone and replace button to avoid duplicate listeners
-                        const newButton = triggeredMessageButton.cloneNode(true);
-                        triggeredMessageButton.replaceWith(newButton);
-
-                        newButton.addEventListener('click', handleCardClick(card, messageInput, index));
-                    }
-                });
-                await initializeSimpleChat();
-
-                return true;
-            }
-            return false;
-        } catch (error) {
-            console.error("Error initializing cards:", error);
-            return false;
-        }
-    };
-
-    // Initial check
-    initCards().then(initialized => {
-        if (!initialized) {
-            checkInterval = setInterval(async () => {
-                const initialized = await initCards();
-                if (initialized) {
-                    cleanup();
-                }
-            }, 500);
-        }
-    });
-
-    // Return cleanup function for external management
-    return cleanup;
-};
-
-
-
-
-
-const initializeKycDocumentUpload = () => {
-    const individualKycDocumentsUpload = document.querySelectorAll(".individualkycdocuments");
-
-    individualKycDocumentsUpload.forEach((card) => {
-        const eyeIcon = card.querySelector('.fa-eye');
-
-        if (!eyeIcon) {
-            console.error("Eye icon not found in card:", card);
-            return;
-        }
-
-        eyeIcon.addEventListener('click', function (event) {
-            event.stopPropagation();
-
-            const documentType = eyeIcon.id.replace('view-', '').replace('-card', ''); // e.g., "aadhar-card"
-            const fileTypeKey = `${documentType}-card-name`;
-            const fileUrl = documentUrls[fileTypeKey];
-            const fileNameElement = card.querySelector(`.uploaded-${documentType}-name`);
-            const fileName = fileNameElement ? fileNameElement.textContent : 'Document.pdf';
-
-            console.log(`Previewing ${documentType}: ${fileUrl}`);
-
-            // Check if a preview is already active
-            if (eyeIcon.classList.contains('preview-active')) {
-                closePreview();
-            } else {
-                if (uploadedFile && uploadedFile.type === 'application/pdf') {
-                    const reader = new FileReader();
-                    reader.onload = function (event) {
-                        openPdfPreview(event.target.result, uploadedFile.name);
-                    };
-                    reader.readAsDataURL(uploadedFile);
-                    eyeIcon.classList.add('preview-active');
-                    eyeIcon.classList.replace('fa-eye', 'fa-times');
-                } else {
-                    alert('Please upload a valid PDF file to preview.');
-                }
-            }
-
-            function closePreview() {
-                const previewWrapper = document.querySelector('.pdf-preview-wrapper');
-                if (previewWrapper) previewWrapper.remove();
-                const overlay = document.querySelector('.pdf-preview-overlay');
-                if (overlay) overlay.remove();
-                eyeIcon.classList.remove('preview-active');
-                eyeIcon.src = "/assets/images/visibility.png";
-                return;
-            }
-
-            // If no file URL, show an alert
-            if (!fileUrl) {
-                alert('No document found to preview.');
-                return;
-            }
-
-            // Create the preview modal
-            const previewWrapper = document.createElement('div');
-            previewWrapper.className = 'pdf-preview-wrapper';
-            previewWrapper.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 60%;
-                height: 80vh;
-                background-color: white;
-                display: flex;
-                flex-direction: column;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                z-index: 1000;
-                border-radius: 8px;
-            `;
-
-            const overlay = document.createElement('div');
-            overlay.className = 'pdf-preview-overlay';
-            overlay.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5);
-                z-index: 999;
-            `;
-
-            const header = document.createElement('div');
-            header.style.cssText = `
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 8px 16px;
-                background-color: #1a1a1a;
-                color: white;
-                height: 40px;
-                border-top-left-radius: 8px;
-                border-top-right-radius: 8px;
-            `;
-
-            const fileNameSection = document.createElement('div');
-            fileNameSection.style.cssText = `
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            `;
-
-            const fileNameSpan = document.createElement('span');
-            fileNameSpan.textContent = fileName;
-            fileNameSpan.style.cssText = `
-                color: white;
-                font-size: 14px;
-                font-family: 'Poppins', sans-serif;
-            `;
-            fileNameSection.appendChild(fileNameSpan);
-
-            const zoomControls = document.createElement('div');
-            zoomControls.style.cssText = `
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
-            `;
-
-            const zoomOut = document.createElement('button');
-            zoomOut.innerHTML = '−';
-            const zoomIn = document.createElement('button');
-            zoomIn.innerHTML = '+';
-
-            [zoomOut, zoomIn].forEach(btn => {
-                btn.style.cssText = `
-                    background: none;
-                    border: 1px solid #fff;
-                    border-radius: 4px;
-                    color: white;
-                    font-size: 16px;
-                    cursor: pointer;
-                    padding: 2px 8px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-family: 'Poppins', sans-serif;
-                `;
-            });
-
-            zoomControls.appendChild(zoomOut);
-            zoomControls.appendChild(zoomIn);
-
-            // Close button
-            const closeButton = document.createElement('button');
-            closeButton.innerHTML = '&#10005;';
-            closeButton.style.cssText = `
-                    background: none;
-                    border: none;
-                    color: white;
-                    font-size: 18px;
-                    cursor: pointer;
-                    padding: 4px;
-                `;
-
-            // const closePreview = () => {
-            //     previewWrapper.remove();
-            //     overlay.remove();
-            //     eyeIcon.classList.remove('preview-active');
-            //     eyeIcon.classList.replace('fa-times', 'fa-eye');
-            // };
-
-            closeButton.addEventListener('click', closePreview);
-            overlay.addEventListener('click', closePreview);
-
-            header.appendChild(fileNameSection);
-            header.appendChild(zoomControls);
-            header.appendChild(closeButton);
-
-            const iframe = document.createElement('iframe');
-            iframe.src = fileUrl;
-            iframe.style.cssText = `
-                width: 100%;
-                height: calc(100% - 40px);
-                border: none;
-                background-color: white;
-                border-bottom-left-radius: 8px;
-                border-bottom-right-radius: 8px;
-            `;
-
-            previewWrapper.appendChild(header);
-            previewWrapper.appendChild(iframe);
-
-            document.body.appendChild(overlay);
-            document.body.appendChild(previewWrapper);
-
-            let currentZoom = 1;
-            zoomIn.addEventListener('click', () => {
-                currentZoom += 0.1;
-                iframe.style.transform = `scale(${currentZoom})`;
-                iframe.style.transformOrigin = 'top center';
-            });
-
-            zoomOut.addEventListener('click', () => {
-                currentZoom = Math.max(currentZoom - 0.1, 0.5);
-                iframe.style.transform = `scale(${currentZoom})`;
-                iframe.style.transformOrigin = 'top center';
-            });
-
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') {
-                    closePreview();
-                }
-            });
-
-            eyeIcon.classList.add('preview-active');
-            eyeIcon.src = "/assets/images/close.png"; // Update with your actual path
-        });
-    });
-};
-
-
-const initializeMarksheetUpload = () => {
-    const individualMarksheetDocumentsUpload = document.querySelectorAll(".individualmarksheetdocuments");
-
-    individualMarksheetDocumentsUpload.forEach((card) => {
-        const eyeIcon = card.querySelector('.fa-eye');
-
-        if (!eyeIcon) {
-            console.error("Eye icon not found in card:", card);
-            return;
-        }
-
-        eyeIcon.addEventListener('click', function (event) {
-            event.stopPropagation();
-
-            // Get the document type from the eye icon's ID
-            const documentType = eyeIcon.id.replace('view-', '').replace('-card', '');
-
-            // Construct the fileType key used in documentUrls based on the class name
-            let fileTypeKey;
-            if (card.querySelector('.sslc-marksheet')) {
-                fileTypeKey = "tenth-grade-name";
-            } else if (card.querySelector('.hsc-marksheet')) {
-                fileTypeKey = "twelfth-grade-name";
-            } else if (card.querySelector('.graduation-marksheet')) {
-                fileTypeKey = "graduation-grade-name";
-            }
-
-            // Get the URL from documentUrls
-            const fileUrl = documentUrls[fileTypeKey];
-            const fileNameElement = card.querySelector(`.${fileTypeKey.replace('-name', '-marksheet')}`);
-            const fileName = fileNameElement ? fileNameElement.textContent : 'Document.pdf';
-
-            console.log(`Previewing marksheet (${fileTypeKey}):`, fileUrl);
-
-            if (eyeIcon.classList.contains('preview-active')) {
-                const previewWrapper = document.querySelector('.pdf-preview-wrapper');
-                const overlay = document.querySelector('.pdf-preview-overlay');
-                if (previewWrapper) previewWrapper.remove();
-                if (overlay) overlay.remove();
-                eyeIcon.classList.remove('preview-active');
-                eyeIcon.src = "/assets/images/visibility.png";
-                return;
-            }
-
-            if (!fileUrl) {
-                alert('No document found to preview.');
-                return;
-            }
-
-            // Create the preview modal
-            const previewWrapper = document.createElement('div');
-            previewWrapper.className = 'pdf-preview-wrapper';
-            previewWrapper.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 60%;
-                height: 80vh;
-                background-color: white;
-                display: flex;
-                flex-direction: column;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                z-index: 1000;
-                border-radius: 8px;
-            `;
-
-            const overlay = document.createElement('div');
-            overlay.className = 'pdf-preview-overlay';
-            overlay.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5);
-                z-index: 999;
-            `;
-
-            const header = document.createElement('div');
-            header.style.cssText = `
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 8px 16px;
-                background-color: #1a1a1a;
-                color: white;
-                height: 40px;
-                border-top-left-radius: 8px;
-                border-top-right-radius: 8px;
-            `;
-
-            const fileNameSection = document.createElement('div');
-            fileNameSection.style.cssText = `
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            `;
-
-            const fileNameSpan = document.createElement('span');
-            fileNameSpan.textContent = fileName;
-            fileNameSpan.style.cssText = `
-                color: white;
-                font-size: 14px;
-                font-family: 'Poppins', sans-serif;
-            `;
-            fileNameSection.appendChild(fileNameSpan);
-
-            const zoomControls = document.createElement('div');
-            zoomControls.style.cssText = `
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
-            `;
-
-            const zoomOut = document.createElement('button');
-            zoomOut.innerHTML = '−';
-            const zoomIn = document.createElement('button');
-            zoomIn.innerHTML = '+';
-
-            [zoomOut, zoomIn].forEach(btn => {
-                btn.style.cssText = `
-                    background: none;
-                    border: 1px solid #fff;
-                    border-radius: 4px;
-                    color: white;
-                    font-size: 16px;
-                    cursor: pointer;
-                    padding: 2px 8px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-family: 'Poppins', sans-serif;
-                `;
-            });
-
-            zoomControls.appendChild(zoomOut);
-            zoomControls.appendChild(zoomIn);
-
-            const closeButton = document.createElement('button');
-            closeButton.innerHTML = '✕';
-            closeButton.style.cssText = `
-                background: none;
-                border: none;
-                color: white;
-                font-size: 18px;
-                cursor: pointer;
-                padding: 4px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-family: 'Poppins', sans-serif;
-            `;
-
-            const closePreview = () => {
-                previewWrapper.remove();
-                overlay.remove();
-                eyeIcon.classList.remove('preview-active');
-                eyeIcon.src = "/assets/images/visibility.png";
-            };
-
-            closeButton.addEventListener('click', closePreview);
-            overlay.addEventListener('click', closePreview);
-
-            header.appendChild(fileNameSection);
-            header.appendChild(zoomControls);
-            header.appendChild(closeButton);
-
-            const iframe = document.createElement('iframe');
-            iframe.src = fileUrl;
-            iframe.style.cssText = `
-                width: 100%;
-                height: calc(100% - 40px);
-                border: none;
-                background-color: white;
-                border-bottom-left-radius: 8px;
-                border-bottom-right-radius: 8px;
-            `;
-
-            previewWrapper.appendChild(header);
-            previewWrapper.appendChild(iframe);
-
-            document.body.appendChild(overlay);
-            document.body.appendChild(previewWrapper);
-
-            let currentZoom = 1;
-            zoomIn.addEventListener('click', () => {
-                currentZoom += 0.1;
-                iframe.style.transform = `scale(${currentZoom})`;
-                iframe.style.transformOrigin = 'top center';
-            });
-
-            zoomOut.addEventListener('click', () => {
-                currentZoom = Math.max(currentZoom - 0.1, 0.5);
-                iframe.style.transform = `scale(${currentZoom})`;
-                iframe.style.transformOrigin = 'top center';
-            });
-
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') {
-                    closePreview();
-                }
-            });
-
-            eyeIcon.classList.add('preview-active');
-            eyeIcon.src = "/assets/images/close.png";
-        });
-    });
-};
-
-const initializeSecuredAdmissionDocumentUpload = () => {
-    const securedAdmissionDocuments = document.querySelectorAll(".individual-secured-admission-documents");
-
-    securedAdmissionDocuments.forEach((card) => {
-        const eyeIcon = card.querySelector('.fa-eye');
-
-        if (!eyeIcon) {
-            console.error("Eye icon not found in card:", card);
-            return;
-        }
-
-        eyeIcon.addEventListener('click', function (event) {
-            event.stopPropagation();
-
-            // Determine document type based on which element exists
-            let fileTypeKey;
-            if (card.querySelector('.sslc-grade')) {
-                fileTypeKey = "secured-tenth-name";
-            } else if (card.querySelector('.hsc-grade')) {
-                fileTypeKey = "secured-twelfth-name";
-            } else if (card.querySelector('.graduation-grade')) {
-                fileTypeKey = "secured-graduation-name";
-            }
-
-            // Get the URL from documentUrls
-            const fileUrl = documentUrls[fileTypeKey];
-            const fileNameElement = card.querySelector(`.${fileTypeKey.replace('-name', '-grade')}`);
-            const fileName = fileNameElement ? fileNameElement.textContent : 'Document.pdf';
-
-            console.log(`Previewing secured admission (${fileTypeKey}):`, fileUrl);
-
-            if (eyeIcon.classList.contains('preview-active')) {
-                const previewWrapper = document.querySelector('.pdf-preview-wrapper, .image-preview-wrapper');
-                const overlay = document.querySelector('.pdf-preview-overlay, .image-preview-overlay');
-                if (previewWrapper) previewWrapper.remove();
-                if (overlay) overlay.remove();
-                eyeIcon.classList.remove('preview-active');
-                eyeIcon.src = "/assets/images/visibility.png";
-                return;
-            }
-
-            if (!fileUrl) {
-                alert('No document found to preview.');
-                return;
-            }
-
-            // Check if it's a PDF or image based on file extension
-            const isPDF = fileUrl.toLowerCase().endsWith('.pdf');
-            const isImage = ['.jpg', '.jpeg', '.png'].some(ext => fileUrl.toLowerCase().endsWith(ext));
-
-            if (isPDF) {
-                // PDF Preview
-                const previewWrapper = document.createElement('div');
-                previewWrapper.className = 'pdf-preview-wrapper';
-                previewWrapper.style.cssText = `
-                    position: fixed;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    width: 60%;
-                    height: 80vh;
-                    background-color: white;
-                    display: flex;
-                    flex-direction: column;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                    z-index: 1000;
-                    border-radius: 8px;
-                `;
-
-                const overlay = document.createElement('div');
-                overlay.className = 'pdf-preview-overlay';
-                overlay.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: rgba(0, 0, 0, 0.5);
-                    z-index: 999;
-                `;
-
-                const header = document.createElement('div');
-                header.style.cssText = `
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 8px 16px;
-                    background-color: #1a1a1a;
-                    color: white;
-                    height: 40px;
-                    border-top-left-radius: 8px;
-                    border-top-right-radius: 8px;
-                `;
-
-                const fileNameSection = document.createElement('div');
-                fileNameSection.style.cssText = `
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                `;
-
-                const fileNameSpan = document.createElement('span');
-                fileNameSpan.textContent = fileName;
-                fileNameSpan.style.cssText = `
-                    color: white;
-                    font-size: 14px;
-                    font-family: 'Poppins', sans-serif;
-                `;
-                fileNameSection.appendChild(fileNameSpan);
-
-                const zoomControls = document.createElement('div');
-                zoomControls.style.cssText = `
-                    display: flex;
-                    align-items: center;
-                    gap: 12px;
-                    position: absolute;
-                    left: 50%;
-                    transform: translateX(-50%);
-                `;
-
-                const zoomOut = document.createElement('button');
-                zoomOut.innerHTML = '−';
-                const zoomIn = document.createElement('button');
-                zoomIn.innerHTML = '+';
-
-                [zoomOut, zoomIn].forEach(btn => {
-                    btn.style.cssText = `
-                        background: none;
-                        border: 1px solid #fff;
-                        border-radius: 4px;
-                        color: white;
-                        font-size: 16px;
-                        cursor: pointer;
-                        padding: 2px 8px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        font-family: 'Poppins', sans-serif;
-                    `;
-                });
-
-                zoomControls.appendChild(zoomOut);
-                zoomControls.appendChild(zoomIn);
-
-                const closeButton = document.createElement('button');
-                closeButton.innerHTML = '✕';
-                closeButton.style.cssText = `
-                    background: none;
-                    border: none;
-                    color: white;
-                    font-size: 18px;
-                    cursor: pointer;
-                    padding: 4px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-family: 'Poppins', sans-serif;
-                `;
-
-                const closePreview = () => {
-                    previewWrapper.remove();
-                    overlay.remove();
-                    eyeIcon.classList.remove('preview-active');
-                    eyeIcon.src = "/assets/images/visibility.png";
-                };
-
-                closeButton.addEventListener('click', closePreview);
-                overlay.addEventListener('click', closePreview);
-
-                header.appendChild(fileNameSection);
-                header.appendChild(zoomControls);
-                header.appendChild(closeButton);
-
-                const iframe = document.createElement('iframe');
-                iframe.src = fileUrl;
-                iframe.style.cssText = `
-                    width: 100%;
-                    height: calc(100% - 40px);
-                    border: none;
-                    background-color: white;
-                    border-bottom-left-radius: 8px;
-                    border-bottom-right-radius: 8px;
-                `;
-
-                previewWrapper.appendChild(header);
-                previewWrapper.appendChild(iframe);
-
-                document.body.appendChild(overlay);
-                document.body.appendChild(previewWrapper);
-
-                let currentZoom = 1;
-                zoomIn.addEventListener('click', () => {
-                    currentZoom += 0.1;
-                    iframe.style.transform = `scale(${currentZoom})`;
-                    iframe.style.transformOrigin = 'top center';
-                });
-
-                zoomOut.addEventListener('click', () => {
-                    currentZoom = Math.max(currentZoom - 0.1, 0.5);
-                    iframe.style.transform = `scale(${currentZoom})`;
-                    iframe.style.transformOrigin = 'top center';
-                });
-
-                document.addEventListener('keydown', function (e) {
-                    if (e.key === 'Escape') {
-                        closePreview();
-                    }
-                });
-
-                eyeIcon.classList.add('preview-active');
-                eyeIcon.src = "/assets/images/close.png";
-            } else if (isImage) {
-                // Image Preview
-                const previewWrapper = document.createElement('div');
-                previewWrapper.className = 'image-preview-wrapper';
-                previewWrapper.style.cssText = `
-                    position: fixed;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    width: 90%;
-                    max-width: 800px;
-                    max-height: 90vh;
-                    background-color: white;
-                    display: flex;
-                    flex-direction: column;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                    z-index: 1000;
-                    border-radius: 8px;
-                `;
-
-                const overlay = document.createElement('div');
-                overlay.className = 'image-preview-overlay';
-                overlay.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: rgba(0, 0, 0, 0.5);
-                    z-index: 999;
-                `;
-
-                const header = document.createElement('div');
-                header.style.cssText = `
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 8px 16px;
-                    background-color: #1a1a1a;
-                    color: white;
-                    height: 40px;
-                    border-top-left-radius: 8px;
-                    border-top-right-radius: 8px;
-                `;
-
-                const fileNameSection = document.createElement('div');
-                fileNameSection.style.cssText = `
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                `;
-
-                const fileNameSpan = document.createElement('span');
-                fileNameSpan.textContent = fileName;
-                fileNameSpan.style.cssText = `
-                    color: white;
-                    font-size: 14px;
-                    font-family: 'Poppins', sans-serif;
-                `;
-                fileNameSection.appendChild(fileNameSpan);
-
-                const closeButton = document.createElement('button');
-                closeButton.innerHTML = '✕';
-                closeButton.style.cssText = `
-                    background: none;
-                    border: none;
-                    color: white;
-                    font-size: 18px;
-                    cursor: pointer;
-                    padding: 4px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-family: 'Poppins', sans-serif;
-                `;
-
-                const closePreview = () => {
-                    previewWrapper.remove();
-                    overlay.remove();
-                    eyeIcon.classList.remove('preview-active');
-                    eyeIcon.src = "/assets/images/visibility.png";
-                };
-
-                closeButton.addEventListener('click', closePreview);
-                overlay.addEventListener('click', closePreview);
-
-                header.appendChild(fileNameSection);
-                header.appendChild(closeButton);
-
-                const imageContainer = document.createElement('div');
-                imageContainer.style.cssText = `
-                    width: 100%;
-                    height: calc(100% - 40px);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    overflow: auto;
-                    padding: 20px;
-                    background-color: #f0f0f0;
-                    border-bottom-left-radius: 8px;
-                    border-bottom-right-radius: 8px;
-                `;
-
-                const img = document.createElement('img');
-                img.src = fileUrl;
-                img.style.cssText = `
-                    max-width: 100%;
-                    max-height: 80vh;
-                    object-fit: contain;
-                `;
-
-                imageContainer.appendChild(img);
-                previewWrapper.appendChild(header);
-                previewWrapper.appendChild(imageContainer);
-
-                document.body.appendChild(overlay);
-                document.body.appendChild(previewWrapper);
-
-                document.addEventListener('keydown', function (e) {
-                    if (e.key === 'Escape') {
-                        closePreview();
-                    }
-                });
-
-                eyeIcon.classList.add('preview-active');
-                eyeIcon.src = "/assets/images/close.png";
-            } else {
-                alert('Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported.');
-            }
-        });
-    });
-};
-
-function truncateFileName(fileName) {
-    if (fileName.length <= 20) return fileName;
-
-    const extension = fileName.slice(fileName.lastIndexOf('.'));
-    const name = fileName.slice(0, fileName.lastIndexOf('.'));
-
-    return name.slice(0, 16) + '...' + extension;
-}
-
-//  document.addEventListener('DOMContentLoaded', function () {
-//     initializeSecuredAdmissionDocumentUpload();
-// });
-
-
-
-const initializeWorkExperienceDocumentUpload = () => {
-    const workExperienceDocuments = document.querySelectorAll(".individual-work-experiencecolumn-documents");
-
-    workExperienceDocuments.forEach((card) => {
-        const eyeIcon = card.querySelector('.fa-eye');
-
-        if (!eyeIcon) {
-            console.error("Eye icon not found in card:", card);
-            return;
-        }
-
-        eyeIcon.addEventListener('click', function (event) {
-            event.stopPropagation();
-
-            // Determine document type based on which element exists
-            let fileTypeKey;
-            if (card.querySelector('.experience-letter')) {
-                fileTypeKey = "work-experience-experience-letter";
-            } else if (card.querySelector('.salary-slip')) {
-                fileTypeKey = "work-experience-monthly-slip";
-            } else if (card.querySelector('.office-id')) {
-                fileTypeKey = "work-experience-office-id";
-            } else if (card.querySelector('.joining-letter')) {
-                fileTypeKey = "work-experience-joining-letter";
-            }
-
-            // Get the URL from documentUrls
-            const fileUrl = documentUrls[fileTypeKey];
-            const fileNameElement = card.querySelector(`.${fileTypeKey.split('-').slice(2).join('-')}`);
-            const fileName = fileNameElement ? fileNameElement.textContent : 'Document.pdf';
-
-            console.log(`Previewing work experience (${fileTypeKey}):`, fileUrl);
-
-            if (eyeIcon.classList.contains('preview-active')) {
-                const previewWrapper = document.querySelector('.pdf-preview-wrapper, .image-preview-wrapper');
-                const overlay = document.querySelector('.pdf-preview-overlay, .image-preview-overlay');
-                if (previewWrapper) previewWrapper.remove();
-                if (overlay) overlay.remove();
-                eyeIcon.classList.remove('preview-active');
-                eyeIcon.src = "/assets/images/visibility.png";
-                return;
-            }
-
-            if (!fileUrl) {
-                alert('No document found to preview.');
-                return;
-            }
-
-            // Check if it's a PDF or image based on file extension
-            const isPDF = fileUrl.toLowerCase().endsWith('.pdf');
-            const isImage = ['.jpg', '.jpeg', '.png'].some(ext => fileUrl.toLowerCase().endsWith(ext));
-
-            if (isPDF) {
-                // PDF Preview
-                const previewWrapper = document.createElement('div');
-                previewWrapper.className = 'pdf-preview-wrapper';
-                previewWrapper.style.cssText = `
-                    position: fixed;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    width: 60%;
-                    height: 80vh;
-                    background-color: white;
-                    display: flex;
-                    flex-direction: column;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                    z-index: 1000;
-                    border-radius: 8px;
-                `;
-
-                const overlay = document.createElement('div');
-                overlay.className = 'pdf-preview-overlay';
-                overlay.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: rgba(0, 0, 0, 0.5);
-                    z-index: 999;
-                `;
-
-                const header = document.createElement('div');
-                header.style.cssText = `
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 8px 16px;
-                    background-color: #1a1a1a;
-                    color: white;
-                    height: 40px;
-                    border-top-left-radius: 8px;
-                    border-top-right-radius: 8px;
-                `;
-
-                const fileNameSection = document.createElement('div');
-                fileNameSection.style.cssText = `
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                `;
-
-                const fileNameSpan = document.createElement('span');
-                fileNameSpan.textContent = fileName;
-                fileNameSpan.style.cssText = `
-                    color: white;
-                    font-size: 14px;
-                    font-family: 'Poppins', sans-serif;
-                `;
-                fileNameSection.appendChild(fileNameSpan);
-
-                const zoomControls = document.createElement('div');
-                zoomControls.style.cssText = `
-                    display: flex;
-                    align-items: center;
-                    gap: 12px;
-                    position: absolute;
-                    left: 50%;
-                    transform: translateX(-50%);
-                `;
-
-                const zoomOut = document.createElement('button');
-                zoomOut.innerHTML = '−';
-                const zoomIn = document.createElement('button');
-                zoomIn.innerHTML = '+';
-
-                [zoomOut, zoomIn].forEach(btn => {
-                    btn.style.cssText = `
-                        background: none;
-                        border: 1px solid #fff;
-                        border-radius: 4px;
-                        color: white;
-                        font-size: 16px;
-                        cursor: pointer;
-                        padding: 2px 8px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        font-family: 'Poppins', sans-serif;
-                    `;
-                });
-
-                zoomControls.appendChild(zoomOut);
-                zoomControls.appendChild(zoomIn);
-
-                const closeButton = document.createElement('button');
-                closeButton.innerHTML = '✕';
-                closeButton.style.cssText = `
-                    background: none;
-                    border: none;
-                    color: white;
-                    font-size: 18px;
-                    cursor: pointer;
-                    padding: 4px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-family: 'Poppins', sans-serif;
-                `;
-
-                const closePreview = () => {
-                    previewWrapper.remove();
-                    overlay.remove();
-                    eyeIcon.classList.remove('preview-active');
-                    eyeIcon.src = "/assets/images/visibility.png";
-                };
-
-                closeButton.addEventListener('click', closePreview);
-                overlay.addEventListener('click', closePreview);
-
-                header.appendChild(fileNameSection);
-                header.appendChild(zoomControls);
-                header.appendChild(closeButton);
-
-                const iframe = document.createElement('iframe');
-                iframe.src = fileUrl;
-                iframe.style.cssText = `
-                    width: 100%;
-                    height: calc(100% - 40px);
-                    border: none;
-                    background-color: white;
-                    border-bottom-left-radius: 8px;
-                    border-bottom-right-radius: 8px;
-                `;
-
-                previewWrapper.appendChild(header);
-                previewWrapper.appendChild(iframe);
-
-                document.body.appendChild(overlay);
-                document.body.appendChild(previewWrapper);
-
-                let currentZoom = 1;
-                zoomIn.addEventListener('click', () => {
-                    currentZoom += 0.1;
-                    iframe.style.transform = `scale(${currentZoom})`;
-                    iframe.style.transformOrigin = 'top center';
-                });
-
-                zoomOut.addEventListener('click', () => {
-                    currentZoom = Math.max(currentZoom - 0.1, 0.5);
-                    iframe.style.transform = `scale(${currentZoom})`;
-                    iframe.style.transformOrigin = 'top center';
-                });
-
-                document.addEventListener('keydown', function (e) {
-                    if (e.key === 'Escape') {
-                        closePreview();
-                    }
-                });
-
-                eyeIcon.classList.add('preview-active');
-                eyeIcon.src = "/assets/images/close.png";
-            } else if (isImage) {
-                // Image Preview
-                const previewWrapper = document.createElement('div');
-                previewWrapper.className = 'image-preview-wrapper';
-                previewWrapper.style.cssText = `
-                    position: fixed;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    width: 90%;
-                    max-width: 800px;
-                    max-height: 90vh;
-                    background-color: white;
-                    display: flex;
-                    flex-direction: column;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                    z-index: 1000;
-                    border-radius: 8px;
-                `;
-
-                const overlay = document.createElement('div');
-                overlay.className = 'image-preview-overlay';
-                overlay.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: rgba(0, 0, 0, 0.5);
-                    z-index: 999;
-                `;
-
-                const header = document.createElement('div');
-                header.style.cssText = `
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 8px 16px;
-                    background-color: #1a1a1a;
-                    color: white;
-                    height: 40px;
-                    border-top-left-radius: 8px;
-                    border-top-right-radius: 8px;
-                `;
-
-                const fileNameSection = document.createElement('div');
-                fileNameSection.style.cssText = `
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                `;
-
-                const fileNameSpan = document.createElement('span');
-                fileNameSpan.textContent = fileName;
-                fileNameSpan.style.cssText = `
-                    color: white;
-                    font-size: 14px;
-                    font-family: 'Poppins', sans-serif;
-                `;
-                fileNameSection.appendChild(fileNameSpan);
-
-                const closeButton = document.createElement('button');
-                closeButton.innerHTML = '✕';
-                closeButton.style.cssText = `
-                    background: none;
-                    border: none;
-                    color: white;
-                    font-size: 18px;
-                    cursor: pointer;
-                    padding: 4px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-family: 'Poppins', sans-serif;
-                `;
-
-                const closePreview = () => {
-                    previewWrapper.remove();
-                    overlay.remove();
-                    eyeIcon.classList.remove('preview-active');
-                    eyeIcon.src = "/assets/images/visibility.png";
-                };
-
-                closeButton.addEventListener('click', closePreview);
-                overlay.addEventListener('click', closePreview);
-
-                header.appendChild(fileNameSection);
-                header.appendChild(closeButton);
-
-                const imageContainer = document.createElement('div');
-                imageContainer.style.cssText = `
-                    width: 100%;
-                    height: calc(100% - 40px);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    overflow: auto;
-                    padding: 20px;
-                    background-color: #f0f0f0;
-                    border-bottom-left-radius: 8px;
-                    border-bottom-right-radius: 8px;
-                `;
-
-                const img = document.createElement('img');
-                img.src = fileUrl;
-                img.style.cssText = `
-                    max-width: 100%;
-                    max-height: 80vh;
-                    object-fit: contain;
-                `;
-
-                imageContainer.appendChild(img);
-                previewWrapper.appendChild(header);
-                previewWrapper.appendChild(imageContainer);
-
-                document.body.appendChild(overlay);
-                document.body.appendChild(previewWrapper);
-
-                document.addEventListener('keydown', function (e) {
-                    if (e.key === 'Escape') {
-                        closePreview();
-                    }
-                });
-
-                eyeIcon.classList.add('preview-active');
-                eyeIcon.src = "/assets/images/close.png";
-            } else {
-                alert('Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported.');
-            }
-        });
-    });
-};
-const bankListedThroughNBFC = async () => {
-
-    // console.log("_______")
-
-    const nbfcContainer = document.querySelector(".loanproposals-loanstatuscards");
-
-    if (nbfcContainer) {
-        // consle.log("______")
-
-        const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-        const userId = userIdElement ? userIdElement.textContent : '';
-
-        fetch("/getnbfcdata-proposals", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify({ userId })
-        })
-            .then(response => response.json())
-            .then(async data => {
-                if (data.success) {
-                    console.log(data)
-                    const finalData = data.result;
-
-
-                    // if (!finalData) {
-                    //     const noDataMessage = document.createElement("p");
-                    //     noDataMessage.textContent = "No Proposals Yet";
-                    //     noDataMessage.classList.add("no-proposals-message");
-                    //     nbfcContainer.append(noDataMessage);
-                    //     return;
-                    // }
-
-
-
-                    if (finalData) {
-                        finalData.forEach(async (items) => {
-                            const eachCards = document.createElement('div');
-                            eachCards.classList.add("indivudalloanstatus-cards");
-
-                            const insideCard = document.createElement('div');
-                            insideCard.classList.add("individual-bankname");
-
-                            const header = document.createElement("h1");
-                            header.textContent = items.nbfc_name;
-
-                            const messageInputNbfcids = document.createElement("p");
-                            messageInputNbfcids.classList.add("messageinputnbfcids");
-                            messageInputNbfcids.textContent = items.nbfc_id;
-
-
-
-
-                            insideCard.append(header, messageInputNbfcids);
-
-
-
-
-
-                            const insideSecond = document.createElement("div");
-                            insideSecond.classList.add("individual-bankmessages");
-
-                            const bankMessage = document.createElement("p");
-                            bankMessage.textContent = "Lorem ipsum dolor sit amet...";
-                            insideSecond.append(bankMessage);
-
-                            await fetchStatus(items.nbfc_id, insideSecond, items);
-
-
-
-
-                            const buttonContainer = document.createElement("div");
-                            buttonContainer.classList.add('individual-bankmessages-buttoncontainer');
-                            const bankMessageContainer = document.createElement("div");
-                            bankMessageContainer.classList.add("individual-bankmessage-input");
-
-                            const messageInput = document.createElement("input");
-                            messageInput.placeholder = "Send message";
-                            messageInput.type = "text";
-
-                            const sendIcon = document.createElement("img");
-                            sendIcon.classList.add("send-img");
-                            sendIcon.src = 'assets/images/send.png';
-
-                            const documentAttach = document.createElement("i");
-                            documentAttach.classList.add("fa-solid", "fa-paperclip");
-
-                            const smileAttach = document.createElement("i");
-                            smileAttach.classList.add("fa-regular", "fa-face-smile");
-
-                            bankMessageContainer.append(messageInput, sendIcon, documentAttach, smileAttach);
-
-                            eachCards.append(insideCard, insideSecond, bankMessageContainer);
-                            nbfcContainer.append(eachCards);
-                        });
-
-                        bindAcceptRejectButtons(finalData);
-
-
-                    }
-
-
-
-                    await initializeSideBarTabs();
-                    await initializeIndividualCards();
-                    await initializeSimpleChat();
-
-                } else if (data.error) {
-                    console.error("Error: ", data.error);
-                }
-            })
-            .catch((error) => {
-                console.error("Error caused in server: ", error);
-            });
-    }
-
-};
-
-// Helper function to truncate file names
-function truncateFileName(fileName) {
-    if (fileName.length <= 20) return fileName;
-
-    const extension = fileName.slice(fileName.lastIndexOf('.'));
-    const name = fileName.slice(0, fileName.lastIndexOf('.'));
-
-    return name.slice(0, 16) + '...' + extension;
-}
-
-// Initialize the document uploads when the page loads
-// document.addEventListener('DOMContentLoaded', function () {
-//     initializeWorkExperienceDocumentUpload();
-// });
-
-
-
-
-const initializeCoBorrowerDocumentUpload = () => {
-    const coBorrowerDocuments = document.querySelectorAll(".individual-coborrower-kyc-documents");
-
-    coBorrowerDocuments.forEach((card) => {
-        const eyeIcon = card.querySelector('.fa-eye');
-
-        if (!eyeIcon) {
-            console.error("Eye icon not found in card:", card);
-            return;
-        }
-
-        eyeIcon.addEventListener('click', function (event) {
-            event.stopPropagation();
-
-            // Determine document type based on which element exists
-            let fileTypeKey;
-            if (card.querySelector('.coborrower-pancard')) {
-                fileTypeKey = "co-pan-card-name";
-            } else if (card.querySelector('.coborrower-aadharcard')) {
-                fileTypeKey = "co-aadhar-card-name";
-            } else if (card.querySelector('.coborrower-addressproof')) {
-                fileTypeKey = "co-addressproof";
-            }
-
-            // Get the URL from documentUrls
-            const fileUrl = documentUrls[fileTypeKey];
-            const fileNameElement = card.querySelector(`.${fileTypeKey.replace('co-', 'coborrower-').replace('-name', '')}`);
-            const fileName = fileNameElement ? fileNameElement.textContent : 'Document.pdf';
-
-            console.log(`Previewing co-borrower document (${fileTypeKey}):`, fileUrl);
-
-            if (eyeIcon.classList.contains('preview-active')) {
-                const previewWrapper = document.querySelector('.pdf-preview-wrapper, .image-preview-wrapper');
-                const overlay = document.querySelector('.pdf-preview-overlay, .image-preview-overlay');
-                if (previewWrapper) previewWrapper.remove();
-                if (overlay) overlay.remove();
-                eyeIcon.classList.remove('preview-active');
-                eyeIcon.src = "/assets/images/visibility.png";
-                return;
-            }
-
-            if (!fileUrl) {
-                alert('No document found to preview.');
-                return;
-            }
-
-            // Check if it's a PDF or image based on file extension
-            const isPDF = fileUrl.toLowerCase().endsWith('.pdf');
-            const isImage = ['.jpg', '.jpeg', '.png'].some(ext => fileUrl.toLowerCase().endsWith(ext));
-
-            if (isPDF) {
-                // PDF Preview
-                const previewWrapper = document.createElement('div');
-                previewWrapper.className = 'pdf-preview-wrapper';
-                previewWrapper.style.cssText = `
-                    position: fixed;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    width: 60%;
-                    height: 80vh;
-                    background-color: white;
-                    display: flex;
-                    flex-direction: column;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                    z-index: 1000;
-                    border-radius: 8px;
-                `;
-
-                const overlay = document.createElement('div');
-                overlay.className = 'pdf-preview-overlay';
-                overlay.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: rgba(0, 0, 0, 0.5);
-                    z-index: 999;
-                `;
-
-                const header = document.createElement('div');
-                header.style.cssText = `
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 8px 16px;
-                    background-color: #1a1a1a;
-                    color: white;
-                    height: 40px;
-                    border-top-left-radius: 8px;
-                    border-top-right-radius: 8px;
-                `;
-
-                const fileNameSection = document.createElement('div');
-                fileNameSection.style.cssText = `
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                `;
-
-                const fileNameSpan = document.createElement('span');
-                fileNameSpan.textContent = fileName;
-                fileNameSpan.style.cssText = `
-                    color: white;
-                    font-size: 14px;
-                    font-family: 'Poppins', sans-serif;
-                `;
-                fileNameSection.appendChild(fileNameSpan);
-
-                const zoomControls = document.createElement('div');
-                zoomControls.style.cssText = `
-                    display: flex;
-                    align-items: center;
-                    gap: 12px;
-                    position: absolute;
-                    left: 50%;
-                    transform: translateX(-50%);
-                `;
-
-                const zoomOut = document.createElement('button');
-                zoomOut.innerHTML = '−';
-                const zoomIn = document.createElement('button');
-                zoomIn.innerHTML = '+';
-
-                [zoomOut, zoomIn].forEach(btn => {
-                    btn.style.cssText = `
-                        background: none;
-                        border: 1px solid #fff;
-                        border-radius: 4px;
-                        color: white;
-                        font-size: 16px;
-                        cursor: pointer;
-                        padding: 2px 8px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        font-family: 'Poppins', sans-serif;
-                    `;
-                });
-
-                zoomControls.appendChild(zoomOut);
-                zoomControls.appendChild(zoomIn);
-
-                const closeButton = document.createElement('button');
-                closeButton.innerHTML = '✕';
-                closeButton.style.cssText = `
-                    background: none;
-                    border: none;
-                    color: white;
-                    font-size: 18px;
-                    cursor: pointer;
-                    padding: 4px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-family: 'Poppins', sans-serif;
-                `;
-
-                const closePreview = () => {
-                    previewWrapper.remove();
-                    overlay.remove();
-                    eyeIcon.classList.remove('preview-active');
-                    eyeIcon.src = "/assets/images/visibility.png";
-                };
-
-                closeButton.addEventListener('click', closePreview);
-                overlay.addEventListener('click', closePreview);
-
-                header.appendChild(fileNameSection);
-                header.appendChild(zoomControls);
-                header.appendChild(closeButton);
-
-                const iframe = document.createElement('iframe');
-                iframe.src = fileUrl;
-                iframe.style.cssText = `
-                    width: 100%;
-                    height: calc(100% - 40px);
-                    border: none;
-                    background-color: white;
-                    border-bottom-left-radius: 8px;
-                    border-bottom-right-radius: 8px;
-                `;
-
-                previewWrapper.appendChild(header);
-                previewWrapper.appendChild(iframe);
-
-                document.body.appendChild(overlay);
-                document.body.appendChild(previewWrapper);
-
-                let currentZoom = 1;
-                zoomIn.addEventListener('click', () => {
-                    currentZoom += 0.1;
-                    iframe.style.transform = `scale(${currentZoom})`;
-                    iframe.style.transformOrigin = 'top center';
-                });
-
-                zoomOut.addEventListener('click', () => {
-                    currentZoom = Math.max(currentZoom - 0.1, 0.5);
-                    iframe.style.transform = `scale(${currentZoom})`;
-                    iframe.style.transformOrigin = 'top center';
-                });
-
-                document.addEventListener('keydown', function (e) {
-                    if (e.key === 'Escape') {
-                        closePreview();
-                    }
-                });
-
-                eyeIcon.classList.add('preview-active');
-                eyeIcon.src = "/assets/images/close.png";
-            } else if (isImage) {
-                // Image Preview
-                const previewWrapper = document.createElement('div');
-                previewWrapper.className = 'image-preview-wrapper';
-                previewWrapper.style.cssText = `
-                    position: fixed;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    width: 90%;
-                    max-width: 800px;
-                    max-height: 90vh;
-                    background-color: white;
-                    display: flex;
-                    flex-direction: column;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                    z-index: 1000;
-                    border-radius: 8px;
-                `;
-
-                const overlay = document.createElement('div');
-                overlay.className = 'image-preview-overlay';
-                overlay.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: rgba(0, 0, 0, 0.5);
-                    z-index: 999;
-                `;
-
-                const header = document.createElement('div');
-                header.style.cssText = `
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 8px 16px;
-                    background-color: #1a1a1a;
-                    color: white;
-                    height: 40px;
-                    border-top-left-radius: 8px;
-                    border-top-right-radius: 8px;
-                `;
-
-                const fileNameSection = document.createElement('div');
-                fileNameSection.style.cssText = `
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                `;
-
-                const fileNameSpan = document.createElement('span');
-                fileNameSpan.textContent = fileName;
-                fileNameSpan.style.cssText = `
-                    color: white;
-                    font-size: 14px;
-                    font-family: 'Poppins', sans-serif;
-                `;
-                fileNameSection.appendChild(fileNameSpan);
-
-                const closeButton = document.createElement('button');
-                closeButton.innerHTML = '✕';
-                closeButton.style.cssText = `
-                    background: none;
-                    border: none;
-                    color: white;
-                    font-size: 18px;
-                    cursor: pointer;
-                    padding: 4px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-family: 'Poppins', sans-serif;
-                `;
-
-                const closePreview = () => {
-                    previewWrapper.remove();
-                    overlay.remove();
-                    eyeIcon.classList.remove('preview-active');
-                    eyeIcon.src = "/assets/images/visibility.png";
-                };
-
-                closeButton.addEventListener('click', closePreview);
-                overlay.addEventListener('click', closePreview);
-
-                header.appendChild(fileNameSection);
-                header.appendChild(closeButton);
-
-                const imageContainer = document.createElement('div');
-                imageContainer.style.cssText = `
-                    width: 100%;
-                    height: calc(100% - 40px);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    overflow: auto;
-                    padding: 20px;
-                    background-color: #f0f0f0;
-                    border-bottom-left-radius: 8px;
-                    border-bottom-right-radius: 8px;
-                `;
-
-                const img = document.createElement('img');
-                img.src = fileUrl;
-                img.style.cssText = `
-                    max-width: 100%;
-                    max-height: 80vh;
-                    object-fit: contain;
-                `;
-
-                imageContainer.appendChild(img);
-                previewWrapper.appendChild(header);
-                previewWrapper.appendChild(imageContainer);
-
-                document.body.appendChild(overlay);
-                document.body.appendChild(previewWrapper);
-
-                // Add keyboard shortcut for closing
-                const handleEscape = (e) => {
-                    if (e.key === 'Escape') {
-                        closePreview();
-                        document.removeEventListener('keydown', handleEscape);
-                    }
-                };
-
-                document.addEventListener('keydown', handleEscape);
-
-                reader.readAsDataURL(uploadedFile);
-                eyeIcon.classList.add('preview-active');
-            } else {
-                alert('Please upload a valid PDF or image file to preview.');
-            }
-
-        });
-    });
-};
-
-function truncateFileName(fileName) {
-    if (fileName.length <= 20) return fileName;
-
-    const extension = fileName.slice(fileName.lastIndexOf('.'));
-    const name = fileName.slice(0, fileName.lastIndexOf('.'));
-
-    return name.slice(0, 16) + '...' + extension;
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    initializeCoBorrowerDocumentUpload();
-});
-
-function toggleOtherDegreeInput(event) {
-    const otherDegreeInput = document.getElementById('otherDegreeInput');
-
-    if (event && event.target && event.target.value) {
-        if (event.target.value === 'Others') {
-            otherDegreeInput.disabled = false;
-            otherDegreeInput.placeholder = 'Enter here';
-            otherDegreeInput.value = '';
-        } else {
-            otherDegreeInput.disabled = true;
-            otherDegreeInput.value = event.target.value; // Set the value to Bachelors or Masters
-            otherDegreeInput.placeholder = 'Enter degree type'; // Reset placeholder if needed
-        }
-
-        // Trigger the "Save" state on degree type change
-        toggleSaveState();
-    } else {
-        console.error("Error: Event or target value is undefined.");
-    }
-}
-const initializeProgressRing = () => {
-    const radius = 52;
-    const circumference = 2 * Math.PI * radius;
-    const percentage = 0.50;
-    const offset = circumference * (1 - percentage);
-    const progressRingFill = document.querySelector('.progress-ring-fill');
-    const progressText = document.querySelector('.progress-ring-text');
-
-    progressRingFill.style.strokeDasharray = `${circumference} ${circumference}`;
-    progressRingFill.style.strokeDashoffset = offset;
-    progressText.textContent = `${Math.round(percentage * 100)}%`;
-};
-const initialisedocumentsCount = () => {
-    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-    const userId = userIdElement ? userIdElement.textContent.trim() : '';
-    const documentCountText = document.querySelector(".profilestatus-graph-secondsection .profilestatus-noofdocuments-section p");
-
-    if (!userId || !documentCountText) {
-        console.error("User ID or count element not found.");
-        return;
-    }
-
-    fetch("/count-documents", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: JSON.stringify({ userId })
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data && typeof data.documentscount === 'number') {
-                const count = data.documentscount;
-
-                if (count >= 0 && count < 10) {
-                    documentCountText.textContent = "0" + count;
-                } else if (count >= 10) {
-                    documentCountText.textContent = count;
-                } else {
-                    documentCountText.textContent = "00";
-                }
-            } else if (data.error) {
-                console.error("Server Error:", data.error);
-            } else {
-                console.error("Unexpected response format:", data);
-            }
-        })
-        .catch(error => {
-            console.error("Fetch Error:", error);
-        });
-};
-
-
-
 
 const triggerSave = (event) => {
     console.log(event);
-
-}
-
-document.querySelectorAll('input[name="education-level"]').forEach(radio => {
-    radio.addEventListener('change', function () {
-        var otherInput = document.getElementById('otherDegreeInput');
-        if (this.value === 'Others' && this.checked) {
+};
+document.querySelectorAll('input[name="education-level"]').forEach((radio) => {
+    radio.addEventListener("change", function () {
+        var otherInput = document.getElementById("otherDegreeInput");
+        if (this.value === "Others" && this.checked) {
             otherInput.disabled = false;
         } else {
             otherInput.disabled = true;
@@ -3053,26 +3169,33 @@ document.querySelectorAll('input[name="education-level"]').forEach(radio => {
     });
 });
 
-
-
-
-
-
 const saveChangesFunctionality = () => {
     let isEditing = false;
-    const saveChangesButton = document.querySelector(".personalinfo-firstrow button");
-    const savedMsg = document.querySelector(".studentdashboardprofile-myapplication .myapplication-firstcolumn .personalinfo-firstrow .saved-msg");
-    const personalDivContainer = document.querySelector(".personalinfo-secondrow");
-    const personalDivContainerEdit = document.querySelector(".personalinfosecondrow-editsection");
-    const academicsMarksDivEdit = document.querySelector(".testscoreseditsection-secondrow-editsection");
-    const academicsMarksDiv = document.querySelector(".testscoreseditsection-secondrow");
+    const saveChangesButton = document.querySelector(
+        ".personalinfo-firstrow button"
+    );
+    const savedMsg = document.querySelector(
+        ".studentdashboardprofile-myapplication .myapplication-firstcolumn .personalinfo-firstrow .saved-msg"
+    );
+    const personalDivContainer = document.querySelector(
+        ".personalinfo-secondrow"
+    );
+    const personalDivContainerEdit = document.querySelector(
+        ".personalinfosecondrow-editsection"
+    );
+    const academicsMarksDivEdit = document.querySelector(
+        ".testscoreseditsection-secondrow-editsection"
+    );
+    const academicsMarksDiv = document.querySelector(
+        ".testscoreseditsection-secondrow"
+    );
 
     const planToStudy = document.getElementById("plan-to-study-edit");
 
     const toggleSaveState = () => {
         isEditing = true;
 
-        saveChangesButton.textContent = 'Save';
+        saveChangesButton.textContent = "Save";
         saveChangesButton.style.backgroundColor = "rgba(111, 37, 206, 1)";
         saveChangesButton.style.color = "#fff";
         personalDivContainerEdit.style.display = "flex";
@@ -3082,19 +3205,17 @@ const saveChangesFunctionality = () => {
     };
 
     if (saveChangesButton) {
-        saveChangesButton.textContent = 'Edit';
+        saveChangesButton.textContent = "Edit";
         saveChangesButton.style.backgroundColor = "transparent";
         saveChangesButton.style.color = "#260254";
 
-        saveChangesButton.addEventListener('click', (event) => {
-
+        saveChangesButton.addEventListener("click", (event) => {
             isEditing = !isEditing;
 
             if (isEditing) {
                 toggleSaveState(); // Call toggleSaveState function when entering edit mode
-            }
-            else {
-                saveChangesButton.textContent = 'Edit';
+            } else {
+                saveChangesButton.textContent = "Edit";
                 saveChangesButton.style.backgroundColor = "transparent";
                 saveChangesButton.style.color = "#260254";
                 personalDivContainer.style.display = "flex";
@@ -3102,51 +3223,106 @@ const saveChangesFunctionality = () => {
                 academicsMarksDivEdit.style.display = "none";
                 academicsMarksDiv.style.display = "flex";
 
-                const editedName = document.querySelector(".personalinfosecondrow-editsection .personal_info_name input").value;
-                const editedPhone = document.querySelector(".personalinfosecondrow-editsection .personal_info_phone input").value;
-                const editedEmail = document.querySelector(".personalinfosecondrow-editsection .personal_info_email input").value;
-                const editedState = document.querySelector(".personalinfosecondrow-editsection .personal_info_state input").value;
-                const iletsScore = document.querySelector(".testscoreseditsection-secondrow-editsection .ilets_score").value;
-                const greScore = document.querySelector(".testscoreseditsection-secondrow-editsection .gre_score").value;
-                const tofelScore = document.querySelector(".testscoreseditsection-secondrow-editsection .tofel_score").value;
+                const editedName = document.querySelector(
+                    ".personalinfosecondrow-editsection .personal_info_name input"
+                ).value;
+                const editedPhone = document.querySelector(
+                    ".personalinfosecondrow-editsection .personal_info_phone input"
+                ).value;
+                const editedEmail = document.querySelector(
+                    ".personalinfosecondrow-editsection .personal_info_email input"
+                ).value;
+                const editedState = document.querySelector(
+                    ".personalinfosecondrow-editsection .personal_info_state input"
+                ).value;
+                const iletsScore = document.querySelector(
+                    ".testscoreseditsection-secondrow-editsection .ilets_score"
+                ).value;
+                const greScore = document.querySelector(
+                    ".testscoreseditsection-secondrow-editsection .gre_score"
+                ).value;
+                const tofelScore = document.querySelector(
+                    ".testscoreseditsection-secondrow-editsection .tofel_score"
+                ).value;
 
-                const oldPlanToStudy = document.getElementById("plan-to-study-edit").value;
-                const oldPlanToStudyArray = oldPlanToStudy ? oldPlanToStudy.split(',').map(item => item.trim()) : [];
+                // Fetch old values of "Plan to Study"
+                const oldPlanToStudy =
+                    document.getElementById("plan-to-study-edit").value;
+                const oldPlanToStudyArray = oldPlanToStudy
+                    ? oldPlanToStudy.split(",").map((item) => item.trim())
+                    : [];
 
-                const checkboxes = document.querySelectorAll('input[name="study-location-edit"]:checked');
-                let selectedCountries = Array.from(checkboxes).map(checkbox => checkbox.value);
+                // Get current values from checkboxes (selected options)
+                const checkboxes = document.querySelectorAll(
+                    'input[name="study-location-edit"]:checked'
+                );
+                let selectedCountries = Array.from(checkboxes).map(
+                    (checkbox) => checkbox.value
+                );
 
-                const customCountry = document.getElementById('country-edit').value.trim();
+                // Check if there's a custom country input and add it to the selected countries
+                const customCountry = document
+                    .getElementById("country-edit")
+                    .value.trim();
                 if (customCountry) {
                     selectedCountries.push(customCountry);
                 }
 
-                selectedCountries = selectedCountries.filter(item => item.toLowerCase() !== 'others');
+                selectedCountries = selectedCountries.filter(
+                    (item) => item.toLowerCase() !== "others"
+                );
 
-                const finalPlanToStudy = oldPlanToStudyArray.filter(item => item.toLowerCase() !== 'others');
+                // Filter out 'Others' (case-insensitive) from oldPlanToStudyArray
+                const finalPlanToStudy = oldPlanToStudyArray.filter(
+                    (item) => item.toLowerCase() !== "others"
+                );
 
-                let mergedPlanToStudy = [...new Set([...finalPlanToStudy, ...selectedCountries])];
+                // Merge old and new arrays, ensuring no duplicates
+                let mergedPlanToStudy = [
+                    ...new Set([...finalPlanToStudy, ...selectedCountries]),
+                ];
 
-                mergedPlanToStudy = mergedPlanToStudy.filter(item => item.toLowerCase() !== 'other');
+                // Filter out 'Others' (case-insensitive) again from the final merged array
+                mergedPlanToStudy = mergedPlanToStudy.filter(
+                    (item) => item.toLowerCase() !== "other"
+                );
 
+                const courseDuration = document.querySelector(
+                    ".myapplication-fourthcolumn-additional input"
+                ).value;
+                const loanAmount = document.querySelector(
+                    ".myapplication-fourthcolumn input"
+                ).value;
+                const referralCode = document.querySelector(
+                    ".myapplication-fifthcolumn input"
+                ).value;
 
+                const userIdElement = document.querySelector(
+                    ".personalinfo-secondrow .personal_info_id"
+                );
+                const userId = userIdElement ? userIdElement.textContent : "";
 
-                const courseDuration = document.querySelector(".myapplication-fourthcolumn-additional input").value;
-                const loanAmount = document.querySelector(".myapplication-fourthcolumn input").value;
-                const referralCode = document.querySelector(".myapplication-fifthcolumn input").value;
+                console.log(
+                    editedName,
+                    editedPhone,
+                    editedEmail,
+                    editedState,
+                    userId
+                );
 
-                const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-                const userId = userIdElement ? userIdElement.textContent : '';
+                const selectedDegree = document.querySelector(
+                    'input[name="education-level"]:checked'
+                ).value;
+                const otherDegreeInput =
+                    document.getElementById("otherDegreeInput").value;
 
-                console.log(editedName, editedPhone, editedEmail, editedState, userId);
-
-                const selectedDegree = document.querySelector('input[name="education-level"]:checked').value;
-                const otherDegreeInput = document.getElementById('otherDegreeInput').value;
-
-                const updatedDegreeType = selectedDegree === 'Others' ? otherDegreeInput : selectedDegree;
+                const updatedDegreeType =
+                    selectedDegree === "Others"
+                        ? otherDegreeInput
+                        : selectedDegree;
 
                 const updatedData = {
-                    degreeType: updatedDegreeType
+                    degreeType: updatedDegreeType,
                 };
 
                 const updatedInfos = {
@@ -3157,51 +3333,56 @@ const saveChangesFunctionality = () => {
                     iletsScore: iletsScore,
                     greScore: greScore,
                     tofelScore: tofelScore,
-                    planToStudy: mergedPlanToStudy,
+                    planToStudy: mergedPlanToStudy, // Final merged old and new values
                     courseDuration: courseDuration,
                     loanAmount: loanAmount,
                     referralCode: referralCode,
                     degreeType: updatedData.degreeType,
-                    userId: userId
+                    userId: userId,
                 };
 
                 console.log(updatedInfos);
 
-
-
-
-                fetch('/from-profileupdate', {
+                fetch("/from-profileupdate", {
                     method: "POST",
                     headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document
+                            .querySelector('meta[name="csrf-token"]')
+                            .getAttribute("content"),
                     },
-                    body: JSON.stringify(updatedInfos)
+                    body: JSON.stringify(updatedInfos),
                 })
-                    .then(response => response.json())
-                    .then(data => {
+                    .then((response) => response.json())
+                    .then((data) => {
                         console.log("Response Data:", data);
                         if (editedName) {
-                            document.querySelector("#referenceNameId p").textContent = editedName;
-                            document.getElementById("personal_state_id").textContent = editedState;
+                            document.querySelector(
+                                "#referenceNameId p"
+                            ).textContent = editedName;
+                            document.getElementById(
+                                "personal_state_id"
+                            ).textContent = editedState;
                         }
 
                         if (data.errors) {
-                            console.error('Validation errors:', data.errors);
+                            console.error("Validation errors:", data.errors);
                         } else {
                             console.log("Success", data);
                         }
                     })
-                    .catch(error => {
+                    .catch((error) => {
                         console.error("Error", error);
                     });
             }
         });
     }
 
-    const degreeRadioButtons = document.querySelectorAll('input[name="education-level"]');
-    degreeRadioButtons.forEach(button => {
-        button.addEventListener('change', toggleSaveState);
+    const degreeRadioButtons = document.querySelectorAll(
+        'input[name="education-level"]'
+    );
+    degreeRadioButtons.forEach((button) => {
+        button.addEventListener("change", toggleSaveState);
     });
 };
 
@@ -3557,6 +3738,8 @@ async function bindAcceptRejectButtons(finalData) {
 }
 
 
+function fetchUnreadCount() {
+}
 
 
 

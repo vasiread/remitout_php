@@ -352,7 +352,7 @@ $icons = [
 
                     <!-- Stats Grid -->
                      <div class="effort-icons-image">
-                        <img src="assets/images/account_circle.png" alt="Students Icon" class="effort-icon">
+                        <img src="assets/images/account_circle-grid.png" alt="Students Icon" class="effort-icon">
                         <img src="assets/images/account_balance.png" alt="NBFCs Icon" class="effort-icon">
                         <img src="assets/images/flag.png" alt="Countries Icon" class="effort-icon">
                         <img src="assets/images/sentiment_very_satisfied.png" alt="Customers Icon" class="effort-icon">

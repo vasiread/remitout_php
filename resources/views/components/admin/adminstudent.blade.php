@@ -522,81 +522,62 @@
             });
         };
 
-        const expandingStudentDetails = async () => {
-            const listContainer = document.querySelectorAll(".studentapplication-lists");
-            const viewButton = document.querySelectorAll(".individualapplication-list .application-buttoncontainer button:first-child");
-            const documentsStatusBar = document.querySelectorAll(".studentapplication-lists-remainingdocuments");
-            const studentId = document.querySelectorAll(".studentapplication-lists .firstsection-lists #hidden-id-elementforaccess");
 
-            let previousUserId = null;
-            for (let [index, item] of viewButton.entries()) {
-                item.addEventListener('click', async () => {
-                    if (listContainer[index] && documentsStatusBar[index] && studentId[index]) {
-                        listContainer[index].style.height = listContainer[index].style.height === "fit-content" ? "140px" : "fit-content";
-                        documentsStatusBar[index].style.display = documentsStatusBar[index].style.display === "block" ? "none" : "block";
+// Get the search input element
+const searchInput = document.getElementById('search-student-list');
 
-                        const userId = studentId[index].textContent.trim();
+// Add event listener for input changes
+searchInput.addEventListener('input', function() {
+    searchStudents(this.value.trim().toLowerCase());
+});
 
-                        if (userId && userId !== previousUserId) {
-                            previousUserId = userId;
-                            await getRemainingDocuments(userId);
-                        } else {
-                            console.log("Same userId detected or userId is empty, skipping fetch.");
-                        }
-                    }
-                });
-            }
-        };
-        const getRemainingDocuments = async (userId) => {
-            const documentIds = {
-                "pan-card-name/": `pan-card-admin-view-${userId}`,
-                "aadhar-card-name/": `aadhar-card-admin-view-${userId}`,
-                "passport-name/": `passport-admin-view-${userId}`,
-                "secured-tenth-name/": `sslc-grade-adminview-${userId}`,
-                "secured-twelfth-name/": `hsc-grade-adminview-${userId}`,
-                "secured-graduation-name/": `graduation-grade-adminview-${userId}`,
-                "tenth-grade-name/": `sslc-grade-marksheet-adminview-${userId}`,
-                "twelfth-grade-name/": `hsc-grade-marksheet-adminview-${userId}`,
-                "graduation-grade-name/": `degree-grade-marksheet-adminview-${userId}`,
-                "co-pan-card-name/": `co-borrower-pan-admin-view-${userId}`,
-                "co-aadhar-card-name/": `co-borrower-aadhar-admin-view-${userId}`,
-                "co-addressproof/": `co-borrower-address-admin-view-${userId}`
-            };
-
-            console.log(userId);
-
-            try {
-                const response = await fetch("/remaining-documents", {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({ userId })
-                });
-
-                const data = await response.json();
-
-                if (response.ok && data.message === "Documents count retrieved successfully") {
-                    const missingDocuments = data.missingDocuments;
-
-                    missingDocuments.forEach((missingDocument) => {
-                        const elementId = documentIds[missingDocument];
-                        if (elementId) {
-                            console.log(`Missing: ${missingDocument}`);
-                            document.getElementById(elementId).style.display = "flex";
-                        } else {
-                            console.warn(`Unknown document type: ${missingDocument}`);
-                        }
-                    });
-                } else {
-                    console.error("Error retrieving missing documents");
-                }
-            } catch (error) {
-                console.error("Fetch Error: ", error);
-            }
-        };
-
+/**
+ * Search functionality for student list
+ * @param {string} searchTerm - The term to search for
+ */
+function searchStudents(searchTerm) {
+    // Get all student application elements
+    const studentElements = document.querySelectorAll('#studentapplicationfromadminstudent .studentapplication-lists');
+    
+    // Initialize counter for visible students
+    let visibleStudents = 0;
+    
+    // Loop through each student element
+    studentElements.forEach(studentElement => {
+        // Get the student name
+        const studentName = studentElement.querySelector('.firstsection-lists h1').textContent.toLowerCase();
+        
+        // Get the student ID
+        const studentId = studentElement.querySelector('#hidden-id-elementforaccess').textContent.toLowerCase();
+        
+        // Get NBFC name if it exists
+        const nbfcElement = studentElement.querySelector('.scdashboard-nbfcnamecontainer p:last-child');
+        const nbfcName = nbfcElement ? nbfcElement.textContent.toLowerCase() : '';
+        
+        // Get status if it exists
+        const statusElement = studentElement.querySelector('.scdashboard-nbfcstatus-pending span');
+        const status = statusElement ? statusElement.textContent.toLowerCase() : '';
+        
+        // Check if any of the fields match the search term
+        if (studentName.includes(searchTerm) || 
+            studentId.includes(searchTerm) || 
+            nbfcName.includes(searchTerm) || 
+            status.includes(searchTerm)) {
+            // Show this student element
+            studentElement.style.display = 'block';
+            visibleStudents++;
+        } else {
+            // Hide this student element
+            studentElement.style.display = 'none';
+        }
+    });
+    
+    // Update the student count display
+    const studentCountElement = document.getElementById('student-list-count');
+    if (studentCountElement) {
+        studentCountElement.textContent = visibleStudents;
+    }
+}
     </script>
 </body>
 

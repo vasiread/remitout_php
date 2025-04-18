@@ -28,6 +28,7 @@
             "description" => "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.",
             "image" => asset('assets/images/Person.png')
         ],
+        
     ];
 @endphp
 
@@ -78,7 +79,8 @@
             </button>
             <div class="dot-container">
                 <span class="dot"></span>
-                <span class="middle-dot active"></span>
+                <span class="dot"></span>
+                 <span class="dot"></span>
                 <span class="dot"></span>
             </div>
             <button class="nav-arrow right" aria-label="Next">
@@ -160,145 +162,115 @@ menuIcon.addEventListener('click', () => {
   
     menuIcon.classList.toggle('open');
 });
+const testimonialSlider = document.querySelector('.testimonial-slider');
+const prevButton = document.querySelector('.nav-arrow.left');
+const nextButton = document.querySelector('.nav-arrow.right');
+const slides = document.querySelectorAll('.profilecardsection-individual');
+const dotContainer = document.querySelector('.dot-container');
+let currentIndex = 0;
 
-    const testimonialSlider = document.querySelector('.testimonial-slider');
-    const prevButton = document.querySelector('.nav-arrow.left');
-    const nextButton = document.querySelector('.nav-arrow.right');
-    const slides = document.querySelectorAll('.profilecardsection-individual');
-    const dots = document.querySelectorAll('.dot-container span');
-    let currentIndex = 0;
+// Clear existing dots and create new ones
+function createDots() {
+    // Clear existing dots
+    dotContainer.innerHTML = '';
     
-    // Responsive cards per view - 1 on mobile, 2 on desktop
-    function getCardsPerView() {
-        return window.innerWidth <= 768 ? 1 : 2;
-    }
-    
-    let cardsPerView = getCardsPerView();
-    
-    // Function to calculate slide width dynamically
-    function getSlideWidth() {
-        const style = window.getComputedStyle(slides[0]);
-        const margin = parseFloat(style.marginRight) + parseFloat(style.marginLeft);
-        return slides[0].offsetWidth + margin;
-    }
-    
-    let slideWidth = getSlideWidth();
-    
-    // Function to update slider position
-    function updateSlider() {
-        const translateX = -(currentIndex * slideWidth);
-        testimonialSlider.style.transform = `translateX(${translateX}px)`;
-        updateDots();
-        toggleButtonState();
-    }
-    
-    // Function to update active dot
-    function updateDots() {
-        // Remove active class from all dots
-        dots.forEach(dot => {
-            dot.classList.remove('active');
-        });
+    // Create one dot for each profile card
+    for (let i = 0; i < slides.length; i++) {
+        const dot = document.createElement('span');
+        dot.classList.add('dot');
         
-        // Calculate which dot should be active based on current index
-        const totalPositions = Math.ceil(slides.length / cardsPerView);
-        
-        // Map the currentIndex to a dot index (0, 1, or 2)
-        const activeDotIndex = Math.min(
-            Math.floor(currentIndex / cardsPerView),
-            dots.length - 1
-        );
-        
-        // Add active class to the current dot
-        if (activeDotIndex < dots.length) {
-            dots[activeDotIndex].classList.add('active');
-        }
-    }
-    
-    // Function to disable/enable navigation buttons
-    function toggleButtonState() {
-        // Disable 'prevButton' if at the first position
-        if (currentIndex === 0) {
-            prevButton.disabled = true;
-            prevButton.classList.add('disabled');
-        } else {
-            prevButton.disabled = false;
-            prevButton.classList.remove('disabled');
-        }
-        
-        // Calculate max index based on cardsPerView
-        const maxIndex = slides.length - cardsPerView;
-        
-        // Disable 'nextButton' if at the last position
-        if (currentIndex >= maxIndex) {
-            nextButton.disabled = true;
-            nextButton.classList.add('disabled');
-        } else {
-            nextButton.disabled = false;
-            nextButton.classList.remove('disabled');
-        }
-    }
-    
-    // Event listener for the 'prev' button
-    prevButton.addEventListener('click', () => {
-        if (currentIndex > 0) {
-            currentIndex -= 1;
-            updateSlider();
-        }
-    });
-    
-    // Event listener for the 'next' button
-    nextButton.addEventListener('click', () => {
-        const maxIndex = slides.length - cardsPerView;
-        if (currentIndex < maxIndex) {
-            currentIndex += 1;
-            updateSlider();
-        }
-    });
-    
-    // Add click events for the dots
-    dots.forEach((dot, index) => {
+        // Add click event to each dot
         dot.addEventListener('click', () => {
-            const totalPositions = Math.ceil(slides.length / cardsPerView);
-            
-            // Only navigate to valid positions
-            if (index < totalPositions) {
-                // Calculate the slide index based on dot index and cardsPerView
-                currentIndex = index * cardsPerView;
-                
-                // Make sure we don't exceed maximum index
-                const maxIndex = slides.length - cardsPerView;
-                if (currentIndex > maxIndex) {
-                    currentIndex = maxIndex;
-                }
-                
-                updateSlider();
-            }
+            currentIndex = i;
+            updateSlider();
         });
-    });
+        
+        dotContainer.appendChild(dot);
+    }
+}
+
+// Function to calculate slide width dynamically
+function getSlideWidth() {
+    const style = window.getComputedStyle(slides[0]);
+    const margin = parseFloat(style.marginRight) + parseFloat(style.marginLeft);
+    return slides[0].offsetWidth + margin;
+}
+
+let slideWidth = getSlideWidth();
+
+// Update active dot
+function updateActiveDot() {
+    // Remove active class from all dots
+    const dots = dotContainer.querySelectorAll('.dot');
+    dots.forEach(dot => dot.classList.remove('active'));
     
-    // Recalculate everything on window resize
-    window.addEventListener('resize', () => {
-        // Update cardsPerView based on screen size
-        cardsPerView = getCardsPerView();
-        
-        // Recalculate slide width
-        slideWidth = getSlideWidth();
-        
-        // Make sure currentIndex is still valid with new cardsPerView
-        const maxIndex = slides.length - cardsPerView;
-        if (currentIndex > maxIndex) {
-            currentIndex = maxIndex;
-        }
-        
-        // Update the slider
-        updateSlider();
-    });
-    
-    // Initialize slider
-    updateDots();
+    // Add active class to current dot
+    if (dots[currentIndex]) {
+        dots[currentIndex].classList.add('active');
+    }
+}
+
+// Function to update slider position
+function updateSlider() {
+    const translateX = -(currentIndex * slideWidth);
+    testimonialSlider.style.transform = `translateX(${translateX}px)`;
+    updateActiveDot();
     toggleButtonState();
-    updateSlider();
+}
+
+// Function to disable/enable navigation buttons
+function toggleButtonState() {
+    // Disable 'prevButton' if at the first position
+    if (currentIndex === 0) {
+        prevButton.disabled = true;
+        prevButton.classList.add('disabled');
+    } else {
+        prevButton.disabled = false;
+        prevButton.classList.remove('disabled');
+    }
     
+    // Disable 'nextButton' if at the last position
+    if (currentIndex >= slides.length - 1) {
+        nextButton.disabled = true;
+        nextButton.classList.add('disabled');
+    } else {
+        nextButton.disabled = false;
+        nextButton.classList.remove('disabled');
+    }
+}
+
+// Event listener for the 'prev' button
+prevButton.addEventListener('click', () => {
+    if (currentIndex > 0) {
+        currentIndex -= 1;
+        updateSlider();
+    }
+});
+
+// Event listener for the 'next' button
+nextButton.addEventListener('click', () => {
+    if (currentIndex < slides.length - 1) {
+        currentIndex += 1;
+        updateSlider();
+    }
+});
+
+// Recalculate everything on window resize
+window.addEventListener('resize', () => {
+    // Recalculate slide width
+    slideWidth = getSlideWidth();
+    
+    // Update the slider
+    updateSlider();
+});
+
+// Initialize slider
+createDots();
+updateActiveDot();
+toggleButtonState();
+updateSlider();
+
+
 
     // Logo scrolling effect
     const logoContainer = document.querySelector('.logo-container');

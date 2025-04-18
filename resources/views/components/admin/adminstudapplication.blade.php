@@ -108,17 +108,17 @@
                     </div>
 
                     <!-- Second Question: How did you find about us -->
-                    <div class="admin-student-form-question">
-                        <div class="admin-student-question-row" id="admin-student-about-us">
-                            <div class="admin-student-question-title">2. How did you find about us?</div>
-                            <div class="admin-student-dropdown-field">
-                                <span class="admin-student-field-text">Drop Down List</span>
-                                <span class="admin-student-dropdown-icon"></span>
+                      <div class="admin-student-form-question">
+                            <div class="admin-student-question-row" id="admin-student-about-us">
+                                <div class="admin-student-question-title">2. How did you find about us?</div>
+                                <div class="admin-student-dropdown-field">
+                                    <span class="admin-student-field-text">Drop Down List</span>
+                                    <span class="admin-student-dropdown-icon"></span>
+                                </div>
                             </div>
-                        </div>
-                        
+                            
                         <div class="admin-student-options-section" id="about-us-section" style="display: none;">
-                            <div class="admin-student-options-label">Options:</div>
+                           <div class="admin-student-options-label">Options:</div>
                             <div class="second-main-section-container">
                                 <div class="second-question-options">
                                     <div class="social-option">
@@ -170,7 +170,7 @@
                         </div>
 
                         <div class="admin-student-options-section-course" id="person-info-section-course">
-                             <div class="admin-student-options-label">Options:</div>
+                             <div class="admin-student-options-label-about">Options:</div>
                             <div class="checkbox-group" id="selected-study-location">
                                 <label>
                                     <input type="checkbox" name="study-location" value="USA"> USA
@@ -214,82 +214,390 @@
                                 </div>
                             </div>
                         </div>
-
-
               </div> 
 
 
                 <!--course details 2-->
-
-                        <div class="admin-student-form-question-course-degree" id="admin-student-form-question-course-degree">   
-                            <div class="admin-student-question-row-course-degree" id="admin-student-course-second">
-                                <div class="admin-student-question-title-course-degree">2. Select the type of degree you want to pursue:</div>
+                <div class="admin-student-form-question-course-degree" id="admin-student-form-question-course-degree">   
+                    <div class="admin-student-question-row-course-degree" id="admin-student-course-second">
+                            <div class="admin-student-question-title-course-degree">2. Select the type of degree you want to pursue:</div>
                                 <div class="admin-student-dropdown-field-course-degree">
                                     <span class="admin-student-field-text-course">Check Box</span>
-                                    <span class="admin-student-dropdown-icon-course"></span>
+                                     <span class="admin-student-dropdown-icon-course"></span>
                                 </div>
                             </div>
 
                             <div class="options-section" id="option-section-degree-container">
                                 <div class="options-header">
-                                   <div class="admin-student-options-label">Options:</div>
+                                <div class="admin-student-options-label">Options:</div>
+                            </div>
+
+                            <div class="option-grid course-degree" id="optionsContainer">
+                                <div class="option-item">
+                                    <input type="checkbox" class="option-checkbox">
+                                <div class="option-name">Bachelors (only secured loan)</div>
+                            </div>
+                            
+                            <div class="option-item">
+                                <input type="checkbox" class="option-checkbox">
+                                <div class="option-name">Masters</div>
+                            </div>
+                                        
+                            <div class="option-item">
+                                <input type="checkbox" class="option-checkbox">
+                                <div class="option-name">Others</div>
+                            </div>
+                                        
+                            <div class="add-checkbox-container-degree" id="addSection">
+                                <div class="add-text">Add</div>
+                                <div class="add-icon">+</div>
+                            </div>
+                                                                            
+                        </div>
+                    </div>
+                 </div>   
+
+                <div class="admin-student-form-question-month">
+                    <div class="admin-student-question-row-month" id="course-row-month-id">
+                        <div class="admin-student-question-title">3. What is the duration of the course?</div>
+                            <div class="admin-student-dropdown-field" id="course-dropdown-month-id">
+                                <span class="admin-student-field-text">Drop Down List</span>
+                                <span class="admin-student-dropdown-icon" id="admin-student-dropdown-icon-id"></span>
+                            </div>
+                        </div>
+
+                    <div class="admin-student-options-section" id="course-duration-section-month">
+                       <div class="admin-student-options-label">Options:</div>
+                         <div class="admin-course-option-main-container">
+                              <div class="course-options">
+                                <div class="course-option">
+                                    <span class="course-name">12 Months</span>
+                                    <span class="course-remove">×</span>
                                 </div>
 
-                                <div class="option-grid course-degree" id="optionsContainer">
-                                    <div class="option-item">
-                                        <input type="checkbox" class="option-checkbox">
-                                        <div class="option-name">Bachelors (only secured loan)</div>
-                                    </div>
-                                    <div class="option-item">
-                                        <input type="checkbox" class="option-checkbox">
-                                        <div class="option-name">Masters</div>
-                                    </div>
-                                    <div class="option-item">
-                                        <input type="checkbox" class="option-checkbox">
-                                        <div class="option-name">Others</div>
-                                    </div>
-                                    <div class="add-checkbox-container-degree" id="addSection">
-                                        <div class="add-text">Add</div>
-                                        <div class="add-icon">+</div>
-                                    </div>
-                                                                           
+                                <div class="course-option">
+                                    <span class="course-name">24 Months</span>
+                                    <span class="course-remove">×</span>
                                 </div>
-                           </div>
-                        </div>   
 
+                                <div class="course-option">
+                                    <span class="course-name">36 Months</span>
+                                    <span class="course-remove">×</span>
+                                </div>
+                            </div>
 
+                            <div class="add-course">
+                                <span class="add-text">Add</span>
+                                <span class="add-icon">+</span>
+                            </div>
 
+                 </div>
+             </div>
+         </div>
 
+       <div class="admin-student-form-question" id="course-details-container">
+        <div class="admin-student-question-row" id="course-details-row">
+            <div class="admin-student-question-title">4. Course Details</div>
+            <div class="admin-student-dropdown-field" id="course-details-dropdown">
+                <span class="admin-student-field-text">Check Box</span>
+                <span class="admin-student-dropdown-icon"></span>
+            </div>
+        </div>
+
+        <div class="options-section" id="course-details-options" style="display: none;">
+            <div class="options-label">Options:</div>
+        <div class="checkbox-coures-main-container">
+            <div class="checkbox-options-container">
+                <div class="checkbox-option">
+                    <input type="checkbox" id="with-expenses" name="course-options">
+                    <label for="with-expenses">With living expenses</label>
+                </div>
+                <div class="checkbox-option">
+                    <input type="checkbox" id="without-expenses" name="course-options">
+                    <label for="without-expenses">Without living expenses</label>
+                </div>
+            </div>
+            <div class="add-option" id="add-option-btn">
+                <span class="add-option-text">Add</span>
+                <span class="add-option-icon">+</span>
+            </div>
+        </div>    
         </div>
     </div>
-      
-                   <!-- Academic Details Section -->
-                    <div class="admin-student-form-section-academic-details">
-                        <div class="admin-student-section-header-academic">
-                            <div class="admin-student-section-title-academic">Academic details</div>
-                            <span class="admin-student-question-count-academic">4 Questions</span>
-                            <div class="admin-student-arrow-icon-academic">
-                                <img src="assets/images/admin-drop.png" alt="Arrow Icon"
-                                    class="admin-student-arrow-down-academic" />
-                            </div>
-                        </div>
+
+
+    </div>
+ </div>
+
+
+    <div class="admin-student-form-section-academic-details" id="academic-details-section">
+        <div class="admin-student-section-header-academic">
+            <div class="admin-student-section-title-academic">Academic details</div>
+            <span class="admin-student-question-count-academic">04 Questions</span>
+            <div class="admin-student-arrow-icon-academic rotated">
+                <img src="assets/images/admin-drop.png" alt="Arrow Icon" class="admin-student-arrow-down-academic">
+            </div>
+        </div>
+    </div>
+
+   <!-- Academic container -->
+   <div class="admin-student-section-content-academic expanded" id="academic-details-content">
+        <!-- Education Container (styled like the academic gap) -->
+        <div class="education-container" id="education-container">
+            <div class="education-header-row" id="education-header-row">
+                <div class="education-title">1. Academic details </div>
+                <div class="education-dropdown-field" id="education-dropdown">
+                    <span class="admin-student-field-text">Textfield</span>
+                    <span class="admin-student-dropdown-icon"></span>
+                </div>
+            </div>
+
+            <div class="education-section" id="education-section">
+                <div class="education-label">Education</div>
+                <div class="education-row" id="education-row-1">
+                    <div class="education-field">
+                        <input type="text" placeholder="University/School">
+                        <button type="button" class="remove-field-btn">✕</button>
                     </div>
-
-                      <!-- Co-borrower Info Section -->
-                    <div class="admin-student-form-section-co-borrower-info">
-                        <div class="admin-student-section-header-co-borrower">
-                            <div class="admin-student-section-title-co-borrower">Co-borrower Info</div>
-                            <span class="admin-student-question-count-co-borrower">4 Questions</span>
-                            <div class="admin-student-arrow-icon-co-borrower">
-                                <img src="assets/images/admin-drop.png" alt="Arrow Icon"
-                                    class="admin-student-arrow-down-co-borrow" />
-                            </div>
-                        </div>
+                    <div class="education-field">
+                        <input type="text" placeholder="Course Name">
+                        <button type="button" class="remove-field-btn">✕</button>
                     </div>
+                </div>
 
-                    
+                <button type="button" class="add-education-field-btn" id="add-education-field-btn">
+                    <span>Add</span>
+                    <span class="add-education-icon">+</span>
 
-                    <!-- Document Upload Section -->
+                </button>
+            </div>
+        </div>
+
+
+          <!-- Academic Gap Question -->
+      <div class="admin-student-form-question" id="academic-gap-container">
+        <div class="admin-student-question-row" id="academic-gap-row">
+          <div class="admin-student-question-title">
+            2. Do you have any gap in your academics?
+          </div>
+          <div class="admin-student-dropdown-field" id="academic-gap-dropdown">
+            <span class="admin-student-field-text">Check Box</span>
+            <span class="admin-student-dropdown-icon"></span>
+          </div>
+        </div>
+
+        <div class="options-section" id="academic-gap-options">
+          <div class="options-label">Options:</div>
+          <div class="academic-options-container">
+            <div class="academic-options">
+              <div class="academic-option">
+                <input
+                  type="radio"
+                  id="academic-yes"
+                  name="academics-gap"
+                  value="yes"
+                />
+                <label for="academic-yes">Yes</label>
+              </div>
+              <div class="academic-option">
+                <input
+                  type="radio"
+                  id="academic-no"
+                  name="academics-gap"
+                  value="no"
+                />
+                <label for="academic-no">No (only secured loan)</label>
+              </div>
+            </div>
+            <div class="add-option" id="add-academic-option-btn">
+              <span class="add-option-text">Add</span>
+              <span class="add-option-icon">+</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+        <!-- Additional questions can be added here -->
+    </div>
+
+    <div class="admin-student-form-section-co-borrower-info">
+      <div class="admin-student-section-header-co-borrower">
+        <div class="admin-student-section-title-co-borrower">
+          Co-borrower Info
+        </div>
+        <span class="admin-student-question-count-co-borrower"
+          >3 Questions</span
+        >
+        <div class="admin-student-arrow-icon-co-borrower">
+          <img
+            src="assets/images/admin-drop.png"
+            alt="Arrow Icon"
+            class="admin-student-arrow-down-co-borrow"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- First Container: How is the co-borrower related to you? -->
+    <div class="admin-student-form-question" id="co-borrower-container">
+      <div class="admin-student-question-row" id="co-borrower-row">
+        <div class="admin-student-question-title">
+          How is the co-borrower related to you?
+        </div>
+        <div class="admin-student-dropdown-field" id="co-borrower-dropdown">
+          <span class="admin-student-field-text">Check Box</span>
+          <span class="admin-student-dropdown-icon"></span>
+        </div>
+      </div>
+
+      <div
+        class="options-section"
+        id="co-borrower-options"
+        style="display: none"
+      >
+        <div class="checkbox-options-container">
+          <div class="checkbox-option">
+            <input
+              type="checkbox"
+              id="co-borrower-parent"
+              name="co-borrower-options"
+            />
+            <label for="co-borrower-parent">Parent</label>
+          </div>
+          <div class="checkbox-option">
+            <input
+              type="checkbox"
+              id="co-borrower-spouse"
+              name="co-borrower-options"
+            />
+            <label for="co-borrower-spouse">Spouse</label>
+          </div>
+          <div class="checkbox-option">
+            <input
+              type="checkbox"
+              id="co-borrower-blood-relative"
+              name="co-borrower-options"
+            />
+            <label for="co-borrower-blood-relative">Blood relative</label>
+          </div>
+          <div class="add-option" id="add-option-btn">
+            <span class="add-option-text">Add</span>
+            <span class="add-option-icon">+</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Second Container: What is the gross monthly income of co-borrower? -->
+    <div class="admin-student-form-question" id="income-container">
+      <div class="admin-student-question-row" id="income-row">
+        <div class="admin-student-question-title">
+          What is the gross monthly income of co-borrower?
+        </div>
+        <div class="admin-student-dropdown-field" id="income-dropdown">
+          <span class="admin-student-field-text">Text Field</span>
+          <span class="admin-student-dropdown-icon"></span>
+        </div>
+      </div>
+
+      <div class="options-section" id="income-options" style="display: none">
+        <div class="fields-row-container">
+          <div class="field-container">
+            <input
+              type="text"
+              class="text-input"
+              placeholder=" ₹ Rupees in thousands"
+            />
+            <button class="delete-field">✕</button>
+            <p class="minimum-amount">
+              *minimum amount of 5% after deductions for eligibility
+            </p>
+          </div>
+          <div class="add-option" id="add-income-field-btn">
+            <span class="add-option-text">Add</span>
+            <span class="add-option-icon">+</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Third Container: Is there any existing co-borrower monthly liability? -->
+    <div class="admin-student-form-question" id="liability-container">
+      <div class="admin-student-question-row" id="liability-row">
+        <div class="admin-student-question-title">
+          Is there any existing co-borrower monthly liability?
+        </div>
+        <div class="admin-student-dropdown-field" id="liability-dropdown">
+          <span class="admin-student-field-text">Check Box</span>
+          <span class="admin-student-dropdown-icon"></span>
+        </div>
+      </div>
+
+      <div class="options-section" id="liability-options" style="display: none">
+        <div class="liability-content-container">
+          <!-- Monthly liability option with horizontal layout -->
+          <div class="monthly-liability-option">
+            <!-- Radio buttons on the left -->
+            <div class="monthly-liability-radio-buttons">
+              <label>
+                <input
+                  type="radio"
+                  name="co-borrower-liability"
+                  id="yes-liability"
+                  value="Yes"
+                />
+                Yes
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="co-borrower-liability"
+                  id="no-liability"
+                  value="No"
+                />
+                No
+              </label>
+            </div>
+
+            <!-- EMI field and add button on the right, in the same row -->
+            <div class="emi-row">
+              <div class="emi-content">
+                <p class="amount-thousand-mobile">
+                  Enter the amount in thousands
+                </p>
+                <input
+                  type="text"
+                  id="emi-amount"
+                  class="emi-content-container"
+                  placeholder="Enter EMI amount"
+                />
+                <span
+                  id="emi-error-message"
+                  class="error-message"
+                  style="display: none; color: red"
+                  >Please enter a valid EMI amount (numeric values only).</span
+                >
+              </div>
+              <div class="add-option" id="add-liability-btn">
+                <span class="add-option-text">Add</span>
+                <span class="add-option-icon">+</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Container for additional liability fields - vertically aligned under the EMI content -->
+          <div
+            id="additional-liability-fields"
+            class="additional-liability-fields"
+          >
+            <!-- Additional fields will be added here dynamically -->
+          </div>
+        </div>
+      </div>
+    </div>
+                      <!-- Document Upload Section -->
                     <div class="admin-student-form-section-document-upload">
                         <div class="admin-student-section-header-document-upload">
                             <div class="admin-student-section-title-document-upload">Document Upload</div>
@@ -302,6 +610,11 @@
                     </div>
 
 
+    
+
+      
+
+                   
 
 
 
@@ -313,501 +626,1086 @@
 </div> 
    
 
- <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Toggle section content and arrow direction
-            const sectionHeader = document.querySelector('.admin-student-section-header');
-            const sectionContent = document.querySelector('.admin-student-section-content');
-            const arrowIcon = document.querySelector('.admin-student-arrow-icon img');
+<script>
 
-            // By default section is expanded (content visible, arrow up)
-            sectionContent.style.display = 'block';
-            arrowIcon.classList.add('admin-student-arrow-up');
-            arrowIcon.classList.remove('admin-student-arrow-down');
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize all modules
+  SectionToggleManager.init();
+  InputFieldManager.init();
+  FormValidator.init();
+  CityAutocomplete.init();
+  SocialOptionsManager.init();
+  CourseLocationManager.init();
+  CourseOptionsManager.init();
+  CourseDurationManager.init();
+  CourseDetailsManager.init();
+  AcademicDetailsManager.init();
+  CoBorrowerManager.init();
+});
 
-            sectionHeader.addEventListener('click', function () {
-                const isContentVisible = sectionContent.style.display === 'block';
+// Utility function for class toggling
+const toggleClass = (element, className, condition) => {
+  element.classList[condition ? 'add' : 'remove'](className);
+};
 
-                // Toggle content visibility
-                sectionContent.style.display = isContentVisible ? 'none' : 'block';
+// Utility function to toggle visibility
+const toggleVisibility = (element, isVisible) => {
+  element.style.display = isVisible ? 'block' : 'none';
+};
 
-                // Toggle arrow direction
-                if (isContentVisible) {
-                    // Content is being hidden, arrow points down
-                    arrowIcon.classList.add('admin-student-arrow-down');
-                    arrowIcon.classList.remove('admin-student-arrow-up');
-                } else {
-                    // Content is being shown, arrow points up
-                    arrowIcon.classList.add('admin-student-arrow-up');
-                    arrowIcon.classList.remove('admin-student-arrow-down');
-                }
-            });
+/**
+ * Manages section toggling for all collapsible sections
+ */
+const SectionToggleManager = {
+  sections: [
+    {
+      header: '.admin-student-section-header',
+      content: '.admin-student-section-content',
+      arrow: '.admin-student-arrow-icon img',
+      arrowUpClass: 'admin-student-arrow-up',
+      arrowDownClass: 'admin-student-arrow-down',
+    },
+    {
+      header: '.admin-student-section-header-course',
+      content: '.admin-student-section-content-course',
+      arrow: '.admin-student-arrow-icon-course img',
+      arrowUpClass: 'admin-student-arrow-up-course',
+      arrowDownClass: 'admin-student-arrow-down-course',
+    },
+    {
+      header: '.admin-student-section-header-academic',
+      content: '.admin-student-section-content-academic',
+      arrow: '.admin-student-arrow-icon-academic img',
+      arrowUpClass: 'rotated',
+      arrowDownClass: '',
+    },
+    {
+      header: '.admin-student-section-header-co-borrower',
+      content: '.admin-student-form-question',
+      arrow: '.admin-student-arrow-icon-co-borrower',
+      arrowUpClass: '',
+      arrowDownClass: '',
+      multipleContents: true,
+    },
+  ],
 
-            // Remove option functionality
-            document.addEventListener('click', function (e) {
-                if (e.target.classList.contains('remove-option')) {
-                    e.target.closest('.input-group').remove();
-                    reorganizeInputs();
-                } else if (e.target.classList.contains('social-remove')) {
-                    e.target.closest('.social-option').remove();
-                }
-            });
+  init() {
+    this.sections.forEach(section => this.setupSectionToggle(section));
+  },
 
-            // Add field functionality 
-            const addInputField = document.getElementById('add-input-field');
+  setupSectionToggle({ header, content, arrow, arrowUpClass, arrowDownClass, multipleContents }) {
+    const headerEl = document.querySelector(header);
+    if (!headerEl) return;
 
-            addInputField.addEventListener('click', function () {
-                showInputPrompt();
-            });
+    const contentEls = multipleContents
+      ? document.querySelectorAll(content)
+      : [document.querySelector(content)];
+    const arrowEl = document.querySelector(arrow);
 
-            // Function to show input prompt
-            function showInputPrompt() {
-                const fieldType = prompt("Enter field type (e.g., Country, Pincode):");
-                if (fieldType && fieldType.trim() !== "") {
-                    addNewInputField(fieldType);
-                }
-            }
+    if (!contentEls.length || !contentEls[0]) return;
 
-            // Function to add a new input field
-            // Function to add a new input field with appropriate icons
-            function addNewInputField(fieldType) {
-                // Icon mapping based on field type (case insensitive)
-                const iconMap = {
-                    'name': './assets/images/person-icon.png',
-                    'full name': './assets/images/person-icon.png',
-                    'first name': './assets/images/person-icon.png',
-                    'last name': './assets/images/person-icon.png',
-                    'phone': './assets/images/call-icon.png',
-                    'phone number': './assets/images/call-icon.png',
-                    'mobile': './assets/images/call-icon.png',
-                    'email': './assets/images/mail.png',
-                    'email id': './assets/images/mail.png',
-                    'city': './assets/images/pin_drop.png',
-                    'address': './assets/images/pin_drop.png',
-                    'location': './assets/images/pin_drop.png',
-                    'country': './assets/images/pin_drop.png',
-                    'state': './assets/images/pin_drop.png',
-                    'pincode': './assets/images/pin_drop.png',
-                    'zip code': './assets/images/pin_drop.png',
-                    'postal code': './assets/images/pin_drop.png',
-                    'referral': './assets/images/school.png',
-                    'referral code': './assets/images/school.png',
-                    'code': './assets/images/school.png',
-                    // Add more mappings as needed
-                };
+    // Set initial state: visible
+    contentEls.forEach(el => toggleVisibility(el, true));
+    if (arrowEl && arrowUpClass) {
+      toggleClass(arrowEl, arrowUpClass, true);
+      toggleClass(arrowEl, arrowDownClass, false);
+    }
+    if (header === '.admin-student-section-header-co-borrower') {
+      arrowEl.style.transform = 'rotate(180deg)';
+      contentEls.forEach(el => toggleVisibility(el, false));
+    }
 
-                // Check for icon match (case insensitive)
-                const fieldTypeLower = fieldType.toLowerCase();
-                let iconSrc = './assets/images/pin_drop.png'; // default icon
+    headerEl.addEventListener('click', () => {
+      const isVisible = contentEls[0].style.display !== 'none';
+      contentEls.forEach(el => toggleVisibility(el, !isVisible));
 
-                // Find matching icon
-                for (const [key, value] of Object.entries(iconMap)) {
-                    if (fieldTypeLower.includes(key) || key.includes(fieldTypeLower)) {
-                        iconSrc = value;
-                        break;
-                    }
-                }
+      if (arrowEl && arrowUpClass) {
+        toggleClass(arrowEl, arrowUpClass, !isVisible);
+        toggleClass(arrowEl, arrowDownClass, isVisible);
+      }
 
-                const newInput = document.createElement('div');
-                newInput.className = 'input-group';
-                newInput.innerHTML = `
-        <div class="input-content">
-            <img src="${iconSrc}" alt="${fieldType} Icon" class="icon" />
-            <input type="text" placeholder="${fieldType}" name="${fieldTypeLower.replace(/\s+/g, '_')}" required />
-        </div>
-        <span class="remove-option">×</span>
-        <div class="validation-message" id="${fieldTypeLower.replace(/\s+/g, '_')}-error"></div>
+      if (header === '.admin-student-section-header-co-borrower') {
+        arrowEl.style.transform = !isVisible ? 'rotate(180deg)' : 'rotate(0deg)';
+      }
+    });
+  },
+};
+
+/**
+ * Manages dynamic input fields
+ */
+const InputFieldManager = {
+  iconMap: {
+    name: './assets/images/person-icon.png',
+    phone: './assets/images/call-icon.png',
+    email: './assets/images/mail.png',
+    city: './assets/images/pin_drop.png',
+    country: './assets/images/pin_drop.png',
+    pincode: './assets/images/pin_drop.png',
+    referral: './assets/images/school.png',
+  },
+
+  init() {
+    const container = document.querySelector('.admin-student-form-section');
+    if (!container) return;
+
+    container.addEventListener('click', event => {
+      if (event.target.classList.contains('remove-option')) {
+        event.target.closest('.input-group').remove();
+        this.reorganizeInputs();
+      }
+      if (event.target.closest('#add-input-field')) {
+        this.showInputPrompt();
+      }
+    });
+  },
+
+  showInputPrompt() {
+    const fieldType = prompt('Enter field type (e.g., Country, Pincode):')?.trim();
+    if (fieldType) this.addNewInputField(fieldType);
+  },
+
+  addNewInputField(fieldType) {
+    const fieldTypeLower = fieldType.toLowerCase();
+    const iconSrc = Object.keys(this.iconMap).reduce((src, key) => {
+      return fieldTypeLower.includes(key) ? this.iconMap[key] : src;
+    }, './assets/images/pin_drop.png');
+
+    const newInput = document.createElement('div');
+    newInput.className = 'input-group';
+    newInput.innerHTML = `
+      <div class="input-content">
+        <img src="${iconSrc}" alt="${fieldType} Icon" class="icon" />
+        <input type="text" placeholder="${fieldType}" name="${fieldTypeLower.replace(/\s+/g, '_')}" required />
+      </div>
+      <span class="remove-option">×</span>
+      <div class="validation-message" id="${fieldTypeLower.replace(/\s+/g, '_')}-error"></div>
     `;
 
-                // Find the current parent of the add button
-                const addButton = document.getElementById('add-input-field');
-                const addButtonParent = addButton.parentNode;
+    const addButton = document.getElementById('add-input-field');
+    addButton.parentNode.insertBefore(newInput, addButton);
+    this.reorganizeInputs();
+  },
 
-                // Add the new input field before the add button
-                addButtonParent.insertBefore(newInput, addButton);
+  reorganizeInputs() {
+    const allInputs = document.querySelectorAll('.input-group');
+    const addField = document.getElementById('add-input-field');
+    let row1 = document.getElementById('input-row-1');
+    let row2 = document.getElementById('input-row-2');
 
-                // Reorganize inputs to maintain exactly 3 per row
-                reorganizeInputs();
-            }
-            // Function to reorganize inputs to maintain exactly 3 per row
-            function reorganizeInputs() {
-                // Get all input groups and the add field
-                const allInputs = document.querySelectorAll('.input-group');
-                const addField = document.getElementById('add-input-field');
+    if (!row1 || !row2) return;
 
-                // Get or create rows as needed
-                let row1 = document.getElementById('input-row-1');
-                let row2 = document.getElementById('input-row-2');
+    row1.innerHTML = '';
+    row2.innerHTML = '';
 
-                // Clear all rows
-                row1.innerHTML = '';
-                row2.innerHTML = '';
+    const row3 = document.getElementById('input-row-3');
+    if (row3) row3.remove();
 
-                // Remove any existing row3
-                const existingRow3 = document.getElementById('input-row-3');
-                if (existingRow3) {
-                    existingRow3.remove();
-                }
+    let currentRow = row1;
+    let inputCount = 0;
 
-                // Create row3 if needed
-                let row3 = null;
-                if (allInputs.length > 6) {
-                    row3 = document.createElement('div');
-                    row3.className = 'input-row';
-                    row3.id = 'input-row-3';
-                    row2.parentNode.insertBefore(row3, row2.nextSibling);
-                }
+    allInputs.forEach(input => {
+      if (inputCount >= 3) {
+        currentRow = row2;
+      }
+      if (inputCount >= 6) {
+        currentRow = document.createElement('div');
+        currentRow.className = 'input-row';
+        currentRow.id = 'input-row-3';
+        row2.parentNode.appendChild(currentRow);
+      }
+      currentRow.appendChild(input);
+      inputCount++;
+    });
 
-                // Distribute inputs, exactly 3 per row
-                for (let i = 0; i < allInputs.length; i++) {
-                    if (i < 3) {
-                        row1.appendChild(allInputs[i]);
-                    } else if (i < 6) {
-                        row2.appendChild(allInputs[i]);
-                    } else if (row3) {
-                        row3.appendChild(allInputs[i]);
-                    }
-                }
-
-                // Determine where to place the add button
-                const lastRow = row3 || (allInputs.length > 3 ? row2 : row1);
-                const inputsInLastRow = lastRow.querySelectorAll('.input-group').length;
-
-                // Only add the add button if there's room (less than 3 inputs)
-                if (inputsInLastRow < 3) {
-                    lastRow.appendChild(addField);
-                } else {
-                    // Create a new row for the add button
-                    const newRow = document.createElement('div');
-                    newRow.className = 'input-row';
-                    newRow.id = 'input-row-' + (row3 ? '4' : (row2.children.length > 0 ? '3' : '2'));
-                    newRow.appendChild(addField);
-                    lastRow.parentNode.insertBefore(newRow, lastRow.nextSibling);
-                }
-            }
-
-
-
-            // Basic form validation
-            const inputs = document.querySelectorAll('input[required]');
-            inputs.forEach(input => {
-                input.addEventListener('blur', function () {
-                    validateField(this);
-                });
-            });
-
-            function validateField(field) {
-                // Find the error element associated with this field
-                const errorId = field.id + "-error";
-                const errorElement = document.getElementById(errorId);
-
-                if (!errorElement) return; // Skip if no error element exists
-
-                const inputGroup = field.closest('.input-group');
-
-                // Reset previous error styling
-                inputGroup.style.borderColor = '';
-
-                // Check for errors
-                if (!field.value.trim()) {
-                    errorElement.textContent = `Please enter a valid ${field.placeholder.toLowerCase()}`;
-                    errorElement.style.display = 'block';
-                    inputGroup.style.borderColor = 'red';
-                } else if (field.type === 'email' && !isValidEmail(field.value)) {
-                    errorElement.textContent = 'Please enter a valid email address';
-                    errorElement.style.display = 'block';
-                    inputGroup.style.borderColor = 'red';
-                } else if (field.id === 'phone' && !isValidPhone(field.value)) {
-                    errorElement.textContent = 'Please enter a valid 10-digit phone number.';
-                    errorElement.style.display = 'block';
-                    inputGroup.style.borderColor = 'red';
-                } else {
-                    // Clear error message
-                    errorElement.textContent = '';
-                    errorElement.style.display = 'none';
-                }
-            }
-
-            function isValidEmail(email) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                return emailRegex.test(email);
-            }
-
-            function isValidPhone(phone) {
-                const phoneRegex = /^\d{10}$/;
-                return phoneRegex.test(phone);
-            }
-
-            // City input suggestions
-            const cityInput = document.getElementById('city-input');
-            const suggestionsContainer = document.getElementById('suggestions');
-
-            // Example city list (you would replace this with your actual city data)
-            const cities = ['Mumbai', 'Delhi', 'Bangalore', 'Chennai', 'Kolkata', 'Hyderabad', 'Pune', 'Ahmedabad'];
-
-            cityInput.addEventListener('input', function () {
-                const inputValue = this.value.toLowerCase();
-
-                // Clear previous suggestions
-                suggestionsContainer.innerHTML = '';
-
-                if (inputValue.length > 0) {
-                    // Filter cities that match input
-                    const matchedCities = cities.filter(city =>
-                        city.toLowerCase().startsWith(inputValue)
-                    );
-
-                    if (matchedCities.length > 0) {
-                        suggestionsContainer.style.display = 'block';
-
-                        // Create suggestion elements
-                        matchedCities.forEach(city => {
-                            const div = document.createElement('div');
-                            div.textContent = city;
-                            div.style.padding = '8px 10px';
-                            div.style.cursor = 'pointer';
-
-                            div.addEventListener('click', function () {
-                                cityInput.value = city;
-                                suggestionsContainer.style.display = 'none';
-                                validateField(cityInput);
-                            });
-
-                            div.addEventListener('mouseover', function () {
-                                this.style.backgroundColor = '#f0f0f0';
-                            });
-
-                            div.addEventListener('mouseout', function () {
-                                this.style.backgroundColor = 'transparent';
-                            });
-
-                            suggestionsContainer.appendChild(div);
-                        });
-                    } else {
-                        suggestionsContainer.style.display = 'none';
-                    }
-                } else {
-                    suggestionsContainer.style.display = 'none';
-                }
-            });
-
-            // Hide suggestions when clicking outside
-            document.addEventListener('click', function (e) {
-                if (e.target !== cityInput && e.target !== suggestionsContainer) {
-                    suggestionsContainer.style.display = 'none';
-                }
-            });
-
-            // Function to toggle visibility
-            function toggleSection(questionRowId, sectionId) {
-                const questionRow = document.getElementById(questionRowId);
-                const section = document.getElementById(sectionId);
-
-                questionRow.addEventListener('click', function () {
-                    if (section.style.display === "none" || section.style.display === "") {
-                        section.style.display = "block";
-                    } else {
-                        section.style.display = "none";
-                    }
-                });
-            }
-
-            // Call the function for both sections
-            toggleSection('admin-student-person-info', 'person-info-section');
-            toggleSection('admin-student-about-us', 'about-us-section');
-
-
-            document.querySelector('.add-social').addEventListener('click', function () {
-                // Prompt user for input
-                const userInput = prompt("Enter dropdown option", "");
-
-                // Only proceed if the user entered something
-                if (userInput && userInput.trim() !== "") {
-                    // Create new option
-                    const newOption = document.createElement('div');
-                    newOption.className = 'social-option';
-
-                    // Create the name span with the user's input
-                    const nameSpan = document.createElement('span');
-                    nameSpan.className = 'social-name';
-                    nameSpan.textContent = userInput.trim(); // Display what the user typed
-
-                    // Create the remove button
-                    const removeSpan = document.createElement('span');
-                    removeSpan.className = 'social-remove';
-                    removeSpan.textContent = '×';
-
-                    // Add event listener to the remove button
-                    removeSpan.addEventListener('click', function () {
-                        newOption.remove();
-                    });
-
-                    // Append the spans to the new option
-                    newOption.appendChild(nameSpan);
-                    newOption.appendChild(removeSpan);
-
-                    // Get the parent container
-                    const optionsContainer = document.querySelector('.second-question-options');
-
-                    // Append the new option to the container
-                    optionsContainer.appendChild(newOption);
-                }
-            });
-
-            // Add this for existing remove buttons
-            document.querySelectorAll('.social-remove').forEach(function (removeButton) {
-                removeButton.addEventListener('click', function () {
-                    this.parentElement.remove();
-                });
-            });
-             let container = document.getElementById("studentFormContainer"); // Replace with your actual ID
-
-
-// 2. Course Details Section container 1
-const checkboxContainer = document.getElementById('selected-study-location');
-const addCheckboxContainer = document.querySelector('.add-checkbox-container');
-
-// Comprehensive error checking
-if (!checkboxContainer) {
-    console.error('Checkbox container not found');
-    return;
-}
-
-if (!addCheckboxContainer) {
-    console.error('Add checkbox container not found');
-    return;
-}
-
-function addNewCheckbox() {
-    // Prompt user for input
-    const newCountry = prompt("Enter country name", "");
-    
-    // Only proceed if the user entered something
-    if (newCountry && newCountry.trim() !== "") {
-        // Check if country already exists
-        const existingCountries = Array.from(checkboxContainer.querySelectorAll('input[type="checkbox"]'))
-            .map(checkbox => checkbox.value.toLowerCase());
-        
-        if (existingCountries.includes(newCountry.toLowerCase())) {
-            alert('This country is already in the list');
-            return;
-        }
-        
-        // Create new checkbox element
-        const newLabel = document.createElement('label');
-        const newCheckbox = document.createElement('input');
-        
-        // Configure checkbox
-        newCheckbox.type = 'checkbox';
-        newCheckbox.name = 'study-location';
-        newCheckbox.value = newCountry;
-        newCheckbox.checked = true;
-        
-        // Create label with checkbox and text
-        newLabel.appendChild(newCheckbox);
-        newLabel.appendChild(document.createTextNode(' ' + newCountry));
-        
-        // Insert new checkbox before the add container
-        checkboxContainer.insertBefore(newLabel, addCheckboxContainer);
+    const lastRow = inputCount > 3 ? (inputCount > 6 ? currentRow : row2) : row1;
+    if (lastRow.querySelectorAll('.input-group').length < 3) {
+      lastRow.appendChild(addField);
+    } else {
+      const newRow = document.createElement('div');
+      newRow.className = 'input-row';
+      newRow.id = `input-row-${inputCount > 6 ? 4 : 3}`;
+      newRow.appendChild(addField);
+      lastRow.parentNode.appendChild(newRow);
     }
-}
+  },
+};
 
-// Add click event to the entire add-checkbox-container instead of just the button
-addCheckboxContainer.addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent any default form submission
-    addNewCheckbox();
-});
+/**
+ * Handles form validation
+ */
+const FormValidator = {
+  init() {
+    const inputs = document.querySelectorAll('input[required]');
+    inputs.forEach(input => {
+      input.addEventListener('blur', () => this.validateField(input));
+    });
+  },
 
-// Toggle functionality for admin-student-options-section-course
-const questionRow = document.querySelector('.admin-student-question-row-course');
-const optionsSection = document.querySelector('.admin-student-options-section-course');
+  validateField(field) {
+    const errorElement = document.getElementById(`${field.id}-error`);
+    if (!errorElement) return;
 
-// Hide the options section by default
-if (optionsSection) {
+    const inputGroup = field.closest('.input-group');
+    inputGroup.style.borderColor = '';
+
+    if (!field.value.trim()) {
+      errorElement.textContent = `Please enter a valid ${field.placeholder.toLowerCase()}`;
+      errorElement.style.display = 'block';
+      inputGroup.style.borderColor = 'red';
+    } else if (field.type === 'email' && !this.isValidEmail(field.value)) {
+      errorElement.textContent = 'Please enter a valid email address';
+      errorElement.style.display = 'block';
+      inputGroup.style.borderColor = 'red';
+    } else if (field.id === 'phone' && !this.isValidPhone(field.value)) {
+      errorElement.textContent = 'Please enter a valid 10-digit phone number';
+      errorElement.style.display = 'block';
+      inputGroup.style.borderColor = 'red';
+    } else {
+      errorElement.textContent = '';
+      errorElement.style.display = 'none';
+    }
+  },
+
+  isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  },
+
+  isValidPhone(phone) {
+    return /^\d{10}$/.test(phone);
+  },
+};
+
+/**
+ * City autocomplete functionality
+ */
+const CityAutocomplete = {
+  cities: ['Mumbai', 'Delhi', 'Bangalore', 'Chennai', 'Kolkata', 'Hyderabad', 'Pune', 'Ahmedabad'],
+
+  init() {
+    const cityInput = document.getElementById('city-input');
+    const suggestionsContainer = document.getElementById('suggestions');
+    if (!cityInput || !suggestionsContainer) return;
+
+    cityInput.addEventListener('input', () => {
+      const inputValue = cityInput.value.toLowerCase();
+      suggestionsContainer.innerHTML = '';
+
+      if (inputValue.length === 0) {
+        suggestionsContainer.style.display = 'none';
+        return;
+      }
+
+      const matchedCities = this.cities.filter(city => city.toLowerCase().startsWith(inputValue));
+      if (matchedCities.length === 0) {
+        suggestionsContainer.style.display = 'none';
+        return;
+      }
+
+      suggestionsContainer.style.display = 'block';
+      matchedCities.forEach(city => {
+        const div = document.createElement('div');
+        div.textContent = city;
+        div.style.cssText = 'padding: 8px 10px; cursor: pointer;';
+        div.addEventListener('click', () => {
+          cityInput.value = city;
+          suggestionsContainer.style.display = 'none';
+          FormValidator.validateField(cityInput);
+        });
+        div.addEventListener('mouseover', () => div.style.backgroundColor = '#f0f0f0');
+        div.addEventListener('mouseout', () => div.style.backgroundColor = 'transparent');
+        suggestionsContainer.appendChild(div);
+      });
+    });
+
+    document.addEventListener('click', e => {
+      if (e.target !== cityInput && e.target !== suggestionsContainer) {
+        suggestionsContainer.style.display = 'none';
+      }
+    });
+  },
+};
+
+/**
+ * Social options manager
+ */
+const SocialOptionsManager = {
+  init() {
+    const container = document.querySelector('.second-main-section-container');
+    if (!container) return;
+
+    container.addEventListener('click', event => {
+      if (event.target.classList.contains('social-remove')) {
+        event.target.closest('.social-option').remove();
+      }
+      if (event.target.closest('.add-social')) {
+        const userInput = prompt('Enter dropdown option:')?.trim();
+        if (userInput) this.addSocialOption(userInput);
+      }
+    });
+
+    this.setupSectionToggle('admin-student-about-us', 'about-us-section');
+  },
+
+  addSocialOption(userInput) {
+    const newOption = document.createElement('div');
+    newOption.className = 'social-option';
+    newOption.innerHTML = `
+      <span class="social-name">${userInput}</span>
+      <span class="social-remove">×</span>
+    `;
+    document.querySelector('.second-question-options').appendChild(newOption);
+  },
+
+  setupSectionToggle(rowId, sectionId) {
+    const row = document.getElementById(rowId);
+    const section = document.getElementById(sectionId);
+    if (!row || !section) return;
+
+    row.addEventListener('click', () => {
+      toggleVisibility(section, section.style.display === 'none');
+    });
+  },
+};
+
+/**
+ * Course location manager
+ */
+const CourseLocationManager = {
+  init() {
+    const container = document.getElementById('selected-study-location');
+    if (!container) return;
+
+    container.addEventListener('click', event => {
+      if (event.target.closest('.add-checkbox-container')) {
+        event.preventDefault();
+        this.addNewCheckbox(container);
+      }
+    });
+
+    this.setupSectionToggle('admin-student-course', 'person-info-section-course');
+  },
+
+  addNewCheckbox(container) {
+    const newCountry = prompt('Enter country name:')?.trim();
+    if (!newCountry) return;
+
+    const existingCountries = Array.from(container.querySelectorAll('input[type="checkbox"]'))
+      .map(cb => cb.value.toLowerCase());
+    if (existingCountries.includes(newCountry.toLowerCase())) {
+      alert('This country is already in the list');
+      return;
+    }
+
+    const newLabel = document.createElement('label');
+    newLabel.innerHTML = `<input type="checkbox" name="study-location" value="${newCountry}" checked> ${newCountry}`;
+    container.insertBefore(newLabel, container.querySelector('.add-checkbox-container'));
+  },
+
+  setupSectionToggle(rowId, sectionId) {
+    const row = document.getElementById(rowId);
+    const section = document.getElementById(sectionId);
+    if (!row || !section) return;
+
+    section.style.display = 'none';
+    row.addEventListener('click', () => {
+      toggleVisibility(section, section.style.display === 'none');
+    });
+  },
+};
+
+/**
+ * Course options manager
+ */
+const CourseOptionsManager = {
+  init() {
+    const container = document.getElementById('admin-student-form-question-course-degree');
+    if (!container) return;
+
+    container.addEventListener('click', event => {
+      if (event.target.closest('#addSection')) {
+        event.stopPropagation();
+        this.addNewOption();
+      }
+    });
+
+    this.setupSectionToggle('admin-student-course-second', 'option-section-degree-container');
+  },
+
+  addNewOption() {
+    const newOptionName = prompt('Enter new option:')?.trim();
+    if (!newOptionName) return;
+
+    const optionsGrid = document.getElementById('optionsContainer');
+    const addSection = document.getElementById('addSection');
+
+    optionsGrid.removeChild(addSection);
+    const newOptionItem = document.createElement('div');
+    newOptionItem.className = 'option-item';
+    newOptionItem.innerHTML = `
+      <input type="checkbox" class="option-checkbox">
+      <div class="option-name">${newOptionName}</div>
+    `;
+    optionsGrid.appendChild(newOptionItem);
+    optionsGrid.appendChild(addSection);
+  },
+
+  setupSectionToggle(rowId, sectionId) {
+    const row = document.getElementById(rowId);
+    const section = document.getElementById(sectionId);
+    if (!row || !section) return;
+
+    section.style.display = 'none';
+    row.addEventListener('click', () => {
+      toggleVisibility(section, section.style.display === 'none');
+    });
+  },
+};
+
+/**
+ * Course duration manager
+ */
+const CourseDurationManager = {
+  init() {
+    const container = document.getElementById('course-duration-section-month');
+    if (!container) return;
+
+    container.style.display = 'none';
+    container.addEventListener('click', event => {
+      if (event.target.classList.contains('course-remove')) {
+        event.stopPropagation();
+        event.target.closest('.course-option').remove();
+      }
+      if (event.target.closest('.add-course')) {
+        event.stopPropagation();
+        this.addNewDurationOption();
+      }
+    });
+
+    const row = document.getElementById('course-row-month-id');
+    const dropdown = document.getElementById('course-dropdown-month-id');
+    if (row && dropdown) {
+      row.addEventListener('click', () => this.toggleOptionsDisplay(container));
+      dropdown.addEventListener('click', event => {
+        event.stopPropagation();
+        this.toggleOptionsDisplay(container);
+      });
+    }
+  },
+
+  toggleOptionsDisplay(section) {
+    const isVisible = section.style.display !== 'none';
+    toggleVisibility(section, !isVisible);
+    const dropdownIcon = document.querySelector('#admin-student-dropdown-icon-id');
+    if (dropdownIcon) toggleClass(dropdownIcon, 'rotated', !isVisible);
+    document.querySelector('.admin-student-form-question-month').classList.toggle('active', !isVisible);
+  },
+
+  addNewDurationOption() {
+    const userInput = prompt('Enter course duration option:')?.trim();
+    if (!userInput) return;
+
+    const newOption = document.createElement('div');
+    newOption.className = 'course-option';
+    newOption.innerHTML = `
+      <span class="course-name">${userInput}</span>
+      <span class="course-remove">×</span>
+    `;
+    document.querySelector('.course-options').appendChild(newOption);
+  },
+};
+
+/**
+ * Course details manager
+ */
+const CourseDetailsManager = {
+  init() {
+    const container = document.getElementById('course-details-container');
+    if (!container) return;
+
+    const optionsSection = container.querySelector('#course-details-options');
     optionsSection.style.display = 'none';
-}
 
-// Add click event listener to the question row
-if (questionRow) {
-    questionRow.addEventListener('click', function() {
-        // Toggle the visibility of the options section
-        if (optionsSection) {
-            if (optionsSection.style.display === 'none') {
-                optionsSection.style.display = 'block';
-            } else {
-                optionsSection.style.display = 'none';
+    container.addEventListener('click', event => {
+      if (event.target.closest('#course-details-row')) {
+        const isVisible = optionsSection.style.display !== 'none';
+        toggleVisibility(optionsSection, !isVisible);
+        container.classList.toggle('active', !isVisible);
+        const dropdownIcon = container.querySelector('.admin-student-dropdown-icon');
+        if (dropdownIcon) toggleClass(dropdownIcon, 'rotated', !isVisible);
+      }
+      if (event.target.closest('#add-option-btn')) {
+        event.stopPropagation();
+        this.addNewCourseOption(container);
+      }
+      if (event.target.closest('.checkbox-options-container')) {
+        event.stopPropagation();
+      }
+    });
+  },
+
+  addNewCourseOption(container) {
+    const userInput = prompt('Enter new option:')?.trim();
+    if (!userInput) return;
+
+    const optionsContainer = container.querySelector('.checkbox-options-container');
+    const newOption = document.createElement('div');
+    newOption.className = 'checkbox-option';
+    const checkboxId = `option-${Date.now()}`;
+    newOption.innerHTML = `
+      <input type="checkbox" id="${checkboxId}" name="course-options">
+      <label for="${checkboxId}">${userInput}</label>
+    `;
+    optionsContainer.appendChild(newOption);
+  },
+};
+
+//academic details
+  
+       const academicDetailsSection = document.getElementById(
+        "academic-details-section"
+      );
+      const academicDetailsContent = document.getElementById(
+        "academic-details-content"
+      );
+      const arrowIcon = document.querySelector(
+        ".admin-student-arrow-icon-academic"
+      );
+
+      academicDetailsSection.addEventListener("click", function () {
+        academicDetailsContent.classList.toggle("expanded");
+        arrowIcon.classList.toggle("rotated");
+      });
+
+      const educationContainer = document.getElementById("education-container");
+      const educationHeaderRow = document.getElementById(
+        "education-header-row"
+      );
+      const educationDropdownIcon = educationContainer.querySelector(
+        ".admin-student-dropdown-icon"
+      );
+      const educationSection = document.getElementById("education-section");
+
+      educationHeaderRow.addEventListener("click", function (event) {
+        event.stopPropagation();
+
+        const isVisible = educationSection.style.display === "block";
+        educationSection.style.display = isVisible ? "none" : "block";
+        educationContainer.classList.toggle("active", !isVisible);
+
+        educationDropdownIcon.classList.toggle("rotated", !isVisible);
+      });
+
+      // Initialize field counter
+      let fieldCount = 2;
+      let rowCount = 1;
+
+      // Function to create remove button functionality
+      function setupRemoveButtons() {
+        const removeButtons = document.querySelectorAll(".remove-field-btn");
+        removeButtons.forEach((button) => {
+          button.addEventListener("click", function (event) {
+            event.stopPropagation();
+            const fieldElement = this.parentNode;
+            const rowElement = fieldElement.parentNode;
+
+            // Remove the field
+            fieldElement.remove();
+
+            // If row is empty, remove the row
+            if (rowElement.children.length === 0) {
+              rowElement.remove();
             }
+
+            // Decrement field count
+            fieldCount--;
+          });
+        });
+      }
+
+      // Setup initial remove buttons
+      setupRemoveButtons();
+
+      const addEducationFieldBtn = document.getElementById(
+        "add-education-field-btn"
+      );
+
+      const educationFields = document.querySelectorAll(".education-field");
+      educationFields.forEach((field) => {
+        field.addEventListener("click", function (event) {
+          event.stopPropagation();
+        });
+      });
+
+      addEducationFieldBtn.addEventListener("click", function (event) {
+        event.stopPropagation();
+        const fieldName = prompt(
+          "Enter new field name (e.g., Graduation Year):",
+          ""
+        );
+
+        if (fieldName && fieldName.trim() !== "") {
+          // Create new field with input and remove button
+          const newField = document.createElement("div");
+          newField.className = "education-field";
+
+          const newInput = document.createElement("input");
+          newInput.type = "text";
+          newInput.placeholder = fieldName.trim();
+          newInput.name = fieldName.toLowerCase().replace(/\s+/g, "-");
+
+          const removeBtn = document.createElement("button");
+          removeBtn.type = "button";
+          removeBtn.className = "remove-field-btn";
+          removeBtn.textContent = "✕";
+          removeBtn.addEventListener("click", function (event) {
+            event.stopPropagation();
+            newField.remove();
+            fieldCount--;
+
+            // If row becomes empty, remove it
+            const parentRow = this.parentNode.parentNode;
+            if (parentRow.children.length === 0) {
+              parentRow.remove();
+            }
+          });
+
+          newField.appendChild(newInput);
+          newField.appendChild(removeBtn);
+
+          // Ensure maximum 2 fields per row
+          let currentRow;
+
+          // Check if we need a new row
+          if (fieldCount % 2 === 0) {
+            // Create new row
+            rowCount++;
+            currentRow = document.createElement("div");
+            currentRow.className = "education-row";
+            currentRow.id = "education-row-" + rowCount;
+            educationSection.insertBefore(currentRow, addEducationFieldBtn);
+          } else {
+            // Use last row
+            currentRow = document.getElementById("education-row-" + rowCount);
+
+            // If somehow the row doesn't exist, create it
+            if (!currentRow) {
+              currentRow = document.createElement("div");
+              currentRow.className = "education-row";
+              currentRow.id = "education-row-" + rowCount;
+              educationSection.insertBefore(currentRow, addEducationFieldBtn);
+            }
+          }
+
+          // Add field to row
+          currentRow.appendChild(newField);
+          fieldCount++;
         }
-    });
-} else {
-    console.error('Question row element not found');
-}
+      });
 
-//coures details 2 container
- // Find where you have this section in your existing code:
-//coures details 2 container
-const optionsContainer = document.getElementById('option-section-degree-container');
-const dropdownTrigger = document.getElementById('admin-student-course-second');
+      const academicGapContainer = document.getElementById(
+        "academic-gap-container"
+      );
+      const academicGapRow =
+        academicGapContainer.querySelector("#academic-gap-row");
+      const dropdownIcon = academicGapContainer.querySelector(
+        ".admin-student-dropdown-icon"
+      );
+      const optionsSection = academicGapContainer.querySelector(
+        "#academic-gap-options"
+      );
 
-// 2. Hide the options container by default
-if (optionsContainer) {
-    optionsContainer.style.display = 'none';
-    console.log('Options container hidden on load');
-} else {
-    console.error('Could not find options container element');
-}
+      academicGapRow.addEventListener("click", function (event) {
+        event.stopPropagation();
 
-// 3. Add click event to show/hide the options container
-if (dropdownTrigger) {
-    dropdownTrigger.addEventListener('click', function(e) {
-        e.stopPropagation(); // Prevent event bubbling
-        if (optionsContainer.style.display === 'none') {
-            optionsContainer.style.display = 'block';
-            console.log('Options container shown');
-        } else {
-            optionsContainer.style.display = 'none';
-            console.log('Options container hidden');
+        const isVisible = optionsSection.style.display === "block";
+        optionsSection.style.display = isVisible ? "none" : "block";
+        academicGapContainer.classList.toggle("active", !isVisible);
+        dropdownIcon.classList.toggle("rotated", !isVisible);
+      });
+
+      const academicOptions =
+        academicGapContainer.querySelector(".academic-options");
+      academicOptions.addEventListener("click", function (event) {
+        event.stopPropagation();
+      });
+
+      const addBtn = academicGapContainer.querySelector(
+        "#add-academic-option-btn"
+      );
+      addBtn.addEventListener("click", function (event) {
+        event.stopPropagation();
+        const userInput = prompt("Enter new option", "");
+
+        if (userInput && userInput.trim() !== "") {
+          const optionsContainer =
+            academicGapContainer.querySelector(".academic-options");
+
+          const newOption = document.createElement("div");
+          newOption.className = "academic-option";
+
+          const radio = document.createElement("input");
+          radio.type = "radio";
+          radio.id = "academic-option-" + Date.now();
+          radio.name = "academics-gap";
+          radio.value = userInput.toLowerCase().replace(/\s+/g, "-");
+
+          const label = document.createElement("label");
+          label.htmlFor = radio.id;
+          label.textContent = userInput.trim();
+
+          newOption.appendChild(radio);
+          newOption.appendChild(label);
+          optionsContainer.appendChild(newOption);
         }
-    });
-} else {
-    console.error('Could not find dropdown trigger element');
-}
+      });
 
-// 4. Keep the existing add functionality
-const addSection = document.getElementById('addSection');
-const optionsGrid = document.getElementById('optionsContainer');
+      const academicYesRadio = document.getElementById("academic-yes");
+      const academicNoRadio = document.getElementById("academic-no");
 
-if (addSection && optionsGrid) {
-    addSection.onclick = function(e) {
-        e.stopPropagation(); // Stop event from reaching document click handler
-        const newOptionName = prompt('Enter new option:');
-        if (newOptionName && newOptionName.trim() !== '') {
-            // Remove the add section
-            optionsGrid.removeChild(addSection);
-            
-            // Create the new option item
-            const newOptionItem = document.createElement('div');
-            newOptionItem.className = 'option-item';
-            newOptionItem.innerHTML = `
-                <input type="checkbox" class="option-checkbox">
-                <div class="option-name">${newOptionName.trim()}</div>
-            `;
-            
-            // Add the new option to the grid
-            optionsGrid.appendChild(newOptionItem);
-            
-            // Add back the add section
-            optionsGrid.appendChild(addSection);
-            console.log('New option added: ' + newOptionName);
+      academicYesRadio.addEventListener("change", function () {
+        let reasonSection =
+          academicGapContainer.querySelector(".academic-reason");
+
+        if (!reasonSection) {
+          reasonSection = document.createElement("div");
+          reasonSection.className = "academic-reason";
+
+          const reasonLabel = document.createElement("label");
+          reasonLabel.textContent = "Please state the reason for the gap:";
+
+          const reasonTextarea = document.createElement("textarea");
+          reasonTextarea.placeholder = "Enter your reason here...";
+
+          reasonSection.appendChild(reasonLabel);
+          reasonSection.appendChild(reasonTextarea);
+
+          // Insert after the academic-options-container
+          const optionsContainer = academicGapContainer.querySelector(
+            ".academic-options-container"
+          );
+          optionsContainer.parentNode.insertBefore(
+            reasonSection,
+            optionsContainer.nextSibling
+          );
         }
-    };
-} else {
-    console.error('Could not find addSection or optionsGrid elements');
-}
+
+        setTimeout(() => {
+          reasonSection.classList.add("visible");
+        }, 10);
+      });
+
+      academicNoRadio.addEventListener("change", function () {
+        const reasonSection =
+          academicGapContainer.querySelector(".academic-reason");
+        if (reasonSection) {
+          reasonSection.classList.remove("visible");
+        }
+      });
+
+     //co borrower section
+      function setupDropdown(containerId, rowId, optionsId) {
+        const container = document.getElementById(containerId);
+        const row = document.getElementById(rowId);
+        const options = document.getElementById(optionsId);
+        const dropdownIcon = row.querySelector(".admin-student-dropdown-icon");
+
+        row.addEventListener("click", function () {
+          const isVisible = options.style.display !== "none";
+
+          // Toggle visibility
+          options.style.display = isVisible ? "none" : "block";
+
+          // Toggle active class on container
+          container.classList.toggle("active", !isVisible);
+
+          // Rotate the dropdown icon
+          dropdownIcon.classList.toggle("rotated", !isVisible);
+        });
+      }
+
+      // Set up dropdowns for all containers
+      setupDropdown(
+        "co-borrower-container",
+        "co-borrower-row",
+        "co-borrower-options"
+      );
+      setupDropdown("income-container", "income-row", "income-options");
+      setupDropdown(
+        "liability-container",
+        "liability-row",
+        "liability-options"
+      );
+
+      // First container - add option button
+      const addOptionBtn = document.getElementById("add-option-btn");
+      addOptionBtn.addEventListener("click", function (event) {
+        event.stopPropagation();
+
+        const userInput = prompt("Enter new option", "");
+
+        if (userInput && userInput.trim() !== "") {
+          const optionsContainer = document.querySelector(
+            ".checkbox-options-container"
+          );
+
+          // Create checkbox option
+          const newOption = document.createElement("div");
+          newOption.className = "checkbox-option";
+
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.id =
+            "co-borrower-" +
+            userInput.trim().toLowerCase().replace(/\s+/g, "-");
+          checkbox.name = "co-borrower-options";
+
+          const label = document.createElement("label");
+          label.htmlFor = checkbox.id;
+          label.textContent = userInput.trim();
+
+          newOption.appendChild(checkbox);
+          newOption.appendChild(label);
+
+          // Insert the new option before the add button
+          optionsContainer.insertBefore(newOption, addOptionBtn);
+
+          // Make the new checkbox work as radio button
+          checkbox.addEventListener("change", function () {
+            if (this.checked) {
+              document
+                .querySelectorAll('input[name="co-borrower-options"]')
+                .forEach((cb) => {
+                  if (cb !== this) cb.checked = false;
+                });
+            }
+          });
+        }
+      });
+
+      // Function to create delete button functionality
+      function setupDeleteButton(deleteButton) {
+        deleteButton.addEventListener("click", function (event) {
+          event.stopPropagation();
+          // Get the parent container of the button
+          const fieldContainer =
+            this.closest(".field-container") ||
+            this.closest(".liability-input-container");
+          // Remove the field container from the DOM
+          fieldContainer.remove();
+        });
+      }
+
+      // Setup delete buttons for existing fields
+      document.querySelectorAll(".delete-field").forEach((button) => {
+        setupDeleteButton(button);
+      });
+
+      // Second container - add income field button
+      const addIncomeFieldBtn = document.getElementById("add-income-field-btn");
+      addIncomeFieldBtn.addEventListener("click", function (event) {
+        event.stopPropagation();
+
+        // Get user input through prompt
+        const userInput = prompt("Enter field name", "");
+
+        if (userInput && userInput.trim() !== "") {
+          // Get the container for fields
+          const fieldsRowContainer = document.querySelector(
+            ".fields-row-container"
+          );
+
+          // Create a new field container
+          const fieldContainer = document.createElement("div");
+          fieldContainer.className = "field-container";
+
+          // Create new income input field
+          const newIncomeField = document.createElement("input");
+          newIncomeField.type = "text";
+          newIncomeField.className = "text-input";
+          newIncomeField.value = userInput.trim(); // Set the value to what the user entered
+
+          // Create delete button
+          const deleteButton = document.createElement("button");
+          deleteButton.className = "delete-field";
+          deleteButton.textContent = "✕";
+
+          // Append elements to field container
+          fieldContainer.appendChild(newIncomeField);
+          fieldContainer.appendChild(deleteButton);
+
+          // Insert the new field before the add button
+          fieldsRowContainer.insertBefore(fieldContainer, addIncomeFieldBtn);
+
+          // Set up delete button functionality
+          setupDeleteButton(deleteButton);
+
+          // Add validation event listener
+          newIncomeField.addEventListener("input", validateNumericField);
+        }
+      });
+
+      // Third container - Radio button functionality and add button
+      // Handle Yes/No radio button functionality
+      document
+        .querySelectorAll('input[name="co-borrower-liability"]')
+        .forEach((radio) => {
+          radio.addEventListener("change", function () {
+            const emiInput = document.getElementById("emi-amount");
+            const additionalFields = document.getElementById(
+              "additional-liability-fields"
+            );
+            const addLiabilityBtn =
+              document.getElementById("add-liability-btn");
+
+            if (this.id === "yes-liability" && this.checked) {
+              // Enable input field and show add button when Yes is selected
+              emiInput.disabled = false;
+              additionalFields.style.display = "flex";
+              addLiabilityBtn.style.display = "flex";
+            } else if (this.id === "no-liability" && this.checked) {
+              // Disable input field and hide add button when No is selected
+              emiInput.disabled = true;
+              emiInput.value = "";
+              additionalFields.style.display = "none";
+              addLiabilityBtn.style.display = "none";
+
+              // Clear all additional liability fields
+              while (additionalFields.firstChild) {
+                additionalFields.removeChild(additionalFields.firstChild);
+              }
+            }
+          });
+        });
+
+      // Third container - add liability field button
+      const addLiabilityBtn = document.getElementById("add-liability-btn");
+      addLiabilityBtn.addEventListener("click", function (event) {
+        event.stopPropagation();
+
+        // Get user input through prompt
+        const userInput = prompt("Enter field name for liability", "");
+
+        if (userInput && userInput.trim() !== "") {
+          // Get the container for additional liability fields
+          const additionalFieldsContainer = document.getElementById(
+            "additional-liability-fields"
+          );
+
+          const fieldContainer = document.createElement("div");
+          fieldContainer.className = "liability-input-container";
+
+       
+          const newField = document.createElement("input");
+          newField.type = "text";
+          newField.className = "liability-input";
+          newField.placeholder = userInput.trim();
+
+         
+          const deleteButton = document.createElement("button");
+          deleteButton.className = "delete-liability-field";
+          deleteButton.textContent = "✕";
+          deleteButton.setAttribute("aria-label", "Delete field");
+
     
-});
+          deleteButton.addEventListener("click", function (e) {
+            e.stopPropagation();
+            fieldContainer.remove();
+          });
+
+          // Add validation to the new field
+          newField.addEventListener("input", function () {
+            const value = this.value.replace(/[^0-9]/g, "");
+            if (value === "" || isNaN(value)) {
+              this.style.borderColor = "red";
+            } else {
+              this.style.borderColor = "#ccc";
+            }
+          });
+
+       
+          fieldContainer.appendChild(newField);
+          fieldContainer.appendChild(deleteButton);
+          additionalFieldsContainer.appendChild(fieldContainer);
+        }
+      });
+
+      function validateNumericField() {
+        const value = this.value.replace(/[^0-9]/g, "");
+        // Find the closest error message
+        const errorMessage =
+          this.closest(".field-container")?.querySelector(".error-message") ||
+          document.getElementById("emi-error-message");
+
+        if (errorMessage) {
+          if (value === "" || isNaN(value)) {
+            errorMessage.style.display = "block";
+            this.style.borderColor = "red";
+          } else {
+            errorMessage.style.display = "none";
+            this.style.borderColor = "#ccc";
+          }
+        }
+      }
 
 
+      document.querySelectorAll(".text-input").forEach((input) => {
+        input.addEventListener("input", validateNumericField);
+      });
+
+  
+      const emiAmount = document.getElementById("emi-amount");
+      emiAmount.addEventListener("input", validateNumericField);
+
+      // Prevent field clicks from toggling the dropdown
+      document.querySelectorAll(".options-section").forEach((section) => {
+        section.addEventListener("click", function (event) {
+          event.stopPropagation();
+        });
+      });
+
+      // Make checkboxes in first container work as radio buttons
+      document
+        .querySelectorAll('input[name="co-borrower-options"]')
+        .forEach((checkbox) => {
+          checkbox.addEventListener("change", function () {
+            if (this.checked) {
+              document
+                .querySelectorAll('input[name="co-borrower-options"]')
+                .forEach((cb) => {
+                  if (cb !== this) cb.checked = false;
+                });
+            }
+          });
+        });
+
+      // Co-borrower info section toggle
+      const coborrowerHeader = document.querySelector(
+        ".admin-student-section-header-co-borrower"
+      );
+      const coborrowerArrow = document.querySelector(
+        ".admin-student-arrow-icon-co-borrower"
+      );
+      const formQuestions = document.querySelectorAll(
+        ".admin-student-form-question"
+      );
+
+      // Set initial state - containers are hidden by default
+      let containersVisible = false;
+
+      coborrowerHeader.addEventListener("click", function () {
+        // Toggle visibility of the form questions
+        containersVisible = !containersVisible;
+
+        formQuestions.forEach((question) => {
+          question.style.display = containersVisible ? "block" : "none";
+        });
+
+        // Rotate arrow - proper direction based on state
+        coborrowerArrow.style.transform = containersVisible
+          ? "rotate(180deg)"
+          : "rotate(0deg)";
+      });
 
     </script>
 
