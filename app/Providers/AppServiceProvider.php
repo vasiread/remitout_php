@@ -21,13 +21,14 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+     public function boot()
     {
-        if (
-            isset($_SERVER['HTTP_HOST']) &&
-            !str_contains($_SERVER['HTTP_HOST'], 'localhost')
-        ) {
-            \URL::forceScheme('https');
+        if (env('APP_ENV') !== 'local') {
+            URL::forceScheme('https');
         }
+        // if (env('APP_ENV') !== 'production') {
+        //     URL::forceScheme('https');
+        // }
+        //
     }
 }
