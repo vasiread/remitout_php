@@ -18,7 +18,7 @@
     @extends('layouts.app')
 
     @section('scdashboard')
-            @php
+                    @php
 $profileIconPath = "assets/images/account_circle.png";
 $phoneIconPath = "assets/images/call.png";
 $mailIconPath = "assets/images/mail.png";
@@ -91,409 +91,405 @@ $studentDocumentDetailsInfo = [
 
 
 
-            @endphp
-            <div class="scdashboard-parentcontainer">
-                <div class="commonsidebar-togglesidebar">
-                    <ul class="commonsidebar-sidebarlists-top">
-                        @foreach($sidebarItems as $item)
-                            <li class="{{ $item['active'] ? 'active' : '' }}">
-                                <i class="{{ $item['icon'] }}"></i>
-                                <p>{{ $item['name'] }}</p>
-                            </li>
-                        @endforeach
-                    </ul>
-                    <ul class="commonsidebar-sidebarlists-bottom">
-                        <li class="logoutBtn" onClick="sessionLogout()">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
-                        </li>
-                        <li>
-                            <img src="{{ asset('assets/images/Icons/support_agent.png') }}" alt=""> Support
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="scdashboard-container">
-
-                    <div class="scdashboard-dashboardcontent">
-                        <div class="scdashboard-trackprogress">
-                            <div class="trackprogress-firstsection">
-
-                                <h1>Track Progress</h1>
-                                <button class="referral-Link-trigger-anotherbutton">Generate Referral Link</button>
-                                <button id="mobgeneratedreferralcode"> <img src="{{ asset('assets/images/Group icon.png') }}"
-                                        alt=""> Referral Code:
-                                    45628</button>
-                            </div>
-                            <div class="trackprogress-secondsection">
-                                <div class="trackprogress-month">
-                                    <h1>October</h1>
-                                    <p>month</p>
-                                </div>
-                                <div class="trackprogress-noofstudent">
-                                    <h1>07</h1>
-                                    <p>no. of students</p>
-                                </div>
-                                <div class="trackprogress-amount">
-                                    <h1>50,000</h1>
-                                    <p>amount in rs.</p>
-                                </div>
-                                <div class="trackprogress-totalamount">
-                                    <h1>1,00,000</h1>
-                                    <p>total amount</p>
-                                </div>
-
-                            </div>
-                            <div class="trackprogress-thirdsection">
-                                <button id="pcviewgeneratedreferralcode"> <img src="{{ asset('assets/images/Group icon.png') }}"
-                                        alt=""> Referral Code:
-                                    45628</button>
-                                <button> <img src="{{ asset('assets/images/dbicon.png') }}" alt="">Track Commission</button>
-                                <button id="mobgeneratedbutton" class="referral-Link-trigger-button">Generate Referral
-                                    Link</button>
-                            </div>
+                    @endphp
+                    <div class="scdashboard-parentcontainer">
+                        <div class="commonsidebar-togglesidebar">
+                            <ul class="commonsidebar-sidebarlists-top">
+                                @foreach($sidebarItems as $item)
+                                    <li class="{{ $item['active'] ? 'active' : '' }}">
+                                        <i class="{{ $item['icon'] }}"></i>
+                                        <p>{{ $item['name'] }}</p>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            <ul class="commonsidebar-sidebarlists-bottom">
+                                <li class="logoutBtn" onClick="sessionLogout()">
+                                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                                </li>
+                                <li>
+                                    <img src="{{ asset('assets/images/Icons/support_agent.png') }}" alt=""> Support
+                                </li>
+                            </ul>
                         </div>
 
-                        <div class="scdashboard-studentapplication" id="studentapplicationfromstudentdashboard">
-                            <div class="studentapplication-header">
+                        <div class="scdashboard-container">
+
+                            <div class="scdashboard-dashboardcontent">
+                                <div class="scdashboard-trackprogress">
+                                    <div class="trackprogress-firstsection">
+
+                                        <h1>Track Progress</h1>
+                                        <button class="referral-Link-trigger-anotherbutton">Generate Referral Link</button>
+                                        <button id="mobgeneratedreferralcode"> <img src="{{ asset('assets/images/Group icon.png') }}"
+                                                alt=""> Referral Code:
+                                            45628</button>
+                                    </div>
+                                    <div class="trackprogress-secondsection">
+                                        <div class="trackprogress-month">
+                                            <h1>October</h1>
+                                            <p>month</p>
+                                        </div>
+                                        <div class="trackprogress-noofstudent">
+                                            <h1>07</h1>
+                                            <p>no. of students</p>
+                                        </div>
+                                        <div class="trackprogress-amount">
+                                            <h1>50,000</h1>
+                                            <p>amount in rs.</p>
+                                        </div>
+                                        <div class="trackprogress-totalamount">
+                                            <h1>1,00,000</h1>
+                                            <p>total amount</p>
+                                        </div>
+
+                                    </div>
+                                    <div class="trackprogress-thirdsection">
+                                        <button id="pcviewgeneratedreferralcode"> <img src="{{ asset('assets/images/Group icon.png') }}"
+                                                alt=""> Referral Code:
+                                            45628</button>
+                                        <button> <img src="{{ asset('assets/images/dbicon.png') }}" alt="">Track Commission</button>
+                                        <button id="mobgeneratedbutton" class="referral-Link-trigger-button">Generate Referral
+                                            Link</button>
+                                    </div>
+                                </div>
+
+                                <div class="scdashboard-studentapplication" id="studentapplicationfromstudentdashboard">
+                                    <div class="studentapplication-header">
+                                        <h1>Applications</h1>
+                                        <div class="application-buttoncontainer">
+                                            <button class="see-all">See all</button>
+                                            <button class="start-new">Start New Registration</button>
+                                        </div>
+                                        <div class="studentadditbutton">
+                                            <button class="start-new">+</button>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div id="user-list">
+                                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scdashboard-inboxcontent">
+                            <div class="scmember-profilecontainer">
+                                <div class="scmember-profilecontainerimg">
+                                    <img src="{{asset('assets/images/image-women.jpeg')}}" id="studentcounsellor-profile" alt="">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                    <input type="file" id="sc-profile-upload-cloud" display="none">
+                                </div>
+
+                                <div class="scmember-rowfirst">
+                                    <h1>Student Counsellor</h1>
+
+                                </div>
+                                <p id="screferral-id-fromprofile">Referral Number: <span>{{ session('scuser')->referral_code }}</span>
+                                </p>
+                                <div id="screferral-dob-fromprofile" inputmode="Date">
+                                    <i class="fa-solid fa-calendar"></i>
+                                    <p></p>
+
+                                </div>
+                                <div id="screferral-dob-fromprofile-editmode" inputmode="Date">
+                                    <i class="fa-solid fa-calendar"></i>
+                                    <input type="text">
+
+                                </div>
+                                <ul class="scmember_personalinfo">
+
+                                    <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
+                                        <p> </p>
+                                    </li>
+                                    <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="">
+                                        <p></p>
+                                    </li>
+                                    <li class="scmember_personal_info_email" style="word-break: break-all;" id="referenceEmailId">
+                                        <img src="{{$mailIconPath}}" alt="">
+                                        <p>{{ session('scuser')->email}}</p>
+                                    </li>
+                                    <li class="scmember_personal_info_state"><img src="{{$pindropIconPath}}" alt="">
+                                        <p style="line-height:19px"></p>
+                                    </li>
+
+                                </ul>
+                                <ul class="scmember_personalinfo_editmode">
+                                    <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
+                                        <input type="text">
+                                    </li>
+                                    <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="">
+                                        <input type="text">
+                                    </li>
+                                    <li class="scmember_personal_info_email" id="referenceEmailId">
+                                        <img src="{{$mailIconPath}}" alt="">
+                                        <input type="text" disabled>
+                                    </li>
+                                    <li class="scmember_personal_info_state-edit">
+
+                                        <div class="scmember-personal_address_header">
+                                            <img src="{{$pindropIconPath}}" alt="">
+                                            <input type="text" disabled>
+                                        </div>
+
+
+
+                                        <div class="subbranch-of-address">
+                                            <input type="text" placeholder="area" id="scaddress-address">
+                                            <input type="text" placeholder="city" id="scaddress-city">
+                                            <input type="text" placeholder="state" id="scaddress-state">
+                                            <input type="text" placeholder="pincode" id="scaddress-pincode">
+                                        </div>
+
+                                    </li>
+
+                                </ul>
+
+                            </div>
+                            <div class="scdashboard-performancecontainer">
+                                <div class="performancecontainer-firstrow">
+                                    <h3>Performance</h3>
+                                    <button class="edit-scuser">Edit</button>
+                                    <button class="save-scuser">Save</button>
+                                </div>
+                                <ul class="scdashboard-individual-performance">
+                                    <li>
+                                        <p>Average Leads/month</p>
+                                        <span>10</span>
+
+                                    </li>
+                                    <li>
+                                        <p>Total Leads</p>
+                                        <span>20</span>
+
+                                    </li>
+                                    <li>
+                                        <p>Total Commission</p>
+                                        <span>10</span>
+
+                                    </li>
+                                    <li>
+                                        <p>Pending Amount</p>
+                                        <span>₹2000</span>
+
+                                    </li>
+                                </ul>
+                                <div class="scdashboard-queryraisedcontainer">
+                                    <div class="queryraisedcontainer-firstrow">
+                                        <p id="queryraised-header">Queries Raised</p>
+                                        <div class="queryraisedcontainer-rightcontent">
+                                            <button id="sort-by" style="cursor:pointer;">
+                                                <p>Sort by</p> <img src="assets/images/Icons/swap_vert.png" />
+                                            </button>
+                                            <div class="sort-by-contents">
+                                                <a href="" data-sort="newest">Newest</a>
+                                                <a href="" data-sort="oldest">Oldest</a>
+                                                <a href="" data-sort="alphabet">A-Z</a>
+                                                <a href="" data-sort="alphabet-reverse">Z-A</a>
+                                            </div>
+                                            <button id="raised-query">Raise Query</button>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="groupofraisedquestion-scdashboard">
+                                        @foreach ($questions as $items)
+                                            <div class="individual-raisedquestions" data-added="{{ $items['date_added']}}">
+                                                <p id="queries-row">{{ $items['queries'] }}</p>
+                                                <p id="query-raisedbyrow">{{ $items['queriesRaisedBy']}}</p>
+                                            </div>
+                                        @endforeach
+
+
+
+
+
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+                        <div class="scdashboard-applicationstatus">
+                            <div class="scapplicationstatus-firstrow">
                                 <h1>Applications</h1>
-                                <div class="application-buttoncontainer">
-                                    <button class="see-all">See all</button>
-                                    <button class="start-new">Start New Registration</button>
-                                </div>
-                                <div class="studentadditbutton">
-                                    <button class="start-new">+</button>
-
-                                </div>
-
-                            </div>
-
-                            <div id="user-list">
-                            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        </div>
-                    </div>
-                </div>
-                <div class="scdashboard-inboxcontent">
-                    <div class="scmember-profilecontainer">
-                        <div class="scmember-profilecontainerimg">
-                            <img src="{{asset('assets/images/image-women.jpeg')}}" id="studentcounsellor-profile" alt="">
-                            <i class="fa-regular fa-pen-to-square"></i>
-                            <input type="file" id="sc-profile-upload-cloud" display="none">
-                        </div>
-
-                        <div class="scmember-rowfirst">
-                            <h1>Student Counsellor</h1>
-
-                        </div>
-                        <p id="screferral-id-fromprofile">Referral Number: <span>{{ session('scuser')->referral_code }}</span>
-                        </p>
-                        <div id="screferral-dob-fromprofile" inputmode="Date">
-                            <i class="fa-solid fa-calendar"></i>
-                            <p></p>
-
-                        </div>
-                        <div id="screferral-dob-fromprofile-editmode" inputmode="Date">
-                            <i class="fa-solid fa-calendar"></i>
-                            <input type="text">
-
-                        </div>
-                        <ul class="scmember_personalinfo">
-
-                            <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
-                                <p> </p>
-                            </li>
-                            <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="">
-                                <p></p>
-                            </li>
-                            <li class="scmember_personal_info_email" style="word-break: break-all;" id="referenceEmailId">
-                                <img src="{{$mailIconPath}}" alt="">
-                                <p>{{ session('scuser')->email}}</p>
-                            </li>
-                            <li class="scmember_personal_info_state"><img src="{{$pindropIconPath}}" alt="">
-                                <p style="line-height:19px"></p>
-                            </li>
-
-                        </ul>
-                        <ul class="scmember_personalinfo_editmode">
-                            <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
-                                <input type="text">
-                            </li>
-                            <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="">
-                                <input type="text">
-                            </li>
-                            <li class="scmember_personal_info_email" id="referenceEmailId">
-                                <img src="{{$mailIconPath}}" alt="">
-                                <input type="text" disabled>
-                            </li>
-                            <li class="scmember_personal_info_state-edit">
-
-                                <div class="scmember-personal_address_header">
-                                    <img src="{{$pindropIconPath}}" alt="">
-                                    <input type="text" disabled>
-                                </div>
-
-
-
-                                <div class="subbranch-of-address">
-                                    <input type="text" placeholder="area" id="scaddress-address">
-                                    <input type="text" placeholder="city" id="scaddress-city">
-                                    <input type="text" placeholder="state" id="scaddress-state">
-                                    <input type="text" placeholder="pincode" id="scaddress-pincode">
-                                </div>
-
-                            </li>
-
-                        </ul>
-
-                    </div>
-                    <div class="scdashboard-performancecontainer">
-                        <div class="performancecontainer-firstrow">
-                            <h3>Performance</h3>
-                            <button class="edit-scuser">Edit</button>
-                            <button class="save-scuser">Save</button>
-                        </div>
-                        <ul class="scdashboard-individual-performance">
-                            <li>
-                                <p>Average Leads/month</p>
-                                <span>10</span>
-
-                            </li>
-                            <li>
-                                <p>Total Leads</p>
-                                <span>20</span>
-
-                            </li>
-                            <li>
-                                <p>Total Commission</p>
-                                <span>10</span>
-
-                            </li>
-                            <li>
-                                <p>Pending Amount</p>
-                                <span>₹2000</span>
-
-                            </li>
-                        </ul>
-                        <div class="scdashboard-queryraisedcontainer">
-                            <div class="queryraisedcontainer-firstrow">
-                                <p id="queryraised-header">Queries Raised</p>
-                                <div class="queryraisedcontainer-rightcontent">
-                                    <button id="sort-by" style="cursor:pointer;">
-                                        <p>Sort by</p> <img src="assets/images/Icons/swap_vert.png" />
+                                <div class="firstrowapplication-rightsidecontent">
+                                    <button id="applicationstatus-sortby">Sort by <img src="assets/images/Icons/swap_vert.png" />
                                     </button>
-                                    <div class="sort-by-contents">
+                                    <div class="sort-by-contents-applications-studentnames">
                                         <a href="" data-sort="newest">Newest</a>
                                         <a href="" data-sort="oldest">Oldest</a>
                                         <a href="" data-sort="alphabet">A-Z</a>
                                         <a href="" data-sort="alphabet-reverse">Z-A</a>
                                     </div>
-                                    <button id="raised-query">Raise Query</button>
-
+                                    <button id="mobwidthdownloadbutton">
+                                        <img src="{{asset("assets/images/Icons/download-orange.png")}}" alt="">
+                                    </button>
+                                    <button id="sc-new-application-generate">Start New Application</button>
                                 </div>
-
                             </div>
-                            <div class="groupofraisedquestion-scdashboard">
-                                @foreach ($questions as $items)
-                                    <div class="individual-raisedquestions" data-added="{{ $items['date_added']}}">
-                                        <p id="queries-row">{{ $items['queries'] }}</p>
-                                        <p id="query-raisedbyrow">{{ $items['queriesRaisedBy']}}</p>
-                                    </div>
-                                @endforeach
-
-
-
-
-
-                            </div>
-                        </div>
-
-
-
-                    </div>
-
-                </div>
-                <div class="scdashboard-applicationstatus">
-                    <div class="scapplicationstatus-firstrow">
-                        <h1>Applications</h1>
-                        <div class="firstrowapplication-rightsidecontent">
-                            <button id="applicationstatus-sortby">Sort by <img src="assets/images/Icons/swap_vert.png" />
-                            </button>
-                            <div class="sort-by-contents-applications-studentnames">
-                                <a href="" data-sort="newest">Newest</a>
-                                <a href="" data-sort="oldest">Oldest</a>
-                                <a href="" data-sort="alphabet">A-Z</a>
-                                <a href="" data-sort="alphabet-reverse">Z-A</a>
-                            </div>
-                            <button id="mobwidthdownloadbutton">
-                                <img src="{{asset("assets/images/Icons/download-orange.png")}}" alt="">
-                            </button>
-                            <button id="sc-new-application-generate">Start New Application</button>
-                        </div>
-                    </div>
-                    @php
+                            @php
 $perPage = 3;
 $totalStudents = count($studentDocumentDetailsInfo);
 $totalPages = ceil($totalStudents / $perPage);  
-                    @endphp
+                            @endphp
 
-                    <div id="student-applicationdetailsstatus">
-                        @foreach (array_chunk($studentDocumentDetailsInfo, $perPage, true) as $page => $students)
-                            <div class="page-class student-page" data-page="{{ $page + 1 }}"
-                                style="display: {{ $page == 0 ? 'block' : 'none' }};">
-                                @foreach ($students as $student)
-                                    <div class="studentapplicationstatusreports-inscdashboard"
-                                        data-added="{{ $student['date_added'] }}">
-                                        <div class="reportsindashboard-firstrow">
-                                            <div class="reportsindashboard-leftcontentinfirstrow">
-                                                <p>{{ $student['student_name'] }}</p>
-                                                <span>Unique ID: HBJHKNJ776878</span>
+                            <div id="student-applicationdetailsstatus">
+                                @foreach (array_chunk($studentDocumentDetailsInfo, $perPage, true) as $page => $students)
+                                    <div class="page-class student-page" data-page="{{ $page + 1 }}"
+                                        style="display: {{ $page == 0 ? 'block' : 'none' }};">
+                                        @foreach ($students as $student)
+                                            <div class="studentapplicationstatusreports-inscdashboard"
+                                                data-added="{{ $student['date_added'] }}">
+                                                <div class="reportsindashboard-firstrow">
+                                                    <div class="reportsindashboard-leftcontentinfirstrow">
+                                                        <p>{{ $student['student_name'] }}</p>
+                                                        <span>Unique ID: HBJHKNJ776878</span>
+                                                    </div>
+                                                    <div class="reportsindashboard-rightcontentinfirstrow">
+                                                        <div class="application-buttoncontainer reportsindashboard-buttoncontainer">
+                                                            <button id="reportsindashboard-firstrow-view" style="cursor:pointer">View</button>
+                                                            <button id="reportsindashboard-firstrow-edit" style="cursor:pointer">Edit</button>
+                                                            <button class="expand-arrow-reportsindashboard" style="cursor:pointer">
+                                                                <img src="{{ asset('assets/images/stat_minus_1.png') }}" alt="">
+                                                            </button>
+                                                        </div>
+                                                        <div class="application-shrinkwidtheditcontainer">
+                                                            <img src="{{ asset('assets/images/Icons/edit_icon.png') }}" alt="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="reportsindashboard-secondrow">
+                                                    <p>{{ $student['DocumentFinalStatus'] }}</p>
+                                                    <p>Application Date: {{ $student['DocumentFinalDate'] }}</p>
+                                                    <p>Proposals received: {{ $student['ProposalReceived'] }}</p>
+                                                    <p>Total Duration: {{ $student['TotalDuration'] }}</p>
+                                                </div>
+                                                <div class="reportsproposal-datalists">
+                                                    @foreach ($student['proposalDetailInfo'] as $proposal)
+                                                        <div class="reportsproposal-individualdatalists">
+                                                            <p>NFBC: &nbsp;&nbsp;{{ $proposal['NBFC'] }}</p>
+                                                            <p>Proposal Date: &nbsp;&nbsp;{{ $proposal['ProposalDate'] }}</p>
+                                                            <p id="reportspropsal-status-state" class="dynamic-status-hide">
+                                                                &nbsp;&nbsp;<span>{{ $proposal['Status'] }}</span>
+                                                            </p>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
                                             </div>
-                                            <div class="reportsindashboard-rightcontentinfirstrow">
-                                                <div class="application-buttoncontainer reportsindashboard-buttoncontainer">
-                                                    <button id="reportsindashboard-firstrow-view" style="cursor:pointer">View</button>
-                                                    <button id="reportsindashboard-firstrow-edit" style="cursor:pointer">Edit</button>
-                                                    <button class="expand-arrow-reportsindashboard" style="cursor:pointer">
-                                                        <img src="{{ asset('assets/images/stat_minus_1.png') }}" alt="">
-                                                    </button>
-                                                </div>
-                                                <div class="application-shrinkwidtheditcontainer">
-                                                    <img src="{{ asset('assets/images/Icons/edit_icon.png') }}" alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="reportsindashboard-secondrow">
-                                            <p>{{ $student['DocumentFinalStatus'] }}</p>
-                                            <p>Application Date: {{ $student['DocumentFinalDate'] }}</p>
-                                            <p>Proposals received: {{ $student['ProposalReceived'] }}</p>
-                                            <p>Total Duration: {{ $student['TotalDuration'] }}</p>
-                                        </div>
-                                        <div class="reportsproposal-datalists">
-                                            @foreach ($student['proposalDetailInfo'] as $proposal)
-                                                <div class="reportsproposal-individualdatalists">
-                                                    <p>NFBC: &nbsp;&nbsp;{{ $proposal['NBFC'] }}</p>
-                                                    <p>Proposal Date: &nbsp;&nbsp;{{ $proposal['ProposalDate'] }}</p>
-                                                    <p id="reportspropsal-status-state" class="dynamic-status-hide">
-                                                        &nbsp;&nbsp;<span>{{ $proposal['Status'] }}</span>
-                                                    </p>
-                                                </div>
-                                            @endforeach
-                                        </div>
+                                        @endforeach
+
                                     </div>
                                 @endforeach
-
                             </div>
-                        @endforeach
-                    </div>
 
-                    <div class="pagination-controls studentapplicaton-datashownpagination">
-                        <button id="prevstudents" onclick="prevdetail()">&lt;</button>
-                        <div id="pages-container">
-                            @for ($i = 1; $i <= $totalPages; $i++)
-                                <button class="page-class @if($i == 1) active @endif" id="page-{{ $i }}" data-page="{{ $i }}"
-                                    onclick="pageTrigger(event)">
-                                    {{ $i }}
-                                </button>
-                            @endfor
+                            <div class="pagination-controls studentapplicaton-datashownpagination">
+                                <button id="prevstudents" onclick="prevdetail()">&lt;</button>
+                                <div id="pages-container">
+                                    @for ($i = 1; $i <= $totalPages; $i++)
+                                        <button class="page-class @if($i == 1) active @endif" id="page-{{ $i }}" data-page="{{ $i }}"
+                                            onclick="pageTrigger(event)">
+                                            {{ $i }}
+                                        </button>
+                                    @endfor
+                                </div>
+                                <button id="nextstudents" onclick="nextdetail()"> &gt; </button>
+                                <button id="download-detailsid">Download report</button>
+                            </div>
+
+
+
                         </div>
-                        <button id="nextstudents" onclick="nextdetail()"> &gt; </button>
-                        <button id="download-detailsid">Download report</button>
                     </div>
 
 
 
-                </div>
-            </div>
 
 
-
-
-
-            <div class="studentAddBySCuserPopup">
-                <div class="studentAddByScuserPopup-headerpart">
-                    <h3>Register Students</h3>
-                    <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="">
-                </div>
-                <div class="studentAddByScuserPopup-contentpart">
-                    <input type="text" placeholder="Name of the Student">
-                    <input type="text" placeholder="bankemail@gmail.com">
-                    <input type="text" placeholder="password">
-                    <button id="delete-student-row" style="cursor:pointer">Delete</button>
-                    <button id="dynamic-add-student-button" style="cursor:pointer">Add Student</buttonstyle>
-
-                </div>
-                <form id="excel-form" enctype="multipart/form-data">
-                    @csrf
-                    <div class="studentAddByScuserPopup-footerpart">
-                        <!-- Excel Upload Button -->
-                        <button id="excel-upload-trigger" type="button" style="cursor:pointer">
-                            Upload xlsx <img src="{{ asset('assets/images/Icons/upload.png') }}" />
-                        </button>
-                        <button type="button" style="cursor:pointer">Add Student</button>
-                        <button type="button" style="cursor:pointer">Save Student details</button>
+                <div class="studentAddBySCuserPopup">
+                    <div class="studentAddByScuserPopup-headerpart">
+                        <h3>Register Students</h3>
+                        <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="">
                     </div>
-
-                    <!-- Hidden File Input -->
-                    <input type="file" id="excel-sheet-student-update" name="excel_file" accept=".xls,.xlsx"
-                        style="display:none">
-
-                    <!-- Section to Display File Name and Save Button -->
-                    <div id="file-upload-info" style="display:none">
-                        <!-- Display the Selected File Name with Remove Button -->
-                        <div id="file-container" style="display: flex; align-items: center; gap: 10px;position:relative;">
-                            <input id="selected-file-name" readonly style="border: 1px solid #ccc; padding: 5px;" />
-                            <button id="remove-excel-btn" type="button" style="cursor:pointer;">X</button>
+                    <div class="studentAddByScuserPopup-content-container">
+                        <div class="studentAddByScuserPopup-contentpart">
+                            <input type="text" placeholder="Name of the Student">
+                            <input type="text" placeholder="bankemail@gmail.com">
+                            <input type="text" placeholder="phone">
+                            <input type="text" placeholder="password">
+                            <button id="delete-student-row" style="cursor:pointer">Delete</button>
+                            <button id="dynamic-add-student-button" style="cursor:pointer">Add Student</button>
+                        </div>
+                    </div>
+                    <form id="excel-form" enctype="multipart/form-data">
+                        @csrf
+                        <div class="studentAddByScuserPopup-footerpart">
+                            <!-- Excel Upload Button -->
+                            <button id="excel-upload-trigger" type="button" style="cursor:pointer">
+                                Upload xlsx <img src="{{ asset('assets/images/Icons/upload.png') }}" />
+                            </button>
+                            <button type="button" class="add-student-btn" style="cursor:pointer">Add Student</button>
+                            <button type="button" id="save-multiple-students-bysc" style="cursor:pointer">Save Student details</button>
                         </div>
 
-                        <!-- Save Excel File Button -->
-                        <button id="save-excelfile-btn" type="button" style="cursor:pointer;">
-                            Save Excel File
-                        </button>
+                        <input type="file" id="excel-sheet-student-update" name="excel_file" accept=".xls,.xlsx" style="display:none">
+
+                        <div id="file-upload-info" style="display:none">
+                            <!-- Display the Selected File Name with Remove Button -->
+                            <div id="file-container" style="display: flex; align-items: center; gap: 10px; position:relative;">
+                                <input id="selected-file-name" readonly style="border: 1px solid #ccc; padding: 5px;" />
+                                <button id="remove-excel-btn" type="button" style="cursor:pointer;">X</button>
+                            </div>
+
+                            <!-- Save Excel File Button -->
+                            <button id="save-excelfile-btn" type="button" style="cursor:pointer;">
+                                Save Excel File
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                    <div class="referral-triggered-view" style="display:none">
+                        <div class="referral-triggered-view-headersection">
+                            <h3>Generate Referral Link</h3>
+                            <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="">
+
+                        </div>
+                        <div class="referral-triggered-view-content">
+                            <input type="input" placeholder="Copy Link here">
+                        </div>
+                        <div class="referral-triggered-view-footer">
+                            <button> <img src="{{ asset('assets/images/Icons/close_icon.png') }}" /> Cancel</button>
+                            <button>Generate</button>
+                        </div>
+
                     </div>
-                </form>
-
-
-
-            </div>
-
-            <div class="referral-triggered-view">
-                <div class="referral-triggered-view-headersection">
-                    <h3>Generate Referral Link</h3>
-                    <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="">
-
-                </div>
-                <div class="referral-triggered-view-content">
-                    <input type="input" placeholder="Copy Link here">
-                </div>
-                <div class="referral-triggered-view-footer">
-                    <button> <img src="{{ asset('assets/images/Icons/close_icon.png') }}" /> Cancel</button>
-                    <button>Generate</button>
-                </div>
-
-            </div>
 
     @endsection
     <script>
@@ -512,6 +508,10 @@ $totalPages = ceil($totalStudents / $perPage);
             getUsersByCounsellor();
             triggerExcelRegistration();
             queryDetails();
+            const saveStudentDetailsButton = document.querySelector("#save-multiple-students-bysc");
+            saveStudentDetailsButton.addEventListener('click', () => {
+                const studentData = collectStudentData();
+             });
             const triggerExpandShrink = document.querySelectorAll("#reportsindashboard-firstrow-view");
 
             if (triggerExpandShrink) {
@@ -915,7 +915,9 @@ $totalPages = ceil($totalStudents / $perPage);
                 newForm.innerHTML = `
             <input type="text" placeholder="Name of the Student">
             <input type="text" placeholder="bankemail@gmail.com">
+             <input type="text" placeholder="phone">
             <input type="text" placeholder="password">
+           
             <button class="delete-student-popup">Delete</button>
         `;
 
@@ -1523,6 +1525,120 @@ $totalPages = ceil($totalStudents / $perPage);
         };
 
 
+    const collectStudentData = async () => {
+            const studentForms = document.querySelectorAll(".studentAddByScuserPopup-contentpart");
+            const students = [];
+            let hasInvalidEmail = false;
+            let hasInvalidPhone = false;
+
+            // Simple email format check
+            const isValidEmail = (email) => {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            };
+
+            // Simple phone validation: 10 digits, numbers only
+            const isValidPhone = (phone) => {
+                return /^\d{10}$/.test(phone);
+            };
+
+            studentForms.forEach((form, index) => {
+                const inputs = form.querySelectorAll("input");
+                const student = {
+                    name: inputs[0].value.trim(),
+                    email: inputs[1].value.trim(),
+                    phone: inputs[2].value.trim(),
+                    password: inputs[3].value.trim()
+                };
+
+                // Email check
+                if (student.email && !isValidEmail(student.email)) {
+                    console.error(`Invalid email for student ${index + 1} (${student.name || 'unnamed'}): "${student.email}"`);
+                    hasInvalidEmail = true;
+                }
+
+                // Phone check
+                if (student.phone && !isValidPhone(student.phone)) {
+                    console.error(`Invalid phone number for student ${index + 1} (${student.name || 'unnamed'}): "${student.phone}"`);
+                    hasInvalidPhone = true;
+                }
+
+                 if (student.name || student.email || student.phone || student.password) {
+                    if (!student.name || !student.email || !student.phone || !student.password) {
+                        console.error(`Missing field(s) for student ${index + 1}:`, student);
+                    }
+
+                    students.push(student);
+                }
+            });
+
+            console.log("Student Data:", students);
+
+            if (hasInvalidEmail) {
+                console.warn("Some email addresses are invalid. Please fix them.");
+                alert("Some email addresses are invalid. Please fix them.");
+                return;
+            }
+
+            if (hasInvalidPhone) {
+                console.warn("Some phone numbers are invalid. Please enter 10-digit numeric values.");
+                alert("Some phone numbers are invalid. Please enter 10-digit numeric values.");
+                return;
+            }
+
+            if (students.length === 0) {
+                alert("No student data to save.");
+                return;
+            }
+
+            try {
+                const response = await fetch('/multipleregisterbyscuser', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify({ students })
+                });
+
+              const result = await response.json();
+
+                if (response.ok) {
+                    console.log("Success:", result.message);
+                    alert("Students saved successfully!");
+                    document.querySelectorAll(".studentAddByScuserPopup-contentpart").forEach(form => {
+                        form.querySelectorAll("input").forEach(input => {
+                            input.value = "";
+                        });
+                    });
+                } else {
+                    console.error("Error:", result.errors || result.message);
+
+                    if (result.errors) {
+                        let message = "Please correct the following errors:\n";
+
+                        Object.entries(result.errors).forEach(([field, messages]) => {
+                            const match = field.match(/^students\.(\d+)\.(\w+)$/);
+                            if (match) {
+                                const index = parseInt(match[1], 10) + 1;
+                                const fieldName = match[2].charAt(0).toUpperCase() + match[2].slice(1);
+                                message += `- Student ${index} - ${fieldName}: ${messages[0]}\n`;
+                            } else {
+                                message += `- ${messages[0]}\n`;
+                            }
+                        });
+
+                        alert(message);
+                    } else {
+                        alert("Failed to save students: " + result.message);
+                    }
+                }
+
+            } catch (error) {
+                console.error("Network error:", error);
+                alert("An error occurred while saving students.");
+            }
+        };
 
     </script>
 

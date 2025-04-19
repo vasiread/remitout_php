@@ -685,7 +685,7 @@ const initialiseProfileView = () => {
                 imgElement.src = data.fileUrl;
             } else {
                 console.error("Error: No URL returned from the server", data);
-            }
+            }   
         })
         .catch((error) => {
             console.error("Error retrieving profile picture", error);
@@ -709,9 +709,11 @@ const checkUserStatusCount = () => {
             if (data.success) {
                 console.log("Successfully retrieved count");
                 const finalCounting = data.count;
-                return finalCounting - 1; // <-- this will now resolve correctly
+                return finalCounting - 1; 
+                
             } else {
                 throw new Error("Failed to retrieve count");
+
             }
         });
 };
@@ -755,7 +757,6 @@ const initializeIndividualCards = () => {
 
             console.log(`Card ${index} clicked, input currently ${isInputVisible ? 'visible' : 'hidden'}`);
 
-            // Collapse all other inputs
             document.querySelectorAll('.individual-bankmessage-input').forEach(input => {
                 if (input !== messageInput) {
                     input.style.display = 'none';
@@ -763,27 +764,20 @@ const initializeIndividualCards = () => {
                     if (parentCard) {
                         parentCard.style.height = 'fit-content';
                     }
-                }
+                }   
             });
 
-            // Toggle the clicked input
             messageInput.style.display = isInputVisible ? 'none' : 'flex';
             card.style.height = 'fit-content';
 
 
 
-            // e.preventDefault();
             const student_id = document.querySelector(".personalinfo-secondrow .personal_info_id").textContent;
             var messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
 
             messageInputNbfcids = messageInputNbfcids[index].textContent;
 
-
-
-
-
-
-        };
+        };  
     };
 
     const initCards = async () => {
@@ -794,8 +788,7 @@ const initializeIndividualCards = () => {
                 cleanup();
                 isInitialized = true;
                 console.log("Cards loaded. Binding click listeners...");
-                console.log("----------------------------");
-
+ 
                 individualCards.forEach((card, index) => {
                     console.log(`Initializing card ${index}:`, card);
 

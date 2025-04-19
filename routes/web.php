@@ -171,3 +171,4 @@ Route::post('/getnbfcdata-proposals', [StudentDashboardController::class, 'nbfcP
 Route::post('/proposalcompletion', [StudentDashboardController::class, 'proposalCompletion']);
 Route::post('/check_userid', [StudentDashboardController::class, 'checkUserId']);
 Route::post('/count-user-status', [StudentDashboardController::class, 'getStatusCount']);
+Route::post('/multipleregisterbyscuser', [StudentDashboardController::class, 'multipleuserbyscuser']);

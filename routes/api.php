@@ -89,5 +89,6 @@ Route::post('/unread-message-count', [StudentDashboardController::class, 'unread
 Route::post('/getnbfcdata-proposals', [StudentDashboardController::class, 'nbfcProposals']);
 Route::post('/proposalcompletion', [StudentDashboardController::class, 'proposalCompletion']);
 Route::post('/check_userid', [StudentDashboardController::class, 'checkUserId']);
+Route::post('/multipleregisterbyscuser', [StudentDashboardController::class, 'multipleuserbyscuser']);
 
 

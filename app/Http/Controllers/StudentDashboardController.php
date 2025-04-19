@@ -10,6 +10,7 @@ use App\Models\Requestedbyusers;
 use App\Models\Requestprogress;
 use Exception;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Academics;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\Storage; // Correct import for Storage facade
 use Illuminate\Support\Facades\DB;
 use App\Models\PersonalInfo;
 use App\Models\CourseInfo;
+use Illuminate\Support\Facades\Validator;
 use PhpParser\Node\Stmt\Catch_;
 use ZipArchive;
 class StudentDashboardController extends Controller
@@ -1211,6 +1213,50 @@ class StudentDashboardController extends Controller
 
 
 
+    }
+
+
+
+    public function multipleuserbyscuser(Request $request){
+        $validator = Validator::make($request->all(), [
+            'students' => 'required|array|min:1',
+            'students.*.name' => 'required|string|max:255',
+            'students.*.email' => 'required|email|unique:users,email|max:255',
+            'students.*.phone' => 'required|digits:10|unique:users,phone',
+            'students.*.password' => 'required|string|min:8',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            $students = $request->input('students');
+            $createdStudents = [];
+
+            foreach ($students as $student) {
+                $user = User::create([
+                    'name' => $student['name'],
+                    'email' => $student['email'],
+                    'phone' => $student['phone'],
+                    'password' => Hash::make($student['password']),
+                ]);
+                $createdStudents[] = $user;
+            }
+
+            return response()->json([
+                'message' => 'Students created successfully',
+                'data' => $createdStudents
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Failed to create students',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
 

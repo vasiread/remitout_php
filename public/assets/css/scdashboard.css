@@ -1224,6 +1224,11 @@
 
 
 }
+/* 
+.studentAddBySCuserPopup{
+    min-height: 80vh;
+    overflow: hidden;
+} */
 
 
 
@@ -1251,7 +1256,9 @@
 .referral-Link-trigger-anotherbutton {
     cursor: pointer;
 }
-
+.studentAddByScuserPopup-content-container{
+    overflow-y:scroll;
+}
 .studentAddByScuserPopup-contentpart {
     display: flex;
     flex-direction: column;
@@ -1259,6 +1266,9 @@
     height: fit-content;
     border-bottom: 1px solid rgba(217, 217, 217, 1);
     padding-bottom: 17px;
+    flex: 1;
+        /* Take available space */
+        max-height: 400px
 }
 
 .studentAddByScuserPopup-contentpart input::placeholder {
