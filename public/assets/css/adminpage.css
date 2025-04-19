@@ -2,7 +2,7 @@
     display: flex;
     width: 100%;
     max-width: 100%;
-    background-color: #F5F5F5;
+    background-color: #f5f5f5;
 }
 
 .admin-nav {
@@ -73,7 +73,7 @@
     border-radius: 4px;
     font-size: 14px;
     background-color: white;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 .admin-nav-search-icon {
@@ -102,7 +102,7 @@
     position: relative;
     margin-left: 0.5rem;
     width: 150px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 .admin-nav-avatar {
@@ -275,5 +275,14 @@
 
     .mobile-overlay.active {
         display: block;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .admin-parentcontainer {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        background-color: #f5f5f5;
     }
 }

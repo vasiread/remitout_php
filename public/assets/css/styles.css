@@ -402,7 +402,7 @@ body {
     .content-container {
         grid-template-columns: 1fr;
         padding: 2rem;
-        margin-top: 20px;
+        margin-top: 60px;
     }
 
     .left-container {

@@ -4,8 +4,7 @@ body {
 
 
 #index-section-admin-id{
-  margin-top: 120px;
-     
+  margin-top: 120px;    
   
 }
 
@@ -136,15 +135,17 @@ body {
 
 .admin-individual-bankmessage-input-message input,
 
-
-
-  /* Hide on desktop by default */
 .mobile-inbox-container {
     display: none;
 }
 
-/* Show on mobile devices */
+
 @media screen and (max-width: 768px) {
+  .admin-index-section-main-container{
+    width:380px;
+    margin: 0 auto;
+    padding:0;
+  }
 
     .admin-index-main-container{
         display:none;
@@ -172,18 +173,21 @@ body {
         border-bottom: 2px solid #6F25CE;
     }
     .admin-index-main-sub-container{
-    display: flex;
-    flex-direction: column;
-    background: white;
-   margin: 0px;
-     padding-top: 20px;
+      display: flex;
+      flex-direction: column;
+      background: white;
+      margin: 0px;
+      padding-top: 20px;
 }
 #index-container-id{
     width:100%;
     margin:0 auto;
-    margin-top: 20px;
+    margin-top: 0px;
 }
+
 }
+
+
 
 /* Main container styling */
 .inbox-controls {
