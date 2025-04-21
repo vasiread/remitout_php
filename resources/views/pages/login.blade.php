@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="{{ asset("assets/css/login.css") }}"/>
+    <link rel="stylesheet" href="{{ asset("assets/css/login.css") }}" />
 </head>
 
 <body>
@@ -109,7 +109,7 @@
                     alert("{{ session('session_expired') }}");
                     logoutSession();
                 @endif
-                                            });
+                                                    });
 
             const passwordInput = document.getElementById('loginpasswordID');
             const passwordIcon = document.querySelector('.passwordClose');
@@ -176,7 +176,7 @@
                     loginName: loginName,
                     loginPassword: loginPassword,
                     loginType: loginType,
-                    
+
                 };
 
                 const csrfToken = document.querySelector('meta[name="csrf-token"]');
@@ -194,19 +194,9 @@
                         .then(data => {
                             if (data.success) {
                                 alert(data.message);
-                                if (data.user && data.user.referral_code) {
-                                    window.location.href = '/sc-dashboard'
+                                 window.location.href = data.redirect;
 
-                                }
-                                else if (data.user && data.user.unique_id) {
-                                    window.location.href = '/student-dashboard';
-
-
-                                }
-                                else if (data.user && data.user.nbfc_id) {
-                                    window.location.href = '/nbfc-dashboard';
-
-                                }
+                                
 
                             } else {
                                 alert(data.message);
