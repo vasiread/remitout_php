@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="{{ asset("assets/css/login.css") }}"/>
+    <link rel="stylesheet" href="{{ asset("assets/css/login.css") }}" />
 </head>
 
 <body>
@@ -109,7 +109,7 @@
                     alert("{{ session('session_expired') }}");
                     logoutSession();
                 @endif
-                                            });
+                                                        });
 
             const passwordInput = document.getElementById('loginpasswordID');
             const passwordIcon = document.querySelector('.passwordClose');
@@ -176,7 +176,7 @@
                     loginName: loginName,
                     loginPassword: loginPassword,
                     loginType: loginType,
-                    
+
                 };
 
                 const csrfToken = document.querySelector('meta[name="csrf-token"]');
@@ -194,11 +194,9 @@
                         .then(data => {
                             if (data.success) {
                                 alert(data.message);
-                                window.location.href = data.redirect
+                                 window.location.href = data.redirect;
 
-
-
-                                }
+                                
 
                             } else {
                                 alert(data.message);
