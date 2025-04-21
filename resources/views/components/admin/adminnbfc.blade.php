@@ -59,7 +59,10 @@
 
     <div class="nbfclist-adminside">
         <div class="globallistcontainer-header" id="nbfclistcontainer-headersection">
+          <div class="nbfclist-adminside-container">
             <h2>NBFCs List</h2>
+             <button class="studentlist-add-button-mobile">+</button>
+          </div>  
             <div class="headersection-rightsidecontent">
                 <div class="searchcontainer-rightsidecontent" id="search-student-list-container">
                     <input type="text" id="search-student-list" placeholder="Search">
@@ -82,7 +85,7 @@
                     </div>
                 </div>
                 <button class="studentlist-add-button">Add</button>
-
+               
 
             </div>
         </div>
