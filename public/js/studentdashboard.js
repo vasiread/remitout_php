@@ -3138,31 +3138,19 @@ document.querySelectorAll('input[name="education-level"]').forEach((radio) => {
 
 const saveChangesFunctionality = () => {
     let isEditing = false;
-    const saveChangesButton = document.querySelector(
-        ".personalinfo-firstrow button"
-    );
-    const savedMsg = document.querySelector(
-        ".studentdashboardprofile-myapplication .myapplication-firstcolumn .personalinfo-firstrow .saved-msg"
-    );
-    const personalDivContainer = document.querySelector(
-        ".personalinfo-secondrow"
-    );
-    const personalDivContainerEdit = document.querySelector(
-        ".personalinfosecondrow-editsection"
-    );
-    const academicsMarksDivEdit = document.querySelector(
-        ".testscoreseditsection-secondrow-editsection"
-    );
-    const academicsMarksDiv = document.querySelector(
-        ".testscoreseditsection-secondrow"
-    );
+    const saveChangesButton = document.querySelector(".personalinfo-firstrow button");
+    const savedMsg = document.querySelector(".studentdashboardprofile-myapplication .myapplication-firstcolumn .personalinfo-firstrow .saved-msg");
+    const personalDivContainer = document.querySelector(".personalinfo-secondrow");
+    const personalDivContainerEdit = document.querySelector(".personalinfosecondrow-editsection");
+    const academicsMarksDivEdit = document.querySelector(".testscoreseditsection-secondrow-editsection");
+    const academicsMarksDiv = document.querySelector(".testscoreseditsection-secondrow");
 
     const planToStudy = document.getElementById("plan-to-study-edit");
 
     const toggleSaveState = () => {
         isEditing = true;
 
-        saveChangesButton.textContent = "Save";
+        saveChangesButton.textContent = 'Save';
         saveChangesButton.style.backgroundColor = "rgba(111, 37, 206, 1)";
         saveChangesButton.style.color = "#fff";
         personalDivContainerEdit.style.display = "flex";
@@ -3172,17 +3160,19 @@ const saveChangesFunctionality = () => {
     };
 
     if (saveChangesButton) {
-        saveChangesButton.textContent = "Edit";
+        saveChangesButton.textContent = 'Edit';
         saveChangesButton.style.backgroundColor = "transparent";
         saveChangesButton.style.color = "#260254";
 
-        saveChangesButton.addEventListener("click", (event) => {
+        saveChangesButton.addEventListener('click', (event) => {
+
             isEditing = !isEditing;
 
             if (isEditing) {
                 toggleSaveState(); // Call toggleSaveState function when entering edit mode
-            } else {
-                saveChangesButton.textContent = "Edit";
+            }
+            else {
+                saveChangesButton.textContent = 'Edit';
                 saveChangesButton.style.backgroundColor = "transparent";
                 saveChangesButton.style.color = "#260254";
                 personalDivContainer.style.display = "flex";
@@ -3190,106 +3180,51 @@ const saveChangesFunctionality = () => {
                 academicsMarksDivEdit.style.display = "none";
                 academicsMarksDiv.style.display = "flex";
 
-                const editedName = document.querySelector(
-                    ".personalinfosecondrow-editsection .personal_info_name input"
-                ).value;
-                const editedPhone = document.querySelector(
-                    ".personalinfosecondrow-editsection .personal_info_phone input"
-                ).value;
-                const editedEmail = document.querySelector(
-                    ".personalinfosecondrow-editsection .personal_info_email input"
-                ).value;
-                const editedState = document.querySelector(
-                    ".personalinfosecondrow-editsection .personal_info_state input"
-                ).value;
-                const iletsScore = document.querySelector(
-                    ".testscoreseditsection-secondrow-editsection .ilets_score"
-                ).value;
-                const greScore = document.querySelector(
-                    ".testscoreseditsection-secondrow-editsection .gre_score"
-                ).value;
-                const tofelScore = document.querySelector(
-                    ".testscoreseditsection-secondrow-editsection .tofel_score"
-                ).value;
+                const editedName = document.querySelector(".personalinfosecondrow-editsection .personal_info_name input").value;
+                const editedPhone = document.querySelector(".personalinfosecondrow-editsection .personal_info_phone input").value;
+                const editedEmail = document.querySelector(".personalinfosecondrow-editsection .personal_info_email input").value;
+                const editedState = document.querySelector(".personalinfosecondrow-editsection .personal_info_state input").value;
+                const iletsScore = document.querySelector(".testscoreseditsection-secondrow-editsection .ilets_score").value;
+                const greScore = document.querySelector(".testscoreseditsection-secondrow-editsection .gre_score").value;
+                const tofelScore = document.querySelector(".testscoreseditsection-secondrow-editsection .tofel_score").value;
 
-                // Fetch old values of "Plan to Study"
-                const oldPlanToStudy =
-                    document.getElementById("plan-to-study-edit").value;
-                const oldPlanToStudyArray = oldPlanToStudy
-                    ? oldPlanToStudy.split(",").map((item) => item.trim())
-                    : [];
+                const oldPlanToStudy = document.getElementById("plan-to-study-edit").value;
+                const oldPlanToStudyArray = oldPlanToStudy ? oldPlanToStudy.split(',').map(item => item.trim()) : [];
 
-                // Get current values from checkboxes (selected options)
-                const checkboxes = document.querySelectorAll(
-                    'input[name="study-location-edit"]:checked'
-                );
-                let selectedCountries = Array.from(checkboxes).map(
-                    (checkbox) => checkbox.value
-                );
+                const checkboxes = document.querySelectorAll('input[name="study-location-edit"]:checked');
+                let selectedCountries = Array.from(checkboxes).map(checkbox => checkbox.value);
 
-                // Check if there's a custom country input and add it to the selected countries
-                const customCountry = document
-                    .getElementById("country-edit")
-                    .value.trim();
+                const customCountry = document.getElementById('country-edit').value.trim();
                 if (customCountry) {
                     selectedCountries.push(customCountry);
                 }
 
-                selectedCountries = selectedCountries.filter(
-                    (item) => item.toLowerCase() !== "others"
-                );
+                selectedCountries = selectedCountries.filter(item => item.toLowerCase() !== 'others');
 
-                // Filter out 'Others' (case-insensitive) from oldPlanToStudyArray
-                const finalPlanToStudy = oldPlanToStudyArray.filter(
-                    (item) => item.toLowerCase() !== "others"
-                );
+                const finalPlanToStudy = oldPlanToStudyArray.filter(item => item.toLowerCase() !== 'others');
 
-                // Merge old and new arrays, ensuring no duplicates
-                let mergedPlanToStudy = [
-                    ...new Set([...finalPlanToStudy, ...selectedCountries]),
-                ];
+                let mergedPlanToStudy = [...new Set([...finalPlanToStudy, ...selectedCountries])];
 
-                // Filter out 'Others' (case-insensitive) again from the final merged array
-                mergedPlanToStudy = mergedPlanToStudy.filter(
-                    (item) => item.toLowerCase() !== "other"
-                );
+                mergedPlanToStudy = mergedPlanToStudy.filter(item => item.toLowerCase() !== 'other');
 
-                const courseDuration = document.querySelector(
-                    ".myapplication-fourthcolumn-additional input"
-                ).value;
-                const loanAmount = document.querySelector(
-                    ".myapplication-fourthcolumn input"
-                ).value;
-                const referralCode = document.querySelector(
-                    ".myapplication-fifthcolumn input"
-                ).value;
 
-                const userIdElement = document.querySelector(
-                    ".personalinfo-secondrow .personal_info_id"
-                );
-                const userId = userIdElement ? userIdElement.textContent : "";
 
-                console.log(
-                    editedName,
-                    editedPhone,
-                    editedEmail,
-                    editedState,
-                    userId
-                );
+                const courseDuration = document.querySelector(".myapplication-fourthcolumn-additional input").value;
+                const loanAmount = document.querySelector(".myapplication-fourthcolumn input").value;
+                const referralCode = document.querySelector(".myapplication-fifthcolumn input").value;
 
-                const selectedDegree = document.querySelector(
-                    'input[name="education-level"]:checked'
-                ).value;
-                const otherDegreeInput =
-                    document.getElementById("otherDegreeInput").value;
+                const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+                const userId = userIdElement ? userIdElement.textContent : '';
 
-                const updatedDegreeType =
-                    selectedDegree === "Others"
-                        ? otherDegreeInput
-                        : selectedDegree;
+                console.log(editedName, editedPhone, editedEmail, editedState, userId);
+
+                const selectedDegree = document.querySelector('input[name="education-level"]:checked').value;
+                const otherDegreeInput = document.getElementById('otherDegreeInput').value;
+
+                const updatedDegreeType = selectedDegree === 'Others' ? otherDegreeInput : selectedDegree;
 
                 const updatedData = {
-                    degreeType: updatedDegreeType,
+                    degreeType: updatedDegreeType
                 };
 
                 const updatedInfos = {
@@ -3300,64 +3235,60 @@ const saveChangesFunctionality = () => {
                     iletsScore: iletsScore,
                     greScore: greScore,
                     tofelScore: tofelScore,
-                    planToStudy: mergedPlanToStudy, // Final merged old and new values
+                    planToStudy: mergedPlanToStudy,
                     courseDuration: courseDuration,
                     loanAmount: loanAmount,
                     referralCode: referralCode,
                     degreeType: updatedData.degreeType,
-                    userId: userId,
+                    userId: userId
                 };
 
                 console.log(updatedInfos);
 
-                fetch("/from-profileupdate", {
+
+
+
+                fetch('/from-profileupdate', {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": document
-                            .querySelector('meta[name="csrf-token"]')
-                            .getAttribute("content"),
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                     },
-                    body: JSON.stringify(updatedInfos),
+                    body: JSON.stringify(updatedInfos)
                 })
-                    .then((response) => response.json())
-                    .then((data) => {
+                    .then(response => response.json())
+                    .then(data => {
                         console.log("Response Data:", data);
                         if (editedName) {
-                            document.querySelector(
-                                "#referenceNameId p"
-                            ).textContent = editedName;
-                            document.getElementById(
-                                "personal_state_id"
-                            ).textContent = editedState;
+                            document.querySelector("#referenceNameId p").textContent = editedName;
+                            document.getElementById("personal_state_id").textContent = editedState;
                         }
 
                         if (data.errors) {
-                            console.error("Validation errors:", data.errors);
+                            console.error('Validation errors:', data.errors);
                         } else {
                             console.log("Success", data);
                         }
                     })
-                    .catch((error) => {
+                    .catch(error => {
                         console.error("Error", error);
                     });
             }
         });
     }
 
-    const degreeRadioButtons = document.querySelectorAll(
-        'input[name="education-level"]'
-    );
-    degreeRadioButtons.forEach((button) => {
-        button.addEventListener("change", toggleSaveState);
+    const degreeRadioButtons = document.querySelectorAll('input[name="education-level"]');
+    degreeRadioButtons.forEach(button => {
+        button.addEventListener('change', toggleSaveState);
     });
 };
 
 
 
 
+
 function loadSavedMessages() {
-    // Load text messages
+      
     const savedMessages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
 
     // Load file messages

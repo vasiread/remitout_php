@@ -109,7 +109,7 @@
                     alert("{{ session('session_expired') }}");
                     logoutSession();
                 @endif
-                                                    });
+                                                        });
 
             const passwordInput = document.getElementById('loginpasswordID');
             const passwordIcon = document.querySelector('.passwordClose');
