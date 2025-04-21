@@ -44,7 +44,7 @@ width: 100%;
     color: #E98635;
     font-size: 28px;
     font-weight: 500;
-     font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 /* Export button */
@@ -74,7 +74,7 @@ width: 100%;
     margin-bottom: 15px;
     font-family: 'Poppins', sans-serif;
     font-size: 13px;
-    color:#5D5C5C;
+    color: #5D5C5C;
 }
 
 .manage-student-report-filters-left,
@@ -95,12 +95,11 @@ width: 100%;
     border: 1px solid #ddd;
     border-radius: 4px;
     min-width: 150px;
-    height:35px;
+    height: 35px;
     font-family: 'Poppins', sans-serif;
     font-size: 13px;
-    color:#5D5C5C;
+    color: #5D5C5C;
     font-weight: 500;
-    
 }
 
 /* Search Input */
@@ -126,28 +125,28 @@ width: 100%;
 /* Table Styles */
 .manage-student-report-table {
     width: 100%;
-    border-collapse: collapse; 
-    border: 1px solid #ddd; 
+    border-collapse: collapse;
+    border: 1px solid #ddd;
     border-radius: 12px;
     margin-top: 20px;
 }
+
 .manage-student-report-td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
     font-size: 12px;
-    color:#5D5C5CCC;
+    color: #5D5C5CCC;
 }
 
 .manage-student-report-th {
     font-weight: 500;
-    color:#5D5C5C;
-     font-family: 'Poppins', sans-serif;
+    color: #5D5C5C;
+    font-family: 'Poppins', sans-serif;
     font-size: 14px;
     white-space: nowrap;
     border-bottom: 1px solid #ddd;
-    padding:20px 0px;
-
+    padding: 20px 0px;
 }
 
 /* Pagination */
@@ -181,45 +180,54 @@ width: 100%;
 }
 
 .manage-student-report-pagination-text {
-  
     padding: 0 4px;
-      font-size: 12px;
-    color:#3E3E3E;
+    font-size: 12px;
+    color: #3E3E3E;
 }
 
-/* Mobile header styles */
-.mobile-report-header {
-    display: none; /* Hidden by default on desktop */
+.mobile-report-header-student-report {
+    display: none;
     padding: 15px;
     background-color: white;
     border-bottom: 1px solid #eee;
 }
 
-.mobile-report-header-top {
+.mobile-report-header-top-student-report {
+    margin-bottom: 10px;
+}
+
+.mobile-report-title-student-report {
+    font-size: 18px;
+    font-weight: 500;
+    color: #E98635;
+}
+
+.mobile-report-header-middle-student-report {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
 }
 
-.mobile-report-title {
-    font-size: 18px;
-    font-weight: 500;
-    color: #333;
+.mobile-report-subtitle-student-report {
+    font-size: 14px;
+    color: #E98635;
+    font-weight: 400;
 }
 
-.mobile-header-actions {
+.mobile-header-actions-student-report {
     display: flex;
-    gap: 15px;
+    gap: 10px;
     align-items: center;
 }
 
-.mobile-search-container {
+.mobile-search-container-student-report {
     position: relative;
     flex: 1;
+    max-width: 200px;
 }
 
-.mobile-search-input {
+.mobile-search-input-student-report {
     width: 100%;
     padding: 8px 30px 8px 10px;
     border: 1px solid #ddd;
@@ -227,7 +235,7 @@ width: 100%;
     font-size: 14px;
 }
 
-.mobile-search-icon {
+.mobile-search-icon-student-report {
     position: absolute;
     right: 10px;
     top: 50%;
@@ -236,7 +244,7 @@ width: 100%;
     height: 18px;
 }
 
-.mobile-filter-btn {
+.mobile-filter-btn-student-report {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -249,7 +257,7 @@ width: 100%;
     cursor: pointer;
 }
 
-.mobile-calendar-btn {
+.mobile-calendar-btn-student-report {
     background: none;
     border: 1px solid #ddd;
     width: 36px;
@@ -261,7 +269,7 @@ width: 100%;
     cursor: pointer;
 }
 
-.mobile-export-btn {
+.mobile-export-btn-student-report {
     background: #6c2bd9;
     color: white;
     border: none;
@@ -274,8 +282,7 @@ width: 100%;
     font-size: 14px;
 }
 
-/* Update the mobile filters popup styles */
-.mobile-filters-popup {
+.mobile-filters-popup-student-report {
     display: none;
     position: fixed;
     top: 0;
@@ -284,25 +291,24 @@ width: 100%;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
-    /* Add these to center the content */
     align-items: center;
     justify-content: center;
 }
 
-.mobile-filters-content {
+.mobile-filters-content-student-report {
     background-color: white;
     width: 85%;
     max-width: 350px;
-    height: auto; /* Change from 100% to auto */
-    position: relative; /* Change from absolute to relative */
-    right: auto; /* Remove the right positioning */
-    top: auto; /* Remove the top positioning */
+    height: auto;
+    position: relative;
+    right: auto;
+    top: auto;
     padding: 20px;
-    border-radius: 8px; /* Add rounded corners */
+    border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.mobile-filters-header {
+.mobile-filters-header-student-report {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -311,23 +317,23 @@ width: 100%;
     border-bottom: 1px solid #eee;
 }
 
-.mobile-filters-title {
+.mobile-filters-title-student-report {
     font-size: 16px;
     font-weight: 500;
 }
 
-.mobile-close-btn {
+.mobile-close-btn-student-report {
     background: none;
     border: none;
     font-size: 18px;
     cursor: pointer;
 }
 
-.mobile-filter-item {
+.mobile-filter-item-student-report {
     margin-bottom: 15px;
 }
 
-.mobile-filter-item select {
+.mobile-filter-item-student-report select {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
@@ -341,31 +347,53 @@ width: 100%;
     background-size: 16px;
 }
 
-/* Media queries for responsive design */
 @media screen and (max-width: 768px) {
-    /* Hide desktop components */
+    .manage-student-main-report-container {
+        width: 100%;
+        max-width: 380px;
+        margin: 0 auto;
+        position: relative;
+        top: 100px;
+        right: auto;
+        left: auto;
+        padding: 10px;
+    }
+
     .manage-student-report-header,
     .manage-student-report-filters {
         display: none;
     }
-    
-    /* Show mobile components */
-    .mobile-report-header {
+
+    .mobile-report-header-student-report {
         display: block;
     }
-    
-    /* Adjust table container padding */
+
     .manage-student-report-container {
         padding: 10px;
+        width: 100%;
+        max-width: 380px;
+        margin: 0 auto;
     }
-    
-    /* Make the table responsive */
+
     .manage-student-report-table {
         font-size: 12px;
     }
-    
+
     .manage-student-report-th,
     .manage-student-report-td {
         padding: 8px 4px;
+    }
+
+    .manage-student-report-table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+    }
+
+    .manage-student-report-table {
+        min-width: 800px;
+    }
+    .mobile-report-subtitle-student-report{
+        margin:10px 0px;
     }
 }

@@ -116,6 +116,9 @@
     width: 100%;
     margin-left: 13.26%;
     margin-top: 134px;
+    background-color: white;
+    border-radius: 8px;
+    height:fit-content;
 
 }
 
@@ -152,6 +155,22 @@
     cursor: pointer;
 
 
+    cursor:pointer;
+}
+.studentlist-add-button-mobile{
+    background-color: rgba(111, 37, 206, 1);
+    box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
+    width: 88px;
+    height: 35px;
+    padding: 1rem 2rem;
+    gap: 8px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(111, 37, 206, 1);
+    color: rgba(255, 255, 255, 1);
+    border: none;
 }
 
 .nbfc-type-dropdown {
@@ -268,10 +287,10 @@
     width: 100%;
 }
 
-.nbfc-dropdown-content a:hover {
-    background-color: rgb(232, 235, 238);
-}
 
+.globallistcontainer-header{
+    gap:20px;
+}
 .formsection-addnbfcuser input,
 .firstgroup-field-nbfcadd input {
     width: 100%;
@@ -302,35 +321,77 @@
 
 }
 
-@media(max-width:768px) {
-    .globallistcontainer-header {
+@media (max-width: 768px) {
+    .nbfclist-adminside {
+        margin: 0 auto;
+       width:100%;
+       max-width: 380px;
+        gap: 10px;
+    }
+    
+    
+    .headersection-rightsidecontent{
+        width:300px;
+    }
+
+    .individualnbfclists-content,
+    .individualcounsellorlists-content {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .individualnbfclists-header {
+        flex-direction: column;
+        gap: 10px;
+        padding: 0.5rem;
+        padding-bottom: 20px;
+    }
+
+    .individualnbfclists-headerp {
+        font-size: 14px;
+        line-height: 16px;
+    }
+
+    .individualnbfclists-items {
         flex-direction: column;
         align-items: flex-start;
-    }
-
-    .individualnbfclists-content {
-        flex-direction: column;
-        gap: 4px;
-    }
-
-    .nbfclist-adminside {
-        margin: auto 20px 20px 20px;
-        width: 100%;
+        padding: 1rem;
+        gap: 8px;
     }
 
     .individualnbfclists-items p {
         font-size: 13px;
-        color: rgba(93, 92, 92, 1);
-
+        line-height: 15px;
+        flex: none;
     }
 
-    #nbfc-name-id {
-        font-size: 1rem;
-    }
-
-    .nbfclist-adminside {
+    .nbfc-name-identify,
+    .nbfcreferralid-identify {
         width: 100%;
-        max-width: 100%;
+    }
+
+    .individualnbfcs-buttoncontainer {
+        flex-direction: row;
+        gap: 8px;
+        justify-content: flex-end;
+        width: 100%;
+    }
+
+    .individualnbfcs-buttoncontainer button {
+        padding: 10px;
+        height: 40px;
+        width: auto;
+    }
+
+    .individualnbfcs-buttoncontainer button:not(:last-child) {
+        width: 40px;
+    }
+
+    .individualnbfcs-buttoncontainer button:last-child {
+        width: 90px;
+        height: 40px;
+        font-size: 13px;
+        line-height: 15.6px;
     }
 
     .individualnbfcs-buttoncontainer button:first-child {
@@ -341,27 +402,18 @@
         border: none;
         background-color: transparent;
         box-shadow: none;
-        width: fit-content;
-        height: 45px;
-
-
+        width: 40px;
+        height: 40px;
     }
 
     .individualnbfcs-buttoncontainer button:nth-child(2) img {
         width: 100%;
+        height: 100%;
     }
 
-    .individualnbfcs-buttoncontainer button:last-child {
-        width: 86px;
-        height: 45px;
-
-
+    .add-nbfc-datasection {
+        max-width: 380px;
+        padding: 30px 0px;
+        margin:0 auto;
     }
-
-    .studentlist-add-button {
-        display: none;
-    }
-
-
-
 }
