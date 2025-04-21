@@ -183,157 +183,67 @@
                 }
             }
 
-    const menuIcon = document.getElementById('menu-icon');
-    if (menuIcon && !menuIcon.hasAttribute('data-initialized')) {
-        menuIcon.setAttribute('data-initialized', 'true');
-        menuIcon.addEventListener('click', function() {
-            const mobileSidebar = document.getElementById('mobile-sidebar');
-            const overlay = document.getElementById('sidebar-overlay');
-
-            if (mobileSidebar && overlay) {
-                if (mobileSidebar.classList.contains('active')) {
-                    mobileSidebar.classList.remove('active');
-                    overlay.style.display = 'none';
-                    document.body.style.overflow = '';
-                    this.innerHTML = '<span class="bar"></span><span class="bar"></span><span class="bar"></span>';
-                    this.classList.remove('menu-open');
-                } else {
-                    mobileSidebar.classList.add('active');
-                    overlay.style.display = 'block';
-                    document.body.style.overflow = 'hidden';
-                    this.innerHTML = '<i class="fas fa-times"></i>';
-                    this.classList.add('menu-open');
-                }
-            } else {
-                createMobileSidebar();
-                const newMobileSidebar = document.getElementById('mobile-sidebar');
-                const newOverlay = document.getElementById('sidebar-overlay');
-                if (newMobileSidebar && newOverlay) {
-                    newMobileSidebar.classList.add('active');
-                    newOverlay.style.display = 'block';
-                    document.body.style.overflow = 'hidden';
-                    this.innerHTML = '<i class="fas fa-times"></i>';
-                    this.classList.add('menu-open');
-                }
-            }
-        });
-    }
-});
-
-function createMobileSidebar() {
-    let overlay = document.getElementById('sidebar-overlay');
-    if (!overlay) {
-        overlay = document.createElement('div');
-        overlay.id = 'sidebar-overlay';
-        overlay.className = 'overlay';
-        document.body.appendChild(overlay);
-    }
-
-    let mobileSidebar = document.getElementById('mobile-sidebar');
-    if (!mobileSidebar) {
-        mobileSidebar = document.createElement('div');
-        mobileSidebar.id = 'mobile-sidebar';
-        mobileSidebar.className = 'mobile-sidebar';
-
-        // Updated sidebar content for student counselor dashboard
-        mobileSidebar.innerHTML = `
-            <div class="sidebar-menu">
-                <a href="javascript:void(0)" class="menu-item active" data-container="scdashboard-container">
-                    <i class="fa-solid fa-square-poll-vertical"></i> Dashboard
-                </a>
-                <a href="javascript:void(0)" class="menu-item" data-container="scdashboard-inboxcontent">
-                    <i class="fa-solid fa-inbox"></i> Inbox
-                </a>
-                <a href="javascript:void(0)" class="menu-item" data-container="scdashboard-applicationstatus">
-                    <i class="fa-regular fa-clipboard"></i> Applications
-                </a>
-            </div>
-            <div class="sidebar-footer">
-                <a href="javascript:void(0)" class="menu-item logoutBtn" onclick="sessionLogout()">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
-                </a>
-                <a href="javascript:void(0)" class="menu-item" data-container="scdashboard-support">
-                    <img src="assets/images/Icons/support_agent.png" alt=""> Support
-                </a>
-            </div>
-        `;
-
-        document.body.appendChild(mobileSidebar);
-
-        overlay.addEventListener('click', function() {
-            mobileSidebar.classList.remove('active');
-            overlay.style.display = 'none';
-            document.body.style.overflow = '';
+            // Set up mobile menu click handler
             const menuIcon = document.getElementById('menu-icon');
-            if (menuIcon) {
-                menuIcon.innerHTML = '<span class="bar"></span><span class="bar"></span><span class="bar"></span>';
-                menuIcon.classList.remove('menu-open');
+            if (menuIcon && !menuIcon.hasAttribute('data-initialized')) {
+                menuIcon.setAttribute('data-initialized', 'true');
+                menuIcon.addEventListener('click', function () {
+                    const mobileSidebar = document.getElementById('mobile-sidebar');
+                    const overlay = document.getElementById('sidebar-overlay');
+
+
+                    if (mobileSidebar && overlay) {
+                        // Toggle sidebar visibility
+                        if (mobileSidebar.classList.contains('active')) {
+                            // Close the sidebar
+                            mobileSidebar.classList.remove('active');
+                            overlay.style.display = 'none';
+                            document.body.style.overfl
+                            ow = '';
+                            // Change back to hamburger icon
+                            this.innerHTML = '<span class="bar"></span><span class="bar"></span><span class="bar"></span>';
+                            this.classList.remove('menu-open');
+                        } else {
+                            // Open the sidebar
+                            mobileSidebar.classList.add('active');
+                            overlay.style.display = 'block';
+                            document.body.style.overflow = 'hidden';
+                            // Change to close icon
+                            this.innerHTML = '<i class="fas fa-times"></i>';
+                            this.classList.add('menu-open');
+                        }
+                    } else {
+                        // Create the sidebar and overlay if they don't exist
+                        createMobileSi
+                        debar();
+
+                        // Now that they exist, show them
+                        const newMobileSidebar = document.getElementById('mobile-sidebar');
+                        const newOverlay = document.getElementById('sidebar-overlay');
+                        if (newMobileSidebar && newOverlay) {
+                            newMobileSidebar.classList.add('active');
+                            newOverlay.style.display = 'block';
+                            document.body.style.overflow = 'hidden';
+                            // Change to close icon
+                            this.innerHTML = '<i class="fas fa-times"></i>';
+                            this.classList.add('menu-open');
+                        }
+                    }
+                });
             }
         });
 
-        const menuItems = mobileSidebar.querySelectorAll('.menu-item[data-container]');
-        menuItems.forEach(item => {
-            item.addEventListener('click', function() {
-                const containerClass = this.getAttribute('data-container');
-                showContainer(containerClass);
-
-                mobileSidebar.classList.remove('active');
-                overlay.style.display = 'none';
-                document.body.style.overflow = '';
-                const menuIcon = document.getElementById('menu-icon');
-                if (menuIcon) {
-                    menuIcon.innerHTML = '<span class="bar"></span><span class="bar"></span><span class="bar"></span>';
-                    menuIcon.classList.remove('menu-open');
-                }
-
-                menuItems.forEach(mi => mi.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-    }
-
-    return { mobileSidebar, overlay };
-}
-
-function showContainer(containerClass) {
-    const containers = [
-        'scdashboard-container',
-        'scdashboard-inboxcontent',
-        'scdashboard-applicationstatus',
-        'scdashboard-support' // Note: Support container doesn't exist in scdashboard.blade.php, handle accordingly
-    ];
-
-    containers.forEach(className => {
-        const container = document.querySelector(`.${className}`);
-        if (container) {
-            container.style.display = 'none';
+        function menuopenclose() {
+            const triggeredSideBar = document.querySelector(".commonsidebar-togglesidebar");
+            const img = document.querySelector("#scuser-dashboard-menu img");
+            if (img.src.includes("menu.png")) {
+                img.src = '{{ asset('assets/images/Icons/close_icon.png') }}';
+                triggeredSideBar.style.display = 'flex';
+            } else if (img.src.includes("close_icon.png")) {
+                img.src = '{{ asset('assets/images/Icons/menu.png') }}';
+                triggeredSideBar.style.display = 'none';
+            }
         }
-    });
-
-    const selectedContainer = document.querySelector(`.${containerClass}`);
-    if (selectedContainer) {
-        selectedContainer.style.display = 'flex'; // Use 'flex' to match scdashboard.blade.php styling
-    } else {
-        console.warn(`Container with class '${containerClass}' not found`);
-        // Optionally, show a fallback or default container
-        const defaultContainer = document.querySelector('.scdashboard-container');
-        if (defaultContainer) defaultContainer.style.display = 'flex';
-    }
-}
-
-function menuopenclose() {
-    const triggeredSideBar = document.querySelector(".commonsidebar-togglesidebar");
-    const img = document.querySelector("#scuser-dashboard-menu img");
-    if (img && triggeredSideBar) {
-        if (img.src.includes("menu.png")) {
-            img.src = '{{ asset('assets/images/Icons/close_icon.png') }}';
-            triggeredSideBar.style.display = 'flex';
-        } else if (img.src.includes("close_icon.png")) {
-            img.src = '{{ asset('assets/images/Icons/menu.png') }}';
-            triggeredSideBar.style.display = 'none';
-        }
-    }
-}
 
         const retrieveProfilePictureNav = async () => {
             const userSession = @json(session('user'));
@@ -359,18 +269,19 @@ function menuopenclose() {
                     body: JSON.stringify({ userId: userId })
                 });
 
-        const data = await response.json();
-        if (data.fileUrl) {
-            console.log("Profile Picture URL:", data.fileUrl);
-            if (profileImgUpdate) profileImgUpdate.src = data.fileUrl;
-            if (mobTabProfile) mobTabProfile.src = data.fileUrl;
-        } else {
-            console.error("Error: No URL returned from the server", data);
-        }
-    } catch (error) {
-        console.error("Error retrieving profile picture", error);
-    }
-};
+                const data = await response.json();
+
+                if (data.fileUrl) {
+                    console.log("Profile Picture URL:", data.fileUrl);
+                    profileImgUpdate.src = data.fileUrl;
+                    mobTabProfile.src = data.fileUrl;
+                } else {
+                    console.error("Error: No URL returned from the server", data);
+                }
+            } catch (error) {
+                console.error("Error retrieving profile picture", error);
+            }
+        };
 
         const retrieveProfilePictureNavSc = async () => {
             const userSession = @json(session('scuser'));
@@ -396,18 +307,19 @@ function menuopenclose() {
                     body: JSON.stringify({ scuserrefid: scuserrefid })
                 });
 
-        const data = await response.json();
-        if (data.fileUrl) {
-            console.log("Profile Picture URL:", data.fileUrl);
-            if (profileImgUpdate) profileImgUpdate.src = data.fileUrl;
-            if (mobTabProfile) mobTabProfile.src = data.fileUrl;
-        } else {
-            console.error("Error: No URL returned from the server", data);
+                const data = await response.json();
+
+                if (data.fileUrl) {
+                    console.log("Profile Picture URL:", data.fileUrl);
+                    profileImgUpdate.src = data.fileUrl;
+                    mobTabProfile.src = data.fileUrl;
+                } else {
+                    console.error("Error: No URL returned from the server", data);
+                }
+            } catch (error) {
+                console.error("Error retrieving profile picture", error);
+            }
         }
-    } catch (error) {
-        console.error("Error retrieving profile picture", error);
-    }
-};
 
         const dynamicChangeNavMob = () => {
             const searchTextBoxProfile = document.querySelector(".nav-searchnotificationbars .input-container");
@@ -419,33 +331,47 @@ function menuopenclose() {
             const navButtons = document.querySelector(".nav-buttons");
             const menuIcon = document.getElementById('menu-icon');
 
-    if (window.innerWidth <= 768) {
-        if (searchTextBoxProfile) searchTextBoxProfile.style.display = "none";
-        if (unreadNofifyProfile) unreadNofifyProfile.style.display = "none";
-        if (nameFromProfile) nameFromProfile.style.display = "none";
-        if (iconFromProfile) iconFromProfile.style.display = "none";
-        if (menuBarFromProfile) menuBarFromProfile.style.display = "block";
-        if (mobileNavLinks) mobileNavLinks.style.display = "none";
-        if (menuIcon) menuIcon.style.display = "flex";
-    } else {
-        if (searchTextBoxProfile) searchTextBoxProfile.style.display = "block";
-        if (unreadNofifyProfile) unreadNofifyProfile.style.display = "block";
-        if (nameFromProfile) nameFromProfile.style.display = "block";
-        if (iconFromProfile) iconFromProfile.style.display = "block";
-        if (menuBarFromProfile) menuBarFromProfile.style.display = "none";
-        if (mobileNavLinks) mobileNavLinks.style.display = "flex";
-        if (menuIcon) menuIcon.style.display = "none";
+            if (window.innerWidth <= 768) {
+                if (searchTextBoxProfile) searchTextBoxProfile.style.display = "none";
+                if (unreadNofifyProfile) unreadNofifyProfile.style.display = "none";
+                if (nameFromProfile) nameFromProfile.style.display = "none";
+                if (iconFromProfile) iconFromProfile.style.display = "none";
+                if (menuBarFromProfile) menuBarFromProfile.style.display =
+                    "block";
 
-        var currentRoute = window.location.pathname;
-        if (currentRoute.includes("/student-dashboard") || currentRoute.includes("/student-forms") || currentRoute.includes("/sc-dashboard")) {
-            if (mobileNavLinks) mobileNavLinks.style.display = "none";
-            if (navButtons) navButtons.style.display = "none";
-        } else {
-            if (mobileNavLinks) mobileNavLinks.style.display = "flex";
-            if (navButtons) navButtons.style.display = "flex";
-        }
-    }
-};
+                // Hide desktop navigation on mobile
+                if (mobileNavLinks) mobileNavLinks.style.display = "none";
+
+
+                // Show menu icon on mobile
+                if (menuIcon) menuIcon.style.display = "flex";
+            } else {
+                if (searchTextBoxProfile) searchTextBoxProfile.style.display = "block";
+                if (unreadNofifyProfile) unreadNofifyProfile.style.display = "block";
+                if (nameFromProfile) nameFromProfile.style.display = "block";
+                if (iconFromProfile) iconFromProfile.style.display = "block";
+                if (menuBarFromProfile) menuBarFromProfile.style.display = "none";
+
+
+                // Show desktop navigation on tablet/desktop
+                if (mobileNavLinks) mobileNavLinks.style.display = "flex";
+
+
+                // Hide menu icon on desktop
+                if (menuIcon) menuIcon.style.display = "none";
+
+
+                // Check current route to determine nav display
+                var currentRoute = window.location.pathname;
+                if (currentRoute.includes("/student-dashboard") || currentRoute.includes("/student-forms") || currentRoute.includes("/sc-dashboard")) {
+                    if (mobileNavLinks) mobileNavLinks.style.display = "none";
+                    if (navButtons) navButtons.style.display = "none";
+                } else {
+                    if (mobileNavLinks) mobileNavLinks.style.display = "flex";
+                    if (navButtons) navButtons.style.display = "flex";
+                }
+            }
+        };
 
         function createMobileSidebar() {
             // Create overlay if it doesn't exist

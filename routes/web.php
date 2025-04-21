@@ -161,7 +161,7 @@ Route::post('/logout', [LoginController::class, 'sessionLogout'])->name('logout'
 
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('/auth/google/call-back', [GoogleAuthController::class, 'handleGoogleCallback']);
-Route::post('/get-queries', [StudentDashboardController::class, 'getScuserQueryRaised']);
+Route::get('/get-queries', [scDashboardController::class, 'getScuserQueryRaised']);
 Route::post('/getstatusofusers', [scDashboardController::class, 'getStatusOfUsers']);
 
 Route::post('/unread-message-count', [StudentDashboardController::class, 'unreadMessageCount']);

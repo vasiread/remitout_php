@@ -409,71 +409,75 @@ $totalPages = ceil($totalStudents / $perPage);
                                 @endforeach
                             </div>
 
-                            <div class="pagination-controls studentapplicaton-datashownpagination">
-                                <button id="prevstudents" onclick="prevdetail()">&lt;</button>
-                                <div id="pages-container">
-                                    @for ($i = 1; $i <= $totalPages; $i++)
-                                        <button class="page-class @if($i == 1) active @endif" id="page-{{ $i }}" data-page="{{ $i }}"
-                                            onclick="pageTrigger(event)">
-                                            {{ $i }}
-                                        </button>
-                                    @endfor
-                                </div>
-                                <button id="nextstudents" onclick="nextdetail()"> &gt; </button>
-                                <button id="download-detailsid">Download report</button>
-                            </div>
-
-
-
+                    <div class="pagination-controls studentapplicaton-datashownpagination">
+                        <button id="prevstudents" onclick="prevdetail()">&lt;</button>
+                        <div id="pages-container">
+                            @for ($i = 1; $i <= $totalPages; $i++)
+                                <button class="page-class @if($i == 1) active @endif" id="page-{{ $i }}" data-page="{{ $i }}"
+                                    onclick="pageTrigger(event)">
+                                    {{ $i }}
+                                </button>
+                            @endfor
                         </div>
+                        <button id="nextstudents" onclick="nextdetail()"> &gt; </button>
+                        <button id="download-detailsid">Download report</button>
                     </div>
 
 
 
-
-
-                <div class="studentAddBySCuserPopup">
-                    <div class="studentAddByScuserPopup-headerpart">
-                        <h3>Register Students</h3>
-                        <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="">
-                    </div>
-                    <div class="studentAddByScuserPopup-content-container">
-                        <div class="studentAddByScuserPopup-contentpart">
-                            <input type="text" placeholder="Name of the Student">
-                            <input type="text" placeholder="bankemail@gmail.com">
-                            <input type="text" placeholder="phone">
-                            <input type="text" placeholder="password">
-                            <button id="delete-student-row" style="cursor:pointer">Delete</button>
-                            <button id="dynamic-add-student-button" style="cursor:pointer">Add Student</button>
-                        </div>
-                    </div>
-                    <form id="excel-form" enctype="multipart/form-data">
-                        @csrf
-                        <div class="studentAddByScuserPopup-footerpart">
-                            <!-- Excel Upload Button -->
-                            <button id="excel-upload-trigger" type="button" style="cursor:pointer">
-                                Upload xlsx <img src="{{ asset('assets/images/Icons/upload.png') }}" />
-                            </button>
-                            <button type="button" class="add-student-btn" style="cursor:pointer">Add Student</button>
-                            <button type="button" id="save-multiple-students-bysc" style="cursor:pointer">Save Student details</button>
-                        </div>
-
-                        <input type="file" id="excel-sheet-student-update" name="excel_file" accept=".xls,.xlsx" style="display:none">
-
-                        <div id="file-upload-info" style="display:none">
-                            <!-- Display the Selected File Name with Remove Button -->
-                            <div id="file-container" style="display: flex; align-items: center; gap: 10px; position:relative;">
-                                <input id="selected-file-name" readonly style="border: 1px solid #ccc; padding: 5px;" />
-                                <button id="remove-excel-btn" type="button" style="cursor:pointer;">X</button>
-                            </div>
-
-                            <!-- Save Excel File Button -->
-                            <button id="save-excelfile-btn" type="button" style="cursor:pointer;">
-                                Save Excel File
-                            </button>
-                        </div>
-                    </form>
                 </div>
+            </div>
+
+
+
+
+
+            <div class="studentAddBySCuserPopup">
+                <div class="studentAddByScuserPopup-headerpart">
+                    <h3>Register Students</h3>
+                    <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="">
+                </div>
+                <div class="studentAddByScuserPopup-contentpart">
+                    <input type="text" placeholder="Name of the Student">
+                    <input type="text" placeholder="bankemail@gmail.com">
+                    <input type="text" placeholder="password">
+                    <button id="delete-student-row" style="cursor:pointer">Delete</button>
+                    <button id="dynamic-add-student-button" style="cursor:pointer">Add Student</buttonstyle>
+
+                </div>
+                <form id="excel-form" enctype="multipart/form-data">
+                    @csrf
+                    <div class="studentAddByScuserPopup-footerpart">
+                        <!-- Excel Upload Button -->
+                        <button id="excel-upload-trigger" type="button" style="cursor:pointer">
+                            Upload xlsx <img src="{{ asset('assets/images/Icons/upload.png') }}" />
+                        </button>
+                        <button type="button" style="cursor:pointer">Add Student</button>
+                        <button type="button" style="cursor:pointer">Save Student details</button>
+                    </div>
+
+                    <!-- Hidden File Input -->
+                    <input type="file" id="excel-sheet-student-update" name="excel_file" accept=".xls,.xlsx"
+                        style="display:none">
+
+                    <!-- Section to Display File Name and Save Button -->
+                    <div id="file-upload-info" style="display:none">
+                        <!-- Display the Selected File Name with Remove Button -->
+                        <div id="file-container" style="display: flex; align-items: center; gap: 10px;position:relative;">
+                            <input id="selected-file-name" readonly style="border: 1px solid #ccc; padding: 5px;" />
+                            <button id="remove-excel-btn" type="button" style="cursor:pointer;">X</button>
+                        </div>
+
+                        <!-- Save Excel File Button -->
+                        <button id="save-excelfile-btn" type="button" style="cursor:pointer;">
+                            Save Excel File
+                        </button>
+                    </div>
+                </form>
+
+
+
+            </div>
 
                     <div class="referral-triggered-view" style="display:none">
                         <div class="referral-triggered-view-headersection">
@@ -508,10 +512,6 @@ $totalPages = ceil($totalStudents / $perPage);
             getUsersByCounsellor();
             triggerExcelRegistration();
             queryDetails();
-            const saveStudentDetailsButton = document.querySelector("#save-multiple-students-bysc");
-            saveStudentDetailsButton.addEventListener('click', () => {
-                const studentData = collectStudentData();
-             });
             const triggerExpandShrink = document.querySelectorAll("#reportsindashboard-firstrow-view");
 
             if (triggerExpandShrink) {
@@ -1525,120 +1525,6 @@ $totalPages = ceil($totalStudents / $perPage);
         };
 
 
-    const collectStudentData = async () => {
-            const studentForms = document.querySelectorAll(".studentAddByScuserPopup-contentpart");
-            const students = [];
-            let hasInvalidEmail = false;
-            let hasInvalidPhone = false;
-
-            // Simple email format check
-            const isValidEmail = (email) => {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                return emailRegex.test(email);
-            };
-
-            // Simple phone validation: 10 digits, numbers only
-            const isValidPhone = (phone) => {
-                return /^\d{10}$/.test(phone);
-            };
-
-            studentForms.forEach((form, index) => {
-                const inputs = form.querySelectorAll("input");
-                const student = {
-                    name: inputs[0].value.trim(),
-                    email: inputs[1].value.trim(),
-                    phone: inputs[2].value.trim(),
-                    password: inputs[3].value.trim()
-                };
-
-                // Email check
-                if (student.email && !isValidEmail(student.email)) {
-                    console.error(`Invalid email for student ${index + 1} (${student.name || 'unnamed'}): "${student.email}"`);
-                    hasInvalidEmail = true;
-                }
-
-                // Phone check
-                if (student.phone && !isValidPhone(student.phone)) {
-                    console.error(`Invalid phone number for student ${index + 1} (${student.name || 'unnamed'}): "${student.phone}"`);
-                    hasInvalidPhone = true;
-                }
-
-                 if (student.name || student.email || student.phone || student.password) {
-                    if (!student.name || !student.email || !student.phone || !student.password) {
-                        console.error(`Missing field(s) for student ${index + 1}:`, student);
-                    }
-
-                    students.push(student);
-                }
-            });
-
-            console.log("Student Data:", students);
-
-            if (hasInvalidEmail) {
-                console.warn("Some email addresses are invalid. Please fix them.");
-                alert("Some email addresses are invalid. Please fix them.");
-                return;
-            }
-
-            if (hasInvalidPhone) {
-                console.warn("Some phone numbers are invalid. Please enter 10-digit numeric values.");
-                alert("Some phone numbers are invalid. Please enter 10-digit numeric values.");
-                return;
-            }
-
-            if (students.length === 0) {
-                alert("No student data to save.");
-                return;
-            }
-
-            try {
-                const response = await fetch('/multipleregisterbyscuser', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                    },
-                    body: JSON.stringify({ students })
-                });
-
-              const result = await response.json();
-
-                if (response.ok) {
-                    console.log("Success:", result.message);
-                    alert("Students saved successfully!");
-                    document.querySelectorAll(".studentAddByScuserPopup-contentpart").forEach(form => {
-                        form.querySelectorAll("input").forEach(input => {
-                            input.value = "";
-                        });
-                    });
-                } else {
-                    console.error("Error:", result.errors || result.message);
-
-                    if (result.errors) {
-                        let message = "Please correct the following errors:\n";
-
-                        Object.entries(result.errors).forEach(([field, messages]) => {
-                            const match = field.match(/^students\.(\d+)\.(\w+)$/);
-                            if (match) {
-                                const index = parseInt(match[1], 10) + 1;
-                                const fieldName = match[2].charAt(0).toUpperCase() + match[2].slice(1);
-                                message += `- Student ${index} - ${fieldName}: ${messages[0]}\n`;
-                            } else {
-                                message += `- ${messages[0]}\n`;
-                            }
-                        });
-
-                        alert(message);
-                    } else {
-                        alert("Failed to save students: " + result.message);
-                    }
-                }
-
-            } catch (error) {
-                console.error("Network error:", error);
-                alert("An error occurred while saving students.");
-            }
-        };
 
     </script>
 

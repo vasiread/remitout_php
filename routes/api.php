@@ -68,27 +68,19 @@ Route::post("/trace-process", [TrackController::class, 'traceuserprogress']);
 Route::get("/getnbfcdata", [TrackController::class, 'getnbfcdata']);
 Route::get("/overallcounts", [TrackController::class, 'counts']);
 Route::post("/addbulkusers", [NbfcController::class, 'addBulkNbfc']);
-
 Route::post("/downloadzip", [StudentDashboardController::class, 'downloadFilesAsZip']);
-
 Route::post('/send-message', action: [ChatController::class, 'sendMessage']);
 Route::get('/get-messages/{nbfc_id}/{student_id}', [ChatController::class, 'getMessages']);
 Route::post('/count-user-status', [StudentDashboardController::class, 'getStatusCount']);
 Route::get('/get-messages-byconversations/{nbfc_id}/{student_id}', [ChatController::class, 'groupCountingChats']);
-
 Route::post('/update-personalinfo', [StudentDetailsController::class, 'updatePersonalInfo']);
-
-Route::post('/get-queries', [StudentDashboardController::class, 'getScuserQueryRaised']);
 Route::post('/getstatusofusers', [scDashboardController::class, 'getStatusOfUsers']);
 Route::post('/unread-message-count', [StudentDashboardController::class, 'unreadMessageCount']);
 
-
-
+Route::get('/get-queries', [scDashboardController::class, 'getScuserQueryRaised']);
 
 
 Route::post('/getnbfcdata-proposals', [StudentDashboardController::class, 'nbfcProposals']);
 Route::post('/proposalcompletion', [StudentDashboardController::class, 'proposalCompletion']);
 Route::post('/check_userid', [StudentDashboardController::class, 'checkUserId']);
 Route::post('/multipleregisterbyscuser', [StudentDashboardController::class, 'multipleuserbyscuser']);
-
-

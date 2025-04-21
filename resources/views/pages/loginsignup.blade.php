@@ -120,18 +120,9 @@
 
             </div>
 
-    <script>
-        let generatedOTP = '';
-        let registerFormData = {};
-
-        // Function to get query parameter from URL
-    function getQueryParam(param) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(param);
-    }
-
-    // Extract ref from the current URL
-    const refParam = getQueryParam('ref');
+            <script>
+                let generatedOTP = '';
+                let registerFormData = {};
 
                 function restrictToNumbers(input) {
                     let value = input.value;
@@ -386,28 +377,26 @@
                     };
                     console.log(registerFormData)
 
-            fetch('/registerformdata', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify(registerFormData)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert("Registration is Successful");
-                        // Redirect with ref query parameter if it exists
-                    const redirectUrl = refParam ? `/student-forms?ref=${encodeURIComponent(refParam)}` : '/student-forms';
-                    window.location.href = redirectUrl;
-                    } else {
-                        alert(data.error || 'Something went wrong. Please try again.');
-                    }
-                })
-                .catch(() => {
-                    alert('An error occurred. Please try again.');
-                });
+                    fetch('/registerformdata', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify(registerFormData)
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert("Registration is Successful");
+                                window.location.href = '/student-forms';
+                            } else {
+                                alert(data.error || 'Something went wrong. Please try again.');
+                            }
+                        })
+                        .catch(() => {
+                            alert('An error occurred. Please try again.');
+                        });
 
 
 

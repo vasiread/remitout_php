@@ -3966,88 +3966,22 @@ $counter = 1;
                                 document.body.appendChild(overlay);
                                 document.body.appendChild(previewWrapper);
 
-                                    // Add keyboard shortcut for closing
-                                    document.addEventListener('keydown', function (e) {
-                                        if (e.key === 'Escape') {
-                                            closePreview();
-                                        }
-                                    });
-                                };
-                                reader.readAsDataURL(uploadedFile);
-                                eyeIcon.classList.add('preview-active');
-                            } else {
-                                alert('Please upload a valid PDF or image file to preview.');
-                            }
+                                // Add keyboard shortcut for closing
+                                document.addEventListener('keydown', function (e) {
+                                    if (e.key === 'Escape') {
+                                        closePreview();
+                                    }
+                                });
+                            };
+                            reader.readAsDataURL(uploadedFile);
+                            eyeIcon.classList.add('preview-active');
+                        } else {
+                            alert('Please upload a valid PDF or image file to preview.');
                         }
-                    });
+                    }
                 });
-            };
-            const initialiseAllViews = (userId) => {
-                const endpoints = [
-                    { url: '/retrieve-file', selector: ".uploaded-aadhar-name", fileType: "aadhar-card-name" },
-                    { url: '/retrieve-file', selector: ".uploaded-pan-name", fileType: "pan-card-name" },
-                    { url: '/retrieve-file', selector: ".passport-name-selector", fileType: "passport-card-name" },
-                    { url: '/retrieve-file', selector: ".sslc-marksheet", fileType: "tenth-grade-name" },
-                    { url: '/retrieve-file', selector: ".hsc-marksheet", fileType: "twelfth-grade-name" },
-                    { url: '/retrieve-file', selector: ".graduation-marksheet", fileType: "graduation-grade-name" },
-                    { url: '/retrieve-file', selector: ".sslc-grade", fileType: "secured-tenth-name" },
-                    { url: '/retrieve-file', selector: ".hsc-grade", fileType: "secured-twelfth-name" },
-                    { url: '/retrieve-file', selector: ".graduation-grade", fileType: "secured-graduation-name" },
-                    { url: '/retrieve-file', selector: ".experience-letter", fileType: "work-experience-experience-letter" },
-                    { url: '/retrieve-file', selector: ".salary-slip", fileType: "work-experience-monthly-slip" },
-                    { url: '/retrieve-file', selector: ".office-id", fileType: "work-experience-office-id" },
-                    { url: '/retrieve-file', selector: ".joining-letter", fileType: "work-experience-joining-letter" },
-                    { url: '/retrieve-file', selector: ".coborrower-pancard", fileType: "co-pan-card-name" },
-                    { url: '/retrieve-file', selector: ".coborrower-aadharcard", fileType: "co-aadhar-card-name" },
-                    { url: '/retrieve-file', selector: ".coborrower-addressproof", fileType: "co-addressproof" },
-
-
-                ];
-
-                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-                if (!csrfToken || !userId) {
-                    console.error("CSRF token or User ID is missing");
-                    return Promise.reject("CSRF token or User ID is missing");
-                }
-
-
-                const fetchWithUrl = ({ url, selector, fileType }) => {
-                    return fetch(url, {
-                        method: "POST",
-                        headers: {
-                            'X-CSRF-TOKEN': csrfToken,
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            userId: userId,
-                            fileType: fileType,
-                        }),
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.fileUrl) {
-                                const fileName = data.fileUrl.split('/').pop();
-                                const element = document.querySelector(selector);
-                                if (element) {
-                                    element.textContent = fileName; // Update the element with the file name
-                                    console.log(`Fetched ${fileType}:`, data.fileUrl);
-
-                                } else {
-                                    console.log(`Element not found for selector: ${selector}`);
-                                }
-                            } else {
-                                console.log(`No fileUrl returned for ${fileType}`, data);
-                            }
-                        })
-                        .catch(error => {
-                            console.error(`Error fetching ${fileType}:`, error);
-                        });
-                };
-
-                return Promise.all(endpoints.map(fetchWithUrl));
-            };
+            });
+        };
 
 
         const initialiseEightcolumn = () => {

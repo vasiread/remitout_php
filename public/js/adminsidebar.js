@@ -1,10 +1,8 @@
 const initializeAdminSidebar = () => {
     const adminSidebarItems = document.querySelectorAll("#commonsidebar-admin .commonsidebar-sidebarlists-top li");
     const triggeredSideBar = document.getElementById("commonsidebar-admin");
-    const img = document.querySelector("#commonsidebar-admin img");
-    const adminPropertyOne = document.querySelector(
-        ".admindashboard-container"
-    );
+    const img = document.querySelector('#commonsidebar-admin img');
+    const adminPropertyOne = document.querySelector(".admindashboard-container");
     const sidebarChevronUpDown = document.querySelector("#expand-icon-Student");
     const sidebarStudentCounsellorChevronUpDown = document.querySelector(
         "#expand-icon-StudentCounsellor"
@@ -263,8 +261,9 @@ const initializeAdminSidebar = () => {
                 if (adminPromotionalEmail)
                     adminPromotionalEmail.style.display = "none";
                 if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
-                if (studentApplication)
-                    studentApplication.style.display = "none";
+                if (studentApplication) studentApplication.style.display = "none";
+
+
 
                 if (index === 5 || index === 6) {
                     if (studentCounsellorList)
@@ -281,7 +280,6 @@ const initializeAdminSidebar = () => {
 
                 if (index === 8) {
                     if (adminCounsellorAdd) adminCounsellorAdd.style.display = "flex";
-
                     if (studentTicketRaised) studentTicketRaised.style.display = "none";
                     if (adminManageStudent) adminManageStudent.style.display = "none";
                     if (studentEditIndex) studentEditIndex.style.display = "none";
@@ -291,7 +289,7 @@ const initializeAdminSidebar = () => {
                     if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
                     if (studentListContainer) studentListContainer.style.display = "none";
                     if (studentCounsellorList) studentCounsellorList.style.display = "none";
-                       if (studentApplication) studentApplication.style.display = "none";
+                    if (studentApplication) studentApplication.style.display = "none";
 
 
                 }
@@ -345,7 +343,8 @@ const initializeAdminSidebar = () => {
                 if (adminPromotionalEmail)
                     adminPromotionalEmail.style.display = "none";
                 if (adminPropertyOne) adminPropertyOne.style.display = "none";
-                   if (studentApplication) studentApplication.style.display = "none";
+                if (studentApplication) studentApplication.style.display = "none";
+
 
 
             }
@@ -387,8 +386,8 @@ const initializeAdminSidebar = () => {
                     if (nbfcAdminsideAddAuthority) nbfcAdminsideAddAuthority.style.display = "none";
                     if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
                     if (adminManageStudent) adminManageStudent.style.display = "none";
-                   if (adminPropertyOne) adminPropertyOne.style.display = "none";
-                   if (studentApplication) studentApplication.style.display = "none";
+                    if (adminPropertyOne) adminPropertyOne.style.display = "none";
+                    if (studentApplication) studentApplication.style.display = "none";
 
                 
             }

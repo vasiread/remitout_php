@@ -1217,50 +1217,6 @@ class StudentDashboardController extends Controller
 
 
 
-    public function multipleuserbyscuser(Request $request){
-        $validator = Validator::make($request->all(), [
-            'students' => 'required|array|min:1',
-            'students.*.name' => 'required|string|max:255',
-            'students.*.email' => 'required|email|unique:users,email|max:255',
-            'students.*.phone' => 'required|digits:10|unique:users,phone',
-            'students.*.password' => 'required|string|min:8',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'message' => 'Validation failed',
-                'errors' => $validator->errors()
-            ], 422);
-        }
-
-        try {
-            $students = $request->input('students');
-            $createdStudents = [];
-
-            foreach ($students as $student) {
-                $user = User::create([
-                    'name' => $student['name'],
-                    'email' => $student['email'],
-                    'phone' => $student['phone'],
-                    'password' => Hash::make($student['password']),
-                ]);
-                $createdStudents[] = $user;
-            }
-
-            return response()->json([
-                'message' => 'Students created successfully',
-                'data' => $createdStudents
-            ], 201);
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Failed to create students',
-                'error' => $e->getMessage()
-            ], 500);
-        }
-    }
-
-
-
 
 
 

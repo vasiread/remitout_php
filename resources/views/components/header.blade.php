@@ -23,15 +23,8 @@
                 rgba(255, 255, 255, 0.25),
                 rgba(111, 37, 206, 0.15)
             );
-<<<<<<< Updated upstream
-             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);  
-              font-family: 'Poppins', sans-serif;
-              width:100%;
-           
-=======
              box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
            font-family: 'Poppins', sans-serif;
->>>>>>> Stashed changes
         }
 
         /* Container */
@@ -83,11 +76,7 @@
             border-radius: 8px;
             transition: all 0.3s ease;
             padding: 0 20px;
-<<<<<<< Updated upstream
-              font-family: 'Poppins', sans-serif;
-=======
             font-family: 'Poppins', sans-serif;
->>>>>>> Stashed changes
         }
 
         .header-login-btn {
@@ -456,9 +445,9 @@
                 <a href="#help" class="header-mobile-link {{ Request::is('/') ? '' : 'fullopacitylinks' }}">Help</a>
              
              <div class="header-buttons">
-                    <button class="header-login-btn" onclick="window.location.href='{{ route('login') }}'">Log In</button>
-                    <button class="header-signup-btn" onclick="window.location.href='{{ route('signup') }}'">Sign Up</button>
-                </div>
+                    <button class="header-login-btn" onclick="window.location.href='/login'">Log In</button>
+                    <button class="header-signup-btn" onclick="window.location.href='/signup'">Sign Up</button>
+                </div> 
                 
             </div>
             
