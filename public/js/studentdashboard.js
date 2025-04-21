@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function () {
 
 
@@ -31,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch((error) => {
             console.error("Error during initialization:", error);
         });
-    // markAsRead();
+    markAsRead();
     const sessionLogout = document.querySelector(".logoutBtn");
     sessionLogout.addEventListener('click', () => {
 
@@ -39,68 +38,43 @@ document.addEventListener('DOMContentLoaded', function () {
 
     })
 
-    // Fetch all URLs first
-    Promise.all([initialiseProfileView(), initialiseAllViews()])
-        .then(() => {
-            console.log("All URLs fetched successfully!", documentUrls);
+    const courseDetailsElement = document.getElementById('course-details-container');
+    const courseDetails = JSON.parse(courseDetailsElement.getAttribute('data-course-details'));
+    // const personalDetails = JSON.parse(courseDetailsElement.getAttribute('data-personal-details'));
+    // const acceptTriggers = document.querySelectorAll(".user-accept-trigger");
+    // const rejectTriggers = document.querySelectorAll(".bankmessage-buttoncontainer-reject");
 
-            // Initialize document upload/preview functions after URLs are fetched
-            initializeKycDocumentUpload();
-            initializeMarksheetUpload();
-            initializeSecuredAdmissionDocumentUpload();
-            initializeWorkExperienceDocumentUpload();
-            initializeCoBorrowerDocumentUpload();
-        })
-        .catch((error) => {
-            console.error("Error during initialization:", error);
-        });
-
-    const courseDetailsElement = document.getElementById(
-        "course-details-container"
-    );
-    const courseDetails = JSON.parse(
-        courseDetailsElement.getAttribute("data-course-details")
-    );
-    const personalDetails = JSON.parse(
-        courseDetailsElement.getAttribute("data-personal-details")
-    );
-
-    // Now you can use courseDetails and personalDetails in your JS
-    console.log(courseDetails, personalDetails);
-
-    let planToStudy = courseDetails[0]["plan-to-study"].replace(/[\[\]"]/g, "");
+    let planToStudy = courseDetails[0]['plan-to-study'].replace(/[\[\]"]/g, '');
     let selectedCountries = planToStudy.split(/\s*,\s*/);
 
     document.getElementById("plan-to-study-edit").value = planToStudy;
 
-    document
-        .querySelectorAll('input[name="study-location-edit"]')
-        .forEach((checkbox) => {
-            if (selectedCountries.includes(checkbox.value)) {
-                checkbox.checked = true;
-            }
-        });
+    document.querySelectorAll('input[name="study-location-edit"]').forEach(checkbox => {
+        if (selectedCountries.includes(checkbox.value)) {
+            checkbox.checked = true;
+        }
+    });
 
-    const otherCheckbox = document.querySelector("#other-checkbox-edit");
-    const addCountryBox = document.querySelector(".add-country-box-edit");
-    const customCountryInput = document.querySelector("#country-edit");
+    const otherCheckbox = document.querySelector('#other-checkbox-edit');
+    const addCountryBox = document.querySelector('.add-country-box-edit');
+    const customCountryInput = document.querySelector('#country-edit');
 
     if (selectedCountries.includes("Other")) {
         otherCheckbox.checked = true;
-        addCountryBox.style.display = "block";
+        addCountryBox.style.display = 'block';
     } else {
-        addCountryBox.style.display = "none";
+        addCountryBox.style.display = 'none';
     }
 
-    otherCheckbox.addEventListener("change", () => {
+    otherCheckbox.addEventListener('change', () => {
         if (otherCheckbox.checked) {
-            addCountryBox.style.display = "block";
+            addCountryBox.style.display = 'block';
         } else {
-            addCountryBox.style.display = "none";
-            customCountryInput.value = "";
+            addCountryBox.style.display = 'none';
+            customCountryInput.value = '';
         }
     });
-    document.querySelector(".mailnbfcbutton").addEventListener("click", () => {
+    document.querySelector('.mailnbfcbutton').addEventListener('click', () => {
         sendDocumenttoEmail();
     });
 
