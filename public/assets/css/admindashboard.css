@@ -1,12 +1,12 @@
 .admindashboard-container {
     display: flex;
     flex-direction: column;
-    margin: 80px 5px 80px 30px;
+    margin: 80px 5px 80px 100px;
     max-width: 100%;
     width: 100%;
-    max-width: 88.62%;
+    max-width: 1000px;
     padding-top: 53px;
-    margin-left: 24%;
+    margin-left: 30%;
 }
 
 .admindashboardcontainer-firstsection {
@@ -211,6 +211,8 @@
         flex-direction: column;
         align-items: flex-start;
         margin: 0px;
+        background-color: white;
+        padding: 8px;
         background-color: white;
         padding: 8px;
     }
@@ -674,7 +676,7 @@
     color: #5d5c5c;
 }
 
-
+/* Calendar Button Styling */
 #calender-buttongroups,
 #calender-reportsregister {
     max-width: 132px;
@@ -688,16 +690,121 @@
     font-family: "Poppins", sans-serif;
     font-size: 12px;
     cursor: pointer;
-}
-
-#calender-reportsregister {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 10px;
-
-    align-items: center;
     background-color: transparent;
+}
+
+/* Calendar Container */
+.calendar-container {
+    z-index: 1000;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    width: 300px;
+}
+
+/* Calendar Inputs */
+.calendar-input-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.calendar-date-input {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.calendar-date-input.calendar-active {
+    border-color: #6F25CE;
+}
+
+/* Calendar Header */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.calendar-nav-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.calendar-month-year-selector {
+    display: flex;
+    gap: 10px;
+}
+
+.calendar-month-year-selector select {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 2px;
+}
+
+/* Calendar Grid */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    text-align: center;
+}
+
+.calendar-weekday {
+    font-weight: bold;
+    color: #5d5c5c;
+    font-size: 12px;
+}
+
+.calendar-day {
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.calendar-day:hover {
+    background-color: #f0f0f0;
+}
+
+.calendar-other-month {
+    color: #aaa;
+    cursor: default;
+}
+
+.calendar-today {
+    background-color: #e6d5f5;
+}
+
+.calendar-selected-start,
+.calendar-selected-end {
+    background-color: #6F25CE;
+    color: white;
+}
+
+.calendar-in-range {
+    background-color: #c5b6e5;
+}
+
+.calendar-first-in-range {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.calendar-last-in-range {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
 }
 
 #download-buttongroups {
@@ -862,6 +969,7 @@ canvas {
     gap: 8px;
     background-color: #f5f5f5;
     max-width: 340px;
+    max-width: 340px;
 }
 
 .admindashboard-secondpart .totalundergrads-admin,
@@ -993,8 +1101,8 @@ canvas {
     display: flex;
     flex-direction: column;
     padding: 12px 8px 0 12px;
-    height: 164px;
-    margin-top: 12px;
+    height: 194px;
+    margin-top: 5px;
     background-color: white;
     border-radius: 8px;
 }
