@@ -13,6 +13,16 @@ document.addEventListener('DOMContentLoaded', function () {
     initialiseNinthcolumn();
     initialiseTenthcolumn();
 
+    const sessionLogout = document.querySelector(".logoutBtn");
+    if (sessionLogout) {
+        sessionLogout.addEventListener('click', () => {
+            console.log("Logout button clicked");
+            sessionLogoutInitial();
+        });
+    } else {
+        console.warn("Logout button (.logoutBtn) not found in the DOM");
+    }
+
     // Fetch all URLs first
     Promise.all([
         initialiseProfileView(),
@@ -32,12 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error("Error during initialization:", error);
         });
     markAsRead();
-    const sessionLogout = document.querySelector(".logoutBtn");
-    sessionLogout.addEventListener('click', () => {
 
-        sessionLogoutInitial();
-
-    })
 
     const courseDetailsElement = document.getElementById('course-details-container');
     const courseDetails = JSON.parse(courseDetailsElement.getAttribute('data-course-details'));
@@ -3501,19 +3506,36 @@ function fetchUnreadCount() {
 }
 
 function sessionLogoutInitial() {
-    fetch("{{ route('logout') }}", {
-        method: "POST",
+    const logoutUrl = '/logout'; // Hardcoded logout endpoint
+    const loginUrl = '/login';  // Hardcoded login page
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+    // Check for CSRF token
+    if (!csrfToken) {
+        console.error('CSRF token not found');
+        return;
+    }
+
+    fetch(logoutUrl, {
+        method: 'POST',
         headers: {
-            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-            "Content-Type": "application/json",
+            'X-CSRF-TOKEN': csrfToken,
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({})
-    }).then(response => {
-        if (response.ok) {
-            window.location.href = "{{ route('login') }}";
-        }
-    });
+    })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = loginUrl;
+            } else {
+                console.error('Logout failed:', response.status, response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+        });
 }
+
 
 
 

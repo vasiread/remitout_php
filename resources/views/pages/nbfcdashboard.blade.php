@@ -2661,17 +2661,30 @@ $counter = 1;
             const userPopupTrigger = document.querySelector(".nbfc-profile .nbfc-dropdown-icon");
             const userPopupList = document.querySelector(".popup-notify-list-nbfc");
 
-            if (userPopupTrigger) {
-                userPopupTrigger.addEventListener('click', () => {
-                    if (userPopupList.style.display === "none" || userPopupList.style.display === "") {
-                        userPopupTrigger.style.transform = 'rotate(180deg)';
-                        userPopupList.style.display = "flex";
-                    } else {
-                        userPopupTrigger.style.transform = 'rotate(0deg)';
-                        userPopupList.style.display = "none";
-                    }
-                });
+            if (userPopupTrigger && userPopupList) {
+        // Toggle dropdown on trigger click
+        userPopupTrigger.addEventListener('click', (event) => {
+            event.stopPropagation(); // Prevent click from bubbling to document
+            if (userPopupList.style.display === "none" || userPopupList.style.display === "") {
+                userPopupTrigger.style.transform = 'rotate(180deg)';
+                userPopupList.style.display = "flex";
+            } else {
+                userPopupTrigger.style.transform = 'rotate(0deg)';
+                userPopupList.style.display = "none";
             }
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (event) => {
+            const isClickInsideTrigger = userPopupTrigger.contains(event.target);
+            const isClickInsidePopup = userPopupList.contains(event.target);
+
+            if (!isClickInsideTrigger && !isClickInsidePopup && userPopupList.style.display === "flex") {
+                userPopupTrigger.style.transform = 'rotate(0deg)';
+                userPopupList.style.display = "none";
+            }
+        });
+    }
         }
 
 
