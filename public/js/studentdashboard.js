@@ -13,6 +13,16 @@ document.addEventListener('DOMContentLoaded', function () {
     initialiseNinthcolumn();
     initialiseTenthcolumn();
 
+    const sessionLogout = document.querySelector(".logoutBtn");
+    if (sessionLogout) {
+        sessionLogout.addEventListener('click', () => {
+            console.log("Logout button clicked");
+            sessionLogoutInitial();
+        });
+    } else {
+        console.warn("Logout button (.logoutBtn) not found in the DOM");
+    }
+
     // Fetch all URLs first
     Promise.all([
         initialiseProfileView(),
@@ -32,8 +42,6 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error("Error during initialization:", error);
         });
     markAsRead();
-    const sessionLogout = document.querySelector(".logoutBtn");
-    sessionLogout.addEventListener('click', () => {
 
         setTimeout(() => {
             sessionLogoutInitial();
@@ -3503,21 +3511,37 @@ function fetchUnreadCount() {
         });
 }
 
-const sessionLogoutInitial = () => {
-    fetch("{{ route('logout') }}", {
-        method: "POST",
+function sessionLogoutInitial() {
+    const logoutUrl = '/logout'; // Hardcoded logout endpoint
+    const loginUrl = '/login';  // Hardcoded login page
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+    // Check for CSRF token
+    if (!csrfToken) {
+        console.error('CSRF token not found');
+        return;
+    }
+
+    fetch(logoutUrl, {
+        method: 'POST',
         headers: {
-            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-            "Content-Type": "application/json",
+            'X-CSRF-TOKEN': csrfToken,
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({})
     })
         .then(response => {
             if (response.ok) {
-                window.location.href = "{{ route('login') }}";
+                window.location.href = loginUrl;
+            } else {
+                console.error('Logout failed:', response.status, response.statusText);
             }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
         });
 }
+
 
 
 
