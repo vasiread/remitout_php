@@ -42,13 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error("Error during initialization:", error);
         });
     markAsRead();
-
-        setTimeout(() => {
-            sessionLogoutInitial();
-
-        }, 2000)
-
-    })
+     
 
     const courseDetailsElement = document.getElementById('course-details-container');
     const courseDetails = JSON.parse(courseDetailsElement.getAttribute('data-course-details'));
@@ -3546,7 +3540,6 @@ function sessionLogoutInitial() {
 
 
 
-
 function markAsRead() {
     const notifyContainer = document.querySelector(".nav-searchnotificationbars .unread-notify");
     const sideBarTopItems = document.querySelectorAll('.studentdashboardprofile-sidebarlists-top li');
@@ -3898,7 +3891,6 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
         console.error("Error checking user ID:", error);
     }
 }
-
 
 
 
