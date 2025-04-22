@@ -1,6 +1,8 @@
 * {
     margin: 0;
     padding: 0;
+
+
 }
 
 input[type="file"] {
@@ -22,6 +24,7 @@ input[type="file"] {
     height: 100vh;
     padding: 35px 0px;
     position: fixed;
+
 
     box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
     background-color: rgba(255, 255, 255, 1);
@@ -742,7 +745,8 @@ input[type="file"] {
     gap: 8px;
     border-radius: 4px;
     border: 1px solid rgba(226, 226, 226, 1);
-    font-family: 'Poppins','sans-serif';
+    font-family: 'Poppins', sans-serif;
+
     color: rgba(144, 144, 144, 1);
 
 }
@@ -1414,6 +1418,7 @@ input[type="file"] {
     background-color: rgba(111, 37, 206, 1);
     color: #fff;
 }
+
 .educationeditsection-firstrow,
 .testscoreseditsection-firstrow {
     margin-bottom: 20px;
@@ -1642,7 +1647,7 @@ input[type="file"] {
     }
 }
 
-@media (max-width: 1020px) {
+@media(max-width:1020px) {
     .personalinfo-secondrow p {
         font-size: 0.7rem;
     }
@@ -1749,10 +1754,3 @@ input[type="file"] {
         width: 100%;
     }
 }
-
-/* @media(max-width:1200) {
-    .studentdashboardprofile {
-        width: 83.19%;
-
-    }
-} */

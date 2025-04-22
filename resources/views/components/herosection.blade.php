@@ -44,40 +44,7 @@
             </div>   
 
 
-<div class="contact-form-main-container" id="contactFormPopup">
-    <div class="contact-container">
-        <div class="contact-close-btn">×</div>
-        <h2 class="contact-title">Let's get in touch!</h2>
-        <p class="contact-subtitle">Write to us, our team will get back to you soon!</p>
-        
-        <form id="contact-form">
-            <div class="contact-input-group" id="nameGroup">
-                <img src="assets/images/full-name.png" alt="User icon" class="contact-icon">
-                <input type="text" id="fullName" placeholder="Full Name" required class="contact-input">
-            </div>
-            <span class="error-message" id="nameError"></span>
-            
-            <div class="contact-input-group" id="emailGroup">
-                <img src="assets/images/mail-contact.png" alt="Email icon" class="contact-icon">
-                <input type="email" id="email" placeholder="Email ID" required class="contact-input">
-            </div>
-            <span class="error-message" id="emailError"></span>
-            
-            <div class="contact-input-group" id="phoneGroup">
-                <img src="assets/images/call-contact.png" alt="Phone icon" class="contact-icon">
-                <input type="tel" id="phone" placeholder="Phone Number (10 digits)" required class="contact-input">
-            </div>
-            <span class="error-message" id="phoneError"></span>
-            
-            <div class="contact-input-group" id="messageGroup">
-                <textarea id="message" placeholder="Leave a message" required class="contact-textarea"></textarea>
-            </div>
-            <span class="error-message" id="messageError"></span>
-            
-            <button type="button" id="submitButton" class="contact-submit-btn">Submit</button>
-        </form>
-    </div>
-</div>
+ 
 
     <!-- Contact Form Popup -->
     <div class="contact-form-main-container" id="contactFormPopup">

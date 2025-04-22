@@ -1,12 +1,13 @@
-.admindashboard-container {
+ 
+  .admindashboard-container {
     display: flex;
-    flex-direction: column;
-    margin: 80px 5px 80px 30px;
-    max-width: 100%;
-    width: 100%;
-    max-width: 1000px;
-    padding-top: 53px;
-}
+        flex-direction: column;
+        margin: 80px 5px 80px 30px;
+        max-width: 86.15%;
+        width: 100%;
+        margin-left: 24%;
+        padding-top: 53px;
+   }
 
 .admindashboardcontainer-firstsection {
     display: flex;
@@ -14,32 +15,33 @@
     justify-content: space-between;
 }
 
-.admindashboardcontainer-firstsection h1 {
-    font-family: Poppins;
-    font-size: 28px;
-    font-weight: 600;
-    line-height: 42px;
-    color: #e98635;
-}
+  .admindashboardcontainer-firstsection h1 {
+      font-family: 'Poppins', sans-serif;
+
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 42px;
+      color: #E98635;
+  }
 
 .admindashboardcontainer-firstsectionbuttoncontainer {
     display: flex;
     gap: 12px;
 }
 
-.admindashboardcontainer-firstsectionbuttoncontainer button {
-    width: 169px;
-    height: 35px;
-    background-color: #ffffff;
-    font-family: Poppins;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 16.8px;
-    color: #e98635;
-    border-radius: 4px;
-    border: 1px solid #e98635;
-    cursor: pointer;
-}
+  .admindashboardcontainer-firstsectionbuttoncontainer button {
+      width: 169px;
+      height: 35px;
+      background-color: #FFFFFF;
+      font-family: 'Poppins', sans-serif;
+
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 16.8px;
+      color: #E98635;
+      border-radius: 4px;
+      border: 1px solid #E98635
+  }
 
 .admindashboardcontainer-secondsection {
     display: flex;
@@ -48,13 +50,14 @@
     margin: 10px 0;
 }
 
-.admindashboardcontainer-secondsection h1 {
-    font-family: Poppins;
-    font-size: 24px;
-    font-weight: 500;
-    line-height: 36px;
-    color: #e98635;
-}
+  .admindashboardcontainer-secondsection h1 {
+      font-family: 'Poppins', sans-serif;
+
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 36px;
+      color: #E98635;
+  }
 
 .admindashboardsecondsection-buttongroups {
     display: flex;
@@ -235,252 +238,20 @@
     font-weight: 600;
 }
 
-.admin-dashboard-header-mobile {
-    color: #f28c28;
-    margin-bottom: 15px;
-    font-size: 18px;
-    font-weight: 600;
-    display: none;
-}
+  #showall-buttongroups {
+      max-width: 242px;
+      width: 100%;
+      height: 35px;
+      padding: 8px 10px;
+      gap: 10px;
+      border-radius: 4px;
+      border: 1px solid #5252523D;
+      font-family: 'Poppins', sans-serif;
 
-.admin-dashboard-search-filter-container {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
-    align-items: center;
-}
-
-.admin-dashboard-search-box {
-    flex: 1;
-    position: relative;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    background-color: #fff;
-}
-
-.admin-dashboard-search-icon {
-    padding: 0 15px;
-    color: #666;
-}
-
-.admin-dashboard-search-input {
-    flex: 1;
-    padding: 12px 0;
-    border: none;
-    outline: none;
-    font-family: "Poppins", sans-serif;
-    font-size: 14px;
-}
-
-.admin-dashboard-filter-button,
-.admin-dashboard-calendar-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 20px;
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    cursor: pointer;
-    font-family: "Poppins", sans-serif;
-    font-size: 14px;
-    gap: 8px;
-}
-
-.admin-dashboard-showing-panels {
-    display: none;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    cursor: pointer;
-    font-family: "Poppins", sans-serif;
-}
-
-.admin-dashboard-showing-text {
-    font-size: 14px;
-    color: #f28c28;
-    font-family: "Poppins", sans-serif;
-}
-
-.admin-dashboard-panels-count {
-    font-size: 14px;
-    color: #333;
-    font-family: "Poppins", sans-serif;
-}
-
-.admin-dashboard-download-button {
-    display: none;
-    width: 100%;
-    padding: 15px;
-    background-color: #6d43f8;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-family: "Poppins", sans-serif;
-    font-size: 16px;
-    text-align: center;
-    margin-top: 15px;
-}
-
-/* Filter Panel Styles */
-.admin-dashboard-filter-panel {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    align-items: center;
-    justify-content: center;
-}
-
-.admin-dashboard-filter-container {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 90%;
-    max-width: 600px;
-}
-
-.admin-dashboard-filter-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.admin-dashboard-filter-title {
-    font-size: 18px;
-    font-weight: 500;
-    color: #f28c28;
-    font-family: "Poppins", sans-serif;
-}
-
-.admin-dashboard-close-btn {
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    color: #6b7280;
-}
-
-.admin-dashboard-filter-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.admin-dashboard-filter-tag {
-    display: flex;
-    align-items: center;
-    background-color: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 20px;
-    padding: 8px 16px;
-    font-size: 14px;
-    color: #4b5563;
-    font-family: "Poppins", sans-serif;
-}
-
-.admin-dashboard-filter-tag .admin-dashboard-close-tag {
-    margin-left: 8px;
-    cursor: pointer;
-    color: #9ca3af;
-}
-
-.admin-dashboard-divider {
-    height: 1px;
-    background-color: #e5e7eb;
-    margin: 20px 0;
-}
-
-.admin-dashboard-show-all-btn {
-    background-color: #f9fafb;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 20px;
-    font-family: "Poppins", sans-serif;
-    font-size: 14px;
-    color: #374151;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-}
-
-.admin-dashboard-show-all-btn i {
-    margin-left: 5px;
-}
-
-.admin-dashboard-collapsed-tags {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
-}
-
-.admin-dashboard-collapsed-tags.show {
-    max-height: 500px;
-    transition: max-height 0.5s ease-in;
-}
-
-@media (max-width: 768px) {
-    .admindashboardcontainer-secondsection-mobile {
-        display: block;
-    }
-    .admin-dashboard-search-filter-container {
-        flex-wrap: wrap;
-    }
-
-    .admin-dashboard-header {
-        display: none;
-    }
-
-    .admin-dashboard-header-mobile {
-        display: block;
-    }
-
-    .admin-dashboard-calendar-button {
-        padding: 12px;
-    }
-
-    .admin-dashboard-filter-button {
-        padding: 12px;
-    }
-
-    .admin-dashboard-showing-panels {
-        display: flex;
-    }
-
-    .admin-dashboard-download-button {
-        display: block;
-    }
-}
-
-#showall-buttongroups {
-    width: 242px;
-    padding: 8px 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 400;
-    color: #333;
-    cursor: pointer;
-    transition: border-color 0.2s;
-    font-family: "Poppins", sans-serif;
-}
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      color: #5D5C5C;
 
 #showall-buttongroups:hover {
     border-color: #d0d0d0;
@@ -550,20 +321,22 @@
     transform: rotate(180deg);
 }
 
-.postgrad-buttongroups {
-    max-width: 132px;
-    width: 100%;
-    height: 35px;
-    padding: 8px 10px;
-    gap: 10px;
-    border-radius: 4px;
-    border: 1px solid #5252523d;
-    font-family: Poppins;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 18px;
-    color: #5d5c5c;
-}
+  .postgrad-buttongroups {
+      max-width: 132px;
+      width: 100%;
+      height: 35px;
+      padding: 8px 10px;
+      gap: 10px;
+      border-radius: 4px;
+      border: 1px solid #5252523D;
+      font-family: 'Poppins', sans-serif;
+
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      color: #5D5C5C;
+  }
+
 
 #calender-buttongroups,
 #calender-reportsregister {
@@ -589,36 +362,42 @@
     background-color: transparent;
 }
 
-#download-buttongroups {
-    max-width: 200px !important;
-    width: 100%;
-    height: 35px;
-    padding: 16px 20px;
-    gap: 8px;
-    border-radius: 4px;
-    background-color: #6f25ce;
-    color: #ffffff;
-    border: none;
-    font-size: 12px;
-    white-space: nowrap;
-    font-family: "Poppins", sans-serif;
-}
+  #download-buttongroups {
+      max-width: 166px;
+      width: 100%;
+      height: 35px;
+      padding: 16px 20px;
+      gap: 8px;
+      border-radius: 4px;
+      background-color: #6F25CE;
+      color: #FFFFFF;
+      border: none;
+      font-size: 14px;
 
-.admindashboardcontainer-thirdsection {
-    display: flex;
-    gap: 12px;
-    width: 100%;
-}
 
-.admindashboard-firstpart {
-    width: 330px;
-}
-.admindashboard-secondpart,
-.admindashboard-thirdpart {
-    flex: 1;
-    width: 100%;
-    flex-direction: column;
-}
+  }
+
+  .admindashboardcontainer-thirdsection {
+      display: flex;
+      gap: 1.19%;
+      width: 100%;
+      max-width: 100%;
+
+  }
+
+
+
+  .admindashboard-firstpart{
+    width:330px;
+  }
+  .admindashboard-secondpart,
+  .admindashboard-thirdpart {
+      max-width: 35.93%;
+      width: 100%;
+      flex-direction: column;
+
+
+  }
 
 .reports-registeration-sectionone {
     display: flex;
@@ -640,15 +419,21 @@
     border-radius: 8px;
 }
 
-.reports-registeration-sectionone p {
-    font-family: Poppins;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 18.36px;
-    color: #5d5c5c;
-    margin-left: 13px;
-    margin-top: 6px;
-}
+  .reports-registeration-sectionone p {
+      font-family: 'Poppins', sans-serif;
+
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 18.36px;
+      color: #5D5C5C;
+      margin-left: 13px;
+      margin-top: 6px;
+  }
+
+
+
+
+
 
 .source-registeration {
     display: flex;
@@ -676,14 +461,16 @@
     width: 300px;
 }
 
-#source-registeration-header {
-    font-family: Poppins;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 18.36px;
-    color: rgba(93, 92, 92, 1);
-    text-align: left;
-}
+  #source-registeration-header {
+      font-family: 'Poppins', sans-serif;
+
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 18.36px;
+      color:
+          rgba(93, 92, 92, 1);
+      text-align: left;
+  }
 
 canvas {
     height: 103px !important;
@@ -717,14 +504,15 @@ canvas {
     align-items: center;
 }
 
-.graphviewofregistrations-firstpart p,
-.graphviewofregistrations-secondpart p {
-    font-family: Poppins;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 18px;
-    color: rgba(93, 92, 92, 1);
-}
+  .graphviewofregistrations-firstpart p,
+  .graphviewofregistrations-secondpart p {
+      font-family: 'Poppins', sans-serif;
+
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      color: rgba(93, 92, 92, 1);
+  }
 
 #donutRegistrationChart-percentage {
     color: rgba(111, 37, 206, 1);
@@ -734,68 +522,76 @@ canvas {
     height: 103px;
 }
 
-.admindashboard-secondpart {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-    max-width: 340px;
-}
+  .admindashboard-secondpart {
+      display: flex;
+      flex-direction: column;
+      gap: 11.8px;
+      width: 100%;
+      max-width:340px;
 
-.admindashboard-second-main-container {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    background-color: #f5f5f5;
-}
-.admindashboard-secondpart .totalundergrads-admin,
-.admindashboard-secondpart .totalpostgrads-admin {
-    padding: 22px 12px 18px 12px;
-    display: flex;
-    flex-direction: column;
-    height: 105px;
-    width: 340px;
-    justify-content: space-between;
-    box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
-    background-color: white;
-    border-radius: 8px;
-}
+  }
 
-.admindashboard-secondpart .totalundergrads-admin h4,
-.admindashboard-secondpart .totalpostgrads-admin h4 {
-    font-family: Poppins;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 23.83px;
-    color: rgba(93, 92, 92, 1);
-}
+  .admindashboard-secondpart div {
+      background-color: rgba(255, 255, 255, 1);
+      width: 100%;
 
-.totalundergrads-info,
-.totalpostgrads-info {
-    display: flex;
-    gap: 20px;
-    align-items: flex-end;
-}
 
-.totalundergrads-info h1,
-.totalpostgrads-info h1 {
-    margin-right: 23px;
-    font-family: Poppins;
-    font-size: 35px;
-    font-weight: 500;
-    line-height: 30.5px;
-    color: rgba(111, 37, 206, 1);
-    margin-bottom: 0;
-}
+  }
 
-.totalundergrads-info p,
-.totalpostgrads-info p {
-    font-family: Poppins;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 23.83px;
-    color: rgba(130, 136, 152, 0.6);
-}
+  .admindashboard-secondpart .totalundergrads-admin,
+  .admindashboard-secondpart .totalpostgrads-admin {
+      padding: 22px 12px 18px 12px;
+      display: flex;
+      flex-direction: column;
+      height: 105px;
+       width:340px;
+      justify-content: space-between;
+      box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
+      width: 100%;
+      max-width: 100%;
+
+  }
+
+  .admindashboard-secondpart .totalundergrads-admin h4,
+  .admindashboard-secondpart .totalpostgrads-admin h4 {
+      font-family: 'Poppins', sans-serif;
+
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 23.83px;
+      color: rgba(93, 92, 92, 1);
+  }
+
+  .totalundergrads-info,
+  .totalpostgrads-info {
+      display: flex;
+      gap: 5.54%;
+
+      align-items: center;
+      width: 100%
+  }
+
+  .totalundergrads-info h1,
+  .totalpostgrads-info h1 {
+      margin-right: 23px;
+      font-family: 'Poppins', sans-serif;
+
+      font-size: 35px;
+      font-weight: 500;
+      line-height: 30.5px;
+      color: rgba(111, 37, 206, 1);
+      margin-bottom: 0;
+  }
+
+  .totalundergrads-info p,
+  .totalpostgrads-info p {
+      font-family: 'Poppins', sans-serif;
+
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 23.83px;
+      color: rgba(130, 136, 152, 0.6);
+  }
 
 .totalundergrads-info p span,
 .totalpostgrads-info p span {
@@ -814,19 +610,21 @@ canvas {
     align-items: center;
 }
 
-#postgrad-buttongroups-insideshow {
-    background-color: transparent;
-    color: rgba(93, 92, 92, 1);
-    width: 100%;
-    max-width: 140px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: Poppins;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 18px;
-}
+  #postgrad-buttongroups-insideshow {
+      background-color: transparent;
+      color: rgba(93, 92, 92, 1);
+      width: 100%;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
+
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+
+  }
 
 .dropdown-content-postgrad {
     display: none;
@@ -895,21 +693,24 @@ canvas {
     align-items: center;
 }
 
-.agerationcolumn-firstsection #ageratio-header {
-    font-family: Poppins;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 24.53px;
-    color: rgba(93, 92, 92, 1);
-}
+  .agerationcolumn-firstsection #ageratio-header {
+      font-family: 'Poppins', sans-serif;
 
-.ageratio-graphviewofratios p {
-    font-family: Poppins;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 18px;
-    color: rgba(93, 92, 92, 1);
-}
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 24.53px;
+      color: rgba(93, 92, 92, 1);
+  }
+
+  .ageratio-graphviewofratios p {
+      font-family: 'Poppins', sans-serif;
+
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      color: rgba(93, 92, 92, 1);
+  }
+
 
 .admindashboard-thirdpart {
     display: flex;
@@ -928,13 +729,14 @@ canvas {
     align-content: center;
 }
 
-#funnel-analyze-header {
-    font-family: Poppins;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 24.53px;
-    color: rgba(93, 92, 92, 1);
-}
+  #funnel-analyze-header {
+      font-family: 'Poppins', sans-serif;
+
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 24.53px;
+      color: rgba(93, 92, 92, 1);
+  }
 
 .funnelreport-analyze-diagram {
     display: flex;
@@ -965,13 +767,15 @@ canvas {
     justify-content: center;
 }
 
-.funnelreport-analyze-diagram p {
-    font-family: Poppins;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 18px;
-    color: rgba(255, 255, 255, 1);
-}
+  .funnelreport-analyze-diagram p {
+      font-family: 'Poppins', sans-serif;
+
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      color: rgba(255, 255, 255, 1);
+
+  }
 
 .funnelreport-analyze-diagram div:first-child {
     background-color: rgba(138, 96, 191, 0.5);
@@ -983,17 +787,21 @@ canvas {
     background-color: rgba(138, 96, 191, 0.8);
 }
 
-#funnelreport-rightsideid {
-    background-color: transparent;
-}
+  #funnelreport-rightsideid {
+      background-color: transparent;
 
-#funnelreport-rightsideid p {
-    color: rgba(103, 44, 179, 1);
-    font-family: Poppins;
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 14px;
-}
+  }
+
+  #funnelreport-rightsideid p {
+      color: rgba(103, 44, 179, 1);
+      font-family: 'Poppins', sans-serif;
+
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 14px;
+
+
+  }
 
 .funnelreport-analyze-diagram div:nth-child(3) {
     background-color: rgba(138, 96, 191, 1);
@@ -1033,25 +841,27 @@ canvas {
     text-align: center;
 }
 
-.funnelreport-analyze-diagram div p {
-    font-family: Poppins;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 18px;
-    color: rgba(255, 255, 255, 1);
-}
+  .funnelreport-analyze-diagram div p {
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      color: rgba(255, 255, 255, 1);
 
-.funnelreport-analyse-right {
-    background-color: #fff;
-    color: rgba(103, 44, 179, 1);
-    font-family: Poppins;
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 19.5px;
-    display: flex;
-    gap: 2.1rem;
-    padding: 2rem 0;
-}
+  }
+
+
+  .funnelreport-analyse-right {
+      background-color: #fff;
+      color: rgba(103, 44, 179, 1);
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 19.5px;
+      display: flex;
+      gap: 2.1rem;
+      padding: 2rem 0;
+  }
 
 @media (max-width: 768px) {
     .admindashboardcontainer-thirdsection {

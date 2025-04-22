@@ -923,12 +923,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (file.size > 5 * 1024 * 1024) {
             alert("Error: File size exceeds 5MB limit.");
-            fileInput.value = "";
-            fileNameElement.textContent = "No file chosen";
-            uploadIcon.style.display = "inline";
-            removeIcon.style.display = "none";
-            if (helpTrigger) helpTrigger.style.display = "inline";
-            if (formatInfo) formatInfo.style.display = "inline";
+            fileInput.value = '';
+            fileNameElement.textContent = 'No file chosen';
+            uploadIcon.style.display = 'inline';
+            removeIcon.style.display = 'none';
+            if (helpTrigger) helpTrigger.style.display = 'inline';
+            if (formatInfo) formatInfo.style.display = 'inline';
             return;
         }
 
@@ -949,10 +949,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const fileSizeInKB = (file.size / 1024).toFixed(2);
-        const fileSizeDisplay =
-            fileSizeInKB > 1024
-                ? `${(fileSizeInKB / 1024).toFixed(2)} MB`
-                : `${fileSizeInKB} KB`;
+        const fileSizeDisplay = fileSizeInKB > 1024
+            ? `${(fileSizeInKB / 1024).toFixed(2)} MB`
+            : `${fileSizeInKB} KB`;
 
         const truncatedFileName = truncateFileName(file.name);
         fileNameElement.textContent = truncatedFileName;
@@ -1110,6 +1109,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     }
+
+
+    
 
     function deleteFileToServer(userId, fileNameId) {
         fileNameId = fileNameId.replace(`-${userId}`, '');  

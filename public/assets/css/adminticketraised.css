@@ -20,6 +20,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+
             padding-bottom: 10px;
             border-bottom: 1px solid #eee;
             padding: 20px 0px 30px 0px;
@@ -304,18 +305,22 @@
            
             display: none;
         }
-        /* Mobile-specific adjustments */
 
- @media screen and (max-width: 768px) {
-    .ticket-raised-container {
-        width: 100%; 
-        max-width: 100%;
-        margin: 0; /* Remove margins */
-        padding: 0; /* Remove padding */
-        box-shadow: none; /* Remove box shadow */
-        gap: 0;
-        background-color: transparent;
-    }
+       
+        @media screen and (max-width: 768px) {
+            .ticket-raised-container {
+                width: 100%;
+                /* Full width */
+                max-width: 100%;
+                margin: 0;
+                /* Remove margins */
+                padding: 0;
+                /* Remove padding */
+                box-shadow: none;
+                /* Remove box shadow */
+                gap: 0;
+                background-color: transparent;
+            }
 
             .ticket-raised-header {
                 display: flex;
@@ -396,20 +401,25 @@
                 justify-content: center;
             }
 
-    .ticket-raised-view-more {
-        display: block;
-        width: 100%;
-        text-align: center;
-        padding: 15px;
-        background-color: white;
-        border-top: 1px solid #eee;
-        color: #6F25CE;
-        font-weight: 500;
-        cursor: pointer;
-    }
-    .ticket-raised-content {
-        max-width: 150px; 
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-}
+            .ticket-raised-view-more {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 15px;
+                background-color: white;
+                border-top: 1px solid #eee;
+                color: #6F25CE;
+                font-weight: 500;
+                cursor: pointer;
+            }
+
+            /* Ensure text truncation for long content */
+            .ticket-raised-content {
+                max-width: 150px;
+                /* Adjust as needed */
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+
+ 

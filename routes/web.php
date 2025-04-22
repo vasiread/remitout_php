@@ -85,7 +85,7 @@ Route::get('pages/student-dashboard', [TrackController::class, 'loanTracker']);
 Route::post('/registerformdata', [RegisterController::class, 'store'])->name('registerformdata');
 Route::post('/emailuniquecheck', [RegisterController::class, 'emailUniqueCheck'])->name('emailUniqueCheck');
 Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
-Route::post('/session-logout', [LoginController::class, 'sessionLogout'])->name('session.logout');
+// Route::post('/session-logout', [LoginController::class, 'sessionLogout'])->name('session.logout');
 
 // Update Routes for Student Details
 Route::post('/update-personalinfo', [StudentDetailsController::class, 'updatePersonalInfo']);
@@ -161,7 +161,7 @@ Route::post('/logout', [LoginController::class, 'sessionLogout'])->name('logout'
 
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('/auth/google/call-back', [GoogleAuthController::class, 'handleGoogleCallback']);
-Route::post('/get-queries', [StudentDashboardController::class, 'getScuserQueryRaised']);
+Route::get('/get-queries', [scDashboardController::class, 'getScuserQueryRaised']);
 Route::post('/getstatusofusers', [scDashboardController::class, 'getStatusOfUsers']);
 
 Route::post('/unread-message-count', [StudentDashboardController::class, 'unreadMessageCount']);
