@@ -323,21 +323,21 @@
 }
 
 
-.popup-notify-list {
-    position: absolute;
-    flex-direction: column;
-    top: 67%;
-    left: 34%;
-    background-color: #ffffff;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    gap: 1rem;
-    padding: 1rem 0;
-    border-radius: 5px;
-}
+.popup-notify-list{
+        position: absolute;
+        flex-direction: column;
+        top: 100%;
+        left: 12%;
+        background-color: #ffffff;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        gap: 1rem;
+        padding: 1rem 0;
+        border-radius: 5px;
+        width: 116px;
+    }
 
 .popup-notify-list p {
     font-family: 'Poppins', sans-serif;
-
     font-size: 0.8rem;
     padding: 0.4rem 0;
     border-radius: 4px;

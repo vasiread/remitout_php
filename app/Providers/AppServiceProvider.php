@@ -12,17 +12,13 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
-    {
-        //
-    }
-
-    /**
+    /*
+     *
      * Bootstrap any application services.
      *
      * @return void
      */
-    public function boot()
+    public function boot()  
     {
         if (
             isset($_SERVER['HTTP_HOST']) &&

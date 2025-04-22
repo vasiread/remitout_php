@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admincontroller;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\NbfcController;
@@ -84,3 +85,4 @@ Route::post('/getnbfcdata-proposals', [StudentDashboardController::class, 'nbfcP
 Route::post('/proposalcompletion', [StudentDashboardController::class, 'proposalCompletion']);
 Route::post('/check_userid', [StudentDashboardController::class, 'checkUserId']);
 Route::post('/multipleregisterbyscuser', [StudentDashboardController::class, 'multipleuserbyscuser']);
+Route::get('/retrievedashboarddetails', [Admincontroller::class, 'retrieveDashboardDetails']);

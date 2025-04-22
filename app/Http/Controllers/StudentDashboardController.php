@@ -342,8 +342,8 @@ class StudentDashboardController extends Controller
                     'message' => 'No matching records found to update'
                 ], 404);
             }
-
-        } catch (Exception $e) {
+            
+    } catch (Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred while updating records',
@@ -355,42 +355,7 @@ class StudentDashboardController extends Controller
 
     }
 
-    public function getScuserQueryRaised(Request $request)
-    {
-        try {
-
-            $request->validate([
-                'scUserId' => 'string|required'
-            ]);
-
-            $scUserId = $request->input('scUserId');
-
-
-            $queries = Queries::where('scuserid', $scUserId)->get();
-
-
-
-
-
-
-
-            return response()->json([
-                'scuserid' => $queries,
-                'success' => true,
-                'message' => "successfully fetched Queries"
-
-            ]);
-
-        } catch (Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'An Error Occured While retrieve scuser queries',
-                'error' => $e->getMessage()
-            ], 500);
-        }
-
-    }
-
+   
     public function getAllUsersFromAdmin()
     {
 
