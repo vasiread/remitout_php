@@ -300,7 +300,7 @@
         
         <div class="admindashboardcontainer-thirdsection">
             <div class="admindashboard-firstpart">
-                <div class="reports-registeration">
+                <div class="reports-registeration" data-report="registration-reports">
                     <div class="reports-registeration-sectionone">
                         <p>Reports on registration</p>
                         <button id="calender-reportsregister">Calendar <img src="assets/images/Icons/calendar_month.png"
@@ -312,7 +312,7 @@
                         <div id="chart_div" style="width: 100%; height: 160px;"></div>
                     </div>
                 </div>
-                <div class="source-registeration">
+                <div class="source-registeration" data-report="registration-source">
                     <p id="source-registeration-header">Source on registration</p>
                     <div class="donutregistration-chart-container">
                         <canvas id="donutRegistrationChart"></canvas>
@@ -406,7 +406,7 @@
                     </div>
                 </div>
             </div>
-            <div class="admindashboard-thirdpart">
+            <div class="admindashboard-thirdpart" data-report="funnel-reports">
                 <div class="funnelreport-analyze-header">
                     <p id="funnel-analyze-header">Funnel Report</p>
                     <div class="postgrad-buttongroups" id="postgrad-funnelreports">
@@ -465,7 +465,7 @@
             </div>
         </div>
 
-    <div class="admindashboardcontainer-fourth-section">
+    <div class="admindashboardcontainer-fourth-section" data-report="destination-countries">
        <div class="admin-dashboard-container-four">
         <div class="admin-dashboard-row">
             <!-- Cities Section -->
@@ -620,7 +620,7 @@
 
     <!---fifth section-->
 
-    <div class="admindashboardcontainer-fifth-section">
+    <div class="admindashboardcontainer-fifth-section" data-report="nbfc-generation-leads">
         <div class="dashboard-row-bar-chart">
         <!-- NBFC Lead Generation -->
         <div id="nbfc-lead-chart_container">
@@ -693,7 +693,7 @@
 
 
 
-<div class="admindashboardcontainer-sixth-section">
+<div class="admindashboardcontainer-sixth-section" data-report="point-of-entry">
     <div class="point-entry">
         <div class="point-entry-donut">
             <div class="point-entry-title">Point of entry</div>

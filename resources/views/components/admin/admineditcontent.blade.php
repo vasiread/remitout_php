@@ -135,81 +135,56 @@
                 // Try to load data from localStorage first
                 const savedData = localStorage.getItem('cmsEditorData');
 
-        if (savedData) {
-            this.data = JSON.parse(savedData);
-            
-            // Ensure maxLength properties are maintained when loading from localStorage
-            this.data.forEach(item => {
-                if (item.section === 'Landing Page') {
-                    if (item.title === 'Special Heading' && !item.maxLength) item.maxLength = 46;
-                    if (item.title === 'By Line' && !item.maxLength) item.maxLength = 30;
-                    if (item.title === 'Description' && !item.maxLength) item.maxLength = 140;
-                    if (item.title === 'Call to Action' && !item.maxLength) item.maxLength = 22;
-                    if (item.title === 'Watch Demo' && !item.maxLength) item.maxLength = 10;
-                    
-                    if (item.title === 'Background: Media' && !item.mediaConstraints) {
-                        item.mediaConstraints = {
-                            formats: ['png', 'jpg', 'jpeg']
-                        };
-                    }
+                if (savedData) {
+                    this.data = JSON.parse(savedData);
+                } else {
+                    // Use default data if nothing is saved
+                    this.data = [
+                        {
+                            id: 1,
+                            section: 'Landing Page',
+                            title: 'Special Heading',
+                            content: 'Secure Fast Simple Loans For a Brighter Future',
+                            status: 'Active'
+                        },
+                        {
+                            id: 2,
+                            section: 'Landing Page',
+                            title: 'By Line',
+                            content: 'Fuel your Global Journey',
+                            status: 'Active'
+                        },
+                        {
+                            id: 3,
+                            section: 'Landing Page',
+                            title: 'Description',
+                            content: 'Trusted by 15,000+ students across India, Remitout is your partner in securing the financial support you need to succeed in your studies.',
+                            status: 'Active'
+                        },
+                        {
+                            id: 4,
+                            section: 'Landing Page',
+                            title: 'Background: Media',
+                            content: '/api/placeholder/400/320',
+                            status: 'Active',
+                            isMedia: true
+                        },
+                        {
+                            id: 5,
+                            section: 'Landing Page',
+                            title: 'Call to Action',
+                            content: 'Secure your Loan now!',
+                            status: 'Active'
+                        },
+                        {
+                            id: 6,
+                            section: 'Landing Page',
+                            title: 'Watch Demo',
+                            content: 'Video content here',
+                            status: 'Active'
+                        }
+                    ];
                 }
-            });
-        } else {
-            // Use default data if nothing is saved
-            this.data = [
-                {
-                    id: 1,
-                    section: 'Landing Page',
-                    title: 'Special Heading',
-                    content: 'Secure Fast Simple Loans For a Brighter Future',
-                    status: 'Active',
-                    maxLength: 46
-                },
-                {
-                    id: 2,
-                    section: 'Landing Page',
-                    title: 'By Line',
-                    content: 'Fuel your Global Journey',
-                    status: 'Active',
-                    maxLength: 30
-                },
-                {
-                    id: 3,
-                    section: 'Landing Page',
-                    title: 'Description',
-                    content: 'Trusted by 15,000+ students across India, Remitout is your partner in securing the financial support you need to succeed in your studies.',
-                    status: 'Active',
-                    maxLength: 140
-                },
-                {
-                    id: 4,
-                    section: 'Landing Page',
-                    title: 'Background: Media',
-                    content: '/api/placeholder/400/320',
-                    status: 'Active',
-                    isMedia: true,
-                    mediaConstraints: {
-                        formats: ['png', 'jpg', 'jpeg']
-                    }
-                },
-                {
-                    id: 5,
-                    section: 'Landing Page',
-                    title: 'Call to Action',
-                    content: 'Secure your Loan now!',
-                    status: 'Active',
-                    maxLength: 22
-                },
-                {
-                    id: 6,
-                    section: 'Landing Page',
-                    title: 'Video content',
-                    content: 'Watch Demo',
-                    status: 'Active',
-                    maxLength: 10
-                }
-            ];
-        }
 
                 this.originalData = JSON.parse(JSON.stringify(this.data));
                 this.initializeEventListeners();

@@ -184,9 +184,7 @@
     margin-top: 22px;
 }
 
-
-@media(max-width:1200px) and (min-width:767px) {
-
+@media (max-width: 767px) {
     .add-studentcounsellor-adminside {
         max-width: 70%;
         width: 100%;
@@ -205,13 +203,83 @@
 @media (max-width:767px) {
     .add-studentcounsellor-adminside {
         height: fit-content;
+        margin: 20px auto;
+        margin-top: 80px;
+        padding: 16px;
+        box-shadow: 0px 4px 10px 0px rgba(26, 2, 57, 0.03);
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
+    .studentcounsellor-header-admin {
+        font-size: 20px;
+        line-height: 30px;
+        color: rgba(233, 134, 53, 1);
+        margin-bottom: 16px;
+        text-align: center;
     }
 
     .studentcounsellor-requiredfields-admin {
         display: flex;
         flex-direction: column;
-
+        gap: 12px;
+        width: 100%;
     }
 
+    .studentcounsellor-requiredfields-admin input,
+    #trigger-profile-photo-sc {
+        font-size: 12px;
+        height: 40px;
+        padding: 10px;
+        width: 100%;
+        border: 1px solid rgba(226, 226, 226, 1);
+        border-radius: 4px;
+        color: rgba(144, 144, 144, 1);
+    }
+
+    #student-counsellor-admin-address {
+        height: 80px;
+        resize: none;
+    }
+
+    #trigger-profile-photo-sc {
+        background: url('data:image/png;base64,iVBORw0KGgo...') no-repeat right 10px center; /* Placeholder for upload icon */
+        background-size: 20px;
+        cursor: pointer;
+    }
+
+    .addcouncellor-buttoncontainer {
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+        width: 100%;
+        margin-top: 20px;
+        justify-content: space-between;
+    }
+
+    #delete-councellor-admin,
+    #generate-referral-councellor-admin {
+        width: 48%;
+        height: 40px;
+        padding: 10px;
+        font-size: 13px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    #delete-councellor-admin {
+        border: 1px solid rgba(111, 37, 206, 1);
+        background-color: transparent;
+        color: rgba(38, 2, 84, 1);
+        box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
+    }
+
+    #generate-referral-councellor-admin {
+        background-color: rgba(111, 37, 206, 1);
+        color: rgba(255, 255, 255, 1);
+        border: none;
+        box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
+    }
 }

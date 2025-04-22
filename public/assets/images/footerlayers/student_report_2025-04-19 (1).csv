@@ -1,0 +1,31 @@
+S.No,Student Name,Unique ID,Email,Mobile No.,Type,Gender,Loan Amount,Date
+1,Aarav Mehta,AMXJH245879,aarav.mehta@gmail.com,9876543210,Undergraduate,Male,₹12,50,000,15/10/2024
+2,Sanya Kapoor,SKLPO298745,sanya.kapoor@gmail.com,8765432109,Post Graduate,Female,₹18,75,000,22/09/2024
+3,Rohan Sharma,RSHAR452189,rohan.sharma@gmail.com,7654321098,Diploma,Male,₹8,90,000,10/11/2024
+4,Priya Verma,PVKOH789654,priya.verma@gmail.com,6543210987,Doctorate,Female,₹22,00,000,05/12/2024
+5,Kabir Malhotra,KMLHT987456,kabir.malhotra@gmail.com,5432109876,Undergraduate,Male,₹14,30,000,18/08/2024
+6,Simran Kaur,SKJYT659874,simran.kaur@gmail.com,4321098765,Post Graduate,Female,₹20,00,000,30/09/2024
+7,Vikram Singh,VSING123456,vikram.singh@gmail.com,9876541234,Undergraduate,Male,₹10,00,000,12/07/2024
+8,Ananya Gupta,AGUPT789123,ananya.gupta@gmail.com,8765439876,Post Graduate,Female,₹15,50,000,25/08/2024
+9,Arjun Patel,APATE456789,arjun.patel@gmail.com,7654328765,Diploma,Male,₹9,20,000,03/10/2024
+10,Neha Sharma,NSHAR321654,neha.sharma@gmail.com,6543217654,Doctorate,Female,₹25,00,000,15/11/2024
+11,Rahul Jain,RJAIN987321,rahul.jain@gmail.com,5432106543,Undergraduate,Male,₹13,75,000,20/06/2024
+12,Kriti Agarwal,KAGAR654987,kriti.agarwal@gmail.com,4321095432,Post Graduate,Female,₹19,25,000,08/09/2024
+13,Aditya Roy,AROYX123789,aditya.roy@gmail.com,9876544321,Diploma,Male,₹7,80,000,17/10/2024
+14,Sneha Reddy,SREDD456123,sneha.reddy@gmail.com,8765433210,Doctorate,Female,₹23,50,000,29/11/2024
+15,Ishaan Khanna,IKHAN789456,ishaan.khanna@gmail.com,7654322109,Undergraduate,Male,₹11,90,000,14/08/2024
+16,Meera Nair,MNAIR321789,meera.nair@gmail.com,6543211098,Post Graduate,Female,₹17,00,000,02/10/2024
+17,Yash Chopra,YCHOP654123,yash.chopra@gmail.com,5432109987,Diploma,Male,₹8,50,000,22/07/2024
+18,Tara Bose,TBOSE987654,tara.bose@gmail.com,4321098876,Doctorate,Female,₹21,75,000,10/12/2024
+19,Siddharth Menon,SMENO123987,siddharth.menon@gmail.com,9876547765,Undergraduate,Male,₹12,20,000,05/09/2024
+20,Riya Das,RDASX456321,riya.das@gmail.com,8765436654,Post Graduate,Female,₹18,00,000,18/10/2024
+21,Nikhil Varghese,NVARG789123,nikhil.varghese@gmail.com,7654325543,Diploma,Male,₹9,70,000,27/11/2024
+22,Anjali Pillai,APILL321456,anjali.pillai@gmail.com,6543214432,Doctorate,Female,₹24,25,000,13/08/2024
+23,Devansh Thakur,DTHAK654789,devansh.thakur@gmail.com,5432103321,Undergraduate,Male,₹14,80,000,30/09/2024
+24,Shreya Iyer,SIYER987123,shreya.iyer@gmail.com,4321092210,Post Graduate,Female,₹19,90,000,07/10/2024
+25,Karan Oberoi,KOBER123654,karan.oberoi@gmail.com,9876541109,Diploma,Mobile,₹8,30,000,19/12/2024
+26,Pooja Bhatt,PBHAT456987,pooja.bhatt@gmail.com,8765430098,Doctorate,Female,₹22,80,000,11/09/2024
+27,Amitabh Saxena,ASAXE789321,amitabh.saxena@gmail.com,7654329987,Undergraduate,Male,₹13,10,000,23/10/2024
+28,Divya Rana,DRANA321654,divya.rana@gmail.com,6543218876,Post Graduate,Female,₹17,60,000,04/11/2024
+29,Sahil Grover,SGROV654123,sahil.grover@gmail.com,5432107765,Diploma,Male,₹9,40,000,16/08/2024
+30,Lakshmi Menon,LMENO987456,lakshmi.menon@gmail.com,4321096654,Doctorate,Female,₹20,50,000,28/09/2024

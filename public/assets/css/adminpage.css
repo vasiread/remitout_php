@@ -285,3 +285,12 @@
     display: block;
   }
 }
+
+@media screen and (max-width: 480px) {
+    .admin-parentcontainer {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        background-color: #f5f5f5;
+    }
+}
