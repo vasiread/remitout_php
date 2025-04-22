@@ -1,4 +1,4 @@
-const initializeAdminSidebar = () => {
+function initializeAdminSidebar () {
     const adminSidebarItems = document.querySelectorAll("#commonsidebar-admin .commonsidebar-sidebarlists-top li");
     const triggeredSideBar = document.getElementById("commonsidebar-admin");
     const img = document.querySelector("#commonsidebar-admin img");

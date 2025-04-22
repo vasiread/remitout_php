@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SendScDetailsMail;
+use App\Models\Queries;
 use App\Models\Requestprogress;
 use App\Models\User;
 use Exception;
@@ -233,8 +234,6 @@ class scDashboardController extends Controller
 
     }
 
-    // use Illuminate\Support\Facades\Log;
-
     public function getStatusOfUsers(Request $request)
     {
         try {
@@ -255,6 +254,7 @@ class scDashboardController extends Controller
 
             foreach ($users as $user) {
                 $userId = $user->unique_id;
+                $userName = $user->name;
 
                 $Accepted = DB::table('traceprogress')
                     ->join('nbfc', 'traceprogress.nbfc_id', '=', 'nbfc.nbfc_id')
@@ -267,8 +267,6 @@ class scDashboardController extends Controller
                     )
                     ->get();
 
-                Log::info("Accepted for {$userId}:", $Accepted->toArray());
-
                 $Pending = DB::table('requestedbyusers')
                     ->join('nbfc', 'requestedbyusers.nbfcid', '=', 'nbfc.nbfc_id')
                     ->where('requestedbyusers.userid', $userId)
@@ -279,8 +277,6 @@ class scDashboardController extends Controller
                         'requestedbyusers.userid as user_id'
                     )
                     ->get();
-
-                Log::info("Pending for {$userId}:", $Pending->toArray());
 
                 $Rejected = DB::table('rejectedbynbfc')
                     ->join('nbfc', 'rejectedbynbfc.nbfc_id', '=', 'nbfc.nbfc_id')
@@ -293,23 +289,51 @@ class scDashboardController extends Controller
                     )
                     ->get();
 
-                Log::info("Rejected for {$userId}:", $Rejected->toArray());
-
                 $merged = collect($Accepted)->merge($Pending)->merge($Rejected);
-                $allStatuses = array_merge($allStatuses, $merged->toArray());
+
+                foreach ($merged as $status) {
+                    $allStatuses[] = [
+                        'user_id' => $status->user_id,
+                        'nbfc_name' => $status->nbfc_name,
+                        'userName' => $userName,
+                        'status_type' => $status->status_type,
+                        'created_at' => $status->created_at,
+                    ];
+                }
             }
 
             if (empty($allStatuses)) {
                 return response()->json(['message' => 'No statuses found for users'], 404);
             }
 
-            // Group by nbfc and sort by created_at
+            // Group by user_id, then nbfc_name
             $grouped = collect($allStatuses)
-                ->groupBy('nbfc_name')
-                ->map(function ($items, $nbfcName) {
+                ->groupBy('user_id')
+                ->map(function ($userStatuses, $userId) {
+                    $nbfcGrouped = collect($userStatuses)
+                        ->groupBy('nbfc_name')
+                        ->map(function ($statuses, $nbfcName) {
+                            $statusList = collect($statuses)
+                                ->sortByDesc('created_at')
+                                ->map(function ($status) {
+                                    return [
+                                        'status_type' => $status['status_type'],
+                                        'created_at' => $status['created_at'],
+                                    ];
+                                })
+                                ->values();
+
+                            return [
+                                'nbfc_name' => $nbfcName,
+                                'statuses' => $statusList,
+                            ];
+                        })
+                        ->values();
+
                     return [
-                        'nbfc_name' => $nbfcName,
-                        'statuses' => collect($items)->sortBy('created_at')->values(),
+                        'user_id' => $userId,
+                        'userName' => $userStatuses->first()['userName'] ?? null,
+                        'nbfcs' => $nbfcGrouped,
                     ];
                 })
                 ->values();
@@ -326,6 +350,7 @@ class scDashboardController extends Controller
             ], 500);
         }
     }
+
 
 
 
@@ -480,6 +505,35 @@ class scDashboardController extends Controller
 
 
 
+    public function getScuserQueryRaised(Request $request)
+    {
+        try {
+
+            $request->validate([
+                'scUserId' => 'string|required'
+            ]);
+
+            $scUserId = $request->input('scUserId');
+
+
+            $queries = Queries::where('scuserid', $scUserId)->get();
+
+            return response()->json([
+                'success' => true,
+                'queries' => $queries,
+                'message' => "successfully fetched Queries"
+
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An Error Occured While retrieve scuser queries',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+
+    }
 
 
 
