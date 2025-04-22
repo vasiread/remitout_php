@@ -4703,7 +4703,7 @@ $counter = 1;
                 });
         }
 
-        const sessionLogoutInitial = () => {
+        const   sessionLogoutInitial = () => {
             fetch("{{ route('logout') }}", {
                 method: "POST",
                 headers: {

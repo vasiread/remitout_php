@@ -35,7 +35,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const sessionLogout = document.querySelector(".logoutBtn");
     sessionLogout.addEventListener('click', () => {
 
-        sessionLogoutInitial();
+        setTimeout(() => {
+            sessionLogoutInitial();
+
+        }, 2000)
 
     })
 
@@ -307,7 +310,7 @@ function addUserToRequest(userId) {
 const documentUrls = {};
 
 // Global object to store document URLs
- 
+
 const endpoints = [
     {
         url: "/retrieve-file",
@@ -1279,7 +1282,7 @@ const initialiseProfileView = () => {
                 imgElement.src = data.fileUrl;
             } else {
                 console.error("Error: No URL returned from the server", data);
-            }   
+            }
         })
         .catch((error) => {
             console.error("Error retrieving profile picture", error);
@@ -3139,7 +3142,7 @@ const initializeProgressRing = () => {
     progressText.textContent = `${Math.round(percentage * 100)}%`;
 };
 const initialisedocumentsCount = () => {
-  
+
     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
     const userId = userIdElement ? userIdElement.textContent.trim() : '';
     const documentCountText = document.querySelector(".profilestatus-graph-secondsection .profilestatus-noofdocuments-section p");
@@ -3500,7 +3503,7 @@ function fetchUnreadCount() {
         });
 }
 
-function sessionLogoutInitial() {
+const sessionLogoutInitial = () => {
     fetch("{{ route('logout') }}", {
         method: "POST",
         headers: {
@@ -3508,11 +3511,12 @@ function sessionLogoutInitial() {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({})
-    }).then(response => {
-        if (response.ok) {
-            window.location.href = "{{ route('login') }}";
-        }
-    });
+    })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = "{{ route('login') }}";
+            }
+        });
 }
 
 

@@ -85,7 +85,7 @@ Route::get('pages/student-dashboard', [TrackController::class, 'loanTracker']);
 Route::post('/registerformdata', [RegisterController::class, 'store'])->name('registerformdata');
 Route::post('/emailuniquecheck', [RegisterController::class, 'emailUniqueCheck'])->name('emailUniqueCheck');
 Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
-Route::post('/session-logout', [LoginController::class, 'sessionLogout'])->name('session.logout');
+// Route::post('/session-logout', [LoginController::class, 'sessionLogout'])->name('session.logout');
 
 // Update Routes for Student Details
 Route::post('/update-personalinfo', [StudentDetailsController::class, 'updatePersonalInfo']);
