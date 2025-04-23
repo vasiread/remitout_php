@@ -353,7 +353,7 @@ class scDashboardController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => $grouped,
-                'proposalCount'=>$ProposalCount
+                'proposalCount' => $ProposalCount, // ✅ this is correct
             ]);
         } catch (\Exception $e) {
             return response()->json([

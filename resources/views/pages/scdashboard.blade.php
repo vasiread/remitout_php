@@ -1601,10 +1601,11 @@ $totalPages = ceil($totalStudents / $perPage);
                         <div class="reportsindashboard-secondrow">
                             <p>Document Final Status: ${getFinalStatus(student.nbfcs)}</p>
                             <p>Application Date: -</p>
-                            <p>Proposals received: ${student.nbfcs.ProposalCount}</p>
+                            <p>Proposals received: ${student}</p>
                             <p>Total Duration: -</p>
                         </div>
                     `;
+                    console.log(student)
 
                            const proposalDetails = document.createElement("div");
                            proposalDetails.className = "reportsproposal-datalists";
@@ -1627,7 +1628,6 @@ $totalPages = ceil($totalStudents / $perPage);
                            studentDiv.innerHTML += firstRow;
                            studentDiv.innerHTML += secondRow;
                            studentDiv.appendChild(proposalDetails);
-
                            container.appendChild(studentDiv);
 
                        });                 
