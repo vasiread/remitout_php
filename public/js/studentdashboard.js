@@ -11,17 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initialiseSeventhAdditionalColumn();
     initialiseEightcolumn();
     initialiseNinthcolumn();
-    initialiseTenthcolumn();
-
-    const sessionLogout = document.querySelector(".logoutBtn");
-    if (sessionLogout) {
-        sessionLogout.addEventListener('click', () => {
-            console.log("Logout button clicked");
-            sessionLogoutInitial();
-        });
-    } else {
-        console.warn("Logout button (.logoutBtn) not found in the DOM");
-    }
+    initialiseTenthcolumn();   
 
     // Fetch all URLs first
     Promise.all([
@@ -42,6 +32,26 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error("Error during initialization:", error);
         });
     markAsRead();
+
+    // logout function 
+    const sessionLogout = document.querySelector(".logoutBtn");
+    if (sessionLogout) {
+        sessionLogout.addEventListener('click', () => {
+            console.log("Logout button clicked");
+            sessionLogoutInitial();
+        });
+    } else {
+        console.warn("Logout button (.logoutBtn) not found in the DOM");
+    }
+    // Event delegation for dynamically loaded .logoutBtn
+    document.addEventListener('click', (event) => {
+        const logoutBtn = event.target.closest('.logoutBtn');
+        if (logoutBtn) {
+            console.log('Dynamically detected logout button clicked');
+            event.preventDefault(); // Prevent any default behavior
+            sessionLogoutInitial();
+        }
+    });
      
 
     const courseDetailsElement = document.getElementById('course-details-container');

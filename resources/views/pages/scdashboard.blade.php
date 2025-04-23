@@ -211,15 +211,13 @@ $studentDocumentDetailsInfo = [
                                 </div>
                                 <p id="screferral-id-fromprofile">Referral Number: <span>{{ session('scuser')->referral_code }}</span>
                                 </p>
-                                <div id="screferral-dob-fromprofile" inputmode="Date">
+                                <div id="screferral-dob-fromprofile" class="dob-display" style="display: flex; align-items: center; cursor: pointer;">
                                     <i class="fa-solid fa-calendar"></i>
-                                    <p></p>
-
+                                    <p>{{ session('scuser')->dob ?? 'Not set' }}</p>
                                 </div>
-                                <div id="screferral-dob-fromprofile-editmode" inputmode="Date">
+                                <div id="screferral-dob-fromprofile-editmode" class="dob-edit" style="display: none; align-items: center;">
                                     <i class="fa-solid fa-calendar"></i>
-                                    <input type="text">
-
+                                    <input type="date" id="dob-input">
                                 </div>
                                 <ul class="scmember_personalinfo">
 
