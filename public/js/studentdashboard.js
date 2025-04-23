@@ -11,7 +11,21 @@ document.addEventListener('DOMContentLoaded', function () {
     initialiseSeventhAdditionalColumn();
     initialiseEightcolumn();
     initialiseNinthcolumn();
+<<<<<<< HEAD
     initialiseTenthcolumn();   
+=======
+    initialiseTenthcolumn();
+
+    const sessionLogout = document.querySelector(".studentdashboardprofile-sidebarlists-bottom .logoutBtn");
+    if (sessionLogout) {
+        sessionLogout.addEventListener('click', () => {
+            console.log("Logout button clicked");
+            sessionLogoutInitial();
+        });
+    } else {
+        console.warn("Logout button (.logoutBtn) not found in the DOM");
+    }
+>>>>>>> 81dbf5b (status update scdashboard)
 
     // Fetch all URLs first
     Promise.all([

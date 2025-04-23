@@ -536,6 +536,8 @@
                         documentsStatusBar[index].style.display = documentsStatusBar[index].style.display === "block" ? "none" : "block";
 
                         const userId = studentId[index].textContent.trim();
+                        console.log("----");
+                        console.log(userId)
 
                         if (userId && userId !== previousUserId) {
                             previousUserId = userId;

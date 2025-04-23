@@ -1095,6 +1095,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const userId = document.getElementById("personal-info-userid").value;
             await deleteFileToServer(userId, fileNameId);
             console.log(fileNameId)
+            
 
 
 
@@ -1131,11 +1132,11 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch("/remove-each-documents", {
             method: "POST",
             headers: {
-                "X-CSRF-TOKEN": csrfToken, // CSRF token for security
-                Accept: "application/json", // Expect JSON response
-                "Content-Type": "application/json", // Sending JSON data in the body
+                "X-CSRF-TOKEN": csrfToken,  
+                Accept: "application/json",  
+                "Content-Type": "application/json",  
             },
-            body: JSON.stringify(data), // Convert data to JSON string
+            body: JSON.stringify(data), 
         })
             .then((response) => {
                 if (!response.ok) {

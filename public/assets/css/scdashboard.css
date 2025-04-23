@@ -1069,7 +1069,7 @@
     color: #909090;
 }
 
-#reportsindashboard-firstrow-view,
+.reportsindashboard-firstrow-view,
 #reportsindashboard-firstrow-edit {
     width: 71px;
     height: 35px;
