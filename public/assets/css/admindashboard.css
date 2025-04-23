@@ -1,5 +1,5 @@
 .admindashboard-container {
-display: flex;
+    display: flex;
     flex-direction: column;
     margin: 80px 5px 80px 30px;
     max-width: 100%;
@@ -74,6 +74,7 @@ display: flex;
     align-items: center;
     background-color: transparent;
 }
+
 /* Mobile Modal */
 .mobile-admin-dashboard-modal {
     display: none;
@@ -131,6 +132,7 @@ display: flex;
     margin: 10px 0;
     font-family: "Poppins", sans-serif;
 }
+
 .mobile-admin-dashboard-menu-btn {
     background: none;
     border: none;
@@ -193,6 +195,7 @@ display: flex;
         font-weight: 600;
         line-height: 32px;
     }
+
     .admindashboardcontainer-firstsectionbuttoncontainer {
         display: none;
     }
@@ -224,6 +227,7 @@ display: flex;
         font-size: 14px;
         text-align: center;
     }
+
     .admindashboardsecondsection-buttongroups {
         display: none;
     }
@@ -273,6 +277,7 @@ display: flex;
         font-weight: 600;
         line-height: 32px;
     }
+
     .admindashboardcontainer-firstsectionbuttoncontainer {
         display: none;
     }
@@ -304,6 +309,7 @@ display: flex;
         font-size: 14px;
         text-align: center;
     }
+
     .admindashboardsecondsection-buttongroups {
         display: none;
     }
@@ -531,6 +537,7 @@ display: flex;
         border-bottom-left-radius: 8px;
         border-bottom-right-radius: 8px;
     }
+
     .admin-dashboard-search-filter-container {
         flex-wrap: wrap;
     }
@@ -559,6 +566,7 @@ display: flex;
         display: block;
     }
 }
+
 #showall-buttongroups {
     width: 242px;
     padding: 8px 16px;
@@ -599,7 +607,7 @@ display: flex;
     overflow: hidden;
     margin-top: 4px;
     font-family: "Poppins", sans-serif;
-    max-height: 300px; 
+    max-height: 300px;
     overflow-y: auto;
 }
 
@@ -717,6 +725,7 @@ display: flex;
 .admindashboard-firstpart {
     width: 330px;
 }
+
 .admindashboard-secondpart,
 .admindashboard-thirdpart {
     flex: 1;
@@ -833,6 +842,7 @@ canvas {
 #donutRegistrationChart-percentage {
     color: rgba(111, 37, 206, 1);
 }
+
 #ageratio-donutRegistrationChart {
     width: 103px;
     height: 103px;
@@ -853,6 +863,7 @@ canvas {
     background-color: #f5f5f5;
     max-width: 340px;
 }
+
 .admindashboard-secondpart .totalundergrads-admin,
 .admindashboard-secondpart .totalpostgrads-admin {
     padding: 22px 12px 18px 12px;
@@ -879,6 +890,7 @@ canvas {
     display: flex;
     gap: 20px;
     align-items: flex-end;
+
 }
 
 .totalundergrads-info h1,
@@ -1154,7 +1166,16 @@ canvas {
     display: flex;
     gap: 2.1rem;
     padding: 2rem 0;
+    /* margin-top: 43px;
+    display: flex;
+    gap: 22px;
+    margin-left: 10px; */
 }
+/* 
+.funnelreport-analyse-right {
+    height: fit-content;
+    margin-top: 56px;
+} */
 
 @media (max-width: 767px) {
     .admindashboardcontainer-thirdsection {
@@ -1184,9 +1205,11 @@ canvas {
         max-width: 380px;
         margin: 0 auto;
     }
+
     .totalundergrads-admin {
         width: 380px;
     }
+
     .totalpostgrads-admin {
         width: 380px;
     }
@@ -1204,6 +1227,7 @@ canvas {
         max-width: 380px;
         margin: 0 auto;
     }
+
     .admindashboard-secondpart .ageratio-graph-admin {
         order: 4;
         width: 100%;
@@ -1230,6 +1254,7 @@ canvas {
 }
 
 @media screen and (max-width: 480px) {
+
     #donutRegistrationChart,
     #ageratio-donutRegistrationChart {
         width: 150px !important;
@@ -1435,6 +1460,7 @@ canvas {
     justify-content: space-between;
     gap: 20px;
 }
+
 .admin-desti-country-sort-btn {
     display: flex;
     align-items: center;
@@ -1680,6 +1706,7 @@ canvas {
     display: flex;
     align-items: center;
 }
+
 text[fill="#222222"] {
     font-family: "Poppins", sans-serif;
     font-size: 12px;
@@ -1761,6 +1788,7 @@ text[fill="#222222"] {
     margin-bottom: 5px;
     font-size: 12px;
 }
+
 .sc-lead-legend-item span {
     font-size: 12px;
     color: #5d5c5c;
@@ -1797,6 +1825,7 @@ text[fill="#222222"] {
 .sc-lead-pagination span {
     margin: 0 2px;
 }
+
 #leadChart {
     width: 466px !important;
     height: 190px !important;
@@ -2015,6 +2044,7 @@ text[fill="#222222"] {
 .referral-triggered-view.hidden {
     display: none;
 }
+
 @media (max-width: 767px) {
     .admindashboardcontainer-fourth-section {
         width: 100%;
@@ -2094,10 +2124,12 @@ text[fill="#222222"] {
         overflow-x: auto;
         white-space: nowrap;
     }
+
     .point-entry-legend-container {
         display: block;
         gap: 35px;
     }
+
     .point-entry-chart-container {
         gap: 25px;
     }
@@ -2234,14 +2266,16 @@ text[fill="#222222"] {
         height: 45px;
         font-size: 12px;
     }
+
     .point-entry-legend {
-    display: flex;
-    flex-direction: column;
-    gap: 0px;
-}
-.point-entry-legend-container{
-    gap:5px;
-}
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
+    }
+
+    .point-entry-legend-container {
+        gap: 5px;
+    }
 }
 
 .calendar-wrapper {

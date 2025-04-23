@@ -963,55 +963,9 @@ class StudentDashboardController extends Controller
 
 
 
-    public function validateProfileCompletion(Request $request)
-    {
-        $userId = $request->input('user_id');
-        if (!$userId) {
-            return response()->json(['error' => 'User ID is required'], 400);
-        }
+   
 
-        $validationResult = [];
-        $totalColumns = 0;
-        $filledColumns = 0;
 
-        foreach ($this->tablesAndColumns as $table => $columns) {
-            if (Schema::hasTable($table)) {
-                $tableStatus = ['table_exists' => true, 'columns' => []];
-
-                // Fetch all necessary columns at once for the specific user
-                $userData = DB::table($table)->where('user_id', $userId)->first();
-
-                foreach ($columns as $column) {
-                    $totalColumns++;
-
-                    // Check if the column exists in the table schema
-                    if (Schema::hasColumn($table, $column)) {
-                        $value = $userData ? $userData->$column : null;
-
-                        if (!empty($value)) {
-                            $tableStatus['columns'][$column] = 'Filled';
-                            $filledColumns++;
-                        } else {
-                            $tableStatus['columns'][$column] = 'Not Filled';
-                        }
-                    } else {
-                        $tableStatus['columns'][$column] = 'Column does not exist';
-                    }
-                }
-
-                $validationResult[$table] = $tableStatus;
-            } else {
-                $validationResult[$table] = ['table_exists' => false, 'columns' => 'Table does not exist'];
-            }
-        }
-
-        $completionPercentage = ($totalColumns > 0) ? ($filledColumns / $totalColumns) * 100 : 0;
-
-        return response()->json([
-            'profile_completion_percentage' => $completionPercentage,
-            'validation_result' => $validationResult
-        ]);
-    }
 
 
 
