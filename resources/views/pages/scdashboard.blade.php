@@ -410,7 +410,6 @@ $totalPages = ceil($totalStudents / $perPage);
             initializePopuAddingstudents();
             generateReferLinkPopup();
             addDynamicInputFields();
-            initializecheckStatus();
 
             initializeSortByFunctionQueries();
             initializeSortByFunctionApplicationStatus();
@@ -431,6 +430,7 @@ $totalPages = ceil($totalStudents / $perPage);
                 const studentData = collectStudentData();
             });
             const triggerExpandShrink = document.querySelectorAll(".reportsindashboard-firstrow-view");
+             initializecheckStatus();
  
             if (triggerExpandShrink) {
                 triggerExpandShrink.forEach((items, index) => {
@@ -440,6 +440,8 @@ $totalPages = ceil($totalStudents / $perPage);
                         const progress = document.querySelectorAll(".reportsproposal-datalists");
                         if (progress[index].style.display === "flex") {
                             progress[index].style.display = "none";
+                                       
+
                         } else {
                             progress[index].style.display = "flex";
                         }
@@ -845,7 +847,7 @@ $totalPages = ceil($totalStudents / $perPage);
             const missingDocumentsCount = document.querySelectorAll(".scdashboard-missingdocumentsstatus");
 
             applicationStatusElements.forEach((items, index) => {
-                if (items.textContent.includes("Approved")) {
+                if (items.textContent.includes("Accepted")) {
                     items.style.color = "#3FA27E";
                     items.style.backgroundColor = "#D2FFEE";
 
@@ -862,7 +864,15 @@ $totalPages = ceil($totalStudents / $perPage);
 
 
             statusElements.forEach(dynamicStatusColorChange => {
-                if (dynamicStatusColorChange.textContent.includes("Approved")) {
+                if (dynamicStatusColorChange.textContent.includes("Accepted")) {
+                    dynamicStatusColorChange.textContent ="Approved";
+                    dynamicStatusColorChange.style.color = "#3FA27E";
+                    dynamicStatusColorChange.style.backgroundColor = "#D2FFEE";
+                    dynamicStatusColorChange.style.width = "100%"
+                    dynamicStatusColorChange.style.maxWidth = "95px"
+                }
+                else if(dynamicStatusColorChange.textContent.includes("Rejected")){
+                    dynamicStatusColorChange.textContent = "Approved";
                     dynamicStatusColorChange.style.color = "#3FA27E";
                     dynamicStatusColorChange.style.backgroundColor = "#D2FFEE";
                     dynamicStatusColorChange.style.width = "100%"
@@ -1591,7 +1601,7 @@ $totalPages = ceil($totalStudents / $perPage);
                         <div class="reportsindashboard-secondrow">
                             <p>Document Final Status: ${getFinalStatus(student.nbfcs)}</p>
                             <p>Application Date: -</p>
-                            <p>Proposals received: ${student.nbfcs.length}</p>
+                            <p>Proposals received: ${student.nbfcs.ProposalCount}</p>
                             <p>Total Duration: -</p>
                         </div>
                     `;

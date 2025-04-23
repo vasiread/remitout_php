@@ -266,7 +266,7 @@ class scDashboardController extends Controller
                         'traceprogress.user_id'
                     )
                     ->get();
-
+               
                 $Pending = DB::table('requestedbyusers')
                     ->join('nbfc', 'requestedbyusers.nbfcid', '=', 'nbfc.nbfc_id')
                     ->where('requestedbyusers.userid', $userId)
@@ -301,6 +301,18 @@ class scDashboardController extends Controller
                     ];
                 }
             }
+
+            $ProposalCount = DB::table('traceprogress')
+                ->join('nbfc', 'traceprogress.nbfc_id', '=', 'nbfc.nbfc_id')
+                ->where('traceprogress.user_id', $userId)
+                ->select(
+                    'nbfc.nbfc_name',
+                    'traceprogress.created_at',
+                    DB::raw("'Accepted' as status_type"),
+                    'traceprogress.user_id'
+                )
+                ->count();
+
 
             if (empty($allStatuses)) {
                 return response()->json(['message' => 'No statuses found for users'], 404);
@@ -341,6 +353,7 @@ class scDashboardController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => $grouped,
+                'proposalCount'=>$ProposalCount
             ]);
         } catch (\Exception $e) {
             return response()->json([
