@@ -1017,7 +1017,7 @@ textarea::placeholder {
     width: 230px;
 }
 
-.monthly-liability-option label {
+.monthly-liability-option-container label {
     display: flex;
     align-items: center;
     font-size: 14px;
@@ -1026,7 +1026,7 @@ textarea::placeholder {
     gap: 16px;
 }
 
-.monthly-liability-option input[type="radio"] {
+.monthly-liability-option-container input[type="radio"] {
     appearance: none;
     width: 22px;
     height: 22px;
@@ -1038,11 +1038,11 @@ textarea::placeholder {
     transition: all 0.3s ease-in-out;
 }
 
-.monthly-liability-option input[type="radio"]:checked {
+.monthly-liability-option-container input[type="radio"]:checked {
     border-color: #e98635;
 }
 
-.monthly-liability-option input[type="radio"]:checked:before {
+.monthly-liability-option-container input[type="radio"]:checked:before {
     content: "";
     width: 12px;
     height: 12px;
