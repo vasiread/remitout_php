@@ -706,8 +706,6 @@ $totalPages = ceil($totalStudents / $perPage);
             const Profileinfo = document.querySelector(".scmember_personalinfo");
             const Profiledob = document.getElementById("screferral-dob-fromprofile");
 
-<<<<<<< HEAD
-=======
             const dobDisplay = document.getElementById("dob-display");
             const dobInput = document.getElementById("dob-input");
 
@@ -718,7 +716,6 @@ $totalPages = ceil($totalStudents / $perPage);
             }
 
             // Check if elements exist before adding event listeners
->>>>>>> 18ababd (fixed user profile image and DOB functionality)
             if (profileUploadForScTriggerShower) {
                 profileUploadForScTriggerShower.addEventListener('click', () => {
                     if (profileUploadForScTrigger) {
