@@ -154,7 +154,7 @@
 
     @section('scdashboard')
             @php
-$profileIconPath = "assets/images/account_circle.png";
+$profileIconPath = "assets/images/account_circle1.png";
 $phoneIconPath = "assets/images/call.png";
 $mailIconPath = "assets/images/mail.png";
 $pindropIconPath = "assets/images/pin_drop.png";
@@ -324,12 +324,12 @@ $studentDocumentDetailsInfo = [
                         </p>
                         <div id="screferral-dob-fromprofile" inputmode="Date">
                             <i class="fa-solid fa-calendar"></i>
-                            <p></p>
+                            <p id="dob-display"></p>
 
                         </div>
-                        <div id="screferral-dob-fromprofile-editmode" inputmode="Date">
+                        <div id="screferral-dob-fromprofile-editmode"  style="display: none;">
                             <i class="fa-solid fa-calendar"></i>
-                            <input type="text">
+                            <input type="date" id="dob-input">
 
                         </div>
                         <ul class="scmember_personalinfo">
@@ -706,6 +706,19 @@ $totalPages = ceil($totalStudents / $perPage);
             const Profileinfo = document.querySelector(".scmember_personalinfo");
             const Profiledob = document.getElementById("screferral-dob-fromprofile");
 
+<<<<<<< HEAD
+=======
+            const dobDisplay = document.getElementById("dob-display");
+            const dobInput = document.getElementById("dob-input");
+
+            // Check if DOB elements exist
+            if (!dobDisplay || !dobInput) {
+                console.error('DOB display or input elements not found');
+                return;
+            }
+
+            // Check if elements exist before adding event listeners
+>>>>>>> 18ababd (fixed user profile image and DOB functionality)
             if (profileUploadForScTriggerShower) {
                 profileUploadForScTriggerShower.addEventListener('click', () => {
                     if (profileUploadForScTrigger) {
