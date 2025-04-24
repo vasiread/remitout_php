@@ -895,8 +895,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    async function handleFileUpload(event, fileNameId, uploadIconId, removeIconId, studentId = null) {
-        console.log(event, fileNameId, uploadIconId, removeIconId, studentId)
+    async function handleFileUpload(
+        event,
+        fileNameId,
+        uploadIconId,
+        removeIconId,
+        studentId = null
+    ) {
+        console.log(event, fileNameId, uploadIconId, removeIconId, studentId);
         const fileInput = event.target;
         const fileNameElement = document.getElementById(fileNameId);
         const uploadIcon = document.getElementById(uploadIconId);
@@ -923,12 +929,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (file.size > 5 * 1024 * 1024) {
             alert("Error: File size exceeds 5MB limit.");
-            fileInput.value = '';
-            fileNameElement.textContent = 'No file chosen';
-            uploadIcon.style.display = 'inline';
-            removeIcon.style.display = 'none';
-            if (helpTrigger) helpTrigger.style.display = 'inline';
-            if (formatInfo) formatInfo.style.display = 'inline';
+            fileInput.value = "";
+            fileNameElement.textContent = "No file chosen";
+            uploadIcon.style.display = "inline";
+            removeIcon.style.display = "none";
+            if (helpTrigger) helpTrigger.style.display = "inline";
+            if (formatInfo) formatInfo.style.display = "inline";
             return;
         }
 
@@ -949,9 +955,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const fileSizeInKB = (file.size / 1024).toFixed(2);
-        const fileSizeDisplay = fileSizeInKB > 1024
-            ? `${(fileSizeInKB / 1024).toFixed(2)} MB`
-            : `${fileSizeInKB} KB`;
+        const fileSizeDisplay =
+            fileSizeInKB > 1024
+                ? `${(fileSizeInKB / 1024).toFixed(2)} MB`
+                : `${fileSizeInKB} KB`;
 
         const truncatedFileName = truncateFileName(file.name);
         fileNameElement.textContent = truncatedFileName;
@@ -990,29 +997,18 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
         if (studentId === null) {
-            const userId = document.getElementById("personal-info-userid").value;
+            const userId = document.getElementById(
+                "personal-info-userid"
+            ).value;
             await uploadFileToServer(file, userId, fileNameId);
-
-
-
-        }
-        else if (studentId !== null) {
+        } else if (studentId !== null) {
             const userId = studentId;
             await uploadFileToServer(file, userId, fileNameId);
-
-
         }
-
-
-
-
-
     }
 
     function uploadFileToServer(file, userId, fileNameId) {
-        fileNameId = fileNameId.replace(`-${userId}`, '');  
-
-
+        fileNameId = fileNameId.replace(`-${userId}`, "");
 
         const formDetailsData = new FormData();
         formDetailsData.append("file", file);
@@ -1063,7 +1059,13 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(file, userId, fileNameId);
     }
 
-    async function removeFile(fileInputId, fileNameId, uploadIconId, removeIconId, studentId = null) {
+    async function removeFile(
+        fileInputId,
+        fileNameId,
+        uploadIconId,
+        removeIconId,
+        studentId = null
+    ) {
         const fileInput = document.getElementById(fileInputId);
         const fileNameElement = document.getElementById(fileNameId);
         const uploadIcon = document.getElementById(uploadIconId);
@@ -1092,7 +1094,9 @@ document.addEventListener("DOMContentLoaded", () => {
             fileIcon.remove();
         }
         if (studentId === null) {
-            const userId = document.getElementById("personal-info-userid").value;
+            const userId = document.getElementById(
+                "personal-info-userid"
+            ).value;
             await deleteFileToServer(userId, fileNameId);
             console.log(fileNameId)
             
@@ -1103,21 +1107,16 @@ document.addEventListener("DOMContentLoaded", () => {
         else if (studentId !== null) {
             const userId = studentId;
             await deleteFileToServer(userId, fileNameId);
-            console.log(fileNameId)
-
-
+            console.log(fileNameId);
         }
-
-
     }
 
-
-    
-
     function deleteFileToServer(userId, fileNameId) {
-        fileNameId = fileNameId.replace(`-${userId}`, '');  
+        fileNameId = fileNameId.replace(`-${userId}`, "");
 
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        const csrfToken = document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content");
 
         if (!csrfToken) {
             console.error("CSRF token not found");
@@ -1558,5 +1557,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 errorMessage.style.display = "none";
             }
         });
+    
+    
 }); //close addEventListener
-

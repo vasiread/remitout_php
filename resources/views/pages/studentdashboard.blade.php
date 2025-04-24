@@ -125,6 +125,7 @@
                                         <p> {{$userDetails[0]->name ?? 'Name not available'}}</p>
                                     </li>
                                     <li class="personal_info_phone"><img src={{$phoneIconPath}} alt="">
+                                    
                                         <p>+91 {{$userDetails[0]->phone}}</p>
                                     </li>
                                     <li class="personal_info_email" id="referenceEmailId">

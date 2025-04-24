@@ -11,11 +11,145 @@
     <!-- Add CryptoJS CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/studentformquestionair.css') }}">
+    <style>
+        /* Modal Styles */
+        .query-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            width: 90%;
+            max-width: 500px;
+            font-family: 'Poppins', sans-serif;
+        }
 
+        .query-modal.active {
+            display: block;
+        }
+
+        .query-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .query-modal-header h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .query-modal-close {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .query-modal textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .query-modal select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            background: #fff;
+        }
+
+        .query-modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .query-modal-buttons button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .query-modal-buttons .submit-btn {
+            background: #6F25CE;
+            color: white;
+        }
+
+        .query-modal-buttons .submit-btn:hover {
+            background: #5a1ea6;
+        }
+
+        .query-modal-buttons .cancel-btn {
+            background: #ccc;
+            color: #333;
+        }
+
+        .query-modal-buttons .cancel-btn:hover {
+            background: #b3b3b3;
+        }
+
+        .backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .backdrop.active {
+            display: block;
+        }
+
+        /* Adjust modal for mobile */
+        @media (max-width: 768px) {
+            .query-modal {
+                width: 95%;
+                padding: 15px;
+            }
+
+            .query-modal-header h3 {
+                font-size: 1.2rem;
+            }
+
+            .query-modal textarea,
+            .query-modal select {
+                font-size: 0.85rem;
+            }
+
+            .query-modal-buttons button {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
-
     @extends('layouts.app')
 
     @section('scdashboard')
@@ -338,10 +472,6 @@ $totalPages = ceil($totalStudents / $perPage);
                 </div>
             </div>
 
-
-
-
-
             <div class="studentAddBySCuserPopup">
                 <div class="studentAddByScuserPopup-headerpart">
                     <h3>Register Students</h3>
@@ -378,7 +508,6 @@ $totalPages = ceil($totalStudents / $perPage);
                             <input id="selected-file-name" readonly style="border: 1px solid #ccc; padding: 5px;" />
                             <button id="remove-excel-btn" type="button" style="cursor:pointer;">X</button>
                         </div>
-
                         <!-- Save Excel File Button -->
                         <button id="save-excelfile-btn" type="button" style="cursor:pointer;">
                             Save Excel File
@@ -404,6 +533,7 @@ $totalPages = ceil($totalStudents / $perPage);
             </div>
 
     @endsection
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             initializescsidebar();
@@ -445,8 +575,7 @@ $totalPages = ceil($totalStudents / $perPage);
                         } else {
                             progress[index].style.display = "flex";
                         }
-                    })
-
+                    });
                 });
             }
 
@@ -458,34 +587,112 @@ $totalPages = ceil($totalStudents / $perPage);
             const triggeredSideBar = document.querySelector(".commonsidebar-togglesidebar");
             const img = document.querySelector("#scuser-dashboard-menu img");
 
-
             if (window.innerWidth < 768) {
                 if (img.src.includes("menu.png")) {
                     img.src = '{{ asset('assets/images/Icons/close_icon.png') }}';
                 }
-
             } else if (window.innerWidth > 768) {
                 triggeredSideBar.style.backgroundColor = '';
                 triggeredSideBar.style.display = "flex";
-
-
             }
         });
+
+        const initializeQueryModal = () => {
+            const raiseQueryBtn = document.querySelector('#raised-query');
+            const modal = document.querySelector('#query-modal');
+            const backdrop = document.querySelector('#backdrop');
+            const closeBtn = document.querySelector('#query-modal-close');
+            const cancelBtn = document.querySelector('#query-cancel');
+            const form = document.querySelector('#query-form');
+            const backgroundContainer = document.querySelector('.scdashboard-parentcontainer');
+
+            if (!raiseQueryBtn || !modal || !backdrop || !closeBtn || !cancelBtn || !form) {
+                console.error('Query modal elements missing');
+                return;
+            }
+
+            const openModal = () => {
+                modal.classList.add('active');
+                backdrop.classList.add('active');
+                backgroundContainer.classList.add('dull');
+            };
+
+            const closeModal = () => {
+                modal.classList.remove('active');
+                backdrop.classList.remove('active');
+                backgroundContainer.classList.remove('dull');
+                form.reset();
+            };
+
+            raiseQueryBtn.addEventListener('click', openModal);
+            closeBtn.addEventListener('click', closeModal);
+            cancelBtn.addEventListener('click', closeModal);
+            backdrop.addEventListener('click', closeModal);
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const queryText = document.querySelector('#query-text').value;
+                const queryType = document.querySelector('#query-type').value;
+                const scuser = @json(session('scuser'));
+                const scUserId = scuser.referral_code;
+
+                if (!queryText || !queryType) {
+                    alert('Please fill in all fields.');
+                    return;
+                }
+
+                const queryData = {
+                    scUserId,
+                    queryText,
+                    queryType,
+                    date_added: new Date().toISOString().split('T')[0]
+                };
+
+                fetch('/submit-query', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify(queryData)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Add new query to the DOM
+                            const querysContainer = document.querySelector('.groupofraisedquestion-scdashboard');
+                            const newQuery = document.createElement('div');
+                            newQuery.classList.add('individual-raisedquestions');
+                            newQuery.setAttribute('data-added', queryData.date_added);
+                            newQuery.innerHTML = `
+                                <p id="queries-row">${queryData.queryText}</p>
+                                <p id="query-raisedbyrow">${queryData.queryType}</p>
+                            `;
+                            querysContainer.prepend(newQuery);
+                            closeModal();
+                            alert('Query submitted successfully!');
+                        } else {
+                            alert('Error submitting query: ' + data.error);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error submitting query:', error);
+                        alert('An error occurred while submitting the query.');
+                    });
+            });
+        };
 
         const initializeProfileUploadScuser = async () => {
             const profileUploadForScTriggerShower = document.querySelector('.scdashboard-performancecontainer .performancecontainer-firstrow .edit-scuser');
             const scUserInfoUpdationSaver = document.querySelector('.scdashboard-performancecontainer .performancecontainer-firstrow .save-scuser');
-
             const profileUploadForScTrigger = document.querySelector('.scmember-profilecontainerimg i');
             const profileUploadToCloud = document.getElementById('sc-profile-upload-cloud');
             const profileViewInstantChange = document.getElementById("studentcounsellor-profile");
-
             const editStateProfileinfo = document.querySelector(".scmember_personalinfo_editmode");
             const editStateProfiledob = document.getElementById("screferral-dob-fromprofile-editmode");
             const Profileinfo = document.querySelector(".scmember_personalinfo");
             const Profiledob = document.getElementById("screferral-dob-fromprofile");
 
-            // Check if elements exist before adding event listeners
             if (profileUploadForScTriggerShower) {
                 profileUploadForScTriggerShower.addEventListener('click', () => {
                     if (profileUploadForScTrigger) {
@@ -517,7 +724,6 @@ $totalPages = ceil($totalStudents / $perPage);
             if (profileUploadToCloud) {
                 profileUploadToCloud.addEventListener('change', (e) => {
                     const file = e.target.files[0];
-
                     if (!file) {
                         console.error("No file selected");
                         return;
@@ -579,21 +785,15 @@ $totalPages = ceil($totalStudents / $perPage);
                 console.error('Profile upload input not found');
             }
 
-
             scUserInfoUpdationSaver.addEventListener('click', () => {
                 updateScUserProfileInfos();
-
-            })
+            });
         };
 
-
         const initializeProfileViewScuser = () => {
-
             const idsession = @json(session('scuser'));
             const scUserRefId = idsession.referral_code;
-
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
             const profileViewInstantChange = document.getElementById("studentcounsellor-profile");
 
             if (!csrfToken) {
@@ -621,16 +821,13 @@ $totalPages = ceil($totalStudents / $perPage);
                 .catch(error => {
                     console.error("Error retrieving profile picture", error);
                 });
+        };
 
-        }
         const initializeSortByFunctionQueries = () => {
-            const sortBy = document.querySelector(".queryraisedcontainer-rightcontent  #sort-by");
-
+            const sortBy = document.querySelector(".queryraisedcontainer-rightcontent #sort-by");
             const sortByContents = document.querySelector(".queryraisedcontainer-rightcontent .sort-by-contents");
-
             const querysContainer = document.querySelector(".groupofraisedquestion-scdashboard");
             const sortedLinkCateg = document.querySelectorAll(".queryraisedcontainer-rightcontent .sort-by-contents a");
-
 
             sortedLinkCateg.forEach((item) => {
                 item.addEventListener('click', (e) => {
@@ -643,11 +840,10 @@ $totalPages = ceil($totalStudents / $perPage);
                     } else if (sortContentsType === 'oldest') {
                         raisedQuestions.sort((a, b) => new Date(a.dataset.added) - new Date(b.dataset.added));
                     } else if (sortContentsType === 'alphabet') {
-                        raisedQuestions.sort((a, b) => a.textContent.trim().localeCompare(b.textContent.trim()));
+                        raisedQuestions.sort((a, b) => a.querySelector('#queries-row').textContent.trim().localeCompare(b.querySelector('#queries-row').textContent.trim()));
                     } else if (sortContentsType === 'alphabet-reverse') {
-                        raisedQuestions.sort((a, b) => b.textContent.trim().localeCompare(a.textContent.trim()));
+                        raisedQuestions.sort((a, b) => b.querySelector('#queries-row').textContent.trim().localeCompare(a.querySelector('#queries-row').textContent.trim()));
                     }
-
 
                     raisedQuestions.forEach((question) => {
                         querysContainer.appendChild(question);
@@ -657,11 +853,11 @@ $totalPages = ceil($totalStudents / $perPage);
 
             sortBy.addEventListener('click', (e) => {
                 e.stopPropagation();
-
                 if (sortByContents) {
                     sortByContents.style.display = sortByContents.style.display === "none" ? "flex" : "none";
                 }
             });
+
             document.addEventListener('click', (e) => {
                 if (sortByContents && sortByContents.style.display === "flex" && !sortBy.contains(e.target)) {
                     sortByContents.style.display = "none";
@@ -675,30 +871,27 @@ $totalPages = ceil($totalStudents / $perPage);
             const sortedApplicationStudentLinks = document.querySelectorAll(".sort-by-contents-applications-studentnames a");
             const studentContainer = document.querySelector("#student-applicationdetailsstatus");
 
-            // Hide the sort options initially
             if (sortByApplicationContent) {
                 sortByApplicationContent.style.display = 'none';
             }
 
-            // Sorting the student application elements
             sortedApplicationStudentLinks.forEach((item) => {
                 item.addEventListener('click', (e) => {
                     e.preventDefault();
                     const sortType = e.target.getAttribute('data-sort');
                     const sortedElementApplicationView = Array.from(studentContainer.querySelectorAll(".studentapplicationstatusreports-inscdashboard"));
 
-                    // Sorting logic based on date_added (data-added attribute)
                     if (sortType === 'newest') {
                         sortedElementApplicationView.sort((a, b) => {
                             const dateA = new Date(a.getAttribute('data-added'));
                             const dateB = new Date(b.getAttribute('data-added'));
-                            return dateB - dateA; // Newest first
+                            return dateB - dateA;
                         });
                     } else if (sortType === 'oldest') {
                         sortedElementApplicationView.sort((a, b) => {
                             const dateA = new Date(a.getAttribute('data-added'));
                             const dateB = new Date(b.getAttribute('data-added'));
-                            return dateA - dateB; // Oldest first
+                            return dateA - dateB;
                         });
                     } else if (sortType === 'alphabet') {
                         sortedElementApplicationView.sort((a, b) =>
@@ -714,14 +907,12 @@ $totalPages = ceil($totalStudents / $perPage);
                         );
                     }
 
-                    // Append sorted elements
                     sortedElementApplicationView.forEach((student) => {
                         studentContainer.appendChild(student);
                     });
                 });
             });
 
-            // Toggle application sorting options
             sortByApplication.addEventListener('click', (e) => {
                 e.stopPropagation();
                 if (sortByApplicationContent) {
@@ -729,7 +920,6 @@ $totalPages = ceil($totalStudents / $perPage);
                 }
             });
 
-            // Hide the sort options when clicking outside
             document.addEventListener('click', (e) => {
                 if (sortByApplicationContent && sortByApplicationContent.style.display === "flex" && !sortByApplication.contains(e.target)) {
                     sortByApplicationContent.style.display = "none";
@@ -741,40 +931,30 @@ $totalPages = ceil($totalStudents / $perPage);
             const statusTextElements = document.querySelectorAll('.dynamic-status-hide');
             const raisedQueryButton = document.querySelector(".queryraisedcontainer-rightcontent #raised-query");
 
-
             if (window.innerWidth <= 720) {
                 raisedQueryButton.textContent = "+";
                 raisedQueryButton.style.width = "2.1rem";
                 raisedQueryButton.style.backgroundColor = "#6F25CE";
                 raisedQueryButton.style.color = "#fff";
-
             } else {
                 raisedQueryButton.textContent = "Raise Query";
                 raisedQueryButton.style.width = "8.06rem";
                 raisedQueryButton.style.backgroundColor = "transparent";
                 raisedQueryButton.style.color = "#6F25CE";
-
-
-
-
-
             }
+
             if (window.innerWidth <= 640) {
                 contentChangeButton.textContent = "+";
-
                 statusTextElements.forEach((element) => {
                     if (element.firstChild) {
                         element.firstChild.textContent = "";
                     }
                 });
-
             } else {
                 contentChangeButton.textContent = "Start New Application";
-
-
                 statusTextElements.forEach((element) => {
                     if (element.firstChild) {
-                        element.firstChild.textContent = "Status: "; // Restore "Status:"
+                        element.firstChild.textContent = "Status: ";
                     }
                 });
             }
@@ -783,34 +963,31 @@ $totalPages = ceil($totalStudents / $perPage);
         window.addEventListener('load', dynamicChangesWhileScreenShrink);
         window.addEventListener('resize', dynamicChangesWhileScreenShrink);
 
-
         const initializePopuAddingstudents = () => {
             const studentAddingPopuBar = document.querySelector(".studentAddBySCuserPopup");
             const popuAddingStudentTriggers = document.querySelectorAll(".studentapplication-header .start-new");
-            const closePopuTrigger = document.querySelector(".studentAddByScuserPopup-headerpart img"); // Corrected querySelector
+            const closePopuTrigger = document.querySelector(".studentAddByScuserPopup-headerpart img");
+            const backgroundContainer = document.querySelector(".scdashboard-parentcontainer");
 
             popuAddingStudentTriggers.forEach(button => {
-
                 button.addEventListener('click', () => {
                     if (studentAddingPopuBar) {
                         studentAddingPopuBar.style.display = 'flex';
-                        backgroundContainer.classList.add('dull'); // Dull the background
-
+                        backgroundContainer.classList.add('dull');
                     }
                 });
-
-            })
+            });
 
             if (closePopuTrigger) {
                 closePopuTrigger.addEventListener('click', () => {
                     if (studentAddingPopuBar) {
-                        studentAddingPopuBar.style.display = "none"; // Hide the popup
-                        backgroundContainer.classList.remove('dull'); // Dull the background
-
+                        studentAddingPopuBar.style.display = "none";
+                        backgroundContainer.classList.remove('dull');
                     }
                 });
             }
         };
+
         const addDynamicInputFields = () => {
             const addStudentButtons = document.querySelectorAll(".studentAddByScuserPopup-footerpart button:nth-child(2), .studentAddByScuserPopup-contentpart #dynamic-add-student-button");
             const studentFormContainer = document.querySelector(".studentAddByScuserPopup-contentpart");
@@ -820,13 +997,12 @@ $totalPages = ceil($totalStudents / $perPage);
                 newForm.classList.add("studentAddByScuserPopup-contentpart");
 
                 newForm.innerHTML = `
-            <input type="text" placeholder="Name of the Student">
-            <input type="text" placeholder="bankemail@gmail.com">
-             <input type="text" placeholder="phone">
-            <input type="text" placeholder="password">
-           
-            <button class="delete-student-popup">Delete</button>
-        `;
+                    <input type="text" placeholder="Name of the Student">
+                    <input type="text" placeholder="bankemail@gmail.com">
+                    <input type="text" placeholder="phone">
+                    <input type="text" placeholder="password">
+                    <button class="delete-student-popup">Delete</button>
+                `;
 
                 studentFormContainer.appendChild(newForm);
 
@@ -841,6 +1017,7 @@ $totalPages = ceil($totalStudents / $perPage);
                 button.addEventListener('click', addNewStudentForm);
             });
         };
+
         const initializecheckStatus = () => {
             const statusElements = document.querySelectorAll(".reportsproposal-individualdatalists p span");
             const applicationStatusElements = document.querySelectorAll(".individualstudentapplication-status .scdashboard-nbfcstatus-pending span");
@@ -850,7 +1027,6 @@ $totalPages = ceil($totalStudents / $perPage);
                 if (items.textContent.includes("Accepted")) {
                     items.style.color = "#3FA27E";
                     items.style.backgroundColor = "#D2FFEE";
-
                     if (missingDocumentsCount[index]) {
                         missingDocumentsCount[index].style.display = "none";
                     }
@@ -860,8 +1036,6 @@ $totalPages = ceil($totalStudents / $perPage);
                     }
                 }
             });
-
-
 
             statusElements.forEach(dynamicStatusColorChange => {
                 if (dynamicStatusColorChange.textContent.includes("Accepted")) {
@@ -883,11 +1057,11 @@ $totalPages = ceil($totalStudents / $perPage);
                     dynamicStatusColorChange.style.color = "#FA7B15";
                     dynamicStatusColorChange.style.backgroundColor = "#FFE3CA";
                     dynamicStatusColorChange.style.width = "100%";
-                    dynamicStatusColorChange.style.maxWidth = "95px"
-
+                    dynamicStatusColorChange.style.maxWidth = "95px";
                 }
             });
         };
+
         const initializescsidebar = () => {
             const scsidebaritems = document.querySelectorAll(".commonsidebar-sidebarlists-top li");
             const trackprogressContainer = document.querySelector(".scdashboard-container");
@@ -898,13 +1072,11 @@ $totalPages = ceil($totalStudents / $perPage);
 
             scsidebaritems.forEach((item, index) => {
                 item.addEventListener("click", () => {
-
                     if (window.innerWidth <= 768) {
                         triggeredSideBar.style.display = "none";
                         if (img.src.includes("close_icon.png")) {
                             img.src = '{{ asset('assets/images/Icons/menu.png') }}';
                         }
-
                     }
                     scsidebaritems.forEach(i => i.classList.remove('active'));
                     item.classList.add('active');
@@ -912,13 +1084,11 @@ $totalPages = ceil($totalStudents / $perPage);
                         trackprogressContainer.style.display = "flex";
                         scinboxContainer.style.display = "none";
                         scapplicationStatus.style.display = "none";
-                    }
-                    else if (index === 1) {
+                    } else if (index === 1) {
                         trackprogressContainer.style.display = "none";
-                        scinboxContainer.style.display = "flex"
+                        scinboxContainer.style.display = "flex";
                         scapplicationStatus.style.display = "none";
-                    }
-                    else {
+                    } else {
                         trackprogressContainer.style.display = "none";
                         scinboxContainer.style.display = "none";
                         scapplicationStatus.style.display = "flex";
@@ -957,11 +1127,9 @@ $totalPages = ceil($totalStudents / $perPage);
             }
         }
 
-
         const getUsersByCounsellor = () => {
             const getRefCode = document.querySelector("#screferral-id-fromprofile span");
             const referralId = getRefCode ? getRefCode.textContent : '';
-            // console.log(referralId)
 
             if (!referralId) {
                 console.error("Referral ID is missing");
@@ -989,52 +1157,51 @@ $totalPages = ceil($totalStudents / $perPage);
                     console.log(data);
 
                     const userListContainer = document.getElementById("user-list");
-                    userListContainer.innerHTML = ""; // Clear previous content
+                    userListContainer.innerHTML = "";
 
                     if (data && data.length > 0) {
                         data.forEach((user) => {
                             const userHTML = `
-                    <div class="studentapplication-lists">
-                        <div class="individualapplication-list">
-                            <div class="firstsection-lists">
-                                <h1>${user.full_name}</h1> <!-- Displaying full_name -->
-                                <div class="application-buttoncontainer">
-                                    <button>View</button>
-                                    <button>Edit</button>
-                                    <button class="expand-arrow">
-                                        <img src="/assets/images/stat_minus_1.png" alt="Expand">
-                                    </button>
+                                <div class="studentapplication-lists">
+                                    <div class="individualapplication-list">
+                                        <div class="firstsection-lists">
+                                            <h1>${user.full_name}</h1>
+                                            <div class="application-buttoncontainer">
+                                                <button>View</button>
+                                                <button>Edit</button>
+                                                <button class="expand-arrow">
+                                                    <img src="/assets/images/stat_minus_1.png" alt="Expand">
+                                                </button>
+                                            </div>
+                                            <button class="studenteacheditbutton">Edit</button>
+                                        </div>
+                                    </div>
+                                    <ul class="individualstudentapplication-status">
+                                        <li class="scdashboard-nbfcnamecontainer">
+                                            <p>NBFC:</p>
+                                            <p>NBFC Name</p>
+                                        </li>
+                                        <li class="scdashboard-nbfcstatus-pending">
+                                            <p>Status:</p>
+                                            <span>Pending</span>
+                                        </li>
+                                        <li class="scdashboard-missingdocumentsstatus">
+                                            <p>Missing Documents:</p>
+                                            <span>03</span>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <button class="studenteacheditbutton">Edit</button>
-                            </div>
-                        </div>
-                        <ul class="individualstudentapplication-status">
-                            <li class="scdashboard-nbfcnamecontainer">
-                                <p>NBFC:</p>
-                                <p>NBFC Name</p>
-                            </li>
-                            <li class="scdashboard-nbfcstatus-pending">
-                                <p>Status:</p>
-                                <span>Pending</span>
-                            </li>
-                            <li class="scdashboard-missingdocumentsstatus">
-                                <p>Missing Documents:</p>
-                                <span>03</span>
-                            </li>
-                        </ul>
-                    </div>
-                `;
-                            userListContainer.innerHTML += userHTML; // Append user details to the container
+                            `;
+                            userListContainer.innerHTML += userHTML;
                         });
                     } else {
-                        userListContainer.innerHTML = "<p>No users found.</p>"; // If no users are returned
+                        userListContainer.innerHTML = "<p>No users found.</p>";
                     }
                 })
                 .catch(error => {
                     console.error("Error fetching users:", error);
                 });
         };
-
 
         const generateReferLinkPopup = () => {
             // DOM Elements
@@ -1205,12 +1372,10 @@ $totalPages = ceil($totalStudents / $perPage);
             const profileUploadForScTriggerShower = document.querySelector('.scdashboard-performancecontainer .performancecontainer-firstrow .edit-scuser');
             const scUserInfoUpdationSaver = document.querySelector('.scdashboard-performancecontainer .performancecontainer-firstrow .save-scuser');
 
-
             const street = updatedScAddress.querySelector("#scaddress-address").value;
             const district = updatedScAddress.querySelector("#scaddress-city").value;
             const state = updatedScAddress.querySelector("#scaddress-state").value;
             const pincode = updatedScAddress.querySelector("#scaddress-pincode").value;
-
 
             const scUserUpdatedDatas = {
                 scRefNo,
@@ -1237,8 +1402,8 @@ $totalPages = ceil($totalStudents / $perPage);
             if (!street || !district || !state || !pincode) {
                 alert("Please fill in all the address fields: street, district, state, and pincode.");
                 return;
+                return;
             }
-
 
             fetch("/updatescuserdetails", {
                 method: "POST",
@@ -1256,13 +1421,10 @@ $totalPages = ceil($totalStudents / $perPage);
                         if (personalScInfoContainer) personalScInfoContainer.style.display = "flex";
                         if (editStateProfiledob) editStateProfiledob.style.display = "none";
                         if (Profiledob) Profiledob.style.display = "flex";
-
                         profileUploadForScTriggerShower.style.display = "flex";
                         scUserInfoUpdationSaver.style.display = "none";
                         const finalAddress = `${street}, ${district}, ${state} - ${pincode}`;
-
                         if (scAddressElement) scAddressElement.textContent = finalAddress;
-
                     } else {
                         console.error("Update failed: " + data.error);
                     }
@@ -1275,7 +1437,6 @@ $totalPages = ceil($totalStudents / $perPage);
         const initializeScUserOneView = () => {
             const referralCodeElem = document.querySelector("#screferral-id-fromprofile span");
             const referralCode = referralCodeElem ? referralCodeElem.textContent : null;
-
             const personalScInfoContainer = document.querySelector(".scmember_personalinfo");
             const personalEditMode = document.querySelector(".scmember_personalinfo_editmode");
             const additionAddressView = document.querySelector(".scmember_personal_info_state-edit");
@@ -1295,7 +1456,7 @@ $totalPages = ceil($totalStudents / $perPage);
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data)
+                    console.log(data);
                     if (!data) {
                         console.error("No data returned from server");
                         return;
@@ -1356,7 +1517,6 @@ $totalPages = ceil($totalStudents / $perPage);
                 });
         };
 
-
         const triggerExcelRegistration = () => {
             const excelUpload = document.getElementById("excel-upload-trigger");
             const excelUploadEvent = document.getElementById("excel-sheet-student-update");
@@ -1365,7 +1525,6 @@ $totalPages = ceil($totalStudents / $perPage);
             const removeFileBtn = document.getElementById("remove-excel-btn");
             const saveExcelFileBtn = document.getElementById("save-excelfile-btn");
 
-            // Trigger file input when clicking on the upload button
             if (excelUpload) {
                 excelUpload.addEventListener('click', () => {
                     if (excelUploadEvent) {
@@ -1374,21 +1533,19 @@ $totalPages = ceil($totalStudents / $perPage);
                 });
             }
 
-            // Show the file name and "Save Excel File" button after a file is selected
             if (excelUploadEvent) {
                 excelUploadEvent.addEventListener('change', (event) => {
                     const file = event.target.files[0];
                     if (file) {
                         fileNameDisplay.value = `${file.name}`;
-                        fileUploadInfo.style.display = "flex"; // Show the file info section
+                        fileUploadInfo.style.display = "flex";
                     } else {
                         fileNameDisplay.value = "";
-                        fileUploadInfo.style.display = "none"; // Hide the file info section if no file
+                        fileUploadInfo.style.display = "none";
                     }
                 });
             }
 
-            // Remove the selected file and hide the file upload info section
             if (removeFileBtn) {
                 removeFileBtn.addEventListener('click', () => {
                     fileNameDisplay.value = "";
@@ -1397,20 +1554,18 @@ $totalPages = ceil($totalStudents / $perPage);
                 });
             }
 
-            // Save the Excel file via AJAX when clicking the save button
             if (saveExcelFileBtn) {
                 saveExcelFileBtn.addEventListener('click', () => {
                     const formData = new FormData();
-                    const file = excelUploadEvent.files[0]; // Get the selected file
+                    const file = excelUploadEvent.files[0];
 
                     if (!file) {
                         alert("Please select an Excel file to upload.");
                         return;
                     }
 
-                    formData.append('excel_file', file); // Add the file to the formData
+                    formData.append('excel_file', file);
 
-                    // Send AJAX request
                     fetch('{{ route("students.import") }}', {
                         method: 'POST',
                         headers: {
@@ -1421,11 +1576,10 @@ $totalPages = ceil($totalStudents / $perPage);
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                alert(data.message); // Show success message
+                                alert(data.message);
                             } else {
-                                alert(data.message); // Show error message
+                                alert(data.message);
                             }
-                            // Reset the form and hide file info
                             fileNameDisplay.value = "";
                             excelUploadEvent.value = "";
                             fileUploadInfo.style.display = "none";
@@ -1659,7 +1813,6 @@ $totalPages = ceil($totalStudents / $perPage);
     
 
     </script>
-
 </body>
 
 </html>

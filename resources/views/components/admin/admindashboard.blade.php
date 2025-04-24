@@ -86,21 +86,22 @@
             <h1>Reports</h1>
             <div class="admindashboardsecondsection-buttongroups">
                 <div class="show-all-admin-button-container">
-                    <button id="showall-buttongroups">Show All <i class="fa-solid fa-chevron-down"></i></button>
-                    <div class="show-all-admin-options" id="dropdown-options">
-                        <button>Registration Reports</button>
-                        <button>No of grads</button>
-                        <button>Registration Source</button>
-                        <button>Age ratio Reports</button>
-                        <button>Funnel Reports</button>
-                        <button>Destination countries</button>
-                        <button>Cities</button>
-                        <button>NBFC: Generation Leads</button>
-                        <button>Point of entry</button>
-                        <button>SC: Generation Leads</button>
-                        <button>Sem Rush</button>
+                        <button id="showall-buttongroups">Show All <i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="show-all-admin-options" id="dropdown-options">
+                            <button data-report="all">Show All</button>
+                            <button data-report="registration-reports">Registration Reports</button>
+                            <button data-report="no-of-grads">No of grads</button>
+                            <button data-report="registration-source">Registration Source</button>
+                            <button data-report="age-ratio-reports">Age ratio Reports</button>
+                            <button data-report="funnel-reports">Funnel Reports</button>
+                            <button data-report="destination-countries">Destination countries</button>
+                            <button data-report="cities">Cities</button>
+                            <button data-report="nbfc-generation-leads">NBFC: Generation Leads</button>
+                            <button data-report="point-of-entry">Point of entry</button>
+                            <button data-report="sc-generation-leads">SC: Generation Leads</button>
+                            <button data-report="sem-rush">Sem Rush</button>
+                        </div>
                     </div>
-                </div>
 
 
                 
@@ -115,76 +116,80 @@
                     </div>
                 </div>
 
-            <div class="calendar-wrapper">
-                <button id="calender-buttongroups"> Calendar <img src="assets/images/Icons/calendar_month.png" alt=""></button>
-                <button id="download-buttongroups">Download Report</button>
-                <div class="calendar-container" id="main-calendar-container" style="display: none;">
-                    <div class="calendar-input-container">
-                        <div class="calendar-date-input calendar-active" id="calendar-start-date-input">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="16" y1="2" x2="16" y2="6"></line>
-                                <line x1="8" y1="2" x2="8" y2="6"></line>
-                                <line x1="3" y1="10" x2="21" y2="10"></line>
-                            </svg>
-                            <span>Start Date</span>
+
+                <div class="calendar-wrapper">
+                    <button id="calender-buttongroups"> Calendar <img src="assets/images/Icons/calendar_month.png" alt=""></button>
+                    <button id="download-buttongroups">Download Report</button>
+
+                    <div class="calendar-container">
+                        <div class="calendar-input-container">
+                            <div class="calendar-date-input calendar-active" id="calendar-start-date-input">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                <span>Start Date</span>
+                            </div>
+                            <div class="calendar-date-input" id="calendar-end-date-input">
+                                <span>End Date</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" style="margin-left: auto;">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                            </div>
                         </div>
-                        <div class="calendar-date-input" id="calendar-end-date-input">
-                            <span>End Date</span>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" style="margin-left: auto;">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="16" y1="2" x2="16" y2="6"></line>
-                                <line x1="8" y1="2" x2="8" y2="6"></line>
-                                <line x1="3" y1="10" x2="21" y2="10"></line>
-                            </svg>
+
+                        <div class="calendar-header">
+                            <button class="calendar-nav-btn calendar-prev-month">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="15 18 9 12 15 6"></polyline>
+                                </svg>
+                            </button>
+                            <div class="calendar-month-year-selector">
+                                <select id="calendar-month-select">
+                                    <option value="0">January</option>
+                                    <option value="1">February</option>
+                                    <option value="2">March</option>
+                                    <option value="3">April</option>
+                                    <option value="4">May</option>
+                                    <option value="5">June</option>
+                                    <option value="6">July</option>
+                                    <option value="7">August</option>
+                                    <option value="8">September</option>
+                                    <option value="9">October</option>
+                                    <option value="10">November</option>
+                                    <option value="11">December</option>
+                                </select>
+                                <select id="calendar-year-select">
+                                    <!-- Years will be populated by JavaScript -->
+                                </select>
+                            </div>
+                            <button class="calendar-nav-btn calendar-next-month">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </button>
                         </div>
-                    </div>
-                    <div class="calendar-header">
-                        <button class="calendar-nav-btn calendar-prev-month">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="15 18 9 12 15 6"></polyline>
-                            </svg>
-                        </button>
-                        <div class="calendar-month-year-selector">
-                            <select id="calendar-month-select">
-                                <option value="0">January</option>
-                                <option value="1">February</option>
-                                <option value="2">March</option>
-                                <option value="3">April</option>
-                                <option value="4">May</option>
-                                <option value="5">June</option>
-                                <option value="6">July</option>
-                                <option value="7">August</option>
-                                <option value="8">September</option>
-                                <option value="9">October</option>
-                                <option value="10">November</option>
-                                <option value="11">December</option>
-                            </select>
-                            <select id="calendar-year-select">
-                                <!-- Years will be populated by JavaScript -->
-                            </select>
+
+                        <div class="calendar-grid">
+                            <div class="calendar-weekday">Mo</div>
+                            <div class="calendar-weekday">Tu</div>
+                            <div class="calendar-weekday">We</div>
+                            <div class="calendar-weekday">Th</div>
+                            <div class="calendar-weekday">Fr</div>
+                            <div class="calendar-weekday">Sa</div>
+                            <div class="calendar-weekday">Su</div>
                         </div>
-                        <button class="calendar-nav-btn calendar-next-month">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="9 18 15 12 9 6"></polyline>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="calendar-grid" id="main-calendar-grid">
-                        <div class="calendar-weekday">Mo</div>
-                        <div class="calendar-weekday">Tu</div>
-                        <div class="calendar-weekday">We</div>
-                        <div class="calendar-weekday">Th</div>
-                        <div class="calendar-weekday">Fr</div>
-                        <div class="calendar-weekday">Sa</div>
-                        <div class="calendar-weekday">Su</div>
                     </div>
                 </div>
-            </div>
 
             </div>
         </div>
@@ -296,82 +301,19 @@
         
         <div class="admindashboardcontainer-thirdsection">
             <div class="admindashboard-firstpart">
-               <div class="reports-registeration">
-                <div class="reports-registeration-sectionone">
-                    <p>Reports on registration</p>
-                    <button id="calender-reportsregister">Calendar <img src="assets/images/Icons/calendar_month.png" alt=""></button>
-                    <div class="calendar-container" id="reports-calendar-container" style="display: none;">
-                        <div class="calendar-input-container">
-                            <div class="calendar-date-input calendar-active" id="reports-calendar-start-date-input">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                                </svg>
-                                <span>Start Date</span>
-                            </div>
-                            <div class="calendar-date-input" id="reports-calendar-end-date-input">
-                                <span>End Date</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round" style="margin-left: auto;">
-                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="calendar-header">
-                            <button class="calendar-nav-btn reports-calendar-prev-month">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="15 18 9 12 15 6"></polyline>
-                                </svg>
-                            </button>
-                            <div class="calendar-month-year-selector">
-                                <select id="reports-calendar-month-select">
-                                    <option value="0">January</option>
-                                    <option value="1">February</option>
-                                    <option value="2">March</option>
-                                    <option value="3">April</option>
-                                    <option value="4">May</option>
-                                    <option value="5">June</option>
-                                    <option value="6">July</option>
-                                    <option value="7">August</option>
-                                    <option value="8">September</option>
-                                    <option value="9">October</option>
-                                    <option value="10">November</option>
-                                    <option value="11">December</option>
-                                </select>
-                                <select id="reports-calendar-year-select">
-                                    <!-- Years will be populated by JavaScript -->
-                                </select>
-                            </div>
-                            <button class="calendar-nav-btn reports-calendar-next-month">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="9 18 15 12 9 6"></polyline>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="calendar-grid" id="reports-calendar-grid">
-                            <div class="calendar-weekday">Mo</div>
-                            <div class="calendar-weekday">Tu</div>
-                            <div class="calendar-weekday">We</div>
-                            <div class="calendar-weekday">Th</div>
-                            <div class="calendar-weekday">Fr</div>
-                            <div class="calendar-weekday">Sa</div>
-                            <div class="calendar-weekday">Su</div>
-                        </div>
+                <div class="reports-registeration" data-report="registration-reports">
+                    <div class="reports-registeration-sectionone">
+                        <p>Reports on registration</p>
+                        <button id="calender-reportsregister">Calendar <img src="assets/images/Icons/calendar_month.png"
+                                alt=""></button>
+                        <input type="date" id="date-picker" style="display:none">
+
+                    </div>
+                    <div class="reports-registeration-graph">
+                        <div id="chart_div" style="width: 100%; height: 160px;"></div>
                     </div>
                 </div>
-    <div class="reports-registeration-graph">
-        <div id="chart_div" style="width: 100%; height: 160px;"></div>
-    </div>
-</div>
-                <div class="source-registeration">
+                <div class="source-registeration" data-report="registration-source">
                     <p id="source-registeration-header">Source on registration</p>
                     <div class="donutregistration-chart-container">
                         <canvas id="donutRegistrationChart"></canvas>
@@ -406,7 +348,7 @@
                     </div>
                 </div>
             </div>
-            <div class="admindashboard-secondpart">
+           <div class="admindashboard-secondpart" data-report="no-of-grads">
                 <div class="admindashboard-second-main-container">
                     <div class="totalundergrads-admin">
                         <h4>Total Undergrads</h4>
@@ -427,7 +369,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="ageratio-graph-admin">
+                <div class="ageratio-graph-admin" data-report="age-ratio-reports">
                     <div class="agerationcolumn-firstsection">
                         <p id="ageratio-header">Age ratio of students</p>
                         <div class="postgrad-buttongroups" id="postgrad-ageratio">
@@ -465,7 +407,7 @@
                     </div>
                 </div>
             </div>
-            <div class="admindashboard-thirdpart">
+            <div class="admindashboard-thirdpart" data-report="funnel-reports">
                 <div class="funnelreport-analyze-header">
                     <p id="funnel-analyze-header">Funnel Report</p>
                     <div class="postgrad-buttongroups" id="postgrad-funnelreports">
@@ -524,7 +466,7 @@
             </div>
         </div>
 
-    <div class="admindashboardcontainer-fourth-section">
+    <div class="admindashboardcontainer-fourth-section" data-report="destination-countries">
        <div class="admin-dashboard-container-four">
         <div class="admin-dashboard-row">
             <!-- Cities Section -->
@@ -679,7 +621,7 @@
 
     <!---fifth section-->
 
-    <div class="admindashboardcontainer-fifth-section">
+    <div class="admindashboardcontainer-fifth-section" data-report="nbfc-generation-leads">
         <div class="dashboard-row-bar-chart">
         <!-- NBFC Lead Generation -->
         <div id="nbfc-lead-chart_container">
@@ -752,7 +694,7 @@
 
 
 
-<div class="admindashboardcontainer-sixth-section">
+<div class="admindashboardcontainer-sixth-section" data-report="point-of-entry">
     <div class="point-entry">
         <div class="point-entry-donut">
             <div class="point-entry-title">Point of entry</div>
@@ -821,7 +763,7 @@
 
  <script>
 
- // Utility functions for DOM queries
+  // Utility functions for DOM queries
 const $ = (selector, context = document) => context.querySelector(selector);
 const $$ = (selector, context = document) => Array.from(context.querySelectorAll(selector));
 
@@ -832,7 +774,7 @@ google.charts.load('current', { packages: ['corechart', 'bar', 'line'] });
 document.addEventListener('DOMContentLoaded', () => {
     try {
         initializeCharts();
-        initializeCalendars();
+        initializeCalendar();
         initializeDropdown();
         initializeReferralModal();
         initializeMobileMenu();
@@ -846,6 +788,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Chart Initialization
 const initializeCharts = () => {
+    // Centralize Google Charts callback to avoid multiple setOnLoad calls
     google.charts.setOnLoadCallback(() => {
         initializeRegistrationLineGraph();
         drawNBFCChart();
@@ -1059,103 +1002,129 @@ const initializePaginationAndFilters = () => {
         });
     });
 };
-
-// Dropdown Menu
+// Updated Dropdown Initialization
 const initializeDropdown = () => {
     const dropdownButton = $('#showall-buttongroups');
     const dropdownOptions = $('#dropdown-options');
     const icon = $('.fa-chevron-down', dropdownButton);
+    const container = $('.admindashboard-container');
 
-    if (!dropdownButton || !dropdownOptions || !icon) return console.error('Dropdown elements missing');
+    if (!dropdownButton || !dropdownOptions || !icon || !container) {
+        console.error('Dropdown elements missing:', { dropdownButton, dropdownOptions, icon, container });
+        return;
+    }
 
-    const toggleDropdown = e => {
-        e.stopPropagation();
-        dropdownOptions.classList.toggle('show');
-        icon.classList.toggle('show-all-admin-rotate-icon');
+    let currentReport = 'all';
+
+    const fallbackMessage = document.createElement('div');
+    fallbackMessage.className = 'report-fallback';
+    fallbackMessage.style.padding = '20px';
+    fallbackMessage.style.textAlign = 'center';
+    fallbackMessage.style.color = '#666';
+    container.appendChild(fallbackMessage);
+
+    const showAllReports = () => {
+        $$('[data-report]').forEach(report => {
+            // Remove inline styles to reset visibility
+            report.style.removeProperty('display');
+            report.style.removeProperty('visibility');
+            // Ensure elements are visible by default (rely on CSS)
+            report.style.display = ''; // Reset to default or CSS rule
+            report.style.visibility = ''; // Reset to default or CSS rule
+            console.log('Restoring visibility for:', report.dataset.report);
+        });
+        fallbackMessage.style.display = 'none';
+        dropdownButton.innerHTML = `Show All <i class="fa-solid fa-chevron-down"></i>`;
+        currentReport = 'all';
     };
 
-    dropdownButton.addEventListener('click', toggleDropdown);
+    const showReport = (reportId) => {
+        const reportContainer = $(`[data-report="${reportId}"]`);
+        if (!reportContainer) {
+            $$('[data-report]').forEach(report => {
+                report.style.display = 'block';
+                report.style.visibility = 'hidden';
+            });
+            fallbackMessage.textContent = `No data available for ${$(`[data-report="${reportId}"]`, dropdownOptions)?.textContent || 'this report'}.`;
+            fallbackMessage.style.display = 'block';
+        } else {
+            $$('[data-report]').forEach(report => {
+                if (report.dataset.report === reportId) {
+                    report.style.display = 'block';
+                    report.style.visibility = 'visible';
+                } else {
+                    report.style.display = 'block';
+                    report.style.visibility = 'hidden';
+                }
+            });
+            fallbackMessage.style.display = 'none';
+        }
+        const selectedOption = $(`[data-report="${reportId}"]`, dropdownOptions);
+        const optionText = selectedOption ? selectedOption.textContent.trim() : 'Unknown';
+        dropdownButton.innerHTML = `Show: ${optionText} <i class="fa-solid fa-chevron-down"></i>`;
+        currentReport = reportId;
+    };
 
+    const toggleDropdown = (e) => {
+        e.stopPropagation();
+        console.log('Toggling dropdown, current class:', dropdownOptions.className);
+        // Reset to show all reports when reopening after a selection
+        if (currentReport !== 'all' && !dropdownOptions.classList.contains('show')) {
+            showAllReports();
+        }
+        dropdownOptions.classList.toggle('show');
+        icon.classList.toggle('show-all-admin-rotate-icon');
+        if (dropdownOptions.classList.contains('show')) {
+            console.log('Dropdown opened with all options');
+        } else {
+            console.log('Dropdown closed');
+        }
+    };
+
+    const handleOptionClick = (e) => {
+        e.stopPropagation();
+        const reportId = e.target.dataset.report;
+        console.log('Option selected:', reportId);
+        if (reportId === 'all') {
+            showAllReports();
+        } else if (reportId) {
+            showReport(reportId);
+        }
+    };
+
+    // Bind events directly
+    dropdownButton.addEventListener('click', toggleDropdown);
     $$('.show-all-admin-options button', dropdownOptions).forEach(option => {
-        option.addEventListener('click', () => {
-            console.log('Selected:', option.textContent);
-            dropdownOptions.classList.remove('show');
-            icon.classList.remove('show-all-admin-rotate-icon');
-        });
+        option.addEventListener('click', handleOptionClick);
     });
 
-    document.addEventListener('click', e => {
-        if (!e.target.closest('.show-all-admin-button-container')) {
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.show-all-admin-button-container') && dropdownOptions.classList.contains('show')) {
+            console.log('Closing dropdown due to outside click');
             dropdownOptions.classList.remove('show');
             icon.classList.remove('show-all-admin-rotate-icon');
         }
     });
+
+    // Initialize with all reports visible
+    showAllReports();
 };
 
-// Calendar Initialization
-const initializeCalendars = () => {
-    // Main Calendar (for calender-buttongroups)
-    initializeCalendar({
-        calendarGridId: '#main-calendar-grid',
-        monthSelectId: '#calendar-month-select',
-        yearSelectId: '#calendar-year-select',
-        startDateInputId: '#calendar-start-date-input',
-        endDateInputId: '#calendar-end-date-input',
-        prevMonthBtnClass: '.calendar-prev-month',
-        nextMonthBtnClass: '.calendar-next-month',
-        calendarButtonId: '#calender-buttongroups',
-        calendarContainerId: '#main-calendar-container'
-    });
+// Calendar
+const initializeCalendar = () => {
+    const calendarGrid = $('.calendar-grid');
+    const monthSelect = $('#calendar-month-select');
+    const yearSelect = $('#calendar-year-select');
+    const startDateInput = $('#calendar-start-date-input');
+    const endDateInput = $('#calendar-end-date-input');
+    const prevMonthBtn = $('.calendar-prev-month');
+    const nextMonthBtn = $('.calendar-next-month');
+    const calendarButton = $('#calender-buttongroups');
+    const calendarContainer = $('.calendar-container');
 
-    // Reports Calendar (for calender-reportsregister)
-    initializeCalendar({
-        calendarGridId: '#reports-calendar-grid',
-        monthSelectId: '#reports-calendar-month-select',
-        yearSelectId: '#reports-calendar-year-select',
-        startDateInputId: '#reports-calendar-start-date-input',
-        endDateInputId: '#reports-calendar-end-date-input',
-        prevMonthBtnClass: '.reports-calendar-prev-month',
-        nextMonthBtnClass: '.reports-calendar-next-month',
-        calendarButtonId: '#calender-reportsregister',
-        calendarContainerId: '#reports-calendar-container'
-    });
-};
-
-const initializeCalendar = ({
-    calendarGridId,
-    monthSelectId,
-    yearSelectId,
-    startDateInputId,
-    endDateInputId,
-    prevMonthBtnClass,
-    nextMonthBtnClass,
-    calendarButtonId,
-    calendarContainerId
-}) => {
-    const calendarGrid = $(calendarGridId);
-    const monthSelect = $(monthSelectId);
-    const yearSelect = $(yearSelectId);
-    const startDateInput = $(startDateInputId);
-    const endDateInput = $(endDateInputId);
-    const prevMonthBtn = $(prevMonthBtnClass);
-    const nextMonthBtn = $(nextMonthBtnClass);
-    const calendarButton = $(calendarButtonId);
-    const calendarContainer = $(calendarContainerId);
-
-    // Debug: Log missing elements
-    if (!calendarGrid || !monthSelect || !yearSelect || !startDateInput || !endDateInput || !prevMonthBtn || !nextMonthBtn || !calendarButton || !calendarContainer) {
-        console.error('Calendar elements missing for', calendarButtonId, {
-            calendarGrid: !!calendarGrid,
-            monthSelect: !!monthSelect,
-            yearSelect: !!yearSelect,
-            startDateInput: !!startDateInput,
-            endDateInput: !!endDateInput,
-            prevMonthBtn: !!prevMonthBtn,
-            nextMonthBtn: !!nextMonthBtn,
-            calendarButton: !!calendarButton,
-            calendarContainer: !!calendarContainer
-        });
-        return;
+    if (!calendarGrid || !monthSelect || !yearSelect || !startDateInput || !endDateInput || !calendarButton || !calendarContainer) {
+        return console.error('Calendar elements missing');
     }
 
     let currentDate = new Date();
@@ -1176,14 +1145,7 @@ const initializeCalendar = ({
 
     const toggleCalendar = () => {
         isCalendarOpen = !isCalendarOpen;
-        console.log(`Toggling calendar for ${calendarButtonId}: ${isCalendarOpen ? 'Open' : 'Closed'}`);
         calendarContainer.style.display = isCalendarOpen ? 'block' : 'none';
-        if (isCalendarOpen) {
-            const buttonRect = calendarButton.getBoundingClientRect();
-            calendarContainer.style.position = 'absolute';
-            calendarContainer.style.top = `${buttonRect.bottom + window.scrollY}px`;
-            calendarContainer.style.left = `${buttonRect.left + window.scrollX}px`;
-        }
     };
 
     const updateMonthYearSelects = () => {
@@ -1327,7 +1289,6 @@ const initializeCalendar = ({
 
     updateMonthYearSelects();
     renderCalendar();
-    console.log(`Calendar initialized for ${calendarButtonId}`);
 };
 
 // Referral Modal
@@ -1458,6 +1419,7 @@ const initializeFilterPanel = () => {
 
     updatePanelCount();
 };
+
     </script>
 </body>
 
