@@ -14,6 +14,8 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 
 class Admincontroller extends Controller
 {
@@ -260,4 +262,151 @@ class Admincontroller extends Controller
             ], 500);
         }
     }
+    public function getProfileCompletionByGenderAndDegree()
+    {
+        try {
+            // Query with proper categorization
+            $results = DB::table('course_details_formdata')
+                ->join('users', 'course_details_formdata.user_id', '=', 'users.unique_id')
+                ->join('personal_infos', 'users.unique_id', '=', 'personal_infos.user_id')
+                ->select(
+                    DB::raw("CASE 
+                    WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%bachelor%' THEN 'UG'
+                    WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%master%' THEN 'PG'
+                    WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%mca%' OR LOWER(course_details_formdata.`degree-type`) LIKE '%bca%' THEN 'Other'
+                    ELSE 'Other' 
+                END as degree_category"),
+                    'personal_infos.gender',
+                    DB::raw('count(*) as count')
+                )
+                ->groupBy('degree_category', 'personal_infos.gender')
+                ->get();
+
+            // Initialize breakdown summary
+            $summary = [
+                'UG' => ['total' => 0, 'male' => 0, 'female' => 0, 'other' => 0],
+                'PG' => ['total' => 0, 'male' => 0, 'female' => 0, 'other' => 0],
+                'Other' => ['total' => 0, 'male' => 0, 'female' => 0, 'other' => 0],
+            ];
+
+            // Initialize overall total
+            $overall = ['total' => 0, 'male' => 0, 'female' => 0, 'other' => 0];
+
+            // Fill data
+            foreach ($results as $row) {
+                $degree = $row->degree_category;
+                $gender = strtolower($row->gender ?? 'other');
+
+                if (!in_array($gender, ['male', 'female'])) {
+                    $gender = 'other';
+                }
+
+                $summary[$degree][$gender] += $row->count;
+                $summary[$degree]['total'] += $row->count;
+
+                $overall[$gender] += $row->count;
+                $overall['total'] += $row->count;
+            }
+
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'degree_summary' => $summary,
+                    'overall' => $overall,
+                ]
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error fetching gender-wise data',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function validateprofilecompletion(Request $request)
+    {
+        $targetDegree = strtolower(trim($request->input('degree_type')));
+
+        // Define tables and columns to check for profile completion
+        $tablesAndColumns = [
+            'users' => ['email', 'phone'],
+            'personal_infos' => ['full_name', 'referral_code', 'state', 'linked_through'],
+            'academic_details' => ['gap_in_academics', 'work_experience', 'university_school_name', 'course_name'],
+            'coborrower_details' => ['co_borrower_relation', 'co_borrower_income', 'co_borrower_monthly_liability', 'liability_select'],
+            'course_details_formdata' => ['plan-to-study', 'degree-type', 'course-duration', 'course-details', 'loan_amount_in_lakhs'],
+        ];
+
+        // Get all users
+        $users = DB::table('users')->select('unique_id')->get();
+
+        $matchedUsers = [];
+        $completedUsers = [];
+        $incompleteUsers = [];
+
+        foreach ($users as $user) {
+            $userId = $user->unique_id;
+
+            // Get course data to check if the user matches the target degree
+            $courseData = DB::table('course_details_formdata')->where('user_id', $userId)->first();
+            $degreeType = $courseData?->{'degree-type'} ?? null;
+
+            if (!$degreeType || strtolower(trim($degreeType)) !== $targetDegree) {
+                continue; // Skip users who don't match the target degree
+            }
+
+            $matchedUsers[] = $userId;
+
+            $totalColumns = 0;
+            $filledColumns = 0;
+
+            // Check the completion status for each table/column combination
+            foreach ($tablesAndColumns as $table => $columns) {
+                if (!Schema::hasTable($table))
+                    continue;
+
+                $data = ($table === 'users')
+                    ? DB::table($table)->where('unique_id', $userId)->first()
+                    : DB::table($table)->where('user_id', $userId)->first();
+
+                foreach ($columns as $column) {
+                    $totalColumns++;
+                    if (Schema::hasColumn($table, $column)) {
+                        $value = $data->$column ?? null;
+                        if (!is_null($value) && trim((string) $value) !== '') {
+                            $filledColumns++;
+                        }
+                    }
+                }
+            }
+
+            // Check the document count from the S3 storage (assuming 22 documents means full completion)
+            $folderPath = "$userId"; // Assuming folder path based on userId
+            $files = Storage::disk("s3")->allFiles($folderPath);
+            $documentCount = count($files);
+
+            // The user is considered completed if they have both 100% profile and exactly 22 documents
+            $isProfileCompleted = ($totalColumns > 0 && $filledColumns === $totalColumns);
+            $isDocumentCompleted = ($documentCount === 22);
+
+            if ($isProfileCompleted && $isDocumentCompleted) {
+                $completedUsers[] = $userId; // Add to completed users if both profile and documents are complete
+            } else {
+                $incompleteUsers[] = $userId; // Add to incomplete users otherwise
+            }
+        }
+
+        return response()->json([
+            'filtered_degree_type' => $targetDegree,
+            'total_matching_users' => count($matchedUsers),
+            'completed_profiles' => count($completedUsers),
+            'incomplete_profiles' => count($incompleteUsers),
+            'completed_user_ids' => $completedUsers,
+            'incomplete_user_ids' => $incompleteUsers,
+        ]);
+    }
+    
+
+
+
 }
