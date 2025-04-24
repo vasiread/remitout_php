@@ -223,7 +223,7 @@
                                 <div class="admin-student-options-label">Options:</div>
                             </div>
 
-                            <div class="option-grid course-degree" id="optionsContainer">
+                            <div class="option-grid course-degree-admin" id="optionsContainer">
                                 <div class="option-item">
                                     <input type="checkbox" class="option-checkbox">
                                     <div class="option-name">Bachelors (only secured loan)</div>
@@ -293,31 +293,28 @@
                             </div>
                         </div>
 
-        <div class="options-section" id="course-details-options" style="display: none;">
-            <div class="options-label">Options:</div>
-        <div class="checkbox-coures-main-container">
-            <div class="checkbox-options-container">
-                <div class="checkbox-option">
-                    <input type="checkbox" id="with-expenses" name="course-options">
-                    <label for="with-expenses">With living expenses</label>
-                </div>
-                <div class="checkbox-option">
-                    <input type="checkbox" id="without-expenses" name="course-options">
-                    <label for="without-expenses">Without living expenses</label>
+                        <div class="options-section" id="course-details-options" style="display: none;">
+                            <div class="options-label">Options:</div>
+                            <div class="checkbox-coures-main-container">
+                                <div class="checkbox-options-container">
+                                    <div class="checkbox-option">
+                                        <input type="checkbox" id="with-expenses" name="course-options">
+                                        <label for="with-expenses">With living expenses</label>
+                                    </div>
+                                    <div class="checkbox-option">
+                                        <input type="checkbox" id="without-expenses" name="course-options">
+                                        <label for="without-expenses">Without living expenses</label>
+                                    </div>
+                                </div>
+                                <div class="add-option" id="add-option-btn">
+                                    <span class="add-option-text">Add</span>
+                                    <span class="add-option-icon">+</span>
+                                </div>
+                            </div>    
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="add-option" id="add-option-btn">
-                <span class="add-option-text">Add</span>
-                <span class="add-option-icon">+</span>
-            </div>
-        </div>    
-        </div>
-    </div>
-
-
-    </div>
- </div>
-
 
             <div class="admin-student-form-section-academic-details" id="academic-details-section">
                 <div class="admin-student-section-header-academic">
@@ -329,17 +326,17 @@
                 </div>
             </div>
 
-   <!-- Academic container -->
-   <div class="admin-student-section-content-academic expanded" id="academic-details-content">
-        <!-- Education Container (styled like the academic gap) -->
-        <div class="education-container" id="education-container">
-            <div class="education-header-row" id="education-header-row">
-                <div class="education-title">1. Academic details </div>
-                <div class="education-dropdown-field" id="education-dropdown">
-                    <span class="admin-student-field-text">Textfield</span>
-                    <span class="admin-student-dropdown-icon"></span>
-                </div>
-            </div>
+            <!-- Academic container -->
+            <div class="admin-student-section-content-academic expanded" id="academic-details-content">
+                <!-- Education Container (styled like the academic gap) -->
+                <div class="education-container" id="education-container">
+                    <div class="education-header-row" id="education-header-row">
+                        <div class="education-title">1. Academic details </div>
+                        <div class="education-dropdown-field" id="education-dropdown">
+                            <span class="admin-student-field-text">Textfield</span>
+                            <span class="admin-student-dropdown-icon"></span>
+                        </div>
+                    </div>
 
                     <div class="education-section" id="education-section">
                         <div class="education-label">Education</div>
@@ -354,249 +351,84 @@
                             </div>
                         </div>
 
-                <button type="button" class="add-education-field-btn" id="add-education-field-btn">
-                    <span>Add</span>
-                    <span class="add-education-icon">+</span>
+                        <button type="button" class="add-education-field-btn" id="add-education-field-btn">
+                            <span>Add</span>
+                            <span class="add-education-icon">+</span>
+                        </button>
+                    </div>
+                </div>
 
-                </button>
-            </div>
-        </div>
+                <!-- Academic Gap Question -->
+                <div class="admin-student-form-question" id="academic-gap-container">
+                    <div class="admin-student-question-row" id="academic-gap-row">
+                        <div class="admin-student-question-title">
+                            2. Do you have any gap in your academics?
+                        </div>
+                        <div class="admin-student-dropdown-field" id="academic-gap-dropdown">
+                            <span class="admin-student-field-text">Check Box</span>
+                            <span class="admin-student-dropdown-icon"></span>
+                        </div>
+                    </div>
 
-
-          <!-- Academic Gap Question -->
-      <div class="admin-student-form-question" id="academic-gap-container">
-        <div class="admin-student-question-row" id="academic-gap-row">
-          <div class="admin-student-question-title">
-            2. Do you have any gap in your academics?
-          </div>
-          <div class="admin-student-dropdown-field" id="academic-gap-dropdown">
-            <span class="admin-student-field-text">Check Box</span>
-            <span class="admin-student-dropdown-icon"></span>
-          </div>
-        </div>
-
-        <div class="options-section" id="academic-gap-options">
-          <div class="options-label">Options:</div>
-          <div class="academic-options-container">
-            <div class="academic-options">
-              <div class="academic-option">
-                <input
-                  type="radio"
-                  id="academic-yes"
-                  name="academics-gap"
-                  value="yes"
-                />
-                <label for="academic-yes">Yes</label>
-              </div>
-              <div class="academic-option">
-                <input
-                  type="radio"
-                  id="academic-no"
-                  name="academics-gap"
-                  value="no"
-                />
-                <label for="academic-no">No (only secured loan)</label>
-              </div>
-            </div>
-            <div class="add-option" id="add-academic-option-btn">
-              <span class="add-option-text">Add</span>
-              <span class="add-option-icon">+</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-        <!-- Additional questions can be added here -->
-    </div>
-
-    <div class="admin-student-form-section-co-borrower-info">
-      <div class="admin-student-section-header-co-borrower">
-        <div class="admin-student-section-title-co-borrower">
-          Co-borrower Info
-        </div>
-        <span class="admin-student-question-count-co-borrower"
-          >3 Questions</span
-        >
-        <div class="admin-student-arrow-icon-co-borrower">
-          <img
-            src="assets/images/admin-drop.png"
-            alt="Arrow Icon"
-            class="admin-student-arrow-down-co-borrow"
-          />
-        </div>
-      </div>
-    </div>
-
-    <!-- First Container: How is the co-borrower related to you? -->
-    <div class="admin-student-form-question" id="co-borrower-container">
-      <div class="admin-student-question-row" id="co-borrower-row">
-        <div class="admin-student-question-title">
-          How is the co-borrower related to you?
-        </div>
-        <div class="admin-student-dropdown-field" id="co-borrower-dropdown">
-          <span class="admin-student-field-text">Check Box</span>
-          <span class="admin-student-dropdown-icon"></span>
-        </div>
-      </div>
-
-      <div
-        class="options-section"
-        id="co-borrower-options"
-        style="display: none"
-      >
-        <div class="checkbox-options-container">
-          <div class="checkbox-option">
-            <input
-              type="checkbox"
-              id="co-borrower-parent"
-              name="co-borrower-options"
-            />
-            <label for="co-borrower-parent">Parent</label>
-          </div>
-          <div class="checkbox-option">
-            <input
-              type="checkbox"
-              id="co-borrower-spouse"
-              name="co-borrower-options"
-            />
-            <label for="co-borrower-spouse">Spouse</label>
-          </div>
-          <div class="checkbox-option">
-            <input
-              type="checkbox"
-              id="co-borrower-blood-relative"
-              name="co-borrower-options"
-            />
-            <label for="co-borrower-blood-relative">Blood relative</label>
-          </div>
-          <div class="add-option" id="add-option-btn">
-            <span class="add-option-text">Add</span>
-            <span class="add-option-icon">+</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Second Container: What is the gross monthly income of co-borrower? -->
-    <div class="admin-student-form-question" id="income-container">
-      <div class="admin-student-question-row" id="income-row">
-        <div class="admin-student-question-title">
-          What is the gross monthly income of co-borrower?
-        </div>
-        <div class="admin-student-dropdown-field" id="income-dropdown">
-          <span class="admin-student-field-text">Text Field</span>
-          <span class="admin-student-dropdown-icon"></span>
-        </div>
-      </div>
-
-      <div class="options-section" id="income-options" style="display: none">
-        <div class="fields-row-container">
-          <div class="field-container">
-            <input
-              type="text"
-              class="text-input"
-              placeholder=" ₹ Rupees in thousands"
-            />
-            <button class="delete-field">✕</button>
-            <p class="minimum-amount">
-              *minimum amount of 5% after deductions for eligibility
-            </p>
-          </div>
-          <div class="add-option" id="add-income-field-btn">
-            <span class="add-option-text">Add</span>
-            <span class="add-option-icon">+</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Third Container: Is there any existing co-borrower monthly liability? -->
-    <div class="admin-student-form-question" id="liability-container">
-      <div class="admin-student-question-row" id="liability-row">
-        <div class="admin-student-question-title">
-          Is there any existing co-borrower monthly liability?
-        </div>
-        <div class="admin-student-dropdown-field" id="liability-dropdown">
-          <span class="admin-student-field-text">Check Box</span>
-          <span class="admin-student-dropdown-icon"></span>
-        </div>
-      </div>
-
-      <div class="options-section" id="liability-options" style="display: none">
-        <div class="liability-content-container">
-          <!-- Monthly liability option with horizontal layout -->
-          <div class="monthly-liability-option">
-            <!-- Radio buttons on the left -->
-            <div class="monthly-liability-radio-buttons">
-              <label>
-                <input
-                  type="radio"
-                  name="co-borrower-liability"
-                  id="yes-liability"
-                  value="Yes"
-                />
-                Yes
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="co-borrower-liability"
-                  id="no-liability"
-                  value="No"
-                />
-                No
-              </label>
-            </div>
-
-            <!-- EMI field and add button on the right, in the same row -->
-            <div class="emi-row">
-              <div class="emi-content">
-                <p class="amount-thousand-mobile">
-                  Enter the amount in thousands
-                </p>
-                <input
-                  type="text"
-                  id="emi-amount"
-                  class="emi-content-container"
-                  placeholder="Enter EMI amount"
-                />
-                <span
-                  id="emi-error-message"
-                  class="error-message"
-                  style="display: none; color: red"
-                  >Please enter a valid EMI amount (numeric values only).</span
-                >
-              </div>
-              <div class="add-option" id="add-liability-btn">
-                <span class="add-option-text">Add</span>
-                <span class="add-option-icon">+</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Container for additional liability fields - vertically aligned under the EMI content -->
-          <div
-            id="additional-liability-fields"
-            class="additional-liability-fields"
-          >
-            <!-- Additional fields will be added here dynamically -->
-          </div>
-        </div>
-      </div>
-    </div>
-                      <!-- Document Upload Section -->
-                    <div class="admin-student-form-section-document-upload">
-                        <div class="admin-student-section-header-document-upload">
-                            <div class="admin-student-section-title-document-upload">Document Upload</div>
-                            <span class="admin-student-question-count-document-upload">4 Questions</span>
-                            <div class="admin-student-arrow-icon-document-upload">
-                                <img src="assets/images/admin-drop.png" alt="Arrow Icon"
-                                    class="admin-student-arrow-down-document-upload" />
+                    <div class="options-section" id="academic-gap-options">
+                        <div class="options-label">Options:</div>
+                        <div class="academic-options-container">
+                            <div class="academic-options">
+                                <div class="academic-option">
+                                    <input
+                                        type="radio"
+                                        id="academic-yes"
+                                        name="academics-gap"
+                                        value="yes"
+                                    />
+                                    <label for="academic-yes">Yes</label>
+                                </div>
+                                <div class="academic-option">
+                                    <input
+                                        type="radio"
+                                        id="academic-no"
+                                        name="academics-gap"
+                                        value="no"
+                                    />
+                                    <label for="academic-no">No (only secured loan)</label>
+                                </div>
+                            </div>
+                            <div class="add-option" id="add-academic-option-btn">
+                                <span class="add-option-text">Add</span>
+                                <span class="add-option-icon">+</span>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="admin-student-form-section-co-borrower-info">
+                <div class="admin-student-section-header-co-borrower">
+                    <div class="admin-student-section-title-co-borrower">
+                        Co-borrower Info
+                    </div>
+                    <span class="admin-student-question-count-co-borrower">3 Questions</span>
+                    <div class="admin-student-arrow-icon-co-borrower">
+                        <img
+                            src="assets/images/admin-drop.png"
+                            alt="Arrow Icon"
+                            class="admin-student-arrow-down-co-borrow"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <!-- First Container: How is the co-borrower related to you? -->
+            <div class="admin-student-form-question" id="co-borrower-container">
+                <div class="admin-student-question-row" id="co-borrower-row">
+                    <div class="admin-student-question-title">
+                        How is the co-borrower related to you?
+                    </div>
+                    <div class="admin-student-dropdown-field" id="co-borrower-dropdown">
+                        <span class="admin-student-field-text">Check Box</span>
+                        <span class="admin-student-dropdown-icon"></span>
+                    </div>
+                </div>
 
                 <div class="options-section" id="co-borrower-options" style="display: none">
                     <div class="checkbox-options-container">
@@ -680,7 +512,7 @@
                 <div class="options-section" id="liability-options" style="display: none">
                     <div class="liability-content-container">
                         <!-- Monthly liability option with horizontal layout -->
-                        <div class="monthly-liability-option">
+                        <div class="monthly-liability-option-container">
                             <!-- Radio buttons on the left -->
                             <div class="monthly-liability-radio-buttons">
                                 <label>
@@ -736,184 +568,1382 @@
                 </div>
             </div>
 
-            <!-- Document Upload Section -->
-            <div class="admin-student-form-section-document-upload">
-                <div class="admin-student-section-header-document-upload">
-                    <div class="admin-student-section-title-document-upload">Document Upload</div>
-                    <span class="admin-student-question-count-document-upload">4 Questions</span>
-                    <div class="admin-student-arrow-icon-document-upload">
-                        <img src="assets/images/admin-drop.png" alt="Arrow Icon"
-                            class="admin-student-arrow-down-document-upload" />
-                    </div>
-                </div>
+      <!-- Document Upload Section -->
+    <div class="admin-student-form-section-document-upload">
+      <div class="admin-student-section-header-document-upload">
+        <div class="admin-student-section-title-document-upload">
+          Document Upload
+        </div>
+        <span class="admin-student-question-count-document-upload"
+          >6 Questions</span
+        >
+        <div class="admin-student-arrow-icon-document-upload">
+          <img
+            src="assets/images/admin-drop.png"
+            alt="Arrow Icon"
+            class="admin-student-arrow-down-document-upload"
+          />
+        </div>
+      </div>
+      <div class="admin-student-section-content-document-upload">
+        <!-- 1. Student KYC Document -->
+        <div class="admin-student-form-question">
+          <div class="admin-student-question-row" id="student-kyc-row">
+            <div class="admin-student-question-title">Student KYC Document</div>
+            <div class="admin-student-dropdown-field">
+              <span class="admin-student-field-text">Text Field</span>
+              <span class="admin-student-dropdown-icon"></span>
             </div>
+          </div>
+          <div class="admin-student-options-section-dashboard" id="student-kyc-section">
+            <div class="document-container-admin">
+              <div class="document-row" id="document-row-1">
+                <!-- PAN Card -->
+                <div class="document-box">
+                  <div
+                    class="document-name"
+                    id="pan-card-document-name"
+                    style="display: none"
+                  >
+                    PAN Card
+                  </div>
+                  <div class="upload-field">
+                    <span id="kyc-pan-name" data-original="PAN Card"
+                      >PAN Card</span
+                    >
+                    <span
+                      id="kyc-pan-remove-icon"
+                      class="remove-icon"
+                      onclick="removeFile('kyc-pan', 'kyc-pan-name', 'kyc-pan-upload-icon', 'kyc-pan-remove-icon')"
+                      ><span class="thin-x"></span
+                    ></span>
+                    <div class="file-actions">
+                      <label
+                        for="kyc-pan"
+                        class="upload-icon"
+                        id="kyc-pan-upload-icon"
+                      >
+                        <img src="assets/images/upload.png" alt="Upload Icon" />
+                      </label>
+                      <input
+                        type="file"
+                        id="kyc-pan"
+                        accept=".jpg, .png, .pdf"
+                        onchange="handleFileUpload(event, 'kyc-pan-name', 'kyc-pan-upload-icon', 'kyc-pan-remove-icon')"
+                      />
+                    </div>
+                  </div>
+                  <div class="info">
+                    <span class="help-trigger" data-target="kyc-pan-help"
+                      >ⓘ Help</span
+                    >
+                    <span>*jpg, png, pdf formats</span>
+                  </div>
+                  <div
+                    class="help-container kyc-pan-help"
+                    style="display: none"
+                  >
+                    <h3 class="help-title">Help</h3>
+                    <div class="help-content">
+                      <p>
+                        Please upload a .jpg, .png, or .pdf file with a size
+                        less than 5MB.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <!-- Aadhar Card -->
+                <div class="document-box">
+                  <div
+                    class="document-name"
+                    id="aadhar-card-document-name"
+                    style="display: none"
+                  >
+                    Aadhar Card
+                  </div>
+                  <div class="upload-field">
+                    <span id="aadhar-card-name" data-original="Aadhar Card"
+                      >Aadhar Card</span
+                    >
+                    <span
+                      id="aadhar-card-remove-icon"
+                      class="remove-icon"
+                      onclick="removeFile('aadhar-card', 'aadhar-card-name', 'aadhar-card-upload-icon', 'aadhar-card-remove-icon')"
+                      ><span class="thin-x"></span
+                    ></span>
+                    <div class="file-actions">
+                      <label
+                        for="aadhar-card"
+                        class="upload-icon"
+                        id="aadhar-card-upload-icon"
+                      >
+                        <img src="assets/images/upload.png" alt="Upload Icon" />
+                      </label>
+                      <input
+                        type="file"
+                        id="aadhar-card"
+                        accept=".jpg, .png, .pdf"
+                        onchange="handleFileUpload(event, 'aadhar-card-name', 'aadhar-card-upload-icon', 'aadhar-card-remove-icon')"
+                      />
+                    </div>
+                  </div>
+                  <div class="info">
+                    <span class="help-trigger" data-target="aadhar-card-help"
+                      >ⓘ Help</span
+                    >
+                    <span>*jpg, png, pdf formats</span>
+                  </div>
+                  <div
+                    class="help-container aadhar-card-help"
+                    style="display: none"
+                  >
+                    <h3 class="help-title">Help</h3>
+                    <div class="help-content">
+                      <p>
+                        Please upload a .jpg, .png, or .pdf file with a size
+                        less than 5MB.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <!-- Passport -->
+                <div class="document-box">
+                  <div
+                    class="document-name"
+                    id="passport-document-name"
+                    style="display: none"
+                  >
+                    Passport
+                  </div>
+                  <div class="upload-field">
+                    <span id="passport-card-name" data-original="Passport"
+                      >Passport</span
+                    >
+                    <span
+                      id="passport-remove-icon"
+                      class="remove-icon"
+                      onclick="removeFile('passport', 'passport-card-name', 'passport-upload-icon', 'passport-remove-icon')"
+                      ><span class="thin-x"></span
+                    ></span>
+                    <div class="file-actions">
+                      <label
+                        for="passport"
+                        class="upload-icon"
+                        id="passport-upload-icon"
+                      >
+                        <img src="assets/images/upload.png" alt="Upload Icon" />
+                      </label>
+                      <input
+                        type="file"
+                        id="passport"
+                        accept=".jpg, .png, .pdf"
+                        onchange="handleFileUpload(event, 'passport-card-name', 'passport-upload-icon', 'passport-remove-icon')"
+                      />
+                    </div>
+                  </div>
+                  <div class="info">
+                    <span class="help-trigger" data-target="passport-help"
+                      >ⓘ Help</span
+                    >
+                    <span>*jpg, png, pdf formats</span>
+                  </div>
+                  <div
+                    class="help-container passport-help"
+                    style="display: none"
+                  >
+                    <h3 class="help-title">Help</h3>
+                    <div class="help-content">
+                      <p>
+                        Please upload a .jpg, .png, or .pdf file with a size
+                        less than 5MB.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Document fields container -->
+              <div class="document-row" id="document-fields-container">
+                <div class="add-document" id="add-document-btn">
+                  <span class="add-text">Add</span>
+                  <span class="add-icon">+</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 2. Academic Mark Sheets -->
+        <div class="admin-student-form-question">
+          <div class="admin-student-question-row" id="academic-marks-row">
+            <div class="admin-student-question-title">Academic Mark Sheets</div>
+            <div class="admin-student-dropdown-field">
+              <span class="admin-student-field-text">Text Field</span>
+              <span class="admin-student-dropdown-icon"></span>
+            </div>
+          </div>
+          <div
+            class="admin-student-options-section"
+            id="academic-marks-section"
+          >
+            <div class="document-container-admin">
+              <div class="document-row" id="academic-row-1">
+                <!-- 10th Grade Mark Sheet -->
+                <div class="document-box">
+                  <div
+                    class="document-name"
+                    id="10th-mark-sheet-id"
+                    style="display: none"
+                  >
+                    10th Mark Sheet
+                  </div>
+                  <div class="upload-field">
+                    <span
+                      id="tenth-grade-name"
+                      data-original="10th Grade Mark Sheet"
+                      >10th Grade Mark Sheet</span
+                    >
+                    <span
+                      id="tenth-grade-remove-icon"
+                      class="remove-icon"
+                      onclick="removeFile('tenth-grade', 'tenth-grade-name', 'tenth-grade-upload-icon', 'tenth-grade-remove-icon')"
+                      ><span class="thin-x"></span
+                    ></span>
+                    <div class="file-actions">
+                      <label
+                        for="tenth-grade"
+                        class="upload-icon"
+                        id="tenth-grade-upload-icon"
+                      >
+                        <img src="assets/images/upload.png" alt="Upload Icon" />
+                      </label>
+                      <input
+                        type="file"
+                        id="tenth-grade"
+                        accept=".jpg, .png, .pdf"
+                        onchange="handleFileUpload(event, 'tenth-grade-name', 'tenth-grade-upload-icon', 'tenth-grade-remove-icon')"
+                      />
+                    </div>
+                  </div>
+                  <div class="info">
+                    <span class="help-trigger" data-target="tenth-grade-help"
+                      >ⓘ Help</span
+                    >
+                    <span>*jpg, png, pdf formats</span>
+                  </div>
+                  <div
+                    class="help-container tenth-grade-help"
+                    style="display: none"
+                  >
+                    <h3 class="help-title">Help</h3>
+                    <div class="help-content">
+                      <p>
+                        Please upload a .jpg, .png, or .pdf file with a size
+                        less than 5MB.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <!-- 12th Grade Mark Sheet -->
+                <div class="document-box">
+                  <div
+                    class="document-name"
+                    id="12th-mark-sheet-id"
+                    style="display: none"
+                  >
+                    12th Mark Sheet
+                  </div>
+                  <div class="upload-field">
+                    <span
+                      id="twelfth-grade-name"
+                      data-original="12th Grade Mark Sheet"
+                      >12th Grade Mark Sheet</span
+                    >
+                    <span
+                      id="twelfth-grade-remove-icon"
+                      class="remove-icon"
+                      onclick="removeFile('twelfth-grade', 'twelfth-grade-name', 'twelfth-grade-upload-icon', 'twelfth-grade-remove-icon')"
+                      ><span class="thin-x"></span
+                    ></span>
+                    <div class="file-actions">
+                      <label
+                        for="twelfth-grade"
+                        class="upload-icon"
+                        id="twelfth-grade-upload-icon"
+                      >
+                        <img src="assets/images/upload.png" alt="Upload Icon" />
+                      </label>
+                      <input
+                        type="file"
+                        id="twelfth-grade"
+                        accept=".jpg, .png, .pdf"
+                        onchange="handleFileUpload(event, 'twelfth-grade-name', 'twelfth-grade-upload-icon', 'twelfth-grade-remove-icon')"
+                      />
+                    </div>
+                  </div>
+                  <div class="info">
+                    <span class="help-trigger" data-target="twelfth-grade-help"
+                      >ⓘ Help</span
+                    >
+                    <span>*jpg, png, pdf formats</span>
+                  </div>
+                  <div
+                    class="help-container twelfth-grade-help"
+                    style="display: none"
+                  >
+                    <h3 class="help-title">Help</h3>
+                    <div class="help-content">
+                      <p>
+                        Please upload a .jpg, .png, or .pdf file with a size
+                        less than 5MB.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <!-- Graduation Mark Sheet -->
+                <div class="document-box">
+                  <div
+                    class="document-name"
+                    id="graduation-mark-sheet-id"
+                    style="display: none"
+                  >
+                    Graduation Mark Sheet
+                  </div>
+                  <div class="upload-field">
+                    <span
+                      id="graduation-grade-name"
+                      data-original="Graduation Mark Sheet"
+                      >Graduation Mark Sheet</span
+                    >
+                    <span
+                      id="graduation-grade-remove-icon"
+                      class="remove-icon"
+                      onclick="removeFile('graduation-grade', 'graduation-grade-name', 'graduation-grade-upload-icon', 'graduation-grade-remove-icon')"
+                      ><span class="thin-x"></span
+                    ></span>
+                    <div class="file-actions">
+                      <label
+                        for="graduation-grade"
+                        class="upload-icon"
+                        id="graduation-grade-upload-icon"
+                      >
+                        <img src="assets/images/upload.png" alt="Upload Icon" />
+                      </label>
+                      <input
+                        type="file"
+                        id="graduation-grade"
+                        accept=".jpg, .png, .pdf"
+                        onchange="handleFileUpload(event, 'graduation-grade-name', 'graduation-grade-upload-icon', 'graduation-grade-remove-icon')"
+                      />
+                    </div>
+                  </div>
+                  <div class="info">
+                    <span
+                      class="help-trigger"
+                      data-target="graduation-grade-help"
+                      >ⓘ Help</span
+                    >
+                    <span>*jpg, png, pdf formats</span>
+                  </div>
+                  <div
+                    class="help-container graduation-grade-help"
+                    style="display: none"
+                  >
+                    <h3 class="help-title">Help</h3>
+                    <div class="help-content">
+                      <p>
+                        Please upload a .jpg, .png, or .pdf file with a size
+                        less than 5MB.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Academic document fields container -->
+              <div class="document-row" id="academic-fields-container">
+                <div class="add-document" id="add-academic-btn">
+                  <span class="add-text">Add</span>
+                  <span class="add-icon">+</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 3. Secured Marks -->
+        <div class="admin-student-form-question">
+          <div class="admin-student-question-row" id="secured-marks-row">
+            <div class="admin-student-question-title">Secured Marks</div>
+            <div class="admin-student-dropdown-field">
+              <span class="admin-student-field-text">Text Field</span>
+              <span class="admin-student-dropdown-icon"></span>
+            </div>
+          </div>
+          <div class="admin-student-options-section" id="secured-marks-section">
+            <div class="document-container-admin">
+              <div class="document-row" id="secured-row-1">
+                <!-- 10th Grade -->
+                <div class="document-box">
+                  <div
+                    class="document-name"
+                    id="10th-grades-id"
+                    style="display: none"
+                  >
+                    10th Grade
+                  </div>
+                  <div class="upload-field">
+                    <span id="secured-tenth-name" data-original="10th Grade"
+                      >10th Grade</span
+                    >
+                    <span
+                      id="secured-tenth-remove-icon"
+                      class="remove-icon"
+                      onclick="removeFile('secured-tenth', 'secured-tenth-name', 'secured-tenth-upload-icon', 'secured-tenth-remove-icon')"
+                      ><span class="thin-x"></span
+                    ></span>
+                    <div class="file-actions">
+                      <label
+                        for="secured-tenth"
+                        class="upload-icon"
+                        id="secured-tenth-upload-icon"
+                      >
+                        <img src="assets/images/upload.png" alt="Upload Icon" />
+                      </label>
+                      <input
+                        type="file"
+                        id="secured-tenth"
+                        accept=".jpg, .png, .pdf"
+                        onchange="handleFileUpload(event, 'secured-tenth-name', 'secured-tenth-upload-icon', 'secured-tenth-remove-icon')"
+                      />
+                    </div>
+                  </div>
+                  <div class="info">
+                    <span class="help-trigger" data-target="secured-tenth-help"
+                      >ⓘ Help</span
+                    >
+                    <span>*jpg, png, pdf formats</span>
+                  </div>
+                  <div
+                    class="help-container secured-tenth-help"
+                    style="display: none"
+                  >
+                    <h3 class="help-title">Help</h3>
+                    <div class="help-content">
+                      <p>
+                        Please upload your 10th grade mark sheet in jpg, png, or
+                        pdf format.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <!-- 12th Grade -->
+                <div class="document-box">
+                  <div
+                    class="document-name"
+                    id="12th-grade-id"
+                    style="display: none"
+                  >
+                    12th Grade
+                  </div>
+                  <div class="upload-field">
+                    <span id="secured-twelfth-name" data-original="12th Grade"
+                      >12th Grade</span
+                    >
+                    <span
+                      id="secured-twelfth-remove-icon"
+                      class="remove-icon"
+                      onclick="removeFile('secured-twelfth', 'secured-twelfth-name', 'secured-twelfth-upload-icon', 'secured-twelfth-remove-icon')"
+                      ><span class="thin-x"></span
+                    ></span>
+                    <div class="file-actions">
+                      <label
+                        for="secured-twelfth"
+                        class="upload-icon"
+                        id="secured-twelfth-upload-icon"
+                      >
+                        <img src="assets/images/upload.png" alt="Upload Icon" />
+                      </label>
+                      <input
+                        type="file"
+                        id="secured-twelfth"
+                        accept=".jpg, .png, .pdf"
+                        onchange="handleFileUpload(event, 'secured-twelfth-name', 'secured-twelfth-upload-icon', 'secured-twelfth-remove-icon')"
+                      />
+                    </div>
+                  </div>
+                  <div class="info">
+                    <span
+                      class="help-trigger"
+                      data-target="secured-twelfth-help"
+                      >ⓘ Help</span
+                    >
+                    <span>*jpg, png, pdf formats</span>
+                  </div>
+                  <div
+                    class="help-container secured-twelfth-help"
+                    style="display: none"
+                  >
+                    <h3 class="help-title">Help</h3>
+                    <div class="help-content">
+                      <p>
+                        Please upload your 12th grade mark sheet in jpg, png, or
+                        pdf format.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <!-- Graduation -->
+                <div class="document-box">
+                  <div
+                    class="document-name"
+                    id="graduation-id"
+                    style="display: none"
+                  >
+                    Graduation
+                  </div>
+                  <div class="upload-field">
+                    <span
+                      id="secured-graduation-name"
+                      data-original="Graduation"
+                      >Graduation</span
+                    >
+                    <span
+                      id="secured-graduation-remove-icon"
+                      class="remove-icon"
+                      onclick="removeFile('secured-graduation', 'secured-graduation-name', 'secured-graduation-upload-icon', 'secured-graduation-remove-icon')"
+                      ><span class="thin-x"></span
+                    ></span>
+                    <div class="file-actions">
+                      <label
+                        for="secured-graduation"
+                        class="upload-icon"
+                        id="secured-graduation-upload-icon"
+                      >
+                        <img src="assets/images/upload.png" alt="Upload Icon" />
+                      </label>
+                      <input
+                        type="file"
+                        id="secured-graduation"
+                        accept=".jpg, .png, .pdf"
+                        onchange="handleFileUpload(event, 'secured-graduation-name', 'secured-graduation-upload-icon', 'secured-graduation-remove-icon')"
+                      />
+                    </div>
+                  </div>
+                  <div class="info">
+                    <span
+                      class="help-trigger"
+                      data-target="secured-graduation-help"
+                      >ⓘ Help</span
+                    >
+                    <span>*jpg, png, pdf formats</span>
+                  </div>
+                  <div
+                    class="help-container secured-graduation-help"
+                    style="display: none"
+                  >
+                    <h3 class="help-title">Help</h3>
+                    <div class="help-content">
+                      <p>
+                        Please upload your graduation mark sheet in jpg, png, or
+                        pdf format.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Secured marks document fields container -->
+              <div class="document-row" id="secured-fields-container">
+                <div class="add-document" id="add-secured-btn">
+                  <span class="add-text">Add</span>
+                  <span class="add-icon">+</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 4. Work Experience -->
+        <div class="admin-student-form-question">
+          <div class="admin-student-question-row" id="work-experience-row">
+            <div class="admin-student-question-title">Work Experience</div>
+            <div class="admin-student-dropdown-field">
+              <span class="admin-student-field-text">Text Field</span>
+              <span class="admin-student-dropdown-icon"></span>
+            </div>
+          </div>
+          <div
+            class="admin-student-options-section"
+            id="work-experience-section"
+          >
+            <div class="work-experience-container">
+              <div class="work-experience-row" id="work-experience-row-1">
+                <!-- Experience Letter -->
+                <div class="work-experience-box">
+                  <div
+                    class="document-name"
+                    id="experience-letter-id"
+                    style="display: none"
+                  >
+                    Experience Letter
+                  </div>
+                  <div class="upload-field">
+                    <span
+                      id="work-experience-experience-letter"
+                      data-original="Experience Letter"
+                      >Experience Letter</span
+                    >
+                    <span
+                      id="work-experience-tenth-remove-icon"
+                      class="remove-icon"
+                      onclick="removeFile('work-experience-tenth', 'work-experience-experience-letter', 'work-experience-tenth-upload-icon', 'work-experience-tenth-remove-icon')"
+                      ><span class="thin-x"></span
+                    ></span>
+                    <div class="file-actions">
+                      <label
+                        for="work-experience-tenth"
+                        class="upload-icon"
+                        id="work-experience-tenth-upload-icon"
+                      >
+                        <img src="assets/images/upload.png" alt="Upload Icon" />
+                      </label>
+                      <input
+                        type="file"
+                        id="work-experience-tenth"
+                        accept=".jpg, .png, .pdf"
+                        onchange="handleFileUpload(event, 'work-experience-experience-letter', 'work-experience-tenth-upload-icon', 'work-experience-tenth-remove-icon')"
+                      />
+                    </div>
+                  </div>
+                  <div class="info">
+                    <span
+                      class="help-trigger"
+                      data-target="work-experience-tenth-help"
+                      >ⓘ Help</span
+                    >
+                    <span>*jpg, png, pdf formats</span>
+                  </div>
+                  <div
+                    class="help-container work-experience-tenth-help"
+                    style="display: none"
+                  >
+                    <h3 class="help-title">Help</h3>
+                    <div class="help-content">
+                      <p>
+                        Please upload your experience letter in jpg, png, or pdf
+                        format.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <!-- 3 Months Salary Slip -->
+                <div class="work-experience-box">
+                  <div
+                    class="document-name"
+                    id="3-months-salary-slip-id"
+                    style="display: none"
+                  >
+                    3 Months Salary Slip
+                  </div>
+                  <div class="upload-field">
+                    <span
+                      id="work-experience-monthly-slip"
+                      data-original="3 Months Salary Slip"
+                      >3 Months Salary Slip</span
+                    >
+                    <span
+                      id="work-experience-twelfth-remove-icon"
+                      class="remove-icon"
+                      onclick="removeFile('work-experience-twelfth', 'work-experience-monthly-slip', 'work-experience-twelfth-upload-icon', 'work-experience-twelfth-remove-icon')"
+                      ><span class="thin-x"></span
+                    ></span>
+                    <div class="file-actions">
+                      <label
+                        for="work-experience-twelfth"
+                        class="upload-icon"
+                        id="work-experience-twelfth-upload-icon"
+                      >
+                        <img src="assets/images/upload.png" alt="Upload Icon" />
+                      </label>
+                      <input
+                        type="file"
+                        id="work-experience-twelfth"
+                        accept=".jpg, .png, .pdf"
+                        onchange="handleFileUpload(event, 'work-experience-monthly-slip', 'work-experience-twelfth-upload-icon', 'work-experience-twelfth-remove-icon')"
+                      />
+                    </div>
+                  </div>
+                  <div class="info">
+                    <span
+                      class="help-trigger"
+                      data-target="work-experience-twelfth-help"
+                      >ⓘ Help</span
+                    >
+                    <span>*jpg, png, pdf formats</span>
+                  </div>
+                  <div
+                    class="help-container work-experience-twelfth-help"
+                    style="display: none"
+                  >
+                    <h3 class="help-title">Help</h3>
+                    <div class="help-content">
+                      <p>
+                        Please upload your 3 months salary slip in jpg, png, or
+                        pdf format.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <!-- Office ID -->
+                <div class="work-experience-box">
+                  <div
+                    class="document-name"
+                    id="office-IDs-id"
+                    style="display: none"
+                  >
+                    Office ID
+                  </div>
+                  <div class="upload-field">
+                    <span
+                      id="work-experience-office-id"
+                      data-original="Office ID"
+                      >Office ID</span
+                    >
+                    <span
+                      id="work-experience-graduation-remove-icon"
+                      class="remove-icon"
+                      onclick="removeFile('work-experience-graduation', 'work-experience-office-id', 'work-experience-graduation-upload-icon', 'work-experience-graduation-remove-icon')"
+                      ><span class="thin-x"></span
+                    ></span>
+                    <div class="file-actions">
+                      <label
+                        for="work-experience-graduation"
+                        class="upload-icon"
+                        id="work-experience-graduation-upload-icon"
+                      >
+                        <img src="assets/images/upload.png" alt="Upload Icon" />
+                      </label>
+                      <input
+                        type="file"
+                        id="work-experience-graduation"
+                        accept=".jpg, .png, .pdf"
+                        onchange="handleFileUpload(event, 'work-experience-office-id', 'work-experience-graduation-upload-icon', 'work-experience-graduation-remove-icon')"
+                      />
+                    </div>
+                  </div>
+                  <div class="info">
+                    <span
+                      class="help-trigger"
+                      data-target="work-experience-graduation-help"
+                      >ⓘ Help</span
+                    >
+                    <span>*jpg, png, pdf formats</span>
+                  </div>
+                  <div
+                    class="help-container work-experience-graduation-help"
+                    style="display: none"
+                  >
+                    <h3 class="help-title">Help</h3>
+                    <div class="help-content">
+                      <p>
+                        Please upload your office ID in jpg, png, or pdf format.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Second row of work experience documents -->
+              <div class="work-experience-row" id="work-experience-row-2">
+                <!-- Joining Letter -->
+                <div class="work-experience-box">
+                  <div
+                    class="document-name"
+                    id="joining-letter-id"
+                    style="display: none"
+                  >
+                    Joining Letter
+                  </div>
+                  <div class="upload-field">
+                    <span
+                      id="work-experience-joining-letter"
+                      data-original="Joining Letter"
+                      >Joining Letter</span
+                    >
+                    <span
+                      id="work-experience-fourth-remove-icon"
+                      class="remove-icon"
+                      onclick="removeFile('work-experience-fourth', 'work-experience-joining-letter', 'work-experience-fourth-upload-icon', 'work-experience-fourth-remove-icon')"
+                      ><span class="thin-x"></span
+                    ></span>
+                    <div class="file-actions">
+                      <label
+                        for="work-experience-fourth"
+                        class="upload-icon"
+                        id="work-experience-fourth-upload-icon"
+                      >
+                        <img src="assets/images/upload.png" alt="Upload Icon" />
+                      </label>
+                      <input
+                        type="file"
+                        id="work-experience-fourth"
+                        accept=".jpg, .png, .pdf"
+                        onchange="handleFileUpload(event, 'work-experience-joining-letter', 'work-experience-fourth-upload-icon', 'work-experience-fourth-remove-icon')"
+                      />
+                    </div>
+                  </div>
+                  <div class="info">
+                    <span
+                      class="help-trigger"
+                      data-target="work-experience-fourth-help"
+                      >ⓘ Help</span
+                    >
+                    <span>*jpg, png, pdf formats</span>
+                  </div>
+                  <div
+                    class="help-container work-experience-fourth-help"
+                    style="display: none"
+                  >
+                    <h3 class="help-title">Help</h3>
+                    <div class="help-content">
+                      <p>
+                        Please upload your joining letter in jpg, png, or pdf
+                        format.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <!-- Add button for work experience documents -->
+                <div class="add-document" id="add-work-experience-btn">
+                  <span class="add-text">Add</span>
+                  <span class="add-icon">+</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 5. Co-borrower KYC Documents -->
+        <div class="admin-student-form-question">
+          <div class="admin-student-question-row" id="co-borrower-kyc-row">
+            <div class="admin-student-question-title">
+              Co-borrower KYC Documents
+            </div>
+            <div class="admin-student-dropdown-field">
+              <span class="admin-student-field-text">Text Field</span>
+              <span class="admin-student-dropdown-icon"></span>
+            </div>
+          </div>
+          <div
+            class="admin-student-options-section"
+            id="co-borrower-kyc-section"
+          >
+            <div class="kyc-container-admin">
+              <div class="document-container-admin">
+                <div class="document-row" id="co-borrower-row-1">
+                  <!-- PAN Card -->
+                  <div class="document-box">
+                    <div
+                      class="document-name"
+                      id="pan-card-ids"
+                      style="display: none"
+                    >
+                      PAN Card
+                    </div>
+                    <div class="upload-field">
+                      <span id="co-pan-card-name" data-original="PAN Card"
+                        >PAN Card</span
+                      >
+                      <span
+                        id="co-remove-icon"
+                        class="remove-icon"
+                        onclick="removeFile('co-pan-card', 'co-pan-card-name', 'co-upload-icon', 'co-remove-icon')"
+                        ><span class="thin-x"></span
+                      ></span>
+                      <div class="file-actions">
+                        <label
+                          for="co-pan-card"
+                          class="upload-icon"
+                          id="co-upload-icon"
+                        >
+                          <img
+                            src="assets/images/upload.png"
+                            alt="Upload Icon"
+                          />
+                        </label>
+                        <input
+                          type="file"
+                          id="co-pan-card"
+                          accept=".jpg, .png, .pdf"
+                          onchange="handleFileUpload(event, 'co-pan-card-name', 'co-upload-icon', 'co-remove-icon')"
+                        />
+                      </div>
+                    </div>
+                    <div class="info">
+                      <span class="help-trigger" data-target="co-pan-card-help"
+                        >ⓘ Help</span
+                      >
+                      <span>*jpg, png, pdf formats</span>
+                    </div>
+                    <div
+                      class="help-container co-pan-card-help"
+                      style="display: none"
+                    >
+                      <h3 class="help-title">Help</h3>
+                      <div class="help-content">
+                        <p>
+                          Please upload a .jpg, .png, or .pdf file with a size
+                          less than 5MB.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Aadhar Card -->
+                  <div class="document-box">
+                    <div
+                      class="document-name"
+                      id="aadhar-card-id"
+                      style="display: none"
+                    >
+                      Aadhar Card
+                    </div>
+                    <div class="upload-field">
+                      <span id="co-aadhar-card-name" data-original="Aadhar Card"
+                        >Aadhar Card</span
+                      >
+                      <span
+                        id="co-aadhar-remove-icon"
+                        class="remove-icon"
+                        onclick="removeFile('co-aadhar-card', 'co-aadhar-card-name', 'co-aadhar-upload-icon', 'co-aadhar-remove-icon')"
+                        ><span class="thin-x"></span
+                      ></span>
+                      <div class="file-actions">
+                        <label
+                          for="co-aadhar-card"
+                          class="upload-icon"
+                          id="co-aadhar-upload-icon"
+                        >
+                          <img
+                            src="assets/images/upload.png"
+                            alt="Upload Icon"
+                          />
+                        </label>
+                        <input
+                          type="file"
+                          id="co-aadhar-card"
+                          accept=".jpg, .png, .pdf"
+                          onchange="handleFileUpload(event, 'co-aadhar-card-name', 'co-aadhar-upload-icon', 'co-aadhar-remove-icon')"
+                        />
+                      </div>
+                    </div>
+                    <div class="info">
+                      <span
+                        class="help-trigger"
+                        data-target="co-aadhar-card-help"
+                        >ⓘ Help</span
+                      >
+                      <span>*jpg, png, pdf formats</span>
+                    </div>
+                    <div
+                      class="help-container co-aadhar-card-help"
+                      style="display: none"
+                    >
+                      <h3 class="help-title">Help</h3>
+                      <div class="help-content">
+                        <p>
+                          Please upload a .jpg, .png, or .pdf file with a size
+                          less than 5MB.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Address Proof -->
+                  <div class="document-box">
+                    <div
+                      class="document-name"
+                      id="address-proof-id"
+                      style="display: none"
+                    >
+                      Address Proof
+                    </div>
+                    <div class="upload-field">
+                      <span id="co-addressproof" data-original="Address Proof"
+                        >Address Proof</span
+                      >
+                      <span
+                        id="co-passport-remove-icon"
+                        class="remove-icon"
+                        onclick="removeFile('co-passport', 'co-addressproof', 'co-passport-upload-icon', 'co-passport-remove-icon')"
+                        ><span class="thin-x"></span
+                      ></span>
+                      <div class="file-actions">
+                        <label
+                          for="co-passport"
+                          class="upload-icon"
+                          id="co-passport-upload-icon"
+                        >
+                          <img
+                            src="assets/images/upload.png"
+                            alt="Upload Icon"
+                          />
+                        </label>
+                        <input
+                          type="file"
+                          id="co-passport"
+                          accept=".jpg, .png, .pdf"
+                          onchange="handleFileUpload(event, 'co-addressproof', 'co-passport-upload-icon', 'co-passport-remove-icon')"
+                        />
+                      </div>
+                    </div>
+                    <div class="info">
+                      <span class="help-trigger" data-target="co-passport-help"
+                        >ⓘ Help</span
+                      >
+                      <span>*jpg, png, pdf formats</span>
+                    </div>
+                    <div
+                      class="help-container co-passport-help"
+                      style="display: none"
+                    >
+                      <h3 class="help-title">Help</h3>
+                      <div class="help-content">
+                        <p>
+                          Please upload a .jpg, .png, or .pdf file with a size
+                          less than 5MB.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Co-borrower fields container -->
+                <div class="document-row" id="co-borrower-fields-container">
+                  <div class="add-document" id="add-co-borrower-btn">
+                    <span class="add-text">Add</span>
+                    <span class="add-icon">+</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 6. Salaried and Business Documents -->
+        <div class="admin-student-form-question">
+          <div class="admin-student-question-row" id="salaried-business-row">
+            <div class="admin-student-question-title">Salaried and Business Documents</div>
+            <div class="admin-student-dropdown-field">
+              <span class="admin-student-field-text">Text Field</span>
+              <span class="admin-student-dropdown-icon"></span>
+            </div>
+          </div>
+          <div class="admin-student-options-section" id="salaried-business-section">
+            <div class="document-container-admin">
+              <!-- Salaried Documents Section -->
+              <div class="salary-sub-admin">
+                <p>If salaried:</p>
+              </div>
+              <div class="document-row salary-upload-row" id="salaried-row-1">
+                <!-- 3 Months Salary Slip -->
+                <div class="document-box salary-upload-box">
+                  <div class="document-name" id="salary-slip-id" style="display: none;">3 months salary slip</div>
+                  <div class="upload-field">
+                    <span id="salary-slip-name" data-original="3 months salary slip">3 months salary slip</span>
+                    <span id="salary-slip-remove-icon" class="remove-icon" style="display: none;"
+                      onclick="removeFile('salary-slip', 'salary-slip-name', 'salary-slip-upload-icon', 'salary-slip-remove-icon')"><span class="thin-x"></span></span>
+                    <div class="file-actions">
+                      <label for="salary-slip" class="upload-icon" id="salary-slip-upload-icon">
+                        <img src="assets/images/upload.png" alt="Upload Icon" />
+                      </label>
+                      <input type="file" id="salary-slip" accept=".jpg, .png, .pdf"
+                        onchange="handleFileUpload(event, 'salary-slip-name', 'salary-slip-upload-icon', 'salary-slip-remove-icon')" />
+                    </div>
+                  </div>
+                  <div class="info">
+                    <span class="help-trigger" data-target="salary-slip-help">ⓘ Help</span>
+                    <span>*jpg, png, pdf formats</span>
+                  </div>
+                  <div class="help-container salary-slip-help" style="display: none;">
+                    <h3 class="help-title">Help</h3>
+                    <div class="help-content">
+                      <p>Please upload your 3 months salary slip in jpg, png, or pdf format.</p>
+                    </div>
+                  </div>
+                </div>
+                <!-- 6 Months Bank Statement -->
+                <div class="document-box salary-upload-box">
+                  <div class="document-name" id="bank-statement-id" style="display: none;">6 months bank statement</div>
+                  <div class="upload-field">
+                    <span id="bank-statement-name" data-original="6 months bank statement">6 months bank statement</span>
+                    <span id="bank-statement-remove-icon" class="remove-icon" style="display: none;"
+                      onclick="removeFile('bank-statement', 'bank-statement-name', 'bank-statement-upload-icon', 'bank-statement-remove-icon')"><span class="thin-x"></span></span>
+                    <div class="file-actions">
+                      <label for="bank-statement" class="upload-icon" id="bank-statement-upload-icon">
+                        <img src="assets/images/upload.png" alt="Upload Icon" />
+                      </label>
+                      <input type="file" id="bank-statement" accept=".jpg, .png, .pdf"
+                        onchange="handleFileUpload(event, 'bank-statement-name', 'bank-statement-upload-icon', 'bank-statement-remove-icon')" />
+                    </div>
+                  </div>
+                  <div class="info">
+                    <span class="help-trigger" data-target="bank-statement-help">ⓘ Help</span>
+                    <span>*jpg, png, pdf formats</span>
+                  </div>
+                  <div class="help-container bank-statement-help" style="display: none;">
+                    <h3 class="help-title">Help</h3>
+                    <div class="help-content">
+                      <p>Please upload your 6 months bank statement in jpg, png, or pdf format.</p>
+                    </div>
+                  </div>
+                </div>
+                <!-- Address Proof -->
+                <div class="document-box salary-upload-box">
+                  <div class="document-name" id="address-proof-salary-id" style="display: none;">Address Proof</div>
+                  <div class="upload-field">
+                    <span id="address-proof-salary-name" data-original="Address Proof">Address Proof</span>
+                    <span id="address-proof-salary-remove-icon" class="remove-icon" style="display: none;"
+                      onclick="removeFile('address-proof-salary', 'address-proof-salary-name', 'address-proof-salary-upload-icon', 'address-proof-salary-remove-icon')"><span class="thin-x"></span></span>
+                    <div class="file-actions">
+                      <label for="address-proof-salary" class="upload-icon" id="address-proof-salary-upload-icon">
+                        <img src="assets/images/upload.png" alt="Upload Icon" />
+                      </label>
+                      <input type="file" id="address-proof-salary" accept=".jpg, .png, .pdf"
+                        onchange="handleFileUpload(event, 'address-proof-salary-name', 'address-proof-salary-upload-icon', 'address-proof-salary-remove-icon')" />
+                    </div>
+                  </div>
+                  <div class="info">
+                    <span class="help-trigger" data-target="address-proof-salary-help">ⓘ Help</span>
+                    <span>*jpg, png, pdf formats</span>
+                  </div>
+                  <div class="help-container address-proof-salary-help" style="display: none;">
+                    <h3 class="help-title">Help</h3>
+                    <div class="help-content">
+                      <p>Please upload your address proof in jpg, png, or pdf format.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Business Documents Section -->
+              <div class="salary-sub-admin">
+                <p>If in Business:</p>
+              </div>
+              <div class="document-row salary-upload-row" id="business-row-1">
+                <!-- 2 Years of ITR -->
+                <div class="document-box salary-upload-box">
+                  <div class="document-name" id="itr-id" style="display: none;">2 years of ITR</div>
+                  <div class="upload-field">
+                    <span id="itr-name" data-original="2 years of ITR">2 years of ITR</span>
+                    <span id="itr-remove-icon" class="remove-icon" style="display: none;"
+                      onclick="removeFile('itr', 'itr-name', 'itr-upload-icon', 'itr-remove-icon')"><span class="thin-x"></span></span>
+                    <div class="file-actions">
+                      <label for="itr" class="upload-icon" id="itr-upload-icon">
+                        <img src="assets/images/upload.png" alt="Upload Icon" />
+                      </label>
+                      <input type="file" id="itr" accept=".jpg, .png, .pdf"
+                        onchange="handleFileUpload(event, 'itr-name', 'itr-upload-icon', 'itr-remove-icon')" />
+                    </div>
+                  </div>
+                  <div class="info">
+                    <span class="help-trigger" data-target="itr-help">ⓘ Help</span>
+                    <span>*jpg, png, pdf formats</span>
+                  </div>
+                  <div class="help-container itr-help" style="display: none;">
+                    <h3 class="help-title">Help</h3>
+                    <div class="help-content">
+                      <p>Please upload your 2 years of ITR in jpg, png, or pdf format.</p>
+                    </div>
+                  </div>
+                </div>
+                <!-- 6 Months Bank Statement -->
+                <div class="document-box salary-upload-box">
+                  <div class="document-name" id="business-bank-statement-id" style="display: none;">6 months bank statement</div>
+                  <div class="upload-field">
+                    <span id="business-bank-statement-name" data-original="6 months bank statement">6 months bank statement</span>
+                    <span id="business-bank-statement-remove-icon" class="remove-icon" style="display: none;"
+                      onclick="removeFile('business-bank-statement', 'business-bank-statement-name', 'business-bank-statement-upload-icon', 'business-bank-statement-remove-icon')"><span class="thin-x"></span></span>
+                    <div class="file-actions">
+                      <label for="business-bank-statement" class="upload-icon" id="business-bank-statement-upload-icon">
+                        <img src="assets/images/upload.png" alt="Upload Icon" />
+                      </label>
+                      <input type="file" id="business-bank-statement" accept=".jpg, .png, .pdf"
+                        onchange="handleFileUpload(event, 'business-bank-statement-name', 'business-bank-statement-upload-icon', 'business-bank-statement-remove-icon')" />
+                    </div>
+                  </div>
+                  <div class="info">
+                    <span class="help-trigger" data-target="business-bank-statement-help">ⓘ Help</span>
+                    <span>*jpg, png, pdf formats</span>
+                  </div>
+                  <div class="help-container business-bank-statement-help" style="display: none;">
+                    <h3 class="help-title">Help</h3>
+                    <div class="help-content">
+                      <p>Please upload your 6 months bank statement in jpg, png, or pdf format.</p>
+                    </div>
+                  </div>
+                </div>
+                <!-- Office/Shop Photographs -->
+                <div class="document-box salary-upload-box">
+                  <div class="document-name" id="office-shop-photos-id" style="display: none;">Office/Shop photographs</div>
+                  <div class="upload-field">
+                    <span id="office-shop-photos-name" data-original="Office/Shop photographs">Office/Shop photographs</span>
+                    <span id="office-shop-photos-remove-icon" class="remove-icon" style="display: none;"
+                      onclick="removeFile('office-shop-photos', 'office-shop-photos-name', 'office-shop-photos-upload-icon', 'office-shop-photos-remove-icon')"><span class="thin-x"></span></span>
+                    <div class="file-actions">
+                      <label for="office-shop-photos" class="upload-icon" id="office-shop-photos-upload-icon">
+                        <img src="assets/images/upload.png" alt="Upload Icon" />
+                      </label>
+                      <input type="file" id="office-shop-photos" accept=".jpg, .png, .pdf"
+                        onchange="handleFileUpload(event, 'office-shop-photos-name', 'office-shop-photos-upload-icon', 'office-shop-photos-remove-icon')" />
+                    </div>
+                  </div>
+                  <div class="info">
+                    <span class="help-trigger" data-target="office-shop-photos-help">ⓘ Help</span>
+                    <span>*jpg, png, pdf formats</span>
+                  </div>
+                  <div class="help-container office-shop-photos-help" style="display: none;">
+                    <h3 class="help-title">Help</h3>
+                    <div class="help-content">
+                      <p>Please upload your office/shop photographs in jpg, png, or pdf format.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Salaried and Business fields container -->
+              <div class="document-row" id="salaried-business-fields-container">
+                <div class="add-document" id="add-salaried-business-btn">
+                  <span class="add-text">Add</span>
+                  <span class="add-icon">+</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
         </div>
     </div>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all components
-    SectionToggler.init();
-    InputFieldManager.init();
-    FormValidator.init();
-    CityAutocomplete.init();
-    SocialOptionsManager.init();
-    CourseLocationManager.init();
-    CourseOptionsManager.init();
-    CourseDurationManager.init();
-    CourseDetailsManager.init();
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize all managers
+    const managers = [
+        SectionToggler,
+        InputFieldManager,
+        FormValidator,
+        CityAutocomplete,
+        SocialOptionsManager,
+        CourseLocationManager,
+        CourseOptionsManager,
+        CourseDurationManager,
+        CourseDetailsManager,
+        AcademicDetailsManager,
+        CoBorrowerManager,
+        SectionManager,
+        DocumentFieldManager
+    ];
+    managers.forEach(manager => manager.init());
 });
 
-/**
- * Handles section toggling functionality
- */
+// Utility function for toggling visibility
+const toggleVisibility = (element, isVisible, icon, rotateClass = 'rotated') => {
+    element.style.display = isVisible ? 'none' : 'block';
+    if (icon) icon.classList.toggle(rotateClass, !isVisible);
+};
+
+// Section Toggler
 const SectionToggler = {
-    init: function() {
-        this.setupMainSectionToggle();
-        this.setupPersonInfoToggle();
-        this.setupAboutUsToggle();
-        this.setupCourseSectionToggle();
+    init() {
+        this.setupToggles([
+            {
+                header: '.admin-student-section-header',
+                content: '.admin-student-section-content',
+                arrow: '.admin-student-arrow-icon img',
+                arrowClasses: ['admin-student-arrow-up', 'admin-student-arrow-down']
+            },
+            {
+                id: 'admin-student-person-info',
+                sectionId: 'person-info-section'
+            },
+            {
+                id: 'admin-student-about-us',
+                sectionId: 'about-us-section'
+            },
+            {
+                header: '.admin-student-section-header-course',
+                content: '.admin-student-section-content-course',
+                arrow: '.admin-student-arrow-icon-course',
+                rotate: true
+            }
+        ]);
     },
 
-    setupMainSectionToggle: function() {
-        const sectionHeader = document.querySelector('.admin-student-section-header');
-        const sectionContent = document.querySelector('.admin-student-section-content');
-        const arrowIcon = document.querySelector('.admin-student-arrow-icon img');
+    setupToggles(configs) {
+        configs.forEach(config => {
+            if (config.header) {
+                const header = document.querySelector(config.header);
+                const content = document.querySelector(config.content);
+                const arrow = document.querySelector(config.arrow);
+                content.style.display = 'block';
+                if (config.arrowClasses) {
+                    arrow.classList.add(config.arrowClasses[0]);
+                    arrow.classList.remove(config.arrowClasses[1]);
+                } else if (config.rotate) {
+                    arrow.style.transform = 'rotate(180deg)';
+                }
 
-        // By default section is expanded (content visible, arrow up)
-        sectionContent.style.display = 'block';
-        arrowIcon.classList.add('admin-student-arrow-up');
-        arrowIcon.classList.remove('admin-student-arrow-down');
-
-        sectionHeader.addEventListener('click', function() {
-            const isContentVisible = sectionContent.style.display === 'block';
-
-            // Toggle content visibility
-            sectionContent.style.display = isContentVisible ? 'none' : 'block';
-
-            // Toggle arrow direction
-            if (isContentVisible) {
-                // Content is being hidden, arrow points down
-                arrowIcon.classList.add('admin-student-arrow-down');
-                arrowIcon.classList.remove('admin-student-arrow-up');
-            } else {
-                // Content is being shown, arrow points up
-                arrowIcon.classList.add('admin-student-arrow-up');
-                arrowIcon.classList.remove('admin-student-arrow-down');
+                header.addEventListener('click', () => {
+                    const isVisible = content.style.display === 'block';
+                    content.style.display = isVisible ? 'none' : 'block';
+                    if (config.arrowClasses) {
+                        arrow.classList.toggle(config.arrowClasses[0], !isVisible);
+                        arrow.classList.toggle(config.arrowClasses[1], isVisible);
+                    } else if (config.rotate) {
+                        arrow.style.transform = isVisible ? 'rotate(0deg)' : 'rotate(180deg)';
+                    }
+                });
+            } else if (config.id) {
+                const row = document.getElementById(config.id);
+                const section = document.getElementById(config.sectionId);
+                if (row && section) {
+                    row.addEventListener('click', () => {
+                        section.style.display = section.style.display === 'none' ? 'block' : 'none';
+                    });
+                }
             }
         });
-    },
-
-    setupPersonInfoToggle: function() {
-        this.setupSectionToggle('admin-student-person-info', 'person-info-section');
-    },
-
-    setupAboutUsToggle: function() {
-        this.setupSectionToggle('admin-student-about-us', 'about-us-section');
-    },
-
-    setupCourseSectionToggle: function() {
-        const sectionHeader = document.querySelector('.admin-student-section-header-course');
-        const sectionContent = document.querySelector('.admin-student-section-content-course');
-        const arrowIcon = document.querySelector('.admin-student-arrow-icon-course');
-
-        // By default section is expanded (content visible, arrow up)
-        sectionContent.style.display = 'block';
-        arrowIcon.style.transform = 'rotate(180deg)';
-
-        sectionHeader.addEventListener('click', function() {
-            const isContentVisible = sectionContent.style.display === 'block';
-
-            // Toggle content visibility
-            sectionContent.style.display = isContentVisible ? 'none' : 'block';
-
-            // Toggle arrow rotation
-            arrowIcon.style.transform = isContentVisible ? 'rotate(0deg)' : 'rotate(180deg)';
-        });
-    },
-
-    setupSectionToggle: function(questionRowId, sectionId) {
-        const questionRow = document.getElementById(questionRowId);
-        const section = document.getElementById(sectionId);
-
-        if (questionRow && section) {
-            questionRow.addEventListener('click', function() {
-                if (section.style.display === "none" || section.style.display === "") {
-                    section.style.display = "block";
-                } else {
-                    section.style.display = "none";
-                }
-            });
-        }
     }
 };
 
-/**
- * Manages input fields (add, remove, reorganize)
- */
+// Input Field Manager
 const InputFieldManager = {
-    init: function() {
-        this.setupRemoveOption();
-        this.setupAddField();
+    iconMap: {
+        name: './assets/images/person-icon.png',
+        phone: './assets/images/call-icon.png',
+        email: './assets/images/mail.png',
+        city: './assets/images/pin_drop.png',
+        country: './assets/images/pin_drop.png',
+        pincode: './assets/images/pin_drop.png',
+        referral: './assets/images/school.png'
     },
 
-    setupRemoveOption: function() {
-        document.addEventListener('click', function(e) {
+    init() {
+        this.setupEvents();
+    },
+
+    setupEvents() {
+        document.addEventListener('click', e => {
             if (e.target.classList.contains('remove-option')) {
                 e.target.closest('.input-group').remove();
-                InputFieldManager.reorganizeInputs();
+                this.reorganizeInputs();
             }
         });
-    },
 
-    setupAddField: function() {
         const addInputField = document.getElementById('add-input-field');
         if (addInputField) {
-            addInputField.addEventListener('click', function() {
-                InputFieldManager.showInputPrompt();
+            addInputField.addEventListener('click', () => {
+                const fieldType = prompt("Enter field type (e.g., Country, Pincode):")?.trim();
+                if (fieldType) this.addNewInputField(fieldType);
             });
         }
     },
 
-    showInputPrompt: function() {
-        const fieldType = prompt("Enter field type (e.g., Country, Pincode):");
-        if (fieldType && fieldType.trim() !== "") {
-            this.addNewInputField(fieldType);
-        }
-    },
-
-    addNewInputField: function(fieldType) {
-        // Icon mapping based on field type (case insensitive)
-        const iconMap = {
-            'name': './assets/images/person-icon.png',
-            'full name': './assets/images/person-icon.png',
-            'first name': './assets/images/person-icon.png',
-            'last name': './assets/images/person-icon.png',
-            'phone': './assets/images/call-icon.png',
-            'phone number': './assets/images/call-icon.png',
-            'mobile': './assets/images/call-icon.png',
-            'email': './assets/images/mail.png',
-            'email id': './assets/images/mail.png',
-            'city': './assets/images/pin_drop.png',
-            'address': './assets/images/pin_drop.png',
-            'location': './assets/images/pin_drop.png',
-            'country': './assets/images/pin_drop.png',
-            'state': './assets/images/pin_drop.png',
-            'pincode': './assets/images/pin_drop.png',
-            'zip code': './assets/images/pin_drop.png',
-            'postal code': './assets/images/pin_drop.png',
-            'referral': './assets/images/school.png',
-            'referral code': './assets/images/school.png',
-            'code': './assets/images/school.png',
-        };
-
-        // Check for icon match (case insensitive)
+    addNewInputField(fieldType) {
         const fieldTypeLower = fieldType.toLowerCase();
-        let iconSrc = './assets/images/pin_drop.png'; // default icon
-
-        // Find matching icon
-        for (const [key, value] of Object.entries(iconMap)) {
+        let iconSrc = './assets/images/pin_drop.png';
+        for (const [key, value] of Object.entries(this.iconMap)) {
             if (fieldTypeLower.includes(key) || key.includes(fieldTypeLower)) {
                 iconSrc = value;
                 break;
@@ -931,106 +1961,65 @@ const InputFieldManager = {
             <div class="validation-message" id="${fieldTypeLower.replace(/\s+/g, '_')}-error"></div>
         `;
 
-        // Find the current parent of the add button
         const addButton = document.getElementById('add-input-field');
-        const addButtonParent = addButton.parentNode;
-
-        // Add the new input field before the add button
-        addButtonParent.insertBefore(newInput, addButton);
-
-        // Reorganize inputs to maintain exactly 3 per row
+        addButton.parentNode.insertBefore(newInput, addButton);
         this.reorganizeInputs();
     },
 
-    reorganizeInputs: function() {
-        // Get all input groups and the add field
+    reorganizeInputs() {
         const allInputs = document.querySelectorAll('.input-group');
         const addField = document.getElementById('add-input-field');
-
-        // Get or create rows as needed
         let row1 = document.getElementById('input-row-1');
         let row2 = document.getElementById('input-row-2');
-
         if (!row1 || !row2) return;
 
-        // Clear all rows
         row1.innerHTML = '';
         row2.innerHTML = '';
-
-        // Remove any existing row3
         const existingRow3 = document.getElementById('input-row-3');
-        if (existingRow3) {
-            existingRow3.remove();
-        }
+        if (existingRow3) existingRow3.remove();
 
-        // Create row3 if needed
-        let row3 = null;
-        if (allInputs.length > 6) {
-            row3 = document.createElement('div');
+        let row3 = allInputs.length > 6 ? document.createElement('div') : null;
+        if (row3) {
             row3.className = 'input-row';
             row3.id = 'input-row-3';
             row2.parentNode.insertBefore(row3, row2.nextSibling);
         }
 
-        // Distribute inputs, exactly 3 per row
-        for (let i = 0; i < allInputs.length; i++) {
-            if (i < 3) {
-                row1.appendChild(allInputs[i]);
-            } else if (i < 6) {
-                row2.appendChild(allInputs[i]);
-            } else if (row3) {
-                row3.appendChild(allInputs[i]);
-            }
-        }
+        allInputs.forEach((input, i) => {
+            if (i < 3) row1.appendChild(input);
+            else if (i < 6) row2.appendChild(input);
+            else if (row3) row3.appendChild(input);
+        });
 
-        // Determine where to place the add button
         const lastRow = row3 || (allInputs.length > 3 ? row2 : row1);
         const inputsInLastRow = lastRow.querySelectorAll('.input-group').length;
-
-        // Only add the add button if there's room (less than 3 inputs)
         if (inputsInLastRow < 3) {
             lastRow.appendChild(addField);
         } else {
-            // Create a new row for the add button
             const newRow = document.createElement('div');
             newRow.className = 'input-row';
-            newRow.id = 'input-row-' + (row3 ? '4' : (row2.children.length > 0 ? '3' : '2'));
+            newRow.id = `input-row-${row3 ? '4' : (row2.children.length > 0 ? '3' : '2')}`;
             newRow.appendChild(addField);
             lastRow.parentNode.insertBefore(newRow, lastRow.nextSibling);
         }
     }
 };
 
-/**
- * Handles form validation
- */
+// Form Validator
 const FormValidator = {
-    init: function() {
-        this.setupFieldValidation();
-    },
-
-    setupFieldValidation: function() {
-        const inputs = document.querySelectorAll('input[required]');
-        inputs.forEach(input => {
-            input.addEventListener('blur', function() {
-                FormValidator.validateField(this);
-            });
+    init() {
+        document.querySelectorAll('input[required]').forEach(input => {
+            input.addEventListener('blur', () => this.validateField(input));
         });
     },
 
-    validateField: function(field) {
-        // Find the error element associated with this field
-        const errorId = field.id + "-error";
-        const errorElement = document.getElementById(errorId);
-
-        if (!errorElement) return; // Skip if no error element exists
+    validateField(field) {
+        const errorElement = document.getElementById(`${field.id}-error`);
+        if (!errorElement) return;
 
         const inputGroup = field.closest('.input-group');
-
-        // Reset previous error styling
         inputGroup.style.borderColor = '';
 
-        // Check for errors
         if (!field.value.trim()) {
             errorElement.textContent = `Please enter a valid ${field.placeholder.toLowerCase()}`;
             errorElement.style.display = 'block';
@@ -1044,75 +2033,56 @@ const FormValidator = {
             errorElement.style.display = 'block';
             inputGroup.style.borderColor = 'red';
         } else {
-            // Clear error message
             errorElement.textContent = '';
             errorElement.style.display = 'none';
         }
     },
 
-    isValidEmail: function(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
+    isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     },
 
-    isValidPhone: function(phone) {
-        const phoneRegex = /^\d{10}$/;
-        return phoneRegex.test(phone);
+    isValidPhone(phone) {
+        return /^\d{10}$/.test(phone);
     }
 };
 
-/**
- * City autocomplete functionality
- */
+// City Autocomplete
 const CityAutocomplete = {
     cities: ['Mumbai', 'Delhi', 'Bangalore', 'Chennai', 'Kolkata', 'Hyderabad', 'Pune', 'Ahmedabad'],
-    
-    init: function() {
+
+    init() {
         const cityInput = document.getElementById('city-input');
         const suggestionsContainer = document.getElementById('suggestions');
-        
-        if (!cityInput || !suggestionsContainer) return;
-        
-        this.setupCityAutocomplete(cityInput, suggestionsContainer);
+        if (cityInput && suggestionsContainer) {
+            this.setupAutocomplete(cityInput, suggestionsContainer);
+        }
     },
-    
-    setupCityAutocomplete: function(cityInput, suggestionsContainer) {
+
+    setupAutocomplete(cityInput, suggestionsContainer) {
         cityInput.addEventListener('input', function() {
             const inputValue = this.value.toLowerCase();
-
-            // Clear previous suggestions
             suggestionsContainer.innerHTML = '';
 
             if (inputValue.length > 0) {
-                // Filter cities that match input
-                const matchedCities = CityAutocomplete.cities.filter(city =>
+                const matchedCities = CityAutocomplete.cities.filter(city => 
                     city.toLowerCase().startsWith(inputValue)
                 );
 
                 if (matchedCities.length > 0) {
                     suggestionsContainer.style.display = 'block';
-
-                    // Create suggestion elements
                     matchedCities.forEach(city => {
                         const div = document.createElement('div');
                         div.textContent = city;
                         div.style.padding = '8px 10px';
                         div.style.cursor = 'pointer';
-
-                        div.addEventListener('click', function() {
+                        div.addEventListener('click', () => {
                             cityInput.value = city;
                             suggestionsContainer.style.display = 'none';
                             FormValidator.validateField(cityInput);
                         });
-
-                        div.addEventListener('mouseover', function() {
-                            this.style.backgroundColor = '#f0f0f0';
-                        });
-
-                        div.addEventListener('mouseout', function() {
-                            this.style.backgroundColor = 'transparent';
-                        });
-
+                        div.addEventListener('mouseover', () => div.style.backgroundColor = '#f0f0f0');
+                        div.addEventListener('mouseout', () => div.style.backgroundColor = 'transparent');
                         suggestionsContainer.appendChild(div);
                     });
                 } else {
@@ -1123,8 +2093,7 @@ const CityAutocomplete = {
             }
         });
 
-        // Hide suggestions when clicking outside
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', e => {
             if (e.target !== cityInput && e.target !== suggestionsContainer) {
                 suggestionsContainer.style.display = 'none';
             }
@@ -1132,923 +2101,698 @@ const CityAutocomplete = {
     }
 };
 
-/**
- * Social options manager
- */
+// Social Options Manager
 const SocialOptionsManager = {
-    init: function() {
-        this.setupSocialButtons();
-    },
-    
-    setupSocialButtons: function() {
-        // Setup existing remove buttons
-        document.querySelectorAll('.social-remove').forEach(function(removeButton) {
-            removeButton.addEventListener('click', function() {
-                this.parentElement.remove();
-            });
+    init() {
+        document.querySelectorAll('.social-remove').forEach(btn => {
+            btn.addEventListener('click', () => btn.parentElement.remove());
         });
-        
-        // Setup add button
+
         const addSocialButton = document.querySelector('.add-social');
         if (addSocialButton) {
-            addSocialButton.addEventListener('click', function() {
-                // Prompt user for input
-                const userInput = prompt("Enter dropdown option", "");
-
-                // Only proceed if the user entered something
-                if (userInput && userInput.trim() !== "") {
-                    // Create new option
+            addSocialButton.addEventListener('click', () => {
+                const userInput = prompt("Enter dropdown option", "")?.trim();
+                if (userInput) {
                     const newOption = document.createElement('div');
                     newOption.className = 'social-option';
-
-                    // Create the name span with the user's input
-                    const nameSpan = document.createElement('span');
-                    nameSpan.className = 'social-name';
-                    nameSpan.textContent = userInput.trim();
-
-                    // Create the remove button
-                    const removeSpan = document.createElement('span');
-                    removeSpan.className = 'social-remove';
-                    removeSpan.textContent = '×';
-
-                    // Add event listener to the remove button
-                    removeSpan.addEventListener('click', function() {
-                        newOption.remove();
-                    });
-
-                    // Append the spans to the new option
-                    newOption.appendChild(nameSpan);
-                    newOption.appendChild(removeSpan);
-
-                    // Get the parent container
-                    const optionsContainer = document.querySelector('.second-question-options');
-
-                    // Append the new option to the container
-                    if (optionsContainer) {
-                        optionsContainer.appendChild(newOption);
-                    }
+                    newOption.innerHTML = `
+                        <span class="social-name">${userInput}</span>
+                        <span class="social-remove">×</span>
+                    `;
+                    newOption.querySelector('.social-remove').addEventListener('click', () => newOption.remove());
+                    document.querySelector('.second-question-options')?.appendChild(newOption);
                 }
             });
         }
     }
 };
 
-/**
- * Course location manager
- */
+// Course Location Manager
 const CourseLocationManager = {
-    init: function() {
-        this.setupLocationControls();
-    },
-    
-    setupLocationControls: function() {
+    init() {
         const checkboxContainer = document.getElementById('selected-study-location');
         const addCheckboxContainer = document.querySelector('.add-checkbox-container');
-        
-        if (!checkboxContainer || !addCheckboxContainer) {
-            console.error('Course location containers not found');
-            return;
+        if (checkboxContainer && addCheckboxContainer) {
+            addCheckboxContainer.addEventListener('click', e => {
+                e.preventDefault();
+                this.addNewCheckbox(checkboxContainer, addCheckboxContainer);
+            });
         }
-        
-        addCheckboxContainer.addEventListener('click', function(event) {
-            event.preventDefault();
-            CourseLocationManager.addNewCheckbox(checkboxContainer, addCheckboxContainer);
-        });
-        
-        // Setup toggle for course options section
+
         const questionRow = document.querySelector('.admin-student-question-row-course');
         const optionsSection = document.querySelector('.admin-student-options-section-course');
-
         if (questionRow && optionsSection) {
-            // Hide the options section by default
             optionsSection.style.display = 'none';
-            
-            questionRow.addEventListener('click', function() {
-                // Toggle the visibility of the options section
-                optionsSection.style.display = optionsSection.style.display === 'none' ? 'block' : 'none';
+            questionRow.addEventListener('click', () => {
+                toggleVisibility(optionsSection, optionsSection.style.display === 'block');
             });
         }
     },
-    
-    addNewCheckbox: function(checkboxContainer, addCheckboxContainer) {
-        // Prompt user for input
-        const newCountry = prompt("Enter country name", "");
-        
-        // Only proceed if the user entered something
-        if (newCountry && newCountry.trim() !== "") {
-            // Check if country already exists
+
+    addNewCheckbox(checkboxContainer, addCheckboxContainer) {
+        const newCountry = prompt("Enter country name", "")?.trim();
+        if (newCountry) {
             const existingCountries = Array.from(checkboxContainer.querySelectorAll('input[type="checkbox"]'))
-                .map(checkbox => checkbox.value.toLowerCase());
-            
+                .map(cb => cb.value.toLowerCase());
             if (existingCountries.includes(newCountry.toLowerCase())) {
                 alert('This country is already in the list');
                 return;
             }
-            
-            // Create new checkbox element
+
             const newLabel = document.createElement('label');
-            const newCheckbox = document.createElement('input');
-            
-            // Configure checkbox
-            newCheckbox.type = 'checkbox';
-            newCheckbox.name = 'study-location';
-            newCheckbox.value = newCountry;
-            newCheckbox.checked = true;
-            
-            // Create label with checkbox and text
-            newLabel.appendChild(newCheckbox);
-            newLabel.appendChild(document.createTextNode(' ' + newCountry));
-            
-            // Insert new checkbox before the add container
+            newLabel.innerHTML = `<input type="checkbox" name="study-location" value="${newCountry}" checked> ${newCountry}`;
             checkboxContainer.insertBefore(newLabel, addCheckboxContainer);
         }
     }
 };
 
-/**
- * Course options manager
- */
+// Course Options Manager
 const CourseOptionsManager = {
-    init: function() {
-        this.setupDegreeOptions();
-    },
-    
-    setupDegreeOptions: function() {
+    init() {
         const optionsContainer = document.getElementById('option-section-degree-container');
         const dropdownTrigger = document.getElementById('admin-student-course-second');
-        
-        if (!optionsContainer || !dropdownTrigger) {
-            console.error('Degree options elements not found');
-            return;
-        }
-        
-        // Hide options container by default
+        if (!optionsContainer || !dropdownTrigger) return;
+
         optionsContainer.style.display = 'none';
-        
-        // Toggle visibility on click
-        dropdownTrigger.addEventListener('click', function(e) {
+        dropdownTrigger.addEventListener('click', e => {
             e.stopPropagation();
-            optionsContainer.style.display = optionsContainer.style.display === 'none' ? 'block' : 'none';
+            toggleVisibility(optionsContainer, optionsContainer.style.display === 'block');
         });
-        
-        // Handle add new option
+
         const addSection = document.getElementById('addSection');
         const optionsGrid = document.getElementById('optionsContainer');
-        
         if (addSection && optionsGrid) {
-            addSection.onclick = function(e) {
+            addSection.addEventListener('click', e => {
                 e.stopPropagation();
-                const newOptionName = prompt('Enter new option:');
-                if (newOptionName && newOptionName.trim() !== '') {
-                    // Remove the add section
+                const newOptionName = prompt('Enter new option:')?.trim();
+                if (newOptionName) {
                     optionsGrid.removeChild(addSection);
-                    
-                    // Create the new option item
                     const newOptionItem = document.createElement('div');
                     newOptionItem.className = 'option-item';
                     newOptionItem.innerHTML = `
                         <input type="checkbox" class="option-checkbox">
-                        <div class="option-name">${newOptionName.trim()}</div>
+                        <div class="option-name">${newOptionName}</div>
                     `;
-                    
-                    // Add the new option to the grid
                     optionsGrid.appendChild(newOptionItem);
-                    
-                    // Add back the add section
                     optionsGrid.appendChild(addSection);
                 }
-            };
+            });
         }
     }
 };
 
-/**
- * Course duration manager
- */
+// Course Duration Manager
 const CourseDurationManager = {
-    init: function() {
-        this.setupCourseDuration();
-    },
-    
-    setupCourseDuration: function() {
+    init() {
         const rowElement = document.getElementById('course-row-month-id');
         const dropdownElement = document.getElementById('course-dropdown-month-id');
         const optionsSection = document.getElementById('course-duration-section-month');
-        
-        if (!rowElement || !dropdownElement || !optionsSection) {
-            console.error('Course duration elements not found');
-            return;
-        }
-        
-        // Hide options by default
+        if (!rowElement || !dropdownElement || !optionsSection) return;
+
         optionsSection.style.display = 'none';
-        
-        // Setup click handlers
-        rowElement.addEventListener('click', function() {
-            CourseDurationManager.toggleOptionsDisplay(optionsSection);
+        const toggleOptions = () => {
+            const isHidden = optionsSection.style.display === 'none';
+            toggleVisibility(optionsSection, !isHidden, document.querySelector('.admin-student-dropdown-icon'));
+            document.querySelector('.admin-student-form-question-month').classList.toggle('active', isHidden);
+        };
+
+        rowElement.addEventListener('click', toggleOptions);
+        dropdownElement.addEventListener('click', e => {
+            e.stopPropagation();
+            toggleOptions();
         });
-        
-        dropdownElement.addEventListener('click', function(event) {
-            event.stopPropagation();
-            CourseDurationManager.toggleOptionsDisplay(optionsSection);
-        });
-        
-        // Setup existing remove buttons
-        document.querySelectorAll('.course-remove').forEach(function(removeButton) {
-            removeButton.addEventListener('click', function(event) {
-                event.stopPropagation();
-                this.parentElement.remove();
+
+        document.querySelectorAll('.course-remove').forEach(btn => {
+            btn.addEventListener('click', e => {
+                e.stopPropagation();
+                btn.parentElement.remove();
             });
         });
-        
-        // Setup add button
-        const addButton = document.querySelector('.add-course');
-        if (addButton) {
-            addButton.addEventListener('click', function(event) {
-                event.stopPropagation();
-                CourseDurationManager.addNewDurationOption();
-            });
-        }
+
+        document.querySelector('.add-course')?.addEventListener('click', e => {
+            e.stopPropagation();
+            this.addNewDurationOption();
+        });
     },
-    
-    toggleOptionsDisplay: function(optionsSection) {
-        const isCurrentlyHidden = optionsSection.style.display === 'none' || !optionsSection.style.display;
-        const dropdownIcon = document.querySelector('.admin-student-dropdown-icon');
 
-        optionsSection.style.display = isCurrentlyHidden ? 'block' : 'none';
-
-        if (dropdownIcon) {
-            dropdownIcon.classList.toggle('rotated', isCurrentlyHidden);
-        }
-
-        document.querySelector('.admin-student-form-question-month').classList.toggle('active', isCurrentlyHidden);
-    },
-    
-    addNewDurationOption: function() {
-        const userInput = prompt("Enter course duration option", "");
-
-        if (userInput && userInput.trim() !== "") {
+    addNewDurationOption() {
+        const userInput = prompt("Enter course duration option", "")?.trim();
+        if (userInput) {
             const newOption = document.createElement('div');
             newOption.className = 'course-option';
-
-            const nameSpan = document.createElement('span');
-            nameSpan.className = 'course-name';
-            nameSpan.textContent = userInput.trim();
-
-            const removeSpan = document.createElement('span');
-            removeSpan.className = 'course-remove';
-            removeSpan.textContent = '×';
-
-            removeSpan.addEventListener('click', function(event) {
-                event.stopPropagation();
+            newOption.innerHTML = `
+                <span class="course-name">${userInput}</span>
+                <span class="course-remove">×</span>
+            `;
+            newOption.querySelector('.course-remove').addEventListener('click', e => {
+                e.stopPropagation();
                 newOption.remove();
             });
-
-            newOption.appendChild(nameSpan);
-            newOption.appendChild(removeSpan);
-
-            const optionsContainer = document.querySelector('.course-options');
-            if (optionsContainer) {
-                optionsContainer.appendChild(newOption);
-            }
+            document.querySelector('.course-options')?.appendChild(newOption);
         }
     }
 };
 
-/**
- * Course details manager
- */
+// Course Details Manager
 const CourseDetailsManager = {
-    init: function() {
-        this.setupCourseDetails();
-    },
-    
-    setupCourseDetails: function() {
-        const courseDetailsContainer = document.getElementById('course-details-container');
-        if (!courseDetailsContainer) {
-            console.error('Course details container not found');
-            return;
-        }
-        
-        const courseDetailsRow = courseDetailsContainer.querySelector('#course-details-row');
-        const dropdownIcon = courseDetailsContainer.querySelector('.admin-student-dropdown-icon');
-        const optionsSection = courseDetailsContainer.querySelector('#course-details-options');
-        
-        if (!courseDetailsRow || !dropdownIcon || !optionsSection) {
-            console.error('Course details elements not found');
-            return;
-        }
-        
-        // Hide options by default
+    init() {
+        const container = document.getElementById('course-details-container');
+        if (!container) return;
+
+        const row = container.querySelector('#course-details-row');
+        const dropdownIcon = container.querySelector('.admin-student-dropdown-icon');
+        const optionsSection = container.querySelector('#course-details-options');
+        if (!row || !dropdownIcon || !optionsSection) return;
+
         optionsSection.style.display = 'none';
-        
-        // Toggle on row click
-        courseDetailsRow.addEventListener('click', function() {
+        row.addEventListener('click', () => {
             const isVisible = optionsSection.style.display !== 'none';
-
-            // Toggle visibility
-            optionsSection.style.display = isVisible ? 'none' : 'block';
-
-            // Toggle active class on container
-            courseDetailsContainer.classList.toggle('active', !isVisible);
-
-            // Rotate the dropdown icon
-            dropdownIcon.classList.toggle('rotated', !isVisible);
+            toggleVisibility(optionsSection, isVisible, dropdownIcon);
+            container.classList.toggle('active', !isVisible);
         });
-        
-        // Add option button
-        const addOptionBtn = courseDetailsContainer.querySelector('#add-option-btn');
-        if (addOptionBtn) {
-            addOptionBtn.addEventListener('click', function(event) {
-                event.stopPropagation();
-                CourseDetailsManager.addNewCourseOption(courseDetailsContainer);
-            });
-        }
-        
-        // Prevent clicks on checkboxes from toggling the dropdown
-        const checkboxContainer = courseDetailsContainer.querySelector('.checkbox-options-container');
-        if (checkboxContainer) {
-            checkboxContainer.addEventListener('click', function(event) {
-                event.stopPropagation();
-            });
-        }
-    },
-    
-    addNewCourseOption: function(courseDetailsContainer) {
-        const userInput = prompt("Enter new option", "");
 
-        if (userInput && userInput.trim() !== "") {
-            const optionsContainer = courseDetailsContainer.querySelector('.checkbox-options-container');
+        const addOptionBtn = container.querySelector('#add-option-btn');
+        if (addOptionBtn) {
+            addOptionBtn.addEventListener('click', e => {
+                e.stopPropagation();
+                this.addNewCourseOption(container);
+            });
+        }
+
+        container.querySelector('.checkbox-options-container')?.addEventListener('click', e => e.stopPropagation());
+    },
+
+    addNewCourseOption(container) {
+        const userInput = prompt("Enter new option", "")?.trim();
+        if (userInput) {
+            const optionsContainer = container.querySelector('.checkbox-options-container');
             if (!optionsContainer) return;
 
             const newOption = document.createElement('div');
             newOption.className = 'checkbox-option';
-
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.id = 'option-' + Date.now();
-            checkbox.name = 'course-options';
-
-            const label = document.createElement('label');
-            label.htmlFor = checkbox.id;
-            label.textContent = userInput.trim();
-
-            newOption.appendChild(checkbox);
-            newOption.appendChild(label);
+            const checkboxId = `option-${Date.now()}`;
+            newOption.innerHTML = `
+                <input type="checkbox" id="${checkboxId}" name="course-options">
+                <label for="${checkboxId}">${userInput}</label>
+            `;
             optionsContainer.appendChild(newOption);
         }
     }
 };
 
-//academic details
-  
-       const academicDetailsSection = document.getElementById(
-        "academic-details-section"
-      );
-      const academicDetailsContent = document.getElementById(
-        "academic-details-content"
-      );
-      const arrowIcon = document.querySelector(
-        ".admin-student-arrow-icon-academic"
-      );
-
-      academicDetailsSection.addEventListener("click", function () {
-        academicDetailsContent.classList.toggle("expanded");
-        arrowIcon.classList.toggle("rotated");
-      });
-
-      const educationContainer = document.getElementById("education-container");
-      const educationHeaderRow = document.getElementById(
-        "education-header-row"
-      );
-      const educationDropdownIcon = educationContainer.querySelector(
-        ".admin-student-dropdown-icon"
-      );
-      const educationSection = document.getElementById("education-section");
-
-      educationHeaderRow.addEventListener("click", function (event) {
-        event.stopPropagation();
-
-        const isVisible = educationSection.style.display === "block";
-        educationSection.style.display = isVisible ? "none" : "block";
-        educationContainer.classList.toggle("active", !isVisible);
-
-        educationDropdownIcon.classList.toggle("rotated", !isVisible);
-      });
-
-      // Initialize field counter
-      let fieldCount = 2;
-      let rowCount = 1;
-
-      // Function to create remove button functionality
-      function setupRemoveButtons() {
-        const removeButtons = document.querySelectorAll(".remove-field-btn");
-        removeButtons.forEach((button) => {
-          button.addEventListener("click", function (event) {
-            event.stopPropagation();
-            const fieldElement = this.parentNode;
-            const rowElement = fieldElement.parentNode;
-
-            // Remove the field
-            fieldElement.remove();
-
-            // If row is empty, remove the row
-            if (rowElement.children.length === 0) {
-              rowElement.remove();
-            }
-
-            // Decrement field count
-            fieldCount--;
-          });
-        });
-      }
-
-      // Setup initial remove buttons
-      setupRemoveButtons();
-
-      const addEducationFieldBtn = document.getElementById(
-        "add-education-field-btn"
-      );
-
-      const educationFields = document.querySelectorAll(".education-field");
-      educationFields.forEach((field) => {
-        field.addEventListener("click", function (event) {
-          event.stopPropagation();
-        });
-      });
-
-      addEducationFieldBtn.addEventListener("click", function (event) {
-        event.stopPropagation();
-        const fieldName = prompt(
-          "Enter new field name (e.g., Graduation Year):",
-          ""
-        );
-
-        if (fieldName && fieldName.trim() !== "") {
-          // Create new field with input and remove button
-          const newField = document.createElement("div");
-          newField.className = "education-field";
-
-          const newInput = document.createElement("input");
-          newInput.type = "text";
-          newInput.placeholder = fieldName.trim();
-          newInput.name = fieldName.toLowerCase().replace(/\s+/g, "-");
-
-          const removeBtn = document.createElement("button");
-          removeBtn.type = "button";
-          removeBtn.className = "remove-field-btn";
-          removeBtn.textContent = "✕";
-          removeBtn.addEventListener("click", function (event) {
-            event.stopPropagation();
-            newField.remove();
-            fieldCount--;
-
-            // If row becomes empty, remove it
-            const parentRow = this.parentNode.parentNode;
-            if (parentRow.children.length === 0) {
-              parentRow.remove();
-            }
-          });
-
-          newField.appendChild(newInput);
-          newField.appendChild(removeBtn);
-
-          // Ensure maximum 2 fields per row
-          let currentRow;
-
-          // Check if we need a new row
-          if (fieldCount % 2 === 0) {
-            // Create new row
-            rowCount++;
-            currentRow = document.createElement("div");
-            currentRow.className = "education-row";
-            currentRow.id = "education-row-" + rowCount;
-            educationSection.insertBefore(currentRow, addEducationFieldBtn);
-          } else {
-            // Use last row
-            currentRow = document.getElementById("education-row-" + rowCount);
-
-            // If somehow the row doesn't exist, create it
-            if (!currentRow) {
-              currentRow = document.createElement("div");
-              currentRow.className = "education-row";
-              currentRow.id = "education-row-" + rowCount;
-              educationSection.insertBefore(currentRow, addEducationFieldBtn);
-            }
-          }
-
-          // Add field to row
-          currentRow.appendChild(newField);
-          fieldCount++;
-        }
-      });
-
-      const academicGapContainer = document.getElementById(
-        "academic-gap-container"
-      );
-      const academicGapRow =
-        academicGapContainer.querySelector("#academic-gap-row");
-      const dropdownIcon = academicGapContainer.querySelector(
-        ".admin-student-dropdown-icon"
-      );
-      const optionsSection = academicGapContainer.querySelector(
-        "#academic-gap-options"
-      );
-
-      academicGapRow.addEventListener("click", function (event) {
-        event.stopPropagation();
-
-        const isVisible = optionsSection.style.display === "block";
-        optionsSection.style.display = isVisible ? "none" : "block";
-        academicGapContainer.classList.toggle("active", !isVisible);
-        dropdownIcon.classList.toggle("rotated", !isVisible);
-      });
-
-      const academicOptions =
-        academicGapContainer.querySelector(".academic-options");
-      academicOptions.addEventListener("click", function (event) {
-        event.stopPropagation();
-      });
-
-      const addBtn = academicGapContainer.querySelector(
-        "#add-academic-option-btn"
-      );
-      addBtn.addEventListener("click", function (event) {
-        event.stopPropagation();
-        const userInput = prompt("Enter new option", "");
-
-        if (userInput && userInput.trim() !== "") {
-          const optionsContainer =
-            academicGapContainer.querySelector(".academic-options");
-
-          const newOption = document.createElement("div");
-          newOption.className = "academic-option";
-
-          const radio = document.createElement("input");
-          radio.type = "radio";
-          radio.id = "academic-option-" + Date.now();
-          radio.name = "academics-gap";
-          radio.value = userInput.toLowerCase().replace(/\s+/g, "-");
-
-          const label = document.createElement("label");
-          label.htmlFor = radio.id;
-          label.textContent = userInput.trim();
-
-          newOption.appendChild(radio);
-          newOption.appendChild(label);
-          optionsContainer.appendChild(newOption);
-        }
-      });
-
-      const academicYesRadio = document.getElementById("academic-yes");
-      const academicNoRadio = document.getElementById("academic-no");
-
-      academicYesRadio.addEventListener("change", function () {
-        let reasonSection =
-          academicGapContainer.querySelector(".academic-reason");
-
-        if (!reasonSection) {
-          reasonSection = document.createElement("div");
-          reasonSection.className = "academic-reason";
-
-          const reasonLabel = document.createElement("label");
-          reasonLabel.textContent = "Please state the reason for the gap:";
-
-          const reasonTextarea = document.createElement("textarea");
-          reasonTextarea.placeholder = "Enter your reason here...";
-
-          reasonSection.appendChild(reasonLabel);
-          reasonSection.appendChild(reasonTextarea);
-
-          // Insert after the academic-options-container
-          const optionsContainer = academicGapContainer.querySelector(
-            ".academic-options-container"
-          );
-          optionsContainer.parentNode.insertBefore(
-            reasonSection,
-            optionsContainer.nextSibling
-          );
-        }
-
-        setTimeout(() => {
-          reasonSection.classList.add("visible");
-        }, 10);
-      });
-
-      academicNoRadio.addEventListener("change", function () {
-        const reasonSection =
-          academicGapContainer.querySelector(".academic-reason");
-        if (reasonSection) {
-          reasonSection.classList.remove("visible");
-        }
-      });
-
-     //co borrower section
-      function setupDropdown(containerId, rowId, optionsId) {
-        const container = document.getElementById(containerId);
-        const row = document.getElementById(rowId);
-        const options = document.getElementById(optionsId);
-        const dropdownIcon = row.querySelector(".admin-student-dropdown-icon");
-
-        row.addEventListener("click", function () {
-          const isVisible = options.style.display !== "none";
-
-          // Toggle visibility
-          options.style.display = isVisible ? "none" : "block";
-
-          // Toggle active class on container
-          container.classList.toggle("active", !isVisible);
-
-          // Rotate the dropdown icon
-          dropdownIcon.classList.toggle("rotated", !isVisible);
-        });
-      }
-
-      // Set up dropdowns for all containers
-      setupDropdown(
-        "co-borrower-container",
-        "co-borrower-row",
-        "co-borrower-options"
-      );
-      setupDropdown("income-container", "income-row", "income-options");
-      setupDropdown(
-        "liability-container",
-        "liability-row",
-        "liability-options"
-      );
-
-      // First container - add option button
-      const addOptionBtn = document.getElementById("add-option-btn");
-      addOptionBtn.addEventListener("click", function (event) {
-        event.stopPropagation();
-
-        const userInput = prompt("Enter new option", "");
-
-        if (userInput && userInput.trim() !== "") {
-          const optionsContainer = document.querySelector(
-            ".checkbox-options-container"
-          );
-
-          // Create checkbox option
-          const newOption = document.createElement("div");
-          newOption.className = "checkbox-option";
-
-          const checkbox = document.createElement("input");
-          checkbox.type = "checkbox";
-          checkbox.id =
-            "co-borrower-" +
-            userInput.trim().toLowerCase().replace(/\s+/g, "-");
-          checkbox.name = "co-borrower-options";
-
-          const label = document.createElement("label");
-          label.htmlFor = checkbox.id;
-          label.textContent = userInput.trim();
-
-          newOption.appendChild(checkbox);
-          newOption.appendChild(label);
-
-          // Insert the new option before the add button
-          optionsContainer.insertBefore(newOption, addOptionBtn);
-
-          // Make the new checkbox work as radio button
-          checkbox.addEventListener("change", function () {
-            if (this.checked) {
-              document
-                .querySelectorAll('input[name="co-borrower-options"]')
-                .forEach((cb) => {
-                  if (cb !== this) cb.checked = false;
-                });
-            }
-          });
-        }
-      });
-
-      // Function to create delete button functionality
-      function setupDeleteButton(deleteButton) {
-        deleteButton.addEventListener("click", function (event) {
-          event.stopPropagation();
-          // Get the parent container of the button
-          const fieldContainer =
-            this.closest(".field-container") ||
-            this.closest(".liability-input-container");
-          // Remove the field container from the DOM
-          fieldContainer.remove();
-        });
-      }
-
-      // Setup delete buttons for existing fields
-      document.querySelectorAll(".delete-field").forEach((button) => {
-        setupDeleteButton(button);
-      });
-
-      // Second container - add income field button
-      const addIncomeFieldBtn = document.getElementById("add-income-field-btn");
-      addIncomeFieldBtn.addEventListener("click", function (event) {
-        event.stopPropagation();
-
-        // Get user input through prompt
-        const userInput = prompt("Enter field name", "");
-
-        if (userInput && userInput.trim() !== "") {
-          // Get the container for fields
-          const fieldsRowContainer = document.querySelector(
-            ".fields-row-container"
-          );
-
-          // Create a new field container
-          const fieldContainer = document.createElement("div");
-          fieldContainer.className = "field-container";
-
-          // Create new income input field
-          const newIncomeField = document.createElement("input");
-          newIncomeField.type = "text";
-          newIncomeField.className = "text-input";
-          newIncomeField.value = userInput.trim(); // Set the value to what the user entered
-
-          // Create delete button
-          const deleteButton = document.createElement("button");
-          deleteButton.className = "delete-field";
-          deleteButton.textContent = "✕";
-
-          // Append elements to field container
-          fieldContainer.appendChild(newIncomeField);
-          fieldContainer.appendChild(deleteButton);
-
-          // Insert the new field before the add button
-          fieldsRowContainer.insertBefore(fieldContainer, addIncomeFieldBtn);
-
-          // Set up delete button functionality
-          setupDeleteButton(deleteButton);
-
-          // Add validation event listener
-          newIncomeField.addEventListener("input", validateNumericField);
-        }
-      });
-
-      // Third container - Radio button functionality and add button
-      // Handle Yes/No radio button functionality
-      document
-        .querySelectorAll('input[name="co-borrower-liability"]')
-        .forEach((radio) => {
-          radio.addEventListener("change", function () {
-            const emiInput = document.getElementById("emi-amount");
-            const additionalFields = document.getElementById(
-              "additional-liability-fields"
-            );
-            const addLiabilityBtn =
-              document.getElementById("add-liability-btn");
-
-            if (this.id === "yes-liability" && this.checked) {
-              // Enable input field and show add button when Yes is selected
-              emiInput.disabled = false;
-              additionalFields.style.display = "flex";
-              addLiabilityBtn.style.display = "flex";
-            } else if (this.id === "no-liability" && this.checked) {
-              // Disable input field and hide add button when No is selected
-              emiInput.disabled = true;
-              emiInput.value = "";
-              additionalFields.style.display = "none";
-              addLiabilityBtn.style.display = "none";
-
-              // Clear all additional liability fields
-              while (additionalFields.firstChild) {
-                additionalFields.removeChild(additionalFields.firstChild);
-              }
-            }
-          });
+// Academic Details Manager
+const AcademicDetailsManager = {
+    fieldCount: 2,
+    rowCount: 1,
+
+    init() {
+        const section = document.getElementById('academic-details-section');
+        const content = document.getElementById('academic-details-content');
+        const arrow = document.querySelector('.admin-student-arrow-icon-academic');
+        section.addEventListener('click', () => {
+            content.classList.toggle('expanded');
+            arrow.classList.toggle('rotated');
         });
 
-      // Third container - add liability field button
-      const addLiabilityBtn = document.getElementById("add-liability-btn");
-      addLiabilityBtn.addEventListener("click", function (event) {
-        event.stopPropagation();
+        this.setupEducationSection();
+        this.setupAcademicGapSection();
+    },
 
-        // Get user input through prompt
-        const userInput = prompt("Enter field name for liability", "");
-
-        if (userInput && userInput.trim() !== "") {
-          // Get the container for additional liability fields
-          const additionalFieldsContainer = document.getElementById(
-            "additional-liability-fields"
-          );
-
-          const fieldContainer = document.createElement("div");
-          fieldContainer.className = "liability-input-container";
-
-       
-          const newField = document.createElement("input");
-          newField.type = "text";
-          newField.className = "liability-input";
-          newField.placeholder = userInput.trim();
-
-         
-          const deleteButton = document.createElement("button");
-          deleteButton.className = "delete-liability-field";
-          deleteButton.textContent = "✕";
-          deleteButton.setAttribute("aria-label", "Delete field");
-
-    
-          deleteButton.addEventListener("click", function (e) {
+    setupEducationSection() {
+        const container = document.getElementById('education-container');
+        const headerRow = document.getElementById('education-header-row');
+        const dropdownIcon = container.querySelector('.admin-student-dropdown-icon');
+        const section = document.getElementById('education-section');
+        headerRow.addEventListener('click', e => {
             e.stopPropagation();
-            fieldContainer.remove();
-          });
-
-          // Add validation to the new field
-          newField.addEventListener("input", function () {
-            const value = this.value.replace(/[^0-9]/g, "");
-            if (value === "" || isNaN(value)) {
-              this.style.borderColor = "red";
-            } else {
-              this.style.borderColor = "#ccc";
-            }
-          });
-
-       
-          fieldContainer.appendChild(newField);
-          fieldContainer.appendChild(deleteButton);
-          additionalFieldsContainer.appendChild(fieldContainer);
-        }
-      });
-
-      function validateNumericField() {
-        const value = this.value.replace(/[^0-9]/g, "");
-        // Find the closest error message
-        const errorMessage =
-          this.closest(".field-container")?.querySelector(".error-message") ||
-          document.getElementById("emi-error-message");
-
-        if (errorMessage) {
-          if (value === "" || isNaN(value)) {
-            errorMessage.style.display = "block";
-            this.style.borderColor = "red";
-          } else {
-            errorMessage.style.display = "none";
-            this.style.borderColor = "#ccc";
-          }
-        }
-      }
-
-
-      document.querySelectorAll(".text-input").forEach((input) => {
-        input.addEventListener("input", validateNumericField);
-      });
-
-  
-      const emiAmount = document.getElementById("emi-amount");
-      emiAmount.addEventListener("input", validateNumericField);
-
-      // Prevent field clicks from toggling the dropdown
-      document.querySelectorAll(".options-section").forEach((section) => {
-        section.addEventListener("click", function (event) {
-          event.stopPropagation();
+            const isVisible = section.style.display === 'block';
+            toggleVisibility(section, isVisible, dropdownIcon);
+            container.classList.toggle('active', !isVisible);
         });
-      });
 
-      // Make checkboxes in first container work as radio buttons
-      document
-        .querySelectorAll('input[name="co-borrower-options"]')
-        .forEach((checkbox) => {
-          checkbox.addEventListener("change", function () {
-            if (this.checked) {
-              document
-                .querySelectorAll('input[name="co-borrower-options"]')
-                .forEach((cb) => {
-                  if (cb !== this) cb.checked = false;
+        document.querySelectorAll('.education-field').forEach(field => {
+            field.addEventListener('click', e => e.stopPropagation());
+        });
+
+        document.getElementById('add-education-field-btn').addEventListener('click', e => {
+            e.stopPropagation();
+            this.addEducationField();
+        });
+
+        this.setupRemoveButtons();
+    },
+
+    setupRemoveButtons() {
+        document.querySelectorAll('.remove-field-btn').forEach(btn => {
+            btn.addEventListener('click', e => {
+                e.stopPropagation();
+                const field = btn.parentNode;
+                const row = field.parentNode;
+                field.remove();
+                if (row.children.length === 0) row.remove();
+                this.fieldCount--;
+            });
+        });
+    },
+
+    addEducationField() {
+        const fieldName = prompt("Enter new field name (e.g., Graduation Year):", "")?.trim();
+        if (fieldName) {
+            const newField = document.createElement('div');
+            newField.className = 'education-field';
+            newField.innerHTML = `
+                <input type="text" placeholder="${fieldName}" name="${fieldName.toLowerCase().replace(/\s+/g, '-')}" />
+                <button type="button" class="remove-field-btn">✕</button>
+            `;
+            newField.querySelector('.remove-field-btn').addEventListener('click', e => {
+                e.stopPropagation();
+                newField.remove();
+                this.fieldCount--;
+                const parentRow = newField.parentNode;
+                if (parentRow.children.length === 0) parentRow.remove();
+            });
+
+            let currentRow;
+            if (this.fieldCount % 2 === 0) {
+                this.rowCount++;
+                currentRow = document.createElement('div');
+                currentRow.className = 'education-row';
+                currentRow.id = `education-row-${this.rowCount}`;
+                document.getElementById('education-section').insertBefore(currentRow, document.getElementById('add-education-field-btn'));
+            } else {
+                currentRow = document.getElementById(`education-row-${this.rowCount}`) || document.createElement('div');
+                if (!currentRow.id) {
+                    currentRow.className = 'education-row';
+                    currentRow.id = `education-row-${this.rowCount}`;
+                    document.getElementById('education-section').insertBefore(currentRow, document.getElementById('add-education-field-btn'));
+                }
+            }
+
+            currentRow.appendChild(newField);
+            this.fieldCount++;
+        }
+    },
+
+    setupAcademicGapSection() {
+        const container = document.getElementById('academic-gap-container');
+        const row = container.querySelector('#academic-gap-row');
+        const dropdownIcon = container.querySelector('.admin-student-dropdown-icon');
+        const optionsSection = container.querySelector('#academic-gap-options');
+        row.addEventListener('click', e => {
+            e.stopPropagation();
+            const isVisible = optionsSection.style.display === 'block';
+            toggleVisibility(optionsSection, isVisible, dropdownIcon);
+            container.classList.toggle('active', !isVisible);
+        });
+
+        container.querySelector('.academic-options').addEventListener('click', e => e.stopPropagation());
+
+        container.querySelector('#add-academic-option-btn').addEventListener('click', e => {
+            e.stopPropagation();
+            const userInput = prompt("Enter new option", "")?.trim();
+            if (userInput) {
+                const optionsContainer = container.querySelector('.academic-options');
+                const newOption = document.createElement('div');
+                newOption.className = 'academic-option';
+                const radioId = `academic-option-${Date.now()}`;
+                newOption.innerHTML = `
+                    <input type="radio" id="${radioId}" name="academics-gap" value="${userInput.toLowerCase().replace(/\s+/g, '-')}" />
+                    <label for="${radioId}">${userInput}</label>
+                `;
+                optionsContainer.appendChild(newOption);
+            }
+        });
+
+        const yesRadio = document.getElementById('academic-yes');
+        const noRadio = document.getElementById('academic-no');
+        yesRadio.addEventListener('change', () => {
+            let reasonSection = container.querySelector('.academic-reason');
+            if (!reasonSection) {
+                reasonSection = document.createElement('div');
+                reasonSection.className = 'academic-reason';
+                reasonSection.innerHTML = `
+                    <label>Please state the reason for the gap:</label>
+                    <textarea placeholder="Enter your reason here..."></textarea>
+                `;
+                const optionsContainer = container.querySelector('.academic-options-container');
+                optionsContainer.parentNode.insertBefore(reasonSection, optionsContainer.nextSibling);
+            }
+            setTimeout(() => reasonSection.classList.add('visible'), 10);
+        });
+
+        noRadio.addEventListener('change', () => {
+            const reasonSection = container.querySelector('.academic-reason');
+            if (reasonSection) reasonSection.classList.remove('visible');
+        });
+    }
+};
+
+// Co-Borrower Manager
+const CoBorrowerManager = {
+    init() {
+        this.setupDropdowns([
+            { containerId: 'co-borrower-container', rowId: 'co-borrower-row', optionsId: 'co-borrower-options' },
+            { containerId: 'income-container', rowId: 'income-row', optionsId: 'income-options' },
+            { containerId: 'liability-container', rowId: 'liability-row', optionsId: 'liability-options' }
+        ]);
+
+        this.setupCoBorrowerOptions();
+        this.setupIncomeFields();
+        this.setupLiabilityFields();
+        this.setupCoBorrowerSectionToggle();
+        this.setupFieldValidation();
+    },
+
+    setupDropdowns(dropdowns) {
+        dropdowns.forEach(({ containerId, rowId, optionsId }) => {
+            const container = document.getElementById(containerId);
+            const row = document.getElementById(rowId);
+            const options = document.getElementById(optionsId);
+            const dropdownIcon = row.querySelector('.admin-student-dropdown-icon');
+            row.addEventListener('click', () => {
+                const isVisible = options.style.display !== 'none';
+                toggleVisibility(options, isVisible, dropdownIcon);
+                container.classList.toggle('active', !isVisible);
+            });
+        });
+    },
+
+    setupCoBorrowerOptions() {
+        const addOptionBtn = document.getElementById('add-option-btn');
+        addOptionBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            const userInput = prompt("Enter new option", "")?.trim();
+            if (userInput) {
+                const optionsContainer = document.querySelector('.checkbox-options-container');
+                const newOption = document.createElement('div');
+                newOption.className = 'checkbox-option';
+                const checkboxId = `co-borrower-${userInput.toLowerCase().replace(/\s+/g, '-')}`;
+                newOption.innerHTML = `
+                    <input type="checkbox" id="${checkboxId}" name="co-borrower-options" />
+                    <label for="${checkboxId}">${userInput}</label>
+                `;
+                optionsContainer.insertBefore(newOption, addOptionBtn);
+                newOption.querySelector('input').addEventListener('change', function() {
+                    if (this.checked) {
+                        document.querySelectorAll('input[name="co-borrower-options"]').forEach(cb => {
+                            if (cb !== this) cb.checked = false;
+                        });
+                    }
                 });
             }
-          });
         });
 
-      // Co-borrower info section toggle
-      const coborrowerHeader = document.querySelector(
-        ".admin-student-section-header-co-borrower"
-      );
-      const coborrowerArrow = document.querySelector(
-        ".admin-student-arrow-icon-co-borrower"
-      );
-      const formQuestions = document.querySelectorAll(
-        ".admin-student-form-question"
-      );
+        document.querySelectorAll('input[name="co-borrower-options"]').forEach(cb => {
+            cb.addEventListener('change', function() {
+                if (this.checked) {
+                    document.querySelectorAll('input[name="co-borrower-options"]').forEach(otherCb => {
+                        if (otherCb !== this) otherCb.checked = false;
+                    });
+                }
+            });
+        });
+    },
 
-      // Set initial state - containers are hidden by default
-      let containersVisible = false;
+    setupIncomeFields() {
+        document.querySelectorAll('.delete-field').forEach(btn => this.setupDeleteButton(btn));
+        const addIncomeFieldBtn = document.getElementById('add-income-field-btn');
+        addIncomeFieldBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            const userInput = prompt("Enter field name", "")?.trim();
+            if (userInput) {
+                const fieldsRowContainer = document.querySelector('.fields-row-container');
+                const fieldContainer = document.createElement('div');
+                fieldContainer.className = 'field-container';
+                fieldContainer.innerHTML = `
+                    <input type="text" class="text-input" value="${userInput}" />
+                    <button class="delete-field">✕</button>
+                `;
+                fieldsRowContainer.insertBefore(fieldContainer, addIncomeFieldBtn);
+                const deleteButton = fieldContainer.querySelector('.delete-field');
+                this.setupDeleteButton(deleteButton);
+                fieldContainer.querySelector('.text-input').addEventListener('input', this.validateNumericField);
+            }
+        });
+    },
 
-      coborrowerHeader.addEventListener("click", function () {
-        // Toggle visibility of the form questions
-        containersVisible = !containersVisible;
-
-        formQuestions.forEach((question) => {
-          question.style.display = containersVisible ? "block" : "none";
+    setupLiabilityFields() {
+        document.querySelectorAll('input[name="co-borrower-liability"]').forEach(radio => {
+            radio.addEventListener('change', () => {
+                const emiInput = document.getElementById('emi-amount');
+                const additionalFields = document.getElementById('additional-liability-fields');
+                const addLiabilityBtn = document.getElementById('add-liability-btn');
+                if (radio.id === 'yes-liability' && radio.checked) {
+                    emiInput.disabled = false;
+                    additionalFields.style.display = 'flex';
+                    addLiabilityBtn.style.display = 'flex';
+                } else {
+                    emiInput.disabled = true;
+                    emiInput.value = '';
+                    additionalFields.style.display = 'none';
+                    addLiabilityBtn.style.display = 'none';
+                    while (additionalFields.firstChild) additionalFields.removeChild(additionalFields.firstChild);
+                }
+            });
         });
 
-        // Rotate arrow - proper direction based on state
-        coborrowerArrow.style.transform = containersVisible
-          ? "rotate(180deg)"
-          : "rotate(0deg)";
-      });
+        const addLiabilityBtn = document.getElementById('add-liability-btn');
+        addLiabilityBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            const userInput = prompt("Enter field name for liability", "")?.trim();
+            if (userInput) {
+                const additionalFieldsContainer = document.getElementById('additional-liability-fields');
+                const fieldContainer = document.createElement('div');
+                fieldContainer.className = 'liability-input-container';
+                fieldContainer.innerHTML = `
+                    <input type="text" class="liability-input" placeholder="${userInput}" />
+                    <button class="delete-liability-field" aria-label="Delete field">✕</button>
+                `;
+                additionalFieldsContainer.appendChild(fieldContainer);
+                fieldContainer.querySelector('.delete-liability-field').addEventListener('click', e => {
+                    e.stopPropagation();
+                    fieldContainer.remove();
+                });
+                fieldContainer.querySelector('.liability-input').addEventListener('input', function() {
+                    const value = this.value.replace(/[^0-9]/g, '');
+                    this.style.borderColor = value === '' || isNaN(value) ? 'red' : '#ccc';
+                });
+            }
+        });
+    },
 
-    </script>
+    setupCoBorrowerSectionToggle() {
+        const header = document.querySelector('.admin-student-section-header-co-borrower');
+        const arrow = document.querySelector('.admin-student-arrow-icon-co-borrower');
+        const formQuestions = document.querySelectorAll('.admin-student-form-question');
+        let containersVisible = false;
+        header.addEventListener('click', () => {
+            containersVisible = !containersVisible;
+            formQuestions.forEach(q => q.style.display = containersVisible ? 'block' : 'none');
+            arrow.style.transform = containersVisible ? 'rotate(180deg)' : 'rotate(0deg)';
+        });
+    },
 
+    setupDeleteButton(button) {
+        button.addEventListener('click', e => {
+            e.stopPropagation();
+            const fieldContainer = button.closest('.field-container') || button.closest('.liability-input-container');
+            fieldContainer.remove();
+        });
+    },
+
+    setupFieldValidation() {
+        document.querySelectorAll('.text-input, #emi-amount').forEach(input => {
+            input.addEventListener('input', this.validateNumericField);
+        });
+        document.querySelectorAll('.options-section').forEach(section => {
+            section.addEventListener('click', e => e.stopPropagation());
+        });
+    },
+
+    validateNumericField() {
+        const value = this.value.replace(/[^0-9]/g, '');
+        const errorMessage = this.closest('.field-container')?.querySelector('.error-message') || document.getElementById('emi-error-message');
+        if (errorMessage) {
+            errorMessage.style.display = value === '' || isNaN(value) ? 'block' : 'none';
+            this.style.borderColor = value === '' || isNaN(value) ? 'red' : '#ccc';
+        }
+    }
+};
+
+// Section Manager
+const SectionManager = {
+    init() {
+        this.cacheElements();
+        this.setupInitialStates();
+        this.setupEventListeners();
+    },
+
+    cacheElements() {
+        this.sections = {
+            document: {
+                header: document.querySelector('.admin-student-section-header-document-upload'),
+                content: document.querySelector('.admin-student-section-content-document-upload'),
+                arrow: document.querySelector('.admin-student-arrow-icon-document-upload img'),
+                subsections: {
+                    kyc: { row: document.getElementById('student-kyc-row'), section: document.getElementById('student-kyc-section'), icon: document.querySelector('#student-kyc-row .admin-student-dropdown-icon') },
+                    academic: { row: document.getElementById('academic-marks-row'), section: document.getElementById('academic-marks-section'), icon: document.querySelector('#academic-marks-row .admin-student-dropdown-icon') },
+                    secured: { row: document.getElementById('secured-marks-row'), section: document.getElementById('secured-marks-section'), icon: document.querySelector('#secured-marks-row .admin-student-dropdown-icon') },
+                    workExperience: { row: document.getElementById('work-experience-row'), section: document.getElementById('work-experience-section'), container: document.querySelector('.work-experience-container'), icon: document.querySelector('#work-experience-row .admin-student-dropdown-icon') },
+                    coBorrower: { row: document.getElementById('co-borrower-kyc-row'), section: document.getElementById('co-borrower-kyc-section'), icon: document.querySelector('#co-borrower-kyc-row .admin-student-dropdown-icon') },
+                    salariedBusiness: { row: document.getElementById('salaried-business-row'), section: document.getElementById('salaried-business-section'), icon: document.querySelector('#salaried-business-row .admin-student-dropdown-icon') }
+                }
+            }
+        };
+    },
+
+    setupInitialStates() {
+        Object.values(this.sections).forEach(section => {
+            if (section.content && section.arrow) {
+                section.content.style.display = 'block';
+                section.arrow.classList.add('admin-student-arrow-up');
+                section.arrow.classList.remove('admin-student-arrow-down');
+            }
+            Object.values(section.subsections).forEach(subsection => {
+                if (subsection.section && subsection.icon) {
+                    (subsection.container || subsection.section).style.display = 'none';
+                    subsection.icon.classList.remove('rotated');
+                }
+            });
+        });
+    },
+
+    setupEventListeners() {
+        Object.values(this.sections).forEach(section => {
+            if (section.header && section.content && section.arrow) {
+                section.header.addEventListener('click', () => {
+                    const isVisible = section.content.style.display === 'block';
+                    toggleVisibility(section.content, isVisible, section.arrow, 'admin-student-arrow-up');
+                    section.arrow.classList.toggle('admin-student-arrow-down', isVisible);
+                });
+            }
+            Object.values(section.subsections).forEach(subsection => {
+                if (subsection.row && subsection.section && subsection.icon) {
+                    subsection.row.addEventListener('click', e => {
+                        e.stopPropagation();
+                        const target = subsection.container || subsection.section;
+                        const isVisible = target.style.display === 'block';
+                        toggleVisibility(target, isVisible, subsection.icon);
+                    });
+                }
+            });
+        });
+
+        document.querySelectorAll('.help-trigger').forEach(trigger => {
+            trigger.addEventListener('click', e => {
+                e.stopPropagation();
+                const targetId = trigger.getAttribute('data-target');
+                const helpContainer = document.querySelector(`.${targetId}`);
+                document.querySelectorAll('.help-container').forEach(container => {
+                    container.style.display = container === helpContainer && helpContainer.style.display !== 'block' ? 'block' : 'none';
+                });
+            });
+        });
+
+        document.addEventListener('click', e => {
+            if (!e.target.classList.contains('help-trigger') && !e.target.closest('.help-container')) {
+                document.querySelectorAll('.help-container').forEach(container => container.style.display = 'none');
+            }
+        });
+    }
+};
+
+// Document Field Manager
+const DocumentFieldManager = {
+    counts: { document: 0, academic: 0, secured: 0, workExperience: 0, coBorrower: 0, salariedBusiness: 0 },
+
+    init() {
+        const buttons = [
+            { id: 'add-document-btn', type: 'document', containerId: 'document-fields-container' },
+            { id: 'add-academic-btn', type: 'academic', containerId: 'academic-fields-container' },
+            { id: 'add-secured-btn', type: 'secured', containerId: 'secured-fields-container' },
+            { id: 'add-work-experience-btn', type: 'workExperience', containerId: 'work-experience-row-2' },
+            { id: 'add-co-borrower-btn', type: 'coBorrower', containerId: 'co-borrower-fields-container' },
+            { id: 'add-salaried-business-btn', type: 'salariedBusiness', containerId: 'salaried-business-fields-container' }
+        ];
+
+        buttons.forEach(({ id, type, containerId }) => {
+            const button = document.getElementById(id);
+            if (button) {
+                button.addEventListener('click', () => {
+                    const fieldType = prompt(`Enter ${type} document type:`)?.trim();
+                    if (fieldType) this.addNewDocumentField(fieldType, type, containerId);
+                });
+            }
+        });
+    },
+
+    addNewDocumentField(fieldType, type, containerId) {
+        const count = ++this.counts[type];
+        const docId = `${type}-${count}`;
+        const container = document.getElementById(containerId);
+        const addButton = document.getElementById(`add-${type}-btn`);
+        const boxClass = type === 'workExperience' ? 'work-experience-box' : type === 'salariedBusiness' ? 'document-box salary-upload-box' : 'document-box';
+
+        const newBox = document.createElement('div');
+        newBox.className = boxClass;
+        newBox.innerHTML = `
+            <div class="upload-field clickable" id="${docId}-upload-field">
+                <span id="${docId}-name" data-original="${fieldType}">${fieldType}</span>
+                <span id="${docId}-remove-btn" class="remove-btn"><span class="thin-x"></span></span>
+                <input type="file" id="${docId}" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, '${docId}-name', null, '${docId}-remove-icon')" />
+            </div>
+            <span id="${docId}-remove-icon" class="remove-icon" style="display: none;" onclick="removeFile('${docId}', '${docId}-name', null, '${docId}-remove-icon')"><span class="thin-x"></span></span>
+            ${['academic', 'secured', 'workExperience', 'coBorrower', 'salariedBusiness'].includes(type) ? `
+            <div class="info">
+                <span class="help-trigger" data-target="${docId}-help">ⓘ Help</span>
+                <span>*jpg, png, pdf formats</span>
+            </div>
+            <div class="help-container ${docId}-help" style="display: none;">
+                <h3 class="help-title">Help</h3>
+                <div class="help-content">
+                    <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+                </div>
+            </div>` : ''}
+        `;
+
+        container.insertBefore(newBox, addButton);
+        newBox.querySelector(`#${docId}-remove-btn`).addEventListener('click', () => newBox.remove());
+        const uploadField = newBox.querySelector(`#${docId}-upload-field`);
+        const fileInput = newBox.querySelector(`#${docId}`);
+        uploadField.addEventListener('click', e => {
+            if (!e.target.closest('.remove-btn')) fileInput.click();
+        });
+
+        if (['academic', 'secured', 'workExperience', 'coBorrower', 'salariedBusiness'].includes(type)) {
+            newBox.querySelector('.help-trigger').addEventListener('click', e => {
+                e.stopPropagation();
+                const helpContainer = newBox.querySelector(`.${docId}-help`);
+                document.querySelectorAll('.help-container').forEach(container => {
+                    container.style.display = container === helpContainer && helpContainer.style.display !== 'block' ? 'block' : 'none';
+                });
+            });
+        }
+    }
+};
+
+window.handleFileUpload = (event, nameId, uploadIconId, removeIconId) => {
+    const file = event.target.files[0];
+    if (file) {
+        document.getElementById(nameId).textContent = file.name;
+        if (uploadIconId) document.getElementById(uploadIconId).style.display = 'none';
+        document.getElementById(removeIconId).style.display = 'inline-block';
+    }
+};
+
+window.removeFile = (inputId, nameId, uploadIconId, removeIconId) => {
+    const input = document.getElementById(inputId);
+    input.value = '';
+    const nameSpan = document.getElementById(nameId);
+    nameSpan.textContent = nameSpan.getAttribute('data-original') || nameSpan.textContent;
+    if (uploadIconId) document.getElementById(uploadIconId).style.display = 'inline';
+    document.getElementById(removeIconId).style.display = 'none';
+};
+         
+</script>
 </body>
-
 </html>

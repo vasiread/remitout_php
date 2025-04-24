@@ -86,21 +86,22 @@
             <h1>Reports</h1>
             <div class="admindashboardsecondsection-buttongroups">
                 <div class="show-all-admin-button-container">
-                    <button id="showall-buttongroups">Show All <i class="fa-solid fa-chevron-down"></i></button>
-                    <div class="show-all-admin-options" id="dropdown-options">
-                        <button>Registration Reports</button>
-                        <button>No of grads</button>
-                        <button>Registration Source</button>
-                        <button>Age ratio Reports</button>
-                        <button>Funnel Reports</button>
-                        <button>Destination countries</button>
-                        <button>Cities</button>
-                        <button>NBFC: Generation Leads</button>
-                        <button>Point of entry</button>
-                        <button>SC: Generation Leads</button>
-                        <button>Sem Rush</button>
+                        <button id="showall-buttongroups">Show All <i class="fa-solid fa-chevron-down"></i></button>
+                        <div class="show-all-admin-options" id="dropdown-options">
+                            <button data-report="all">Show All</button>
+                            <button data-report="registration-reports">Registration Reports</button>
+                            <button data-report="no-of-grads">No of grads</button>
+                            <button data-report="registration-source">Registration Source</button>
+                            <button data-report="age-ratio-reports">Age ratio Reports</button>
+                            <button data-report="funnel-reports">Funnel Reports</button>
+                            <button data-report="destination-countries">Destination countries</button>
+                            <button data-report="cities">Cities</button>
+                            <button data-report="nbfc-generation-leads">NBFC: Generation Leads</button>
+                            <button data-report="point-of-entry">Point of entry</button>
+                            <button data-report="sc-generation-leads">SC: Generation Leads</button>
+                            <button data-report="sem-rush">Sem Rush</button>
+                        </div>
                     </div>
-                </div>
 
 
                 
@@ -347,7 +348,7 @@
                     </div>
                 </div>
             </div>
-            <div class="admindashboard-secondpart">
+           <div class="admindashboard-secondpart" data-report="no-of-grads">
                 <div class="admindashboard-second-main-container">
                     <div class="totalundergrads-admin">
                         <h4>Total Undergrads</h4>
@@ -368,7 +369,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="ageratio-graph-admin">
+                <div class="ageratio-graph-admin" data-report="age-ratio-reports">
                     <div class="agerationcolumn-firstsection">
                         <p id="ageratio-header">Age ratio of students</p>
                         <div class="postgrad-buttongroups" id="postgrad-ageratio">
@@ -1001,37 +1002,113 @@ const initializePaginationAndFilters = () => {
         });
     });
 };
-
-// Dropdown Menu
+// Updated Dropdown Initialization
 const initializeDropdown = () => {
     const dropdownButton = $('#showall-buttongroups');
     const dropdownOptions = $('#dropdown-options');
     const icon = $('.fa-chevron-down', dropdownButton);
+    const container = $('.admindashboard-container');
 
-    if (!dropdownButton || !dropdownOptions || !icon) return console.error('Dropdown elements missing');
+    if (!dropdownButton || !dropdownOptions || !icon || !container) {
+        console.error('Dropdown elements missing:', { dropdownButton, dropdownOptions, icon, container });
+        return;
+    }
 
-    const toggleDropdown = e => {
-        e.stopPropagation();
-        dropdownOptions.classList.toggle('show');
-        icon.classList.toggle('show-all-admin-rotate-icon');
+    let currentReport = 'all';
+
+    const fallbackMessage = document.createElement('div');
+    fallbackMessage.className = 'report-fallback';
+    fallbackMessage.style.padding = '20px';
+    fallbackMessage.style.textAlign = 'center';
+    fallbackMessage.style.color = '#666';
+    container.appendChild(fallbackMessage);
+
+    const showAllReports = () => {
+        $$('[data-report]').forEach(report => {
+            // Remove inline styles to reset visibility
+            report.style.removeProperty('display');
+            report.style.removeProperty('visibility');
+            // Ensure elements are visible by default (rely on CSS)
+            report.style.display = ''; // Reset to default or CSS rule
+            report.style.visibility = ''; // Reset to default or CSS rule
+            console.log('Restoring visibility for:', report.dataset.report);
+        });
+        fallbackMessage.style.display = 'none';
+        dropdownButton.innerHTML = `Show All <i class="fa-solid fa-chevron-down"></i>`;
+        currentReport = 'all';
     };
 
-    dropdownButton.addEventListener('click', toggleDropdown);
+    const showReport = (reportId) => {
+        const reportContainer = $(`[data-report="${reportId}"]`);
+        if (!reportContainer) {
+            $$('[data-report]').forEach(report => {
+                report.style.display = 'block';
+                report.style.visibility = 'hidden';
+            });
+            fallbackMessage.textContent = `No data available for ${$(`[data-report="${reportId}"]`, dropdownOptions)?.textContent || 'this report'}.`;
+            fallbackMessage.style.display = 'block';
+        } else {
+            $$('[data-report]').forEach(report => {
+                if (report.dataset.report === reportId) {
+                    report.style.display = 'block';
+                    report.style.visibility = 'visible';
+                } else {
+                    report.style.display = 'block';
+                    report.style.visibility = 'hidden';
+                }
+            });
+            fallbackMessage.style.display = 'none';
+        }
+        const selectedOption = $(`[data-report="${reportId}"]`, dropdownOptions);
+        const optionText = selectedOption ? selectedOption.textContent.trim() : 'Unknown';
+        dropdownButton.innerHTML = `Show: ${optionText} <i class="fa-solid fa-chevron-down"></i>`;
+        currentReport = reportId;
+    };
 
+    const toggleDropdown = (e) => {
+        e.stopPropagation();
+        console.log('Toggling dropdown, current class:', dropdownOptions.className);
+        // Reset to show all reports when reopening after a selection
+        if (currentReport !== 'all' && !dropdownOptions.classList.contains('show')) {
+            showAllReports();
+        }
+        dropdownOptions.classList.toggle('show');
+        icon.classList.toggle('show-all-admin-rotate-icon');
+        if (dropdownOptions.classList.contains('show')) {
+            console.log('Dropdown opened with all options');
+        } else {
+            console.log('Dropdown closed');
+        }
+    };
+
+    const handleOptionClick = (e) => {
+        e.stopPropagation();
+        const reportId = e.target.dataset.report;
+        console.log('Option selected:', reportId);
+        if (reportId === 'all') {
+            showAllReports();
+        } else if (reportId) {
+            showReport(reportId);
+        }
+    };
+
+    // Bind events directly
+    dropdownButton.addEventListener('click', toggleDropdown);
     $$('.show-all-admin-options button', dropdownOptions).forEach(option => {
-        option.addEventListener('click', () => {
-            console.log('Selected:', option.textContent);
-            dropdownOptions.classList.remove('show');
-            icon.classList.remove('show-all-admin-rotate-icon');
-        });
+        option.addEventListener('click', handleOptionClick);
     });
 
-    document.addEventListener('click', e => {
-        if (!e.target.closest('.show-all-admin-button-container')) {
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.show-all-admin-button-container') && dropdownOptions.classList.contains('show')) {
+            console.log('Closing dropdown due to outside click');
             dropdownOptions.classList.remove('show');
             icon.classList.remove('show-all-admin-rotate-icon');
         }
     });
+
+    // Initialize with all reports visible
+    showAllReports();
 };
 
 // Calendar
@@ -1342,7 +1419,6 @@ const initializeFilterPanel = () => {
 
     updatePanelCount();
 };
-    
 
     </script>
 </body>

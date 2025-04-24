@@ -34,17 +34,14 @@
 
 
     @php
-$profileImgPath = 'images/admin-student-profile.png';
-$uploadPanName = '';
-$profileIconPath = "assets/images/account_circle.png";
-$phoneIconPath = "assets/images/call.png";
-$mailIconPath = "assets/images/mail.png";
-$pindropIconPath = "assets/images/pin_drop.png";
-$discordIconPath = "assets/images/icons/discordicon.png";
-$viewIconPath = "assets/images/visibility.png";
-
-
-
+        $profileImgPath = 'images/admin-student-profile.png';
+        $uploadPanName = '';
+        $profileIconPath = "assets/images/account_circle.png";
+        $phoneIconPath = "assets/images/call.png";
+        $mailIconPath = "assets/images/mail.png";
+        $pindropIconPath = "assets/images/pin_drop.png";
+        $discordIconPath = "assets/images/icons/discordicon.png";
+        $viewIconPath = "assets/images/visibility.png";
     @endphp
 
     <nav class="nbfc-navbar">
@@ -284,7 +281,7 @@ $viewIconPath = "assets/images/visibility.png";
                 </div>
                 <div class="testscoreseditsection-secondrow">
                     @php
-$counter = 1; 
+                     $counter = 1; 
                     @endphp
 
 

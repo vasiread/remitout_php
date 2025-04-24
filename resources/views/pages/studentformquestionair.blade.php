@@ -20,9 +20,6 @@
       <script src="{{ asset('js/studentforms.js') }}"></script>
 
 
-      <script src="{{ asset('js/studentforms.js') }}"></script>
-
-
 </head>
 
 <body>
@@ -162,10 +159,49 @@
               <div id="suggestions" class="suggestions-container"></div>
               <div class="validation-message" id="city-error"></div>
             </div>
+          </div>
 
+          <div class="input-group">
+            <div class="input-content">
+              <img src="./assets/images/calendar_month.png" alt="Calendar Icon" class="icon" />
+              <input type="date" placeholder="Date of Birth (DD/MM/YYYY)" name="date_of_birth" id="personal-info-dob" required />
+              <div class="validation-message" id="dob-error"></div>
+            </div>
+          </div>
 
+        </div>
+
+      <div class="input-row">
+        <div class="input-group">
+          <div class="input-content">
+            <div class="dropdown-gender-wrapper" data-required="true">
+              <div class="dropdown-gender">
+                <div class="dropdown-gender-header">
+                  <div class="dropdown-label-gender">Select Gender</div>
+                  <div class="dropdown-icon-gender">
+                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
+                      <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="dropdown-options-gender">
+                  <div class="dropdown-option-gender" data-value="male">
+                    <span>Male</span>
+                  </div>
+                  <div class="dropdown-option-gender" data-value="female">
+                    <span>Female</span>
+                  </div>
+                  <div class="dropdown-option-gender" data-value="other">
+                    <span>Other</span>
+                  </div>
+                </div>
+              </div>
+              <input type="hidden" name="gender" value="" />
+              <div class="validation-message" id="gender-error"></div>
+            </div>
           </div>
         </div>
+      </div>
       </div>
 
       <!-- Section 02 (Hidden Initially) -->
@@ -1264,6 +1300,62 @@
 
 
   <!-- #region -->
+
+  <script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+  const header = document.querySelector('.dropdown-gender-header');
+  const optionsContainer = document.querySelector('.dropdown-options-gender');
+  const label = document.querySelector('.dropdown-label-gender');
+  const hiddenInput = document.querySelector('input[name="gender"]');
+
+  // Debugging logs to confirm elements are found
+  console.log('Header:', header);
+  console.log('Options Container:', optionsContainer);
+  console.log('Options:', options);
+  console.log('Label:', label);
+  console.log('Hidden Input:', hiddenInput);
+
+  if (!header || !optionsContainer || !options || !label || !hiddenInput) {
+    console.error('One or more elements not found. Check your DOM structure.');
+    return;
+  }
+
+  // Toggle dropdown visibility
+  header.addEventListener('click', function(e) {
+    e.stopPropagation(); // Prevent click from bubbling up
+    const isVisible = optionsContainer.style.display === 'block';
+    optionsContainer.style.display = isVisible ? 'none' : 'block';
+    console.log('Dropdown toggled:', optionsContainer.style.display);
+  });
+
+  // Handle option selection
+  options.forEach(option => {
+    option.addEventListener('click', function(e) {
+      e.stopPropagation(); // Prevent click from closing dropdown prematurely
+      const value = this.getAttribute('data-value');
+      label.textContent = this.textContent;
+      hiddenInput.value = value;
+      optionsContainer.style.display = 'none';
+      
+      // Remove active class from all options
+      options.forEach(opt => opt.classList.remove('active'));
+      // Add active class to selected option
+      this.classList.add('active');
+      console.log('Option selected:', value);
+    });
+  });
+
+  // Close dropdown if clicking outside
+  document.addEventListener('click', function(e) {
+    if (!dropdown.contains(e.target)) {
+      optionsContainer.style.display = 'none';
+      console.log('Dropdown closed due to outside click');
+    }
+  });
+});
+
+</script>
 
 
 </body>
