@@ -257,7 +257,8 @@ $studentDocumentDetailsInfo = [
                                 <button id="pcviewgeneratedreferralcode"> <img src="{{ asset('assets/images/Group icon.png') }}"
                                         alt=""> Referral Code:
                                     45628</button>
-                                <button> <img src="{{ asset('assets/images/dbicon.png') }}" alt="">Track Commission</button>
+                                <button style="display:none"> <img src="{{ asset('assets/images/dbicon.png') }}" alt="">Track
+                                    Commission</button>
                                 <button id="mobgeneratedbutton" class="referral-Link-trigger-button">Generate Referral
                                     Link</button>
                             </div>
@@ -463,9 +464,9 @@ $totalPages = ceil($totalStudents / $perPage);
                     @endphp
 
                     <div id="student-applicationdetailsstatus">
-                       
+
                     </div>
- 
+
 
 
 
@@ -549,31 +550,43 @@ $totalPages = ceil($totalStudents / $perPage);
             getUsersByCounsellor();
             triggerExcelRegistration();
             queryDetails();
-            
+
 
 
 
         })
-        function triggeredButtons(){
+        function triggeredButtons() {
             const saveStudentDetailsButton = document.querySelector("#save-multiple-students-bysc");
             saveStudentDetailsButton.addEventListener('click', () => {
                 const studentData = collectStudentData();
             });
-            const triggerExpandShrink = document.querySelectorAll(".reportsindashboard-firstrow-view");
-             initializecheckStatus();
- 
+            const triggerExpandShrink = document.querySelectorAll(".expand-arrow-reportsindashboard");
+            const imageRotation = document.querySelectorAll(".expand-arrow-rotation");
+            initializecheckStatus();
+
             if (triggerExpandShrink) {
+
                 triggerExpandShrink.forEach((items, index) => {
                     console.log(items)
 
                     items.addEventListener("click", () => {
+
                         const progress = document.querySelectorAll(".reportsproposal-datalists");
                         if (progress[index].style.display === "flex") {
                             progress[index].style.display = "none";
-                                       
+                            if (imageRotation) {
+                                imageRotation[index].style.transform = "rotate(360deg)"
+                            }
+
+
 
                         } else {
+
+
                             progress[index].style.display = "flex";
+                            if (imageRotation) {
+                                imageRotation[index].style.transform = "rotate(180deg)"
+                            }
                         }
                     });
                 });
@@ -926,7 +939,7 @@ $totalPages = ceil($totalStudents / $perPage);
                 }
             });
         }
-         const dynamicChangesWhileScreenShrink = () => {
+        const dynamicChangesWhileScreenShrink = () => {
             const contentChangeButton = document.querySelector(".scdashboard-applicationstatus .scapplicationstatus-firstrow #sc-new-application-generate");
             const statusTextElements = document.querySelectorAll('.dynamic-status-hide');
             const raisedQueryButton = document.querySelector(".queryraisedcontainer-rightcontent #raised-query");
@@ -968,7 +981,9 @@ $totalPages = ceil($totalStudents / $perPage);
             const popuAddingStudentTriggers = document.querySelectorAll(".studentapplication-header .start-new");
             const closePopuTrigger = document.querySelector(".studentAddByScuserPopup-headerpart img");
             const backgroundContainer = document.querySelector(".scdashboard-parentcontainer");
+            const popuAddingStudentTriggersApplications = document.getElementById("sc-new-application-generate");
 
+ 
             popuAddingStudentTriggers.forEach(button => {
                 button.addEventListener('click', () => {
                     if (studentAddingPopuBar) {
@@ -976,7 +991,18 @@ $totalPages = ceil($totalStudents / $perPage);
                         backgroundContainer.classList.add('dull');
                     }
                 });
-            });
+
+            })
+            if (popuAddingStudentTriggersApplications) {
+                popuAddingStudentTriggersApplications.addEventListener('click', () => {
+                    if (studentAddingPopuBar) {
+                        studentAddingPopuBar.style.display = 'flex';
+                        backgroundContainer.classList.add('dull');
+
+                    }
+
+                })
+            }
 
             if (closePopuTrigger) {
                 closePopuTrigger.addEventListener('click', () => {
@@ -1039,16 +1065,16 @@ $totalPages = ceil($totalStudents / $perPage);
 
             statusElements.forEach(dynamicStatusColorChange => {
                 if (dynamicStatusColorChange.textContent.includes("Accepted")) {
-                    dynamicStatusColorChange.textContent ="Approved";
+                    dynamicStatusColorChange.textContent = "Approved";
                     dynamicStatusColorChange.style.color = "#3FA27E";
                     dynamicStatusColorChange.style.backgroundColor = "#D2FFEE";
                     dynamicStatusColorChange.style.width = "100%"
                     dynamicStatusColorChange.style.maxWidth = "95px"
                 }
-                else if(dynamicStatusColorChange.textContent.includes("Rejected")){
-                    dynamicStatusColorChange.textContent = "Approved";
-                    dynamicStatusColorChange.style.color = "#3FA27E";
-                    dynamicStatusColorChange.style.backgroundColor = "#D2FFEE";
+                else if (dynamicStatusColorChange.textContent.includes("Rejected")) {
+                    dynamicStatusColorChange.textContent = "Rejected";
+                    // dynamicStatusColorChange.style.color = "#3FA27E";
+                    // dynamicStatusColorChange.style.backgroundColor = "#D2FFEE";
                     dynamicStatusColorChange.style.width = "100%"
                     dynamicStatusColorChange.style.maxWidth = "95px"
                 }
@@ -1097,8 +1123,8 @@ $totalPages = ceil($totalStudents / $perPage);
             });
         }
 
- 
-        
+
+
         function prevdetail() {
             if (currentValue > 1) {
                 currentValue--;
@@ -1131,77 +1157,90 @@ $totalPages = ceil($totalStudents / $perPage);
             const getRefCode = document.querySelector("#screferral-id-fromprofile span");
             const referralId = getRefCode ? getRefCode.textContent : '';
 
-            if (!referralId) {
-                console.error("Referral ID is missing");
-                return;
+    if (!referralId) {
+        console.error("Referral ID is missing");
+        return;
+    }
+
+    fetch("/getuserbyref", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+        },
+        body: JSON.stringify({ referralId })
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.error) {
+                throw new Error(data.error);
             }
 
-            fetch("/getuserbyref", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
-                },
-                body: JSON.stringify({ referralId })
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error("Network response was not ok");
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.error) {
-                        throw new Error(data.error);
-                    }
-                    console.log(data);
+            const userListContainer = document.getElementById("user-list");
+            userListContainer.innerHTML = "";
 
-                    const userListContainer = document.getElementById("user-list");
-                    userListContainer.innerHTML = "";
-
-                    if (data && data.length > 0) {
-                        data.forEach((user) => {
-                            const userHTML = `
-                                <div class="studentapplication-lists">
-                                    <div class="individualapplication-list">
-                                        <div class="firstsection-lists">
-                                            <h1>${user.full_name}</h1>
-                                            <div class="application-buttoncontainer">
-                                                <button>View</button>
-                                                <button>Edit</button>
-                                                <button class="expand-arrow">
-                                                    <img src="/assets/images/stat_minus_1.png" alt="Expand">
-                                                </button>
-                                            </div>
-                                            <button class="studenteacheditbutton">Edit</button>
-                                        </div>
+            if (data && data.length > 0) {
+                data.forEach((user, index) => {
+                    const isHidden = index >= 3 ? 'style="display:none"' : '';
+                    const userHTML = `
+                        <div class="studentapplication-lists user-item" ${isHidden}>
+                            <div class="individualapplication-list">
+                                <div class="firstsection-lists">
+                                    <h1>${user.name}</h1>
+                                    <div class="application-buttoncontainer">
+                                        <button style="display:none">View</button>
+                                        <button style="display:none">Edit</button>
+                                        <button class="expand-arrow">
+                                            <img src="/assets/images/stat_minus_1.png" alt="Expand">
+                                        </button>
                                     </div>
-                                    <ul class="individualstudentapplication-status">
-                                        <li class="scdashboard-nbfcnamecontainer">
-                                            <p>NBFC:</p>
-                                            <p>NBFC Name</p>
-                                        </li>
-                                        <li class="scdashboard-nbfcstatus-pending">
-                                            <p>Status:</p>
-                                            <span>Pending</span>
-                                        </li>
-                                        <li class="scdashboard-missingdocumentsstatus">
-                                            <p>Missing Documents:</p>
-                                            <span>03</span>
-                                        </li>
-                                    </ul>
+                                    <button class="studenteacheditbutton" style="display:none">Edit</button>
                                 </div>
-                            `;
-                            userListContainer.innerHTML += userHTML;
-                        });
-                    } else {
-                        userListContainer.innerHTML = "<p>No users found.</p>";
-                    }
-                })
-                .catch(error => {
-                    console.error("Error fetching users:", error);
+                            </div>
+                            <ul class="individualstudentapplication-status">
+                                <li class="scdashboard-nbfcnamecontainer">
+                                    <p>NBFC:</p>
+                                    <p>NBFC Name</p>
+                                </li>
+                                <li class="scdashboard-nbfcstatus-pending">
+                                    <p>Status:</p>
+                                    <span>Pending</span>
+                                </li>
+                                <li class="scdashboard-missingdocumentsstatus">
+                                    <p>Missing Documents:</p>
+                                    <span>03</span>
+                                </li>
+                            </ul>
+                        </div>
+                    `;
+                    userListContainer.innerHTML += userHTML;
                 });
-        };
+
+                // Enable "See all" functionality
+                const seeAllBtn = document.querySelector(".see-all");
+                if (seeAllBtn) {
+                    seeAllBtn.style.display = "inline-block"; // Ensure it's visible
+                    seeAllBtn.addEventListener("click", () => {
+                        document.querySelectorAll(".user-item").forEach(item => {
+                            item.style.display = "block";
+                        });
+                        seeAllBtn.style.display = "none"; // Hide button after showing all
+                    });
+                }
+            } else {
+                userListContainer.innerHTML = "<p>No users found.</p>";
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching users:", error);
+        });
+};
+
 
         const generateReferLinkPopup = () => {
             // DOM Elements
@@ -1312,6 +1351,16 @@ $totalPages = ceil($totalStudents / $perPage);
             const scuser = @json(session('scuser'));
             const scuserid = scuser.referral_code;
 
+            const mobRef = document.getElementById("mobgeneratedreferralcode");
+            const Ref = document.getElementById("pcviewgeneratedreferralcode");
+
+            if (mobRef && Ref) {
+                mobRef.textContent = `Referral Code:  ${scuserid} `;
+                Ref.textContent = `Referral Code:  ${scuserid} `;
+
+            }
+
+
             if (scuserid) {
                 fetch(`/get-queries?scUserId=${scuserid}`, {
                     method: "GET",
@@ -1342,7 +1391,7 @@ $totalPages = ceil($totalStudents / $perPage);
 
                                 container.appendChild(div);
                             });
-                                                    getStatusGroups();
+                            getStatusGroups();
 
                         } else {
                             container.innerHTML = '<p>No queries found.</p>';
@@ -1709,108 +1758,107 @@ $totalPages = ceil($totalStudents / $perPage);
         };
 
 
-       function getStatusGroups(){
-        const scuser = @json(session('scuser'));
-        const scReferralId = scuser.referral_code;
-        const container = document.getElementById("student-applicationdetailsstatus");
+        function getStatusGroups() {
+            const scuser = @json(session('scuser'));
+            const scReferralId = scuser.referral_code;
+            const container = document.getElementById("student-applicationdetailsstatus");
 
-           fetch("/getstatusofusers", {
-               method: "POST",
-               headers: {
-                   "Content-Type": "application/json",
-                   "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content")
-               },
-               body: JSON.stringify({ scReferralId })
-           })
-               .then(response => response.json())
-               .then(data => {
-                   if (data.success && data.data.length > 0) {
-                       data.data.forEach(student => {
-                           const studentDiv = document.createElement("div");
-                           studentDiv.className = "studentapplicationstatusreports-inscdashboard";
-                           studentDiv.setAttribute("data-added", "");
+            fetch("/getstatusofusers", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content")
+                },
+                body: JSON.stringify({ scReferralId })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.data.length > 0) {
+                        data.data.forEach(student => {
+                            const studentDiv = document.createElement("div");
+                            studentDiv.className = "studentapplicationstatusreports-inscdashboard";
+                            studentDiv.setAttribute("data-added", "");
+                            console.log(student)
 
-                           const firstRow = `
+                            const firstRow = `
                         <div class="reportsindashboard-firstrow">
                             <div class="reportsindashboard-leftcontentinfirstrow">
                                 <p>${student.userName}</p>
-                                <span>Unique ID: HBJHKNJ776878</span>
+                                <span>Unique ID: ${student.user_id}</span>
                             </div>
                             <div class="reportsindashboard-rightcontentinfirstrow">
                                 <div class="application-buttoncontainer reportsindashboard-buttoncontainer">
-                                    <button class="reportsindashboard-firstrow-view" style="cursor:pointer">View</button>
-                                    <button id="reportsindashboard-firstrow-edit" style="cursor:pointer">Edit</button>
-                                    <button class="expand-arrow-reportsindashboard" style="cursor:pointer">
-                                        <img src="/assets/images/stat_minus_1.png" alt="">
+                                        <button class="expand-arrow-reportsindashboard" style="cursor:pointer">
+                                        <img src="/assets/images/stat_minus_1.png" class="expand-arrow-rotation" alt="">
                                     </button>
                                 </div>
                                 <div class="application-shrinkwidtheditcontainer">
-                                    <img src="/assets/images/Icons/edit_icon.png" alt="">
+                                    <img src="/assets/images/Icons/edit_icon.png" style="display:none" alt="">
                                 </div>
                             </div>
                         </div>
                     `;
 
-                           const secondRow = `
+                            const secondRow = `
                         <div class="reportsindashboard-secondrow">
-                            <p>Document Final Status: ${getFinalStatus(student.nbfcs)}</p>
+                            <p>Documents: ${getFinalStatus(student.nbfcs)}</p>
                             <p>Application Date: -</p>
                             <p>Proposals received: ${student}</p>
                             <p>Total Duration: -</p>
                         </div>
                     `;
-                    console.log(student)
+                            console.log(student)
 
-                           const proposalDetails = document.createElement("div");
-                           proposalDetails.className = "reportsproposal-datalists";
+                            const proposalDetails = document.createElement("div");
+                            proposalDetails.className = "reportsproposal-datalists";
 
-                           student.nbfcs.forEach(nbfc => {
-                               nbfc.statuses.forEach(status => {
-                                   const detailDiv = document.createElement("div");
-                                   detailDiv.className = "reportsproposal-individualdatalists";
-                                   detailDiv.innerHTML = `
+                            student.nbfcs.forEach(nbfc => {
+                                nbfc.statuses.forEach(status => {
+                                    const detailDiv = document.createElement("div");
+                                    detailDiv.className = "reportsproposal-individualdatalists";
+                                    detailDiv.innerHTML = `
                                 <p>NFBC: &nbsp;&nbsp;${nbfc.nbfc_name}</p>
                                 <p>Proposal Date: &nbsp;&nbsp;${status.created_at ?? '-'}</p>
                                 <p id="reportspropsal-status-state" class="dynamic-status-hide">
                                     &nbsp;&nbsp;<span>${status.status_type}</span>
                                 </p>
                             `;
-                                   proposalDetails.appendChild(detailDiv);
-                               });
-                           });
+                                    proposalDetails.appendChild(detailDiv);
+                                });
+                            });
 
-                           studentDiv.innerHTML += firstRow;
-                           studentDiv.innerHTML += secondRow;
-                           studentDiv.appendChild(proposalDetails);
-                           container.appendChild(studentDiv);
+                            studentDiv.innerHTML += firstRow;
+                            studentDiv.innerHTML += secondRow;
+                            studentDiv.appendChild(proposalDetails);
+                            container.appendChild(studentDiv);
 
-                       });                 
+                        });
                         triggeredButtons();
 
-                   } else {
-                       container.innerHTML = "<p>No application data found.</p>";
-                   }
-               })
-               .catch(error => {
-                   console.error("Fetch error:", error);
-                   container.innerHTML = "<p>Error loading application data.</p>";
-               });
+                    } else {
+                        container.innerHTML = "<p>No application data found.</p>";
+                    }
+                })
+                .catch(error => {
+                    console.error("Fetch error:", error);
+                    container.innerHTML = "<p>Error loading application data.</p>";
+                });
 
-           function getFinalStatus(nbfcs) {
-               for (const nbfc of nbfcs) {
-                   for (const status of nbfc.statuses) {
-                       if (status.status_type) {
-                           return status.status_type;
-                       }
-                   }
-               }
-               return "-";
-           }
+            function getFinalStatus(nbfcs) {
+                for (const nbfc of nbfcs) {
+                    for (const status of nbfc.statuses) {
+                        if (status.status_type) {
+                            return status.status_type;
+                        }
+                    }
+                }
+                return "-";
+            }
 
         }
-        
 
-    
+
+
 
     </script>
 </body>

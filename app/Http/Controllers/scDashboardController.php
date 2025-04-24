@@ -52,7 +52,7 @@ class scDashboardController extends Controller
 
 
 
-        $userByRef = PersonalInfo::where('referral_code', $referralId)->get();
+        $userByRef = User::where('referral_code', $referralId)->get();
         $scDetail = Scuser::where('referral_code', $referralId)->get();
 
         if ($userByRef->isEmpty() || $scDetail->isEmpty()) {

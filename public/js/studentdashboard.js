@@ -11,9 +11,6 @@ document.addEventListener('DOMContentLoaded', function () {
     initialiseSeventhAdditionalColumn();
     initialiseEightcolumn();
     initialiseNinthcolumn();
-<<<<<<< HEAD
-    initialiseTenthcolumn();   
-=======
     initialiseTenthcolumn();
 
     const sessionLogout = document.querySelector(".studentdashboardprofile-sidebarlists-bottom .logoutBtn");
@@ -25,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         console.warn("Logout button (.logoutBtn) not found in the DOM");
     }
->>>>>>> 81dbf5b (status update scdashboard)
 
     // Fetch all URLs first
     Promise.all([
@@ -48,25 +44,25 @@ document.addEventListener('DOMContentLoaded', function () {
     markAsRead();
 
     // logout function 
-    const sessionLogout = document.querySelector(".logoutBtn");
-    if (sessionLogout) {
-        sessionLogout.addEventListener('click', () => {
-            console.log("Logout button clicked");
-            sessionLogoutInitial();
-        });
-    } else {
-        console.warn("Logout button (.logoutBtn) not found in the DOM");
-    }
+    // const sessionLogout = document.querySelector(".logoutBtn");
+    // if (sessionLogout) {
+    //     sessionLogout.addEventListener('click', () => {
+    //         console.log("Logout button clicked");
+    //         sessionLogoutInitial();
+    //     });
+    // } else {
+    //     console.warn("Logout button (.logoutBtn) not found in the DOM");
+    // }
     // Event delegation for dynamically loaded .logoutBtn
     document.addEventListener('click', (event) => {
         const logoutBtn = event.target.closest('.logoutBtn');
         if (logoutBtn) {
             console.log('Dynamically detected logout button clicked');
-            event.preventDefault(); // Prevent any default behavior
+            event.preventDefault();
             sessionLogoutInitial();
         }
     });
-     
+
 
     const courseDetailsElement = document.getElementById('course-details-container');
     const courseDetails = JSON.parse(courseDetailsElement.getAttribute('data-course-details'));
@@ -192,15 +188,6 @@ const initializeSideBarTabs = () => {
                 testScoresEditSection.style.display = "none";
 
                 handleIndividualCards('index1');
-
-
-
-
-
-
-
-
-
                 dynamicHeader.textContent = "Inbox";
             } else if (index === 0) {
                 console.log('Loan Proposals tab selected');
@@ -213,16 +200,7 @@ const initializeSideBarTabs = () => {
                 testScoresEditSection.style.display = "none";
 
                 handleIndividualCards('index0');
-
-
                 dynamicHeader.textContent = "Loan Proposals";
-
-
-
-
-
-
-
 
             } else if (index === 2) {
                 console.log('My Application tab selected');

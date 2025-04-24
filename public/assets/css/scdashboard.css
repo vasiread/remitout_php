@@ -1654,9 +1654,9 @@
         display: block;
     }
 
-    .reportsindashboard-buttoncontainer {
+    /* .reportsindashboard-buttoncontainer {
         display: none;
-    }
+    } */
 
     .studentAddBySCuserPopup,
     .referral-triggered-view {
