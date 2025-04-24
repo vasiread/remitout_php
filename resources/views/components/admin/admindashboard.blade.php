@@ -469,75 +469,34 @@
     <div class="admindashboardcontainer-fourth-section" data-report="destination-countries">
        <div class="admin-dashboard-container-four">
         <div class="admin-dashboard-row">
-            <!-- Cities Section -->
+           <!-- Cities Section -->
             <div class="admin-city-column">
                 <div class="admin-city-section">
                     <div class="admin-city-header">
                         <div class="admin-city-title">Cities</div>
                         <div class="admin-city-filter-sort-container">
-                            <button class="admin-city-filter-btn">Filter <i class="fas fa-chevron-down"></i></button>
-                            <button class="admin-city-sort-btn">Sort <i class="fas fa-chevron-down"></i></button>
+                            <button class="admin-city-filter-btn" id="city-filter-btn">Filter <i class="fas fa-chevron-down"></i></button>
+                            <!-- <button class="admin-city-sort-btn" id="city-sort-btn">Sort <i class="fas fa-chevron-down"></i></button> -->
                         </div>
                     </div>
                     <table class="admin-city-table" id="city-table">
                         <thead>
                             <tr>
-                                <th>City</th>
-                                <th>State</th>
-                                <th>Female</th>
-                                <th>Male</th>
-                                <th>No. students</th>
+                                <th data-sort="city">City <i class="fas fa-sort"></i></th>
+                                <th data-sort="state">State <i class="fas fa-sort"></i></th>
+                                <th data-sort="female">Female <i class="fas fa-sort"></i></th>
+                                <th data-sort="male">Male <i class="fas fa-sort"></i></th>
+                                <th data-sort="total_students">No. students <i class="fas fa-sort"></i></th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Kolkata</td>
-                                <td>West Bengal</td>
-                                <td>50</td>
-                                <td>40</td>
-                                <td class="admin-city-data-value" data-value="90">90</td>
-                            </tr>
-                            <tr>
-                                <td>Bengaluru</td>
-                                <td>Karnataka</td>
-                                <td>40</td>
-                                <td>80</td>
-                                <td class="admin-city-data-value" data-value="120">120</td>
-                            </tr>
-                            <tr>
-                                <td>Delhi</td>
-                                <td>Delhi</td>
-                                <td>20</td>
-                                <td>40</td>
-                                <td class="admin-city-data-value" data-value="60">60</td>
-                            </tr>
-                            <tr>
-                                <td>Delhi</td>
-                                <td>Delhi</td>
-                                <td>20</td>
-                                <td>40</td>
-                                <td class="admin-city-data-value" data-value="60">60</td>
-                            </tr>
-                            <tr>
-                                <td>Delhi</td>
-                                <td>Delhi</td>
-                                <td>20</td>
-                                <td>40</td>
-                                <td class="admin-city-data-value" data-value="60">60</td>
-                            </tr>
-                            <tr>
-                                <td>Delhi</td>
-                                <td>Delhi</td>
-                                <td>20</td>
-                                <td>40</td>
-                                <td class="admin-city-data-value" data-value="60">60</td>
-                            </tr>
+                        <tbody id="city-table-body">
+                            <!-- Rows will be populated dynamically -->
                         </tbody>
                     </table>
                     <div class="admin-city-pagination">
-                        <div class="admin-city-pagination-btn"><i class="fas fa-chevron-left"></i></div>
-                        <div class="admin-city-pagination-text">1-10 / 30</div>
-                        <div class="admin-city-pagination-btn"><i class="fas fa-chevron-right"></i></div>
+                        <div class="admin-city-pagination-btn" id="city-prev-btn"><i class="fas fa-chevron-left"></i></div>
+                        <div class="admin-city-pagination-text" id="city-pagination-text">1-10 / 30</div>
+                        <div class="admin-city-pagination-btn" id="city-next-btn"><i class="fas fa-chevron-right"></i></div>
                     </div>
                 </div>
             </div>
@@ -646,22 +605,18 @@
                     </div>
                 </div>  
             </div>
-              <div class="nbfc-lead-weeks-info">23 in 2 weeks</div>
-           
+            <!-- <div class="nbfc-lead-weeks-info">23 in 2 weeks</div> -->
             <div id="nbfc-lead-chart_div" style="width: 100%; height: 170px;"></div>
-           <div class="nbfc-lead-pagination">
-              <span><i class="fas fa-chevron-left"></i></span>
-              <span>1 - 8</span>
-              <span>/</span>
-              <span>15</span>
-              <span><i class="fas fa-chevron-right"></i></span>
-           </div>
-
-
-         
+            <div class="nbfc-lead-pagination">
+                <button class="nbfc-lead-prev-btn" id="nbfc-lead-prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <span class="nbfc-lead-page-range" id="nbfc-lead-page-range">1 - 5</span>
+                <span>/</span>
+                <span class="nbfc-lead-total-items" id="nbfc-lead-total-items">11</span>
+                <button class="nbfc-lead-next-btn" id="nbfc-lead-next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
         </div>
 
-        <!-- Student Counsellors -->
+       <!-- Student Counsellors -->
         <div class="sc-lead-container">
             <div class="sc-lead-header">
                 <h3 class="sc-lead-title">Student Counsellors: Lead Generation</h3>
@@ -671,21 +626,20 @@
             </div>
             <div class="sc-lead-legend">
                 <div class="sc-lead-legend-item">
-                    <div class="sc-lead-legend-color"></div>
+                    <div class="sc-lead-legend-color" style="background-color: #d3b8f0;"></div>
                     <span>No. Of Leads</span>
                 </div>
             </div>
             <div class="sc-lead-chart-wrapper">
-                <canvas id="leadChart"></canvas>
+                <canvas id="leadChart" style="height: 170px;"></canvas>
             </div>
             <div class="sc-lead-pagination">
-               <span><i class="fas fa-chevron-left"></i></span>
-               <span>1 - 8</span>
-               <span>/</span>
-               <span>15</span>
-              <span><i class="fas fa-chevron-right"></i></span>
+                <button class="sc-lead-prev-btn" id="sc-lead-prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <span class="sc-lead-page-range" id="sc-lead-page-range">1 - 2</span>
+                <span>/</span>
+                <span class="sc-lead-total-items" id="sc-lead-total-items">2</span>
+                <button class="sc-lead-next-btn" id="sc-lead-next-btn"><i class="fas fa-chevron-right"></i></button>
             </div>
-
         </div>
     </div>
 
@@ -704,7 +658,7 @@
                         style="display: block; box-sizing: border-box; height: 103px; width: 103px;"></canvas>
                 </div>
                 <div class="point-entry-legend-container">
-                    <div class="point-entry-legend">
+                    <!-- <div class="point-entry-legend">
                         <div class="point-entry-legend-item">
                             <div class="point-entry-legend-color" style="background-color: #6F25CE;"></div>
                             <span>LinkedIn Posts</span>
@@ -727,7 +681,7 @@
                             <div class="point-entry-legend-color" style="background-color: #E2D9F2;"></div>
                             <span>Others</span>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -781,6 +735,8 @@ document.addEventListener('DOMContentLoaded', () => {
         initializeFilterPanel();
         highlightHighestValues();
         initializePaginationAndFilters();
+        updateProfileCompletionByGender()
+        initializeCitiesTable()
     } catch (error) {
         console.error('Initialization error:', error);
     }
@@ -799,38 +755,198 @@ const initializeCharts = () => {
     initializeLeadChart();
 };
 
-// Registration Line Graph
+// Registration Line Graph with API Data
 const initializeRegistrationLineGraph = () => {
     const chartDiv = $('#chart_div');
     if (!chartDiv) return console.error('chart_div not found');
 
-    const data = new google.visualization.DataTable();
-    data.addColumn('string', 'Day');
-    data.addColumn('number', 'Registrations');
-    data.addColumn({ type: 'string', role: 'annotation' });
+    // Fetch data from API
+    fetch('/reports-on-generation', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        }
+    })
+        .then(response => {
+            console.log('Raw response:', response);
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+            return response.json();
+        })
+        .then(data => {
+            // console.log('Fetched Reports on Registration data:', data);
 
-    data.addRows([
-        ['Mon', 100, null], ['Tue', 123, null], ['Wed', 174, '174'], ['Thu', 118, null],
-        ['Fri', 145, null], ['Sat', 92, null]
-    ]);
+            // Validate the API response structure
+            if (!data || typeof data !== 'object' || 
+                !Array.isArray(data.days_of_week) || 
+                !Array.isArray(data.registration_counts) || 
+                data.days_of_week.length !== data.registration_counts.length) {
+                console.log('Validation failed. Data structure:', data);
+                throw new Error('Invalid API response: Mismatched or missing data arrays');
+            }
 
-    const view = new google.visualization.DataView(data);
-    view.setColumns([0, 1, 2]);
+            // Create the DataTable
+            const dataTable = new google.visualization.DataTable();
+            dataTable.addColumn('string', 'Day');
+            dataTable.addColumn('number', 'Registrations');
+            dataTable.addColumn({ type: 'string', role: 'annotation' });
 
-    const options = {
-        maintainAspectRatio: false,
-        hAxis: { title: 'Day of the Week', textStyle: { color: '#333' } },
-        vAxis: { title: 'Registrations', viewWindow: { min: 0, max: 200 }, textStyle: { color: '#333' } },
-        annotations: { alwaysOutside: true, textStyle: { color: '#000', fontSize: 12 } },
-        pointSize: 5,
-        series: { 0: { lineWidth: 2, pointShape: 'circle', color: 'rgb(163, 171, 189)' } },
-        legend: 'none',
-        chartArea: { width: '80%', height: '70%' }
-    };
+            // Find the highest registration count to set an annotation
+            const maxCount = Math.max(...data.registration_counts);
+            const maxIndex = data.registration_counts.indexOf(maxCount);
 
-    const chart = new google.visualization.LineChart(chartDiv);
-    chart.draw(view, options);
+            // Transform API data into rows
+            const rows = data.days_of_week.map((day, index) => {
+                const annotation = index === maxIndex ? maxCount.toString() : null;
+                return [day, data.registration_counts[index], annotation];
+            });
+
+            dataTable.addRows(rows);
+
+            // Log the transformed data for debugging
+            console.log('Transformed chart data:', rows);
+
+            // Create a DataView
+            const view = new google.visualization.DataView(dataTable);
+            view.setColumns([0, 1, 2]);
+
+            // Chart options
+            const options = {
+                maintainAspectRatio: false,
+                hAxis: { title: 'Day of the Week', textStyle: { color: '#333' } },
+                vAxis: { 
+                    title: 'Registrations', 
+                    viewWindow: { min: 0, max: Math.max(maxCount + 10, 50) }, // Adjust max dynamically
+                    textStyle: { color: '#333' }
+                },
+                annotations: { alwaysOutside: true, textStyle: { color: '#000', fontSize: 12 } },
+                pointSize: 5,
+                series: { 0: { lineWidth: 2, pointShape: 'circle', color: 'rgb(163, 171, 189)' } },
+                legend: 'none',
+                chartArea: { width: '80%', height: '70%' }
+            };
+
+            // Draw the chart
+            const chart = new google.visualization.LineChart(chartDiv);
+            chart.draw(view, options);
+        })
+        .catch(error => {
+            console.error('Error fetching Reports on Registration data:', error);
+            // Fallback to static data if API fails
+            const dataTable = new google.visualization.DataTable();
+            dataTable.addColumn('string', 'Day');
+            dataTable.addColumn('number', 'Registrations');
+            dataTable.addColumn({ type: 'string', role: 'annotation' });
+
+            const fallbackRows = [
+                ['Mon', 100, null], ['Tue', 123, null], ['Wed', 174, '174'], 
+                ['Thu', 118, null], ['Fri', 145, null], ['Sat', 92, null]
+            ];
+
+            dataTable.addRows(fallbackRows);
+
+            console.log('Using fallback data:', fallbackRows);
+
+            const view = new google.visualization.DataView(dataTable);
+            view.setColumns([0, 1, 2]);
+
+            const options = {
+                maintainAspectRatio: false,
+                hAxis: { title: 'Day of the Week', textStyle: { color: '#333' } },
+                vAxis: { title: 'Registrations', viewWindow: { min: 0, max: 200 }, textStyle: { color: '#333' } },
+                annotations: { alwaysOutside: true, textStyle: { color: '#000', fontSize: 12 } },
+                pointSize: 5,
+                series: { 0: { lineWidth: 2, pointShape: 'circle', color: 'rgb(163, 171, 189)' } },
+                legend: 'none',
+                chartArea: { width: '80%', height: '70%' }
+            };
+
+            const chart = new google.visualization.LineChart(chartDiv);
+            chart.draw(view, options);
+        });
 };
+
+//Undergrad and Postgrad Chart
+// Function to update profile completion by gender and degree
+const updateProfileCompletionByGender = () => {
+    const undergradTotal = $('.totalundergrads-info h1');
+    const undergradFemale = $('.totalundergrads-info p:nth-child(2) span');
+    const undergradMale = $('.totalundergrads-info p:nth-child(3) span');
+    const undergradOthers = $('.totalundergrads-info p:nth-child(4) span');
+
+    const postgradTotal = $('.totalpostgrads-info h1');
+    const postgradFemale = $('.totalpostgrads-info p:nth-child(2) span');
+    const postgradMale = $('.totalpostgrads-info p:nth-child(3) span');
+    const postgradOthers = $('.totalpostgrads-info p:nth-child(4) span');
+
+    // Fetch data from API (POST request)
+    fetch('/getprofilecompletionbygender', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Required for POST in Laravel
+        },
+        body: JSON.stringify({}) // Empty body; adjust if API requires data
+    })
+        .then(response => {
+            console.log('Raw response:', response);
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+            return response.json();
+        })
+        .then(data => {
+            // console.log('Fetched Profile Completion by Gender data:', data);
+
+            // Validate the API response structure
+            if (!data.success || !data.data || typeof data.data !== 'object' || 
+                !data.data.degree_summary || typeof data.data.degree_summary !== 'object') {
+                console.log('Validation failed. Data structure:', data);
+                throw new Error('Invalid API response: Missing or invalid data structure');
+            }
+
+            // Extract data for Undergrads (UG)
+            const ugData = data.data.degree_summary.UG;
+            const ugTotal = ugData.total || 0;
+            const ugFemale = ugData.female || 0;
+            const ugMale = ugData.male || 0;
+            const ugOthers = ugData.other || (ugTotal - ugFemale - ugMale); // Fallback to total if others not provided
+
+            // Extract data for Postgrads (PG)
+            const pgData = data.data.degree_summary.PG;
+            const pgTotal = pgData.total || 0;
+            const pgFemale = pgData.female || 0;
+            const pgMale = pgData.male || 0;
+            const pgOthers = pgData.other || (pgTotal - pgFemale - pgMale); // Fallback to total if others not provided
+
+            // Update Undergrads
+            undergradTotal.textContent = ugTotal;
+            undergradFemale.textContent = ugFemale;
+            undergradMale.textContent = ugMale;
+            undergradOthers.textContent = ugOthers;
+
+            // Update Postgrads
+            postgradTotal.textContent = pgTotal;
+            postgradFemale.textContent = pgFemale;
+            postgradMale.textContent = pgMale;
+            postgradOthers.textContent = pgOthers;
+        })
+        .catch(error => {
+            console.error('Error fetching Profile Completion by Gender data:', error);
+            // Fallback to static data if API fails
+            undergradTotal.textContent = 60;
+            undergradFemale.textContent = 20;
+            undergradMale.textContent = 20;
+            undergradOthers.textContent = 20;
+
+            postgradTotal.textContent = 150;
+            postgradFemale.textContent = 20;
+            postgradMale.textContent = 20;
+            postgradOthers.textContent = 20;
+
+            console.log('Using fallback data: Undergrads: 60 (20, 20, 20), Postgrads: 150 (20, 20, 20)');
+        });
+};
+
+
 
 // Donut Graph for Registration Sources
 const initializeDonutGraphSource = () => {
@@ -886,83 +1002,542 @@ const initializeDonutGraphAgeRatio = () => {
     });
 };
 
-// Additional Donut Chart
+// Function to fetch and display cities data with sorting, filtering, and pagination
+const initializeCitiesTable = () => {
+    const tableBody = $('#city-table-body');
+    const prevBtn = $('#city-prev-btn');
+    const nextBtn = $('#city-next-btn');
+    const paginationText = $('#city-pagination-text');
+    const filterBtn = $('#city-filter-btn');
+    const sortBtn = $('#city-sort-btn');
+
+    let currentPage = 1;
+    const itemsPerPage = 10;
+    let fullData = [];
+    let filteredData = [];
+    let sortColumn = 'city';
+    let sortDirection = 'asc';
+    let filterCity = '';
+    let filterState = '';
+
+    // Fetch data from API
+    fetch('/city-stats', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        }
+    })
+        .then(response => {
+            console.log('Raw response:', response);
+            if (!response.ok) {
+                console.log('Response status:', response.status, 'Status text:', response.statusText);
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Fetched Cities data:', data);
+
+            // Validate the API response structure
+            if (!Array.isArray(data)) {
+                console.log('Validation failed: Data is not an array', data);
+                throw new Error('Invalid API response: Expected an array of city data');
+            }
+
+            // Process and normalize data
+            fullData = data.map(item => ({
+                city: item.city || 'N/A',
+                state: item.state || 'N/A',
+                female: Number(item.female) || 0, // Convert to number
+                male: Number(item.male) || 0,    // Convert to number
+                total_students: Number(item.total) || 0 // Use total as total_students
+            }));
+            filteredData = [...fullData];
+            updateTable(fullData.length);
+        })
+        .catch(error => {
+            console.error('Error fetching Cities data:', error);
+            fullData = [];
+            filteredData = [];
+            updateTable(0);
+            alert('Failed to fetch cities data. Please check the API or try again later.');
+        });
+
+    // Function to update the table based on current page, sort, and filter
+    function updateTable(totalItems) {
+        // Apply filter
+        filteredData = fullData.filter(item => {
+            return filterCity ? item.city.toLowerCase().includes(filterCity.toLowerCase()) : true;
+        });
+
+
+        // Apply sort
+        filteredData.sort((a, b) => {
+            const valueA = a[sortColumn];
+            const valueB = b[sortColumn];
+            if (typeof valueA === 'string') {
+                return sortDirection === 'asc' 
+                    ? valueA.localeCompare(valueB) 
+                    : valueB.localeCompare(valueA);
+            }
+            return sortDirection === 'asc' 
+                ? valueA - valueB 
+                : valueB - valueA;
+        });
+
+        // Calculate pagination
+        const startIdx = (currentPage - 1) * itemsPerPage;
+        const endIdx = Math.min(startIdx + itemsPerPage, filteredData.length);
+        const paginatedData = filteredData.slice(startIdx, endIdx);
+
+        // Log the paginated data for debugging
+        console.log('Paginated table data:', paginatedData);
+
+        // Update table body
+        tableBody.innerHTML = '';
+        if (paginatedData.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="5">No data available</td></tr>';
+        } else {
+            paginatedData.forEach(item => {
+                const row = `
+                    <tr>
+                        <td>${item.city}</td>
+                        <td>${item.state}</td>
+                        <td>${item.female}</td>
+                        <td>${item.male}</td>
+                        <td class="admin-city-data-value" data-value="${item.total_students}">${item.total_students}</td>
+                    </tr>
+                `;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        // Update pagination text
+        paginationText.textContent = `${startIdx + 1}-${endIdx} / ${totalItems}`;
+        prevBtn.style.visibility = currentPage === 1 ? 'hidden' : 'visible';
+        nextBtn.style.visibility = endIdx >= filteredData.length ? 'hidden' : 'visible';
+    }
+
+    // Pagination event listeners
+    prevBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            updateTable(fullData.length);
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentPage < Math.ceil(filteredData.length / itemsPerPage)) {
+            currentPage++;
+            updateTable(fullData.length);
+        }
+    });
+
+    // Sorting event listeners
+    document.querySelectorAll('#city-table thead th').forEach(header => {
+        header.addEventListener('click', () => {
+            const column = header.getAttribute('data-sort');
+            if (sortColumn === column) {
+                sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+                sortColumn = column;
+                sortDirection = 'asc';
+            }
+            currentPage = 1; // Reset to first page on sort
+            updateTable(fullData.length);
+        });
+    });
+
+    // Filtering (basic implementation)
+    filterBtn.addEventListener('click', () => {
+        const cityInput = prompt('Filter by City (leave empty to clear):', filterCity);
+        // const stateInput = prompt('Filter by State (leave empty to clear):', filterState);
+
+        filterCity = cityInput || '';
+        // filterState = stateInput || '';
+        currentPage = 1; // Reset to first page on filter
+        updateTable(fullData.length);
+    });
+
+    // Sorting button (optional, can be used for custom sorting logic if needed)
+    sortBtn.addEventListener('click', () => {
+        alert('Click on column headers to sort!');
+    });
+};
+
+
+
+
+
+
+
+// Point of Entry Donut Chart with API Data
 const initializeNewDonutChart = () => {
     const ctx = $('#donutChart')?.getContext('2d');
     if (!ctx) return console.error('donutChart canvas not found');
 
-    new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['LinkedIn Posts', 'Twitter Advertisements', 'WhatsApp Advertisements', 'Schools & Institutions', 'Others'],
-            datasets: [{
-                data: [45, 20, 15, 10, 10],
-                backgroundColor: ['#6F25CE', '#8863C9', '#A894D9', '#C5B6E5', '#E2D9F2'],
-                borderWidth: 0,
-                cutout: '70%'
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            plugins: { legend: { display: false }, tooltip: { enabled: true } }
+    // Fetch data from API
+    fetch('/getstatusofusers', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         }
-    });
+    })
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+        })
+        .then(data => {
+            // console.log('Fetched point of entry data:', data);
+
+            // Extract labels and values from the API response
+            const labels = data.categories || [];
+            const values = data.counts || [];
+            const colors = ['#6F25CE', '#8863C9', '#A894D9', '#C5B6E5', '#E2D9F2'].slice(0, labels.length); // Default colors
+
+            // Log the extracted data for debugging
+            // console.log('Chart labels:', labels);
+            // console.log('Chart values:', values);
+            // console.log('Chart colors:', colors);
+
+            // Validate data
+            if (labels.length !== values.length) {
+                throw new Error('Mismatch between categories and counts');
+            }
+
+            // Generate the chart
+            const chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: values,
+                        backgroundColor: colors,
+                        borderWidth: 0,
+                        cutout: '70%'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: true }
+                    }
+                }
+            });
+
+            // Generate and update the legend
+            generatePointEntryLegend(labels, colors);
+        })
+        .catch(error => {
+            console.error('Error fetching point of entry data:', error);
+            // Fallback to static data if API fails
+            const fallbackData = {
+                categories: ['youtube', 'Google', 'Friend', 'Others'],
+                counts: [45, 20, 15, 10, 10]
+            };
+            const labels = fallbackData.categories;
+            const values = fallbackData.counts;
+            const colors = ['#6F25CE', '#8863C9', '#A894D9', '#C5B6E5', '#E2D9F2'].slice(0, labels.length);
+
+            // console.log('Using fallback data:', fallbackData);
+
+            // Generate the chart with fallback data
+            const chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: values,
+                        backgroundColor: colors,
+                        borderWidth: 0,
+                        cutout: '70%'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: { legend: { display: false }, tooltip: { enabled: true } }
+                }
+            });
+
+            // Generate and update the legend with fallback data
+            generatePointEntryLegend(labels, colors);
+        });
 };
 
-// NBFC Chart
+// Generate Legend Dynamically
+const generatePointEntryLegend = (labels, colors) => {
+    const legendContainer = $('.point-entry-legend-container');
+    if (!legendContainer) return console.error('Legend container not found');
+
+    // Clear existing legend
+    legendContainer.innerHTML = '';
+
+    // Create two columns for the legend
+    const column1 = document.createElement('div');
+    column1.className = 'point-entry-legend';
+    const column2 = document.createElement('div');
+    column2.className = 'point-entry-legend';
+
+    labels.forEach((label, index) => {
+        const legendItem = document.createElement('div');
+        legendItem.className = 'point-entry-legend-item';
+
+        const colorBox = document.createElement('div');
+        colorBox.className = 'point-entry-legend-color';
+        colorBox.style.backgroundColor = colors[index];
+
+        const labelSpan = document.createElement('span');
+        labelSpan.textContent = label;
+
+        legendItem.appendChild(colorBox);
+        legendItem.appendChild(labelSpan);
+
+        // Distribute items into two columns
+        if (index < Math.ceil(labels.length / 2)) {
+            column1.appendChild(legendItem);
+        } else {
+            column2.appendChild(legendItem);
+        }
+    });
+
+    legendContainer.appendChild(column1);
+    legendContainer.appendChild(column2);
+};
+
+
+// NBFC Chart with API Data and Pagination
 const drawNBFCChart = () => {
     const chartDiv = $('#nbfc-lead-chart_div');
     if (!chartDiv) return console.error('nbfc-lead-chart_div not found');
 
-    const data = google.visualization.arrayToDataTable([
-        ['NBFC', 'No. Of Leads', 'Time Taken'],
-        ['ICICI', 55, 67], ['Baroda', 65, 45], ['AXIS', 60, 80], ['SBI', 90, 50],
-        ['Canara', 45, 48], ['HDFC', 75, 60]
-    ]);
+    let currentPage = 1;
+    const itemsPerPage = 5;
+    let fullData = [];
+    const prevBtn = $('#nbfc-lead-prev-btn');
+    const nextBtn = $('#nbfc-lead-next-btn');
+    const pageRange = $('#nbfc-lead-page-range');
+    const totalItems = $('#nbfc-lead-total-items');
 
-    const options = {
-        width: '100%',
-        height: 200,
-        colors: ['#E6D5F5', '#6C3EE8'],
-        legend: { position: 'none' },
-        hAxis: { textStyle: { fontSize: 10 }, gridlines: { color: 'transparent' } },
-        vAxis: { gridlines: { color: 'transparent' }, baselineColor: 'transparent', textPosition: 'none' },
-        bar: { groupWidth: '60%' },
-        backgroundColor: 'transparent',
-        chartArea: { width: '90%', height: '70%' }
-    };
+    // Fetch data from API
+    fetch('/nbfc-lead-gens', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        }
+    })
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+        })
+        .then(data => {
+            // console.log('Fetched NBFC lead generation data:', data);
 
-    const chart = new google.visualization.ColumnChart(chartDiv);
-    chart.draw(data, options);
+            // Validate the API response structure
+            if (!data.nbfcs || !Array.isArray(data.nbfcs) || 
+                !data.lead_counts || !Array.isArray(data.lead_counts) || 
+                !data.time_taken || !Array.isArray(data.time_taken) ||
+                data.nbfcs.length !== data.lead_counts.length || 
+                data.nbfcs.length !== data.time_taken.length) {
+                throw new Error('Invalid API response: Mismatched or missing data arrays');
+            }
+
+            // Transform API data into the full dataset
+            fullData = [['NBFC', 'No. Of Leads', 'Time Taken']];
+            for (let i = 0; i < data.nbfcs.length; i++) {
+                fullData.push([data.nbfcs[i], data.lead_counts[i], data.time_taken[i]]);
+            }
+
+            // Update total items
+            totalItems.textContent = fullData.length - 1; // Exclude header row
+
+            // Draw the initial chart with the first page
+            updateChart();
+
+            // Add event listeners for pagination
+            prevBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    updateChart();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentPage < Math.ceil((fullData.length - 1) / itemsPerPage)) {
+                    currentPage++;
+                    updateChart();
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching NBFC lead generation data:', error);
+            // Fallback to static data if API fails
+            fullData = [
+                ['NBFC', 'No. Of Leads', 'Time Taken'],
+                ['ICICI', 55, 67], ['Baroda', 65, 45], ['AXIS', 60, 80], ['SBI', 90, 50],
+                ['Canara', 45, 48], ['HDFC', 75, 60]
+            ];
+
+            // console.log('Using fallback data:', fullData);
+
+            // Update total items
+            totalItems.textContent = fullData.length - 1; // Exclude header row
+
+            // Draw the chart with fallback data
+            updateChart();
+        });
+
+    // Function to update the chart based on the current page
+    function updateChart() {
+        const startIdx = (currentPage - 1) * itemsPerPage + 1; // +1 to skip header
+        const endIdx = Math.min(startIdx + itemsPerPage - 1, fullData.length - 1);
+        const paginatedData = [fullData[0], ...fullData.slice(startIdx, endIdx + 1)];
+
+        // Log the paginated data for debugging
+        // console.log('Paginated chart data:', paginatedData);
+
+        // Create the data table
+        const dataTable = google.visualization.arrayToDataTable(paginatedData);
+
+        // Chart options
+        const options = {
+            width: '100%',
+            height: 170, // Adjusted height to fit 5 items comfortably
+            colors: ['#E6D5F5', '#6C3EE8'],
+            legend: { position: 'none' },
+            hAxis: { textStyle: { fontSize: 10 }, gridlines: { color: 'transparent' } },
+            vAxis: { gridlines: { color: 'transparent' }, baselineColor: 'transparent', textPosition: 'none' },
+            bar: { groupWidth: '60%' },
+            backgroundColor: 'transparent',
+            chartArea: { width: '90%', height: '70%' }
+        };
+
+        // Draw the chart
+        const chart = new google.visualization.ColumnChart(chartDiv);
+        chart.draw(dataTable, options);
+
+        // Update pagination display
+        pageRange.textContent = `${startIdx} - ${endIdx}`;
+    }
 };
 
-// Lead Chart
+// Lead Chart with API Data and Pagination
 const initializeLeadChart = () => {
     const ctx = $('#leadChart')?.getContext('2d');
     if (!ctx) return console.error('leadChart canvas not found');
 
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['54635', '65783', '56374', '92874', '36057', '10847', '34015', '57610'],
-            datasets: [{
-                label: 'No. Of Leads',
-                data: [5, 12, 10, 4, 18, 8, 6, 10],
-                backgroundColor: '#d3b8f0',
-                barThickness: 11
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false }, tooltip: { enabled: true } },
-            scales: {
-                y: { beginAtZero: true, grid: { display: false }, ticks: { display: false } },
-                x: { grid: { display: false }, ticks: { font: { family: 'Poppins', size: 12 }, color: '#5D5C5C' } }
-            }
+    let currentPage = 1;
+    const itemsPerPage = 5; // Set to 5 for scalability, even though we have only 2 items
+    let fullLabels = [];
+    let fullData = [];
+    const prevBtn = $('#sc-lead-prev-btn');
+    const nextBtn = $('#sc-lead-next-btn');
+    const pageRange = $('#sc-lead-page-range');
+    const totalItems = $('#sc-lead-total-items');
+
+    // Fetch data from API
+    fetch('/sc-lead-gens', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         }
-    });
+    })
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+        })
+        .then(data => {
+            // console.log('Fetched Student Counsellors lead generation data:', data);
+
+            // Validate the API response structure
+            if (!data.student_counsellors || !Array.isArray(data.student_counsellors) || 
+                !data.lead_counts || !Array.isArray(data.lead_counts) || 
+                data.student_counsellors.length !== data.lead_counts.length) {
+                throw new Error('Invalid API response: Mismatched or missing data arrays');
+            }
+
+            // Store the full dataset
+            fullLabels = data.student_counsellors;
+            fullData = data.lead_counts;
+
+            // Update total items
+            totalItems.textContent = fullLabels.length;
+
+            // Draw the initial chart with the first page
+            updateChart();
+
+            // Add event listeners for pagination
+            prevBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    updateChart();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentPage < Math.ceil(fullLabels.length / itemsPerPage)) {
+                    currentPage++;
+                    updateChart();
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching Student Counsellors lead generation data:', error);
+            // Fallback to static data if API fails
+            fullLabels = ['54635', '65783', '56374', '92874', '36057', '10847', '34015', '57610'];
+            fullData = [5, 12, 10, 4, 18, 8, 6, 10];
+
+            // console.log('Using fallback data:', { labels: fullLabels, data: fullData });
+
+            // Update total items
+            totalItems.textContent = fullLabels.length;
+
+            // Draw the chart with fallback data
+            updateChart();
+        });
+
+    // Function to update the chart based on the current page
+    function updateChart() {
+        const startIdx = (currentPage - 1) * itemsPerPage;
+        const endIdx = Math.min(startIdx + itemsPerPage, fullLabels.length);
+        const paginatedLabels = fullLabels.slice(startIdx, endIdx);
+        const paginatedData = fullData.slice(startIdx, endIdx);
+
+        // Log the paginated data for debugging
+        // console.log('Paginated chart data:', { labels: paginatedLabels, data: paginatedData });
+
+        // Create the chart
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: paginatedLabels,
+                datasets: [{
+                    label: 'No. Of Leads',
+                    data: paginatedData,
+                    backgroundColor: '#d3b8f0',
+                    barThickness: 11
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: { enabled: true } },
+                scales: {
+                    y: { beginAtZero: true, grid: { display: false }, ticks: { display: false } },
+                    x: { grid: { display: false }, ticks: { font: { family: 'Poppins', size: 12 }, color: '#5D5C5C' } }
+                }
+            }
+        });
+
+        // Update pagination display
+        pageRange.textContent = `${startIdx + 1} - ${endIdx}`;
+    }
 };
 
 // Highlight Highest Values in Tables
@@ -1031,7 +1606,7 @@ const initializeDropdown = () => {
             // Ensure elements are visible by default (rely on CSS)
             report.style.display = ''; // Reset to default or CSS rule
             report.style.visibility = ''; // Reset to default or CSS rule
-            console.log('Restoring visibility for:', report.dataset.report);
+            // console.log('Restoring visibility for:', report.dataset.report);
         });
         fallbackMessage.style.display = 'none';
         dropdownButton.innerHTML = `Show All <i class="fa-solid fa-chevron-down"></i>`;
@@ -1067,7 +1642,7 @@ const initializeDropdown = () => {
 
     const toggleDropdown = (e) => {
         e.stopPropagation();
-        console.log('Toggling dropdown, current class:', dropdownOptions.className);
+        // console.log('Toggling dropdown, current class:', dropdownOptions.className);
         // Reset to show all reports when reopening after a selection
         if (currentReport !== 'all' && !dropdownOptions.classList.contains('show')) {
             showAllReports();
