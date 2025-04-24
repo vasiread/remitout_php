@@ -512,7 +512,7 @@
                 <div class="options-section" id="liability-options" style="display: none">
                     <div class="liability-content-container">
                         <!-- Monthly liability option with horizontal layout -->
-                        <div class="monthly-liability-option">
+                        <div class="monthly-liability-option-container">
                             <!-- Radio buttons on the left -->
                             <div class="monthly-liability-radio-buttons">
                                 <label>
@@ -1817,168 +1817,133 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all components
-    SectionToggler.init();
-    InputFieldManager.init();
-    FormValidator.init();
-    CityAutocomplete.init();
-    SocialOptionsManager.init();
-    CourseLocationManager.init();
-    CourseOptionsManager.init();
-    CourseDurationManager.init();
-    CourseDetailsManager.init();
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize all managers
+    const managers = [
+        SectionToggler,
+        InputFieldManager,
+        FormValidator,
+        CityAutocomplete,
+        SocialOptionsManager,
+        CourseLocationManager,
+        CourseOptionsManager,
+        CourseDurationManager,
+        CourseDetailsManager,
+        AcademicDetailsManager,
+        CoBorrowerManager,
+        SectionManager,
+        DocumentFieldManager
+    ];
+    managers.forEach(manager => manager.init());
 });
 
-/**
- * Handles section toggling functionality
- */
+// Utility function for toggling visibility
+const toggleVisibility = (element, isVisible, icon, rotateClass = 'rotated') => {
+    element.style.display = isVisible ? 'none' : 'block';
+    if (icon) icon.classList.toggle(rotateClass, !isVisible);
+};
+
+// Section Toggler
 const SectionToggler = {
-    init: function() {
-        this.setupMainSectionToggle();
-        this.setupPersonInfoToggle();
-        this.setupAboutUsToggle();
-        this.setupCourseSectionToggle();
+    init() {
+        this.setupToggles([
+            {
+                header: '.admin-student-section-header',
+                content: '.admin-student-section-content',
+                arrow: '.admin-student-arrow-icon img',
+                arrowClasses: ['admin-student-arrow-up', 'admin-student-arrow-down']
+            },
+            {
+                id: 'admin-student-person-info',
+                sectionId: 'person-info-section'
+            },
+            {
+                id: 'admin-student-about-us',
+                sectionId: 'about-us-section'
+            },
+            {
+                header: '.admin-student-section-header-course',
+                content: '.admin-student-section-content-course',
+                arrow: '.admin-student-arrow-icon-course',
+                rotate: true
+            }
+        ]);
     },
 
-    setupMainSectionToggle: function() {
-        const sectionHeader = document.querySelector('.admin-student-section-header');
-        const sectionContent = document.querySelector('.admin-student-section-content');
-        const arrowIcon = document.querySelector('.admin-student-arrow-icon img');
+    setupToggles(configs) {
+        configs.forEach(config => {
+            if (config.header) {
+                const header = document.querySelector(config.header);
+                const content = document.querySelector(config.content);
+                const arrow = document.querySelector(config.arrow);
+                content.style.display = 'block';
+                if (config.arrowClasses) {
+                    arrow.classList.add(config.arrowClasses[0]);
+                    arrow.classList.remove(config.arrowClasses[1]);
+                } else if (config.rotate) {
+                    arrow.style.transform = 'rotate(180deg)';
+                }
 
-        // By default section is expanded (content visible, arrow up)
-        sectionContent.style.display = 'block';
-        arrowIcon.classList.add('admin-student-arrow-up');
-        arrowIcon.classList.remove('admin-student-arrow-down');
-
-        sectionHeader.addEventListener('click', function() {
-            const isContentVisible = sectionContent.style.display === 'block';
-
-            // Toggle content visibility
-            sectionContent.style.display = isContentVisible ? 'none' : 'block';
-
-            // Toggle arrow direction
-            if (isContentVisible) {
-                // Content is being hidden, arrow points down
-                arrowIcon.classList.add('admin-student-arrow-down');
-                arrowIcon.classList.remove('admin-student-arrow-up');
-            } else {
-                // Content is being shown, arrow points up
-                arrowIcon.classList.add('admin-student-arrow-up');
-                arrowIcon.classList.remove('admin-student-arrow-down');
+                header.addEventListener('click', () => {
+                    const isVisible = content.style.display === 'block';
+                    content.style.display = isVisible ? 'none' : 'block';
+                    if (config.arrowClasses) {
+                        arrow.classList.toggle(config.arrowClasses[0], !isVisible);
+                        arrow.classList.toggle(config.arrowClasses[1], isVisible);
+                    } else if (config.rotate) {
+                        arrow.style.transform = isVisible ? 'rotate(0deg)' : 'rotate(180deg)';
+                    }
+                });
+            } else if (config.id) {
+                const row = document.getElementById(config.id);
+                const section = document.getElementById(config.sectionId);
+                if (row && section) {
+                    row.addEventListener('click', () => {
+                        section.style.display = section.style.display === 'none' ? 'block' : 'none';
+                    });
+                }
             }
         });
-    },
-
-    setupPersonInfoToggle: function() {
-        this.setupSectionToggle('admin-student-person-info', 'person-info-section');
-    },
-
-    setupAboutUsToggle: function() {
-        this.setupSectionToggle('admin-student-about-us', 'about-us-section');
-    },
-
-    setupCourseSectionToggle: function() {
-        const sectionHeader = document.querySelector('.admin-student-section-header-course');
-        const sectionContent = document.querySelector('.admin-student-section-content-course');
-        const arrowIcon = document.querySelector('.admin-student-arrow-icon-course');
-
-        // By default section is expanded (content visible, arrow up)
-        sectionContent.style.display = 'block';
-        arrowIcon.style.transform = 'rotate(180deg)';
-
-        sectionHeader.addEventListener('click', function() {
-            const isContentVisible = sectionContent.style.display === 'block';
-
-            // Toggle content visibility
-            sectionContent.style.display = isContentVisible ? 'none' : 'block';
-
-            // Toggle arrow rotation
-            arrowIcon.style.transform = isContentVisible ? 'rotate(0deg)' : 'rotate(180deg)';
-        });
-    },
-
-    setupSectionToggle: function(questionRowId, sectionId) {
-        const questionRow = document.getElementById(questionRowId);
-        const section = document.getElementById(sectionId);
-
-        if (questionRow && section) {
-            questionRow.addEventListener('click', function() {
-                if (section.style.display === "none" || section.style.display === "") {
-                    section.style.display = "block";
-                } else {
-                    section.style.display = "none";
-                }
-            });
-        }
     }
 };
 
-/**
- * Manages input fields (add, remove, reorganize)
- */
+// Input Field Manager
 const InputFieldManager = {
-    init: function() {
-        this.setupRemoveOption();
-        this.setupAddField();
+    iconMap: {
+        name: './assets/images/person-icon.png',
+        phone: './assets/images/call-icon.png',
+        email: './assets/images/mail.png',
+        city: './assets/images/pin_drop.png',
+        country: './assets/images/pin_drop.png',
+        pincode: './assets/images/pin_drop.png',
+        referral: './assets/images/school.png'
     },
 
-    setupRemoveOption: function() {
-        document.addEventListener('click', function(e) {
+    init() {
+        this.setupEvents();
+    },
+
+    setupEvents() {
+        document.addEventListener('click', e => {
             if (e.target.classList.contains('remove-option')) {
                 e.target.closest('.input-group').remove();
-                InputFieldManager.reorganizeInputs();
+                this.reorganizeInputs();
             }
         });
-    },
 
-    setupAddField: function() {
         const addInputField = document.getElementById('add-input-field');
         if (addInputField) {
-            addInputField.addEventListener('click', function() {
-                InputFieldManager.showInputPrompt();
+            addInputField.addEventListener('click', () => {
+                const fieldType = prompt("Enter field type (e.g., Country, Pincode):")?.trim();
+                if (fieldType) this.addNewInputField(fieldType);
             });
         }
     },
 
-    showInputPrompt: function() {
-        const fieldType = prompt("Enter field type (e.g., Country, Pincode):");
-        if (fieldType && fieldType.trim() !== "") {
-            this.addNewInputField(fieldType);
-        }
-    },
-
-    addNewInputField: function(fieldType) {
-        // Icon mapping based on field type (case insensitive)
-        const iconMap = {
-            'name': './assets/images/person-icon.png',
-            'full name': './assets/images/person-icon.png',
-            'first name': './assets/images/person-icon.png',
-            'last name': './assets/images/person-icon.png',
-            'phone': './assets/images/call-icon.png',
-            'phone number': './assets/images/call-icon.png',
-            'mobile': './assets/images/call-icon.png',
-            'email': './assets/images/mail.png',
-            'email id': './assets/images/mail.png',
-            'city': './assets/images/pin_drop.png',
-            'address': './assets/images/pin_drop.png',
-            'location': './assets/images/pin_drop.png',
-            'country': './assets/images/pin_drop.png',
-            'state': './assets/images/pin_drop.png',
-            'pincode': './assets/images/pin_drop.png',
-            'zip code': './assets/images/pin_drop.png',
-            'postal code': './assets/images/pin_drop.png',
-            'referral': './assets/images/school.png',
-            'referral code': './assets/images/school.png',
-            'code': './assets/images/school.png',
-        };
-
-        // Check for icon match (case insensitive)
+    addNewInputField(fieldType) {
         const fieldTypeLower = fieldType.toLowerCase();
-        let iconSrc = './assets/images/pin_drop.png'; // default icon
-
-        // Find matching icon
-        for (const [key, value] of Object.entries(iconMap)) {
+        let iconSrc = './assets/images/pin_drop.png';
+        for (const [key, value] of Object.entries(this.iconMap)) {
             if (fieldTypeLower.includes(key) || key.includes(fieldTypeLower)) {
                 iconSrc = value;
                 break;
@@ -1996,106 +1961,65 @@ const InputFieldManager = {
             <div class="validation-message" id="${fieldTypeLower.replace(/\s+/g, '_')}-error"></div>
         `;
 
-        // Find the current parent of the add button
         const addButton = document.getElementById('add-input-field');
-        const addButtonParent = addButton.parentNode;
-
-        // Add the new input field before the add button
-        addButtonParent.insertBefore(newInput, addButton);
-
-        // Reorganize inputs to maintain exactly 3 per row
+        addButton.parentNode.insertBefore(newInput, addButton);
         this.reorganizeInputs();
     },
 
-    reorganizeInputs: function() {
-        // Get all input groups and the add field
+    reorganizeInputs() {
         const allInputs = document.querySelectorAll('.input-group');
         const addField = document.getElementById('add-input-field');
-
-        // Get or create rows as needed
         let row1 = document.getElementById('input-row-1');
         let row2 = document.getElementById('input-row-2');
-
         if (!row1 || !row2) return;
 
-        // Clear all rows
         row1.innerHTML = '';
         row2.innerHTML = '';
-
-        // Remove any existing row3
         const existingRow3 = document.getElementById('input-row-3');
-        if (existingRow3) {
-            existingRow3.remove();
-        }
+        if (existingRow3) existingRow3.remove();
 
-        // Create row3 if needed
-        let row3 = null;
-        if (allInputs.length > 6) {
-            row3 = document.createElement('div');
+        let row3 = allInputs.length > 6 ? document.createElement('div') : null;
+        if (row3) {
             row3.className = 'input-row';
             row3.id = 'input-row-3';
             row2.parentNode.insertBefore(row3, row2.nextSibling);
         }
 
-        // Distribute inputs, exactly 3 per row
-        for (let i = 0; i < allInputs.length; i++) {
-            if (i < 3) {
-                row1.appendChild(allInputs[i]);
-            } else if (i < 6) {
-                row2.appendChild(allInputs[i]);
-            } else if (row3) {
-                row3.appendChild(allInputs[i]);
-            }
-        }
+        allInputs.forEach((input, i) => {
+            if (i < 3) row1.appendChild(input);
+            else if (i < 6) row2.appendChild(input);
+            else if (row3) row3.appendChild(input);
+        });
 
-        // Determine where to place the add button
         const lastRow = row3 || (allInputs.length > 3 ? row2 : row1);
         const inputsInLastRow = lastRow.querySelectorAll('.input-group').length;
-
-        // Only add the add button if there's room (less than 3 inputs)
         if (inputsInLastRow < 3) {
             lastRow.appendChild(addField);
         } else {
-            // Create a new row for the add button
             const newRow = document.createElement('div');
             newRow.className = 'input-row';
-            newRow.id = 'input-row-' + (row3 ? '4' : (row2.children.length > 0 ? '3' : '2'));
+            newRow.id = `input-row-${row3 ? '4' : (row2.children.length > 0 ? '3' : '2')}`;
             newRow.appendChild(addField);
             lastRow.parentNode.insertBefore(newRow, lastRow.nextSibling);
         }
     }
 };
 
-/**
- * Handles form validation
- */
+// Form Validator
 const FormValidator = {
-    init: function() {
-        this.setupFieldValidation();
-    },
-
-    setupFieldValidation: function() {
-        const inputs = document.querySelectorAll('input[required]');
-        inputs.forEach(input => {
-            input.addEventListener('blur', function() {
-                FormValidator.validateField(this);
-            });
+    init() {
+        document.querySelectorAll('input[required]').forEach(input => {
+            input.addEventListener('blur', () => this.validateField(input));
         });
     },
 
-    validateField: function(field) {
-        // Find the error element associated with this field
-        const errorId = field.id + "-error";
-        const errorElement = document.getElementById(errorId);
-
-        if (!errorElement) return; // Skip if no error element exists
+    validateField(field) {
+        const errorElement = document.getElementById(`${field.id}-error`);
+        if (!errorElement) return;
 
         const inputGroup = field.closest('.input-group');
-
-        // Reset previous error styling
         inputGroup.style.borderColor = '';
 
-        // Check for errors
         if (!field.value.trim()) {
             errorElement.textContent = `Please enter a valid ${field.placeholder.toLowerCase()}`;
             errorElement.style.display = 'block';
@@ -2109,75 +2033,56 @@ const FormValidator = {
             errorElement.style.display = 'block';
             inputGroup.style.borderColor = 'red';
         } else {
-            // Clear error message
             errorElement.textContent = '';
             errorElement.style.display = 'none';
         }
     },
 
-    isValidEmail: function(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
+    isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     },
 
-    isValidPhone: function(phone) {
-        const phoneRegex = /^\d{10}$/;
-        return phoneRegex.test(phone);
+    isValidPhone(phone) {
+        return /^\d{10}$/.test(phone);
     }
 };
 
-/**
- * City autocomplete functionality
- */
+// City Autocomplete
 const CityAutocomplete = {
     cities: ['Mumbai', 'Delhi', 'Bangalore', 'Chennai', 'Kolkata', 'Hyderabad', 'Pune', 'Ahmedabad'],
-    
-    init: function() {
+
+    init() {
         const cityInput = document.getElementById('city-input');
         const suggestionsContainer = document.getElementById('suggestions');
-        
-        if (!cityInput || !suggestionsContainer) return;
-        
-        this.setupCityAutocomplete(cityInput, suggestionsContainer);
+        if (cityInput && suggestionsContainer) {
+            this.setupAutocomplete(cityInput, suggestionsContainer);
+        }
     },
-    
-    setupCityAutocomplete: function(cityInput, suggestionsContainer) {
+
+    setupAutocomplete(cityInput, suggestionsContainer) {
         cityInput.addEventListener('input', function() {
             const inputValue = this.value.toLowerCase();
-
-            // Clear previous suggestions
             suggestionsContainer.innerHTML = '';
 
             if (inputValue.length > 0) {
-                // Filter cities that match input
-                const matchedCities = CityAutocomplete.cities.filter(city =>
+                const matchedCities = CityAutocomplete.cities.filter(city => 
                     city.toLowerCase().startsWith(inputValue)
                 );
 
                 if (matchedCities.length > 0) {
                     suggestionsContainer.style.display = 'block';
-
-                    // Create suggestion elements
                     matchedCities.forEach(city => {
                         const div = document.createElement('div');
                         div.textContent = city;
                         div.style.padding = '8px 10px';
                         div.style.cursor = 'pointer';
-
-                        div.addEventListener('click', function() {
+                        div.addEventListener('click', () => {
                             cityInput.value = city;
                             suggestionsContainer.style.display = 'none';
                             FormValidator.validateField(cityInput);
                         });
-
-                        div.addEventListener('mouseover', function() {
-                            this.style.backgroundColor = '#f0f0f0';
-                        });
-
-                        div.addEventListener('mouseout', function() {
-                            this.style.backgroundColor = 'transparent';
-                        });
-
+                        div.addEventListener('mouseover', () => div.style.backgroundColor = '#f0f0f0');
+                        div.addEventListener('mouseout', () => div.style.backgroundColor = 'transparent');
                         suggestionsContainer.appendChild(div);
                     });
                 } else {
@@ -2188,8 +2093,7 @@ const CityAutocomplete = {
             }
         });
 
-        // Hide suggestions when clicking outside
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', e => {
             if (e.target !== cityInput && e.target !== suggestionsContainer) {
                 suggestionsContainer.style.display = 'none';
             }
@@ -2197,1292 +2101,697 @@ const CityAutocomplete = {
     }
 };
 
-/**
- * Social options manager
- */
+// Social Options Manager
 const SocialOptionsManager = {
-    init: function() {
-        this.setupSocialButtons();
-    },
-    
-    setupSocialButtons: function() {
-        // Setup existing remove buttons
-        document.querySelectorAll('.social-remove').forEach(function(removeButton) {
-            removeButton.addEventListener('click', function() {
-                this.parentElement.remove();
-            });
+    init() {
+        document.querySelectorAll('.social-remove').forEach(btn => {
+            btn.addEventListener('click', () => btn.parentElement.remove());
         });
-        
-        // Setup add button
+
         const addSocialButton = document.querySelector('.add-social');
         if (addSocialButton) {
-            addSocialButton.addEventListener('click', function() {
-                // Prompt user for input
-                const userInput = prompt("Enter dropdown option", "");
-
-                // Only proceed if the user entered something
-                if (userInput && userInput.trim() !== "") {
-                    // Create new option
+            addSocialButton.addEventListener('click', () => {
+                const userInput = prompt("Enter dropdown option", "")?.trim();
+                if (userInput) {
                     const newOption = document.createElement('div');
                     newOption.className = 'social-option';
-
-                    // Create the name span with the user's input
-                    const nameSpan = document.createElement('span');
-                    nameSpan.className = 'social-name';
-                    nameSpan.textContent = userInput.trim();
-
-                    // Create the remove button
-                    const removeSpan = document.createElement('span');
-                    removeSpan.className = 'social-remove';
-                    removeSpan.textContent = '×';
-
-                    // Add event listener to the remove button
-                    removeSpan.addEventListener('click', function() {
-                        newOption.remove();
-                    });
-
-                    // Append the spans to the new option
-                    newOption.appendChild(nameSpan);
-                    newOption.appendChild(removeSpan);
-
-                    // Get the parent container
-                    const optionsContainer = document.querySelector('.second-question-options');
-
-                    // Append the new option to the container
-                    if (optionsContainer) {
-                        optionsContainer.appendChild(newOption);
-                    }
+                    newOption.innerHTML = `
+                        <span class="social-name">${userInput}</span>
+                        <span class="social-remove">×</span>
+                    `;
+                    newOption.querySelector('.social-remove').addEventListener('click', () => newOption.remove());
+                    document.querySelector('.second-question-options')?.appendChild(newOption);
                 }
             });
         }
     }
 };
 
-/**
- * Course location manager
- */
+// Course Location Manager
 const CourseLocationManager = {
-    init: function() {
-        this.setupLocationControls();
-    },
-    
-    setupLocationControls: function() {
+    init() {
         const checkboxContainer = document.getElementById('selected-study-location');
         const addCheckboxContainer = document.querySelector('.add-checkbox-container');
-        
-        if (!checkboxContainer || !addCheckboxContainer) {
-            console.error('Course location containers not found');
-            return;
+        if (checkboxContainer && addCheckboxContainer) {
+            addCheckboxContainer.addEventListener('click', e => {
+                e.preventDefault();
+                this.addNewCheckbox(checkboxContainer, addCheckboxContainer);
+            });
         }
-        
-        addCheckboxContainer.addEventListener('click', function(event) {
-            event.preventDefault();
-            CourseLocationManager.addNewCheckbox(checkboxContainer, addCheckboxContainer);
-        });
-        
-        // Setup toggle for course options section
+
         const questionRow = document.querySelector('.admin-student-question-row-course');
         const optionsSection = document.querySelector('.admin-student-options-section-course');
-
         if (questionRow && optionsSection) {
-            // Hide the options section by default
             optionsSection.style.display = 'none';
-            
-            questionRow.addEventListener('click', function() {
-                // Toggle the visibility of the options section
-                optionsSection.style.display = optionsSection.style.display === 'none' ? 'block' : 'none';
+            questionRow.addEventListener('click', () => {
+                toggleVisibility(optionsSection, optionsSection.style.display === 'block');
             });
         }
     },
-    
-    addNewCheckbox: function(checkboxContainer, addCheckboxContainer) {
-        // Prompt user for input
-        const newCountry = prompt("Enter country name", "");
-        
-        // Only proceed if the user entered something
-        if (newCountry && newCountry.trim() !== "") {
-            // Check if country already exists
+
+    addNewCheckbox(checkboxContainer, addCheckboxContainer) {
+        const newCountry = prompt("Enter country name", "")?.trim();
+        if (newCountry) {
             const existingCountries = Array.from(checkboxContainer.querySelectorAll('input[type="checkbox"]'))
-                .map(checkbox => checkbox.value.toLowerCase());
-            
+                .map(cb => cb.value.toLowerCase());
             if (existingCountries.includes(newCountry.toLowerCase())) {
                 alert('This country is already in the list');
                 return;
             }
-            
-            // Create new checkbox element
+
             const newLabel = document.createElement('label');
-            const newCheckbox = document.createElement('input');
-            
-            // Configure checkbox
-            newCheckbox.type = 'checkbox';
-            newCheckbox.name = 'study-location';
-            newCheckbox.value = newCountry;
-            newCheckbox.checked = true;
-            
-            // Create label with checkbox and text
-            newLabel.appendChild(newCheckbox);
-            newLabel.appendChild(document.createTextNode(' ' + newCountry));
-            
-            // Insert new checkbox before the add container
+            newLabel.innerHTML = `<input type="checkbox" name="study-location" value="${newCountry}" checked> ${newCountry}`;
             checkboxContainer.insertBefore(newLabel, addCheckboxContainer);
         }
     }
 };
 
-/**
- * Course options manager
- */
+// Course Options Manager
 const CourseOptionsManager = {
-    init: function() {
-        this.setupDegreeOptions();
-    },
-    
-    setupDegreeOptions: function() {
+    init() {
         const optionsContainer = document.getElementById('option-section-degree-container');
         const dropdownTrigger = document.getElementById('admin-student-course-second');
-        
-        if (!optionsContainer || !dropdownTrigger) {
-            console.error('Degree options elements not found');
-            return;
-        }
-        
-        // Hide options container by default
+        if (!optionsContainer || !dropdownTrigger) return;
+
         optionsContainer.style.display = 'none';
-        
-        // Toggle visibility on click
-        dropdownTrigger.addEventListener('click', function(e) {
+        dropdownTrigger.addEventListener('click', e => {
             e.stopPropagation();
-            optionsContainer.style.display = optionsContainer.style.display === 'none' ? 'block' : 'none';
+            toggleVisibility(optionsContainer, optionsContainer.style.display === 'block');
         });
-        
-        // Handle add new option
+
         const addSection = document.getElementById('addSection');
         const optionsGrid = document.getElementById('optionsContainer');
-        
         if (addSection && optionsGrid) {
-            addSection.onclick = function(e) {
+            addSection.addEventListener('click', e => {
                 e.stopPropagation();
-                const newOptionName = prompt('Enter new option:');
-                if (newOptionName && newOptionName.trim() !== '') {
-                    // Remove the add section
+                const newOptionName = prompt('Enter new option:')?.trim();
+                if (newOptionName) {
                     optionsGrid.removeChild(addSection);
-                    
-                    // Create the new option item
                     const newOptionItem = document.createElement('div');
                     newOptionItem.className = 'option-item';
                     newOptionItem.innerHTML = `
                         <input type="checkbox" class="option-checkbox">
-                        <div class="option-name">${newOptionName.trim()}</div>
+                        <div class="option-name">${newOptionName}</div>
                     `;
-                    
-                    // Add the new option to the grid
                     optionsGrid.appendChild(newOptionItem);
-                    
-                    // Add back the add section
                     optionsGrid.appendChild(addSection);
                 }
-            };
+            });
         }
     }
 };
 
-/**
- * Course duration manager
- */
+// Course Duration Manager
 const CourseDurationManager = {
-    init: function() {
-        this.setupCourseDuration();
-    },
-    
-    setupCourseDuration: function() {
+    init() {
         const rowElement = document.getElementById('course-row-month-id');
         const dropdownElement = document.getElementById('course-dropdown-month-id');
         const optionsSection = document.getElementById('course-duration-section-month');
-        
-        if (!rowElement || !dropdownElement || !optionsSection) {
-            console.error('Course duration elements not found');
-            return;
-        }
-        
-        // Hide options by default
+        if (!rowElement || !dropdownElement || !optionsSection) return;
+
         optionsSection.style.display = 'none';
-        
-        // Setup click handlers
-        rowElement.addEventListener('click', function() {
-            CourseDurationManager.toggleOptionsDisplay(optionsSection);
+        const toggleOptions = () => {
+            const isHidden = optionsSection.style.display === 'none';
+            toggleVisibility(optionsSection, !isHidden, document.querySelector('.admin-student-dropdown-icon'));
+            document.querySelector('.admin-student-form-question-month').classList.toggle('active', isHidden);
+        };
+
+        rowElement.addEventListener('click', toggleOptions);
+        dropdownElement.addEventListener('click', e => {
+            e.stopPropagation();
+            toggleOptions();
         });
-        
-        dropdownElement.addEventListener('click', function(event) {
-            event.stopPropagation();
-            CourseDurationManager.toggleOptionsDisplay(optionsSection);
-        });
-        
-        // Setup existing remove buttons
-        document.querySelectorAll('.course-remove').forEach(function(removeButton) {
-            removeButton.addEventListener('click', function(event) {
-                event.stopPropagation();
-                this.parentElement.remove();
+
+        document.querySelectorAll('.course-remove').forEach(btn => {
+            btn.addEventListener('click', e => {
+                e.stopPropagation();
+                btn.parentElement.remove();
             });
         });
-        
-        // Setup add button
-        const addButton = document.querySelector('.add-course');
-        if (addButton) {
-            addButton.addEventListener('click', function(event) {
-                event.stopPropagation();
-                CourseDurationManager.addNewDurationOption();
-            });
-        }
+
+        document.querySelector('.add-course')?.addEventListener('click', e => {
+            e.stopPropagation();
+            this.addNewDurationOption();
+        });
     },
-    
-    toggleOptionsDisplay: function(optionsSection) {
-        const isCurrentlyHidden = optionsSection.style.display === 'none' || !optionsSection.style.display;
-        const dropdownIcon = document.querySelector('.admin-student-dropdown-icon');
 
-        optionsSection.style.display = isCurrentlyHidden ? 'block' : 'none';
-
-        if (dropdownIcon) {
-            dropdownIcon.classList.toggle('rotated', isCurrentlyHidden);
-        }
-
-        document.querySelector('.admin-student-form-question-month').classList.toggle('active', isCurrentlyHidden);
-    },
-    
-    addNewDurationOption: function() {
-        const userInput = prompt("Enter course duration option", "");
-
-        if (userInput && userInput.trim() !== "") {
+    addNewDurationOption() {
+        const userInput = prompt("Enter course duration option", "")?.trim();
+        if (userInput) {
             const newOption = document.createElement('div');
             newOption.className = 'course-option';
-
-            const nameSpan = document.createElement('span');
-            nameSpan.className = 'course-name';
-            nameSpan.textContent = userInput.trim();
-
-            const removeSpan = document.createElement('span');
-            removeSpan.className = 'course-remove';
-            removeSpan.textContent = '×';
-
-            removeSpan.addEventListener('click', function(event) {
-                event.stopPropagation();
+            newOption.innerHTML = `
+                <span class="course-name">${userInput}</span>
+                <span class="course-remove">×</span>
+            `;
+            newOption.querySelector('.course-remove').addEventListener('click', e => {
+                e.stopPropagation();
                 newOption.remove();
             });
-
-            newOption.appendChild(nameSpan);
-            newOption.appendChild(removeSpan);
-
-            const optionsContainer = document.querySelector('.course-options');
-            if (optionsContainer) {
-                optionsContainer.appendChild(newOption);
-            }
+            document.querySelector('.course-options')?.appendChild(newOption);
         }
     }
 };
 
-/**
- * Course details manager
- */
+// Course Details Manager
 const CourseDetailsManager = {
-    init: function() {
-        this.setupCourseDetails();
-    },
-    
-    setupCourseDetails: function() {
-        const courseDetailsContainer = document.getElementById('course-details-container');
-        if (!courseDetailsContainer) {
-            console.error('Course details container not found');
-            return;
-        }
-        
-        const courseDetailsRow = courseDetailsContainer.querySelector('#course-details-row');
-        const dropdownIcon = courseDetailsContainer.querySelector('.admin-student-dropdown-icon');
-        const optionsSection = courseDetailsContainer.querySelector('#course-details-options');
-        
-        if (!courseDetailsRow || !dropdownIcon || !optionsSection) {
-            console.error('Course details elements not found');
-            return;
-        }
-        
-        // Hide options by default
+    init() {
+        const container = document.getElementById('course-details-container');
+        if (!container) return;
+
+        const row = container.querySelector('#course-details-row');
+        const dropdownIcon = container.querySelector('.admin-student-dropdown-icon');
+        const optionsSection = container.querySelector('#course-details-options');
+        if (!row || !dropdownIcon || !optionsSection) return;
+
         optionsSection.style.display = 'none';
-        
-        // Toggle on row click
-        courseDetailsRow.addEventListener('click', function() {
+        row.addEventListener('click', () => {
             const isVisible = optionsSection.style.display !== 'none';
-
-            // Toggle visibility
-            optionsSection.style.display = isVisible ? 'none' : 'block';
-
-            // Toggle active class on container
-            courseDetailsContainer.classList.toggle('active', !isVisible);
-
-            // Rotate the dropdown icon
-            dropdownIcon.classList.toggle('rotated', !isVisible);
+            toggleVisibility(optionsSection, isVisible, dropdownIcon);
+            container.classList.toggle('active', !isVisible);
         });
-        
-        // Add option button
-        const addOptionBtn = courseDetailsContainer.querySelector('#add-option-btn');
-        if (addOptionBtn) {
-            addOptionBtn.addEventListener('click', function(event) {
-                event.stopPropagation();
-                CourseDetailsManager.addNewCourseOption(courseDetailsContainer);
-            });
-        }
-        
-        // Prevent clicks on checkboxes from toggling the dropdown
-        const checkboxContainer = courseDetailsContainer.querySelector('.checkbox-options-container');
-        if (checkboxContainer) {
-            checkboxContainer.addEventListener('click', function(event) {
-                event.stopPropagation();
-            });
-        }
-    },
-    
-    addNewCourseOption: function(courseDetailsContainer) {
-        const userInput = prompt("Enter new option", "");
 
-        if (userInput && userInput.trim() !== "") {
-            const optionsContainer = courseDetailsContainer.querySelector('.checkbox-options-container');
+        const addOptionBtn = container.querySelector('#add-option-btn');
+        if (addOptionBtn) {
+            addOptionBtn.addEventListener('click', e => {
+                e.stopPropagation();
+                this.addNewCourseOption(container);
+            });
+        }
+
+        container.querySelector('.checkbox-options-container')?.addEventListener('click', e => e.stopPropagation());
+    },
+
+    addNewCourseOption(container) {
+        const userInput = prompt("Enter new option", "")?.trim();
+        if (userInput) {
+            const optionsContainer = container.querySelector('.checkbox-options-container');
             if (!optionsContainer) return;
 
             const newOption = document.createElement('div');
             newOption.className = 'checkbox-option';
-
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.id = 'option-' + Date.now();
-            checkbox.name = 'course-options';
-
-            const label = document.createElement('label');
-            label.htmlFor = checkbox.id;
-            label.textContent = userInput.trim();
-
-            newOption.appendChild(checkbox);
-            newOption.appendChild(label);
+            const checkboxId = `option-${Date.now()}`;
+            newOption.innerHTML = `
+                <input type="checkbox" id="${checkboxId}" name="course-options">
+                <label for="${checkboxId}">${userInput}</label>
+            `;
             optionsContainer.appendChild(newOption);
         }
     }
 };
 
-// Academic details
-const academicDetailsSection = document.getElementById("academic-details-section");
-const academicDetailsContent = document.getElementById("academic-details-content");
-const arrowIcon = document.querySelector(".admin-student-arrow-icon-academic");
+// Academic Details Manager
+const AcademicDetailsManager = {
+    fieldCount: 2,
+    rowCount: 1,
 
-academicDetailsSection.addEventListener("click", function () {
-    academicDetailsContent.classList.toggle("expanded");
-    arrowIcon.classList.toggle("rotated");
-});
-
-const educationContainer = document.getElementById("education-container");
-const educationHeaderRow = document.getElementById("education-header-row");
-const educationDropdownIcon = educationContainer.querySelector(".admin-student-dropdown-icon");
-const educationSection = document.getElementById("education-section");
-
-educationHeaderRow.addEventListener("click", function (event) {
-    event.stopPropagation();
-
-    const isVisible = educationSection.style.display === "block";
-    educationSection.style.display = isVisible ? "none" : "block";
-    educationContainer.classList.toggle("active", !isVisible);
-
-    educationDropdownIcon.classList.toggle("rotated", !isVisible);
-});
-
-// Initialize field counter
-let fieldCount = 2;
-let rowCount = 1;
-
-// Function to create remove button functionality
-function setupRemoveButtons() {
-    const removeButtons = document.querySelectorAll(".remove-field-btn");
-    removeButtons.forEach((button) => {
-        button.addEventListener("click", function (event) {
-            event.stopPropagation();
-            const fieldElement = this.parentNode;
-            const rowElement = fieldElement.parentNode;
-
-            // Remove the field
-            fieldElement.remove();
-
-            // If row is empty, remove the row
-            if (rowElement.children.length === 0) {
-                rowElement.remove();
-            }
-
-            // Decrement field count
-            fieldCount--;
-        });
-    });
-}
-
-// Setup initial remove buttons
-setupRemoveButtons();
-
-const addEducationFieldBtn = document.getElementById("add-education-field-btn");
-
-const educationFields = document.querySelectorAll(".education-field");
-educationFields.forEach((field) => {
-    field.addEventListener("click", function (event) {
-        event.stopPropagation();
-    });
-});
-
-addEducationFieldBtn.addEventListener("click", function (event) {
-    event.stopPropagation();
-    const fieldName = prompt("Enter new field name (e.g., Graduation Year):", "");
-
-    if (fieldName && fieldName.trim() !== "") {
-        // Create new field with input and remove button
-        const newField = document.createElement("div");
-        newField.className = "education-field";
-
-        const newInput = document.createElement("input");
-        newInput.type = "text";
-        newInput.placeholder = fieldName.trim();
-        newInput.name = fieldName.toLowerCase().replace(/\s+/g, "-");
-
-        const removeBtn = document.createElement("button");
-        removeBtn.type = "button";
-        removeBtn.className = "remove-field-btn";
-        removeBtn.textContent = "✕";
-        removeBtn.addEventListener("click", function (event) {
-            event.stopPropagation();
-            newField.remove();
-            fieldCount--;
-
-            // If row becomes empty, remove it
-            const parentRow = this.parentNode.parentNode;
-            if (parentRow.children.length === 0) {
-                parentRow.remove();
-            }
+    init() {
+        const section = document.getElementById('academic-details-section');
+        const content = document.getElementById('academic-details-content');
+        const arrow = document.querySelector('.admin-student-arrow-icon-academic');
+        section.addEventListener('click', () => {
+            content.classList.toggle('expanded');
+            arrow.classList.toggle('rotated');
         });
 
-        newField.appendChild(newInput);
-        newField.appendChild(removeBtn);
+        this.setupEducationSection();
+        this.setupAcademicGapSection();
+    },
 
-        // Ensure maximum 2 fields per row
-        let currentRow;
+    setupEducationSection() {
+        const container = document.getElementById('education-container');
+        const headerRow = document.getElementById('education-header-row');
+        const dropdownIcon = container.querySelector('.admin-student-dropdown-icon');
+        const section = document.getElementById('education-section');
+        headerRow.addEventListener('click', e => {
+            e.stopPropagation();
+            const isVisible = section.style.display === 'block';
+            toggleVisibility(section, isVisible, dropdownIcon);
+            container.classList.toggle('active', !isVisible);
+        });
 
-        // Check if we need a new row
-        if (fieldCount % 2 === 0) {
-            // Create new row
-            rowCount++;
-            currentRow = document.createElement("div");
-            currentRow.className = "education-row";
-            currentRow.id = "education-row-" + rowCount;
-            educationSection.insertBefore(currentRow, addEducationFieldBtn);
-        } else {
-            // Use last row
-            currentRow = document.getElementById("education-row-" + rowCount);
+        document.querySelectorAll('.education-field').forEach(field => {
+            field.addEventListener('click', e => e.stopPropagation());
+        });
 
-            // If somehow the row doesn't exist, create it
-            if (!currentRow) {
-                currentRow = document.createElement("div");
-                currentRow.className = "education-row";
-                currentRow.id = "education-row-" + rowCount;
-                educationSection.insertBefore(currentRow, addEducationFieldBtn);
+        document.getElementById('add-education-field-btn').addEventListener('click', e => {
+            e.stopPropagation();
+            this.addEducationField();
+        });
+
+        this.setupRemoveButtons();
+    },
+
+    setupRemoveButtons() {
+        document.querySelectorAll('.remove-field-btn').forEach(btn => {
+            btn.addEventListener('click', e => {
+                e.stopPropagation();
+                const field = btn.parentNode;
+                const row = field.parentNode;
+                field.remove();
+                if (row.children.length === 0) row.remove();
+                this.fieldCount--;
+            });
+        });
+    },
+
+    addEducationField() {
+        const fieldName = prompt("Enter new field name (e.g., Graduation Year):", "")?.trim();
+        if (fieldName) {
+            const newField = document.createElement('div');
+            newField.className = 'education-field';
+            newField.innerHTML = `
+                <input type="text" placeholder="${fieldName}" name="${fieldName.toLowerCase().replace(/\s+/g, '-')}" />
+                <button type="button" class="remove-field-btn">✕</button>
+            `;
+            newField.querySelector('.remove-field-btn').addEventListener('click', e => {
+                e.stopPropagation();
+                newField.remove();
+                this.fieldCount--;
+                const parentRow = newField.parentNode;
+                if (parentRow.children.length === 0) parentRow.remove();
+            });
+
+            let currentRow;
+            if (this.fieldCount % 2 === 0) {
+                this.rowCount++;
+                currentRow = document.createElement('div');
+                currentRow.className = 'education-row';
+                currentRow.id = `education-row-${this.rowCount}`;
+                document.getElementById('education-section').insertBefore(currentRow, document.getElementById('add-education-field-btn'));
+            } else {
+                currentRow = document.getElementById(`education-row-${this.rowCount}`) || document.createElement('div');
+                if (!currentRow.id) {
+                    currentRow.className = 'education-row';
+                    currentRow.id = `education-row-${this.rowCount}`;
+                    document.getElementById('education-section').insertBefore(currentRow, document.getElementById('add-education-field-btn'));
+                }
             }
+
+            currentRow.appendChild(newField);
+            this.fieldCount++;
         }
+    },
 
-        // Add field to row
-        currentRow.appendChild(newField);
-        fieldCount++;
+    setupAcademicGapSection() {
+        const container = document.getElementById('academic-gap-container');
+        const row = container.querySelector('#academic-gap-row');
+        const dropdownIcon = container.querySelector('.admin-student-dropdown-icon');
+        const optionsSection = container.querySelector('#academic-gap-options');
+        row.addEventListener('click', e => {
+            e.stopPropagation();
+            const isVisible = optionsSection.style.display === 'block';
+            toggleVisibility(optionsSection, isVisible, dropdownIcon);
+            container.classList.toggle('active', !isVisible);
+        });
+
+        container.querySelector('.academic-options').addEventListener('click', e => e.stopPropagation());
+
+        container.querySelector('#add-academic-option-btn').addEventListener('click', e => {
+            e.stopPropagation();
+            const userInput = prompt("Enter new option", "")?.trim();
+            if (userInput) {
+                const optionsContainer = container.querySelector('.academic-options');
+                const newOption = document.createElement('div');
+                newOption.className = 'academic-option';
+                const radioId = `academic-option-${Date.now()}`;
+                newOption.innerHTML = `
+                    <input type="radio" id="${radioId}" name="academics-gap" value="${userInput.toLowerCase().replace(/\s+/g, '-')}" />
+                    <label for="${radioId}">${userInput}</label>
+                `;
+                optionsContainer.appendChild(newOption);
+            }
+        });
+
+        const yesRadio = document.getElementById('academic-yes');
+        const noRadio = document.getElementById('academic-no');
+        yesRadio.addEventListener('change', () => {
+            let reasonSection = container.querySelector('.academic-reason');
+            if (!reasonSection) {
+                reasonSection = document.createElement('div');
+                reasonSection.className = 'academic-reason';
+                reasonSection.innerHTML = `
+                    <label>Please state the reason for the gap:</label>
+                    <textarea placeholder="Enter your reason here..."></textarea>
+                `;
+                const optionsContainer = container.querySelector('.academic-options-container');
+                optionsContainer.parentNode.insertBefore(reasonSection, optionsContainer.nextSibling);
+            }
+            setTimeout(() => reasonSection.classList.add('visible'), 10);
+        });
+
+        noRadio.addEventListener('change', () => {
+            const reasonSection = container.querySelector('.academic-reason');
+            if (reasonSection) reasonSection.classList.remove('visible');
+        });
     }
-});
+};
 
-const academicGapContainer = document.getElementById("academic-gap-container");
-const academicGapRow = academicGapContainer.querySelector("#academic-gap-row");
-const dropdownIcon = academicGapContainer.querySelector(".admin-student-dropdown-icon");
-const optionsSection = academicGapContainer.querySelector("#academic-gap-options");
+// Co-Borrower Manager
+const CoBorrowerManager = {
+    init() {
+        this.setupDropdowns([
+            { containerId: 'co-borrower-container', rowId: 'co-borrower-row', optionsId: 'co-borrower-options' },
+            { containerId: 'income-container', rowId: 'income-row', optionsId: 'income-options' },
+            { containerId: 'liability-container', rowId: 'liability-row', optionsId: 'liability-options' }
+        ]);
 
-academicGapRow.addEventListener("click", function (event) {
-    event.stopPropagation();
+        this.setupCoBorrowerOptions();
+        this.setupIncomeFields();
+        this.setupLiabilityFields();
+        this.setupCoBorrowerSectionToggle();
+        this.setupFieldValidation();
+    },
 
-    const isVisible = optionsSection.style.display === "block";
-    optionsSection.style.display = isVisible ? "none" : "block";
-    academicGapContainer.classList.toggle("active", !isVisible);
-    dropdownIcon.classList.toggle("rotated", !isVisible);
-});
+    setupDropdowns(dropdowns) {
+        dropdowns.forEach(({ containerId, rowId, optionsId }) => {
+            const container = document.getElementById(containerId);
+            const row = document.getElementById(rowId);
+            const options = document.getElementById(optionsId);
+            const dropdownIcon = row.querySelector('.admin-student-dropdown-icon');
+            row.addEventListener('click', () => {
+                const isVisible = options.style.display !== 'none';
+                toggleVisibility(options, isVisible, dropdownIcon);
+                container.classList.toggle('active', !isVisible);
+            });
+        });
+    },
 
-const academicOptions = academicGapContainer.querySelector(".academic-options");
-academicOptions.addEventListener("click", function (event) {
-    event.stopPropagation();
-});
-
-const addBtn = academicGapContainer.querySelector("#add-academic-option-btn");
-addBtn.addEventListener("click", function (event) {
-    event.stopPropagation();
-    const userInput = prompt("Enter new option", "");
-
-    if (userInput && userInput.trim() !== "") {
-        const optionsContainer = academicGapContainer.querySelector(".academic-options");
-
-        const newOption = document.createElement("div");
-        newOption.className = "academic-option";
-
-        const radio = document.createElement("input");
-        radio.type = "radio";
-        radio.id = "academic-option-" + Date.now();
-        radio.name = "academics-gap";
-        radio.value = userInput.toLowerCase().replace(/\s+/g, "-");
-
-        const label = document.createElement("label");
-        label.htmlFor = radio.id;
-        label.textContent = userInput.trim();
-
-        newOption.appendChild(radio);
-        newOption.appendChild(label);
-        optionsContainer.appendChild(newOption);
-    }
-});
-
-const academicYesRadio = document.getElementById("academic-yes");
-const academicNoRadio = document.getElementById("academic-no");
-
-academicYesRadio.addEventListener("change", function () {
-    let reasonSection = academicGapContainer.querySelector(".academic-reason");
-
-    if (!reasonSection) {
-        reasonSection = document.createElement("div");
-        reasonSection.className = "academic-reason";
-
-        const reasonLabel = document.createElement("label");
-        reasonLabel.textContent = "Please state the reason for the gap:";
-
-        const reasonTextarea = document.createElement("textarea");
-        reasonTextarea.placeholder = "Enter your reason here...";
-
-        reasonSection.appendChild(reasonLabel);
-        reasonSection.appendChild(reasonTextarea);
-
-        // Insert after the academic-options-container
-        const optionsContainer = academicGapContainer.querySelector(".academic-options-container");
-        optionsContainer.parentNode.insertBefore(reasonSection, optionsContainer.nextSibling);
-    }
-
-    setTimeout(() => {
-        reasonSection.classList.add("visible");
-    }, 10);
-});
-
-academicNoRadio.addEventListener("change", function () {
-    const reasonSection = academicGapContainer.querySelector(".academic-reason");
-    if (reasonSection) {
-        reasonSection.classList.remove("visible");
-    }
-});
-
-// Co-borrower section
-function setupDropdown(containerId, rowId, optionsId) {
-    const container = document.getElementById(containerId);
-    const row = document.getElementById(rowId);
-    const options = document.getElementById(optionsId);
-    const dropdownIcon = row.querySelector(".admin-student-dropdown-icon");
-
-    row.addEventListener("click", function () {
-        const isVisible = options.style.display !== "none";
-
-        // Toggle visibility
-        options.style.display = isVisible ? "none" : "block";
-
-        // Toggle active class on container
-        container.classList.toggle("active", !isVisible);
-
-        // Rotate the dropdown icon
-        dropdownIcon.classList.toggle("rotated", !isVisible);
-    });
-}
-
-// Set up dropdowns for all containers
-setupDropdown("co-borrower-container", "co-borrower-row", "co-borrower-options");
-setupDropdown("income-container", "income-row", "income-options");
-setupDropdown("liability-container", "liability-row", "liability-options");
-
-// First container - add option button
-const addOptionBtn = document.getElementById("add-option-btn");
-addOptionBtn.addEventListener("click", function (event) {
-    event.stopPropagation();
-
-    const userInput = prompt("Enter new option", "");
-
-    if (userInput && userInput.trim() !== "") {
-        const optionsContainer = document.querySelector(".checkbox-options-container");
-
-        // Create checkbox option
-        const newOption = document.createElement("div");
-        newOption.className = "checkbox-option";
-
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.id = "co-borrower-" + userInput.trim().toLowerCase().replace(/\s+/g, "-");
-        checkbox.name = "co-borrower-options";
-
-        const label = document.createElement("label");
-        label.htmlFor = checkbox.id;
-        label.textContent = userInput.trim();
-
-        newOption.appendChild(checkbox);
-        newOption.appendChild(label);
-
-        // Insert the new option before the add button
-        optionsContainer.insertBefore(newOption, addOptionBtn);
-
-        // Make the new checkbox work as radio button
-        checkbox.addEventListener("change", function () {
-            if (this.checked) {
-                document.querySelectorAll('input[name="co-borrower-options"]').forEach((cb) => {
-                    if (cb !== this) cb.checked = false;
+    setupCoBorrowerOptions() {
+        const addOptionBtn = document.getElementById('add-option-btn');
+        addOptionBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            const userInput = prompt("Enter new option", "")?.trim();
+            if (userInput) {
+                const optionsContainer = document.querySelector('.checkbox-options-container');
+                const newOption = document.createElement('div');
+                newOption.className = 'checkbox-option';
+                const checkboxId = `co-borrower-${userInput.toLowerCase().replace(/\s+/g, '-')}`;
+                newOption.innerHTML = `
+                    <input type="checkbox" id="${checkboxId}" name="co-borrower-options" />
+                    <label for="${checkboxId}">${userInput}</label>
+                `;
+                optionsContainer.insertBefore(newOption, addOptionBtn);
+                newOption.querySelector('input').addEventListener('change', function() {
+                    if (this.checked) {
+                        document.querySelectorAll('input[name="co-borrower-options"]').forEach(cb => {
+                            if (cb !== this) cb.checked = false;
+                        });
+                    }
                 });
             }
         });
-    }
-});
 
-// Function to create delete button functionality
-function setupDeleteButton(deleteButton) {
-    deleteButton.addEventListener("click", function (event) {
-        event.stopPropagation();
-        // Get the parent container of the button
-        const fieldContainer = this.closest(".field-container") || this.closest(".liability-input-container");
-        // Remove the field container from the DOM
-        fieldContainer.remove();
-    });
-}
+        document.querySelectorAll('input[name="co-borrower-options"]').forEach(cb => {
+            cb.addEventListener('change', function() {
+                if (this.checked) {
+                    document.querySelectorAll('input[name="co-borrower-options"]').forEach(otherCb => {
+                        if (otherCb !== this) otherCb.checked = false;
+                    });
+                }
+            });
+        });
+    },
 
-// Setup delete buttons for existing fields
-document.querySelectorAll(".delete-field").forEach((button) => {
-    setupDeleteButton(button);
-});
-
-// Second container - add income field button
-const addIncomeFieldBtn = document.getElementById("add-income-field-btn");
-addIncomeFieldBtn.addEventListener("click", function (event) {
-    event.stopPropagation();
-
-    // Get user input through prompt
-    const userInput = prompt("Enter field name", "");
-
-    if (userInput && userInput.trim() !== "") {
-        // Get the container for fields
-        const fieldsRowContainer = document.querySelector(".fields-row-container");
-
-        // Create a new field container
-        const fieldContainer = document.createElement("div");
-        fieldContainer.className = "field-container";
-
-        // Create new income input field
-        const newIncomeField = document.createElement("input");
-        newIncomeField.type = "text";
-        newIncomeField.className = "text-input";
-        newIncomeField.value = userInput.trim(); // Set the value to what the user entered
-
-        // Create delete button
-        const deleteButton = document.createElement("button");
-        deleteButton.className = "delete-field";
-        deleteButton.textContent = "✕";
-
-        // Append elements to field container
-        fieldContainer.appendChild(newIncomeField);
-        fieldContainer.appendChild(deleteButton);
-
-        // Insert the new field before the add button
-        fieldsRowContainer.insertBefore(fieldContainer, addIncomeFieldBtn);
-
-        // Set up delete button functionality
-        setupDeleteButton(deleteButton);
-
-        // Add validation event listener
-        newIncomeField.addEventListener("input", validateNumericField);
-    }
-});
-
-// Third container - Radio button functionality and add button
-document.querySelectorAll('input[name="co-borrower-liability"]').forEach((radio) => {
-    radio.addEventListener("change", function () {
-        const emiInput = document.getElementById("emi-amount");
-        const additionalFields = document.getElementById("additional-liability-fields");
-        const addLiabilityBtn = document.getElementById("add-liability-btn");
-
-        if (this.id === "yes-liability" && this.checked) {
-            // Enable input field and show add button when Yes is selected
-            emiInput.disabled = false;
-            additionalFields.style.display = "flex";
-            addLiabilityBtn.style.display = "flex";
-        } else if (this.id === "no-liability" && this.checked) {
-            // Disable input field and hide add button when No is selected
-            emiInput.disabled = true;
-            emiInput.value = "";
-            additionalFields.style.display = "none";
-            addLiabilityBtn.style.display = "none";
-
-            // Clear all additional liability fields
-            while (additionalFields.firstChild) {
-                additionalFields.removeChild(additionalFields.firstChild);
-            }
-        }
-    });
-});
-
-// Third container - add liability field button
-const addLiabilityBtn = document.getElementById("add-liability-btn");
-addLiabilityBtn.addEventListener("click", function (event) {
-    event.stopPropagation();
-
-    // Get user input through prompt
-    const userInput = prompt("Enter field name for liability", "");
-
-    if (userInput && userInput.trim() !== "") {
-        // Get the container for additional liability fields
-        const additionalFieldsContainer = document.getElementById("additional-liability-fields");
-
-        const fieldContainer = document.createElement("div");
-        fieldContainer.className = "liability-input-container";
-
-        const newField = document.createElement("input");
-        newField.type = "text";
-        newField.className = "liability-input";
-        newField.placeholder = userInput.trim();
-
-        const deleteButton = document.createElement("button");
-        deleteButton.className = "delete-liability-field";
-        deleteButton.textContent = "✕";
-        deleteButton.setAttribute("aria-label", "Delete field");
-
-        deleteButton.addEventListener("click", function (e) {
+    setupIncomeFields() {
+        document.querySelectorAll('.delete-field').forEach(btn => this.setupDeleteButton(btn));
+        const addIncomeFieldBtn = document.getElementById('add-income-field-btn');
+        addIncomeFieldBtn.addEventListener('click', e => {
             e.stopPropagation();
+            const userInput = prompt("Enter field name", "")?.trim();
+            if (userInput) {
+                const fieldsRowContainer = document.querySelector('.fields-row-container');
+                const fieldContainer = document.createElement('div');
+                fieldContainer.className = 'field-container';
+                fieldContainer.innerHTML = `
+                    <input type="text" class="text-input" value="${userInput}" />
+                    <button class="delete-field">✕</button>
+                `;
+                fieldsRowContainer.insertBefore(fieldContainer, addIncomeFieldBtn);
+                const deleteButton = fieldContainer.querySelector('.delete-field');
+                this.setupDeleteButton(deleteButton);
+                fieldContainer.querySelector('.text-input').addEventListener('input', this.validateNumericField);
+            }
+        });
+    },
+
+    setupLiabilityFields() {
+        document.querySelectorAll('input[name="co-borrower-liability"]').forEach(radio => {
+            radio.addEventListener('change', () => {
+                const emiInput = document.getElementById('emi-amount');
+                const additionalFields = document.getElementById('additional-liability-fields');
+                const addLiabilityBtn = document.getElementById('add-liability-btn');
+                if (radio.id === 'yes-liability' && radio.checked) {
+                    emiInput.disabled = false;
+                    additionalFields.style.display = 'flex';
+                    addLiabilityBtn.style.display = 'flex';
+                } else {
+                    emiInput.disabled = true;
+                    emiInput.value = '';
+                    additionalFields.style.display = 'none';
+                    addLiabilityBtn.style.display = 'none';
+                    while (additionalFields.firstChild) additionalFields.removeChild(additionalFields.firstChild);
+                }
+            });
+        });
+
+        const addLiabilityBtn = document.getElementById('add-liability-btn');
+        addLiabilityBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            const userInput = prompt("Enter field name for liability", "")?.trim();
+            if (userInput) {
+                const additionalFieldsContainer = document.getElementById('additional-liability-fields');
+                const fieldContainer = document.createElement('div');
+                fieldContainer.className = 'liability-input-container';
+                fieldContainer.innerHTML = `
+                    <input type="text" class="liability-input" placeholder="${userInput}" />
+                    <button class="delete-liability-field" aria-label="Delete field">✕</button>
+                `;
+                additionalFieldsContainer.appendChild(fieldContainer);
+                fieldContainer.querySelector('.delete-liability-field').addEventListener('click', e => {
+                    e.stopPropagation();
+                    fieldContainer.remove();
+                });
+                fieldContainer.querySelector('.liability-input').addEventListener('input', function() {
+                    const value = this.value.replace(/[^0-9]/g, '');
+                    this.style.borderColor = value === '' || isNaN(value) ? 'red' : '#ccc';
+                });
+            }
+        });
+    },
+
+    setupCoBorrowerSectionToggle() {
+        const header = document.querySelector('.admin-student-section-header-co-borrower');
+        const arrow = document.querySelector('.admin-student-arrow-icon-co-borrower');
+        const formQuestions = document.querySelectorAll('.admin-student-form-question');
+        let containersVisible = false;
+        header.addEventListener('click', () => {
+            containersVisible = !containersVisible;
+            formQuestions.forEach(q => q.style.display = containersVisible ? 'block' : 'none');
+            arrow.style.transform = containersVisible ? 'rotate(180deg)' : 'rotate(0deg)';
+        });
+    },
+
+    setupDeleteButton(button) {
+        button.addEventListener('click', e => {
+            e.stopPropagation();
+            const fieldContainer = button.closest('.field-container') || button.closest('.liability-input-container');
             fieldContainer.remove();
         });
+    },
 
-        // Add validation to the new field
-        newField.addEventListener("input", function () {
-            const value = this.value.replace(/[^0-9]/g, "");
-            if (value === "" || isNaN(value)) {
-                this.style.borderColor = "red";
-            } else {
-                this.style.borderColor = "#ccc";
+    setupFieldValidation() {
+        document.querySelectorAll('.text-input, #emi-amount').forEach(input => {
+            input.addEventListener('input', this.validateNumericField);
+        });
+        document.querySelectorAll('.options-section').forEach(section => {
+            section.addEventListener('click', e => e.stopPropagation());
+        });
+    },
+
+    validateNumericField() {
+        const value = this.value.replace(/[^0-9]/g, '');
+        const errorMessage = this.closest('.field-container')?.querySelector('.error-message') || document.getElementById('emi-error-message');
+        if (errorMessage) {
+            errorMessage.style.display = value === '' || isNaN(value) ? 'block' : 'none';
+            this.style.borderColor = value === '' || isNaN(value) ? 'red' : '#ccc';
+        }
+    }
+};
+
+// Section Manager
+const SectionManager = {
+    init() {
+        this.cacheElements();
+        this.setupInitialStates();
+        this.setupEventListeners();
+    },
+
+    cacheElements() {
+        this.sections = {
+            document: {
+                header: document.querySelector('.admin-student-section-header-document-upload'),
+                content: document.querySelector('.admin-student-section-content-document-upload'),
+                arrow: document.querySelector('.admin-student-arrow-icon-document-upload img'),
+                subsections: {
+                    kyc: { row: document.getElementById('student-kyc-row'), section: document.getElementById('student-kyc-section'), icon: document.querySelector('#student-kyc-row .admin-student-dropdown-icon') },
+                    academic: { row: document.getElementById('academic-marks-row'), section: document.getElementById('academic-marks-section'), icon: document.querySelector('#academic-marks-row .admin-student-dropdown-icon') },
+                    secured: { row: document.getElementById('secured-marks-row'), section: document.getElementById('secured-marks-section'), icon: document.querySelector('#secured-marks-row .admin-student-dropdown-icon') },
+                    workExperience: { row: document.getElementById('work-experience-row'), section: document.getElementById('work-experience-section'), container: document.querySelector('.work-experience-container'), icon: document.querySelector('#work-experience-row .admin-student-dropdown-icon') },
+                    coBorrower: { row: document.getElementById('co-borrower-kyc-row'), section: document.getElementById('co-borrower-kyc-section'), icon: document.querySelector('#co-borrower-kyc-row .admin-student-dropdown-icon') },
+                    salariedBusiness: { row: document.getElementById('salaried-business-row'), section: document.getElementById('salaried-business-section'), icon: document.querySelector('#salaried-business-row .admin-student-dropdown-icon') }
+                }
             }
+        };
+    },
+
+    setupInitialStates() {
+        Object.values(this.sections).forEach(section => {
+            if (section.content && section.arrow) {
+                section.content.style.display = 'block';
+                section.arrow.classList.add('admin-student-arrow-up');
+                section.arrow.classList.remove('admin-student-arrow-down');
+            }
+            Object.values(section.subsections).forEach(subsection => {
+                if (subsection.section && subsection.icon) {
+                    (subsection.container || subsection.section).style.display = 'none';
+                    subsection.icon.classList.remove('rotated');
+                }
+            });
+        });
+    },
+
+    setupEventListeners() {
+        Object.values(this.sections).forEach(section => {
+            if (section.header && section.content && section.arrow) {
+                section.header.addEventListener('click', () => {
+                    const isVisible = section.content.style.display === 'block';
+                    toggleVisibility(section.content, isVisible, section.arrow, 'admin-student-arrow-up');
+                    section.arrow.classList.toggle('admin-student-arrow-down', isVisible);
+                });
+            }
+            Object.values(section.subsections).forEach(subsection => {
+                if (subsection.row && subsection.section && subsection.icon) {
+                    subsection.row.addEventListener('click', e => {
+                        e.stopPropagation();
+                        const target = subsection.container || subsection.section;
+                        const isVisible = target.style.display === 'block';
+                        toggleVisibility(target, isVisible, subsection.icon);
+                    });
+                }
+            });
         });
 
-        fieldContainer.appendChild(newField);
-        fieldContainer.appendChild(deleteButton);
-        additionalFieldsContainer.appendChild(fieldContainer);
-    }
-});
-
-function validateNumericField() {
-    const value = this.value.replace(/[^0-9]/g, "");
-    // Find the closest error message
-    const errorMessage = this.closest(".field-container")?.querySelector(".error-message") || document.getElementById("emi-error-message");
-
-    if (errorMessage) {
-        if (value === "" || isNaN(value)) {
-            errorMessage.style.display = "block";
-            this.style.borderColor = "red";
-        } else {
-            errorMessage.style.display = "none";
-            this.style.borderColor = "#ccc";
-        }
-    }
-}
-
-document.querySelectorAll(".text-input").forEach((input) => {
-    input.addEventListener("input", validateNumericField);
-});
-
-const emiAmount = document.getElementById("emi-amount");
-emiAmount.addEventListener("input", validateNumericField);
-
-// Prevent field clicks from toggling the dropdown
-document.querySelectorAll(".options-section").forEach((section) => {
-    section.addEventListener("click", function (event) {
-        event.stopPropagation();
-    });
-});
-
-// Make checkboxes in first container work as radio buttons
-document.querySelectorAll('input[name="co-borrower-options"]').forEach((checkbox) => {
-    checkbox.addEventListener("change", function () {
-        if (this.checked) {
-            document.querySelectorAll('input[name="co-borrower-options"]').forEach((cb) => {
-                if (cb !== this) cb.checked = false;
-            });
-        }
-    });
-});
-
-// Co-borrower info section toggle
-const coborrowerHeader = document.querySelector(".admin-student-section-header-co-borrower");
-const coborrowerArrow = document.querySelector(".admin-student-arrow-icon-co-borrower");
-const formQuestions = document.querySelectorAll(".admin-student-form-question");
-
-// Set initial state - containers are hidden by default
-let containersVisible = false;
-
-coborrowerHeader.addEventListener("click", function () {
-    // Toggle visibility of the form questions
-    containersVisible = !containersVisible;
-
-    formQuestions.forEach((question) => {
-        question.style.display = containersVisible ? "block" : "none";
-    });
-
-    // Rotate arrow - proper direction based on state
-    coborrowerArrow.style.transform = containersVisible ? "rotate(180deg)" : "rotate(0deg)";
-});
-  // Section Manager
-        const SectionManager = {
-          init() {
-            this.cacheElements();
-            this.setupInitialStates();
-            this.setupEventListeners();
-          },
-
-          cacheElements() {
-            this.sections = {
-              document: {
-                header: document.querySelector(
-                  ".admin-student-section-header-document-upload"
-                ),
-                content: document.querySelector(
-                  ".admin-student-section-content-document-upload"
-                ),
-                arrow: document.querySelector(
-                  ".admin-student-arrow-icon-document-upload img"
-                ),
-                subsections: {
-                  kyc: {
-                    row: document.getElementById("student-kyc-row"),
-                    section: document.getElementById("student-kyc-section"),
-                    icon: document.querySelector(
-                      "#student-kyc-row .admin-student-dropdown-icon"
-                    ),
-                  },
-                  academic: {
-                    row: document.getElementById("academic-marks-row"),
-                    section: document.getElementById("academic-marks-section"),
-                    icon: document.querySelector(
-                      "#academic-marks-row .admin-student-dropdown-icon"
-                    ),
-                  },
-                  secured: {
-                    row: document.getElementById("secured-marks-row"),
-                    section: document.getElementById("secured-marks-section"),
-                    icon: document.querySelector(
-                      "#secured-marks-row .admin-student-dropdown-icon"
-                    ),
-                  },
-                  workExperience: {
-                    row: document.getElementById("work-experience-row"),
-                    section: document.getElementById("work-experience-section"),
-                    container: document.querySelector(".work-experience-container"),
-                    icon: document.querySelector(
-                      "#work-experience-row .admin-student-dropdown-icon"
-                    ),
-                  },
-                  coBorrower: {
-                    row: document.getElementById("co-borrower-kyc-row"),
-                    section: document.getElementById("co-borrower-kyc-section"),
-                    icon: document.querySelector(
-                      "#co-borrower-kyc-row .admin-student-dropdown-icon"
-                    ),
-                  },
-                  salariedBusiness: {
-                    row: document.getElementById("salaried-business-row"),
-                    section: document.getElementById("salaried-business-section"),
-                    icon: document.querySelector(
-                      "#salaried-business-row .admin-student-dropdown-icon"
-                    ),
-                  },
-                },
-              },
-            };
-          },
-
-          setupInitialStates() {
-            Object.values(this.sections).forEach((section) => {
-              if (section.content && section.arrow) {
-                section.content.style.display = "block";
-                section.arrow.classList.add("admin-student-arrow-up");
-                section.arrow.classList.remove("admin-student-arrow-down-document-upload");
-              }
-              Object.values(section.subsections).forEach((subsection) => {
-                if (subsection.section && subsection.icon) {
-                  if (subsection.container) {
-                    subsection.container.style.display = "none";
-                  } else {
-                    subsection.section.style.display = "none";
-                  }
-                  subsection.icon.classList.remove("rotated");
-                }
-              });
-            });
-          },
-
-          setupEventListeners() {
-            Object.entries(this.sections).forEach(([name, section]) => {
-              if (section.header && section.content && section.arrow) {
-                section.header.addEventListener("click", () => {
-                  const isVisible = section.content.style.display === "block";
-                  section.content.style.display = isVisible ? "none" : "block";
-                  section.arrow.classList.toggle(
-                    "admin-student-arrow-up",
-                    !isVisible
-                  );
-                  section.arrow.classList.toggle(
-                    "admin-student-arrow-down-document-upload",
-                    isVisible
-                  );
-                });
-              }
-              Object.entries(section.subsections).forEach(
-                ([subName, subsection]) => {
-                  if (subsection.row && subsection.section && subsection.icon) {
-                    subsection.row.addEventListener("click", (e) => {
-                      e.stopPropagation();
-                      const isVisible = subsection.container
-                        ? subsection.container.style.display === "block"
-                        : subsection.section.style.display === "block";
-                      if (subsection.container) {
-                        subsection.container.style.display = isVisible
-                          ? "none"
-                          : "block";
-                      } else {
-                        subsection.section.style.display = isVisible
-                          ? "none"
-                          : "block";
-                      }
-                      subsection.icon.classList.toggle("rotated", !isVisible);
-                    });
-                  }
-                }
-              );
-            });
-
-            const helpTriggers = document.querySelectorAll(".help-trigger");
-            helpTriggers.forEach((trigger) => {
-              trigger.addEventListener("click", (e) => {
+        document.querySelectorAll('.help-trigger').forEach(trigger => {
+            trigger.addEventListener('click', e => {
                 e.stopPropagation();
-                const targetId = trigger.getAttribute("data-target");
+                const targetId = trigger.getAttribute('data-target');
                 const helpContainer = document.querySelector(`.${targetId}`);
-
-                document
-                  .querySelectorAll(".help-container")
-                  .forEach((container) => {
-                    if (container !== helpContainer) {
-                      container.style.display = "none";
-                    }
-                  });
-
-                if (helpContainer) {
-                  const isVisible = helpContainer.style.display === "block";
-                  helpContainer.style.display = isVisible ? "none" : "block";
-                }
-              });
+                document.querySelectorAll('.help-container').forEach(container => {
+                    container.style.display = container === helpContainer && helpContainer.style.display !== 'block' ? 'block' : 'none';
+                });
             });
+        });
 
-            document.addEventListener("click", (e) => {
-              if (
-                !e.target.classList.contains("help-trigger") &&
-                !e.target.closest(".help-container")
-              ) {
-                document
-                  .querySelectorAll(".help-container")
-                  .forEach((container) => {
-                    container.style.display = "none";
-                  });
-              }
-            });
-          },
-        };
-
-        // Document Add Button Management
-        const DocumentFieldManager = {
-          docCount: 0,
-          academicCount: 0,
-          securedCount: 0,
-          workExperienceCount: 0,
-          coBorrowerCount: 0,
-          salariedBusinessCount: 0,
-          defaultDocs: 3,
-
-          init() {
-            this.addButton = document.getElementById("add-document-btn");
-            this.addAcademicButton =
-              document.getElementById("add-academic-btn");
-            this.addSecuredButton = document.getElementById("add-secured-btn");
-            this.addWorkExperienceButton = document.getElementById(
-              "add-work-experience-btn"
-            );
-            this.addCoBorrowerButton = document.getElementById(
-              "add-co-borrower-btn"
-            );
-            this.addSalariedBusinessButton = document.getElementById(
-              "add-salaried-business-btn"
-            );
-            this.fieldsContainer = document.getElementById(
-              "document-fields-container"
-            );
-            this.academicFieldsContainer = document.getElementById(
-              "academic-fields-container"
-            );
-            this.securedFieldsContainer = document.getElementById(
-              "secured-fields-container"
-            );
-            this.workExperienceFieldsContainer = document.getElementById(
-              "work-experience-row-2"
-            );
-            this.coBorrowerFieldsContainer = document.getElementById(
-              "co-borrower-fields-container"
-            );
-            this.salariedBusinessFieldsContainer = document.getElementById(
-              "salaried-business-fields-container"
-            );
-
-            if (this.addButton) {
-              this.addButton.addEventListener("click", () => {
-                const fieldType = prompt(
-                  "Enter document type (e.g., Driving License, Voter ID):"
-                )?.trim();
-                if (fieldType) this.addNewDocumentField(fieldType, "document");
-              });
+        document.addEventListener('click', e => {
+            if (!e.target.classList.contains('help-trigger') && !e.target.closest('.help-container')) {
+                document.querySelectorAll('.help-container').forEach(container => container.style.display = 'none');
             }
+        });
+    }
+};
 
-            if (this.addAcademicButton) {
-              this.addAcademicButton.addEventListener("click", () => {
-                const fieldType = prompt(
-                  "Enter academic document type (e.g., Masters Degree, Diploma):"
-                )?.trim();
-                if (fieldType) this.addNewDocumentField(fieldType, "academic");
-              });
+// Document Field Manager
+const DocumentFieldManager = {
+    counts: { document: 0, academic: 0, secured: 0, workExperience: 0, coBorrower: 0, salariedBusiness: 0 },
+
+    init() {
+        const buttons = [
+            { id: 'add-document-btn', type: 'document', containerId: 'document-fields-container' },
+            { id: 'add-academic-btn', type: 'academic', containerId: 'academic-fields-container' },
+            { id: 'add-secured-btn', type: 'secured', containerId: 'secured-fields-container' },
+            { id: 'add-work-experience-btn', type: 'workExperience', containerId: 'work-experience-row-2' },
+            { id: 'add-co-borrower-btn', type: 'coBorrower', containerId: 'co-borrower-fields-container' },
+            { id: 'add-salaried-business-btn', type: 'salariedBusiness', containerId: 'salaried-business-fields-container' }
+        ];
+
+        buttons.forEach(({ id, type, containerId }) => {
+            const button = document.getElementById(id);
+            if (button) {
+                button.addEventListener('click', () => {
+                    const fieldType = prompt(`Enter ${type} document type:`)?.trim();
+                    if (fieldType) this.addNewDocumentField(fieldType, type, containerId);
+                });
             }
+        });
+    },
 
-            if (this.addSecuredButton) {
-              this.addSecuredButton.addEventListener("click", () => {
-                const fieldType = prompt(
-                  "Enter secured marks document type (e.g., Post-Graduation, Certificate):"
-                )?.trim();
-                if (fieldType) this.addNewDocumentField(fieldType, "secured");
-              });
-            }
+    addNewDocumentField(fieldType, type, containerId) {
+        const count = ++this.counts[type];
+        const docId = `${type}-${count}`;
+        const container = document.getElementById(containerId);
+        const addButton = document.getElementById(`add-${type}-btn`);
+        const boxClass = type === 'workExperience' ? 'work-experience-box' : type === 'salariedBusiness' ? 'document-box salary-upload-box' : 'document-box';
 
-            if (this.addWorkExperienceButton) {
-              this.addWorkExperienceButton.addEventListener("click", () => {
-                const fieldType = prompt(
-                  "Enter work experience document type (e.g., Reference Letter, Contract):"
-                )?.trim();
-                if (fieldType)
-                  this.addNewDocumentField(fieldType, "workExperience");
-              });
-            }
-
-            if (this.addCoBorrowerButton) {
-              this.addCoBorrowerButton.addEventListener("click", () => {
-                const fieldType = prompt(
-                  "Enter co-borrower document type (e.g., Voter ID, Driving License):"
-                )?.trim();
-                if (fieldType)
-                  this.addNewDocumentField(fieldType, "coBorrower");
-              });
-            }
-
-            if (this.addSalariedBusinessButton) {
-              this.addSalariedBusinessButton.addEventListener("click", () => {
-                const fieldType = prompt(
-                  "Enter salaried or business document type (e.g., Salary Certificate, GST Certificate):"
-                )?.trim();
-                if (fieldType)
-                  this.addNewDocumentField(fieldType, "salariedBusiness");
-              });
-            }
-          },
-
-          addNewDocumentField(fieldType, type) {
-            const isDocument = type === "document";
-            const isAcademic = type === "academic";
-            const isSecured = type === "secured";
-            const isWorkExperience = type === "workExperience";
-            const isCoBorrower = type === "coBorrower";
-            const isSalariedBusiness = type === "salariedBusiness";
-            const count = isDocument
-              ? ++this.docCount
-              : isAcademic
-              ? ++this.academicCount
-              : isSecured
-              ? ++this.securedCount
-              : isWorkExperience
-              ? ++this.workExperienceCount
-              : isCoBorrower
-              ? ++this.coBorrowerCount
-              : ++this.salariedBusinessCount;
-            const docId = isDocument
-              ? `doc-${count}`
-              : isAcademic
-              ? `academic-${count}`
-              : isSecured
-              ? `secured-${count}`
-              : isWorkExperience
-              ? `work-experience-${count}`
-              : isCoBorrower
-              ? `co-borrower-${count}`
-              : `salaried-business-${count}`;
-            const container = isDocument
-              ? this.fieldsContainer
-              : isAcademic
-              ? this.academicFieldsContainer
-              : isSecured
-              ? this.securedFieldsContainer
-              : isWorkExperience
-              ? this.workExperienceFieldsContainer
-              : isCoBorrower
-              ? this.coBorrowerFieldsContainer
-              : this.salariedBusinessFieldsContainer;
-            const addButton = isDocument
-              ? this.addButton
-              : isAcademic
-              ? this.addAcademicButton
-              : isSecured
-              ? this.addSecuredButton
-              : isWorkExperience
-              ? this.addWorkExperienceButton
-              : isCoBorrower
-              ? this.addCoBorrowerButton
-              : this.addSalariedBusinessButton;
-            const boxClass = isWorkExperience
-              ? "work-experience-box"
-              : isSalariedBusiness
-              ? "document-box salary-upload-box"
-              : "document-box";
-
-            const newBox = document.createElement("div");
-            newBox.className = boxClass;
-
-            newBox.innerHTML = `
-              <div class="upload-field clickable" id="${docId}-upload-field">
+        const newBox = document.createElement('div');
+        newBox.className = boxClass;
+        newBox.innerHTML = `
+            <div class="upload-field clickable" id="${docId}-upload-field">
                 <span id="${docId}-name" data-original="${fieldType}">${fieldType}</span>
                 <span id="${docId}-remove-btn" class="remove-btn"><span class="thin-x"></span></span>
-                <input
-                  type="file"
-                  id="${docId}"
-                  accept=".jpg, .png, .pdf"
-                  onchange="handleFileUpload(event, '${docId}-name', null, '${docId}-remove-icon')"
-                />
-              </div>
-              <span id="${docId}-remove-icon" class="remove-icon" style="display: none;" 
-                onclick="removeFile('${docId}', '${docId}-name', null, '${docId}-remove-icon')"><span class="thin-x"></span></span>
-              ${
-                isAcademic ||
-                isSecured ||
-                isWorkExperience ||
-                isCoBorrower ||
-                isSalariedBusiness
-                  ? `
-              <div class="info">
+                <input type="file" id="${docId}" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, '${docId}-name', null, '${docId}-remove-icon')" />
+            </div>
+            <span id="${docId}-remove-icon" class="remove-icon" style="display: none;" onclick="removeFile('${docId}', '${docId}-name', null, '${docId}-remove-icon')"><span class="thin-x"></span></span>
+            ${['academic', 'secured', 'workExperience', 'coBorrower', 'salariedBusiness'].includes(type) ? `
+            <div class="info">
                 <span class="help-trigger" data-target="${docId}-help">ⓘ Help</span>
                 <span>*jpg, png, pdf formats</span>
-              </div>
-              <div class="help-container ${docId}-help" style="display: none;">
+            </div>
+            <div class="help-container ${docId}-help" style="display: none;">
                 <h3 class="help-title">Help</h3>
                 <div class="help-content">
-                  <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+                    <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
                 </div>
-              </div>`
-                  : ""
-              }
-            `;
+            </div>` : ''}
+        `;
 
-            container.insertBefore(newBox, addButton);
+        container.insertBefore(newBox, addButton);
+        newBox.querySelector(`#${docId}-remove-btn`).addEventListener('click', () => newBox.remove());
+        const uploadField = newBox.querySelector(`#${docId}-upload-field`);
+        const fileInput = newBox.querySelector(`#${docId}`);
+        uploadField.addEventListener('click', e => {
+            if (!e.target.closest('.remove-btn')) fileInput.click();
+        });
 
-            // Add event listener for the remove button to delete the entire box
-            const removeBtn = newBox.querySelector(`#${docId}-remove-btn`);
-            if (removeBtn) {
-              removeBtn.addEventListener("click", () => {
-                newBox.remove();
-              });
-            }
-
-            // Add event listener to trigger file input when clicking the upload field
-            const uploadField = newBox.querySelector(`#${docId}-upload-field`);
-            const fileInput = newBox.querySelector(`#${docId}`);
-            if (uploadField && fileInput) {
-              uploadField.addEventListener("click", (e) => {
-                // Prevent triggering if clicking the remove button
-                if (!e.target.closest(".remove-btn")) {
-                  fileInput.click();
-                }
-              });
-            }
-
-            // Add event listener for the help trigger
-            if (
-              isAcademic ||
-              isSecured ||
-              isWorkExperience ||
-              isCoBorrower ||
-              isSalariedBusiness
-            ) {
-              const newHelpTrigger = newBox.querySelector(".help-trigger");
-              if (newHelpTrigger) {
-                newHelpTrigger.addEventListener("click", (e) => {
-                  e.stopPropagation();
-                  const targetId = newHelpTrigger.getAttribute("data-target");
-                  const helpContainer = newBox.querySelector(`.${targetId}`);
-                  if (helpContainer) {
-                    const isVisible = helpContainer.style.display !== "none";
-                    document
-                      .querySelectorAll(".help-container")
-                      .forEach((container) => {
-                        container.style.display = "none";
-                      });
-                    helpContainer.style.display = isVisible ? "none" : "block";
-                  }
+        if (['academic', 'secured', 'workExperience', 'coBorrower', 'salariedBusiness'].includes(type)) {
+            newBox.querySelector('.help-trigger').addEventListener('click', e => {
+                e.stopPropagation();
+                const helpContainer = newBox.querySelector(`.${docId}-help`);
+                document.querySelectorAll('.help-container').forEach(container => {
+                    container.style.display = container === helpContainer && helpContainer.style.display !== 'block' ? 'block' : 'none';
                 });
-              }
-            }
-          },
-        };
+            });
+        }
+    }
+};
 
-        window.handleFileUpload = function (
-          event,
-          nameId,
-          uploadIconId,
-          removeIconId
-        ) {
-          const file = event.target.files[0];
-          if (file) {
-            const nameSpan = document.getElementById(nameId);
-            nameSpan.textContent = file.name;
-            if (uploadIconId) {
-              const uploadIcon = document.getElementById(uploadIconId);
-              if (uploadIcon) uploadIcon.style.display = "none";
-            }
-            const removeIcon = document.getElementById(removeIconId);
-            if (removeIcon) removeIcon.style.display = "inline-block";
-          }
-        };
+window.handleFileUpload = (event, nameId, uploadIconId, removeIconId) => {
+    const file = event.target.files[0];
+    if (file) {
+        document.getElementById(nameId).textContent = file.name;
+        if (uploadIconId) document.getElementById(uploadIconId).style.display = 'none';
+        document.getElementById(removeIconId).style.display = 'inline-block';
+    }
+};
 
-        window.removeFile = function (
-          inputId,
-          nameId,
-          uploadIconId,
-          removeIconId
-        ) {
-          const input = document.getElementById(inputId);
-          input.value = "";
-          const nameSpan = document.getElementById(nameId);
-          nameSpan.textContent =
-            nameSpan.getAttribute("data-original") || nameSpan.textContent;
-          if (uploadIconId) {
-            const uploadIcon = document.getElementById(uploadIconId);
-            if (uploadIcon) uploadIcon.style.display = "inline";
-          }
-          const removeIcon = document.getElementById(removeIconId);
-          if (removeIcon) removeIcon.style.display = "none";
-        };
-
-        SectionManager.init();
-        DocumentFieldManager.init();
+window.removeFile = (inputId, nameId, uploadIconId, removeIconId) => {
+    const input = document.getElementById(inputId);
+    input.value = '';
+    const nameSpan = document.getElementById(nameId);
+    nameSpan.textContent = nameSpan.getAttribute('data-original') || nameSpan.textContent;
+    if (uploadIconId) document.getElementById(uploadIconId).style.display = 'inline';
+    document.getElementById(removeIconId).style.display = 'none';
+};
          
 </script>
 </body>

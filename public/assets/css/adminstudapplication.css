@@ -1004,9 +1004,10 @@ textarea::placeholder {
     margin-top: 5px;
 }
 
-.monthly-liability-option {
+.monthly-liability-option-container {
     display: flex;
     justify-content: space-between;
+    gap:0px;
     
 }
 
