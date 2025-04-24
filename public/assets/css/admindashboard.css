@@ -1856,6 +1856,16 @@ text[fill="#222222"] {
     cursor: pointer;
 }
 
+.nbfc-lead-prev-btn, .nbfc-lead-next-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+#nbfc-lead-chart_div {
+    min-height: 170px; /* Ensure minimum height */
+}
+
 .sc-lead-container {
     width: 490px;
 
@@ -1932,6 +1942,12 @@ text[fill="#222222"] {
 
 .sc-lead-pagination span {
     margin: 0 2px;
+}
+.sc-lead-prev-btn, .sc-lead-next-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
 }
 
 #leadChart {

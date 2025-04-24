@@ -407,6 +407,21 @@ class Admincontroller extends Controller
     }
     
 
+    public function getCityStats()
+    {
+        $data = PersonalInfo::select(
+                'city',
+                'state',
+                DB::raw("SUM(CASE WHEN gender = 'Female' THEN 1 ELSE 0 END) as female"),
+                DB::raw("SUM(CASE WHEN gender = 'Male' THEN 1 ELSE 0 END) as male"),
+                DB::raw("COUNT(*) as total")
+            )
+            ->groupBy('city', 'state')
+            ->get();
+
+        return response()->json($data);
+    }
+
 
 
 }

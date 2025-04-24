@@ -500,7 +500,7 @@
                 })
                     .then((response) => response.json())
                     .then((data) => {
-                        console.log("API response for user:", userId, data);
+                        // console.log("API response for user:", userId, data);
 
                         let documentsCount = data.documentscount || 0;
 
