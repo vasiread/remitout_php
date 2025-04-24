@@ -9,6 +9,7 @@ use App\Models\Proposals;
 use App\Models\Rejectedbynbfc;
 use App\Models\Requestedbyusers;
 use App\Models\Requestprogress;
+use App\Models\Scuser;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -405,7 +406,29 @@ class Admincontroller extends Controller
             'incomplete_user_ids' => $incompleteUsers,
         ]);
     }
-    
+
+
+    public function showSCProfileJSON($referral)
+    {
+        $sc = Scuser::where('referral_code', $referral)->first();
+
+        if (!$sc) {
+            return response()->json(['error' => 'Counsellor not found'], 404);
+        }
+
+        return response()->json([
+            'name' => $sc->name,
+            'referral_code' => $sc->referral_code,
+            'dob' => $sc->dob,
+            'email' => $sc->email,
+            'phone' => $sc->phone,
+            'state' => $sc->state,
+            'image' => asset('assets/images/image-women.jpeg') // or $sc->image_path
+        ]);
+    }
+
+
+
 
     public function getCityStats()
     {

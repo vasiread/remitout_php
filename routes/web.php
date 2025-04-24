@@ -12,6 +12,7 @@ use App\Http\Controllers\{
     StudentDetailsController,
     TrackController
 };
+use App\Http\Controllers\Admincontroller;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\NbfcController;
@@ -185,3 +186,7 @@ Route::post('/validateprofilecompletion', [Admincontroller::class, 'validateprof
 Route::get('/city-stats', [Admincontroller::class, 'getCityStats']);
 
 
+
+
+
+Route::get('/admin/show-sc-profile/{referral}', [AdminController::class, 'showSCProfileJSON']);

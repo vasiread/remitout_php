@@ -31,36 +31,7 @@
 
     @php
         $studentCounsellorsLists = [
-            [
-                'counsellor_name' => 'Rahul V Raman',
-                'counsellor_referral_id' => '3568878827634',
-                'date_added' => '2025-02-01'
-            ],
-            [
-                'counsellor_name' => 'Rahul V Raman',
-                'counsellor_referral_id' => '3568878827634',
-                'date_added' => '2025-02-13'
-            ],
-            [
-                'counsellor_name' => 'Pranav Rajan',
-                'counsellor_referral_id' => '3568878827634',
-                'date_added' => '2025-09-01'
-            ],
-            [
-                'counsellor_name' => 'Kalim Shaul',
-                'counsellor_referral_id' => '3568878827634',
-                'date_added' => '2025-02-01'
-            ],
-            [
-                'counsellor_name' => 'Vikra Narayan',
-                'counsellor_referral_id' => '3568878827634',
-                'date_added' => '2025-04-01'
-            ],
-            [
-                'counsellor_name' => 'Andher Pathil',
-                'counsellor_referral_id' => '3568878827634',
-                'date_added' => '2025-02-01'
-            ]
+
         ];
     @endphp
 
@@ -74,18 +45,18 @@
                 </div>
 
                 <div class="dashboard-sort-button-container">
-                  <button class="dashboard-sort-button" onclick="toggleSortOptions()">
-                      Sort
-                      <img src="assets/images/filter-icon.png" alt="Filter">
-                  </button>
+                    <button class="dashboard-sort-button" onclick="toggleSortOptions()">
+                        Sort
+                        <img src="assets/images/filter-icon.png" alt="Filter">
+                    </button>
 
-                   <div class="dashboard-sort-options" id="dashboardSortOptions">
-                      <button class="dashboard-sort-option" data-sort="alphabet">A-Z</button>
-                      <button class="dashboard-sort-option" data-sort="alphabet-reverse">Z-A</button>
-                      <button class="dashboard-sort-option" data-sort="newest">Newest</button>
-                     <button class="dashboard-sort-option" data-sort="oldest">Oldest</button>
-                   </div>
-               </div>
+                    <div class="dashboard-sort-options" id="dashboardSortOptions">
+                        <button class="dashboard-sort-option" data-sort="alphabet">A-Z</button>
+                        <button class="dashboard-sort-option" data-sort="alphabet-reverse">Z-A</button>
+                        <button class="dashboard-sort-option" data-sort="newest">Newest</button>
+                        <button class="dashboard-sort-option" data-sort="oldest">Oldest</button>
+                    </div>
+                </div>
 
                 <button class="studentlist-add-button">Add</button>
             </div>
@@ -299,7 +270,64 @@
 
                 const viewButton = document.createElement('button');
                 viewButton.innerHTML = '<img src="/assets/images/Icons/visibility.png" alt="View">';
+                viewButton.classList.add('view_sc_profile');
+
+              viewButton.addEventListener('click', () => {
+    const referralId = counsellor.referral_code;
+
+    fetch(`/api/sc-profile/${referralId}`)
+        .then(res => res.json())
+        .then(data => {
+            const container = document.createElement('div');
+            container.className = 'scmember-profilecontainer';
+
+            container.innerHTML = `
+                <div class="scmember-profilecontainerimg">
+                    <img src="${data.image}" alt="Profile" />
+                    <i class="fa-regular fa-pen-to-square"></i>
+                </div>
+
+                <div class="scmember-rowfirst">
+                    <h1>Student Counsellor</h1>
+                </div>
+
+                <p>Referral Number: <span>${data.referral_code}</span></p>
+
+                <div inputmode="Date">
+                    <i class="fa-solid fa-calendar"></i>
+                    <p>${data.dob}</p>
+                </div>
+
+                <ul class="scmember_personalinfo">
+                    <li class="scmember_personal_info_name">
+                        <img src="${data.profile_icon}" alt="">
+                        <p>${data.name}</p>
+                    </li>
+                    <li class="scmember_personal_info_phone">
+                        <img src="${data.phone_icon}" alt="">
+                        <p>${data.phone}</p>
+                    </li>
+                    <li class="scmember_personal_info_email" style="word-break: break-all;">
+                        <img src="${data.mail_icon}" alt="">
+                        <p>${data.email}</p>
+                    </li>
+                    <li class="scmember_personal_info_state">
+                        <img src="${data.pin_icon}" alt="">
+                        <p style="line-height:19px">${data.state}</p>
+                    </li>
+                </ul>
+            `;
+
+            document.getElementById('updatescprofilecontainer').appendChild(container);
+        })
+        .catch(err => {
+            console.error('Error loading profile:', err);
+        });
+});
+
                 buttonContainer.appendChild(viewButton);
+
+
 
                 const editButton = document.createElement('button');
                 editButton.innerHTML = '<img src="/assets/images/Icons/edit_purple.png" alt="Edit">';
@@ -310,9 +338,13 @@
                 buttonContainer.appendChild(suspendButton);
 
                 counsellorItem.appendChild(buttonContainer);
-                counsellorContainer.appendChild(counsellorItem); // Add item to the list
+                counsellorContainer.appendChild(counsellorItem);  
             });
         };
+        function updateSCProfileContainer(data) {
+     
+}
+
     </script>
 
 
