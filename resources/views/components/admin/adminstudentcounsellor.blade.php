@@ -50,6 +50,13 @@
             <button id="generate-referral-councellor-admin">Generate Referral Code</button>
         </div>
     </div>
+
+    @php
+        $studentCounsellorsLists = [
+
+        ];
+    @endphp
+
     <div class="studentcounsellorlist-adminside">
         <div class="globallistcontainer-header" id="counsellorlistcontainer-headersection">
             <h2>Student Counsellor List</h2>
@@ -538,13 +545,68 @@
                 viewButton.innerHTML = '<img src="/assets/images/Icons/visibility.png" alt="View">';
                 viewButton.classList.add('view_sc_profile');
 
+              viewButton.addEventListener('click', () => {
+    const referralId = counsellor.referral_code;
+
+    fetch(`/api/sc-profile/${referralId}`)
+        .then(res => res.json())
+        .then(data => {
+            const container = document.createElement('div');
+            container.className = 'scmember-profilecontainer';
+
+            container.innerHTML = `
+                <div class="scmember-profilecontainerimg">
+                    <img src="${data.image}" alt="Profile" />
+                    <i class="fa-regular fa-pen-to-square"></i>
+                </div>
+
+                <div class="scmember-rowfirst">
+                    <h1>Student Counsellor</h1>
+                </div>
+
+                <p>Referral Number: <span>${data.referral_code}</span></p>
+
+                <div inputmode="Date">
+                    <i class="fa-solid fa-calendar"></i>
+                    <p>${data.dob}</p>
+                </div>
+
+                <ul class="scmember_personalinfo">
+                    <li class="scmember_personal_info_name">
+                        <img src="${data.profile_icon}" alt="">
+                        <p>${data.name}</p>
+                    </li>
+                    <li class="scmember_personal_info_phone">
+                        <img src="${data.phone_icon}" alt="">
+                        <p>${data.phone}</p>
+                    </li>
+                    <li class="scmember_personal_info_email" style="word-break: break-all;">
+                        <img src="${data.mail_icon}" alt="">
+                        <p>${data.email}</p>
+                    </li>
+                    <li class="scmember_personal_info_state">
+                        <img src="${data.pin_icon}" alt="">
+                        <p style="line-height:19px">${data.state}</p>
+                    </li>
+                </ul>
+            `;
+
+            document.getElementById('updatescprofilecontainer').appendChild(container);
+        })
+        .catch(err => {
+            console.error('Error loading profile:', err);
+        });
+});
+
+                buttonContainer.appendChild(viewButton);
+
+
+
                 const editButton = document.createElement('button');
                 editButton.innerHTML = '<img src="/assets/images/Icons/edit_purple.png" alt="Edit">';
 
                 const suspendButton = document.createElement('button');
                 suspendButton.textContent = 'Suspend';
-                suspendButton.classList.add('suspend_scuser');
-
                 // Append buttons in desired order
                 buttonContainer.appendChild(viewButton);   // View
                 buttonContainer.appendChild(editButton);   // Edit
@@ -557,10 +619,12 @@
 
 
                 counsellorItem.appendChild(buttonContainer);
-                counsellorContainer.appendChild(counsellorItem);
+                counsellorContainer.appendChild(counsellorItem);  
             });
         };
-
+        function updateSCProfileContainer(data) {
+     
+}
 
     </script>
 
