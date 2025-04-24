@@ -384,8 +384,8 @@ $studentDocumentDetailsInfo = [
                     <div class="scdashboard-performancecontainer">
                         <div class="performancecontainer-firstrow">
                             <h3>Performance</h3>
-                            <button class="edit-scuser">Edit</button>
-                            <button class="save-scuser">Save</button>
+                            <button class="edit-scuser" style="cursor:pointer">Edit</button>
+                            <button class="save-scuser" style="cursor:pointer">Save</button>
                         </div>
                         <ul class="scdashboard-individual-performance">
                             <li>
@@ -422,7 +422,7 @@ $studentDocumentDetailsInfo = [
                                         <a href="" data-sort="alphabet">A-Z</a>
                                         <a href="" data-sort="alphabet-reverse">Z-A</a>
                                     </div>
-                                    <button id="raised-query">Raise Query</button>
+                                    <button id="raised-query" style="cursor:pointer;">Raise Query</button>
 
                                 </div>
 
@@ -532,6 +532,26 @@ $totalPages = ceil($totalStudents / $perPage);
                 </div>
 
             </div>
+            <!-- Add Raise Query Popup -->
+            <div class="raise-query-popup" style="display:none">
+                <div class="raise-query-popup-headersection">
+                    <h3>Raise a Query</h3>
+                    <button class="close-query-btn">
+                        <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="Close">
+                    </button>
+                </div>
+                <div class="raise-query-popup-content">
+                    <textarea id="query-text" placeholder="Enter your query here..." rows="4"></textarea>
+                    <select id="query-type">
+                        <option value="student">Student</option>
+                        <option value="nbfc">NBFC</option>
+                    </select>
+                </div>
+                <div class="raise-query-popup-footer">
+                <button class="cancel-query "> <img src="{{ asset('assets/images/Icons/close_icon.png') }}" /> Cancel</button>
+                    <button class="submit-query">Submit</button>
+                </div>
+            </div>
 
     @endsection
 
@@ -550,6 +570,7 @@ $totalPages = ceil($totalStudents / $perPage);
             getUsersByCounsellor();
             triggerExcelRegistration();
             queryDetails();
+            initializeRaiseQuery();
 
 
 
@@ -1411,6 +1432,82 @@ $totalPages = ceil($totalStudents / $perPage);
                         console.error("Request failed:", error);
                     });
             }
+        };
+
+
+        const initializeRaiseQuery = () => {
+            const raiseQueryButton = document.querySelector("#raised-query");
+            const raiseQueryPopup = document.querySelector(".raise-query-popup");
+            const closeQueryPopup = document.querySelector(".raise-query-popup-headersection img");
+            const cancelQueryButton = document.querySelector(".raise-query-popup-footer .cancel-query");
+            const submitQueryButton = document.querySelector(".raise-query-popup-footer .submit-query");
+            const queryText = document.querySelector("#query-text");
+            const queryType = document.querySelector("#query-type");
+            const backgroundContainer = document.querySelector(".scdashboard-parentcontainer");
+
+            if (!raiseQueryButton || !raiseQueryPopup || !closeQueryPopup || !cancelQueryButton || !submitQueryButton || !queryText || !queryType) {
+                console.error("Required DOM elements for raise query popup are missing");
+                return;
+            }
+
+            // Show popup
+            raiseQueryButton.addEventListener('click', () => {
+                raiseQueryPopup.style.display = "flex";
+                backgroundContainer.classList.add("dull");
+                queryText.value = ""; // Reset textarea
+            });
+
+            // Hide popup function
+            const hidePopup = () => {
+                raiseQueryPopup.style.display = "none";
+                backgroundContainer.classList.remove("dull");
+            };
+
+            // Close button
+            closeQueryPopup.addEventListener('click', hidePopup);
+
+            // Cancel button
+            cancelQueryButton.addEventListener('click', hidePopup);
+
+            // Submit query
+            submitQueryButton.addEventListener('click', () => {
+                const query = queryText.value.trim();
+                const type = queryType.value;
+                const scuser = @json(session('scuser'));
+                const scuserid = scuser.referral_code;
+
+                if (!query) {
+                    alert("Please enter a query");
+                    return;
+                }
+
+                // fetch('/raise-query', {
+                //     method: "POST",
+                //     headers: {
+                //         'Content-Type': 'application/json',
+                //         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                //     },
+                //     body: JSON.stringify({
+                //         scUserId: scuserid,
+                //         queryraised: query,
+                //         querytype: type
+                //     })
+                // })
+                //     .then(response => response.json())
+                //     .then(data => {
+                //         if (data.success) {
+                //             alert("Query raised successfully!");
+                //             hidePopup();
+                //             queryDetails(); // Refresh the query list
+                //         } else {
+                //             alert("Failed to raise query: " + (data.error || "Unknown error"));
+                //         }
+                //     })
+                //     .catch(error => {
+                //         console.error("Error raising query:", error);
+                //         alert("An error occurred while raising the query.");
+                //     });
+            });
         };
 
 
