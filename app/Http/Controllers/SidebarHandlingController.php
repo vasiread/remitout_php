@@ -11,7 +11,7 @@ class SidebarHandlingController extends Controller
     {
          $sidebarItems = [
             ['name' => 'Dashboard', 'icon' => 'fa-solid fa-square-poll-vertical', 'active' => true],
-            ['name' => 'Inbox', 'icon' => 'fa-solid fa-inbox', 'active' => false],
+            ['name' => 'Profile', 'icon' => 'fa-solid fa-inbox', 'active' => false],
             ['name' => 'Application Status', 'icon' => 'fa-regular fa-clipboard', 'active' => false],
         ];
 
