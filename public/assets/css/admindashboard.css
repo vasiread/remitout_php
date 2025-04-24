@@ -1,13 +1,15 @@
 .admindashboard-container {
     display: flex;
     flex-direction: column;
-    margin: 80px 5px 80px 100px;
+    margin: 80px 5px 80px 30px;
     max-width: 100%;
     width: 100%;
-    max-width: 88%;
+    max-width: 1000px;
     padding-top: 53px;
-    margin-left: 24%;
+    margin-left: 30%;
 }
+
+
 
 .admindashboardcontainer-firstsection {
     display: flex;
@@ -74,7 +76,6 @@
     align-items: center;
     background-color: transparent;
 }
-
 /* Mobile Modal */
 .mobile-admin-dashboard-modal {
     display: none;
@@ -132,7 +133,6 @@
     margin: 10px 0;
     font-family: "Poppins", sans-serif;
 }
-
 .mobile-admin-dashboard-menu-btn {
     background: none;
     border: none;
@@ -195,7 +195,6 @@
         font-weight: 600;
         line-height: 32px;
     }
-
     .admindashboardcontainer-firstsectionbuttoncontainer {
         display: none;
     }
@@ -213,8 +212,6 @@
         margin: 0px;
         background-color: white;
         padding: 8px;
-        background-color: white;
-        padding: 8px;
     }
 
     .admindashboardcontainer-secondsection h1 {
@@ -229,7 +226,6 @@
         font-size: 14px;
         text-align: center;
     }
-
     .admindashboardsecondsection-buttongroups {
         display: none;
     }
@@ -279,7 +275,6 @@
         font-weight: 600;
         line-height: 32px;
     }
-
     .admindashboardcontainer-firstsectionbuttoncontainer {
         display: none;
     }
@@ -311,7 +306,6 @@
         font-size: 14px;
         text-align: center;
     }
-
     .admindashboardsecondsection-buttongroups {
         display: none;
     }
@@ -539,7 +533,6 @@
         border-bottom-left-radius: 8px;
         border-bottom-right-radius: 8px;
     }
-
     .admin-dashboard-search-filter-container {
         flex-wrap: wrap;
     }
@@ -568,7 +561,6 @@
         display: block;
     }
 }
-
 #showall-buttongroups {
     width: 242px;
     padding: 8px 16px;
@@ -609,7 +601,7 @@
     overflow: hidden;
     margin-top: 4px;
     font-family: "Poppins", sans-serif;
-    max-height: 300px;
+    max-height: 300px; 
     overflow-y: auto;
 }
 
@@ -676,7 +668,7 @@
     color: #5d5c5c;
 }
 
-/* Calendar Button Styling */
+
 #calender-buttongroups,
 #calender-reportsregister {
     max-width: 132px;
@@ -690,121 +682,16 @@
     font-family: "Poppins", sans-serif;
     font-size: 12px;
     cursor: pointer;
+}
+
+#calender-reportsregister {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+
     align-items: center;
     background-color: transparent;
-}
-
-/* Calendar Container */
-.calendar-container {
-    z-index: 1000;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    width: 300px;
-}
-
-/* Calendar Inputs */
-.calendar-input-container {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-.calendar-date-input {
-    display: flex;
-    align-items: center;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-}
-
-.calendar-date-input.calendar-active {
-    border-color: #6F25CE;
-}
-
-/* Calendar Header */
-.calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.calendar-nav-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-.calendar-month-year-selector {
-    display: flex;
-    gap: 10px;
-}
-
-.calendar-month-year-selector select {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 2px;
-}
-
-/* Calendar Grid */
-.calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-    text-align: center;
-}
-
-.calendar-weekday {
-    font-weight: bold;
-    color: #5d5c5c;
-    font-size: 12px;
-}
-
-.calendar-day {
-    padding: 5px;
-    cursor: pointer;
-    border-radius: 4px;
-    font-size: 12px;
-}
-
-.calendar-day:hover {
-    background-color: #f0f0f0;
-}
-
-.calendar-other-month {
-    color: #aaa;
-    cursor: default;
-}
-
-.calendar-today {
-    background-color: #e6d5f5;
-}
-
-.calendar-selected-start,
-.calendar-selected-end {
-    background-color: #6F25CE;
-    color: white;
-}
-
-.calendar-in-range {
-    background-color: #c5b6e5;
-}
-
-.calendar-first-in-range {
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-}
-
-.calendar-last-in-range {
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
 }
 
 #download-buttongroups {
@@ -832,7 +719,6 @@
 .admindashboard-firstpart {
     width: 330px;
 }
-
 .admindashboard-secondpart,
 .admindashboard-thirdpart {
     flex: 1;
@@ -945,11 +831,13 @@ canvas {
     line-height: 18px;
     color: rgba(93, 92, 92, 1);
 }
+.source-name {
+margin:0px;
+}
 
 #donutRegistrationChart-percentage {
     color: rgba(111, 37, 206, 1);
 }
-
 #ageratio-donutRegistrationChart {
     width: 103px;
     height: 103px;
@@ -969,9 +857,7 @@ canvas {
     gap: 8px;
     background-color: #f5f5f5;
     max-width: 340px;
-    max-width: 340px;
 }
-
 .admindashboard-secondpart .totalundergrads-admin,
 .admindashboard-secondpart .totalpostgrads-admin {
     padding: 22px 12px 18px 12px;
@@ -997,7 +883,6 @@ canvas {
 .totalpostgrads-info {
     display: flex;
     gap: 20px;
-
 }
 
 .totalundergrads-info h1,
@@ -1100,10 +985,11 @@ canvas {
     display: flex;
     flex-direction: column;
     padding: 12px 8px 0 12px;
-    height: 194px;
-    margin-top: 5px;
+    height: 164px;
+    margin-top: 12px;
     background-color: white;
     border-radius: 8px;
+    
 }
 
 .ageratio-graph-admin {
@@ -1131,6 +1017,7 @@ canvas {
     font-weight: 500;
     line-height: 18px;
     color: rgba(93, 92, 92, 1);
+    margin:0;
 }
 
 .admindashboard-thirdpart {
@@ -1163,6 +1050,7 @@ canvas {
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     justify-content: space-between;
+    height:312px;
 }
 
 .funnelreport-analyse-left,
@@ -1273,16 +1161,7 @@ canvas {
     display: flex;
     gap: 2.1rem;
     padding: 2rem 0;
-    /* margin-top: 43px;
-    display: flex;
-    gap: 22px;
-    margin-left: 10px; */
 }
-/* 
-.funnelreport-analyse-right {
-    height: fit-content;
-    margin-top: 56px;
-} */
 
 @media (max-width: 767px) {
     .admindashboardcontainer-thirdsection {
@@ -1312,11 +1191,9 @@ canvas {
         max-width: 380px;
         margin: 0 auto;
     }
-
     .totalundergrads-admin {
         width: 380px;
     }
-
     .totalpostgrads-admin {
         width: 380px;
     }
@@ -1334,7 +1211,6 @@ canvas {
         max-width: 380px;
         margin: 0 auto;
     }
-
     .admindashboard-secondpart .ageratio-graph-admin {
         order: 4;
         width: 100%;
@@ -1361,7 +1237,6 @@ canvas {
 }
 
 @media screen and (max-width: 480px) {
-
     #donutRegistrationChart,
     #ageratio-donutRegistrationChart {
         width: 150px !important;
@@ -1567,7 +1442,6 @@ canvas {
     justify-content: space-between;
     gap: 20px;
 }
-
 .admin-desti-country-sort-btn {
     display: flex;
     align-items: center;
@@ -1813,7 +1687,6 @@ canvas {
     display: flex;
     align-items: center;
 }
-
 text[fill="#222222"] {
     font-family: "Poppins", sans-serif;
     font-size: 12px;
@@ -1905,7 +1778,6 @@ text[fill="#222222"] {
     margin-bottom: 5px;
     font-size: 12px;
 }
-
 .sc-lead-legend-item span {
     font-size: 12px;
     color: #5d5c5c;
@@ -1942,13 +1814,6 @@ text[fill="#222222"] {
 .sc-lead-pagination span {
     margin: 0 2px;
 }
-.sc-lead-prev-btn, .sc-lead-next-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-
 #leadChart {
     width: 466px !important;
     height: 190px !important;
@@ -2167,7 +2032,6 @@ text[fill="#222222"] {
 .referral-triggered-view.hidden {
     display: none;
 }
-
 @media (max-width: 767px) {
     .admindashboardcontainer-fourth-section {
         width: 100%;
@@ -2247,12 +2111,10 @@ text[fill="#222222"] {
         overflow-x: auto;
         white-space: nowrap;
     }
-
     .point-entry-legend-container {
         display: block;
         gap: 35px;
     }
-
     .point-entry-chart-container {
         gap: 25px;
     }
@@ -2389,16 +2251,14 @@ text[fill="#222222"] {
         height: 45px;
         font-size: 12px;
     }
-
     .point-entry-legend {
-        display: flex;
-        flex-direction: column;
-        gap: 0px;
-    }
-
-    .point-entry-legend-container {
-        gap: 5px;
-    }
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+.point-entry-legend-container{
+    gap:5px;
+}
 }
 
 .calendar-wrapper {
@@ -2515,6 +2375,7 @@ text[fill="#222222"] {
     justify-content: center;
     margin: 2px;
     border-radius: 50%;
+    /* Round shape for days */
     transition: all 0.2s ease;
     height: 34px;
     width: 34px;
@@ -2571,11 +2432,46 @@ text[fill="#222222"] {
     transform: rotate(180deg);
 }
 
+/* Report containers */
 [data-report] {
-    display: block;
+
     visibility: visible;
 }
 
+/* Fallback message */
 .report-fallback {
     display: none;
+}
+
+
+
+@media (min-width: 1500px) {
+    .admindashboard-container {
+        margin: 80px 20px 80px 30px;
+        max-width: 1100px;
+        margin-left: 32%;
+    }
+    .admindashboard-secondpart .ageratio-graph-admin {
+     width: 340px;
+}
+}
+
+@media (min-width: 1728px) {
+    .admindashboard-container {
+        margin: 80px 30px 80px 40px;
+        max-width: 1200px;
+        margin-left: 40%;
+    }
+    .admindashboard-secondpart .ageratio-graph-admin {
+     width: 340px;
+}
+#nbfc-lead-chart_container, 
+.sc-lead-container,
+.point-entry-donut,
+.point-entry-dashboard  {
+    width:100%;
+    margin:0;
+
+}
+
 }

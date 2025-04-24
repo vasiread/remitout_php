@@ -15,7 +15,7 @@
     position: absolute;
     top: 10px;
     right: 0;
-    max-width: 1200px;
+
 }
 
 
@@ -1608,3 +1608,26 @@ textarea::placeholder {
         flex: none;
         position: relative;
       }
+
+      
+@media (min-width: 1500px) {
+    .admin-student-form-container {
+        width:1200px;
+        margin-left: 5%;
+
+    }
+   
+}
+
+@media (min-width: 1728px) {
+   .admin-student-form-container {
+        max-width:1400px;
+        margin-left: 5%;
+
+    }
+  
+}
+
+
+        
+
