@@ -442,26 +442,24 @@ class Admincontroller extends Controller
 
                 $userDetails = [
                     'unique_id' => $user->unique_id,
-                    'email' => $personalInfo ? $personalInfo->email : null,  
-                    'full_name' => $personalInfo ? $personalInfo->full_name : null,   
-                    'gender' => $personalInfo ? $personalInfo->gender : null,  
-                    'phone_number' => $user->phone,   
-                    'degree_type' => null,  
-                    'loan_amount' => null,  
-                    'course_info' => []
+                    'email' => $personalInfo ? $personalInfo->email : null,
+                    'full_name' => $personalInfo ? $personalInfo->full_name : null,
+                    'gender' => $personalInfo ? $personalInfo->gender : null,
+                    'phone_number' => $user->phone,
+                    'degree_type' => null,
+                    'loan_amount' => null,
+                    'course_info' => [],
                 ];
 
-                // Check and add course details
                 if ($courseInfo) {
                     foreach ($courseInfo as $course) {
                         $userDetails['course_info'][] = [
                             'plan_to_study' => json_decode($course->plan_to_study, true),
-                            'degree_type' => $course->{'degree-type'},  // Access using the exact column name
-                            'loan_amount_in_lakhs' => $course->loan_amount_in_lakhs
+                            'degree_type' => $course->{'degree-type'},
+                            'loan_amount_in_lakhs' => $course->loan_amount_in_lakhs,
                         ];
 
-                        // If degree_type and loan_amount are in courseInfo, add them
-                        $userDetails['degree_type'] = $course->{'degree-type'};  // Correct reference
+                        $userDetails['degree_type'] = $course->{'degree-type'};
                         $userDetails['loan_amount'] = $course->loan_amount_in_lakhs;
                     }
                 }
@@ -469,11 +467,10 @@ class Admincontroller extends Controller
                 $mergedDetails[] = $userDetails;
             }
 
-            return response()->json([
-                'status' => 'success',
-                'message' => 'All user details retrieved successfully.',
-                'data' => $mergedDetails
-            ], 200);
+            // IMPORTANT: Paginate and pass that to the view
+            $students = collect($mergedDetails)->paginate(10);
+
+            return view('components.admin.adminmanagestudent', compact('students'));
 
         } catch (\Exception $e) {
             return response()->json([
@@ -508,6 +505,7 @@ class Admincontroller extends Controller
 
         return response()->json($data);
     }
+
 
 
 

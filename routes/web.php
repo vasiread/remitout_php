@@ -192,3 +192,4 @@ Route::post('/suspendscuser', [scDashboardController::class, 'suspendUser']);
 
 Route::get('/admin/show-sc-profile/{referral}', [AdminController::class, 'showSCProfileJSON']);
 Route::get('/get-tickets', [scDashboardController::class, 'getScUserTickets']);
+Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails']);
