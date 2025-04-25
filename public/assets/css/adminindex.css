@@ -384,5 +384,14 @@ body {
 
 }
   
-
-
+#admin-messagebutton-0{
+  padding:0px;
+}
+#admin-loanproposals{
+  box-shadow:none;
+}
+[id^="admin-inputfield-"] ~ .send-img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
