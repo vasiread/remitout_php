@@ -1052,16 +1052,16 @@
                 legend: 'none',
                 chartArea: { width: '80%', height: '70%' }
             };
-            const options = {
-                maintainAspectRatio: false,
-                hAxis: { title: 'Day of the Week', textStyle: { color: '#333' } },
-                vAxis: { title: 'Registrations', viewWindow: { min: 0, max: 200 }, textStyle: { color: '#333' } },
-                annotations: { alwaysOutside: true, textStyle: { color: '#000', fontSize: 12 } },
-                pointSize: 5,
-                series: { 0: { lineWidth: 2, pointShape: 'circle', color: 'rgb(163, 171, 189)' } },
-                legend: 'none',
-                chartArea: { width: '80%', height: '70%' }
-            };
+            // const options = {
+            //     maintainAspectRatio: false,
+            //     hAxis: { title: 'Day of the Week', textStyle: { color: '#333' } },
+            //     vAxis: { title: 'Registrations', viewWindow: { min: 0, max: 200 }, textStyle: { color: '#333' } },
+            //     annotations: { alwaysOutside: true, textStyle: { color: '#000', fontSize: 12 } },
+            //     pointSize: 5,
+            //     series: { 0: { lineWidth: 2, pointShape: 'circle', color: 'rgb(163, 171, 189)' } },
+            //     legend: 'none',
+            //     chartArea: { width: '80%', height: '70%' }
+            // };
 
             const chart = new google.visualization.LineChart(chartDiv);
             chart.draw(view, options);

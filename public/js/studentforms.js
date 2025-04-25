@@ -242,11 +242,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Add event listeners to buttons
-    nextButton.addEventListener("click", () => {
-        if (areFieldsFilled()) {
-            navigate("next");
-        }
-    });
+    // nextButton.addEventListener("click", () => {
+    //     if (areFieldsFilled()) {
+    //         navigate("next");
+    //     }
+    // });
 
     function updateUserIds() {
         const personalInfoId = document.getElementById(

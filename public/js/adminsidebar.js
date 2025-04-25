@@ -440,11 +440,11 @@ function initializeAdminSidebar () {
 
 document.addEventListener("DOMContentLoaded", function () {
     initializeAdminSidebar();
-    if (addCounsellorModelTrigger) {
-        addCounsellorModelTrigger.addEventListener("click", () => {
-            // sidebarItems[8].click();
-            // console.log("sflkasdflksd")
-        });
-    }
-    initializeEditContentProperties();
+    // if (addCounsellorModelTrigger) {
+    //     addCounsellorModelTrigger.addEventListener("click", () => {
+    //         // sidebarItems[8].click();
+    //         // console.log("sflkasdflksd")
+    //     });
+    // }
+    // initializeEditContentProperties();
 });

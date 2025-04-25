@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\CourseInfo;
-use App\Models\CourseInfo;
 use App\Models\Nbfc;
 use App\Models\PersonalInfo;
 use App\Models\proposalcompletion;
@@ -11,7 +10,6 @@ use App\Models\Proposals;
 use App\Models\Rejectedbynbfc;
 use App\Models\Requestedbyusers;
 use App\Models\Requestprogress;
-use App\Models\Scuser;
 use App\Models\Scuser;
 use App\Models\User;
 use Exception;
