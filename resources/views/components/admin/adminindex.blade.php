@@ -344,7 +344,7 @@
             // Randomize Names for Each Container
             function randomizeNames(containerId, namesArray, nameClass) {
                 const containers = document.querySelectorAll(`#${containerId} .${nameClass}`);
-                console.log(`Randomizing names for ${containerId}: Found ${containers.length} elements`); // Debug
+                // console.log(`Randomizing names for ${containerId}: Found ${containers.length} elements`); // Debug
                 const usedNames = new Set();
                 containers.forEach(element => {
                     let name;
@@ -384,7 +384,7 @@
                 if (targetContainer) {
                     targetContainer.classList.add('active');
                     targetContainer.style.display = 'block';
-                    console.log(`Showing container: ${targetId}`); // Debug
+                    // console.log(`Showing container: ${targetId}`); // Debug
                 } else {
                     console.error(`Container with ID ${targetId} not found`); // Debug
                 }
