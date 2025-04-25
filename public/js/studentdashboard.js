@@ -688,10 +688,6 @@ function initializeSimpleChat() {
             chatContainer.parentNode.insertBefore(messagesWrapper, chatContainer);
         }
 
-
-
-
-
         const clearButtonContainer = document.createElement("div");
         clearButtonContainer.style.cssText = `
             display: none;

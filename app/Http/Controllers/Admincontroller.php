@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CourseInfo;
 use App\Models\Nbfc;
 use App\Models\PersonalInfo;
 use App\Models\proposalcompletion;
@@ -9,6 +10,7 @@ use App\Models\Proposals;
 use App\Models\Rejectedbynbfc;
 use App\Models\Requestedbyusers;
 use App\Models\Requestprogress;
+use App\Models\Scuser;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -92,7 +94,7 @@ class Admincontroller extends Controller
         try {
             // Fetch all NBFCs from the nbfc table
             $nbfcRecords = Nbfc::all();
-            
+
             // Extract NBFC names and IDs
             $nbfcs = $nbfcRecords->pluck('nbfc_name')->toArray();
             $nbfcIds = $nbfcRecords->pluck('nbfc_id', 'nbfc_name')->toArray();
@@ -110,8 +112,7 @@ class Admincontroller extends Controller
                     continue;
                 }
 
-                // Step 1: Count the number of leads for this NBFC
-                // Use 'nbfcid' as per the database column name
+
                 $leadCount = Requestprogress::where('nbfc_id', $nbfcId)
                     ->count();
                 $leadCounts[] = $leadCount;
@@ -131,8 +132,7 @@ class Admincontroller extends Controller
                     foreach ($acceptedProposals as $proposal) {
                         $userId = $proposal->user_id;
 
-                        // Find the corresponding entry in traceprogress
-                        // Use 'userid' and 'nbfcid' as per the database column names
+
                         $requestEntry = Requestprogress::where('user_id', $userId)
                             ->where('nbfc_id', $nbfcId)
                             ->first();
@@ -148,9 +148,9 @@ class Admincontroller extends Controller
                                 $totalTimeInDays += $daysDifference;
 
                                 // Log the time difference for each user
-                                Log::info("NBFC: {$nbfcName}, User: {$userId}, Days Difference: {$daysDifference}, Request Time: {$requestTime}, Proposal Time: {$proposalTime}");
+                                Log::info("NBFC: {$nbfcName}, User: {$userId}, Days Difference: {$daysDifference}, Request Time: {$requestTime},Proposal Time: {$proposalTime}");
                             } else {
-                                Log::warning("NBFC: {$nbfcName}, User: {$userId}, Invalid timestamps - Request: {$requestTime}, Proposal: {$proposalTime}");
+                                Log::warning("NBFC: {$nbfcName}, User: {$userId}, Invalid timestamps - Request: {$requestTime}, Proposal:{$proposalTime}");
                             }
                         } else {
                             Log::warning("NBFC: {$nbfcName}, User: {$userId}, No matching request entry found in traceprogress");
@@ -232,9 +232,9 @@ class Admincontroller extends Controller
 
             // Fetch the count of users grouped by the day of the week
             $registrationsByDay = User::select(
-                    DB::raw("DAYNAME(created_at) as day_of_week"),
-                    DB::raw("COUNT(*) as registration_count")
-                )
+                DB::raw("DAYNAME(created_at) as day_of_week"),
+                DB::raw("COUNT(*) as registration_count")
+            )
                 ->groupBy(DB::raw("DAYNAME(created_at)"))
                 ->pluck('registration_count', 'day_of_week')
                 ->toArray();
@@ -270,12 +270,13 @@ class Admincontroller extends Controller
                 ->join('users', 'course_details_formdata.user_id', '=', 'users.unique_id')
                 ->join('personal_infos', 'users.unique_id', '=', 'personal_infos.user_id')
                 ->select(
-                    DB::raw("CASE 
-                    WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%bachelor%' THEN 'UG'
-                    WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%master%' THEN 'PG'
-                    WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%mca%' OR LOWER(course_details_formdata.`degree-type`) LIKE '%bca%' THEN 'Other'
-                    ELSE 'Other' 
-                END as degree_category"),
+                    DB::raw("CASE
+                        WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%bachelor%' THEN 'UG'
+                        WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%master%' THEN 'PG'
+                        WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%mca%' OR LOWER(course_details_formdata.`degree-type`) LIKE
+                        '%bca%' THEN 'Other'
+                        ELSE 'Other'
+                        END as degree_category"),
                     'personal_infos.gender',
                     DB::raw('count(*) as count')
                 )
@@ -333,8 +334,19 @@ class Admincontroller extends Controller
             'users' => ['email', 'phone'],
             'personal_infos' => ['full_name', 'referral_code', 'state', 'linked_through'],
             'academic_details' => ['gap_in_academics', 'work_experience', 'university_school_name', 'course_name'],
-            'coborrower_details' => ['co_borrower_relation', 'co_borrower_income', 'co_borrower_monthly_liability', 'liability_select'],
-            'course_details_formdata' => ['plan-to-study', 'degree-type', 'course-duration', 'course-details', 'loan_amount_in_lakhs'],
+            'coborrower_details' => [
+                'co_borrower_relation',
+                'co_borrower_income',
+                'co_borrower_monthly_liability',
+                'liability_select'
+            ],
+            'course_details_formdata' => [
+                'plan-to-study',
+                'degree-type',
+                'course-duration',
+                'course-details',
+                'loan_amount_in_lakhs'
+            ],
         ];
 
         // Get all users
@@ -405,23 +417,95 @@ class Admincontroller extends Controller
             'incomplete_user_ids' => $incompleteUsers,
         ]);
     }
-    
+
 
     public function getCityStats()
     {
         $data = PersonalInfo::select(
-                'city',
-                'state',
-                DB::raw("SUM(CASE WHEN gender = 'Female' THEN 1 ELSE 0 END) as female"),
-                DB::raw("SUM(CASE WHEN gender = 'Male' THEN 1 ELSE 0 END) as male"),
-                DB::raw("COUNT(*) as total")
-            )
+            'city',
+            'state',
+            DB::raw("SUM(CASE WHEN gender = 'Female' THEN 1 ELSE 0 END) as female"),
+            DB::raw("SUM(CASE WHEN gender = 'Male' THEN 1 ELSE 0 END) as male"),
+            DB::raw("COUNT(*) as total")
+        )
             ->groupBy('city', 'state')
             ->get();
 
         return response()->json($data);
     }
+    public function showSCProfileJSON($referral)
+    {
+        $sc = Scuser::where('referral_code', $referral)->first();
+
+        if (!$sc) {
+            return response()->json(['error' => 'Counsellor not found'], 404);
+        }
+
+        return response()->json([
+            'name' => $sc->name,
+            'referral_code' => $sc->referral_code,
+            'dob' => $sc->dob,
+            'email' => $sc->email,
+            'phone' => $sc->phone,
+            'state' => $sc->state,
+            'image' => asset('assets/images/image-women.jpeg') // or $sc->image_path
+        ]);
+    }
 
 
+
+    public function mergeAllStudentDetails()
+    {
+        try {
+            $users = User::all();
+            $mergedDetails = [];
+
+            foreach ($users as $user) {
+                $personalInfo = PersonalInfo::where('user_id', $user->unique_id)->first();
+                $courseInfo = CourseInfo::where('user_id', $user->unique_id)->get();
+
+                $userDetails = [
+                    'unique_id' => $user->unique_id,
+                    'email' => $personalInfo ? $personalInfo->email : null,
+                    'full_name' => $personalInfo ? $personalInfo->full_name : null,
+                    'gender' => $personalInfo ? $personalInfo->gender : null,
+                    'phone_number' => $user->phone,
+                    'degree_type' => null,
+                    'loan_amount' => null,
+                    'course_info' => []
+                ];
+
+                // Check and add course details
+                if ($courseInfo) {
+                    foreach ($courseInfo as $course) {
+                        $userDetails['course_info'][] = [
+                            'plan_to_study' => json_decode($course->plan_to_study, true),
+                            'degree_type' => $course->{'degree-type'}, // Access using the exact column name
+                            'loan_amount_in_lakhs' => $course->loan_amount_in_lakhs
+                        ];
+
+                        // If degree_type and loan_amount are in courseInfo, add them
+                        $userDetails['degree_type'] = $course->{'degree-type'}; // Correct reference
+                        $userDetails['loan_amount'] = $course->loan_amount_in_lakhs;
+                    }
+                }
+
+                $mergedDetails[] = $userDetails;
+            }
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'All user details retrieved successfully.',
+                'data' => $mergedDetails
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'An error occurred while retrieving user details.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 
 }
