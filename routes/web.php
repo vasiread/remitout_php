@@ -173,6 +173,7 @@ Route::post('/proposalcompletion', [StudentDashboardController::class, 'proposal
 Route::post('/check_userid', [StudentDashboardController::class, 'checkUserId']);
 Route::post('/count-user-status', [StudentDashboardController::class, 'getStatusCount']);
 Route::post('/multipleregisterbyscuser', [StudentDashboardController::class, 'multipleuserbyscuser']);
+Route::post('/suspendscuser', [scDashboardController::class, 'suspendUser']);
 Route::get('/retrievedashboarddetails', [Admincontroller::class, 'retrieveDashboardDetails']);
 Route::post('/getprofilecompletionbygender', [Admincontroller::class, 'getProfileCompletionByGenderAndDegree']);
 
@@ -195,3 +196,4 @@ Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails'])
 
 
 Route::get('/admin/show-sc-profile/{referral}', [AdminController::class, 'showSCProfileJSON']);
+Route::get('/get-tickets', [scDashboardController::class, 'getScUserTickets']);
