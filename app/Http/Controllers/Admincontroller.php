@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CourseInfo;
 use App\Models\Nbfc;
 use App\Models\PersonalInfo;
 use App\Models\proposalcompletion;
@@ -420,6 +421,89 @@ class Admincontroller extends Controller
             ->get();
 
         return response()->json($data);
+    }
+
+
+    public function getDestinationCountries()
+    {
+        try {
+            // Fetch the data with plan-to-study (JSON array) and gender
+            $data = CourseInfo::select('course_details_formdata.plan-to-study', 'personal_infos.gender')
+                ->join('personal_infos', 'course_details_formdata.user_id', '=', 'personal_infos.user_id')
+                ->get();
+
+            // Initialize an array to store the aggregated results
+            $countryStats = [];
+
+            // Process each record
+            foreach ($data as $record) {
+                // Decode the plan-to-study JSON array
+                $countries = json_decode($record->{'plan-to-study'}, true);
+
+                // If decoding fails or it's not an array, skip this record
+                if (!is_array($countries)) {
+                    continue;
+                }
+
+                // Get the gender for this record
+                $gender = strtolower($record->gender); // Normalize to lowercase
+
+                // Increment counts for each country in the array
+                foreach ($countries as $country) {
+                    // Normalize country name (trim, remove extra spaces)
+                    $country = trim($country);
+
+                    // Skip empty country names
+                    if (empty($country)) {
+                        continue;
+                    }
+
+                    // Initialize the country in the stats array if not present
+                    if (!isset($countryStats[$country])) {
+                        $countryStats[$country] = [
+                            'female' => 0,
+                            'male' => 0,
+                            'total_students' => 0
+                        ];
+                    }
+
+                    // Increment counts based on gender
+                    if ($gender === 'female') {
+                        $countryStats[$country]['female']++;
+                    } elseif ($gender === 'male') {
+                        $countryStats[$country]['male']++;
+                    }
+
+                    // Increment total students (regardless of gender)
+                    $countryStats[$country]['total_students']++;
+                }
+            }
+
+            // Convert the stats array to the desired response format
+            $result = array_map(function ($country, $stats) {
+                return [
+                    'country' => $country,
+                    'female' => $stats['female'],
+                    'male' => $stats['male'],
+                    'total_students' => $stats['total_students']
+                ];
+            }, array_keys($countryStats), $countryStats);
+
+            // Sort by total_students (descending) for better presentation
+            usort($result, function ($a, $b) {
+                return $b['total_students'] - $a['total_students'];
+            });
+
+            return response()->json([
+                'success' => true,
+                'data' => $result
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch destination countries: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
 

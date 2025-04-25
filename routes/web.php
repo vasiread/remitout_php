@@ -80,7 +80,7 @@ Route::get('/student-forms', function () {
 Route::get('pages/student-dashboard', [TrackController::class, 'loanTracker']);
 
 // Google Authentication Routes
-// Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
+// Route::get('auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google-auth');
  
 // Form Submission Routes
 Route::post('/registerformdata', [RegisterController::class, 'store'])->name('registerformdata');
@@ -154,14 +154,17 @@ Route::post("/addbulkusers", [NbfcController::class, 'addBulkNbfc']);
 Route::post("/send-proposals-with-file", [NbfcController::class, 'sendProposalsWithFiles']);
 Route::post('/logout', [LoginController::class, 'sessionLogout'])->name('logout');
 
-
-// Route::get('login/google', [GoogleAuthController::class, 'redirectToGoogle']);
+// New API route for Google login
+Route::post('/api/google/login', [GoogleAuthController::class, 'googleLogin'])->name('api.google.login');
 
 // Google callback URL
 // Route::get('login/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('google-auth');
 
+//Google signup Routes
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('/auth/google/call-back', [GoogleAuthController::class, 'handleGoogleCallback']);
+
+
 Route::get('/get-queries', [scDashboardController::class, 'getScuserQueryRaised']);
 Route::post('/getstatusofusers', [scDashboardController::class, 'getStatusOfUsers']);
 
@@ -183,5 +186,6 @@ Route::get('/sc-lead-gens', [Admincontroller::class, 'scLeadGens']);
 Route::get('/reports-on-generation', [Admincontroller::class, 'reportsOnGeneration']);
 Route::post('/validateprofilecompletion', [Admincontroller::class, 'validateprofilecompletion']);
 Route::get('/city-stats', [Admincontroller::class, 'getCityStats']);
+Route::get('/dest-countries', [Admincontroller::class, 'getDestinationCountries']);
 
 

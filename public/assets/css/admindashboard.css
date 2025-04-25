@@ -1443,19 +1443,21 @@ margin:0px;
     gap: 20px;
 }
 .admin-desti-country-sort-btn {
-    display: flex;
-    align-items: center;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 6px 12px;
-    font-size: 12px;
-    color: #5d5c5c;
-    font-weight: 400;
-    font-family: "Poppins", sans-serif;
+    display: flex; /* Use flexbox to align items in a row */
+    align-items: center; /* Vertically center the text and icon */
+    justify-content: space-between; /* Space between text and icon */
+    padding: 8px 12px; /* Consistent padding */
+    font-size: 14px; /* Readable font size */
+    border: 1px solid #ccc; /* Optional: Match your design */
+    border-radius: 4px; /* Optional: Rounded corners */
+    background-color: #fff; /* Optional: Background color */
     cursor: pointer;
-    width: 60px;
-    height: 37px;
-    background-color: white;
+    white-space: nowrap; /* Prevent text wrapping */
+    min-width: 120px; /* Minimum width to accommodate text */
+    max-width: 200px; /* Optional: Maximum width to prevent excessive stretching */
+    overflow: hidden; /* Hide overflow if text is too long */
+    text-overflow: ellipsis; /* Add ellipsis if text overflows */
+    position: relative; /
 }
 
 .admin-desti-country-filter-btn i,

@@ -75,9 +75,9 @@
                             <button class="googlesigninbutton" onclick="window.location.href='{{ route('google.login') }}'">
                                 <img src="{{ asset('assets/images/googleicon.png') }}"> Sign in with Google
                             </button>   
-                            <button class="iossigninbutton">
+                            <!-- <button class="iossigninbutton">
                                 <img src="{{ asset('assets/images/appleicon.png') }}"> Sign in with Apple
-                            </button>
+                            </button> -->
                         </div>
                         <div class="logincontainer-signinoption">
                             <p>Have an account? </p>

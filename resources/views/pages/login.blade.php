@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset("assets/css/login.css") }}" />
 </head>
@@ -84,12 +85,12 @@
                     <div class="logincontainer-anotherresources">
                         <p>Or</p>
                         <div class="googlesigninbuttoncontainer">
-                            <button class="googlesigninbutton" onclick="window.location.href='{{ route('google-auth') }}'">
+                            <button class="googlesigninbutton" onclick="window.location.href='{{ route('google.login') }}'">
                                 <img src="{{ asset('assets/images/googleicon.png') }}"> Sign in with Google
                             </button>
-                            <button class="iossigninbutton">
+                            <!-- <button class="iossigninbutton">
                                 <img src="{{ asset('assets/images/appleicon.png') }}"> Sign in with Apple
-                            </button>
+                            </button> -->
                         </div>
 
                         <!-- New User Sign Up Option -->
@@ -109,7 +110,9 @@
                     alert("{{ session('session_expired') }}");
                     logoutSession();
                 @endif
-                                                        });
+
+            });
+                                                      
 
             const passwordInput = document.getElementById('loginpasswordID');
             const passwordIcon = document.querySelector('.passwordClose');
@@ -216,6 +219,7 @@
             logoutButton?.addEventListener('click', function () {
                 logoutSession();
             });
+        
         </script>
 
 

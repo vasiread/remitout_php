@@ -95,3 +95,4 @@ Route::get('/sc-lead-gens', [Admincontroller::class, 'scLeadGens']);
 Route::get('/reports-on-generation', [Admincontroller::class, 'reportsOnGeneration']);
 Route::post('/validateprofilecompletion', [Admincontroller::class, 'validateprofilecompletion']);
 Route::get('/city-stats', [Admincontroller::class, 'getCityStats']);
+Route::get('/dest-countries', [Admincontroller::class, 'getDestinationCountries']);

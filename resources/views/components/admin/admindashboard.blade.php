@@ -482,81 +482,38 @@
                         </div>
                     </div>
 
-                    <!-- Countries Section -->
-                    <div class="admin-desti-country-column">
-                        <div class="admin-desti-country-section">
-                            <div class="admin-desti-country-header">
-                                <div class="admin-desti-country-title">Destination Countries</div>
-                                <div class="admin-desti-country-filter-sort-container">
-                                    <button class="admin-desti-country-filter-btn">Filter <i class="fas fa-chevron-down"></i></button>
-                                    <button class="admin-desti-country-sort-btn">Sort <i class="fas fa-chevron-down"></i></button>
-                                </div>
-                            </div>
-                            <table class="admin-desti-country-table" id="country-table">
-                                <thead>
-                                    <tr>
-                                        <th>Country</th>
-                                        <th>Continent</th>
-                                        <th>Female</th>
-                                        <th>Male</th>
-                                        <th>No. students</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>USA</td>
-                                        <td>North America</td>
-                                        <td>50</td>
-                                        <td>40</td>
-                                        <td class="admin-desti-country-data-value" data-value="90">90</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Canada</td>
-                                        <td>North America</td>
-                                        <td>40</td>
-                                        <td>30</td>
-                                        <td class="admin-desti-country-data-value" data-value="70">70</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Norway</td>
-                                        <td>Europe</td>
-                                        <td>90</td>
-                                        <td>40</td>
-                                        <td class="admin-desti-country-data-value" data-value="130">130</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Canada</td>
-                                        <td>North America</td>
-                                        <td>40</td>
-                                        <td>30</td>
-                                        <td class="admin-desti-country-data-value" data-value="70">70</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Canada</td>
-                                        <td>North America</td>
-                                        <td>40</td>
-                                        <td>30</td>
-                                        <td class="admin-desti-country-data-value" data-value="70">70</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Canada</td>
-                                        <td>North America</td>
-                                        <td>40</td>
-                                        <td>30</td>
-                                        <td class="admin-desti-country-data-value" data-value="70">70</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="admin-desti-country-pagination">
-                                <div class="admin-desti-country-pagination-btn"><i class="fas fa-chevron-left"></i></div>
-                                <div class="admin-desti-country-pagination-text">1-10 / 30</div>
-                                <div class="admin-desti-country-pagination-btn"><i class="fas fa-chevron-right"></i></div>
-                            </div>
+            <!-- Countries Section -->
+            <div class="admin-desti-country-column">
+                <div class="admin-desti-country-section">
+                    <div class="admin-desti-country-header">
+                        <div class="admin-desti-country-title">Destination Countries</div>
+                        <div class="admin-desti-country-filter-sort-container">
+                            <!-- <button class="admin-desti-country-filter-btn" id="country-filter-btn">Filter <i class="fas fa-chevron-down"></i></button> -->
+                            <button class="admin-desti-country-sort-btn" id="country-sort-btn">Sort <i class="fas fa-chevron-down"></i></button>
                         </div>
+                    </div>
+                    <table class="admin-desti-country-table" id="country-table">
+                        <thead>
+                            <tr>
+                                <th data-sort="country">Country <i class="fas fa-sort"></i></th>
+                                <th data-sort="female">Female <i class="fas fa-sort"></i></th>
+                                <th data-sort="male">Male <i class="fas fa-sort"></i></th>
+                                <th data-sort="total_students">No. students <i class="fas fa-sort"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody id="country-table-body">
+                            <!-- Rows will be populated dynamically -->
+                        </tbody>
+                    </table>
+                    <div class="admin-desti-country-pagination">
+                        <div class="admin-desti-country-pagination-btn" id="country-prev-btn"><i class="fas fa-chevron-left"></i></div>
+                        <div class="admin-desti-country-pagination-text" id="country-pagination-text">1-10 / 0</div>
+                        <div class="admin-desti-country-pagination-btn" id="country-next-btn"><i class="fas fa-chevron-right"></i></div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
         <!-- Fifth Section -->
         <div class="admindashboardcontainer-fifth-section" data-report="nbfc-generation-leads">
@@ -660,14 +617,20 @@
                     </div>
                 </div>
 
-                <div class="point-entry-dashboard">
-                    <div class="point-entry-dashboard-image">
-                        <img src="assets/images/semrush-seo.png" alt="SEMRUSH Logo">
-                    </div>
-                </div>
-            </div>
-        </div>
+          <!-- <div class="point-entry-dashboard">
+             <div class="point-entry-dashboard-image">
+                 <img src="assets/images/semrush-seo.png" alt="SEMRUSH Logo">
+             </div>
+          </div> -->
+
+
     </div>
+
+</div>
+
+
+
+      </div>
 
     <script>
         // Utility functions for DOM queries
@@ -1003,17 +966,54 @@ document.getElementById('downloadPdfButton').addEventListener('click', downloadP
             const chartDiv = $('#chart_div');
             if (!chartDiv) return console.error('chart_div not found');
 
-            const data = new google.visualization.DataTable();
-            data.addColumn('string', 'Day');
-            data.addColumn('number', 'Registrations');
-            data.addColumn({ type: 'string', role: 'annotation' });
+    // Fetch data from API
+    fetch('/reports-on-generation', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        }
+    })
+        .then(response => {
+            // console.log('Raw response:', response);
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+            return response.json();
+        })
+        .then(data => {
+            // console.log('Fetched Reports on Registration data:', data);
 
-            data.addRows([
-                ['Mon', 100, null], ['Tue', 123, null], ['Wed', 174, '174'], ['Thu', 118, null],
-                ['Fri', 145, null], ['Sat', 92, null]
-            ]);
+            // Validate the API response structure
+            if (!data || typeof data !== 'object' || 
+                !Array.isArray(data.days_of_week) || 
+                !Array.isArray(data.registration_counts) || 
+                data.days_of_week.length !== data.registration_counts.length) {
+                console.log('Validation failed. Data structure:', data);
+                throw new Error('Invalid API response: Mismatched or missing data arrays');
+            }
 
-            const view = new google.visualization.DataView(data);
+            // Create the DataTable
+            const dataTable = new google.visualization.DataTable();
+            dataTable.addColumn('string', 'Day');
+            dataTable.addColumn('number', 'Registrations');
+            dataTable.addColumn({ type: 'string', role: 'annotation' });
+
+            // Find the highest registration count to set an annotation
+            const maxCount = Math.max(...data.registration_counts);
+            const maxIndex = data.registration_counts.indexOf(maxCount);
+
+            // Transform API data into rows
+            const rows = data.days_of_week.map((day, index) => {
+                const annotation = index === maxIndex ? maxCount.toString() : null;
+                return [day, data.registration_counts[index], annotation];
+            });
+
+            dataTable.addRows(rows);
+
+            // Log the transformed data for debugging
+            // console.log('Transformed chart data:', rows);
+
+            // Create a DataView
+            const view = new google.visualization.DataView(dataTable);
             view.setColumns([0, 1, 2]);
 
             const options = {
@@ -1039,7 +1039,90 @@ document.getElementById('downloadPdfButton').addEventListener('click', downloadP
 
             const chart = new google.visualization.LineChart(chartDiv);
             chart.draw(view, options);
-        };
+        });
+};
+
+//Undergrad and Postgrad Chart
+// Function to update profile completion by gender and degree
+const updateProfileCompletionByGender = () => {
+    const undergradTotal = $('.totalundergrads-info h1');
+    const undergradFemale = $('.totalundergrads-info p:nth-child(2) span');
+    const undergradMale = $('.totalundergrads-info p:nth-child(3) span');
+    const undergradOthers = $('.totalundergrads-info p:nth-child(4) span');
+
+    const postgradTotal = $('.totalpostgrads-info h1');
+    const postgradFemale = $('.totalpostgrads-info p:nth-child(2) span');
+    const postgradMale = $('.totalpostgrads-info p:nth-child(3) span');
+    const postgradOthers = $('.totalpostgrads-info p:nth-child(4) span');
+
+    // Fetch data from API (POST request)
+    fetch('/getprofilecompletionbygender', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Required for POST in Laravel
+        },
+        body: JSON.stringify({}) // Empty body; adjust if API requires data
+    })
+        .then(response => {
+            // console.log('Raw response:', response);
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+            return response.json();
+        })
+        .then(data => {
+            // console.log('Fetched Profile Completion by Gender data:', data);
+
+            // Validate the API response structure
+            if (!data.success || !data.data || typeof data.data !== 'object' || 
+                !data.data.degree_summary || typeof data.data.degree_summary !== 'object') {
+                console.log('Validation failed. Data structure:', data);
+                throw new Error('Invalid API response: Missing or invalid data structure');
+            }
+
+            // Extract data for Undergrads (UG)
+            const ugData = data.data.degree_summary.UG;
+            const ugTotal = ugData.total || 0;
+            const ugFemale = ugData.female || 0;
+            const ugMale = ugData.male || 0;
+            const ugOthers = ugData.other || (ugTotal - ugFemale - ugMale); // Fallback to total if others not provided
+
+            // Extract data for Postgrads (PG)
+            const pgData = data.data.degree_summary.PG;
+            const pgTotal = pgData.total || 0;
+            const pgFemale = pgData.female || 0;
+            const pgMale = pgData.male || 0;
+            const pgOthers = pgData.other || (pgTotal - pgFemale - pgMale); // Fallback to total if others not provided
+
+            // Update Undergrads
+            undergradTotal.textContent = ugTotal;
+            undergradFemale.textContent = ugFemale;
+            undergradMale.textContent = ugMale;
+            undergradOthers.textContent = ugOthers;
+
+            // Update Postgrads
+            postgradTotal.textContent = pgTotal;
+            postgradFemale.textContent = pgFemale;
+            postgradMale.textContent = pgMale;
+            postgradOthers.textContent = pgOthers;
+        })
+        .catch(error => {
+            console.error('Error fetching Profile Completion by Gender data:', error);
+            // Fallback to static data if API fails
+            undergradTotal.textContent = 60;
+            undergradFemale.textContent = 20;
+            undergradMale.textContent = 20;
+            undergradOthers.textContent = 20;
+
+            postgradTotal.textContent = 150;
+            postgradFemale.textContent = 20;
+            postgradMale.textContent = 20;
+            postgradOthers.textContent = 20;
+
+            console.log('Using fallback data: Undergrads: 60 (20, 20, 20), Postgrads: 150 (20, 20, 20)');
+        });
+};
+
+
 
         // Donut Graph for Registration Sources
         const initializeDonutGraphSource = () => {
@@ -1095,10 +1178,437 @@ document.getElementById('downloadPdfButton').addEventListener('click', downloadP
             });
         };
 
-        // Additional Donut Chart
-        const initializeNewDonutChart = () => {
-            const ctx = $('#donutChart')?.getContext('2d');
-            if (!ctx) return console.error('donutChart canvas not found');
+// Function to fetch and display cities data with sorting, filtering, and pagination
+const initializeCitiesTable = () => {
+    const tableBody = $('#city-table-body');
+    const prevBtn = $('#city-prev-btn');
+    const nextBtn = $('#city-next-btn');
+    const paginationText = $('#city-pagination-text');
+    const filterBtn = $('#city-filter-btn');
+    const sortBtn = $('#city-sort-btn');
+
+    let currentPage = 1;
+    const itemsPerPage = 10;
+    let fullData = [];
+    let filteredData = [];
+    let sortColumn = 'city';
+    let sortDirection = 'asc';
+    let filterCity = '';
+    let filterState = '';
+
+    // Fetch data from API
+    fetch('/city-stats', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        }
+    })
+        .then(response => {
+            // console.log('Raw response:', response);
+            if (!response.ok) {
+                console.log('Response status:', response.status, 'Status text:', response.statusText);
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // console.log('Fetched Cities data:', data);
+
+            // Validate the API response structure
+            if (!Array.isArray(data)) {
+                console.log('Validation failed: Data is not an array', data);
+                throw new Error('Invalid API response: Expected an array of city data');
+            }
+
+            // Process and normalize data
+            fullData = data.map(item => ({
+                city: item.city || 'N/A',
+                state: item.state || 'N/A',
+                female: Number(item.female) || 0, // Convert to number
+                male: Number(item.male) || 0,    // Convert to number
+                total_students: Number(item.total) || 0 // Use total as total_students
+            }));
+            filteredData = [...fullData];
+            updateTable(fullData.length);
+        })
+        .catch(error => {
+            console.error('Error fetching Cities data:', error);
+            fullData = [];
+            filteredData = [];
+            updateTable(0);
+            alert('Failed to fetch cities data. Please check the API or try again later.');
+        });
+
+    // Function to update the table based on current page, sort, and filter
+    function updateTable(totalItems) {
+        // Apply filter
+        filteredData = fullData.filter(item => {
+            return filterCity ? item.city.toLowerCase().includes(filterCity.toLowerCase()) : true;
+        });
+
+
+        // Apply sort
+        filteredData.sort((a, b) => {
+            const valueA = a[sortColumn];
+            const valueB = b[sortColumn];
+            if (typeof valueA === 'string') {
+                return sortDirection === 'asc' 
+                    ? valueA.localeCompare(valueB) 
+                    : valueB.localeCompare(valueA);
+            }
+            return sortDirection === 'asc' 
+                ? valueA - valueB 
+                : valueB - valueA;
+        });
+
+        // Calculate pagination
+        const startIdx = (currentPage - 1) * itemsPerPage;
+        const endIdx = Math.min(startIdx + itemsPerPage, filteredData.length);
+        const paginatedData = filteredData.slice(startIdx, endIdx);
+
+        // Log the paginated data for debugging
+        // console.log('Paginated table data:', paginatedData);
+
+        // Update table body
+        tableBody.innerHTML = '';
+        if (paginatedData.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="5">No data available</td></tr>';
+        } else {
+            paginatedData.forEach(item => {
+                const row = `
+                    <tr>
+                        <td>${item.city}</td>
+                        <td>${item.state}</td>
+                        <td>${item.female}</td>
+                        <td>${item.male}</td>
+                        <td class="admin-city-data-value" data-value="${item.total_students}">${item.total_students}</td>
+                    </tr>
+                `;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        // Update pagination text
+        paginationText.textContent = `${startIdx + 1}-${endIdx} / ${totalItems}`;
+        prevBtn.style.visibility = currentPage === 1 ? 'hidden' : 'visible';
+        nextBtn.style.visibility = endIdx >= filteredData.length ? 'hidden' : 'visible';
+    }
+
+    // Pagination event listeners
+    prevBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            updateTable(fullData.length);
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentPage < Math.ceil(filteredData.length / itemsPerPage)) {
+            currentPage++;
+            updateTable(fullData.length);
+        }
+    });
+
+    // Sorting event listeners
+    document.querySelectorAll('#city-table thead th').forEach(header => {
+        header.addEventListener('click', () => {
+            const column = header.getAttribute('data-sort');
+            if (sortColumn === column) {
+                sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+                sortColumn = column;
+                sortDirection = 'asc';
+            }
+            currentPage = 1; // Reset to first page on sort
+            updateTable(fullData.length);
+        });
+    });
+
+    // Filtering (basic implementation)
+    filterBtn.addEventListener('click', () => {
+        const cityInput = prompt('Filter by City (leave empty to clear):', filterCity);
+        // const stateInput = prompt('Filter by State (leave empty to clear):', filterState);
+
+        filterCity = cityInput || '';
+        // filterState = stateInput || '';
+        currentPage = 1; // Reset to first page on filter
+        updateTable(fullData.length);
+    });
+
+    // Sorting button (optional, can be used for custom sorting logic if needed)
+    sortBtn.addEventListener('click', () => {
+        alert('Click on column headers to sort!');
+    });
+};
+
+
+const initializeCountriesTable = () => {
+    const tableBody = $('#country-table-body');
+    const prevBtn = $('#country-prev-btn');
+    const nextBtn = $('#country-next-btn');
+    const paginationText = $('#country-pagination-text');
+    const filterBtn = $('#country-filter-btn');
+    const sortBtn = $('#country-sort-btn');
+
+    let currentPage = 1;
+    const itemsPerPage = 6;
+    let fullData = [];
+    let filteredData = [];
+    let sortColumn = 'country';
+    let sortDirection = 'asc';
+    let filters = {
+        country: '',
+        female: '',
+        male: '',
+        total_students: ''
+    };
+    let selectedCountryFilter = 'All'; // Track the selected country for sorting/filtering
+
+    // Fetch data from API
+    fetch('/dest-countries', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+        }
+    })
+        .then(response => {
+            console.log('Raw response object:', response);
+            console.log('Response status:', response.status, 'Status text:', response.statusText);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status} - ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Fetched Destination Countries data:', JSON.stringify(data, null, 2));
+
+            // Validate the API response structure
+            if (!data.success || !Array.isArray(data.data)) {
+                console.log('Validation failed: Data structure:', JSON.stringify(data, null, 2));
+                throw new Error('Invalid API response: Missing or invalid data structure');
+            }
+
+            // Map the data
+            fullData = data.data.map(item => ({
+                country: item.country || 'N/A',
+                female: Number(item.female) || 0,
+                male: Number(item.male) || 0,
+                total_students: Number(item.total_students) || 0
+            }));
+            filteredData = [...fullData];
+            createSortDropdown(); // Create the dropdown after data is fetched
+            updateTable(fullData.length);
+        })
+        .catch(error => {
+            console.error('Error fetching Destination Countries data:', error);
+            // Fallback to hardcoded data for testing
+            fullData = [
+                { country: "Norway", female: 90, male: 40, total_students: 130 },
+                { country: "USA", female: 50, male: 40, total_students: 90 },
+                { country: "Canada", female: 40, male: 30, total_students: 70 },
+                { country: "UK", female: 20, male: 10, total_students: 30 },
+                { country: "Germany", female: 15, male: 25, total_students: 40 },
+                { country: "France", female: 10, male: 5, total_students: 15 }
+            ];
+            filteredData = [...fullData];
+            createSortDropdown(); // Create the dropdown even with hardcoded data
+            updateTable(fullData.length);
+            alert('Failed to fetch destination countries data. Using hardcoded data for testing. Please check the API.');
+            console.log('Network error details:', error.message);
+        });
+
+    // Function to create the sorting dropdown dynamically
+    function createSortDropdown() {
+        // Get unique countries from fullData
+        const uniqueCountries = ['All', ...new Set(fullData.map(item => item.country))];
+        console.log('Unique countries for dropdown:', uniqueCountries);
+
+        // Create dropdown container
+        let dropdown = document.getElementById('country-sort-dropdown');
+        if (dropdown) {
+            dropdown.remove(); // Remove existing dropdown if any
+        }
+
+        dropdown = document.createElement('div');
+        dropdown.id = 'country-sort-dropdown';
+        dropdown.className = 'sort-dropdown';
+        dropdown.style.position = 'absolute';
+        dropdown.style.backgroundColor = '#fff';
+        dropdown.style.border = '1px solid #ccc';
+        dropdown.style.borderRadius = '4px';
+        dropdown.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
+        dropdown.style.zIndex = '1000';
+        dropdown.style.display = 'none';
+        dropdown.style.maxHeight = '200px';
+        dropdown.style.overflowY = 'auto';
+
+        // Add options to dropdown
+        uniqueCountries.forEach(country => {
+            const option = document.createElement('div');
+            option.className = 'sort-option';
+            option.style.padding = '8px 12px';
+            option.style.cursor = 'pointer';
+            option.style.fontSize = '14px';
+            option.style.color = '#333';
+            option.textContent = country;
+            option.addEventListener('click', () => {
+                selectedCountryFilter = country;
+                console.log('Selected country filter:', selectedCountryFilter);
+                sortBtn.textContent = `Sort: ${country} `;
+                const icon = document.createElement('i');
+                icon.className = 'fas fa-chevron-down';
+                sortBtn.appendChild(icon);
+                currentPage = 1; // Reset to first page on filter
+                updateTable(fullData.length);
+                dropdown.style.display = 'none';
+            });
+            option.addEventListener('mouseover', () => {
+                option.style.backgroundColor = '#f0f0f0';
+            });
+            option.addEventListener('mouseout', () => {
+                option.style.backgroundColor = '#fff';
+            });
+            dropdown.appendChild(option);
+        });
+
+        // Append dropdown to sort button container
+        sortBtn.parentElement.appendChild(dropdown);
+
+        // Toggle dropdown visibility
+        sortBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isVisible = dropdown.style.display === 'block';
+            dropdown.style.display = isVisible ? 'none' : 'block';
+            // Position the dropdown
+            const rect = sortBtn.getBoundingClientRect();
+            dropdown.style.top = `${rect.bottom + window.scrollY}px`;
+            dropdown.style.left = `${rect.left + window.scrollX}px`;
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!sortBtn.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+    }
+
+    // Function to update the table based on current page, sort, and filter
+    function updateTable(totalItems) {
+        // Apply filters (including the country filter from the dropdown)
+        filteredData = fullData.filter(item => {
+            const countryMatch = selectedCountryFilter === 'All' ? true : item.country === selectedCountryFilter;
+            const promptCountryMatch = filters.country ? item.country.toLowerCase().includes(filters.country.toLowerCase()) : true;
+            const femaleMatch = filters.female ? item.female >= Number(filters.female) : true;
+            const maleMatch = filters.male ? item.male >= Number(filters.male) : true;
+            const totalStudentsMatch = filters.total_students ? item.total_students >= Number(filters.total_students) : true;
+            return countryMatch && promptCountryMatch && femaleMatch && maleMatch && totalStudentsMatch;
+        });
+
+        // Apply sort (based on column header sorting)
+        filteredData.sort((a, b) => {
+            const valueA = a[sortColumn];
+            const valueB = b[sortColumn];
+            if (typeof valueA === 'string') {
+                return sortDirection === 'asc' 
+                    ? valueA.localeCompare(valueB) 
+                    : valueB.localeCompare(valueA);
+            }
+            return sortDirection === 'asc' 
+                ? valueA - valueB 
+                : valueB - valueA;
+        });
+
+        // Calculate pagination
+        const startIdx = (currentPage - 1) * itemsPerPage;
+        const endIdx = Math.min(startIdx + itemsPerPage, filteredData.length);
+        const paginatedData = filteredData.slice(startIdx, endIdx);
+
+        // Log the paginated data for debugging
+        console.log('Paginated table data:', paginatedData);
+
+        // Update table body
+        tableBody.innerHTML = '';
+        if (paginatedData.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="4">No data available</td></tr>';
+        } else {
+            paginatedData.forEach(item => {
+                const row = `
+                    <tr>
+                        <td>${item.country}</td>
+                        <td>${item.female}</td>
+                        <td>${item.male}</td>
+                        <td class="admin-desti-country-data-value" data-value="${item.total_students}">${item.total_students}</td>
+                    </tr>
+                `;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        // Update pagination text
+        paginationText.textContent = `${startIdx + 1}-${endIdx} / ${filteredData.length}`; // Update total to reflect filtered data
+        prevBtn.style.visibility = currentPage === 1 ? 'hidden' : 'visible';
+        nextBtn.style.visibility = endIdx >= filteredData.length ? 'hidden' : 'visible';
+    }
+
+    // Pagination event listeners
+    prevBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            updateTable(fullData.length);
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentPage < Math.ceil(filteredData.length / itemsPerPage)) {
+            currentPage++;
+            updateTable(fullData.length);
+        }
+    });
+
+    // Sorting event listeners for column headers
+    document.querySelectorAll('#country-table thead th[data-sort]').forEach(header => {
+        header.addEventListener('click', () => {
+            const column = header.getAttribute('data-sort');
+            if (sortColumn === column) {
+                sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+                sortColumn = column;
+                sortDirection = 'asc';
+            }
+            currentPage = 1; // Reset to first page on sort
+            updateTable(fullData.length);
+        });
+    });
+
+    // Filtering (prompt-based implementation)
+    filterBtn.addEventListener('click', () => {
+        const countryInput = prompt('Filter by Country (leave empty to clear):', filters.country);
+        const femaleInput = prompt('Filter by Female (minimum count, leave empty to clear):', filters.female);
+        const maleInput = prompt('Filter by Male (minimum count, leave empty to clear):', filters.male);
+        const totalStudentsInput = prompt('Filter by No. students (minimum count, leave empty to clear):', filters.total_students);
+
+        filters.country = countryInput || '';
+        filters.female = femaleInput || '';
+        filters.male = maleInput || '';
+        filters.total_students = totalStudentsInput || '';
+        currentPage = 1; // Reset to first page on filter
+        updateTable(fullData.length);
+    });
+};
+
+// Call the function when the page loads
+document.addEventListener('DOMContentLoaded', initializeCountriesTable);
+
+
+
+
+// Point of Entry Donut Chart with API Data
+const initializeNewDonutChart = () => {
+    const ctx = $('#donutChart')?.getContext('2d');
+    if (!ctx) return console.error('donutChart canvas not found');
 
             new Chart(ctx, {
                 type: 'doughnut',
