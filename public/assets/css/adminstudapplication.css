@@ -3,6 +3,12 @@
     padding: 0;
     box-sizing: border-box;
 }
+.nbfc-studentdashboardprofile-profile-section-container{
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+   
+}
 .admin-studnet-application-main-container {
     display: flex;
     border-radius: 8px;
@@ -15,7 +21,7 @@
     position: absolute;
     top: 10px;
     right: 0;
-    max-width: 1200px;
+
 }
 
 
@@ -1017,7 +1023,7 @@ textarea::placeholder {
     width: 230px;
 }
 
-.monthly-liability-option label {
+.monthly-liability-option-container label {
     display: flex;
     align-items: center;
     font-size: 14px;
@@ -1026,7 +1032,7 @@ textarea::placeholder {
     gap: 16px;
 }
 
-.monthly-liability-option input[type="radio"] {
+.monthly-liability-option-container input[type="radio"] {
     appearance: none;
     width: 22px;
     height: 22px;
@@ -1038,11 +1044,11 @@ textarea::placeholder {
     transition: all 0.3s ease-in-out;
 }
 
-.monthly-liability-option input[type="radio"]:checked {
+.monthly-liability-option-container input[type="radio"]:checked {
     border-color: #e98635;
 }
 
-.monthly-liability-option input[type="radio"]:checked:before {
+.monthly-liability-option-container input[type="radio"]:checked:before {
     content: "";
     width: 12px;
     height: 12px;
@@ -1608,3 +1614,43 @@ textarea::placeholder {
         flex: none;
         position: relative;
       }
+
+      
+@media (min-width: 1500px) {
+    .admin-student-form-container{
+        width:1200px;
+        margin-left: 5%;
+
+    }
+   
+}
+
+@media (min-width: 1728px) {
+   .admin-student-form-container{
+        max-width:1400px;
+        margin-left: 5%;
+        margin-bottom: 10px;
+
+    }
+  
+}
+
+
+.admin-student-form-save-btn {
+  background-color: #FA7B15;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: "poppins";
+  margin-left: auto;
+  display: block;
+  width:180px;
+  margin-bottom: 60px;
+  margin-right:70px;
+  margin-top: 20px;
+}
+    
+
