@@ -29,6 +29,7 @@
     display: flex;
     justify-content: space-between;
     gap: 10px;
+    cursor: pointer !important;
 }
 
 .manage-student-report-header {
@@ -52,7 +53,7 @@
     border: none;
     padding: 8px 16px;
     border-radius: 4px;
-    cursor: pointer;
+    cursor: pointer !important;
     font-weight: 500;
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
