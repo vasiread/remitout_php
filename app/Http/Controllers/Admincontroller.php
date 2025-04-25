@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CourseInfo;
+use App\Models\CourseInfo;
 use App\Models\Nbfc;
 use App\Models\PersonalInfo;
 use App\Models\proposalcompletion;
@@ -453,6 +454,90 @@ class Admincontroller extends Controller
     }
 
 
+<<<<<<< HEAD
+=======
+
+    public function mergeAllStudentDetails()
+    {
+        try {
+            $users = User::all();
+            $mergedDetails = [];
+
+            foreach ($users as $user) {
+                $personalInfo = PersonalInfo::where('user_id', $user->unique_id)->first();
+                $courseInfo = CourseInfo::where('user_id', $user->unique_id)->get();
+
+                $userDetails = [
+                    'unique_id' => $user->unique_id,
+                    'email' => $personalInfo ? $personalInfo->email : null,  
+                    'full_name' => $personalInfo ? $personalInfo->full_name : null,   
+                    'gender' => $personalInfo ? $personalInfo->gender : null,  
+                    'phone_number' => $user->phone,   
+                    'degree_type' => null,  
+                    'loan_amount' => null,  
+                    'course_info' => []
+                ];
+
+                // Check and add course details
+                if ($courseInfo) {
+                    foreach ($courseInfo as $course) {
+                        $userDetails['course_info'][] = [
+                            'plan_to_study' => json_decode($course->plan_to_study, true),
+                            'degree_type' => $course->{'degree-type'},  // Access using the exact column name
+                            'loan_amount_in_lakhs' => $course->loan_amount_in_lakhs
+                        ];
+
+                        // If degree_type and loan_amount are in courseInfo, add them
+                        $userDetails['degree_type'] = $course->{'degree-type'};  // Correct reference
+                        $userDetails['loan_amount'] = $course->loan_amount_in_lakhs;
+                    }
+                }
+
+                $mergedDetails[] = $userDetails;
+            }
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'All user details retrieved successfully.',
+                'data' => $mergedDetails
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'An error occurred while retrieving user details.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public function getCityStats()
+    {
+        $data = PersonalInfo::select(
+                'city',
+                'state',
+                DB::raw("SUM(CASE WHEN gender = 'Female' THEN 1 ELSE 0 END) as female"),
+                DB::raw("SUM(CASE WHEN gender = 'Male' THEN 1 ELSE 0 END) as male"),
+                DB::raw("COUNT(*) as total")
+            )
+            ->groupBy('city', 'state')
+            ->get();
+
+        return response()->json($data);
+    }
+
+
+>>>>>>> 619d56c (recent-changes in admin side studentcounsellor)
     public function getDestinationCountries()
     {
         try {

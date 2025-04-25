@@ -1048,6 +1048,7 @@
                 legend: 'none',
                 chartArea: { width: '80%', height: '70%' }
             };
+<<<<<<< HEAD
             // const options = {
             //     maintainAspectRatio: false,
             //     hAxis: { title: 'Day of the Week', textStyle: { color: '#333' } },
@@ -1058,6 +1059,8 @@
             //     legend: 'none',
             //     chartArea: { width: '80%', height: '70%' }
             // };
+=======
+>>>>>>> 619d56c (recent-changes in admin side studentcounsellor)
 
             const chart = new google.visualization.LineChart(chartDiv);
             chart.draw(view, options);
