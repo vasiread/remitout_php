@@ -112,8 +112,7 @@ class Admincontroller extends Controller
                     continue;
                 }
 
-                // Step 1: Count the number of leads for this NBFC
-                // Use 'nbfcid' as per the database column name
+
                 $leadCount = Requestprogress::where('nbfc_id', $nbfcId)
                     ->count();
                 $leadCounts[] = $leadCount;
@@ -133,8 +132,7 @@ class Admincontroller extends Controller
                     foreach ($acceptedProposals as $proposal) {
                         $userId = $proposal->user_id;
 
-                        // Find the corresponding entry in traceprogress
-                        // Use 'userid' and 'nbfcid' as per the database column names
+
                         $requestEntry = Requestprogress::where('user_id', $userId)
                             ->where('nbfc_id', $nbfcId)
                             ->first();
@@ -150,9 +148,9 @@ class Admincontroller extends Controller
                                 $totalTimeInDays += $daysDifference;
 
                                 // Log the time difference for each user
-                                Log::info("NBFC: {$nbfcName}, User: {$userId}, Days Difference: {$daysDifference}, Request Time: {$requestTime}, Proposal Time: {$proposalTime}");
+                                Log::info("NBFC: {$nbfcName}, User: {$userId}, Days Difference: {$daysDifference}, Request Time: {$requestTime},Proposal Time: {$proposalTime}");
                             } else {
-                                Log::warning("NBFC: {$nbfcName}, User: {$userId}, Invalid timestamps - Request: {$requestTime}, Proposal: {$proposalTime}");
+                                Log::warning("NBFC: {$nbfcName}, User: {$userId}, Invalid timestamps - Request: {$requestTime}, Proposal:{$proposalTime}");
                             }
                         } else {
                             Log::warning("NBFC: {$nbfcName}, User: {$userId}, No matching request entry found in traceprogress");
@@ -272,12 +270,13 @@ class Admincontroller extends Controller
                 ->join('users', 'course_details_formdata.user_id', '=', 'users.unique_id')
                 ->join('personal_infos', 'users.unique_id', '=', 'personal_infos.user_id')
                 ->select(
-                    DB::raw("CASE 
-                    WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%bachelor%' THEN 'UG'
-                    WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%master%' THEN 'PG'
-                    WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%mca%' OR LOWER(course_details_formdata.`degree-type`) LIKE '%bca%' THEN 'Other'
-                    ELSE 'Other' 
-                END as degree_category"),
+                    DB::raw("CASE
+                        WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%bachelor%' THEN 'UG'
+                        WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%master%' THEN 'PG'
+                        WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%mca%' OR LOWER(course_details_formdata.`degree-type`) LIKE
+                        '%bca%' THEN 'Other'
+                        ELSE 'Other'
+                        END as degree_category"),
                     'personal_infos.gender',
                     DB::raw('count(*) as count')
                 )
@@ -335,8 +334,19 @@ class Admincontroller extends Controller
             'users' => ['email', 'phone'],
             'personal_infos' => ['full_name', 'referral_code', 'state', 'linked_through'],
             'academic_details' => ['gap_in_academics', 'work_experience', 'university_school_name', 'course_name'],
-            'coborrower_details' => ['co_borrower_relation', 'co_borrower_income', 'co_borrower_monthly_liability', 'liability_select'],
-            'course_details_formdata' => ['plan-to-study', 'degree-type', 'course-duration', 'course-details', 'loan_amount_in_lakhs'],
+            'coborrower_details' => [
+                'co_borrower_relation',
+                'co_borrower_income',
+                'co_borrower_monthly_liability',
+                'liability_select'
+            ],
+            'course_details_formdata' => [
+                'plan-to-study',
+                'degree-type',
+                'course-duration',
+                'course-details',
+                'loan_amount_in_lakhs'
+            ],
         ];
 
         // Get all users
@@ -409,6 +419,20 @@ class Admincontroller extends Controller
     }
 
 
+    public function getCityStats()
+    {
+        $data = PersonalInfo::select(
+            'city',
+            'state',
+            DB::raw("SUM(CASE WHEN gender = 'Female' THEN 1 ELSE 0 END) as female"),
+            DB::raw("SUM(CASE WHEN gender = 'Male' THEN 1 ELSE 0 END) as male"),
+            DB::raw("COUNT(*) as total")
+        )
+            ->groupBy('city', 'state')
+            ->get();
+
+        return response()->json($data);
+    }
     public function showSCProfileJSON($referral)
     {
         $sc = Scuser::where('referral_code', $referral)->first();
@@ -442,12 +466,12 @@ class Admincontroller extends Controller
 
                 $userDetails = [
                     'unique_id' => $user->unique_id,
-                    'email' => $personalInfo ? $personalInfo->email : null,  
-                    'full_name' => $personalInfo ? $personalInfo->full_name : null,   
-                    'gender' => $personalInfo ? $personalInfo->gender : null,  
-                    'phone_number' => $user->phone,   
-                    'degree_type' => null,  
-                    'loan_amount' => null,  
+                    'email' => $personalInfo ? $personalInfo->email : null,
+                    'full_name' => $personalInfo ? $personalInfo->full_name : null,
+                    'gender' => $personalInfo ? $personalInfo->gender : null,
+                    'phone_number' => $user->phone,
+                    'degree_type' => null,
+                    'loan_amount' => null,
                     'course_info' => []
                 ];
 
@@ -456,12 +480,12 @@ class Admincontroller extends Controller
                     foreach ($courseInfo as $course) {
                         $userDetails['course_info'][] = [
                             'plan_to_study' => json_decode($course->plan_to_study, true),
-                            'degree_type' => $course->{'degree-type'},  // Access using the exact column name
+                            'degree_type' => $course->{'degree-type'}, // Access using the exact column name
                             'loan_amount_in_lakhs' => $course->loan_amount_in_lakhs
                         ];
 
                         // If degree_type and loan_amount are in courseInfo, add them
-                        $userDetails['degree_type'] = $course->{'degree-type'};  // Correct reference
+                        $userDetails['degree_type'] = $course->{'degree-type'}; // Correct reference
                         $userDetails['loan_amount'] = $course->loan_amount_in_lakhs;
                     }
                 }
@@ -483,17 +507,5 @@ class Admincontroller extends Controller
             ], 500);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
