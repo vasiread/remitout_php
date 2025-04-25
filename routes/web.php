@@ -12,7 +12,6 @@ use App\Http\Controllers\{
     StudentDetailsController,
     TrackController
 };
-use App\Http\Controllers\Admincontroller;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\NbfcController;
