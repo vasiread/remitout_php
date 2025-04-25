@@ -7,7 +7,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <!-- Include FileSaver.js for cross-browser file download support -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-    
+    <style>
+        /* Minimal CSS for horizontal scrolling */
+        .manage-student-report-table-wrapper {
+            overflow-x: auto; /* Enable horizontal scrolling */
+        }
+
+        .manage-student-report-table {
+            min-width: 2000px; /* Ensure the table is wide enough to trigger scrolling */
+        }
+
+        /* Style for table headers to wrap two-word names and align properly */
+        .manage-student-report-th {
+            white-space: normal; /* Allow text to wrap */
+            width: 120px; /* Fixed width for uniformity */
+            text-align: center; /* Center-align text */
+            padding: 8px; /* Consistent padding */
+        }
+
+        /* Basic styling for table data cells */
+        .manage-student-report-td {
+            text-align: center;
+            padding: 8px;
+        }
+
+        /* Ensure mobile filter popup is hidden by default */
+        .mobile-filters-popup-student-report {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <div class="manage-student-main-report-container" id="manage-student-main-admin-report-container-id">
@@ -313,13 +341,13 @@
                         let statusButtonStyle = '';
                         switch (student.status) {
                             case 'Offer accepted & Closed':
-                                statusButtonStyle = 'style="background-color: #d4edda; color: #155724; border-color: none; padding: 5px 10px; border-radius: 15px; white-space: nowrap;"';
+                                statusButtonStyle = 'style="background-color: #d4edda; color: #155724; border-color: #c3e6cb; padding: 5px 10px; border-radius: 5px; white-space: nowrap;"';
                                 break;
                             case 'Offer rejected to student':
-                                statusButtonStyle = 'style="background-color: #f8d7da; color: #721c24; border-color: none; padding: 5px 10px; border-radius: 15px; white-space: nowrap;"';
+                                statusButtonStyle = 'style="background-color: #f8d7da; color: #721c24; border-color: #f5c6cb; padding: 5px 10px; border-radius: 5px; white-space: nowrap;"';
                                 break;
                             default:
-                                statusButtonStyle = 'style="background-color: #e9ecef; color: #383d41; border-color: none; padding: 5px 10px; border-radius: 15px; white-space: nowrap;"';
+                                statusButtonStyle = 'style="background-color: #e9ecef; color: #383d41; border-color: #dee2e6; padding: 5px 10px; border-radius: 5px; white-space: nowrap;"';
                                 break;
                         }
                         row.innerHTML = `
