@@ -16,7 +16,7 @@
     @extends('layouts.app')
 
     <div class="admindashboard-container">
-        <!-- Header section -->
+       
         <div class="admindashboardcontainer-firstsection">
             <h1>Hi, Admin name</h1>
             <div class="admindashboardcontainer-firstsectionbuttoncontainer">
@@ -102,14 +102,15 @@
                 </div>
 
                 <div class="calendar-wrapper">
-                    <button id="calender-buttongroups"> Calendar <img src="assets/images/Icons/calendar_month.png" alt=""></button>
+                    <button id="calender-buttongroups"> Calendar <img src="assets/images/Icons/calendar_month.png"
+                            alt=""></button>
                     <button id="download-buttongroups">Download Report</button>
 
                     <div class="calendar-container">
                         <div class="calendar-input-container">
                             <div class="calendar-date-input calendar-active" id="calendar-start-date-input">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                                     <line x1="16" y1="2" x2="16" y2="6"></line>
                                     <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -119,8 +120,9 @@
                             </div>
                             <div class="calendar-date-input" id="calendar-end-date-input">
                                 <span>End Date</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round" style="margin-left: auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    style="margin-left: auto;">
                                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                                     <line x1="16" y1="2" x2="16" y2="6"></line>
                                     <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -131,8 +133,8 @@
 
                         <div class="calendar-header">
                             <button class="calendar-nav-btn calendar-prev-month">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="15 18 9 12 15 6"></polyline>
                                 </svg>
                             </button>
@@ -156,8 +158,8 @@
                                 </select>
                             </div>
                             <button class="calendar-nav-btn calendar-next-month">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="9 18 15 12 9 6"></polyline>
                                 </svg>
                             </button>
@@ -278,7 +280,8 @@
                 <div class="reports-registeration" data-report="registration-reports">
                     <div class="reports-registeration-sectionone">
                         <p>Reports on registration</p>
-                        <button id="calender-reportsregister">Calendar <img src="assets/images/Icons/calendar_month.png" alt=""></button>
+                        <button id="calender-reportsregister">Calendar <img src="assets/images/Icons/calendar_month.png"
+                                alt=""></button>
                         <input type="date" id="date-picker" style="display:none">
                     </div>
                     <div class="reports-registeration-graph">
@@ -291,24 +294,27 @@
                         <canvas id="donutRegistrationChart"></canvas>
                         <div class="donutgraphinfos">
                             @php
-                            $registrationSourceAnalysis = [
-                                ['color' => 'rgba(111, 37, 206, 1)', 'AnalyseName' => 'ADDS', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '13%'],
-                                ['color' => 'rgba(181, 142, 229, 1)', 'AnalyseName' => 'Organic', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '77%'],
-                                ['color' => 'rgba(226, 211, 245, 1)', 'AnalyseName' => 'SC Referral', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '10%'],
-                            ];
+                                $registrationSourceAnalysis = [
+                                    ['color' => 'rgba(111, 37, 206, 1)', 'AnalyseName' => 'ADDS', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '13%'],
+                                    ['color' => 'rgba(181, 142, 229, 1)', 'AnalyseName' => 'Organic', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '77%'],
+                                    ['color' => 'rgba(226, 211, 245, 1)', 'AnalyseName' => 'SC Referral', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '10%'],
+                                ];
                             @endphp
 
                             @foreach ($registrationSourceAnalysis as $source)
-                            <div class="graphviewofregistrations">
-                                <div class="graphviewofregistrations-firstpart">
-                                    <div class="points" style="background-color: {{ $source['color'] }}; width: 11px; height: 11px;"></div>
-                                    <p>{{ $source['AnalyseName'] }}</p>
+                                <div class="graphviewofregistrations">
+                                    <div class="graphviewofregistrations-firstpart">
+                                        <div class="points"
+                                            style="background-color: {{ $source['color'] }}; width: 11px; height: 11px;">
+                                        </div>
+                                        <p>{{ $source['AnalyseName'] }}</p>
+                                    </div>
+                                    <div class="graphviewofregistrations-secondpart">
+                                        <p>{{ $source['OverallStrength'] }}</p>
+                                        <p id='donutRegistrationChart-percentage'>{{ $source['OverallStrengthPercent'] }}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="graphviewofregistrations-secondpart">
-                                    <p>{{ $source['OverallStrength'] }}</p>
-                                    <p id='donutRegistrationChart-percentage'>{{ $source['OverallStrengthPercent'] }}</p>
-                                </div>
-                            </div>
                             @endforeach
                         </div>
                     </div>
@@ -353,19 +359,20 @@
                         <canvas id="ageratio-donutRegistrationChart"></canvas>
                         <div class="ageratio-donutgraphinfos">
                             @php
-                            $registrationSourceAnalysis = [
-                                ['color' => 'rgba(111, 37, 206, 1)', 'studentRangeValue' => '16 - 20'],
-                                ['color' => 'rgba(167, 121, 224, 1)', 'studentRangeValue' => '21 - 25'],
-                                ['color' => 'rgba(203, 176, 237, 1)', 'studentRangeValue' => '26 - 30'],
-                                ['color' => 'rgba(226, 211, 245, 1)', 'studentRangeValue' => '30 - 40'],
-                            ];
+                                $registrationSourceAnalysis = [
+                                    ['color' => 'rgba(111, 37, 206, 1)', 'studentRangeValue' => '16 - 20'],
+                                    ['color' => 'rgba(167, 121, 224, 1)', 'studentRangeValue' => '21 - 25'],
+                                    ['color' => 'rgba(203, 176, 237, 1)', 'studentRangeValue' => '26 - 30'],
+                                    ['color' => 'rgba(226, 211, 245, 1)', 'studentRangeValue' => '30 - 40'],
+                                ];
                             @endphp
 
                             @foreach ($registrationSourceAnalysis as $source)
-                            <div class="ageratio-graphviewofratios">
-                                <div class="ageratio-points" style="background-color: {{ $source['color'] }}; width: 11px; height: 11px;"></div>
-                                <p>{{ $source['studentRangeValue'] }}</p>
-                            </div>
+                                <div class="ageratio-graphviewofratios">
+                                    <div class="ageratio-points"
+                                        style="background-color: {{ $source['color'] }}; width: 11px; height: 11px;"></div>
+                                    <p>{{ $source['studentRangeValue'] }}</p>
+                                </div>
                             @endforeach
                         </div>
                     </div>
@@ -387,12 +394,24 @@
                 </div>
                 <div class="funnelreport-analyze-diagram">
                     <div class="funnelreport-analyse-left">
-                        <div><p>Incomplete application</p></div>
-                        <div><p>Complete application</p></div>
-                        <div><p>Pending with Queries</p></div>
-                        <div><p>Offer issued to student</p></div>
-                        <div><p>Offer rejected to student</p></div>
-                        <div><p>Offer Accepted & closed</p></div>
+                        <div>
+                            <p>Incomplete application</p>
+                        </div>
+                        <div>
+                            <p>Complete application</p>
+                        </div>
+                        <div>
+                            <p>Pending with Queries</p>
+                        </div>
+                        <div>
+                            <p>Offer issued to student</p>
+                        </div>
+                        <div>
+                            <p>Offer rejected to student</p>
+                        </div>
+                        <div>
+                            <p>Offer Accepted & closed</p>
+                        </div>
                     </div>
                     <div class="funnelreport-analyse-right" id="funnelreport-rightsideid">
                         <p>140</p>
@@ -415,8 +434,10 @@
                             <div class="admin-city-header">
                                 <div class="admin-city-title">Cities</div>
                                 <div class="admin-city-filter-sort-container">
-                                    <button class="admin-city-filter-btn">Filter <i class="fas fa-chevron-down"></i></button>
-                                    <button class="admin-city-sort-btn">Sort <i class="fas fa-chevron-down"></i></button>
+                                    <button class="admin-city-filter-btn">Filter <i
+                                            class="fas fa-chevron-down"></i></button>
+                                    <button class="admin-city-sort-btn">Sort <i
+                                            class="fas fa-chevron-down"></i></button>
                                 </div>
                             </div>
                             <table class="admin-city-table" id="city-table">
@@ -488,8 +509,10 @@
                             <div class="admin-desti-country-header">
                                 <div class="admin-desti-country-title">Destination Countries</div>
                                 <div class="admin-desti-country-filter-sort-container">
-                                    <button class="admin-desti-country-filter-btn">Filter <i class="fas fa-chevron-down"></i></button>
-                                    <button class="admin-desti-country-sort-btn">Sort <i class="fas fa-chevron-down"></i></button>
+                                    <button class="admin-desti-country-filter-btn">Filter <i
+                                            class="fas fa-chevron-down"></i></button>
+                                    <button class="admin-desti-country-sort-btn">Sort <i
+                                            class="fas fa-chevron-down"></i></button>
                                 </div>
                             </div>
                             <table class="admin-desti-country-table" id="country-table">
@@ -548,9 +571,11 @@
                                 </tbody>
                             </table>
                             <div class="admin-desti-country-pagination">
-                                <div class="admin-desti-country-pagination-btn"><i class="fas fa-chevron-left"></i></div>
+                                <div class="admin-desti-country-pagination-btn"><i class="fas fa-chevron-left"></i>
+                                </div>
                                 <div class="admin-desti-country-pagination-text">1-10 / 30</div>
-                                <div class="admin-desti-country-pagination-btn"><i class="fas fa-chevron-right"></i></div>
+                                <div class="admin-desti-country-pagination-btn"><i class="fas fa-chevron-right"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -629,7 +654,8 @@
                     <div class="point-entry-title">Point of entry</div>
                     <div class="point-entry-chart-container">
                         <div class="point-entry-chart-wrapper">
-                            <canvas id="donutChart" width="103" height="103" style="display: block; box-sizing: border-box; height: 103px; width: 103px;"></canvas>
+                            <canvas id="donutChart" width="103" height="103"
+                                style="display: block; box-sizing: border-box; height: 103px; width: 103px;"></canvas>
                         </div>
                         <div class="point-entry-legend-container">
                             <div class="point-entry-legend">
@@ -689,290 +715,290 @@
                 highlightHighestValues();
                 initializePaginationAndFilters();
 
- // Add the downloadPDF function and event listener
-const downloadPDF = () => {
-    // Check if jsPDF is available
-    if (!window.jspdf || !window.jspdf.jsPDF) {
-        console.error('jsPDF library is not loaded. Please ensure the jsPDF script is included and loaded.');
-        alert('Failed to download PDF: jsPDF library not loaded.');
-        return;
-    }
+                // Add the downloadPDF function and event listener
+                const downloadPDF = () => {
+                    // Check if jsPDF is available
+                    if (!window.jspdf || !window.jspdf.jsPDF) {
+                        console.error('jsPDF library is not loaded. Please ensure the jsPDF script is included and loaded.');
+                        alert('Failed to download PDF: jsPDF library not loaded.');
+                        return;
+                    }
 
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: 'a4'
-    });
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF({
+                        orientation: 'portrait',
+                        unit: 'mm',
+                        format: 'a4'
+                    });
 
-    try {
-        // Define colors and styles
-        const primaryColor = [239, 108, 0]; // Orange color for REMITOUT
-        const secondaryColor = [70, 70, 70]; // Dark gray for headings
-        const bgHeaderColor = [55, 55, 55]; // Background color for top header
+                    try {
+                        // Define colors and styles
+                        const primaryColor = [239, 108, 0]; // Orange color for REMITOUT
+                        const secondaryColor = [70, 70, 70]; // Dark gray for headings
+                        const bgHeaderColor = [55, 55, 55]; // Background color for top header
 
-        // Add header background
-        doc.setFillColor(bgHeaderColor[0], bgHeaderColor[1], bgHeaderColor[2]);
-        doc.rect(0, 0, doc.internal.pageSize.getWidth(), 15, 'F');
-        doc.setTextColor(255, 255, 255);
-        doc.setFontSize(10);
-        doc.text('Admin-Dashboard Report', 10, 10);
-        
-        // Reset text color
-        doc.setTextColor(0, 0, 0);
-        
-        // Add REMITOUT logo on the left side (simulated with text)
-        doc.setFillColor(primaryColor[0], primaryColor[1], primaryColor[2]);
-        doc.rect(53, 53, 10, 10, 'F');
-        doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
-        doc.setFontSize(18);
-        doc.setFont('helvetica', 'bold');
-        doc.text('REMITOUT', 70, 60);
-        
-        // Add authority information on right
-        doc.setTextColor(0, 0, 0);
-        doc.setFontSize(9);
-        doc.setFont('helvetica', 'normal');
-        doc.text('Authority name', doc.internal.pageSize.getWidth() - 60, 57);
-        doc.text('Designation', doc.internal.pageSize.getWidth() - 60, 63);
-        doc.text('Date of data export', doc.internal.pageSize.getWidth() - 60, 69);
-        doc.text('Time of data export', doc.internal.pageSize.getWidth() - 60, 75);
-        
-        // Dashboard Reports title with underline
-        doc.setFontSize(18);
-        doc.setFont('helvetica', 'bold');
-        doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
-        doc.text('Dashboard Reports', 53, 115);
-        
-        // Title on right
-        doc.text('November', doc.internal.pageSize.getWidth() - 53, 115, { align: 'right' });
-        
-        // Underline
-        doc.setDrawColor(200, 200, 200);
-        doc.line(53, 120, doc.internal.pageSize.getWidth() - 53, 120);
-        
-        // Generate tables with styling
-        // Registration Section
-        doc.setTextColor(0, 0, 0);
-        doc.setFontSize(12);
-        doc.text('Registration', 53, 135);
-        doc.autoTable({
-            startY: 140,
-            margin: { left: 53 },
-            headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
-            head: [['Date', 'Name', 'Type', 'Source', 'Point of entry']],
-            body: [
-                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
-                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
-                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
-                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
-                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
-                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
-                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
-                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn']
-            ],
-            theme: 'plain',
-            styles: {
-                fontSize: 9,
-                cellPadding: 4
-            }
-        });
+                        // Add header background
+                        doc.setFillColor(bgHeaderColor[0], bgHeaderColor[1], bgHeaderColor[2]);
+                        doc.rect(0, 0, doc.internal.pageSize.getWidth(), 15, 'F');
+                        doc.setTextColor(255, 255, 255);
+                        doc.setFontSize(10);
+                        doc.text('Admin-Dashboard Report', 10, 10);
 
-        // Cities Section
-        doc.addPage();
-        doc.setFontSize(12);
-        doc.text('Cities', 53, 50);
-        doc.autoTable({
-            startY: 55,
-            margin: { left: 53 },
-            headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
-            head: [['City', 'State', 'Female', 'Male', 'other', 'No. students']],
-            body: [
-                ['Kolkata', 'West Bengal', 50, 40, 40, 90],
-                ['Kolkata', 'West Bengal', 50, 40, 40, 90],
-                ['Kolkata', 'West Bengal', 50, 40, 40, 90],
-                ['Kolkata', 'West Bengal', 50, 40, 40, 90],
-                ['Kolkata', 'West Bengal', 50, 40, 40, 90],
-                ['Kolkata', 'West Bengal', 50, 40, 40, 90]
-            ],
-            theme: 'plain',
-            styles: {
-                fontSize: 9,
-                cellPadding: 4
-            }
-        });
+                        // Reset text color
+                        doc.setTextColor(0, 0, 0);
 
-        // Destination Countries Section
-        doc.setFontSize(12);
-        doc.text('Destination Countries', 53, doc.autoTable.previous.finalY + 20);
-        doc.autoTable({
-            startY: doc.autoTable.previous.finalY + 25,
-            margin: { left: 53 },
-            headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
-            head: [['Country', 'Continent', 'Female', 'Male', 'other', 'No. students']],
-            body: [
-                ['Canada', 'Europe', 50, 40, 40, 90],
-                ['Canada', 'Europe', 50, 40, 40, 90],
-                ['Canada', 'Europe', 50, 40, 40, 90],
-                ['Canada', 'Europe', 50, 40, 40, 90],
-                ['Canada', 'Europe', 50, 40, 40, 90],
-                ['Canada', 'Europe', 50, 40, 40, 90],
-                ['Canada', 'Europe', 50, 40, 40, 90]
-            ],
-            theme: 'plain',
-            styles: {
-                fontSize: 9,
-                cellPadding: 4
-            }
-        });
+                        // Add REMITOUT logo on the left side (simulated with text)
+                        doc.setFillColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+                        doc.rect(53, 53, 10, 10, 'F');
+                        doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+                        doc.setFontSize(18);
+                        doc.setFont('helvetica', 'bold');
+                        doc.text('REMITOUT', 70, 60);
 
-        // NBFCs Section
-        doc.setFontSize(12);
-        doc.text('NBFCs', 53, doc.autoTable.previous.finalY + 20);
-        doc.autoTable({
-            startY: doc.autoTable.previous.finalY + 25,
-            margin: { left: 53 },
-            headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
-            head: [['NBFC Name', 'Student Name', 'Unique ID', 'Type', 'Proposal status', 'Start Date', 'Time taken']],
-            body: [
-                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days'],
-                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days'],
-                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days'],
-                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days'],
-                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days'],
-                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days'],
-                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days'],
-                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days']
-            ],
-            theme: 'plain',
-            styles: {
-                fontSize: 9,
-                cellPadding: 4
-            }
-        });
+                        // Add authority information on right
+                        doc.setTextColor(0, 0, 0);
+                        doc.setFontSize(9);
+                        doc.setFont('helvetica', 'normal');
+                        doc.text('Authority name', doc.internal.pageSize.getWidth() - 60, 57);
+                        doc.text('Designation', doc.internal.pageSize.getWidth() - 60, 63);
+                        doc.text('Date of data export', doc.internal.pageSize.getWidth() - 60, 69);
+                        doc.text('Time of data export', doc.internal.pageSize.getWidth() - 60, 75);
 
-        // Student Counsellors Section
-        if (doc.autoTable.previous.finalY > 200) {
-            doc.addPage();
-            doc.setFontSize(12);
-            doc.text('Student Counsellors', 53, 50);
-            doc.autoTable({
-                startY: 55,
-                margin: { left: 53 },
-                headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
-                head: [['Referral code', 'Student Name', 'Unique ID', 'Type', 'Proxy Application', 'Date']],
-                body: [
-                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
-                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
-                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
-                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
-                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
-                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
-                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
-                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
-                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
-                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024']
-                ],
-                theme: 'plain',
-                styles: {
-                    fontSize: 9,
-                    cellPadding: 4
+                        // Dashboard Reports title with underline
+                        doc.setFontSize(18);
+                        doc.setFont('helvetica', 'bold');
+                        doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+                        doc.text('Dashboard Reports', 53, 115);
+
+                        // Title on right
+                        doc.text('November', doc.internal.pageSize.getWidth() - 53, 115, { align: 'right' });
+
+                        // Underline
+                        doc.setDrawColor(200, 200, 200);
+                        doc.line(53, 120, doc.internal.pageSize.getWidth() - 53, 120);
+
+                        // Generate tables with styling
+                        // Registration Section
+                        doc.setTextColor(0, 0, 0);
+                        doc.setFontSize(12);
+                        doc.text('Registration', 53, 135);
+                        doc.autoTable({
+                            startY: 140,
+                            margin: { left: 53 },
+                            headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
+                            head: [['Date', 'Name', 'Type', 'Source', 'Point of entry']],
+                            body: [
+                                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn']
+                            ],
+                            theme: 'plain',
+                            styles: {
+                                fontSize: 9,
+                                cellPadding: 4
+                            }
+                        });
+
+                        // Cities Section
+                        doc.addPage();
+                        doc.setFontSize(12);
+                        doc.text('Cities', 53, 50);
+                        doc.autoTable({
+                            startY: 55,
+                            margin: { left: 53 },
+                            headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
+                            head: [['City', 'State', 'Female', 'Male', 'other', 'No. students']],
+                            body: [
+                                ['Kolkata', 'West Bengal', 50, 40, 40, 90],
+                                ['Kolkata', 'West Bengal', 50, 40, 40, 90],
+                                ['Kolkata', 'West Bengal', 50, 40, 40, 90],
+                                ['Kolkata', 'West Bengal', 50, 40, 40, 90],
+                                ['Kolkata', 'West Bengal', 50, 40, 40, 90],
+                                ['Kolkata', 'West Bengal', 50, 40, 40, 90]
+                            ],
+                            theme: 'plain',
+                            styles: {
+                                fontSize: 9,
+                                cellPadding: 4
+                            }
+                        });
+
+                        // Destination Countries Section
+                        doc.setFontSize(12);
+                        doc.text('Destination Countries', 53, doc.autoTable.previous.finalY + 20);
+                        doc.autoTable({
+                            startY: doc.autoTable.previous.finalY + 25,
+                            margin: { left: 53 },
+                            headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
+                            head: [['Country', 'Continent', 'Female', 'Male', 'other', 'No. students']],
+                            body: [
+                                ['Canada', 'Europe', 50, 40, 40, 90],
+                                ['Canada', 'Europe', 50, 40, 40, 90],
+                                ['Canada', 'Europe', 50, 40, 40, 90],
+                                ['Canada', 'Europe', 50, 40, 40, 90],
+                                ['Canada', 'Europe', 50, 40, 40, 90],
+                                ['Canada', 'Europe', 50, 40, 40, 90],
+                                ['Canada', 'Europe', 50, 40, 40, 90]
+                            ],
+                            theme: 'plain',
+                            styles: {
+                                fontSize: 9,
+                                cellPadding: 4
+                            }
+                        });
+
+                        // NBFCs Section
+                        doc.setFontSize(12);
+                        doc.text('NBFCs', 53, doc.autoTable.previous.finalY + 20);
+                        doc.autoTable({
+                            startY: doc.autoTable.previous.finalY + 25,
+                            margin: { left: 53 },
+                            headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
+                            head: [['NBFC Name', 'Student Name', 'Unique ID', 'Type', 'Proposal status', 'Start Date', 'Time taken']],
+                            body: [
+                                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days'],
+                                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days'],
+                                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days'],
+                                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days'],
+                                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days'],
+                                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days'],
+                                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days'],
+                                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days']
+                            ],
+                            theme: 'plain',
+                            styles: {
+                                fontSize: 9,
+                                cellPadding: 4
+                            }
+                        });
+
+                        // Student Counsellors Section
+                        if (doc.autoTable.previous.finalY > 200) {
+                            doc.addPage();
+                            doc.setFontSize(12);
+                            doc.text('Student Counsellors', 53, 50);
+                            doc.autoTable({
+                                startY: 55,
+                                margin: { left: 53 },
+                                headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
+                                head: [['Referral code', 'Student Name', 'Unique ID', 'Type', 'Proxy Application', 'Date']],
+                                body: [
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024']
+                                ],
+                                theme: 'plain',
+                                styles: {
+                                    fontSize: 9,
+                                    cellPadding: 4
+                                }
+                            });
+                        } else {
+                            doc.setFontSize(12);
+                            doc.text('Student Counsellors', 53, doc.autoTable.previous.finalY + 20);
+                            doc.autoTable({
+                                startY: doc.autoTable.previous.finalY + 25,
+                                margin: { left: 53 },
+                                headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
+                                head: [['Referral code', 'Student Name', 'Unique ID', 'Type', 'Proxy Application', 'Date']],
+                                body: [
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024']
+                                ],
+                                theme: 'plain',
+                                styles: {
+                                    fontSize: 9,
+                                    cellPadding: 4
+                                }
+                            });
+                        }
+
+                        // Add footer with logo on every page
+                        const totalPages = doc.internal.getNumberOfPages();
+                        for (let i = 1; i <= totalPages; i++) {
+                            doc.setPage(i);
+
+                            // Add footer with logo
+                            const footerY = doc.internal.pageSize.getHeight() - 20;
+
+                            // REMITOUT logo in footer (simulated with text and shape)
+                            doc.setFillColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+                            doc.rect(53, footerY, 6, 6, 'F');
+                            doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+                            doc.setFontSize(12);
+                            doc.setFont('helvetica', 'bold');
+                            doc.text('REMITOUT', 63, footerY + 5);
+
+                            // Add footer line
+                            doc.setDrawColor(200, 200, 200);
+                            doc.line(53, footerY + 10, doc.internal.pageSize.getWidth() - 53, footerY + 10);
+                        }
+
+                        // Save the PDF
+                        doc.save('Dashboard_Report_November_2024.pdf');
+                    } catch (error) {
+                        console.error('Error generating PDF:', error);
+                        alert('Failed to generate PDF. Please check the console for details.');
+                    }
+                };
+
+                // Function to generate actual data for the PDF (replace with your data fetching logic)
+                function fetchReportData() {
+                    // This is where you would fetch actual data from your database or API
+                    // For now, we're returning mock data
+                    return {
+                        registrationData: [
+                            ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                            ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                            ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                            ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                            ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                            ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn']
+                        ],
+                        citiesData: [
+                            ['Kolkata', 'West Bengal', 50, 40, 40, 90],
+                            ['Kolkata', 'West Bengal', 50, 40, 40, 90],
+                            ['Kolkata', 'West Bengal', 50, 40, 40, 90],
+                            ['Kolkata', 'West Bengal', 50, 40, 40, 90],
+                            ['Kolkata', 'West Bengal', 50, 40, 40, 90],
+                            ['Kolkata', 'West Bengal', 50, 40, 40, 90]
+                        ],
+                        // Add other data structures as needed
+                    };
                 }
-            });
-        } else {
-            doc.setFontSize(12);
-            doc.text('Student Counsellors', 53, doc.autoTable.previous.finalY + 20);
-            doc.autoTable({
-                startY: doc.autoTable.previous.finalY + 25,
-                margin: { left: 53 },
-                headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
-                head: [['Referral code', 'Student Name', 'Unique ID', 'Type', 'Proxy Application', 'Date']],
-                body: [
-                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
-                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
-                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
-                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
-                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
-                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
-                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
-                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
-                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
-                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024']
-                ],
-                theme: 'plain',
-                styles: {
-                    fontSize: 9,
-                    cellPadding: 4
-                }
-            });
-        }
 
-        // Add footer with logo on every page
-        const totalPages = doc.internal.getNumberOfPages();
-        for (let i = 1; i <= totalPages; i++) {
-            doc.setPage(i);
-            
-            // Add footer with logo
-            const footerY = doc.internal.pageSize.getHeight() - 20;
-            
-            // REMITOUT logo in footer (simulated with text and shape)
-            doc.setFillColor(primaryColor[0], primaryColor[1], primaryColor[2]);
-            doc.rect(53, footerY, 6, 6, 'F');
-            doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
-            doc.setFontSize(12);
-            doc.setFont('helvetica', 'bold');
-            doc.text('REMITOUT', 63, footerY + 5);
-            
-            // Add footer line
-            doc.setDrawColor(200, 200, 200);
-            doc.line(53, footerY + 10, doc.internal.pageSize.getWidth() - 53, footerY + 10);
-        }
+                // Add event listener to your specific button
+                document.addEventListener('DOMContentLoaded', function () {
+                    const downloadButton = document.getElementById('download-buttongroups');
+                    if (downloadButton) {
+                        downloadButton.addEventListener('click', downloadPDF);
+                    } else {
+                        console.error("Button with ID 'download-buttongroups' not found");
+                    }
+                });
 
-        // Save the PDF
-        doc.save('Dashboard_Report_November_2024.pdf');
-    } catch (error) {
-        console.error('Error generating PDF:', error);
-        alert('Failed to generate PDF. Please check the console for details.');
-    }
-};
-
-// Function to generate actual data for the PDF (replace with your data fetching logic)
-function fetchReportData() {
-    // This is where you would fetch actual data from your database or API
-    // For now, we're returning mock data
-    return {
-        registrationData: [
-            ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
-            ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
-            ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
-            ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
-            ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
-            ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn']
-        ],
-        citiesData: [
-            ['Kolkata', 'West Bengal', 50, 40, 40, 90],
-            ['Kolkata', 'West Bengal', 50, 40, 40, 90],
-            ['Kolkata', 'West Bengal', 50, 40, 40, 90],
-            ['Kolkata', 'West Bengal', 50, 40, 40, 90],
-            ['Kolkata', 'West Bengal', 50, 40, 40, 90],
-            ['Kolkata', 'West Bengal', 50, 40, 40, 90]
-        ],
-        // Add other data structures as needed
-    };
-}
-
-// Add event listener to your specific button
-document.addEventListener('DOMContentLoaded', function() {
-    const downloadButton = document.getElementById('download-buttongroups');
-    if (downloadButton) {
-        downloadButton.addEventListener('click', downloadPDF);
-    } else {
-        console.error("Button with ID 'download-buttongroups' not found");
-    }
-});
-
-// Add an event listener to trigger the download
-document.getElementById('downloadPdfButton').addEventListener('click', downloadPDF);
+                // Add an event listener to trigger the download
+                document.getElementById('downloadPdfButton').addEventListener('click', downloadPDF);
 
                 // Attach the event listener to the download button
                 const downloadButton = $('#download-buttongroups');

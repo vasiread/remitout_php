@@ -61,7 +61,7 @@
         <div class="globallistcontainer-header" id="nbfclistcontainer-headersection">
           <div class="nbfclist-adminside-container">
             <h2>NBFCs List</h2>
-             <button class="studentlist-add-button-mobile">+</button>
+             <button class="studentlist-add-button-mobile">Add</button>
           </div>  
             <div class="headersection-rightsidecontent">
                 <div class="searchcontainer-rightsidecontent" id="search-student-list-container">

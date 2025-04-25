@@ -863,7 +863,7 @@ margin:0px;
     padding: 22px 12px 18px 12px;
     display: flex;
     flex-direction: column;
-    height: 105px;
+    height: fit-content;
     justify-content: space-between;
     box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
     background-color: white;

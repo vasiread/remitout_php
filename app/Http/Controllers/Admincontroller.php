@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CourseInfo;
 use App\Models\Nbfc;
 use App\Models\PersonalInfo;
 use App\Models\proposalcompletion;
@@ -9,6 +10,7 @@ use App\Models\Proposals;
 use App\Models\Rejectedbynbfc;
 use App\Models\Requestedbyusers;
 use App\Models\Requestprogress;
+use App\Models\Scuser;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -92,7 +94,7 @@ class Admincontroller extends Controller
         try {
             // Fetch all NBFCs from the nbfc table
             $nbfcRecords = Nbfc::all();
-            
+
             // Extract NBFC names and IDs
             $nbfcs = $nbfcRecords->pluck('nbfc_name')->toArray();
             $nbfcIds = $nbfcRecords->pluck('nbfc_id', 'nbfc_name')->toArray();
@@ -232,9 +234,9 @@ class Admincontroller extends Controller
 
             // Fetch the count of users grouped by the day of the week
             $registrationsByDay = User::select(
-                    DB::raw("DAYNAME(created_at) as day_of_week"),
-                    DB::raw("COUNT(*) as registration_count")
-                )
+                DB::raw("DAYNAME(created_at) as day_of_week"),
+                DB::raw("COUNT(*) as registration_count")
+            )
                 ->groupBy(DB::raw("DAYNAME(created_at)"))
                 ->pluck('registration_count', 'day_of_week')
                 ->toArray();
@@ -405,7 +407,89 @@ class Admincontroller extends Controller
             'incomplete_user_ids' => $incompleteUsers,
         ]);
     }
-    
+
+
+    public function showSCProfileJSON($referral)
+    {
+        $sc = Scuser::where('referral_code', $referral)->first();
+
+        if (!$sc) {
+            return response()->json(['error' => 'Counsellor not found'], 404);
+        }
+
+        return response()->json([
+            'name' => $sc->name,
+            'referral_code' => $sc->referral_code,
+            'dob' => $sc->dob,
+            'email' => $sc->email,
+            'phone' => $sc->phone,
+            'state' => $sc->state,
+            'image' => asset('assets/images/image-women.jpeg') // or $sc->image_path
+        ]);
+    }
+
+
+
+    public function mergeAllStudentDetails()
+    {
+        try {
+            $users = User::all();
+            $mergedDetails = [];
+
+            foreach ($users as $user) {
+                $personalInfo = PersonalInfo::where('user_id', $user->unique_id)->first();
+                $courseInfo = CourseInfo::where('user_id', $user->unique_id)->get();
+
+                $userDetails = [
+                    'unique_id' => $user->unique_id,
+                    'email' => $personalInfo ? $personalInfo->email : null,
+                    'full_name' => $personalInfo ? $personalInfo->full_name : null,
+                    'gender' => $personalInfo ? $personalInfo->gender : null,
+                    'phone_number' => $user->phone,
+                    'degree_type' => null,
+                    'loan_amount' => null,
+                    'course_info' => [],
+                ];
+
+                if ($courseInfo) {
+                    foreach ($courseInfo as $course) {
+                        $userDetails['course_info'][] = [
+                            'plan_to_study' => json_decode($course->plan_to_study, true),
+                            'degree_type' => $course->{'degree-type'},
+                            'loan_amount_in_lakhs' => $course->loan_amount_in_lakhs,
+                        ];
+
+                        $userDetails['degree_type'] = $course->{'degree-type'};
+                        $userDetails['loan_amount'] = $course->loan_amount_in_lakhs;
+                    }
+                }
+
+                $mergedDetails[] = $userDetails;
+            }
+
+            // IMPORTANT: Paginate and pass that to the view
+            $students = collect($mergedDetails)->paginate(10);
+
+            return view('components.admin.adminmanagestudent', compact('students'));
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'An error occurred while retrieving user details.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
 
     public function getCityStats()
     {
@@ -421,6 +505,7 @@ class Admincontroller extends Controller
 
         return response()->json($data);
     }
+
 
 
 
