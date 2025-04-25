@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\CourseInfo;
-use App\Models\CourseInfo;
 use App\Models\Nbfc;
 use App\Models\PersonalInfo;
 use App\Models\proposalcompletion;
