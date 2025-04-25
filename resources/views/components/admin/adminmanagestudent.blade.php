@@ -8,22 +8,13 @@
    
 </head>
 <body>
-
-    @extends('layouts.app')
-
-    @php
-
-
-     @endphp
-<div class="manage-student-main-report-container" id="manage-student-main-admin-report-container-id">
- <div class="manage-student-main-admin-report-container">
-        <div class="manage-student-report-header">
-            <h1 class="manage-student-report-title">Manage Students Reports</h1>
-           <div class="export-button-group">
-                    <button class="manage-student-report-export-btn" id="manage-student-report-export-btn-excel">Export
-                        to excel</button>
-                    <button class="manage-student-report-export-btn" id="manage-student-report-export-btn-pdf">Export to
-                        PDF</button>
+    <div class="manage-student-main-report-container" id="manage-student-main-admin-report-container-id">
+        <div class="manage-student-main-admin-report-container">
+            <div class="manage-student-report-header">
+                <h1 class="manage-student-report-title">Manage Students Reports</h1>
+                <div class="export-button-group">
+                    <button class="manage-student-report-export-btn" id="manage-student-report-export-btn-excel">Export to excel</button>
+                    <button class="manage-student-report-export-btn" id="manage-student-report-export-btn-pdf">Export to PDF</button>
                 </div>
             </div>
             <div class="manage-student-report-container">

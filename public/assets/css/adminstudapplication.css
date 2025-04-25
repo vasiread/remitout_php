@@ -3,6 +3,12 @@
     padding: 0;
     box-sizing: border-box;
 }
+.nbfc-studentdashboardprofile-profile-section-container{
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+   
+}
 .admin-studnet-application-main-container {
     display: flex;
     border-radius: 8px;
@@ -1611,7 +1617,7 @@ textarea::placeholder {
 
       
 @media (min-width: 1500px) {
-    .admin-student-form-container {
+    .admin-student-form-container{
         width:1200px;
         margin-left: 5%;
 
@@ -1620,14 +1626,31 @@ textarea::placeholder {
 }
 
 @media (min-width: 1728px) {
-   .admin-student-form-container {
+   .admin-student-form-container{
         max-width:1400px;
         margin-left: 5%;
+        margin-bottom: 10px;
 
     }
   
 }
 
 
-        
+.admin-student-form-save-btn {
+  background-color: #FA7B15;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: "poppins";
+  margin-left: auto;
+  display: block;
+  width:180px;
+  margin-bottom: 60px;
+  margin-right:70px;
+  margin-top: 20px;
+}
+    
 
