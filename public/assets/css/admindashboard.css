@@ -9,8 +9,6 @@
     margin-left: 30%;
 }
 
-
-
 .admindashboardcontainer-firstsection {
     display: flex;
     align-items: center;
@@ -601,7 +599,7 @@
     overflow: hidden;
     margin-top: 4px;
     font-family: "Poppins", sans-serif;
-    max-height: 300px; 
+    max-height: 300px;
     overflow-y: auto;
 }
 
@@ -667,7 +665,6 @@
     line-height: 18px;
     color: #5d5c5c;
 }
-
 
 #calender-buttongroups,
 #calender-reportsregister {
@@ -832,7 +829,7 @@ canvas {
     color: rgba(93, 92, 92, 1);
 }
 .source-name {
-margin:0px;
+    margin: 0px;
 }
 
 #donutRegistrationChart-percentage {
@@ -989,7 +986,6 @@ margin:0px;
     margin-top: 12px;
     background-color: white;
     border-radius: 8px;
-    
 }
 
 .ageratio-graph-admin {
@@ -1017,7 +1013,7 @@ margin:0px;
     font-weight: 500;
     line-height: 18px;
     color: rgba(93, 92, 92, 1);
-    margin:0;
+    margin: 0;
 }
 
 .admindashboard-thirdpart {
@@ -1050,7 +1046,7 @@ margin:0px;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     justify-content: space-between;
-    height:312px;
+    height: 312px;
 }
 
 .funnelreport-analyse-left,
@@ -1728,7 +1724,8 @@ text[fill="#222222"] {
     cursor: pointer;
 }
 
-.nbfc-lead-prev-btn, .nbfc-lead-next-btn {
+.nbfc-lead-prev-btn,
+.nbfc-lead-next-btn {
     background: none;
     border: none;
     cursor: pointer;
@@ -2252,13 +2249,13 @@ text[fill="#222222"] {
         font-size: 12px;
     }
     .point-entry-legend {
-    display: flex;
-    flex-direction: column;
-    gap: 0px;
-}
-.point-entry-legend-container{
-    gap:5px;
-}
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
+    }
+    .point-entry-legend-container {
+        gap: 5px;
+    }
 }
 
 .calendar-wrapper {
@@ -2422,8 +2419,6 @@ text[fill="#222222"] {
     box-sizing: border-box;
 }
 
-
-
 .show-all-admin-options button:hover {
     background: #f0f0f0;
 }
@@ -2434,7 +2429,6 @@ text[fill="#222222"] {
 
 /* Report containers */
 [data-report] {
-
     visibility: visible;
 }
 
@@ -2443,8 +2437,6 @@ text[fill="#222222"] {
     display: none;
 }
 
-
-
 @media (min-width: 1500px) {
     .admindashboard-container {
         margin: 80px 20px 80px 30px;
@@ -2452,8 +2444,8 @@ text[fill="#222222"] {
         margin-left: 32%;
     }
     .admindashboard-secondpart .ageratio-graph-admin {
-     width: 340px;
-}
+        width: 340px;
+    }
 }
 
 @media (min-width: 1728px) {
@@ -2463,15 +2455,13 @@ text[fill="#222222"] {
         margin-left: 40%;
     }
     .admindashboard-secondpart .ageratio-graph-admin {
-     width: 340px;
-}
-#nbfc-lead-chart_container, 
-.sc-lead-container,
-.point-entry-donut,
-.point-entry-dashboard  {
-    width:100%;
-    margin:0;
-
-}
-
+        width: 340px;
+    }
+    #nbfc-lead-chart_container,
+    .sc-lead-container,
+    .point-entry-donut,
+    .point-entry-dashboard {
+        width: 100%;
+        margin: 0;
+    }
 }
