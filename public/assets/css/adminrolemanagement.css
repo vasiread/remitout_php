@@ -9,7 +9,7 @@
     display: none;
     flex-direction: column;
     font-family: 'Poppins', sans-serif;
-    width: calc(100% - 20% - 50px);
+    width: calc(100% - 25% - 50px);
     margin-left: 18%;
 
     overflow-y: auto;

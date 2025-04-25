@@ -59,6 +59,12 @@ function initializeAdminSidebar () {
     const nbfcAdminsideAddAuthority = document.querySelector(
         ".add-nbfc-datasection"
     );
+    const addCounsellorModelTrigger = document.querySelector(".studentlist-add-button");
+
+   
+   
+
+    const adminsideScDashboard = document.querySelector("#scmember-profilecontainer-adminside")
 
     if (expandedStudentFromAdmin)
         expandedStudentFromAdmin.style.display = "none";
@@ -128,6 +134,8 @@ function initializeAdminSidebar () {
                     editContainerAdmin.style.display = "none";
                 if (studentApplication)
                     studentApplication.style.display = "none";
+                if (adminsideScDashboard)
+                    adminsideScDashboard.style.display = "none";
             } else if (index === 1) {
                 if (studentIndexAdmin) studentIndexAdmin.style.display = "flex";
                 if (adminPropertyOne) adminPropertyOne.style.display = "none";
@@ -165,6 +173,8 @@ function initializeAdminSidebar () {
                     nbfcAdminsideAddAuthority.style.display = "none";
                 if (studentApplication)
                     studentApplication.style.display = "none";
+                if (adminsideScDashboard)
+                    adminsideScDashboard.style.display = "none";
             } else if (index === 2 || index == 3 || index == 4) {
                 if (adminPropertyOne) adminPropertyOne.style.display = "none";
                 if (sidebarChevronUpDown) {
@@ -213,6 +223,8 @@ function initializeAdminSidebar () {
 
                 if (nbfcAdminsideAddAuthority)
                     nbfcAdminsideAddAuthority.style.display = "none";
+                if (adminsideScDashboard)
+                    adminsideScDashboard.style.display = "none";
 
                 if (index === 2 || index === 3) {
                     if (studentListContainer)
@@ -265,6 +277,8 @@ function initializeAdminSidebar () {
                 if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
                 if (studentApplication)
                     studentApplication.style.display = "none";
+                if (adminsideScDashboard)
+                    adminsideScDashboard.style.display = "none";
 
                 if (index === 5 || index === 6) {
                     if (studentCounsellorList)
@@ -321,6 +335,8 @@ function initializeAdminSidebar () {
                 if (studentIndexAdmin) studentIndexAdmin.style.display = "none";
                 if (studentApplication)
                     studentApplication.style.display = "none";
+                if (adminsideScDashboard)
+                    adminsideScDashboard.style.display = "none";
             } else if (index === 10) {
                 if (expandedStudentFromAdmin)
                     expandedStudentFromAdmin.style.display = "none";
@@ -346,6 +362,8 @@ function initializeAdminSidebar () {
                     adminPromotionalEmail.style.display = "none";
                 if (adminPropertyOne) adminPropertyOne.style.display = "none";
                 if (studentApplication) studentApplication.style.display = "none";
+                if (adminsideScDashboard)
+                    adminsideScDashboard.style.display = "none";
 
 
             }
@@ -369,7 +387,8 @@ function initializeAdminSidebar () {
                     adminPromotionalEmail.style.display = "none";
                 if (adminPropertyOne) adminPropertyOne.style.display = "none";
                 if (studentApplication) studentApplication.style.display = "none";
-
+                if (adminsideScDashboard)
+                    adminsideScDashboard.style.display = "none";
 
             }
 
@@ -389,6 +408,8 @@ function initializeAdminSidebar () {
                 if (adminManageStudent) adminManageStudent.style.display = "none";
                 if (adminPropertyOne) adminPropertyOne.style.display = "none";
                 if (studentApplication) studentApplication.style.display = "none";
+                if (adminsideScDashboard)
+                    adminsideScDashboard.style.display = "none";
 
 
             }
@@ -407,6 +428,8 @@ function initializeAdminSidebar () {
                 if (editContainerAdmin) editContainerAdmin.style.display = "none";
                 if (adminManageStudent) adminManageStudent.style.display = "none";
                 if (studentApplication) studentApplication.style.display = "none";
+                if (adminsideScDashboard)
+                    adminsideScDashboard.style.display = "none";
 
 
             }
@@ -417,5 +440,11 @@ function initializeAdminSidebar () {
 
 document.addEventListener("DOMContentLoaded", function () {
     initializeAdminSidebar();
+    if (addCounsellorModelTrigger) {
+        addCounsellorModelTrigger.addEventListener("click", () => {
+            // sidebarItems[8].click();
+            // console.log("sflkasdflksd")
+        });
+    }
     initializeEditContentProperties();
 });

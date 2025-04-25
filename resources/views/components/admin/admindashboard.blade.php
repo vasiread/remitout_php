@@ -4,107 +4,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Admin Dashboard</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
- 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
 </head>
 
 <body>
     @extends('layouts.app')
 
-    
     <div class="admindashboard-container">
-       <!-- Header section -->
-     <div class="admindashboardcontainer-firstsection">
-        <h1>Hi, Admin name</h1>
-        <div class="admindashboardcontainer-firstsectionbuttoncontainer">
-          <button id="manage-student-admindashboard">Manage Student</button>
-          <button id="referral-link-admindashboard">
-            Generate Referral Link
-          </button>
+       
+        <div class="admindashboardcontainer-firstsection">
+            <h1>Hi, Admin name</h1>
+            <div class="admindashboardcontainer-firstsectionbuttoncontainer">
+                <button id="manage-student-admindashboard">Manage Student</button>
+                <button id="referral-link-admindashboard">
+                    Generate Referral Link
+                </button>
+            </div>
+            <!-- Mobile menu button with two bars -->
+            <button class="mobile-admin-dashboard-menu-btn" id="mobile-admin-dashboard-menu-btn">
+                <span class="two-bar"></span>
+                <span class="two-bar"></span>
+            </button>
         </div>
-        <!-- Mobile menu button with two bars -->
-        <button
-          class="mobile-admin-dashboard-menu-btn"
-          id="mobile-admin-dashboard-menu-btn"
-        >
-          <span class="two-bar"></span>
-          <span class="two-bar"></span>
-        </button>
-      </div>
 
-      <!-- Mobile Modal -->
-    <div class="mobile-admin-dashboard-modal" id="mobile-admin-dashboard-modal">
-      <div class="mobile-admin-dashboard-modal-content">
-        <div class="mobile-admin-dashboard-modal-header">
-          <h1>Hi, Admin name</h1>
-          <button
-            class="mobile-admin-dashboard-close-modal-btn"
-            id="mobile-admin-dashboard-close-modal-btn"
-          >
-            ✕
-          </button>
+        <!-- Mobile Modal -->
+        <div class="mobile-admin-dashboard-modal" id="mobile-admin-dashboard-modal">
+            <div class="mobile-admin-dashboard-modal-content">
+                <div class="mobile-admin-dashboard-modal-header">
+                    <h1>Hi, Admin name</h1>
+                    <button class="mobile-admin-dashboard-close-modal-btn" id="mobile-admin-dashboard-close-modal-btn">
+                        ✕
+                    </button>
+                </div>
+                <button class="mobile-admin-dashboard-action-btn" id="manage-student-admindashboard-mobile">
+                    Manage Students
+                </button>
+                <button class="mobile-admin-dashboard-action-btn" id="referral-link-admindashboard-mobile">
+                    Generate Referral Link
+                </button>
+            </div>
         </div>
-        <button class="mobile-admin-dashboard-action-btn" id="manage-student-admindashboard-mobile">
-          Manage Students
-        </button>
-        <button class="mobile-admin-dashboard-action-btn" id="referral-link-admindashboard-mobile">
-          Generate Referral Link
-        </button>
-
-      </div>
-    </div>
-
-
-      
 
         <div class="backdrop" id="backdrop"></div>
 
-                <!-- Referral Modal -->
-            <div class="referral-triggered-view hidden" id="referralModal">
-                <div class="referral-triggered-view-headersection">
-                    <h3>Generate Referral Link</h3>
-                    <span class="close-icon" id="closeModal">&#10005;</span>
-                </div>
-                <div class="referral-triggered-view-content">
-                    <input type="text" id="referralLink" placeholder="Copy Link here">
-                </div>
-                <div class="referral-triggered-view-footer">
-                    <button id="cancelBtn">
-                        <span class="cancel-icon">&#10005;</span> Cancel
-                    </button>
-                    <button id="generateBtn">Generate</button>
-                </div>
+        <!-- Referral Modal -->
+        <div class="referral-triggered-view hidden" id="referralModal">
+            <div class="referral-triggered-view-headersection">
+                <h3>Generate Referral Link</h3>
+                <span class="close-icon" id="closeModal">✕</span>
             </div>
-
-
+            <div class="referral-triggered-view-content">
+                <input type="text" id="referralLink" placeholder="Copy Link here">
+            </div>
+            <div class="referral-triggered-view-footer">
+                <button id="cancelBtn">
+                    <span class="cancel-icon">✕</span> Cancel
+                </button>
+                <button id="generateBtn">Generate</button>
+            </div>
+        </div>
 
         <div class="admindashboardcontainer-secondsection">
             <h1>Reports</h1>
             <div class="admindashboardsecondsection-buttongroups">
                 <div class="show-all-admin-button-container">
-                        <button id="showall-buttongroups">Show All <i class="fa-solid fa-chevron-down"></i></button>
-                        <div class="show-all-admin-options" id="dropdown-options">
-                            <button data-report="all">Show All</button>
-                            <button data-report="registration-reports">Registration Reports</button>
-                            <button data-report="no-of-grads">No of grads</button>
-                            <button data-report="registration-source">Registration Source</button>
-                            <button data-report="age-ratio-reports">Age ratio Reports</button>
-                            <button data-report="funnel-reports">Funnel Reports</button>
-                            <button data-report="destination-countries">Destination countries</button>
-                            <button data-report="cities">Cities</button>
-                            <button data-report="nbfc-generation-leads">NBFC: Generation Leads</button>
-                            <button data-report="point-of-entry">Point of entry</button>
-                            <button data-report="sc-generation-leads">SC: Generation Leads</button>
-                            <button data-report="sem-rush">Sem Rush</button>
-                        </div>
+                    <button id="showall-buttongroups">Show All <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="show-all-admin-options" id="dropdown-options">
+                        <button data-report="all">Show All</button>
+                        <button data-report="registration-reports">Registration Reports</button>
+                        <button data-report="no-of-grads">No of grads</button>
+                        <button data-report="registration-source">Registration Source</button>
+                        <button data-report="age-ratio-reports">Age ratio Reports</button>
+                        <button data-report="funnel-reports">Funnel Reports</button>
+                        <button data-report="destination-countries">Destination countries</button>
+                        <button data-report="cities">Cities</button>
+                        <button data-report="nbfc-generation-leads">NBFC: Generation Leads</button>
+                        <button data-report="point-of-entry">Point of entry</button>
+                        <button data-report="sc-generation-leads">SC: Generation Leads</button>
+                        <button data-report="sem-rush">Sem Rush</button>
                     </div>
+                </div>
 
-
-                
                 <div class="postgrad-buttongroups" id="postgrad-reports">
                     <div id="postgrad-buttongroups-insideshow">
                         Graduate <i class="fa-solid fa-chevron-down"></i>
@@ -116,16 +101,16 @@
                     </div>
                 </div>
 
-
                 <div class="calendar-wrapper">
-                    <button id="calender-buttongroups"> Calendar <img src="assets/images/Icons/calendar_month.png" alt=""></button>
+                    <button id="calender-buttongroups"> Calendar <img src="assets/images/Icons/calendar_month.png"
+                            alt=""></button>
                     <button id="download-buttongroups">Download Report</button>
 
                     <div class="calendar-container">
                         <div class="calendar-input-container">
                             <div class="calendar-date-input calendar-active" id="calendar-start-date-input">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                                     <line x1="16" y1="2" x2="16" y2="6"></line>
                                     <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -135,8 +120,9 @@
                             </div>
                             <div class="calendar-date-input" id="calendar-end-date-input">
                                 <span>End Date</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round" style="margin-left: auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    style="margin-left: auto;">
                                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                                     <line x1="16" y1="2" x2="16" y2="6"></line>
                                     <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -147,8 +133,8 @@
 
                         <div class="calendar-header">
                             <button class="calendar-nav-btn calendar-prev-month">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="15 18 9 12 15 6"></polyline>
                                 </svg>
                             </button>
@@ -172,8 +158,8 @@
                                 </select>
                             </div>
                             <button class="calendar-nav-btn calendar-next-month">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="9 18 15 12 9 6"></polyline>
                                 </svg>
                             </button>
@@ -190,115 +176,105 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
 
         <div class="admindashboardcontainer-secondsection-mobile">
             <div class="admin-dashboard-search-filter-container">
                 <div class="admin-dashboard-search-box">
-                <div class="admin-dashboard-search-icon">
-                    <i class="fas fa-search"></i>
-                </div>
-                <input
-                    type="text"
-                    class="admin-dashboard-search-input"
-                    placeholder="Search"
-                />
+                    <div class="admin-dashboard-search-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <input type="text" class="admin-dashboard-search-input" placeholder="Search" />
                 </div>
 
                 <button class="admin-dashboard-filter-button" id="filterButton">
                     Filters
-                    <img src="assets/images/filter-icon.png" alt="Admin filter icon"/>
+                    <img src="assets/images/filter-icon.png" alt="Admin filter icon" />
                 </button>
 
                 <button class="admin-dashboard-calendar-button" id="calendarButton">
-                <i class="far fa-calendar"></i>
+                    <i class="far fa-calendar"></i>
                 </button>
             </div>
 
             <div class="admin-dashboard-showing-panels" id="showPanelsArea">
                 <div>
-                <span class="admin-dashboard-showing-text">Showing</span>
-                <span class="admin-dashboard-panels-count" id="panelsToggle"
-                    >11 Panels</span
-                >
+                    <span class="admin-dashboard-showing-text">Showing</span>
+                    <span class="admin-dashboard-panels-count" id="panelsToggle">11 Panels</span>
                 </div>
                 <button class="mobile-admin-dashboard-panel-btn" id="panelsIcon">
                     <span class="two-bar"></span>
                     <span class="two-bar"></span>
                 </button>
-
-              
             </div>
 
-              <button class="admin-dashboard-download-button">Download Report</button>
+            <button class="admin-dashboard-download-button">Download Report</button>
 
             <div class="admin-dashboard-filter-panel" id="filterPanel">
                 <div class="admin-dashboard-filter-container">
-                <div class="admin-dashboard-filter-header">
-                    <div class="admin-dashboard-filter-title">Showing</div>
-                    <button class="admin-dashboard-close-btn" id="closeFilterBtn">
-                    ×
-                    </button>
-                </div>
+                    <div class="admin-dashboard-filter-header">
+                        <div class="admin-dashboard-filter-title">Showing</div>
+                        <button class="admin-dashboard-close-btn" id="closeFilterBtn">
+                            ×
+                        </button>
+                    </div>
 
-                <div class="admin-dashboard-filter-tags">
-                    <div class="admin-dashboard-filter-tag">
-                    Registration Reports
-                    <span class="admin-dashboard-close-tag">×</span>
-                    </div>
-                    <div class="admin-dashboard-filter-tag">
-                    No of grads <span class="admin-dashboard-close-tag">×</span>
-                    </div>
-                    <div class="admin-dashboard-filter-tag">
-                    Registration Source
-                    <span class="admin-dashboard-close-tag">×</span>
-                    </div>
-                    <div class="admin-dashboard-filter-tag">
-                    Age ratio Reports <span class="admin-dashboard-close-tag">×</span>
-                    </div>
-                    <div class="admin-dashboard-filter-tag">
-                    Funnel Reports <span class="admin-dashboard-close-tag">×</span>
-                    </div>
-                    <div class="admin-dashboard-filter-tag">
-                    Destination countries
-                    <span class="admin-dashboard-close-tag">×</span>
-                    </div>
-                </div>
-
-                <div class="admin-dashboard-divider"></div>
-
-                <div class="admin-dashboard-collapsed-tags" id="collapsedTags">
                     <div class="admin-dashboard-filter-tags">
-                    <div class="admin-dashboard-filter-tag">
-                        Cities <span class="admin-dashboard-close-tag">×</span>
+                        <div class="admin-dashboard-filter-tag">
+                            Registration Reports
+                            <span class="admin-dashboard-close-tag">×</span>
+                        </div>
+                        <div class="admin-dashboard-filter-tag">
+                            No of grads <span class="admin-dashboard-close-tag">×</span>
+                        </div>
+                        <div class="admin-dashboard-filter-tag">
+                            Registration Source
+                            <span class="admin-dashboard-close-tag">×</span>
+                        </div>
+                        <div class="admin-dashboard-filter-tag">
+                            Age ratio Reports <span class="admin-dashboard-close-tag">×</span>
+                        </div>
+                        <div class="admin-dashboard-filter-tag">
+                            Funnel Reports <span class="admin-dashboard-close-tag">×</span>
+                        </div>
+                        <div class="admin-dashboard-filter-tag">
+                            Destination countries
+                            <span class="admin-dashboard-close-tag">×</span>
+                        </div>
                     </div>
-                    <div class="admin-dashboard-filter-tag">
-                        NBFC: Generation Leads
-                        <span class="admin-dashboard-close-tag">×</span>
-                    </div>
-                    <div class="admin-dashboard-filter-tag">
-                        Point of entry <span class="admin-dashboard-close-tag">×</span>
-                    </div>
-                    <div class="admin-dashboard-filter-tag">
-                        SC: Generation Leads
-                        <span class="admin-dashboard-close-tag">×</span>
-                    </div>
-                    <div class="admin-dashboard-filter-tag">
-                        Sem Rush <span class="admin-dashboard-close-tag">×</span>
-                    </div>
-                    </div>
-                </div>
 
-                <button class="admin-dashboard-show-all-btn" id="showAllBtn">
-                    Show All <i class="fa-solid fa-chevron-down"></i>
-                </button>
+                    <div class="admin-dashboard-divider"></div>
+
+                    <div class="admin-dashboard-collapsed-tags" id="collapsedTags">
+                        <div class="admin-dashboard-filter-tags">
+                            <div class="admin-dashboard-filter-tag">
+                                Cities <span class="admin-dashboard-close-tag">×</span>
+                            </div>
+                            <div class="admin-dashboard-filter-tag">
+                                NBFC: Generation Leads
+                                <span class="admin-dashboard-close-tag">×</span>
+                            </div>
+                            <div class="admin-dashboard-filter-tag">
+                                Point of entry <span class="admin-dashboard-close-tag">×</span>
+                            </div>
+                            <div class="admin-dashboard-filter-tag">
+                                SC: Generation Leads
+                                <span class="admin-dashboard-close-tag">×</span>
+                            </div>
+                            <div class="admin-dashboard-filter-tag">
+                                Sem Rush <span class="admin-dashboard-close-tag">×</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="admin-dashboard-show-all-btn" id="showAllBtn">
+                        Show All <i class="fa-solid fa-chevron-down"></i>
+                    </button>
                 </div>
             </div>
         </div>
-        
-        
+
         <div class="admindashboardcontainer-thirdsection">
             <div class="admindashboard-firstpart">
                 <div class="reports-registeration" data-report="registration-reports">
@@ -307,7 +283,6 @@
                         <button id="calender-reportsregister">Calendar <img src="assets/images/Icons/calendar_month.png"
                                 alt=""></button>
                         <input type="date" id="date-picker" style="display:none">
-
                     </div>
                     <div class="reports-registeration-graph">
                         <div id="chart_div" style="width: 100%; height: 160px;"></div>
@@ -318,14 +293,13 @@
                     <div class="donutregistration-chart-container">
                         <canvas id="donutRegistrationChart"></canvas>
                         <div class="donutgraphinfos">
-                        
-                          @php
-                            $registrationSourceAnalysis = [
-                                ['color' => 'rgba(111, 37, 206, 1)', 'AnalyseName' => 'ADDS', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '13%'],
-                                ['color' => 'rgba(181, 142, 229, 1)', 'AnalyseName' => 'Organic', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '77%'],
-                                ['color' => 'rgba(226, 211, 245, 1)', 'AnalyseName' => 'SC Referral', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '10%'],
-                            ];
-                          @endphp
+                            @php
+                                $registrationSourceAnalysis = [
+                                    ['color' => 'rgba(111, 37, 206, 1)', 'AnalyseName' => 'ADDS', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '13%'],
+                                    ['color' => 'rgba(181, 142, 229, 1)', 'AnalyseName' => 'Organic', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '77%'],
+                                    ['color' => 'rgba(226, 211, 245, 1)', 'AnalyseName' => 'SC Referral', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '10%'],
+                                ];
+                            @endphp
 
                             @foreach ($registrationSourceAnalysis as $source)
                                 <div class="graphviewofregistrations">
@@ -340,15 +314,13 @@
                                         <p id='donutRegistrationChart-percentage'>{{ $source['OverallStrengthPercent'] }}
                                         </p>
                                     </div>
-
-
                                 </div>
                             @endforeach
                         </div>
                     </div>
                 </div>
             </div>
-           <div class="admindashboard-secondpart" data-report="no-of-grads">
+            <div class="admindashboard-secondpart" data-report="no-of-grads">
                 <div class="admindashboard-second-main-container">
                     <div class="totalundergrads-admin">
                         <h4>Total Undergrads</h4>
@@ -398,8 +370,7 @@
                             @foreach ($registrationSourceAnalysis as $source)
                                 <div class="ageratio-graphviewofratios">
                                     <div class="ageratio-points"
-                                        style="background-color: {{ $source['color'] }}; width: 11px; height: 11px;">
-                                    </div>
+                                        style="background-color: {{ $source['color'] }}; width: 11px; height: 11px;"></div>
                                     <p>{{ $source['studentRangeValue'] }}</p>
                                 </div>
                             @endforeach
@@ -420,7 +391,6 @@
                             <a href="#">Others</a>
                         </div>
                     </div>
-
                 </div>
                 <div class="funnelreport-analyze-diagram">
                     <div class="funnelreport-analyse-left">
@@ -434,16 +404,13 @@
                             <p>Pending with Queries</p>
                         </div>
                         <div>
-                            <p>Offer issued
-                                to student</p>
+                            <p>Offer issued to student</p>
                         </div>
                         <div>
-                            <p>Offer rejected
-                                to student</p>
+                            <p>Offer rejected to student</p>
                         </div>
                         <div>
-                            <p>Offer Accepted
-                                & closed</p>
+                            <p>Offer Accepted & closed</p>
                         </div>
                     </div>
                     <div class="funnelreport-analyse-right" id="funnelreport-rightsideid">
@@ -453,403 +420,638 @@
                         <p>100</p>
                         <p>20</p>
                         <p>200</p>
-
-                    </div>
-
-
-
-                </div>
-
-
-
-
-            </div>
-        </div>
-
-    <div class="admindashboardcontainer-fourth-section" data-report="destination-countries">
-       <div class="admin-dashboard-container-four">
-        <div class="admin-dashboard-row">
-           <!-- Cities Section -->
-            <div class="admin-city-column">
-                <div class="admin-city-section">
-                    <div class="admin-city-header">
-                        <div class="admin-city-title">Cities</div>
-                        <div class="admin-city-filter-sort-container">
-                            <button class="admin-city-filter-btn" id="city-filter-btn">Filter <i class="fas fa-chevron-down"></i></button>
-                            <!-- <button class="admin-city-sort-btn" id="city-sort-btn">Sort <i class="fas fa-chevron-down"></i></button> -->
-                        </div>
-                    </div>
-                    <table class="admin-city-table" id="city-table">
-                        <thead>
-                            <tr>
-                                <th data-sort="city">City <i class="fas fa-sort"></i></th>
-                                <th data-sort="state">State <i class="fas fa-sort"></i></th>
-                                <th data-sort="female">Female <i class="fas fa-sort"></i></th>
-                                <th data-sort="male">Male <i class="fas fa-sort"></i></th>
-                                <th data-sort="total_students">No. students <i class="fas fa-sort"></i></th>
-                            </tr>
-                        </thead>
-                        <tbody id="city-table-body">
-                            <!-- Rows will be populated dynamically -->
-                        </tbody>
-                    </table>
-                    <div class="admin-city-pagination">
-                        <div class="admin-city-pagination-btn" id="city-prev-btn"><i class="fas fa-chevron-left"></i></div>
-                        <div class="admin-city-pagination-text" id="city-pagination-text">1-10 / 30</div>
-                        <div class="admin-city-pagination-btn" id="city-next-btn"><i class="fas fa-chevron-right"></i></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Countries Section -->
-            <div class="admin-desti-country-column">
-                <div class="admin-desti-country-section">
-                    <div class="admin-desti-country-header">
-                        <div class="admin-desti-country-title">Destination Countries</div>
-                        <div class="admin-desti-country-filter-sort-container">
-                            <button class="admin-desti-country-filter-btn">Filter <i
-                                    class="fas fa-chevron-down"></i></button>
-                            <button class="admin-desti-country-sort-btn">Sort <i
-                                    class="fas fa-chevron-down"></i></button>
-                        </div>
-                    </div>
-                    <table class="admin-desti-country-table" id="country-table">
-                        <thead>
-                            <tr>
-                                <th>Country</th>
-                                <th>Continent</th>
-                                <th>Female</th>
-                                <th>Male</th>
-                                <th>No. students</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>USA</td>
-                                <td>North America</td>
-                                <td>50</td>
-                                <td>40</td>
-                                <td class="admin-desti-country-data-value" data-value="90">90</td>
-                            </tr>
-                            <tr>
-                                <td>Canada</td>
-                                <td>North America</td>
-                                <td>40</td>
-                                <td>30</td>
-                                <td class="admin-desti-country-data-value" data-value="70">70</td>
-                            </tr>
-                            <tr>
-                                <td>Norway</td>
-                                <td>Europe</td>
-                                <td>90</td>
-                                <td>40</td>
-                                <td class="admin-desti-country-data-value" data-value="130">130</td>
-                            </tr>
-                            <tr>
-                                <td>Canada</td>
-                                <td>North America</td>
-                                <td>40</td>
-                                <td>30</td>
-                                <td class="admin-desti-country-data-value" data-value="70">70</td>
-                            </tr>
-                            <tr>
-                                <td>Canada</td>
-                                <td>North America</td>
-                                <td>40</td>
-                                <td>30</td>
-                                <td class="admin-desti-country-data-value" data-value="70">70</td>
-                            </tr>
-                            <tr>
-                                <td>Canada</td>
-                                <td>North America</td>
-                                <td>40</td>
-                                <td>30</td>
-                                <td class="admin-desti-country-data-value" data-value="70">70</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="admin-desti-country-pagination">
-                        <div class="admin-desti-country-pagination-btn"><i class="fas fa-chevron-left"></i></div>
-                        <div class="admin-desti-country-pagination-text">1-10 / 30</div>
-                        <div class="admin-desti-country-pagination-btn"><i class="fas fa-chevron-right"></i></div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!---fifth section-->
+        <div class="admindashboardcontainer-fourth-section" data-report="destination-countries">
+            <div class="admin-dashboard-container-four">
+                <div class="admin-dashboard-row">
+                    <!-- Cities Section -->
+                    <div class="admin-city-column">
+                        <div class="admin-city-section">
+                            <div class="admin-city-header">
+                                <div class="admin-city-title">Cities</div>
+                                <div class="admin-city-filter-sort-container">
+                                    <button class="admin-city-filter-btn">Filter <i
+                                            class="fas fa-chevron-down"></i></button>
+                                    <button class="admin-city-sort-btn">Sort <i
+                                            class="fas fa-chevron-down"></i></button>
+                                </div>
+                            </div>
+                            <table class="admin-city-table" id="city-table">
+                                <thead>
+                                    <tr>
+                                        <th>City</th>
+                                        <th>State</th>
+                                        <th>Female</th>
+                                        <th>Male</th>
+                                        <th>No. students</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Kolkata</td>
+                                        <td>West Bengal</td>
+                                        <td>50</td>
+                                        <td>40</td>
+                                        <td class="admin-city-data-value" data-value="90">90</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bengaluru</td>
+                                        <td>Karnataka</td>
+                                        <td>40</td>
+                                        <td>80</td>
+                                        <td class="admin-city-data-value" data-value="120">120</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Delhi</td>
+                                        <td>Delhi</td>
+                                        <td>20</td>
+                                        <td>40</td>
+                                        <td class="admin-city-data-value" data-value="60">60</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Delhi</td>
+                                        <td>Delhi</td>
+                                        <td>20</td>
+                                        <td>40</td>
+                                        <td class="admin-city-data-value" data-value="60">60</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Delhi</td>
+                                        <td>Delhi</td>
+                                        <td>20</td>
+                                        <td>40</td>
+                                        <td class="admin-city-data-value" data-value="60">60</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Delhi</td>
+                                        <td>Delhi</td>
+                                        <td>20</td>
+                                        <td>40</td>
+                                        <td class="admin-city-data-value" data-value="60">60</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="admin-city-pagination">
+                                <div class="admin-city-pagination-btn"><i class="fas fa-chevron-left"></i></div>
+                                <div class="admin-city-pagination-text">1-10 / 30</div>
+                                <div class="admin-city-pagination-btn"><i class="fas fa-chevron-right"></i></div>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="admindashboardcontainer-fifth-section" data-report="nbfc-generation-leads">
-        <div class="dashboard-row-bar-chart">
-        <!-- NBFC Lead Generation -->
-        <div id="nbfc-lead-chart_container">
-            <div class="nbfc-lead-header">
-                <h2 class="nbfc-lead-title">NBFCs: Lead Generation</h2>
-                <div class="nbfc-lead-converted-dropdown">
-                    <select>
-                        <option selected>Converted</option>
-                    </select>
+                    <!-- Countries Section -->
+                    <div class="admin-desti-country-column">
+                        <div class="admin-desti-country-section">
+                            <div class="admin-desti-country-header">
+                                <div class="admin-desti-country-title">Destination Countries</div>
+                                <div class="admin-desti-country-filter-sort-container">
+                                    <button class="admin-desti-country-filter-btn">Filter <i
+                                            class="fas fa-chevron-down"></i></button>
+                                    <button class="admin-desti-country-sort-btn">Sort <i
+                                            class="fas fa-chevron-down"></i></button>
+                                </div>
+                            </div>
+                            <table class="admin-desti-country-table" id="country-table">
+                                <thead>
+                                    <tr>
+                                        <th>Country</th>
+                                        <th>Continent</th>
+                                        <th>Female</th>
+                                        <th>Male</th>
+                                        <th>No. students</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>USA</td>
+                                        <td>North America</td>
+                                        <td>50</td>
+                                        <td>40</td>
+                                        <td class="admin-desti-country-data-value" data-value="90">90</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Canada</td>
+                                        <td>North America</td>
+                                        <td>40</td>
+                                        <td>30</td>
+                                        <td class="admin-desti-country-data-value" data-value="70">70</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Norway</td>
+                                        <td>Europe</td>
+                                        <td>90</td>
+                                        <td>40</td>
+                                        <td class="admin-desti-country-data-value" data-value="130">130</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Canada</td>
+                                        <td>North America</td>
+                                        <td>40</td>
+                                        <td>30</td>
+                                        <td class="admin-desti-country-data-value" data-value="70">70</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Canada</td>
+                                        <td>North America</td>
+                                        <td>40</td>
+                                        <td>30</td>
+                                        <td class="admin-desti-country-data-value" data-value="70">70</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Canada</td>
+                                        <td>North America</td>
+                                        <td>40</td>
+                                        <td>30</td>
+                                        <td class="admin-desti-country-data-value" data-value="70">70</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="admin-desti-country-pagination">
+                                <div class="admin-desti-country-pagination-btn"><i class="fas fa-chevron-left"></i>
+                                </div>
+                                <div class="admin-desti-country-pagination-text">1-10 / 30</div>
+                                <div class="admin-desti-country-pagination-btn"><i class="fas fa-chevron-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="nbfc-lead-subheader">
-                <div class="nbfc-lead-label">NBFCs Vs</div>
-                <div class="nbfc-lead-legend">
-                    <div class="nbfc-lead-legend-item">
-                        <div class="nbfc-lead-legend-color" style="background-color: #E6D5F5;"></div>
-                        <span>No. Of Leads</span>
-                    </div>
-                    <div class="nbfc-lead-legend-item">
-                        <div class="nbfc-lead-legend-color" style="background-color: #6C3EE8;"></div>
-                        <span>Time Taken</span>
-                    </div>
-                </div>  
-            </div>
-            <!-- <div class="nbfc-lead-weeks-info">23 in 2 weeks</div> -->
-            <div id="nbfc-lead-chart_div" style="width: 100%; height: 170px;"></div>
-            <div class="nbfc-lead-pagination">
-                <button class="nbfc-lead-prev-btn" id="nbfc-lead-prev-btn"><i class="fas fa-chevron-left"></i></button>
-                <span class="nbfc-lead-page-range" id="nbfc-lead-page-range">1 - 5</span>
-                <span>/</span>
-                <span class="nbfc-lead-total-items" id="nbfc-lead-total-items">11</span>
-                <button class="nbfc-lead-next-btn" id="nbfc-lead-next-btn"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
 
-       <!-- Student Counsellors -->
-        <div class="sc-lead-container">
-            <div class="sc-lead-header">
-                <h3 class="sc-lead-title">Student Counsellors: Lead Generation</h3>
-                <select class="sc-lead-select">
-                    <option>Converted</option>
-                </select>
-            </div>
-            <div class="sc-lead-legend">
-                <div class="sc-lead-legend-item">
-                    <div class="sc-lead-legend-color" style="background-color: #d3b8f0;"></div>
-                    <span>No. Of Leads</span>
-                </div>
-            </div>
-            <div class="sc-lead-chart-wrapper">
-                <canvas id="leadChart" style="height: 170px;"></canvas>
-            </div>
-            <div class="sc-lead-pagination">
-                <button class="sc-lead-prev-btn" id="sc-lead-prev-btn"><i class="fas fa-chevron-left"></i></button>
-                <span class="sc-lead-page-range" id="sc-lead-page-range">1 - 2</span>
-                <span>/</span>
-                <span class="sc-lead-total-items" id="sc-lead-total-items">2</span>
-                <button class="sc-lead-next-btn" id="sc-lead-next-btn"><i class="fas fa-chevron-right"></i></button>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-
-<div class="admindashboardcontainer-sixth-section" data-report="point-of-entry">
-    <div class="point-entry">
-        <div class="point-entry-donut">
-            <div class="point-entry-title">Point of entry</div>
-            <div class="point-entry-chart-container">
-                <div class="point-entry-chart-wrapper">
-                    <canvas id="donutChart" width="103" height="103"
-                        style="display: block; box-sizing: border-box; height: 103px; width: 103px;"></canvas>
-                </div>
-                <div class="point-entry-legend-container">
-                    <!-- <div class="point-entry-legend">
-                        <div class="point-entry-legend-item">
-                            <div class="point-entry-legend-color" style="background-color: #6F25CE;"></div>
-                            <span>LinkedIn Posts</span>
-                        </div>
-                        <div class="point-entry-legend-item">
-                            <div class="point-entry-legend-color" style="background-color: #8863C9;"></div>
-                            <span>Twitter Advertisements</span>
-                        </div>
-                        <div class="point-entry-legend-item">
-                            <div class="point-entry-legend-color" style="background-color: #A894D9;"></div>
-                            <span>WhatsApp Advertisements</span>
+        <!-- Fifth Section -->
+        <div class="admindashboardcontainer-fifth-section" data-report="nbfc-generation-leads">
+            <div class="dashboard-row-bar-chart">
+                <!-- NBFC Lead Generation -->
+                <div id="nbfc-lead-chart_container">
+                    <div class="nbfc-lead-header">
+                        <h2 class="nbfc-lead-title">NBFCs: Lead Generation</h2>
+                        <div class="nbfc-lead-converted-dropdown">
+                            <select>
+                                <option selected>Converted</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="point-entry-legend">
-                        <div class="point-entry-legend-item">
-                            <div class="point-entry-legend-color" style="background-color: #C5B6E5;"></div>
-                            <span>Schools & Institutions</span>
+                    <div class="nbfc-lead-subheader">
+                        <div class="nbfc-lead-label">NBFCs Vs</div>
+                        <div class="nbfc-lead-legend">
+                            <div class="nbfc-lead-legend-item">
+                                <div class="nbfc-lead-legend-color" style="background-color: #E6D5F5;"></div>
+                                <span>No. Of Leads</span>
+                            </div>
+                            <div class="nbfc-lead-legend-item">
+                                <div class="nbfc-lead-legend-color" style="background-color: #6C3EE8;"></div>
+                                <span>Time Taken</span>
+                            </div>
                         </div>
-                        <div class="point-entry-legend-item">
-                            <div class="point-entry-legend-color" style="background-color: #E2D9F2;"></div>
-                            <span>Others</span>
+                    </div>
+                    <div class="nbfc-lead-weeks-info">23 in 2 weeks</div>
+                    <div id="nbfc-lead-chart_div" style="width: 100%; height: 170px;"></div>
+                    <div class="nbfc-lead-pagination">
+                        <span><i class="fas fa-chevron-left"></i></span>
+                        <span>1 - 8</span>
+                        <span>/</span>
+                        <span>15</span>
+                        <span><i class="fas fa-chevron-right"></i></span>
+                    </div>
+                </div>
+
+                <!-- Student Counsellors -->
+                <div class="sc-lead-container">
+                    <div class="sc-lead-header">
+                        <h3 class="sc-lead-title">Student Counsellors: Lead Generation</h3>
+                        <select class="sc-lead-select">
+                            <option>Converted</option>
+                        </select>
+                    </div>
+                    <div class="sc-lead-legend">
+                        <div class="sc-lead-legend-item">
+                            <div class="sc-lead-legend-color"></div>
+                            <span>No. Of Leads</span>
                         </div>
-                    </div> -->
+                    </div>
+                    <div class="sc-lead-chart-wrapper">
+                        <canvas id="leadChart"></canvas>
+                    </div>
+                    <div class="sc-lead-pagination">
+                        <span><i class="fas fa-chevron-left"></i></span>
+                        <span>1 - 8</span>
+                        <span>/</span>
+                        <span>15</span>
+                        <span><i class="fas fa-chevron-right"></i></span>
+                    </div>
                 </div>
             </div>
         </div>
 
-          <div class="point-entry-dashboard">
-             <div class="point-entry-dashboard-image">
-                 <img src="assets/images/semrush-seo.png" alt="SEMRUSH Logo">
-             </div>
-          </div>
+        <div class="admindashboardcontainer-sixth-section" data-report="point-of-entry">
+            <div class="point-entry">
+                <div class="point-entry-donut">
+                    <div class="point-entry-title">Point of entry</div>
+                    <div class="point-entry-chart-container">
+                        <div class="point-entry-chart-wrapper">
+                            <canvas id="donutChart" width="103" height="103"
+                                style="display: block; box-sizing: border-box; height: 103px; width: 103px;"></canvas>
+                        </div>
+                        <div class="point-entry-legend-container">
+                            <div class="point-entry-legend">
+                                <div class="point-entry-legend-item">
+                                    <div class="point-entry-legend-color" style="background-color: #6F25CE;"></div>
+                                    <span>LinkedIn Posts</span>
+                                </div>
+                                <div class="point-entry-legend-item">
+                                    <div class="point-entry-legend-color" style="background-color: #8863C9;"></div>
+                                    <span>Twitter Advertisements</span>
+                                </div>
+                                <div class="point-entry-legend-item">
+                                    <div class="point-entry-legend-color" style="background-color: #A894D9;"></div>
+                                    <span>WhatsApp Advertisements</span>
+                                </div>
+                            </div>
+                            <div class="point-entry-legend">
+                                <div class="point-entry-legend-item">
+                                    <div class="point-entry-legend-color" style="background-color: #C5B6E5;"></div>
+                                    <span>Schools & Institutions</span>
+                                </div>
+                                <div class="point-entry-legend-item">
+                                    <div class="point-entry-legend-color" style="background-color: #E2D9F2;"></div>
+                                    <span>Others</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-
+                <div class="point-entry-dashboard">
+                    <div class="point-entry-dashboard-image">
+                        <img src="assets/images/semrush-seo.png" alt="SEMRUSH Logo">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-</div>
+    <script>
+        // Utility functions for DOM queries
+        const $ = (selector, context = document) => context.querySelector(selector);
+        const $$ = (selector, context = document) => Array.from(context.querySelectorAll(selector));
 
+        // Load Google Charts
+        google.charts.load('current', { packages: ['corechart', 'bar', 'line'] });
 
+        // Initialize all components on DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                initializeCharts();
+                initializeCalendar();
+                initializeDropdown();
+                initializeReferralModal();
+                initializeMobileMenu();
+                initializeFilterPanel();
+                highlightHighestValues();
+                initializePaginationAndFilters();
 
-      </div>
+                // Add the downloadPDF function and event listener
+                const downloadPDF = () => {
+                    // Check if jsPDF is available
+                    if (!window.jspdf || !window.jspdf.jsPDF) {
+                        console.error('jsPDF library is not loaded. Please ensure the jsPDF script is included and loaded.');
+                        alert('Failed to download PDF: jsPDF library not loaded.');
+                        return;
+                    }
 
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF({
+                        orientation: 'portrait',
+                        unit: 'mm',
+                        format: 'a4'
+                    });
 
+                    try {
+                        // Define colors and styles
+                        const primaryColor = [239, 108, 0]; // Orange color for REMITOUT
+                        const secondaryColor = [70, 70, 70]; // Dark gray for headings
+                        const bgHeaderColor = [55, 55, 55]; // Background color for top header
 
+                        // Add header background
+                        doc.setFillColor(bgHeaderColor[0], bgHeaderColor[1], bgHeaderColor[2]);
+                        doc.rect(0, 0, doc.internal.pageSize.getWidth(), 15, 'F');
+                        doc.setTextColor(255, 255, 255);
+                        doc.setFontSize(10);
+                        doc.text('Admin-Dashboard Report', 10, 10);
 
+                        // Reset text color
+                        doc.setTextColor(0, 0, 0);
 
+                        // Add REMITOUT logo on the left side (simulated with text)
+                        doc.setFillColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+                        doc.rect(53, 53, 10, 10, 'F');
+                        doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+                        doc.setFontSize(18);
+                        doc.setFont('helvetica', 'bold');
+                        doc.text('REMITOUT', 70, 60);
 
+                        // Add authority information on right
+                        doc.setTextColor(0, 0, 0);
+                        doc.setFontSize(9);
+                        doc.setFont('helvetica', 'normal');
+                        doc.text('Authority name', doc.internal.pageSize.getWidth() - 60, 57);
+                        doc.text('Designation', doc.internal.pageSize.getWidth() - 60, 63);
+                        doc.text('Date of data export', doc.internal.pageSize.getWidth() - 60, 69);
+                        doc.text('Time of data export', doc.internal.pageSize.getWidth() - 60, 75);
 
+                        // Dashboard Reports title with underline
+                        doc.setFontSize(18);
+                        doc.setFont('helvetica', 'bold');
+                        doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+                        doc.text('Dashboard Reports', 53, 115);
 
-    </div>
+                        // Title on right
+                        doc.text('November', doc.internal.pageSize.getWidth() - 53, 115, { align: 'right' });
 
-    </div>
-    </div>
+                        // Underline
+                        doc.setDrawColor(200, 200, 200);
+                        doc.line(53, 120, doc.internal.pageSize.getWidth() - 53, 120);
 
+                        // Generate tables with styling
+                        // Registration Section
+                        doc.setTextColor(0, 0, 0);
+                        doc.setFontSize(12);
+                        doc.text('Registration', 53, 135);
+                        doc.autoTable({
+                            startY: 140,
+                            margin: { left: 53 },
+                            headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
+                            head: [['Date', 'Name', 'Type', 'Source', 'Point of entry']],
+                            body: [
+                                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                                ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn']
+                            ],
+                            theme: 'plain',
+                            styles: {
+                                fontSize: 9,
+                                cellPadding: 4
+                            }
+                        });
 
+                        // Cities Section
+                        doc.addPage();
+                        doc.setFontSize(12);
+                        doc.text('Cities', 53, 50);
+                        doc.autoTable({
+                            startY: 55,
+                            margin: { left: 53 },
+                            headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
+                            head: [['City', 'State', 'Female', 'Male', 'other', 'No. students']],
+                            body: [
+                                ['Kolkata', 'West Bengal', 50, 40, 40, 90],
+                                ['Kolkata', 'West Bengal', 50, 40, 40, 90],
+                                ['Kolkata', 'West Bengal', 50, 40, 40, 90],
+                                ['Kolkata', 'West Bengal', 50, 40, 40, 90],
+                                ['Kolkata', 'West Bengal', 50, 40, 40, 90],
+                                ['Kolkata', 'West Bengal', 50, 40, 40, 90]
+                            ],
+                            theme: 'plain',
+                            styles: {
+                                fontSize: 9,
+                                cellPadding: 4
+                            }
+                        });
 
- <script>
+                        // Destination Countries Section
+                        doc.setFontSize(12);
+                        doc.text('Destination Countries', 53, doc.autoTable.previous.finalY + 20);
+                        doc.autoTable({
+                            startY: doc.autoTable.previous.finalY + 25,
+                            margin: { left: 53 },
+                            headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
+                            head: [['Country', 'Continent', 'Female', 'Male', 'other', 'No. students']],
+                            body: [
+                                ['Canada', 'Europe', 50, 40, 40, 90],
+                                ['Canada', 'Europe', 50, 40, 40, 90],
+                                ['Canada', 'Europe', 50, 40, 40, 90],
+                                ['Canada', 'Europe', 50, 40, 40, 90],
+                                ['Canada', 'Europe', 50, 40, 40, 90],
+                                ['Canada', 'Europe', 50, 40, 40, 90],
+                                ['Canada', 'Europe', 50, 40, 40, 90]
+                            ],
+                            theme: 'plain',
+                            styles: {
+                                fontSize: 9,
+                                cellPadding: 4
+                            }
+                        });
 
-  // Utility functions for DOM queries
-const $ = (selector, context = document) => context.querySelector(selector);
-const $$ = (selector, context = document) => Array.from(context.querySelectorAll(selector));
+                        // NBFCs Section
+                        doc.setFontSize(12);
+                        doc.text('NBFCs', 53, doc.autoTable.previous.finalY + 20);
+                        doc.autoTable({
+                            startY: doc.autoTable.previous.finalY + 25,
+                            margin: { left: 53 },
+                            headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
+                            head: [['NBFC Name', 'Student Name', 'Unique ID', 'Type', 'Proposal status', 'Start Date', 'Time taken']],
+                            body: [
+                                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days'],
+                                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days'],
+                                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days'],
+                                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days'],
+                                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days'],
+                                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days'],
+                                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days'],
+                                ['Bank Of Baroda', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Pending', '11/11/2024', '12 days']
+                            ],
+                            theme: 'plain',
+                            styles: {
+                                fontSize: 9,
+                                cellPadding: 4
+                            }
+                        });
 
-// Load Google Charts
-google.charts.load('current', { packages: ['corechart', 'bar', 'line'] });
+                        // Student Counsellors Section
+                        if (doc.autoTable.previous.finalY > 200) {
+                            doc.addPage();
+                            doc.setFontSize(12);
+                            doc.text('Student Counsellors', 53, 50);
+                            doc.autoTable({
+                                startY: 55,
+                                margin: { left: 53 },
+                                headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
+                                head: [['Referral code', 'Student Name', 'Unique ID', 'Type', 'Proxy Application', 'Date']],
+                                body: [
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024']
+                                ],
+                                theme: 'plain',
+                                styles: {
+                                    fontSize: 9,
+                                    cellPadding: 4
+                                }
+                            });
+                        } else {
+                            doc.setFontSize(12);
+                            doc.text('Student Counsellors', 53, doc.autoTable.previous.finalY + 20);
+                            doc.autoTable({
+                                startY: doc.autoTable.previous.finalY + 25,
+                                margin: { left: 53 },
+                                headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold' },
+                                head: [['Referral code', 'Student Name', 'Unique ID', 'Type', 'Proxy Application', 'Date']],
+                                body: [
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024'],
+                                    ['8475908b9y', 'Geetha Muthuswamy', 'JBUK.JKMIB8899', 'Undergraduate', 'Yes', '11/11/2024']
+                                ],
+                                theme: 'plain',
+                                styles: {
+                                    fontSize: 9,
+                                    cellPadding: 4
+                                }
+                            });
+                        }
 
-// Initialize all components on DOMContentLoaded
-document.addEventListener('DOMContentLoaded', () => {
-    try {
-        initializeCharts();
-        initializeCalendar();
-        initializeDropdown();
-        initializeReferralModal();
-        initializeMobileMenu();
-        initializeFilterPanel();
-        highlightHighestValues();
-        initializePaginationAndFilters();
-        updateProfileCompletionByGender()
-        initializeCitiesTable()
-    } catch (error) {
-        console.error('Initialization error:', error);
-    }
-});
+                        // Add footer with logo on every page
+                        const totalPages = doc.internal.getNumberOfPages();
+                        for (let i = 1; i <= totalPages; i++) {
+                            doc.setPage(i);
 
-// Chart Initialization
-const initializeCharts = () => {
-    // Centralize Google Charts callback to avoid multiple setOnLoad calls
-    google.charts.setOnLoadCallback(() => {
-        initializeRegistrationLineGraph();
-        drawNBFCChart();
-    });
-    initializeDonutGraphSource();
-    initializeDonutGraphAgeRatio();
-    initializeNewDonutChart();
-    initializeLeadChart();
-};
+                            // Add footer with logo
+                            const footerY = doc.internal.pageSize.getHeight() - 20;
 
-// Registration Line Graph with API Data
-const initializeRegistrationLineGraph = () => {
-    const chartDiv = $('#chart_div');
-    if (!chartDiv) return console.error('chart_div not found');
+                            // REMITOUT logo in footer (simulated with text and shape)
+                            doc.setFillColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+                            doc.rect(53, footerY, 6, 6, 'F');
+                            doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+                            doc.setFontSize(12);
+                            doc.setFont('helvetica', 'bold');
+                            doc.text('REMITOUT', 63, footerY + 5);
 
-    // Fetch data from API
-    fetch('/reports-on-generation', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        }
-    })
-        .then(response => {
-            console.log('Raw response:', response);
-            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-            return response.json();
-        })
-        .then(data => {
-            // console.log('Fetched Reports on Registration data:', data);
+                            // Add footer line
+                            doc.setDrawColor(200, 200, 200);
+                            doc.line(53, footerY + 10, doc.internal.pageSize.getWidth() - 53, footerY + 10);
+                        }
 
-            // Validate the API response structure
-            if (!data || typeof data !== 'object' || 
-                !Array.isArray(data.days_of_week) || 
-                !Array.isArray(data.registration_counts) || 
-                data.days_of_week.length !== data.registration_counts.length) {
-                console.log('Validation failed. Data structure:', data);
-                throw new Error('Invalid API response: Mismatched or missing data arrays');
+                        // Save the PDF
+                        doc.save('Dashboard_Report_November_2024.pdf');
+                    } catch (error) {
+                        console.error('Error generating PDF:', error);
+                        alert('Failed to generate PDF. Please check the console for details.');
+                    }
+                };
+
+                // Function to generate actual data for the PDF (replace with your data fetching logic)
+                function fetchReportData() {
+                    // This is where you would fetch actual data from your database or API
+                    // For now, we're returning mock data
+                    return {
+                        registrationData: [
+                            ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                            ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                            ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                            ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                            ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn'],
+                            ['11/12/2024', 'Geetha Muthuswamy', 'ADDS', 'Source', 'LinkedIn']
+                        ],
+                        citiesData: [
+                            ['Kolkata', 'West Bengal', 50, 40, 40, 90],
+                            ['Kolkata', 'West Bengal', 50, 40, 40, 90],
+                            ['Kolkata', 'West Bengal', 50, 40, 40, 90],
+                            ['Kolkata', 'West Bengal', 50, 40, 40, 90],
+                            ['Kolkata', 'West Bengal', 50, 40, 40, 90],
+                            ['Kolkata', 'West Bengal', 50, 40, 40, 90]
+                        ],
+                        // Add other data structures as needed
+                    };
+                }
+
+                // Add event listener to your specific button
+                document.addEventListener('DOMContentLoaded', function () {
+                    const downloadButton = document.getElementById('download-buttongroups');
+                    if (downloadButton) {
+                        downloadButton.addEventListener('click', downloadPDF);
+                    } else {
+                        console.error("Button with ID 'download-buttongroups' not found");
+                    }
+                });
+
+                // Add an event listener to trigger the download
+                document.getElementById('downloadPdfButton').addEventListener('click', downloadPDF);
+
+                // Attach the event listener to the download button
+                const downloadButton = $('#download-buttongroups');
+                if (downloadButton) {
+                    downloadButton.addEventListener('click', downloadPDF);
+                } else {
+                    console.error('Download button (#download-buttongroups) not found in the DOM.');
+                }
+            } catch (error) {
+                console.error('Initialization error:', error);
             }
+        });
 
-            // Create the DataTable
-            const dataTable = new google.visualization.DataTable();
-            dataTable.addColumn('string', 'Day');
-            dataTable.addColumn('number', 'Registrations');
-            dataTable.addColumn({ type: 'string', role: 'annotation' });
-
-            // Find the highest registration count to set an annotation
-            const maxCount = Math.max(...data.registration_counts);
-            const maxIndex = data.registration_counts.indexOf(maxCount);
-
-            // Transform API data into rows
-            const rows = data.days_of_week.map((day, index) => {
-                const annotation = index === maxIndex ? maxCount.toString() : null;
-                return [day, data.registration_counts[index], annotation];
+        // Chart Initialization
+        const initializeCharts = () => {
+            google.charts.setOnLoadCallback(() => {
+                initializeRegistrationLineGraph();
+                drawNBFCChart();
             });
+            initializeDonutGraphSource();
+            initializeDonutGraphAgeRatio();
+            initializeNewDonutChart();
+            initializeLeadChart();
+        };
 
-            dataTable.addRows(rows);
+        // Registration Line Graph
+        const initializeRegistrationLineGraph = () => {
+            const chartDiv = $('#chart_div');
+            if (!chartDiv) return console.error('chart_div not found');
 
-            // Log the transformed data for debugging
-            console.log('Transformed chart data:', rows);
+            const data = new google.visualization.DataTable();
+            data.addColumn('string', 'Day');
+            data.addColumn('number', 'Registrations');
+            data.addColumn({ type: 'string', role: 'annotation' });
 
-            // Create a DataView
-            const view = new google.visualization.DataView(dataTable);
+            data.addRows([
+                ['Mon', 100, null], ['Tue', 123, null], ['Wed', 174, '174'], ['Thu', 118, null],
+                ['Fri', 145, null], ['Sat', 92, null]
+            ]);
+
+            const view = new google.visualization.DataView(data);
             view.setColumns([0, 1, 2]);
 
-            // Chart options
             const options = {
                 maintainAspectRatio: false,
                 hAxis: { title: 'Day of the Week', textStyle: { color: '#333' } },
-                vAxis: { 
-                    title: 'Registrations', 
-                    viewWindow: { min: 0, max: Math.max(maxCount + 10, 50) }, // Adjust max dynamically
-                    textStyle: { color: '#333' }
-                },
+                vAxis: { title: 'Registrations', viewWindow: { min: 0, max: 200 }, textStyle: { color: '#333' } },
                 annotations: { alwaysOutside: true, textStyle: { color: '#000', fontSize: 12 } },
                 pointSize: 5,
                 series: { 0: { lineWidth: 2, pointShape: 'circle', color: 'rgb(163, 171, 189)' } },
                 legend: 'none',
                 chartArea: { width: '80%', height: '70%' }
             };
-
-            // Draw the chart
-            const chart = new google.visualization.LineChart(chartDiv);
-            chart.draw(view, options);
-        })
-        .catch(error => {
-            console.error('Error fetching Reports on Registration data:', error);
-            // Fallback to static data if API fails
-            const dataTable = new google.visualization.DataTable();
-            dataTable.addColumn('string', 'Day');
-            dataTable.addColumn('number', 'Registrations');
-            dataTable.addColumn({ type: 'string', role: 'annotation' });
-
-            const fallbackRows = [
-                ['Mon', 100, null], ['Tue', 123, null], ['Wed', 174, '174'], 
-                ['Thu', 118, null], ['Fri', 145, null], ['Sat', 92, null]
-            ];
-
-            dataTable.addRows(fallbackRows);
-
-            console.log('Using fallback data:', fallbackRows);
-
-            const view = new google.visualization.DataView(dataTable);
-            view.setColumns([0, 1, 2]);
-
             const options = {
                 maintainAspectRatio: false,
                 hAxis: { title: 'Day of the Week', textStyle: { color: '#333' } },
@@ -863,396 +1065,74 @@ const initializeRegistrationLineGraph = () => {
 
             const chart = new google.visualization.LineChart(chartDiv);
             chart.draw(view, options);
-        });
-};
+        };
 
-//Undergrad and Postgrad Chart
-// Function to update profile completion by gender and degree
-const updateProfileCompletionByGender = () => {
-    const undergradTotal = $('.totalundergrads-info h1');
-    const undergradFemale = $('.totalundergrads-info p:nth-child(2) span');
-    const undergradMale = $('.totalundergrads-info p:nth-child(3) span');
-    const undergradOthers = $('.totalundergrads-info p:nth-child(4) span');
+        // Donut Graph for Registration Sources
+        const initializeDonutGraphSource = () => {
+            const ctx = $('#donutRegistrationChart')?.getContext('2d');
+            if (!ctx) return console.error('donutRegistrationChart canvas not found');
 
-    const postgradTotal = $('.totalpostgrads-info h1');
-    const postgradFemale = $('.totalpostgrads-info p:nth-child(2) span');
-    const postgradMale = $('.totalpostgrads-info p:nth-child(3) span');
-    const postgradOthers = $('.totalpostgrads-info p:nth-child(4) span');
-
-    // Fetch data from API (POST request)
-    fetch('/getprofilecompletionbygender', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Required for POST in Laravel
-        },
-        body: JSON.stringify({}) // Empty body; adjust if API requires data
-    })
-        .then(response => {
-            console.log('Raw response:', response);
-            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-            return response.json();
-        })
-        .then(data => {
-            // console.log('Fetched Profile Completion by Gender data:', data);
-
-            // Validate the API response structure
-            if (!data.success || !data.data || typeof data.data !== 'object' || 
-                !data.data.degree_summary || typeof data.data.degree_summary !== 'object') {
-                console.log('Validation failed. Data structure:', data);
-                throw new Error('Invalid API response: Missing or invalid data structure');
-            }
-
-            // Extract data for Undergrads (UG)
-            const ugData = data.data.degree_summary.UG;
-            const ugTotal = ugData.total || 0;
-            const ugFemale = ugData.female || 0;
-            const ugMale = ugData.male || 0;
-            const ugOthers = ugData.other || (ugTotal - ugFemale - ugMale); // Fallback to total if others not provided
-
-            // Extract data for Postgrads (PG)
-            const pgData = data.data.degree_summary.PG;
-            const pgTotal = pgData.total || 0;
-            const pgFemale = pgData.female || 0;
-            const pgMale = pgData.male || 0;
-            const pgOthers = pgData.other || (pgTotal - pgFemale - pgMale); // Fallback to total if others not provided
-
-            // Update Undergrads
-            undergradTotal.textContent = ugTotal;
-            undergradFemale.textContent = ugFemale;
-            undergradMale.textContent = ugMale;
-            undergradOthers.textContent = ugOthers;
-
-            // Update Postgrads
-            postgradTotal.textContent = pgTotal;
-            postgradFemale.textContent = pgFemale;
-            postgradMale.textContent = pgMale;
-            postgradOthers.textContent = pgOthers;
-        })
-        .catch(error => {
-            console.error('Error fetching Profile Completion by Gender data:', error);
-            // Fallback to static data if API fails
-            undergradTotal.textContent = 60;
-            undergradFemale.textContent = 20;
-            undergradMale.textContent = 20;
-            undergradOthers.textContent = 20;
-
-            postgradTotal.textContent = 150;
-            postgradFemale.textContent = 20;
-            postgradMale.textContent = 20;
-            postgradOthers.textContent = 20;
-
-            console.log('Using fallback data: Undergrads: 60 (20, 20, 20), Postgrads: 150 (20, 20, 20)');
-        });
-};
-
-
-
-// Donut Graph for Registration Sources
-const initializeDonutGraphSource = () => {
-    const ctx = $('#donutRegistrationChart')?.getContext('2d');
-    if (!ctx) return console.error('donutRegistrationChart canvas not found');
-
-    new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['ADDS', 'Organic', 'SC Referral'],
-            datasets: [{
-                label: 'Registration Sources',
-                data: [25, 30, 45],
-                backgroundColor: ['rgba(111, 37, 206, 1)', 'rgba(181, 142, 229, 1)', 'rgba(226, 211, 245, 1)'],
-                borderWidth: 0,
-                cutout: '50%'
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { display: false },
-                tooltip: { enabled: true }
-            }
-        }
-    });
-};
-
-// Donut Graph for Age Ratio
-const initializeDonutGraphAgeRatio = () => {
-    const ctx = $('#ageratio-donutRegistrationChart')?.getContext('2d');
-    if (!ctx) return console.error('ageratio-donutRegistrationChart canvas not found');
-
-    new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['16 - 20', '21 - 25', '26 - 30', '30-40'],
-            datasets: [{
-                label: 'Age Ratio of Students',
-                data: [25, 30, 40, 21],
-                backgroundColor: ['rgba(111, 37, 206, 1)', 'rgba(167, 121, 224, 1)', 'rgba(203, 176, 237, 1)', 'rgba(226, 211, 245, 1)'],
-                borderWidth: 0,
-                cutout: '50%'
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { display: false },
-                tooltip: { enabled: true }
-            }
-        }
-    });
-};
-
-// Function to fetch and display cities data with sorting, filtering, and pagination
-const initializeCitiesTable = () => {
-    const tableBody = $('#city-table-body');
-    const prevBtn = $('#city-prev-btn');
-    const nextBtn = $('#city-next-btn');
-    const paginationText = $('#city-pagination-text');
-    const filterBtn = $('#city-filter-btn');
-    const sortBtn = $('#city-sort-btn');
-
-    let currentPage = 1;
-    const itemsPerPage = 10;
-    let fullData = [];
-    let filteredData = [];
-    let sortColumn = 'city';
-    let sortDirection = 'asc';
-    let filterCity = '';
-    let filterState = '';
-
-    // Fetch data from API
-    fetch('/city-stats', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        }
-    })
-        .then(response => {
-            console.log('Raw response:', response);
-            if (!response.ok) {
-                console.log('Response status:', response.status, 'Status text:', response.statusText);
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Fetched Cities data:', data);
-
-            // Validate the API response structure
-            if (!Array.isArray(data)) {
-                console.log('Validation failed: Data is not an array', data);
-                throw new Error('Invalid API response: Expected an array of city data');
-            }
-
-            // Process and normalize data
-            fullData = data.map(item => ({
-                city: item.city || 'N/A',
-                state: item.state || 'N/A',
-                female: Number(item.female) || 0, // Convert to number
-                male: Number(item.male) || 0,    // Convert to number
-                total_students: Number(item.total) || 0 // Use total as total_students
-            }));
-            filteredData = [...fullData];
-            updateTable(fullData.length);
-        })
-        .catch(error => {
-            console.error('Error fetching Cities data:', error);
-            fullData = [];
-            filteredData = [];
-            updateTable(0);
-            alert('Failed to fetch cities data. Please check the API or try again later.');
-        });
-
-    // Function to update the table based on current page, sort, and filter
-    function updateTable(totalItems) {
-        // Apply filter
-        filteredData = fullData.filter(item => {
-            return filterCity ? item.city.toLowerCase().includes(filterCity.toLowerCase()) : true;
-        });
-
-
-        // Apply sort
-        filteredData.sort((a, b) => {
-            const valueA = a[sortColumn];
-            const valueB = b[sortColumn];
-            if (typeof valueA === 'string') {
-                return sortDirection === 'asc' 
-                    ? valueA.localeCompare(valueB) 
-                    : valueB.localeCompare(valueA);
-            }
-            return sortDirection === 'asc' 
-                ? valueA - valueB 
-                : valueB - valueA;
-        });
-
-        // Calculate pagination
-        const startIdx = (currentPage - 1) * itemsPerPage;
-        const endIdx = Math.min(startIdx + itemsPerPage, filteredData.length);
-        const paginatedData = filteredData.slice(startIdx, endIdx);
-
-        // Log the paginated data for debugging
-        console.log('Paginated table data:', paginatedData);
-
-        // Update table body
-        tableBody.innerHTML = '';
-        if (paginatedData.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="5">No data available</td></tr>';
-        } else {
-            paginatedData.forEach(item => {
-                const row = `
-                    <tr>
-                        <td>${item.city}</td>
-                        <td>${item.state}</td>
-                        <td>${item.female}</td>
-                        <td>${item.male}</td>
-                        <td class="admin-city-data-value" data-value="${item.total_students}">${item.total_students}</td>
-                    </tr>
-                `;
-                tableBody.innerHTML += row;
-            });
-        }
-
-        // Update pagination text
-        paginationText.textContent = `${startIdx + 1}-${endIdx} / ${totalItems}`;
-        prevBtn.style.visibility = currentPage === 1 ? 'hidden' : 'visible';
-        nextBtn.style.visibility = endIdx >= filteredData.length ? 'hidden' : 'visible';
-    }
-
-    // Pagination event listeners
-    prevBtn.addEventListener('click', () => {
-        if (currentPage > 1) {
-            currentPage--;
-            updateTable(fullData.length);
-        }
-    });
-
-    nextBtn.addEventListener('click', () => {
-        if (currentPage < Math.ceil(filteredData.length / itemsPerPage)) {
-            currentPage++;
-            updateTable(fullData.length);
-        }
-    });
-
-    // Sorting event listeners
-    document.querySelectorAll('#city-table thead th').forEach(header => {
-        header.addEventListener('click', () => {
-            const column = header.getAttribute('data-sort');
-            if (sortColumn === column) {
-                sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
-            } else {
-                sortColumn = column;
-                sortDirection = 'asc';
-            }
-            currentPage = 1; // Reset to first page on sort
-            updateTable(fullData.length);
-        });
-    });
-
-    // Filtering (basic implementation)
-    filterBtn.addEventListener('click', () => {
-        const cityInput = prompt('Filter by City (leave empty to clear):', filterCity);
-        // const stateInput = prompt('Filter by State (leave empty to clear):', filterState);
-
-        filterCity = cityInput || '';
-        // filterState = stateInput || '';
-        currentPage = 1; // Reset to first page on filter
-        updateTable(fullData.length);
-    });
-
-    // Sorting button (optional, can be used for custom sorting logic if needed)
-    sortBtn.addEventListener('click', () => {
-        alert('Click on column headers to sort!');
-    });
-};
-
-
-
-
-
-
-
-// Point of Entry Donut Chart with API Data
-const initializeNewDonutChart = () => {
-    const ctx = $('#donutChart')?.getContext('2d');
-    if (!ctx) return console.error('donutChart canvas not found');
-
-    // Fetch data from API
-    fetch('/getstatusofusers', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        }
-    })
-        .then(response => {
-            if (!response.ok) throw new Error('Network response was not ok');
-            return response.json();
-        })
-        .then(data => {
-            // console.log('Fetched point of entry data:', data);
-
-            // Extract labels and values from the API response
-            const labels = data.categories || [];
-            const values = data.counts || [];
-            const colors = ['#6F25CE', '#8863C9', '#A894D9', '#C5B6E5', '#E2D9F2'].slice(0, labels.length); // Default colors
-
-            // Log the extracted data for debugging
-            // console.log('Chart labels:', labels);
-            // console.log('Chart values:', values);
-            // console.log('Chart colors:', colors);
-
-            // Validate data
-            if (labels.length !== values.length) {
-                throw new Error('Mismatch between categories and counts');
-            }
-
-            // Generate the chart
-            const chart = new Chart(ctx, {
+            new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: labels,
+                    labels: ['ADDS', 'Organic', 'SC Referral'],
                     datasets: [{
-                        data: values,
-                        backgroundColor: colors,
+                        label: 'Registration Sources',
+                        data: [25, 30, 45],
+                        backgroundColor: ['rgba(111, 37, 206, 1)', 'rgba(181, 142, 229, 1)', 'rgba(226, 211, 245, 1)'],
                         borderWidth: 0,
-                        cutout: '70%'
+                        cutout: '50%'
                     }]
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: true,
                     plugins: {
                         legend: { display: false },
                         tooltip: { enabled: true }
                     }
                 }
             });
+        };
 
-            // Generate and update the legend
-            generatePointEntryLegend(labels, colors);
-        })
-        .catch(error => {
-            console.error('Error fetching point of entry data:', error);
-            // Fallback to static data if API fails
-            const fallbackData = {
-                categories: ['youtube', 'Google', 'Friend', 'Others'],
-                counts: [45, 20, 15, 10, 10]
-            };
-            const labels = fallbackData.categories;
-            const values = fallbackData.counts;
-            const colors = ['#6F25CE', '#8863C9', '#A894D9', '#C5B6E5', '#E2D9F2'].slice(0, labels.length);
+        // Donut Graph for Age Ratio
+        const initializeDonutGraphAgeRatio = () => {
+            const ctx = $('#ageratio-donutRegistrationChart')?.getContext('2d');
+            if (!ctx) return console.error('ageratio-donutRegistrationChart canvas not found');
 
-            // console.log('Using fallback data:', fallbackData);
-
-            // Generate the chart with fallback data
-            const chart = new Chart(ctx, {
+            new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: labels,
+                    labels: ['16 - 20', '21 - 25', '26 - 30', '30-40'],
                     datasets: [{
-                        data: values,
-                        backgroundColor: colors,
+                        label: 'Age Ratio of Students',
+                        data: [25, 30, 40, 21],
+                        backgroundColor: ['rgba(111, 37, 206, 1)', 'rgba(167, 121, 224, 1)', 'rgba(203, 176, 237, 1)', 'rgba(226, 211, 245, 1)'],
+                        borderWidth: 0,
+                        cutout: '50%'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: true }
+                    }
+                }
+            });
+        };
+
+        // Additional Donut Chart
+        const initializeNewDonutChart = () => {
+            const ctx = $('#donutChart')?.getContext('2d');
+            if (!ctx) return console.error('donutChart canvas not found');
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['LinkedIn Posts', 'Twitter Advertisements', 'WhatsApp Advertisements', 'Schools & Institutions', 'Others'],
+                    datasets: [{
+                        data: [45, 20, 15, 10, 10],
+                        backgroundColor: ['#6F25CE', '#8863C9', '#A894D9', '#C5B6E5', '#E2D9F2'],
                         borderWidth: 0,
                         cutout: '70%'
                     }]
@@ -1263,738 +1143,511 @@ const initializeNewDonutChart = () => {
                     plugins: { legend: { display: false }, tooltip: { enabled: true } }
                 }
             });
+        };
 
-            // Generate and update the legend with fallback data
-            generatePointEntryLegend(labels, colors);
-        });
-};
+        // NBFC Chart
+        const drawNBFCChart = () => {
+            const chartDiv = $('#nbfc-lead-chart_div');
+            if (!chartDiv) return console.error('nbfc-lead-chart_div not found');
 
-// Generate Legend Dynamically
-const generatePointEntryLegend = (labels, colors) => {
-    const legendContainer = $('.point-entry-legend-container');
-    if (!legendContainer) return console.error('Legend container not found');
-
-    // Clear existing legend
-    legendContainer.innerHTML = '';
-
-    // Create two columns for the legend
-    const column1 = document.createElement('div');
-    column1.className = 'point-entry-legend';
-    const column2 = document.createElement('div');
-    column2.className = 'point-entry-legend';
-
-    labels.forEach((label, index) => {
-        const legendItem = document.createElement('div');
-        legendItem.className = 'point-entry-legend-item';
-
-        const colorBox = document.createElement('div');
-        colorBox.className = 'point-entry-legend-color';
-        colorBox.style.backgroundColor = colors[index];
-
-        const labelSpan = document.createElement('span');
-        labelSpan.textContent = label;
-
-        legendItem.appendChild(colorBox);
-        legendItem.appendChild(labelSpan);
-
-        // Distribute items into two columns
-        if (index < Math.ceil(labels.length / 2)) {
-            column1.appendChild(legendItem);
-        } else {
-            column2.appendChild(legendItem);
-        }
-    });
-
-    legendContainer.appendChild(column1);
-    legendContainer.appendChild(column2);
-};
-
-
-// NBFC Chart with API Data and Pagination
-const drawNBFCChart = () => {
-    const chartDiv = $('#nbfc-lead-chart_div');
-    if (!chartDiv) return console.error('nbfc-lead-chart_div not found');
-
-    let currentPage = 1;
-    const itemsPerPage = 5;
-    let fullData = [];
-    const prevBtn = $('#nbfc-lead-prev-btn');
-    const nextBtn = $('#nbfc-lead-next-btn');
-    const pageRange = $('#nbfc-lead-page-range');
-    const totalItems = $('#nbfc-lead-total-items');
-
-    // Fetch data from API
-    fetch('/nbfc-lead-gens', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        }
-    })
-        .then(response => {
-            if (!response.ok) throw new Error('Network response was not ok');
-            return response.json();
-        })
-        .then(data => {
-            // console.log('Fetched NBFC lead generation data:', data);
-
-            // Validate the API response structure
-            if (!data.nbfcs || !Array.isArray(data.nbfcs) || 
-                !data.lead_counts || !Array.isArray(data.lead_counts) || 
-                !data.time_taken || !Array.isArray(data.time_taken) ||
-                data.nbfcs.length !== data.lead_counts.length || 
-                data.nbfcs.length !== data.time_taken.length) {
-                throw new Error('Invalid API response: Mismatched or missing data arrays');
-            }
-
-            // Transform API data into the full dataset
-            fullData = [['NBFC', 'No. Of Leads', 'Time Taken']];
-            for (let i = 0; i < data.nbfcs.length; i++) {
-                fullData.push([data.nbfcs[i], data.lead_counts[i], data.time_taken[i]]);
-            }
-
-            // Update total items
-            totalItems.textContent = fullData.length - 1; // Exclude header row
-
-            // Draw the initial chart with the first page
-            updateChart();
-
-            // Add event listeners for pagination
-            prevBtn.addEventListener('click', () => {
-                if (currentPage > 1) {
-                    currentPage--;
-                    updateChart();
-                }
-            });
-
-            nextBtn.addEventListener('click', () => {
-                if (currentPage < Math.ceil((fullData.length - 1) / itemsPerPage)) {
-                    currentPage++;
-                    updateChart();
-                }
-            });
-        })
-        .catch(error => {
-            console.error('Error fetching NBFC lead generation data:', error);
-            // Fallback to static data if API fails
-            fullData = [
+            const data = google.visualization.arrayToDataTable([
                 ['NBFC', 'No. Of Leads', 'Time Taken'],
                 ['ICICI', 55, 67], ['Baroda', 65, 45], ['AXIS', 60, 80], ['SBI', 90, 50],
                 ['Canara', 45, 48], ['HDFC', 75, 60]
-            ];
+            ]);
 
-            // console.log('Using fallback data:', fullData);
+            const options = {
+                width: '100%',
+                height: 200,
+                colors: ['#E6D5F5', '#6C3EE8'],
+                legend: { position: 'none' },
+                hAxis: { textStyle: { fontSize: 10 }, gridlines: { color: 'transparent' } },
+                vAxis: { gridlines: { color: 'transparent' }, baselineColor: 'transparent', textPosition: 'none' },
+                bar: { groupWidth: '60%' },
+                backgroundColor: 'transparent',
+                chartArea: { width: '90%', height: '70%' }
+            };
 
-            // Update total items
-            totalItems.textContent = fullData.length - 1; // Exclude header row
-
-            // Draw the chart with fallback data
-            updateChart();
-        });
-
-    // Function to update the chart based on the current page
-    function updateChart() {
-        const startIdx = (currentPage - 1) * itemsPerPage + 1; // +1 to skip header
-        const endIdx = Math.min(startIdx + itemsPerPage - 1, fullData.length - 1);
-        const paginatedData = [fullData[0], ...fullData.slice(startIdx, endIdx + 1)];
-
-        // Log the paginated data for debugging
-        // console.log('Paginated chart data:', paginatedData);
-
-        // Create the data table
-        const dataTable = google.visualization.arrayToDataTable(paginatedData);
-
-        // Chart options
-        const options = {
-            width: '100%',
-            height: 170, // Adjusted height to fit 5 items comfortably
-            colors: ['#E6D5F5', '#6C3EE8'],
-            legend: { position: 'none' },
-            hAxis: { textStyle: { fontSize: 10 }, gridlines: { color: 'transparent' } },
-            vAxis: { gridlines: { color: 'transparent' }, baselineColor: 'transparent', textPosition: 'none' },
-            bar: { groupWidth: '60%' },
-            backgroundColor: 'transparent',
-            chartArea: { width: '90%', height: '70%' }
+            const chart = new google.visualization.ColumnChart(chartDiv);
+            chart.draw(data, options);
         };
 
-        // Draw the chart
-        const chart = new google.visualization.ColumnChart(chartDiv);
-        chart.draw(dataTable, options);
+        // Lead Chart
+        const initializeLeadChart = () => {
+            const ctx = $('#leadChart')?.getContext('2d');
+            if (!ctx) return console.error('leadChart canvas not found');
 
-        // Update pagination display
-        pageRange.textContent = `${startIdx} - ${endIdx}`;
-    }
-};
-
-// Lead Chart with API Data and Pagination
-const initializeLeadChart = () => {
-    const ctx = $('#leadChart')?.getContext('2d');
-    if (!ctx) return console.error('leadChart canvas not found');
-
-    let currentPage = 1;
-    const itemsPerPage = 5; // Set to 5 for scalability, even though we have only 2 items
-    let fullLabels = [];
-    let fullData = [];
-    const prevBtn = $('#sc-lead-prev-btn');
-    const nextBtn = $('#sc-lead-next-btn');
-    const pageRange = $('#sc-lead-page-range');
-    const totalItems = $('#sc-lead-total-items');
-
-    // Fetch data from API
-    fetch('/sc-lead-gens', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        }
-    })
-        .then(response => {
-            if (!response.ok) throw new Error('Network response was not ok');
-            return response.json();
-        })
-        .then(data => {
-            // console.log('Fetched Student Counsellors lead generation data:', data);
-
-            // Validate the API response structure
-            if (!data.student_counsellors || !Array.isArray(data.student_counsellors) || 
-                !data.lead_counts || !Array.isArray(data.lead_counts) || 
-                data.student_counsellors.length !== data.lead_counts.length) {
-                throw new Error('Invalid API response: Mismatched or missing data arrays');
-            }
-
-            // Store the full dataset
-            fullLabels = data.student_counsellors;
-            fullData = data.lead_counts;
-
-            // Update total items
-            totalItems.textContent = fullLabels.length;
-
-            // Draw the initial chart with the first page
-            updateChart();
-
-            // Add event listeners for pagination
-            prevBtn.addEventListener('click', () => {
-                if (currentPage > 1) {
-                    currentPage--;
-                    updateChart();
-                }
-            });
-
-            nextBtn.addEventListener('click', () => {
-                if (currentPage < Math.ceil(fullLabels.length / itemsPerPage)) {
-                    currentPage++;
-                    updateChart();
-                }
-            });
-        })
-        .catch(error => {
-            console.error('Error fetching Student Counsellors lead generation data:', error);
-            // Fallback to static data if API fails
-            fullLabels = ['54635', '65783', '56374', '92874', '36057', '10847', '34015', '57610'];
-            fullData = [5, 12, 10, 4, 18, 8, 6, 10];
-
-            // console.log('Using fallback data:', { labels: fullLabels, data: fullData });
-
-            // Update total items
-            totalItems.textContent = fullLabels.length;
-
-            // Draw the chart with fallback data
-            updateChart();
-        });
-
-    // Function to update the chart based on the current page
-    function updateChart() {
-        const startIdx = (currentPage - 1) * itemsPerPage;
-        const endIdx = Math.min(startIdx + itemsPerPage, fullLabels.length);
-        const paginatedLabels = fullLabels.slice(startIdx, endIdx);
-        const paginatedData = fullData.slice(startIdx, endIdx);
-
-        // Log the paginated data for debugging
-        // console.log('Paginated chart data:', { labels: paginatedLabels, data: paginatedData });
-
-        // Create the chart
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: paginatedLabels,
-                datasets: [{
-                    label: 'No. Of Leads',
-                    data: paginatedData,
-                    backgroundColor: '#d3b8f0',
-                    barThickness: 11
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false }, tooltip: { enabled: true } },
-                scales: {
-                    y: { beginAtZero: true, grid: { display: false }, ticks: { display: false } },
-                    x: { grid: { display: false }, ticks: { font: { family: 'Poppins', size: 12 }, color: '#5D5C5C' } }
-                }
-            }
-        });
-
-        // Update pagination display
-        pageRange.textContent = `${startIdx + 1} - ${endIdx}`;
-    }
-};
-
-// Highlight Highest Values in Tables
-const highlightHighestValues = () => {
-    ['city-table', 'country-table'].forEach(tableId => {
-        const valueClass = tableId === 'city-table' ? 'admin-city-data-value' : 'admin-desti-country-data-value';
-        const table = $(`#${tableId}`);
-        if (!table) return;
-
-        const valueCells = $$(`.${valueClass}`, table);
-        if (!valueCells.length) return;
-
-        const highestValue = Math.max(...valueCells.map(cell => parseInt(cell.dataset.value || 0)));
-        valueCells.forEach(cell => {
-            if (parseInt(cell.dataset.value) === highestValue) {
-                cell.classList.add('highlighted');
-            }
-        });
-    });
-};
-
-// Pagination and Filter Handlers
-const initializePaginationAndFilters = () => {
-    const handlers = [
-        { selector: '.admin-city-pagination-btn', action: () => console.log('City pagination clicked') },
-        { selector: '.admin-city-filter-btn', action: () => console.log('City filter clicked') },
-        { selector: '.admin-city-sort-btn', action: () => console.log('City sort clicked') },
-        { selector: '.admin-desti-country-pagination-btn', action: () => console.log('Country pagination clicked') },
-        { selector: '.admin-desti-country-filter-btn', action: () => console.log('Country filter clicked') },
-        { selector: '.admin-desti-country-sort-btn', action: () => console.log('Country sort clicked') }
-    ];
-
-    handlers.forEach(({ selector, action }) => {
-        $$(selector).forEach(btn => {
-            btn.removeEventListener('click', action);
-            btn.addEventListener('click', action);
-        });
-    });
-};
-// Updated Dropdown Initialization
-const initializeDropdown = () => {
-    const dropdownButton = $('#showall-buttongroups');
-    const dropdownOptions = $('#dropdown-options');
-    const icon = $('.fa-chevron-down', dropdownButton);
-    const container = $('.admindashboard-container');
-
-    if (!dropdownButton || !dropdownOptions || !icon || !container) {
-        console.error('Dropdown elements missing:', { dropdownButton, dropdownOptions, icon, container });
-        return;
-    }
-
-    let currentReport = 'all';
-
-    const fallbackMessage = document.createElement('div');
-    fallbackMessage.className = 'report-fallback';
-    fallbackMessage.style.padding = '20px';
-    fallbackMessage.style.textAlign = 'center';
-    fallbackMessage.style.color = '#666';
-    container.appendChild(fallbackMessage);
-
-    const showAllReports = () => {
-        $$('[data-report]').forEach(report => {
-            // Remove inline styles to reset visibility
-            report.style.removeProperty('display');
-            report.style.removeProperty('visibility');
-            // Ensure elements are visible by default (rely on CSS)
-            report.style.display = ''; // Reset to default or CSS rule
-            report.style.visibility = ''; // Reset to default or CSS rule
-            // console.log('Restoring visibility for:', report.dataset.report);
-        });
-        fallbackMessage.style.display = 'none';
-        dropdownButton.innerHTML = `Show All <i class="fa-solid fa-chevron-down"></i>`;
-        currentReport = 'all';
-    };
-
-    const showReport = (reportId) => {
-        const reportContainer = $(`[data-report="${reportId}"]`);
-        if (!reportContainer) {
-            $$('[data-report]').forEach(report => {
-                report.style.display = 'block';
-                report.style.visibility = 'hidden';
-            });
-            fallbackMessage.textContent = `No data available for ${$(`[data-report="${reportId}"]`, dropdownOptions)?.textContent || 'this report'}.`;
-            fallbackMessage.style.display = 'block';
-        } else {
-            $$('[data-report]').forEach(report => {
-                if (report.dataset.report === reportId) {
-                    report.style.display = 'block';
-                    report.style.visibility = 'visible';
-                } else {
-                    report.style.display = 'block';
-                    report.style.visibility = 'hidden';
-                }
-            });
-            fallbackMessage.style.display = 'none';
-        }
-        const selectedOption = $(`[data-report="${reportId}"]`, dropdownOptions);
-        const optionText = selectedOption ? selectedOption.textContent.trim() : 'Unknown';
-        dropdownButton.innerHTML = `Show: ${optionText} <i class="fa-solid fa-chevron-down"></i>`;
-        currentReport = reportId;
-    };
-
-    const toggleDropdown = (e) => {
-        e.stopPropagation();
-        // console.log('Toggling dropdown, current class:', dropdownOptions.className);
-        // Reset to show all reports when reopening after a selection
-        if (currentReport !== 'all' && !dropdownOptions.classList.contains('show')) {
-            showAllReports();
-        }
-        dropdownOptions.classList.toggle('show');
-        icon.classList.toggle('show-all-admin-rotate-icon');
-        if (dropdownOptions.classList.contains('show')) {
-            console.log('Dropdown opened with all options');
-        } else {
-            console.log('Dropdown closed');
-        }
-    };
-
-    const handleOptionClick = (e) => {
-        e.stopPropagation();
-        const reportId = e.target.dataset.report;
-        console.log('Option selected:', reportId);
-        if (reportId === 'all') {
-            showAllReports();
-        } else if (reportId) {
-            showReport(reportId);
-        }
-    };
-
-    // Bind events directly
-    dropdownButton.addEventListener('click', toggleDropdown);
-    $$('.show-all-admin-options button', dropdownOptions).forEach(option => {
-        option.addEventListener('click', handleOptionClick);
-    });
-
-    // Close dropdown when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.show-all-admin-button-container') && dropdownOptions.classList.contains('show')) {
-            console.log('Closing dropdown due to outside click');
-            dropdownOptions.classList.remove('show');
-            icon.classList.remove('show-all-admin-rotate-icon');
-        }
-    });
-
-    // Initialize with all reports visible
-    showAllReports();
-};
-
-// Calendar
-const initializeCalendar = () => {
-    const calendarGrid = $('.calendar-grid');
-    const monthSelect = $('#calendar-month-select');
-    const yearSelect = $('#calendar-year-select');
-    const startDateInput = $('#calendar-start-date-input');
-    const endDateInput = $('#calendar-end-date-input');
-    const prevMonthBtn = $('.calendar-prev-month');
-    const nextMonthBtn = $('.calendar-next-month');
-    const calendarButton = $('#calender-buttongroups');
-    const calendarContainer = $('.calendar-container');
-
-    if (!calendarGrid || !monthSelect || !yearSelect || !startDateInput || !endDateInput || !calendarButton || !calendarContainer) {
-        return console.error('Calendar elements missing');
-    }
-
-    let currentDate = new Date();
-    let startDate = null;
-    let endDate = null;
-    let selectionMode = 'start';
-    let isCalendarOpen = false;
-
-    // Populate year select
-    const currentYear = new Date().getFullYear();
-    for (let year = currentYear - 5; year <= currentYear + 5; year++) {
-        const option = document.createElement('option');
-        option.value = year;
-        option.textContent = year;
-        if (year === currentYear) option.selected = true;
-        yearSelect.appendChild(option);
-    }
-
-    const toggleCalendar = () => {
-        isCalendarOpen = !isCalendarOpen;
-        calendarContainer.style.display = isCalendarOpen ? 'block' : 'none';
-    };
-
-    const updateMonthYearSelects = () => {
-        monthSelect.value = currentDate.getMonth();
-        yearSelect.value = currentDate.getFullYear();
-    };
-
-    const renderCalendar = () => {
-        $$('.calendar-day', calendarGrid).forEach(el => el.remove());
-
-        const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-        const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-        let firstDayIndex = firstDay.getDay() - 1;
-        if (firstDayIndex < 0) firstDayIndex = 6;
-
-        const prevMonthLastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
-        for (let i = prevMonthLastDay - firstDayIndex + 1; i <= prevMonthLastDay; i++) {
-            addDayToCalendar(i, 'calendar-other-month', new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, i));
-        }
-
-        const today = new Date();
-        for (let i = 1; i <= lastDay.getDate(); i++) {
-            const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
-            const classes = [];
-            if (today.toDateString() === date.toDateString()) classes.push('calendar-today');
-            if (startDate && startDate.toDateString() === date.toDateString()) classes.push('calendar-selected-start');
-            if (endDate && endDate.toDateString() === date.toDateString()) classes.push('calendar-selected-end');
-            if (startDate && endDate && date > startDate && date < endDate) {
-                classes.push('calendar-in-range');
-                if (i === 1 || new Date(currentDate.getFullYear(), currentDate.getMonth(), i - 1) <= startDate) {
-                    classes.push('calendar-first-in-range');
-                }
-                if (i === lastDay.getDate() || new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1) >= endDate) {
-                    classes.push('calendar-last-in-range');
-                }
-            }
-            addDayToCalendar(i, classes.join(' '), date);
-        }
-
-        const daysRendered = firstDayIndex + lastDay.getDate();
-        const remainingDays = 7 - (daysRendered % 7);
-        if (remainingDays < 7) {
-            for (let i = 1; i <= remainingDays; i++) {
-                addDayToCalendar(i, 'calendar-other-month', new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, i));
-            }
-        }
-    };
-
-    const addDayToCalendar = (dayNumber, classes, date) => {
-        const dayElement = document.createElement('div');
-        dayElement.className = `calendar-day ${classes}`;
-        dayElement.textContent = dayNumber;
-
-        if (!classes.includes('calendar-other-month')) {
-            dayElement.addEventListener('click', e => {
-                e.stopPropagation();
-                if (selectionMode === 'start') {
-                    startDate = new Date(date);
-                    if (endDate && endDate < startDate) endDate = null;
-                    selectionMode = 'end';
-                    startDateInput.classList.remove('calendar-active');
-                    endDateInput.classList.add('calendar-active');
-                } else {
-                    endDate = new Date(date);
-                    if (startDate && endDate < startDate) {
-                        [startDate, endDate] = [endDate, startDate];
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['54635', '65783', '56374', '92874', '36057', '10847', '34015', '57610'],
+                    datasets: [{
+                        label: 'No. Of Leads',
+                        data: [5, 12, 10, 4, 18, 8, 6, 10],
+                        backgroundColor: '#d3b8f0',
+                        barThickness: 11
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false }, tooltip: { enabled: true } },
+                    scales: {
+                        y: { beginAtZero: true, grid: { display: false }, ticks: { display: false } },
+                        x: { grid: { display: false }, ticks: { font: { family: 'Poppins', size: 12 }, color: '#5D5C5C' } }
                     }
-                    selectionMode = 'start';
-                    startDateInput.classList.add('calendar-active');
-                    endDateInput.classList.remove('calendar-active');
                 }
-                updateInputs();
+            });
+        };
+
+        // Highlight Highest Values in Tables
+        const highlightHighestValues = () => {
+            ['city-table', 'country-table'].forEach(tableId => {
+                const valueClass = tableId === 'city-table' ? 'admin-city-data-value' : 'admin-desti-country-data-value';
+                const table = $(`#${tableId}`);
+                if (!table) return;
+
+                const valueCells = $$(`.${valueClass}`, table);
+                if (!valueCells.length) return;
+
+                const highestValue = Math.max(...valueCells.map(cell => parseInt(cell.dataset.value || 0)));
+                valueCells.forEach(cell => {
+                    if (parseInt(cell.dataset.value) === highestValue) {
+                        cell.classList.add('highlighted');
+                    }
+                });
+            });
+        };
+
+        // Pagination and Filter Handlers
+        const initializePaginationAndFilters = () => {
+            const handlers = [
+                { selector: '.admin-city-pagination-btn', action: () => console.log('City pagination clicked') },
+                { selector: '.admin-city-filter-btn', action: () => console.log('City filter clicked') },
+                { selector: '.admin-city-sort-btn', action: () => console.log('City sort clicked') },
+                { selector: '.admin-desti-country-pagination-btn', action: () => console.log('Country pagination clicked') },
+                { selector: '.admin-desti-country-filter-btn', action: () => console.log('Country filter clicked') },
+                { selector: '.admin-desti-country-sort-btn', action: () => console.log('Country sort clicked') }
+            ];
+
+            handlers.forEach(({ selector, action }) => {
+                $$(selector).forEach(btn => {
+                    btn.removeEventListener('click', action);
+                    btn.addEventListener('click', action);
+                });
+            });
+        };
+
+        // Updated Dropdown Initialization
+        const initializeDropdown = () => {
+            const dropdownButton = $('#showall-buttongroups');
+            const dropdownOptions = $('#dropdown-options');
+            const icon = $('.fa-chevron-down', dropdownButton);
+            const container = $('.admindashboard-container');
+
+            if (!dropdownButton || !dropdownOptions || !icon || !container) {
+                console.error('Dropdown elements missing:', { dropdownButton, dropdownOptions, icon, container });
+                return;
+            }
+
+            let currentReport = 'all';
+
+            const fallbackMessage = document.createElement('div');
+            fallbackMessage.className = 'report-fallback';
+            fallbackMessage.style.padding = '20px';
+            fallbackMessage.style.textAlign = 'center';
+            fallbackMessage.style.color = '#666';
+            container.appendChild(fallbackMessage);
+
+            const showAllReports = () => {
+                $$('[data-report]').forEach(report => {
+                    report.style.removeProperty('display');
+                    report.style.removeProperty('visibility');
+                    report.style.display = '';
+                    report.style.visibility = '';
+                    console.log('Restoring visibility for:', report.dataset.report);
+                });
+                fallbackMessage.style.display = 'none';
+                dropdownButton.innerHTML = `Show All <i class="fa-solid fa-chevron-down"></i>`;
+                currentReport = 'all';
+            };
+
+            const showReport = (reportId) => {
+                const reportContainer = $(`[data-report="${reportId}"]`);
+                if (!reportContainer) {
+                    $$('[data-report]').forEach(report => {
+                        report.style.display = 'block';
+                        report.style.visibility = 'hidden';
+                    });
+                    fallbackMessage.textContent = `No data available for ${$(`[data-report="${reportId}"]`, dropdownOptions)?.textContent || 'this report'}.`;
+                    fallbackMessage.style.display = 'block';
+                } else {
+                    $$('[data-report]').forEach(report => {
+                        if (report.dataset.report === reportId) {
+                            report.style.display = 'block';
+                            report.style.visibility = 'visible';
+                        } else {
+                            report.style.display = 'block';
+                            report.style.visibility = 'hidden';
+                        }
+                    });
+                    fallbackMessage.style.display = 'none';
+                }
+                const selectedOption = $(`[data-report="${reportId}"]`, dropdownOptions);
+                const optionText = selectedOption ? selectedOption.textContent.trim() : 'Unknown';
+                dropdownButton.innerHTML = `Show: ${optionText} <i class="fa-solid fa-chevron-down"></i>`;
+                currentReport = reportId;
+            };
+
+            const toggleDropdown = (e) => {
+                e.stopPropagation();
+                console.log('Toggling dropdown, current class:', dropdownOptions.className);
+                if (currentReport !== 'all' && !dropdownOptions.classList.contains('show')) {
+                    showAllReports();
+                }
+                dropdownOptions.classList.toggle('show');
+                icon.classList.toggle('show-all-admin-rotate-icon');
+                if (dropdownOptions.classList.contains('show')) {
+                    console.log('Dropdown opened with all options');
+                } else {
+                    console.log('Dropdown closed');
+                }
+            };
+
+            const handleOptionClick = (e) => {
+                e.stopPropagation();
+                const reportId = e.target.dataset.report;
+                console.log('Option selected:', reportId);
+                if (reportId === 'all') {
+                    showAllReports();
+                } else if (reportId) {
+                    showReport(reportId);
+                }
+            };
+
+            dropdownButton.addEventListener('click', toggleDropdown);
+            $$('.show-all-admin-options button', dropdownOptions).forEach(option => {
+                option.addEventListener('click', handleOptionClick);
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.show-all-admin-button-container') && dropdownOptions.classList.contains('show')) {
+                    console.log('Closing dropdown due to outside click');
+                    dropdownOptions.classList.remove('show');
+                    icon.classList.remove('show-all-admin-rotate-icon');
+                }
+            });
+
+            showAllReports();
+        };
+
+        // Calendar
+        const initializeCalendar = () => {
+            const calendarGrid = $('.calendar-grid');
+            const monthSelect = $('#calendar-month-select');
+            const yearSelect = $('#calendar-year-select');
+            const startDateInput = $('#calendar-start-date-input');
+            const endDateInput = $('#calendar-end-date-input');
+            const prevMonthBtn = $('.calendar-prev-month');
+            const nextMonthBtn = $('.calendar-next-month');
+            const calendarButton = $('#calender-buttongroups');
+            const calendarContainer = $('.calendar-container');
+
+            if (!calendarGrid || !monthSelect || !yearSelect || !startDateInput || !endDateInput || !calendarButton || !calendarContainer) {
+                return console.error('Calendar elements missing');
+            }
+
+            let currentDate = new Date();
+            let startDate = null;
+            let endDate = null;
+            let selectionMode = 'start';
+            let isCalendarOpen = false;
+
+            const currentYear = new Date().getFullYear();
+            for (let year = currentYear - 5; year <= currentYear + 5; year++) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                if (year === currentYear) option.selected = true;
+                yearSelect.appendChild(option);
+            }
+
+            const toggleCalendar = () => {
+                isCalendarOpen = !isCalendarOpen;
+                calendarContainer.style.display = isCalendarOpen ? 'block' : 'none';
+            };
+
+            const updateMonthYearSelects = () => {
+                monthSelect.value = currentDate.getMonth();
+                yearSelect.value = currentDate.getFullYear();
+            };
+
+            const renderCalendar = () => {
+                $$('.calendar-day', calendarGrid).forEach(el => el.remove());
+
+                const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+                const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+                let firstDayIndex = firstDay.getDay() - 1;
+                if (firstDayIndex < 0) firstDayIndex = 6;
+
+                const prevMonthLastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+                for (let i = prevMonthLastDay - firstDayIndex + 1; i <= prevMonthLastDay; i++) {
+                    addDayToCalendar(i, 'calendar-other-month', new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, i));
+                }
+
+                const today = new Date();
+                for (let i = 1; i <= lastDay.getDate(); i++) {
+                    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
+                    const classes = [];
+                    if (today.toDateString() === date.toDateString()) classes.push('calendar-today');
+                    if (startDate && startDate.toDateString() === date.toDateString()) classes.push('calendar-selected-start');
+                    if (endDate && endDate.toDateString() === date.toDateString()) classes.push('calendar-selected-end');
+                    if (startDate && endDate && date > startDate && date < endDate) {
+                        classes.push('calendar-in-range');
+                        if (i === 1 || new Date(currentDate.getFullYear(), currentDate.getMonth(), i - 1) <= startDate) {
+                            classes.push('calendar-first-in-range');
+                        }
+                        if (i === lastDay.getDate() || new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1) >= endDate) {
+                            classes.push('calendar-last-in-range');
+                        }
+                    }
+                    addDayToCalendar(i, classes.join(' '), date);
+                }
+
+                const daysRendered = firstDayIndex + lastDay.getDate();
+                const remainingDays = 7 - (daysRendered % 7);
+                if (remainingDays < 7) {
+                    for (let i = 1; i <= remainingDays; i++) {
+                        addDayToCalendar(i, 'calendar-other-month', new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, i));
+                    }
+                }
+            };
+
+            const addDayToCalendar = (dayNumber, classes, date) => {
+                const dayElement = document.createElement('div');
+                dayElement.className = `calendar-day ${classes}`;
+                dayElement.textContent = dayNumber;
+
+                if (!classes.includes('calendar-other-month')) {
+                    dayElement.addEventListener('click', e => {
+                        e.stopPropagation();
+                        if (selectionMode === 'start') {
+                            startDate = new Date(date);
+                            if (endDate && endDate < startDate) endDate = null;
+                            selectionMode = 'end';
+                            startDateInput.classList.remove('calendar-active');
+                            endDateInput.classList.add('calendar-active');
+                        } else {
+                            endDate = new Date(date);
+                            if (startDate && endDate < startDate) {
+                                [startDate, endDate] = [endDate, startDate];
+                            }
+                            selectionMode = 'start';
+                            startDateInput.classList.add('calendar-active');
+                            endDateInput.classList.remove('calendar-active');
+                        }
+                        updateInputs();
+                        renderCalendar();
+                    });
+                }
+                calendarGrid.appendChild(dayElement);
+            };
+
+            const updateInputs = () => {
+                startDateInput.innerHTML = startDate
+                    ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                       ${startDate.getDate().toString().padStart(2, '0')}/${(startDate.getMonth() + 1).toString().padStart(2, '0')}/${startDate.getFullYear()}`
+                    : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><span>Start Date</span>`;
+
+                endDateInput.innerHTML = endDate
+                    ? `${endDate.getDate().toString().padStart(2, '0')}/${(endDate.getMonth() + 1).toString().padStart(2, '0')}/${endDate.getFullYear()}
+                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: auto;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`
+                    : `<span>End Date</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: auto;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`;
+            };
+
+            startDateInput.addEventListener('click', e => {
+                e.stopPropagation();
+                selectionMode = 'start';
+                startDateInput.classList.add('calendar-active');
+                endDateInput.classList.remove('calendar-active');
+            });
+
+            endDateInput.addEventListener('click', e => {
+                e.stopPropagation();
+                selectionMode = 'end';
+                startDateInput.classList.remove('calendar-active');
+                endDateInput.classList.add('calendar-active');
+            });
+
+            calendarButton.addEventListener('click', e => {
+                e.stopPropagation();
+                toggleCalendar();
+            });
+
+            calendarContainer.addEventListener('click', e => e.stopPropagation());
+
+            document.addEventListener('click', e => {
+                if (isCalendarOpen && !calendarContainer.contains(e.target) && e.target !== calendarButton) {
+                    toggleCalendar();
+                }
+            });
+
+            prevMonthBtn.addEventListener('click', e => {
+                e.stopPropagation();
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                updateMonthYearSelects();
                 renderCalendar();
             });
-        }
-        calendarGrid.appendChild(dayElement);
-    };
 
-    const updateInputs = () => {
-        startDateInput.innerHTML = startDate
-            ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-               ${startDate.getDate().toString().padStart(2, '0')}/${(startDate.getMonth() + 1).toString().padStart(2, '0')}/${startDate.getFullYear()}`
-            : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><span>Start Date</span>`;
+            nextMonthBtn.addEventListener('click', e => {
+                e.stopPropagation();
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                updateMonthYearSelects();
+                renderCalendar();
+            });
 
-        endDateInput.innerHTML = endDate
-            ? `${endDate.getDate().toString().padStart(2, '0')}/${(endDate.getMonth() + 1).toString().padStart(2, '0')}/${endDate.getFullYear()}
-               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: auto;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`
-            : `<span>End Date</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: auto;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`;
-    };
+            monthSelect.addEventListener('change', () => {
+                currentDate.setMonth(parseInt(monthSelect.value));
+                renderCalendar();
+            });
 
-    startDateInput.addEventListener('click', e => {
-        e.stopPropagation();
-        selectionMode = 'start';
-        startDateInput.classList.add('calendar-active');
-        endDateInput.classList.remove('calendar-active');
-    });
+            yearSelect.addEventListener('change', () => {
+                currentDate.setFullYear(parseInt(yearSelect.value));
+                renderCalendar();
+            });
 
-    endDateInput.addEventListener('click', e => {
-        e.stopPropagation();
-        selectionMode = 'end';
-        startDateInput.classList.remove('calendar-active');
-        endDateInput.classList.add('calendar-active');
-    });
+            updateMonthYearSelects();
+            renderCalendar();
+        };
 
-    calendarButton.addEventListener('click', e => {
-        e.stopPropagation();
-        toggleCalendar();
-    });
+        // Referral Modal
+        const initializeReferralModal = () => {
+            const referralLinkBtn = $('#referral-link-admindashboard');
+            const referralLinkBtnMobile = $('#referral-link-admindashboard-mobile');
+            const modal = $('#referralModal');
+            const backdrop = $('#backdrop');
+            const closeBtn = $('#closeModal');
+            const cancelBtn = $('#cancelBtn');
+            const generateBtn = $('#generateBtn');
+            const inputField = $('#referralLink');
 
-    calendarContainer.addEventListener('click', e => e.stopPropagation());
+            if (!referralLinkBtn || !modal || !backdrop || !closeBtn || !cancelBtn || !generateBtn || !inputField) {
+                return console.error('Referral modal elements missing');
+            }
 
-    document.addEventListener('click', e => {
-        if (isCalendarOpen && !calendarContainer.contains(e.target) && e.target !== calendarButton) {
-            toggleCalendar();
-        }
-    });
+            const openModal = () => {
+                modal.classList.remove('hidden');
+                backdrop.classList.add('active');
+            };
 
-    prevMonthBtn.addEventListener('click', e => {
-        e.stopPropagation();
-        currentDate.setMonth(currentDate.getMonth() - 1);
-        updateMonthYearSelects();
-        renderCalendar();
-    });
+            const closeModal = () => {
+                modal.classList.add('hidden');
+                backdrop.classList.remove('active');
+                inputField.value = '';
+            };
 
-    nextMonthBtn.addEventListener('click', e => {
-        e.stopPropagation();
-        currentDate.setMonth(currentDate.getMonth() + 1);
-        updateMonthYearSelects();
-        renderCalendar();
-    });
+            referralLinkBtn.addEventListener('click', openModal);
+            referralLinkBtnMobile?.addEventListener('click', openModal);
+            closeBtn.addEventListener('click', closeModal);
+            cancelBtn.addEventListener('click', closeModal);
+            backdrop.addEventListener('click', closeModal);
 
-    monthSelect.addEventListener('change', () => {
-        currentDate.setMonth(parseInt(monthSelect.value));
-        renderCalendar();
-    });
+            generateBtn.addEventListener('click', () => {
+                inputField.value = `https://example.com/referral?code=${Math.random().toString(36).substr(2, 8)}`;
+            });
+        };
 
-    yearSelect.addEventListener('change', () => {
-        currentDate.setFullYear(parseInt(yearSelect.value));
-        renderCalendar();
-    });
+        // Mobile Menu Modal
+        const initializeMobileMenu = () => {
+            const mobileModal = $('#mobile-admin-dashboard-modal');
+            const mobileMenuBtn = $('#mobile-admin-dashboard-menu-btn');
+            const closeModalBtn = $('#mobile-admin-dashboard-close-modal-btn');
+            const manageStudentBtn = $('#manage-student-admindashboard-mobile');
 
-    updateMonthYearSelects();
-    renderCalendar();
-};
+            if (!mobileModal || !mobileMenuBtn || !closeModalBtn) {
+                return console.error('Mobile menu elements missing');
+            }
 
-// Referral Modal
-const initializeReferralModal = () => {
-    const referralLinkBtn = $('#referral-link-admindashboard');
-    const referralLinkBtnMobile = $('#referral-link-admindashboard-mobile');
-    const modal = $('#referralModal');
-    const backdrop = $('#backdrop');
-    const closeBtn = $('#closeModal');
-    const cancelBtn = $('#cancelBtn');
-    const generateBtn = $('#generateBtn');
-    const inputField = $('#referralLink');
+            const openModal = e => {
+                e.stopPropagation();
+                mobileModal.style.display = 'flex';
+            };
 
-    if (!referralLinkBtn || !modal || !backdrop || !closeBtn || !cancelBtn || !generateBtn || !inputField) {
-        return console.error('Referral modal elements missing');
-    }
+            const closeModal = e => {
+                if (e) e.stopPropagation();
+                mobileModal.style.display = 'none';
+            };
 
-    const openModal = () => {
-        modal.classList.remove('hidden');
-        backdrop.classList.add('active');
-    };
+            mobileMenuBtn.removeEventListener('click', openModal);
+            mobileMenuBtn.addEventListener('click', openModal);
 
-    const closeModal = () => {
-        modal.classList.add('hidden');
-        backdrop.classList.remove('active');
-        inputField.value = '';
-    };
+            closeModalBtn.removeEventListener('click', closeModal);
+            closeModalBtn.addEventListener('click', closeModal);
 
-    referralLinkBtn.addEventListener('click', openModal);
-    referralLinkBtnMobile?.addEventListener('click', openModal);
-    closeBtn.addEventListener('click', closeModal);
-    cancelBtn.addEventListener('click', closeModal);
-    backdrop.addEventListener('click', closeModal);
+            mobileModal.addEventListener('click', e => {
+                if (e.target === mobileModal) closeModal(e);
+            });
 
-    generateBtn.addEventListener('click', () => {
-        inputField.value = `https://example.com/referral?code=${Math.random().toString(36).substr(2, 8)}`;
-    });
-};
+            manageStudentBtn?.addEventListener('click', e => {
+                e.stopPropagation();
+                console.log('Manage Students clicked');
+                closeModal(e);
+            });
+        };
 
-// Mobile Menu Modal
-const initializeMobileMenu = () => {
-    const mobileModal = $('#mobile-admin-dashboard-modal');
-    const mobileMenuBtn = $('#mobile-admin-dashboard-menu-btn');
-    const closeModalBtn = $('#mobile-admin-dashboard-close-modal-btn');
-    const manageStudentBtn = $('#manage-student-admindashboard-mobile');
+        // Filter Panel
+        const initializeFilterPanel = () => {
+            const filterButton = $('#filterButton');
+            const filterPanel = $('#filterPanel');
+            const closeFilterBtn = $('#closeFilterBtn');
+            const showAllBtn = $('#showAllBtn');
+            const collapsedTags = $('#collapsedTags');
+            const panelsToggle = $('#panelsToggle');
+            const showPanelsArea = $('#showPanelsArea');
 
-    if (!mobileModal || !mobileMenuBtn || !closeModalBtn) {
-        return console.error('Mobile menu elements missing');
-    }
+            if (!filterButton || !filterPanel || !closeFilterBtn || !showAllBtn || !collapsedTags || !panelsToggle || !showPanelsArea) {
+                return console.error('Filter panel elements missing');
+            }
 
-    const openModal = e => {
-        e.stopPropagation();
-        mobileModal.style.display = 'flex';
-    };
+            const openFilterPanel = () => {
+                filterPanel.style.display = 'flex';
+            };
 
-    const closeModal = e => {
-        if (e) e.stopPropagation();
-        mobileModal.style.display = 'none';
-    };
+            const closeFilterPanel = () => {
+                filterPanel.style.display = 'none';
+            };
 
-    mobileMenuBtn.removeEventListener('click', openModal);
-    mobileMenuBtn.addEventListener('click', openModal);
+            const updatePanelCount = () => {
+                const visibleTags = $$('.admin-dashboard-filter-tag').length;
+                panelsToggle.textContent = `${visibleTags} Panels`;
+            };
 
-    closeModalBtn.removeEventListener('click', closeModal);
-    closeModalBtn.addEventListener('click', closeModal);
+            filterButton.addEventListener('click', openFilterPanel);
+            showPanelsArea.addEventListener('click', openFilterPanel);
+            closeFilterBtn.addEventListener('click', closeFilterPanel);
 
-    mobileModal.addEventListener('click', e => {
-        if (e.target === mobileModal) closeModal(e);
-    });
+            showAllBtn.addEventListener('click', () => {
+                collapsedTags.classList.toggle('show');
+                showAllBtn.innerHTML = collapsedTags.classList.contains('show')
+                    ? 'Show Less <i class="fa-solid fa-chevron-up"></i>'
+                    : 'Show All <i class="fa-solid fa-chevron-down"></i>';
+            });
 
-    manageStudentBtn?.addEventListener('click', e => {
-        e.stopPropagation();
-        console.log('Manage Students clicked');
-        closeModal(e);
-    });
-};
+            filterPanel.addEventListener('click', e => {
+                if (!e.target.closest('.admin-dashboard-filter-container') && e.target !== filterButton) {
+                    closeFilterPanel();
+                }
+            });
 
-// Filter Panel
-const initializeFilterPanel = () => {
-    const filterButton = $('#filterButton');
-    const filterPanel = $('#filterPanel');
-    const closeFilterBtn = $('#closeFilterBtn');
-    const showAllBtn = $('#showAllBtn');
-    const collapsedTags = $('#collapsedTags');
-    const panelsToggle = $('#panelsToggle');
-    const showPanelsArea = $('#showPanelsArea');
+            document.addEventListener('click', e => {
+                if (e.target.classList.contains('admin-dashboard-close-tag')) {
+                    e.target.parentElement.remove();
+                    updatePanelCount();
+                }
+            });
 
-    if (!filterButton || !filterPanel || !closeFilterBtn || !showAllBtn || !collapsedTags || !panelsToggle || !showPanelsArea) {
-        return console.error('Filter panel elements missing');
-    }
-
-    const openFilterPanel = () => {
-        filterPanel.style.display = 'flex';
-    };
-
-    const closeFilterPanel = () => {
-        filterPanel.style.display = 'none';
-    };
-
-    const updatePanelCount = () => {
-        const visibleTags = $$('.admin-dashboard-filter-tag').length;
-        panelsToggle.textContent = `${visibleTags} Panels`;
-    };
-
-    filterButton.addEventListener('click', openFilterPanel);
-    showPanelsArea.addEventListener('click', openFilterPanel);
-    closeFilterBtn.addEventListener('click', closeFilterPanel);
-
-    showAllBtn.addEventListener('click', () => {
-        collapsedTags.classList.toggle('show');
-        showAllBtn.innerHTML = collapsedTags.classList.contains('show')
-            ? 'Show Less <i class="fa-solid fa-chevron-up"></i>'
-            : 'Show All <i class="fa-solid fa-chevron-down"></i>';
-    });
-
-    filterPanel.addEventListener('click', e => {
-        if (!e.target.closest('.admin-dashboard-filter-container') && e.target !== filterButton) {
-            closeFilterPanel();
-        }
-    });
-
-    document.addEventListener('click', e => {
-        if (e.target.classList.contains('admin-dashboard-close-tag')) {
-            e.target.parentElement.remove();
             updatePanelCount();
-        }
-    });
-
-    updatePanelCount();
-};
-
+        };
     </script>
 </body>
 

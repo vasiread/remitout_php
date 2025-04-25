@@ -4957,11 +4957,12 @@ div.salary-sub p {
 }
 
 .dropdown-gender-header {
+  width:280px;
+  max-width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #fff;
   cursor: pointer;

@@ -1098,13 +1098,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 "personal-info-userid"
             ).value;
             await deleteFileToServer(userId, fileNameId);
-            console.log(fileNameId)
-            
-
-
-
-        }
-        else if (studentId !== null) {
+            console.log(fileNameId);
+        } else if (studentId !== null) {
             const userId = studentId;
             await deleteFileToServer(userId, fileNameId);
             console.log(fileNameId);
@@ -1131,11 +1126,11 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch("/remove-each-documents", {
             method: "POST",
             headers: {
-                "X-CSRF-TOKEN": csrfToken,  
-                Accept: "application/json",  
-                "Content-Type": "application/json",  
+                "X-CSRF-TOKEN": csrfToken,
+                Accept: "application/json",
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify(data), 
+            body: JSON.stringify(data),
         })
             .then((response) => {
                 if (!response.ok) {
@@ -1557,6 +1552,65 @@ document.addEventListener("DOMContentLoaded", () => {
                 errorMessage.style.display = "none";
             }
         });
-    
-    
+
+   // Get the dropdown elements with gender prefix
+  const genderDropdown = document.querySelector(".dropdown-gender");
+  const genderHeader = genderDropdown?.querySelector(".dropdown-gender-header");
+  const genderOptions = genderDropdown?.querySelector(".dropdown-options-gender");
+  const genderLabel = genderDropdown?.querySelector(".dropdown-label-gender");
+  const genderHiddenInput = genderDropdown?.querySelector('input[name="gender"]');
+  const genderOptionItems = genderDropdown?.querySelectorAll(".dropdown-option-gender");
+
+  // Log the dropdown elements to verify they are found
+  console.log("genderDropdown:", genderDropdown);
+  console.log("genderHeader:", genderHeader);
+  console.log("genderOptions:", genderOptions);
+  console.log("genderLabel:", genderLabel);
+  console.log("genderHiddenInput:", genderHiddenInput);
+  console.log("genderOptionItems:", genderOptionItems);
+
+  // Check if critical elements exist
+  if (!genderDropdown || !genderHeader || !genderOptions) {
+    console.error("One or more dropdown elements not found. Check HTML structure or selectors.");
+    return;
+  }
+
+  // Toggle dropdown visibility on header click
+  genderHeader.addEventListener("click", () => {
+    console.log("Header clicked. Current display:", genderOptions.style.display);
+    genderOptions.style.display =
+      genderOptions.style.display === "block" ? "none" : "block";
+    console.log("New display:", genderOptions.style.display);
+  });
+
+  // Handle option selection
+  genderOptionItems.forEach((option, index) => {
+    option.addEventListener("click", () => {
+      console.log(`Option ${index + 1} clicked. Data-value:`, option.getAttribute("data-value"));
+      const selectedValue = option.getAttribute("data-value");
+      const selectedText = option.querySelector("span")?.textContent;
+
+      // Update the dropdown label and hidden input
+      if (selectedText && genderLabel && genderHiddenInput) {
+        genderLabel.textContent = selectedText;
+        genderHiddenInput.value = selectedValue;
+        console.log("Updated label:", selectedText, "Updated input value:", selectedValue);
+      } else {
+        console.error("Failed to update label or input. Check span or elements.");
+      }
+
+      // Close the dropdown
+      genderOptions.style.display = "none";
+      console.log("Dropdown closed. Display:", genderOptions.style.display);
+    });
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener("click", (event) => {
+    if (!genderDropdown.contains(event.target)) {
+      console.log("Clicked outside dropdown. Closing dropdown.");
+      genderOptions.style.display = "none";
+      console.log("Dropdown display:", genderOptions.style.display);
+    }
+  });
 }); //close addEventListener
