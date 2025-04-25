@@ -468,12 +468,12 @@ class Admincontroller extends Controller
 
                 $userDetails = [
                     'unique_id' => $user->unique_id,
-                    'email' => $personalInfo ? $personalInfo->email : null,  
-                    'full_name' => $personalInfo ? $personalInfo->full_name : null,   
-                    'gender' => $personalInfo ? $personalInfo->gender : null,  
-                    'phone_number' => $user->phone,   
-                    'degree_type' => null,  
-                    'loan_amount' => null,  
+                    'email' => $personalInfo ? $personalInfo->email : null,
+                    'full_name' => $personalInfo ? $personalInfo->full_name : null,
+                    'gender' => $personalInfo ? $personalInfo->gender : null,
+                    'phone_number' => $user->phone,
+                    'degree_type' => null,
+                    'loan_amount' => null,
                     'course_info' => []
                 ];
 
@@ -482,12 +482,12 @@ class Admincontroller extends Controller
                     foreach ($courseInfo as $course) {
                         $userDetails['course_info'][] = [
                             'plan_to_study' => json_decode($course->plan_to_study, true),
-                            'degree_type' => $course->{'degree-type'},  // Access using the exact column name
+                            'degree_type' => $course->{'degree-type'}, // Access using the exact column name
                             'loan_amount_in_lakhs' => $course->loan_amount_in_lakhs
                         ];
 
                         // If degree_type and loan_amount are in courseInfo, add them
-                        $userDetails['degree_type'] = $course->{'degree-type'};  // Correct reference
+                        $userDetails['degree_type'] = $course->{'degree-type'}; // Correct reference
                         $userDetails['loan_amount'] = $course->loan_amount_in_lakhs;
                     }
                 }
