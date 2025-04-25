@@ -547,7 +547,65 @@ class scDashboardController extends Controller
         }
 
     }
+    public function getScUserTickets()
+    {
+        try {
 
+
+
+
+            $queries = Queries::get();
+
+            return response()->json([
+                'success' => true,
+                'queries' => $queries,
+                'message' => "successfully fetched Queries"
+
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An Error Occured While retrieve scuser queries',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+
+    }
+    public function suspendUser(Request $request)
+    {
+        $referralCode = $request->input('referralCode');
+
+        if (!$referralCode) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Referral code is required.'
+            ], 400);
+        }
+
+        $scUser = Scuser::where('referral_code', $referralCode)->first();
+
+        if (!$scUser) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Counsellor not found.'
+            ], 404);
+        }
+
+        try {
+            $scUser->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Counsellor suspended successfully.'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error deleting counsellor: ' . $e->getMessage()
+            ], 500);
+        }
+    }
 
 
 }
