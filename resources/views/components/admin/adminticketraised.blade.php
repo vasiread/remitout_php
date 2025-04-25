@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
-     <link rel="stylesheet" href="assets/css/adminedit.css">
+
+    <link rel="stylesheet" href="assets/css/adminedit.css">
 </head>
 
 <body>
@@ -17,7 +17,7 @@
 
      @endphp
 
-  <div class="ticket-raised-container" id="ticket-raised-container-admin-id">
+    <div class="ticket-raised-container" id="ticket-raised-container-admin-id">
         <div class="ticket-raised-header">
             <h2 class="ticket-raised-title">Tickets Raised</h2>
             <div class="ticket-raised-inbox-filters" id="ticket-raised-index-nbfc-sort-id">
@@ -32,211 +32,12 @@
             </div>
         </div>
 
-        <div class="ticket-raised-tickets-container" id="ticket-raised-tickets-list">
-            <!-- Ticket 1 -->
-            <div class="ticket-raised-item" data-title="Student financial aid question" data-date="2025-02-15">
-                <div class="ticket-raised-content">
-                    Student financial aid question - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt ut labore et.
-                    <span class="ticket-raised-date">2025-02-15</span>
-                </div>
-                <div class="ticket-raised-meta">
-                     <div class="ticket-raised-meta-item-sc">Student Counsellor</div>
-                     <div class="ticket-raised-meta-item-date">12/01/2025</div>
-                     <div class="ticket-raised-meta-item-student">Student</div>
-                </div>
-                <div class="ticket-raised-chat-icon-container">
-                    <div class="ticket-raised-chat-icon">
-                       <img src="assets/images/ticket-icon.png" alt="Message Icon" />
-                    </div>
-                </div>
-            </div>
+      <div class="ticket-raised-tickets-container" id="ticket-raised-tickets-list"></div>
 
-            <!-- Ticket 2 -->
-            <div class="ticket-raised-item" data-title="Course registration deadline" data-date="2025-02-10">
-                <div class="ticket-raised-content">
-                    Course registration deadline - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    <span class="ticket-raised-date">2025-02-10</span>
-                </div>
-                 <div class="ticket-raised-meta">
-                     <div class="ticket-raised-meta-item-sc">Student Counsellor</div>
-                     <div class="ticket-raised-meta-item-date">12/01/2025</div>
-                     <div class="ticket-raised-meta-item-student">Student</div>
-                </div>
-                <div class="ticket-raised-chat-icon-container">
-                    <div class="ticket-raised-chat-icon">
-                        <img src="assets/images/ticket-icon.png" alt="Message Icon" />
-                    </div>
-                </div>
-            </div>
 
-            <!-- Ticket 3 with Read More -->
-            <div class="ticket-raised-item" id="ticket3" data-title="Dormitory maintenance request"
-                data-date="2025-02-05">
-                <div class="ticket-raised-content">
-                    <span class="ticket-raised-collapsed-text">
-                        Dormitory maintenance request - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                        eiusmod tempor incididunt ut labore
-                        et incididunt ut...
-                    </span>
-                    <span class="ticket-raised-expanded-text">
-                        Dormitory maintenance request - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                        eiusmod tempor incididunt ut labore
-                        et incididunt ut. This is the full expanded text that shows all the details of this particular
-                        ticket with more information.
-                        <div class="ticket-raised-show-less-container">
-                            <a href="#" class="ticket-raised-show-less" onclick="toggleTicket('ticket3', event)">Show
-                                Less</a>
-                        </div>
-                    </span>
-                    <a href="#" class="ticket-raised-read-more" onclick="toggleTicket('ticket3', event)">Read More</a>
-                    <span class="ticket-raised-date">2025-02-05</span>
-                </div>
-                <div class="ticket-raised-meta">
-                      <div class="ticket-raised-meta-item-sc">Student Counsellor</div>
-                      <div class="ticket-raised-meta-item-date">12/01/2025</div>
-                      <div class="ticket-raised-meta-item-student">Student</div>
-                </div>
-                <div class="ticket-raised-chat-icon-container">
-                    <div class="ticket-raised-chat-icon">
-                        <img src="assets/images/ticket-icon.png" alt="Message Icon" />
-                    </div>
-                </div>
-            </div>
-
-            <!-- Ticket 4 (expanded) -->
-            <div class="ticket-raised-item ticket-raised-expanded" id="ticket4" data-title="Exam scheduling conflict"
-                data-date="2025-01-28">
-                <div class="ticket-raised-content">
-                    <span class="ticket-raised-collapsed-text">
-                        Exam scheduling conflict - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                        eiusmod tempor incididunt ut labore
-                        et incididunt ut...
-                    </span>
-                    <span class="ticket-raised-expanded-text">
-                        Exam scheduling conflict - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                        eiusmod tempor incididunt ut labore
-                        et incididunt ut. iusmod tempor incididunt ut labore et.
-                        <div class="ticket-raised-show-less-container">
-                            <a href="#" class="ticket-raised-show-less" onclick="toggleTicket('ticket4', event)">Show
-                                Less</a>
-                        </div>
-                    </span>
-                    <a href="#" class="ticket-raised-read-more" onclick="toggleTicket('ticket4', event)">Read More</a>
-                    <span class="ticket-raised-date">2025-01-28</span>
-                </div>
-                <div class="ticket-raised-meta">
-                    <div class="ticket-raised-meta-item-sc">Student Counsellor</div>
-                    <div class="ticket-raised-meta-item-date">12/01/2025</div>
-                    <div class="ticket-raised-meta-item-student">Student</div>
-                </div>
-                <div class="ticket-raised-chat-icon-container">
-                    <div class="ticket-raised-chat-icon">
-                       <img src="assets/images/ticket-icon.png" alt="Message Icon" />
-                    </div>
-                </div>
-            </div>
-
-            <!-- Ticket 5 -->
-            <div class="ticket-raised-item" data-title="Scholarship application help" data-date="2025-01-20">
-                <div class="ticket-raised-content">
-                    Scholarship application help - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    <span class="ticket-raised-date">2025-01-20</span>
-                </div>
-                <div class="ticket-raised-meta">
-                   <div class="ticket-raised-meta-item-sc">Student Counsellor</div>
-                   <div class="ticket-raised-meta-item-date">12/01/2025</div>
-                   <div class="ticket-raised-meta-item-student">Student</div>
-                </div>
-                <div class="ticket-raised-chat-icon-container">
-                    <div class="ticket-raised-chat-icon">
-                        <img src="assets/images/ticket-icon.png" alt="Message Icon" />
-                    </div>
-                </div>
-            </div>
-
-             <div class="ticket-raised-item" id="ticket6" data-title="Library access issues" data-date="2025-01-15">
-        <div class="ticket-raised-content">
-            <span class="ticket-raised-collapsed-text">
-                Library access issues - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et incididunt ut...
-            </span>
-            <span class="ticket-raised-expanded-text">
-                Library access issues - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et incididunt ut. This is the full expanded text that includes 
-                detailed information about library access card problems and system login issues.
-                <div class="ticket-raised-show-less-container">
-                    <a href="#" class="ticket-raised-show-less" onclick="toggleTicket('ticket6', event)">Show Less</a>
-                </div>
-            </span>
-            <a href="#" class="ticket-raised-read-more" onclick="toggleTicket('ticket6', event)">Read More</a>
-            <span class="ticket-raised-date">2025-01-15</span>
-        </div>
-        <div class="ticket-raised-meta">
-            <div class="ticket-raised-meta-item-sc">Student Counsellor</div>
-            <div class="ticket-raised-meta-item-date">12/01/2025</div>
-            <div class="ticket-raised-meta-item-student">Student</div>
-        </div>
-        <div class="ticket-raised-chat-icon-container">
-            <div class="ticket-raised-chat-icon">
-                <img src="assets/images/ticket-icon.png" alt="Message Icon" />
-            </div>
-        </div>
     </div>
-
-    <!-- Ticket 7 with Read More -->
-    <div class="ticket-raised-item" id="ticket7" data-title="Campus parking permit" data-date="2025-01-12">
-        <div class="ticket-raised-content">
-            <span class="ticket-raised-collapsed-text">
-                Campus parking permit - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et incididunt ut...
-            </span>
-            <span class="ticket-raised-expanded-text">
-                Campus parking permit - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et incididunt ut. Extended details about parking permit 
-                application process and zone assignment requests.
-                <div class="ticket-raised-show-less-container">
-                    <a href="#" class="ticket-raised-show-less" onclick="toggleTicket('ticket7', event)">Show Less</a>
-                </div>
-            </span>
-            <a href="#" class="ticket-raised-read-more" onclick="toggleTicket('ticket7', event)">Read More</a>
-            <span class="ticket-raised-date">2025-01-12</span>
-        </div>
-        <div class="ticket-raised-meta">
-            <div class="ticket-raised-meta-item-sc">Student Counsellor</div>
-            <div class="ticket-raised-meta-item-date">12/01/2025</div>
-            <div class="ticket-raised-meta-item-student">Student</div>
-        </div>
-        <div class="ticket-raised-chat-icon-container">
-            <div class="ticket-raised-chat-icon">
-                <img src="assets/images/ticket-icon.png" alt="Message Icon" />
-            </div>
-        </div>
     </div>
-
-    <!-- Ticket 8 (without Read More) -->
-    <div class="ticket-raised-item" data-title="Student ID replacement" data-date="2025-01-10">
-        <div class="ticket-raised-content">
-            Student ID replacement - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
-            <span class="ticket-raised-date">2025-01-10</span>
-        </div>
-        <div class="ticket-raised-meta">
-           <div class="ticket-raised-meta-item-sc">Student Counsellor</div>
-            <div class="ticket-raised-meta-item-date">12/01/2025</div>
-            <div class="ticket-raised-meta-item-student">Student</div>
-        </div>
-        <div class="ticket-raised-chat-icon-container">
-            <div class="ticket-raised-chat-icon">
-                <img src="assets/images/ticket-icon.png" alt="Message Icon" />
-            </div>
-        </div>
-    </div>
-</div>
-            
-        </div>
-    </div>
- <script>
-        // Toggle dropdown visibility
+    <script>
         document.getElementById('ticket-raised-index-nbfc-sort-id').addEventListener('click', function (e) {
             const dropdown = document.getElementById('ticket-raised-sort-options-index-nbfc');
             dropdown.classList.toggle('ticket-raised-visible');
@@ -264,83 +65,154 @@
         }
 
 
- // Sort tickets function
-      function sortTickets(sortType) {
-    try {
-        // Get container and ticket elements
-        const ticketsContainer = document.getElementById('ticket-raised-tickets-list');
-        if (!ticketsContainer) {
-            console.error('Tickets container not found');
-            return;
-        }
-        
-        const tickets = Array.from(ticketsContainer.getElementsByClassName('ticket-raised-item'));
-        if (tickets.length === 0) {
-            console.error('No ticket items found');
-            return;
-        }
-        
-        // Update active sort in dropdown - safely
-        const sortOptions = document.querySelectorAll('#ticket-raised-sort-options-index-nbfc li');
-        if (sortOptions && sortOptions.length > 0) {
-            sortOptions.forEach(option => {
-                if (option) { // Check if option exists
-                    option.classList.remove('active');
-                    if (option.getAttribute('data-sort') === sortType) {
-                        option.classList.add('active');
+        function sortTickets(sortType) {
+            try {
+                // Get container and ticket elements
+                const ticketsContainer = document.getElementById('ticket-raised-tickets-list');
+                if (!ticketsContainer) {
+                    console.error('Tickets container not found');
+                    return;
+                }
+
+                const tickets = Array.from(ticketsContainer.getElementsByClassName('ticket-raised-item'));
+                if (tickets.length === 0) {
+                    console.error('No ticket items found');
+                    return;
+                }
+
+                // Update active sort in dropdown - safely
+                const sortOptions = document.querySelectorAll('#ticket-raised-sort-options-index-nbfc li');
+                if (sortOptions && sortOptions.length > 0) {
+                    sortOptions.forEach(option => {
+                        if (option) { // Check if option exists
+                            option.classList.remove('active');
+                            if (option.getAttribute('data-sort') === sortType) {
+                                option.classList.add('active');
+                            }
+                        }
+                    });
+                }
+
+                // Sort tickets based on selected option
+                tickets.sort((a, b) => {
+                    const titleA = a && a.getAttribute ? (a.getAttribute('data-title') || '') : '';
+                    const titleB = b && b.getAttribute ? (b.getAttribute('data-title') || '') : '';
+                    const dateA = a && a.getAttribute ? (a.getAttribute('data-date') || '') : '';
+                    const dateB = b && b.getAttribute ? (b.getAttribute('data-date') || '') : '';
+
+                    switch (sortType) {
+                        case 'az':
+                            return titleA.localeCompare(titleB);
+                        case 'za':
+                            return titleB.localeCompare(titleA);
+                        case 'newest':
+                            return new Date(dateB) - new Date(dateA);
+                        case 'oldest':
+                            return new Date(dateA) - new Date(dateB);
+                        default:
+                            return 0;
                     }
+                });
+
+                // Clear and rebuild the container safely
+                if (ticketsContainer && ticketsContainer.firstChild) {
+                    // Remove all tickets from container
+                    while (ticketsContainer.firstChild) {
+                        ticketsContainer.removeChild(ticketsContainer.firstChild);
+                    }
+
+                    // Reappend sorted tickets
+                    tickets.forEach(ticket => {
+                        if (ticket) { // Check if ticket exists
+                            ticketsContainer.appendChild(ticket);
+                        }
+                    });
                 }
-            });
-        }
 
-        // Sort tickets based on selected option
-        tickets.sort((a, b) => {
-            const titleA = a && a.getAttribute ? (a.getAttribute('data-title') || '') : '';
-            const titleB = b && b.getAttribute ? (b.getAttribute('data-title') || '') : '';
-            const dateA = a && a.getAttribute ? (a.getAttribute('data-date') || '') : '';
-            const dateB = b && b.getAttribute ? (b.getAttribute('data-date') || '') : '';
-            
-            switch (sortType) {
-                case 'az':
-                    return titleA.localeCompare(titleB);
-                case 'za':
-                    return titleB.localeCompare(titleA);
-                case 'newest':
-                    return new Date(dateB) - new Date(dateA);
-                case 'oldest':
-                    return new Date(dateA) - new Date(dateB);
-                default:
-                    return 0;
-            }
-        });
-
-        // Clear and rebuild the container safely
-        if (ticketsContainer && ticketsContainer.firstChild) {
-            // Remove all tickets from container
-            while (ticketsContainer.firstChild) {
-                ticketsContainer.removeChild(ticketsContainer.firstChild);
-            }
-
-            // Reappend sorted tickets
-            tickets.forEach(ticket => {
-                if (ticket) { // Check if ticket exists
-                    ticketsContainer.appendChild(ticket);
+                // Hide dropdown after selection - safely
+                const dropdown = document.getElementById('ticket-raised-sort-options-index-nbfc');
+                if (dropdown) {
+                    dropdown.classList.remove('ticket-raised-visible');
                 }
-            });
-        }
 
-        // Hide dropdown after selection - safely
-        const dropdown = document.getElementById('ticket-raised-sort-options-index-nbfc');
-        if (dropdown) {
-            dropdown.classList.remove('ticket-raised-visible');
+                // Don't try to update any status or result elements unless you confirm they exist
+                // If you have code that updates a status element, add it here with proper null checks
+            } catch (error) {
+                console.error('Error in sortTickets function:', error);
+            }
         }
+      
+        
+ 
 
-        // Don't try to update any status or result elements unless you confirm they exist
-        // If you have code that updates a status element, add it here with proper null checks
-    } catch (error) {
-        console.error('Error in sortTickets function:', error);
+
+   async function getTickets() {
+        try {
+             const response = await fetch('/get-tickets');
+
+             if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+             const data = await response.json();
+
+            // Debug: Log the response data
+            console.log('Fetched data:', data);
+
+            // Check if the response contains the tickets data
+            if (data.success && Array.isArray(data.queries)) {
+                const ticketContainer = document.getElementById('ticket-raised-tickets-list');
+                ticketContainer.innerHTML = '';   
+
+                data.queries.forEach(ticket => {
+                     console.log('Created at:', ticket.created_at);
+
+                     const ticketDateStr = ticket.created_at.split('.')[0];  
+                    const ticketDate = new Date(ticketDateStr);  
+
+                     const formattedDate = ticketDate instanceof Date && !isNaN(ticketDate)
+                        ? ticketDate.toISOString().split('T')[0]
+                        : 'Invalid Date';   
+
+  
+                    // Create the HTML structure for each ticket
+                    const ticketItem = `
+                    <div class="ticket-raised-item" data-title="${ticket.querytype}" data-date="${formattedDate}">
+                        <div class="ticket-raised-content">
+                            ${ticket.queryraised}                            
+
+                             
+                        </div>
+                        <div class="ticket-raised-meta">
+                         <div class="ticket-raised-meta-item-sc">Student Counsellor</div>
+                    <div class="ticket-raised-meta-item-date">${formattedDate}</div>
+                            <div class="ticket-raised-meta-item-student">${ticket.querytype || 'No Type'}</div>
+                        </div>
+                        <div class="ticket-raised-chat-icon-container">
+                            <div class="ticket-raised-chat-icon">
+                                <img src="assets/images/ticket-icon.png" alt="Message Icon" />
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                    // Append the ticket item to the container
+                    ticketContainer.innerHTML += ticketItem;
+                });
+            } else {
+                console.error('No tickets found in the response');
+            }
+        } catch (error) {
+            console.error('Failed to fetch tickets:', error);
+        }
     }
-}
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getTickets();
+    });
+
+
+
     </script>
 </body>
 
