@@ -78,7 +78,8 @@ Route::post('/update-personalinfo', [StudentDetailsController::class, 'updatePer
 Route::post('/getstatusofusers', [scDashboardController::class, 'getStatusOfUsers']);
 Route::post('/unread-message-count', [StudentDashboardController::class, 'unreadMessageCount']);
 
-Route::get('/get-queries', [scDashboardController::class, 'getScuserQueryRaised']);
+Route::post('/get-queries', [scDashboardController::class, 'getScuserQueryRaised']);
+Route::get('/get-tickets', [scDashboardController::class, 'getScUserTickets']);
 
 
 Route::post('/getnbfcdata-proposals', [StudentDashboardController::class, 'nbfcProposals']);
@@ -96,3 +97,6 @@ Route::get('/reports-on-generation', [Admincontroller::class, 'reportsOnGenerati
 Route::post('/validateprofilecompletion', [Admincontroller::class, 'validateprofilecompletion']);
 Route::get('/city-stats', [Admincontroller::class, 'getCityStats']);
 Route::get('/dest-countries', [Admincontroller::class, 'getDestinationCountries']);
+
+Route::post('/suspendscuser', [scDashboardController::class, 'suspendUser']);
+Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails']);

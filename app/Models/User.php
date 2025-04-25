@@ -29,4 +29,14 @@ class User extends Model
 
     }
 
+    public function personalInfo()
+    {
+        return $this->hasOne(PersonalInfo::class, 'user_id', 'unique_id');
+    }
+
+    public function courseInfo()
+    {
+        return $this->hasMany(CourseInfo::class, 'user_id', 'unique_id');
+    }
+
 }
