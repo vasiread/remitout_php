@@ -57,9 +57,9 @@
     font-weight: 500;
     font-family: "Poppins", sans-serif;
     font-size: 14px;
+    width: 146px;
 }
 
-/* Filters */
 .manage-student-report-filters {
     display: flex;
     flex-wrap: wrap;
@@ -82,7 +82,6 @@
     gap: 15px;
 }
 
-/* Moves right filters to the right */
 .manage-student-report-filters-right {
     margin-left: auto;
 }
@@ -145,7 +144,8 @@
     font-size: 14px;
     white-space: nowrap;
     border-bottom: 1px solid #ddd;
-    padding: 20px 0px;
+    padding: 20px 5px;
+    text-align: center;
 }
 
 /* Pagination */
@@ -346,6 +346,14 @@
     background-size: 16px;
 }
 
+.manage-student-report-table-wrapper {
+    overflow-x: auto;
+}
+
+.manage-student-report-table {
+    min-width: 2000px;
+}
+
 @media screen and (max-width: 768px) {
     .manage-student-main-report-container {
         width: 100%;
@@ -397,6 +405,7 @@
     }
 }
 
+
 .manage-student-report-table-wrapper {
     overflow-x: auto;
 }
@@ -421,3 +430,4 @@
 .mobile-filters-popup-student-report {
     display: none;
 }
+
