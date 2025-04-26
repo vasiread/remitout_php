@@ -456,7 +456,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             initialisedocumentsCount();
             expandingStudentDetails();
-            getRemainingDocuments();
+            // getRemainingDocuments();
         });
 
         const applicationStatusElements = document.querySelectorAll(".individualstudentapplication-status .scdashboard-nbfcstatus-pending span");

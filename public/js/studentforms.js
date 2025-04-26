@@ -249,9 +249,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // });
 
     function updateUserIds() {
-        const personalInfoId = document.getElementById(
-            "personal-info-userid"
-        ).value;
+        const personalInfoId = document.getElementById("personal-info-userid").value;
 
         console.log(personalInfoId);
 
