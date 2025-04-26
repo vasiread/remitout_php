@@ -1810,6 +1810,13 @@ text[fill="#222222"] {
     margin-top: 50px;
 }
 
+.sc-lead-prev-btn, .sc-lead-next-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
 .sc-lead-pagination span {
     margin: 0 2px;
 }
