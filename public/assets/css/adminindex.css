@@ -74,6 +74,9 @@ body {
     background: linear-gradient(to right, #45246f 0%, #6f25ce 100%);
     color: white;
 }
+.admin-index-header {
+    padding: 0px;
+}
 
 .admin-index-icon {
     width: 24px;
@@ -176,7 +179,6 @@ body {
     }
 }
 
-/* Main container styling */
 .inbox-controls {
     display: flex;
     align-items: center;
@@ -184,7 +186,6 @@ body {
     margin: 15px 0;
 }
 
-/* Search container styling */
 .index-search-container {
     position: relative;
     flex-grow: 1;
@@ -209,7 +210,6 @@ body {
     outline: none;
 }
 
-/* Admin inbox filters styling */
 .admin-inbox-filters {
     position: relative;
     width: 117px;
@@ -234,7 +234,6 @@ body {
     height: 20px;
 }
 
-/* Dropdown styling */
 .admin-sort-dropdown {
     display: none;
     position: absolute;
@@ -387,7 +386,6 @@ body {
     display: block !important;
 }
 
-/* Loan Proposals Styles */
 .dashboard-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -399,23 +397,7 @@ body {
     background-color: #fff;
     padding-bottom: 1.5rem;
 }
-.studentdashboardprofile-loanproposals .loanproposals-header {
-    font-family: "Inter", sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: #e98635;
-    padding: 1rem 1.8rem;
-}
-.loanproposals-loanstatuscards {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 0 1.8rem;
-}
-.indivudalloanstatus-cards {
-    padding: 1rem 1.8rem;
-    border-top: 1px solid #e5e5e5;
-}
+
 .individual-bankname h1 {
     font-size: 14px;
     font-weight: 600;
@@ -431,7 +413,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    min-width: 100%; /* Ensure full width for layout */
+    min-width: 100%;
 }
 .individual-bankmessages p {
     font-size: 14px;
@@ -440,7 +422,7 @@ body {
     max-width: 370px;
 }
 .triggeredbutton {
-    display: block !important; /* Ensure Message button is visible */
+    display: block !important;
     width: 109px;
     height: 35px;
     padding: 8px 16px;
@@ -452,18 +434,7 @@ body {
     border: none;
     cursor: pointer;
 }
-.messages-wrapper {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    font-size: 14px;
-    color: #666;
-    line-height: 1.5;
-    overflow-y: auto;
-    max-height: 300px;
-    background: #fff;
-    margin-bottom: 10px;
-}
+
 .messages-wrapper div[data-message-id] {
     display: flex;
     margin-bottom: 10px;
@@ -479,41 +450,18 @@ body {
 .messages-wrapper div[data-message-id][style*="flex-end"] div {
     background-color: #dcf8c6;
 }
-.individual-bankmessage-input {
-    display: none;
-    height: 35px;
-    margin: 20px 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+
 .input-wrapper {
     position: relative;
     flex: 1;
 }
-.individual-bankmessage-input input {
-    width: 100%;
-    height: 100%;
-    padding: 8px 40px 8px 12px;
-    border-radius: 4px;
-    border: 1px solid #e2e2e2;
-    font-family: "Poppins", sans-serif;
-    color: #909090;
-    box-sizing: border-box;
-}
+
 .individual-bankmessage-input input::placeholder {
     font-size: 14px;
     font-weight: 500;
     color: #6f25ce;
 }
-.individual-bankmessage-input .send-img {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    cursor: pointer;
-}
+
 .individual-bankmessage-input i {
     font-size: 1.2rem;
     color: #bbbbbb;
@@ -533,11 +481,179 @@ body {
     color: #666;
     cursor: pointer;
 }
+
+.emoji-picker button {
+    border: none;
+    background: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px;
+}
+#admin-loanproposals-id {
+    box-shadow: none !important;
+}
+
+.triggeredbutton {
+    padding: 0px;
+}
+
+.send-img {
+    width: 33px;
+    height: 25px;
+}
+
+.studentdashboardprofile-loanproposals .loanproposals-header {
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 21.78px;
+    text-align: left;
+    color: rgba(233, 134, 53, 1);
+    padding: 1rem 1.8rem;
+}
+
+.loanproposals-loanstatuscards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.indivudalloanstatus-cards {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 1rem 1.8rem;
+    gap: 10px;
+    height: fit-content;
+    border-top: 1px solid rgba(229, 229, 229, 1);
+}
+
+.indivudalloanstatus-cards h1 {
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    color: rgba(93, 92, 92, 1);
+}
+
+.indivudalloanstatus-cards p {
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: rgba(144, 144, 144, 1);
+    max-width: 370px;
+    width: 100%;
+}
+
+.individual-bankmessages {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.individual-bankmessages .triggeredbutton {
+    width: 109px;
+    height: 35px;
+    gap: 8px;
+    border-radius: 4px;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.8px;
+    justify-content: center;
+    align-items: center;
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(111, 37, 206, 1);
+    border: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.triggeredbutton.has-unread::after {
+    content: "";
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    z-index: 6;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgb(234, 120, 27);
+    display: inline-block;
+}
+
+.individual-bankmessage-input {
+    max-width: 100%;
+    height: 35px;
+    margin: 33px 0px;
+    position: relative;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.individual-bankmessage-input input {
+    max-width: 100%;
+    width: 85%;
+    height: 100%;
+    padding: 16px 32px 16px 17px;
+    gap: 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(226, 226, 226, 1);
+    font-family: "Poppins", sans-serif;
+}
+
+.individual-bankmessage-input input::placeholder {
+    font-family: "Poppins", sans solicited;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.8px;
+    text-align: left;
+    color: rgba(111, 37, 206, 1);
+}
+
+.individual-bankmessage-input i {
+    font-size: 1.2rem;
+    color: rgba(187, 187, 187, 1);
+    cursor: pointer;
+}
+
+.individual-bankmessage-input .send-img {
+    position: absolute;
+    top: 15%;
+    right: 15%;
+    padding: 0px 9px 0px 0;
+    z-index: 2;
+    width: 24px;
+    height: 24px;
+}
+
+.messages-wrapper {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    overflow-y: auto;
+    max-height: 300px;
+    background: #fff;
+    font-family: "Poppins", sans-serif;
+    margin-bottom: 10px;
+}
+
 .emoji-picker {
     position: absolute;
-    bottom: 45px;
+    bottom: 100%;
     right: 0;
-    background: #fff;
+    background: white;
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 5px;
@@ -546,11 +662,4 @@ body {
     gap: 5px;
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-.emoji-picker button {
-    border: none;
-    background: none;
-    font-size: 20px;
-    cursor: pointer;
-    padding: 5px;
 }
