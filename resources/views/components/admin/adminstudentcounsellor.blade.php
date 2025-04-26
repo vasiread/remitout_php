@@ -15,10 +15,10 @@
     @extends('layouts.app')
 
     @php
-        $profileIconPath = "assets/images/account_circle1.png";
-        $phoneIconPath = "assets/images/call.png";
-        $mailIconPath = "assets/images/mail.png";
-        $pindropIconPath = "assets/images/pin_drop.png";
+$profileIconPath = "assets/images/account_circle1.png";
+$phoneIconPath = "assets/images/call.png";
+$mailIconPath = "assets/images/mail.png";
+$pindropIconPath = "assets/images/pin_drop.png";
 
 
 
@@ -31,11 +31,11 @@
 
 
     @php
-        $studentCounsellorsLists = [
+$studentCounsellorsLists = [
 
-        ];
+];
     @endphp
- <div class="add-studentcounsellor-adminside">
+    <div class="add-studentcounsellor-adminside">
         <h1 class="studentcounsellor-header-admin">Add Student Counsellor</h1>
         <div class="studentcounsellor-requiredfields-admin">
             <input type="text" placeholder="Name of the Student Counsellor">
@@ -105,79 +105,135 @@
         </div>
     </div>
 
-    <div class="scmember-profilecontainer" id="scmember-profilecontainer-adminside" style="display:none">
-        <div class="scmember-profilecontainerimg">
-            <img src="{{asset('assets/images/image-women.jpeg')}}" id="studentcounsellor-profile" alt="">
-            <i class="fa-regular fa-pen-to-square"></i>
-            <input type="file" id="sc-profile-upload-cloud" display="none">
-        </div>
+    <div class="scdashboard-inboxcontent" id="scdashboard-profile-adminside" style="none">
+        <div class="scmember-profilecontainer">
+            <div class="scmember-profilecontainerimg">
+                <img src="{{asset('assets/images/image-women.jpeg')}}" id="studentcounsellor-profile" alt="">
+                <i class="fa-regular fa-pen-to-square"></i>
+                <input type="file" id="sc-profile-upload-cloud" display="none">
+            </div>
 
-        <div class="scmember-rowfirst">
-            <h1>Student Counsellor</h1>
-            <button class="save-scuser" style="cursor:pointer">Save</button>
+            <div class="scmember-rowfirst">
+                <h1>Student Counsellor</h1>
 
+            </div>
+            <p id="screferral-id-fromprofile">Referral Number: <span> </span>
+            </p>
+            <div id="screferral-dob-fromprofile" inputmode="Date">
+                <i class="fa-solid fa-calendar"></i>
+                <p id="dob-display"></p>
 
+            </div>
+            <div id="screferral-dob-fromprofile-editmode" style="display: none;">
+                <i class="fa-solid fa-calendar"></i>
+                <input type="date" id="dob-input">
 
-        </div>
-        <p id="screferral-id-fromprofile">Referral Number: <span></span>
-        </p>
-        <div id="screferral-dob-fromprofile" inputmode="Date">
-            <i class="fa-solid fa-calendar"></i>
-            <p id="dob-display"></p>
+            </div>
+            <ul class="scmember_personalinfo">
 
-        </div>
-        <div id="screferral-dob-fromprofile-editmode" style="display: none;">
-            <i class="fa-solid fa-calendar"></i>
-            <input type="date" id="dob-input">
+                <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
+                    <p> </p>
+                </li>
+                <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="">
+                    <p></p>
+                </li>
+                <li class="scmember_personal_info_email" style="word-break: break-all;" id="referenceEmailId">
+                    <img src="{{$mailIconPath}}" alt="">
+                    <p> </p>
+                </li>
+                <li class="scmember_personal_info_state"><img src="{{$pindropIconPath}}" alt="">
+                    <p style="line-height:19px"></p>
+                </li>
 
-        </div>
-        <ul class="scmember_personalinfo">
-
-            <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
-                <p> </p>
-            </li>
-            <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="">
-                <p></p>
-            </li>
-            <li class="scmember_personal_info_email" style="word-break: break-all;" id="referenceEmailId">
-                <img src="{{$mailIconPath}}" alt="">
-                <p></p>
-            </li>
-            <li class="scmember_personal_info_state"><img src="{{$pindropIconPath}}" alt="">
-                <p style="line-height:19px"></p>
-            </li>
-
-        </ul>
-        <ul class="scmember_personalinfo_editmode">
-            <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
-                <input type="text">
-            </li>
-            <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="">
-                <input type="text">
-            </li>
-            <li class="scmember_personal_info_email" id="referenceEmailId">
-                <img src="{{$mailIconPath}}" alt="">
-                <input type="text" disabled>
-            </li>
-            <li class="scmember_personal_info_state-edit">
-
-                <div class="scmember-personal_address_header">
-                    <img src="{{$pindropIconPath}}" alt="">
+            </ul>
+            <ul class="scmember_personalinfo_editmode">
+                <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
+                    <input type="text">
+                </li>
+                <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="">
+                    <input type="text">
+                </li>
+                <li class="scmember_personal_info_email" id="referenceEmailId">
+                    <img src="{{$mailIconPath}}" alt="">
                     <input type="text" disabled>
+                </li>
+                <li class="scmember_personal_info_state-edit">
+
+                    <div class="scmember-personal_address_header">
+                        <img src="{{$pindropIconPath}}" alt="">
+                        <input type="text" disabled>
+                    </div>
+
+
+
+                    <div class="subbranch-of-address">
+                        <input type="text" placeholder="area" id="scaddress-address">
+                        <input type="text" placeholder="city" id="scaddress-city">
+                        <input type="text" placeholder="state" id="scaddress-state">
+                        <input type="text" placeholder="pincode" id="scaddress-pincode">
+                    </div>
+
+                </li>
+
+            </ul>
+
+        </div>
+        <div class="scdashboard-performancecontainer">
+            <div class="performancecontainer-firstrow">
+                <h3>Performance</h3>
+                <button class="edit-scuser" style="cursor:pointer">Edit</button>
+                <button class="save-scuser" style="cursor:pointer">Save</button>
+            </div>
+            <ul class="scdashboard-individual-performance">
+                <li>
+                    <p>Average Leads/month</p>
+                    <span>10</span>
+
+                </li>
+                <li>
+                    <p>Total Leads</p>
+                    <span>20</span>
+
+                </li>
+                <li>
+                    <p>Total Commission</p>
+                    <span>10</span>
+
+                </li>
+                <li>
+                    <p>Pending Amount</p>
+                    <span>₹2000</span>
+
+                </li>
+            </ul>
+            <div class="scdashboard-queryraisedcontainer">
+                <div class="queryraisedcontainer-firstrow">
+                    <p id="queryraised-header">Queries Raised</p>
+                    <div class="queryraisedcontainer-rightcontent">
+                        <button id="sort-by" style="cursor:pointer;">
+                            <p>Sort by</p> <img src="assets/images/Icons/swap_vert.png" />
+                        </button>
+                        <div class="sort-by-contents">
+                            <a href="" data-sort="newest">Newest</a>
+                            <a href="" data-sort="oldest">Oldest</a>
+                            <a href="" data-sort="alphabet">A-Z</a>
+                            <a href="" data-sort="alphabet-reverse">Z-A</a>
+                        </div>
+                        <button id="raised-query" style="cursor:pointer;">Raise Query</button>
+
+                    </div>
+
+                </div>
+                <div class="groupofraisedquestion-scdashboard">
+                    <p>Loading queries...</p>
                 </div>
 
 
+            </div>
 
-                <div class="subbranch-of-address">
-                    <input type="text" placeholder="area" id="scaddress-address">
-                    <input type="text" placeholder="city" id="scaddress-city">
-                    <input type="text" placeholder="state" id="scaddress-state">
-                    <input type="text" placeholder="pincode" id="scaddress-pincode">
-                </div>
 
-            </li>
 
-        </ul>
+        </div>
 
     </div>
 
@@ -247,8 +303,21 @@
 
         function getScUsers() {
 
-            const modelScProfile = document.getElementById("scmember-profilecontainer-adminside");
+            const modelScProfile = document.getElementById("scdashboard-profile-adminside");
             const studentCounsellorList = document.querySelector(".studentcounsellorlist-adminside");
+            const profileTextContent = document.querySelector("#scdashboard-profile-adminside .performancecontainer-firstrow h3");
+            const insideSuspendTrigger = document.querySelector("#scdashboard-profile-adminside .performancecontainer-firstrow .edit-scuser");
+
+            if (profileTextContent) {
+                profileTextContent.textContent = "Profile";
+            }
+            if (insideSuspendTrigger) {
+                insideSuspendTrigger.textContent = "Suspend";
+                insideSuspendTrigger.style.color = "rgba(111, 37, 206, 1)";
+                insideSuspendTrigger.style.padding = "9px 22px";
+                insideSuspendTrigger.style.width = "106px";
+                insideSuspendTrigger.style.height = "35px"
+            }
 
             console.log(modelScProfile)
             console.log(studentCounsellorList)
@@ -349,17 +418,21 @@
         function dynamicTriggerModel(viewButton, editButton, suspendButton, counsellor, modelScProfile, studentCounsellorList) {
             let editmode = false;
             console.log(counsellor)
-            const saveScUserAdmin = document.querySelector("#scmember-profilecontainer-adminside .scmember-rowfirst .save-scuser");
+            // const saveScUserAdmin = document.querySelector("#scmember-profilecontainer-adminside .scmember-rowfirst .save-scuser");
 
-            function renderProfile() {
+            async function renderProfile() {
+                if (isRendering) return;
+                isRendering = true;
+
                 if (modelScProfile && studentCounsellorList) {
                     modelScProfile.style.display = "flex";
                     studentCounsellorList.style.display = "none";
+                    await queryDetails(counsellor.referral_code);
 
                     if (editmode) {
-                        saveScUserAdmin.style.display = "flex";
+                        // saveScUserAdmin.style.display = "flex";
 
-                        modelScProfile.querySelector(".scmember_personal_info_name input").value = counsellor.full_name || '';
+                        // modelScProfile.querySelector(".scmember_personal_info_name input").value = counsellor.full_name || '';
                         modelScProfile.querySelector(".scmember_personal_info_phone input").value = counsellor.phone || '';
                         modelScProfile.querySelector(".scmember_personal_info_email input").value = counsellor.email || '';
                         modelScProfile.querySelector(".scmember_personal_info_state-edit input").value = counsellor.address || '';
@@ -374,7 +447,7 @@
                         modelScProfile.querySelector("#screferral-dob-fromprofile-editmode").style.display = "flex";
                         modelScProfile.querySelector("#screferral-dob-fromprofile").style.display = "none";
                     } else {
-                        saveScUserAdmin.style.display = "none";
+                        // saveScUserAdmin.style.display = "none";
 
                         modelScProfile.querySelector("#screferral-id-fromprofile span").textContent = counsellor.referral_code || '';
                         modelScProfile.querySelector(".scmember_personal_info_name p").textContent = counsellor.full_name || '';
@@ -389,6 +462,8 @@
                         modelScProfile.querySelector("#screferral-dob-fromprofile").style.display = "flex";
                     }
                 }
+                    isRendering = false;
+
             }
 
             function eliminateScUser() {
@@ -424,6 +499,7 @@
             viewButton.addEventListener('click', () => {
                 editmode = false;
                 renderProfile();
+
             });
 
             editButton.addEventListener('click', () => {
@@ -436,71 +512,71 @@
 
 
             })
-            if (!saveScUserAdmin.classList.contains("listener-attached")) {
+            // if (!saveScUserAdmin.classList.contains("listener-attached")) {
 
-                saveScUserAdmin.addEventListener('click', () => {
-                    const updatedName = modelScProfile.querySelector(".scmember_personal_info_name input").value;
-                    const updatedPhone = modelScProfile.querySelector(".scmember_personal_info_phone input").value;
-                    const updatedDob = modelScProfile.querySelector("#dob-input").value;
+            // saveScUserAdmin.addEventListener('click', () => {
+            //     const updatedName = modelScProfile.querySelector(".scmember_personal_info_name input").value;
+            //     const updatedPhone = modelScProfile.querySelector(".scmember_personal_info_phone input").value;
+            //     const updatedDob = modelScProfile.querySelector("#dob-input").value;
 
-                    const updatedStreet = modelScProfile.querySelector("#scaddress-address").value;
-                    const updatedCity = modelScProfile.querySelector("#scaddress-city").value;
-                    const updatedState = modelScProfile.querySelector("#scaddress-state").value;
-                    const updatedPincode = modelScProfile.querySelector("#scaddress-pincode").value;
+            //     const updatedStreet = modelScProfile.querySelector("#scaddress-address").value;
+            //     const updatedCity = modelScProfile.querySelector("#scaddress-city").value;
+            //     const updatedState = modelScProfile.querySelector("#scaddress-state").value;
+            //     const updatedPincode = modelScProfile.querySelector("#scaddress-pincode").value;
 
-                    // if (!updatedStreet || !updatedCity || !updatedState || !updatedPincode) {
-                    //     alert("Please fill in all the address fields: street, city, state, and pincode.");
-                    //     return;
-                    // }
+            //     // if (!updatedStreet || !updatedCity || !updatedState || !updatedPincode) {
+            //     //     alert("Please fill in all the address fields: street, city, state, and pincode.");
+            //     //     return;
+            //     // }
 
-                    const updatedData = {
-                        scRefNo: counsellor.referral_code || '',
-                        updatedScName: updatedName,
-                        updatedScDob: updatedDob,
-                        updatedScPhone: updatedPhone,
-                        street: updatedStreet,
-                        district: updatedCity,
-                        state: updatedState,
-                        pincode: updatedPincode
-                    };
+            //     const updatedData = {
+            //         scRefNo: counsellor.referral_code || '',
+            //         updatedScName: updatedName,
+            //         updatedScDob: updatedDob,
+            //         updatedScPhone: updatedPhone,
+            //         street: updatedStreet,
+            //         district: updatedCity,
+            //         state: updatedState,
+            //         pincode: updatedPincode
+            //     };
 
-                    fetch("/updatescuserdetails", {
-                        method: "POST",
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        body: JSON.stringify(updatedData)
-                    })
-                        .then((response) => response.json())
-                        .then((data) => {
-                            if (data.success) {
-                                getScUsers();
+            //     fetch("/updatescuserdetails", {
+            //         method: "POST",
+            //         headers: {
+            //             'Content-Type': 'application/json',
+            //             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            //         },
+            //         body: JSON.stringify(updatedData)
+            //     })
+            //         .then((response) => response.json())
+            //         .then((data) => {
+            //             if (data.success) {
+            //                 getScUsers();
 
-                                alert("All Details Updated for the respective student counsellor");
+            //                 alert("All Details Updated for the respective student counsellor");
 
-                                counsellor.full_name = updatedName;
-                                counsellor.phone = updatedPhone;
-                                counsellor.dob = updatedDob;
-                                counsellor.address = updatedStreet;
-                                counsellor.city = updatedCity;
-                                counsellor.state = updatedState;
-                                counsellor.pincode = updatedPincode;
+            //                 counsellor.full_name = updatedName;
+            //                 counsellor.phone = updatedPhone;
+            //                 counsellor.dob = updatedDob;
+            //                 counsellor.address = updatedStreet;
+            //                 counsellor.city = updatedCity;
+            //                 counsellor.state = updatedState;
+            //                 counsellor.pincode = updatedPincode;
 
-                                editmode = false;
-                                renderProfile();
-                            } else {
-                                console.error("Update failed: " + data.error);
-                            }
-                        })
-                        .catch((error) => {
-                            console.error("Error posting data: ", error);
-                        });
-                });
-                saveScUserAdmin.classList.add("listener-attached");
+            //                 editmode = false;
+            //                 renderProfile();
+            //             } else {
+            //                 console.error("Update failed: " + data.error);
+            //             }
+            //         })
+            //         .catch((error) => {
+            //             console.error("Error posting data: ", error);
+            //         });
+            // });
+            // saveScUserAdmin.classList.add("listener-attached");
 
 
-            }
+            // }
         }
 
 
@@ -559,6 +635,57 @@
                 counsellorContainer.appendChild(counsellorItem);
             });
         };
+
+
+        const queryDetails = (scuserid) => {
+
+
+
+
+
+
+            if (scuserid) {
+                fetch(`/get-queries?scUserId=${scuserid}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        const container = document.querySelector("#scdashboard-profile-adminside .scdashboard-queryraisedcontainer .groupofraisedquestion-scdashboard");
+                        container.innerHTML = ''; // Clear existing
+
+                        if (data.success && data.queries.length > 0) {
+                            // Sort queries by created_at (newest first)
+                            const sortedQueries = data.queries.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+                            sortedQueries.forEach((item) => {
+                                const div = document.createElement('div');
+                                console.log(item);
+                                div.classList.add('individual-raisedquestions');
+                                div.setAttribute('data-added', item.created_at); // Use created_at here
+
+                                div.innerHTML = `
+                            <p id="queries-row">${item.queryraised}</p>
+                            <p id="query-raisedbyrow">${item.querytype}</p>
+                        `;
+
+                                container.appendChild(div);
+                            });
+                            getStatusGroups();
+
+                        } else {
+                            container.innerHTML = '<p>No queries found.</p>';
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Request failed:", error);
+                    });
+            }
+        };
+
 
 
     </script>

@@ -405,10 +405,10 @@
 /* -----------------------------SC profile----------------------------------- */
 .scdashboard-inboxcontent {
     margin: 9% 1% 0% 18.5%;
-    width: fit-content;
+    /* width: fit-content; */
     /* display: flex; */
     display: none;
-    max-width: 80%;
+    max-width: 100%;
     width: 100%;
 
 }
