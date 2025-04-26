@@ -74,6 +74,9 @@ body {
     background: linear-gradient(to right, #45246f 0%, #6f25ce 100%);
     color: white;
 }
+.admin-index-header{
+    padding:0px;
+}
 
 .admin-index-icon {
     width: 24px;
@@ -553,4 +556,24 @@ body {
     font-size: 20px;
     cursor: pointer;
     padding: 5px;
+}
+#admin-loanproposals-id {
+  box-shadow: none !important;
+}
+.individual-bankmessage-input .send-img {
+  position: absolute;
+  right: 15%;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0 !important;
+  z-index: 2;
+}
+.triggeredbutton {
+    padding:0px;
+}
+
+
+.send-img{
+    width:33px;
+    height:25px;
 }

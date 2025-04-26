@@ -689,7 +689,6 @@ input[type="file"] {
 .individual-bankmessages .triggeredbutton {
     width: 109px;
     height: 35px;
-    padding: 16px 32px;
     gap: 8px;
     border-radius: 4px;
     font-family: 'Poppins', sans-serif;
@@ -780,7 +779,6 @@ input[type="file"] {
 
 .individual-bankmessage-input .send-img {
     position: absolute;
-    top: 15%;
     right: 15%;
     padding: 0px 9px 0px 0;
 
