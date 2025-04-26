@@ -710,18 +710,12 @@ input[type="file"] {
     content: '';
     position: absolute;
     top: -5px;
-    /* Slightly above */
     right: -5px;
-    /* Slightly to the right */
     z-index: 6;
-    /* Makes sure it's on top */
     width: 10px;
-    /* Small circle */
     height: 10px;
     border-radius: 50%;
-    /* Makes it round */
     background: rgb(234, 120, 27);
-    /* Orange dot */
     display: inline-block;
 }
 

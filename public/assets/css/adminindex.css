@@ -74,9 +74,11 @@ body {
     background: linear-gradient(to right, #45246f 0%, #6f25ce 100%);
     color: white;
 }
+
 .admin-index-header {
     padding: 0px;
 }
+
 
 .admin-index-icon {
     width: 24px;
@@ -178,6 +180,7 @@ body {
         margin-top: 0px;
     }
 }
+
 
 .inbox-controls {
     display: flex;
@@ -361,6 +364,61 @@ body {
     }
 }
 
+  
+#admin-messagebutton-0{
+  padding:0px;
+}
+#admin-loanproposals{
+  box-shadow:none;
+
+
+#admin-messagebutton-0 {
+    padding: 0px;
+}
+#admin-loanproposals {
+    box-shadow: none;
+
+}
+[id^="admin-inputfield-"] ~ .send-img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+/* Container Visibility */
+.inbox-container {
+    display: none;
+}
+.inbox-container.active {
+    display: block !important;
+}
+.message-thread {
+    display: none;
+}
+.message-thread.active {
+    display: block !important;
+}
+
+/* Loan Proposals Styles */
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.studentdashboardprofile-loanproposals {
+    margin: 25px 0;
+    box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
+    background-color: #fff;
+    padding-bottom: 1.5rem;
+}
+.studentdashboardprofile-loanproposals .loanproposals-header {
+    font-family: "Inter", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #e98635;
+    padding: 1rem 1.8rem;
+}
+
+
 #admin-messagebutton-0 {
     padding: 0px;
 }
@@ -511,6 +569,7 @@ body {
     color: rgba(233, 134, 53, 1);
     padding: 1rem 1.8rem;
 }
+
 
 .loanproposals-loanstatuscards {
     display: flex;
@@ -663,3 +722,4 @@ body {
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+

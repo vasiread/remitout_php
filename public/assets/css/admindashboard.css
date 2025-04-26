@@ -9,8 +9,6 @@
     margin-left: 30%;
 }
 
-
-
 .admindashboardcontainer-firstsection {
     display: flex;
     align-items: center;
@@ -601,7 +599,7 @@
     overflow: hidden;
     margin-top: 4px;
     font-family: "Poppins", sans-serif;
-    max-height: 300px; 
+    max-height: 300px;
     overflow-y: auto;
 }
 
@@ -667,7 +665,6 @@
     line-height: 18px;
     color: #5d5c5c;
 }
-
 
 #calender-buttongroups,
 #calender-reportsregister {
@@ -832,7 +829,7 @@ canvas {
     color: rgba(93, 92, 92, 1);
 }
 .source-name {
-margin:0px;
+    margin: 0px;
 }
 
 #donutRegistrationChart-percentage {
@@ -989,7 +986,6 @@ margin:0px;
     margin-top: 12px;
     background-color: white;
     border-radius: 8px;
-    
 }
 
 .ageratio-graph-admin {
@@ -1017,7 +1013,7 @@ margin:0px;
     font-weight: 500;
     line-height: 18px;
     color: rgba(93, 92, 92, 1);
-    margin:0;
+    margin: 0;
 }
 
 .admindashboard-thirdpart {
@@ -1050,7 +1046,7 @@ margin:0px;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     justify-content: space-between;
-    height:312px;
+    height: 312px;
 }
 
 .funnelreport-analyse-left,
@@ -1443,19 +1439,21 @@ margin:0px;
     gap: 20px;
 }
 .admin-desti-country-sort-btn {
-    display: flex;
-    align-items: center;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 6px 12px;
-    font-size: 12px;
-    color: #5d5c5c;
-    font-weight: 400;
-    font-family: "Poppins", sans-serif;
+    display: flex; /* Use flexbox to align items in a row */
+    align-items: center; /* Vertically center the text and icon */
+    justify-content: space-between; /* Space between text and icon */
+    padding: 8px 12px; /* Consistent padding */
+    font-size: 14px; /* Readable font size */
+    border: 1px solid #ccc; /* Optional: Match your design */
+    border-radius: 4px; /* Optional: Rounded corners */
+    background-color: #fff; /* Optional: Background color */
     cursor: pointer;
-    width: 60px;
-    height: 37px;
-    background-color: white;
+    white-space: nowrap; /* Prevent text wrapping */
+    min-width: 120px; /* Minimum width to accommodate text */
+    max-width: 200px; /* Optional: Maximum width to prevent excessive stretching */
+    overflow: hidden; /* Hide overflow if text is too long */
+    text-overflow: ellipsis; /* Add ellipsis if text overflows */
+    position: relative; /
 }
 
 .admin-desti-country-filter-btn i,
@@ -1728,7 +1726,8 @@ text[fill="#222222"] {
     cursor: pointer;
 }
 
-.nbfc-lead-prev-btn, .nbfc-lead-next-btn {
+.nbfc-lead-prev-btn,
+.nbfc-lead-next-btn {
     background: none;
     border: none;
     cursor: pointer;
@@ -1809,6 +1808,13 @@ text[fill="#222222"] {
     color: #888;
     font-size: 12px;
     margin-top: 50px;
+}
+
+.sc-lead-prev-btn, .sc-lead-next-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
 }
 
 .sc-lead-pagination span {
@@ -2252,13 +2258,13 @@ text[fill="#222222"] {
         font-size: 12px;
     }
     .point-entry-legend {
-    display: flex;
-    flex-direction: column;
-    gap: 0px;
-}
-.point-entry-legend-container{
-    gap:5px;
-}
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
+    }
+    .point-entry-legend-container {
+        gap: 5px;
+    }
 }
 
 .calendar-wrapper {
@@ -2422,8 +2428,6 @@ text[fill="#222222"] {
     box-sizing: border-box;
 }
 
-
-
 .show-all-admin-options button:hover {
     background: #f0f0f0;
 }
@@ -2434,7 +2438,6 @@ text[fill="#222222"] {
 
 /* Report containers */
 [data-report] {
-
     visibility: visible;
 }
 
@@ -2443,8 +2446,6 @@ text[fill="#222222"] {
     display: none;
 }
 
-
-
 @media (min-width: 1500px) {
     .admindashboard-container {
         margin: 80px 20px 80px 30px;
@@ -2452,8 +2453,8 @@ text[fill="#222222"] {
         margin-left: 32%;
     }
     .admindashboard-secondpart .ageratio-graph-admin {
-     width: 340px;
-}
+        width: 340px;
+    }
 }
 
 @media (min-width: 1728px) {
@@ -2463,15 +2464,13 @@ text[fill="#222222"] {
         margin-left: 40%;
     }
     .admindashboard-secondpart .ageratio-graph-admin {
-     width: 340px;
-}
-#nbfc-lead-chart_container, 
-.sc-lead-container,
-.point-entry-donut,
-.point-entry-dashboard  {
-    width:100%;
-    margin:0;
-
-}
-
+        width: 340px;
+    }
+    #nbfc-lead-chart_container,
+    .sc-lead-container,
+    .point-entry-donut,
+    .point-entry-dashboard {
+        width: 100%;
+        margin: 0;
+    }
 }

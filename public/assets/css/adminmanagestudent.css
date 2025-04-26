@@ -29,6 +29,7 @@
     display: flex;
     justify-content: space-between;
     gap: 10px;
+    cursor: pointer !important;
 }
 
 .manage-student-report-header {
@@ -52,7 +53,7 @@
     border: none;
     padding: 8px 16px;
     border-radius: 4px;
-    cursor: pointer;
+    cursor: pointer !important;
     font-weight: 500;
     font-family: "Poppins", sans-serif;
     font-size: 14px;
@@ -403,3 +404,30 @@
         margin: 10px 0px;
     }
 }
+
+
+.manage-student-report-table-wrapper {
+    overflow-x: auto;
+}
+
+.manage-student-report-table {
+    min-width: 2000px;
+}
+
+/* Style for table headers to wrap two-word names and align properly */
+.manage-student-report-th {
+    white-space: normal;
+    width: 120px;
+    text-align: center;
+    padding: 8px;
+}
+
+.manage-student-report-td {
+    text-align: center;
+    padding: 8px;
+}
+
+.mobile-filters-popup-student-report {
+    display: none;
+}
+

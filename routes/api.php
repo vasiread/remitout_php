@@ -102,3 +102,5 @@ Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails'])
 Route::get('/city-stats', [Admincontroller::class, 'getCityStats']);
 Route::post('/suspendscuser', [scDashboardController::class, 'suspendUser']);
 Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails']);
+
+Route::get('/dest-countries', [Admincontroller::class, 'getDestinationCountries']);
