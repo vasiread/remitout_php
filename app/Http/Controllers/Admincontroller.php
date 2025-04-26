@@ -548,15 +548,39 @@ class Admincontroller extends Controller
                 $personalInfo = PersonalInfo::where('user_id', $user->unique_id)->first();
                 $courseInfo = CourseInfo::where('user_id', $user->unique_id)->get();
 
+                // Fetch student counsellor name if referral_code exists
+                $studentCounsellorName = null;
+                $sourceReferral = null;
+                if ($user->referral_code) {
+                    $scuser = Scuser::where('referral_code', $user->referral_code)->first();
+                    if ($scuser) {
+                        $studentCounsellorName = $scuser->full_name;
+                        $sourceReferral = "SC Referral";
+                    }
+                }
+
+                // Retrieve the count of proposals for the current user
+                $proposalCount = Requestprogress::where('user_id', $user->unique_id)
+                    ->where('type', Requestprogress::TYPE_PROPOSAL)
+                    ->count();
+
                 $userDetails = [
                     'unique_id' => $user->unique_id,
                     'email' => $personalInfo ? $personalInfo->email : null,
                     'full_name' => $personalInfo ? $personalInfo->full_name : null,
                     'gender' => $personalInfo ? $personalInfo->gender : null,
-                    'phone_number' => $user->phone,
+                    'dateofbirth' => $personalInfo ? $personalInfo->dob : null,
+                    'sourceOfReferral' => $sourceReferral ?? null,
+                    'scReferral' => $user->referral_code ?? null,
+                    'student_counsellor_name' => $studentCounsellorName ?? null,
+                    'city' => $personalInfo->city ?? null,
+                    'state' => $personalInfo->state ?? null,
+                    'PointOfEntry' => $personalInfo->linked_through ?? null,
+                    'phone_number' => $user->phone ?? null,
                     'degree_type' => null,
                     'loan_amount' => null,
-                    'course_info' => []
+                    'course_info' => [],
+                    'proposal_count' => $proposalCount, // Add proposal count here
                 ];
 
                 // Check and add course details
@@ -569,7 +593,7 @@ class Admincontroller extends Controller
                         ];
 
                         // If degree_type and loan_amount are in courseInfo, add them
-                        $userDetails['degree_type'] = $course->{'degree-type'}; // Correct reference
+                        $userDetails['degree_type'] = $course->{'degree-type'};
                         $userDetails['loan_amount'] = $course->loan_amount_in_lakhs;
                     }
                 }
@@ -591,6 +615,7 @@ class Admincontroller extends Controller
             ], 500);
         }
     }
+
     public function getDestinationCountries()
     {
         try {
