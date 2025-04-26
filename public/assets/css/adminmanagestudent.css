@@ -1,16 +1,16 @@
 .manage-student-main-report-container {
     border-radius: 8px;
-    padding: 20px;   
+    padding: 20px;
     display: none;
     flex-direction: column;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     width: calc(100% - 18% - 20px);
-    position: absolute; 
-    top: 0; 
-    right: 0; 
-    left: auto; 
-    margin-left: auto; 
-    margin-top:100px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: auto;
+    margin-left: auto;
+    margin-top: 100px;
 }
 
 .manage-student-main-report-container {
@@ -39,10 +39,10 @@
 }
 
 .manage-student-report-title {
-    color: #E98635;
+    color: #e98635;
     font-size: 28px;
     font-weight: 500;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 /* Export button */
@@ -54,8 +54,9 @@
     border-radius: 4px;
     cursor: pointer;
     font-weight: 500;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 14px;
+    width: 146px;
 }
 
 /* Filters */
@@ -70,9 +71,9 @@
     display: flex;
     gap: 15px;
     margin-bottom: 15px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 13px;
-    color: #5D5C5C;
+    color: #5d5c5c;
 }
 
 .manage-student-report-filters-left,
@@ -94,9 +95,9 @@
     border-radius: 4px;
     min-width: 150px;
     height: 35px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 13px;
-    color: #5D5C5C;
+    color: #5d5c5c;
     font-weight: 500;
 }
 
@@ -134,18 +135,20 @@
     text-align: left;
     border-bottom: 1px solid #ddd;
     font-size: 12px;
-    color: #5D5C5CCC;
+    color: #5d5c5ccc;
 }
 
 .manage-student-report-th {
     font-weight: 500;
-    color: #5D5C5C;
-    font-family: 'Poppins', sans-serif;
+    color: #5d5c5c;
+    font-family: "Poppins", sans-serif;
     font-size: 14px;
     white-space: nowrap;
     border-bottom: 1px solid #ddd;
-    padding: 20px 0px;
+    padding: 20px 5px;
+    text-align: center;
 }
+
 
 /* Pagination */
 .manage-student-report-pagination {
@@ -180,7 +183,7 @@
 .manage-student-report-pagination-text {
     padding: 0 4px;
     font-size: 12px;
-    color: #3E3E3E;
+    color: #3e3e3e;
 }
 
 .mobile-report-header-student-report {
@@ -197,7 +200,7 @@
 .mobile-report-title-student-report {
     font-size: 18px;
     font-weight: 500;
-    color: #E98635;
+    color: #e98635;
 }
 
 .mobile-report-header-middle-student-report {
@@ -209,7 +212,7 @@
 
 .mobile-report-subtitle-student-report {
     font-size: 14px;
-    color: #E98635;
+    color: #e98635;
     font-weight: 400;
 }
 
@@ -336,7 +339,7 @@
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 14px;
     appearance: none;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
@@ -344,6 +347,16 @@
     background-position: right 10px center;
     background-size: 16px;
 }
+
+.manage-student-report-table-wrapper {
+    overflow-x: auto;
+}
+
+.manage-student-report-table {
+    min-width: 2000px;
+}
+
+
 
 @media screen and (max-width: 768px) {
     .manage-student-main-report-container {
@@ -391,7 +404,7 @@
     .manage-student-report-table {
         min-width: 800px;
     }
-    .mobile-report-subtitle-student-report{
-        margin:10px 0px;
+    .mobile-report-subtitle-student-report {
+        margin: 10px 0px;
     }
 }
