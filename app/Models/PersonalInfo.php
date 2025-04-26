@@ -18,7 +18,9 @@ class PersonalInfo extends Model
         'email',
         'state',
         'city', 
-        'linked_through'
+        'linked_through',
+        'created_at'
+
 
     ];
  

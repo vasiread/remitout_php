@@ -15,10 +15,10 @@
     @extends('layouts.app')
 
     @php
-$profileIconPath = "assets/images/account_circle1.png";
-$phoneIconPath = "assets/images/call.png";
-$mailIconPath = "assets/images/mail.png";
-$pindropIconPath = "assets/images/pin_drop.png";
+        $profileIconPath = "assets/images/account_circle1.png";
+        $phoneIconPath = "assets/images/call.png";
+        $mailIconPath = "assets/images/mail.png";
+        $pindropIconPath = "assets/images/pin_drop.png";
 
 
 
@@ -31,9 +31,9 @@ $pindropIconPath = "assets/images/pin_drop.png";
 
 
     @php
-$studentCounsellorsLists = [
+        $studentCounsellorsLists = [
 
-];
+        ];
     @endphp
     <div class="add-studentcounsellor-adminside">
         <h1 class="studentcounsellor-header-admin">Add Student Counsellor</h1>
@@ -421,8 +421,7 @@ $studentCounsellorsLists = [
             // const saveScUserAdmin = document.querySelector("#scmember-profilecontainer-adminside .scmember-rowfirst .save-scuser");
 
             async function renderProfile() {
-                if (isRendering) return;
-                isRendering = true;
+
 
                 if (modelScProfile && studentCounsellorList) {
                     modelScProfile.style.display = "flex";
@@ -462,7 +461,6 @@ $studentCounsellorsLists = [
                         modelScProfile.querySelector("#screferral-dob-fromprofile").style.display = "flex";
                     }
                 }
-                    isRendering = false;
 
             }
 
