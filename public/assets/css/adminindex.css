@@ -1,118 +1,109 @@
 body {
-    background-color: #F5F5F5;
+    background-color: #f5f5f5;
 }
 
-
-#index-section-admin-id{
-  margin-top: 100px;  
-  width:1000px;  
-  
+#index-section-admin-id {
+    margin-top: 100px;
+    width: 1000px;
 }
-
 
 #index-section-id .index-section {
     padding: 0;
     margin-top: 0px;
-    background-color: #F5F5F5;
-     font-family: 'Poppins', sans-serif;
+    background-color: #f5f5f5;
+    font-family: "Poppins", sans-serif;
 }
-.admin-index-section-main-container{
-      display: none;
-     flex-direction: column;
-     max-width: 100%;
-     width: 100%;
-     margin-top: 50px;
-     margin-right: 60px;
-     gap: 17px;
-     margin-left: 28%;
-     font-family: 'Poppins', sans-serif;
-
+.admin-index-section-main-container {
+    display: none;
+    flex-direction: column;
+    max-width: 100%;
+    width: 100%;
+    margin-top: 50px;
+    margin-right: 60px;
+    gap: 17px;
+    margin-left: 28%;
+    font-family: "Poppins", sans-serif;
 }
-.admin-index-main-sub-container{
+.admin-index-main-sub-container {
     display: flex;
     flex-direction: column;
     background: white;
-   margin: 25px;
-     padding-top: 20px;
+    margin: 25px;
+    padding-top: 20px;
 }
 
 .admin-index-main-container {
-            display: flex;
-            justify-content: center;
-            margin: 0px 25px;
-            padding: 20px 0px;
-            align-items: center;
-            gap: 16px;
-          
-            background: white;
-            border-radius: 8px;
-        }
-        
-   .admin-index-heading-index h1{
-   
+    display: flex;
+    justify-content: center;
+    margin: 0px 25px;
+    padding: 20px 0px;
+    align-items: center;
+    gap: 16px;
+
+    background: white;
+    border-radius: 8px;
+}
+
+.admin-index-heading-index h1 {
     font-weight: 600;
     font-size: 28px;
-    color: #E98635;
+    color: #e98635;
     margin: 0px 25px;
-   } 
-   .dashboard-section-index{
-     font-weight: 600;
-    font-size: 18px !important;
-    color: #E98635;
-  
 }
-        .admin-index-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 20px;
-            border-radius: 6px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 16px !important;
-            cursor: pointer;
-            min-width: 290px;
-            width:90%;
-            height:64px;
-            border: 1px solid #ccc;
-           
-        }
+.dashboard-section-index {
+    font-weight: 600;
+    font-size: 18px !important;
+    color: #e98635;
+}
+.admin-index-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px !important;
+    cursor: pointer;
+    min-width: 290px;
+    width: 90%;
+    height: 64px;
+    border: 1px solid #ccc;
+}
 
+.admin-index-item.active {
+    background: linear-gradient(to right, #45246f 0%, #6f25ce 100%);
+    color: white;
+}
 
-        .admin-index-item.active {
-           background: linear-gradient(to right, #45246F 0%, #6F25CE 100%);
-            color: white;
-        }
+.admin-index-icon {
+    width: 24px;
+    height: 24px;
+}
 
-        .admin-index-icon {
-            width: 24px;
-            height: 24px;
-        }
+.admin-index-count {
+    margin-left: auto;
+    font-weight: 500;
+}
 
-        .admin-index-count {
-            margin-left: auto;
-            font-weight: 500;
-        }
+.admin-index-count-orange {
+    color: #f97316;
+}
 
-        .admin-index-count-orange {
-            color: #F97316;
-        }
+.admin-index-count-gray {
+    color: #9ca3af;
+}
 
-        .admin-index-count-gray {
-            color: #9CA3AF;
-        }
+.admin-index-section {
+    background: white;
+    border-radius: 8px;
+    padding: 24px;
 
-        .admin-index-section {
-            background: white;
-            border-radius: 8px;
-            padding: 24px;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            text-align: center;
-
-        }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
 .index-bank-name {
     font-size: 14px !important;
     font-weight: 600;
@@ -121,11 +112,11 @@ body {
 }
 
 .nbfc-individual-bankmessage-input-message {
-    display: none; 
+    display: none;
 }
 
-.admin-individual-bankmessage-input-message{
-       max-width: 100%;
+.admin-individual-bankmessage-input-message {
+    max-width: 100%;
     height: 35px;
     margin: 20px 30px;
     position: relative;
@@ -136,21 +127,19 @@ body {
 }
 
 .admin-individual-bankmessage-input-message input,
-
 .mobile-inbox-container {
     display: none;
 }
 
-
 @media screen and (max-width: 768px) {
-  .admin-index-section-main-container{
-    width:380px;
-    margin: 0 auto;
-    padding:0;
-  }
+    .admin-index-section-main-container {
+        width: 380px;
+        margin: 0 auto;
+        padding: 0;
+    }
 
-    .admin-index-main-container{
-        display:none;
+    .admin-index-main-container {
+        display: none;
     }
     .mobile-inbox-container {
         display: flex;
@@ -159,7 +148,6 @@ body {
         padding: 10px;
         background: white;
         border-radius: 8px;
-        
     }
 
     .mobile-inbox-item {
@@ -171,156 +159,153 @@ body {
     }
 
     .mobile-inbox-item.active {
-        color: #6F25CE;
-        border-bottom: 2px solid #6F25CE;
+        color: #6f25ce;
+        border-bottom: 2px solid #6f25ce;
     }
-    .admin-index-main-sub-container{
-      display: flex;
-      flex-direction: column;
-      background: white;
-      margin: 0px;
-      padding-top: 20px;
+    .admin-index-main-sub-container {
+        display: flex;
+        flex-direction: column;
+        background: white;
+        margin: 0px;
+        padding-top: 20px;
+    }
+    #index-container-id {
+        width: 100%;
+        margin: 0 auto;
+        margin-top: 0px;
+    }
 }
-#index-container-id{
-    width:100%;
-    margin:0 auto;
-    margin-top: 0px;
-}
-
-}
-
-
 
 /* Main container styling */
 .inbox-controls {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 15px 0;
 }
 
 /* Search container styling */
 .index-search-container {
-  position: relative;
-  flex-grow: 1;
+    position: relative;
+    flex-grow: 1;
 }
 
 .index-search-icon {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 16px;
-  height: 16px;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
 }
 
 .index-search-input {
-  width: 100%;
-  height: 38px;
-  padding: 0 10px 0 32px;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  font-size: 14px;
-  outline: none;
+    width: 100%;
+    height: 38px;
+    padding: 0 10px 0 32px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
 }
 
 /* Admin inbox filters styling */
 .admin-inbox-filters {
-  position: relative;
-  width: 117px;
-  height: 38px;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 10px;
-  cursor: pointer;
-  background-color: white;
+    position: relative;
+    width: 117px;
+    height: 38px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    cursor: pointer;
+    background-color: white;
 }
 
 .admin-inbox-filters span {
-  font-size: 14px;
-  color: #333;
+    font-size: 14px;
+    color: #333;
 }
 
 .admin-inbox-filters img {
-  width: 20px;
-  height: 20px;
+    width: 20px;
+    height: 20px;
 }
 
 /* Dropdown styling */
 .admin-sort-dropdown {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  margin-top: 2px;
-  background-color: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  z-index: 10;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  padding: 0;
-  list-style: none;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    margin-top: 2px;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 0;
+    list-style: none;
 }
 
 .admin-sort-dropdown.active {
-  display: block;
+    display: block;
 }
 
 .admin-sort-dropdown li {
-  padding: 12px 10px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  list-style: none;
-  font-size: 14px;
-  color: #333;
-  border-bottom: 1px solid #f0f0f0;
+    padding: 12px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    list-style: none;
+    font-size: 14px;
+    color: #333;
+    border-bottom: 1px solid #f0f0f0;
 }
 
 .admin-sort-dropdown li:last-child {
-  border-bottom: none;
+    border-bottom: none;
 }
 
 .admin-sort-dropdown li:hover {
-  background-color: #f5f5f5;
+    background-color: #f5f5f5;
 }
 .admin-inbox-btn-view {
     padding: 8px 24px;
-    border: 1px solid #6F25CE;
+    border: 1px solid #6f25ce;
     border-radius: 4px;
-    color: #6F25CE;
+    color: #6f25ce;
     background: white;
     cursor: pointer;
     transition: background-color 0.2s;
     width: 71px;
     height: 36px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500; 
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
     font-size: 14px;
     display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
 }
 
-.admin-inbox-btn-close{
+.admin-inbox-btn-close {
     padding: 8px 24px;
-    border: 1px solid #6F25CE;
+    border: 1px solid #6f25ce;
     border-radius: 4px;
-    color: #6F25CE;
+    color: #6f25ce;
     background: white;
     cursor: pointer;
     transition: background-color 0.2s;
     width: 71px;
     height: 36px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500; 
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
     font-size: 14px;
     display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
 }
 
 .admin-individual-bankmessage-input {
@@ -331,7 +316,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-      font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 .admin-individual-bankmessage-input input,
@@ -343,14 +328,13 @@ body {
     gap: 8px;
     border-radius: 4px;
     border: 1px solid rgba(226, 226, 226, 1);
-   font-size: 12px;
+    font-size: 12px;
     color: rgba(144, 144, 144, 1);
-      font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 .admin-message-item {
     padding: 24px 0;
-    
 }
 .message-header {
     display: flex;
@@ -359,30 +343,214 @@ body {
     margin-bottom: 16px;
 }
 
-
 @media (min-width: 1500px) {
-   #index-section-admin-id,
-   .index-section {
-  margin-top: 50px;  
-  width:1100px;
-  
-}
+    #index-section-admin-id,
+    .index-section {
+        margin-top: 50px;
+        width: 1100px;
+    }
 }
 
 @media (min-width: 1728px) {
-   #index-section-admin-id,
-   #index-section-id{
-      margin-top: 50px;  
-      width:1200px;
-
-   }
-   .admin-index-section-main-container {
-    margin-left: 30%;
-
-   }
-
-
+    #index-section-admin-id,
+    #index-section-id {
+        margin-top: 50px;
+        width: 1200px;
+    }
+    .admin-index-section-main-container {
+        margin-left: 30%;
+    }
 }
-  
 
+#admin-messagebutton-0 {
+    padding: 0px;
+}
+#admin-loanproposals {
+    box-shadow: none;
+}
+[id^="admin-inputfield-"] ~ .send-img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+/* Container Visibility */
+.inbox-container {
+    display: none;
+}
+.inbox-container.active {
+    display: block !important;
+}
+.message-thread {
+    display: none;
+}
+.message-thread.active {
+    display: block !important;
+}
 
+/* Loan Proposals Styles */
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.studentdashboardprofile-loanproposals {
+    margin: 25px 0;
+    box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
+    background-color: #fff;
+    padding-bottom: 1.5rem;
+}
+.studentdashboardprofile-loanproposals .loanproposals-header {
+    font-family: "Inter", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #e98635;
+    padding: 1rem 1.8rem;
+}
+.loanproposals-loanstatuscards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 1.8rem;
+}
+.indivudalloanstatus-cards {
+    padding: 1rem 1.8rem;
+    border-top: 1px solid #e5e5e5;
+}
+.individual-bankname h1 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #5d5c5c;
+    margin: 0;
+}
+.messageinputnbfcids {
+    font-size: 14px;
+    font-weight: 500;
+    color: #909090;
+}
+.individual-bankmessages {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 100%; /* Ensure full width for layout */
+}
+.individual-bankmessages p {
+    font-size: 14px;
+    font-weight: 500;
+    color: #909090;
+    max-width: 370px;
+}
+.triggeredbutton {
+    display: block !important; /* Ensure Message button is visible */
+    width: 109px;
+    height: 35px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    background-color: #6f25ce;
+    border: none;
+    cursor: pointer;
+}
+.messages-wrapper {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    overflow-y: auto;
+    max-height: 300px;
+    background: #fff;
+    margin-bottom: 10px;
+}
+.messages-wrapper div[data-message-id] {
+    display: flex;
+    margin-bottom: 10px;
+}
+.messages-wrapper div[data-message-id] div {
+    max-width: 80%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background-color: #fff;
+    word-wrap: break-word;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+.messages-wrapper div[data-message-id][style*="flex-end"] div {
+    background-color: #dcf8c6;
+}
+.individual-bankmessage-input {
+    display: none;
+    height: 35px;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.input-wrapper {
+    position: relative;
+    flex: 1;
+}
+.individual-bankmessage-input input {
+    width: 100%;
+    height: 100%;
+    padding: 8px 40px 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #e2e2e2;
+    font-family: "Poppins", sans-serif;
+    color: #909090;
+    box-sizing: border-box;
+}
+.individual-bankmessage-input input::placeholder {
+    font-size: 14px;
+    font-weight: 500;
+    color: #6f25ce;
+}
+.individual-bankmessage-input .send-img {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    cursor: pointer;
+}
+.individual-bankmessage-input i {
+    font-size: 1.2rem;
+    color: #bbbbbb;
+    cursor: pointer;
+}
+.clear-chat-container {
+    display: none;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+.clear-chat-container button {
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 20px;
+    font-size: 12px;
+    color: #666;
+    cursor: pointer;
+}
+.emoji-picker {
+    position: absolute;
+    bottom: 45px;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.emoji-picker button {
+    border: none;
+    background: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px;
+}
