@@ -182,28 +182,56 @@
 }
 
 
-#scmember-profilecontainer-adminside {
-    margin-top: 10%;
-    display: flex;
-    margin-left: 21%;
+ 
+
+#scdashboard-profile-adminside {
+    max-width: 120%;
+    width: 120%;
+    margin-left: 30%;
+
 
 }
 
-#scmember-profilecontainer-adminside .scmember_personalinfo {
-    margin-left: -33px;
+#scdashboard-profile-adminside .scmember_personalinfo{
+    margin-left: -35px;
 }
-
-#scmember-profilecontainer-adminside .scmember_personalinfo_editmode {
-    margin-left: -34px;
-}
-
-#scmember-profilecontainer-adminside #dob-display {
+#scdashboard-profile-adminside .scdashboard-individual-performance li p{
     margin-bottom: 0;
 }
-
-#scmember-profilecontainer-adminside .scmember_personalinfo_editmode li {
-    margin: 5px 0;
+#scdashboard-profile-adminside  #screferral-dob-fromprofile p{
+    margin-bottom: 0;
 }
+#scdashboard-profile-adminside .queryraisedcontainer-rightcontent #sort-by p{
+    margin-bottom: 0;
+}
+ #scdashboard-profile-adminside  #raised-query{
+    display:none;
+ }
+ #scdashboard-profile-adminside .scmember-profilecontainer{
+ display: flex;
+flex-direction: column;
+height: fit-content;
+max-width: 27%;
+width: 100%;
+margin-left: 0.5rem;
+padding: 1.5rem;
+background-color: #FFFFFF;
+border-radius: 0.6rem;
+box-shadow: 0px 8px 23px 0px #1A023908;
+
+ }
+
+#scdashboard-profile-adminside .scdashboard-performancecontainer {
+    width: 100%;
+    max-width: 100%;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
+}
+/* #scmember-profilecontainer-adminside .scmember-profilecontainer{ */
+
+
+
+/* } */
 
 #scmember-profilecontainer-adminside .scmember-rowfirst .save-scuser {
     display: flex;
@@ -311,9 +339,9 @@
 
     #trigger-profile-photo-sc {
         background: url('data:image/png;base64,iVBORw0KGgo...') no-repeat right 10px center;
-        /* Placeholder for upload icon */
         background-size: 20px;
         cursor: pointer;
+
     }
 
     .addcouncellor-buttoncontainer {
@@ -480,7 +508,7 @@
         box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
     }
 }
-
+/* 
 
 #scmember-profilecontainer-adminside {
     margin-top: 10%;
@@ -518,7 +546,7 @@
     box-shadow: 0px 0px 10px 0px #92889B21;
     background: transparent;
 
-}
+} */
 
 @media (max-width: 767px) {
     .add-studentcounsellor-adminside {

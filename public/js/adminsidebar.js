@@ -64,7 +64,7 @@ function initializeAdminSidebar () {
    
    
 
-    const adminsideScDashboard = document.querySelector("#scmember-profilecontainer-adminside")
+    const adminsideScDashboard = document.querySelector("#scdashboard-profile-adminside")
 
     if (expandedStudentFromAdmin)
         expandedStudentFromAdmin.style.display = "none";
