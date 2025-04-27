@@ -421,8 +421,7 @@
             // const saveScUserAdmin = document.querySelector("#scmember-profilecontainer-adminside .scmember-rowfirst .save-scuser");
 
             async function renderProfile() {
-
-
+                
                 if (modelScProfile && studentCounsellorList) {
                     modelScProfile.style.display = "flex";
                     studentCounsellorList.style.display = "none";
@@ -461,7 +460,7 @@
                         modelScProfile.querySelector("#screferral-dob-fromprofile").style.display = "flex";
                     }
                 }
-
+ 
             }
 
             function eliminateScUser() {

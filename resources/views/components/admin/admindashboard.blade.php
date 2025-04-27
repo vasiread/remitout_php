@@ -761,7 +761,7 @@ const initializeRegistrationLineGraph = () => {
             dataTable.addRows(rows);
 
             // Log the transformed data for debugging
-            console.log('Transformed chart data:', rows);
+            // console.log('Transformed chart data:', rows);
 
             // Create a DataView
             const view = new google.visualization.DataView(dataTable);
@@ -846,7 +846,7 @@ const updateProfileCompletionByGender = () => {
         body: JSON.stringify({}) // Empty body; adjust if API requires data
     })
         .then(response => {
-            console.log('Raw response:', response);
+            // console.log('Raw response:', response);
             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
             return response.json();
         })
@@ -986,7 +986,7 @@ function initializeCitiesTable () {
         }
     })
         .then(response => {
-            console.log('Raw response:', response);
+            // console.log('Raw response:', response);
             if (!response.ok) {
                 console.log('Response status:', response.status, 'Status text:', response.statusText);
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -1049,7 +1049,7 @@ function initializeCitiesTable () {
         const paginatedData = filteredData.slice(startIdx, endIdx);
 
         // Log the paginated data for debugging
-        console.log('Paginated table data:', paginatedData);
+        // console.log('Paginated table data:', paginatedData);
 
         // Update table body
         tableBody.innerHTML = '';
@@ -1223,7 +1223,7 @@ const initializeCountriesTable = () => {
         return response.json();
     })
     .then(data => {
-        console.log('Fetched Destination Countries data:', JSON.stringify(data, null, 2));
+        // console.log('Fetched Destination Countries data:', JSON.stringify(data, null, 2));
 
         // Validate the API response structure (assuming it could be an array or an object with a 'data' property)
         let countriesData = data;
