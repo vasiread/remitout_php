@@ -537,7 +537,6 @@
 .nbfcstudentdashboardprofile-togglesidebar {
     max-width: 18.93%;
     width: 100%;
-
     padding: 35px 10px;
     box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
     position: fixed;
@@ -1159,6 +1158,7 @@
     flex: 1;
     border-radius: 8px;
     padding: 14px;
+    width:500px;
 
 
 }
@@ -1989,8 +1989,6 @@
     }
 }
 
-/*reject container*/
-
 .modal-container {
     position: fixed;
     top: 0;
@@ -1998,7 +1996,6 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    /* Semi-transparent black for dimming */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2011,10 +2008,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
     width: 605px;
-    height: 281px;
-
 }
-
 
 .reject-application-modal-backdrop {
     position: fixed;
@@ -2065,17 +2059,79 @@
     margin-bottom: 16px;
 }
 
+.reject-attachment-container {
+    margin-bottom: 20px;
+}
+
+.reject-attachment-label {
+    color: #666;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.reject-attachment-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.reject-attachment-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 8px 12px;
+    width: 100%;
+    font-family: "poppins";
+}
+
+.reject-attachment-add-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    padding: 0;
+}
+
+.reject-attachment-icon {
+    margin-right: 8px;
+    color: #E98635;
+    font-size: 16px;
+    display: none;
+}
+
+.reject-attachment-add-btn .reject-attachment-name:not(:empty) ~ .reject-attachment-icon {
+    display: inline-block;
+}
+
+.reject-attachment-name {
+    font-size: 14px;
+    color: #333;
+}
+
+.reject-attachment-remove {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+    padding: 0;
+    margin-left: 8px;
+}
+
+#fileInput {
+    display: none;
+}
+
 .reject-application-modal-content .actions {
     display: flex;
     justify-content: space-between;
 }
 
 .reject-application-modal-content .actions button {
-    margin-left: 8px;
-
     font-size: 14px;
     border-radius: 4px;
-    width:62px;
     cursor: pointer;
 }
 
@@ -2083,13 +2139,18 @@
     background-color: #FFFFFF;
     color: #260254;
     border: 1px solid #6F25CE;
-    width:62px;
+    width: 125px;
+    height: 35px;
+    font-family: "poppins";
 }
 
 .reject-application-modal-content .actions .reject-button {
     background-color: #6F25CE;
     color: white;
     border: none;
+    width: 125px;
+    height: 35px;
+     font-family: "poppins";
 }
 
 @media (max-width: 768px) {
@@ -3181,7 +3242,6 @@
 
 }
 
-
 .nbfc-send-proposal-modal-container {
     position: fixed;
     top: 0;
@@ -3257,32 +3317,56 @@
     color: #666;
     margin-bottom: 10px;
     font-size: 12px;
+    display: flex;
+    align-items: center;
+    width: 100%;
 }
 
 .nbfc-send-proposal-attachment-preview {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 12px;
     display: none;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
 }
 
-.nbfc-send-proposal-file-info {
+.nbfc-send-proposal-attachment-wrapper {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 12px;
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 8px 12px;
+    width: 100%;
+}
+
+.nbfc-send-proposal-icon {
+    margin-right: 8px;
+    color: #E98635;
+    font-size: 16px;
+    display: none;
+}
+
+.nbfc-send-proposal-attachment-button .nbfc-send-proposal-file-name:not(:empty) ~ .nbfc-send-proposal-icon {
+    display: inline-block;
 }
 
 .nbfc-send-proposal-file-name {
+    font-size: 14px;
     color: #333;
+    flex-grow: 1;
 }
 
 .nbfc-send-proposal-file-size {
+    font-size: 12px;
     color: #666;
-    font-size: 0.9em;
+    display: none; /* Hide size as per image layout */
+}
+
+.nbfc-send-proposal-close-button#removeAttachment {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+    padding: 0;
+    margin-left: 8px;
 }
 
 .nbfc-send-proposal-button-container {
@@ -3290,7 +3374,6 @@
     justify-content: space-between;
     gap: 12px;
     margin-top: 20px;
-
 }
 
 .nbfc-send-proposal-cancel-button {

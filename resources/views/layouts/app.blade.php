@@ -77,7 +77,8 @@
     @else
         @yield('homecontent')
     @endif
-    @if(Route::currentRouteName() !== 'login' && Route::currentRouteName() !== 'signup' && Route::currentRouteName() !== 'admin-page' && Route::currentRouteName() !== 'nbfc-dashboard' && Route::currentRouteName() !== 'sc-dashboard' && Route::currentRouteName() !== 'student-dashboard')
+
+    @if(!in_array(Route::currentRouteName(), ['login', 'signup', 'admin-page', 'nbfc-dashboard', 'sc-dashboard', 'student-dashboard']))
         <x-footer></x-footer>
     @endif
 

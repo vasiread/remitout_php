@@ -224,6 +224,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="nbfcdashboard-studentlistscontainer" style="gap:1.2%">
             <div class="studentdashboardprofile-profilesection" id="nbfc-list-of-student-profilesections">
                 <img src="{{asset($profileImgPath)}}" class="profileImg" id="profile-photo-id" alt="">
@@ -635,27 +636,38 @@
         </div>
         </div>
 
-
-
-
-
-        <div class="modal-container" id="model-container-reject-container" style="display: none;">
-            <div class="reject-application-modal" id="reject-application-id">
-                <div class="reject-application-modal-header">
-                    <h3>Reject Application</h3>
-                    <button class="close-button" id="close-button-id">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div class="reject-application-modal-content" id="reject-application-modal-content-id">
-                    <textarea class="remarks-textarea" placeholder="Add Remarks"></textarea>
-                    <div class="actions">
-                        <button class="cancel-button" id="cancel-button-id">Cancel</button>
-                        <button class="reject-button" id="reject-button-id">Reject</button>
+      <div class="modal-container" id="model-container-reject-container" style="display: none;">
+        <div class="reject-application-modal" id="reject-application-id">
+            <div class="reject-application-modal-header">
+                <h3>Reject Application</h3>
+                <button class="close-button" id="close-button-id">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="reject-application-modal-content" id="reject-application-modal-content-id">
+                <textarea class="remarks-textarea" placeholder="Add Remarks"></textarea>
+                <div class="reject-attachment-container">
+                    <label class="reject-attachment-label">Attachment</label>
+                    <div class="reject-attachment-input">
+                        <div class="reject-attachment-wrapper">
+                            <button class="reject-attachment-add-btn" id="addAttachmentBtn">
+                                <span class="reject-attachment-icon"><i class="fas fa-file-pdf"></i></span>
+                                <span class="reject-attachment-name" id="fileName">+ Add Attachment</span>
+                            </button>
+                            <button class="reject-attachment-remove" id="removeAttachmentBtn" style="display: none;">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <input type="file" id="fileInput" style="display: none;" />
                     </div>
+                </div>
+                <div class="actions">
+                    <button class="cancel-button" id="cancel-button-id">Cancel</button>
+                    <button class="reject-button" id="reject-button-id">Reject</button>
                 </div>
             </div>
         </div>
+    </div>
 
 
 
@@ -1906,17 +1918,53 @@
             const modalContainer = document.getElementById("model-container-reject-container");
             const closeButton = document.getElementById("close-button-id");
             const cancelButton = document.getElementById("cancel-button-id");
-            const sendProposalRejectButton = document.getElementById("send-proposal-button-id");
-
+            const sendProposalRejectButton = document.getElementById("reject-button-id");
+            const addAttachmentBtn = document.getElementById("addAttachmentBtn");
+            const fileInput = document.getElementById("fileInput");
+            const fileNameSpan = document.getElementById("fileName");
+            const removeAttachmentBtn = document.getElementById("removeAttachmentBtn");
+            let selectedFile = null;
 
             function hideRejectModal() {
                 if (modalContainer) {
                     modalContainer.style.display = "none";
+                    if (fileInput) {
+                        fileInput.value = "";
+                    }
+                    if (fileNameSpan && removeAttachmentBtn) {
+                        fileNameSpan.textContent = "+ Add Attachment";
+                        removeAttachmentBtn.style.display = "none";
+                    }
+                    selectedFile = null;
                 }
             }
 
+            if (addAttachmentBtn && fileInput) {
+                addAttachmentBtn.addEventListener("click", () => {
+                    fileInput.click();
+                });
 
+                fileInput.addEventListener("change", (event) => {
+                    if (event.target.files && event.target.files[0]) {
+                        selectedFile = event.target.files[0];
+                        if (fileNameSpan && removeAttachmentBtn) {
+                            fileNameSpan.textContent = selectedFile.name;
+                            removeAttachmentBtn.style.display = "inline-flex";
+                        }
+                    }
+                });
+            }
 
+            if (removeAttachmentBtn) {
+                removeAttachmentBtn.addEventListener("click", () => {
+                    if (fileInput && fileNameSpan) {
+                        fileInput.value = "";
+                        fileNameSpan.textContent = "+ Add Attachment";
+                        removeAttachmentBtn.style.display = "none";
+                        selectedFile = null;
+                    }
+                });
+            }
 
             if (closeButton) {
                 closeButton.addEventListener("click", hideRejectModal);
@@ -1926,7 +1974,6 @@
                 cancelButton.addEventListener("click", hideRejectModal);
             }
 
-
             if (modalContainer) {
                 modalContainer.addEventListener("click", function (event) {
                     if (event.target === modalContainer) {
@@ -1934,6 +1981,20 @@
                     }
                 });
             }
+
+            if (sendProposalRejectButton) {
+                sendProposalRejectButton.addEventListener("click", () => {
+                    const remarks = document.querySelector(".remarks-textarea").value;
+                    const formData = new FormData();
+                    formData.append("remarks", remarks);
+                    if (selectedFile) {
+                        formData.append("attachment", selectedFile);
+                    }
+                    console.log("Remarks:", remarks);
+                    console.log("File:", selectedFile);
+                    hideRejectModal();
+                });
+            }       
         });
 
 
