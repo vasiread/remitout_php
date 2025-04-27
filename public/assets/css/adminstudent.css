@@ -6,7 +6,7 @@
         margin-top: 50px;
         margin-right: 15px;
         gap: 17px;
-        margin-left: 30%;
+        margin-left: 22%;
 
  }
 
@@ -194,12 +194,11 @@
 .studentcounsellorlist-adminside {
     display: none;
     flex-direction: column;
-    max-width: 100%;
-    width: 1000px;
+    width:1000px;
     margin-top: 50px;
     margin-right: 15px;
     gap: 17px;
-    margin-left: 30%;
+    margin-left: 22%;
 
 }
 

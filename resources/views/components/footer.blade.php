@@ -23,7 +23,7 @@
 
         .footer-section {
             width: 100%;
-            background-image: url("../../assets/images/foooter-image.png");
+           background-image: url("assets/images/image.png");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -568,7 +568,7 @@
                 </div>
                 <div class="signup-image">
                     <!-- Image content here if needed -->
-                    <img src="assets/images/Globe.png" class="footer-globe" alt="Globe image">
+                    <img src="assets/images/Globe.WebP" class="footer-globe" alt="Globe image">
                 </div>
             </div>
 

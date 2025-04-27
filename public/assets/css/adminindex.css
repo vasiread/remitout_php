@@ -10,36 +10,36 @@ body {
 #index-section-id .index-section {
     padding: 0;
     margin-top: 0px;
-    background-color: #f5f5f5;
+    background-color: white;
     font-family: "Poppins", sans-serif;
 }
 .admin-index-section-main-container {
     display: none;
     flex-direction: column;
     max-width: 100%;
-    width: 100%;
+    width: 1000px;
     margin-top: 50px;
     margin-right: 60px;
     gap: 17px;
-    margin-left: 28%;
+    margin-left: 24%;
     font-family: "Poppins", sans-serif;
 }
 .admin-index-main-sub-container {
     display: flex;
     flex-direction: column;
     background: white;
-    margin: 25px;
-    padding-top: 20px;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 40px;
 }
 
 .admin-index-main-container {
     display: flex;
     justify-content: center;
-    margin: 0px 25px;
+    margin: 0px;
     padding: 20px 0px;
     align-items: center;
     gap: 16px;
-
     background: white;
     border-radius: 8px;
 }
@@ -50,7 +50,8 @@ body {
     color: #e98635;
     margin: 0px 25px;
 }
-.dashboard-section-index {
+.dashboard-section-index,
+.dashboard-section-title {
     font-weight: 600;
     font-size: 18px !important;
     color: #e98635;
@@ -78,7 +79,6 @@ body {
 .admin-index-header {
     padding: 0px;
 }
-
 
 .admin-index-icon {
     width: 24px;
@@ -181,7 +181,6 @@ body {
     }
 }
 
-
 .inbox-controls {
     display: flex;
     align-items: center;
@@ -228,7 +227,7 @@ body {
 }
 
 .admin-inbox-filters span {
-    font-size: 14px;
+    font-size: 12px;
     color: #333;
 }
 
@@ -237,7 +236,8 @@ body {
     height: 20px;
 }
 
-.admin-sort-dropdown {
+.admin-sort-dropdown,
+.admin-nbfc-sort-options {
     display: none;
     position: absolute;
     top: 100%;
@@ -364,20 +364,17 @@ body {
     }
 }
 
-  
-#admin-messagebutton-0{
-  padding:0px;
-}
-#admin-loanproposals{
-  box-shadow:none;
-
-
 #admin-messagebutton-0 {
     padding: 0px;
 }
 #admin-loanproposals {
     box-shadow: none;
-
+}
+#admin-messagebutton-0 {
+    padding: 0px;
+}
+#admin-loanproposals {
+    box-shadow: none;
 }
 [id^="admin-inputfield-"] ~ .send-img {
     width: 24px;
@@ -417,7 +414,6 @@ body {
     color: #e98635;
     padding: 1rem 1.8rem;
 }
-
 
 #admin-messagebutton-0 {
     padding: 0px;
@@ -569,7 +565,6 @@ body {
     color: rgba(233, 134, 53, 1);
     padding: 1rem 1.8rem;
 }
-
 
 .loanproposals-loanstatuscards {
     display: flex;
@@ -723,3 +718,64 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+#admin-student-header,
+#admin-nbfc-header {
+    background-color: white;
+    padding: 10px 40px;
+}
+#admin-nbfc-header {
+    border-bottom: 1px solid rgba(229, 229, 229, 1);
+}
+#admin-student-loanproposals {
+    margin: 0;
+}
+#admin-nbfc-sort {
+    position: relative;
+    width: 117px;
+    height: 38px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    cursor: pointer;
+    background-color: white;
+}
+
+#admin-nbfc-sort-options {
+    width: 115px;
+}
+.admin-index-item.active,
+.mobile-inbox-item.active {
+    background-color: #f0f0f0;
+}
+#admin-student-inbox-container,
+#admin-nbfc-inbox-container {
+    display: none;
+}
+#admin-nbfc-details-container {
+    background-color: white;
+    padding:10px 15px;
+}
+.nbfc-individual-bankmessage-input-message {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+.sort-dropdown-nbfc,
+.admin-sort-dropdown {
+    display: none;
+    position: absolute;
+    background: #fff;
+    border: 1px solid #ddd;
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+    z-index: 1000;
+}
+.sort-dropdown-nbfc.active,
+.admin-sort-dropdown.active {
+    display: block;
+}
