@@ -414,12 +414,11 @@
     min-width: 2000px;
 }
 
-/* Style for table headers to wrap two-word names and align properly */
+
 .manage-student-report-th {
-    white-space: normal;
-    width: 120px;
+    width: 300px;
     text-align: center;
-    padding: 8px;
+    padding: 8px 10px;
 }
 
 .manage-student-report-td {

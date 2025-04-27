@@ -765,6 +765,12 @@ html, body {
    bottom: 65%;
  }
 
+ @media screen and (max-width: 768px) {
+ .study-loans-graphview{
+    display:none; 
+   }
+  }
+  
 @media screen and (max-width: 768px) {
     .banner-section {
         background-size: cover;
@@ -2305,8 +2311,10 @@ html, body {
      max-width: 80%;
      margin: 40px auto;
    }
+   
  }
 
+ 
 
  /*----------------safety meets section-------------------*/
 
@@ -3432,7 +3440,6 @@ html, body {
 
  .faq-section {
    width: 100%;
-   height: 930px;
    justify-content: center;
    padding: 150px 0px;
    background-image: url("../images/faq-banner.png");
@@ -3450,7 +3457,7 @@ html, body {
    width: 757px;
    height: 771px;
    border-radius: 12px;
-   padding: 20px;
+   padding: 20px;  
    display: flex;
    flex-direction: column;
    position: relative;
@@ -3458,9 +3465,6 @@ html, body {
    margin-top: 10px;
  }
 
- .header {
-   margin-bottom: 50px;
- }
 
  h1 {
    font-size: 32px;
@@ -3474,6 +3478,7 @@ html, body {
    display: flex;
    gap: 16px;
    margin-bottom: 32px;
+   width:757px;
  }
 
  .search-box {
@@ -3560,12 +3565,12 @@ html, body {
    justify-content: center;
    line-height: 160%;
    background: rgba(255, 255, 255, 0.95);
-   margin-top: -40px;
    border: 1px solid rgba(111, 37, 206, 0.1);
    box-shadow:
      0 4px 24px rgba(0, 0, 0, 0.1),
      0 0 0 1px rgba(255, 255, 255, 0.1);
    backdrop-filter: blur(8px);
+   position: relative;
  }
 
  .faq-list {
@@ -3627,17 +3632,17 @@ html, body {
  }
 
 
- .navigation {
-   margin-top: auto;
-   display: flex;
-   justify-content: flex-end;
-   align-items: center;
-   gap: 16px;
-   padding: 20px 0;
-   position: absolute;
-   bottom: 32px;
-   right: 32px;
- }
+.navigation {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    bottom: 32px;
+    right: 40px;
+    width:757px;
+}
 
  .nav-button {
    width: 48px;
@@ -3723,7 +3728,6 @@ html, body {
     display: block;
 }
 
-/* Mobile specific styles */
 @media screen and (max-width: 1024px) {
     .faq-section {
         height: auto;
@@ -3914,6 +3918,7 @@ html, body {
      width: 10px;
      height: 10px;
    }
+  }
 
 /* Contact Form Popup */
 .contact-form-main-container {
