@@ -669,6 +669,7 @@
 
         // Initialize student chat on page load
         initializeStudentChat();
+         initializeAdminChat();     
     });
     </script>
 </body>

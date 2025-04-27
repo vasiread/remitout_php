@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PromotionalContentMail;
 use App\Models\CourseInfo;
+use App\Models\landingpage;
 use App\Models\Nbfc;
 use App\Models\PersonalInfo;
 use App\Models\proposalcompletion;
@@ -16,6 +18,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 
@@ -441,12 +444,12 @@ class Admincontroller extends Controller
     public function getCityStats()
     {
         $data = PersonalInfo::select(
-                'city',
-                'state',
-                DB::raw("SUM(CASE WHEN gender = 'Female' THEN 1 ELSE 0 END) as female"),
-                DB::raw("SUM(CASE WHEN gender = 'Male' THEN 1 ELSE 0 END) as male"),
-                DB::raw("COUNT(*) as total")
-            )
+            'city',
+            'state',
+            DB::raw("SUM(CASE WHEN gender = 'Female' THEN 1 ELSE 0 END) as female"),
+            DB::raw("SUM(CASE WHEN gender = 'Male' THEN 1 ELSE 0 END) as male"),
+            DB::raw("COUNT(*) as total")
+        )
             ->groupBy('city', 'state')
             ->get();
 
@@ -615,7 +618,78 @@ class Admincontroller extends Controller
             ], 500);
         }
     }
-   
+    public function landingPage()
+    {
+        $landingpages = landingpage::get();
+        return response()->json($landingpages);
+    }
+
+
+    public function promotionalEmail(Request $request)
+    {
+        try {
+            // Get the content from the request
+            $content = $request->input('content');
+
+            if (!$content) {
+                return response()->json(['error' => 'Content is required'], 400);
+            }
+
+            // Send the email to the recipient
+            Mail::to('vasiraja950@gmail.com')->send(new PromotionalContentMail($content));
+
+            // If email was sent successfully, return success response
+            return response()->json(['success' => true]);
+
+        } catch (\Exception $e) {
+            // Log the exception for debugging purposes
+            Log::error('Error sending promotional email: ' . $e->getMessage());
+
+            // Return error response if an exception occurs
+            return response()->json(['error' => 'An error occurred while sending the email'], 500);
+        }
+    }
+
+
+
+    public function attachImagePromotional(Request $request)
+    {
+        try {
+            // Validate incoming request data
+            $request->validate([
+                'image' => 'required|image|max:2048',  // Validate image file
+            ]);
+
+            $image = $request->file('image');  // Get the uploaded image
+
+            // Generate the file path in the S3 bucket
+            $filePath = "admin/promotional-images/{$image->getClientOriginalName()}";
+
+            // If the file already exists, delete it
+            if (Storage::disk('s3')->exists($filePath)) {
+                Storage::disk('s3')->delete($filePath);
+            }
+
+            // Upload the image to S3
+            $path = Storage::disk('s3')->put($filePath, file_get_contents($image), 'public');
+
+            // Get the URL of the uploaded file
+            $fileUrl = Storage::disk('s3')->url($filePath);
+
+            // Return a success response with the file URL
+            return response()->json([
+                'success' => true,
+                'message' => 'Promotional image uploaded successfully.',
+                'fileUrl' => $fileUrl,
+            ], 200);
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            Log::error('Error uploading promotional image: ' . $e->getMessage());
+
+            // Return an error response
+            return response()->json(['error' => 'An error occurred while uploading the image.'], 500);
+        }
+    }
 
 
 }

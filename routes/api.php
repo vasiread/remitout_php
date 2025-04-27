@@ -104,3 +104,7 @@ Route::post('/suspendscuser', [scDashboardController::class, 'suspendUser']);
 Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails']);
 
 Route::get('/dest-countries', [Admincontroller::class, 'getDestinationCountries']);
+Route::get('/landingpage', [Admincontroller::class, 'landingPage']);
+Route::post('/promotional-email', [Admincontroller::class, 'promotionalEmail']);
+Route::post('/promotional-image-attach', [Admincontroller::class, 'attachImagePromotional']);
+

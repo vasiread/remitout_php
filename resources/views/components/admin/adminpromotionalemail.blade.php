@@ -18,11 +18,13 @@
             <div class="composer-email-container">
                 <div class="promotional-header">
                     <h2>Compose Email</h2>
+
                 </div>
                 <div class="promotional-header-buttons">
                     <button class="btn-promo btn-draft">Save Draft</button>
-                    <button class="btn-promo btn-send">Send Email</button>
+                    <button class="btn-promo btn-send" id="send-promotional_email">Send Email</button>
                 </div>
+
             </div>
 
             <div class="promotional-composer-container">
@@ -160,6 +162,7 @@
                     <div>©frontend 2023. All rights reserved</div>
                 </div>
 
+                <div class="promotional-word-count">No. of words: <span id="wordCount">0</span></div>
                 <div class="promotional-word-count">No. of words: <span id="wordCount">0</span></div>
 
                 <div class="promotional-attachment-section">
@@ -817,10 +820,12 @@
                 alert('Email draft saved successfully!');
             }
 
+            // Send email functionality
             function sendEmail() {
                 if (!contentArea) return;
+
                 const content = contentArea.innerHTML;
-                const selectedRecipients = Array.from(recipientTableBody.querySelectorAll('input[type="checkbox"]:checked'))
+                const selectedRecipients = Array.from(document.querySelectorAll('.recipients-table tbody input[type="checkbox"]:checked'))
                     .map(checkbox => {
                         const row = checkbox.closest('tr');
                         return {
@@ -834,6 +839,7 @@
                     return;
                 }
 
+                // Construct email data
                 const emailData = {
                     content: content,
                     recipients: selectedRecipients,
@@ -841,13 +847,18 @@
                         .map(file => file.querySelector('span').textContent)
                 };
 
+                // In a real application, this would be sent to a server
                 console.log('Sending email:', emailData);
                 alert('Email sent successfully to ' + selectedRecipients.length + ' recipients!');
+
+                // Clear the draft after sending
                 localStorage.removeItem('emailDraft');
             }
 
+            // Load saved draft if exists
             function loadSavedDraft() {
                 if (!contentArea) return;
+
                 const savedDraft = localStorage.getItem('emailDraft');
                 if (savedDraft) {
                     if (confirm('You have a saved draft. Would you like to load it?')) {
@@ -858,7 +869,99 @@
                     }
                 }
             }
+
+            // Add existing attachment remove functionality
+            const existingRemoveButtons = document.querySelectorAll('.attachment-file-promotional .remove-file');
+            existingRemoveButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    this.closest('.attachment-file-promotional').remove();
+                });
+            });
         });
+        let uploadedImageUrl = null;
+
+        function sendImageToBackend(file) {
+            const formData = new FormData();
+            formData.append('image', file);
+
+            // Send the file using fetch
+            fetch('/promotional-image-attach', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // CSRF protection
+                },
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log("Image uploaded successfully!");
+                        uploadedImageUrl = data.fileUrl; // Store the uploaded image URL here
+                        console.log(uploadedImageUrl); // For debugging
+                    } else {
+                        console.error("Error uploading image.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error: ", error);
+                });
+        }
+
+        // Handle the email functionality (this sends the email with content and image URL)
+        function setUpEmailFunctionality() {
+            const triggerEmail = document.getElementById("send-promotional_email");
+
+            if (triggerEmail) {
+                triggerEmail.addEventListener('click', () => {
+                    let content = document.querySelector('.promotional-content-area').innerHTML;
+
+                    if (!content.trim()) {
+                        console.error("Error: Content is empty.");
+                        return; // Prevent sending empty content
+                    }
+
+                    // Add the uploaded image URL (if it exists) to the content
+                    if (uploadedImageUrl) {
+                        content += `<img src="${uploadedImageUrl}" style="height:500px;width:600px" alt="Promotional Image" />`; // Append the image URL to the content
+                    }
+
+                    console.log(content); // For debugging, remove it in production
+
+                    // Send the content to the backend
+                    fetch('/promotional-email', {  // Ensure this matches the correct route
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // For CSRF protection
+                        },
+                        body: JSON.stringify({
+                            content: content  
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                console.log("Email sent successfully!");
+                                alert("Email Sent Successfully To all Users");
+                            } else {
+                                console.error("Error sending email.");
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Error: ", error);
+                        });
+                });
+            }
+        }
     </script>
+
+
+
+
+
+
+
+
 </body>
+
 </html>

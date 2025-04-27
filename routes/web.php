@@ -201,3 +201,6 @@ Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails'])
 
 Route::get('/admin/show-sc-profile/{referral}', [AdminController::class, 'showSCProfileJSON']);
 Route::get('/get-tickets', [scDashboardController::class, 'getScUserTickets']);
+Route::get('/landingpage', [Admincontroller::class, 'landingPage']);
+Route::post('/promotional-email', [Admincontroller::class, 'promotionalEmail']);
+Route::post('/promotional-image-attach', [Admincontroller::class, 'attachImagePromotional']);
