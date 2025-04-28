@@ -38,35 +38,7 @@
                             <i class="fa-regular fa-eye-slash passwordClose" id="loginpasswordeyecloseicon"
                                 style="cursor: pointer;"></i>
                         </div>
-                        <!-- User Type Selection -->
-                        <div class="logincontainer-usertypecontainer">
-                            <h3>Select Login Type:</h3>
-                            <div class="logincontainer-radiooptions">
-                                <div class="radiooptions-users">
-                                    <input type="radio" id="user" name="loginType" value="User" required>
-                                    <label for="user">User</label>
-                                </div>
-                                <div class="radiooptions-users">
-                                    <input type="radio" id="student-counsellor" name="loginType" value="Student Counsellor"
-                                        required>
-                                    <label for="student-counsellor">SC user</label><br>
-
-                                </div>
-
-                                <div class="radiooptions-users">
-                                    <input type="radio" id="nbfc" name="loginType" value="NBFC" required>
-                                    <label for="nbfc">NBFC</label>
-                                </div>
-
-
-                                <div class="radiooptions-users">
-                                    <input type="radio" id="admin" name="loginType" value="Admin" required>
-                                    <label for="admin">Admin</label>
-                                </div>
-
-
-                            </div>
-                        </div>
+                       
 
                         <!-- Agree to Terms and Sign-In Button -->
                         <div class="logincontainer-signupbuttoncontainer">
@@ -167,7 +139,6 @@
                 const loginName = document.getElementById("loginname").value;
                 const loginPassword = document.getElementById("loginpasswordID").value;
                 const confirmPolicy = document.getElementById("confirmpolicy");
-                const loginType = document.querySelector('input[name="loginType"]:checked').value;
 
 
                 if (!confirmPolicy.checked) {
@@ -178,7 +149,6 @@
                 const loginFormData = {
                     loginName: loginName,
                     loginPassword: loginPassword,
-                    loginType: loginType,
 
                 };
 

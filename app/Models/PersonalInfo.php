@@ -17,15 +17,20 @@ class PersonalInfo extends Model
         'referral_code',
         'email',
         'state',
-        'city', 
+        'city',
         'linked_through',
         'created_at'
 
 
     ];
- 
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'unique_id');  // user_id in PersonalInfo references id in User
     }
+    public function courseInfo()
+    {
+        return $this->hasOne(CourseInfo::class, 'user_id', 'user_id');
+    }
+
 }

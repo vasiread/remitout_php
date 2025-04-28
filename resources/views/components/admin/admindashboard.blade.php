@@ -9,76 +9,70 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
- 
+
 </head>
 
 <body>
     @extends('layouts.app')
 
-    
+
     <div class="admindashboard-container">
-       <!-- Header section -->
-     <div class="admindashboardcontainer-firstsection">
-        <h1>Hi, Admin name</h1>
-        <div class="admindashboardcontainer-firstsectionbuttoncontainer">
-          <button id="manage-student-admindashboard">Manage Student</button>
-          <button id="referral-link-admindashboard">
-            Generate Referral Link
-          </button>
+        <!-- Header section -->
+        <div class="admindashboardcontainer-firstsection">
+            <h1>Hi, Admin name</h1>
+            <div class="admindashboardcontainer-firstsectionbuttoncontainer">
+                <button id="manage-student-admindashboard">Manage Student</button>
+                <button id="referral-link-admindashboard">
+                    Generate Referral Link
+                </button>
+            </div>
+            <!-- Mobile menu button with two bars -->
+            <button class="mobile-admin-dashboard-menu-btn" id="mobile-admin-dashboard-menu-btn">
+                <span class="two-bar"></span>
+                <span class="two-bar"></span>
+            </button>
         </div>
-        <!-- Mobile menu button with two bars -->
-        <button
-          class="mobile-admin-dashboard-menu-btn"
-          id="mobile-admin-dashboard-menu-btn"
-        >
-          <span class="two-bar"></span>
-          <span class="two-bar"></span>
-        </button>
-      </div>
 
-      <!-- Mobile Modal -->
-    <div class="mobile-admin-dashboard-modal" id="mobile-admin-dashboard-modal">
-      <div class="mobile-admin-dashboard-modal-content">
-        <div class="mobile-admin-dashboard-modal-header">
-          <h1>Hi, Admin name</h1>
-          <button
-            class="mobile-admin-dashboard-close-modal-btn"
-            id="mobile-admin-dashboard-close-modal-btn"
-          >
-            ✕
-          </button>
+        <!-- Mobile Modal -->
+        <div class="mobile-admin-dashboard-modal" id="mobile-admin-dashboard-modal">
+            <div class="mobile-admin-dashboard-modal-content">
+                <div class="mobile-admin-dashboard-modal-header">
+                    <h1>Hi, Admin name</h1>
+                    <button class="mobile-admin-dashboard-close-modal-btn" id="mobile-admin-dashboard-close-modal-btn">
+                        ✕
+                    </button>
+                </div>
+                <button class="mobile-admin-dashboard-action-btn" id="manage-student-admindashboard-mobile">
+                    Manage Students
+                </button>
+                <button class="mobile-admin-dashboard-action-btn" id="referral-link-admindashboard-mobile">
+                    Generate Referral Link
+                </button>
+
+            </div>
         </div>
-        <button class="mobile-admin-dashboard-action-btn" id="manage-student-admindashboard-mobile">
-          Manage Students
-        </button>
-        <button class="mobile-admin-dashboard-action-btn" id="referral-link-admindashboard-mobile">
-          Generate Referral Link
-        </button>
-
-      </div>
-    </div>
 
 
-      
+
 
         <div class="backdrop" id="backdrop"></div>
 
-                <!-- Referral Modal -->
-            <div class="referral-triggered-view hidden" id="referralModal">
-                <div class="referral-triggered-view-headersection">
-                    <h3>Generate Referral Link</h3>
-                    <span class="close-icon" id="closeModal">&#10005;</span>
-                </div>
-                <div class="referral-triggered-view-content">
-                    <input type="text" id="referralLink" placeholder="Copy Link here">
-                </div>
-                <div class="referral-triggered-view-footer">
-                    <button id="cancelBtn">
-                        <span class="cancel-icon">&#10005;</span> Cancel
-                    </button>
-                    <button id="generateBtn">Generate</button>
-                </div>
+        <!-- Referral Modal -->
+        <div class="referral-triggered-view hidden" id="referralModal">
+            <div class="referral-triggered-view-headersection">
+                <h3>Generate Referral Link</h3>
+                <span class="close-icon" id="closeModal">&#10005;</span>
             </div>
+            <div class="referral-triggered-view-content">
+                <input type="text" id="referralLink" placeholder="Copy Link here">
+            </div>
+            <div class="referral-triggered-view-footer">
+                <button id="cancelBtn">
+                    <span class="cancel-icon">&#10005;</span> Cancel
+                </button>
+                <button id="generateBtn">Generate</button>
+            </div>
+        </div>
 
 
 
@@ -86,25 +80,25 @@
             <h1>Reports</h1>
             <div class="admindashboardsecondsection-buttongroups">
                 <div class="show-all-admin-button-container">
-                        <button id="showall-buttongroups">Show All <i class="fa-solid fa-chevron-down"></i></button>
-                        <div class="show-all-admin-options" id="dropdown-options">
-                            <button data-report="all">Show All</button>
-                            <button data-report="registration-reports">Registration Reports</button>
-                            <button data-report="no-of-grads">No of grads</button>
-                            <button data-report="registration-source">Registration Source</button>
-                            <button data-report="age-ratio-reports">Age ratio Reports</button>
-                            <button data-report="funnel-reports">Funnel Reports</button>
-                            <button data-report="destination-countries">Destination countries</button>
-                            <button data-report="cities">Cities</button>
-                            <button data-report="nbfc-generation-leads">NBFC: Generation Leads</button>
-                            <button data-report="point-of-entry">Point of entry</button>
-                            <button data-report="sc-generation-leads">SC: Generation Leads</button>
-                            <button data-report="sem-rush">Sem Rush</button>
-                        </div>
+                    <button id="showall-buttongroups">Show All <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="show-all-admin-options" id="dropdown-options">
+                        <button data-report="all">Show All</button>
+                        <button data-report="registration-reports">Registration Reports</button>
+                        <button data-report="no-of-grads">No of grads</button>
+                        <button data-report="registration-source">Registration Source</button>
+                        <button data-report="age-ratio-reports">Age ratio Reports</button>
+                        <button data-report="funnel-reports">Funnel Reports</button>
+                        <button data-report="destination-countries">Destination countries</button>
+                        <button data-report="cities">Cities</button>
+                        <button data-report="nbfc-generation-leads">NBFC: Generation Leads</button>
+                        <button data-report="point-of-entry">Point of entry</button>
+                        <button data-report="sc-generation-leads">SC: Generation Leads</button>
+                        <button data-report="sem-rush">Sem Rush</button>
                     </div>
+                </div>
 
 
-                
+
                 <div class="postgrad-buttongroups" id="postgrad-reports">
                     <div id="postgrad-buttongroups-insideshow">
                         Graduate <i class="fa-solid fa-chevron-down"></i>
@@ -118,14 +112,15 @@
 
 
                 <div class="calendar-wrapper">
-                    <button id="calender-buttongroups"> Calendar <img src="assets/images/Icons/calendar_month.png" alt=""></button>
+                    <button id="calender-buttongroups"> Calendar <img src="assets/images/Icons/calendar_month.png"
+                            alt=""></button>
                     <button id="download-buttongroups">Download Report</button>
 
                     <div class="calendar-container">
                         <div class="calendar-input-container">
                             <div class="calendar-date-input calendar-active" id="calendar-start-date-input">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                                     <line x1="16" y1="2" x2="16" y2="6"></line>
                                     <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -135,8 +130,9 @@
                             </div>
                             <div class="calendar-date-input" id="calendar-end-date-input">
                                 <span>End Date</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round" style="margin-left: auto;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    style="margin-left: auto;">
                                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                                     <line x1="16" y1="2" x2="16" y2="6"></line>
                                     <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -147,8 +143,8 @@
 
                         <div class="calendar-header">
                             <button class="calendar-nav-btn calendar-prev-month">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="15 18 9 12 15 6"></polyline>
                                 </svg>
                             </button>
@@ -172,8 +168,8 @@
                                 </select>
                             </div>
                             <button class="calendar-nav-btn calendar-next-month">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="9 18 15 12 9 6"></polyline>
                                 </svg>
                             </button>
@@ -197,108 +193,102 @@
         <div class="admindashboardcontainer-secondsection-mobile">
             <div class="admin-dashboard-search-filter-container">
                 <div class="admin-dashboard-search-box">
-                <div class="admin-dashboard-search-icon">
-                    <i class="fas fa-search"></i>
-                </div>
-                <input
-                    type="text"
-                    class="admin-dashboard-search-input"
-                    placeholder="Search"
-                />
+                    <div class="admin-dashboard-search-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <input type="text" class="admin-dashboard-search-input" placeholder="Search" />
                 </div>
 
                 <button class="admin-dashboard-filter-button" id="filterButton">
                     Filters
-                    <img src="assets/images/filter-icon.png" alt="Admin filter icon"/>
+                    <img src="assets/images/filter-icon.png" alt="Admin filter icon" />
                 </button>
 
                 <button class="admin-dashboard-calendar-button" id="calendarButton">
-                <i class="far fa-calendar"></i>
+                    <i class="far fa-calendar"></i>
                 </button>
             </div>
 
             <div class="admin-dashboard-showing-panels" id="showPanelsArea">
                 <div>
-                <span class="admin-dashboard-showing-text">Showing</span>
-                <span class="admin-dashboard-panels-count" id="panelsToggle"
-                    >11 Panels</span
-                >
+                    <span class="admin-dashboard-showing-text">Showing</span>
+                    <span class="admin-dashboard-panels-count" id="panelsToggle">11 Panels</span>
                 </div>
                 <button class="mobile-admin-dashboard-panel-btn" id="panelsIcon">
                     <span class="two-bar"></span>
                     <span class="two-bar"></span>
                 </button>
 
-              
+
             </div>
 
-              <button class="admin-dashboard-download-button">Download Report</button>
+            <button class="admin-dashboard-download-button">Download Report</button>
 
             <div class="admin-dashboard-filter-panel" id="filterPanel">
                 <div class="admin-dashboard-filter-container">
-                <div class="admin-dashboard-filter-header">
-                    <div class="admin-dashboard-filter-title">Showing</div>
-                    <button class="admin-dashboard-close-btn" id="closeFilterBtn">
-                    ×
-                    </button>
-                </div>
+                    <div class="admin-dashboard-filter-header">
+                        <div class="admin-dashboard-filter-title">Showing</div>
+                        <button class="admin-dashboard-close-btn" id="closeFilterBtn">
+                            ×
+                        </button>
+                    </div>
 
-                <div class="admin-dashboard-filter-tags">
-                    <div class="admin-dashboard-filter-tag">
-                    Registration Reports
-                    <span class="admin-dashboard-close-tag">×</span>
-                    </div>
-                    <div class="admin-dashboard-filter-tag">
-                    No of grads <span class="admin-dashboard-close-tag">×</span>
-                    </div>
-                    <div class="admin-dashboard-filter-tag">
-                    Registration Source
-                    <span class="admin-dashboard-close-tag">×</span>
-                    </div>
-                    <div class="admin-dashboard-filter-tag">
-                    Age ratio Reports <span class="admin-dashboard-close-tag">×</span>
-                    </div>
-                    <div class="admin-dashboard-filter-tag">
-                    Funnel Reports <span class="admin-dashboard-close-tag">×</span>
-                    </div>
-                    <div class="admin-dashboard-filter-tag">
-                    Destination countries
-                    <span class="admin-dashboard-close-tag">×</span>
-                    </div>
-                </div>
-
-                <div class="admin-dashboard-divider"></div>
-
-                <div class="admin-dashboard-collapsed-tags" id="collapsedTags">
                     <div class="admin-dashboard-filter-tags">
-                    <div class="admin-dashboard-filter-tag">
-                        Cities <span class="admin-dashboard-close-tag">×</span>
+                        <div class="admin-dashboard-filter-tag">
+                            Registration Reports
+                            <span class="admin-dashboard-close-tag">×</span>
+                        </div>
+                        <div class="admin-dashboard-filter-tag">
+                            No of grads <span class="admin-dashboard-close-tag">×</span>
+                        </div>
+                        <div class="admin-dashboard-filter-tag">
+                            Registration Source
+                            <span class="admin-dashboard-close-tag">×</span>
+                        </div>
+                        <div class="admin-dashboard-filter-tag">
+                            Age ratio Reports <span class="admin-dashboard-close-tag">×</span>
+                        </div>
+                        <div class="admin-dashboard-filter-tag">
+                            Funnel Reports <span class="admin-dashboard-close-tag">×</span>
+                        </div>
+                        <div class="admin-dashboard-filter-tag">
+                            Destination countries
+                            <span class="admin-dashboard-close-tag">×</span>
+                        </div>
                     </div>
-                    <div class="admin-dashboard-filter-tag">
-                        NBFC: Generation Leads
-                        <span class="admin-dashboard-close-tag">×</span>
-                    </div>
-                    <div class="admin-dashboard-filter-tag">
-                        Point of entry <span class="admin-dashboard-close-tag">×</span>
-                    </div>
-                    <div class="admin-dashboard-filter-tag">
-                        SC: Generation Leads
-                        <span class="admin-dashboard-close-tag">×</span>
-                    </div>
-                    <div class="admin-dashboard-filter-tag">
-                        Sem Rush <span class="admin-dashboard-close-tag">×</span>
-                    </div>
-                    </div>
-                </div>
 
-                <button class="admin-dashboard-show-all-btn" id="showAllBtn">
-                    Show All <i class="fa-solid fa-chevron-down"></i>
-                </button>
+                    <div class="admin-dashboard-divider"></div>
+
+                    <div class="admin-dashboard-collapsed-tags" id="collapsedTags">
+                        <div class="admin-dashboard-filter-tags">
+                            <div class="admin-dashboard-filter-tag">
+                                Cities <span class="admin-dashboard-close-tag">×</span>
+                            </div>
+                            <div class="admin-dashboard-filter-tag">
+                                NBFC: Generation Leads
+                                <span class="admin-dashboard-close-tag">×</span>
+                            </div>
+                            <div class="admin-dashboard-filter-tag">
+                                Point of entry <span class="admin-dashboard-close-tag">×</span>
+                            </div>
+                            <div class="admin-dashboard-filter-tag">
+                                SC: Generation Leads
+                                <span class="admin-dashboard-close-tag">×</span>
+                            </div>
+                            <div class="admin-dashboard-filter-tag">
+                                Sem Rush <span class="admin-dashboard-close-tag">×</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="admin-dashboard-show-all-btn" id="showAllBtn">
+                        Show All <i class="fa-solid fa-chevron-down"></i>
+                    </button>
                 </div>
             </div>
         </div>
-        
-        
+
+
         <div class="admindashboardcontainer-thirdsection">
             <div class="admindashboard-firstpart">
                 <div class="reports-registeration" data-report="registration-reports">
@@ -317,38 +307,13 @@
                     <p id="source-registeration-header">Source on registration</p>
                     <div class="donutregistration-chart-container">
                         <canvas id="donutRegistrationChart"></canvas>
-                        <div class="donutgraphinfos">
-                        
-                          @php
-                            $registrationSourceAnalysis = [
-                                ['color' => 'rgba(111, 37, 206, 1)', 'AnalyseName' => 'ADDS', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '13%'],
-                                ['color' => 'rgba(181, 142, 229, 1)', 'AnalyseName' => 'Organic', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '77%'],
-                                ['color' => 'rgba(226, 211, 245, 1)', 'AnalyseName' => 'SC Referral', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '10%'],
-                            ];
-                          @endphp
-
-                            @foreach ($registrationSourceAnalysis as $source)
-                                <div class="graphviewofregistrations">
-                                    <div class="graphviewofregistrations-firstpart">
-                                        <div class="points"
-                                            style="background-color: {{ $source['color'] }}; width: 11px; height: 11px;">
-                                        </div>
-                                        <p>{{ $source['AnalyseName'] }}</p>
-                                    </div>
-                                    <div class="graphviewofregistrations-secondpart">
-                                        <p>{{ $source['OverallStrength'] }}</p>
-                                        <p id='donutRegistrationChart-percentage'>{{ $source['OverallStrengthPercent'] }}
-                                        </p>
-                                    </div>
-
-
-                                </div>
-                            @endforeach
+                        <div id="donutgraphinfos" class="donutgraphinfos">
+                            <!-- Graph Info will be dynamically inserted here -->
                         </div>
                     </div>
                 </div>
             </div>
-           <div class="admindashboard-secondpart" data-report="no-of-grads">
+            <div class="admindashboard-secondpart" data-report="no-of-grads">
                 <div class="admindashboard-second-main-container">
                     <div class="totalundergrads-admin">
                         <h4>Total Undergrads</h4>
@@ -466,155 +431,166 @@
             </div>
         </div>
 
-    <div class="admindashboardcontainer-fourth-section" data-report="destination-countries">
-       <div class="admin-dashboard-container-four">
-        <div class="admin-dashboard-row">
-           <!-- Cities Section -->
-            <div class="admin-city-column">
-                <div class="admin-city-section">
-                    <div class="admin-city-header">
-                        <div class="admin-city-title">Cities</div>
-                        <div class="admin-city-filter-sort-container">
-                            <button class="admin-city-filter-btn" id="city-filter-btn">Filter <i class="fas fa-chevron-down"></i></button>
-                            <!-- <button class="admin-city-sort-btn" id="city-sort-btn">Sort <i class="fas fa-chevron-down"></i></button> -->
+        <div class="admindashboardcontainer-fourth-section" data-report="destination-countries">
+            <div class="admin-dashboard-container-four">
+                <div class="admin-dashboard-row">
+                    <!-- Cities Section -->
+                    <div class="admin-city-column">
+                        <div class="admin-city-section">
+                            <div class="admin-city-header">
+                                <div class="admin-city-title">Cities</div>
+                                <div class="admin-city-filter-sort-container">
+                                    <button class="admin-city-filter-btn" id="city-filter-btn">Filter <i
+                                            class="fas fa-chevron-down"></i></button>
+                                    <!-- <button class="admin-city-sort-btn" id="city-sort-btn">Sort <i class="fas fa-chevron-down"></i></button> -->
+                                </div>
+                            </div>
+                            <table class="admin-city-table" id="city-table">
+                                <thead>
+                                    <tr>
+                                        <th data-sort="city">City <i class="fas fa-sort"></i></th>
+                                        <th data-sort="state">State <i class="fas fa-sort"></i></th>
+                                        <th data-sort="female">Female <i class="fas fa-sort"></i></th>
+                                        <th data-sort="male">Male <i class="fas fa-sort"></i></th>
+                                        <th data-sort="total_students">No. students <i class="fas fa-sort"></i></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="city-table-body">
+                                    <!-- Rows will be populated dynamically -->
+                                </tbody>
+                            </table>
+                            <div class="admin-city-pagination">
+                                <div class="admin-city-pagination-btn" id="city-prev-btn"><i
+                                        class="fas fa-chevron-left"></i></div>
+                                <div class="admin-city-pagination-text" id="city-pagination-text">1-10 / 30</div>
+                                <div class="admin-city-pagination-btn" id="city-next-btn"><i
+                                        class="fas fa-chevron-right"></i></div>
+                            </div>
                         </div>
                     </div>
-                    <table class="admin-city-table" id="city-table">
-                        <thead>
-                            <tr>
-                                <th data-sort="city">City <i class="fas fa-sort"></i></th>
-                                <th data-sort="state">State <i class="fas fa-sort"></i></th>
-                                <th data-sort="female">Female <i class="fas fa-sort"></i></th>
-                                <th data-sort="male">Male <i class="fas fa-sort"></i></th>
-                                <th data-sort="total_students">No. students <i class="fas fa-sort"></i></th>
-                            </tr>
-                        </thead>
-                        <tbody id="city-table-body">
-                            <!-- Rows will be populated dynamically -->
-                        </tbody>
-                    </table>
-                    <div class="admin-city-pagination">
-                        <div class="admin-city-pagination-btn" id="city-prev-btn"><i class="fas fa-chevron-left"></i></div>
-                        <div class="admin-city-pagination-text" id="city-pagination-text">1-10 / 30</div>
-                        <div class="admin-city-pagination-btn" id="city-next-btn"><i class="fas fa-chevron-right"></i></div>
-                    </div>
-                </div>
-            </div>
 
-           <!-- Countries Section -->
-           <div class="admin-desti-country-column">
-                <div class="admin-desti-country-section">
-                    <div class="admin-desti-country-header">
-                        <div class="admin-desti-country-title">Destination Countries</div>
-                        <div class="admin-desti-country-filter-sort-container">
-                            <button class="admin-desti-country-filter-btn" id="country-filter-btn">Filter <i class="fas fa-chevron-down"></i></button>
-                            <!-- <button class="admin-desti-country-sort-btn" id="country-sort-btn">Sort <i class="fas fa-chevron-down"></i></button> -->
+                    <!-- Countries Section -->
+                    <div class="admin-desti-country-column">
+                        <div class="admin-desti-country-section">
+                            <div class="admin-desti-country-header">
+                                <div class="admin-desti-country-title">Destination Countries</div>
+                                <div class="admin-desti-country-filter-sort-container">
+                                    <button class="admin-desti-country-filter-btn" id="country-filter-btn">Filter <i
+                                            class="fas fa-chevron-down"></i></button>
+                                    <!-- <button class="admin-desti-country-sort-btn" id="country-sort-btn">Sort <i class="fas fa-chevron-down"></i></button> -->
+                                </div>
+                            </div>
+                            <table class="admin-desti-country-table" id="country-table">
+                                <thead>
+                                    <tr>
+                                        <th data-sort="country">Country <i class="fas fa-sort"></i></th>
+                                        <th data-sort="female">Female <i class="fas fa-sort"></i></th>
+                                        <th data-sort="male">Male <i class="fas fa-sort"></i></th>
+                                        <th data-sort="total_students">No. students <i class="fas fa-sort"></i></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="country-table-body">
+                                    <!-- Rows will be populated dynamically -->
+                                </tbody>
+                            </table>
+                            <div class="admin-desti-country-pagination">
+                                <div class="admin-desti-country-pagination-btn" id="country-prev-btn"><i
+                                        class="fas fa-chevron-left"></i></div>
+                                <div class="admin-desti-country-pagination-text" id="country-pagination-text">1-10 / 0
+                                </div>
+                                <div class="admin-desti-country-pagination-btn" id="country-next-btn"><i
+                                        class="fas fa-chevron-right"></i></div>
+                            </div>
                         </div>
                     </div>
-                    <table class="admin-desti-country-table" id="country-table">
-                        <thead>
-                            <tr>
-                                <th data-sort="country">Country <i class="fas fa-sort"></i></th>
-                                <th data-sort="female">Female <i class="fas fa-sort"></i></th>
-                                <th data-sort="male">Male <i class="fas fa-sort"></i></th>
-                                <th data-sort="total_students">No. students <i class="fas fa-sort"></i></th>
-                            </tr>
-                        </thead>
-                        <tbody id="country-table-body">
-                            <!-- Rows will be populated dynamically -->
-                        </tbody>
-                    </table>
-                    <div class="admin-desti-country-pagination">
-                        <div class="admin-desti-country-pagination-btn" id="country-prev-btn"><i class="fas fa-chevron-left"></i></div>
-                        <div class="admin-desti-country-pagination-text" id="country-pagination-text">1-10 / 0</div>
-                        <div class="admin-desti-country-pagination-btn" id="country-next-btn"><i class="fas fa-chevron-right"></i></div>
+                </div>
+            </div>
+
+            <!---fifth section-->
+
+            <div class="admindashboardcontainer-fifth-section" data-report="nbfc-generation-leads">
+                <div class="dashboard-row-bar-chart">
+                    <!-- NBFC Lead Generation -->
+                    <div id="nbfc-lead-chart_container">
+                        <div class="nbfc-lead-header">
+                            <h2 class="nbfc-lead-title">NBFCs: Lead Generation</h2>
+                            <div class="nbfc-lead-converted-dropdown">
+                                <select>
+                                    <option selected>Converted</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="nbfc-lead-subheader">
+                            <div class="nbfc-lead-label">NBFCs Vs</div>
+                            <div class="nbfc-lead-legend">
+                                <div class="nbfc-lead-legend-item">
+                                    <div class="nbfc-lead-legend-color" style="background-color: #E6D5F5;"></div>
+                                    <span>No. Of Leads</span>
+                                </div>
+                                <div class="nbfc-lead-legend-item">
+                                    <div class="nbfc-lead-legend-color" style="background-color: #6C3EE8;"></div>
+                                    <span>Time Taken</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="nbfc-lead-weeks-info">23 in 2 weeks</div> -->
+                        <div id="nbfc-lead-chart_div" style="width: 100%; height: 170px;"></div>
+                        <div class="nbfc-lead-pagination">
+                            <button class="nbfc-lead-prev-btn" id="nbfc-lead-prev-btn"><i
+                                    class="fas fa-chevron-left"></i></button>
+                            <span class="nbfc-lead-page-range" id="nbfc-lead-page-range">1 - 5</span>
+                            <span>/</span>
+                            <span class="nbfc-lead-total-items" id="nbfc-lead-total-items">11</span>
+                            <button class="nbfc-lead-next-btn" id="nbfc-lead-next-btn"><i
+                                    class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Student Counsellors -->
+                    <div class="sc-lead-container">
+                        <div class="sc-lead-header">
+                            <h3 class="sc-lead-title">Student Counsellors: Lead Generation</h3>
+                            <select class="sc-lead-select">
+                                <option>Converted</option>
+                            </select>
+                        </div>
+                        <div class="sc-lead-legend">
+                            <div class="sc-lead-legend-item">
+                                <div class="sc-lead-legend-color" style="background-color: #d3b8f0;"></div>
+                                <span>No. Of Leads</span>
+                            </div>
+                        </div>
+                        <div class="sc-lead-chart-wrapper">
+                            <canvas id="leadChart" style="height: 170px;"></canvas>
+                        </div>
+                        <div class="sc-lead-pagination">
+                            <button class="sc-lead-prev-btn" id="sc-lead-prev-btn"><i
+                                    class="fas fa-chevron-left"></i></button>
+                            <span class="sc-lead-page-range" id="sc-lead-page-range">1 - 2</span>
+                            <span>/</span>
+                            <span class="sc-lead-total-items" id="sc-lead-total-items">2</span>
+                            <button class="sc-lead-next-btn" id="sc-lead-next-btn"><i
+                                    class="fas fa-chevron-right"></i></button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!---fifth section-->
-
-    <div class="admindashboardcontainer-fifth-section" data-report="nbfc-generation-leads">
-        <div class="dashboard-row-bar-chart">
-        <!-- NBFC Lead Generation -->
-        <div id="nbfc-lead-chart_container">
-            <div class="nbfc-lead-header">
-                <h2 class="nbfc-lead-title">NBFCs: Lead Generation</h2>
-                <div class="nbfc-lead-converted-dropdown">
-                    <select>
-                        <option selected>Converted</option>
-                    </select>
-                </div>
-            </div>
-            <div class="nbfc-lead-subheader">
-                <div class="nbfc-lead-label">NBFCs Vs</div>
-                <div class="nbfc-lead-legend">
-                    <div class="nbfc-lead-legend-item">
-                        <div class="nbfc-lead-legend-color" style="background-color: #E6D5F5;"></div>
-                        <span>No. Of Leads</span>
-                    </div>
-                    <div class="nbfc-lead-legend-item">
-                        <div class="nbfc-lead-legend-color" style="background-color: #6C3EE8;"></div>
-                        <span>Time Taken</span>
-                    </div>
-                </div>  
-            </div>
-            <!-- <div class="nbfc-lead-weeks-info">23 in 2 weeks</div> -->
-            <div id="nbfc-lead-chart_div" style="width: 100%; height: 170px;"></div>
-            <div class="nbfc-lead-pagination">
-                <button class="nbfc-lead-prev-btn" id="nbfc-lead-prev-btn"><i class="fas fa-chevron-left"></i></button>
-                <span class="nbfc-lead-page-range" id="nbfc-lead-page-range">1 - 5</span>
-                <span>/</span>
-                <span class="nbfc-lead-total-items" id="nbfc-lead-total-items">11</span>
-                <button class="nbfc-lead-next-btn" id="nbfc-lead-next-btn"><i class="fas fa-chevron-right"></i></button>
-            </div>
-        </div>
-
-       <!-- Student Counsellors -->
-        <div class="sc-lead-container">
-            <div class="sc-lead-header">
-                <h3 class="sc-lead-title">Student Counsellors: Lead Generation</h3>
-                <select class="sc-lead-select">
-                    <option>Converted</option>
-                </select>
-            </div>
-            <div class="sc-lead-legend">
-                <div class="sc-lead-legend-item">
-                    <div class="sc-lead-legend-color" style="background-color: #d3b8f0;"></div>
-                    <span>No. Of Leads</span>
-                </div>
-            </div>
-            <div class="sc-lead-chart-wrapper">
-                <canvas id="leadChart" style="height: 170px;"></canvas>
-            </div>
-            <div class="sc-lead-pagination">
-                <button class="sc-lead-prev-btn" id="sc-lead-prev-btn"><i class="fas fa-chevron-left"></i></button>
-                <span class="sc-lead-page-range" id="sc-lead-page-range">1 - 2</span>
-                <span>/</span>
-                <span class="sc-lead-total-items" id="sc-lead-total-items">2</span>
-                <button class="sc-lead-next-btn" id="sc-lead-next-btn"><i class="fas fa-chevron-right"></i></button>
-            </div>
-        </div>
-    </div>
 
 
 
 
 
 
-<div class="admindashboardcontainer-sixth-section" data-report="point-of-entry">
-    <div class="point-entry">
-        <div class="point-entry-donut">
-            <div class="point-entry-title">Point of entry</div>
-            <div class="point-entry-chart-container">
-                <div class="point-entry-chart-wrapper">
-                    <canvas id="donutChart" width="103" height="103"
-                        style="display: block; box-sizing: border-box; height: 103px; width: 103px;"></canvas>
-                </div>
-                <div class="point-entry-legend-container">
-                    <!-- <div class="point-entry-legend">
+                <div class="admindashboardcontainer-sixth-section" data-report="point-of-entry">
+                    <div class="point-entry">
+                        <div class="point-entry-donut">
+                            <div class="point-entry-title">Point of entry</div>
+                            <div class="point-entry-chart-container">
+                                <div class="point-entry-chart-wrapper">
+                                    <canvas id="donutChart" width="103" height="103"
+                                        style="display: block; box-sizing: border-box; height: 103px; width: 103px;"></canvas>
+                                </div>
+                                <div class="point-entry-legend-container">
+                                    <!-- <div class="point-entry-legend">
                         <div class="point-entry-legend-item">
                             <div class="point-entry-legend-color" style="background-color: #6F25CE;"></div>
                             <span>LinkedIn Posts</span>
@@ -638,426 +614,427 @@
                             <span>Others</span>
                         </div>
                     </div> -->
-                </div>
-            </div>
-        </div>
+                                </div>
+                            </div>
+                        </div>
 
-          <!-- <div class="point-entry-dashboard">
+                        <!-- <div class="point-entry-dashboard">
              <div class="point-entry-dashboard-image">
                  <img src="assets/images/semrush-seo.png" alt="SEMRUSH Logo">
              </div>
           </div> -->
 
 
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+        </div>
+
+    </div>
     </div>
 
-</div>
 
 
+    <script>
 
-      </div>
+        // Utility functions for DOM queries
+        const $ = (selector, context = document) => context.querySelector(selector);
+        const $$ = (selector, context = document) => Array.from(context.querySelectorAll(selector));
 
+        // Load Google Charts
+        google.charts.load('current', { packages: ['corechart', 'bar', 'line'] });
 
-
-
-
-
-
-
-    </div>
-
-    </div>
-    </div>
-
-
-
- <script>
-
-  // Utility functions for DOM queries
-const $ = (selector, context = document) => context.querySelector(selector);
-const $$ = (selector, context = document) => Array.from(context.querySelectorAll(selector));
-
-// Load Google Charts
-google.charts.load('current', { packages: ['corechart', 'bar', 'line'] });
-
-// Initialize all components on DOMContentLoaded
-document.addEventListener('DOMContentLoaded', () => {
-    try {
-        initializeCharts();
-        initializeCalendar();
-        initializeDropdown();
-        initializeReferralModal();
-        initializeMobileMenu();
-        initializeFilterPanel();
-        highlightHighestValues();
-        initializePaginationAndFilters();
-        updateProfileCompletionByGender()
-        initializeCitiesTable()
-        initializeCountriesTable()
-    } catch (error) {
-        console.error('Initialization error:', error);
-    }
-});
-
-// Chart Initialization
-const initializeCharts = () => {
-    // Centralize Google Charts callback to avoid multiple setOnLoad calls
-    google.charts.setOnLoadCallback(() => {
-        initializeRegistrationLineGraph();
-        drawNBFCChart();
-    });
-    initializeDonutGraphSource();
-    initializeDonutGraphAgeRatio();
-    initializeNewDonutChart();
-    initializeLeadChart();
-};
-
-// Registration Line Graph with API Data
-const initializeRegistrationLineGraph = () => {
-    const chartDiv = $('#chart_div');
-    if (!chartDiv) return console.error('chart_div not found');
-
-    // Fetch data from API
-    fetch('/reports-on-generation', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        }
-    })
-        .then(response => {
-            console.log('Raw response:', response);
-            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-            return response.json();
-        })
-        .then(data => {
-            // console.log('Fetched Reports on Registration data:', data);
-
-            // Validate the API response structure
-            if (!data || typeof data !== 'object' || 
-                !Array.isArray(data.days_of_week) || 
-                !Array.isArray(data.registration_counts) || 
-                data.days_of_week.length !== data.registration_counts.length) {
-                console.log('Validation failed. Data structure:', data);
-                throw new Error('Invalid API response: Mismatched or missing data arrays');
+        // Initialize all components on DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                initializeCharts();
+                initializeCalendar();
+                initializeDropdown();
+                initializeReferralModal();
+                initializeMobileMenu();
+                initializeFilterPanel();
+                highlightHighestValues();
+                initializePaginationAndFilters();
+                updateProfileCompletionByGender()
+                initializeCitiesTable();
+                initializeCountriesTable();
+                // loadAgeRatioChart();
+            } catch (error) {
+                console.error('Initialization error:', error);
             }
+        });
 
-            // Create the DataTable
-            const dataTable = new google.visualization.DataTable();
-            dataTable.addColumn('string', 'Day');
-            dataTable.addColumn('number', 'Registrations');
-            dataTable.addColumn({ type: 'string', role: 'annotation' });
-
-            // Find the highest registration count to set an annotation
-            const maxCount = Math.max(...data.registration_counts);
-            const maxIndex = data.registration_counts.indexOf(maxCount);
-
-            // Transform API data into rows
-            const rows = data.days_of_week.map((day, index) => {
-                const annotation = index === maxIndex ? maxCount.toString() : null;
-                return [day, data.registration_counts[index], annotation];
+        // Chart Initialization
+        const initializeCharts = () => {
+            // Centralize Google Charts callback to avoid multiple setOnLoad calls
+            google.charts.setOnLoadCallback(() => {
+                initializeRegistrationLineGraph();
+                drawNBFCChart();
             });
+            initializeDonutGraphSource();
+            initializeDonutGraphAgeRatio();
+            initializeNewDonutChart();
+            initializeLeadChart();
+        };
 
-            dataTable.addRows(rows);
+        // Registration Line Graph with API Data
+        const initializeRegistrationLineGraph = () => {
+            const chartDiv = $('#chart_div');
+            if (!chartDiv) return console.error('chart_div not found');
 
-            // Log the transformed data for debugging
-            // console.log('Transformed chart data:', rows);
+            // Fetch data from API
+            fetch('/reports-on-generation', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+                .then(response => {
+                    console.log('Raw response:', response);
+                    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                    return response.json();
+                })
+                .then(data => {
+                    // console.log('Fetched Reports on Registration data:', data);
 
-            // Create a DataView
-            const view = new google.visualization.DataView(dataTable);
-            view.setColumns([0, 1, 2]);
+                    // Validate the API response structure
+                    if (!data || typeof data !== 'object' ||
+                        !Array.isArray(data.days_of_week) ||
+                        !Array.isArray(data.registration_counts) ||
+                        data.days_of_week.length !== data.registration_counts.length) {
+                        console.log('Validation failed. Data structure:', data);
+                        throw new Error('Invalid API response: Mismatched or missing data arrays');
+                    }
 
-            // Chart options
-            const options = {
-                maintainAspectRatio: false,
-                hAxis: { title: 'Day of the Week', textStyle: { color: '#333' } },
-                vAxis: { 
-                    title: 'Registrations', 
-                    viewWindow: { min: 0, max: Math.max(maxCount + 10, 50) }, // Adjust max dynamically
-                    textStyle: { color: '#333' }
+                    // Create the DataTable
+                    const dataTable = new google.visualization.DataTable();
+                    dataTable.addColumn('string', 'Day');
+                    dataTable.addColumn('number', 'Registrations');
+                    dataTable.addColumn({ type: 'string', role: 'annotation' });
+
+                    // Find the highest registration count to set an annotation
+                    const maxCount = Math.max(...data.registration_counts);
+                    const maxIndex = data.registration_counts.indexOf(maxCount);
+
+                    // Transform API data into rows
+                    const rows = data.days_of_week.map((day, index) => {
+                        const annotation = index === maxIndex ? maxCount.toString() : null;
+                        return [day, data.registration_counts[index], annotation];
+                    });
+
+                    dataTable.addRows(rows);
+
+                    // Log the transformed data for debugging
+                    console.log('Transformed chart data:', rows);
+
+                    // Create a DataView
+                    const view = new google.visualization.DataView(dataTable);
+                    view.setColumns([0, 1, 2]);
+
+                    // Chart options
+                    const options = {
+                        maintainAspectRatio: false,
+                        hAxis: { title: 'Day of the Week', textStyle: { color: '#333' } },
+                        vAxis: {
+                            title: 'Registrations',
+                            viewWindow: { min: 0, max: Math.max(maxCount + 10, 50) }, // Adjust max dynamically
+                            textStyle: { color: '#333' }
+                        },
+                        annotations: { alwaysOutside: true, textStyle: { color: '#000', fontSize: 12 } },
+                        pointSize: 5,
+                        series: { 0: { lineWidth: 2, pointShape: 'circle', color: 'rgb(163, 171, 189)' } },
+                        legend: 'none',
+                        chartArea: { width: '80%', height: '70%' }
+                    };
+
+                    // Draw the chart
+                    const chart = new google.visualization.LineChart(chartDiv);
+                    chart.draw(view, options);
+                })
+                .catch(error => {
+                    console.error('Error fetching Reports on Registration data:', error);
+                    // Fallback to static data if API fails
+                    const dataTable = new google.visualization.DataTable();
+                    dataTable.addColumn('string', 'Day');
+                    dataTable.addColumn('number', 'Registrations');
+                    dataTable.addColumn({ type: 'string', role: 'annotation' });
+
+                    const fallbackRows = [
+                        ['Mon', 100, null], ['Tue', 123, null], ['Wed', 174, '174'],
+                        ['Thu', 118, null], ['Fri', 145, null], ['Sat', 92, null]
+                    ];
+
+                    dataTable.addRows(fallbackRows);
+
+                    console.log('Using fallback data:', fallbackRows);
+
+                    const view = new google.visualization.DataView(dataTable);
+                    view.setColumns([0, 1, 2]);
+
+                    const options = {
+                        maintainAspectRatio: false,
+                        hAxis: { title: 'Day of the Week', textStyle: { color: '#333' } },
+                        vAxis: { title: 'Registrations', viewWindow: { min: 0, max: 200 }, textStyle: { color: '#333' } },
+                        annotations: { alwaysOutside: true, textStyle: { color: '#000', fontSize: 12 } },
+                        pointSize: 5,
+                        series: { 0: { lineWidth: 2, pointShape: 'circle', color: 'rgb(163, 171, 189)' } },
+                        legend: 'none',
+                        chartArea: { width: '80%', height: '70%' }
+                    };
+
+                    const chart = new google.visualization.LineChart(chartDiv);
+                    chart.draw(view, options);
+                });
+        };
+
+        //Undergrad and Postgrad Chart
+        // Function to update profile completion by gender and degree
+        const updateProfileCompletionByGender = () => {
+            const undergradTotal = $('.totalundergrads-info h1');
+            const undergradFemale = $('.totalundergrads-info p:nth-child(2) span');
+            const undergradMale = $('.totalundergrads-info p:nth-child(3) span');
+            const undergradOthers = $('.totalundergrads-info p:nth-child(4) span');
+
+            const postgradTotal = $('.totalpostgrads-info h1');
+            const postgradFemale = $('.totalpostgrads-info p:nth-child(2) span');
+            const postgradMale = $('.totalpostgrads-info p:nth-child(3) span');
+            const postgradOthers = $('.totalpostgrads-info p:nth-child(4) span');
+
+            // Fetch data from API (POST request)
+            fetch('/getprofilecompletionbygender', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Required for POST in Laravel
                 },
-                annotations: { alwaysOutside: true, textStyle: { color: '#000', fontSize: 12 } },
-                pointSize: 5,
-                series: { 0: { lineWidth: 2, pointShape: 'circle', color: 'rgb(163, 171, 189)' } },
-                legend: 'none',
-                chartArea: { width: '80%', height: '70%' }
-            };
+                body: JSON.stringify({}) // Empty body; adjust if API requires data
+            })
+                .then(response => {
+                    console.log('Raw response:', response);
+                    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                    return response.json();
+                })
+                .then(data => {
+                    // console.log('Fetched Profile Completion by Gender data:', data);
 
-            // Draw the chart
-            const chart = new google.visualization.LineChart(chartDiv);
-            chart.draw(view, options);
-        })
-        .catch(error => {
-            console.error('Error fetching Reports on Registration data:', error);
-            // Fallback to static data if API fails
-            const dataTable = new google.visualization.DataTable();
-            dataTable.addColumn('string', 'Day');
-            dataTable.addColumn('number', 'Registrations');
-            dataTable.addColumn({ type: 'string', role: 'annotation' });
+                    // Validate the API response structure
+                    if (!data.success || !data.data || typeof data.data !== 'object' ||
+                        !data.data.degree_summary || typeof data.data.degree_summary !== 'object') {
+                        console.log('Validation failed. Data structure:', data);
+                        throw new Error('Invalid API response: Missing or invalid data structure');
+                    }
 
-            const fallbackRows = [
-                ['Mon', 100, null], ['Tue', 123, null], ['Wed', 174, '174'], 
-                ['Thu', 118, null], ['Fri', 145, null], ['Sat', 92, null]
-            ];
+                    // Extract data for Undergrads (UG)
+                    const ugData = data.data.degree_summary.UG;
+                    const ugTotal = ugData.total || 0;
+                    const ugFemale = ugData.female || 0;
+                    const ugMale = ugData.male || 0;
+                    const ugOthers = ugData.other || (ugTotal - ugFemale - ugMale); // Fallback to total if others not provided
 
-            dataTable.addRows(fallbackRows);
+                    // Extract data for Postgrads (PG)
+                    const pgData = data.data.degree_summary.PG;
+                    const pgTotal = pgData.total || 0;
+                    const pgFemale = pgData.female || 0;
+                    const pgMale = pgData.male || 0;
+                    const pgOthers = pgData.other || (pgTotal - pgFemale - pgMale); // Fallback to total if others not provided
 
-            console.log('Using fallback data:', fallbackRows);
+                    // Update Undergrads
+                    undergradTotal.textContent = ugTotal;
+                    undergradFemale.textContent = ugFemale;
+                    undergradMale.textContent = ugMale;
+                    undergradOthers.textContent = ugOthers;
 
-            const view = new google.visualization.DataView(dataTable);
-            view.setColumns([0, 1, 2]);
+                    // Update Postgrads
+                    postgradTotal.textContent = pgTotal;
+                    postgradFemale.textContent = pgFemale;
+                    postgradMale.textContent = pgMale;
+                    postgradOthers.textContent = pgOthers;
+                })
+                .catch(error => {
+                    console.error('Error fetching Profile Completion by Gender data:', error);
+                    // Fallback to static data if API fails
+                    undergradTotal.textContent = 60;
+                    undergradFemale.textContent = 20;
+                    undergradMale.textContent = 20;
+                    undergradOthers.textContent = 20;
 
-            const options = {
-                maintainAspectRatio: false,
-                hAxis: { title: 'Day of the Week', textStyle: { color: '#333' } },
-                vAxis: { title: 'Registrations', viewWindow: { min: 0, max: 200 }, textStyle: { color: '#333' } },
-                annotations: { alwaysOutside: true, textStyle: { color: '#000', fontSize: 12 } },
-                pointSize: 5,
-                series: { 0: { lineWidth: 2, pointShape: 'circle', color: 'rgb(163, 171, 189)' } },
-                legend: 'none',
-                chartArea: { width: '80%', height: '70%' }
-            };
+                    postgradTotal.textContent = 150;
+                    postgradFemale.textContent = 20;
+                    postgradMale.textContent = 20;
+                    postgradOthers.textContent = 20;
 
-            const chart = new google.visualization.LineChart(chartDiv);
-            chart.draw(view, options);
-        });
-};
-
-//Undergrad and Postgrad Chart
-// Function to update profile completion by gender and degree
-const updateProfileCompletionByGender = () => {
-    const undergradTotal = $('.totalundergrads-info h1');
-    const undergradFemale = $('.totalundergrads-info p:nth-child(2) span');
-    const undergradMale = $('.totalundergrads-info p:nth-child(3) span');
-    const undergradOthers = $('.totalundergrads-info p:nth-child(4) span');
-
-    const postgradTotal = $('.totalpostgrads-info h1');
-    const postgradFemale = $('.totalpostgrads-info p:nth-child(2) span');
-    const postgradMale = $('.totalpostgrads-info p:nth-child(3) span');
-    const postgradOthers = $('.totalpostgrads-info p:nth-child(4) span');
-
-    // Fetch data from API (POST request)
-    fetch('/getprofilecompletionbygender', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Required for POST in Laravel
-        },
-        body: JSON.stringify({}) // Empty body; adjust if API requires data
-    })
-        .then(response => {
-            // console.log('Raw response:', response);
-            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-            return response.json();
-        })
-        .then(data => {
-            // console.log('Fetched Profile Completion by Gender data:', data);
-
-            // Validate the API response structure
-            if (!data.success || !data.data || typeof data.data !== 'object' || 
-                !data.data.degree_summary || typeof data.data.degree_summary !== 'object') {
-                console.log('Validation failed. Data structure:', data);
-                throw new Error('Invalid API response: Missing or invalid data structure');
-            }
-
-            // Extract data for Undergrads (UG)
-            const ugData = data.data.degree_summary.UG;
-            const ugTotal = ugData.total || 0;
-            const ugFemale = ugData.female || 0;
-            const ugMale = ugData.male || 0;
-            const ugOthers = ugData.other || (ugTotal - ugFemale - ugMale); // Fallback to total if others not provided
-
-            // Extract data for Postgrads (PG)
-            const pgData = data.data.degree_summary.PG;
-            const pgTotal = pgData.total || 0;
-            const pgFemale = pgData.female || 0;
-            const pgMale = pgData.male || 0;
-            const pgOthers = pgData.other || (pgTotal - pgFemale - pgMale); // Fallback to total if others not provided
-
-            // Update Undergrads
-            undergradTotal.textContent = ugTotal;
-            undergradFemale.textContent = ugFemale;
-            undergradMale.textContent = ugMale;
-            undergradOthers.textContent = ugOthers;
-
-            // Update Postgrads
-            postgradTotal.textContent = pgTotal;
-            postgradFemale.textContent = pgFemale;
-            postgradMale.textContent = pgMale;
-            postgradOthers.textContent = pgOthers;
-        })
-        .catch(error => {
-            console.error('Error fetching Profile Completion by Gender data:', error);
-            // Fallback to static data if API fails
-            undergradTotal.textContent = 60;
-            undergradFemale.textContent = 20;
-            undergradMale.textContent = 20;
-            undergradOthers.textContent = 20;
-
-            postgradTotal.textContent = 150;
-            postgradFemale.textContent = 20;
-            postgradMale.textContent = 20;
-            postgradOthers.textContent = 20;
-
-            console.log('Using fallback data: Undergrads: 60 (20, 20, 20), Postgrads: 150 (20, 20, 20)');
-        });
-};
+                    console.log('Using fallback data: Undergrads: 60 (20, 20, 20), Postgrads: 150 (20, 20, 20)');
+                });
+        };
 
 
 
-// Donut Graph for Registration Sources
-const initializeDonutGraphSource = () => {
-    const ctx = $('#donutRegistrationChart')?.getContext('2d');
-    if (!ctx) return console.error('donutRegistrationChart canvas not found');
+        // Donut Graph for Registration Sources
+        const initializeDonutGraphSource = () => {
+            const ctx = $('#donutRegistrationChart')?.getContext('2d');
+            if (!ctx) return console.error('donutRegistrationChart canvas not found');
 
-    new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['ADDS', 'Organic', 'SC Referral'],
-            datasets: [{
-                label: 'Registration Sources',
-                data: [25, 30, 45],
-                backgroundColor: ['rgba(111, 37, 206, 1)', 'rgba(181, 142, 229, 1)', 'rgba(226, 211, 245, 1)'],
-                borderWidth: 0,
-                cutout: '50%'
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { display: false },
-                tooltip: { enabled: true }
-            }
-        }
-    });
-};
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['ADDS', 'Organic', 'SC Referral'],
+                    datasets: [{
+                        label: 'Registration Sources',
+                        data: [25, 30, 45],
+                        backgroundColor: ['rgba(111, 37, 206, 1)', 'rgba(181, 142, 229, 1)', 'rgba(226, 211, 245, 1)'],
+                        borderWidth: 0,
+                        cutout: '50%'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: true }
+                    }
+                }
+            });
+        };
 
-// Donut Graph for Age Ratio
-const initializeDonutGraphAgeRatio = () => {
-    const ctx = $('#ageratio-donutRegistrationChart')?.getContext('2d');
-    if (!ctx) return console.error('ageratio-donutRegistrationChart canvas not found');
+        // Donut Graph for Age Ratio
+        const initializeDonutGraphAgeRatio = () => {
+            const ctx = $('#ageratio-donutRegistrationChart')?.getContext('2d');
+            if (!ctx) return console.error('ageratio-donutRegistrationChart canvas not found');
 
-    new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['16 - 20', '21 - 25', '26 - 30', '30-40'],
-            datasets: [{
-                label: 'Age Ratio of Students',
-                data: [25, 30, 40, 21],
-                backgroundColor: ['rgba(111, 37, 206, 1)', 'rgba(167, 121, 224, 1)', 'rgba(203, 176, 237, 1)', 'rgba(226, 211, 245, 1)'],
-                borderWidth: 0,
-                cutout: '50%'
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { display: false },
-                tooltip: { enabled: true }
-            }
-        }
-    });
-};
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['16 - 20', '21 - 25', '26 - 30', '30-40'],
+                    datasets: [{
+                        label: 'Age Ratio of Students',
+                        data: [25, 30, 40, 21],
+                        backgroundColor: ['rgba(111, 37, 206, 1)', 'rgba(167, 121, 224, 1)', 'rgba(203, 176, 237, 1)', 'rgba(226, 211, 245, 1)'],
+                        borderWidth: 0,
+                        cutout: '50%'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: true }
+                    }
+                }
+            });
+        };
 
-// Function to fetch and display cities data with sorting, filtering, and pagination
-function initializeCitiesTable () {
-    const tableBody = $('#city-table-body');
-    const prevBtn = $('#city-prev-btn');
-    const nextBtn = $('#city-next-btn');
-    const paginationText = $('#city-pagination-text');
-    const filterBtn = $('#city-filter-btn');
-    const sortBtn = $('#city-sort-btn');
+        // Function to fetch and display cities data with sorting, filtering, and pagination
+        function initializeCitiesTable() {
+            const tableBody = $('#city-table-body');
+            const prevBtn = $('#city-prev-btn');
+            const nextBtn = $('#city-next-btn');
+            const paginationText = $('#city-pagination-text');
+            const filterBtn = $('#city-filter-btn');
+            const sortBtn = $('#city-sort-btn');
 
-    let currentPage = 1;
-    const itemsPerPage = 10;
-    let fullData = [];
-    let filteredData = [];
-    let sortColumn = 'city';
-    let sortDirection = 'asc';
-    let filterCity = '';
-    let filterState = '';
+            let currentPage = 1;
+            const itemsPerPage = 10;
+            let fullData = [];
+            let filteredData = [];
+            let sortColumn = 'city';
+            let sortDirection = 'asc';
+            let filterCity = '';
+            let filterState = '';
 
-    // Fetch data from API
-    fetch('/city-stats', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        }
-    })
-        .then(response => {
-            // console.log('Raw response:', response);
-            if (!response.ok) {
-                console.log('Response status:', response.status, 'Status text:', response.statusText);
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Fetched Cities data:', data);
+            // Fetch data from API
+            fetch('/city-stats', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+                .then(response => {
+                    console.log('Raw response:', response);
+                    if (!response.ok) {
+                        console.log('Response status:', response.status, 'Status text:', response.statusText);
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Fetched Cities data:', data);
 
-            // Validate the API response structure
-            if (!Array.isArray(data)) {
-                console.log('Validation failed: Data is not an array', data);
-                throw new Error('Invalid API response: Expected an array of city data');
-            }
+                    // Validate the API response structure
+                    if (!Array.isArray(data)) {
+                        console.log('Validation failed: Data is not an array', data);
+                        throw new Error('Invalid API response: Expected an array of city data');
+                    }
 
-            // Process and normalize data
-            fullData = data.map(item => ({
-                city: item.city || 'N/A',
-                state: item.state || 'N/A',
-                female: Number(item.female) || 0, // Convert to number
-                male: Number(item.male) || 0,    // Convert to number
-                total_students: Number(item.total) || 0 // Use total as total_students
-            }));
-            filteredData = [...fullData];
-            updateTable(fullData.length);
-        })
-        .catch(error => {
-            console.error('Error fetching Cities data:', error);
-            fullData = [];
-            filteredData = [];
-            updateTable(0);
-            alert('Failed to fetch cities data. Please check the API or try again later.');
-        });
+                    // Process and normalize data
+                    fullData = data.map(item => ({
+                        city: item.city || 'N/A',
+                        state: item.state || 'N/A',
+                        female: Number(item.female) || 0, // Convert to number
+                        male: Number(item.male) || 0,    // Convert to number
+                        total_students: Number(item.total) || 0 // Use total as total_students
+                    }));
+                    filteredData = [...fullData];
+                    updateTable(fullData.length);
+                })
+                .catch(error => {
+                    console.error('Error fetching Cities data:', error);
+                    fullData = [];
+                    filteredData = [];
+                    updateTable(0);
+                    alert('Failed to fetch cities data. Please check the API or try again later.');
+                });
 
-    // Function to update the table based on current page, sort, and filter
-    function updateTable(totalItems) {
-        // Apply filter
-        filteredData = fullData.filter(item => {
-            return filterCity ? item.city.toLowerCase().includes(filterCity.toLowerCase()) : true;
-        });
+            // Function to update the table based on current page, sort, and filter
+            function updateTable(totalItems) {
+                // Apply filter
+                filteredData = fullData.filter(item => {
+                    return filterCity ? item.city.toLowerCase().includes(filterCity.toLowerCase()) : true;
+                });
 
 
-        // Apply sort
-        filteredData.sort((a, b) => {
-            const valueA = a[sortColumn];
-            const valueB = b[sortColumn];
-            if (typeof valueA === 'string') {
-                return sortDirection === 'asc' 
-                    ? valueA.localeCompare(valueB) 
-                    : valueB.localeCompare(valueA);
-            }
-            return sortDirection === 'asc' 
-                ? valueA - valueB 
-                : valueB - valueA;
-        });
+                // Apply sort
+                filteredData.sort((a, b) => {
+                    const valueA = a[sortColumn];
+                    const valueB = b[sortColumn];
+                    if (typeof valueA === 'string') {
+                        return sortDirection === 'asc'
+                            ? valueA.localeCompare(valueB)
+                            : valueB.localeCompare(valueA);
+                    }
+                    return sortDirection === 'asc'
+                        ? valueA - valueB
+                        : valueB - valueA;
+                });
 
-        // Calculate pagination
-        const startIdx = (currentPage - 1) * itemsPerPage;
-        const endIdx = Math.min(startIdx + itemsPerPage, filteredData.length);
-        const paginatedData = filteredData.slice(startIdx, endIdx);
+                // Calculate pagination
+                const startIdx = (currentPage - 1) * itemsPerPage;
+                const endIdx = Math.min(startIdx + itemsPerPage, filteredData.length);
+                const paginatedData = filteredData.slice(startIdx, endIdx);
 
-        // Log the paginated data for debugging
-        // console.log('Paginated table data:', paginatedData);
+                // Log the paginated data for debugging
+                console.log('Paginated table data:', paginatedData);
 
-        // Update table body
-        tableBody.innerHTML = '';
-        if (paginatedData.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="5">No data available</td></tr>';
-        } else {
-            paginatedData.forEach(item => {
-                const row = `
+                // Update table body
+                tableBody.innerHTML = '';
+                if (paginatedData.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="5">No data available</td></tr>';
+                } else {
+                    paginatedData.forEach(item => {
+                        const row = `
                     <tr>
                         <td>${item.city}</td>
                         <td>${item.state}</td>
@@ -1066,132 +1043,132 @@ function initializeCitiesTable () {
                         <td class="admin-city-data-value" data-value="${item.total_students}">${item.total_students}</td>
                     </tr>
                 `;
-                tableBody.innerHTML += row;
+                        tableBody.innerHTML += row;
+                    });
+                }
+
+                // Update pagination text
+                paginationText.textContent = `${startIdx + 1}-${endIdx} / ${totalItems}`;
+                prevBtn.style.visibility = currentPage === 1 ? 'hidden' : 'visible';
+                nextBtn.style.visibility = endIdx >= filteredData.length ? 'hidden' : 'visible';
+            }
+
+            // Pagination event listeners
+            prevBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    updateTable(fullData.length);
+                }
             });
-        }
 
-        // Update pagination text
-        paginationText.textContent = `${startIdx + 1}-${endIdx} / ${totalItems}`;
-        prevBtn.style.visibility = currentPage === 1 ? 'hidden' : 'visible';
-        nextBtn.style.visibility = endIdx >= filteredData.length ? 'hidden' : 'visible';
-    }
+            nextBtn.addEventListener('click', () => {
+                if (currentPage < Math.ceil(filteredData.length / itemsPerPage)) {
+                    currentPage++;
+                    updateTable(fullData.length);
+                }
+            });
 
-    // Pagination event listeners
-    prevBtn.addEventListener('click', () => {
-        if (currentPage > 1) {
-            currentPage--;
-            updateTable(fullData.length);
-        }
-    });
+            // Sorting event listeners
+            document.querySelectorAll('#city-table thead th').forEach(header => {
+                header.addEventListener('click', () => {
+                    const column = header.getAttribute('data-sort');
+                    if (sortColumn === column) {
+                        sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+                    } else {
+                        sortColumn = column;
+                        sortDirection = 'asc';
+                    }
+                    currentPage = 1; // Reset to first page on sort
+                    updateTable(fullData.length);
+                });
+            });
 
-    nextBtn.addEventListener('click', () => {
-        if (currentPage < Math.ceil(filteredData.length / itemsPerPage)) {
-            currentPage++;
-            updateTable(fullData.length);
-        }
-    });
+            // Filtering (basic implementation)
+            filterBtn.addEventListener('click', () => {
+                const cityInput = prompt('Filter by City (leave empty to clear):', filterCity);
+                // const stateInput = prompt('Filter by State (leave empty to clear):', filterState);
 
-    // Sorting event listeners
-    document.querySelectorAll('#city-table thead th').forEach(header => {
-        header.addEventListener('click', () => {
-            const column = header.getAttribute('data-sort');
-            if (sortColumn === column) {
-                sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
-            } else {
-                sortColumn = column;
-                sortDirection = 'asc';
+                filterCity = cityInput || '';
+                // filterState = stateInput || '';
+                currentPage = 1; // Reset to first page on filter
+                updateTable(fullData.length);
+            });
+
+            // Sorting button (optional, can be used for custom sorting logic if needed)
+            sortBtn.addEventListener('click', () => {
+                alert('Click on column headers to sort!');
+            });
+        };
+
+        const initializeCountriesTable = () => {
+            // Utility functions for DOM queries (assumed to be available from your codebase)
+            const $ = (selector, context = document) => context.querySelector(selector);
+            const $$ = (selector, context = document) => Array.from(context.querySelectorAll(selector));
+
+            // DOM elements
+            const tableBody = $('#country-table-body');
+            const prevBtn = $('#country-prev-btn');
+            const nextBtn = $('#country-next-btn');
+            const paginationText = $('#country-pagination-text');
+            const filterBtn = $('#country-filter-btn'); // Filter button is now uncommented in HTML
+
+            // State variables
+            let currentPage = 1;
+            const itemsPerPage = 6; // Matches your original setting
+            let fullData = [];
+            let filteredData = [];
+            let filterCountry = ''; // Store the filter value for the country column
+
+            // Validate DOM elements
+            const validateElements = () => {
+                const elements = [
+                    { element: tableBody, id: 'country-table-body' },
+                    { element: prevBtn, id: 'country-prev-btn' },
+                    { element: nextBtn, id: 'country-next-btn' },
+                    { element: paginationText, id: 'country-pagination-text' },
+                    { element: filterBtn, id: 'country-filter-btn' }
+                ];
+
+                elements.forEach(({ element, id }) => {
+                    if (!element) {
+                        console.warn(`Element with ID '${id}' not found in the DOM.`);
+                    }
+                });
+
+                return tableBody && prevBtn && nextBtn && paginationText && filterBtn;
+            };
+
+            if (!validateElements()) {
+                console.error('Required DOM elements for Countries Table are missing. Initialization aborted.');
+                return;
             }
-            currentPage = 1; // Reset to first page on sort
-            updateTable(fullData.length);
-        });
-    });
 
-    // Filtering (basic implementation)
-    filterBtn.addEventListener('click', () => {
-        const cityInput = prompt('Filter by City (leave empty to clear):', filterCity);
-        // const stateInput = prompt('Filter by State (leave empty to clear):', filterState);
+            // Apply filtering based on the country name
+            const applyFilter = () => {
+                filteredData = fullData.filter(item => {
+                    return filterCountry
+                        ? item.country.toLowerCase().includes(filterCountry.toLowerCase())
+                        : true;
+                });
+                currentPage = 1; // Reset to first page after filtering
+                updateTable(filteredData.length);
+            };
 
-        filterCity = cityInput || '';
-        // filterState = stateInput || '';
-        currentPage = 1; // Reset to first page on filter
-        updateTable(fullData.length);
-    });
+            // Update the table with paginated data
+            const updateTable = (totalItems) => {
+                const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+                currentPage = Math.min(currentPage, Math.max(1, totalPages));
 
-    // Sorting button (optional, can be used for custom sorting logic if needed)
-    sortBtn.addEventListener('click', () => {
-        alert('Click on column headers to sort!');
-    });
-};
+                const start = (currentPage - 1) * itemsPerPage;
+                const end = Math.min(start + itemsPerPage, filteredData.length);
+                const pageData = filteredData.slice(start, end);
 
-const initializeCountriesTable = () => {
-    // Utility functions for DOM queries (assumed to be available from your codebase)
-    const $ = (selector, context = document) => context.querySelector(selector);
-    const $$ = (selector, context = document) => Array.from(context.querySelectorAll(selector));
-
-    // DOM elements
-    const tableBody = $('#country-table-body');
-    const prevBtn = $('#country-prev-btn');
-    const nextBtn = $('#country-next-btn');
-    const paginationText = $('#country-pagination-text');
-    const filterBtn = $('#country-filter-btn'); // Filter button is now uncommented in HTML
-
-    // State variables
-    let currentPage = 1;
-    const itemsPerPage = 6; // Matches your original setting
-    let fullData = [];
-    let filteredData = [];
-    let filterCountry = ''; // Store the filter value for the country column
-
-    // Validate DOM elements
-    const validateElements = () => {
-        const elements = [
-            { element: tableBody, id: 'country-table-body' },
-            { element: prevBtn, id: 'country-prev-btn' },
-            { element: nextBtn, id: 'country-next-btn' },
-            { element: paginationText, id: 'country-pagination-text' },
-            { element: filterBtn, id: 'country-filter-btn' }
-        ];
-
-        elements.forEach(({ element, id }) => {
-            if (!element) {
-                console.warn(`Element with ID '${id}' not found in the DOM.`);
-            }
-        });
-
-        return tableBody && prevBtn && nextBtn && paginationText && filterBtn;
-    };
-
-    if (!validateElements()) {
-        console.error('Required DOM elements for Countries Table are missing. Initialization aborted.');
-        return;
-    }
-
-    // Apply filtering based on the country name
-    const applyFilter = () => {
-        filteredData = fullData.filter(item => {
-            return filterCountry 
-                ? item.country.toLowerCase().includes(filterCountry.toLowerCase()) 
-                : true;
-        });
-        currentPage = 1; // Reset to first page after filtering
-        updateTable(filteredData.length);
-    };
-
-    // Update the table with paginated data
-    const updateTable = (totalItems) => {
-        const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-        currentPage = Math.min(currentPage, Math.max(1, totalPages));
-
-        const start = (currentPage - 1) * itemsPerPage;
-        const end = Math.min(start + itemsPerPage, filteredData.length);
-        const pageData = filteredData.slice(start, end);
-
-        tableBody.innerHTML = '';
-        if (pageData.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="4">No data available</td></tr>';
-        } else {
-            pageData.forEach(item => {
-                tableBody.innerHTML += `
+                tableBody.innerHTML = '';
+                if (pageData.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="4">No data available</td></tr>';
+                } else {
+                    pageData.forEach(item => {
+                        tableBody.innerHTML += `
                     <tr>
                         <td>${item.country}</td>
                         <td>${item.female}</td>
@@ -1199,922 +1176,1016 @@ const initializeCountriesTable = () => {
                         <td class="admin-desti-country-data-value" data-value="${item.total_students}">${item.total_students}</td>
                     </tr>
                 `;
-            });
-        }
-
-        // Update pagination text in the format "start-end / total"
-        paginationText.textContent = `${start + 1}-${end} / ${totalItems}`;
-        prevBtn.disabled = currentPage === 1;
-        nextBtn.disabled = currentPage === totalPages || totalPages === 0;
-    };
-
-    // Fetch data from the API
-    fetch('/dest-countries', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status} - ${response.statusText}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        // console.log('Fetched Destination Countries data:', JSON.stringify(data, null, 2));
-
-        // Validate the API response structure (assuming it could be an array or an object with a 'data' property)
-        let countriesData = data;
-        if (data.data && Array.isArray(data.data)) {
-            countriesData = data.data; // Handle { data: [...] } structure
-        } else if (!Array.isArray(data)) {
-            throw new Error('Invalid API response: Expected an array of country data');
-        }
-
-        // Map the data to ensure all fields are present
-        fullData = countriesData.map(item => ({
-            country: item.country || 'N/A',
-            female: Number(item.female) || 0,
-            male: Number(item.male) || 0,
-            total_students: Number(item.total_students) || 0
-        }));
-        filteredData = [...fullData];
-        updateTable(fullData.length);
-    })
-    .catch(error => {
-        console.error('Error fetching Destination Countries data:', error);
-        // Fallback to hardcoded data for testing
-        fullData = [
-            { country: "Norway", female: 90, male: 40, total_students: 130 },
-            { country: "USA", female: 50, male: 40, total_students: 90 },
-            { country: "Canada", female: 40, male: 30, total_students: 70 },
-            { country: "UK", female: 20, male: 10, total_students: 30 },
-            { country: "Germany", female: 15, male: 25, total_students: 40 },
-            { country: "France", female: 10, male: 5, total_students: 15 },
-            { country: "Australia", female: 25, male: 20, total_students: 45 },
-            { country: "Japan", female: 30, male: 15, total_students: 45 },
-            { country: "India", female: 60, male: 50, total_students: 110 },
-            { country: "Brazil", female: 35, male: 25, total_students: 60 }
-        ];
-        filteredData = [...fullData];
-        updateTable(fullData.length);
-        alert('Failed to fetch destination countries data. Using hardcoded data for testing. Please check the API.');
-    });
-
-    // Pagination event listeners
-    prevBtn.addEventListener('click', () => {
-        if (currentPage > 1) {
-            currentPage--;
-            updateTable(filteredData.length);
-        }
-    });
-
-    nextBtn.addEventListener('click', () => {
-        const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-        if (currentPage < totalPages) {
-            currentPage++;
-            updateTable(filteredData.length);
-        }
-    });
-
-    // Filter button event listener (filter by country name)
-    filterBtn.addEventListener('click', () => {
-        const userInput = prompt('Filter by Country (leave empty to clear filter):', filterCountry);
-        filterCountry = userInput ? userInput.trim() : '';
-        applyFilter();
-    });
-};
-
-// Call the function after the DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    initializeCountriesTable();
-});
-
-
-// Point of Entry Donut Chart with API Data
-const initializeNewDonutChart = () => {
-    const ctx = $('#donutChart')?.getContext('2d');
-    if (!ctx) return console.error('donutChart canvas not found');
-
-    // Fetch data from API
-    fetch('/getstatusofusers', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        }
-    })
-        .then(response => {
-            if (!response.ok) throw new Error('Network response was not ok');
-            return response.json();
-        })
-        .then(data => {
-            // console.log('Fetched point of entry data:', data);
-
-            // Extract labels and values from the API response
-            const labels = data.categories || [];
-            const values = data.counts || [];
-            const colors = ['#6F25CE', '#8863C9', '#A894D9', '#C5B6E5', '#E2D9F2'].slice(0, labels.length); // Default colors
-
-            // Log the extracted data for debugging
-            // console.log('Chart labels:', labels);
-            // console.log('Chart values:', values);
-            // console.log('Chart colors:', colors);
-
-            // Validate data
-            if (labels.length !== values.length) {
-                throw new Error('Mismatch between categories and counts');
-            }
-
-            // Generate the chart
-            const chart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        data: values,
-                        backgroundColor: colors,
-                        borderWidth: 0,
-                        cutout: '70%'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: true,
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: { enabled: true }
-                    }
+                    });
                 }
-            });
 
-            // Generate and update the legend
-            generatePointEntryLegend(labels, colors);
-        })
-        .catch(error => {
-            console.error('Error fetching point of entry data:', error);
-            // Fallback to static data if API fails
-            const fallbackData = {
-                categories: ['youtube', 'Google', 'Friend', 'Others'],
-                counts: [45, 20, 15, 10, 10]
+                // Update pagination text in the format "start-end / total"
+                paginationText.textContent = `${start + 1}-${end} / ${totalItems}`;
+                prevBtn.disabled = currentPage === 1;
+                nextBtn.disabled = currentPage === totalPages || totalPages === 0;
             };
-            const labels = fallbackData.categories;
-            const values = fallbackData.counts;
-            const colors = ['#6F25CE', '#8863C9', '#A894D9', '#C5B6E5', '#E2D9F2'].slice(0, labels.length);
 
-            // console.log('Using fallback data:', fallbackData);
-
-            // Generate the chart with fallback data
-            const chart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        data: values,
-                        backgroundColor: colors,
-                        borderWidth: 0,
-                        cutout: '70%'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: true,
-                    plugins: { legend: { display: false }, tooltip: { enabled: true } }
+            // Fetch data from the API
+            fetch('/dest-countries', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
                 }
-            });
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status} - ${response.statusText}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Fetched Destination Countries data:', JSON.stringify(data, null, 2));
 
-            // Generate and update the legend with fallback data
-            generatePointEntryLegend(labels, colors);
-        });
-};
+                    // Validate the API response structure (assuming it could be an array or an object with a 'data' property)
+                    let countriesData = data;
+                    if (data.data && Array.isArray(data.data)) {
+                        countriesData = data.data; // Handle { data: [...] } structure
+                    } else if (!Array.isArray(data)) {
+                        throw new Error('Invalid API response: Expected an array of country data');
+                    }
 
-// Generate Legend Dynamically
-const generatePointEntryLegend = (labels, colors) => {
-    const legendContainer = $('.point-entry-legend-container');
-    if (!legendContainer) return console.error('Legend container not found');
+                    // Map the data to ensure all fields are present
+                    fullData = countriesData.map(item => ({
+                        country: item.country || 'N/A',
+                        female: Number(item.female) || 0,
+                        male: Number(item.male) || 0,
+                        total_students: Number(item.total_students) || 0
+                    }));
+                    filteredData = [...fullData];
+                    updateTable(fullData.length);
+                })
+                .catch(error => {
+                    console.error('Error fetching Destination Countries data:', error);
+                    // Fallback to hardcoded data for testing
+                    fullData = [
+                        { country: "Norway", female: 90, male: 40, total_students: 130 },
+                        { country: "USA", female: 50, male: 40, total_students: 90 },
+                        { country: "Canada", female: 40, male: 30, total_students: 70 },
+                        { country: "UK", female: 20, male: 10, total_students: 30 },
+                        { country: "Germany", female: 15, male: 25, total_students: 40 },
+                        { country: "France", female: 10, male: 5, total_students: 15 },
+                        { country: "Australia", female: 25, male: 20, total_students: 45 },
+                        { country: "Japan", female: 30, male: 15, total_students: 45 },
+                        { country: "India", female: 60, male: 50, total_students: 110 },
+                        { country: "Brazil", female: 35, male: 25, total_students: 60 }
+                    ];
+                    filteredData = [...fullData];
+                    updateTable(fullData.length);
+                    alert('Failed to fetch destination countries data. Using hardcoded data for testing. Please check the API.');
+                });
 
-    // Clear existing legend
-    legendContainer.innerHTML = '';
-
-    // Create two columns for the legend
-    const column1 = document.createElement('div');
-    column1.className = 'point-entry-legend';
-    const column2 = document.createElement('div');
-    column2.className = 'point-entry-legend';
-
-    labels.forEach((label, index) => {
-        const legendItem = document.createElement('div');
-        legendItem.className = 'point-entry-legend-item';
-
-        const colorBox = document.createElement('div');
-        colorBox.className = 'point-entry-legend-color';
-        colorBox.style.backgroundColor = colors[index];
-
-        const labelSpan = document.createElement('span');
-        labelSpan.textContent = label;
-
-        legendItem.appendChild(colorBox);
-        legendItem.appendChild(labelSpan);
-
-        // Distribute items into two columns
-        if (index < Math.ceil(labels.length / 2)) {
-            column1.appendChild(legendItem);
-        } else {
-            column2.appendChild(legendItem);
-        }
-    });
-
-    legendContainer.appendChild(column1);
-    legendContainer.appendChild(column2);
-};
-
-
-// NBFC Chart with API Data and Pagination
-const drawNBFCChart = () => {
-    const chartDiv = $('#nbfc-lead-chart_div');
-    if (!chartDiv) return console.error('nbfc-lead-chart_div not found');
-
-    let currentPage = 1;
-    const itemsPerPage = 5;
-    let fullData = [];
-    const prevBtn = $('#nbfc-lead-prev-btn');
-    const nextBtn = $('#nbfc-lead-next-btn');
-    const pageRange = $('#nbfc-lead-page-range');
-    const totalItems = $('#nbfc-lead-total-items');
-
-    // Fetch data from API
-    fetch('/nbfc-lead-gens', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        }
-    })
-        .then(response => {
-            if (!response.ok) throw new Error('Network response was not ok');
-            return response.json();
-        })
-        .then(data => {
-            // console.log('Fetched NBFC lead generation data:', data);
-
-            // Validate the API response structure
-            if (!data.nbfcs || !Array.isArray(data.nbfcs) || 
-                !data.lead_counts || !Array.isArray(data.lead_counts) || 
-                !data.time_taken || !Array.isArray(data.time_taken) ||
-                data.nbfcs.length !== data.lead_counts.length || 
-                data.nbfcs.length !== data.time_taken.length) {
-                throw new Error('Invalid API response: Mismatched or missing data arrays');
-            }
-
-            // Transform API data into the full dataset
-            fullData = [['NBFC', 'No. Of Leads', 'Time Taken']];
-            for (let i = 0; i < data.nbfcs.length; i++) {
-                fullData.push([data.nbfcs[i], data.lead_counts[i], data.time_taken[i]]);
-            }
-
-            // Update total items
-            totalItems.textContent = fullData.length - 1; // Exclude header row
-
-            // Draw the initial chart with the first page
-            updateChart();
-
-            // Add event listeners for pagination
+            // Pagination event listeners
             prevBtn.addEventListener('click', () => {
                 if (currentPage > 1) {
                     currentPage--;
-                    updateChart();
+                    updateTable(filteredData.length);
                 }
             });
 
             nextBtn.addEventListener('click', () => {
-                if (currentPage < Math.ceil((fullData.length - 1) / itemsPerPage)) {
+                const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+                if (currentPage < totalPages) {
                     currentPage++;
-                    updateChart();
+                    updateTable(filteredData.length);
                 }
             });
-        })
-        .catch(error => {
-            console.error('Error fetching NBFC lead generation data:', error);
-            // Fallback to static data if API fails
-            fullData = [
-                ['NBFC', 'No. Of Leads', 'Time Taken'],
-                ['ICICI', 55, 67], ['Baroda', 65, 45], ['AXIS', 60, 80], ['SBI', 90, 50],
-                ['Canara', 45, 48], ['HDFC', 75, 60]
-            ];
 
-            // console.log('Using fallback data:', fullData);
-
-            // Update total items
-            totalItems.textContent = fullData.length - 1; // Exclude header row
-
-            // Draw the chart with fallback data
-            updateChart();
-        });
-
-    // Function to update the chart based on the current page
-    function updateChart() {
-        const startIdx = (currentPage - 1) * itemsPerPage + 1; // +1 to skip header
-        const endIdx = Math.min(startIdx + itemsPerPage - 1, fullData.length - 1);
-        const paginatedData = [fullData[0], ...fullData.slice(startIdx, endIdx + 1)];
-
-        // Log the paginated data for debugging
-        // console.log('Paginated chart data:', paginatedData);
-
-        // Create the data table
-        const dataTable = google.visualization.arrayToDataTable(paginatedData);
-
-        // Chart options
-        const options = {
-            width: '100%',
-            height: 170, // Adjusted height to fit 5 items comfortably
-            colors: ['#E6D5F5', '#6C3EE8'],
-            legend: { position: 'none' },
-            hAxis: { textStyle: { fontSize: 10 }, gridlines: { color: 'transparent' } },
-            vAxis: { gridlines: { color: 'transparent' }, baselineColor: 'transparent', textPosition: 'none' },
-            bar: { groupWidth: '60%' },
-            backgroundColor: 'transparent',
-            chartArea: { width: '90%', height: '70%' }
+            // Filter button event listener (filter by country name)
+            filterBtn.addEventListener('click', () => {
+                const userInput = prompt('Filter by Country (leave empty to clear filter):', filterCountry);
+                filterCountry = userInput ? userInput.trim() : '';
+                applyFilter();
+            });
         };
 
-        // Draw the chart
-        const chart = new google.visualization.ColumnChart(chartDiv);
-        chart.draw(dataTable, options);
-
-        // Update pagination display
-        pageRange.textContent = `${startIdx} - ${endIdx}`;
-    }
-};
-
-// Lead Chart with API Data and Pagination
-const initializeLeadChart = () => {
-    const ctx = $('#leadChart')?.getContext('2d');
-    if (!ctx) return console.error('leadChart canvas not found');
-
-    let currentPage = 1;
-    const itemsPerPage = 5; // Set to 5 for scalability, even though we have only 2 items
-    let fullLabels = [];
-    let fullData = [];
-    const prevBtn = $('#sc-lead-prev-btn');
-    const nextBtn = $('#sc-lead-next-btn');
-    const pageRange = $('#sc-lead-page-range');
-    const totalItems = $('#sc-lead-total-items');
-
-    // Fetch data from API
-    fetch('/sc-lead-gens', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        }
-    })
-        .then(response => {
-            if (!response.ok) throw new Error('Network response was not ok');
-            return response.json();
-        })
-        .then(data => {
-            // console.log('Fetched Student Counsellors lead generation data:', data);
-
-            // Validate the API response structure
-            if (!data.student_counsellors || !Array.isArray(data.student_counsellors) || 
-                !data.lead_counts || !Array.isArray(data.lead_counts) || 
-                data.student_counsellors.length !== data.lead_counts.length) {
-                throw new Error('Invalid API response: Mismatched or missing data arrays');
-            }
-
-            // Store the full dataset
-            fullLabels = data.student_counsellors;
-            fullData = data.lead_counts;
-
-            // Update total items
-            totalItems.textContent = fullLabels.length;
-
-            // Draw the initial chart with the first page
-            updateChart();
-
-            // Add event listeners for pagination
-            prevBtn.addEventListener('click', () => {
-                if (currentPage > 1) {
-                    currentPage--;
-                    updateChart();
-                }
-            });
-
-            nextBtn.addEventListener('click', () => {
-                if (currentPage < Math.ceil(fullLabels.length / itemsPerPage)) {
-                    currentPage++;
-                    updateChart();
-                }
-            });
-        })
-        .catch(error => {
-            console.error('Error fetching Student Counsellors lead generation data:', error);
-            // Fallback to static data if API fails
-            fullLabels = ['54635', '65783', '56374', '92874', '36057', '10847', '34015', '57610'];
-            fullData = [5, 12, 10, 4, 18, 8, 6, 10];
-
-            // console.log('Using fallback data:', { labels: fullLabels, data: fullData });
-
-            // Update total items
-            totalItems.textContent = fullLabels.length;
-
-            // Draw the chart with fallback data
-            updateChart();
+        // Call the function after the DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeCountriesTable();
         });
 
-    // Function to update the chart based on the current page
-    function updateChart() {
-        const startIdx = (currentPage - 1) * itemsPerPage;
-        const endIdx = Math.min(startIdx + itemsPerPage, fullLabels.length);
-        const paginatedLabels = fullLabels.slice(startIdx, endIdx);
-        const paginatedData = fullData.slice(startIdx, endIdx);
 
-        // Log the paginated data for debugging
-        // console.log('Paginated chart data:', { labels: paginatedLabels, data: paginatedData });
+        // Point of Entry Donut Chart with API Data
+        const initializeNewDonutChart = () => {
+            const ctx = $('#donutChart')?.getContext('2d');
+            if (!ctx) return console.error('donutChart canvas not found');
 
-        // Create the chart
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: paginatedLabels,
-                datasets: [{
-                    label: 'No. Of Leads',
-                    data: paginatedData,
-                    backgroundColor: '#d3b8f0',
-                    barThickness: 11
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false }, tooltip: { enabled: true } },
-                scales: {
-                    y: { beginAtZero: true, grid: { display: false }, ticks: { display: false } },
-                    x: { grid: { display: false }, ticks: { font: { family: 'Poppins', size: 12 }, color: '#5D5C5C' } }
+            // Fetch data from API
+            fetch('/getstatusofusers', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 }
-            }
-        });
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    // console.log('Fetched point of entry data:', data);
 
-        // Update pagination display
-        pageRange.textContent = `${startIdx + 1} - ${endIdx}`;
-    }
-};
+                    // Extract labels and values from the API response
+                    const labels = data.categories || [];
+                    const values = data.counts || [];
+                    const colors = ['#6F25CE', '#8863C9', '#A894D9', '#C5B6E5', '#E2D9F2'].slice(0, labels.length); // Default colors
 
-// Highlight Highest Values in Tables
-const highlightHighestValues = () => {
-    ['city-table', 'country-table'].forEach(tableId => {
-        const valueClass = tableId === 'city-table' ? 'admin-city-data-value' : 'admin-desti-country-data-value';
-        const table = $(`#${tableId}`);
-        if (!table) return;
+                    // Log the extracted data for debugging
+                    // console.log('Chart labels:', labels);
+                    // console.log('Chart values:', values);
+                    // console.log('Chart colors:', colors);
 
-        const valueCells = $$(`.${valueClass}`, table);
-        if (!valueCells.length) return;
-
-        const highestValue = Math.max(...valueCells.map(cell => parseInt(cell.dataset.value || 0)));
-        valueCells.forEach(cell => {
-            if (parseInt(cell.dataset.value) === highestValue) {
-                cell.classList.add('highlighted');
-            }
-        });
-    });
-};
-
-// Pagination and Filter Handlers
-const initializePaginationAndFilters = () => {
-    const handlers = [
-        { selector: '.admin-city-pagination-btn', action: () => console.log('City pagination clicked') },
-        { selector: '.admin-city-filter-btn', action: () => console.log('City filter clicked') },
-        { selector: '.admin-city-sort-btn', action: () => console.log('City sort clicked') },
-        { selector: '.admin-desti-country-pagination-btn', action: () => console.log('Country pagination clicked') },
-        { selector: '.admin-desti-country-filter-btn', action: () => console.log('Country filter clicked') },
-        { selector: '.admin-desti-country-sort-btn', action: () => console.log('Country sort clicked') }
-    ];
-
-    handlers.forEach(({ selector, action }) => {
-        $$(selector).forEach(btn => {
-            btn.removeEventListener('click', action);
-            btn.addEventListener('click', action);
-        });
-    });
-};
-// Updated Dropdown Initialization
-const initializeDropdown = () => {
-    const dropdownButton = $('#showall-buttongroups');
-    const dropdownOptions = $('#dropdown-options');
-    const icon = $('.fa-chevron-down', dropdownButton);
-    const container = $('.admindashboard-container');
-
-    if (!dropdownButton || !dropdownOptions || !icon || !container) {
-        console.error('Dropdown elements missing:', { dropdownButton, dropdownOptions, icon, container });
-        return;
-    }
-
-    let currentReport = 'all';
-
-    const fallbackMessage = document.createElement('div');
-    fallbackMessage.className = 'report-fallback';
-    fallbackMessage.style.padding = '20px';
-    fallbackMessage.style.textAlign = 'center';
-    fallbackMessage.style.color = '#666';
-    container.appendChild(fallbackMessage);
-
-    const showAllReports = () => {
-        $$('[data-report]').forEach(report => {
-            // Remove inline styles to reset visibility
-            report.style.removeProperty('display');
-            report.style.removeProperty('visibility');
-            // Ensure elements are visible by default (rely on CSS)
-            report.style.display = ''; // Reset to default or CSS rule
-            report.style.visibility = ''; // Reset to default or CSS rule
-            // console.log('Restoring visibility for:', report.dataset.report);
-        });
-        fallbackMessage.style.display = 'none';
-        dropdownButton.innerHTML = `Show All <i class="fa-solid fa-chevron-down"></i>`;
-        currentReport = 'all';
-    };
-
-    const showReport = (reportId) => {
-        const reportContainer = $(`[data-report="${reportId}"]`);
-        if (!reportContainer) {
-            $$('[data-report]').forEach(report => {
-                report.style.display = 'block';
-                report.style.visibility = 'hidden';
-            });
-            fallbackMessage.textContent = `No data available for ${$(`[data-report="${reportId}"]`, dropdownOptions)?.textContent || 'this report'}.`;
-            fallbackMessage.style.display = 'block';
-        } else {
-            $$('[data-report]').forEach(report => {
-                if (report.dataset.report === reportId) {
-                    report.style.display = 'block';
-                    report.style.visibility = 'visible';
-                } else {
-                    report.style.display = 'block';
-                    report.style.visibility = 'hidden';
-                }
-            });
-            fallbackMessage.style.display = 'none';
-        }
-        const selectedOption = $(`[data-report="${reportId}"]`, dropdownOptions);
-        const optionText = selectedOption ? selectedOption.textContent.trim() : 'Unknown';
-        dropdownButton.innerHTML = `Show: ${optionText} <i class="fa-solid fa-chevron-down"></i>`;
-        currentReport = reportId;
-    };
-
-    const toggleDropdown = (e) => {
-        e.stopPropagation();
-        // console.log('Toggling dropdown, current class:', dropdownOptions.className);
-        // Reset to show all reports when reopening after a selection
-        if (currentReport !== 'all' && !dropdownOptions.classList.contains('show')) {
-            showAllReports();
-        }
-        dropdownOptions.classList.toggle('show');
-        icon.classList.toggle('show-all-admin-rotate-icon');
-        if (dropdownOptions.classList.contains('show')) {
-            console.log('Dropdown opened with all options');
-        } else {
-            console.log('Dropdown closed');
-        }
-    };
-
-    const handleOptionClick = (e) => {
-        e.stopPropagation();
-        const reportId = e.target.dataset.report;
-        console.log('Option selected:', reportId);
-        if (reportId === 'all') {
-            showAllReports();
-        } else if (reportId) {
-            showReport(reportId);
-        }
-    };
-
-    // Bind events directly
-    dropdownButton.addEventListener('click', toggleDropdown);
-    $$('.show-all-admin-options button', dropdownOptions).forEach(option => {
-        option.addEventListener('click', handleOptionClick);
-    });
-
-    // Close dropdown when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.show-all-admin-button-container') && dropdownOptions.classList.contains('show')) {
-            console.log('Closing dropdown due to outside click');
-            dropdownOptions.classList.remove('show');
-            icon.classList.remove('show-all-admin-rotate-icon');
-        }
-    });
-
-    // Initialize with all reports visible
-    showAllReports();
-};
-
-// Calendar
-const initializeCalendar = () => {
-    const calendarGrid = $('.calendar-grid');
-    const monthSelect = $('#calendar-month-select');
-    const yearSelect = $('#calendar-year-select');
-    const startDateInput = $('#calendar-start-date-input');
-    const endDateInput = $('#calendar-end-date-input');
-    const prevMonthBtn = $('.calendar-prev-month');
-    const nextMonthBtn = $('.calendar-next-month');
-    const calendarButton = $('#calender-buttongroups');
-    const calendarContainer = $('.calendar-container');
-
-    if (!calendarGrid || !monthSelect || !yearSelect || !startDateInput || !endDateInput || !calendarButton || !calendarContainer) {
-        return console.error('Calendar elements missing');
-    }
-
-    let currentDate = new Date();
-    let startDate = null;
-    let endDate = null;
-    let selectionMode = 'start';
-    let isCalendarOpen = false;
-
-    // Populate year select
-    const currentYear = new Date().getFullYear();
-    for (let year = currentYear - 5; year <= currentYear + 5; year++) {
-        const option = document.createElement('option');
-        option.value = year;
-        option.textContent = year;
-        if (year === currentYear) option.selected = true;
-        yearSelect.appendChild(option);
-    }
-
-    const toggleCalendar = () => {
-        isCalendarOpen = !isCalendarOpen;
-        calendarContainer.style.display = isCalendarOpen ? 'block' : 'none';
-    };
-
-    const updateMonthYearSelects = () => {
-        monthSelect.value = currentDate.getMonth();
-        yearSelect.value = currentDate.getFullYear();
-    };
-
-    const renderCalendar = () => {
-        $$('.calendar-day', calendarGrid).forEach(el => el.remove());
-
-        const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-        const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-        let firstDayIndex = firstDay.getDay() - 1;
-        if (firstDayIndex < 0) firstDayIndex = 6;
-
-        const prevMonthLastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
-        for (let i = prevMonthLastDay - firstDayIndex + 1; i <= prevMonthLastDay; i++) {
-            addDayToCalendar(i, 'calendar-other-month', new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, i));
-        }
-
-        const today = new Date();
-        for (let i = 1; i <= lastDay.getDate(); i++) {
-            const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
-            const classes = [];
-            if (today.toDateString() === date.toDateString()) classes.push('calendar-today');
-            if (startDate && startDate.toDateString() === date.toDateString()) classes.push('calendar-selected-start');
-            if (endDate && endDate.toDateString() === date.toDateString()) classes.push('calendar-selected-end');
-            if (startDate && endDate && date > startDate && date < endDate) {
-                classes.push('calendar-in-range');
-                if (i === 1 || new Date(currentDate.getFullYear(), currentDate.getMonth(), i - 1) <= startDate) {
-                    classes.push('calendar-first-in-range');
-                }
-                if (i === lastDay.getDate() || new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1) >= endDate) {
-                    classes.push('calendar-last-in-range');
-                }
-            }
-            addDayToCalendar(i, classes.join(' '), date);
-        }
-
-        const daysRendered = firstDayIndex + lastDay.getDate();
-        const remainingDays = 7 - (daysRendered % 7);
-        if (remainingDays < 7) {
-            for (let i = 1; i <= remainingDays; i++) {
-                addDayToCalendar(i, 'calendar-other-month', new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, i));
-            }
-        }
-    };
-
-    const addDayToCalendar = (dayNumber, classes, date) => {
-        const dayElement = document.createElement('div');
-        dayElement.className = `calendar-day ${classes}`;
-        dayElement.textContent = dayNumber;
-
-        if (!classes.includes('calendar-other-month')) {
-            dayElement.addEventListener('click', e => {
-                e.stopPropagation();
-                if (selectionMode === 'start') {
-                    startDate = new Date(date);
-                    if (endDate && endDate < startDate) endDate = null;
-                    selectionMode = 'end';
-                    startDateInput.classList.remove('calendar-active');
-                    endDateInput.classList.add('calendar-active');
-                } else {
-                    endDate = new Date(date);
-                    if (startDate && endDate < startDate) {
-                        [startDate, endDate] = [endDate, startDate];
+                    // Validate data
+                    if (labels.length !== values.length) {
+                        throw new Error('Mismatch between categories and counts');
                     }
-                    selectionMode = 'start';
-                    startDateInput.classList.add('calendar-active');
-                    endDateInput.classList.remove('calendar-active');
+
+                    // Generate the chart
+                    const chart = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                data: values,
+                                backgroundColor: colors,
+                                borderWidth: 0,
+                                cutout: '70%'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: { enabled: true }
+                            }
+                        }
+                    });
+
+                    // Generate and update the legend
+                    generatePointEntryLegend(labels, colors);
+                })
+                .catch(error => {
+                    console.error('Error fetching point of entry data:', error);
+                    // Fallback to static data if API fails
+                    const fallbackData = {
+                        categories: ['youtube', 'Google', 'Friend', 'Others'],
+                        counts: [45, 20, 15, 10, 10]
+                    };
+                    const labels = fallbackData.categories;
+                    const values = fallbackData.counts;
+                    const colors = ['#6F25CE', '#8863C9', '#A894D9', '#C5B6E5', '#E2D9F2'].slice(0, labels.length);
+
+                    // console.log('Using fallback data:', fallbackData);
+
+                    // Generate the chart with fallback data
+                    const chart = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                data: values,
+                                backgroundColor: colors,
+                                borderWidth: 0,
+                                cutout: '70%'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            plugins: { legend: { display: false }, tooltip: { enabled: true } }
+                        }
+                    });
+
+                    // Generate and update the legend with fallback data
+                    generatePointEntryLegend(labels, colors);
+                });
+        };
+
+        // Generate Legend Dynamically
+        const generatePointEntryLegend = (labels, colors) => {
+            const legendContainer = $('.point-entry-legend-container');
+            if (!legendContainer) return console.error('Legend container not found');
+
+            // Clear existing legend
+            legendContainer.innerHTML = '';
+
+            // Create two columns for the legend
+            const column1 = document.createElement('div');
+            column1.className = 'point-entry-legend';
+            const column2 = document.createElement('div');
+            column2.className = 'point-entry-legend';
+
+            labels.forEach((label, index) => {
+                const legendItem = document.createElement('div');
+                legendItem.className = 'point-entry-legend-item';
+
+                const colorBox = document.createElement('div');
+                colorBox.className = 'point-entry-legend-color';
+                colorBox.style.backgroundColor = colors[index];
+
+                const labelSpan = document.createElement('span');
+                labelSpan.textContent = label;
+
+                legendItem.appendChild(colorBox);
+                legendItem.appendChild(labelSpan);
+
+                // Distribute items into two columns
+                if (index < Math.ceil(labels.length / 2)) {
+                    column1.appendChild(legendItem);
+                } else {
+                    column2.appendChild(legendItem);
                 }
-                updateInputs();
+            });
+
+            legendContainer.appendChild(column1);
+            legendContainer.appendChild(column2);
+        };
+
+
+        // NBFC Chart with API Data and Pagination
+        const drawNBFCChart = () => {
+            const chartDiv = $('#nbfc-lead-chart_div');
+            if (!chartDiv) return console.error('nbfc-lead-chart_div not found');
+
+            let currentPage = 1;
+            const itemsPerPage = 5;
+            let fullData = [];
+            const prevBtn = $('#nbfc-lead-prev-btn');
+            const nextBtn = $('#nbfc-lead-next-btn');
+            const pageRange = $('#nbfc-lead-page-range');
+            const totalItems = $('#nbfc-lead-total-items');
+
+            // Fetch data from API
+            fetch('/nbfc-lead-gens', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    // console.log('Fetched NBFC lead generation data:', data);
+
+                    // Validate the API response structure
+                    if (!data.nbfcs || !Array.isArray(data.nbfcs) ||
+                        !data.lead_counts || !Array.isArray(data.lead_counts) ||
+                        !data.time_taken || !Array.isArray(data.time_taken) ||
+                        data.nbfcs.length !== data.lead_counts.length ||
+                        data.nbfcs.length !== data.time_taken.length) {
+                        throw new Error('Invalid API response: Mismatched or missing data arrays');
+                    }
+
+                    // Transform API data into the full dataset
+                    fullData = [['NBFC', 'No. Of Leads', 'Time Taken']];
+                    for (let i = 0; i < data.nbfcs.length; i++) {
+                        fullData.push([data.nbfcs[i], data.lead_counts[i], data.time_taken[i]]);
+                    }
+
+                    // Update total items
+                    totalItems.textContent = fullData.length - 1; // Exclude header row
+
+                    // Draw the initial chart with the first page
+                    updateChart();
+
+                    // Add event listeners for pagination
+                    prevBtn.addEventListener('click', () => {
+                        if (currentPage > 1) {
+                            currentPage--;
+                            updateChart();
+                        }
+                    });
+
+                    nextBtn.addEventListener('click', () => {
+                        if (currentPage < Math.ceil((fullData.length - 1) / itemsPerPage)) {
+                            currentPage++;
+                            updateChart();
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching NBFC lead generation data:', error);
+                    // Fallback to static data if API fails
+                    fullData = [
+                        ['NBFC', 'No. Of Leads', 'Time Taken'],
+                        ['ICICI', 55, 67], ['Baroda', 65, 45], ['AXIS', 60, 80], ['SBI', 90, 50],
+                        ['Canara', 45, 48], ['HDFC', 75, 60]
+                    ];
+
+                    // console.log('Using fallback data:', fullData);
+
+                    // Update total items
+                    totalItems.textContent = fullData.length - 1; // Exclude header row
+
+                    // Draw the chart with fallback data
+                    updateChart();
+                });
+
+            // Function to update the chart based on the current page
+            function updateChart() {
+                const startIdx = (currentPage - 1) * itemsPerPage + 1; // +1 to skip header
+                const endIdx = Math.min(startIdx + itemsPerPage - 1, fullData.length - 1);
+                const paginatedData = [fullData[0], ...fullData.slice(startIdx, endIdx + 1)];
+
+                // Log the paginated data for debugging
+                // console.log('Paginated chart data:', paginatedData);
+
+                // Create the data table
+                const dataTable = google.visualization.arrayToDataTable(paginatedData);
+
+                // Chart options
+                const options = {
+                    width: '100%',
+                    height: 170, // Adjusted height to fit 5 items comfortably
+                    colors: ['#E6D5F5', '#6C3EE8'],
+                    legend: { position: 'none' },
+                    hAxis: { textStyle: { fontSize: 10 }, gridlines: { color: 'transparent' } },
+                    vAxis: { gridlines: { color: 'transparent' }, baselineColor: 'transparent', textPosition: 'none' },
+                    bar: { groupWidth: '60%' },
+                    backgroundColor: 'transparent',
+                    chartArea: { width: '90%', height: '70%' }
+                };
+
+                // Draw the chart
+                const chart = new google.visualization.ColumnChart(chartDiv);
+                chart.draw(dataTable, options);
+
+                // Update pagination display
+                pageRange.textContent = `${startIdx} - ${endIdx}`;
+            }
+        };
+
+        // Lead Chart with API Data and Pagination
+        const initializeLeadChart = () => {
+            const ctx = $('#leadChart')?.getContext('2d');
+            if (!ctx) return console.error('leadChart canvas not found');
+
+            let currentPage = 1;
+            const itemsPerPage = 5; // Set to 5 for scalability, even though we have only 2 items
+            let fullLabels = [];
+            let fullData = [];
+            const prevBtn = $('#sc-lead-prev-btn');
+            const nextBtn = $('#sc-lead-next-btn');
+            const pageRange = $('#sc-lead-page-range');
+            const totalItems = $('#sc-lead-total-items');
+
+            // Fetch data from API
+            fetch('/sc-lead-gens', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    // console.log('Fetched Student Counsellors lead generation data:', data);
+
+                    // Validate the API response structure
+                    if (!data.student_counsellors || !Array.isArray(data.student_counsellors) ||
+                        !data.lead_counts || !Array.isArray(data.lead_counts) ||
+                        data.student_counsellors.length !== data.lead_counts.length) {
+                        throw new Error('Invalid API response: Mismatched or missing data arrays');
+                    }
+
+                    // Store the full dataset
+                    fullLabels = data.student_counsellors;
+                    fullData = data.lead_counts;
+
+                    // Update total items
+                    totalItems.textContent = fullLabels.length;
+
+                    // Draw the initial chart with the first page
+                    updateChart();
+
+                    // Add event listeners for pagination
+                    prevBtn.addEventListener('click', () => {
+                        if (currentPage > 1) {
+                            currentPage--;
+                            updateChart();
+                        }
+                    });
+
+                    nextBtn.addEventListener('click', () => {
+                        if (currentPage < Math.ceil(fullLabels.length / itemsPerPage)) {
+                            currentPage++;
+                            updateChart();
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching Student Counsellors lead generation data:', error);
+                    // Fallback to static data if API fails
+                    fullLabels = ['54635', '65783', '56374', '92874', '36057', '10847', '34015', '57610'];
+                    fullData = [5, 12, 10, 4, 18, 8, 6, 10];
+
+                    // console.log('Using fallback data:', { labels: fullLabels, data: fullData });
+
+                    // Update total items
+                    totalItems.textContent = fullLabels.length;
+
+                    // Draw the chart with fallback data
+                    updateChart();
+                });
+
+            // Function to update the chart based on the current page
+            function updateChart() {
+                const startIdx = (currentPage - 1) * itemsPerPage;
+                const endIdx = Math.min(startIdx + itemsPerPage, fullLabels.length);
+                const paginatedLabels = fullLabels.slice(startIdx, endIdx);
+                const paginatedData = fullData.slice(startIdx, endIdx);
+
+                // Log the paginated data for debugging
+                // console.log('Paginated chart data:', { labels: paginatedLabels, data: paginatedData });
+
+                // Create the chart
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: paginatedLabels,
+                        datasets: [{
+                            label: 'No. Of Leads',
+                            data: paginatedData,
+                            backgroundColor: '#d3b8f0',
+                            barThickness: 11
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false }, tooltip: { enabled: true } },
+                        scales: {
+                            y: { beginAtZero: true, grid: { display: false }, ticks: { display: false } },
+                            x: { grid: { display: false }, ticks: { font: { family: 'Poppins', size: 12 }, color: '#5D5C5C' } }
+                        }
+                    }
+                });
+
+                // Update pagination display
+                pageRange.textContent = `${startIdx + 1} - ${endIdx}`;
+            }
+        };
+
+        // Highlight Highest Values in Tables
+        const highlightHighestValues = () => {
+            ['city-table', 'country-table'].forEach(tableId => {
+                const valueClass = tableId === 'city-table' ? 'admin-city-data-value' : 'admin-desti-country-data-value';
+                const table = $(`#${tableId}`);
+                if (!table) return;
+
+                const valueCells = $$(`.${valueClass}`, table);
+                if (!valueCells.length) return;
+
+                const highestValue = Math.max(...valueCells.map(cell => parseInt(cell.dataset.value || 0)));
+                valueCells.forEach(cell => {
+                    if (parseInt(cell.dataset.value) === highestValue) {
+                        cell.classList.add('highlighted');
+                    }
+                });
+            });
+        };
+
+        // Pagination and Filter Handlers
+        const initializePaginationAndFilters = () => {
+            const handlers = [
+                { selector: '.admin-city-pagination-btn', action: () => console.log('City pagination clicked') },
+                { selector: '.admin-city-filter-btn', action: () => console.log('City filter clicked') },
+                { selector: '.admin-city-sort-btn', action: () => console.log('City sort clicked') },
+                { selector: '.admin-desti-country-pagination-btn', action: () => console.log('Country pagination clicked') },
+                { selector: '.admin-desti-country-filter-btn', action: () => console.log('Country filter clicked') },
+                { selector: '.admin-desti-country-sort-btn', action: () => console.log('Country sort clicked') }
+            ];
+
+            handlers.forEach(({ selector, action }) => {
+                $$(selector).forEach(btn => {
+                    btn.removeEventListener('click', action);
+                    btn.addEventListener('click', action);
+                });
+            });
+        };
+        // Updated Dropdown Initialization
+        const initializeDropdown = () => {
+            const dropdownButton = $('#showall-buttongroups');
+            const dropdownOptions = $('#dropdown-options');
+            const icon = $('.fa-chevron-down', dropdownButton);
+            const container = $('.admindashboard-container');
+
+            if (!dropdownButton || !dropdownOptions || !icon || !container) {
+                console.error('Dropdown elements missing:', { dropdownButton, dropdownOptions, icon, container });
+                return;
+            }
+
+            let currentReport = 'all';
+
+            const fallbackMessage = document.createElement('div');
+            fallbackMessage.className = 'report-fallback';
+            fallbackMessage.style.padding = '20px';
+            fallbackMessage.style.textAlign = 'center';
+            fallbackMessage.style.color = '#666';
+            container.appendChild(fallbackMessage);
+
+            const showAllReports = () => {
+                $$('[data-report]').forEach(report => {
+                    // Remove inline styles to reset visibility
+                    report.style.removeProperty('display');
+                    report.style.removeProperty('visibility');
+                    // Ensure elements are visible by default (rely on CSS)
+                    report.style.display = ''; // Reset to default or CSS rule
+                    report.style.visibility = ''; // Reset to default or CSS rule
+                    // console.log('Restoring visibility for:', report.dataset.report);
+                });
+                fallbackMessage.style.display = 'none';
+                dropdownButton.innerHTML = `Show All <i class="fa-solid fa-chevron-down"></i>`;
+                currentReport = 'all';
+            };
+
+            const showReport = (reportId) => {
+                const reportContainer = $(`[data-report="${reportId}"]`);
+                if (!reportContainer) {
+                    $$('[data-report]').forEach(report => {
+                        report.style.display = 'block';
+                        report.style.visibility = 'hidden';
+                    });
+                    fallbackMessage.textContent = `No data available for ${$(`[data-report="${reportId}"]`, dropdownOptions)?.textContent || 'this report'}.`;
+                    fallbackMessage.style.display = 'block';
+                } else {
+                    $$('[data-report]').forEach(report => {
+                        if (report.dataset.report === reportId) {
+                            report.style.display = 'block';
+                            report.style.visibility = 'visible';
+                        } else {
+                            report.style.display = 'block';
+                            report.style.visibility = 'hidden';
+                        }
+                    });
+                    fallbackMessage.style.display = 'none';
+                }
+                const selectedOption = $(`[data-report="${reportId}"]`, dropdownOptions);
+                const optionText = selectedOption ? selectedOption.textContent.trim() : 'Unknown';
+                dropdownButton.innerHTML = `Show: ${optionText} <i class="fa-solid fa-chevron-down"></i>`;
+                currentReport = reportId;
+            };
+
+            const toggleDropdown = (e) => {
+                e.stopPropagation();
+                // console.log('Toggling dropdown, current class:', dropdownOptions.className);
+                // Reset to show all reports when reopening after a selection
+                if (currentReport !== 'all' && !dropdownOptions.classList.contains('show')) {
+                    showAllReports();
+                }
+                dropdownOptions.classList.toggle('show');
+                icon.classList.toggle('show-all-admin-rotate-icon');
+                if (dropdownOptions.classList.contains('show')) {
+                    console.log('Dropdown opened with all options');
+                } else {
+                    console.log('Dropdown closed');
+                }
+            };
+
+            const handleOptionClick = (e) => {
+                e.stopPropagation();
+                const reportId = e.target.dataset.report;
+                console.log('Option selected:', reportId);
+                if (reportId === 'all') {
+                    showAllReports();
+                } else if (reportId) {
+                    showReport(reportId);
+                }
+            };
+
+            // Bind events directly
+            dropdownButton.addEventListener('click', toggleDropdown);
+            $$('.show-all-admin-options button', dropdownOptions).forEach(option => {
+                option.addEventListener('click', handleOptionClick);
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.show-all-admin-button-container') && dropdownOptions.classList.contains('show')) {
+                    console.log('Closing dropdown due to outside click');
+                    dropdownOptions.classList.remove('show');
+                    icon.classList.remove('show-all-admin-rotate-icon');
+                }
+            });
+
+            // Initialize with all reports visible
+            showAllReports();
+        };
+
+        // Calendar
+        const initializeCalendar = () => {
+            const calendarGrid = $('.calendar-grid');
+            const monthSelect = $('#calendar-month-select');
+            const yearSelect = $('#calendar-year-select');
+            const startDateInput = $('#calendar-start-date-input');
+            const endDateInput = $('#calendar-end-date-input');
+            const prevMonthBtn = $('.calendar-prev-month');
+            const nextMonthBtn = $('.calendar-next-month');
+            const calendarButton = $('#calender-buttongroups');
+            const calendarContainer = $('.calendar-container');
+
+            if (!calendarGrid || !monthSelect || !yearSelect || !startDateInput || !endDateInput || !calendarButton || !calendarContainer) {
+                return console.error('Calendar elements missing');
+            }
+
+            let currentDate = new Date();
+            let startDate = null;
+            let endDate = null;
+            let selectionMode = 'start';
+            let isCalendarOpen = false;
+
+            // Populate year select
+            const currentYear = new Date().getFullYear();
+            for (let year = currentYear - 5; year <= currentYear + 5; year++) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                if (year === currentYear) option.selected = true;
+                yearSelect.appendChild(option);
+            }
+
+            const toggleCalendar = () => {
+                isCalendarOpen = !isCalendarOpen;
+                calendarContainer.style.display = isCalendarOpen ? 'block' : 'none';
+            };
+
+            const updateMonthYearSelects = () => {
+                monthSelect.value = currentDate.getMonth();
+                yearSelect.value = currentDate.getFullYear();
+            };
+
+            const renderCalendar = () => {
+                $$('.calendar-day', calendarGrid).forEach(el => el.remove());
+
+                const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+                const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+                let firstDayIndex = firstDay.getDay() - 1;
+                if (firstDayIndex < 0) firstDayIndex = 6;
+
+                const prevMonthLastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+                for (let i = prevMonthLastDay - firstDayIndex + 1; i <= prevMonthLastDay; i++) {
+                    addDayToCalendar(i, 'calendar-other-month', new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, i));
+                }
+
+                const today = new Date();
+                for (let i = 1; i <= lastDay.getDate(); i++) {
+                    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
+                    const classes = [];
+                    if (today.toDateString() === date.toDateString()) classes.push('calendar-today');
+                    if (startDate && startDate.toDateString() === date.toDateString()) classes.push('calendar-selected-start');
+                    if (endDate && endDate.toDateString() === date.toDateString()) classes.push('calendar-selected-end');
+                    if (startDate && endDate && date > startDate && date < endDate) {
+                        classes.push('calendar-in-range');
+                        if (i === 1 || new Date(currentDate.getFullYear(), currentDate.getMonth(), i - 1) <= startDate) {
+                            classes.push('calendar-first-in-range');
+                        }
+                        if (i === lastDay.getDate() || new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1) >= endDate) {
+                            classes.push('calendar-last-in-range');
+                        }
+                    }
+                    addDayToCalendar(i, classes.join(' '), date);
+                }
+
+                const daysRendered = firstDayIndex + lastDay.getDate();
+                const remainingDays = 7 - (daysRendered % 7);
+                if (remainingDays < 7) {
+                    for (let i = 1; i <= remainingDays; i++) {
+                        addDayToCalendar(i, 'calendar-other-month', new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, i));
+                    }
+                }
+            };
+
+            const addDayToCalendar = (dayNumber, classes, date) => {
+                const dayElement = document.createElement('div');
+                dayElement.className = `calendar-day ${classes}`;
+                dayElement.textContent = dayNumber;
+
+                if (!classes.includes('calendar-other-month')) {
+                    dayElement.addEventListener('click', e => {
+                        e.stopPropagation();
+                        if (selectionMode === 'start') {
+                            startDate = new Date(date);
+                            if (endDate && endDate < startDate) endDate = null;
+                            selectionMode = 'end';
+                            startDateInput.classList.remove('calendar-active');
+                            endDateInput.classList.add('calendar-active');
+                        } else {
+                            endDate = new Date(date);
+                            if (startDate && endDate < startDate) {
+                                [startDate, endDate] = [endDate, startDate];
+                            }
+                            selectionMode = 'start';
+                            startDateInput.classList.add('calendar-active');
+                            endDateInput.classList.remove('calendar-active');
+                        }
+                        updateInputs();
+                        renderCalendar();
+                    });
+                }
+                calendarGrid.appendChild(dayElement);
+            };
+
+            const updateInputs = () => {
+                startDateInput.innerHTML = startDate
+                    ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+               ${startDate.getDate().toString().padStart(2, '0')}/${(startDate.getMonth() + 1).toString().padStart(2, '0')}/${startDate.getFullYear()}`
+                    : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><span>Start Date</span>`;
+
+                endDateInput.innerHTML = endDate
+                    ? `${endDate.getDate().toString().padStart(2, '0')}/${(endDate.getMonth() + 1).toString().padStart(2, '0')}/${endDate.getFullYear()}
+               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: auto;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`
+                    : `<span>End Date</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: auto;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`;
+            };
+
+            startDateInput.addEventListener('click', e => {
+                e.stopPropagation();
+                selectionMode = 'start';
+                startDateInput.classList.add('calendar-active');
+                endDateInput.classList.remove('calendar-active');
+            });
+
+            endDateInput.addEventListener('click', e => {
+                e.stopPropagation();
+                selectionMode = 'end';
+                startDateInput.classList.remove('calendar-active');
+                endDateInput.classList.add('calendar-active');
+            });
+
+            calendarButton.addEventListener('click', e => {
+                e.stopPropagation();
+                toggleCalendar();
+            });
+
+            calendarContainer.addEventListener('click', e => e.stopPropagation());
+
+            document.addEventListener('click', e => {
+                if (isCalendarOpen && !calendarContainer.contains(e.target) && e.target !== calendarButton) {
+                    toggleCalendar();
+                }
+            });
+
+            prevMonthBtn.addEventListener('click', e => {
+                e.stopPropagation();
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                updateMonthYearSelects();
                 renderCalendar();
             });
-        }
-        calendarGrid.appendChild(dayElement);
-    };
 
-    const updateInputs = () => {
-        startDateInput.innerHTML = startDate
-            ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-               ${startDate.getDate().toString().padStart(2, '0')}/${(startDate.getMonth() + 1).toString().padStart(2, '0')}/${startDate.getFullYear()}`
-            : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><span>Start Date</span>`;
+            nextMonthBtn.addEventListener('click', e => {
+                e.stopPropagation();
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                updateMonthYearSelects();
+                renderCalendar();
+            });
 
-        endDateInput.innerHTML = endDate
-            ? `${endDate.getDate().toString().padStart(2, '0')}/${(endDate.getMonth() + 1).toString().padStart(2, '0')}/${endDate.getFullYear()}
-               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: auto;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`
-            : `<span>End Date</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: auto;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`;
-    };
+            monthSelect.addEventListener('change', () => {
+                currentDate.setMonth(parseInt(monthSelect.value));
+                renderCalendar();
+            });
 
-    startDateInput.addEventListener('click', e => {
-        e.stopPropagation();
-        selectionMode = 'start';
-        startDateInput.classList.add('calendar-active');
-        endDateInput.classList.remove('calendar-active');
-    });
+            yearSelect.addEventListener('change', () => {
+                currentDate.setFullYear(parseInt(yearSelect.value));
+                renderCalendar();
+            });
 
-    endDateInput.addEventListener('click', e => {
-        e.stopPropagation();
-        selectionMode = 'end';
-        startDateInput.classList.remove('calendar-active');
-        endDateInput.classList.add('calendar-active');
-    });
+            updateMonthYearSelects();
+            renderCalendar();
+        };
 
-    calendarButton.addEventListener('click', e => {
-        e.stopPropagation();
-        toggleCalendar();
-    });
+        // Referral Modal
+        const initializeReferralModal = () => {
+            const referralLinkBtn = $('#referral-link-admindashboard');
+            const referralLinkBtnMobile = $('#referral-link-admindashboard-mobile');
+            const modal = $('#referralModal');
+            const backdrop = $('#backdrop');
+            const closeBtn = $('#closeModal');
+            const cancelBtn = $('#cancelBtn');
+            const generateBtn = $('#generateBtn');
+            const inputField = $('#referralLink');
 
-    calendarContainer.addEventListener('click', e => e.stopPropagation());
+            if (!referralLinkBtn || !modal || !backdrop || !closeBtn || !cancelBtn || !generateBtn || !inputField) {
+                return console.error('Referral modal elements missing');
+            }
 
-    document.addEventListener('click', e => {
-        if (isCalendarOpen && !calendarContainer.contains(e.target) && e.target !== calendarButton) {
-            toggleCalendar();
-        }
-    });
+            const openModal = () => {
+                modal.classList.remove('hidden');
+                backdrop.classList.add('active');
+            };
 
-    prevMonthBtn.addEventListener('click', e => {
-        e.stopPropagation();
-        currentDate.setMonth(currentDate.getMonth() - 1);
-        updateMonthYearSelects();
-        renderCalendar();
-    });
+            const closeModal = () => {
+                modal.classList.add('hidden');
+                backdrop.classList.remove('active');
+                inputField.value = '';
+            };
 
-    nextMonthBtn.addEventListener('click', e => {
-        e.stopPropagation();
-        currentDate.setMonth(currentDate.getMonth() + 1);
-        updateMonthYearSelects();
-        renderCalendar();
-    });
+            referralLinkBtn.addEventListener('click', openModal);
+            referralLinkBtnMobile?.addEventListener('click', openModal);
+            closeBtn.addEventListener('click', closeModal);
+            cancelBtn.addEventListener('click', closeModal);
+            backdrop.addEventListener('click', closeModal);
 
-    monthSelect.addEventListener('change', () => {
-        currentDate.setMonth(parseInt(monthSelect.value));
-        renderCalendar();
-    });
+            generateBtn.addEventListener('click', () => {
+                inputField.value = `https://example.com/referral?code=${Math.random().toString(36).substr(2, 8)}`;
+            });
+        };
 
-    yearSelect.addEventListener('change', () => {
-        currentDate.setFullYear(parseInt(yearSelect.value));
-        renderCalendar();
-    });
+        // Mobile Menu Modal
+        const initializeMobileMenu = () => {
+            const mobileModal = $('#mobile-admin-dashboard-modal');
+            const mobileMenuBtn = $('#mobile-admin-dashboard-menu-btn');
+            const closeModalBtn = $('#mobile-admin-dashboard-close-modal-btn');
+            const manageStudentBtn = $('#manage-student-admindashboard-mobile');
 
-    updateMonthYearSelects();
-    renderCalendar();
-};
+            if (!mobileModal || !mobileMenuBtn || !closeModalBtn) {
+                return console.error('Mobile menu elements missing');
+            }
 
-// Referral Modal
-const initializeReferralModal = () => {
-    const referralLinkBtn = $('#referral-link-admindashboard');
-    const referralLinkBtnMobile = $('#referral-link-admindashboard-mobile');
-    const modal = $('#referralModal');
-    const backdrop = $('#backdrop');
-    const closeBtn = $('#closeModal');
-    const cancelBtn = $('#cancelBtn');
-    const generateBtn = $('#generateBtn');
-    const inputField = $('#referralLink');
+            const openModal = e => {
+                e.stopPropagation();
+                mobileModal.style.display = 'flex';
+            };
 
-    if (!referralLinkBtn || !modal || !backdrop || !closeBtn || !cancelBtn || !generateBtn || !inputField) {
-        return console.error('Referral modal elements missing');
-    }
+            const closeModal = e => {
+                if (e) e.stopPropagation();
+                mobileModal.style.display = 'none';
+            };
 
-    const openModal = () => {
-        modal.classList.remove('hidden');
-        backdrop.classList.add('active');
-    };
+            mobileMenuBtn.removeEventListener('click', openModal);
+            mobileMenuBtn.addEventListener('click', openModal);
 
-    const closeModal = () => {
-        modal.classList.add('hidden');
-        backdrop.classList.remove('active');
-        inputField.value = '';
-    };
+            closeModalBtn.removeEventListener('click', closeModal);
+            closeModalBtn.addEventListener('click', closeModal);
 
-    referralLinkBtn.addEventListener('click', openModal);
-    referralLinkBtnMobile?.addEventListener('click', openModal);
-    closeBtn.addEventListener('click', closeModal);
-    cancelBtn.addEventListener('click', closeModal);
-    backdrop.addEventListener('click', closeModal);
+            mobileModal.addEventListener('click', e => {
+                if (e.target === mobileModal) closeModal(e);
+            });
 
-    generateBtn.addEventListener('click', () => {
-        inputField.value = `https://example.com/referral?code=${Math.random().toString(36).substr(2, 8)}`;
-    });
-};
+            manageStudentBtn?.addEventListener('click', e => {
+                e.stopPropagation();
+                console.log('Manage Students clicked');
+                closeModal(e);
+            });
+        };
 
-// Mobile Menu Modal
-const initializeMobileMenu = () => {
-    const mobileModal = $('#mobile-admin-dashboard-modal');
-    const mobileMenuBtn = $('#mobile-admin-dashboard-menu-btn');
-    const closeModalBtn = $('#mobile-admin-dashboard-close-modal-btn');
-    const manageStudentBtn = $('#manage-student-admindashboard-mobile');
+        // Filter Panel
+        const initializeFilterPanel = () => {
+            const filterButton = $('#filterButton');
+            const filterPanel = $('#filterPanel');
+            const closeFilterBtn = $('#closeFilterBtn');
+            const showAllBtn = $('#showAllBtn');
+            const collapsedTags = $('#collapsedTags');
+            const panelsToggle = $('#panelsToggle');
+            const showPanelsArea = $('#showPanelsArea');
 
-    if (!mobileModal || !mobileMenuBtn || !closeModalBtn) {
-        return console.error('Mobile menu elements missing');
-    }
+            if (!filterButton || !filterPanel || !closeFilterBtn || !showAllBtn || !collapsedTags || !panelsToggle || !showPanelsArea) {
+                return console.error('Filter panel elements missing');
+            }
 
-    const openModal = e => {
-        e.stopPropagation();
-        mobileModal.style.display = 'flex';
-    };
+            const openFilterPanel = () => {
+                filterPanel.style.display = 'flex';
+            };
 
-    const closeModal = e => {
-        if (e) e.stopPropagation();
-        mobileModal.style.display = 'none';
-    };
+            const closeFilterPanel = () => {
+                filterPanel.style.display = 'none';
+            };
 
-    mobileMenuBtn.removeEventListener('click', openModal);
-    mobileMenuBtn.addEventListener('click', openModal);
+            const updatePanelCount = () => {
+                const visibleTags = $$('.admin-dashboard-filter-tag').length;
+                panelsToggle.textContent = `${visibleTags} Panels`;
+            };
 
-    closeModalBtn.removeEventListener('click', closeModal);
-    closeModalBtn.addEventListener('click', closeModal);
+            filterButton.addEventListener('click', openFilterPanel);
+            showPanelsArea.addEventListener('click', openFilterPanel);
+            closeFilterBtn.addEventListener('click', closeFilterPanel);
 
-    mobileModal.addEventListener('click', e => {
-        if (e.target === mobileModal) closeModal(e);
-    });
+            showAllBtn.addEventListener('click', () => {
+                collapsedTags.classList.toggle('show');
+                showAllBtn.innerHTML = collapsedTags.classList.contains('show')
+                    ? 'Show Less <i class="fa-solid fa-chevron-up"></i>'
+                    : 'Show All <i class="fa-solid fa-chevron-down"></i>';
+            });
 
-    manageStudentBtn?.addEventListener('click', e => {
-        e.stopPropagation();
-        console.log('Manage Students clicked');
-        closeModal(e);
-    });
-};
+            filterPanel.addEventListener('click', e => {
+                if (!e.target.closest('.admin-dashboard-filter-container') && e.target !== filterButton) {
+                    closeFilterPanel();
+                }
+            });
 
-// Filter Panel
-const initializeFilterPanel = () => {
-    const filterButton = $('#filterButton');
-    const filterPanel = $('#filterPanel');
-    const closeFilterBtn = $('#closeFilterBtn');
-    const showAllBtn = $('#showAllBtn');
-    const collapsedTags = $('#collapsedTags');
-    const panelsToggle = $('#panelsToggle');
-    const showPanelsArea = $('#showPanelsArea');
+            document.addEventListener('click', e => {
+                if (e.target.classList.contains('admin-dashboard-close-tag')) {
+                    e.target.parentElement.remove();
+                    updatePanelCount();
+                }
+            });
 
-    if (!filterButton || !filterPanel || !closeFilterBtn || !showAllBtn || !collapsedTags || !panelsToggle || !showPanelsArea) {
-        return console.error('Filter panel elements missing');
-    }
-
-    const openFilterPanel = () => {
-        filterPanel.style.display = 'flex';
-    };
-
-    const closeFilterPanel = () => {
-        filterPanel.style.display = 'none';
-    };
-
-    const updatePanelCount = () => {
-        const visibleTags = $$('.admin-dashboard-filter-tag').length;
-        panelsToggle.textContent = `${visibleTags} Panels`;
-    };
-
-    filterButton.addEventListener('click', openFilterPanel);
-    showPanelsArea.addEventListener('click', openFilterPanel);
-    closeFilterBtn.addEventListener('click', closeFilterPanel);
-
-    showAllBtn.addEventListener('click', () => {
-        collapsedTags.classList.toggle('show');
-        showAllBtn.innerHTML = collapsedTags.classList.contains('show')
-            ? 'Show Less <i class="fa-solid fa-chevron-up"></i>'
-            : 'Show All <i class="fa-solid fa-chevron-down"></i>';
-    });
-
-    filterPanel.addEventListener('click', e => {
-        if (!e.target.closest('.admin-dashboard-filter-container') && e.target !== filterButton) {
-            closeFilterPanel();
-        }
-    });
-
-    document.addEventListener('click', e => {
-        if (e.target.classList.contains('admin-dashboard-close-tag')) {
-            e.target.parentElement.remove();
             updatePanelCount();
-        }
-    });
+        };
 
-    updatePanelCount();
-};
+
+
+        let ageratioChart;
+
+        function loadAgeRatioChart(degreeType = '') {
+
+            if (degreeType === "Post Graduate") {
+                degree_type = "Bachelors"
+
+            } if (degreeType === "Under Graduate") {
+                degree_type = "Masters"
+
+            }
+
+
+            fetch("{{ route('admin.ageratio.calculation') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Important for POST in Laravel
+                },
+                body: JSON.stringify({
+                    degree_type: degreeType
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const ageData = Object.values(data.age_ratio);
+                        const ageLabels = Object.keys(data.age_ratio);
+                        const ageColors = [
+                            'rgba(111, 37, 206, 1)',
+                            'rgba(167, 121, 224, 1)',
+                            'rgba(203, 176, 237, 1)',
+                            'rgba(226, 211, 245, 1)',
+                        ];
+
+                        // Destroy previous chart if exists
+                        if (ageratioChart) {
+                            ageratioChart.destroy();
+                        }
+
+                        const ctx = document.getElementById('ageratio-donutRegistrationChart').getContext('2d');
+                        ageratioChart = new Chart(ctx, {
+                            type: 'doughnut',
+                            data: {
+                                labels: ageLabels,
+                                datasets: [{
+                                    label: 'Age Ratio',
+                                    data: ageData,
+                                    backgroundColor: ageColors,
+                                    borderWidth: 1,
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        display: false // Already showing in your custom div
+                                    }
+                                }
+                            }
+                        });
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        loadAgeRatioChart();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.dropdown-content-postgrad a').forEach(item => {
+                item.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const degreeType = this.innerText.trim(); // "Post Graduate", "Under Graduate", "Others"
+
+                    document.getElementById('postgrad-buttongroups-insideshow').innerHTML = degreeType + ' <i class="fa-solid fa-chevron-down"></i>';
+
+                    loadAgeRatioChart(degreeType);
+                });
+            });
+
+        })
+
+
+
+       
+
+
 
     </script>
 </body>

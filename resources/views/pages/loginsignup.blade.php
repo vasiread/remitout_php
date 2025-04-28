@@ -193,7 +193,6 @@
                             const firstInput = document.getElementById('otp1');
                             firstInput.focus();
                             generateOTP(phoneInput, nameInput);
-                            alert("Check your mail OTP is generated");
 
                         } else {
                             console.error("OTP Panel not found!");
@@ -220,7 +219,7 @@
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': csrfToken,
                         },
-                        body: JSON.stringify(detailsInfo)  // Pass `detailsInfo` directly, no need to wrap inside another object
+                        body: JSON.stringify(detailsInfo)   
                     })
                         .then(response => {
                             if (!response.ok) {

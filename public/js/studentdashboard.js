@@ -661,7 +661,6 @@ function initializeSimpleChat() {
         const parentContainer = chatContainer.closest('.indivudalloanstatus-cards');
         const messageButton = parentContainer ? parentContainer.querySelector('.triggeredbutton') : null;
 
-        console.log("====")
         console.log(messageButton)
 
         chatContainer.style.display = 'none';

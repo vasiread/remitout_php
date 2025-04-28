@@ -14,6 +14,7 @@ use App\Models\Requestedbyusers;
 use App\Models\Requestprogress;
 use App\Models\Scuser;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -691,5 +692,189 @@ class Admincontroller extends Controller
         }
     }
 
+
+
+    public function initializeChatStudent()
+    {
+        try {
+            // Fetch students with necessary details (id, name, unique_id)
+            $students = User::select('name', 'unique_id')->get();
+
+            // Check if data was retrieved successfully
+            if ($students->isEmpty()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'No students found.',
+                ], 404); // HTTP status 404 - Not Found
+            }
+
+            // Return success response with students data
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Students retrieved successfully.',
+                'data' => $students,
+            ], 200); // HTTP status 200 - OK
+
+        } catch (\Exception $e) {
+            // Handle errors (e.g., database errors, unexpected issues)
+            return response()->json([
+                'status' => 'error',
+                'message' => 'An error occurred while retrieving students.',
+                'error' => $e->getMessage(),
+            ], 500); // HTTP status 500 - Internal Server Error
+        }
+    }
+    public function initializeChatNbfc()
+    {
+        try {
+            // Fetch students with necessary details (id, name, unique_id)
+            $nbfc = Nbfc::select('nbfc_name', 'nbfc_id')->get();
+
+            // Check if data was retrieved successfully
+            if ($nbfc->isEmpty()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'No students found.',
+                ], 404); // HTTP status 404 - Not Found
+            }
+
+            // Return success response with students data
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Students retrieved successfully.',
+                'data' => $nbfc,
+            ], 200);
+
+        } catch (\Exception $e) {
+            // Handle errors (e.g., database errors, unexpected issues)
+            return response()->json([
+                'status' => 'error',
+                'message' => 'An error occurred while retrieving students.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function ageratioCalculation(Request $request)
+    {
+        try {
+            $degreeType = $request->input('degree_type');
+
+            $query = PersonalInfo::query();
+
+            // Filter based on CourseInfo degree-type
+            if ($degreeType) {
+                $query->whereHas('courseInfo', function ($q) use ($degreeType) {
+                    $q->where('degree-type', $degreeType);
+                });
+            }
+
+            $personalInfos = $query->get();
+
+            $ageGroups = [
+                '16-20' => 0,
+                '21-25' => 0,
+                '26-30' => 0,
+                '31-40' => 0,
+            ];
+
+            foreach ($personalInfos as $info) {
+                if (!$info->dob)
+                    continue;
+
+                $dob = Carbon::createFromFormat('d/m/Y', $info->dob);
+                $age = $dob->age;
+
+                if ($age >= 16 && $age <= 20) {
+                    $ageGroups['16-20']++;
+                } elseif ($age >= 21 && $age <= 25) {
+                    $ageGroups['21-25']++;
+                } elseif ($age >= 26 && $age <= 30) {
+                    $ageGroups['26-30']++;
+                } elseif ($age >= 31 && $age <= 40) {
+                    $ageGroups['31-40']++;
+                }
+            }
+
+            return response()->json([
+                'success' => true,
+                'age_ratio' => $ageGroups,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
+
+
+    public function sourceRegistration()
+    {
+        $scReferralCount = 0;
+        $addsCount = 0;
+        $organicCount = 0;
+
+        $totalUsers = PersonalInfo::count();
+
+        $personalInfos = PersonalInfo::with('user')->get();
+
+        foreach ($personalInfos as $info) {
+
+            $hasSCReferral = false;
+
+            // Check if referral code exists and is valid
+            if (!empty($info->referral_code)) {
+                $referrer = User::where('referral_code', $info->referral_code)->first();
+
+                    // Check linked_through of the referrer
+ 
+                    if ($referrer) {
+                        $linkedThrough = strtolower($referrer->linked_through);
+
+                        if ($linkedThrough == 'google' || $linkedThrough == 'youtube') {
+                            $addsCount++;
+                        } else {
+                            $scReferralCount++;
+                        }
+
+                        $hasSCReferral = true;
+                    }
+            }
+
+            // If no SC Referral found, check linked_through of current user
+            if (!$hasSCReferral) {
+                $linkedThrough = strtolower($info->linked_through);
+
+                if ($linkedThrough == 'google' || $linkedThrough == 'youtube') {
+                    $addsCount++;
+                } else {
+                    $organicCount++;
+                }
+            }
+        }
+
+        // Calculate percentages
+        $scReferralPercentage = $totalUsers > 0 ? round(($scReferralCount / $totalUsers) * 100, 2) : 0;
+        $addsPercentage = $totalUsers > 0 ? round(($addsCount / $totalUsers) * 100, 2) : 0;
+        $organicPercentage = $totalUsers > 0 ? round(($organicCount / $totalUsers) * 100, 2) : 0;
+
+        // Return or print
+        return response()->json([
+            'SC Referral' => [
+                'count' => $scReferralCount,
+                'percentage' => $scReferralPercentage . '%'
+            ],
+            'ADDS' => [
+                'count' => $addsCount,
+                'percentage' => $addsPercentage . '%'
+            ],
+            'Organic' => [
+                'count' => $organicCount,
+                'percentage' => $organicPercentage . '%'
+            ],
+            'Total Users' => $totalUsers
+        ]);
+    }
 
 }
