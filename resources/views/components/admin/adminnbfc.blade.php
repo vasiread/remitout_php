@@ -1,5 +1,4 @@
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,55 +6,42 @@
 </head>
 
 <body>
-
     @extends('layouts.app')
 
     @php
-
         $nbfcLists = [
             [
                 'nbfc_name' => 'JHUKNMBH Bank',
                 'nbfc_type' => 'NBFC',
                 'date_added' => '2025-02-01'
-
             ],
             [
                 'nbfc_name' => 'Abcdefgh Bank ',
                 'nbfc_type' => 'NBFC',
                 'date_added' => '2025-02-13'
-
             ],
             [
                 'nbfc_name' => 'Rupee Empire Financial Services',
                 'nbfc_type' => 'Financial Company',
                 'date_added' => '2025-09-01'
-
             ],
             [
                 'nbfc_name' => 'Hanuman Enterprises',
                 'nbfc_type' => 'Financial Company',
                 'date_added' => '2025-02-01'
-
             ],
             [
                 'nbfc_name' => 'Hanuman Enterprises',
                 'nbfc_type' => 'Financial Company',
                 'date_added' => '2025-04-01'
-
             ],
             [
                 'nbfc_name' => 'Abcdefgh Bank',
                 'nbfc_type' => 'NBFC',
                 'date_added' => '2025-02-01'
-
             ],
-
-
         ]
-
-
     @endphp
-
 
     <div class="nbfclist-adminside">
         <div class="globallistcontainer-header" id="nbfclistcontainer-headersection">
@@ -66,47 +52,36 @@
                 <div class="searchcontainer-rightsidecontent" id="search-student-list-container">
                     <input type="text" id="search-student-list" placeholder="Search">
                     <i class="fa-solid fa-search"></i>
-
-
                 </div>
 
-                <div class="dropdown-filters" id="studentlistcontainer-filters">
-                    <button class="dropdown-button-filters">
-                        <img src="{{asset('assets/images/Icons/filter_icon.png')}}" alt="">
+                <div class="nbfc-dropdown-filters" id="nbfc-listcontainer-filters">
+                    <button class="nbfc-dropdown-button">
+                        <img src="{{ asset('assets/images/Icons/filter_icon.png') }}" alt="">
                         Sort by
                         <i class="fa-solid fa-chevron-down"></i>
                     </button>
-                    <div class="dropdown-content-filters">
-                        <a href="#" data-sort="newest">Newest</a>
-                        <a href="#" data-sort="oldest">Oldest</a>
+                    <div class="nbfc-dropdown-content" style="display: none;">
                         <a href="#" data-sort="alphabet">A-Z</a>
                         <a href="#" data-sort="alphabet-reverse">Z-A</a>
+                        <a href="#" data-sort="newest">Newest</a>
+                        <a href="#" data-sort="oldest">Oldest</a>
                     </div>
                 </div>
                 <button class="studentlist-add-button">Add</button>
-
-
             </div>
         </div>
 
         <div class="individualnbfc-admin" id="nbfc-list">
-
-
-
             <div class="individualnbfclists-items">
                 <div class="individualnbfclists-content">
-                    <p id="nbfc-name-id"></p>
-                    <p></p>
+                    <p id="nbfc-name-id" class="editable"></p>
+                    <p class="editable"></p>
                 </div>
-
                 <div class="individualnbfcs-buttoncontainer">
-                    <button> <img src="{{asset("assets/images/Icons/visibility.png")}}"> </button>
-                    <button> <img src="{{asset("assets/images/Icons/edit_purple.png")}}"></button>
+                    <button class="edit-save-button nbfc-list-edit-button edit-nbfc">Edit</button>
                     <button>Suspend</button>
                 </div>
             </div>
-
-
         </div>
     </div>
     <div class="add-nbfc-datasection">
@@ -118,7 +93,7 @@
             <div class="firstgroup-field-nbfcadd">
                 <input type="text" id="nbfc-name-id-required" placeholder="Name of the Bank">
                 <div class="nbfc-type-dropdown">
-                    <button id="nbfc-dropdown-trigger">
+                    <button class="nbfc-dropdown-trigger">
                         <p>Type</p>
                         <i class="fa fa-chevron-down"></i>
                     </button>
@@ -136,53 +111,36 @@
         <button id="add-nbfc-user-more">Add</button>
     </div>
 
-
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             nbfcListInitialize();
-
-
 
             const nbfcAdminsideButton = document.querySelector(".nbfclist-adminside .studentlist-add-button");
             const nbfcAdminside = document.querySelector(".nbfclist-adminside");
             const nbfcAdminsideAddAuthority = document.querySelector(".add-nbfc-datasection");
 
-
-
-
             if (nbfcAdminsideButton) {
                 nbfcAdminsideButton.addEventListener('click', () => {
                     nbfcAdminside.style.display = "none";
                     nbfcAdminsideAddAuthority.style.display = "flex";
-
                 });
             }
 
-
             const deletefirstbutton = document.querySelector(".delete-nbfc-id");
-
 
             deletefirstbutton.addEventListener('click', () => {
                 const inputs = document.querySelectorAll(".formsection-addnbfcuser input");
-
                 inputs.forEach((item) => {
                     item.value = '';
                 })
-
-
             })
 
-            const dropdownButton = document.querySelector('#studentlistcontainer-filters .dropdown-button-filters');
-            const dropdownContent = document.querySelector('#studentlistcontainer-filters .dropdown-content-filters');
-            const changeButtonInsideImg = document.querySelector('.individualnbfcs-buttoncontainer button:nth-child(2)');
-
-            // Search functionality
             document.querySelector("#nbfclistcontainer-headersection .searchcontainer-rightsidecontent input").addEventListener("input", function () {
                 const searchQueryNBFC = this.value.toLowerCase();
                 const nbfcListOfNames = document.querySelectorAll("#nbfc-list .individualnbfclists-items");
 
                 nbfcListOfNames.forEach(item => {
-                    const nbfcName = item.querySelector('p').textContent.toLowerCase();
+                    const nbfcName = item.querySelector('#nbfc-name-id').textContent.toLowerCase();
                     if (nbfcName.includes(searchQueryNBFC)) {
                         item.style.display = 'flex';
                     } else {
@@ -191,71 +149,163 @@
                 });
             });
 
-
-
             document.querySelector(".add-nbfc-firstsection #save-all-nbfc").addEventListener('click', () => {
-
                 uploadMultipleNbfcUsers();
-
             })
 
-            const sortLinks = document.querySelectorAll('#nbfclistcontainer-headersection .dropdown-content-filters a');
-            const counsellorList = document.getElementById('nbfc-list');
+            const dropdownButton = document.querySelector('#nbfc-listcontainer-filters .nbfc-dropdown-button');
+            const dropdownContent = document.querySelector('#nbfc-listcontainer-filters .nbfc-dropdown-content');
+            const sortLinks = document.querySelectorAll('#nbfc-listcontainer-filters .nbfc-dropdown-content a');
+            const nbfcList = document.getElementById('nbfc-list');
 
-            // Dropdown toggle
-            dropdownButton.addEventListener('click', function () {
-                dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
+            dropdownButton.addEventListener('click', function (e) {
+                e.stopPropagation();
+                dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
             });
 
-            // Resize event listener
-            window.addEventListener('resize', function () {
-                dynamicChangesThroughWindow(); // Call this on window resize
+            window.addEventListener('click', function (e) {
+                if (!dropdownButton.contains(e.target) && !dropdownContent.contains(e.target)) {
+                    dropdownContent.style.display = 'none';
+                }
             });
-
-            dynamicChangesThroughWindow();
 
             sortLinks.forEach(item => {
                 item.addEventListener('click', function (e) {
                     e.preventDefault();
                     const sortType = this.getAttribute('data-sort');
-                    const items = Array.from(counsellorList.querySelectorAll('.individualnbfclists-items'));
+                    const items = Array.from(nbfcList.querySelectorAll('.individualnbfclists-items'));
 
-                    // Sorting logic
                     if (sortType === 'newest') {
-                        items.sort((a, b) => new Date(b.querySelector('.individualnbfclists-content').getAttribute('data-added')) - new Date(a.querySelector('.individualnbfclists-content').getAttribute('data-added')));
+                        items.sort((a, b) => {
+                            const dateA = new Date(a.querySelector('.individualnbfclists-content').getAttribute('data-added') || '1970-01-01');
+                            const dateB = new Date(b.querySelector('.individualnbfclists-content').getAttribute('data-added') || '1970-01-01');
+                            return dateB - dateA; // Newest first
+                        });
                     } else if (sortType === 'oldest') {
-                        items.sort((a, b) => new Date(a.querySelector('.individualnbfclists-content').getAttribute('data-added')) - new Date(b.querySelector('.individualnbfclists-content').getAttribute('data-added')));
+                        items.sort((a, b) => {
+                            const dateA = new Date(a.querySelector('.individualnbfclists-content').getAttribute('data-added') || '1970-01-01');
+                            const dateB = new Date(b.querySelector('.individualnbfclists-content').getAttribute('data-added') || '1970-01-01');
+                            return dateA - dateB; // Oldest first
+                        });
                     } else if (sortType === 'alphabet') {
                         items.sort((a, b) => a.querySelector('#nbfc-name-id').textContent.trim().localeCompare(b.querySelector('#nbfc-name-id').textContent.trim()));
                     } else if (sortType === 'alphabet-reverse') {
                         items.sort((a, b) => b.querySelector('#nbfc-name-id').textContent.trim().localeCompare(a.querySelector('#nbfc-name-id').textContent.trim()));
                     }
 
-                    // Append sorted items back to the list
-                    items.forEach(item => counsellorList.appendChild(item));
+                    nbfcList.innerHTML = ''; // Clear the list
+                    items.forEach(item => nbfcList.appendChild(item)); // Re-append sorted items
+                    dropdownContent.style.display = 'none';
+                });
+            });
+
+            window.addEventListener('resize', function () {
+                dynamicChangesThroughWindow();
+            });
+
+            dynamicChangesThroughWindow();
+
+            document.querySelectorAll('.edit-save-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const item = button.closest('.individualnbfclists-items');
+                    const nameElement = item.querySelector('#nbfc-name-id');
+                    const typeElement = item.querySelector('.individualnbfclists-content p:nth-child(2)');
+                    const isEditing = item.classList.contains('edit-mode');
+                    const isSaveButton = button.classList.contains('save-nbfc');
+
+                    if (!isEditing) {
+                        item.classList.add('edit-mode');
+                        const currentName = nameElement.textContent;
+                        const currentType = typeElement.textContent;
+
+                        nameElement.innerHTML = `<input type="text" value="${currentName}" />`;
+                        typeElement.innerHTML = `
+                            <select>
+                                <option value="NBFC" ${currentType === 'NBFC' ? 'selected' : ''}>NBFC</option>
+                                <option value="Financial Company" ${currentType === 'Financial Company' ? 'selected' : ''}>Financial Company</option>
+                                <option value="Bank" ${currentType === 'Bank' ? 'selected' : ''}>Bank</option>
+                            </select>
+                        `;
+
+                        button.textContent = 'Save';
+                        button.classList.remove('edit-nbfc');
+                        button.classList.add('save-nbfc');
+                    } else if (isSaveButton) {
+                        const newName = item.querySelector('input').value;
+                        const newType = item.querySelector('select').value;
+                        const nbfcId = item.getAttribute('data-id');
+
+                        nameElement.textContent = newName;
+                        typeElement.textContent = newType;
+
+                        fetch('/updatenbfc', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: JSON.stringify({
+                                id: nbfcId,
+                                nbfc_name: newName,
+                                nbfc_type: newType
+                            })
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                return response.text().then(text => {
+                                    throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${text}`);
+                                });
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.success) {
+                                alert('NBFC updated successfully');
+                                item.classList.remove('edit-mode');
+                                button.textContent = 'Edit';
+                                button.classList.remove('save-nbfc');
+                                button.classList.add('edit-nbfc');
+                            } else {
+                                throw new Error(data.error || 'Update failed');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error updating NBFC:', error.message);
+                            item.classList.remove('edit-mode');
+                            button.textContent = 'Edit';
+                            button.classList.remove('save-nbfc');
+                            button.classList.add('edit-nbfc');
+                        });
+                    }
                 });
             });
         });
 
-
-        document.querySelector("#nbfc-dropdown-trigger").addEventListener('click', (event) => {
-            const dropdownContent = document.querySelector(".nbfc-dropdown-content");
-            if (dropdownContent.style.display === "none" || dropdownContent.style.display === "") {
-                dropdownContent.style.display = "flex";
+        document.addEventListener('click', (event) => {
+            const dropdown = event.target.closest('.nbfc-type-dropdown');
+            if (dropdown) {
+                const trigger = dropdown.querySelector('.nbfc-dropdown-trigger');
+                const content = dropdown.querySelector('.nbfc-dropdown-content');
+                if (event.target === trigger || trigger.contains(event.target)) {
+                    content.style.display = content.style.display === 'flex' ? 'none' : 'flex';
+                } else if (!content.contains(event.target)) {
+                    content.style.display = 'none';
+                }
             } else {
-                dropdownContent.style.display = "none";
+                document.querySelectorAll('.nbfc-type-dropdown .nbfc-dropdown-content').forEach(dropdownContent => {
+                    dropdownContent.style.display = 'none';
+                });
             }
         });
 
-        document.querySelectorAll('.dropdown-item').forEach(item => {
+        document.querySelectorAll('.nbfc-type-dropdown .dropdown-item').forEach(item => {
             item.addEventListener('click', (event) => {
                 event.preventDefault();
                 const selectedValue = event.target.getAttribute('data-value');
-                console.log('Selected value:', selectedValue);
-
-                const dropdownContent = document.querySelector(".nbfc-dropdown-content");
-                dropdownContent.style.display = "none";
-                document.querySelector("#nbfc-dropdown-trigger p").textContent = selectedValue;
+                const dropdown = event.target.closest('.nbfc-type-dropdown');
+                const triggerText = dropdown.querySelector('.nbfc-dropdown-trigger p');
+                triggerText.textContent = selectedValue;
+                dropdown.querySelector('.nbfc-dropdown-content').style.display = 'none';
             });
         });
 
@@ -265,65 +315,60 @@
             const newForm = document.createElement('div');
             newForm.classList.add('formsection-addnbfcuser');
             newForm.innerHTML = `
-        <div class="firstgroup-field-nbfcadd">
-            <input type="text" id="nbfc-name-id-required" placeholder="Name of the Bank">
-            <div class="nbfc-type-dropdown">
-                <button id="nbfc-dropdown-trigger">
-                    <p>Type</p>
-                    <i class="fa fa-chevron-down"></i>
-                </button>
-                <div class="nbfc-dropdown-content" style="display:none">
-                    <a href="#" class="dropdown-item" data-value="NBFC">NBFC</a>
-                    <a href="#" class="dropdown-item" data-value="Financial Company">Financial Company</a>
-                    <a href="#" class="dropdown-item" data-value="Bank">Bank</a>
+                <div class="firstgroup-field-nbfcadd">
+                    <input type="text" id="nbfc-name-id-required" placeholder="Name of the Bank">
+                    <div class="nbfc-type-dropdown">
+                        <button class="nbfc-dropdown-trigger">
+                            <p>Type</p>
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                        <div class="nbfc-dropdown-content" style="display:none">
+                            <a href="#" class="dropdown-item" data-value="NBFC">NBFC</a>
+                            <a href="#" class="dropdown-item" data-value="Financial Company">Financial Company</a>
+                            <a href="#" class="dropdown-item" data-value="Bank">Bank</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <input type="text" id="nbfc-email-id" placeholder="bankemail@gmail.com">
-        <input type="text" id="about-nbfc-id" placeholder="Description About the Bank or the company">
-        <button class="delete-nbfc-id">Delete</button>
-        `;
+                <input type="text" id="nbfc-email-id" placeholder="bankemail@gmail.com">
+                <input type="text" id="about-nbfc-id" placeholder="Description About the Bank or the company">
+                <button class="delete-nbfc-id">Delete</button>
+            `;
 
             container.insertBefore(newForm, document.getElementById("add-nbfc-user-more"));
 
-            // Attach event listener to the delete button in the newly added form
             newForm.querySelector('.delete-nbfc-id').addEventListener('click', () => {
                 newForm.remove();
             });
 
-            // Add dropdown toggle functionality to the newly added form
-            newForm.querySelector('#nbfc-dropdown-trigger').addEventListener('click', (e) => {
-                const dropdownContent = e.target.nextElementSibling;
-                dropdownContent.style.display = dropdownContent.style.display === 'none' ? 'flex' : 'none';
+            const newDropdownTrigger = newForm.querySelector('.nbfc-dropdown-trigger');
+            const newDropdownContent = newForm.querySelector('.nbfc-dropdown-content');
+            newDropdownTrigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                newDropdownContent.style.display = newDropdownContent.style.display === 'none' ? 'flex' : 'none';
             });
 
-            // Add event listeners for dropdown items in the newly added form
             newForm.querySelectorAll('.dropdown-item').forEach(item => {
                 item.addEventListener('click', (event) => {
                     event.preventDefault();
                     const selectedValue = event.target.getAttribute('data-value');
-                    newForm.querySelector("#nbfc-dropdown-trigger p").textContent = selectedValue;
-                    newForm.querySelector(".nbfc-dropdown-content").style.display = "none";
+                    newForm.querySelector(".nbfc-dropdown-trigger p").textContent = selectedValue;
+                    newDropdownContent.style.display = 'none';
                 });
             });
         });
 
         window.addEventListener('click', (event) => {
-            const dropdown = document.querySelector('.nbfc-type-dropdown');
-            if (!dropdown.contains(event.target)) {
-                document.querySelector(".nbfc-dropdown-content").style.display = "none";
+            const dropdown = event.target.closest('.nbfc-type-dropdown');
+            if (!dropdown) {
+                document.querySelectorAll('.nbfc-type-dropdown .nbfc-dropdown-content').forEach(content => {
+                    content.style.display = 'none';
+                });
             }
         });
-
 
         function dynamicChangesThroughWindow() {
             if (window.innerWidth > 768) {
                 document.querySelector('.studentlist-add-button').innerHTML = "+";
-
-                const changeButtonInsideImg = document.querySelector('.studentlist-add-button img');
-                if (changeButtonInsideImg) {
-                    changeButtonInsideImg.src = 'assets/images/Icons/download-orange.png'; // Change the image source
-                }
             } else {
                 document.querySelector('.studentlist-add-button').innerHTML = "Add";
             }
@@ -346,31 +391,107 @@
 
                         nbfcListContainer.innerHTML = '';
 
-                        data.receivedData.forEach((item) => {
+                        data.receivedData.forEach((item, index) => {
                             const nbfcItemDiv = document.createElement('div');
                             nbfcItemDiv.classList.add('individualnbfclists-items');
+                            nbfcItemDiv.setAttribute('data-id', item.id || index + 1);
 
+                            // Use date_added if available, otherwise fallback to created_at or default
+                            const dateAdded = item.date_added || item.created_at || '2025-01-01';
                             nbfcItemDiv.innerHTML = `
-            <div class="individualnbfclists-content" data-added="${item.created_at}">
-                <p id="nbfc-name-id">${item.nbfc_name}</p>
-                <p>${item.nbfc_type}</p>
-            </div>
-            <div class="individualnbfcs-buttoncontainer">
-                <button> <img src="{{asset('assets/images/Icons/visibility.png')}}"> </button>
-                <button> <img src="{{asset('assets/images/Icons/edit_purple.png')}}"></button>
-                <button>Suspend</button>
-            </div>
-        `;
+                                <div class="individualnbfclists-content" data-added="${dateAdded}">
+                                    <p id="nbfc-name-id" class="editable">${item.nbfc_name}</p>
+                                    <p class="editable">${item.nbfc_type}</p>
+                                </div>
+                                <div class="individualnbfcs-buttoncontainer">
+                                    <button class="edit-save-button nbfc-list-edit-button edit-nbfc">Edit</button>
+                                    <button>Suspend</button>
+                                </div>
+                            `;
 
-                            // Append the newly created div to the list container
                             nbfcListContainer.appendChild(nbfcItemDiv);
+                        });
+
+                        // Re-attach event listeners for edit buttons
+                        document.querySelectorAll('.edit-save-button').forEach(button => {
+                            button.addEventListener('click', () => {
+                                const item = button.closest('.individualnbfclists-items');
+                                const nameElement = item.querySelector('#nbfc-name-id');
+                                const typeElement = item.querySelector('.individualnbfclists-content p:nth-child(2)');
+                                const isEditing = item.classList.contains('edit-mode');
+                                const isSaveButton = button.classList.contains('save-nbfc');
+
+                                if (!isEditing) {
+                                    item.classList.add('edit-mode');
+                                    const currentName = nameElement.textContent;
+                                    const currentType = typeElement.textContent;
+
+                                    nameElement.innerHTML = `<input type="text" value="${currentName}" />`;
+                                    typeElement.innerHTML = `
+                                        <select>
+                                            <option value="NBFC" ${currentType === 'NBFC' ? 'selected' : ''}>NBFC</option>
+                                            <option value="Financial Company" ${currentType === 'Financial Company' ? 'selected' : ''}>Financial Company</option>
+                                            <option value="Bank" ${currentType === 'Bank' ? 'selected' : ''}>Bank</option>
+                                        </select>
+                                    `;
+
+                                    button.textContent = 'Save';
+                                    button.classList.remove('edit-nbfc');
+                                    button.classList.add('save-nbfc');
+                                } else if (isSaveButton) {
+                                    const newName = item.querySelector('input').value;
+                                    const newType = item.querySelector('select').value;
+                                    const nbfcId = item.getAttribute('data-id');
+
+                                    nameElement.textContent = newName;
+                                    typeElement.textContent = newType;
+
+                                    fetch('/updatenbfc', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                        },
+                                        body: JSON.stringify({
+                                            id: nbfcId,
+                                            nbfc_name: newName,
+                                            nbfc_type: newType
+                                        })
+                                    })
+                                    .then(response => {
+                                        if (!response.ok) {
+                                            return response.text().then(text => {
+                                                throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${text}`);
+                                            });
+                                        }
+                                        return response.json();
+                                    })
+                                    .then(data => {
+                                        if (data.success) {
+                                            alert('NBFC updated successfully');
+                                            item.classList.remove('edit-mode');
+                                            button.textContent = 'Edit';
+                                            button.classList.remove('save-nbfc');
+                                            button.classList.add('edit-nbfc');
+                                        } else {
+                                            throw new Error(data.error || 'Update failed');
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Error updating NBFC:', error.message);
+                                        item.classList.remove('edit-mode');
+                                        button.textContent = 'Edit';
+                                        button.classList.remove('save-nbfc');
+                                        button.classList.add('edit-nbfc');
+                                    });
+                                }
+                            });
                         });
                     } else {
                         console.error(data.error);
                     }
                 });
         }
-
 
         const uploadMultipleNbfcUsers = () => {
             const nbfcBulkUsers = [];
@@ -379,7 +500,7 @@
 
             allForms.forEach(form => {
                 const nbfcName = form.querySelector('#nbfc-name-id-required').value;
-                const nbfcType = form.querySelector('#nbfc-dropdown-trigger p').textContent;
+                const nbfcType = form.querySelector('.nbfc-dropdown-trigger p').textContent;
                 const nbfcEmail = form.querySelector('#nbfc-email-id').value;
                 const aboutNbfc = form.querySelector('#about-nbfc-id').value;
 
@@ -400,7 +521,7 @@
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 },
-                body: JSON.stringify(nbfcBulkUsers) // Send the collected data
+                body: JSON.stringify(nbfcBulkUsers)
             })
                 .then((response) => response.json())
                 .then((data) => {
@@ -410,7 +531,6 @@
                         newForm.forEach((item, index) => {
                             if (index > 0) {
                                 item.remove();
-
                             }
                         })
                         const inputs = document.querySelectorAll(".formsection-addnbfcuser input");
@@ -419,8 +539,8 @@
                             item.value = '';
                         })
 
-
                         alert(data.message);
+                        nbfcListInitialize(); // Refresh the list after adding new items
                     } else if (data.error) {
                         console.error(data.error);
                     }
@@ -429,11 +549,6 @@
                     console.error(e);
                 });
         };
-
-
     </script>
-
-
 </body>
-
 </html>
