@@ -1299,64 +1299,6 @@
   </div>
 
 
-  <!-- #region -->
-
-  <script>
-
-  document.addEventListener('DOMContentLoaded', function() {
-  const header = document.querySelector('.dropdown-gender-header');
-  const optionsContainer = document.querySelector('.dropdown-options-gender');
-  const label = document.querySelector('.dropdown-label-gender');
-  const hiddenInput = document.querySelector('input[name="gender"]');
-
-  // Debugging logs to confirm elements are found
-  console.log('Header:', header);
-  console.log('Options Container:', optionsContainer);
-  console.log('Options:', options);
-  console.log('Label:', label);
-  console.log('Hidden Input:', hiddenInput);
-
-  if (!header || !optionsContainer || !options || !label || !hiddenInput) {
-    console.error('One or more elements not found. Check your DOM structure.');
-    return;
-  }
-
-  // Toggle dropdown visibility
-  header.addEventListener('click', function(e) {
-    e.stopPropagation(); // Prevent click from bubbling up
-    const isVisible = optionsContainer.style.display === 'block';
-    optionsContainer.style.display = isVisible ? 'none' : 'block';
-    console.log('Dropdown toggled:', optionsContainer.style.display);
-  });
-
-  // Handle option selection
-  options.forEach(option => {
-    option.addEventListener('click', function(e) {
-      e.stopPropagation(); // Prevent click from closing dropdown prematurely
-      const value = this.getAttribute('data-value');
-      label.textContent = this.textContent;
-      hiddenInput.value = value;
-      optionsContainer.style.display = 'none';
-      
-      // Remove active class from all options
-      options.forEach(opt => opt.classList.remove('active'));
-      // Add active class to selected option
-      this.classList.add('active');
-      console.log('Option selected:', value);
-    });
-  });
-
-  // Close dropdown if clicking outside
-  document.addEventListener('click', function(e) {
-    if (!dropdown.contains(e.target)) {
-      optionsContainer.style.display = 'none';
-      console.log('Dropdown closed due to outside click');
-    }
-  });
-});
-
-</script>
-
 
 </body>
 

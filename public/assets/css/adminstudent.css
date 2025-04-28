@@ -1,14 +1,13 @@
- .student-listcontainer {
-        display: none;
-        flex-direction: column;
-        max-width: 100%;
-        width: 1000px;
-        margin-top: 50px;
-        margin-right: 15px;
-        gap: 17px;
-        margin-left: 22%;
-
- }
+.student-listcontainer {
+    display: none;
+    flex-direction: column;
+    max-width: 100%;
+    width: 1000px;
+    margin-top: 50px;
+    margin-right: 15px;
+    gap: 17px;
+    margin-left: 22%;
+}
 
 .globallistcontainer-header {
     display: flex;
@@ -22,77 +21,67 @@
     margin-top: 80px;
 }
 
- .globallistcontainer-header h2 {
-     font-family: 'Poppins', sans-serif;
+.globallistcontainer-header h2 {
+    font-family: "Poppins", sans-serif;
 
-     font-size: 22px;
-     font-weight: 600;
-     line-height: 36px;
-     color: rgba(233, 134, 53, 1);
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 36px;
+    color: rgba(233, 134, 53, 1);
+}
 
+.globallistcontainer-header #student-list-count {
+    display: none;
+}
 
- }
+.headersection-rightsidecontent {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
 
- .globallistcontainer-header #student-list-count {
-     display: none
- }
+#search-student-list {
+    height: 100%;
+    width: 100%;
+    font-family: "Poppins", sans-serif;
 
- .headersection-rightsidecontent {
-     display: flex;
-     width: fit-content;
-     align-items: center;
-     justify-content: flex-end;
-     gap: 10px;
- }
-
- #search-student-list {
-     height: 100%;
-     width: 100%;
-     font-family: 'Poppins', sans-serif;
-
-     font-size: 16px;
-     font-weight: 400;
-     line-height: 19.2px;
-     color: rgba(38, 2, 84, 1);
-     width: 242px;
-     height: 37px;
-     padding: 10px;
-     padding-left: 35px;
-     gap: 10px;
-     border-radius: 4px;
-     border: 1px;
-     border: 1px solid rgba(222, 222, 222, 0.7);
-     display: flex;
-     align-items: center;
-
- }
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    color: rgba(38, 2, 84, 1);
+    width: 242px;
+    height: 37px;
+    padding: 10px;
+    padding-left: 35px;
+    gap: 10px;
+    border-radius: 4px;
+    border: 1px;
+    border: 1px solid rgba(222, 222, 222, 0.7);
+    display: flex;
+    align-items: center;
+}
 #studentapplicationfromadminstudent {
     margin-top: 0;
 }
 #search-student-list {
     font-size: 12px;
-    font-family: 'Poppins', sans-serif;
-    color: #5D5C5C;
+    font-family: "Poppins", sans-serif;
+    color: #5d5c5c;
 }
 
 #search-student-list::placeholder {
     font-size: 12px;
-    font-family: 'Poppins', sans-serif;
-    color: #5D5C5C;
-    opacity: 1; /* Ensures visibility */
+    font-family: "Poppins", sans-serif;
+    color: #5d5c5c;
+    opacity: 1;
 }
 
-
-
-.dropdown-filters {
-    position: relative;
-    display: inline-block;
-
-}
 
 .dropdown-button-filters {
-    width: 117px;
     height: 35px;
+    width: 140px;
     padding: 8px 10px;
     gap: 8px;
     border-radius: 4px;
@@ -107,37 +96,64 @@
     font-weight: 500;
     line-height: 14.52px;
     color: rgba(93, 92, 92, 1);
-
-
-}
-
-.dropdown-content-filters {
-    position: absolute;
-    display: none;
-    background-color: #f9f9f9;
-    z-index: 1;
-    top: 2.4rem;
-    width: 100%;
-
-}
-
-.dropdown-content-filters a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content-filters a:hover {
-    background-color: #f1f1f1;
 }
 
 .dropdown-filters:hover .dropdown-content-filters {
     display: block;
 }
 
-.dropdown-filters:hover .dropdown-button-filters {
-    background-color: #f1f1f1;
+.dropdown-filters {
+    position: relative;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.dropdown-button-filters img {
+    margin-right: 8px;
+}
+
+.dropdown-button-filters i {
+    font-size: 12px;
+}
+
+.dropdown-content-filters {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 10;
+    font-family: "Poppins", sans-serif;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.dropdown-content-filters[style*="display: block"] {
+    display: block;
+}
+
+.dropdown-content-filters a {
+    padding: 16px 24px;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-align: left;
+    white-space: nowrap;
+    color: #666;
+    border-bottom: 1px solid #f0f0f0;
+    display: block;
+    text-decoration: none;
+}
+
+.dropdown-content-filters a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content-filters a:hover {
+    background: #f5f5f5;
 }
 
 .studentlist-add-button {
@@ -154,15 +170,12 @@
     background-color: rgba(111, 37, 206, 1);
     color: rgba(255, 255, 255, 1);
     border: none;
-
 }
 
 .searchcontainer-rightsidecontent {
     position: relative;
     width: 242px;
     height: 37px;
-
-
 }
 
 .searchcontainer-rightsidecontent .fa-search {
@@ -174,9 +187,6 @@
     padding: 0px 13px;
     display: flex;
     align-items: center;
-
-
-
 }
 
 .headersection-rightsidecontent #studentlistcontainer-filters {
@@ -194,19 +204,17 @@
 .studentcounsellorlist-adminside {
     display: none;
     flex-direction: column;
-    width:1000px;
+    width: 1000px;
     margin-top: 50px;
     margin-right: 15px;
     gap: 17px;
     margin-left: 22%;
-
 }
 
 .individualcounsellorlists-admin {
     padding: 24px 20px;
     background: rgba(255, 255, 255, 1);
     box-shadow: 0px 0px 20px 0px rgba(26, 2, 57, 0.03);
-
 }
 
 .individualcounsellorlists-items {
@@ -215,18 +223,16 @@
     align-items: center;
     padding: 1.9rem 1rem;
     border-bottom: 1px solid rgba(229, 229, 229, 1);
-
 }
 
- .individualcounsellorlists-items p {
-     font-family: 'Poppins', sans-serif;
+.individualcounsellorlists-items p {
+    font-family: "Poppins", sans-serif;
 
-     font-weight: 600;
-     font-size: 16px;
-     line-height: 18px;
-     color: rgba(93, 92, 92, 1);
-     flex: 2;
-
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 18px;
+    color: rgba(93, 92, 92, 1);
+    flex: 2;
 }
 
 .individualcounsellorlists-header {
@@ -239,23 +245,20 @@
     border-bottom: 1px solid rgba(229, 229, 229, 1);
     width: 100%;
     gap: 17.5%;
-
-
 }
 
- .individualcounsellorlists-header p {
-     font-family: 'Poppins', sans-serif;
+.individualcounsellorlists-header p {
+    font-family: "Poppins", sans-serif;
 
-     font-weight: 600;
-     font-size: 16px;
-     line-height: 18px;
-     color: rgba(93, 92, 92, 1);
- }
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 18px;
+    color: rgba(93, 92, 92, 1);
+}
 
 .cousellor-name-identify,
 .cousellor-referralid-identify {
     width: 363px;
-
 }
 
 .individualcounsellors-buttoncontainer {
@@ -280,26 +283,21 @@
 
 .individualcounsellors-buttoncontainer button:not(:last-child) {
     width: 35px;
-
-
 }
 
- .individualcounsellors-buttoncontainer button:last-child {
-     font-family: 'Poppins', sans-serif;
+.individualcounsellors-buttoncontainer button:last-child {
+    font-family: "Poppins", sans-serif;
 
-     font-weight: 500;
-     font-size: 14px;
-     line-height: 16.8px;
-     color: rgba(111, 37, 206, 1);
- }
-
-
-.suspend_scuser{
-    
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16.8px;
+    color: rgba(111, 37, 206, 1);
 }
 
+.suspend_scuser {
+}
 
-@media(max-width:768px) {
+@media (max-width: 768px) {
     .globallistcontainer-header {
         flex-direction: column;
         align-items: flex-start;
@@ -318,7 +316,6 @@
     .individualcounsellorlists-items p {
         font-size: 13px;
         color: rgba(93, 92, 92, 1);
-
     }
 
     #student-counsellor-name-id {
@@ -340,8 +337,6 @@
         box-shadow: none;
         width: fit-content;
         height: 45px;
-
-
     }
 
     .individualcounsellors-buttoncontainer button:nth-child(2) img {
@@ -351,33 +346,27 @@
     .individualcounsellors-buttoncontainer button:last-child {
         width: 86px;
         height: 45px;
-
-
     }
 
     .individualcounsellorlists-header {
         display: none;
     }
 
-     .globallistcontainer-header #student-list-count {
-         display: flex;
-         align-self: flex-end;
-         font-family: 'Poppins', sans-serif;
+    .globallistcontainer-header #student-list-count {
+        display: flex;
+        align-self: flex-end;
+        font-family: "Poppins", sans-serif;
 
-         font-weight: 600;
-         font-size: 14px;
-         line-height: 18px;
-         color: rgba(93, 92, 92, 1);
-     }
-
-
-
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 18px;
+        color: rgba(93, 92, 92, 1);
+    }
 }
 
 @media (min-width: 1500px) {
     .student-listcontainer {
         width: 1100px;
-       
     }
 }
 
@@ -385,6 +374,5 @@
     .student-listcontainer {
         width: 1200px;
         margin-left: 35%;
-     
     }
 }
