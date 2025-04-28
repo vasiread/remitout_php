@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <!-- Include FileSaver.js for cross-browser file download support -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-    
 </head>
 <body>
     <div class="manage-student-main-report-container" id="manage-student-main-admin-report-container-id">
@@ -118,7 +117,7 @@
                 <div class="manage-student-report-pagination">
                     <div class="manage-student-report-pagination-wrapper">
                         <button class="manage-student-report-pagination-btn" id="prev-page"><</button>
-                        <span class="manage-student-report-pagination-text" id="pagination-text">1-6 / 30</span>
+                        <span class="manage-student-report-pagination-text" id="pagination-text">1-6 / 0</span>
                         <button class="manage-student-report-pagination-btn" id="next-page">></button>
                     </div>
                 </div>
@@ -167,44 +166,11 @@
     </div>
 
     <script>
-        // Complete sample data with 30 records
-        const manageStudentReportData = [
-            { id: 1, name: "Aarav Mehta", uniqueId: "AMXJH245879", email: "aarav.mehta@gmail.com", mobile: "9876543210", type: "Undergraduate", gender: "Male", loanAmount: "₹12,50,000", date: "15/10/2024", nbfc: "HSBC", counsellor: "Rakesh Sharma", status: "Complete Application", city: "Mumbai", state: "Maharashtra", country: "Australia", dateOfRegistration: "20/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857979", noOfProposals: 2, pointOfEntry: "LinkedIn" },
-            { id: 2, name: "Sanya Kapoor", uniqueId: "SKLPO298745", email: "sanya.kapoor@gmail.com", mobile: "8765432109", type: "Post Graduate", gender: "Female", loanAmount: "₹18,75,000", date: "22/09/2024", nbfc: "Deutsche Bank", counsellor: "Rakesh Sharma", status: "Incomplete Application", city: "Delhi", state: "Delhi", country: "Germany", dateOfRegistration: "20/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857979", noOfProposals: 2, pointOfEntry: "LinkedIn" },
-            { id: 3, name: "Rohan Sharma", uniqueId: "RSHAR452189", email: "rohan.sharma@gmail.com", mobile: "7654321098", type: "Diploma", gender: "Male", loanAmount: "₹8,90,000", date: "10/11/2024", nbfc: "Mitsubishi UFJ", counsellor: "Rakesh Sharma", status: "Offer accepted & Closed", city: "Bangalore", state: "Karnataka", country: "Japan", dateOfRegistration: "20/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857979", noOfProposals: 2, pointOfEntry: "LinkedIn" },
-            { id: 4, name: "Priya Verma", uniqueId: "PVKOH789654", email: "priya.verma@gmail.com", mobile: "6543210987", type: "Doctorate", gender: "Female", loanAmount: "₹22,00,000", date: "05/12/2024", nbfc: "Lloyds Bank", counsellor: "Rakesh Sharma", status: "Pending with Queries", city: "Chennai", state: "Tamil Nadu", country: "UK", dateOfRegistration: "20/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857979", noOfProposals: 2, pointOfEntry: "LinkedIn" },
-            { id: 5, name: "Kabir Malhotra", uniqueId: "KMLHT987456", email: "kabir.malhotra@gmail.com", mobile: "5432109876", type: "Undergraduate", gender: "Male", loanAmount: "₹14,30,000", date: "18/08/2024", nbfc: "Bank of Canada", counsellor: "Rakesh Sharma", status: "Offer issued to student", city: "Hyderabad", state: "Telangana", country: "Canada", dateOfRegistration: "20/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857979", noOfProposals: 2, pointOfEntry: "LinkedIn" },
-            { id: 6, name: "Simran Kaur", uniqueId: "SKJYT659874", email: "simran.kaur@gmail.com", mobile: "4321098765", type: "Post Graduate", gender: "Female", loanAmount: "₹20,00,000", date: "30/09/2024", nbfc: "HSBC", counsellor: "Rakesh Sharma", status: "Offer rejected to student", city: "Pune", state: "Maharashtra", country: "Australia", dateOfRegistration: "20/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857979", noOfProposals: 2, pointOfEntry: "LinkedIn" },
-            { id: 7, name: "Vikram Singh", uniqueId: "VSING123456", email: "vikram.singh@gmail.com", mobile: "9876541234", type: "Undergraduate", gender: "Male", loanAmount: "₹10,00,000", date: "12/07/2024", nbfc: "Deutsche Bank", counsellor: "Rakesh Sharma", status: "Complete Application", city: "Jaipur", state: "Rajasthan", country: "Germany", dateOfRegistration: "20/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857979", noOfProposals: 2, pointOfEntry: "LinkedIn" },
-            { id: 8, name: "Ananya Gupta", uniqueId: "AGUPT789123", email: "ananya.gupta@gmail.com", mobile: "8765439876", type: "Post Graduate", gender: "Female", loanAmount: "₹15,50,000", date: "25/08/2024", nbfc: "Mitsubishi UFJ", counsellor: "Rakesh Sharma", status: "Incomplete Application", city: "Kolkata", state: "West Bengal", country: "Japan", dateOfRegistration: "21/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857980", noOfProposals: 1, pointOfEntry: "Website" },
-            { id: 9, name: "Arjun Patel", uniqueId: "APATE456789", email: "arjun.patel@gmail.com", mobile: "7654328765", type: "Diploma", gender: "Male", loanAmount: "₹9,20,000", date: "03/10/2024", nbfc: "Lloyds Bank", counsellor: "Rakesh Sharma", status: "Offer accepted & Closed", city: "Ahmedabad", state: "Gujarat", country: "UK", dateOfRegistration: "21/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857980", noOfProposals: 1, pointOfEntry: "Website" },
-            { id: 10, name: "Neha Sharma", uniqueId: "NSHAR321654", email: "neha.sharma@gmail.com", mobile: "6543217654", type: "Doctorate", gender: "Female", loanAmount: "₹25,00,000", date: "15/11/2024", nbfc: "Bank of Canada", counsellor: "Rakesh Sharma", status: "Pending with Queries", city: "Surat", state: "Gujarat", country: "Canada", dateOfRegistration: "21/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857980", noOfProposals: 1, pointOfEntry: "Website" },
-            { id: 11, name: "Rahul Jain", uniqueId: "RJAIN987321", email: "rahul.jain@gmail.com", mobile: "5432106543", type: "Undergraduate", gender: "Male", loanAmount: "₹13,75,000", date: "20/06/2024", nbfc: "HSBC", counsellor: "Rakesh Sharma", status: "Offer issued to student", city: "Lucknow", state: "Uttar Pradesh", country: "Australia", dateOfRegistration: "21/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857980", noOfProposals: 1, pointOfEntry: "Website" },
-            { id: 12, name: "Kriti Agarwal", uniqueId: "KAGAR654987", email: "kriti.agarwal@gmail.com", mobile: "4321095432", type: "Post Graduate", gender: "Female", loanAmount: "₹19,25,000", date: "08/09/2024", nbfc: "Deutsche Bank", counsellor: "Rakesh Sharma", status: "Offer rejected to student", city: "Kanpur", state: "Uttar Pradesh", country: "Germany", dateOfRegistration: "21/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857980", noOfProposals: 1, pointOfEntry: "Website" },
-            { id: 13, name: "Aditya Roy", uniqueId: "AROYX123789", email: "aditya.roy@gmail.com", mobile: "9876544321", type: "Diploma", gender: "Male", loanAmount: "₹7,80,000", date: "17/10/2024", nbfc: "Mitsubishi UFJ", counsellor: "Rakesh Sharma", status: "Complete Application", city: "Nagpur", state: "Maharashtra", country: "Japan", dateOfRegistration: "21/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857980", noOfProposals: 1, pointOfEntry: "Website" },
-            { id: 14, name: "Sneha Reddy", uniqueId: "SREDD456123", email: "sneha.reddy@gmail.com", mobile: "8765433210", type: "Doctorate", gender: "Female", loanAmount: "₹23,50,000", date: "29/11/2024", nbfc: "Lloyds Bank", counsellor: "Rakesh Sharma", status: "Incomplete Application", city: "Visakhapatnam", state: "Andhra Pradesh", country: "UK", dateOfRegistration: "22/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857981", noOfProposals: 3, pointOfEntry: "Email" },
-            { id: 15, name: "Ishaan Khanna", uniqueId: "IKHAN789456", email: "ishaan.khanna@gmail.com", mobile: "7654322109", type: "Undergraduate", gender: "Male", loanAmount: "₹11,90,000", date: "14/08/2024", nbfc: "Bank of Canada", counsellor: "Rakesh Sharma", status: "Offer accepted & Closed", city: "Bhopal", state: "Madhya Pradesh", country: "Canada", dateOfRegistration: "22/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857981", noOfProposals: 3, pointOfEntry: "Email" },
-            { id: 16, name: "Meera Nair", uniqueId: "MNAIR321789", email: "meera.nair@gmail.com", mobile: "6543211098", type: "Post Graduate", gender: "Female", loanAmount: "₹17,00,000", date: "02/10/2024", nbfc: "HSBC", counsellor: "Rakesh Sharma", status: "Pending with Queries", city: "Patna", state: "Bihar", country: "Australia", dateOfRegistration: "22/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857981", noOfProposals: 3, pointOfEntry: "Email" },
-            { id: 17, name: "Yash Chopra", uniqueId: "YCHOP654123", email: "yash.chopra@gmail.com", mobile: "5432109987", type: "Diploma", gender: "Male", loanAmount: "₹8,50,000", date: "22/07/2024", nbfc: "Deutsche Bank", counsellor: "Rakesh Sharma", status: "Offer issued to student", city: "Indore", state: "Madhya Pradesh", country: "Germany", dateOfRegistration: "22/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857981", noOfProposals: 3, pointOfEntry: "Email" },
-            { id: 18, name: "Tara Bose", uniqueId: "TBOSE987654", email: "tara.bose@gmail.com", mobile: "4321098876", type: "Doctorate", gender: "Female", loanAmount: "₹21,75,000", date: "10/12/2024", nbfc: "Mitsubishi UFJ", counsellor: "Rakesh Sharma", status: "Offer rejected to student", city: "Thiruvananthapuram", state: "Kerala", country: "Japan", dateOfRegistration: "22/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857981", noOfProposals: 3, pointOfEntry: "Email" },
-            { id: 19, name: "Siddharth Menon", uniqueId: "SMENO123987", email: "siddharth.menon@gmail.com", mobile: "9876547765", type: "Undergraduate", gender: "Male", loanAmount: "₹12,20,000", date: "05/09/2024", nbfc: "Lloyds Bank", counsellor: "Rakesh Sharma", status: "Complete Application", city: "Coimbatore", state: "Tamil Nadu", country: "UK", dateOfRegistration: "22/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857981", noOfProposals: 3, pointOfEntry: "Email" },
-            { id: 20, name: "Riya Das", uniqueId: "RDASX456321", email: "riya.das@gmail.com", mobile: "8765436654", type: "Post Graduate", gender: "Female", loanAmount: "₹18,00,000", date: "18/10/2024", nbfc: "Bank of Canada", counsellor: "Rakesh Sharma", status: "Incomplete Application", city: "Bhubaneswar", state: "Odisha", country: "Canada", dateOfRegistration: "23/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857982", noOfProposals: 2, pointOfEntry: "Phone" },
-            { id: 21, name: "Nikhil Vargese", uniqueId: "NVARG789123", email: "nikhil.vargese@gmail.com", mobile: "7654325543", type: "Diploma", gender: "Male", loanAmount: "₹9,70,000", date: "27/11/2024", nbfc: "HSBC", counsellor: "Rakesh Sharma", status: "Offer accepted & Closed", city: "Guwahati", state: "Assam", country: "Australia", dateOfRegistration: "23/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857982", noOfProposals: 2, pointOfEntry: "Phone" },
-            { id: 22, name: "Anjali Pillai", uniqueId: "APILL321456", email: "anjali.pillai@gmail.com", mobile: "6543214432", type: "Doctorate", gender: "Female", loanAmount: "₹24,25,000", date: "13/08/2024", nbfc: "Deutsche Bank", counsellor: "Rakesh Sharma", status: "Pending with Queries", city: "Ranchi", state: "Jharkhand", country: "Germany", dateOfRegistration: "23/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857982", noOfProposals: 2, pointOfEntry: "Phone" },
-            { id: 23, name: "Devansh Thakur", uniqueId: "DTHAK654789", email: "devansh.thakur@gmail.com", mobile: "5432103321", type: "Undergraduate", gender: "Male", loanAmount: "₹14,80,000", date: "30/09/2024", nbfc: "Mitsubishi UFJ", counsellor: "Rakesh Sharma", status: "Offer issued to student", city: "Dehradun", state: "Uttarakhand", country: "Japan", dateOfRegistration: "23/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857982", noOfProposals: 2, pointOfEntry: "Phone" },
-            { id: 24, name: "Shreya Iyer", uniqueId: "SIYER987123", email: "shreya.iyer@gmail.com", mobile: "4321092210", type: "Post Graduate", gender: "Female", loanAmount: "₹19,90,000", date: "07/10/2024", nbfc: "Lloyds Bank", counsellor: "Rakesh Sharma", status: "Offer rejected to student", city: "Shimla", state: "Himachal Pradesh", country: "UK", dateOfRegistration: "23/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857982", noOfProposals: 2, pointOfEntry: "Phone" },
-            { id: 25, name: "Karan Oberoi", uniqueId: "KOBER123654", email: "karan.oberoi@gmail.com", mobile: "9876541109", type: "Diploma", gender: "Male", loanAmount: "₹8,30,000", date: "19/12/2024", nbfc: "Bank of Canada", counsellor: "Rakesh Sharma", status: "Complete Application", city: "Amritsar", state: "Punjab", country: "Canada", dateOfRegistration: "23/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857982", noOfProposals: 2, pointOfEntry: "Phone" },
-            { id: 26, name: "Pooja Bhatt", uniqueId: "PBHAT456987", email: "pooja.bhatt@gmail.com", mobile: "8765430098", type: "Doctorate", gender: "Female", loanAmount: "₹22,80,000", date: "11/09/2024", nbfc: "HSBC", counsellor: "Rakesh Sharma", status: "Incomplete Application", city: "Ludhiana", state: "Punjab", country: "Australia", dateOfRegistration: "24/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857983", noOfProposals: 1, pointOfEntry: "Social Media" },
-            { id: 27, name: "Amitabh Saxena", uniqueId: "ASAXE789321", email: "amitabh.saxena@gmail.com", mobile: "7654329987", type: "Undergraduate", gender: "Male", loanAmount: "₹13,10,000", date: "23/10/2024", nbfc: "Deutsche Bank", counsellor: "Rakesh Sharma", status: "Offer accepted & Closed", city: "Agra", state: "Uttar Pradesh", country: "Germany", dateOfRegistration: "24/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857983", noOfProposals: 1, pointOfEntry: "Social Media" },
-            { id: 28, name: "Divya Rana", uniqueId: "DRANA321654", email: "divya.rana@gmail.com", mobile: "6543218876", type: "Post Graduate", gender: "Female", loanAmount: "₹17,60,000", date: "04/11/2024", nbfc: "Mitsubishi UFJ", counsellor: "Rakesh Sharma", status: "Pending with Queries", city: "Varanasi", state: "Uttar Pradesh", country: "Japan", dateOfRegistration: "24/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857983", noOfProposals: 1, pointOfEntry: "Social Media" },
-            { id: 29, name: "Sahil Grover", uniqueId: "SGROV654123", email: "sahil.grover@gmail.com", mobile: "5432107765", type: "Diploma", gender: "Male", loanAmount: "₹9,40,000", date: "16/08/2024", nbfc: "Lloyds Bank", counsellor: "Rakesh Sharma", status: "Offer issued to student", city: "Srinagar", state: "Jammu & Kashmir", country: "UK", dateOfRegistration: "24/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857983", noOfProposals: 1, pointOfEntry: "Social Media" },
-            { id: 30, name: "Lakshmi Menon", uniqueId: "LMENO987456", email: "lakshmi.menon@gmail.com", mobile: "4321096654", type: "Doctorate", gender: "Female", loanAmount: "₹20,50,000", date: "28/09/2024", nbfc: "Bank of Canada", counsellor: "Rakesh Sharma", status: "Offer rejected to student", city: "Trivandrum", state: "Kerala", country: "Canada", dateOfRegistration: "24/11/2024", sourceOfReferral: "SC Referral", referralNo: "7346857983", noOfProposals: 1, pointOfEntry: "Social Media" }
-        ];
-
         // Pagination variables
         let currentPage = 1;
         let recordsPerPage = 6;
-        let filteredData = manageStudentReportData;
+        let fullData = []; // Store the raw API data
+        let filteredData = []; // Store the filtered data for display
 
         // Utility function to convert DD/MM/YYYY to YYYY-MM-DD for comparison
         function convertDateFormat(dateStr) {
@@ -213,10 +179,65 @@
             return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`; // Convert to YYYY-MM-DD
         }
 
-        // Function to populate unique options for all filters
-        function populateFilterOptions() {
+        // Function to fetch data from the API
+        async function fetchStudentData() {
             try {
-                const uniqueCountries = [...new Set(manageStudentReportData.map(student => student.country))];
+                const response = await fetch('http://localhost:8000/api/mergestudents', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status} - ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                console.log('Fetched student data:', data);
+
+                // Validate the API response structure
+                let studentData = data;
+                if (data.data && Array.isArray(data.data)) {
+                    studentData = data.data; // Handle { data: [...] } structure
+                } else if (!Array.isArray(data)) {
+                    throw new Error('Invalid API response: Expected an array of student data');
+                }
+
+                // Map the data to ensure all fields are present
+                return studentData.map(item => ({
+                    id: item.id || 0,
+                    name: item.name || 'N/A',
+                    uniqueId: item.uniqueId || 'N/A',
+                    email: item.email || 'N/A',
+                    mobile: item.mobile || 'N/A',
+                    type: item.type || 'N/A',
+                    gender: item.gender || 'N/A',
+                    loanAmount: item.loanAmount || '₹0',
+                    date: item.date || 'N/A',
+                    dateOfRegistration: item.dateOfRegistration || 'N/A',
+                    sourceOfReferral: item.sourceOfReferral || 'N/A',
+                    referralNo: item.referralNo || 'N/A',
+                    counsellor: item.counsellor || 'N/A',
+                    state: item.state || 'N/A',
+                    city: item.city || 'N/A',
+                    country: item.country || 'N/A',
+                    nbfc: item.nbfc || 'N/A',
+                    noOfProposals: item.noOfProposals || 0,
+                    status: item.status || 'N/A',
+                    pointOfEntry: item.pointOfEntry || 'N/A'
+                }));
+            } catch (error) {
+                console.error('Error fetching student data:', error);
+                throw error;
+            }
+        }
+
+        // Function to populate unique options for all filters
+        function populateFilterOptions(data) {
+            try {
+                const uniqueCountries = [...new Set(data.map(student => student.country))];
                 const countrySelects = [document.getElementById('filter-country'), document.getElementById('mobile-filter-country')];
                 countrySelects.forEach(select => {
                     uniqueCountries.forEach(country => {
@@ -227,7 +248,7 @@
                     });
                 });
 
-                const uniqueStates = [...new Set(manageStudentReportData.map(student => student.state))];
+                const uniqueStates = [...new Set(data.map(student => student.state))];
                 const stateSelects = [document.getElementById('filter-state'), document.getElementById('mobile-filter-state')];
                 stateSelects.forEach(select => {
                     uniqueStates.forEach(state => {
@@ -238,7 +259,7 @@
                     });
                 });
 
-                const uniqueNBFCs = [...new Set(manageStudentReportData.map(student => student.nbfc))];
+                const uniqueNBFCs = [...new Set(data.map(student => student.nbfc))];
                 const nbfcSelects = [document.getElementById('filter-nbfc'), document.getElementById('mobile-filter-nbfc')];
                 nbfcSelects.forEach(select => {
                     uniqueNBFCs.forEach(nbfc => {
@@ -249,7 +270,7 @@
                     });
                 });
 
-                const uniqueCounsellors = [...new Set(manageStudentReportData.map(student => student.counsellor))];
+                const uniqueCounsellors = [...new Set(data.map(student => student.counsellor))];
                 const counsellorSelects = [document.getElementById('filter-counsellor'), document.getElementById('mobile-filter-counsellor')];
                 counsellorSelects.forEach(select => {
                     uniqueCounsellors.forEach(counsellor => {
@@ -260,7 +281,7 @@
                     });
                 });
 
-                const uniqueStatuses = [...new Set(manageStudentReportData.map(student => student.status))];
+                const uniqueStatuses = [...new Set(data.map(student => student.status))];
                 const statusSelects = [document.getElementById('filter-status'), document.getElementById('mobile-filter-status')];
                 statusSelects.forEach(select => {
                     uniqueStatuses.forEach(status => {
@@ -271,7 +292,7 @@
                     });
                 });
 
-                const uniqueCities = [...new Set(manageStudentReportData.map(student => student.city))];
+                const uniqueCities = [...new Set(data.map(student => student.city))];
                 const citySelects = [document.getElementById('filter-city'), document.getElementById('mobile-filter-city')];
                 citySelects.forEach(select => {
                     uniqueCities.forEach(city => {
@@ -375,7 +396,7 @@
                 const country = document.getElementById('filter-country').value || document.getElementById('mobile-filter-country').value;
                 const date = document.getElementById('filter-date').value;
 
-                filteredData = manageStudentReportData.filter(student => {
+                filteredData = fullData.filter(student => {
                     const studentDate = convertDateFormat(student.date);
                     const filterDate = date ? date : null;
 
@@ -400,7 +421,7 @@
         function searchTable(query) {
             try {
                 query = query.toLowerCase().trim();
-                filteredData = manageStudentReportData.filter(student => {
+                filteredData = fullData.filter(student => {
                     return (
                         student.name.toLowerCase().includes(query) ||
                         student.uniqueId.toLowerCase().includes(query) ||
@@ -531,16 +552,46 @@
             }
         }
 
+        // Initialize the application
+        async function initializeApp() {
+            try {
+                // Fetch data from the API
+                fullData = await fetchStudentData();
+                filteredData = [...fullData];
+                console.log('Initialized with data:', fullData.length, 'records');
+
+                // Populate filters and table
+                populateFilterOptions(fullData);
+                populateManageStudentReportTable(filteredData, currentPage);
+            } catch (error) {
+                console.error('Initialization failed:', error);
+                const tableBody = document.getElementById('manage-student-report-table-body');
+                if (tableBody) {
+                    tableBody.innerHTML = `
+                        <tr>
+                            <td colspan="20" class="manage-student-report-td" style="text-align: center;">
+                                Failed to load data. Please check the API or try again later.
+                            </td>
+                        </tr>
+                    `;
+                }
+                const paginationText = document.getElementById('pagination-text');
+                if (paginationText) {
+                    paginationText.textContent = '0 / 0';
+                }
+                updatePaginationButtons([]);
+            }
+        }
+
         // Wait for DOM content to be fully loaded
         document.addEventListener('DOMContentLoaded', () => {
             try {
                 console.log('DOM loaded, initializing application');
-                console.log('Initial data length:', manageStudentReportData.length);
 
-                // Initialize filters and table
-                populateFilterOptions();
-                populateManageStudentReportTable(manageStudentReportData, currentPage);
+                // Initialize the app with API data
+                initializeApp();
 
+                // Attach event listeners
                 const desktopSearchInput = document.querySelector('.manage-student-report-search-input');
                 if (desktopSearchInput) {
                     desktopSearchInput.addEventListener('input', function(e) {
