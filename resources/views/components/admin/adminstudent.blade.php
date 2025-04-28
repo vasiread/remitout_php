@@ -4,10 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        /* Updated styling for the filter dropdown using the provided CSS attributes */
+        .dropdown-filters {
+            position: relative;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .dropdown-button-filters {
+            padding: 16px 24px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #6F25CE;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            position: relative;
+            width: 150px;
+            justify-content: space-between;
+        }
+
+        .dropdown-button-filters img {
+            margin-right: 8px;
+        }
+
+        .dropdown-button-filters i {
+            font-size: 12px;
+        }
+
+        .dropdown-content-filters {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 10;
+            font-family: 'Poppins', sans-serif;
+            width: 100%;
+        }
+
+        .dropdown-content-filters[style*="display: block"] {
+            display: block;
+        }
+
+        .dropdown-content-filters a {
+            padding: 16px 24px;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-align: left;
+            white-space: nowrap;
+            color: #666;
+            border-bottom: 1px solid #f0f0f0;
+            display: block;
+            text-decoration: none;
+        }
+
+        .dropdown-content-filters a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content-filters a:hover {
+            background: #f5f5f5;
+        }
+
+        .dropdown-content-filters a.active {
+            background: #f5f5f5; /* Matching hover style for active state */
+        }
+    </style>
+    <script src="{{ asset('js/adminsidebar.js') }}"></script>
+    <script src="{{ asset('js/studentforms.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('assets/css/studentformquestionair.css') }}">
 </head>
-<script src="{{ asset('js/adminsidebar.js') }}"></script>
-<script src="{{ asset('js/studentforms.js') }}"></script>
-<link rel="stylesheet" href="{{ asset('assets/css/studentformquestionair.css') }}">
 
 <body>
     @extends('layouts.app');
@@ -26,13 +100,13 @@
                 <div class="dropdown-filters" id="studentlistcontainer-filters">
                     <button class="dropdown-button-filters">
                         <img src="{{ asset('assets/images/Icons/filter_icon.png') }}" alt="">
-                        Filters
+                        All
                         <i class="fa-solid fa-chevron-down"></i>
                     </button>
-                    <div class="dropdown-content-filters">
-                        <a href="#">Option 1</a>
-                        <a href="#">Option 2</a>
-                        <a href="#">Option 3</a>
+                    <div class="dropdown-content-filters" style="display: none;">
+                        <a href="#" data-filter="all">All</a>
+                        <a href="#" data-filter="pending">Pending</a>
+                        <a href="#" data-filter="approved">Approved</a>
                     </div>
                 </div>
                 <button class="studentlist-add-button">Add</button>
@@ -41,7 +115,7 @@
 
         <div class="scdashboard-studentapplication" id="studentapplicationfromadminstudent">
             @foreach ($userDetails as $users)
-                <div class="studentapplication-lists">
+                <div class="studentapplication-lists" data-status="{{ $users->status ?? 'Pending' }}">
                     <div class="individualapplication-list">
                         <div class="firstsection-lists">
                             <h1>{{ $users->user_name }}</h1>
@@ -62,7 +136,7 @@
                         </li>
                         <li class="scdashboard-nbfcstatus-pending">
                             <p>Status:</p>
-                            <span>Pending</span>
+                            <span>{{ $users->status ?? 'Pending' }}</span>
                         </li>
                         <li class="scdashboard-missingdocumentsstatus">
                             <p>Missing Documents:</p>
@@ -71,7 +145,6 @@
                     </ul>
                     <div class="studentapplication-lists-remainingdocuments" style="display:none">
                         <div class="document-container">
-
                             <!-- PAN Card -->
                             <div class="document-box" id="pan-card-admin-view-{{ $users->user_id }}" style="display:none">
                                 <div class="document-name" id="pan-card-document-name-{{ $users->user_id }}"
@@ -99,14 +172,11 @@
                                     </div>
                                 </div>
                             </div>
-
-
                             <!-- Aadhar Card -->
                             <div class="document-box" id="aadhar-card-admin-view-{{ $users->user_id }}"
                                 style="display:none">
                                 <div class="document-name" id="aadhar-card-document-name-{{ $users->user_id }}"
-                                    style="display: none;">Aadhar
-                                    Card</div>
+                                    style="display: none;">Aadhar Card</div>
                                 <div class="upload-field">
                                     <span id="aadhar-card-name-{{ $users->user_id }}">Aadhar Card</span>
                                     <label for="aadhar-card-{{ $users->user_id }}" class="upload-icon"
@@ -114,28 +184,26 @@
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
                                     <input type="file" id="aadhar-card-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
-                                        onchange="handleFileUpload(event, 'aadhar-card-name-{{ $users->user_id }}', 'aadhar-card-upload-icon-{{ $users->user_id }}', 'aadhar-card-remove-icon-{{ $users->user_id }}', '<?= $users->user_id ?>')">
+                                        onchange="handleFileUpload(event, 'aadhar-card-name-{{ $users->user_id }}', 'aadhar-card-upload-icon-{{ $users->user_id }}', 'aadhar-card-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">
                                     <span id="aadhar-card-remove-icon-{{ $users->user_id }}" class="remove-icon"
                                         style="display: none;"
-                                        onclick="removeFile('aadhar-card-{{ $users->user_id }}', 'aadhar-card-name-{{ $users->user_id }}', 'aadhar-card-upload-icon-{{ $users->user_id }}', 'aadhar-card-remove-icon-{{ $users->user_id }},'<?= $users->user_id ?>'')">✖</span>
+                                        onclick="removeFile('aadhar-card-{{ $users->user_id }}', 'aadhar-card-name-{{ $users->user_id }}', 'aadhar-card-upload-icon-{{ $users->user_id }}', 'aadhar-card-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
                                     <span class="help-trigger" data-target="aadhar-help-{{ $users->user_id }}">ⓘ Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
-                                <div class="help-container aadhar-tenth-grade-help-{{ $users->user_id }}" style="display: none;">
+                                <div class="help-container aadhar-help-{{ $users->user_id }}" style="display: none;">
                                     <h3 class="help-title">Help</h3>
                                     <div class="help-content">
                                         <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
                                     </div>
                                 </div>
                             </div>
-
                             <!-- Passport -->
                             <div class="document-box" id="passport-admin-view-{{ $users->user_id }}" style="display:none">
                                 <div class="document-name" id="passport-document-name-{{ $users->user_id }}"
-                                    style="display: none;">Passport
-                                </div>
+                                    style="display: none;">Passport</div>
                                 <div class="upload-field">
                                     <span id="passport-name-{{ $users->user_id }}">Passport</span>
                                     <label for="passport-{{ $users->user_id }}" class="upload-icon"
@@ -143,10 +211,10 @@
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
                                     <input type="file" id="passport-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
-                                        onchange="handleFileUpload(event, 'passport-name-{{ $users->user_id }}', 'passport-upload-icon-{{ $users->user_id }}', 'passport-remove-icon-{{ $users->user_id }}', '<?= $users->user_id ?>')">
+                                        onchange="handleFileUpload(event, 'passport-name-{{ $users->user_id }}', 'passport-upload-icon-{{ $users->user_id }}', 'passport-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">
                                     <span id="passport-remove-icon-{{ $users->user_id }}" class="remove-icon"
                                         style="display: none;"
-                                        onclick="removeFile('passport-{{ $users->user_id }}', 'passport-name-{{ $users->user_id }}', 'passport-upload-icon-{{ $users->user_id }}', 'passport-remove-icon-{{ $users->user_id }}','<?= $users->user_id ?>')">✖</span>
+                                        onclick="removeFile('passport-{{ $users->user_id }}', 'passport-name-{{ $users->user_id }}', 'passport-upload-icon-{{ $users->user_id }}', 'passport-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
                                     <span class="help-trigger" data-target="passport-help-{{ $users->user_id }}">ⓘ Help</span>
@@ -159,15 +227,11 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
                         <div class="document-container">
-
                             <!-- 10th Grade Mark Sheet -->
                             <div class="document-box" id="sslc-grade-marksheet-adminview-{{ $users->user_id }}"
                                 style="display:none">
-
                                 <div class="document-name" id="10th-mark-sheet-id" style="display: none;">10th Mark Sheet
                                 </div>
                                 <div class="upload-field">
@@ -192,9 +256,7 @@
                                         <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
                                     </div>
                                 </div>
-
                             </div>
-
                             <!-- 12th Grade Mark Sheet -->
                             <div class="document-box" id="hsc-grade-marksheet-adminview-{{ $users->user_id }}"
                                 style="display:none">
@@ -213,8 +275,7 @@
                                         onclick="removeFile('twelfth-grade-{{ $users->user_id }}', 'twelfth-grade-name-{{ $users->user_id }}', 'twelfth-grade-upload-icon-{{ $users->user_id }}', 'twelfth-grade-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="twelfth-marksheet-help-{{ $users->user_id }}">ⓘ
-                                        Help</span>
+                                    <span class="help-trigger" data-target="twelfth-marksheet-help-{{ $users->user_id }}">ⓘ Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
                                 <div class="help-container twelfth-marksheet-help-{{ $users->user_id }}" id="twelfth-grade-help-{{ $users->user_id }}"
@@ -224,14 +285,11 @@
                                         <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
                                     </div>
                                 </div>
-
                             </div>
-
                             <!-- Graduation Mark Sheet -->
                             <div class="document-box" id="degree-grade-marksheet-adminview-{{ $users->user_id }}"
                                 style="display:none">
-                                <div class="document-name" id="graduation-mark-sheet-id" style="display: none;">Graduation
-                                    Mark Sheet</div>
+                                <div class="document-name" id="graduation-mark-sheet-id" style="display: none;">Graduation Mark Sheet</div>
                                 <div class="upload-field">
                                     <span id="graduation-grade-name-{{ $users->user_id }}">Graduation Mark Sheet</span>
                                     <label for="graduation-grade-{{ $users->user_id }}" class="upload-icon"
@@ -245,8 +303,7 @@
                                         onclick="removeFile('graduation-grade-{{ $users->user_id }}', 'graduation-grade-name-{{ $users->user_id }}', 'graduation-grade-upload-icon-{{ $users->user_id }}', 'graduation-grade-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="graduation-marksheet-help-{{ $users->user_id }}">ⓘ
-                                        Help</span>
+                                    <span class="help-trigger" data-target="graduation-marksheet-help-{{ $users->user_id }}">ⓘ Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
                                 <div class="help-container graduation-marksheet-help-{{ $users->user_id }}"
@@ -258,12 +315,10 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="document-container">
                             <!-- 10th Grade -->
                             <div class="document-box" id="sslc-grade-adminview-{{ $users->user_id }}" style="display:none">
-                                <div class="document-name" id="10th-grades-id-{{ $users->user_id }}" style="display: none;">
-                                    10th Grade</div>
+                                <div class="document-name" id="10th-grades-id-{{ $users->user_id }}" style="display: none;">10th Grade</div>
                                 <div class="upload-field">
                                     <span id="secured-tenth-name-{{ $users->user_id }}">10th Grade</span>
                                     <label for="secured-tenth-{{ $users->user_id }}" class="upload-icon"
@@ -277,8 +332,7 @@
                                         onclick="removeFile('secured-tenth-{{ $users->user_id }}', 'secured-tenth-name-{{ $users->user_id }}', 'secured-tenth-upload-icon-{{ $users->user_id }}', 'secured-tenth-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="tenth-grade-help-{{ $users->user_id }}">ⓘ
-                                        Help</span>
+                                    <span class="help-trigger" data-target="tenth-grade-help-{{ $users->user_id }}">ⓘ Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
                                 <div class="help-container tenth-grade-help-{{ $users->user_id }}" style="display: none;">
@@ -288,11 +342,9 @@
                                     </div>
                                 </div>
                             </div>
-
                             <!-- 12th Grade -->
                             <div class="document-box" id="hsc-grade-adminview-{{ $users->user_id }}" style="display:none">
-                                <div class="document-name" id="12th-grade-id-{{ $users->user_id }}" style="display: none;">
-                                    12th Grade</div>
+                                <div class="document-name" id="12th-grade-id-{{ $users->user_id }}" style="display: none;">12th Grade</div>
                                 <div class="upload-field">
                                     <span id="secured-twelfth-name-{{ $users->user_id }}">12th Grade</span>
                                     <label for="secured-twelfth-{{ $users->user_id }}" class="upload-icon"
@@ -306,8 +358,7 @@
                                         onclick="removeFile('secured-twelfth-{{ $users->user_id }}', 'secured-twelfth-name-{{ $users->user_id }}', 'secured-twelfth-upload-icon-{{ $users->user_id }}', 'secured-twelfth-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="twelfth-grade-help-{{ $users->user_id }}">ⓘ
-                                        Help</span>
+                                    <span class="help-trigger" data-target="twelfth-grade-help-{{ $users->user_id }}">ⓘ Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
                                 <div class="help-container twelfth-grade-help-{{ $users->user_id }}" style="display: none;">
@@ -317,12 +368,10 @@
                                     </div>
                                 </div>
                             </div>
-
                             <!-- Graduation -->
                             <div class="document-box" id="graduation-grade-adminview-{{ $users->user_id }}"
                                 style="display:none">
-                                <div class="document-name" id="graduation-id-{{ $users->user_id }}" style="display: none;">
-                                    Graduation</div>
+                                <div class="document-name" id="graduation-id-{{ $users->user_id }}" style="display: none;">Graduation</div>
                                 <div class="upload-field">
                                     <span id="secured-graduation-name-{{ $users->user_id }}">Graduation</span>
                                     <label for="secured-graduation-{{ $users->user_id }}" class="upload-icon"
@@ -337,8 +386,7 @@
                                         onclick="removeFile('secured-graduation-{{ $users->user_id }}', 'secured-graduation-name-{{ $users->user_id }}', 'secured-graduation-upload-icon-{{ $users->user_id }}', 'secured-graduation-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="graduation-grade-help-{{ $users->user_id }}">ⓘ
-                                        Help</span>
+                                    <span class="help-trigger" data-target="graduation-grade-help-{{ $users->user_id }}">ⓘ Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
                                 <div class="help-container graduation-grade-help-{{ $users->user_id }}"
@@ -350,14 +398,11 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="document-container">
-
                             <!-- PAN Card -->
                             <div class="document-box" id="co-borrower-pan-admin-view-{{ $users->user_id }}"
                                 style="display:none">
-                                <div class="document-name" id="pan-card-id-{{ $users->user_id }}" style="display: none;">PAN
-                                    Card</div>
+                                <div class="document-name" id="pan-card-id-{{ $users->user_id }}" style="display: none;">PAN Card</div>
                                 <div class="upload-field">
                                     <span id="co-pan-card-name-{{ $users->user_id }}">Coborrower PAN Card</span>
                                     <label for="co-pan-card-{{ $users->user_id }}" class="upload-icon"
@@ -365,10 +410,10 @@
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
                                     <input type="file" id="co-pan-card-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
-                                        onchange="handleFileUpload(event, 'co-pan-card-name-{{ $users->user_id }}', 'co-upload-icon-{{ $users->user_id }}', 'co-remove-icon-{{ $users->user_id }}', '<?= $users->user_id ?>')">
+                                        onchange="handleFileUpload(event, 'co-pan-card-name-{{ $users->user_id }}', 'co-upload-icon-{{ $users->user_id }}', 'co-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">
                                     <span id="co-remove-icon-{{ $users->user_id }}" class="remove-icon"
                                         style="display:none;"
-                                        onclick="removeFile('co-pan-card-{{ $users->user_id }}', 'co-pan-card-name-{{ $users->user_id }}', 'co-upload-icon-{{ $users->user_id }}', 'co-remove-icon-{{ $users->user_id }}', '<?= $users->user_id ?>')">✖</span>
+                                        onclick="removeFile('co-pan-card-{{ $users->user_id }}', 'co-pan-card-name-{{ $users->user_id }}', 'co-upload-icon-{{ $users->user_id }}', 'co-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
                                     <span class="help-trigger" data-target="co-pan-help-{{ $users->user_id }}">ⓘ Help</span>
@@ -381,12 +426,10 @@
                                     </div>
                                 </div>
                             </div>
-
                             <!-- Aadhar Card -->
                             <div class="document-box" id="co-borrower-aadhar-admin-view-{{ $users->user_id }}"
                                 style="display:none">
-                                <div class="document-name" id="aadhar-card-id-{{ $users->user_id }}" style="display: none;">
-                                    Aadhar Card</div>
+                                <div class="document-name" id="aadhar-card-id-{{ $users->user_id }}" style="display: none;">Aadhar Card</div>
                                 <div class="upload-field">
                                     <span id="co-aadhar-card-name-{{ $users->user_id }}">Coborrower Aadhar Card</span>
                                     <label for="co-aadhar-card-{{ $users->user_id }}" class="upload-icon"
@@ -394,10 +437,10 @@
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
                                     <input type="file" id="co-aadhar-card-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
-                                        onchange="handleFileUpload(event, 'co-aadhar-card-name-{{ $users->user_id }}', 'co-aadhar-upload-icon-{{ $users->user_id }}', 'co-aadhar-remove-icon-{{ $users->user_id }}', '<?= $users->user_id ?>')">
+                                        onchange="handleFileUpload(event, 'co-aadhar-card-name-{{ $users->user_id }}', 'co-aadhar-upload-icon-{{ $users->user_id }}', 'co-aadhar-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">
                                     <span id="co-aadhar-remove-icon-{{ $users->user_id }}" class="remove-icon"
                                         style="display:none;"
-                                        onclick="removeFile('co-aadhar-card-{{ $users->user_id }}', 'co-aadhar-card-name-{{ $users->user_id }}', 'co-aadhar-upload-icon-{{ $users->user_id }}', 'co-aadhar-remove-icon-{{ $users->user_id }}', '<?= $users->user_id ?>')">✖</span>
+                                        onclick="removeFile('co-aadhar-card-{{ $users->user_id }}', 'co-aadhar-card-name-{{ $users->user_id }}', 'co-aadhar-upload-icon-{{ $users->user_id }}', 'co-aadhar-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
                                     <span class="help-trigger" data-target="co-aadhar-help-{{ $users->user_id }}">ⓘ Help</span>
@@ -410,7 +453,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <!-- Passport (Address Proof) -->
                             <div class="document-box" id="co-borrower-address-admin-view-{{ $users->user_id }}"
                                 style="display:none">
@@ -423,14 +465,13 @@
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
                                     <input type="file" id="co-passport-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
-                                        onchange="handleFileUpload(event, 'co-addressproof-{{ $users->user_id }}', 'co-passport-upload-icon-{{ $users->user_id }}', 'co-passport-remove-icon-{{ $users->user_id }}', '<?= $users->user_id ?>')">
+                                        onchange="handleFileUpload(event, 'co-addressproof-{{ $users->user_id }}', 'co-passport-upload-icon-{{ $users->user_id }}', 'co-passport-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">
                                     <span id="co-passport-remove-icon-{{ $users->user_id }}" class="remove-icon"
                                         style="display:none;"
-                                        onclick="removeFile('co-passport-{{ $users->user_id }}', 'co-addressproof-{{ $users->user_id }}', 'co-passport-upload-icon-{{ $users->user_id }}', 'co-passport-remove-icon-{{ $users->user_id }}', '<?= $users->user_id ?>')">✖</span>
+                                        onclick="removeFile('co-passport-{{ $users->user_id }}', 'co-addressproof-{{ $users->user_id }}', 'co-passport-upload-icon-{{ $users->user_id }}', 'co-passport-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="co-address-help-{{ $users->user_id }}">ⓘ
-                                        Help</span>
+                                    <span class="help-trigger" data-target="co-address-help-{{ $users->user_id }}">ⓘ Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
                                 <div class="help-container co-address-help-{{ $users->user_id }}" style="display: none;">
@@ -440,14 +481,9 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
-
-
-
             @endforeach
         </div>
     </div>
@@ -456,7 +492,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             initialisedocumentsCount();
             expandingStudentDetails();
-            // getRemainingDocuments();
+            initializeSearchAndFilter();
         });
 
         const applicationStatusElements = document.querySelectorAll(".individualstudentapplication-status .scdashboard-nbfcstatus-pending span");
@@ -467,7 +503,6 @@
             if (items.textContent.includes("Approved")) {
                 items.style.color = "#3FA27E";
                 items.style.backgroundColor = "#D2FFEE";
-
                 if (missingDocumentsCount[index]) {
                     missingDocumentsCount[index].style.display = "none";
                 }
@@ -500,10 +535,7 @@
                 })
                     .then((response) => response.json())
                     .then((data) => {
-                        // console.log("API response for user:", userId, data);
-
                         let documentsCount = data.documentscount || 0;
-
                         const missingCountElement = missingDocumentCountUpdateforeach[index];
 
                         if (missingCountElement) {
@@ -537,7 +569,7 @@
 
                         const userId = studentId[index].textContent.trim();
                         console.log("----");
-                        console.log(userId)
+                        console.log(userId);
 
                         if (userId && userId !== previousUserId) {
                             previousUserId = userId;
@@ -549,6 +581,7 @@
                 });
             }
         };
+
         const getRemainingDocuments = async (userId) => {
             const documentIds = {
                 "pan-card-name/": `pan-card-admin-view-${userId}`,
@@ -599,6 +632,94 @@
             }
         };
 
+        const initializeSearchAndFilter = () => {
+            const searchInput = document.getElementById('search-student-list');
+            const filterButton = document.querySelector('.dropdown-button-filters');
+            const filterContent = document.querySelector('.dropdown-content-filters');
+            const filterLinks = document.querySelectorAll('.dropdown-content-filters a');
+            const studentListItems = document.querySelectorAll('.studentapplication-lists');
+            const studentCountElement = document.getElementById('student-list-count');
+
+            // Toggle dropdown visibility on button click
+            filterButton.addEventListener('click', () => {
+                filterContent.style.display = filterContent.style.display === 'block' ? 'none' : 'block';
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!filterButton.contains(e.target) && !filterContent.contains(e.target)) {
+                    filterContent.style.display = 'none';
+                }
+            });
+
+            // Search functionality
+            searchInput.addEventListener('input', () => {
+                const searchTerm = searchInput.value.toLowerCase();
+                let visibleCount = 0;
+
+                document.querySelectorAll('.studentapplication-lists').forEach(item => {
+                    const studentName = item.querySelector('.firstsection-lists h1').textContent.toLowerCase();
+                    const matchesSearch = studentName.includes(searchTerm);
+                    const currentFilter = document.querySelector('.dropdown-content-filters a.active')?.dataset.filter || 'all';
+
+                    const matchesFilter = currentFilter === 'all' ||
+                        (currentFilter === 'pending' && item.dataset.status.toLowerCase() === 'pending') ||
+                        (currentFilter === 'approved' && item.dataset.status.toLowerCase() === 'approved');
+
+                    if (matchesSearch && matchesFilter) {
+                        item.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                studentCountElement.textContent = visibleCount;
+            });
+
+            // Filter functionality
+            filterLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    filterLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+
+                    // Update button text to show selected filter
+                    filterButton.childNodes.forEach(node => {
+                        if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+                            node.textContent = link.textContent + ' ';
+                        }
+                    });
+
+                    const filter = link.dataset.filter;
+                    const searchTerm = searchInput.value.toLowerCase();
+                    let visibleCount = 0;
+
+                    document.querySelectorAll('.studentapplication-lists').forEach(item => {
+                        const studentName = item.querySelector('.firstsection-lists h1').textContent.toLowerCase();
+                        const matchesSearch = studentName.includes(searchTerm);
+                        const matchesFilter = filter === 'all' ||
+                            (filter === 'pending' && item.dataset.status.toLowerCase() === 'pending') ||
+                            (filter === 'approved' && item.dataset.status.toLowerCase() === 'approved');
+
+                        if (matchesSearch && matchesFilter) {
+                            item.style.display = 'block';
+                            visibleCount++;
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+
+                    studentCountElement.textContent = visibleCount;
+
+                    // Close dropdown after selection
+                    filterContent.style.display = 'none';
+                });
+            });
+
+            // Set default filter to 'all'
+            document.querySelector('.dropdown-content-filters a[data-filter="all"]').classList.add('active');
+        };
     </script>
 </body>
 

@@ -91,7 +91,6 @@
 }
 
 .dropdown-button-filters {
-    width: 117px;
     height: 35px;
     padding: 8px 10px;
     gap: 8px;
@@ -114,7 +113,7 @@
 .dropdown-content-filters {
     position: absolute;
     display: none;
-    background-color: #f9f9f9;
+    background-color: white;
     z-index: 1;
     top: 2.4rem;
     width: 100%;
@@ -128,17 +127,13 @@
     display: block;
 }
 
-.dropdown-content-filters a:hover {
-    background-color: #f1f1f1;
-}
+
 
 .dropdown-filters:hover .dropdown-content-filters {
     display: block;
 }
 
-.dropdown-filters:hover .dropdown-button-filters {
-    background-color: #f1f1f1;
-}
+
 
 .studentlist-add-button {
     background-color: rgba(111, 37, 206, 1);
