@@ -4980,8 +4980,10 @@ div.salary-sub p {
   display: none;
   position: absolute;
   top: 100%;
-  left: 0;
+  right:0px;
+  margin-top: 8px;
   width: 100%;
+  width: 305px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #fff;
@@ -4992,10 +4994,9 @@ div.salary-sub p {
 .dropdown-option-gender {
   padding: 10px;
   cursor: pointer;
+   border-bottom: 1px solid #f0f0f0;
 }
 
-.dropdown-option-gender:hover,
-.dropdown-option-gender.active {
-  background-color: #ff9500;
-  color: #fff;
+.dropdown-option-gender:hover{
+background: #f5f5f5;
 }

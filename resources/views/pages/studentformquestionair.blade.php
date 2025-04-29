@@ -174,7 +174,7 @@
       <div class="input-row">
         <div class="input-group">
           <div class="input-content">
-            <div class="dropdown-gender-wrapper" data-required="true">
+            <div class="dropdown-gender-wrapper">
               <div class="dropdown-gender">
                 <div class="dropdown-gender-header">
                   <div class="dropdown-label-gender">Select Gender</div>
