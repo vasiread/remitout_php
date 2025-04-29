@@ -154,25 +154,13 @@
 
           <div class="input-group">
             <div class="input-content">
-              <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
-              <input type="text" placeholder="City" name="city" id="personal-info-city" required />
-              <div id="suggestions" class="suggestions-container"></div>
-              <div class="validation-message" id="city-error"></div>
-            </div>
-          </div>
-
-          <div class="input-group">
-            <div class="input-content">
               <img src="./assets/images/calendar_month.png" alt="Calendar Icon" class="icon" />
               <input type="date" placeholder="Date of Birth (DD/MM/YYYY)" name="date_of_birth" id="personal-info-dob" required />
               <div class="validation-message" id="dob-error"></div>
             </div>
           </div>
 
-        </div>
-
-      <div class="input-row">
-        <div class="input-group">
+           <div class="input-group">
           <div class="input-content">
             <div class="dropdown-gender-wrapper">
               <div class="dropdown-gender">
@@ -201,6 +189,32 @@
             </div>
           </div>
         </div>
+
+        </div>
+
+          
+
+      <div class="input-row">
+        <div class="input-group">
+          <div class="input-content">
+            <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
+            <input type="text" placeholder="State" name="state" id="personal-info-state" required />
+            <div id="suggestions-state" class="suggestions-container"></div>
+            <div class="validation-message" id="state-error"></div>
+          </div>
+        </div>
+        
+        <div class="input-group">
+          <div class="input-content">
+            <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
+            <input type="text" placeholder="City" name="city" id="personal-info-city" required />
+            <div id="suggestions-city" class="suggestions-container"></div>
+            <div class="validation-message" id="city-error"></div>
+          </div>
+        </div>
+      </div>
+
+       
       </div>
       </div>
 

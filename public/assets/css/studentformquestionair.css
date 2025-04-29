@@ -909,7 +909,12 @@ form {
     padding: 8px 22px;
     cursor: pointer;
     color: #75747c;
+     font-size: 14px;
 }
+
+   
+   
+
 
 .suggestion:hover {
     background-color: #f5f5f5;
@@ -4967,9 +4972,9 @@ div.salary-sub p {
   background-color: #fff;
   cursor: pointer;
 }
-
 .dropdown-label-gender {
-  color: #333;
+    font-size: 14px;
+    color: #75747c;
 }
 
 .dropdown-icon-gender svg {
@@ -4995,6 +5000,8 @@ div.salary-sub p {
   padding: 10px;
   cursor: pointer;
    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    color: #75747c;
 }
 
 .dropdown-option-gender:hover{

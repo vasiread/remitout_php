@@ -26,15 +26,7 @@
     $mailIconPath = "assets/images/mail.png";
     $pindropIconPath = "assets/images/pin_drop.png";
 
-
-
     @endphp
-
-
-
-
-
-
 
     @php
     $studentCounsellorsLists = [
