@@ -3528,6 +3528,7 @@ function sessionLogoutInitial() {
     })
         .then(response => {
             if (response.ok) {
+                console.log('Logout successful', response);
                 window.location.href = loginUrl;
             } else {
                 console.error('Logout failed:', response.status, response.statusText);
@@ -3795,35 +3796,32 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
 
         // Always create the "View" button
         const firstButton = document.createElement("button");
-        firstButton.classList.add("view-proposal")
+        firstButton.classList.add("view-proposal");
         firstButton.textContent = "View";
 
-        firstButton.addEventListener("click", () => {
-            console.log(userId, nbfcId);
-
-            
-
-            fetch('/getproposalfileurl', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({ userId, nbfcId })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.file_path) {
-                        console.log('File URL:', data.file_path);
-                    } else {
-                        console.error('No file found:', data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching file URL:', error);
+        firstButton.addEventListener("click", async () => {
+            try {
+                const response = await fetch('/getproposalfileurl', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ userId, nbfcId })
                 });
+                const data = await response.json();
+                if (data.file_path) {
+                    const fileName = data.file_path.split("/").pop(); // Extract filename from URL
+                    showDocumentPreview(data.file_path, fileName); // Show the document in a popup
+                } else {
+                    alert("No document found to preview.");
+                    console.error('No file found:', data.message);
+                }
+            } catch (error) {
+                alert("Error fetching document. Please try again.");
+                console.error('Error fetching file URL:', error);
+            }
         });
-
 
         if (!data) {
             // Case: No data returned (initial state)
@@ -3842,7 +3840,6 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
             buttonContainer.append(firstButton, secondButton, thirdButton);
             insideSecond.append(buttonContainer, fourthButton);
 
-            // Add to itemsNeedingButtons with necessary data
             itemsNeedingButtons.push({
                 user_id: userId,
                 nbfc_id: nbfcId,
@@ -3850,7 +3847,6 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
                 acceptButton: secondButton,
                 rejectButton: thirdButton
             });
-
         } else if (proposal_accept_update) {
             // Case: Proposal accepted
             const secondButton = document.createElement("button");
@@ -3868,17 +3864,15 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
             buttonContainer.append(firstButton, secondButton);
             insideSecond.append(buttonContainer, fourthButton);
 
-            // Add to itemsNeedingButtons
             itemsNeedingButtons.push({
                 user_id: userId,
                 nbfc_id: nbfcId,
                 element: currentItem,
                 acceptButton: secondButton,
-                rejectButton: null // No reject button in this case
+                rejectButton: null
             });
 
             statusCount++;
-
         } else {
             // Case: Proposal rejected
             const thirdButton = document.createElement("button");
@@ -3894,10 +3888,7 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
             fourthButton.classList.add("triggeredbutton");
 
             buttonContainer.append(firstButton, thirdButton);
-
-
             insideSecond.append(buttonContainer, fourthButton);
-
 
             itemsNeedingButtons.push({
                 user_id: userId,
@@ -3912,17 +3903,443 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
 
         bindAcceptRejectButtons(itemsNeedingButtons);
 
-
-
-
         return statusCount;
-
     } catch (error) {
         console.error("Error checking user ID:", error);
     }
 }
 
 
+const showDocumentPreview = (fileUrl, fileName, eyeIcon = null) => {
+    if (!fileUrl) {
+        alert("No document found to preview.");
+        return;
+    }
 
+    const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
+    const isImage = [".jpg", ".jpeg", ".png"].some((ext) =>
+        fileUrl.toLowerCase().endsWith(ext)
+    );
+
+    const truncatedFileName = truncateFileName(fileName || "Document.pdf");
+
+    if (isPDF) {
+        // PDF Preview
+        const previewWrapper = document.createElement("div");
+        previewWrapper.className = "pdf-preview-wrapper";
+        previewWrapper.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 80vh;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            border-radius: 8px;
+        `;
+
+        const overlay = document.createElement("div");
+        overlay.className = "pdf-preview-overlay";
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        `;
+
+        const header = document.createElement("div");
+        header.style.cssText = `
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 16px;
+            background-color: #1a1a1a;
+            color: white;
+            height: 40px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        `;
+
+        const fileNameSection = document.createElement("div");
+        fileNameSection.style.cssText = `
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        `;
+
+        const fileNameSpan = document.createElement("span");
+        fileNameSpan.textContent = truncatedFileName;
+        fileNameSpan.style.cssText = `
+            color: white;
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+        `;
+        fileNameSection.appendChild(fileNameSpan);
+
+        // Add Download Button
+        const downloadButton = document.createElement("button");
+        downloadButton.innerHTML = "⬇"; // Download icon (or change to "Download" if preferred)
+        downloadButton.title = "Download File";
+        downloadButton.style.cssText = `
+            background: none;
+            border: 1px solid #fff;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 2px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+        `;
+
+        downloadButton.addEventListener("click", async () => {
+            try {
+                console.log("Attempting to download:", fileUrl); // Debug URL
+                const response = await fetch(fileUrl, {
+                    method: 'GET',
+                    headers: {
+                        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Accept': isPDF ? 'application/pdf' : 'image/*'
+                    },
+                    credentials: 'include' // Include cookies for authentication
+                });
+
+                console.log("Response status:", response.status); // Debug response
+                if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+
+                const blob = await response.blob();
+                console.log("Blob size:", blob.size, "type:", blob.type); // Debug blob
+
+                if (blob.size === 0) throw new Error("Empty file received");
+
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = fileName || (isPDF ? "document.pdf" : "document.png");
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            } catch (error) {
+                console.error("Download error:", error);
+                alert("Error downloading file. Please try again.");
+
+                // Fallback: Attempt to trigger download via iframe URL
+                console.log("Attempting fallback download...");
+                const a = document.createElement("a");
+                a.href = fileUrl;
+                a.download = fileName || (isPDF ? "document.pdf" : "document.png");
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+        });
+
+        const zoomControls = document.createElement("div");
+        zoomControls.style.cssText = `
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        `;
+
+        const zoomOut = document.createElement("button");
+        zoomOut.innerHTML = "−";
+        const zoomIn = document.createElement("button");
+        zoomIn.innerHTML = "+";
+
+        [zoomOut, zoomIn].forEach((btn) => {
+            btn.style.cssText = `
+                background: none;
+                border: 1px solid #fff;
+                border-radius: 4px;
+                color: white;
+                font-size: 16px;
+                cursor: pointer;
+                padding: 2px 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: 'Poppins', sans-serif;
+            `;
+        });
+
+        zoomControls.appendChild(zoomOut);
+        zoomControls.appendChild(zoomIn);
+
+        const closeButton = document.createElement("button");
+        closeButton.innerHTML = "✕";
+        closeButton.style.cssText = `
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+        `;
+
+        const closePreview = () => {
+            previewWrapper.remove();
+            overlay.remove();
+            if (eyeIcon) {
+                eyeIcon.classList.remove("preview-active");
+                eyeIcon.src = "/assets/images/visibility.png";
+            }
+        };
+
+        closeButton.addEventListener("click", closePreview);
+        overlay.addEventListener("click", closePreview);
+
+        header.appendChild(fileNameSection);
+        header.appendChild(downloadButton);
+        header.appendChild(zoomControls);
+        header.appendChild(closeButton);
+
+        const iframe = document.createElement("iframe");
+        iframe.src = fileUrl;
+        iframe.style.cssText = `
+            width: 100%;
+            height: calc(100% - 40px);
+            border: none;
+            background-color: white;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        `;
+
+        previewWrapper.appendChild(header);
+        previewWrapper.appendChild(iframe);
+
+        document.body.appendChild(overlay);
+        document.body.appendChild(previewWrapper);
+
+        let currentZoom = 1;
+        zoomIn.addEventListener("click", () => {
+            currentZoom += 0.1;
+            iframe.style.transform = `scale(${currentZoom})`;
+            iframe.style.transformOrigin = "top center";
+        });
+
+        zoomOut.addEventListener("click", () => {
+            currentZoom = Math.max(currentZoom - 0.1, 0.5);
+            iframe.style.transform = `scale(${currentZoom})`;
+            iframe.style.transformOrigin = "top center";
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                closePreview();
+            }
+        });
+
+        if (eyeIcon) {
+            eyeIcon.classList.add("preview-active");
+            eyeIcon.src = "/assets/images/close.png";
+        }
+    } else if (isImage) {
+        // Image Preview
+        const previewWrapper = document.createElement("div");
+        previewWrapper.className = "image-preview-wrapper";
+        previewWrapper.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            border-radius: 8px;
+        `;
+
+        const overlay = document.createElement("div");
+        overlay.className = "image-preview-overlay";
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        `;
+
+        const header = document.createElement("div");
+        header.style.cssText = `
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 16px;
+            background-color: #1a1a1a;
+            color: white;
+            height: 40px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        `;
+
+        const fileNameSection = document.createElement("div");
+        fileNameSection.style.cssText = `
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        `;
+
+        const fileNameSpan = document.createElement("span");
+        fileNameSpan.textContent = truncatedFileName;
+        fileNameSection.appendChild(fileNameSpan);
+
+        // Add Download Button
+        const downloadButton = document.createElement("button");
+        downloadButton.innerHTML = "⬇"; // Download icon
+        downloadButton.title = "Download File";
+        downloadButton.style.cssText = `
+            background: none;
+            border: 1px solid #fff;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 2px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+        `;
+
+        downloadButton.addEventListener("click", async () => {
+            try {
+                console.log("Attempting to download:", fileUrl); // Debug URL
+                const response = await fetch(fileUrl, {
+                    method: 'GET',
+                    headers: {
+                        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Accept': isPDF ? 'application/pdf' : 'image/*'
+                    },
+                    credentials: 'include' // Include cookies for authentication
+                });
+
+                console.log("Response status:", response.status); // Debug response
+                if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+
+                const blob = await response.blob();
+                console.log("Blob size:", blob.size, "type:", blob.type); // Debug blob
+
+                if (blob.size === 0) throw new Error("Empty file received");
+
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = fileName || (isPDF ? "document.pdf" : "document.png");
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            } catch (error) {
+                console.error("Download error:", error);
+                alert("Error downloading file. Please try again.");
+
+                // Fallback: Attempt to trigger download via direct URL
+                console.log("Attempting fallback download...");
+                const a = document.createElement("a");
+                a.href = fileUrl;
+                a.download = fileName || (isPDF ? "document.pdf" : "document.png");
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+        });
+
+        const closeButton = document.createElement("button");
+        closeButton.innerHTML = "✕";
+        closeButton.style.cssText = `
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+        `;
+
+        const closePreview = () => {
+            previewWrapper.remove();
+            overlay.remove();
+            if (eyeIcon) {
+                eyeIcon.classList.remove("preview-active");
+                eyeIcon.src = "/assets/images/visibility.png";
+            }
+        };
+
+        closeButton.addEventListener("click", closePreview);
+        overlay.addEventListener("click", closePreview);
+
+        header.appendChild(fileNameSection);
+        header.appendChild(downloadButton);
+        header.appendChild(closeButton);
+
+        const imageContainer = document.createElement("div");
+        imageContainer.style.cssText = `
+            width: 100%;
+            height: calc(100% - 40px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        `;
+
+        const img = document.createElement("img");
+        img.src = fileUrl;
+        img.style.cssText = `
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+        `;
+
+        imageContainer.appendChild(img);
+        previewWrapper.appendChild(header);
+        previewWrapper.appendChild(imageContainer);
+
+        document.body.appendChild(overlay);
+        document.body.appendChild(previewWrapper);
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                closePreview();
+            }
+        });
+
+        if (eyeIcon) {
+            eyeIcon.classList.add("preview-active");
+            eyeIcon.src = "/assets/images/close.png";
+        }
+    } else {
+        alert("Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported.");
+    }
+};
 
 

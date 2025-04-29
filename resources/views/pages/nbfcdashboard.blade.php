@@ -1258,12 +1258,12 @@
                 listItem.appendChild(studentInfo);
                 listItem.appendChild(actionButtons);
 
-                const sessionLogout = document.querySelector(".nbfclogoutBtn");
-                sessionLogout.addEventListener('click', () => {
-
-                    sessionLogoutInitial();
-
-                })
+                const sessionLogout = document.querySelectorAll(".nbfclogoutBtn");
+                sessionLogout.forEach(button => {
+        button.addEventListener('click', () => {
+            sessionLogoutInitial();
+        });
+    });
 
                 return listItem;
             }
