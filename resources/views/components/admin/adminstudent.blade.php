@@ -24,13 +24,13 @@
                     <i class="fa-solid fa-search"></i>
                 </div>
 
-                <div class="dropdown-filters" id="studentlistcontainer-filters">
-                    <button class="dropdown-button-filters">
+               <div class="student-list-dropdown-filters" id="student-list-dropdown-filters">
+                    <button class="student-list-dropdown-button">
                         <img src="{{ asset('assets/images/Icons/filter_icon.png') }}" alt="">
                         All
                         <i class="fa-solid fa-chevron-down"></i>
                     </button>
-                    <div class="dropdown-content-filters" style="display: none;">
+                    <div class="student-list-dropdown-content" style="display: none;">
                         <a href="#" data-filter="all">All</a>
                         <a href="#" data-filter="pending">Pending</a>
                         <a href="#" data-filter="approved">Approved</a>
@@ -566,9 +566,9 @@
 
         const initializeSearchAndFilter = () => {
             const searchInput = document.getElementById('search-student-list');
-            const filterButton = document.querySelector('.dropdown-button-filters');
-            const filterContent = document.querySelector('.dropdown-content-filters');
-            const filterLinks = document.querySelectorAll('.dropdown-content-filters a');
+            const filterButton = document.querySelector('.student-list-dropdown-button');
+            const filterContent = document.querySelector('.student-list-dropdown-content');
+            const filterLinks = document.querySelectorAll('.student-list-dropdown-content a');
             const studentListItems = document.querySelectorAll('.studentapplication-lists');
             const studentCountElement = document.getElementById('student-list-count');
 
@@ -584,15 +584,15 @@
                 }
             });
 
-            // Search functionality
+            // Search functionality (unchanged)
             searchInput.addEventListener('input', () => {
                 const searchTerm = searchInput.value.toLowerCase();
                 let visibleCount = 0;
 
-                document.querySelectorAll('.studentapplication-lists').forEach(item => {
+                studentListItems.forEach(item => {
                     const studentName = item.querySelector('.firstsection-lists h1').textContent.toLowerCase();
                     const matchesSearch = studentName.includes(searchTerm);
-                    const currentFilter = document.querySelector('.dropdown-content-filters a.active')?.dataset.filter || 'all';
+                    const currentFilter = document.querySelector('.student-list-dropdown-content a.active')?.dataset.filter || 'all';
 
                     const matchesFilter = currentFilter === 'all' ||
                         (currentFilter === 'pending' && item.dataset.status.toLowerCase() === 'pending') ||
@@ -607,6 +607,10 @@
                 });
 
                 studentCountElement.textContent = visibleCount;
+                studentCountElement.style.padding = "0px 10px 0px 10px";
+                studentCountElement.style.borderRadius = "50%";
+                studentCountElement.style.backgroundColor = "#E6EDFF";
+                studentCountElement.style.color = "#0A49F3";
             });
 
             // Filter functionality
@@ -627,7 +631,7 @@
                     const searchTerm = searchInput.value.toLowerCase();
                     let visibleCount = 0;
 
-                    document.querySelectorAll('.studentapplication-lists').forEach(item => {
+                    studentListItems.forEach(item => {
                         const studentName = item.querySelector('.firstsection-lists h1').textContent.toLowerCase();
                         const matchesSearch = studentName.includes(searchTerm);
                         const matchesFilter = filter === 'all' ||
@@ -643,15 +647,19 @@
                     });
 
                     studentCountElement.textContent = visibleCount;
+                    studentCountElement.style.padding = "0px 10px 0px 10px";
+                    studentCountElement.style.borderRadius = "50%";
+                    studentCountElement.style.backgroundColor = "#E6EDFF";
+                    studentCountElement.style.color = "#0A49F3";
 
                     // Close dropdown after selection
                     filterContent.style.display = 'none';
                 });
-            });
+    });
 
-            // Set default filter to 'all'
-            document.querySelector('.dropdown-content-filters a[data-filter="all"]').classList.add('active');
-        };
+    // Set default filter to 'all'
+    document.querySelector('.student-list-dropdown-content a[data-filter="all"]').classList.add('active');
+};
     </script>
 </body>
 

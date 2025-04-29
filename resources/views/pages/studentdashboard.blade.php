@@ -17,21 +17,21 @@
 
     @section('studentdashboard')
 
-                    @php
+      @php
         $profileImgPath = '';
-        $uploadPanName = '';
-        $profileIconPath = "assets/images/account_circle.png";
-        $phoneIconPath = "assets/images/call.png";
-        $mailIconPath = "assets/images/mail.png";
-        $pindropIconPath = "assets/images/pin_drop.png";
-        $discordIconPath = "assets/images/icons/discordicon.png";
-        $viewIconPath = "assets/images/visibility.png";
+            $uploadPanName = '';
+            $profileIconPath = "assets/images/account_circle.png";
+            $phoneIconPath = "assets/images/call.png";
+            $mailIconPath = "assets/images/mail.png";
+            $pindropIconPath = "assets/images/pin_drop.png";
+            $discordIconPath = "assets/images/icons/discordicon.png";
+            $viewIconPath = "assets/images/visibility.png";
 
 
-        $courseDetailsJson = json_encode($courseDetails);
-        $nbfcdata = [];
+            $courseDetailsJson = json_encode($courseDetails);
+            $nbfcdata = [];
 
-                    @endphp
+        @endphp
                     <div class="studentdashboardprofile-togglesidebar">
                         <ul class="studentdashboardprofile-sidebarlists-top">
                             <li class="active"> <i class="fa-solid fa-square-poll-vertical"></i> Dashboard</li>
@@ -207,7 +207,7 @@
                                 </div>
                                 <div class="testscoreseditsection-secondrow">
                                     @php
-        $counter = 1; 
+                               $counter = 1; 
                                     @endphp
 
                                     @if (is_numeric($academicDetails[0]->ILETS) && !empty($academicDetails[0]->ILETS))
@@ -223,7 +223,7 @@
                                     @endif
 
                                     @php
-        $others = json_decode($academicDetails[0]->Others, true);
+                                       $others = json_decode($academicDetails[0]->Others, true);
                                     @endphp
 
                                     @if (isset($others['otherExamName']) && isset($others['otherExamScore']) && is_numeric($others['otherExamScore']) && !empty($others['otherExamScore']))

@@ -242,14 +242,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Add event listeners to buttons
-    // nextButton.addEventListener("click", () => {
-    //     if (areFieldsFilled()) {
-    //         navigate("next");
-    //     }
-    // });
+     nextButton.addEventListener("click", () => {
+       if (areFieldsFilled()) {
+           navigate("next");
+         }
+     });
 
     function updateUserIds() {
-        const personalInfoId = document.getElementById("personal-info-userid").value;
+        const personalInfoId = document.getElementById(
+            "personal-info-userid"
+        ).value;
 
         console.log(personalInfoId);
 
@@ -1526,7 +1528,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const emiInput = document.getElementById("emi-amount");
             const errorMessage = document.getElementById("emi-error-message");
 
-            // Check if the input is a valid number or not empty
             if (
                 (emiInput.value && isNaN(emiInput.value)) ||
                 emiInput.value.trim() === ""
@@ -1537,19 +1538,54 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-    document
-        .getElementById("city-input")
-        .addEventListener("input", function () {
-            const city = document.getElementById("city-input");
-            const errorMessage = document.getElementById("city-error");
+    // Select DOM elements with gender- prefixed variables
+    const genderDropdown = document.querySelector(".dropdown-gender");
+    const genderHeader = document.querySelector(".dropdown-gender-header");
+    const genderOptions = document.querySelector(".dropdown-options-gender");
+    const genderOptionItems = document.querySelectorAll(
+        ".dropdown-option-gender"
+    );
+    const genderHiddenInput = document.querySelector('input[name="gender"]');
+    const genderError = document.querySelector("#gender-error");
 
-            if (city.value.trim() === "") {
-                errorMessage.textContent = "Please enter the city.";
-                errorMessage.style.display = "block";
-            } else {
-                errorMessage.style.display = "none";
-            }
-        });
+    // Toggle dropdown options visibility
+    function genderToggleOptions() {
+        genderOptions.style.display =
+            genderOptions.style.display === "block" ? "none" : "block";
+    }
 
-  
+    // Handle option selection
+    function genderHandleSelection(event) {
+        const genderSelectedValue =
+            event.currentTarget.getAttribute("data-value");
+        const genderSelectedText =
+            event.currentTarget.querySelector("span").textContent;
+
+        // Update dropdown label
+        document.querySelector(".dropdown-label-gender").textContent =
+            genderSelectedText;
+
+        // Update hidden input value
+        genderHiddenInput.value = genderSelectedValue;
+
+        // Clear any error message
+        genderError.textContent = "";
+
+        // Close dropdown
+        genderOptions.style.display = "none";
+    }
+
+    // Close dropdown when clicking outside
+    function genderHandleOutsideClick(event) {
+        if (!genderDropdown.contains(event.target)) {
+            genderOptions.style.display = "none";
+        }
+    }
+
+    // Add event listeners
+    genderHeader.addEventListener("click", genderToggleOptions);
+    genderOptionItems.forEach((item) => {
+        item.addEventListener("click", genderHandleSelection);
+    });
+    document.addEventListener("click", genderHandleOutsideClick);
 }); //close addEventListener
