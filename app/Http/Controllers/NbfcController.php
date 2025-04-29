@@ -96,7 +96,7 @@ class NbfcController extends Controller
         $userId = $request->input('userId');
         $nbfcId = $request->input('nbfcId');
         $remarks = $request->input('remarks');
-        $fileDirectory = "ProposalDocuments By Nbfc's/$userId"; // Folder name for each user
+        $fileDirectory = "ProposalDocuments By Nbfc's/$userId/$nbfcId"; // Folder name for each user
         $file = $request->file('file');
 
         // Check if a file is uploaded
@@ -161,6 +161,43 @@ class NbfcController extends Controller
         } catch (\Exception $e) {
             // Handle error during file upload
             return response()->json(['message' => 'Failed to upload file', 'error' => $e->getMessage()], 500);
+        }
+    }
+    public function getProposalFileUrl(Request $request)
+    {
+        // Validate incoming request
+        $request->validate([
+            'userId' => 'required|string',
+            'nbfcId' => 'required|string'
+        ]);
+
+        $userId = $request->input('userId');
+        $nbfcId = $request->input('nbfcId');
+
+        // Build the directory path
+        $fileDirectory = "ProposalDocuments By Nbfc's/$userId/$nbfcId";
+
+        try {
+            // Get all files from the directory (there should typically be only one due to earlier deletion logic)
+            $files = Storage::disk('s3')->files($fileDirectory);
+
+            if (empty($files)) {
+                return response()->json(['message' => 'No file found for this user and NBFC'], 404);
+            }
+
+            // Assuming there's only one file
+            $filePath = $files[0];
+
+            // Generate public URL
+            $fileUrl = Storage::disk('s3')->url($filePath);
+
+            return response()->json([
+                'file_name' => basename($filePath),
+                'file_path' => $fileUrl
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to retrieve file', 'error' => $e->getMessage()], 500);
         }
     }
 

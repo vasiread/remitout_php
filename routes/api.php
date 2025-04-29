@@ -121,3 +121,4 @@ Route::post('/sourceregister', [Admincontroller::class, 'sourceRegistration']);
 
 Route::post('/student-application-form', [Admincontroller::class, 'store']);
 Route::get('/student-application-form/{section_slug}', [Admincontroller::class, 'show']);
+Route::post('/getproposalfileurl', [NbfcController::class, 'getProposalFileUrl']);

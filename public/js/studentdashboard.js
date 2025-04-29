@@ -154,6 +154,11 @@ function handleIndividualCards(mode = 'index1') {
     }, 50);
 }
 
+
+const triggerView = () => {
+
+}
+
 const initializeSideBarTabs = () => {
     const sideBarTopItems = document.querySelectorAll('.studentdashboardprofile-sidebarlists-top li');
     const lastTabHiddenDiv = document.querySelector(".studentdashboardprofile-trackprogress");
@@ -3790,7 +3795,35 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
 
         // Always create the "View" button
         const firstButton = document.createElement("button");
+        firstButton.classList.add("view-proposal")
         firstButton.textContent = "View";
+
+        firstButton.addEventListener("click", () => {
+            console.log(userId, nbfcId);
+
+            
+
+            fetch('/getproposalfileurl', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ userId, nbfcId })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.file_path) {
+                        console.log('File URL:', data.file_path);
+                    } else {
+                        console.error('No file found:', data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching file URL:', error);
+                });
+        });
+
 
         if (!data) {
             // Case: No data returned (initial state)

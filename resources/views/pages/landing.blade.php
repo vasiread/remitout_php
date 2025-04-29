@@ -45,10 +45,10 @@
                 const item = data[0];
                 console.log(item)
 
-                document.querySelector('.line-1').innerText = item.banner_line1;
-                document.querySelector('.line-2 .bold').innerText = item.banner_bold;
-                document.querySelector('.line-2 .thin-italic').innerText = item.banner_italic;
-                document.querySelector('.line-3').innerText = item.banner_line3;
+                // document.querySelector('.line-1').innerText = item.banner_line1;
+                // document.querySelector('.line-2 .bold').innerText = item.banner_bold;
+                // document.querySelector('.line-2 .thin-italic').innerText = item.banner_italic;
+                // document.querySelector('.line-3').innerText = item.banner_line3;
 
                 document.querySelector('.journey-title').innerText = item.banner_little_quote;
                 document.querySelector('.journey-text').innerText = item.banner_little_description;

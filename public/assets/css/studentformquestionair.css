@@ -22,7 +22,7 @@ html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 88px;
+    padding: 20px;
 }
 
 .student-form-logo {

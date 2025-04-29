@@ -30,16 +30,15 @@
 
 .loginsingupcontainer-rightpanel h1 {
     font-family: Raleway;
-    margin-bottom: 48px;
-
-    font-size: 36px;
-    font-weight: 700;
-    line-height: 42.26px;
-    text-align: center;
-    color: rgba(0, 0, 0, 1);
-    max-width: 51px;
-    max-width: 100%;
-    width: 100%;
+        margin-bottom: 5px;
+        font-size: 36px;
+        font-weight: 700;
+        line-height: 37.26px;
+        text-align: center;
+        color: rgba(0, 0, 0, 1);
+        max-width: 51px;
+        max-width: 100%;
+        width: 100%;
 }
 
 .loginsingupimagecontainer-header {
@@ -121,13 +120,14 @@
 }
 
 .rightsidevector-img {
-    position: absolute;
-    top: 2%;
-    left: 12.5%;
+position: absolute;
+    top: -1%;
+    left: 16.5%;
     max-width: 84px;
     width: 100%;
     height: 82px;
     opacity: 0.9;
+    z-index: -1;
 }
 
 .loginsingupcontainer-rightpanel .loginsingupcontainer-rightpanel-inside {

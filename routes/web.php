@@ -156,7 +156,7 @@ Route::post("/send-proposals-with-file", [NbfcController::class, 'sendProposalsW
 Route::post('/logout', [LoginController::class, 'sessionLogout'])->name('logout');
 
 // New API route for Google login
-Route::post('/api/google/login', [GoogleAuthController::class, 'googleLogin'])->name('api.google.login');
+// Route::post('/api/google/login', [GoogleAuthController::class, 'googleLogin'])->name('api.google.login');
 
 // Google callback URL
 // Route::get('login/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('google-auth');
@@ -221,3 +221,4 @@ Route::post('/send-message-from-adminstudent', action: [ChatController::class, '
 
 Route::post('/age-ratio', [Admincontroller::class, 'ageratioCalculation'])->name("admin.ageratio.calculation");
 Route::post('/sourceregister', [Admincontroller::class, 'sourceRegistration']);
+Route::post('/getproposalfileurl', [NbfcController::class, 'getProposalFileUrl']);
