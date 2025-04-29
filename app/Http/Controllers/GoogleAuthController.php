@@ -99,38 +99,56 @@ class GoogleAuthController extends Controller
     public function handleGoogleCallback()
     {
         try {
-            $googleUser = Socialite::driver('google')->stateless()->user();
+            $googleUser = Socialite::driver('google')->user();
             $email = $googleUser->getEmail();
 
-            // Check if the email exists in any of the tables
+            // Look for email in each model
             $user = User::where('email', $email)->first();
             $nbfc = Nbfc::where('nbfc_email', $email)->first();
             $scuser = Scuser::where('email', $email)->first();
 
             if ($user) {
-                // User found in User table, log in and redirect to student dashboard
-                return redirect('/student-dashboard')->with('success', 'Logged in successfully with Google');
+                // Set session for regular User
+                session(['user' => $user]);
+                session()->put('expires_at', now()->addSeconds(10000));
+
+                return redirect('/student-dashboard')->with('success', 'Google login successful');
             } elseif ($nbfc) {
-                return redirect('/nbfc-dashboard')->with('success', 'Logged in successfully with Google as NBFC');
+                // Set session for NBFC
+                session(['nbfcuser' => $nbfc]);
+                session()->put('expires_at', now()->addSeconds(10000));
+
+                return redirect('/nbfc-dashboard')->with('success', 'Google login successful as NBFC');
             } elseif ($scuser) {
-                return redirect('/scuser-dashboard')->with('success', 'Logged in successfully with Google as SC User');
+                // Set session for SC User
+                session(['scuser' => $scuser]);
+                session()->put('scDetail', $scuser);
+                session()->put('expires_at', now()->addSeconds(10000));
+
+                return redirect('/sc-dashboard')->with('success', 'Google login successful as SC User');
             } else {
-                // No user found, create a new User
+                // Create new student user and set session
                 $newUser = User::create([
                     'name' => $googleUser->getName(),
                     'email' => $email,
-                    'password' => Hash::make(uniqid()), // Random password
+                    'password' => Hash::make(uniqid()),
                     'google_id' => $googleUser->getId(),
                 ]);
 
-                Auth::login($newUser);
-                return redirect('/student-forms')->with('success', 'New account created and logged in successfully with Google');
+                session(['user' => $newUser]);
+                session()->put('expires_at', now()->addSeconds(10000));
+
+                return redirect('/student-forms')->with('success', 'New account created and logged in with Google');
             }
+
         } catch (\Exception $e) {
             Log::error('Google Login Error: ' . $e->getMessage());
-            return redirect('/login')->with('error', 'Google login failed. Try again or contact support.');
+            return redirect('/login')->with('error', 'Google login failed. Reason: ' . $e->getMessage());
         }
     }
+
+
+
 
 
 }

@@ -352,12 +352,12 @@
                         <canvas id="ageratio-donutRegistrationChart"></canvas>
                         <div class="ageratio-donutgraphinfos">
                             @php
-                                $registrationSourceAnalysis = [
-                                    ['color' => 'rgba(111, 37, 206, 1)', 'studentRangeValue' => '16 - 20'],
-                                    ['color' => 'rgba(167, 121, 224, 1)', 'studentRangeValue' => '21 - 25'],
-                                    ['color' => 'rgba(203, 176, 237, 1)', 'studentRangeValue' => '26 - 30'],
-                                    ['color' => 'rgba(226, 211, 245, 1)', 'studentRangeValue' => '30 - 40'],
-                                ];
+$registrationSourceAnalysis = [
+    ['color' => 'rgba(111, 37, 206, 1)', 'studentRangeValue' => '16 - 20'],
+    ['color' => 'rgba(167, 121, 224, 1)', 'studentRangeValue' => '21 - 25'],
+    ['color' => 'rgba(203, 176, 237, 1)', 'studentRangeValue' => '26 - 30'],
+    ['color' => 'rgba(226, 211, 245, 1)', 'studentRangeValue' => '30 - 40'],
+];
                             @endphp
 
                             @foreach ($registrationSourceAnalysis as $source)
@@ -412,12 +412,13 @@
                         </div>
                     </div>
                     <div class="funnelreport-analyse-right" id="funnelreport-rightsideid">
-                        <p>140</p>
-                        <p>360</p>
-                        <p>10</p>
-                        <p>100</p>
-                        <p>20</p>
-                        <p>200</p>
+
+                        <p id="incomplete-count">140</p>
+                        <p id="dummy-1">360</p>
+                        <p id="dummy-2">10</p>
+                        <p id="offer-issued">100</p>
+                        <p id="offer-rejected">20</p>
+                        <p id="offer-accepted">200</p>
 
                     </div>
 
@@ -670,6 +671,8 @@
                 updateProfileCompletionByGender()
                 initializeCitiesTable();
                 initializeCountriesTable();
+                            funnelreport();
+
                 // loadAgeRatioChart();
             } catch (error) {
                 console.error('Initialization error:', error);
@@ -2179,11 +2182,34 @@
                 });
             });
 
+
+
+
         })
 
+        function funnelreport() {
+            fetch('/retrieveDashboardDetails')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        const counts = data.counts;
+                        console.log(counts)
+
+                        document.getElementById('incomplete-count').textContent = counts.incompleteCount;
+                        document.getElementById('offer-issued').textContent = counts.offerIssuedStudentsCount;
+                        document.getElementById('offer-rejected').textContent = counts.offerRejectedByStudentCount;
+                        document.getElementById('offer-accepted').textContent = counts.offerAcceptedAndClosedCount;
+                    } else {
+                        console.error("Error fetching data:", data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Fetch failed:', error);
+                });
+
+        }
 
 
-       
 
 
 

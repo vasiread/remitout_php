@@ -28,41 +28,41 @@ use Illuminate\Support\Str;
 
 class Admincontroller extends Controller
 {
+    
+
     public function retrieveDashboardDetails()
     {
-
         try {
-            $offerIssuedStudentsCount = Requestprogress::where("type", "proposal")->count();
-            $offerRejectedByStudentCount = proposalcompletion::where("proposal_accept", false)->count();
-            $offerAcceptedAndClosedCount = proposalcompletion::where("proposal_accept", true)->count();
+            // Count of students who have been issued offers
+            $offerIssuedStudentsCount = Requestprogress::where('type', 'proposal')->count();
 
+            // Count of students who rejected the offer
+            $offerRejectedByStudentCount = proposalcompletion::where('proposal_accept', false)->count();
 
+            // Count of students who accepted and closed the proposal
+            $offerAcceptedAndClosedCount = proposalcompletion::where('proposal_accept', true)->count();
 
-
-
-
-
-            $dashboardDetailsCount = [
-                $offerIssuedStudentsCount,
-                $offerRejectedByStudentCount,
-                $offerAcceptedAndClosedCount,
-                // $offerIssedDocumentSubmission
-
-
-
-
-            ];
+            // Total incomplete count (no breakdown)
+            $incompleteCount = DB::table('course_details_formdata')
+                ->count();
 
             return response()->json([
-                "message" => true,
-                "counts" => $dashboardDetailsCount,
+                'message' => true,
+                'counts' => [
+                    'offerIssuedStudentsCount' => $offerIssuedStudentsCount,
+                    'offerRejectedByStudentCount' => $offerRejectedByStudentCount,
+                    'offerAcceptedAndClosedCount' => $offerAcceptedAndClosedCount,
+                    'incompleteCount' => $incompleteCount,
+                ],
             ]);
         } catch (Exception $e) {
             return response()->json([
-                "message" => false,
+                'message' => false,
+                'error' => $e->getMessage(),
             ]);
         }
     }
+
     public function pointOfEntries(Request $request)
     {
         try {
