@@ -13,6 +13,8 @@ use App\Models\Rejectedbynbfc;
 use App\Models\Requestedbyusers;
 use App\Models\Requestprogress;
 use App\Models\Scuser;
+use App\Models\StudentApplicationForm;
+use App\Models\StudentApplicationSection;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
@@ -22,6 +24,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class Admincontroller extends Controller
 {
@@ -625,6 +628,63 @@ class Admincontroller extends Controller
         return response()->json($landingpages);
     }
 
+    public function store(Request $request)
+    {
+        try {
+            // Log the incoming request data for debugging
+            Log::debug('Incoming request data:', $request->all());
+
+            // Validate the request
+            $validated = $request->validate([
+                'section_name' => 'required|string|max:255',
+                'data' => 'required|array',
+                'data.questions' => 'array',
+                'data.questions.*.title' => 'required|string',
+                'data.questions.*.fields' => 'array',
+                'data.questions.*.fields.*.name' => 'required|string',
+                'data.questions.*.fields.*.type' => 'required|in:text,dropdown,checkbox',
+                'data.questions.*.fields.*.options' => 'array'
+            ]);
+
+            $sectionName = $validated['section_name'];
+            $data = $validated['data'];
+            $sectionSlug = Str::slug($sectionName);
+
+            // Upsert the section with its data
+            $form = StudentApplicationForm::updateOrCreate(
+                ['section_slug' => $sectionSlug],
+                [
+                    'section_name' => $sectionName,
+                    'section_slug' => $sectionSlug,
+                    'data' => $data
+                ]
+            );
+
+            Log::debug('Section saved:', ['id' => $form->id, 'section_slug' => $sectionSlug]);
+
+            return response()->json(['success' => true, 'message' => 'Section and fields saved successfully', 'data' => $form->data]);
+        } catch (Exception $e) {
+            Log::error('Error saving section and fields:', ['error' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
+            return response()->json(['success' => false, 'message' => 'Failed to save section and fields', 'error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function show($section_slug)
+    {
+        try {
+            // Log the incoming request
+            Log::debug('Retrieving section:', ['section_slug' => $section_slug]);
+
+            $form = StudentApplicationForm::where('section_slug', $section_slug)->firstOrFail();
+
+            Log::debug('Section retrieved:', ['id' => $form->id, 'section_name' => $form->section_name]);
+
+            return response()->json(['success' => true, 'section_name' => $form->section_name, 'data' => $form->data]);
+        } catch (Exception $e) {
+            Log::error('Error retrieving section:', ['error' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
+            return response()->json(['success' => false, 'message' => 'Section not found', 'error' => $e->getMessage()], 404);
+        }
+    }
 
     public function promotionalEmail(Request $request)
     {
