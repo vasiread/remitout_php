@@ -683,8 +683,8 @@
                 initializeRegistrationLineGraph();
                 drawNBFCChart();
             });
-            initializeDonutGraphSource();
-            initializeDonutGraphAgeRatio();
+            // initializeDonutGraphSource();
+            // initializeDonutGraphAgeRatio();
             initializeNewDonutChart();
             initializeLeadChart();
         };

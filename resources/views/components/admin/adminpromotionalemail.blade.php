@@ -244,6 +244,7 @@
             const paginationInfo = document.getElementById('paginationInfo');
             const searchInput = document.getElementById('searchInput');
             const selectAllCheckbox = document.getElementById('selectAll');
+            setUpEmailFunctionality();
 
             // Sample recipient data (replace with actual data source)
             const recipients = [
@@ -252,7 +253,6 @@
                 { name: "Jane Smith", id: "HLMLHU765859", email: "jane.smith@gmail.com", mobile: "9876543210" },
                 { name: "Alice Johnson", id: "HLMLHU765860", email: "alice.johnson@gmail.com", mobile: "8765432109" },
                 { name: "Bob Williams", id: "HLMLHU765861", email: "bob.williams@gmail.com", mobile: "7654321098" },
-                // Add more recipients to reach at least 30 for pagination testing
                 ...Array.from({ length: 25 }, (_, i) => ({
                     name: `User ${i + 6}`,
                     id: `HLMLHU7658${60 + i}`,
@@ -265,7 +265,6 @@
             let entriesPerPage = parseInt(entriesPerPageSelect.value);
             let filteredRecipients = [...recipients];
 
-            // Initialize functionalities
             initializeEditor();
             updateWordCount();
             initializeRecipientTable();
