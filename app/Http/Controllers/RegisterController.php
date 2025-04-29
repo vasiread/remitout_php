@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\CourseInfo;
+use App\Models\Nbfc;
+use App\Models\Scuser;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -16,21 +18,26 @@ class RegisterController extends Controller
     {
         $email = $request->email;  // Get the email from the request
 
-        // Check if email already exists in the database
-        $emailUnique = User::where('email', $email)->exists();
+        // Check if the email exists in any of the three models
+        $emailExistsInUser = User::where('email', $email)->exists();
+        $emailExistsInScuser = Scuser::where('email', $email)->exists();
+        $emailExistsInNbfc = Nbfc::where('nbfc_email', $email)->exists();
 
-        if ($emailUnique) {
+        // If the email exists in any of the models, return a response indicating it's taken
+        if ($emailExistsInUser || $emailExistsInScuser || $emailExistsInNbfc) {
             return response()->json([
                 'success' => false,
                 'message' => 'Email is already taken. Please choose a different one.',
             ]);
         }
 
+        // If email doesn't exist in any model, it's available
         return response()->json([
             'success' => true,
             'message' => 'Email is available.',
         ]);
     }
+
 
 
 

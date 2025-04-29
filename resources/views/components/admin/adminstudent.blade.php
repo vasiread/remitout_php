@@ -481,7 +481,7 @@
             });
         };
 
-        const expandingStudentDetails = async () => {
+       const expandingStudentDetails = async () => {
             const listContainer = document.querySelectorAll(".studentapplication-lists");
             const viewButton = document.querySelectorAll(".individualapplication-list .application-buttoncontainer button:first-child");
             const documentsStatusBar = document.querySelectorAll(".studentapplication-lists-remainingdocuments");
@@ -495,8 +495,7 @@
                         documentsStatusBar[index].style.display = documentsStatusBar[index].style.display === "block" ? "none" : "block";
 
                         const userId = studentId[index].textContent.trim();
-                        console.log("----");
-                        console.log(userId);
+                        console.log(`Clicked student ${index}, userId: ${userId}`);
 
                         if (userId && userId !== previousUserId) {
                             previousUserId = userId;
@@ -525,7 +524,7 @@
                 "co-addressproof/": `co-borrower-address-admin-view-${userId}`
             };
 
-            console.log(userId);
+            console.log(`Fetching remaining documents for userId: ${userId}`);
 
             try {
                 const response = await fetch("/remaining-documents", {
@@ -541,12 +540,18 @@
 
                 if (response.ok && data.message === "Documents count retrieved successfully") {
                     const missingDocuments = data.missingDocuments;
+                    console.log("Missing Documents:", missingDocuments);
 
                     missingDocuments.forEach((missingDocument) => {
                         const elementId = documentIds[missingDocument];
                         if (elementId) {
-                            console.log(`Missing: ${missingDocument}`);
-                            document.getElementById(elementId).style.display = "flex";
+                            console.log(`Displaying missing document: ${missingDocument}`);
+                            const documentElement = document.getElementById(elementId);
+                            if (documentElement) {
+                                documentElement.style.display = "flex";
+                            } else {
+                                console.warn(`Element not found: ${elementId}`);
+                            }
                         } else {
                             console.warn(`Unknown document type: ${missingDocument}`);
                         }

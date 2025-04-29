@@ -18,80 +18,90 @@ class LoginController extends Controller
         $request->validate([
             'loginName' => 'required|string|max:255',
             'loginPassword' => 'required|string|min:6',
-            'loginType' => 'required|string'  // Ensure login type is validated
         ]);
 
         $loginName = $request->loginName;
-        $loginType = $request->loginType;
+        $loginPassword = $request->loginPassword;
 
         $isEmail = filter_var($loginName, FILTER_VALIDATE_EMAIL) !== false;
 
-        // Handle login based on the type of user and whether the input is email or ID
-        switch ($loginType) {
-            case 'Student Counsellor':
-                $scuser = $isEmail
-                    ? Scuser::where('email', $loginName)->first()  // If it's email, query by email
-                    : Scuser::where('referral_code', $loginName)->first();  // Otherwise, query by referral_code
+        // --- Check if SUPER ADMIN ---
+        $adminEmail = env('SUPERADMIN_EMAIL');
+        $adminPassword = env('SUPERADMIN_PASSWORD');
+        $adminId = env('SUPERADMIN_ID');
 
-                if (!$scuser || !Hash::check($request->loginPassword, $scuser->passwordField)) {
-                    return response()->json(['success' => false, 'message' => 'Invalid name, email, or password.']);
-                }
+        if ($loginName === $adminEmail && $loginPassword === $adminPassword) {
+            session([
+                'admin_user_id' => $adminId,
+                'admin_role' => 'superadmin',
+            ]);
+            session()->put('expires_at', now()->addSeconds(20000));
 
-                session(['scuser' => $scuser]);
-                session()->put('scDetail', $scuser);
-                session()->put('expires_at', now()->addSeconds(10000)); // Expire in 10,000 seconds
-
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Login successful',
-                    'user' => $scuser,
-                    'redirect' => '/sc-dashboard'
-                ]);
-
-            case 'User':
-                // Check email or unique_id
-                $user = $isEmail
-                    ? User::where('email', $loginName)->first()  // If it's email, query by email
-                    : User::where('unique_id', $loginName)->first();  // Otherwise, query by unique_id
-
-                if (!$user || !Hash::check($request->loginPassword, $user->password)) {
-                    return response()->json(['success' => false, 'message' => 'Invalid name, email, or password.']);
-                }
-
-                session(['user' => $user]);
-                session()->put('expires_at', now()->addSeconds(10000));
-
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Login successful',
-                    'user' => $user,
-                    'redirect' => '/student-dashboard'  // Redirect to the normal user dashboard
-                ]);
-
-            case 'NBFC':
-                // Check email or nbfc_id
-                $NBFCuser = $isEmail
-                    ? Nbfc::where('nbfc_email', $loginName)->first()  // If it's email, query by nbfc_email
-                    : Nbfc::where('nbfc_id', $loginName)->first();  // Otherwise, query by nbfc_id
-
-                if (!$NBFCuser || !Hash::check($request->loginPassword, $NBFCuser->password)) {
-                    return response()->json(['success' => false, 'message' => 'Invalid name, email, or password.']);
-                }
-
-                session(['nbfcuser' => $NBFCuser]);
-                session()->put('expires_at', now()->addSeconds(10000));
-
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Login successful',
-                    'user' => $NBFCuser,
-                    'redirect' => '/nbfc-dashboard'  // Redirect to the NBFC dashboard
-                ]);
-
-            default:
-                return response()->json(['success' => false, 'message' => 'Invalid login type.']);
+            return response()->json([
+                'success' => true,
+                'message' => 'Super Admin login successful',
+                'redirect' => '/admin-page'
+            ]);
         }
+        // --- End Super Admin check ---
+
+        // Try to find the user in all three models
+        $scuser = $isEmail
+            ? Scuser::where('email', $loginName)->first()
+            : Scuser::where('referral_code', $loginName)->first();
+
+        $user = $isEmail
+            ? User::where('email', $loginName)->first()
+            : User::where('unique_id', $loginName)->first();
+
+        $nbfcuser = $isEmail
+            ? Nbfc::where('nbfc_email', $loginName)->first()
+            : Nbfc::where('nbfc_id', $loginName)->first();
+
+        // Check if the password matches for Scuser
+        if ($scuser && Hash::check($loginPassword, $scuser->passwordField)) {
+            session(['scuser' => $scuser]);
+            session()->put('scDetail', $scuser);
+            session()->put('expires_at', now()->addSeconds(10000)); // Expire in 10,000 seconds
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Login successful',
+                'user' => $scuser,
+                'redirect' => '/sc-dashboard'
+            ]);
+        }
+
+        // Check if the password matches for User
+        if ($user && Hash::check($loginPassword, $user->password)) {
+            session(['user' => $user]);
+            session()->put('expires_at', now()->addSeconds(10000));
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Login successful',
+                'user' => $user,
+                'redirect' => '/student-dashboard'
+            ]);
+        }
+
+        // Check if the password matches for Nbfc user
+        if ($nbfcuser && Hash::check($loginPassword, $nbfcuser->password)) {
+            session(['nbfcuser' => $nbfcuser]);
+            session()->put('expires_at', now()->addSeconds(10000));
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Login successful',
+                'user' => $nbfcuser,
+                'redirect' => '/nbfc-dashboard'
+            ]);
+        }
+
+        // If none of the models matched
+        return response()->json(['success' => false, 'message' => 'Invalid email/ID or password.']);
     }
+
 
 
 

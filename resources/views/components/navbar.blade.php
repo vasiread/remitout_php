@@ -17,9 +17,9 @@
         style="@if (request()->is('/')) position: absolute; top: 0; left: 0; width: 100%; z-index: 10; @else position: relative; @endif">
         <div class="{{ Request::is('/') ? 'nav-container' : 'nav-container fullopacity' }}">
             @php
-                $navImgPath = "assets/images/Remitoutcolored.png";
-                $navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
-                $NotificationBell = "assets/images/notifications_unread.png";
+$navImgPath = "assets/images/Remitoutcolored.png";
+$navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
+$NotificationBell = "assets/images/notifications_unread.png";
             @endphp
 
             <img onclick="window.location.href='{{ url(' ') }}'"
@@ -128,80 +128,81 @@
 
     <script>
         // Logout function
-    function sessionLogoutInitial(logoutUrl, loginUrl) {
-        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+        function sessionLogoutInitial(logoutUrl, loginUrl) {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
 
-        console.log('Initiating logout request to:', logoutUrl);
-        console.log('CSRF Token:', csrfToken);
+            console.log('Initiating logout request to:', logoutUrl);
+            console.log('CSRF Token:', csrfToken);
 
-        if (!csrfToken) {
-            console.error('CSRF token not found');
-            alert('Logout failed: CSRF token missing');
-            return;
-        }
+            if (!csrfToken) {
+                console.error('CSRF token not found');
+                alert('Logout failed: CSRF token missing');
+                return;
+            }
 
-        if (!logoutUrl || !loginUrl) {
-            console.error('Missing logout or login URL');
-            alert('Logout failed: Invalid URLs');
-            return;
-        }
+            if (!logoutUrl || !loginUrl) {
+                console.error('Missing logout or login URL');
+                alert('Logout failed: Invalid URLs');
+                return;
+            }
 
-        fetch(logoutUrl, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': csrfToken,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({})
-        })
-            .then(response => {
-                console.log('Logout API response status:', response.status, response.statusText);
-                if (response.ok) {
-                    console.log('Logout successful, redirecting to:', loginUrl);
-                    window.location.href = loginUrl;
-                } else {
-                    console.error('Logout failed:', response.status, response.statusText);
-                    alert('Logout failed: Server error');
-                }
-                return response.json();
+            fetch(logoutUrl, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
             })
-            .then(data => {
-                console.log('Logout API response data:', data);
-            })
-            .catch(error => {
-                console.error('Fetch error during logout:', error);
-                alert('Logout failed: Network error');
-            });
-    }
+                .then(response => {
+                    console.log('Logout API response status:', response.status, response.statusText);
+                    if (response.ok) {
+                        console.log('Logout successful, redirecting to:', loginUrl);
+                        window.location.href = loginUrl;
+                    } else {
+                        console.error('Logout failed:', response.status, response.statusText);
+                        alert('Logout failed: Server error');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Logout API response data:', data);
+                })
+                .catch(error => {
+                    console.error('Fetch error during logout:', error);
+                    alert('Logout failed: Network error');
+                });
+        }
         document.addEventListener('DOMContentLoaded', function () {
             dynamicChangeNavMob();
             userPopopuOpen();
             passwordChangeCheck();
             passwordModelTrigger();
 
+
             // Add logout event listener
-        const logoutBtn = document.querySelector('.popup-notify-list .logoutBtn');
-        const userPopupTrigger = document.querySelector('.nav-profilecontainer i');
-        const userPopupList = document.querySelector('.popup-notify-list');
+            const logoutBtn = document.querySelector('.popup-notify-list .logoutBtn');
+            const userPopupTrigger = document.querySelector('.nav-profilecontainer i');
+            const userPopupList = document.querySelector('.popup-notify-list');
 
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', (event) => {
-                event.stopPropagation(); // Prevent closing dropdown prematurely
-                console.log('Logout button clicked');
-                
-                // Close the dropdown
-                if (userPopupTrigger && userPopupList) {
-                    userPopupTrigger.classList.remove('fa-chevron-up');
-                    userPopupTrigger.classList.add('fa-chevron-down');
-                    userPopupList.style.display = 'none';
-                }
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Prevent closing dropdown prematurely
+                    console.log('Logout button clicked');
 
-                // Trigger logout
-                sessionLogoutInitial('{{ route('logout') }}', '{{ route('login') }}');
-            });
-        } else {
-            console.warn('Logout button (.logoutBtn) not found in .popup-notify-list');
-        }
+                    // Close the dropdown
+                    if (userPopupTrigger && userPopupList) {
+                        userPopupTrigger.classList.remove('fa-chevron-up');
+                        userPopupTrigger.classList.add('fa-chevron-down');
+                        userPopupList.style.display = 'none';
+                    }
+
+                    // Trigger logout
+                    sessionLogoutInitial('{{ route('logout') }}', '{{ route('login') }}');
+                });
+            } else {
+                console.warn('Logout button (.logoutBtn) not found in .popup-notify-list');
+            }
 
 
 
@@ -536,38 +537,38 @@
             }
 
         }
-    const userPopopuOpen = () => {
-    const userPopupTrigger = document.querySelector(".nav-profilecontainer i");
-    const userPopupList = document.querySelector(".popup-notify-list");
+        const userPopopuOpen = () => {
+            const userPopupTrigger = document.querySelector(".nav-profilecontainer i");
+            const userPopupList = document.querySelector(".popup-notify-list");
 
-    if (userPopupTrigger && userPopupList) {
-        // Toggle dropdown on trigger click
-        userPopupTrigger.addEventListener('click', (event) => {
-            event.stopPropagation(); // Prevent click from bubbling to document
-            if (userPopupTrigger.classList.contains("fa-chevron-down")) {
-                userPopupTrigger.classList.remove("fa-chevron-down");
-                userPopupTrigger.classList.add("fa-chevron-up");
-                userPopupList.style.display = "flex";
-            } else {
-                userPopupTrigger.classList.remove("fa-chevron-up");
-                userPopupTrigger.classList.add("fa-chevron-down");
-                userPopupList.style.display = "none";
+            if (userPopupTrigger && userPopupList) {
+                // Toggle dropdown on trigger click
+                userPopupTrigger.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Prevent click from bubbling to document
+                    if (userPopupTrigger.classList.contains("fa-chevron-down")) {
+                        userPopupTrigger.classList.remove("fa-chevron-down");
+                        userPopupTrigger.classList.add("fa-chevron-up");
+                        userPopupList.style.display = "flex";
+                    } else {
+                        userPopupTrigger.classList.remove("fa-chevron-up");
+                        userPopupTrigger.classList.add("fa-chevron-down");
+                        userPopupList.style.display = "none";
+                    }
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (event) => {
+                    const isClickInsideTrigger = userPopupTrigger.contains(event.target);
+                    const isClickInsidePopup = userPopupList.contains(event.target);
+
+                    if (!isClickInsideTrigger && !isClickInsidePopup && userPopupList.style.display === "flex") {
+                        userPopupTrigger.classList.remove("fa-chevron-up");
+                        userPopupTrigger.classList.add("fa-chevron-down");
+                        userPopupList.style.display = "none";
+                    }
+                });
             }
-        });
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (event) => {
-            const isClickInsideTrigger = userPopupTrigger.contains(event.target);
-            const isClickInsidePopup = userPopupList.contains(event.target);
-
-            if (!isClickInsideTrigger && !isClickInsidePopup && userPopupList.style.display === "flex") {
-                userPopupTrigger.classList.remove("fa-chevron-up");
-                userPopupTrigger.classList.add("fa-chevron-down");
-                userPopupList.style.display = "none";
-            }
-        });
-    }
-};
+        };
         const passwordChangeCheck = () => {
             document.getElementById('password-change-save').addEventListener('click', function () {
                 let currentPassword = document.getElementById('current-password').value.trim();
@@ -703,7 +704,8 @@
             }
 
         }
-      
+
+
 
     </script>
 

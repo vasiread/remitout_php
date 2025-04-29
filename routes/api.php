@@ -104,3 +104,15 @@ Route::post('/suspendscuser', [scDashboardController::class, 'suspendUser']);
 Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails']);
 
 Route::get('/dest-countries', [Admincontroller::class, 'getDestinationCountries']);
+Route::get('/landingpage', [Admincontroller::class, 'landingPage']);
+Route::post('/promotional-email', [Admincontroller::class, 'promotionalEmail']);
+Route::post('/promotional-image-attach', [Admincontroller::class, 'attachImagePromotional']);
+Route::get('/student-chat-members', [Admincontroller::class, 'initializeChatStudent']);
+Route::get('/nbfc-chat-members', [Admincontroller::class, 'initializeChatNbfc']);
+
+Route::get('/get-messages-adminnbfc/{nbfc_id}/{admin_id}', [ChatController::class, 'getMessagesForAdminNbfc']);
+Route::get('/get-messages-adminstudent/{student_id}/{admin_id}', [ChatController::class, 'getMessagesForAdminStudent']);
+Route::post('/send-message-from-adminnbfc', action: [ChatController::class, 'sendMessageFromAdminNbfc']);
+Route::post('/send-message-from-adminstudent', action: [ChatController::class, 'sendMessageFromAdminStudent']);
+Route::post('/age-ratio', [Admincontroller::class, 'ageratioCalculation'])->name("admin.ageratio.calculation");
+Route::post('/sourceregister', [Admincontroller::class, 'sourceRegistration']);

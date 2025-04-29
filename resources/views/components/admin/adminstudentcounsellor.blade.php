@@ -15,10 +15,10 @@
     @extends('layouts.app')
 
     @php
-        $profileIconPath = "assets/images/account_circle1.png";
-        $phoneIconPath = "assets/images/call.png";
-        $mailIconPath = "assets/images/mail.png";
-        $pindropIconPath = "assets/images/pin_drop.png";
+$profileIconPath = "assets/images/account_circle1.png";
+$phoneIconPath = "assets/images/call.png";
+$mailIconPath = "assets/images/mail.png";
+$pindropIconPath = "assets/images/pin_drop.png";
 
 
 
@@ -31,18 +31,20 @@
 
 
     @php
-        $studentCounsellorsLists = [
+$studentCounsellorsLists = [
 
-        ];
+];
     @endphp
     <div class="add-studentcounsellor-adminside">
         <h1 class="studentcounsellor-header-admin">Add Student Counsellor</h1>
         <div class="studentcounsellor-requiredfields-admin">
-            <input type="text" placeholder="Name of the Student Counsellor">
-            <input type="text" placeholder="Starting Date">
-            <input type="text" placeholder="Email ID">
-            <input type="text" placeholder="Contact No.">
-            <input type="textarea" placeholder="Address" id="student-counsellor-admin-address">
+            <input type="text" id="studentcounsellor-requiredfields-admin-scname"
+                placeholder="Name of the Student Counsellor">
+            <input type="text" id="studentcounsellor-requiredfields-admin-startdate" placeholder="DoB">
+            <input type="email" id="studentcounsellor-requiredfields-admin-email" placeholder="Email ID">
+            <input type="text" id="studentcounsellor-requiredfields-admin-contact" placeholder="Contact No.">
+            <input type="textarea" id="student-counsellor-admin-address" placeholder="Address"
+                id="student-counsellor-admin-address">
             <input type="text" placeholder="Upload Profile Image" id="trigger-profile-photo-sc">
             <input type="file" id="sc-profile-photo-upload" style="display: none;">
         </div>
@@ -254,6 +256,42 @@
 
             getScUsers();
 
+            const triggerStudentAdd = document.getElementById("generate-referral-councellor-admin");
+            const triggerCancelAdd = document.getElementById("delete-councellor-admin");
+
+            if(triggerCancelAdd){
+                triggerCancelAdd.addEventListener("click",()=>{
+                    clearfields();
+                })
+            }
+            const textField = document.getElementById('studentcounsellor-requiredfields-admin-startdate');
+
+            textField.addEventListener('click', () => {
+                const hiddenDateInput = document.createElement('input');
+                hiddenDateInput.type = 'date';
+                hiddenDateInput.style.position = 'absolute';
+                hiddenDateInput.style.left = '-9999px'; // Hide from view
+                document.body.appendChild(hiddenDateInput);
+
+                hiddenDateInput.focus(); // Open the native date picker
+
+                hiddenDateInput.addEventListener('change', () => {
+                    textField.value = hiddenDateInput.value; // Set picked date to your text field
+                    document.body.removeChild(hiddenDateInput); // Clean up
+                });
+            });
+
+
+            if (triggerStudentAdd) {
+                triggerStudentAdd.addEventListener("click", () => {
+                    addStudentCounsellor();
+
+                })
+            }
+
+
+
+
 
             dropdownButton.addEventListener('click', () => {
                 dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
@@ -398,12 +436,9 @@
                 .then((data) => {
                     if (data.message) {
                         alert(data.message);
-                        document.getElementById("studentcounsellor-requiredfields-admin-scname").value = '';
-                        document.getElementById("studentcounsellor-requiredfields-admin-startdate").value = '';
-                        document.getElementById("studentcounsellor-requiredfields-admin-email").value = '';
-                        document.getElementById("studentcounsellor-requiredfields-admin-contact").value = '';
-                        document.getElementById("student-counsellor-admin-address").value = '';
-                        profilePhoto.value = '';
+
+                        clearfields();
+
                     } else if (data.error) {
                         console.error(data.error);
                         alert(`Error: ${data.error}`);
@@ -421,7 +456,7 @@
             // const saveScUserAdmin = document.querySelector("#scmember-profilecontainer-adminside .scmember-rowfirst .save-scuser");
 
             async function renderProfile() {
-                
+
                 if (modelScProfile && studentCounsellorList) {
                     modelScProfile.style.display = "flex";
                     studentCounsellorList.style.display = "none";
@@ -430,7 +465,7 @@
                     if (editmode) {
                         // saveScUserAdmin.style.display = "flex";
 
-                        // modelScProfile.querySelector(".scmember_personal_info_name input").value = counsellor.full_name || '';
+                        modelScProfile.querySelector(".scmember_personal_info_name input").value = counsellor.full_name || '';
                         modelScProfile.querySelector(".scmember_personal_info_phone input").value = counsellor.phone || '';
                         modelScProfile.querySelector(".scmember_personal_info_email input").value = counsellor.email || '';
                         modelScProfile.querySelector(".scmember_personal_info_state-edit input").value = counsellor.address || '';
@@ -460,7 +495,7 @@
                         modelScProfile.querySelector("#screferral-dob-fromprofile").style.display = "flex";
                     }
                 }
- 
+
             }
 
             function eliminateScUser() {
@@ -576,6 +611,14 @@
             // }
         }
 
+        function clearfields() {
+            document.getElementById("studentcounsellor-requiredfields-admin-scname").value = '';
+            document.getElementById("studentcounsellor-requiredfields-admin-startdate").value = '';
+            document.getElementById("studentcounsellor-requiredfields-admin-email").value = '';
+            document.getElementById("studentcounsellor-requiredfields-admin-contact").value = '';
+            document.getElementById("student-counsellor-admin-address").value = '';
+            profilePhoto.value = '';
+        }
 
         const updateCounsellorList = (counsellorList, modelScProfile, studentCounsellorList) => {
             const counsellorContainer = document.getElementById('counsellor-list');
