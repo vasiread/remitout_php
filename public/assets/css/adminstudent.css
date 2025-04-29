@@ -292,9 +292,6 @@
     color: rgba(111, 37, 206, 1);
 }
 
-.suspend_scuser {
-}
-
 @media (max-width: 768px) {
     .globallistcontainer-header {
         flex-direction: column;

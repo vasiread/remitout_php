@@ -1528,7 +1528,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const emiInput = document.getElementById("emi-amount");
             const errorMessage = document.getElementById("emi-error-message");
 
-            // Check if the input is a valid number or not empty
             if (
                 (emiInput.value && isNaN(emiInput.value)) ||
                 emiInput.value.trim() === ""
