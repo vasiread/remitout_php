@@ -29,13 +29,6 @@
 
 
     @endphp
-
-
-
-
-
-
-
     @php
     $studentCounsellorsLists = [
 
