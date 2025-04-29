@@ -15,6 +15,8 @@ use App\Http\Controllers\StudentCounsellorController;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\StudentDetailsController;
 use App\Http\Controllers\TrackController;
+use App\Models\student_admin_application;
+use App\Models\StudentApplicationField;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -116,3 +118,6 @@ Route::post('/send-message-from-adminnbfc', action: [ChatController::class, 'sen
 Route::post('/send-message-from-adminstudent', action: [ChatController::class, 'sendMessageFromAdminStudent']);
 Route::post('/age-ratio', [Admincontroller::class, 'ageratioCalculation'])->name("admin.ageratio.calculation");
 Route::post('/sourceregister', [Admincontroller::class, 'sourceRegistration']);
+
+Route::post('/student-application-form', [Admincontroller::class, 'store']);
+Route::get('/student-application-form/{section_slug}', [Admincontroller::class, 'show']);

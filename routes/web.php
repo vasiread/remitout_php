@@ -18,6 +18,7 @@ use App\Http\Controllers\NbfcController;
 use App\Http\Controllers\scDashboardController;
 // use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\StudentCounsellorController;
+use App\Models\student_admin_application;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -188,7 +189,8 @@ Route::get('/reports-on-generation', [Admincontroller::class, 'reportsOnGenerati
 Route::post('/validateprofilecompletion', [Admincontroller::class, 'validateprofilecompletion']);
 Route::get('/city-stats', [Admincontroller::class, 'getCityStats']);
 Route::get('/dest-countries', [Admincontroller::class, 'getDestinationCountries']);
-
+Route::post('/student-application-form', [Admincontroller::class, 'store']);
+Route::get('/student-application-form/{section_slug}', [Admincontroller::class, 'show']);
 
 
 Route::post('/suspendscuser', [scDashboardController::class, 'suspendUser']);
