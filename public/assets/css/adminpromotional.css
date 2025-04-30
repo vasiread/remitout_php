@@ -443,3 +443,246 @@
     line-height: 1.5;
     font-family: "Poppins", sans-serif;
 }
+@media only screen and (max-width: 768px) {
+    .promotional-email-composer {
+        width: 100%;
+        padding: 10px;
+        margin-top: 60px;
+        position: static;
+    }
+
+    .promotional-composer-container {
+        box-shadow: none;
+        border-radius: 4px;
+    }
+
+    .promotional-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .promotional-header h2 {
+        font-size: 20px;
+    }
+
+    .promotional-header-buttons {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+    }
+
+    .btn-promo {
+        padding: 6px 12px;
+        font-size: 12px;
+        height: 30px;
+    }
+
+    .promotional-toolbar {
+        padding: 20px 4px;
+        gap: 6px;
+    }
+
+    .promotional-toolbar-row {
+        margin: 0 10px;
+        gap: 6px;
+    }
+
+    .promotional-toolbar-dropdown {
+        min-width: 70px;
+    }
+
+    .promotional-toolbar-dropdown select {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+
+    .promotional-toolbar-button {
+        width: 24px;
+        height: 24px;
+        font-size: 12px;
+    }
+
+    .promotional-content-area {
+        width: 100%;
+        min-height: 300px;
+        padding: 10px 0;
+    }
+
+    .image-container {
+        height: 150px;
+        margin: 10px 0;
+    }
+
+    .image-container img {
+        width: 100%;
+        height: auto;
+    }
+
+    .promotional-link-container {
+        padding: 6px 8px;
+        margin: 10px 0;
+    }
+
+    .promotional-link-input {
+        font-size: 12px;
+    }
+
+    .promotional-link-button {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+
+    .promotional-attachment-section {
+        padding: 10px;
+    }
+
+    .attachment-file-promotional {
+        width: 100%;
+        margin-top: 20px;
+        padding: 6px 8px;
+    }
+
+    .attachment-file-promotional span {
+        font-size: 12px;
+    }
+
+    .promotional-footer {
+        width: 100%;
+        padding: 10px;
+        height: auto;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .promotional-footer-social {
+        justify-content: flex-start;
+    }
+
+    .promotional-word-count {
+        padding-left: 10px;
+        font-size: 10px;
+        height: 30px;
+    }
+
+    .promotional-recipients-section {
+        padding: 10px;
+    }
+
+    .promotional-recipients-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .promotional-recipients-title {
+        font-size: 20px;
+    }
+
+    .promotional-recipients-filters {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .promotional-recipients-filters select,
+    .promotional-recipients-filters input[type="text"] {
+        width: 100%;
+        font-size: 12px;
+        padding: 5px 8px;
+    }
+
+    .promotional-recipients-table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .promotional-recipients-table th,
+    .promotional-recipients-table td {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .promotional-recipients-table th {
+        font-size: 14px;
+    }
+
+    .promotional-recipients-table input[type="checkbox"] {
+        width: 14px;
+        height: 14px;
+    }
+
+    .promotional-recipients-table input[type="checkbox"]::after {
+        font-size: 10px;
+    }
+
+    .promotional-pagination {
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .promotional-pagination button {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+
+    .promotional-pagination span {
+        font-size: 10px;
+    }
+
+    .promotional-sub {
+        font-size: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .promotional-email-composer {
+        padding: 8px;
+        margin-top: 40px;
+    }
+
+    .promotional-header h2 {
+        font-size: 18px;
+    }
+
+    .btn-promo {
+        padding: 5px 10px;
+        font-size: 11px;
+        height: 28px;
+    }
+
+    .promotional-toolbar {
+        padding: 15px 2px;
+    }
+
+    .promotional-content-area {
+        min-height: 250px;
+    }
+
+    .image-container {
+        height: 120px;
+    }
+
+    .promotional-footer {
+        padding: 8px;
+    }
+
+    .promotional-recipients-title {
+        font-size: 18px;
+    }
+
+    .promotional-recipients-table th,
+    .promotional-recipients-table td {
+        padding: 6px;
+        font-size: 11px;
+    }
+
+    .promotional-recipients-table th {
+        font-size: 12px;
+    }
+}

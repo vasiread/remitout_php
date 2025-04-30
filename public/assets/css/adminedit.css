@@ -4,7 +4,7 @@
     flex-direction: column;
     max-width: 100%;
     width: 1000px;
-    margin-top: 100px;
+    margin-top: 120px;
     margin-right: 15px;
     gap: 17px;
     margin-left: 22%;
@@ -778,5 +778,231 @@
 
     to {
         opacity: 0;
+    }
+}
+/* Tablet-specific styles (max-width: 991px) */
+@media screen and (max-width: 991px) {
+    .edit-contents-cms-container {
+        width: 100%;
+        padding: 10px;
+        margin: 0 auto;
+        border-radius: 0;
+    }
+
+    .edit-contents-cms-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .edit-contents-cms-title {
+        font-size: 20px;
+    }
+
+    .edit-contents-cms-save,
+    .edit-contents-cms-back {
+        width: 100%;
+        max-width: 150px;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .edit-contents-cms-controls {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 0 15px;
+    }
+
+    .controls-group {
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .edit-contents-cms-select,
+    .edit-contents-cms-search {
+        width: 100%;
+        max-width: none;
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .edit-contents-cms-table {
+        min-width: 0; /* Allow table to shrink */
+    }
+
+    .table-wrapper {
+        margin: 0;
+    }
+
+    .edit-contents-cms-table th,
+    .edit-contents-cms-table td {
+        font-size: 13px;
+        padding: 10px;
+    }
+
+    .media-preview img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .media-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .content-cell {
+        max-width: 100%;
+    }
+}
+
+/* Mobile-specific styles (max-width: 767px) */
+@media screen and (max-width: 767px) {
+    .edit-contents-cms-container {
+        width: 90%;
+        max-width: 500px;
+        margin: 20px auto;
+        padding: 10px;
+        border-radius: 10px;
+        position: relative;
+        top: 0; 
+        display:flex;
+    }
+
+    .edit-contents-cms-header {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .edit-contents-cms-title {
+        font-size: 18px;
+    }
+
+    .edit-contents-cms-save,
+    .edit-contents-cms-back {
+        padding: 8px 16px;
+        font-size: 14px;
+        max-width: 120px;
+    }
+
+    .edit-contents-cms-controls {
+        padding: 0 10px;
+    }
+
+    .edit-contents-cms-select,
+    .edit-contents-cms-search {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    /* Stack table rows for mobile */
+    .edit-contents-cms-table {
+        display: block;
+        border: none;
+        border-radius: 0;
+    }
+
+    .edit-contents-cms-table thead {
+        display: none; /* Hide headers on mobile */
+    }
+
+    .edit-contents-cms-table tbody,
+    .edit-contents-cms-table tr {
+        display: block;
+    }
+
+    .edit-contents-cms-table tr {
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        background: #fff;
+    }
+
+    .edit-contents-cms-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 10px;
+        border-bottom: none;
+        font-size: 12px;
+        position: relative;
+    }
+
+    /* Add pseudo-labels for table cells */
+    .edit-contents-cms-table td:before {
+        content: attr(data-label);
+        font-weight: 500;
+        color: #333;
+        flex: 1;
+        padding-right: 10px;
+    }
+
+    /* Assign data-labels to specific columns */
+    .edit-contents-cms-table td:nth-child(1):before {
+        content: "Content";
+    }
+    .edit-contents-cms-table td:nth-child(2):before {
+        content: "Status";
+    }
+    .edit-contents-cms-table td:nth-child(3):before {
+        content: "Media";
+    }
+    .edit-contents-cms-table td:nth-child(4):before {
+        content: "Actions";
+    }
+
+    .edit-contents-cms-status,
+    .edit-contents-cms-edit,
+    .edit-contents-cms-update {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+
+    .media-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .media-preview img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .media-actions {
+        flex-direction: row;
+        gap: 6px;
+    }
+
+    .upload-trigger {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+
+    .toast {
+        bottom: 10px;
+        right: 10px;
+        padding: 10px 15px;
+        font-size: 12px;
+        max-width: 90%;
+    }
+
+    .loading-spinner {
+        width: 30px;
+        height: 30px;
+    }
+
+    .char-count,
+    .char-count-exceeded,
+    .media-constraints,
+    .truncation-warning {
+        font-size: 11px;
+    }
+
+    .editable-content {
+        font-size: 12px;
+        padding: 4px;
     }
 }
