@@ -195,9 +195,9 @@
                                     <!-- <button>Edit</button> -->
                                 </div>
                                 <div class="educationeditsection-secondrow">
-                                    <p>1. {{ $courseDetails[0]->{'degree-type'} }}</p>
+                                    <!-- <p>1. {{ $courseDetails[0]->{'degree-type'} }}</p>
                                     <p>2. Consequuntur magni dolores</p>
-                                    <p>3. Voluptatem accusantium</p>
+                                    <p>3. Voluptatem accusantium</p> -->
                                 </div>
                             </div>
 
