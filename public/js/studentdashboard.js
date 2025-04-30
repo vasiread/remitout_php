@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initialiseEightcolumn();
     initialiseNinthcolumn();
     initialiseTenthcolumn();
+    displayEducationDetails();
 
     const sessionLogout = document.querySelector(".studentdashboardprofile-sidebarlists-bottom .logoutBtn");
     if (sessionLogout) {
@@ -29,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
         initialiseAllViews(),
     ])
         .then(() => {
-            console.log("All URLs fetched successfully!", documentUrls);
+            // console.log("All URLs fetched successfully!", documentUrls);
 
             // Initialize document upload/preview functions after URLs are fetched
             initializeKycDocumentUpload();
@@ -57,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('click', (event) => {
         const logoutBtn = event.target.closest('.logoutBtn');
         if (logoutBtn) {
-            console.log('Dynamically detected logout button clicked');
+            // console.log('Dynamically detected logout button clicked');
             event.preventDefault();
             sessionLogoutInitial();
         }
@@ -105,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     setInterval(() => {
-        console.log("Calling fetchUnreadCount every 3 seconds");
+        // console.log("Calling fetchUnreadCount every 3 seconds");
         try {
             fetchUnreadCount();
         } catch (err) {
@@ -116,12 +117,70 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+// Function to fetch and display education details using GET
+async function displayEducationDetails() {
+    const userIdElement = document.querySelector(
+        ".personalinfo-secondrow .personal_info_id"
+    );
+    const userId = userIdElement ? userIdElement.textContent.trim() : ""; 
+    // const userId = 'HBNKJI0000001';
+
+    try {
+        // Construct the URL with query parameter
+        const url = `/api/education?user_id=${encodeURIComponent(userId)}`;
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                // No CSRF token needed for API routes in routes/api.php
+            },
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            console.log(">>>",data)
+            const educationSection = document.querySelector('.studentdashboardprofile-educationeditsection');
+            if (!educationSection) {
+                console.error('Education section not found');
+                return;
+            }
+
+            const secondRow = educationSection.querySelector('.educationeditsection-secondrow');
+            if (!secondRow) {
+                console.error('Second row not found');
+                return;
+            }
+
+            // Clear existing content
+            secondRow.innerHTML = '';
+
+            // Create and append new elements
+            const degreeType = document.createElement('p');
+            degreeType.textContent = ` ${data.data.degree_type || 'N/A'}`;
+            secondRow.appendChild(degreeType);
+
+            const universityName = document.createElement('p');
+            universityName.textContent = `${data.data.university_school_name || 'N/A'}`;
+            secondRow.appendChild(universityName);
+
+            const courseName = document.createElement('p');
+            courseName.textContent = ` ${data.data.course_name || 'N/A'}`;
+            secondRow.appendChild(courseName);
+        } else {
+            console.error('Failed to fetch education details:', data.error);
+        }
+    } catch (error) {
+        console.error('Error fetching education details:', error);
+    }
+}
+
 function handleIndividualCards(mode = 'index1') {
     const checkInterval = setInterval(() => {
         const individualCards = document.querySelectorAll('.indivudalloanstatus-cards');
 
         if (individualCards.length > 0) {
-            console.log('Cards are now available for', mode);
+            // console.log('Cards are now available for', mode);
             clearInterval(checkInterval);
 
             individualCards.forEach((card) => {
@@ -173,17 +232,17 @@ const initializeSideBarTabs = () => {
     const educationEditSection = document.querySelector(".studentdashboardprofile-educationeditsection");
     const testScoresEditSection = document.querySelector(".studentdashboardprofile-testscoreseditsection");
 
-    console.log('Initializing sidebar tabs...');
+    // console.log('Initializing sidebar tabs...');
 
 
     sideBarTopItems.forEach((item, index) => {
         item.addEventListener('click', () => {
-            console.log('Clicked item index:', index);
+            // console.log('Clicked item index:', index);
             sideBarTopItems.forEach(i => i.classList.remove('active'));
             item.classList.add('active');
 
             if (index === 1) {
-                console.log('Inbox tab selected');
+                // console.log('Inbox tab selected');
                 lastTabHiddenDiv.style.display = "flex";
                 lastTabVisibleDiv.style.display = "none";
                 communityJoinCard.style.display = "flex";
@@ -195,7 +254,7 @@ const initializeSideBarTabs = () => {
                 handleIndividualCards('index1');
                 dynamicHeader.textContent = "Inbox";
             } else if (index === 0) {
-                console.log('Loan Proposals tab selected');
+                // console.log('Loan Proposals tab selected');
                 lastTabHiddenDiv.style.display = "flex";
                 lastTabVisibleDiv.style.display = "none";
                 communityJoinCard.style.display = "flex";
@@ -208,7 +267,7 @@ const initializeSideBarTabs = () => {
                 dynamicHeader.textContent = "Loan Proposals";
 
             } else if (index === 2) {
-                console.log('My Application tab selected');
+                // console.log('My Application tab selected');
 
                 lastTabHiddenDiv.style.display = "none";
                 lastTabVisibleDiv.style.display = "flex";
@@ -228,7 +287,7 @@ const initializeSideBarTabs = () => {
 
 
 function sendDocumenttoEmail(event) {
-    console.log(event);
+    // console.log(event);
 
     const uniqueIdElement = document.querySelector(".personal_info_id");
     const userId = uniqueIdElement
@@ -246,7 +305,7 @@ function sendDocumenttoEmail(event) {
         : null;
 
     if (userId && email && name) {
-        console.log("Unique ID:", userId, "Email:", email, "Name:", name);
+        // console.log("Unique ID:", userId, "Email:", email, "Name:", name);
     } else {
         console.error("Error: Could not retrieve unique ID, email, or name.");
         return;
@@ -285,11 +344,11 @@ function sendDocumenttoEmail(event) {
             console.error("Error:", error);
         });
 
-    console.log("Sending Data:", sendDocumentsRequiredDetails);
+    // console.log("Sending Data:", sendDocumentsRequiredDetails);
 }
 
 function addUserToRequest(userId) {
-    console.log(userId);
+    // console.log(userId);
 
     // Fetch request to send userId to the server
     fetch("/push-user-id-request", {
@@ -435,14 +494,14 @@ const initialiseAllViews = () => {
                 if (data.fileUrl) {
                     // Store the URL in documentUrls
                     documentUrls[fileType] = data.fileUrl;
-                    console.log(`Stored ${fileType}: ${data.fileUrl}`);
+                    // console.log(`Stored ${fileType}: ${data.fileUrl}`);
 
                     // Update the UI with the file name
                     const fileName = data.fileUrl.split("/").pop();
                     const element = document.querySelector(selector);
                     if (element) {
                         element.textContent = fileName;
-                        console.log(`Updated UI for ${fileType}: ${fileName}`);
+                        // console.log(`Updated UI for ${fileType}: ${fileName}`);
                     } else {
                         console.log(
                             `Element not found for selector: ${selector}`
@@ -458,10 +517,10 @@ const initialiseAllViews = () => {
     };
 
     return Promise.all(endpoints.map(fetchWithUrl)).then(() => {
-        console.log(
-            "All document URLs fetched and stored successfully!",
-            documentUrls
-        );
+        // console.log(
+        //     "All document URLs fetched and stored successfully!",
+        //     documentUrls
+        // );
     });
 };
 
@@ -518,7 +577,7 @@ const initialiseProfileUpload = () => {
 
             const fileName = file.name;
             const fileType = file.type;
-            console.log(fileType + "." + fileName);
+            // console.log(fileType + "." + fileName);
 
             const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
             if (!allowedTypes.includes(fileType)) {
@@ -561,7 +620,7 @@ const initialiseProfileUpload = () => {
                 })
                 .then((data) => {
                     if (data) {
-                        console.log("File uploaded successfully", data);
+                        // console.log("File uploaded successfully", data);
                         const imgElement =
                             document.querySelector("#profile-photo-id");
                         imgElement.src = data.file_path;
@@ -569,7 +628,7 @@ const initialiseProfileUpload = () => {
                             "#nav-profile-photo-id"
                         );
                         navImageElement.src = data.file_path;
-                        console.log(data);
+                        // console.log(data);
                     } else {
                         console.error(
                             "Error: No URL returned from the server",
@@ -652,10 +711,10 @@ const initialiseTenthcolumn = () => {
 
 function initializeSimpleChat() {
 
-    console.log("inizializesimplechat")
+    // console.log("inizializesimplechat")
     const chatContainers = document.querySelectorAll('.individual-bankmessage-input');
 
-    console.log(chatContainers)
+    // console.log(chatContainers)
     if (chatContainers.length === 0) return;
 
     chatContainers.forEach((chatContainer, index) => {
@@ -666,7 +725,7 @@ function initializeSimpleChat() {
         const parentContainer = chatContainer.closest('.indivudalloanstatus-cards');
         const messageButton = parentContainer ? parentContainer.querySelector('.triggeredbutton') : null;
 
-        console.log(messageButton)
+        // console.log(messageButton)
 
         chatContainer.style.display = 'none';
 
@@ -823,8 +882,8 @@ function initializeSimpleChat() {
 
         if (messageButton) {
             messageButton.addEventListener('click', function (e) {
-                console.log("code here ")
-                console.log(messagesWrapper)
+                // console.log("code here ")
+                // console.log(messagesWrapper)
 
                 e.preventDefault();
                 const student_id = document.querySelector(".personalinfo-secondrow .personal_info_id").textContent;
@@ -839,7 +898,7 @@ function initializeSimpleChat() {
 
         function sendMessage(messageInput, messageInputNbfcids) {
             if (!messageInput) return;
-            console.log(messageInput.value);
+            // console.log(messageInput.value);
 
 
             const content = messageInput.value.trim();
@@ -908,7 +967,7 @@ function initializeSimpleChat() {
                 const data = await response.json();
 
                 if (response.ok) {
-                    console.log('Message sent successfully:', data.message);
+                    // console.log('Message sent successfully:', data.message);
 
                     //         const messageElement = document.createElement("div");
                     //         messageElement.style.cssText = `
@@ -951,7 +1010,7 @@ function initializeSimpleChat() {
             messageInput.addEventListener('keypress', function (e) {
                 if (e.key === 'Enter') {
                     var messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
-                    console.log(messageInputNbfcids[index].textContent);
+                    // console.log(messageInputNbfcids[index].textContent);
 
                     messageInputNbfcids = messageInputNbfcids[index].textContent;
 
@@ -972,7 +1031,7 @@ function initializeSimpleChat() {
             sendButton.addEventListener('click', function (e) {
                 e.preventDefault();
                 var messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
-                console.log(messageInputNbfcids[index].textContent);
+                // console.log(messageInputNbfcids[index].textContent);
 
                 messageInputNbfcids = messageInputNbfcids[index].textContent;
                 sendMessage(messageInput, messageInputNbfcids);
@@ -1143,7 +1202,7 @@ function initializeSimpleChat() {
 
 
         const savedMessages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
-        console.log(savedMessages)
+        // console.log(savedMessages)
         // if (savedMessages.length > 0) {
         //     savedMessages.forEach(content => {
         //         const messageElement = document.createElement("div");
@@ -1281,7 +1340,7 @@ const initialiseProfileView = () => {
         .then((response) => response.json())
         .then((data) => {
             if (data.fileUrl) {
-                console.log("Profile Picture URL:", data.fileUrl);
+                // console.log("Profile Picture URL:", data.fileUrl);
                 const imgElement = document.querySelector("#profile-photo-id");
                 imgElement.src = data.fileUrl;
             } else {
@@ -1307,7 +1366,7 @@ const checkUserStatusCount = () => {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                console.log("Successfully retrieved count");
+                // console.log("Successfully retrieved count");
                 const finalCounting = data.count;
                 return finalCounting - 1; // <-- this will now resolve correctly
             } else {
@@ -1394,7 +1453,7 @@ const initializeIndividualCards = () => {
                 console.log("----------------------------");
 
                 individualCards.forEach((card, index) => {
-                    console.log(`Initializing card ${index}:`, card);
+                    // console.log(`Initializing card ${index}:`, card);
 
                     const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
                     const messageInput = card.querySelector('.individual-bankmessage-input');
@@ -3645,7 +3704,7 @@ function unReadDots() {
 
 
 async function bindAcceptRejectButtons(finalData) {
-    console.log("Binding buttons for:", finalData);
+    // console.log("Binding buttons for:", finalData);
 
     finalData.forEach((item) => {
         const { acceptButton, rejectButton, user_id, nbfc_id } = item;

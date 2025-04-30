@@ -222,3 +222,5 @@ Route::post('/send-message-from-adminstudent', action: [ChatController::class, '
 Route::post('/age-ratio', [Admincontroller::class, 'ageratioCalculation'])->name("admin.ageratio.calculation");
 Route::post('/sourceregister', [Admincontroller::class, 'sourceRegistration']);
 Route::post('/getproposalfileurl', [NbfcController::class, 'getProposalFileUrl']);
+//education route for student-dashboard
+Route::get('/education',[StudentDetailsController::class,'getEducationDetails']);

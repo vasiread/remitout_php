@@ -557,6 +557,13 @@ $totalPages = ceil($totalStudents / $perPage);
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Check if scuser session exists
+            // const scuser = @json(session('scuser'));
+            // if (!scuser) {
+            //     window.location.href = "{{ route('login') }}"; // Redirect to login if no session
+            //     return; // Stop further execution
+            // }
+
             initializescsidebar();
             initializePopuAddingstudents();
             generateReferLinkPopup();
@@ -576,6 +583,31 @@ $totalPages = ceil($totalStudents / $perPage);
 
 
         })
+
+        // Add the sessionLogout function
+        function sessionLogout() {
+            fetch("{{ route('logout') }}", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = "{{ route('login') }}";
+                } else {
+                    console.error("Logout failed");
+                    alert("Failed to log out. Please try again.");
+                }
+            })
+            .catch(error => {
+                console.error("Error during logout:", error);
+                alert("An error occurred while logging out.");
+            });
+        }
+
         function triggeredButtons() {
             const saveStudentDetailsButton = document.querySelector("#save-multiple-students-bysc");
             saveStudentDetailsButton.addEventListener('click', () => {

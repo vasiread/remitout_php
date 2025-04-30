@@ -216,7 +216,29 @@ class StudentDetailsController extends Controller
         }
     }
 
+    public function getEducationDetails(Request $request)
+    {
+        // Get user_id from query parameter
+        $userId = $request->query('user_id');
 
+        // Fetch data from Academics model
+        $academics = $userId ? Academics::where('user_id', $userId)->first() : null;
+
+        // Fetch data from CourseInfo model
+        $courseInfo = $userId ? CourseInfo::where('user_id', $userId)->first() : null;
+
+        // Prepare the response with the required fields
+        $educationData = [
+            'university_school_name' => $academics ? $academics->university_school_name : null,
+            'course_name' => $academics ? $academics->course_name : null,
+            'degree_type' => $courseInfo ? $courseInfo->{'degree-type'} : null,
+        ];
+
+        return response()->json([
+            'success' => true,
+            'data' => $educationData,
+        ], 200);
+    }
 
 
 }
