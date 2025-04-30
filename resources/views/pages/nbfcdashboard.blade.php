@@ -34,14 +34,14 @@
 
 
     @php
-        $profileImgPath = 'images/admin-student-profile.png';
-        $uploadPanName = '';
-        $profileIconPath = "assets/images/account_circle.png";
-        $phoneIconPath = "assets/images/call.png";
-        $mailIconPath = "assets/images/mail.png";
-        $pindropIconPath = "assets/images/pin_drop.png";
-        $discordIconPath = "assets/images/icons/discordicon.png";
-        $viewIconPath = "assets/images/visibility.png";
+$profileImgPath = 'images/admin-student-profile.png';
+$uploadPanName = '';
+$profileIconPath = "assets/images/account_circle.png";
+$phoneIconPath = "assets/images/call.png";
+$mailIconPath = "assets/images/mail.png";
+$pindropIconPath = "assets/images/pin_drop.png";
+$discordIconPath = "assets/images/icons/discordicon.png";
+$viewIconPath = "assets/images/visibility.png";
     @endphp
 
     <nav class="nbfc-navbar">
@@ -224,7 +224,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="nbfcdashboard-studentlistscontainer" style="gap:1.2%">
             <div class="studentdashboardprofile-profilesection" id="nbfc-list-of-student-profilesections">
                 <img src="{{asset($profileImgPath)}}" class="profileImg" id="profile-photo-id" alt="">
@@ -282,7 +282,7 @@
                 </div>
                 <div class="testscoreseditsection-secondrow">
                     @php
-                     $counter = 1; 
+$counter = 1; 
                     @endphp
 
 
@@ -636,38 +636,39 @@
         </div>
         </div>
 
-      <div class="modal-container" id="model-container-reject-container" style="display: none;">
-        <div class="reject-application-modal" id="reject-application-id">
-            <div class="reject-application-modal-header">
-                <h3>Reject Application</h3>
-                <button class="close-button" id="close-button-id">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="reject-application-modal-content" id="reject-application-modal-content-id">
-                <textarea class="remarks-textarea" placeholder="Add Remarks"></textarea>
-                <div class="reject-attachment-container">
-                    <label class="reject-attachment-label">Attachment</label>
-                    <div class="reject-attachment-input">
-                        <div class="reject-attachment-wrapper">
-                            <button class="reject-attachment-add-btn" id="addAttachmentBtn">
-                                <span class="reject-attachment-icon"><i class="fas fa-file-pdf"></i></span>
-                                <span class="reject-attachment-name" id="fileName">+ Add Attachment</span>
-                            </button>
-                            <button class="reject-attachment-remove" id="removeAttachmentBtn" style="display: none;">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                        <input type="file" id="fileInput" style="display: none;" />
-                    </div>
+        <div class="modal-container" id="model-container-reject-container" style="display: none;">
+            <div class="reject-application-modal" id="reject-application-id">
+                <div class="reject-application-modal-header">
+                    <h3>Reject Application</h3>
+                    <button class="close-button" id="close-button-id">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
-                <div class="actions">
-                    <button class="cancel-button" id="cancel-button-id">Cancel</button>
-                    <button class="reject-button" id="reject-button-id">Reject</button>
+                <div class="reject-application-modal-content" id="reject-application-modal-content-id">
+                    <textarea class="remarks-textarea" placeholder="Add Remarks"></textarea>
+                    <div class="reject-attachment-container">
+                        <label class="reject-attachment-label">Attachment</label>
+                        <div class="reject-attachment-input">
+                            <div class="reject-attachment-wrapper">
+                                <button class="reject-attachment-add-btn" id="addAttachmentBtn">
+                                    <span class="reject-attachment-icon"><i class="fas fa-file-pdf"></i></span>
+                                    <span class="reject-attachment-name" id="fileName">+ Add Attachment</span>
+                                </button>
+                                <button class="reject-attachment-remove" id="removeAttachmentBtn"
+                                    style="display: none;">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <input type="file" id="fileInput" style="display: none;" />
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button class="cancel-button" id="cancel-button-id">Cancel</button>
+                        <button class="reject-button" id="reject-button-id">Reject</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
 
@@ -716,7 +717,7 @@
             <span id="confirm-password-error-nbfc" class="error-message"></span>
 
             <div class="footer-passwordchange-nbfc">
-                <a href="">Forgot Password</a>
+                <p>Forgot Password</p>
 
                 <button id="password-change-save-nbfc">Save</button>
 
@@ -746,7 +747,9 @@
 
             ];
 
+
             passwordModelTriggerNbfc();
+            passwordForgotNbfc();
             userPopopuOpenNbfc();
             passwordChangeCheckNbfc();
             initialiseEightcolumn();
@@ -987,8 +990,8 @@
             // Add event listener to Dashboard menu item
             dashboardMenuItem.addEventListener("click", function () {
                 const viewContainerApplication = document.getElementById("nbfc-student-profile-details");
-                 
-                viewContainerApplication.style.display = "none"; 
+
+                viewContainerApplication.style.display = "none";
                 inboxContainer.style.display = "none";
                 parentContainerNBFC.style.display = 'none';
                 dashboardSectionsContainer.style.display = "grid";
@@ -1994,7 +1997,7 @@
                     console.log("File:", selectedFile);
                     hideRejectModal();
                 });
-            }       
+            }
         });
 
 
@@ -2299,7 +2302,7 @@
                             sender_id: senderId,
                             receiver_id: receiverId,
                             message: content,
-                            is_read:false,
+                            is_read: false,
                         };
 
                         const response = await fetch('/send-message', {
@@ -2720,29 +2723,29 @@
             const userPopupList = document.querySelector(".popup-notify-list-nbfc");
 
             if (userPopupTrigger && userPopupList) {
-        // Toggle dropdown on trigger click
-        userPopupTrigger.addEventListener('click', (event) => {
-            event.stopPropagation(); // Prevent click from bubbling to document
-            if (userPopupList.style.display === "none" || userPopupList.style.display === "") {
-                userPopupTrigger.style.transform = 'rotate(180deg)';
-                userPopupList.style.display = "flex";
-            } else {
-                userPopupTrigger.style.transform = 'rotate(0deg)';
-                userPopupList.style.display = "none";
-            }
-        });
+                // Toggle dropdown on trigger click
+                userPopupTrigger.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Prevent click from bubbling to document
+                    if (userPopupList.style.display === "none" || userPopupList.style.display === "") {
+                        userPopupTrigger.style.transform = 'rotate(180deg)';
+                        userPopupList.style.display = "flex";
+                    } else {
+                        userPopupTrigger.style.transform = 'rotate(0deg)';
+                        userPopupList.style.display = "none";
+                    }
+                });
 
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (event) => {
-            const isClickInsideTrigger = userPopupTrigger.contains(event.target);
-            const isClickInsidePopup = userPopupList.contains(event.target);
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (event) => {
+                    const isClickInsideTrigger = userPopupTrigger.contains(event.target);
+                    const isClickInsidePopup = userPopupList.contains(event.target);
 
-            if (!isClickInsideTrigger && !isClickInsidePopup && userPopupList.style.display === "flex") {
-                userPopupTrigger.style.transform = 'rotate(0deg)';
-                userPopupList.style.display = "none";
+                    if (!isClickInsideTrigger && !isClickInsidePopup && userPopupList.style.display === "flex") {
+                        userPopupTrigger.style.transform = 'rotate(0deg)';
+                        userPopupList.style.display = "none";
+                    }
+                });
             }
-        });
-    }
         }
 
 
@@ -2845,7 +2848,7 @@
             const userId = studentId.textContent;
             console.log("Fetching profile for user:", userId);
             const inboxContainer = document.getElementById("index-section-id-nbfc");
-            inboxContainer.style.display="block";
+            inboxContainer.style.display = "block";
 
             // Show loader and disable further interactions
             loaderElement.style.display = 'block'; // Show loader
@@ -4774,7 +4777,7 @@
                 });
         }
 
-        const   sessionLogoutInitial = () => {
+        const sessionLogoutInitial = () => {
             fetch("{{ route('logout') }}", {
                 method: "POST",
                 headers: {
@@ -4896,7 +4899,42 @@
             console.log("insidetrigger")
 
         }
+        function passwordForgotNbfc() {
+            const forgotMailTrigger = document.querySelector(".footer-passwordchange-nbfc p");
 
+            if (forgotMailTrigger) {
+                forgotMailTrigger.addEventListener('click', () => {
+
+                    var user = @json(session('nbfcuser'));
+                    const email = user.nbfc_email;
+                    alert(email);
+
+
+
+
+
+                    fetch("/forgot-passwordmailsentnbfc", {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({ email: email })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            if (data.message) {
+                                alert(data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Error:", error);
+                            alert("There was an error while sending the email.");
+                        });
+                });
+            }
+        }
     </script>
 
 

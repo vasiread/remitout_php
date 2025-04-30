@@ -134,8 +134,8 @@
           <div class="input-group">
             <div class="input-content">
               <img src="./assets/images/school.png" alt="Referral Code Icon" class="icon" />
-              <input type="text" placeholder="Referral Code" name="referral_code" value="" id="personal-info-referral"
-                required />
+              <input type="text" placeholder="Referral Code" name="referral_code" value="{{ session('user')->referral_code }}" id="personal-info-referral"
+                required disabled/>
               <div class="validation-message" id="referralCode-error"></div>
             </div>
           </div>
@@ -157,6 +157,7 @@
               <img src="./assets/images/calendar_month.png" alt="Calendar Icon" class="icon" />
               <input type="date" placeholder="Date of Birth (DD/MM/YYYY)" name="date_of_birth" id="personal-info-dob" required />
               <div class="validation-message" id="dob-error"></div>
+              
             </div>
           </div>
 

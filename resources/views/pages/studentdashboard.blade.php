@@ -65,15 +65,15 @@
 
                                         <div class="leftsection-detailsinfo">
                                             <div class="loan-receivedsection">
-                                                <h1 style="color:rgba(255, 154, 63, 1);">02</h1>
+                                                <h1 style="color:rgba(255, 154, 63, 1);">--</h1>
                                                 <p>Received</p>
                                             </div>
                                             <div class="loan-onholdsection">
-                                                <h1>01</h1>
+                                                <h1>--</h1>
                                                 <p>On Hold </p>
                                             </div>
                                             <div class="loan-rejectedsection">
-                                                <h1>00</h1>
+                                                <h1>--</h1>
                                                 <p>Rejected</p>
                                             </div>
                                         </div>
@@ -163,11 +163,9 @@
                                 <div class="personalinfo-graphsectioncontainer">
                                     <div class="profilestatus-graph-section">
                                         <svg class="progress-ring" width="75" height="75" viewBox="0 0 120 120">
-                                            <!-- Background Circle (100%) -->
                                             <circle class="progress-ring-circle" stroke="rgba(213, 213, 213, 0.41)" stroke-width="18"
                                                 fill="transparent" r="52" cx="60" cy="60" />
 
-                                            <!-- Progress Circle (animated) -->
                                             <circle class="progress-ring-fill" stroke="rgba(255, 154, 63, 1)" stroke-width="18"
                                                 fill="transparent" r="52" cx="60" cy="60" />
                                             <text x="50%" y="50%" text-anchor="middle" fill="rgba(255, 154, 63, 1)" font-weight="600"

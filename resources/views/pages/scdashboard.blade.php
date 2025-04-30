@@ -568,6 +568,7 @@ $totalPages = ceil($totalStudents / $perPage);
             initializePopuAddingstudents();
             generateReferLinkPopup();
             addDynamicInputFields();
+            passwordForgotSc();
 
             initializeSortByFunctionQueries();
             initializeSortByFunctionApplicationStatus();
@@ -1995,6 +1996,42 @@ $totalPages = ceil($totalStudents / $perPage);
             }
 
         }
+    function passwordForgotSc() {
+        const forgotMailTrigger = document.querySelector(".footer-passwordchange p");
+
+        if (forgotMailTrigger) {
+            forgotMailTrigger.addEventListener('click', () => {
+
+                var user = @json(session('scuser'));
+                const email = user.email;
+                alert(email);
+
+
+
+
+
+                fetch("/forgot-passwordmailsentsc", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ email: email })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data.message) {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("There was an error while sending the email.");
+                    });
+            });
+        }
+    }
 
 
 

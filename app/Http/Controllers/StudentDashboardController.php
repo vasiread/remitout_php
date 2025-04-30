@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Mail\ForgotPassword;
 use App\Models\Message;
 use App\Models\Nbfc;
 use App\Models\proposalcompletion;
@@ -11,6 +12,7 @@ use App\Models\Requestprogress;
 use Exception;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Academics;
 use Illuminate\Http\Request;
@@ -20,6 +22,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\PersonalInfo;
 use App\Models\CourseInfo;
 use Illuminate\Support\Facades\Validator;
+
+use Illuminate\Support\Str;
 use PhpParser\Node\Stmt\Catch_;
 use ZipArchive;
 class StudentDashboardController extends Controller
@@ -342,8 +346,8 @@ class StudentDashboardController extends Controller
                     'message' => 'No matching records found to update'
                 ], 404);
             }
-            
-    } catch (Exception $e) {
+
+        } catch (Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred while updating records',
@@ -355,7 +359,7 @@ class StudentDashboardController extends Controller
 
     }
 
-   
+
     public function getAllUsersFromAdmin()
     {
 
@@ -963,7 +967,7 @@ class StudentDashboardController extends Controller
 
 
 
-   
+
 
 
 
@@ -1075,9 +1079,9 @@ class StudentDashboardController extends Controller
 
             $userId = $request->input('userId');
 
-            $query = Requestprogress::where("user_id",$userId)
-            ->where('type','proposal')
-            ->count();
+            $query = Requestprogress::where("user_id", $userId)
+                ->where('type', 'proposal')
+                ->count();
 
 
 
@@ -1138,6 +1142,149 @@ class StudentDashboardController extends Controller
 
 
 
+    public function profileCompletionByUser(Request $request)
+    {
+        $userId = trim($request->input('userId'));
+
+        if (empty($userId)) {
+            return response()->json(['error' => 'user_id is required'], 400);
+        }
+
+        // Define tables and columns to check for profile completion
+        $tablesAndColumns = [
+            'users' => ['email', 'phone'],
+            'personal_infos' => ['full_name', 'referral_code', 'state', 'linked_through', 'gender'],
+            'academic_details' => ['gap_in_academics', 'work_experience', 'university_school_name', 'course_name'],
+            'coborrower_details' => [
+                'co_borrower_relation',
+                'co_borrower_income',
+                'co_borrower_monthly_liability',
+                'liability_select'
+            ],
+            'course_details_formdata' => [
+                'plan-to-study',
+                'degree-type',
+                'course-duration',
+                'course-details',
+                'loan_amount_in_lakhs'
+            ],
+        ];
+
+        $totalColumns = 0;
+        $filledColumns = 0;
+
+        foreach ($tablesAndColumns as $table => $columns) {
+            if (!Schema::hasTable($table))
+                continue;
+
+            $data = ($table === 'users')
+                ? DB::table($table)->where('unique_id', $userId)->first()
+                : DB::table($table)->where('user_id', $userId)->first();
+
+            foreach ($columns as $column) {
+                $totalColumns++;
+                if (Schema::hasColumn($table, $column)) {
+                    $value = $data->$column ?? null;
+                    if (!is_null($value) && trim((string) $value) !== '') {
+                        $filledColumns++;
+                    }
+                }
+            }
+        }
+
+        // Document logic
+        $folderPath = "$userId";
+        $files = Storage::disk("s3")->allFiles($folderPath);
+        $rawDocumentCount = count($files);
+        $adjustedDocumentCount = max(0, $rawDocumentCount - 1); // Minimum of 0 to avoid negative
+        $documentPercentage = ($adjustedDocumentCount / 22) * 100;
+
+        // Profile percentage
+        $profilePercentage = ($totalColumns > 0) ? ($filledColumns / $totalColumns) * 100 : 0;
+
+        // Overall percentage (average of both)
+        $overallPercentage = ($profilePercentage + $documentPercentage) / 2;
+
+        return response()->json([
+            'user_id' => $userId,
+            'profile_fields_total' => $totalColumns,
+            'profile_fields_filled' => $filledColumns,
+            'profile_completion_percentage' => round($profilePercentage, 2),
+
+            'documents_expected' => 22,
+            'documents_uploaded_raw' => $rawDocumentCount,
+            'documents_counted' => $adjustedDocumentCount,
+            'document_completion_percentage' => round($documentPercentage, 2),
+
+
+            'overall_completion_percentage' => (int) round($overallPercentage)  // Convert to an integer
+        ]);
+    }
+
+    public function loanStatusCount(Request $request)
+    {
+        // Validate the request input for user_id
+        $request->validate([
+            'user_id' => 'required|string'
+        ]);
+
+        $userId = $request->input('user_id');
+
+        // Count the 'received' proposals
+        $receivedCount = Requestprogress::where('user_id', $userId)
+            ->where('type', Requestprogress::TYPE_PROPOSAL)
+            ->count();
+
+        // Count the 'hold' requests
+        $holdCount = Requestprogress::where('user_id', $userId)
+            ->where('type', Requestprogress::TYPE_REQUEST)
+            ->count();
+
+        // Count the rejections grouped by nbfc_id
+        $rejectedCount = Rejectedbynbfc::where('user_id', $userId)
+            ->groupBy('nbfc_id')
+            ->selectRaw('nbfc_id, COUNT(*) as count')
+            ->get();
+
+        // Return the counts in a response
+        return response()->json([
+            'received_proposals' => $receivedCount,
+            'hold_requests' => $holdCount,
+            'rejected_by_nbfc' => $rejectedCount,
+        ]);
+    }
+
+
+
+    public function forgotUserCredential(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $newPassword = Str::random(10);
+
+        if ($user->password !== Hash::make($newPassword)) {
+            $user->password = Hash::make($newPassword);  // Encrypt password before saving
+            $user->save();
+
+            Mail::to($user->email)->send(new ForgotPassword(
+                $user->email,
+                $user->unique_id,
+                $newPassword
+            ));
+
+            return response()->json(['message' => 'A new password has been sent to your email.']);
+        } else {
+            return response()->json(['message' => 'The password has not changed.']);
+        }
+    }
 
 
 

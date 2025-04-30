@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ForgotPassword;
 use App\Mail\SendScDetailsMail;
 use App\Models\Nbfc;
 use App\Models\Proposals;
 use App\Models\Requestprogress;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+ 
 use Storage;
 
 class NbfcController extends Controller
@@ -198,6 +201,39 @@ class NbfcController extends Controller
 
         } catch (\Exception $e) {
             return response()->json(['message' => 'Failed to retrieve file', 'error' => $e->getMessage()], 500);
+        }
+    }
+
+
+    public function forgotNbfcCredential(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|string|email',
+        ]);
+        Log::info('Requested email: ' . $request->email);
+
+
+        $user = Nbfc::where('nbfc_email', $request->email)->first();
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $newPassword = Str::random(10);
+
+        if ($user->password !== Hash::make($newPassword)) {
+            $user->password = Hash::make($newPassword);  // Encrypt password before saving
+            $user->save();
+
+            Mail::to($user->nbfc_email)->send(new ForgotPassword(
+                $user->nbfc_email,
+                $user->nbfc_id,
+                $newPassword
+            ));
+
+            return response()->json(['message' => 'A new password has been sent to your email.']);
+        } else {
+            return response()->json(['message' => 'The password has not changed.']);
         }
     }
 

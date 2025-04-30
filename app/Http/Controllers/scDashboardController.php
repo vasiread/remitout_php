@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Mail\ForgotPassword;
 use App\Mail\SendScDetailsMail;
 use App\Models\Queries;
 use App\Models\Requestprogress;
@@ -604,6 +605,39 @@ class scDashboardController extends Controller
                 'success' => false,
                 'message' => 'Error deleting counsellor: ' . $e->getMessage()
             ], 500);
+        }
+    }
+
+
+    public function forgotScCredential(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|string|email',
+        ]);
+        Log::info('Requested email: ' . $request->email);
+
+
+        $user = Scuser::where('email', $request->email)->first();
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $newPassword = Str::random(10);
+
+        if ($user->passwordField !== Hash::make($newPassword)) {
+            $user->passwordField = Hash::make($newPassword);  // Encrypt password before saving
+            $user->save();
+
+            Mail::to($user->email)->send(new ForgotPassword(
+                $user->email,
+                $user->referral_code,
+                $newPassword
+            ));
+
+            return response()->json(['message' => 'A new password has been sent to your email.']);
+        } else {
+            return response()->json(['message' => 'The password has not changed.']);
         }
     }
 

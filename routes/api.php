@@ -122,6 +122,11 @@ Route::post('/sourceregister', [Admincontroller::class, 'sourceRegistration']);
 Route::post('/student-application-form', [Admincontroller::class, 'store']);
 Route::get('/student-application-form/{section_slug}', [Admincontroller::class, 'show']);
 Route::post('/getproposalfileurl', [NbfcController::class, 'getProposalFileUrl']);
+Route::post('/getprofilecompletionpercentage', [StudentDashboardController::class, 'profileCompletionByUser']);
+Route::post('/loanstatuscount', [StudentDashboardController::class, 'loanStatusCount']);
+Route::post('/forgot-passwordmailsent', [StudentDashboardController::class, 'forgotUserCredential']);
+Route::post('/forgot-passwordmailsentnbfc', [NbfcController::class, 'forgotNbfcCredential']);
+Route::post('/forgot-passwordmailsentsc', [scDashboardController::class, 'forgotScCredential']);
 
 //education route for student-dashboard
 Route::get('/education',[StudentDetailsController::class,'getEducationDetails']);
