@@ -4,7 +4,6 @@ body {
 
 #index-section-admin-id {
     margin-top: 100px;
-    width: 1000px;
 }
 
 #index-section-id .index-section {
@@ -345,24 +344,7 @@ body {
     margin-bottom: 16px;
 }
 
-@media (min-width: 1500px) {
-    #index-section-admin-id,
-    .index-section {
-        margin-top: 50px;
-        width: 1100px;
-    }
-}
 
-@media (min-width: 1728px) {
-    #index-section-admin-id,
-    #index-section-id {
-        margin-top: 50px;
-        width: 1200px;
-    }
-    .admin-index-section-main-container {
-        margin-left: 30%;
-    }
-}
 
 #admin-messagebutton-0 {
     padding: 0px;
