@@ -822,8 +822,8 @@ class Admincontroller extends Controller
 
             $query = PersonalInfo::query();
 
-            // Filter based on CourseInfo degree-type
-            if ($degreeType) {
+            // Apply filter only if degree_type is provided
+            if (!empty($degreeType)) {
                 $query->whereHas('courseInfo', function ($q) use ($degreeType) {
                     $q->where('degree-type', $degreeType);
                 });
@@ -839,20 +839,25 @@ class Admincontroller extends Controller
             ];
 
             foreach ($personalInfos as $info) {
-                if (!$info->dob)
+                if (empty($info->dob))
                     continue;
 
-                $dob = Carbon::createFromFormat('d/m/Y', $info->dob);
-                $age = $dob->age;
+                try {
+                    $dob = Carbon::createFromFormat('d/m/Y', $info->dob);
+                    $age = $dob->age;
 
-                if ($age >= 16 && $age <= 20) {
-                    $ageGroups['16-20']++;
-                } elseif ($age >= 21 && $age <= 25) {
-                    $ageGroups['21-25']++;
-                } elseif ($age >= 26 && $age <= 30) {
-                    $ageGroups['26-30']++;
-                } elseif ($age >= 31 && $age <= 40) {
-                    $ageGroups['31-40']++;
+                    if ($age >= 16 && $age <= 20) {
+                        $ageGroups['16-20']++;
+                    } elseif ($age >= 21 && $age <= 25) {
+                        $ageGroups['21-25']++;
+                    } elseif ($age >= 26 && $age <= 30) {
+                        $ageGroups['26-30']++;
+                    } elseif ($age >= 31 && $age <= 40) {
+                        $ageGroups['31-40']++;
+                    }
+                } catch (\Exception $e) {
+                    // Skip if date parsing fails
+                    continue;
                 }
             }
 

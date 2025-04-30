@@ -1425,7 +1425,7 @@ form {
     .section-02 {
         width: 85%;
         padding: 30px 40px;
-    }
+     }
 }
 
 @media screen and (min-width: 913px) and (max-width: 1024px) {
@@ -4961,7 +4961,7 @@ div.salary-sub p {
 }
 
 .dropdown-gender-header {
-  width:280px;
+  width:225px;
   max-width: 100%;
   display: flex;
   justify-content: space-between;

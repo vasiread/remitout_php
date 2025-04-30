@@ -291,7 +291,7 @@
 
         <div class="admindashboardcontainer-thirdsection">
             <div class="admindashboard-firstpart">
-                <div class="reports-registeration" data-report="registration-reports">
+                <div class="reports-registeration">
                     <div class="reports-registeration-sectionone">
                         <p>Reports on registration</p>
                         <button id="calender-reportsregister">Calendar <img src="assets/images/Icons/calendar_month.png"
@@ -303,12 +303,36 @@
                         <div id="chart_div" style="width: 100%; height: 160px;"></div>
                     </div>
                 </div>
-                <div class="source-registeration" data-report="registration-source">
+                <div class="source-registeration">
                     <p id="source-registeration-header">Source on registration</p>
                     <div class="donutregistration-chart-container">
                         <canvas id="donutRegistrationChart"></canvas>
-                        <div id="donutgraphinfos" class="donutgraphinfos">
-                            <!-- Graph Info will be dynamically inserted here -->
+                        <div class="donutgraphinfos">
+                            @php
+                                $registrationSourceAnalysis = [
+                                    ['color' => 'rgba(111, 37, 206, 1)', 'AnalyseName' => 'ADDS', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '13%'],
+                                    ['color' => 'rgba(181, 142, 229, 1)', 'AnalyseName' => 'Organic', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '77%'],
+                                    ['color' => 'rgba(226, 211, 245, 1)', 'AnalyseName' => 'SC Referral', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '10%'],
+                                ];
+                            @endphp
+
+                            @foreach ($registrationSourceAnalysis as $source)
+                                <div class="graphviewofregistrations">
+                                    <div class="graphviewofregistrations-firstpart">
+                                        <div class="points"
+                                            style="background-color: {{ $source['color'] }}; width: 11px; height: 11px;">
+                                        </div>
+                                        <p>{{ $source['AnalyseName'] }}</p>
+                                    </div>
+                                    <div class="graphviewofregistrations-secondpart">
+                                        <p>{{ $source['OverallStrength'] }}</p>
+                                        <p id='donutRegistrationChart-percentage'>{{ $source['OverallStrengthPercent'] }}
+                                        </p>
+                                    </div>
+
+
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -352,12 +376,12 @@
                         <canvas id="ageratio-donutRegistrationChart"></canvas>
                         <div class="ageratio-donutgraphinfos">
                             @php
-$registrationSourceAnalysis = [
-    ['color' => 'rgba(111, 37, 206, 1)', 'studentRangeValue' => '16 - 20'],
-    ['color' => 'rgba(167, 121, 224, 1)', 'studentRangeValue' => '21 - 25'],
-    ['color' => 'rgba(203, 176, 237, 1)', 'studentRangeValue' => '26 - 30'],
-    ['color' => 'rgba(226, 211, 245, 1)', 'studentRangeValue' => '30 - 40'],
-];
+                                $registrationSourceAnalysis = [
+                                    ['color' => 'rgba(111, 37, 206, 1)', 'studentRangeValue' => '16 - 20'],
+                                    ['color' => 'rgba(167, 121, 224, 1)', 'studentRangeValue' => '21 - 25'],
+                                    ['color' => 'rgba(203, 176, 237, 1)', 'studentRangeValue' => '26 - 30'],
+                                    ['color' => 'rgba(226, 211, 245, 1)', 'studentRangeValue' => '30 - 40'],
+                                ];
                             @endphp
 
                             @foreach ($registrationSourceAnalysis as $source)
@@ -671,9 +695,9 @@ $registrationSourceAnalysis = [
                 updateProfileCompletionByGender()
                 initializeCitiesTable();
                 initializeCountriesTable();
-                            funnelreport();
+                funnelreport();
 
-                // loadAgeRatioChart();
+                loadAgeRatioChart();
             } catch (error) {
                 console.error('Initialization error:', error);
             }
@@ -884,33 +908,46 @@ $registrationSourceAnalysis = [
         };
 
 
-
-        // Donut Graph for Registration Sources
         const initializeDonutGraphSource = () => {
-            const ctx = $('#donutRegistrationChart')?.getContext('2d');
-            if (!ctx) return console.error('donutRegistrationChart canvas not found');
-
-            new Chart(ctx, {
+            var ctx = document.getElementById('donutRegistrationChart').getContext('2d');
+            var donutRegistrationChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
                     labels: ['ADDS', 'Organic', 'SC Referral'],
                     datasets: [{
-                        label: 'Registration Sources',
+                        label: 'Registeration Sources',
                         data: [25, 30, 45],
-                        backgroundColor: ['rgba(111, 37, 206, 1)', 'rgba(181, 142, 229, 1)', 'rgba(226, 211, 245, 1)'],
+                        backgroundColor: [
+                            'rgba(111, 37, 206, 1)',      // ADDS
+                            'rgba(111, 37, 206, 0.2)',    // Organic
+                            'rgba(111, 37, 206, 0.4)'     // SC Referral
+                        ],
                         borderWidth: 0,
-                        cutout: '50%'
+                        cutout: 30,
                     }]
                 },
                 options: {
                     responsive: true,
                     plugins: {
-                        legend: { display: false },
-                        tooltip: { enabled: true }
+                        legend: {
+                            position: 'right',
+                            display: false,
+                        },
+                        tooltip: {
+                            enabled: true
+                        },
+                        label: {
+                            font: {
+                                size: 16,
+                                family: "Poppins",
+                            }
+                        },
                     }
                 }
             });
         };
+
+
 
         // Donut Graph for Age Ratio
         const initializeDonutGraphAgeRatio = () => {

@@ -39,8 +39,12 @@ class StudentDetailsController extends Controller
             $personalInfoDetail->full_name = $request->input('personalInfoName');
             $personalInfoDetail->referral_code = $request->input('personalInfoReferral');
             $personalInfoDetail->email = $request->input('personalInfoEmail');
-            $personalInfoDetail->state = $request->input('personalInfoCity');
+            $personalInfoDetail->city = $request->input('personalInfoCity');
+            $personalInfoDetail->state = $request->input('personalInfoState');
+
             $personalInfoDetail->linked_through = $request->input('personalInfoFindOut');
+            $personalInfoDetail->gender = $request->input('genderOptions');
+            $personalInfoDetail->dob = $request->input('personalInfoDob');
 
             $user->referral_code = $request->input('personalInfoReferral');
 

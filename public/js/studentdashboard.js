@@ -3889,45 +3889,31 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
         const firstButton = document.createElement("button");
         firstButton.classList.add("view-proposal");
         firstButton.textContent = "View";
-        '   firstButton.addEventListener("click", () => {
-        console.log(userId, nbfcId);
 
+        firstButton.addEventListener("click", async () => {
+            try {
+                const response = await fetch('/getproposalfileurl', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ userId, nbfcId })
+                });
 
-
-        fetch('/getproposalfileurl', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify({ userId, nbfcId })
-        })
-            .then(response => response.json())
-            .then(data => {
+                const data = await response.json();
                 if (data.file_path) {
-                    console.log('File URL:', data.file_path);
+                    const fileName = data.file_path.split("/").pop(); // Extract filename from URL
+                    showDocumentPreview(data.file_path, fileName);     // Show the document
                 } else {
+                    alert("No document found to preview.");
                     console.error('No file found:', data.message);
                 }
-            })
-            .catch(error => {
+            } catch (error) {
+                alert("Error fetching document. Please try again.");
                 console.error('Error fetching file URL:', error);
-            });
-        const data = await response.json();
-        if (data.file_path) {
-            const fileName = data.file_path.split("/").pop(); // Extract filename from URL
-            showDocumentPreview(data.file_path, fileName); // Show the document in a popup
-        } else {
-            alert("No document found to preview.");
-            console.error('No file found:', data.message);
-        }
-    } catch (error) {
-        alert("Error fetching document. Please try again.");
-        console.error('Error fetching file URL:', error);
-    }
-}); 
-        
-
+            }
+        });
 
         if (!data) {
             // Case: No data returned (initial state)
@@ -4008,12 +3994,13 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
         }
 
         bindAcceptRejectButtons(itemsNeedingButtons);
-
         return statusCount;
+
     } catch (error) {
         console.error("Error checking user ID:", error);
     }
 }
+
 
 
 const showDocumentPreview = (fileUrl, fileName, eyeIcon = null) => {
@@ -4229,22 +4216,6 @@ const showDocumentPreview = (fileUrl, fileName, eyeIcon = null) => {
 
         previewWrapper.appendChild(header);
         previewWrapper.appendChild(iframe);
-    fetch('/loanstatuscount', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: JSON.stringify({ user_id: userId })
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log("Loan Status Data:", data);
 
         document.body.appendChild(overlay);
         document.body.appendChild(previewWrapper);
@@ -4508,7 +4479,6 @@ const loanStatusCount = () => {
 
 
 
-
 const passwordForgot = () => {
     const forgotMailTrigger = document.querySelector(".footer-passwordchange p");
 
@@ -4517,7 +4487,7 @@ const passwordForgot = () => {
 
             const email = document.querySelector("#referenceEmailId p").textContent;
 
-        
+
 
             fetch("/forgot-passwordmailsent", {
                 method: "POST",
@@ -4529,7 +4499,7 @@ const passwordForgot = () => {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data); // Log the response data to debug
+                    console.log(data);  
                     if (data.message) {
                         alert(data.message);
                     }
@@ -4541,3 +4511,4 @@ const passwordForgot = () => {
         });
     }
 }
+

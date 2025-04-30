@@ -37,8 +37,8 @@
           <a href="#support" class="student-form-nav-mobile">Support</a>
           <a href="#help" class="student-form-nav-mobile">Help</a>
 
-        <div class="student-form-nav-buttons">
-           <button class="student-form-login-btn" onclick="window.location.href='http://127.0.0.1:8000/nbfc-dashboard'">Log In</button>
+        <div class="student-form-nav-buttons" display="style:none">
+           <button class="student-form-login-btn" onclick="window.location.href='http://127.0.0.1:8000/login'">Log In</button>
               <button class="student-form-signup-btn" onclick="window.location.href='http://127.0.0.1:8000/signup'">Sign Up</button>
         </div>
 
@@ -173,19 +173,19 @@
                     </svg>
                   </div>
                 </div>
-                <div class="dropdown-options-gender">
-                  <div class="dropdown-option-gender" data-value="male">
+                <div class="dropdown-options-gender" >
+                  <div class="dropdown-option-gender" data-value="Male">
                     <span>Male</span>
                   </div>
-                  <div class="dropdown-option-gender" data-value="female">
+                  <div class="dropdown-option-gender" data-value="Female">
                     <span>Female</span>
                   </div>
-                  <div class="dropdown-option-gender" data-value="other">
+                  <div class="dropdown-option-gender" data-value="Other">
                     <span>Other</span>
                   </div>
                 </div>
               </div>
-              <input type="hidden" name="gender" value="" />
+              <input type="hidden" name="gender" id="gender-personal-info" value="" />
               <div class="validation-message" id="gender-error"></div>
             </div>
           </div>
