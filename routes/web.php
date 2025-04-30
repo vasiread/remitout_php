@@ -214,6 +214,7 @@ Route::get('/get-messages-adminnbfc/{nbfc_id}/{admin_id}', [ChatController::clas
 Route::get('/get-messages-adminstudent/{student_id}/{admin_id}', [ChatController::class, 'getMessagesForAdminStudent']);
 Route::post('/send-message-from-adminnbfc', [ChatController::class, 'sendMessageFromAdminNbfc']);
 Route::post('/send-message-from-adminstudent', action: [ChatController::class, 'sendMessageFromAdminStudent']);
+Route::get('/getrecipients', [Admincontroller::class, 'fetchRecipients']);
 
 // Route::get('/admin-page', function () {
 //     return view('pages.admin-page');

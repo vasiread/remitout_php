@@ -17,7 +17,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 
 
-      <script src="{{ asset('js/studentforms.js') }}"></script>
+  <script src="{{ asset('js/studentforms.js') }}"></script>
 
 
 </head>
@@ -25,29 +25,31 @@
 <body>
 
 
-<nav class="student-form-nav">
-      <div class="student-form-nav-container">
-        <img src="assets/images/student-form-logo.png" alt="Remitout Logo" class="student-form-logo">
-        <div class="student-form-nav-links" id="student-form-nav-links">
-          <a href="#home">Home</a>
-          <a href="#resources">Resources</a>
-          <a href="#deals">Special Deals</a>
-          <a href="#services">Our Service</a>
-          <a href="#schedule">Schedule Call</a>
-          <a href="#support" class="student-form-nav-mobile">Support</a>
-          <a href="#help" class="student-form-nav-mobile">Help</a>
+  <nav class="student-form-nav">
+    <div class="student-form-nav-container">
+      <img src="assets/images/student-form-logo.png" alt="Remitout Logo" class="student-form-logo">
+      <div class="student-form-nav-links" id="student-form-nav-links">
+        <a href="#home">Home</a>
+        <a href="#resources">Resources</a>
+        <a href="#deals">Special Deals</a>
+        <a href="#services">Our Service</a>
+        <a href="#schedule">Schedule Call</a>
+        <a href="#support" class="student-form-nav-mobile">Support</a>
+        <a href="#help" class="student-form-nav-mobile">Help</a>
 
         <div class="student-form-nav-buttons" display="style:none">
-           <button class="student-form-login-btn" onclick="window.location.href='http://127.0.0.1:8000/login'">Log In</button>
-              <button class="student-form-signup-btn" onclick="window.location.href='http://127.0.0.1:8000/signup'">Sign Up</button>
+          <button class="student-form-login-btn" onclick="window.location.href='http://127.0.0.1:8000/login'">Log
+            In</button>
+          <button class="student-form-signup-btn" onclick="window.location.href='http://127.0.0.1:8000/signup'">Sign
+            Up</button>
         </div>
 
-        </div>
-        
+      </div>
+
       <div class="student-form-menu-left">
-           <a href="#" class="student-form-nav-mobile">Login</a>
+        <a href="#" class="student-form-nav-mobile">Login</a>
         <div class="student-form-menu-icon-container" id="student-form-menu-icon-container">
-        
+
           <div class="student-form-menu-icon" id="student-form-menu-icon">
             <span class="bar"></span>
             <span class="bar"></span>
@@ -57,8 +59,8 @@
         </div>
       </div>
 
-      </div>
-    </nav>
+    </div>
+  </nav>
 
 
   <section class="registration-section">
@@ -93,7 +95,7 @@
   </section>
 
 
-  <!-- Personal Information Tab -->
+   
   <div class="mobile-heading" id="mobileHeading">Personal Information</div>
   <div class="registration-container" id="step-personal">
     <form>
@@ -125,8 +127,8 @@
           <div class="input-group">
             <div class="input-content">
               <img src="./assets/images/call-icon.png" alt="Phone Icon" class="icon" />
-              <input type="tel" placeholder="Phone Number" name="phone_number" id="personal-info-phone" value="{{ session('user')->phone }}"
-                required disabled />
+              <input type="tel" placeholder="Phone Number" name="phone_number" id="personal-info-phone"
+                value="{{ session('user')->phone }}" required disabled />
               <div class="validation-message" id="personal-info-phone-error"></div>
             </div>
           </div>
@@ -134,8 +136,8 @@
           <div class="input-group">
             <div class="input-content">
               <img src="./assets/images/school.png" alt="Referral Code Icon" class="icon" />
-              <input type="text" placeholder="Referral Code" name="referral_code" value="{{ session('user')->referral_code }}" id="personal-info-referral"
-                required disabled/>
+              <input type="text" placeholder="Referral Code" name="referral_code"
+                value="{{ session('user')->referral_code }}" id="personal-info-referral" required />
               <div class="validation-message" id="referralCode-error"></div>
             </div>
           </div>
@@ -147,7 +149,7 @@
             <div class="input-content">
               <img src="./assets/images/mail.png" alt="Mail Icon" class="icon" />
               <input type="email" placeholder="Email ID" name="email" id="personal-info-email"
-                value="{{ session('user')->email }}" required disabled/>
+                value="{{ session('user')->email }}" required disabled />
               <div class="validation-message" id="personal-info-email-error"></div>
             </div>
           </div>
@@ -155,102 +157,102 @@
           <div class="input-group">
             <div class="input-content">
               <img src="./assets/images/calendar_month.png" alt="Calendar Icon" class="icon" />
-              <input type="date" placeholder="Date of Birth (DD/MM/YYYY)" name="date_of_birth" id="personal-info-dob" required />
+              <input type="date" placeholder="Date of Birth (DD/MM/YYYY)" name="date_of_birth" id="personal-info-dob"
+                required />
               <div class="validation-message" id="dob-error"></div>
-              
+
             </div>
           </div>
 
-           <div class="input-group">
-          <div class="input-content">
-            <div class="dropdown-gender-wrapper">
-              <div class="dropdown-gender">
-                <div class="dropdown-gender-header">
-                  <div class="dropdown-label-gender">Select Gender</div>
-                  <div class="dropdown-icon-gender">
-                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
-                      <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2"/>
-                    </svg>
+          <div class="input-group">
+            <div class="input-content">
+              <div class="dropdown-gender-wrapper">
+                <div class="dropdown-gender">
+                  <div class="dropdown-gender-header">
+                    <div class="dropdown-label-gender">Select Gender</div>
+                    <div class="dropdown-icon-gender">
+                      <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
+                        <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="dropdown-options-gender">
+                    <div class="dropdown-option-gender" data-value="Male">
+                      <span>Male</span>
+                    </div>
+                    <div class="dropdown-option-gender" data-value="Female">
+                      <span>Female</span>
+                    </div>
+                    <div class="dropdown-option-gender" data-value="Other">
+                      <span>Other</span>
+                    </div>
                   </div>
                 </div>
-                <div class="dropdown-options-gender" >
-                  <div class="dropdown-option-gender" data-value="Male">
-                    <span>Male</span>
-                  </div>
-                  <div class="dropdown-option-gender" data-value="Female">
-                    <span>Female</span>
-                  </div>
-                  <div class="dropdown-option-gender" data-value="Other">
-                    <span>Other</span>
-                  </div>
-                </div>
-              </div>
-              <input type="hidden" name="gender" id="gender-personal-info" value="" />
-              <div class="validation-message" id="gender-error"></div>
-            </div>
-          </div>
-        </div>
-
-        </div>
-
-          
-
-      <div class="input-row">
-        <div class="input-group">
-          <div class="input-content">
-            <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
-            <input type="text" placeholder="State" name="state" id="personal-info-state" required />
-            <div id="suggestions-state" class="suggestions-container"></div>
-            <div class="validation-message" id="state-error"></div>
-          </div>
-        </div>
-        
-        <div class="input-group">
-          <div class="input-content">
-            <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
-            <input type="text" placeholder="City" name="city" id="personal-info-city" required />
-            <div id="suggestions-city" class="suggestions-container"></div>
-            <div class="validation-message" id="city-error"></div>
-          </div>
-        </div>
-      </div>
-
-       
-      </div>
-      </div>
-
-      <!-- Section 02 (Hidden Initially) -->
-      <div class="section-02-container" style="display: none;">
-        <div class="section section-02">
-          <!-- Step Header -->
-          <div class="step-header">
-            <div class="step-number">02</div>
-            <h2>How did you find out about us?</h2>
-          </div>
-
-          <div class="dropdown-container-about" data-required="true">
-            <div class="dropdown-about">
-              <div class="dropdown-label-about">Select</div>
-              <div class="dropdown-icon-about"></div>
-              <div class="dropdown-options-about">
-                <div class="dropdown-option-about-us" data-value="youtube">YouTube</div>
-                <div class="dropdown-option-about-us" data-value="google">Google</div>
-                <div class="dropdown-option-about-us" data-value="friend">Friend</div>
-                <div class="dropdown-option-about-us" data-value="other">Other</div>
+                <input type="hidden" name="gender" id="gender-personal-info" value="" />
+                <div class="validation-message" id="gender-error"></div>
               </div>
             </div>
           </div>
 
-          <!-- Submit Button -->
-          <button type="submit" class="next-btn" id="personal-info-submit">Next</button>
+        </div>
+
+
+
+        <div class="input-row">
+          <div class="input-group">
+            <div class="input-content">
+              <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
+              <input type="text" placeholder="State" name="state" id="personal-info-state" required />
+              <div id="suggestions-state" class="suggestions-container"></div>
+              <div class="validation-message" id="state-error"></div>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="input-content">
+              <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
+              <input type="text" placeholder="City" name="city" id="personal-info-city" required />
+              <div id="suggestions-city" class="suggestions-container"></div>
+              <div class="validation-message" id="city-error"></div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+  </div>
+
+  
+  <div class="section-02-container" style="display: none;">
+    <div class="section section-02">
+      <!-- Step Header -->
+      <div class="step-header">
+        <div class="step-number">02</div>
+        <h2>How did you find out about us?</h2>
+      </div>
+
+      <div class="dropdown-container-about" data-required="true">
+        <div class="dropdown-about">
+          <div class="dropdown-label-about">Select</div>
+          <div class="dropdown-icon-about"></div>
+          <div class="dropdown-options-about">
+            <div class="dropdown-option-about-us" data-value="youtube">YouTube</div>
+            <div class="dropdown-option-about-us" data-value="google">Google</div>
+            <div class="dropdown-option-about-us" data-value="friend">Friend</div>
+            <div class="dropdown-option-about-us" data-value="other">Other</div>
+          </div>
         </div>
       </div>
-    </form>
+
+      <!-- Submit Button -->
+      <button type="submit" class="next-btn" id="personal-info-submit">Next</button>
+    </div>
+  </div>
+  </form>
   </div>
 
 
 
-  <!-- breadcrumb 2 tab -->
   <div class="course-section" id="step-course">
 
 
@@ -390,22 +392,21 @@
                 loan amount (numeric values only).</span>
             </div>
           </div>
-            <!-- Only this step has the button -->
-      <button type="submit" id="course-info-submit" class="next-btn-course">Next</button>
+          <!-- Only this step has the button -->
+          <button type="submit" id="course-info-submit" class="next-btn-course">Next</button>
         </div>
       </div>
 
-    
+
     </div>
 
   </div>
 
 
 
-  <!-- Breadcrumbs, academic steps -->
+
   <div class="academic-section" id="step-academic">
 
-    <!-- Academic Details Section -->
     <div class="academic-container" id="step-academic-details" style="display: none;">
       <div class="step-header">
         <div class="step-number">01</div>
@@ -434,7 +435,6 @@
     </div>
 
 
-    <!---academic-details container---->
     <div class="academic-details" id="step-academic-details">
       <div class="academic-details-container">
         <div class="step-header">
@@ -456,7 +456,6 @@
     </div>
 
 
-    <!-- Admit Form Section -->
     <div class="admit-form-container" id="step-admit-form" style="display: none;">
       <div class="admit-container">
         <div class="step-header">
@@ -536,8 +535,7 @@
   </div>
 
 
-  <!----breadcrumb 4 tab---->
-  <!---co-borrower section-->
+
 
   <div class="co-borrow-section" id="step-co-borrower">
     <div class="borrow-container-section" style="display: none;">
@@ -575,7 +573,6 @@
   </div>
 
 
-  <!-- Income Co-borrower Section -->
   <div class="income-co-borrower" style="display: none;">
     <div class="step-header">
       <div class="step-number">02</div>
@@ -588,15 +585,15 @@
   </div>
 
 
-  <!-- Monthly Liability Section (Last section) -->
+
   <div class="monthly-container">
     <div class="monthly-liability">
       <div class="monthly-liability-container" style="display: none;">
-       <div class="step-header">
-        <div class="step-number">03</div>
-         <h2>Is there any existing co-borrower monthly liability?</h2>
-         <p class="amount-thousand">Enter the amount in thousands</p>
-      </div>
+        <div class="step-header">
+          <div class="step-number">03</div>
+          <h2>Is there any existing co-borrower monthly liability?</h2>
+          <p class="amount-thousand">Enter the amount in thousands</p>
+        </div>
 
         <div class="monthly-liability-option">
           <div class="monthly-liability-radio-buttons">
@@ -609,14 +606,14 @@
               No
             </label>
           </div>
-           <div class="emi-content">
-             <p class="amount-thousand-mobile">Enter the amount in thousands</p>
-               <input type="text" id="emi-amount" class="emi-content-container" placeholder="Enter EMI amount" disabled />
-               <span id="emi-error-message" class="error-message" style="display:none; color:red;">Please enter a valid EMI amount (numeric values only).</span>
-           </div>  
+          <div class="emi-content">
+            <p class="amount-thousand-mobile">Enter the amount in thousands</p>
+            <input type="text" id="emi-amount" class="emi-content-container" placeholder="Enter EMI amount" disabled />
+            <span id="emi-error-message" class="error-message" style="display:none; color:red;">Please enter a valid EMI
+              amount (numeric values only).</span>
+          </div>
         </div>
 
-        <!-- Button placed inside the last container -->
         <button type="submit" id="coborrower-info-submit" class="next-btn-borrow">Next</button>
       </div>
 
@@ -624,10 +621,6 @@
   </div>
 
 
-
-  <!----breadcrumb 5 tab---->
-
-  <!---document upload step 1--->
 
 
 
@@ -721,8 +714,6 @@
   </section>
 
 
-  <!---document upload step 2--->
-  <!---mark sheet---->
   <section class="kyc-section-marksheet" style="display: none;">
     <div class="kyc-container">
       <div class="step-header">
@@ -1276,17 +1267,17 @@
               <p>Please upload your office/shop photographs in jpg, png, or pdf format.</p>
             </div>
           </div>
-           <button type="submit" class="next-btn-kyc" id="saveandsubmit">Save and Submit</button>
-        </div>  
+          <button type="submit" class="next-btn-kyc" id="saveandsubmit">Save and Submit</button>
+        </div>
 
-        
+
       </div>
 
       <!-- Submit Button -->
 
-      
+
     </div>
-  
+
 
   </section>
 

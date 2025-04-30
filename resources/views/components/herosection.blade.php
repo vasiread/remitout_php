@@ -317,12 +317,14 @@
         });
 
 
-         function handleLoanRedirect() {
+         function handleLoanRedirect () {
             @if (session()->has('user'))
         window.location.href = "{{ route('student-forms') }}";
       @else
-    window.location.href = "/login";
-  @endif
+       window.location.href = "/signup";
+        alert("Please register your account to continue ")
+
+    @endif
     }
 
 

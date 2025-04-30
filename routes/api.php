@@ -130,3 +130,4 @@ Route::post('/forgot-passwordmailsentsc', [scDashboardController::class, 'forgot
 
 //education route for student-dashboard
 Route::get('/education',[StudentDetailsController::class,'getEducationDetails']);
+Route::get('/getrecipients', action: [Admincontroller::class, 'fetchRecipients']);

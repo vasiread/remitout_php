@@ -28,7 +28,7 @@ use Illuminate\Support\Str;
 
 class Admincontroller extends Controller
 {
-    
+
 
     public function retrieveDashboardDetails()
     {
@@ -892,19 +892,19 @@ class Admincontroller extends Controller
             if (!empty($info->referral_code)) {
                 $referrer = User::where('referral_code', $info->referral_code)->first();
 
-                    // Check linked_through of the referrer
- 
-                    if ($referrer) {
-                        $linkedThrough = strtolower($referrer->linked_through);
+                // Check linked_through of the referrer
 
-                        if ($linkedThrough == 'google' || $linkedThrough == 'youtube') {
-                            $addsCount++;
-                        } else {
-                            $scReferralCount++;
-                        }
+                if ($referrer) {
+                    $linkedThrough = strtolower($referrer->linked_through);
 
-                        $hasSCReferral = true;
+                    if ($linkedThrough == 'google' || $linkedThrough == 'youtube') {
+                        $addsCount++;
+                    } else {
+                        $scReferralCount++;
                     }
+
+                    $hasSCReferral = true;
+                }
             }
 
             // If no SC Referral found, check linked_through of current user
@@ -941,5 +941,26 @@ class Admincontroller extends Controller
             'Total Users' => $totalUsers
         ]);
     }
+
+
+    public function fetchRecipients()
+    {
+        $userAccess = User::all(); 
+
+        if ($userAccess->isNotEmpty()) {
+            return response()->json([
+                'success' => true,
+                'message' => "Recipients retrieved successfully",
+                'data' => $userAccess
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => "No recipients found",
+                'data' => []
+            ], 404);
+        }
+    }
+
 
 }
