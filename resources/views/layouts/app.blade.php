@@ -7,6 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'Remitout')</title>
+    @vite(['resources/js/app.js', 'resources/css/app.css'])
+    
     <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
     <script src="{{ asset('js/app.js') }}" defer></script>
 

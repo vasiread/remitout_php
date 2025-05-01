@@ -66,7 +66,7 @@ return [
         // 'pgsql' => [
         //     'driver' => 'pgsql',
         //     'url' => env('DATABASE_URL'),
-        //     'hostname' => env('DB_HOST', 'dpg-cvqgcm1r0fns73epqhg0-a'),
+        //     'host' => env('DB_HOST', 'dpg-cvqgcm1r0fns73epqhg0-a'),
         //     'port' => env('DB_PORT', '5432'),
         //     'database' => env('DB_DATABASE', 'remitout_jkoo'),
         //     'username' => env('DB_USERNAME', 'remitout_jkoo_user'),
