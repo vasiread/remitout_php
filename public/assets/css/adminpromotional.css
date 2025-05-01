@@ -685,4 +685,12 @@
     .promotional-recipients-table th {
         font-size: 12px;
     }
+    .composer-email-container{
+        justify-content: space-between;
+    }
+}
+.promotional_email_composer-icon{
+    display:flex;
+    width:250px;
+    justify-content: space-between;
 }
