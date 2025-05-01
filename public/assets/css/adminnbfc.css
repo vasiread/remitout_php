@@ -1,12 +1,16 @@
 .nbfclist-adminside {
-    display: none;
+   display:none;
+   border-radius: 8px;
+    padding: 20px;
+    margin: 0 auto;
     flex-direction: column;
-    max-width: 100%;
-    width: 1000px;
+    font-family: 'Poppins', sans-serif;
+    max-width: 71.04%;
+    width: 100%;
+    margin-left: 23.04%;
     margin-top: 50px;
-    margin-right: 15px;
+    margin-right: 85px;
     gap: 17px;
-    margin-left: 22%;
 }
 
 .individualnbfclists-content .editable {

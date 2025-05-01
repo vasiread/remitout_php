@@ -13,16 +13,20 @@ body {
     font-family: "Poppins", sans-serif;
 }
 .admin-index-section-main-container {
-    display: none;
+    display:none;
+   border-radius: 8px;
+    padding: 20px;
+    margin: 0 auto;
     flex-direction: column;
-    max-width: 100%;
-    width: 1000px;
-    margin-top: 50px;
-    margin-right: 60px;
+    font-family: 'Poppins', sans-serif;
+    max-width: 71.04%;
+    width: 100%;
+    margin-left: 23.04%;
+    margin-top: 140px;
+    margin-right: 85px;
     gap: 17px;
-    margin-left: 24%;
-    font-family: "Poppins", sans-serif;
 }
+
 .admin-index-main-sub-container {
     display: flex;
     flex-direction: column;

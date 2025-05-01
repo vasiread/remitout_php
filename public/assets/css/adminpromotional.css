@@ -686,3 +686,8 @@
         font-size: 12px;
     }
 }
+.promotional_email_composer-icon{
+    display:flex;
+    width:250px;
+    justify-content: space-between;
+}

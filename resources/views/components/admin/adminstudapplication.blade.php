@@ -46,32 +46,32 @@
 
                   <!-- Input Row 1 -->
                   <div class="input-row" id="input-row-1">
-                    <div class="input-group">
-                      <div class="input-content">
-                        <img src="./assets/images/person-icon.png" alt="Person Icon" class="icon" />
-                        <input type="text" placeholder="Full Name" name="let-us-know-more-about-you[full_name]" id="fullName" required />
-                      </div>
-                      <span class="remove-option">×</span>
-                      <div class="validation-message" id="fullName-error"></div>
-                    </div>
+                        <div class="input-group">
+                          <div class="input-content">
+                            <img src="./assets/images/person-icon.png" alt="Person Icon" class="icon" />
+                            <input type="text" placeholder="Full Name" name="let-us-know-more-about-you[full_name]" id="fullName" required />
+                          </div>
+                          <span class="remove-option">×</span>
+                          <div class="validation-message" id="fullName-error"></div>
+                        </div>
 
-                    <div class="input-group">
-                      <div class="input-content">
-                        <img src="./assets/images/call-icon.png" alt="Phone Icon" class="icon" />
-                        <input type="tel" placeholder="Phone Number" name="let-us-know-more-about-you[phone_number]" id="phone" required />
-                      </div>
-                      <span class="remove-option">×</span>
-                      <div class="validation-message" id="phone-error"></div>
-                    </div>
+                        <div class="input-group">
+                          <div class="input-content">
+                            <img src="./assets/images/call-icon.png" alt="Phone Icon" class="icon" />
+                            <input type="tel" placeholder="Phone Number" name="let-us-know-more-about-you[phone_number]" id="phone" required />
+                          </div>
+                          <span class="remove-option">×</span>
+                          <div class="validation-message" id="phone-error"></div>
+                        </div>
 
-                    <div class="input-group">
-                      <div class="input-content">
-                        <img src="./assets/images/school.png" alt="Referral Code Icon" class="icon" />
-                        <input type="text" placeholder="Referral Code" name="let-us-know-more-about-you[referral_code]" id="referralCode" />
-                      </div>
-                      <span class="remove-option">×</span>
-                      <div class="validation-message" id="referralCode-error"></div>
-                    </div>
+                        <div class="input-group">
+                          <div class="input-content">
+                            <img src="./assets/images/school.png" alt="Referral Code Icon" class="icon" />
+                            <input type="text" placeholder="Referral Code" name="let-us-know-more-about-you[referral_code]" id="referralCode" />
+                          </div>
+                          <span class="remove-option">×</span>
+                          <div class="validation-message" id="referralCode-error"></div>
+                        </div>
                   </div>
 
                   <!-- Input Row 2 -->
@@ -85,21 +85,72 @@
                       <div class="validation-message" id="email-error"></div>
                     </div>
 
+                     <div class="input-group">
+                        <div class="input-content">
+                          <img src="./assets/images/calendar_month.png" alt="Calendar Icon" class="icon" />
+                          <input type="date" placeholder="Date of Birth (DD/MM/YYYY)" name="date_of_birth" id="personal-info-dob" required />
+                          <div class="validation-message" id="dob-error"></div>
+                        </div>
+                      </div>
+
                     <div class="input-group">
                       <div class="input-content">
-                        <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon">
-                        <input type="text" placeholder="City" name="let-us-know-more-about-you[city]" required id="city-input" />
-                        <div id="suggestions" class="suggestions-container"></div>
+                        <div class="dropdown-gender-wrapper" id="admin-side-dropdown-gender-wrapper">
+                          <div class="dropdown-gender" id="admin-side-dropdown-gender">
+                            <div class="dropdown-gender-header">
+                              <div class="dropdown-label-gender">Select Gender</div>
+                              <div class="dropdown-icon-gender">
+                                <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
+                                  <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                              </div>
+                            </div>
+                            <div class="dropdown-options-gender" id="admin-side-dropdown-options-gender">
+                              <div class="dropdown-option-gender" data-value="male">
+                                <span>Male</span>
+                              </div>
+                              <div class="dropdown-option-gender" data-value="female">
+                                <span>Female</span>
+                              </div>
+                              <div class="dropdown-option-gender" data-value="other">
+                                <span>Other</span>
+                              </div>
+                            </div>
+                          </div>
+                          <input type="hidden" name="gender" value="" />
+                          <div class="validation-message" id="gender-error"></div>
+                        </div>
                       </div>
-                      <span class="remove-option">×</span>
-                      <div class="validation-message" id="city-error"></div>
-                    </div>
+                 </div>
+                 
+                  <div class="input-row" id="input-row-3">
+                      <div class="input-group">
+                        <div class="input-content">
+                          <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
+                          <input type="text" placeholder="State" name="state" id="personal-info-state" required />
+                          <div id="suggestions-state-admin-side-id" class="suggestions-container"></div>
+                          <div class="validation-message" id="state-error"></div>
+                        </div>
+                      </div>
+          
+                        <div class="input-group">
+                          <div class="input-content">
+                            <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
+                            <input type="text" placeholder="City" name="city" id="personal-info-city" required />
+                            <div id="suggestions-city-admin-side-id" class="suggestions-container"></div>
+                            <div class="validation-message" id="city-error"></div>
+                          </div>
+                        </div>
+                  </div>
 
                     <div class="add-field" id="add-input-field">
                       <span class="add-text">Add</span>
                       <span class="add-icon">+</span>
                     </div>
                   </div>
+
+
+
                 </div>
               </div>
 
@@ -134,13 +185,7 @@
                         <span class="social-remove">×</span>
                       </div>
                     </div>
-                    <select name="how-did-you-find-us[source]" required>
-                      <option value="">Select Source</option>
-                      <option value="YouTube">YouTube</option>
-                      <option value="LinkedIn">LinkedIn</option>
-                      <option value="Social Media">Social Media</option>
-                      <option value="Institution">Institution</option>
-                    </select>
+                   
                     <div class="add-social">
                       <span class="add-text">Add</span>
                       <span class="add-icon">+</span>

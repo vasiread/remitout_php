@@ -18,13 +18,11 @@
             <div class="composer-email-container">
                 <div class="promotional-header">
                     <h2>Compose Email</h2>
-
                 </div>
                 <div class="promotional-header-buttons">
                     <button class="btn-promo btn-draft">Save Draft</button>
                     <button class="btn-promo btn-send" id="send-promotional_email">Send Email</button>
                 </div>
-
             </div>
 
             <div class="promotional-composer-container">
@@ -81,7 +79,7 @@
                                 <option>12px</option>
                                 <option>14px</option>
                                 <option>16px</option>
-                                <option>18px</option>
+                                <option>18px</interest rate
                                 <option>20px</option>
                                 <option>22px</option>
                                 <option>24px</option>
@@ -163,7 +161,6 @@
                 </div>
 
                 <div class="promotional-word-count">No. of words: <span id="wordCount">0</span></div>
-                <div class="promotional-word-count">No. of words: <span id="wordCount">0</span></div>
 
                 <div class="promotional-attachment-section">
                     <div class="attachment-buttons-promotional">
@@ -179,7 +176,12 @@
 
                 <div class="promotional-recipients-section">
                     <div class="promotional-recipients-header">
+                     <div class="promotional_email_composer-icon">
                         <h3 class="promotional-recipients-title">Add recipients</h3>
+                        <button id="addRecipientBtn" style="margin-left: 10px; background: none; border: none; cursor: pointer;" title="Add New Recipient">
+                            <i class="fas fa-plus" style="font-size: 18px; color: #f86d21;"></i>
+                        </button>
+                     </div>   
                         <div class="promotional-recipients-filters">
                             <select id="entriesPerPage">
                                 <option value="10">10 entries</option>
@@ -199,7 +201,7 @@
                                 <option>Mumbai</option>
                             </select>
                             <div style="position: relative;">
-                                <input type="text" placeholder="Search" id="searchInput">
+                                <input type="text" placeholder="Search" id="promotional-search-input">
                             </div>
                         </div>
                     </div>
@@ -242,8 +244,9 @@
             const prevPageButton = document.getElementById('prevPage');
             const nextPageButton = document.getElementById('nextPage');
             const paginationInfo = document.getElementById('paginationInfo');
-            const searchInput = document.getElementById('searchInput');
+            const searchInput = document.getElementById('promotional-search-input');
             const selectAllCheckbox = document.getElementById('selectAll');
+            const addRecipientBtn = document.getElementById('addRecipientBtn');
             setUpEmailFunctionality();
 
             // Sample recipient data (replace with actual data source)
@@ -270,6 +273,7 @@
             initializeRecipientTable();
             initializePagination();
             loadSavedDraft();
+            initializeAddRecipient();
 
             // Attach event listeners
             if (saveButton) saveButton.addEventListener('click', saveDraft);
@@ -644,14 +648,14 @@
 
                 // Select All Checkbox functionality
                 selectAllCheckbox.addEventListener('change', function () {
-                    const rowCheckboxes = recipientTableBody.querySelectorAll('input[type="checkbox"]');
+                    const rowCheckboxes = recipientTableBody.querySelectorAll('input[type="checkbox"]:not(:disabled)');
                     rowCheckboxes.forEach(checkbox => checkbox.checked = this.checked);
                 });
 
                 // Individual checkbox functionality
                 recipientTableBody.addEventListener('change', function (e) {
-                    if (e.target.type === 'checkbox') {
-                        const rowCheckboxes = recipientTableBody.querySelectorAll('input[type="checkbox"]');
+                    if (e.target.type === 'checkbox' && !e.target.disabled) {
+                        const rowCheckboxes = recipientTableBody.querySelectorAll('input[type="checkbox"]:not(:disabled)');
                         const allChecked = Array.from(rowCheckboxes).every(box => box.checked);
                         const anyChecked = Array.from(rowCheckboxes).some(box => box.checked);
                         selectAllCheckbox.checked = allChecked;
@@ -682,7 +686,8 @@
             }
 
             function handleSearch() {
-                const searchText = searchInput.value.toLowerCase();
+                if (!searchInput) return;
+                const searchText = searchInput.value.toLowerCase().trim();
                 filteredRecipients = recipients.filter(recipient =>
                     recipient.name.toLowerCase().includes(searchText) ||
                     recipient.id.toLowerCase().includes(searchText) ||
@@ -720,11 +725,70 @@
             function updatePagination() {
                 const totalEntries = filteredRecipients.length;
                 const totalPages = Math.ceil(totalEntries / entriesPerPage);
-                const start = ((currentPage - 1) * entriesPerPage) + 1;
+                const start = totalEntries === 0 ? 0 : ((currentPage - 1) * entriesPerPage) + 1;
                 const end = Math.min(currentPage * entriesPerPage, totalEntries);
                 paginationInfo.textContent = `${start}-${end} / ${totalEntries}`;
-                prevPageButton.disabled = currentPage === 1;
-                nextPageButton.disabled = currentPage === totalPages;
+                prevPageButton.disabled = currentPage === 1 || totalEntries === 0;
+                nextPageButton.disabled = currentPage === totalPages || totalEntries === 0;
+            }
+
+            function initializeAddRecipient() {
+                if (!addRecipientBtn || !recipientTableBody) return;
+
+                addRecipientBtn.addEventListener('click', function () {
+                    // Remove existing input row if present
+                    const existingInputRow = document.getElementById('promotional-new-recipient-row');
+                    if (existingInputRow) existingInputRow.remove();
+
+                    const inputRow = document.createElement('tr');
+                    inputRow.id = 'promotional-new-recipient-row';
+                    inputRow.innerHTML = `
+                        <td><input type="checkbox" disabled></td>
+                        <td><input type="text" id="promotional-new-name" placeholder="Enter name"></td>
+                        <td><input type="text" id="promotional-new-id" placeholder="Enter unique ID"></td>
+                        <td><input type="email" id="promotional-new-email" placeholder="Enter email"></td>
+                        <td><input type="text" id="promotional-new-mobile" placeholder="Enter mobile"></td>
+                        <td><button class="btn-save-recipient" style="background: #f86d21; color: white; border: none; border-radius:8px; padding: 5px 10px; cursor: pointer;">Save</button></td>
+                    `;
+                    recipientTableBody.insertBefore(inputRow, recipientTableBody.firstChild);
+
+                    const saveButton = inputRow.querySelector('.btn-save-recipient');
+                    saveButton.addEventListener('click', function () {
+                        const nameInput = document.getElementById('promotional-new-name').value.trim();
+                        const idInput = document.getElementById('promotional-new-id').value.trim();
+                        const emailInput = document.getElementById('promotional-new-email').value.trim();
+                        const mobileInput = document.getElementById('promotional-new-mobile').value.trim();
+
+                        // Basic validation
+                        if (!nameInput || !idInput || !emailInput || !mobileInput) {
+                            alert('Please fill in all fields.');
+                            return;
+                        }
+                        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput)) {
+                            alert('Please enter a valid email address.');
+                            return;
+                        }
+                        if (!/^\d{10}$/.test(mobileInput)) {
+                            alert('Please enter a valid 10-digit mobile number.');
+                            return;
+                        }
+
+                        // Add new recipient to the recipients array
+                        const newRecipient = {
+                            name: nameInput,
+                            id: idInput,
+                            email: emailInput,
+                            mobile: mobileInput
+                        };
+                        recipients.unshift(newRecipient);
+                        filteredRecipients.unshift(newRecipient);
+
+                        // Remove input row and re-render table
+                        inputRow.remove();
+                        renderRecipientTable();
+                        updatePagination();
+                    });
+                });
             }
 
             function initializeLinkContainer() {
@@ -824,7 +888,7 @@
                 if (!contentArea) return;
 
                 const content = contentArea.innerHTML;
-                const selectedRecipients = Array.from(document.querySelectorAll('.recipients-table tbody input[type="checkbox"]:checked'))
+                const selectedRecipients = Array.from(document.querySelectorAll('.promotional-recipients-table tbody input[type="checkbox"]:checked'))
                     .map(checkbox => {
                         const row = checkbox.closest('tr');
                         return {
@@ -953,14 +1017,5 @@
             }
         }
     </script>
-
-
-
-
-
-
-
-
 </body>
-
 </html>

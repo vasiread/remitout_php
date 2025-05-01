@@ -428,8 +428,8 @@ function initializeAdminSidebar () {
                 if (editContainerAdmin) editContainerAdmin.style.display = "none";
                 if (adminManageStudent) adminManageStudent.style.display = "none";
                 if (studentApplication) studentApplication.style.display = "none";
-                if (adminsideScDashboard)
-                    adminsideScDashboard.style.display = "none";
+                if (adminsideScDashboard) adminsideScDashboard.style.display = "none";
+                if (studentListContainer) studentListContainer.style.display = "none";
 
 
             }
