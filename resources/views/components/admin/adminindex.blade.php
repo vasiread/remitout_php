@@ -330,29 +330,31 @@
 
             const apiurl = id.includes("NBFC") ? '/send-message-from-adminnbfc' : '/send-message-from-adminstudent';
 
-            fetch(apiurl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify(body)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Message sent successfully:', data);
-                    alert("Message sent");
-                    const messageInput = parentContainer.querySelector(`#admin-${type}-input-field-${chatId}`);
-                    messageInput.value = '';
-                    displayMessages(chatId, parentContainer.querySelector(`#admin-${type}-messages-${chatId}`), id);
-                    scrollToBottom(parentContainer.querySelector(`#admin-${type}-messages-${chatId}`));
-                })
-                .catch(error => {
-                    console.error('Error sending message:', error);
-                });
 
-            saveMessagesToStorage();
-        }
+                // Send the API request
+                fetch(apiurl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+
+                    },
+                    body: JSON.stringify(body)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Message sent successfully:', data);
+                        // alert("message sent")
+                                        displayMessages(chatId, messagesWrapper, id);
+
+                                        scrollToBottom(messagesWrapper);
+
+                    })
+                    .catch(error => {
+                        console.error('Error sending message:', error);
+                    });
+
+            }
 
         // Display messages
         function displayMessages(chatId, messagesWrapper, id) {

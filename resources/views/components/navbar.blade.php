@@ -119,7 +119,7 @@ $NotificationBell = "assets/images/notifications_unread.png";
         <span id="confirm-password-error" class="error-message"></span>
 
         <div class="footer-passwordchange">
-            <a href="">Forgot Password</a>
+            <p href="">Forgot Password</p>
 
             <button id="password-change-save">Save</button>
 

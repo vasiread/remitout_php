@@ -412,6 +412,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const personalInfoReferral = document.getElementById(
             "personal-info-referral"
         ).value;
+        const personalInfoState =
+            document.getElementById("personal-info-state").value;
+        const personalInfoDob =
+            document.getElementById("personal-info-dob").value;
+       
+        const genderOptions = document.getElementById('gender-personal-info').value;
+ 
+       
 
         // Use the captured value from the custom dropdown
         const personalInfoFindOut = selectedValue;
@@ -428,7 +436,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 personalInfoName,
                 personalInfoPhone,
                 personalInfoEmail,
+                genderOptions,
+                personalInfoDob,
                 personalInfoCity,
+                personalInfoState,
                 personalInfoReferral,
                 personalInfoFindOut,
             };

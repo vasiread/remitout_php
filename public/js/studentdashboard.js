@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
     initialiseEightcolumn();
     initialiseNinthcolumn();
     initialiseTenthcolumn();
+    loanStatusCount();
+    passwordForgot();
     displayEducationDetails();
 
     const sessionLogout = document.querySelector(".studentdashboardprofile-sidebarlists-bottom .logoutBtn");
@@ -3192,18 +3194,48 @@ function toggleOtherDegreeInput(event) {
         console.error("Error: Event or target value is undefined.");
     }
 }
-const initializeProgressRing = () => {
-    const radius = 52;
-    const circumference = 2 * Math.PI * radius;
-    const percentage = 0.50;
-    const offset = circumference * (1 - percentage);
-    const progressRingFill = document.querySelector(".progress-ring-fill");
-    const progressText = document.querySelector(".progress-ring-text");
 
-    progressRingFill.style.strokeDasharray = `${circumference} ${circumference}`;
-    progressRingFill.style.strokeDashoffset = offset;
-    progressText.textContent = `${Math.round(percentage * 100)}%`;
+const initializeProgressRing = () => {
+    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+    const userId = userIdElement ? userIdElement.textContent.trim() : '';
+    let percentage = 0;
+
+    fetch("/getprofilecompletionpercentage", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content"),
+        },
+        body: JSON.stringify({ userId }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data) {
+                console.log("Overall Completion:", data);
+                percentage = data.overall_completion_percentage / 100;
+
+                const radius = 52;
+                const circumference = 2 * Math.PI * radius;
+                const offset = circumference * (1 - percentage);
+                const progressRingFill = document.querySelector(".progress-ring-fill");
+                const progressText = document.querySelector(".progress-ring-text");
+
+                progressRingFill.style.strokeDasharray = `${circumference} ${circumference}`;
+                progressRingFill.style.strokeDashoffset = offset;
+                progressText.textContent = `${Math.round(percentage * 100)}%`;
+            } else if (data.error) {
+                console.error("Server Error:", data.error);
+            } else {
+                console.error("Unexpected response format:", data);
+            }
+        })
+        .catch(error => {
+            console.error("Fetch Error:", error);
+        });
 };
+
 const initialisedocumentsCount = () => {
 
     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
@@ -3347,7 +3379,6 @@ const saveChangesFunctionality = () => {
 
                 const courseDuration = document.querySelector(".myapplication-fourthcolumn-additional input").value;
                 const loanAmount = document.querySelector(".myapplication-fourthcolumn input").value;
-                const referralCode = document.querySelector(".myapplication-fifthcolumn input").value;
 
                 const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
                 const userId = userIdElement ? userIdElement.textContent : '';
@@ -3374,7 +3405,6 @@ const saveChangesFunctionality = () => {
                     planToStudy: mergedPlanToStudy,
                     courseDuration: courseDuration,
                     loanAmount: loanAmount,
-                    referralCode: referralCode,
                     degreeType: updatedData.degreeType,
                     userId: userId
                 };
@@ -3395,9 +3425,11 @@ const saveChangesFunctionality = () => {
                     .then(response => response.json())
                     .then(data => {
                         console.log("Response Data:", data);
+                        alert("Student Details Updated Successfully")
                         if (editedName) {
                             document.querySelector("#referenceNameId p").textContent = editedName;
                             document.getElementById("personal_state_id").textContent = editedState;
+
                         }
 
                         if (data.errors) {
@@ -3868,10 +3900,11 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
                     },
                     body: JSON.stringify({ userId, nbfcId })
                 });
+
                 const data = await response.json();
                 if (data.file_path) {
                     const fileName = data.file_path.split("/").pop(); // Extract filename from URL
-                    showDocumentPreview(data.file_path, fileName); // Show the document in a popup
+                    showDocumentPreview(data.file_path, fileName);     // Show the document
                 } else {
                     alert("No document found to preview.");
                     console.error('No file found:', data.message);
@@ -3961,12 +3994,13 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
         }
 
         bindAcceptRejectButtons(itemsNeedingButtons);
-
         return statusCount;
+
     } catch (error) {
         console.error("Error checking user ID:", error);
     }
 }
+
 
 
 const showDocumentPreview = (fileUrl, fileName, eyeIcon = null) => {
@@ -4400,5 +4434,81 @@ const showDocumentPreview = (fileUrl, fileName, eyeIcon = null) => {
         alert("Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported.");
     }
 };
+const loanStatusCount = () => {
+    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+    const userId = userIdElement ? userIdElement.textContent.trim() : '';
 
+    if (!userId) {
+        console.error("User ID not found.");
+        return;
+    }
+
+    fetch('/loanstatuscount', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({ user_id: userId })
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Loan Status Data:", data);
+
+            const formatCount = (num) => num.toString().padStart(2, '0');
+
+            document.querySelector(".leftsection-detailsinfo .loan-receivedsection h1").textContent = formatCount(data.received_proposals);
+            document.querySelector(".leftsection-detailsinfo .loan-onholdsection h1").textContent = formatCount(data.hold_requests);
+
+            let rejectedTotal = 0;
+            if (Array.isArray(data.rejected_by_nbfc)) {
+                rejectedTotal = data.rejected_by_nbfc.reduce((sum, item) => sum + (item.count || 0), 0);
+            }
+
+            document.querySelector(".leftsection-detailsinfo .loan-rejectedsection h1").textContent = formatCount(rejectedTotal);
+        })
+        .catch(error => {
+            console.error("Error fetching loan status:", error);
+        });
+};
+
+
+
+const passwordForgot = () => {
+    const forgotMailTrigger = document.querySelector(".footer-passwordchange p");
+
+    if (forgotMailTrigger) {
+        forgotMailTrigger.addEventListener('click', () => {
+
+            const email = document.querySelector("#referenceEmailId p").textContent;
+
+
+
+            fetch("/forgot-passwordmailsent", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ email: email })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);  
+                    if (data.message) {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("There was an error while sending the email.");
+                });
+        });
+    }
+}
 

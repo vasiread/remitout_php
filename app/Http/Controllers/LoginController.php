@@ -25,28 +25,7 @@ class LoginController extends Controller
 
         $isEmail = filter_var($loginName, FILTER_VALIDATE_EMAIL) !== false;
 
-        // --- Check if SUPER ADMIN ---
-        $adminEmail = env('SUPERADMIN_EMAIL');
-        $adminPassword = env('SUPERADMIN_PASSWORD');
-        $adminId = env('SUPERADMIN_ID');
-
-        if ($loginName === $adminEmail && $loginPassword === $adminPassword) {
-            session([
-                'admin_user_id' => $adminId,
-                'admin_role' => 'superadmin',
-            ]);
-            session()->put('expires_at', now()->addSeconds(20000));
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Super Admin login successful',
-                'redirect' => '/admin-page'
-            ]);
-        }
-        // --- End Super Admin check ---
-
-        // Try to find the user in all three models
-        $scuser = $isEmail
+         $scuser = $isEmail
             ? Scuser::where('email', $loginName)->first()
             : Scuser::where('referral_code', $loginName)->first();
 
@@ -58,11 +37,10 @@ class LoginController extends Controller
             ? Nbfc::where('nbfc_email', $loginName)->first()
             : Nbfc::where('nbfc_id', $loginName)->first();
 
-        // Check if the password matches for Scuser
-        if ($scuser && Hash::check($loginPassword, $scuser->passwordField)) {
+         if ($scuser && Hash::check($loginPassword, $scuser->passwordField)) {
             session(['scuser' => $scuser]);
             session()->put('scDetail', $scuser);
-            session()->put('expires_at', now()->addSeconds(10000)); // Expire in 10,000 seconds
+            session()->put('expires_at', now()->addSeconds(10000));
 
             return response()->json([
                 'success' => true,
@@ -72,7 +50,7 @@ class LoginController extends Controller
             ]);
         }
 
-        // Check if the password matches for User
+
         if ($user && Hash::check($loginPassword, $user->password)) {
             session(['user' => $user]);
             session()->put('expires_at', now()->addSeconds(10000));
@@ -85,7 +63,7 @@ class LoginController extends Controller
             ]);
         }
 
-        // Check if the password matches for Nbfc user
+
         if ($nbfcuser && Hash::check($loginPassword, $nbfcuser->password)) {
             session(['nbfcuser' => $nbfcuser]);
             session()->put('expires_at', now()->addSeconds(10000));
@@ -98,7 +76,25 @@ class LoginController extends Controller
             ]);
         }
 
-        // If none of the models matched
+        $adminEmail = env('SUPERADMIN_EMAIL');
+        $adminPassword = env('SUPERADMIN_PASSWORD');
+        $adminId = env('SUPERADMIN_ID');
+
+        if ($loginName === $adminEmail && Hash::check($loginPassword, $adminPassword)) {
+            session([
+                'admin_user_id' => $adminId,
+                'admin_role' => 'superadmin',   
+            ]);
+            session()->put('expires_at', now()->addSeconds(20000));
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Super Admin login successful',
+                'redirect' => '/admin-page'
+            ]);
+        }
+
+        
         return response()->json(['success' => false, 'message' => 'Invalid email/ID or password.']);
     }
 

@@ -305,15 +305,14 @@
 
 .password-change-container-nbfc input {
     width: 100%;
-    min-height: 28px;
-    height: 100%;
-    border-radius: 2px;
-    border: 1px solid rgba(226, 226, 226, 1);
-    outline: none;
-    font-size: 0.6rem;
-    font-family: 'Poppins', sans-serif;
-
-    padding-left: 6px;
+        min-height: 51px;
+        height: 100%;
+        border-radius: 2px;
+        border: 1px solid rgba(226, 226, 226, 1);
+        outline: none;
+        font-size: 0.9rem;
+        font-family: 'Poppins', sans-serif;
+        padding-left: 6px;
 
 
 }
@@ -345,9 +344,9 @@
     font-family: 'Poppins', sans-serif;
 
     font-weight: 500;
-    font-size: clamp(8px, 4vw, 12px);
-    line-height: clamp(11px, 4vw, 27px);
-    color: rgba(233, 134, 53, 1);
+        font-size: clamp(9px, 4vw, 15px);
+        line-height: clamp(11px, 4vw, 27px);
+        color: rgba(233, 134, 53, 1);
 }
 
 .popup-notify-list-nbfc {
@@ -388,7 +387,11 @@
     justify-content: space-between;
     align-items: center;
 }
-
+.footer-passwordchange-nbfc p{
+    cursor: pointer;
+    text-decoration: underline;
+    color:#0056b3;
+}
 #nbfc-student-profile-details {
     display: none;
     width: 100%;

@@ -4,9 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 
-class AdminMiddleware
+class AdminAuth
 {
     /**
      * Handle an incoming request.
@@ -17,10 +16,10 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Session::has('admin_role') || Session::get('admin_role') !== 'superadmin') {
-            return redirect('/login')->with('error', 'You must be logged in as Super Admin to access this page.');
+        if (session('admin_role') !== 'superadmin' || !session('admin_user_id')) {
+            // If not, redirect to the login page or show a forbidden message
+            return redirect()->route('login')->withErrors(['message' => 'Access Denied: Unauthorized']);
         }
-        
         return $next($request);
     }
 }

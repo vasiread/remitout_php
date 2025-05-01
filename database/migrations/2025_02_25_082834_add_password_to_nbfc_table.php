@@ -13,7 +13,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::table('nbfc', function (Blueprint $table) {
-            $table->string('password')->after('nbfc_email'); // Adjust 'after' to match the correct column
+            $table->string('password')->after('nbfc_email');  
 
         });
     }

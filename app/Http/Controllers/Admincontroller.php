@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\PromotionalContentMail;
+use App\Models\Admin;
 use App\Models\CourseInfo;
 use App\Models\landingpage;
 use App\Models\Nbfc;
@@ -28,7 +29,7 @@ use Illuminate\Support\Str;
 
 class Admincontroller extends Controller
 {
-    
+
 
     public function retrieveDashboardDetails()
     {
@@ -822,8 +823,8 @@ class Admincontroller extends Controller
 
             $query = PersonalInfo::query();
 
-            // Filter based on CourseInfo degree-type
-            if ($degreeType) {
+            // Apply filter only if degree_type is provided
+            if (!empty($degreeType)) {
                 $query->whereHas('courseInfo', function ($q) use ($degreeType) {
                     $q->where('degree-type', $degreeType);
                 });
@@ -839,20 +840,25 @@ class Admincontroller extends Controller
             ];
 
             foreach ($personalInfos as $info) {
-                if (!$info->dob)
+                if (empty($info->dob))
                     continue;
 
-                $dob = Carbon::createFromFormat('d/m/Y', $info->dob);
-                $age = $dob->age;
+                try {
+                    $dob = Carbon::createFromFormat('d/m/Y', $info->dob);
+                    $age = $dob->age;
 
-                if ($age >= 16 && $age <= 20) {
-                    $ageGroups['16-20']++;
-                } elseif ($age >= 21 && $age <= 25) {
-                    $ageGroups['21-25']++;
-                } elseif ($age >= 26 && $age <= 30) {
-                    $ageGroups['26-30']++;
-                } elseif ($age >= 31 && $age <= 40) {
-                    $ageGroups['31-40']++;
+                    if ($age >= 16 && $age <= 20) {
+                        $ageGroups['16-20']++;
+                    } elseif ($age >= 21 && $age <= 25) {
+                        $ageGroups['21-25']++;
+                    } elseif ($age >= 26 && $age <= 30) {
+                        $ageGroups['26-30']++;
+                    } elseif ($age >= 31 && $age <= 40) {
+                        $ageGroups['31-40']++;
+                    }
+                } catch (\Exception $e) {
+                    // Skip if date parsing fails
+                    continue;
                 }
             }
 
@@ -887,19 +893,19 @@ class Admincontroller extends Controller
             if (!empty($info->referral_code)) {
                 $referrer = User::where('referral_code', $info->referral_code)->first();
 
-                    // Check linked_through of the referrer
- 
-                    if ($referrer) {
-                        $linkedThrough = strtolower($referrer->linked_through);
+                // Check linked_through of the referrer
 
-                        if ($linkedThrough == 'google' || $linkedThrough == 'youtube') {
-                            $addsCount++;
-                        } else {
-                            $scReferralCount++;
-                        }
+                if ($referrer) {
+                    $linkedThrough = strtolower($referrer->linked_through);
 
-                        $hasSCReferral = true;
+                    if ($linkedThrough == 'google' || $linkedThrough == 'youtube') {
+                        $addsCount++;
+                    } else {
+                        $scReferralCount++;
                     }
+
+                    $hasSCReferral = true;
+                }
             }
 
             // If no SC Referral found, check linked_through of current user
@@ -937,4 +943,49 @@ class Admincontroller extends Controller
         ]);
     }
 
+
+    public function fetchRecipients()
+    {
+        $userAccess = User::all();
+
+        if ($userAccess->isNotEmpty()) {
+            return response()->json([
+                'success' => true,
+                'message' => "Recipients retrieved successfully",
+                'data' => $userAccess
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => "No recipients found",
+                'data' => []
+            ], 404);
+        }
+    }
+
+    public function addAdminRole(Request $request)
+    {
+        // Ensure only superadmins can add admin roles
+        if (session('admin_role') !== 'superadmin') {
+            return response()->json(['error' => 'Unauthorized. Only superadmins can add admin roles.'], 403);
+        }
+
+        // Validate input
+        $request->validate([
+            'admin_role' => 'required|string',
+            'name' => 'required|string',
+            'email' => 'required|email|unique', // specify the table and column
+            'password' => 'required|string|min:6', // assume password is needed too
+        ]);
+
+        // Create the admin user
+        Admin::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'is_super_admin' => $request->admin_role === 'superadmin' ? true : false,
+        ]);
+
+        return redirect()->back()->with('success', 'Admin role added successfully.');
+    }
 }

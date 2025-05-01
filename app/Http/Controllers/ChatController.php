@@ -62,7 +62,7 @@ class ChatController extends Controller
             ]);
 
              $conversation = Conversationadmin_nbfc::firstOrCreate([
-                'nbfc_id' => $validated['nbfc_id'],
+                'nbfc_id' => $validated['id'],
                 'admin_id' => $validated['admin_id'],
             ]);
 

@@ -215,7 +215,7 @@
     margin: 0 1.18rem;
     position: relative;
     z-index: 2;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .nav-searchnotificationbars .unread-notify::after {
@@ -232,7 +232,7 @@
 
 .unread-notify-container {
     position: relative;
- }
+}
 
 .unread-notify-container p {
     content: '';
@@ -248,7 +248,7 @@
     z-index: 5;
     font-size: 9px;
     border-radius: 50%;
-    color:#fff;
+    color: #fff;
 }
 
 .nav-searchnotificationbars .nav-profileimg {
@@ -323,18 +323,18 @@
 }
 
 
-.popup-notify-list{
-        position: absolute;
-        flex-direction: column;
-        top: 100%;
-        left: 12%;
-        background-color: #ffffff;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        gap: 1rem;
-        padding: 1rem 0;
-        border-radius: 5px;
-        width: 116px;
-    }
+.popup-notify-list {
+    position: absolute;
+    flex-direction: column;
+    top: 100%;
+    left: 12%;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    gap: 1rem;
+    padding: 1rem 0;
+    border-radius: 5px;
+    width: 116px;
+}
 
 .popup-notify-list p {
     font-family: 'Poppins', sans-serif;
@@ -360,12 +360,15 @@
     align-items: center;
 }
 
-.footer-passwordchange a {
+.footer-passwordchange p {
     font-family: 'Poppins', sans-serif;
-
-    font-size: 0.7rem;
+    font-size: 1rem;
     text-decoration: none;
     padding-left: 6px;
+    cursor: pointer;
+    text-decoration: underline;
+    color: #0056b3;
+
 }
 
 
@@ -381,7 +384,7 @@
 
 .password-change-container {
     transform: translate(-50%, -50%);
-    position: absolute;
+    position: fixed;
     z-index: 10;
     top: 50%;
     left: 50%;
@@ -399,17 +402,14 @@
 
 .password-change-container input {
     width: 100%;
-    min-height: 28px;
+    min-height: 51px;
     height: 100%;
     border-radius: 2px;
     border: 1px solid rgba(226, 226, 226, 1);
     outline: none;
-    font-size: 0.6rem;
+    font-size: 0.9rem;
     font-family: 'Poppins', sans-serif;
-
     padding-left: 6px;
-
-
 }
 
 #password-change-save {
@@ -439,7 +439,7 @@
     font-family: 'Poppins', sans-serif;
 
     font-weight: 500;
-    font-size: clamp(8px, 4vw, 12px);
+    font-size: clamp(9px, 4vw, 15px);
     line-height: clamp(11px, 4vw, 27px);
     color: rgba(233, 134, 53, 1);
 }
