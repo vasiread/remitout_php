@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nbfc_id')->nullable()->unique();
             $table->string('nbfc_name');
+            $table->string('nbfc_email');
             $table->string('nbfc_represent');
             $table->string('nbfc_type');
             

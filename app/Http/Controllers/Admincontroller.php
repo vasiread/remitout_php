@@ -974,8 +974,9 @@ class Admincontroller extends Controller
         $request->validate([
             'admin_role' => 'required|string',
             'name' => 'required|string',
-            'email' => 'required|email|unique', // specify the table and column
-            'password' => 'required|string|min:6', // assume password is needed too
+            'email' => 'required|email|unique', 
+            'password' => 'required|string|min:6', 
+            
         ]);
 
         // Create the admin user
