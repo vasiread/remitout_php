@@ -1,12 +1,14 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Role Management</title>
     <link rel="stylesheet" href="assets/css/adminrolemanagement.css">
-    
-      
+
+
 </head>
+
 <body>
     @extends('layouts.app')
 
@@ -16,7 +18,7 @@
                 <div class="role-management-mobile-heading">
                     <h1 class="role-management-title">Role Management</h1>
                     <button class="role-management-mobile-add-btn">+</button>
-                </div> 
+                </div>
                 <div class="role-management-controls">
                     <input type="text" class="role-management-search" placeholder="Search">
                     <div class="custom-dropdown">
@@ -41,7 +43,6 @@
     </div>
 
     <script>
-        // Sample data with different names and emails
         let users = [
             { name: 'Alice Johnson', role: 'Student', email: 'alice.j@gmail.com' },
             { name: 'Bob Smith', role: 'Financial Company', email: 'bob.smith@gmail.com' },
@@ -53,7 +54,19 @@
             { name: 'Henry Clark', role: 'Students', email: 'henry.c@gmail.com' }
         ];
 
-        // Function to create user rows
+        document.addEventListener('DOMContentLoaded', () => {
+            const sessionData = @json(session()->all());
+
+            console.log('Full Session Data:', sessionData);
+        });
+
+
+        const adminId = @json(session('admin_user_id'));
+        const adminRole = @json(session('admin_role'));
+
+        console.log('Super Admin ID:', adminId);
+        console.log('Super Admin Role:', adminRole);
+
         function createUserRows(sortedUsers = users) {
             const userList = document.getElementById('roleManagementList');
             userList.innerHTML = '';
@@ -213,4 +226,5 @@
         });
     </script>
 </body>
+
 </html>

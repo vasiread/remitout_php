@@ -35,7 +35,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/retrieve-profile-picture', [StudentDashboardController::class, 'retrieveProfilePicture']);
 Route::post('/retrieve-pan-card', [StudentDashboardController::class, 'panCardView']);
 Route::post('/retrieve-aadhar-card', [StudentDashboardController::class, 'aadharCardView']);
-Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
+Route::post('/loginformdata', [LoginController::class, 'loginFormData']);
 Route::post('/count-documents', [StudentDashboardController::class, 'countFilesInBucket']);
 Route::post('/remaining-documents', [StudentDashboardController::class, 'getRemainingNonUploadedFiles']);
 Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFromProfile']);
@@ -45,14 +45,14 @@ Route::post('/push-user-id-request', [StudentDashboardController::class, 'pushUs
 Route::post('/del-user-id-request', [StudentDashboardController::class, 'removeUserIdFromNBFCAndReject']);
 Route::post('/update-user-id-request', [StudentDashboardController::class, 'updateUserIdFromNBFC']);
 
-Route::post('/registerformdata', [RegisterController::class, 'store'])->name('registerformdata');
+Route::post('/registerformdata', [RegisterController::class, 'store']);
 
 Route::post('/send-mobotp', [OTPMobController::class, 'sendOTP']);
 Route::post('/verify-mobotp', [OTPMobController::class, 'verifyOTP']);
 Route::post('/emailuniquecheck', action: [RegisterController::class, 'emailUniqueCheck']);
 Route::post('/updatedetailsinfo', [StudentDetailsController::class, 'updateUserIds']);
 
-Route::post('/getUserFromNbfc', [StudentDashboardController::class, 'getUserFromNbfc'])->name('getUserFromNbfc');
+Route::post('/getUserFromNbfc', [StudentDashboardController::class, 'getUserFromNbfc']);
 Route::post("/send-proposals-with-file", [NbfcController::class, 'sendProposalsWithFiles']);
 
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
@@ -116,7 +116,7 @@ Route::get('/get-messages-adminnbfc/{nbfc_id}/{admin_id}', [ChatController::clas
 Route::get('/get-messages-adminstudent/{student_id}/{admin_id}', [ChatController::class, 'getMessagesForAdminStudent']);
 Route::post('/send-message-from-adminnbfc', action: [ChatController::class, 'sendMessageFromAdminNbfc']);
 Route::post('/send-message-from-adminstudent', action: [ChatController::class, 'sendMessageFromAdminStudent']);
-Route::post('/age-ratio', [Admincontroller::class, 'ageratioCalculation'])->name("admin.ageratio.calculation");
+Route::post('/age-ratio', [Admincontroller::class, 'ageratioCalculation']);
 Route::post('/sourceregister', [Admincontroller::class, 'sourceRegistration']);
 
 Route::post('/student-application-form', [Admincontroller::class, 'store']);

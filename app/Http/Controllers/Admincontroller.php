@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\PromotionalContentMail;
+use App\Models\Admin;
 use App\Models\CourseInfo;
 use App\Models\landingpage;
 use App\Models\Nbfc;
@@ -945,7 +946,7 @@ class Admincontroller extends Controller
 
     public function fetchRecipients()
     {
-        $userAccess = User::all(); 
+        $userAccess = User::all();
 
         if ($userAccess->isNotEmpty()) {
             return response()->json([
@@ -962,5 +963,29 @@ class Admincontroller extends Controller
         }
     }
 
+    public function addAdminRole(Request $request)
+    {
+        // Ensure only superadmins can add admin roles
+        if (session('admin_role') !== 'superadmin') {
+            return response()->json(['error' => 'Unauthorized. Only superadmins can add admin roles.'], 403);
+        }
 
+        // Validate input
+        $request->validate([
+            'admin_role' => 'required|string',
+            'name' => 'required|string',
+            'email' => 'required|email|unique', // specify the table and column
+            'password' => 'required|string|min:6', // assume password is needed too
+        ]);
+
+        // Create the admin user
+        Admin::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'is_super_admin' => $request->admin_role === 'superadmin' ? true : false,
+        ]);
+
+        return redirect()->back()->with('success', 'Admin role added successfully.');
+    }
 }
