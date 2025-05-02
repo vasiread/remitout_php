@@ -27,7 +27,7 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tag: ${{ secrets.DOCKER_USERNAME }}/remitout-app:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/remitout-app:latest
 
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
