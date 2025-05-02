@@ -38,9 +38,9 @@
         <a href="#help" class="student-form-nav-mobile">Help</a>
 
         <div class="student-form-nav-buttons" display="style:none">
-          <button class="student-form-login-btn" onclick="window.location.href='http://127.0.0.1:8000/login'">Log
+          <button class="student-form-login-btn" onclick="window.location.href='/login'">Log
             In</button>
-          <button class="student-form-signup-btn" onclick="window.location.href='http://127.0.0.1:8000/signup'">Sign
+          <button class="student-form-signup-btn" onclick="window.location.href='/signup'">Sign
             Up</button>
         </div>
 
