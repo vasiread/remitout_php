@@ -488,7 +488,7 @@
         </div>
 
         <div class="admit-right-section">
-          <p>1.4 Have you got any admit?</p>
+          <p>Have you got any admit?</p>
           <div class="admit-exam-field">
             <label for="admit-ielts">IELTS</label>
             <div class="admit-input-container">
@@ -1283,7 +1283,7 @@
 
   </form>
 
-
+<div id="toast-container" class="toast-container"></div>
 
   <!-------Navigation button------>
   <div class="navigation">

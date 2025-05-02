@@ -645,6 +645,9 @@
         padding: 8px;
         margin-top: 40px;
     }
+    .promotional-composer-main-section{
+        width:340px;
+    }
 
     .promotional-header h2 {
         font-size: 18px;
