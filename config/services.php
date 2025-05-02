@@ -33,7 +33,7 @@ return [
     'google'=>[
         'client_id'=>env('GOOGLE_CLIENT_ID'),
         'client_secret'=>env('GOOGLE_CLIENT_SECRET'),
-        'redirect'=>'/auth/google/call-back',
+        'redirect'=>'http://13.127.4.221:8000/auth/google/call-back',
     ],
 
 ];
