@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Twilio\Rest\Client;
 use Illuminate\Support\Facades\Cache;
@@ -18,7 +19,9 @@ class OTPMobController extends Controller
         ]);
 
         try {
-              $sid = env('TWILIO_SID');
+            Log::info(env('TWILIO_SID'));
+            Log::info(env('TWILIO_AUTH_TOKEN'));
+            $sid = env('TWILIO_SID');
             $token = env('TWILIO_AUTH_TOKEN');
             $client = new Client($sid, $token);
 

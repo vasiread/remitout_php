@@ -758,11 +758,9 @@ class Admincontroller extends Controller
     public function initializeChatStudent()
     {
         try {
-            // Fetch students with necessary details (id, name, unique_id)
-            $students = User::select('name', 'unique_id')->get();
+             $students = User::select('name', 'unique_id')->get();
 
-            // Check if data was retrieved successfully
-            if ($students->isEmpty()) {
+             if ($students->isEmpty()) {
                 return response()->json([
                     'status' => 'error',
                     'message' => 'No students found.',
@@ -777,12 +775,11 @@ class Admincontroller extends Controller
             ], 200); // HTTP status 200 - OK
 
         } catch (\Exception $e) {
-            // Handle errors (e.g., database errors, unexpected issues)
             return response()->json([
                 'status' => 'error',
                 'message' => 'An error occurred while retrieving students.',
                 'error' => $e->getMessage(),
-            ], 500); // HTTP status 500 - Internal Server Error
+            ], 500);  
         }
     }
     public function initializeChatNbfc()
@@ -823,12 +820,11 @@ class Admincontroller extends Controller
 
             $query = PersonalInfo::query();
 
-            // Apply filter only if degree_type is provided
             if (!empty($degreeType)) {
                 $query->whereHas('courseInfo', function ($q) use ($degreeType) {
                     $q->where('degree-type', $degreeType);
                 });
-            }
+            }       
 
             $personalInfos = $query->get();
 
@@ -857,8 +853,7 @@ class Admincontroller extends Controller
                         $ageGroups['31-40']++;
                     }
                 } catch (\Exception $e) {
-                    // Skip if date parsing fails
-                    continue;
+                     continue;
                 }
             }
 
@@ -870,7 +865,7 @@ class Admincontroller extends Controller
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
-            ]);
+            ]); 
         }
     }
 
@@ -889,12 +884,10 @@ class Admincontroller extends Controller
 
             $hasSCReferral = false;
 
-            // Check if referral code exists and is valid
-            if (!empty($info->referral_code)) {
+             if (!empty($info->referral_code)) {
                 $referrer = User::where('referral_code', $info->referral_code)->first();
 
-                // Check linked_through of the referrer
-
+ 
                 if ($referrer) {
                     $linkedThrough = strtolower($referrer->linked_through);
 
@@ -965,13 +958,11 @@ class Admincontroller extends Controller
 
     public function addAdminRole(Request $request)
     {
-        // Ensure only superadmins can add admin roles
-        if (session('admin_role') !== 'superadmin') {
+         if (session('admin_role') !== 'superadmin') {
             return response()->json(['error' => 'Unauthorized. Only superadmins can add admin roles.'], 403);
         }
 
-        // Validate input
-        $request->validate([
+         $request->validate([
             'admin_role' => 'required|string',
             'name' => 'required|string',
             'email' => 'required|email|unique', 
