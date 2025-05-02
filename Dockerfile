@@ -81,7 +81,7 @@ COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 # Set permissions again in case alpine image resets them
-RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache /var/www/public/build
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache /var/www/public/build /var/www/public/assets
 RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www/public/build
 
 # Expose the port
