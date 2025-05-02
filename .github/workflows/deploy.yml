@@ -43,3 +43,5 @@ jobs:
             docker stop remitout-app || true
             docker rm remitout-app || true
             docker run -d -p 8000:80 --name remitout-app ${{ secrets.DOCKER_USERNAME }}/remitout-app:latest
+            rm .env
+            docker logout
