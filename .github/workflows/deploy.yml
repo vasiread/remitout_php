@@ -42,4 +42,4 @@ jobs:
             docker pull ${{ secrets.DOCKER_USERNAME }}/remitout-app:latest
             docker stop remitout-app || true
             docker rm remitout-app || true
-            docker run -d -p 8000:80 --name remitout-app ${{ secrets.DOCKER_USERNAME }}/remitout-app:lates
+            docker run -d -p 8000:80 --name remitout-app ${{ secrets.DOCKER_USERNAME }}/remitout-app:latest
