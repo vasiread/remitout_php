@@ -398,9 +398,8 @@
 }
 
 @media (min-width: 1500px) {
-
     .loginsingupcontainer-leftpanel {
-        width: 50%; /* Takes up the left half of the screen */
+        width: 50%;
         height: 100vh;
         position: relative;
     }
@@ -408,8 +407,8 @@
     .loginsingupcontainer-leftpanel .loginsingupmainimg {
         width: 100%;
         height: 100%;
-        object-fit: cover; /* Ensures the image covers the panel without distortion */
-        object-position: center; /* Centers the image within the panel */
+        object-fit: cover;
+        object-position: center;
         position: absolute;
         top: 0;
         left: 0;
@@ -421,22 +420,22 @@
         overflow: hidden;
         align-items: center;
     }
-.rightsidevector-img {
-    position: absolute;
-    top: 40px; 
-    left: 10.5%;
-    max-width: 84px;
-    width: 100%;
-    height: 82px;
-    opacity: 0.9;
-    z-index: -1;
-}
+    .rightsidevector-img {
+        position: absolute;
+        top: 40px;
+        left: 10.5%;
+        max-width: 84px;
+        width: 100%;
+        height: 82px;
+        opacity: 0.9;
+        z-index: -1;
+    }
 
     .loginsingupcontainer-rightpanel {
         display: flex;
         flex-direction: column;
-        justify-content: center; 
-        align-items: center; 
+        justify-content: center;
+        align-items: center;
         max-width: 595px;
         margin: 0 auto;
         width: 100%;
@@ -451,7 +450,6 @@
         flex-direction: column;
     }
 }
-
 
 @media (min-width: 768px) and (max-width: 1024px) {
     .loginsignupcontainer {
@@ -469,7 +467,6 @@
         display: none;
     }
 
-  
     .loginsingupcontainer-rightpanel {
         max-width: 500px;
         width: 100%;
@@ -563,10 +560,9 @@
         max-width: 450px;
     }
 
-
     .googlesigninbuttoncontainer {
         display: flex;
-        flex-direction: row; 
+        flex-direction: row;
         gap: 15px;
         width: 100%;
         justify-content: center;

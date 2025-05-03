@@ -1,311 +1,310 @@
 * {
-   margin: 0;
-   padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .logincontainer {
-   max-width: 100%;
-   overflow: hidden;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .logincontainer-inside {
-   max-width: 100%;
-   height: 100vh;
-   display: flex;
-   flex-direction: row;
+    max-width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
 }
 
 .logincontainer-leftinside {
-   width: 59%;
-   height: 100vh;
-   position: relative;
-   z-index: 0;
+    width: 59%;
+    height: 100vh;
+    position: relative;
+    z-index: 0;
 }
 
 .logincontainer-leftinside img {
-   width: 100%;
-   height: 100%;
-   object-fit: cover;
-   position: relative;
-   z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    z-index: 0;
 }
 
 .logincontainer-leftinside::after {
-   content: "";
-   position: absolute;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   background-color: #6f25ce;
-   opacity: 0.15;
-   z-index: 1;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #6f25ce;
+    opacity: 0.15;
+    z-index: 1;
 }
 
-.loginrightsidevector-img {
-   position: absolute;
-   top: 5%;
-   left: 11%;
-   max-width: 84px;
-   width: 100%;
-   height: 82px;
-   opacity: 0.9;
-}
-
-.logincontainer-rightinside {
-   width: 41%;
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-   position: relative;
-}
-
-.logincontainer-rightinside h1 {
-   font-family: Raleway;
-   font-size: 36px;
-   font-weight: 700;
-   line-height: 42.26px;
-   text-align: center;
-   color: rgba(0, 0, 0, 1);
-   margin-bottom: 50px;
-}
-
-.logincontainer-loginresources {
-   max-width: 370px;
-   width: 100%;
-   display: flex;
-   flex-direction: column;
-   gap: 30px;
-}
-
-.logincontainer-namecontainer,
-.logincontainer-passwordcontainer {
-   max-width: 100%;
-   width: 100%;
-   position: relative;
-   height: 40px;
-}
-
-.logincontainer-loginresources input:not([type="checkbox"])::placeholder {
-   font-family: 'Poppins', sans-serif;
-   font-size: 14px;
-   font-weight: 500;
-   line-height: 21px;
-   color: rgba(131, 131, 131, 1);
-}
-
-.logincontainer-passwordcontainer i {
-   position: absolute;
-   top: 50%;
-   transform: translateY(-50%);
-   right: 1rem;
-   cursor: pointer;
-   color: rgba(131, 131, 131, 1);
-}
-
-.logincontainer-loginresources input:not([type="checkbox"]) {
-   width: 100%;
-   border-radius: 4px;
-   height: 40px;
-   border: 0.5px solid rgba(174, 174, 174, 1);
-   font-family: 'Poppins', sans-serif;
-   font-size: 14px;
-   font-weight: 500;
-   line-height: 21px;
-   text-align: left;
-   outline: none;
-   padding: 9.5px 0 9.5px 16px;
-}
-
-.logincontainer-namecontainer input:not([type="checkbox"]),
-.logincontainer-passwordcontainer input:not([type="checkbox"]) {
-   font-family: 'Poppins', sans-serif;
-   font-size: 14px;
-   font-weight: 500;
-   line-height: 21px;
-   text-align: left;
-   outline: none;
-   color: rgba(131, 131, 131, 1);
-   padding: 9.5px 0 9.5px 16px;
-}
-
-.logincontainer-checkboxcontainer {
-   display: flex;
-   align-items: center;
-   justify-content: flex-start;
-   gap: 0.8rem;
-   max-width: 100%;
-}
-
-.logincontainer-checkboxcontainer input {
-   -webkit-appearance: none;
-   -moz-appearance: none;
-   appearance: none;
-   cursor: pointer;
-   border-radius: 2px;
-   width: 18px;
-   height: 18px;
-   border: 2px solid rgba(255, 115, 0, 1);
-   position: relative;
-   background-color: white;
-}
-
-.logincontainer-checkboxcontainer input:checked {
-   background-color: rgba(255, 115, 0, 1);
-}
-
-.logincontainer-checkboxcontainer input:checked::after {
-   content: '\2713';
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
-   color: white;
-   font-size: 1.2rem;
-   z-index: 3;
-}
-
-.logincontainer-signupbuttoncontainer p {
-   font-family: 'Poppins', sans-serif;
-   font-size: 12px;
-   font-weight: 500;
-   line-height: 18px;
-   text-align: left;
-   color: rgba(131, 131, 131, 1);
-}
-
-.logincontainer-signupbuttoncontainer {
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: flex-start;
-   gap: 2rem;
-}
-
-.logincontainer-signupbuttoncontainer p span {
-   font-family: 'Poppins', sans-serif;
-   font-size: 12px;
-   font-weight: 500;
-   line-height: 18px;
-   text-align: left;
-   text-decoration-line: underline;
-   color: rgba(131, 131, 131, 1);
-}
-
-.logincontainer-signupbuttoncontainer button {
-   max-width: 370px;
-   width: 100%;
-   height: 40px;
-   padding: 0.5rem 0;
-   border-radius: 4px;
-   background-color: rgba(111, 37, 206, 1);
-   font-family: 'Poppins', sans-serif;
-   font-size: 16px;
-   font-weight: 600;
-   line-height: 24px;
-   text-align: center;
-   color: rgba(255, 255, 255, 1);
-   border: none;
-   cursor: pointer;
-}
-
-.logincontainer-anotherresources {
-   max-width: 370px;
-   width: 100%;
-}
-
-.logincontainer-anotherresources p {
-   font-family: Poppins;
-   font-size: 9px;
-   font-weight: 600;
-   line-height: 13.5px;
-   text-align: center;
-   color: rgba(0, 0, 0, 1);
-   margin: 20px 0;
-}
-
-.googlesigninbuttoncontainer {
-   max-width: 100%;
-   height: 40px;
-   display: flex;
-   gap: 0.5rem;
-   justify-content: center;
-}
-
-.googlesigninbuttoncontainer .googlesigninbutton,
-.googlesigninbuttoncontainer .iossigninbutton {
-   max-width: 50%;
-   width: 100%;
-   height: 100%;
-   border: 0.5px solid rgba(174, 174, 174, 1);
-   border-radius: 4px;
-   background-color: #fff;
-   cursor: pointer;
-}
-
-.googlesigninbuttoncontainer button {
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   gap: 10px;
-   font-family: 'Poppins', sans-serif;
-   font-size: 12px;
-   font-weight: 500;
-   line-height: 18px;
-   text-align: left;
-   color: rgba(131, 131, 131, 1);
-}
-
-.logincontainer-signinoption {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   gap: 0.94rem;
-}
-
-.logincontainer-signinoption p {
-   font-family: 'Poppins', sans-serif;
-   font-size: 12px;
-   font-weight: 500;
-   line-height: 18px;
-   text-align: center;
-   color: rgba(131, 131, 131, 1);
-}
-
-.logincontainer-signinoption span {
-   font-family: 'Poppins', sans-serif;
-   font-size: 12px;
-   font-weight: 500;
-   line-height: 18px;
-   text-align: left;
-   color: rgba(255, 115, 0, 1);
-   cursor: pointer;
-   border-bottom: 1px solid rgba(255, 115, 0, 1);
-}
-
-.logincontainer-radiooptions {
-   display: flex;
-   justify-content: space-between;
-}
-
-.radiooptions-users {
-   display: flex;
-   align-items: center;
-   gap: 10px;
-}
-
-
-@media (min-width: 1500px) {
 .loginrightsidevector-img {
     position: absolute;
-    top: 20%;
+    top: 5%;
     left: 11%;
     max-width: 84px;
     width: 100%;
     height: 82px;
-    opacity: 0.9
+    opacity: 0.9;
 }
+
+.logincontainer-rightinside {
+    width: 41%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.logincontainer-rightinside h1 {
+    font-family: Raleway;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 42.26px;
+    text-align: center;
+    color: rgba(0, 0, 0, 1);
+    margin-bottom: 50px;
+}
+
+.logincontainer-loginresources {
+    max-width: 370px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.logincontainer-namecontainer,
+.logincontainer-passwordcontainer {
+    max-width: 100%;
+    width: 100%;
+    position: relative;
+    height: 40px;
+}
+
+.logincontainer-loginresources input:not([type="checkbox"])::placeholder {
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    color: rgba(131, 131, 131, 1);
+}
+
+.logincontainer-passwordcontainer i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 1rem;
+    cursor: pointer;
+    color: rgba(131, 131, 131, 1);
+}
+
+.logincontainer-loginresources input:not([type="checkbox"]) {
+    width: 100%;
+    border-radius: 4px;
+    height: 40px;
+    border: 0.5px solid rgba(174, 174, 174, 1);
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    text-align: left;
+    outline: none;
+    padding: 9.5px 0 9.5px 16px;
+}
+
+.logincontainer-namecontainer input:not([type="checkbox"]),
+.logincontainer-passwordcontainer input:not([type="checkbox"]) {
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    text-align: left;
+    outline: none;
+    color: rgba(131, 131, 131, 1);
+    padding: 9.5px 0 9.5px 16px;
+}
+
+.logincontainer-checkboxcontainer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.8rem;
+    max-width: 100%;
+}
+
+.logincontainer-checkboxcontainer input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    border-radius: 2px;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 115, 0, 1);
+    position: relative;
+    background-color: white;
+}
+
+.logincontainer-checkboxcontainer input:checked {
+    background-color: rgba(255, 115, 0, 1);
+}
+
+.logincontainer-checkboxcontainer input:checked::after {
+    content: "\2713";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.2rem;
+    z-index: 3;
+}
+
+.logincontainer-signupbuttoncontainer p {
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: left;
+    color: rgba(131, 131, 131, 1);
+}
+
+.logincontainer-signupbuttoncontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+}
+
+.logincontainer-signupbuttoncontainer p span {
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: left;
+    text-decoration-line: underline;
+    color: rgba(131, 131, 131, 1);
+}
+
+.logincontainer-signupbuttoncontainer button {
+    max-width: 370px;
+    width: 100%;
+    height: 40px;
+    padding: 0.5rem 0;
+    border-radius: 4px;
+    background-color: rgba(111, 37, 206, 1);
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+    border: none;
+    cursor: pointer;
+}
+
+.logincontainer-anotherresources {
+    max-width: 370px;
+    width: 100%;
+}
+
+.logincontainer-anotherresources p {
+    font-family: Poppins;
+    font-size: 9px;
+    font-weight: 600;
+    line-height: 13.5px;
+    text-align: center;
+    color: rgba(0, 0, 0, 1);
+    margin: 20px 0;
+}
+
+.googlesigninbuttoncontainer {
+    max-width: 100%;
+    height: 40px;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.googlesigninbuttoncontainer .googlesigninbutton,
+.googlesigninbuttoncontainer .iossigninbutton {
+    max-width: 50%;
+    width: 100%;
+    height: 100%;
+    border: 0.5px solid rgba(174, 174, 174, 1);
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.googlesigninbuttoncontainer button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: left;
+    color: rgba(131, 131, 131, 1);
+}
+
+.logincontainer-signinoption {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.94rem;
+}
+
+.logincontainer-signinoption p {
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: center;
+    color: rgba(131, 131, 131, 1);
+}
+
+.logincontainer-signinoption span {
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: left;
+    color: rgba(255, 115, 0, 1);
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 115, 0, 1);
+}
+
+.logincontainer-radiooptions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.radiooptions-users {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+@media (min-width: 1500px) {
+    .loginrightsidevector-img {
+        position: absolute;
+        top: 20%;
+        left: 11%;
+        max-width: 84px;
+        width: 100%;
+        height: 82px;
+        opacity: 0.9;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -411,8 +410,8 @@
     .loginsingupcontainer-leftpanel {
         display: none;
     }
-    .logincontainer-leftinside{
-      display:none;
+    .logincontainer-leftinside {
+        display: none;
     }
 }
 
@@ -559,7 +558,7 @@
     .googlesigninbuttoncontainer .iossigninbutton {
         height: 36px;
         font-size: 10px;
-        width:330px;
+        width: 330px;
     }
 
     .logincontainer-anotherresources p {
