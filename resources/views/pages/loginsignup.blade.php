@@ -14,7 +14,7 @@
 
     @section('signupcontent')
             <?php  
-                                        $loginSignupImage = "assets/images/loginsignupimg.png";
+        $loginSignupImage = "assets/images/Sign-up.png";
         $loginSignupvectorOne = "assets/images/downsideloginimg.png";
         $profileCardVectorWhite = "assets/images/profileCardVector-white.png";
         $signupmainimgupside = "assets/images/signupmainimgupside.png";
@@ -23,11 +23,8 @@
             <div class="loginsignupcontainer">
                 <div class="loginsingupcontainer-leftpanel">
                     <img class="loginsingupmainimg" src="<?php echo $loginSignupImage; ?>" alt="">
-                    <img class="downsideloginimg" src="<?php echo $loginSignupvectorOne; ?>" alt="">
-                    <img class="profileCardVector-white" src="<?php echo $profileCardVectorWhite; ?>" alt="">
-                    <img class="signupmainimgupside" src="<?php echo $signupmainimgupside; ?>" alt="">
-                    <div class="hiddencontainer"></div>
-                    <h1 class="loginsingupimagecontainer-header">Lorem ipsum dolor sit amet, consectur adipiscing elit</h1>
+                    <img class="profileCardVector-white" src="assets/images/profileCardVector-white.png" alt="">
+                    <h1 class="loginsingupimagecontainer-header">Lorem ipsum dolor sit amet, <br>consectur adipiscing elit</h1>
                 </div>
 
                 <div class="loginsingupcontainer-rightpanel" style="display:flex;">
@@ -66,7 +63,7 @@
                                                         </div> -->
                     </form>
                     <div class="logincontainer-anotherresources">
-                        <p>Or</p>
+                        <p class="loginsignup-container-google">Or</p>
                         <div class="googlesigninbuttoncontainer">
                             <button class="googlesigninbutton" onclick="window.location.href='{{ route('google.login') }}'">
                                 <img src="{{ asset('assets/images/googleicon.png') }}"> Sign in with Google
