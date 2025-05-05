@@ -7,9 +7,8 @@
     <title>Sign Up</title>
     <!-- Font Awesome for eye/eye-slash icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-    
-    </style>
+    <!-- Import Poppins font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     @extends('layouts.app')
@@ -37,7 +36,7 @@
                 <form class="loginsingupcontainer-rightpanel-inside" id="signupForm" onsubmit="submitForm(event)">
                     <div class="rightpanel-namecontainer">
                         <label for="name">Your Name</label>
-                        <input type="text" name="name" id="name" placeholder="Name" required>
+                        <input type="text" name="name" id="name" placeholder="Name (as per Aadhar)" required>
                         <div id="name-error" class="sign-up error-message">Please enter a valid name</div>
                     </div>
                     <div class="rightpanel-phonecontainer">
@@ -55,7 +54,7 @@
                         <input type="password" id="passwordinputID" name="password" class="passwordOpen" placeholder="Password" maxlength="20" required>
                         <i class="fa-regular fa-eye-slash passwordClose"></i>
                         <div id="password-error" class="sign-up error-message">Password must be valid (6-20 characters).</div>
-                        <a href="/forgot-password" class="forgot-password">Forgot Password?</a>
+                        <a href="#" class="forgot-password" onclick="showForgotPasswordPopup()">Forgot Password?</a>
                     </div>
                     <div class="rightpanel-signupbuttoncontainer">
                         <div class="rightpanel-checkboxcontainer">
@@ -65,18 +64,26 @@
                         <button type="submit">Sign up</button>
                     </div>
                 </form>
+               
+
                 <div class="logincontainer-anotherresources">
-                    <p class="loginsignup-container-google">Or</p>
-                    <div class="googlesigninbuttoncontainer">
-                        <button class="googlesigninbutton" onclick="window.location.href='{{ route('google.login') }}'">
+                        <p class="or-divider">or</p>
+                        <div class="googlesigninbuttoncontainer">
+                            <button class="googlesigninbutton" onclick="window.location.href='{{ route('google.login') }}'">
                             <img src="{{ asset('assets/images/googleicon.png') }}"> Sign in with Google
                         </button>
-                    </div>
-                    <div class="logincontainer-signinoption">
+                          
+                        </div>
+
+                        <!-- New User Sign Up Option -->
+                        <div class="logincontainer-signinoption">
                         <p>Have an account? </p>
                         <span onclick="window.location.href='{{ route('login') }}'">Sign In</span>
                     </div>
-                </div>
+                    </div>
+
+
+
             </div>
 
             <!-- OTP Section -->
@@ -97,11 +104,87 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Forgot Password Popup -->
+            <div class="forgot-password-popup-overlay" id="forgotPasswordPopup">
+                <div class="forgot-password-popup-container">
+                    <span class="forgot-password-popup-close" onclick="hideForgotPasswordPopup()">×</span>
+                    <h2>Reset your password</h2>
+                    <p>Enter your email to receive a password reset link</p>
+                    <form id="forgotPasswordForm" onsubmit="sendResetLink(event)">
+                        <label for="forgot-email">Email</label>
+                        <input type="email" id="forgot-email" name="email" placeholder="name@example.com" required>
+                        <div id="forgot-email-error" class="forgot-password-popup-error" style="display: none;"></div>
+                        <button type="submit">Send reset link</button>
+                        <div id="forgot-password-status" class="forgot-password-popup-status" style="display: none;"></div>
+                    </form>
+                    <div class="forgot-password-popup-footer">
+                        Remember your password? <a href="http://127.0.0.1:8000/login" onclick="hideForgotPasswordPopup()">Log in</a>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <script>
             let generatedOTP = '';
             let registerFormData = {};
+
+            // Show the forgot password popup
+            function showForgotPasswordPopup() {
+                document.getElementById('forgotPasswordPopup').style.display = 'flex';
+            }
+
+            // Hide the forgot password popup
+            function hideForgotPasswordPopup() {
+                document.getElementById('forgotPasswordPopup').style.display = 'none';
+                document.getElementById('forgot-email-error').style.display = 'none';
+                document.getElementById('forgot-password-status').style.display = 'none';
+                document.getElementById('forgot-email').value = '';
+            }
+
+            // Send reset link
+            function sendResetLink(event) {
+                event.preventDefault();
+                const email = document.getElementById('forgot-email').value;
+                const errorElement = document.getElementById('forgot-email-error');
+                const statusElement = document.getElementById('forgot-password-status');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                // Validate email
+                if (!emailRegex.test(email)) {
+                    errorElement.textContent = 'Please enter a valid email address';
+                    errorElement.style.display = 'block';
+                    statusElement.style.display = 'none';
+                    return;
+                }
+
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                fetch('/forgot-password', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken,
+                    },
+                    body: JSON.stringify({ email: email })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'We have emailed your password reset link!') {
+                            statusElement.textContent = data.status;
+                            statusElement.style.display = 'block';
+                            errorElement.style.display = 'none';
+                        } else {
+                            errorElement.textContent = data.email || 'An error occurred. Please try again.';
+                            errorElement.style.display = 'block';
+                            statusElement.style.display = 'none';
+                        }
+                    })
+                    .catch(error => {
+                        errorElement.textContent = 'An error occurred. Please try again.';
+                        errorElement.style.display = 'block';
+                        statusElement.style.display = 'none';
+                    });
+            }
 
             // Validation functions
             function validateName(name) {
@@ -158,14 +241,12 @@
 
             document.getElementById('phone').addEventListener('input', function() {
                 toggleLabelVisibility(this);
-                // Restrict to numbers only
                 this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
                 showError('phone', 'phone-error', !validatePhone(this.value));
             });
 
             document.getElementById('passwordinputID').addEventListener('input', function() {
                 toggleLabelVisibility(this);
-                // Restrict to max 20 characters
                 if (this.value.length > 20) {
                     this.value = this.value.slice(0, 20);
                 }
@@ -211,7 +292,6 @@
                 }
             });
 
-            // Show "Forgot Password" link when typing or focusing on the password field
             passwordInput.addEventListener('input', function () {
                 if (passwordInput.value.length > 0) {
                     forgotPasswordLink.style.display = 'block';
@@ -220,12 +300,10 @@
                 }
             });
 
-            // Show "Forgot Password" link when the password field is focused
             passwordInput.addEventListener('focus', function () {
                 forgotPasswordLink.style.display = 'block';
             });
 
-            // Hide "Forgot Password" link when the password field loses focus and is empty
             passwordInput.addEventListener('blur', function () {
                 if (passwordInput.value.length === 0) {
                     forgotPasswordLink.style.display = 'none';
@@ -243,7 +321,6 @@
                 const passwordInput = document.querySelector('.rightpanel-passwordcontainer input');
                 const checkbox = document.getElementById('confirmpolicy');
 
-                // Validate all fields
                 if (!validateName(nameInput.value)) {
                     showError('name', 'name-error', true);
                     alert("Name is required");
@@ -339,7 +416,7 @@
                     otp: finalOTP
                 };
                 console.log(JSON.stringify(mailOtpdata));
-                fetch('/verify-mobotundance', {
+                fetch('/verify-mobotp', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -371,7 +448,6 @@
                 const password = document.getElementById('passwordinputID').value;
                 const confirmPolicy = document.getElementById('confirmpolicy').checked;
 
-                // Validate all fields
                 if (!validateName(name)) {
                     showError('name', 'name-error', true);
                     alert("Name is required");

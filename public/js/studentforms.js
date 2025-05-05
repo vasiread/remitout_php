@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.onload = function () {
         if (window.location.hash === "#kyc-section-id") {
             document.getElementById("kyc-section-id").style.display = "block";
-            alert("KYC");
+            showToast("KYC section loaded");
         }
     };
 
@@ -237,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.log(data.message);
             })
             .catch((error) => {
-                console.error("Error:", error);
+                console.error("Error updating user IDs:", error);
             });
     }
     updateUserIds();
@@ -300,15 +300,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.success) {
-                        alert(data.message);
-                        showToast("Details have been sent successfully");
+                        showToast("Details have been saved successfully");
                     } else {
-                        alert(data.message);
+                        console.error("Failed to update co-borrower info:", data.message);
                     }
                 })
                 .catch((error) => {
-                    console.error("Error:", error);
-                    alert("An error occurred while updating your information.");
+                    console.error("Error updating co-borrower info:", error);
                 });
         });
     }
@@ -340,7 +338,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document
         .getElementById("saveandsubmit")
         .addEventListener("click", (event) => {
-            showToast("Details have been sent successfully");
+            showToast("Details have been saved successfully");
             window.location.href = "/student-dashboard";
         });
 
@@ -403,16 +401,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.success) {
-                        alert(data.message);
-                        showToast("Details have been sent successfully");
+                        showToast("Details have been saved successfully");
                         navigate("next");
                     } else {
-                        alert(data.message);
+                        console.error("Failed to update personal info:", data.message);
                     }
                 })
                 .catch((error) => {
-                    console.error("Error:", error);
-                    alert("An error occurred while updating your information.");
+                    console.error("Error updating personal info:", error);
                 });
         }
     }
@@ -473,16 +469,14 @@ document.addEventListener("DOMContentLoaded", () => {
             .then((response) => response.json())
             .then((data) => {
                 if (data.success) {
-                    alert(data.message);
-                    showToast("Details have been sent successfully");
+                    showToast("Details have been saved successfully");
                     navigate("next");
                 } else {
-                    alert(data.message);
+                    console.error("Failed to update course info:", data.message);
                 }
             })
             .catch((error) => {
-                console.error("Error:", error);
-                alert("An error occurred while updating your information.");
+                console.error("Error updating course info:", error);
             });
     }
 
@@ -539,16 +533,14 @@ document.addEventListener("DOMContentLoaded", () => {
             .then((response) => response.json())
             .then((data) => {
                 if (data.success) {
-                    alert(data.message);
-                    showToast("Details have been sent successfully");
+                    showToast("Details have been saved successfully");
                     navigate("next");
                 } else {
-                    alert(data.message);
+                    console.error("Failed to update academic info:", data.message);
                 }
             })
             .catch((error) => {
-                console.error("Error:", error);
-                alert("An error occurred while updating your information.");
+                console.error("Error updating academic info:", error);
             });
     }
 
@@ -575,7 +567,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 updateNavigationButtons();
                 updateDots();
                 updateMobileHeading(currentBreadcrumbIndex);
-                showToast("Details have been sent successfully");
+                showToast("Details have been saved successfully");
             }
         }
     });
@@ -598,7 +590,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 updateNavigationButtons();
                 updateDots();
                 updateMobileHeading(currentBreadcrumbIndex);
-                showToast("Details have been sent successfully");
+                showToast("Details have been saved successfully");
             }
         });
     }
@@ -621,7 +613,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 updateNavigationButtons();
                 updateDots();
                 updateMobileHeading(currentBreadcrumbIndex);
-                showToast("Details have been sent successfully");
+                showToast("Details have been saved successfully");
             }
         });
     }
@@ -644,7 +636,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 updateNavigationButtons();
                 updateDots();
                 updateMobileHeading(currentBreadcrumbIndex);
-                showToast("Details have been sent successfully");
+                showToast("Details have been saved successfully");
             }
         });
     }
@@ -857,7 +849,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
         if (file.size > 5 * 1024 * 1024) {
-            alert("Error: File size exceeds 5MB limit.");
+            showToast("File size exceeds 5MB limit.");
             fileInput.value = "";
             fileNameElement.textContent = "No file chosen";
             uploadIcon.style.display = "inline";
@@ -871,7 +863,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .slice(file.name.lastIndexOf("."))
             .toLowerCase();
         if (!allowedExtensions.includes(fileExtension)) {
-            alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
+            showToast("Only .jpg, .jpeg, .png, and .pdf files are allowed.");
             fileInput.value = "";
             fileNameElement.textContent = "No file chosen";
             uploadIcon.style.display = "inline";
@@ -967,7 +959,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             })
             .catch((error) => {
-                console.error("Error uploading file", error);
+                console.error("Error uploading file:", error);
             });
     }
 
@@ -1054,7 +1046,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             })
             .catch((error) => {
-                console.error("Error deleting file", error);
+                console.error("Error deleting file:", error);
             });
     }
 
@@ -1152,6 +1144,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
         document.addEventListener("click", function (event) {
+            if智能选购
             if (!dropdown.contains(event.target)) {
                 dropdown.classList.remove("open");
             }
