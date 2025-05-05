@@ -1,55 +1,71 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Function to get query parameter from URL
+    function showToast(message, duration = 3000) {
+        const toastContainer = document.getElementById("toast-container");
+        const toast = document.createElement("div");
+        toast.className = "toast";
+        toast.textContent = message;
+        toastContainer.appendChild(toast);
+        setTimeout(() => {
+            toast.classList.add("show");
+        }, 100);
+        setTimeout(() => {
+            toast.classList.remove("show");
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
+        }, duration);
+    }
+
+    const style = document.createElement("style");
+    style.textContent = `
+        .toast-container { position: fixed; top: 20px; right: 20px; z-index: 1000; }
+        .toast {   background-color: #f47b20;  font-family: 'Poppins', sans-serif; color: white; padding: 12px 20px; margin-bottom: 10px; border-radius: 4px; opacity: 0; transition: opacity 0.3s ease; }
+        .toast.show { opacity: 1; }
+    `;
+    document.head.appendChild(style);
+
     function getQueryParam(param) {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(param);
     }
 
-    // Secret key for decryption (must match the key used in generateReferLinkPopup)
-    const secretKey = "rJXU0e4lTP7G+KP9dH5V1pq9P7vP8d8sravZmzMGUKM="; // Replace with the exact key used for encryption
-
-    // Extract ref from URL and decrypt it
+    const secretKey = "rJXU0e4lTP7G+KP9dH5V1pq9P7vP8d8sravZmzMGUKM=";
     const refParam = getQueryParam("ref");
     const referralInput = document.getElementById("personal-info-referral");
 
     if (refParam && referralInput) {
         try {
-            // Check if CryptoJS is available
             if (typeof CryptoJS === "undefined") {
                 console.error(
                     "CryptoJS library is not loaded. Please include it in your HTML."
                 );
-                referralInput.value = refParam; // Fallback to encrypted value if CryptoJS is missing
+                referralInput.value = refParam;
             } else {
-                // Decrypt the ref parameter
                 const bytes = CryptoJS.AES.decrypt(
                     decodeURIComponent(refParam),
                     secretKey
                 );
                 const decryptedRef = bytes.toString(CryptoJS.enc.Utf8);
-
                 if (decryptedRef) {
-                    referralInput.value = decryptedRef; // Set the decrypted original ref ID
+                    referralInput.value = decryptedRef;
                 } else {
                     console.error(
                         "Decryption failed: Invalid key or corrupted data"
                     );
-                    referralInput.value = refParam; // Fallback to encrypted value
+                    referralInput.value = refParam;
                 }
             }
-            // Disable the input field after setting the value
             referralInput.disabled = true;
         } catch (error) {
             console.error("Error decrypting ref parameter:", error);
-            referralInput.value = refParam; // Fallback to encrypted value on error
-            referralInput.disabled = true; // Disable even on error
+            referralInput.value = refParam;
+            referralInput.disabled = true;
         }
     }
 
     window.handleFileUpload = handleFileUpload;
     window.removeFile = removeFile;
 
-    event.preventDefault();
     const prevButton = document.querySelector(".nav-button.prev");
     const nextButton = document.querySelector(".nav-button.next");
     const nextBreadcrumbButton = document.querySelector(".next-btn");
@@ -106,56 +122,19 @@ document.addEventListener("DOMContentLoaded", () => {
             3: "Co-borrower Info",
             4: "Document Upload",
         };
-
         if (mobileHeading) {
             mobileHeading.textContent = headings[breadcrumbIndex] || "";
         }
     }
 
-    // Make sure navigation function also updates heading
-    function navigate(direction) {
-        const currentContainers = breadcrumbSections[currentBreadcrumbIndex];
-        currentContainers[currentContainerIndex].style.display = "none";
-
-        if (direction === "prev") {
-            if (currentContainerIndex > 0) {
-                currentContainerIndex--;
-            } else if (currentBreadcrumbIndex > 0) {
-                currentBreadcrumbIndex--;
-                currentContainerIndex =
-                    breadcrumbSections[currentBreadcrumbIndex].length - 1;
-            }
-            updateMobileHeading(currentBreadcrumbIndex);
-        } else if (direction === "next") {
-            if (currentContainerIndex < currentContainers.length - 1) {
-                currentContainerIndex++;
-            } else if (currentBreadcrumbIndex < breadcrumbSections.length - 1) {
-                currentBreadcrumbIndex++;
-                currentContainerIndex = 0;
-            }
-            updateMobileHeading(currentBreadcrumbIndex);
-        }
-
-        const updatedContainers = breadcrumbSections[currentBreadcrumbIndex];
-        updatedContainers[currentContainerIndex].style.display = "block";
-
-        updateBreadcrumbNavigation();
-        updateNavigationButtons();
-        updateDots();
-    }
-
     const breadcrumbDots = [2, 4, 3, 3, 6];
-
     let currentBreadcrumbIndex = 0;
     let currentContainerIndex = 0;
 
-    // Dynamically add dots based on breadcrumb index
     function updateDots() {
         const dotContainer = document.querySelector(".nav-dots");
         dotContainer.innerHTML = "";
-
         const numberOfDots = breadcrumbDots[currentBreadcrumbIndex];
-
         for (let i = 0; i < numberOfDots; i++) {
             const dot = document.createElement("div");
             dot.classList.add("dot");
@@ -166,15 +145,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Function to check if all required fields are filled
     function areFieldsFilled() {
         const currentContainers = breadcrumbSections[currentBreadcrumbIndex];
         const currentContainer = currentContainers[currentContainerIndex];
-
         const inputs = currentContainer.querySelectorAll(
             "input[required], select[required], textarea[required]"
         );
-
         for (const input of inputs) {
             if (!input.value.trim()) {
                 return false;
@@ -188,10 +164,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const isAtLastContainer =
             currentContainerIndex ===
             breadcrumbSections[currentBreadcrumbIndex].length - 1;
-
         prevButton.disabled = isAtFirstContainer;
         nextButton.disabled = isAtLastContainer || !areFieldsFilled();
-
         nextBreadcrumbButton.disabled =
             currentContainerIndex !==
             breadcrumbSections[currentBreadcrumbIndex].length - 1;
@@ -201,7 +175,6 @@ document.addEventListener("DOMContentLoaded", () => {
         breadcrumbLinks.forEach((link, index) => {
             link.classList.remove("active");
             link.style.color = "";
-
             if (index === currentBreadcrumbIndex) {
                 link.classList.add("active");
                 link.style.color = "#E98635";
@@ -213,15 +186,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function navigate(direction) {
         const currentContainers = breadcrumbSections[currentBreadcrumbIndex];
-
         currentContainers[currentContainerIndex].style.display = "none";
-
         if (direction === "next") {
             if (currentContainerIndex < currentContainers.length - 1) {
                 currentContainerIndex++;
             } else if (currentBreadcrumbIndex < breadcrumbSections.length - 1) {
                 currentBreadcrumbIndex++;
                 currentContainerIndex = 0;
+                showToast("Details have been saved successfully");
             }
         } else if (direction === "prev") {
             if (currentContainerIndex > 0) {
@@ -234,14 +206,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         const updatedContainers = breadcrumbSections[currentBreadcrumbIndex];
         updatedContainers[currentContainerIndex].style.display = "block";
-
         updateBreadcrumbNavigation();
         updateNavigationButtons();
         updateDots();
         updateMobileHeading(currentBreadcrumbIndex);
     }
 
-    // Add event listeners to buttons
     nextButton.addEventListener("click", () => {
         if (areFieldsFilled()) {
             navigate("next");
@@ -252,9 +222,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const personalInfoId = document.getElementById(
             "personal-info-userid"
         ).value;
-
-        console.log(personalInfoId);
-
         fetch("/updatedetailsinfo", {
             method: "POST",
             headers: {
@@ -277,13 +244,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateCoborrowerInfo(event) {
         event.preventDefault();
-
-        // Modified getSelectedAnswer function to include callback for async handling
         function getSelectedAnswer(callback) {
             const selectedOption = document.querySelector(
                 'input[name="borrow-relation"]:checked'
             );
-
             if (selectedOption && selectedOption.value !== "blood-relative") {
                 return callback(selectedOption.value);
             } else if (
@@ -293,28 +257,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 const dropdownRelative = document.querySelectorAll(
                     ".borrow-dropdown .borrow-dropdown-item"
                 );
-
                 dropdownRelative.forEach((item) => {
                     item.addEventListener("click", function () {
                         const relativeValue = item.dataset.value;
-                        console.log("Selected blood relative:", relativeValue);
-
-                        // Proceed with the final selection
                         callback(relativeValue);
                     });
                 });
-
-                // Return early since selection is pending
                 return;
             } else {
                 return callback("none selected here");
             }
         }
-
-        // Call getSelectedAnswer with the callback to handle data submission
         getSelectedAnswer(function (answer) {
-            console.log("Final selected answer:", answer);
-
             const personalInfoId = document.getElementById(
                 "personal-info-userid"
             ).value;
@@ -326,7 +280,6 @@ document.addEventListener("DOMContentLoaded", () => {
             var emiAmount = document.querySelector(
                 ".emi-content .emi-content-container"
             ).value;
-
             const coborrowerData = {
                 personalInfoId,
                 answer,
@@ -334,9 +287,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 selectedLiability,
                 emiAmount,
             };
-            console.log(coborrowerData);
-
-            // Proceed with the fetch after answer selection
             fetch("/coborrowerData", {
                 method: "POST",
                 headers: {
@@ -349,10 +299,9 @@ document.addEventListener("DOMContentLoaded", () => {
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data);
-
                     if (data.success) {
                         alert(data.message);
+                        showToast("Details have been sent successfully");
                     } else {
                         alert(data.message);
                     }
@@ -375,11 +324,13 @@ document.addEventListener("DOMContentLoaded", () => {
         .addEventListener("click", (event) => {
             updateUserCourseInfo(event);
         });
+
     document
         .getElementById("academics-info-submit")
         .addEventListener("click", (event) => {
             updateAcademicsCourseInfo(event);
         });
+
     document
         .getElementById("coborrower-info-submit")
         .addEventListener("click", (event) => {
@@ -389,13 +340,12 @@ document.addEventListener("DOMContentLoaded", () => {
     document
         .getElementById("saveandsubmit")
         .addEventListener("click", (event) => {
+            showToast("Details have been sent successfully");
             window.location.href = "/student-dashboard";
         });
 
     function updateUserPersonalInfo(event) {
         event.preventDefault();
-
-        // Getting values from form fields
         const personalInfoId = document.getElementById(
             "personal-info-userid"
         ).value;
@@ -412,18 +362,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const personalInfoReferral = document.getElementById(
             "personal-info-referral"
         ).value;
-        const personalInfoState =
-            document.getElementById("personal-info-state").value;
+        const personalInfoState = document.getElementById(
+            "personal-info-state"
+        ).value;
         const personalInfoDob =
             document.getElementById("personal-info-dob").value;
-       
-        const genderOptions = document.getElementById('gender-personal-info').value;
- 
-       
-
-        // Use the captured value from the custom dropdown
+        const genderOptions = document.getElementById(
+            "gender-personal-info"
+        ).value;
         const personalInfoFindOut = selectedValue;
-
         if (
             personalInfoName !== "" &&
             personalInfoPhone !== "" &&
@@ -443,10 +390,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 personalInfoReferral,
                 personalInfoFindOut,
             };
-
-            console.log(personalUpdateData);
-
-            // Sending the data with fetch
             fetch("/update-personalinfo", {
                 method: "POST",
                 headers: {
@@ -459,10 +402,10 @@ document.addEventListener("DOMContentLoaded", () => {
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data);
-
                     if (data.success) {
                         alert(data.message);
+                        showToast("Details have been sent successfully");
+                        navigate("next");
                     } else {
                         alert(data.message);
                     }
@@ -471,10 +414,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     console.error("Error:", error);
                     alert("An error occurred while updating your information.");
                 });
-        } else {
-            alert(
-                "Required fields Not Filled. Do you want to continue with that?"
-            );
         }
     }
 
@@ -482,20 +421,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const selectedExpense = document.querySelector(
             'input[name="expense-type"]:checked'
         );
-        console.log(
-            "Selected Expense Type:",
-            selectedExpense ? selectedExpense.value : "None"
-        );
         return selectedExpense ? selectedExpense.value : null;
     }
 
     function getLoanAmount() {
         const loanAmount = document.getElementById("loan-amount").value;
-        console.log("Loan Amount:", loanAmount.trim());
         return loanAmount.trim();
     }
 
-    // Function to get the selected study locations (from the checkboxes)
     function getSelectedStudyLocations() {
         const checkboxes = document.querySelectorAll(
             '#selected-study-location input[type="checkbox"]:checked'
@@ -504,7 +437,6 @@ document.addEventListener("DOMContentLoaded", () => {
         checkboxes.forEach((checkbox) => {
             selectedLocations.push(checkbox.value);
         });
-        console.log("Selected Study Locations:", selectedLocations);
         return selectedLocations;
     }
 
@@ -513,15 +445,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const personalInfoId = document.getElementById(
             "personal-info-userid"
         ).value;
-
         const selectedDegreeType = document.querySelector(
             '#course-info-degreetype input[name="degree_type"]:checked'
         ).value;
         const expenseType = getSelectedExpenseType();
         const loanAmount = getLoanAmount();
-        const courseDuration = getSelectedCourseDuration(); // Get the selected course duration
+        const courseDuration = getSelectedCourseDuration();
         const studyLocations = getSelectedStudyLocations();
-
         const courseInfoData = {
             personalInfoId,
             selectedDegreeType,
@@ -530,9 +460,6 @@ document.addEventListener("DOMContentLoaded", () => {
             courseDuration,
             studyLocations,
         };
-
-        console.log(courseInfoData);
-
         fetch("/update-courseinfo", {
             method: "POST",
             headers: {
@@ -545,10 +472,10 @@ document.addEventListener("DOMContentLoaded", () => {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
-
                 if (data.success) {
                     alert(data.message);
+                    showToast("Details have been sent successfully");
+                    navigate("next");
                 } else {
                     alert(data.message);
                 }
@@ -560,10 +487,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function updateAcademicsCourseInfo(event) {
+        event.preventDefault();
         const personalInfoId = document.getElementById(
             "personal-info-userid"
         ).value;
-
         const selectedAcademicGap = document.querySelector(
             'input[name="academics-gap"]:checked'
         ).value;
@@ -577,7 +504,6 @@ document.addEventListener("DOMContentLoaded", () => {
             'input[name="work-option"]:checked'
         ).value;
         const ieltsScore = document.getElementById("admit-ielts").value;
-
         const greScore = document.getElementById("admit-gre").value;
         const toeflScore = document.getElementById("admit-toefl").value;
         const otherExamName =
@@ -586,9 +512,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("admit-others-score").value;
         const universityName =
             document.getElementById("universityschoolid").value;
-
         const courseName = document.getElementById("educationcourseid").value;
-
         const academicDetails = {
             personalInfoId,
             selectedAcademicGap,
@@ -602,8 +526,6 @@ document.addEventListener("DOMContentLoaded", () => {
             universityName,
             courseName,
         };
-
-        console.log(academicDetails);
         fetch("/update-academicsinfo", {
             method: "POST",
             headers: {
@@ -612,14 +534,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     .querySelector('meta[name="csrf-token"]')
                     .getAttribute("content"),
             },
-            body: JSON.stringify(academicDetails), // Sending the data as JSON in the request body
+            body: JSON.stringify(academicDetails),
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
-
                 if (data.success) {
                     alert(data.message);
+                    showToast("Details have been sent successfully");
+                    navigate("next");
                 } else {
                     alert(data.message);
                 }
@@ -631,6 +553,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     prevButton.addEventListener("click", () => navigate("prev"));
+
     nextBreadcrumbButton.addEventListener("click", () => {
         if (
             currentContainerIndex ===
@@ -642,18 +565,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
                 currentBreadcrumbIndex++;
                 currentContainerIndex = 0;
-
                 breadcrumbSections[currentBreadcrumbIndex].forEach(
                     (container, index) => {
                         container.style.display =
                             index === 0 ? "block" : "none";
                     }
                 );
-
                 updateBreadcrumbNavigation();
                 updateNavigationButtons();
                 updateDots();
                 updateMobileHeading(currentBreadcrumbIndex);
+                showToast("Details have been sent successfully");
             }
         }
     });
@@ -666,18 +588,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
                 currentBreadcrumbIndex = 2;
                 currentContainerIndex = 0;
-
                 breadcrumbSections[currentBreadcrumbIndex].forEach(
                     (container, index) => {
                         container.style.display =
                             index === 0 ? "block" : "none";
                     }
                 );
-
                 updateBreadcrumbNavigation();
                 updateNavigationButtons();
                 updateDots();
                 updateMobileHeading(currentBreadcrumbIndex);
+                showToast("Details have been sent successfully");
             }
         });
     }
@@ -690,18 +611,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
                 currentBreadcrumbIndex = 3;
                 currentContainerIndex = 0;
-
                 breadcrumbSections[currentBreadcrumbIndex].forEach(
                     (container, index) => {
                         container.style.display =
                             index === 0 ? "block" : "none";
                     }
                 );
-
                 updateBreadcrumbNavigation();
                 updateNavigationButtons();
                 updateDots();
                 updateMobileHeading(currentBreadcrumbIndex);
+                showToast("Details have been sent successfully");
             }
         });
     }
@@ -714,18 +634,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
                 currentBreadcrumbIndex = 4;
                 currentContainerIndex = 0;
-
                 breadcrumbSections[currentBreadcrumbIndex].forEach(
                     (container, index) => {
                         container.style.display =
                             index === 0 ? "block" : "none";
                     }
                 );
-
                 updateBreadcrumbNavigation();
                 updateNavigationButtons();
                 updateDots();
                 updateMobileHeading(currentBreadcrumbIndex);
+                showToast("Details have been sent successfully");
             }
         });
     }
@@ -739,7 +658,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 "personal-info-name-error"
             );
             const namePattern = /^[A-Za-z\s]+$/;
-
             if (!personalInfoName.value.match(namePattern)) {
                 errorMessage.textContent = "Please enter full name.";
                 errorMessage.style.display = "block";
@@ -756,7 +674,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 "personal-info-phone-error"
             );
             const phonePattern = /^[0-9]{10}$/;
-
             if (!phone.value.match(phonePattern)) {
                 errorMessage.textContent =
                     "Please enter a valid 10-digit phone number.";
@@ -775,7 +692,6 @@ document.addEventListener("DOMContentLoaded", () => {
             );
             const emailPattern =
                 /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-
             if (!email.value.match(emailPattern)) {
                 errorMessage.textContent =
                     "Please enter a valid email address.";
@@ -790,7 +706,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .addEventListener("input", function () {
             const state = document.getElementById("personal-info-state");
             const errorMessage = document.getElementById("state-error");
-
             if (state.value.trim() === "") {
                 errorMessage.textContent = "Please enter the state.";
                 errorMessage.style.display = "block";
@@ -804,7 +719,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .addEventListener("input", function () {
             const city = document.getElementById("personal-info-city");
             const errorMessage = document.getElementById("city-error");
-
             if (city.value.trim() === "") {
                 errorMessage.textContent = "Please enter the city.";
                 errorMessage.style.display = "block";
@@ -820,7 +734,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 "personal-info-referral"
             );
             const errorMessage = document.getElementById("referralCode-error");
-
             if (!referralCode.value) {
                 errorMessage.textContent = "Please enter the referral code";
                 errorMessage.style.display = "block";
@@ -838,24 +751,20 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Add click event listeners to breadcrumb links
     breadcrumbLinks.forEach((link, index) => {
         link.addEventListener("click", (e) => {
             e.preventDefault();
-
             if (index <= currentBreadcrumbIndex) {
                 breadcrumbSections[currentBreadcrumbIndex].forEach(
                     (container) => (container.style.display = "none")
                 );
                 currentBreadcrumbIndex = index;
                 currentContainerIndex = 0;
-
                 breadcrumbSections[currentBreadcrumbIndex].forEach(
                     (container, i) => {
                         container.style.display = i === 0 ? "block" : "none";
                     }
                 );
-
                 updateBreadcrumbNavigation();
                 updateNavigationButtons();
                 updateDots();
@@ -867,7 +776,6 @@ document.addEventListener("DOMContentLoaded", () => {
         updateNavigationButtons();
     });
 
-    // Initial setup
     updateBreadcrumbNavigation();
     updateNavigationButtons();
     updateDots();
@@ -927,13 +835,11 @@ document.addEventListener("DOMContentLoaded", () => {
         removeIconId,
         studentId = null
     ) {
-        console.log(event, fileNameId, uploadIconId, removeIconId, studentId);
         const fileInput = event.target;
         const fileNameElement = document.getElementById(fileNameId);
         const uploadIcon = document.getElementById(uploadIconId);
         const removeIcon = document.getElementById(removeIconId);
         const file = fileInput.files[0];
-
         const helpTrigger =
             fileNameElement.parentElement.nextElementSibling.querySelector(
                 ".help-trigger"
@@ -942,7 +848,6 @@ document.addEventListener("DOMContentLoaded", () => {
             fileNameElement.parentElement.nextElementSibling.querySelector(
                 "span:last-child"
             );
-
         if (!file) {
             fileNameElement.textContent = "No file chosen";
             uploadIcon.style.display = "inline";
@@ -951,7 +856,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if (formatInfo) formatInfo.style.display = "inline";
             return;
         }
-
         if (file.size > 5 * 1024 * 1024) {
             alert("Error: File size exceeds 5MB limit.");
             fileInput.value = "";
@@ -962,15 +866,13 @@ document.addEventListener("DOMContentLoaded", () => {
             if (formatInfo) formatInfo.style.display = "inline";
             return;
         }
-
-        // Validate file type
         const allowedExtensions = [".jpg", ".jpeg", ".png", ".pdf"];
         const fileExtension = file.name
             .slice(file.name.lastIndexOf("."))
             .toLowerCase();
         if (!allowedExtensions.includes(fileExtension)) {
             alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
-            fileInput.value = ""; // Clear the file input
+            fileInput.value = "";
             fileNameElement.textContent = "No file chosen";
             uploadIcon.style.display = "inline";
             removeIcon.style.display = "none";
@@ -978,27 +880,21 @@ document.addEventListener("DOMContentLoaded", () => {
             if (formatInfo) formatInfo.style.display = "inline";
             return;
         }
-
         const fileSizeInKB = (file.size / 1024).toFixed(2);
         const fileSizeDisplay =
             fileSizeInKB > 1024
                 ? `${(fileSizeInKB / 1024).toFixed(2)} MB`
                 : `${fileSizeInKB} KB`;
-
         const truncatedFileName = truncateFileName(file.name);
         fileNameElement.textContent = truncatedFileName;
         uploadIcon.style.display = "none";
         removeIcon.style.display = "inline";
-
         if (helpTrigger) helpTrigger.style.display = "none";
         if (formatInfo) formatInfo.textContent = `${fileSizeDisplay} uploaded`;
-
         const fileIcon = document.createElement("img");
         fileIcon.style.width = "20px";
         fileIcon.style.height = "20px";
         fileIcon.style.marginRight = "10px";
-
-        // Add the icon based on the file type
         if (
             fileExtension === ".jpg" ||
             fileExtension === ".jpeg" ||
@@ -1008,19 +904,16 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (fileExtension === ".pdf") {
             fileIcon.src = "assets/images/image-pdf.png";
         }
-
         const existingIcon = fileNameElement.querySelector("img");
         if (existingIcon) {
             existingIcon.remove();
         }
         fileNameElement.insertBefore(fileIcon, fileNameElement.firstChild);
-
         document
             .querySelectorAll(".document-name")
             .forEach((documentElement) => {
-                documentElement.style.display = "block"; // Display all document names
+                documentElement.style.display = "block";
             });
-
         if (studentId === null) {
             const userId = document.getElementById(
                 "personal-info-userid"
@@ -1034,21 +927,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function uploadFileToServer(file, userId, fileNameId) {
         fileNameId = fileNameId.replace(`-${userId}`, "");
-
         const formDetailsData = new FormData();
         formDetailsData.append("file", file);
         formDetailsData.append("userId", userId);
         formDetailsData.append("fileNameId", fileNameId);
-
         const csrfToken = document
             .querySelector('meta[name="csrf-token"]')
             .getAttribute("content");
-
         if (!csrfToken) {
             console.error("CSRF token not found");
             return;
         }
-
         fetch("/upload-each-documents", {
             method: "POST",
             headers: {
@@ -1080,8 +969,6 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch((error) => {
                 console.error("Error uploading file", error);
             });
-
-        console.log(file, userId, fileNameId);
     }
 
     async function removeFile(
@@ -1095,7 +982,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const fileNameElement = document.getElementById(fileNameId);
         const uploadIcon = document.getElementById(uploadIconId);
         const removeIcon = document.getElementById(removeIconId);
-
         const helpTrigger =
             fileNameElement.parentElement.nextElementSibling.querySelector(
                 ".help-trigger"
@@ -1104,16 +990,12 @@ document.addEventListener("DOMContentLoaded", () => {
             fileNameElement.parentElement.nextElementSibling.querySelector(
                 "span:last-child"
             );
-
         fileInput.value = "";
         fileNameElement.textContent = "No file chosen";
-
         uploadIcon.style.display = "inline";
         removeIcon.style.display = "none";
-
         if (helpTrigger) helpTrigger.style.display = "inline";
         if (formatInfo) formatInfo.textContent = "*jpg, png, pdf formats";
-
         const fileIcon = fileNameElement.querySelector("img");
         if (fileIcon) {
             fileIcon.remove();
@@ -1123,31 +1005,25 @@ document.addEventListener("DOMContentLoaded", () => {
                 "personal-info-userid"
             ).value;
             await deleteFileToServer(userId, fileNameId);
-            console.log(fileNameId);
         } else if (studentId !== null) {
             const userId = studentId;
             await deleteFileToServer(userId, fileNameId);
-            console.log(fileNameId);
         }
     }
 
     function deleteFileToServer(userId, fileNameId) {
         fileNameId = fileNameId.replace(`-${userId}`, "");
-
         const csrfToken = document
             .querySelector('meta[name="csrf-token"]')
             .getAttribute("content");
-
         if (!csrfToken) {
             console.error("CSRF token not found");
             return;
         }
-
         const data = {
             userId: userId,
             fileNameId: fileNameId,
         };
-
         fetch("/remove-each-documents", {
             method: "POST",
             headers: {
@@ -1165,11 +1041,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         );
                     });
                 }
-                return response.json(); // Parse the JSON response
+                return response.json();
             })
             .then((data) => {
                 if (data) {
-                    console.log("Files deleted successfully", data); // Handle success
+                    console.log("Files deleted successfully", data);
                 } else {
                     console.error(
                         "Error: No data returned from the server",
@@ -1178,7 +1054,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             })
             .catch((error) => {
-                console.error("Error deleting file", error); // Handle errors
+                console.error("Error deleting file", error);
             });
     }
 
@@ -1193,7 +1069,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const borrowBloodLabel = document.getElementById("borrow-blood-label");
     const bloodRelativeRadio = document.getElementById("borrow-blood-relative");
 
-    // Toggle dropdown visibility on radio button or icon click
     function toggleDropdown() {
         borrowBloodRelative.classList.toggle("open");
         borrowDropdown.style.display = borrowBloodRelative.classList.contains(
@@ -1203,32 +1078,23 @@ document.addEventListener("DOMContentLoaded", () => {
             : "none";
     }
 
-    // Toggle dropdown when the radio button or the icon is clicked
     bloodRelativeRadio.addEventListener("click", toggleDropdown);
     borrowOptionIcon.addEventListener("click", toggleDropdown);
 
-    // Handle dropdown item selection
     borrowDropdown.addEventListener("click", function (e) {
         if (e.target.classList.contains("borrow-dropdown-item")) {
-            // Update label text without changing color
             borrowBloodLabel.textContent = e.target.textContent;
-
             document
                 .querySelectorAll(".borrow-dropdown-item")
                 .forEach((item) => {
                     item.classList.remove("selected");
                 });
-
-            // Add 'selected' class to clicked item (for styling if needed)
             e.target.classList.add("selected");
-
-            // Close dropdown
             borrowBloodRelative.classList.remove("open");
             borrowDropdown.style.display = "none";
         }
     });
 
-    // Close dropdown on outside click
     document.addEventListener("click", function (event) {
         if (!borrowBloodRelative.contains(event.target)) {
             borrowBloodRelative.classList.remove("open");
@@ -1236,33 +1102,28 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    //change start
-    // upadted js Code
     const dropdown = document.querySelector(".dropdown-about");
     const dropdownLabel = dropdown.querySelector(".dropdown-label-about");
     const dropdownOptions = dropdown.querySelector(".dropdown-options-about");
     const options = dropdown.querySelectorAll(".dropdown-option-about-us");
-    let selectedValue = ""; // Variable to hold the selected value
+    let selectedValue = "";
 
-    // Toggle the dropdown visibility when clicked
     dropdown.addEventListener("click", function (event) {
         dropdown.classList.toggle("open");
         event.stopPropagation();
     });
 
-    // Handle option selection
     options.forEach((option) => {
         option.addEventListener("click", function (event) {
             dropdownLabel.textContent = option.textContent;
             options.forEach((opt) => opt.classList.remove("selected"));
             option.classList.add("selected");
-            selectedValue = option.getAttribute("data-value"); // Capture the selected value here
+            selectedValue = option.getAttribute("data-value");
             dropdown.classList.remove("open");
             event.stopPropagation();
         });
     });
 
-    // Close the dropdown if clicked outside
     document.addEventListener("click", function (event) {
         if (!dropdown.contains(event.target)) {
             dropdown.classList.remove("open");
@@ -1275,28 +1136,21 @@ document.addEventListener("DOMContentLoaded", () => {
         const dropdownLabel = dropdown.querySelector(".dropdown-label");
         const dropdownOptions = dropdown.querySelector(".dropdown-options");
         const options = dropdown.querySelectorAll(".dropdown-option");
-
-        // Toggle the dropdown visibility when clicked
         dropdown.addEventListener("click", function (event) {
             dropdown.classList.toggle("open");
             event.stopPropagation();
         });
-
-        // Handle option selection
         options.forEach((option) => {
             option.addEventListener("click", function (event) {
                 const selectedValue = option.getAttribute("data-value");
                 dropdownLabel.textContent = option.textContent;
-                dropdownLabel.setAttribute("data-selected", selectedValue); // Set the data-selected attribute
-
+                dropdownLabel.setAttribute("data-selected", selectedValue);
                 options.forEach((opt) => opt.classList.remove("selected"));
                 option.classList.add("selected");
                 dropdown.classList.remove("open");
                 event.stopPropagation();
             });
         });
-
-        // Close the dropdown if clicked outside
         document.addEventListener("click", function (event) {
             if (!dropdown.contains(event.target)) {
                 dropdown.classList.remove("open");
@@ -1304,12 +1158,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Function to get the selected course duration
     function getSelectedCourseDuration() {
         const selectedOption = document
             .querySelector(".dropdown-label")
             .getAttribute("data-selected");
-        console.log("Selected Course Duration:", selectedOption);
         return selectedOption;
     }
 
@@ -1317,7 +1169,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const noRadio = document.getElementById("academic-no");
     const reasonContainer = document.getElementById("reason-container");
 
-    // Function to handle radio button change
     function handleRadioChange(shouldShow) {
         if (shouldShow) {
             reasonContainer.classList.add("visible");
@@ -1326,7 +1177,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Add event listeners
     yesRadio.addEventListener("change", () => {
         handleRadioChange(yesRadio.checked);
     });
@@ -1342,7 +1192,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const citySuggestionsContainer =
         document.getElementById("suggestions-city");
 
-    // List of 28 Indian states
     const states = [
         "Andhra Pradesh",
         "Arunachal Pradesh",
@@ -1374,7 +1223,6 @@ document.addEventListener("DOMContentLoaded", () => {
         "West Bengal",
     ];
 
-    // Mapping of states to their major cities and towns
     const stateCityMap = {
         "Andhra Pradesh": [
             "Visakhapatnam",
@@ -2148,16 +1996,12 @@ document.addEventListener("DOMContentLoaded", () => {
         ],
     };
 
-    // Variable to store the selected state
     let selectedState = "";
 
-    // Event listener for state input
     stateInput.addEventListener("input", handleStateInputChange);
 
-    // Event listener for city input
     cityInput.addEventListener("input", handleCityInputChange);
 
-    // Close suggestions when clicking outside
     document.addEventListener("click", (event) => {
         if (!event.target.closest(".input-group")) {
             stateSuggestionsContainer.style.display = "none";
@@ -2165,7 +2009,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Handle state input change
     function handleStateInputChange() {
         const inputValue = stateInput.value.toLowerCase().trim();
         const matchedStates = states.filter((state) =>
@@ -2178,14 +2021,13 @@ document.addEventListener("DOMContentLoaded", () => {
             (selected) => {
                 selectedState = selected;
                 stateInput.value = selected;
-                cityInput.value = ""; // Reset city input
-                citySuggestionsContainer.innerHTML = ""; // Clear city suggestions
+                cityInput.value = "";
+                citySuggestionsContainer.innerHTML = "";
                 citySuggestionsContainer.style.display = "none";
             }
         );
     }
 
-    // Handle city input change
     function handleCityInputChange() {
         if (!selectedState) {
             citySuggestionsContainer.innerHTML =
@@ -2201,7 +2043,6 @@ document.addEventListener("DOMContentLoaded", () => {
         displaySuggestions(matchedCities, citySuggestionsContainer, cityInput);
     }
 
-    // Display suggestions in the specified container
     function displaySuggestions(
         suggestions,
         container,
@@ -2228,6 +2069,7 @@ document.addEventListener("DOMContentLoaded", () => {
             container.style.display = "none";
         }
     }
+
     const otherCheckbox = document.querySelector("#other-checkbox");
     const addCountryBox = document.querySelector(".add-country-box");
 
@@ -2246,44 +2088,37 @@ document.addEventListener("DOMContentLoaded", () => {
     const otherDegreeInput = document.getElementById("other-degree");
     const degreeRadios = document.querySelectorAll('input[name="degree_type"]');
 
-    let isOthersSelected = false; // Track the state of the "Others" radio button
+    let isOthersSelected = false;
 
     degreeRadios.forEach((radio) => {
         radio.addEventListener("click", () => {
             if (radio === othersRadio) {
-                // Toggle the "Others" input field visibility
                 isOthersSelected = !isOthersSelected;
                 otherDegreeInputContainer.style.display = isOthersSelected
                     ? "flex"
                     : "none";
-
                 if (!isOthersSelected) {
-                    // Reset the "Others" radio button value and clear the text input
                     othersRadio.value = "others";
                     otherDegreeInput.value = "";
                 }
             } else {
-                // Hide the input field and reset state when other radio buttons are clicked
                 isOthersSelected = false;
                 otherDegreeInputContainer.style.display = "none";
-                othersRadio.value = "others"; // Reset "Others" value
-                otherDegreeInput.value = ""; // Clear the text input
+                othersRadio.value = "others";
+                otherDegreeInput.value = "";
             }
         });
     });
 
-    // Update the "Others" radio value instantly when typing in the text input
     otherDegreeInput.addEventListener("input", () => {
         othersRadio.value = otherDegreeInput.value;
     });
 
-    //validate
     document
         .getElementById("loan-amount")
         .addEventListener("input", function () {
             const loanAmount = document.getElementById("loan-amount");
             const errorMessage = document.getElementById("loan-error-message");
-
             if (
                 !loanAmount.value ||
                 isNaN(loanAmount.value) ||
@@ -2295,7 +2130,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-    //borrower container
     document
         .getElementById("income-co-borrower")
         .addEventListener("input", function () {
@@ -2303,8 +2137,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const errorMessage = document.getElementById(
                 "income-error-message"
             );
-
-            // Check if the input is not a valid number or is empty
             if (isNaN(incomeInput.value) || incomeInput.value.trim() === "") {
                 errorMessage.style.display = "block";
             } else {
@@ -2333,7 +2165,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .addEventListener("input", function () {
             const emiInput = document.getElementById("emi-amount");
             const errorMessage = document.getElementById("emi-error-message");
-
             if (
                 (emiInput.value && isNaN(emiInput.value)) ||
                 emiInput.value.trim() === ""
@@ -2344,7 +2175,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-    // Select DOM elements with gender- prefixed variables
     const genderDropdown = document.querySelector(".dropdown-gender");
     const genderHeader = document.querySelector(".dropdown-gender-header");
     const genderOptions = document.querySelector(".dropdown-options-gender");
@@ -2354,44 +2184,32 @@ document.addEventListener("DOMContentLoaded", () => {
     const genderHiddenInput = document.querySelector('input[name="gender"]');
     const genderError = document.querySelector("#gender-error");
 
-    // Toggle dropdown options visibility
     function genderToggleOptions() {
         genderOptions.style.display =
             genderOptions.style.display === "block" ? "none" : "block";
     }
 
-    // Handle option selection
     function genderHandleSelection(event) {
         const genderSelectedValue =
             event.currentTarget.getAttribute("data-value");
         const genderSelectedText =
             event.currentTarget.querySelector("span").textContent;
-
-        // Update dropdown label
         document.querySelector(".dropdown-label-gender").textContent =
             genderSelectedText;
-
-        // Update hidden input value
         genderHiddenInput.value = genderSelectedValue;
-
-        // Clear any error message
         genderError.textContent = "";
-
-        // Close dropdown
         genderOptions.style.display = "none";
     }
 
-    // Close dropdown when clicking outside
     function genderHandleOutsideClick(event) {
         if (!genderDropdown.contains(event.target)) {
             genderOptions.style.display = "none";
         }
     }
 
-    // Add event listeners
     genderHeader.addEventListener("click", genderToggleOptions);
     genderOptionItems.forEach((item) => {
         item.addEventListener("click", genderHandleSelection);
     });
     document.addEventListener("click", genderHandleOutsideClick);
-}); //close addEventListener
+});
