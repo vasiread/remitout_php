@@ -14,7 +14,6 @@
     width: 807px;
     height: 100vh;
     position: relative;
-    /* overflow: hidden; */
 }
 
 .loginsingupcontainer-leftpanel .loginsingupmainimg {
@@ -29,7 +28,7 @@
 
 .loginsingupcontainer-rightpanel h1 {
     font-family: Raleway;
-    margin-bottom: 5px;
+    margin: 15px 0px;
     font-size: 36px;
     font-weight: 700;
     line-height: 37.26px;
@@ -53,8 +52,6 @@
     line-height: 58.8px;
     text-align: left;
     color: rgba(255, 255, 255, 1);
-    /* margin-top: 120px; */
-    /* padding-left: 1.5rem; */
     z-index: 3;
 }
 
@@ -85,7 +82,6 @@
 
 .loginsingupcontainer-leftpanel .downsideloginimg {
     position: absolute;
-
     top: 55%;
     left: 2%;
     z-index: 3;
@@ -100,7 +96,6 @@
     height: 100%;
     background-color: rgba(255, 143, 46, 1);
     opacity: 0.2;
-    /* filter: brightness(0.5) saturate(2.4); */
     z-index: 1;
 }
 
@@ -114,6 +109,7 @@
     width: 100%;
     z-index: 1;
     height: 100vh;
+    margin-top: 20px;
 }
 
 .rightsidevector-img {
@@ -132,6 +128,8 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
+    gap: 15px;
 }
 
 .rightpanel-namecontainer,
@@ -140,6 +138,9 @@
 .rightpanel-phonecontainer {
     width: 100%;
     max-width: 370px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
 .rightpanel-passwordcontainer {
@@ -151,37 +152,52 @@
     max-width: 62%;
 }
 
+.loginsingupcontainer-rightpanel-inside label {
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 21px;
+    text-align: left;
+    color: rgba(131, 131, 131, 1);
+    position: absolute;
+    top: 0%;
+    left: 6.9rem;
+    transform: translateY(-100%);
+    pointer-events: none;
+    transition: all 0.2s ease;
+    opacity: 0;
+}
+
+.loginsingupcontainer-rightpanel-inside label.show-label {
+    opacity: 1;
+}
+
+.loginsingupcontainer-rightpanel-inside input:focus + label,
+.loginsingupcontainer-rightpanel-inside input:not(:placeholder-shown) + label {
+    opacity: 0;
+}
+
 .loginsingupcontainer-rightpanel-inside input {
     width: 100%;
     height: 40px;
     border-radius: 4px;
     border: 0.5px solid rgba(174, 174, 174, 1);
     font-family: "Poppins", sans-serif;
-
     font-size: 14px;
     font-weight: 500;
     line-height: 21px;
     text-align: left;
-    color: rgba(131, 131, 131, 1);
+    color: #838383;
     padding: 0.59rem 0 0.59rem 1rem;
-    margin: 0.93rem 6.8rem;
-}
-
-.loginsingupcontainer-rightpanel-inside input::placeholder {
-    font-family: "Poppins", sans-serif;
-
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 21px;
-    text-align: left;
-    color: rgba(131, 131, 131, 1);
+    margin: 0.5rem 0.3rem 0rem 6.8rem;
 }
 
 .rightpanel-signupbuttoncontainer {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 0px;
     max-width: 100%;
+    margin-top: -20px;
 }
 
 .rightpanel-checkboxcontainer {
@@ -243,7 +259,6 @@
 
 .rightpanel-signupbuttoncontainer p {
     font-family: "Poppins", sans-serif;
-
     font-size: 12px;
     font-weight: 500;
     line-height: 18px;
@@ -253,12 +268,11 @@
 
 .rightpanel-signupbuttoncontainer p span {
     font-family: "Poppins", sans-serif;
-
     font-size: 12px;
     font-weight: 500;
     line-height: 18px;
     text-align: left;
-    text-decoration-line: underline;
+    text-decoration-line: none;
     color: rgba(131, 131, 131, 1);
 }
 
@@ -270,7 +284,7 @@
     gap: 10px;
     border-radius: 4px;
     background-color: rgba(111, 37, 206, 1);
-    margin: 0.9rem 6.8rem;
+    margin: 0.4rem 6.8rem;
     font-family: "Poppins", sans-serif;
     font-size: 16px;
     font-weight: 600;
@@ -302,7 +316,6 @@
     border-radius: 4px;
     border: 0.5px solid rgba(174, 174, 174, 1);
     font-family: "Poppins", sans-serif;
-
     font-size: 14px;
     font-weight: 500;
     line-height: 21px;
@@ -334,7 +347,6 @@
 
 .loginsignupcontainer-otppanel-inside .otppanel-mainsection p {
     font-family: "Poppins", sans-serif;
-
     font-size: 12px;
     font-weight: 500;
     line-height: 18px;
@@ -361,7 +373,6 @@
     border: none;
     background-color: rgba(111, 37, 206, 1);
     font-family: "Poppins", sans-serif;
-
     font-size: 16px;
     font-weight: 600;
     line-height: 24px;
@@ -380,7 +391,6 @@
 
 .rightpanel-passwordcontainer i {
     position: absolute;
-    top: 40%;
     right: 20%;
     padding-right: 1rem;
     cursor: pointer;
@@ -396,6 +406,196 @@
     color: rgba(0, 0, 0, 1);
     margin: 10px 0;
 }
+
+.forgot-password {
+    position: absolute;
+    right: 100px;
+    top: -10px;
+    transform: translateY(-50%);
+    color: #838383;
+    text-decoration: none;
+    font-size: 12px;
+    display: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.passwordClose {
+    position: absolute;
+    right: 90px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.rightpanel-passwordcontainer input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.sign-up.error-message {
+    color: #f97000;
+    font-size: 10px;
+    margin-top: 5px;
+    display: none;
+    margin-left: 110px;
+    font-family: "poppins";
+}
+
+.invalid-input {
+    border: 1px solid red;
+}
+.rightpanel-namecontainer,
+.rightpanel-phonecontainer,
+.rightpanel-emailcontainer,
+.rightpanel-passwordcontainer {
+    margin-bottom: 15px;
+}
+.rightpanel-namecontainer label,
+.rightpanel-phonecontainer label,
+.rightpanel-emailcontainer label,
+.rightpanel-passwordcontainer label {
+    display: block;
+    margin-bottom: 5px;
+}
+.rightpanel-namecontainer input,
+.rightpanel-phonecontainer input,
+.rightpanel-emailcontainer input,
+.rightpanel-passwordcontainer input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+.rightpanel-passwordcontainer {
+    position: relative;
+}
+
+/* Reset Password Popup Styles */
+.forgot-password-popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+.forgot-password-popup-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: left;
+    font-family: "Poppins", sans-serif;
+    position: relative;
+}
+.forgot-password-popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    color: #666;
+    cursor: pointer;
+}
+.forgot-password-popup-container h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.forgot-password-popup-container p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+.forgot-password-popup-container label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+.forgot-password-popup-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+}
+.forgot-password-popup-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff6200;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.forgot-password-popup-container button:hover {
+    background-color: #e55a00;
+}
+.forgot-password-popup-footer {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+}
+.forgot-password-popup-footer a {
+    color: rgba(255, 115, 0, 1);
+    text-decoration: none;
+}
+.forgot-password-popup-footer a:hover {
+    text-decoration: underline;
+}
+.forgot-password-popup-status {
+    color: green;
+    font-size: 14px;
+    margin-top: 10px;
+}
+.forgot-password-popup-error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+ .logincontainer-anotherresources {
+            text-align: center;
+        }
+        
+        .or-divider {
+            position: relative;
+            display: inline-block;
+            color: #555;
+            font-size: 0.9rem;
+            padding: 0 10px;
+        }
+        .or-divider::before,
+        .or-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 100px;
+            height: 1px;
+            background: #ccc;
+        }
+        .or-divider::before {
+            right: 100%;
+        }
+        .or-divider::after {
+            left: 100%;
+        }
+
+        
 
 @media (min-width: 1500px) {
     .loginsingupcontainer-leftpanel {
@@ -450,7 +650,6 @@
         flex-direction: column;
     }
 }
-
 @media (min-width: 768px) and (max-width: 1024px) {
     .loginsignupcontainer {
         flex-direction: column;
@@ -502,6 +701,26 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin: 0.5rem 0 1.5rem 0; /* Adjusted for tablet */
+    }
+
+    .loginsingupcontainer-rightpanel-inside label {
+        font-family: "Poppins", sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 20px;
+        color: rgba(131, 131, 131, 1);
+        position: absolute;
+        top: 10px;
+        left: 30px;
+        transform: translateY(0);
+        pointer-events: none;
+        transition: all 0.2s ease;
+        opacity: 0;
+    }
+
+    .loginsingupcontainer-rightpanel-inside label.show-label {
+        opacity: 1;
     }
 
     .rightpanel-namecontainer,
@@ -512,6 +731,7 @@
         margin: 0;
         display: flex;
         justify-content: center;
+        position: relative;
     }
 
     .loginsingupcontainer-rightpanel-inside input {
@@ -576,7 +796,6 @@
         font-size: 15px;
     }
 
-    /* Sign-in option text */
     .logincontainer-signinoption {
         display: flex;
         justify-content: center;
@@ -588,7 +807,6 @@
         font-size: 15px;
     }
 
-    /* OTP panel adjustments */
     .loginsignupcontainer-otppanel {
         max-width: 500px;
         padding: 30px;
@@ -636,9 +854,11 @@
         font-size: 17px;
         max-width: 450px;
     }
+
     .logincontainer-anotherresources {
         text-align: center;
     }
+
     #confirmpolicy {
         width: 22px !important;
         height: 22px;
@@ -721,8 +941,6 @@
     .rightsidevector-img {
         display: block;
         position: absolute;
-        top: -50px;
-        bottom: 30%;
         max-width: 84px;
         width: 100%;
         height: 82px;
@@ -736,6 +954,26 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin: 0;
+    }
+
+    .loginsingupcontainer-rightpanel-inside label {
+        font-family: "Poppins", sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 18px;
+        color: rgba(131, 131, 131, 1);
+        position: absolute;
+        top: 8px;
+        left: 20px;
+        transform: translateY(0);
+        pointer-events: none;
+        transition: all 0.2s ease;
+        opacity: 0;
+    }
+
+    .loginsingupcontainer-rightpanel-inside label.show-label {
+        opacity: 1;
     }
 
     .rightpanel-namecontainer,
@@ -743,9 +981,10 @@
     .rightpanel-passwordcontainer,
     .rightpanel-phonecontainer {
         max-width: 100%;
-        margin: 0;
+        margin-bottom: 15px;
         display: flex;
         justify-content: center;
+        position: relative;
     }
 
     .loginsingupcontainer-rightpanel-inside input {
@@ -755,6 +994,9 @@
         width: 100%;
         box-sizing: border-box;
         max-width: 400px;
+    }
+    .loginsingupcontainer-rightpanel .loginsingupcontainer-rightpanel-inside{
+        gap:0;
     }
 
     .rightpanel-passwordcontainer {
@@ -877,24 +1119,48 @@
     .logincontainer-signinoption span {
         font-size: 14px;
     }
+
     #confirmpolicy {
         width: 22px !important;
         height: 22px;
         margin: 0;
         padding: 0;
     }
+    .forgot-password {
+        position: absolute;
+        right: 15px;
+        top: -5px;
+        transform: translateY(-50%);
+        color: #838383;
+        text-decoration: none;
+        font-size: 12px;
+        display: none;
+    }
+    .sign-up.error-message {
+    color: #f97000;
+    font-size: 10px;
+    margin-top: 5px;
+    display: none;
+    margin-left: 0px;
+    font-family: "poppins";
+}
 }
 
 @media (max-width: 540px) {
     .rightsidevector-img {
         display: block;
         position: absolute;
-        bottom: 30%;
         max-width: 84px;
         width: 100%;
         height: 82px;
         opacity: 0.9;
         transform: translateX(-50px);
+    }
+
+    .loginsingupcontainer-rightpanel-inside label {
+        font-size: 11px;
+        top: 8px;
+        left: 15px;
     }
 }
 
@@ -921,7 +1187,7 @@
     }
 
     .loginsingupcontainer-rightpanel h1 {
-        font-size: 36px;
+        font-size: 24px;
         line-height: 28px;
     }
 
@@ -929,6 +1195,25 @@
         font-size: 14px;
         padding: 8px;
         max-width: 350px;
+    }
+
+    .loginsingupcontainer-rightpanel-inside label {
+        font-family: "Poppins", sans-serif;
+        font-size: 11px;
+        font-weight: 500;
+        line-height: 16px;
+        color: rgba(131, 131, 131, 1);
+        position: absolute;
+        top: -15px;
+        left: 5px;
+        transform: translateY(0);
+        pointer-events: none;
+        transition: all 0.2s ease;
+        opacity: 0;
+    }
+
+    .loginsingupcontainer-rightpanel-inside label.show-label {
+        opacity: 1;
     }
 
     .rightpanel-checkboxcontainer p {

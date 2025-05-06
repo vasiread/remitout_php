@@ -2417,7 +2417,6 @@ input[type="number"]::-webkit-inner-spin-button {
 h2 {
     font-family: "Poppins", sans-serif;
     font-size: 15px;
-    color: #191825;
 }
 
 .content-wrapper {
@@ -4961,7 +4960,7 @@ div.salary-sub p {
 }
 
 .dropdown-gender-header {
-  width:225px;
+  width:270px;
   max-width: 100%;
   display: flex;
   justify-content: space-between;
@@ -4984,10 +4983,10 @@ div.salary-sub p {
   display: none;
   position: absolute;
   top: 100%;
-  right:0px;
   margin-top: 8px;
   width: 100%;
-  width: 305px;
+  width: 310px;
+  margin-left: -10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #fff;

@@ -579,7 +579,7 @@
       <h2>What is the gross monthly income of co-borrower?</h2>
     </div>
     <input type="text" id="income-co-borrower" placeholder=" ₹ Rupees in thousands" />
-    <p class="minimum-amount">*minimum amount of 5% after deductions for eligibility</p>
+    <p class="minimum-amount">*minimum amount of 30k after liabilities for eligibility</p>
     <span id="income-error-message" class="error-message" style="display:none; color:red;">Please enter a valid numeric
       income value.</span>
   </div>
@@ -918,7 +918,7 @@
           <div class="help-container work-experience-tenth-help" style="display: none;">
             <h3 class="help-title">Help</h3>
             <div class="help-content">
-              <p>Please upload your 10th grade mark sheet in jpg, png, or pdf format.</p>
+              <p>Please upload your Experience Letter in JPG, PNG, or PDF format.</p>
             </div>
           </div>
         </div>
@@ -942,7 +942,7 @@
           <div class="help-container work-experience-twelfth-help" style="display: none;">
             <h3 class="help-title">Help</h3>
             <div class="help-content">
-              <p>Please upload your 12th grade mark sheet in jpg, png, or pdf format.</p>
+              <p>Please upload your last 3 months' salary slips in JPG, PNG, or PDF format.</p>
             </div>
           </div>
         </div>
@@ -966,7 +966,7 @@
           <div class="help-container work-experience-graduation-help" style="display: none;">
             <h3 class="help-title">Help</h3>
             <div class="help-content">
-              <p>Please upload your graduation mark sheet in jpg, png, or pdf format.</p>
+              <p>Please upload your Office ID in JPG, PNG, or PDF format.</p>
             </div>
           </div>
         </div>
@@ -994,7 +994,7 @@
           <div class="help-container work-experience-fourth-help" style="display: none;">
             <h3 class="help-title">Help</h3>
             <div class="help-content">
-              <p>Please upload your fourth document in jpg, png, or pdf format.</p>
+              <p>Please upload your Joining Letter in JPG, PNG, or PDF format.</p>
             </div>
           </div>
         </div>
