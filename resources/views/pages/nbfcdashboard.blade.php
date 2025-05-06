@@ -50,11 +50,7 @@ $viewIconPath = "assets/images/visibility.png";
         </div>
 
         <div class="nbfc-nav-right">
-            <div class="nbfc-search-container" id="nbfc-search-container-id-index">
-                <img src="assets/images/search.png" alt="Search" class="nbfc-search-icon">
-                <input type="text" class="nbfc-search-input" id="nbfc-search-input-id" placeholder="Search">
-            </div>
-
+           
             <button class="nbfc-dark-mode">
                 <img src="/assets/images/notifications_unread.png" alt="the notification icon"
                     class="notification-icon">

@@ -217,7 +217,6 @@
 .nbfc-mobile-menu-top li.active {
     color: #FF9A3F;
     background: linear-gradient(88.18deg, #FFA048 3.11%, #FA7B15 98.46%);
-    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -1451,7 +1450,7 @@
     }
 
     .dashboard-sections-container {
-        margin-left: 1rem;
+        margin-left: 0;
     }
 
     .dashboard-nbfc-search-input {
