@@ -25,7 +25,9 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class Admincontroller extends Controller
 {
@@ -687,31 +689,84 @@ class Admincontroller extends Controller
         }
     }
 
+
+
     public function promotionalEmail(Request $request)
     {
-        try {
-            // Get the content from the request
-            $content = $request->input('content');
-
-            if (!$content) {
-                return response()->json(['error' => 'Content is required'], 400);
-            }
-
-            // Send the email to the recipient
-            Mail::to('vasiraja950@gmail.com')->send(new PromotionalContentMail($content));
-
-            // If email was sent successfully, return success response
-            return response()->json(['success' => true]);
-
-        } catch (\Exception $e) {
-            // Log the exception for debugging purposes
-            Log::error('Error sending promotional email: ' . $e->getMessage());
-
-            // Return error response if an exception occurs
-            return response()->json(['error' => 'An error occurred while sending the email'], 500);
+        Log::info('Promotional email request received', $request->all());
+        $validator = Validator::make($request->all(), [
+            'content' => 'required|string',
+            'recipients' => 'required',
+            'attachments.*' => 'nullable|file|mimes:pdf,doc,docx|max:10240'
+        ]);
+        if ($validator->fails()) {
+            Log::error('Validation failed', $validator->errors()->toArray());
+            return response()->json(['error' => 'Validation failed', 'details' => $validator->errors()], 422);
         }
+        $recipients = json_decode($request->input('recipients'), true);
+        if (!is_array($recipients) || empty($recipients)) {
+            Log::error('Invalid or empty recipients array');
+            return response()->json(['error' => 'Invalid or empty recipients array'], 422);
+        }
+        $validator = Validator::make($recipients, [
+            '*.name' => 'nullable|string',
+            '*.email' => 'required|email'
+        ]);
+        if ($validator->fails()) {
+            Log::error('Recipient validation failed', $validator->errors()->toArray());
+            return response()->json(['error' => 'Recipient validation failed', 'details' => $validator->errors()], 422);
+        }
+        $content = $request->input('content');
+        $attachmentPaths = [];
+        if ($request->hasFile('attachments')) {
+            foreach ($request->file('attachments') as $file) {
+                if ($file && $file->isValid()) {
+                    $path = $file->store('email_attachments', 'public');
+                    $attachmentPaths[] = Storage::disk('public')->path($path);
+                }
+            }
+        }
+        $sentCount = 0;
+        $errors = [];
+        foreach ($recipients as $index => $recipient) {
+            try {
+                Log::info('Attempting to send email', ['email' => $recipient['email'], 'recipient_index' => $index]);
+                $email = filter_var($recipient['email'], FILTER_SANITIZE_EMAIL);
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    throw new \Exception('Invalid email format');
+                }
+                $mail = Mail::to($email);
+                $mailable = (new PromotionalContentMail($content));
+                foreach ($attachmentPaths as $attachmentPath) {
+                    $mailable->attach($attachmentPath);
+                }
+                $mail->send($mailable);
+                Log::info('Email sent successfully', ['email' => $recipient['email']]);
+                $sentCount++;
+            } catch (\Exception $e) {
+                Log::error('Failed to send email', ['email' => $recipient['email'], 'error' => $e->getMessage()]);
+                $errors[] = 'Failed to send to ' . $recipient['email'] . ': ' . $e->getMessage();
+            }
+        }
+        foreach ($attachmentPaths as $path) {
+            if (file_exists($path)) {
+                unlink($path);
+            }
+        }
+        if ($sentCount === 0) {
+            Log::error('No emails were sent', ['errors' => $errors]);
+            return response()->json(['error' => 'No emails were sent', 'details' => $errors], 500);
+        }
+        $response = ['success' => true];
+        if (!empty($errors)) {
+            $response['partial_errors'] = $errors;
+            $response['message'] = "Emails sent to $sentCount/" . count($recipients) . " recipients";
+        } else {
+            $response['message'] = "Emails sent successfully to $sentCount recipient" . ($sentCount > 1 ? 's' : '');
+        }
+        Log::info('Promotional email sending completed', $response);
+        return response()->json($response);
     }
-
 
 
     public function attachImagePromotional(Request $request)
@@ -758,9 +813,9 @@ class Admincontroller extends Controller
     public function initializeChatStudent()
     {
         try {
-             $students = User::select('name', 'unique_id')->get();
+            $students = User::select('name', 'unique_id')->get();
 
-             if ($students->isEmpty()) {
+            if ($students->isEmpty()) {
                 return response()->json([
                     'status' => 'error',
                     'message' => 'No students found.',
@@ -779,7 +834,7 @@ class Admincontroller extends Controller
                 'status' => 'error',
                 'message' => 'An error occurred while retrieving students.',
                 'error' => $e->getMessage(),
-            ], 500);  
+            ], 500);
         }
     }
     public function initializeChatNbfc()
@@ -824,7 +879,7 @@ class Admincontroller extends Controller
                 $query->whereHas('courseInfo', function ($q) use ($degreeType) {
                     $q->where('degree-type', $degreeType);
                 });
-            }       
+            }
 
             $personalInfos = $query->get();
 
@@ -853,7 +908,7 @@ class Admincontroller extends Controller
                         $ageGroups['31-40']++;
                     }
                 } catch (\Exception $e) {
-                     continue;
+                    continue;
                 }
             }
 
@@ -865,7 +920,7 @@ class Admincontroller extends Controller
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage(),
-            ]); 
+            ]);
         }
     }
 
@@ -884,10 +939,10 @@ class Admincontroller extends Controller
 
             $hasSCReferral = false;
 
-             if (!empty($info->referral_code)) {
+            if (!empty($info->referral_code)) {
                 $referrer = User::where('referral_code', $info->referral_code)->first();
 
- 
+
                 if ($referrer) {
                     $linkedThrough = strtolower($referrer->linked_through);
 
@@ -956,28 +1011,89 @@ class Admincontroller extends Controller
         }
     }
 
-    public function addAdminRole(Request $request)
+    public function getAdmins(Request $request)
     {
-         if (session('admin_role') !== 'superadmin') {
-            return response()->json(['error' => 'Unauthorized. Only superadmins can add admin roles.'], 403);
+        try {
+            $admins = Admin::select('admin_id', 'name', 'email', 'is_super_admin', 'created_at')
+                ->get();
+            if ($admins->isEmpty()) {
+                return response()->json(['message' => 'No admins found'], 404);
+            }
+            return response()->json([
+                'success' => true,
+                'data' => $admins
+            ], 200);
+        } catch (\Exception $e) {
+            Log::error('Error fetching admins: ' . $e->getMessage());
+            return response()->json([
+                'error' => 'Failed to fetch admins',
+                'details' => $e->getMessage()
+            ], 500);
         }
-
-         $request->validate([
-            'admin_role' => 'required|string',
-            'name' => 'required|string',
-            'email' => 'required|email|unique', 
-            'password' => 'required|string|min:6', 
-            
-        ]);
-
-        // Create the admin user
-        Admin::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'is_super_admin' => $request->admin_role === 'superadmin' ? true : false,
-        ]);
-
-        return redirect()->back()->with('success', 'Admin role added successfully.');
     }
+    public function createAdmin(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:admin,email',
+            'password' => 'required|string|min:8',
+            'is_super_admin' => 'boolean'
+        ]);
+        if ($validator->fails()) {
+            Log::error('Validation failed for creating admin', $validator->errors()->toArray());
+            return response()->json([
+                'error' => 'Validation failed',
+                'details' => $validator->errors()
+            ], 422);
+        }
+        try {
+            $admin = Admin::create([
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'password' => Hash::make($request->input('password')),
+                'is_super_admin' => $request->input('is_super_admin', false),
+            ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Admin created successfully',
+                'data' => [
+                    'admin_id' => $admin->admin_id,
+                    'name' => $admin->name,
+                    'email' => $admin->email,
+                    'is_super_admin' => $admin->is_super_admin,
+                    'created_at' => $admin->created_at
+                ]
+            ], 201);
+        } catch (\Exception $e) {
+            Log::error('Error creating admin: ' . $e->getMessage());
+            return response()->json([
+                'error' => 'Failed to create admin',
+                'details' => $e->getMessage()
+            ], 500);
+        }
+    }
+    // public function addAdminRole(Request $request)
+    // {
+    //      if (session('admin_role') !== 'superadmin') {
+    //         return response()->json(['error' => 'Unauthorized. Only superadmins can add admin roles.'], 403);
+    //     }
+
+    //      $request->validate([
+    //         'admin_role' => 'required|string',
+    //         'name' => 'required|string',
+    //         'email' => 'required|email|unique', 
+    //         'password' => 'required|string|min:6', 
+
+    //     ]);
+
+    //     // Create the admin user
+    //     Admin::create([
+    //         'name' => $request->name,
+    //         'email' => $request->email,
+    //         'password' => bcrypt($request->password),
+    //         'is_super_admin' => $request->admin_role === 'superadmin' ? true : false,
+    //     ]);
+
+    //     return redirect()->back()->with('success', 'Admin role added successfully.');
+    // }
 }

@@ -68,14 +68,15 @@
         @yield('logincontent')
     @elseif(Route::currentRouteName() === 'signup')
         @yield('signupcontent')
-    @elseif(Route::currentRouteName() === 'student-dashboard')
+    @elseif(Route::currentRouteName() === 'student-dashboard')  
         @yield('studentdashboard')
     @elseif(Route::currentRouteName() === 'sc-dashboard')
         @yield('scdashboard')
     @elseif(Route::currentRouteName() === 'adminpage')
-        @yield('adminpage');
+        @yield('adminpage')
     @elseif(Route::currentRouteName() === 'nbfc-dashboard')
-        @yield('nbfcdashboard');
+        @yield('nbfcdashboard')
+     
     @else
         @yield('homecontent')
     @endif
@@ -89,7 +90,6 @@
     <!-- Add this script to fix mobile navigation issues -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Fix for mobile navigation if it exists on the page
             const mobileMenuBtn = document.getElementById('menu-icon');
             if (mobileMenuBtn) {
                 const mobileNav = document.getElementById('mobile-nav-links') || document.querySelector('.header-links');
@@ -100,18 +100,9 @@
                     mobileMenuBtn.classList.toggle('open');
                 });
 
-                // Close menu when clicking outside
-                // document.addEventListener('click', function (e) {
-                //     if (mobileNav.classList.contains('show') &&
-                //         !mobileNav.contains(e.target) &&
-                //         !mobileMenuBtn.contains(e.target)) {
-                //         mobileNav.classList.remove('show');
-                //         mobileMenuBtn.classList.remove('open');
-                //     }
-                // });
+                 
 
-                // Ensure menu links are properly clickable
-                if (mobileNav) {
+                 if (mobileNav) {
                     const mobileLinks = mobileNav.querySelectorAll('a');
                     mobileLinks.forEach(link => {
                         link.addEventListener('click', function (e) {
@@ -121,7 +112,7 @@
                             }
                         });
                     });
-                };
+                }; 
             }
         });
     </script>
