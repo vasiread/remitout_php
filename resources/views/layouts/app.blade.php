@@ -5,12 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @if (session()->has('user'))
+    <meta name="user-session" content="true">
+    @endif
 
     <title>@yield('title', 'Remitout')</title>
-    @vite(['resources/js/app.js', 'resources/css/app.css'])
-    
-    <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+
+    <!-- Load Vite assets (CSS and JS) -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <link rel="stylesheet" href="https://use.typekit.net/dhw7ffd.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
@@ -65,29 +68,28 @@
 
 
     @if(Route::currentRouteName() === 'login')
-        @yield('logincontent')
+    @yield('logincontent')
     @elseif(Route::currentRouteName() === 'signup')
         @yield('signupcontent')
     @elseif(Route::currentRouteName() === 'terms')
     @yield('termscontent')    
     @elseif(Route::currentRouteName() === 'student-dashboard')
-        @yield('studentdashboard')
+    @yield('studentdashboard')
     @elseif(Route::currentRouteName() === 'sc-dashboard')
-        @yield('scdashboard')
+    @yield('scdashboard')
     @elseif(Route::currentRouteName() === 'adminpage')
         @yield('adminpage')
     @elseif(Route::currentRouteName() === 'nbfc-dashboard')
         @yield('nbfcdashboard')
      
     @else
-        @yield('homecontent')
+    @yield('homecontent')
     @endif
 
     @if(!in_array(Route::currentRouteName(), ['login', 'signup', 'admin-page', 'nbfc-dashboard', 'sc-dashboard', 'student-dashboard']))
-        <x-footer></x-footer>
+    <x-footer></x-footer>
     @endif
 
-    <script src="{{ asset('js/app.js') }}"></script>
 
     <!-- Add this script to fix mobile navigation issues -->
     <script>
@@ -96,7 +98,7 @@
             if (mobileMenuBtn) {
                 const mobileNav = document.getElementById('mobile-nav-links') || document.querySelector('.header-links');
 
-                mobileMenuBtn.addEventListener('click', function (e) {
+                mobileMenuBtn.addEventListener('click', function(e) {
                     e.stopPropagation();
                     mobileNav.classList.toggle('show');
                     mobileMenuBtn.classList.toggle('open');
@@ -107,7 +109,7 @@
                  if (mobileNav) {
                     const mobileLinks = mobileNav.querySelectorAll('a');
                     mobileLinks.forEach(link => {
-                        link.addEventListener('click', function (e) {
+                        link.addEventListener('click', function(e) {
                             if (this.getAttribute('href').startsWith('#')) {
                                 mobileNav.classList.remove('show');
                                 mobileMenuBtn.classList.remove('open');

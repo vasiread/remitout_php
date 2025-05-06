@@ -5,8 +5,8 @@ mkdir -p /var/www/storage/framework/{sessions,views,cache}
 mkdir -p /var/www/bootstrap/cache
 
 # Set permissions
-chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache /var/www/public/build
-chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www/public/build
+chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache /var/www/public/assets
+chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www/public/assets
 
 # Run Laravel setup
 cd /var/www

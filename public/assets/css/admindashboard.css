@@ -1453,7 +1453,7 @@ canvas {
     max-width: 200px; /* Optional: Maximum width to prevent excessive stretching */
     overflow: hidden; /* Hide overflow if text is too long */
     text-overflow: ellipsis; /* Add ellipsis if text overflows */
-    position: relative; /
+    position: relative; 
 }
 
 .admin-desti-country-filter-btn i,
