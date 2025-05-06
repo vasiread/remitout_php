@@ -59,7 +59,7 @@
 <body>
     @if(request()->is('/'))
         <x-header></x-header>
-    @elseif(!in_array(Route::currentRouteName(), ['login', 'signup', 'admin-page', 'nbfc-dashboard']))
+    @elseif(!in_array(Route::currentRouteName(), ['login', 'signup', 'admin-page', 'nbfc-dashboard', 'terms']))
         <x-navbar></x-navbar>
     @endif
 
@@ -68,7 +68,9 @@
         @yield('logincontent')
     @elseif(Route::currentRouteName() === 'signup')
         @yield('signupcontent')
-    @elseif(Route::currentRouteName() === 'student-dashboard')  
+    @elseif(Route::currentRouteName() === 'terms')
+    @yield('termscontent')    
+    @elseif(Route::currentRouteName() === 'student-dashboard')
         @yield('studentdashboard')
     @elseif(Route::currentRouteName() === 'sc-dashboard')
         @yield('scdashboard')

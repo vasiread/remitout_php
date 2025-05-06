@@ -59,36 +59,30 @@
                     <div class="rightpanel-signupbuttoncontainer">
                         <div class="rightpanel-checkboxcontainer">
                             <input type="checkbox" name="confirmpolicy" id="confirmpolicy" style="margin:0;padding:0px" required>
-                            <p>I agree to the <span>terms & policy</span></p>
+                            <p>I agree to the <a href="{{ route('terms') }}" class="text-blue-600 hover:underline" target="_blank">terms & policy</a></p>
                         </div>
                         <button type="submit">Sign up</button>
                     </div>
                 </form>
-               
-
                 <div class="logincontainer-anotherresources">
-                        <p class="or-divider">or</p>
-                        <div class="googlesigninbuttoncontainer">
-                            <button class="googlesigninbutton" onclick="window.location.href='{{ route('google.login') }}'">
+                    <p class="or-divider">or</p>
+                    <div class="googlesigninbuttoncontainer">
+                        <button class="googlesigninbutton" onclick="window.location.href='{{ route('google.login') }}'">
                             <img src="{{ asset('assets/images/googleicon.png') }}"> Sign in with Google
                         </button>
-                          
-                        </div>
-
-                        <!-- New User Sign Up Option -->
-                        <div class="logincontainer-signinoption">
+                    </div>
+                    <!-- New User Sign Up Option -->
+                    <div class="logincontainer-signinoption">
                         <p>Have an account? </p>
                         <span onclick="window.location.href='{{ route('login') }}'">Sign In</span>
                     </div>
-                    </div>
-
-
-
+                </div>
             </div>
 
             <!-- OTP Section -->
-            <div class="loginsignupcontainer-otppanel" style="display:none">
+            <div class="loginsignupcontainer-otppanel" style="display:none">  
                 <div class="loginsignupcontainer-otppanel-inside">
+                    <img src="assets/images/loginsinguprightsideimg.png" class="rightsidevector-img-otp" alt="">
                     <h1>Enter the OTP</h1>
                     <div class="otppanel-mainsection">
                         <p>Do not share your OTP!</p>

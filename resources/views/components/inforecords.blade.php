@@ -272,7 +272,7 @@
                     </div>
                 </div>
 
-                <button class="cta-button" id="loanButton">
+               <button class="cta-button" id="loanButton" onclick="window.location.href='http://127.0.0.1:8000/signup'">
                     Secure your loan now!
                 </button>
             </div>

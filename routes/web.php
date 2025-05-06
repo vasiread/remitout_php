@@ -12,6 +12,8 @@ use App\Http\Controllers\{
     StudentDetailsController,
     TrackController
 };
+
+use App\Http\Controllers\TermsController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\NbfcController;
@@ -40,6 +42,8 @@ Route::get('/', function () {
 Route::get('/signup', function () {
     return view('pages.loginsignup');
 })->name('signup');
+
+Route::get('/terms', [TermsController::class, 'index'])->name('terms');
 
 Route::get('/login', function () {
     return view('pages.login');
