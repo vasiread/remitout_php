@@ -1,0 +1,699 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.promotional-email-composer {
+    border-radius: 8px;
+    padding: 20px;
+
+    display: none;
+    flex-direction: column;
+    font-family: "Poppins", sans-serif;
+    width: calc(100% - 18% - 20px);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: auto;
+
+    margin-left: auto;
+    margin-top: 100px;
+}
+
+.promotional-composer-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+}
+
+.promotional-toolbar-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    width: 100%;
+    margin: 0px 40px;
+}
+
+.promotional-composer-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+}
+.composer-email-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.promotional-heading {
+    font-size: 18px;
+    color: #5d5c5c;
+    line-height: 18px;
+    margin-bottom: 10px;
+}
+
+.promotional-header {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.promotional-header h2 {
+    color: #e98635;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.promotional-header-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-promo {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    height: 35px;
+}
+
+.btn-draft {
+    background: white;
+    color: #fa7b15;
+    outline: 1px solid #fa7b15;
+    font-family: "Poppins", sans-serif;
+}
+
+.btn-insert {
+    background: white;
+    color: #5d5c5c;
+
+    outline: 1px solid #6f25ce;
+    font-family: "Poppins", sans-serif;
+}
+
+.btn-send {
+    background: #f86d21;
+    color: white;
+    font-family: "Poppins", sans-serif;
+}
+
+.promotional-toolbar {
+    padding: 40px 8px;
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.promotional-toolbar-dropdown {
+    min-width: 80px;
+    position: relative;
+    display: flex;
+    font-family: "Poppins", sans-serif;
+}
+
+.promotional-toolbar-dropdown select {
+    width: 100%;
+    padding: 5px 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background: #fdfdfd;
+    border-color: #ddd;
+    cursor: pointer;
+    font-size: 14px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="gray" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 5px center;
+    background-size: 12px;
+    font-family: "Poppins", sans-serif;
+}
+
+.promotional-toolbar-button {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #666;
+    background: #f6f6f680;
+    border-color: #ddd;
+}
+
+.promotional-content-area {
+    padding: 20px 0px;
+    min-height: 400px;
+    width: 788px;
+    margin: 0 auto;
+}
+
+.image-container {
+    max-width: 100%;
+    margin: 15px 0;
+    height: 250px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-container img {
+    width: auto;
+    max-width: 100%;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.promotional-link-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+    padding: 8px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.promotional-link-input {
+    flex-grow: 1;
+    padding: 5px;
+    border: none;
+    background: transparent;
+    color: #7b68ee;
+    font-family: "Poppins", sans-serif;
+}
+
+.promotional-link-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.promotional-link-button {
+    padding: 5px 10px;
+    border: none;
+    background: none;
+    color: #666;
+    cursor: pointer;
+    font-family: "Poppins", sans-serif;
+}
+
+.know-more {
+    color: #7b68ee;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.promotional-attachment-section {
+    padding: 15px 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.attachment-buttons-promotional {
+    display: flex;
+    gap: 10px;
+}
+.attachment-buttons-promotional .btn-promo btn-draft {
+    width: 120px;
+    font-size: 13px;
+}
+
+.attachment-file-promotional {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: #f9f9f9;
+    border-radius: 4px;
+    margin-top: 30px;
+    width: 350px;
+    font-family: "Poppins", sans-serif;
+}
+.attachment-file-promotional span {
+    font-size: 14px;
+    color: #5d5c5c;
+}
+
+.file-icon {
+    color: #f86d21;
+}
+
+.remove-file {
+    color: #666;
+    cursor: pointer;
+    margin-left: auto; /* Pushes the remove icon to the right */
+}
+
+.promotional-footer {
+    padding: 15px 20px;
+    color: #666;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+
+    margin: 0 auto;
+    width: 789px;
+    height: 55px;
+    background-color: #f6f6f6;
+    margin-bottom: 20px;
+}
+
+.promotional-footer-social {
+    display: flex;
+    gap: 8px;
+}
+
+.promotional-word-count {
+    color: #999;
+    font-size: 12px;
+    margin-top: 5px;
+    padding-left: 20px;
+    background-color: #f6f6f6;
+    height: 40px;
+    display: flex;
+    align-items: center; /* Vertically center text */
+}
+
+/* Recipients Section Styles */
+.promotional-recipients-section {
+    padding: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.promotional-recipients-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.promotional-recipients-title {
+    color: #f86d21;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.promotional-recipients-filters {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.promotional-recipients-filters select,
+.promotional-recipients-filters input[type="text"] {
+    padding: 6px 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background: white;
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+}
+
+.promotional-recipients-filters select {
+    padding-right: 25px;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="gray" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 5px center;
+    background-size: 12px;
+    font-family: "Poppins", sans-serif;
+    color: #5d5c5c;
+}
+
+.promotional-recipients-filters input[type="text"] {
+    width: 180px;
+}
+
+.search-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+}
+
+.promotional-recipients-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.promotional-recipients-table th,
+.promotional-recipients-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+    color: #5d5c5ccc;
+    font-size: 13px;
+}
+
+.promotional-recipients-table th {
+    font-weight: 500;
+    font-weight: 500;
+    font-size: 16px;
+    color: #5d5c5c;
+}
+
+.promotional-recipients-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.promotional-recipients-table input[type="checkbox"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #fa7b15;
+    border-radius: 3px;
+    background-color: white;
+    cursor: pointer;
+    position: relative;
+}
+
+.promotional-recipients-table input[type="checkbox"]:checked {
+    background-color: white;
+    border: 1px solid #fa7b15;
+}
+
+.promotional-recipients-table input[type="checkbox"]::after {
+    content: "\2713";
+    font-size: 12px;
+    color: #fa7b15;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+.promotional-recipients-table input[type="checkbox"]:checked::after {
+    display: block;
+}
+
+.promotional-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+    color: #666;
+}
+
+.promotional-pagination button {
+    padding: 5px 10px;
+    border: 1px solid #e0e0e0;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #666;
+}
+
+.promotional-pagination button:hover {
+    background: #f5f5f5;
+}
+
+.promotional-pagination span {
+    font-size: 12px;
+}
+
+.promotional-sub {
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: #5d5c5cb3;
+    line-height: 1.5;
+    font-family: "Poppins", sans-serif;
+}
+@media only screen and (max-width: 768px) {
+    .promotional-email-composer {
+        width: 100%;
+        padding: 10px;
+        margin-top: 60px;
+        position: static;
+    }
+
+    .promotional-composer-container {
+        box-shadow: none;
+        border-radius: 4px;
+    }
+
+    .promotional-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .promotional-header h2 {
+        font-size: 20px;
+    }
+
+    .promotional-header-buttons {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+    }
+
+    .btn-promo {
+        padding: 6px 12px;
+        font-size: 12px;
+        height: 30px;
+    }
+
+    .promotional-toolbar {
+        padding: 20px 4px;
+        gap: 6px;
+    }
+
+    .promotional-toolbar-row {
+        margin: 0 10px;
+        gap: 6px;
+    }
+
+    .promotional-toolbar-dropdown {
+        min-width: 70px;
+    }
+
+    .promotional-toolbar-dropdown select {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+
+    .promotional-toolbar-button {
+        width: 24px;
+        height: 24px;
+        font-size: 12px;
+    }
+
+    .promotional-content-area {
+        width: 100%;
+        min-height: 300px;
+        padding: 10px 0;
+    }
+
+    .image-container {
+        height: 150px;
+        margin: 10px 0;
+    }
+
+    .image-container img {
+        width: 100%;
+        height: auto;
+    }
+
+    .promotional-link-container {
+        padding: 6px 8px;
+        margin: 10px 0;
+    }
+
+    .promotional-link-input {
+        font-size: 12px;
+    }
+
+    .promotional-link-button {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+
+    .promotional-attachment-section {
+        padding: 10px;
+    }
+
+    .attachment-file-promotional {
+        width: 100%;
+        margin-top: 20px;
+        padding: 6px 8px;
+    }
+
+    .attachment-file-promotional span {
+        font-size: 12px;
+    }
+
+    .promotional-footer {
+        width: 100%;
+        padding: 10px;
+        height: auto;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .promotional-footer-social {
+        justify-content: flex-start;
+    }
+
+    .promotional-word-count {
+        padding-left: 10px;
+        font-size: 10px;
+        height: 30px;
+    }
+
+    .promotional-recipients-section {
+        padding: 10px;
+    }
+
+    .promotional-recipients-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .promotional-recipients-title {
+        font-size: 20px;
+    }
+
+    .promotional-recipients-filters {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .promotional-recipients-filters select,
+    .promotional-recipients-filters input[type="text"] {
+        width: 100%;
+        font-size: 12px;
+        padding: 5px 8px;
+    }
+
+    .promotional-recipients-table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .promotional-recipients-table th,
+    .promotional-recipients-table td {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .promotional-recipients-table th {
+        font-size: 14px;
+    }
+
+    .promotional-recipients-table input[type="checkbox"] {
+        width: 14px;
+        height: 14px;
+    }
+
+    .promotional-recipients-table input[type="checkbox"]::after {
+        font-size: 10px;
+    }
+
+    .promotional-pagination {
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .promotional-pagination button {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+
+    .promotional-pagination span {
+        font-size: 10px;
+    }
+
+    .promotional-sub {
+        font-size: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .promotional-email-composer {
+        padding: 8px;
+        margin-top: 40px;
+    }
+    .promotional-composer-main-section{
+        width:340px;
+    }
+
+    .promotional-header h2 {
+        font-size: 18px;
+    }
+
+    .btn-promo {
+        padding: 5px 10px;
+        font-size: 11px;
+        height: 28px;
+    }
+
+    .promotional-toolbar {
+        padding: 15px 2px;
+    }
+
+    .promotional-content-area {
+        min-height: 250px;
+    }
+
+    .image-container {
+        height: 120px;
+    }
+
+    .promotional-footer {
+        padding: 8px;
+    }
+
+    .promotional-recipients-title {
+        font-size: 18px;
+    }
+
+    .promotional-recipients-table th,
+    .promotional-recipients-table td {
+        padding: 6px;
+        font-size: 11px;
+    }
+
+    .promotional-recipients-table th {
+        font-size: 12px;
+    }
+    .composer-email-container{
+        justify-content: space-between;
+    }
+}
+.promotional_email_composer-icon{
+    display:flex;
+    width:250px;
+    justify-content: space-between;
+}

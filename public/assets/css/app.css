@@ -3,7 +3,7 @@
 @import "navbar.css";
 @import "footer.css";
 @import "loginsignup.css";
-/* @import "login.css"; */
+@import "login.css";
 @import "studentdashboard.css";
 @import "scdashboard.css";
 @import "studentformquestionair.css";

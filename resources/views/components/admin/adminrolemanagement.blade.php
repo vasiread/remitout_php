@@ -1,17 +1,14 @@
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Role Management</title>
     <link rel="stylesheet" href="assets/css/adminrolemanagement.css">
-
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
-
 <body>
     @extends('layouts.app')
-
     <div class="role-management-admin-main-container" id="role-management-container-admin-id">
         <div class="role-management-container">
             <div class="role-management-header">
@@ -41,53 +38,73 @@
             </div>
         </div>
     </div>
-
     <script>
-        let users = [
-            { name: 'Alice Johnson', role: 'Student', email: 'alice.j@gmail.com' },
-            { name: 'Bob Smith', role: 'Financial Company', email: 'bob.smith@gmail.com' },
-            { name: 'Carol Davis', role: 'Students', email: 'carol.d@gmail.com' },
-            { name: 'David Wilson', role: 'Financial Company', email: 'david.w@gmail.com' },
-            { name: 'Emma Brown', role: 'Financial Company', email: 'emma.b@gmail.com' },
-            { name: 'Frank Miller', role: 'Students', email: 'frank.m@gmail.com' },
-            { name: 'Grace Taylor', role: 'Students', email: 'grace.t@gmail.com' },
-            { name: 'Henry Clark', role: 'Students', email: 'henry.c@gmail.com' }
-        ];
-
+        let admins = [];
         document.addEventListener('DOMContentLoaded', () => {
             const sessionData = @json(session()->all());
-
             console.log('Full Session Data:', sessionData);
         });
-
-
         const adminId = @json(session('admin_user_id'));
         const adminRole = @json(session('admin_role'));
-
         console.log('Super Admin ID:', adminId);
         console.log('Super Admin Role:', adminRole);
-
-        function createUserRows(sortedUsers = users) {
+        function getCsrfToken() {
+            return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        }
+        function fetchAdmins() {
+            fetch('/api/admins', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': getCsrfToken()
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch admins');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success && Array.isArray(data.data)) {
+                    admins = data.data.map(admin => ({
+                        admin_id: admin.admin_id,
+                        name: admin.name,
+                        role: admin.is_super_admin ? 'Super Admin' : 'Admin',
+                        email: admin.email,
+                        created_at: admin.created_at
+                    }));
+                    createUserRows(admins);
+                } else {
+                    console.error('Unexpected response format:', data);
+                    createUserRows([]);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching admins:', error);
+                createUserRows([]);
+            });
+        }
+        function createUserRows(sortedAdmins) {
             const userList = document.getElementById('roleManagementList');
             userList.innerHTML = '';
-
-            sortedUsers.forEach((user, index) => {
+            sortedAdmins.forEach((admin, index) => {
                 const row = document.createElement('div');
                 row.className = 'role-management-row';
+                row.setAttribute('data-admin-id', admin.admin_id || '');
                 row.innerHTML = `
                     <div>
-                        <input type="text" class="role-management-name" value="${user.name}" disabled>
+                        <input type="text" class="role-management-name" value="${admin.name || ''}" disabled>
                     </div>
                     <div>
                         <select class="role-management-select" disabled>
-                            <option value="" disabled ${!user.role ? 'selected' : ''}>Select</option>
-                            <option value="Student" ${user.role === 'Student' ? 'selected' : ''}>Student</option>
-                            <option value="Financial Company" ${user.role === 'Financial Company' ? 'selected' : ''}>Financial Company</option>
-                            <option value="Students" ${user.role === 'Students' ? 'selected' : ''}>Students</option>
+                            <option value="" disabled ${!admin.role ? 'selected' : ''}>Select</option>
+                            <option value="Admin" ${admin.role === 'Admin' ? 'selected' : ''}>Admin</option>
+                            <option value="Super Admin" ${admin.role === 'Super Admin' ? 'selected' : ''}>Super Admin</option>
                         </select>
                     </div>
                     <div>
-                        <input type="email" class="role-management-email" value="${user.email}" disabled>
+                        <input type="email" class="role-management-email" value="${admin.email || ''}" disabled>
                     </div>
                     <div class="role-management-actions">
                         <button class="role-management-btn role-management-btn-edit">Edit</button>
@@ -95,18 +112,15 @@
                 `;
                 userList.appendChild(row);
             });
-
-            // Add click handlers for all buttons
             document.querySelectorAll('.role-management-btn').forEach((btn) => {
                 btn.addEventListener('click', () => {
                     const row = btn.closest('.role-management-row');
+                    const adminId = row.getAttribute('data-admin-id');
                     const nameInput = row.querySelector('.role-management-name');
                     const select = row.querySelector('.role-management-select');
                     const email = row.querySelector('.role-management-email');
                     const rowIndex = Array.from(document.querySelectorAll('.role-management-row')).indexOf(row);
-
                     if (btn.classList.contains('role-management-btn-save')) {
-                        // Save changes
                         nameInput.disabled = true;
                         select.disabled = true;
                         email.disabled = true;
@@ -114,20 +128,22 @@
                         btn.textContent = 'Edit';
                         btn.classList.remove('role-management-btn-save');
                         btn.classList.add('role-management-btn-edit');
-
-                        // Update users array
-                        users[rowIndex] = {
+                        const updatedAdmin = {
                             name: nameInput.value,
                             role: select.value,
-                            email: email.value
+                            email: email.value,
+                            admin_id: adminId
                         };
+                        if (!adminId) {
+                            saveNewAdmin(updatedAdmin, rowIndex);
+                        } else {
+                            updateAdmin(updatedAdmin, rowIndex);
+                        }
                     } else {
-                        // Enable editing
                         nameInput.disabled = false;
                         select.disabled = false;
                         email.disabled = false;
                         nameInput.classList.add('edit-mode');
-                        // Set default to "Select" when editing
                         select.value = '';
                         btn.textContent = 'Save';
                         btn.classList.remove('role-management-btn-edit');
@@ -136,83 +152,144 @@
                 });
             });
         }
-
-        // Function to add new row
+        function saveNewAdmin(adminData, rowIndex) {
+            const payload = {
+                name: adminData.name,
+                email: adminData.email,
+                password: 'default123', 
+                is_super_admin: adminData.role === 'Super Admin'
+            };
+            fetch('/api/admins', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': getCsrfToken()
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to create admin');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    admins[rowIndex] = {
+                        admin_id: data.data.admin_id,
+                        name: data.data.name,
+                        role: data.data.is_super_admin ? 'Super Admin' : 'Admin',
+                        email: data.data.email,
+                        created_at: data.data.created_at
+                    };
+                    createUserRows(admins);
+                } else {
+                    alert('Failed to create admin: ' + (data.error || 'Unknown error'));
+                }
+            })
+            .catch(error => {
+                console.error('Error creating admin:', error);
+                alert('Error creating admin: ' + error.message);
+            });
+        }
+        function updateAdmin(adminData, rowIndex) {
+            const payload = {
+                name: adminData.name,
+                email: adminData.email,
+                is_super_admin: adminData.role === 'Super Admin'
+            };
+            fetch(`/api/admins/${adminData.admin_id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': getCsrfToken()
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to update admin');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    admins[rowIndex] = {
+                        admin_id: adminData.admin_id,
+                        name: adminData.name,
+                        role: adminData.role,
+                        email: adminData.email,
+                        created_at: admins[rowIndex].created_at
+                    };
+                    createUserRows(admins);
+                } else {
+                    alert('Failed to update admin: ' + (data.error || 'Unknown error'));
+                }
+            })
+            .catch(error => {
+                console.error('Error updating admin:', error);
+                alert('Error updating admin: ' + error.message);
+            });
+        }
         function addNewRow() {
-            const newUser = { name: '', role: '', email: '' }; // Set role to empty for "Select"
-            users.unshift(newUser); // Add to beginning of array
-            createUserRows();
-
-            // Automatically put the first row in edit mode
+            const newAdmin = { admin_id: '', name: '', role: '', email: '' };
+            admins.unshift(newAdmin);
+            createUserRows(admins);
             const firstRow = document.querySelector('.role-management-row');
             const nameInput = firstRow.querySelector('.role-management-name');
             const select = firstRow.querySelector('.role-management-select');
             const email = firstRow.querySelector('.role-management-email');
             const btn = firstRow.querySelector('.role-management-btn');
-
             nameInput.disabled = false;
             select.disabled = false;
             email.disabled = false;
             nameInput.classList.add('edit-mode');
-            // Ensure "Select" is the default option
             select.value = '';
             btn.textContent = 'Save';
             btn.classList.remove('role-management-btn-edit');
             btn.classList.add('role-management-btn-save');
         }
-
-        // Initialize event listeners
         document.addEventListener('DOMContentLoaded', () => {
             const dropdownToggle = document.querySelector('.custom-dropdown-toggle');
             const dropdownMenu = document.querySelector('.custom-dropdown-menu');
             const dropdownItems = document.querySelectorAll('.custom-dropdown-item');
             const addButtons = document.querySelectorAll('.role-management-btn-add, .role-management-mobile-add-btn');
-
-            // Add new row button handler for both buttons
             addButtons.forEach(button => {
                 button.addEventListener('click', addNewRow);
             });
-
-            // Toggle dropdown
             dropdownToggle.addEventListener('click', (e) => {
                 e.stopPropagation();
                 dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
             });
-
-            // Handle sorting
             dropdownItems.forEach(item => {
                 item.addEventListener('click', () => {
                     const sortValue = item.getAttribute('data-value');
-                    let sortedUsers = [...users];
-
+                    let sortedAdmins = [...admins];
                     switch (sortValue) {
                         case 'name':
-                            sortedUsers.sort((a, b) => a.name.localeCompare(b.name));
+                            sortedAdmins.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
                             break;
                         case 'role':
-                            sortedUsers.sort((a, b) => b.name.localeCompare(a.name));
+                            sortedAdmins.sort((a, b) => (b.name || '').localeCompare(a.name || ''));
                             break;
                         case 'email-new':
-                            sortedUsers.sort((a, b) => b.email.localeCompare(a.email));
+                            sortedAdmins.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
                             break;
                         case 'email-old':
-                            sortedUsers.sort((a, b) => a.email.localeCompare(b.email));
+                            sortedAdmins.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
                             break;
                     }
-
-                    createUserRows(sortedUsers);
+                    createUserRows(sortedAdmins);
                     dropdownMenu.style.display = 'none';
                 });
             });
-
-            // Close dropdown when clicking outside
             document.addEventListener('click', (e) => {
                 if (!e.target.closest('.custom-dropdown')) {
                     dropdownMenu.style.display = 'none';
                 }
             });
-
-            // Search functionality
             document.querySelector('.role-management-search').addEventListener('input', (e) => {
                 const searchTerm = e.target.value.toLowerCase();
                 document.querySelectorAll('.role-management-row').forEach(row => {
@@ -220,11 +297,8 @@
                     row.style.display = text.includes(searchTerm) ? '' : 'none';
                 });
             });
-
-            // Initial render
-            createUserRows();
+            fetchAdmins();
         });
     </script>
 </body>
-
 </html>
