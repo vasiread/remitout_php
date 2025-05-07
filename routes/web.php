@@ -220,4 +220,5 @@ Route::get('/student-forms', [AdminController::class, 'showStudentForm'])->name(
 Route::get('/getInfoForAdminSocial', [Admincontroller::class, 'showStudentFormAdmin']);
 Route::delete('/deleteInfoForAdminSocial/{id}', [AdminController::class, 'deleteInfoForAdminSocial']);
 Route::post('/storesocialoption', [AdminController::class, 'storeSocialOption']);
+Route::post('/storeplantostudycountry', [AdminController::class, 'storePlanToStudyCountry']);
 Route::get('/getplantocountries', [AdminController::class, 'showStudentPlanForCountriesAdmin']);

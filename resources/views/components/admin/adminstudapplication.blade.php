@@ -1399,10 +1399,8 @@
 
 
   <script>
-    // adminstuapplication.js
-    document.addEventListener('DOMContentLoaded', () => {
+     document.addEventListener('DOMContentLoaded', () => {
 
-      // Call the function to fetch and append social options
       fetchAndAppendSocialNames();
       fetchAndRenderStudyLocations();
       const managers = [
@@ -1427,7 +1425,6 @@
       if (icon) icon.classList.toggle(rotateClass, !isVisible);
     };
 
-    // Section Toggler
     const SectionToggler = {
       init() {
         this.setupToggles([{
@@ -1478,7 +1475,7 @@
         ]);
       },
 
-      setupToggles(configs) {
+    setupToggles(configs) {
         configs.forEach(config => {
           if (config.header) {
             const header = document.querySelector(config.header);
@@ -1516,8 +1513,8 @@
       }
     };
 
-    // Input Field Manager
-    const InputFieldManager = {
+    
+     const InputFieldManager = {
       section: 'Personal Information',
       modified: false,
 
@@ -1618,8 +1615,7 @@
       }
     };
 
-    // Social Options Manager
-    const SocialOptionsManager = {
+     const SocialOptionsManager = {
       section: 'Personal Information',
       modified: false,
 
@@ -2584,7 +2580,6 @@
           .then(data => {
             if (data.success) {
               alert(`Changes for "${this.modifiedSection}" saved successfully!`);
-              // Reset modified flags for all managers in this section
               modifiedSectionData.questions.forEach(q => {
                 q.manager.modified = false;
               });
@@ -2666,7 +2661,6 @@
         .then(data => {
           const container = document.getElementById('selected-study-location-admin');
 
-          // Get references to the "Others" and "Add" elements
           const othersCheckbox = container.querySelector('.others-checkbox');
           const addContainer = container.querySelector('#plantostudycountryadd');
 
@@ -2693,7 +2687,37 @@
           if (addContainer) {
             addContainer.addEventListener('click', () => {
 
-              console.log('clicked')
+              const userInput = prompt("Enter dropdown option", "")?.trim();
+              if (userInput) {
+                fetch('/storeplantostudycountry', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
+                  },
+                  body: JSON.stringify({ country_name: userInput })
+                })
+                  .then(response => response.json())
+                  .then(data => {
+                    if (data.error) {
+                      alert(`Error: ${data.error}`);
+                      return;
+                    }
+
+                    fetchAndRenderStudyLocations();
+                    alert(`${userInput} added`)
+
+
+
+
+
+
+                  })
+                  .catch(error => {
+                    console.error('Fetch error:', error);
+                    alert('An error occurred while saving the option.');
+                  });
+              }
 
             })
           }
@@ -2703,8 +2727,6 @@
         });
     }
 
-    // Call it on DOM load
-    document.addEventListener('DOMContentLoaded', fetchAndRenderStudyLocations);
 
   </script>
 </body>

@@ -1143,6 +1143,19 @@ class Admincontroller extends Controller
             'data' => $socialOption
         ], 201);
     }
+    public function storePlanToStudyCountry(Request $request)
+    {
+        $validated = $request->validate([
+            'country_name' => 'required|string',
+        ]);
+
+        $planToStudy = PlanToCountry::create($validated);
+
+        return response()->json([
+            'message' => 'Country added successfully.',
+            'data' => $planToStudy
+        ], 201);
+    }
 
 
 

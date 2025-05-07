@@ -447,8 +447,9 @@
     outline: none;
     padding: 10px;
     font-size: 14px;
-    width: 120px;
+    width: 100%;
     background: transparent;
+    cursor:pointer;
 }
 
 .add-checkbox-btn {
