@@ -1290,12 +1290,42 @@ $totalPages = ceil($totalStudents / $perPage);
                 // Enable "See all" functionality
                 const seeAllBtn = document.querySelector(".see-all");
                 if (seeAllBtn) {
-                    seeAllBtn.style.display = "inline-block"; // Ensure it's visible
+                    seeAllBtn.style.display = "inline-block"; // Ensure it's visible initially
+                    let isShowingAll = false; // Track the toggle state
+
+                    // Ensure only the first 3 rows are shown initially (on page load)
+                    const userItems = document.querySelectorAll(".user-item");
+                    userItems.forEach((item, index) => {
+                        if (index < 3) {
+                            item.style.display = "block"; // Show first 3 rows
+                        } else {
+                            item.style.display = "none"; // Hide the rest
+                        }
+                    });
+
                     seeAllBtn.addEventListener("click", () => {
-                        document.querySelectorAll(".user-item").forEach(item => {
-                            item.style.display = "block";
-                        });
-                        seeAllBtn.style.display = "none"; // Hide button after showing all
+                        if (!isShowingAll) {
+                            // Show all items
+                            userItems.forEach(item => {
+                                item.style.display = "block";
+                            });
+                            seeAllBtn.textContent = "Hide"; // Change text to "Hide"
+                            seeAllBtn.style.color = "#260254B3"; // Change to green (using a green-500 equivalent hex)
+                            seeAllBtn.style.borderColor = "#260254B3"; // Match border color to green
+                        } else {
+                            // Revert to showing only the first 3 rows
+                            userItems.forEach((item, index) => {
+                                if (index < 3) {
+                                    item.style.display = "block"; // Show first 3 rows
+                                } else {
+                                    item.style.display = "none"; // Hide the rest
+                                }
+                            });
+                            seeAllBtn.textContent = "See All"; // Revert text to "See All"
+                            seeAllBtn.style.color = "#E98635"; // Revert to original orange color
+                            seeAllBtn.style.borderColor = "#E98635"; // Revert border color
+                        }
+                        isShowingAll = !isShowingAll; // Toggle the state
                     });
                 }
             } else {

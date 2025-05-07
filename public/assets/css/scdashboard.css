@@ -219,6 +219,9 @@
     display: flex;
     gap: 20px;
 }
+.see-all{
+    cursor: pointer;
+}
 
 .studentapplication-header .see-all {
     width: 91px;
