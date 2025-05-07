@@ -300,7 +300,9 @@ html {
         width: 20px;
         height: 2px;
         background-color: #333;
-        transition: transform 0.3s ease, opacity 0.3s ease;
+        transition:
+            transform 0.3s ease,
+            opacity 0.3s ease;
     }
 
     /* Menu icon animations */
@@ -460,7 +462,9 @@ html {
         width: 20px;
         height: 2px;
         background-color: #333;
-        transition: transform 0.3s ease, opacity 0.3s ease;
+        transition:
+            transform 0.3s ease,
+            opacity 0.3s ease;
     }
 
     /* Menu icon animations */
@@ -612,7 +616,9 @@ html {
     color: white;
     position: relative;
     padding: 0 30px 0 40px;
-    transition: background-color 0.3s, color 0.3s;
+    transition:
+        background-color 0.3s,
+        color 0.3s;
 
     background-color: transparent;
     text-align: center;
@@ -909,12 +915,8 @@ form {
     padding: 8px 22px;
     cursor: pointer;
     color: #75747c;
-     font-size: 14px;
+    font-size: 14px;
 }
-
-   
-   
-
 
 .suggestion:hover {
     background-color: #f5f5f5;
@@ -1250,7 +1252,8 @@ form {
     }
 
     .input-content {
-        width: 328px;
+        width: 100%;
+        max-width: 100%;
         margin: 0 auto;
     }
 
@@ -1369,7 +1372,9 @@ form {
     font-size: 14px;
     color: #838383;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
     border-bottom: 1px solid #e2e8f0;
     width: 320px;
 }
@@ -1425,7 +1430,7 @@ form {
     .section-02 {
         width: 85%;
         padding: 30px 40px;
-     }
+    }
 }
 
 @media screen and (min-width: 913px) and (max-width: 1024px) {
@@ -1734,55 +1739,52 @@ input[type="number"]::-webkit-inner-spin-button {
     }
 }
 
-
-
 .support-container {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 0;
-  margin: 0;
-  background-color: #FFFFFF;
-  border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  height: 85px;
-  padding-right: 100px;
-  margin-top: 50px;
-  max-width: 100%;
-  gap: 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    height: 85px;
+    padding-right: 100px;
+    margin-top: 50px;
+    max-width: 100%;
+    gap: 20px;
 }
 
 .support-btn,
 .help-btn {
-  font-size: 14px;
-  font-weight: 500;
-  color: #968F9E;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  background-color: transparent;
+    font-size: 14px;
+    font-weight: 500;
+    color: #968f9e;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: transparent;
 }
 
 .support-btn {
-  color: #968F9E;
+    color: #968f9e;
 }
 
 .help-btn {
-  color: #968F9E;
+    color: #968f9e;
 }
 
 .support-btn:hover,
 .help-btn:hover {
-  color: #6F25CE;
+    color: #6f25ce;
 }
 
- 
 @media (max-width: 768px) {
-  .support-container {
-    display: none;
-  }
+    .support-container {
+        display: none;
+    }
 }
 
 /*------Breadcrumb-----*/
@@ -2311,7 +2313,9 @@ input[type="number"]::-webkit-inner-spin-button {
     font-size: 14px;
     color: #838383;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
 }
 
 #step-3 .dropdown-option:not(:last-child) {
@@ -3428,7 +3432,9 @@ p {
     font-weight: 400;
     cursor: pointer;
     border-bottom: 1px solid #e2e8f0;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
     color: #4a5568;
 }
 
@@ -4702,7 +4708,7 @@ input[type="file"] {
 .help-trigger {
     cursor: pointer;
     font-size: 12px;
-       color: #444;
+    color: #444;
 }
 
 .help-container {
@@ -4954,21 +4960,20 @@ div.salary-sub p {
 }
 
 .dropdown-gender {
-  position: relative;
-  width: 100%;
-  font-family: 'Poppins', sans-serif;
+    position: relative;
+    width: 100%;
+    font-family: "Poppins", sans-serif;
 }
 
 .dropdown-gender-header {
-  width:270px;
-  max-width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #fff;
-  cursor: pointer;
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
 }
 .dropdown-label-gender {
     font-size: 14px;
@@ -4976,34 +4981,34 @@ div.salary-sub p {
 }
 
 .dropdown-icon-gender svg {
-  transition: transform 0.3s;
+    transition: transform 0.3s;
 }
 
 .dropdown-options-gender {
-  display: none;
-  position: absolute;
-  top: 100%;
-  margin-top: 8px;
-  width: 100%;
-  width: 310px;
-  margin-left: -10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  z-index: 10;
+    display: none;
+    position: absolute;
+    top: 100%;
+    margin-top: 8px;
+    width: 100%;
+    width: 310px;
+    margin-left: -10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 10;
 }
 
 .dropdown-option-gender {
-  padding: 10px;
-  cursor: pointer;
-   border-bottom: 1px solid #f0f0f0;
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
     font-size: 14px;
     color: #75747c;
 }
 
-.dropdown-option-gender:hover{
-background: #f5f5f5;
+.dropdown-option-gender:hover {
+    background: #f5f5f5;
 }
 /* Toast Notification Styles */
 .toast {
@@ -5018,7 +5023,9 @@ background: #f5f5f5;
     font-family: Arial, sans-serif;
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
     z-index: 1000;
 }
 

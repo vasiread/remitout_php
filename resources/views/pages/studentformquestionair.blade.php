@@ -160,7 +160,6 @@
               <input type="date" placeholder="Date of Birth (DD/MM/YYYY)" name="date_of_birth" id="personal-info-dob"
                 required />
               <div class="validation-message" id="dob-error"></div>
-
             </div>
           </div>
 

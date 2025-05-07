@@ -426,7 +426,8 @@
                     </div>
                 </div>
             </div>
-
+         
+         
             <div class="seventhcolumn-additional">
                 <div class="seventhcolumn-additional-firstcolumn">
                     <div class="seventhcolumnadditional-header">
@@ -4816,11 +4817,7 @@
 
                 const studentInfoDesc = document.createElement("p");
                 studentInfoDesc.classList.add("index-student-description");
-                studentInfoDesc.textContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut elit, sed do eiusmod tempor incididunt ut.";
-
-                studentInfo.append(studentInfoHeader, studentIds, studentInfoDesc);
-
-                const buttonGroup = document.createElement("div");
+                studentInfoDesc.textContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed "div");
                 buttonGroup.classList.add("index-student-button-group");
 
                 const messageButton = document.createElement("button");
@@ -4936,6 +4933,12 @@
         }
     </script>
 
+    <div id="document-preview-modal" class="modal">
+        <div class="modal-content">
+            <span id="close-modal" class="close">×</span>
+            <div id="document-preview-content"></div>
+        </div>
+    </div>
 
 
 </body>
