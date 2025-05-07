@@ -8,12 +8,14 @@ use App\Models\CourseInfo;
 use App\Models\landingpage;
 use App\Models\Nbfc;
 use App\Models\PersonalInfo;
+use App\Models\PlanToCountry;
 use App\Models\proposalcompletion;
 use App\Models\Proposals;
 use App\Models\Rejectedbynbfc;
 use App\Models\Requestedbyusers;
 use App\Models\Requestprogress;
 use App\Models\Scuser;
+use App\Models\SocialOption;
 use App\Models\StudentApplicationForm;
 use App\Models\StudentApplicationSection;
 use App\Models\User;
@@ -1072,28 +1074,91 @@ class Admincontroller extends Controller
             ], 500);
         }
     }
-    // public function addAdminRole(Request $request)
-    // {
-    //      if (session('admin_role') !== 'superadmin') {
-    //         return response()->json(['error' => 'Unauthorized. Only superadmins can add admin roles.'], 403);
-    //     }
 
-    //      $request->validate([
-    //         'admin_role' => 'required|string',
-    //         'name' => 'required|string',
-    //         'email' => 'required|email|unique', 
-    //         'password' => 'required|string|min:6', 
 
-    //     ]);
+    public function showStudentForm()
+    {
+        $user = session('user');
 
-    //     // Create the admin user
-    //     Admin::create([
-    //         'name' => $request->name,
-    //         'email' => $request->email,
-    //         'password' => bcrypt($request->password),
-    //         'is_super_admin' => $request->admin_role === 'superadmin' ? true : false,
-    //     ]);
+        if (!$user) {
+            return redirect()->route('login')->withErrors('Please log in to access the form.');
+        }
 
-    //     return redirect()->back()->with('success', 'Admin role added successfully.');
-    // }
+        $uniqueId = $user->unique_id;
+
+        // Fetch data from social_options table
+        $socialOptions = SocialOption::all();
+        $countries = PlanToCountry::all();
+        Log::info($countries);
+
+
+
+        return view('pages.studentformquestionair', compact('user', 'socialOptions','countries'));
+    }
+
+     
+    public function showStudentFormAdmin()
+    {
+
+
+        $socialOptions = SocialOption::all();
+
+        return response()->json([
+            'socialOptions' => $socialOptions
+        ]);
+    }
+    public function showStudentPlanForCountriesAdmin()
+    {
+
+
+        $countries = PlanToCountry::all();
+
+        return response()->json([
+            'countries' => $countries
+        ]);
+    }
+    public function deleteInfoForAdminSocial($id)
+    {
+        $socialOption = SocialOption::find($id);
+
+        if (!$socialOption) {
+            return response()->json(['message' => 'Social option not found.'], 404);
+        }
+
+        $socialOption->delete();
+
+        return response()->json(['message' => 'Deleted successfully.'], 200);
+    }
+
+    public function storeSocialOption(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string',
+        ]);
+
+        $socialOption = SocialOption::create($validated);
+
+        return response()->json([
+            'message' => 'Social option added successfully.',
+            'data' => $socialOption
+        ], 201);
+    }
+    public function storePlanToStudyCountry(Request $request)
+    {
+        $validated = $request->validate([
+            'country_name' => 'required|string',
+        ]);
+
+        $planToStudy = PlanToCountry::create($validated);
+
+        return response()->json([
+            'message' => 'Country added successfully.',
+            'data' => $planToStudy
+        ], 201);
+    }
+
+
+
+
+
 }

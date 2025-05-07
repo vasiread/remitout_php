@@ -46,32 +46,35 @@
 
                   <!-- Input Row 1 -->
                   <div class="input-row" id="input-row-1">
-                        <div class="input-group">
-                          <div class="input-content">
-                            <img src="./assets/images/person-icon.png" alt="Person Icon" class="icon" />
-                            <input type="text" placeholder="Full Name" name="let-us-know-more-about-you[full_name]" id="fullName" required />
-                          </div>
-                          <span class="remove-option">×</span>
-                          <div class="validation-message" id="fullName-error"></div>
-                        </div>
+                    <div class="input-group">
+                      <div class="input-content">
+                        <img src="./assets/images/person-icon.png" alt="Person Icon" class="icon" />
+                        <input type="text" placeholder="Full Name" name="let-us-know-more-about-you[full_name]"
+                          id="fullName" required />
+                      </div>
+                      <span class="remove-option">×</span>
+                      <div class="validation-message" id="fullName-error"></div>
+                    </div>
 
-                        <div class="input-group">
-                          <div class="input-content">
-                            <img src="./assets/images/call-icon.png" alt="Phone Icon" class="icon" />
-                            <input type="tel" placeholder="Phone Number" name="let-us-know-more-about-you[phone_number]" id="phone" required />
-                          </div>
-                          <span class="remove-option">×</span>
-                          <div class="validation-message" id="phone-error"></div>
-                        </div>
+                    <div class="input-group">
+                      <div class="input-content">
+                        <img src="./assets/images/call-icon.png" alt="Phone Icon" class="icon" />
+                        <input type="tel" placeholder="Phone Number" name="let-us-know-more-about-you[phone_number]"
+                          id="phone" required />
+                      </div>
+                      <span class="remove-option">×</span>
+                      <div class="validation-message" id="phone-error"></div>
+                    </div>
 
-                        <div class="input-group">
-                          <div class="input-content">
-                            <img src="./assets/images/school.png" alt="Referral Code Icon" class="icon" />
-                            <input type="text" placeholder="Referral Code" name="let-us-know-more-about-you[referral_code]" id="referralCode" />
-                          </div>
-                          <span class="remove-option">×</span>
-                          <div class="validation-message" id="referralCode-error"></div>
-                        </div>
+                    <div class="input-group">
+                      <div class="input-content">
+                        <img src="./assets/images/school.png" alt="Referral Code Icon" class="icon" />
+                        <input type="text" placeholder="Referral Code" name="let-us-know-more-about-you[referral_code]"
+                          id="referralCode" />
+                      </div>
+                      <span class="remove-option">×</span>
+                      <div class="validation-message" id="referralCode-error"></div>
+                    </div>
                   </div>
 
                   <!-- Input Row 2 -->
@@ -79,19 +82,21 @@
                     <div class="input-group">
                       <div class="input-content">
                         <img src="./assets/images/mail.png" alt="Mail Icon" class="icon" />
-                        <input type="email" placeholder="Email ID" name="let-us-know-more-about-you[email]" id="email" required />
+                        <input type="email" placeholder="Email ID" name="let-us-know-more-about-you[email]" id="email"
+                          required />
                       </div>
                       <span class="remove-option">×</span>
                       <div class="validation-message" id="email-error"></div>
                     </div>
 
-                     <div class="input-group">
-                        <div class="input-content">
-                          <img src="./assets/images/calendar_month.png" alt="Calendar Icon" class="icon" />
-                          <input type="date" placeholder="Date of Birth (DD/MM/YYYY)" name="date_of_birth" id="personal-info-dob" required />
-                          <div class="validation-message" id="dob-error"></div>
-                        </div>
+                    <div class="input-group">
+                      <div class="input-content">
+                        <img src="./assets/images/calendar_month.png" alt="Calendar Icon" class="icon" />
+                        <input type="date" placeholder="Date of Birth (DD/MM/YYYY)" name="date_of_birth"
+                          id="personal-info-dob" required />
+                        <div class="validation-message" id="dob-error"></div>
                       </div>
+                    </div>
 
                     <div class="input-group">
                       <div class="input-content">
@@ -101,7 +106,7 @@
                               <div class="dropdown-label-gender">Select Gender</div>
                               <div class="dropdown-icon-gender">
                                 <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
-                                  <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2"/>
+                                  <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" />
                                 </svg>
                               </div>
                             </div>
@@ -121,9 +126,9 @@
                           <div class="validation-message" id="gender-error"></div>
                         </div>
                       </div>
-                 </div>
-                 
-                  <div class="input-row" id="input-row-3">
+                    </div>
+
+                    <div class="input-row" id="input-row-3">
                       <div class="input-group">
                         <div class="input-content">
                           <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
@@ -132,16 +137,16 @@
                           <div class="validation-message" id="state-error"></div>
                         </div>
                       </div>
-          
-                        <div class="input-group">
-                          <div class="input-content">
-                            <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
-                            <input type="text" placeholder="City" name="city" id="personal-info-city" required />
-                            <div id="suggestions-city-admin-side-id" class="suggestions-container"></div>
-                            <div class="validation-message" id="city-error"></div>
-                          </div>
+
+                      <div class="input-group">
+                        <div class="input-content">
+                          <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
+                          <input type="text" placeholder="City" name="city" id="personal-info-city" required />
+                          <div id="suggestions-city-admin-side-id" class="suggestions-container"></div>
+                          <div class="validation-message" id="city-error"></div>
                         </div>
-                  </div>
+                      </div>
+                    </div>
 
                     <div class="add-field" id="add-input-field">
                       <span class="add-text">Add</span>
@@ -168,24 +173,9 @@
                   <div class="admin-student-options-label">Options:</div>
                   <div class="second-main-section-container">
                     <div class="second-question-options">
-                      <div class="social-option">
-                        <span class="social-name">Youtube</span>
-                        <span class="social-remove">×</span>
-                      </div>
-                      <div class="social-option">
-                        <span class="social-name">LinkedIn</span>
-                        <span class="social-remove">×</span>
-                      </div>
-                      <div class="social-option">
-                        <span class="social-name">Social Media</span>
-                        <span class="social-remove">×</span>
-                      </div>
-                      <div class="social-option">
-                        <span class="social-name">Institution</span>
-                        <span class="social-remove">×</span>
-                      </div>
+
                     </div>
-                   
+
                     <div class="add-social">
                       <span class="add-text">Add</span>
                       <span class="add-icon">+</span>
@@ -218,54 +208,29 @@
 
                 <div class="admin-student-options-section-course" id="person-info-section-course">
                   <div class="admin-student-options-label-about">Options:</div>
-                  <div class="checkbox-group" id="selected-study-location">
-                    <label>
-                      <input type="checkbox" name="where-are-you-planning-to-study[locations][]" value="USA"> USA
-                    </label>
-                    <label>
-                      <input type="checkbox" name="where-are-you-planning-to-study[locations][]" value="UK"> UK
-                    </label>
-                    <label>
-                      <input type="checkbox" name="where-are-you-planning-to-study[locations][]" value="Ireland"> Ireland
-                    </label>
-                    <label>
-                      <input type="checkbox" name="where-are-you-planning-to-study[locations][]" value="New Zealand"> New Zealand
-                    </label>
-                    <label>
-                      <input type="checkbox" name="where-are-you-planning-to-study[locations][]" value="Germany"> Germany
-                    </label>
-                    <label>
-                      <input type="checkbox" name="where-are-you-planning-to-study[locations][]" value="France"> France
-                    </label>
-                    <label>
-                      <input type="checkbox" name="where-are-you-planning-to-study[locations][]" value="Sweden"> Sweden
-                    </label>
-                    <label>
-                      <input type="checkbox" name="where-are-you-planning-to-study[locations][]" value="Italy"> Italy
-                    </label>
-                    <label>
-                      <input type="checkbox" name="where-are-you-planning-to-study[locations][]" value="Canada"> Canada
-                    </label>
-                    <label>
-                      <input type="checkbox" name="where-are-you-planning-to-study[locations][]" value="Australia"> Australia
-                    </label>
-                    <label>
+                  <div class="checkbox-group" id="selected-study-location-admin">
+                    <!-- Checkboxes will be injected here -->
+
+                    <!-- "Others" checkbox placeholder -->
+                    <label class="others-checkbox">
                       <input type="checkbox" name="where-are-you-planning-to-study[locations][]" value="Others"> Others
                     </label>
 
                     <!-- Add Checkbox Container -->
-                    <div class="add-checkbox-container">
+                    <div class="add-checkbox-container" id="plantostudycountryadd">
                       <span class="add-checkbox-input">Add</span>
                       <span class="add-checkbox-btn" id="add-course-checkbox-id">+</span>
                     </div>
                   </div>
+
                 </div>
               </div>
 
               <!-- Course Details 2 -->
               <div class="admin-student-form-question-course-degree" id="admin-student-form-question-course-degree">
                 <div class="admin-student-question-row-course-degree" id="admin-student-course-second">
-                  <div class="admin-student-question-title-course-degree">2. Select the type of degree you want to pursue:</div>
+                  <div class="admin-student-question-title-course-degree">2. Select the type of degree you want to
+                    pursue:</div>
                   <div class="admin-student-dropdown-field-course-degree">
                     <span class="admin-student-field-text-course">Check Box</span>
                     <span class="admin-student-dropdown-icon-course"></span>
@@ -279,17 +244,20 @@
 
                   <div class="option-grid course-degree-admin" id="optionsContainer">
                     <div class="option-item">
-                      <input type="checkbox" name="select-the-type-of-degree-you-want-to-pursue[degrees][]" class="option-checkbox" value="Bachelors (only secured loan)">
+                      <input type="checkbox" name="select-the-type-of-degree-you-want-to-pursue[degrees][]"
+                        class="option-checkbox" value="Bachelors (only secured loan)">
                       <div class="option-name">Bachelors (only secured loan)</div>
                     </div>
 
                     <div class="option-item">
-                      <input type="checkbox" name="select-the-type-of-degree-you-want-to-pursue[degrees][]" class="option-checkbox" value="Masters">
+                      <input type="checkbox" name="select-the-type-of-degree-you-want-to-pursue[degrees][]"
+                        class="option-checkbox" value="Masters">
                       <div class="option-name">Masters</div>
                     </div>
 
                     <div class="option-item">
-                      <input type="checkbox" name="select-the-type-of-degree-you-want-to-pursue[degrees][]" class="option-checkbox" value="Others">
+                      <input type="checkbox" name="select-the-type-of-degree-you-want-to-pursue[degrees][]"
+                        class="option-checkbox" value="Others">
                       <div class="option-name">Others</div>
                     </div>
 
@@ -329,12 +297,7 @@
                         <span class="course-remove">×</span>
                       </div>
                     </div>
-                    <select name="what-is-the-duration-of-the-course[duration]" required>
-                      <option value="">Select Duration</option>
-                      <option value="12 Months">12 Months</option>
-                      <option value="24 Months">24 Months</option>
-                      <option value="36 Months">36 Months</option>
-                    </select>
+
                     <div class="add-course">
                       <span class="add-text">Add</span>
                       <span class="add-icon">+</span>
@@ -357,11 +320,13 @@
                   <div class="checkbox-coures-main-container">
                     <div class="checkbox-options-container">
                       <div class="checkbox-option">
-                        <input type="checkbox" id="with-expenses" name="course-details[options][]" value="With living expenses">
+                        <input type="checkbox" id="with-expenses" name="course-details[options][]"
+                          value="With living expenses">
                         <label for="with-expenses">With living expenses</label>
                       </div>
                       <div class="checkbox-option">
-                        <input type="checkbox" id="without-expenses" name="course-details[options][]" value="Without living expenses">
+                        <input type="checkbox" id="without-expenses" name="course-details[options][]"
+                          value="Without living expenses">
                         <label for="without-expenses">Without living expenses</label>
                       </div>
                     </div>
@@ -402,7 +367,8 @@
                 <div class="education-label">Education</div>
                 <div class="education-row" id="education-row-1">
                   <div class="education-field">
-                    <input type="text" placeholder="University/School" name="academic-details[education][0][university]">
+                    <input type="text" placeholder="University/School"
+                      name="academic-details[education][0][university]">
                     <button type="button" class="remove-field-btn">✕</button>
                   </div>
                   <div class="education-field">
@@ -435,11 +401,13 @@
                 <div class="academic-options-container">
                   <div class="academic-options">
                     <div class="academic-option">
-                      <input type="radio" id="academic-yes" name="do-you-have-any-gap-in-your-academics[gap]" value="Yes" required />
+                      <input type="radio" id="academic-yes" name="do-you-have-any-gap-in-your-academics[gap]"
+                        value="Yes" required />
                       <label for="academic-yes">Yes</label>
                     </div>
                     <div class="academic-option">
-                      <input type="radio" id="academic-no" name="do-you-have-any-gap-in-your-academics[gap]" value="No" required />
+                      <input type="radio" id="academic-no" name="do-you-have-any-gap-in-your-academics[gap]" value="No"
+                        required />
                       <label for="academic-no">No (only secured loan)</label>
                     </div>
                   </div>
@@ -480,15 +448,18 @@
               <div class="options-section" id="co-borrower-options" style="display: none">
                 <div class="checkbox-options-container">
                   <div class="checkbox-option">
-                    <input type="checkbox" id="co-borrower-parent" name="how-is-the-co-borrower-related-to-you[relationship][]" value="Parent" />
+                    <input type="checkbox" id="co-borrower-parent"
+                      name="how-is-the-co-borrower-related-to-you[relationship][]" value="Parent" />
                     <label for="co-borrower-parent">Parent</label>
                   </div>
                   <div class="checkbox-option">
-                    <input type="checkbox" id="co-borrower-spouse" name="how-is-the-co-borrower-related-to-you[relationship][]" value="Spouse" />
+                    <input type="checkbox" id="co-borrower-spouse"
+                      name="how-is-the-co-borrower-related-to-you[relationship][]" value="Spouse" />
                     <label for="co-borrower-spouse">Spouse</label>
                   </div>
                   <div class="checkbox-option">
-                    <input type="checkbox" id="co-borrower-blood-relative" name="how-is-the-co-borrower-related-to-you[relationship][]" value="Blood relative" />
+                    <input type="checkbox" id="co-borrower-blood-relative"
+                      name="how-is-the-co-borrower-related-to-you[relationship][]" value="Blood relative" />
                     <label for="co-borrower-blood-relative">Blood relative</label>
                   </div>
                   <div class="add-option" id="add-option-btn">
@@ -514,7 +485,8 @@
               <div class="options-section" id="income-options" style="display: none">
                 <div class="fields-row-container">
                   <div class="field-container">
-                    <input type="text" class="text-input" placeholder=" ₹ Rupees in thousands" name="what-is-the-gross-monthly-income-of-co-borrower[income]" required />
+                    <input type="text" class="text-input" placeholder=" ₹ Rupees in thousands"
+                      name="what-is-the-gross-monthly-income-of-co-borrower[income]" required />
                     <button class="delete-field">✕</button>
                     <p class="minimum-amount">
                       *minimum amount of 5% after deductions for eligibility
@@ -547,11 +519,13 @@
                     <!-- Radio buttons on the left -->
                     <div class="monthly-liability-radio-buttons">
                       <label>
-                        <input type="radio" name="is-there-any-existing-co-borrower-monthly-liability[liability]" id="yes-liability" value="Yes" required />
+                        <input type="radio" name="is-there-any-existing-co-borrower-monthly-liability[liability]"
+                          id="yes-liability" value="Yes" required />
                         Yes
                       </label>
                       <label>
-                        <input type="radio" name="is-there-any-existing-co-borrower-monthly-liability[liability]" id="no-liability" value="No" required />
+                        <input type="radio" name="is-there-any-existing-co-borrower-monthly-liability[liability]"
+                          id="no-liability" value="No" required />
                         No
                       </label>
                     </div>
@@ -562,7 +536,8 @@
                         <p class="amount-thousand-mobile">
                           Enter the amount in thousands
                         </p>
-                        <input type="text" id="emi-amount" class="emi-content-container" placeholder="Enter EMI amount" name="is-there-any-existing-co-borrower-monthly-liability[emi_amount]" />
+                        <input type="text" id="emi-amount" class="emi-content-container" placeholder="Enter EMI amount"
+                          name="is-there-any-existing-co-borrower-monthly-liability[emi_amount]" />
                         <span id="emi-error-message" class="error-message" style="display: none; color: red">
                           Please enter a valid EMI amount (numeric values only).
                         </span>
@@ -591,7 +566,8 @@
               </div>
               <span class="admin-student-question-count-document-upload">6 Questions</span>
               <div class="admin-student-arrow-icon-document-upload">
-                <img src="assets/images/admin-drop.png" alt="Arrow Icon" class="admin-student-arrow-down-document-upload" />
+                <img src="assets/images/admin-drop.png" alt="Arrow Icon"
+                  class="admin-student-arrow-down-document-upload" />
               </div>
             </div>
             <div class="admin-student-section-content-document-upload">
@@ -614,12 +590,16 @@
                         </div>
                         <div class="upload-field">
                           <span id="kyc-pan-name" data-original="PAN Card">PAN Card</span>
-                          <span id="kyc-pan-remove-icon" class="remove-icon" onclick="removeFile('kyc-pan', 'kyc-pan-name', 'kyc-pan-upload-icon', 'kyc-pan-remove-icon')"><span class="thin-x"></span></span>
+                          <span id="kyc-pan-remove-icon" class="remove-icon"
+                            onclick="removeFile('kyc-pan', 'kyc-pan-name', 'kyc-pan-upload-icon', 'kyc-pan-remove-icon')"><span
+                              class="thin-x"></span></span>
                           <div class="file-actions">
                             <label for="kyc-pan" class="upload-icon" id="kyc-pan-upload-icon">
                               <img src="assets/images/upload.png" alt="Upload Icon" />
                             </label>
-                            <input type="file" id="kyc-pan" name="documents[student_kyc][pan_card]" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, 'kyc-pan-name', 'kyc-pan-upload-icon', 'kyc-pan-remove-icon')" />
+                            <input type="file" id="kyc-pan" name="documents[student_kyc][pan_card]"
+                              accept=".jpg, .png, .pdf"
+                              onchange="handleFileUpload(event, 'kyc-pan-name', 'kyc-pan-upload-icon', 'kyc-pan-remove-icon')" />
                           </div>
                         </div>
                         <div class="info">
@@ -640,12 +620,16 @@
                         </div>
                         <div class="upload-field">
                           <span id="aadhar-card-name" data-original="Aadhar Card">Aadhar Card</span>
-                          <span id="aadhar-card-remove-icon" class="remove-icon" onclick="removeFile('aadhar-card', 'aadhar-card-name', 'aadhar-card-upload-icon', 'aadhar-card-remove-icon')"><span class="thin-x"></span></span>
+                          <span id="aadhar-card-remove-icon" class="remove-icon"
+                            onclick="removeFile('aadhar-card', 'aadhar-card-name', 'aadhar-card-upload-icon', 'aadhar-card-remove-icon')"><span
+                              class="thin-x"></span></span>
                           <div class="file-actions">
                             <label for="aadhar-card" class="upload-icon" id="aadhar-card-upload-icon">
                               <img src="assets/images/upload.png" alt="Upload Icon" />
                             </label>
-                            <input type="file" id="aadhar-card" name="documents[student_kyc][aadhar_card]" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, 'aadhar-card-name', 'aadhar-card-upload-icon', 'aadhar-card-remove-icon')" />
+                            <input type="file" id="aadhar-card" name="documents[student_kyc][aadhar_card]"
+                              accept=".jpg, .png, .pdf"
+                              onchange="handleFileUpload(event, 'aadhar-card-name', 'aadhar-card-upload-icon', 'aadhar-card-remove-icon')" />
                           </div>
                         </div>
                         <div class="info">
@@ -666,12 +650,16 @@
                         </div>
                         <div class="upload-field">
                           <span id="passport-card-name" data-original="Passport">Passport</span>
-                          <span id="passport-remove-icon" class="remove-icon" onclick="removeFile('passport', 'passport-card-name', 'passport-upload-icon', 'passport-remove-icon')"><span class="thin-x"></span></span>
+                          <span id="passport-remove-icon" class="remove-icon"
+                            onclick="removeFile('passport', 'passport-card-name', 'passport-upload-icon', 'passport-remove-icon')"><span
+                              class="thin-x"></span></span>
                           <div class="file-actions">
                             <label for="passport" class="upload-icon" id="passport-upload-icon">
                               <img src="assets/images/upload.png" alt="Upload Icon" />
                             </label>
-                            <input type="file" id="passport" name="documents[student_kyc][passport]" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, 'passport-card-name', 'passport-upload-icon', 'passport-remove-icon')" />
+                            <input type="file" id="passport" name="documents[student_kyc][passport]"
+                              accept=".jpg, .png, .pdf"
+                              onchange="handleFileUpload(event, 'passport-card-name', 'passport-upload-icon', 'passport-remove-icon')" />
                           </div>
                         </div>
                         <div class="info">
@@ -715,12 +703,16 @@
                         </div>
                         <div class="upload-field">
                           <span id="tenth-grade-name" data-original="10th Grade Mark Sheet">10th Grade Mark Sheet</span>
-                          <span id="tenth-grade-remove-icon" class="remove-icon" onclick="removeFile('tenth-grade', 'tenth-grade-name', 'tenth-grade-upload-icon', 'tenth-grade-remove-icon')"><span class="thin-x"></span></span>
+                          <span id="tenth-grade-remove-icon" class="remove-icon"
+                            onclick="removeFile('tenth-grade', 'tenth-grade-name', 'tenth-grade-upload-icon', 'tenth-grade-remove-icon')"><span
+                              class="thin-x"></span></span>
                           <div class="file-actions">
                             <label for="tenth-grade" class="upload-icon" id="tenth-grade-upload-icon">
                               <img src="assets/images/upload.png" alt="Upload Icon" />
                             </label>
-                            <input type="file" id="tenth-grade" name="documents[academic_marks][tenth_grade]" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, 'tenth-grade-name', 'tenth-grade-upload-icon', 'tenth-grade-remove-icon')" />
+                            <input type="file" id="tenth-grade" name="documents[academic_marks][tenth_grade]"
+                              accept=".jpg, .png, .pdf"
+                              onchange="handleFileUpload(event, 'tenth-grade-name', 'tenth-grade-upload-icon', 'tenth-grade-remove-icon')" />
                           </div>
                         </div>
                         <div class="info">
@@ -740,13 +732,18 @@
                           12th Mark Sheet
                         </div>
                         <div class="upload-field">
-                          <span id="twelfth-grade-name" data-original="12th Grade Mark Sheet">12th Grade Mark Sheet</span>
-                          <span id="twelfth-grade-remove-icon" class="remove-icon" onclick="removeFile('twelfth-grade', 'twelfth-grade-name', 'twelfth-grade-upload-icon', 'twelfth-grade-remove-icon')"><span class="thin-x"></span></span>
+                          <span id="twelfth-grade-name" data-original="12th Grade Mark Sheet">12th Grade Mark
+                            Sheet</span>
+                          <span id="twelfth-grade-remove-icon" class="remove-icon"
+                            onclick="removeFile('twelfth-grade', 'twelfth-grade-name', 'twelfth-grade-upload-icon', 'twelfth-grade-remove-icon')"><span
+                              class="thin-x"></span></span>
                           <div class="file-actions">
                             <label for="twelfth-grade" class="upload-icon" id="twelfth-grade-upload-icon">
                               <img src="assets/images/upload.png" alt="Upload Icon" />
                             </label>
-                            <input type="file" id="twelfth-grade" name="documents[academic_marks][twelfth_grade]" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, 'twelfth-grade-name', 'twelfth-grade-upload-icon', 'twelfth-grade-remove-icon')" />
+                            <input type="file" id="twelfth-grade" name="documents[academic_marks][twelfth_grade]"
+                              accept=".jpg, .png, .pdf"
+                              onchange="handleFileUpload(event, 'twelfth-grade-name', 'twelfth-grade-upload-icon', 'twelfth-grade-remove-icon')" />
                           </div>
                         </div>
                         <div class="info">
@@ -766,13 +763,18 @@
                           Graduation Mark Sheet
                         </div>
                         <div class="upload-field">
-                          <span id="graduation-grade-name" data-original="Graduation Mark Sheet">Graduation Mark Sheet</span>
-                          <span id="graduation-grade-remove-icon" class="remove-icon" onclick="removeFile('graduation-grade', 'graduation-grade-name', 'graduation-grade-upload-icon', 'graduation-grade-remove-icon')"><span class="thin-x"></span></span>
+                          <span id="graduation-grade-name" data-original="Graduation Mark Sheet">Graduation Mark
+                            Sheet</span>
+                          <span id="graduation-grade-remove-icon" class="remove-icon"
+                            onclick="removeFile('graduation-grade', 'graduation-grade-name', 'graduation-grade-upload-icon', 'graduation-grade-remove-icon')"><span
+                              class="thin-x"></span></span>
                           <div class="file-actions">
                             <label for="graduation-grade" class="upload-icon" id="graduation-grade-upload-icon">
                               <img src="assets/images/upload.png" alt="Upload Icon" />
                             </label>
-                            <input type="file" id="graduation-grade" name="documents[academic_marks][graduation]" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, 'graduation-grade-name', 'graduation-grade-upload-icon', 'graduation-grade-remove-icon')" />
+                            <input type="file" id="graduation-grade" name="documents[academic_marks][graduation]"
+                              accept=".jpg, .png, .pdf"
+                              onchange="handleFileUpload(event, 'graduation-grade-name', 'graduation-grade-upload-icon', 'graduation-grade-remove-icon')" />
                           </div>
                         </div>
                         <div class="info">
@@ -816,12 +818,16 @@
                         </div>
                         <div class="upload-field">
                           <span id="secured-tenth-name" data-original="10th Grade">10th Grade</span>
-                          <span id="secured-tenth-remove-icon" class="remove-icon" onclick="removeFile('secured-tenth', 'secured-tenth-name', 'secured-tenth-upload-icon', 'secured-tenth-remove-icon')"><span class="thin-x"></span></span>
+                          <span id="secured-tenth-remove-icon" class="remove-icon"
+                            onclick="removeFile('secured-tenth', 'secured-tenth-name', 'secured-tenth-upload-icon', 'secured-tenth-remove-icon')"><span
+                              class="thin-x"></span></span>
                           <div class="file-actions">
                             <label for="secured-tenth" class="upload-icon" id="secured-tenth-upload-icon">
                               <img src="assets/images/upload.png" alt="Upload Icon" />
                             </label>
-                            <input type="file" id="secured-tenth" name="documents[secured_marks][tenth_grade]" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, 'secured-tenth-name', 'secured-tenth-upload-icon', 'secured-tenth-remove-icon')" />
+                            <input type="file" id="secured-tenth" name="documents[secured_marks][tenth_grade]"
+                              accept=".jpg, .png, .pdf"
+                              onchange="handleFileUpload(event, 'secured-tenth-name', 'secured-tenth-upload-icon', 'secured-tenth-remove-icon')" />
                           </div>
                         </div>
                         <div class="info">
@@ -842,12 +848,16 @@
                         </div>
                         <div class="upload-field">
                           <span id="secured-twelfth-name" data-original="12th Grade">12th Grade</span>
-                          <span id="secured-twelfth-remove-icon" class="remove-icon" onclick="removeFile('secured-twelfth', 'secured-twelfth-name', 'secured-twelfth-upload-icon', 'secured-twelfth-remove-icon')"><span class="thin-x"></span></span>
+                          <span id="secured-twelfth-remove-icon" class="remove-icon"
+                            onclick="removeFile('secured-twelfth', 'secured-twelfth-name', 'secured-twelfth-upload-icon', 'secured-twelfth-remove-icon')"><span
+                              class="thin-x"></span></span>
                           <div class="file-actions">
                             <label for="secured-twelfth" class="upload-icon" id="secured-twelfth-upload-icon">
                               <img src="assets/images/upload.png" alt="Upload Icon" />
                             </label>
-                            <input type="file" id="secured-twelfth" name="documents[secured_marks][twelfth_grade]" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, 'secured-twelfth-name', 'secured-twelfth-upload-icon', 'secured-twelfth-remove-icon')" />
+                            <input type="file" id="secured-twelfth" name="documents[secured_marks][twelfth_grade]"
+                              accept=".jpg, .png, .pdf"
+                              onchange="handleFileUpload(event, 'secured-twelfth-name', 'secured-twelfth-upload-icon', 'secured-twelfth-remove-icon')" />
                           </div>
                         </div>
                         <div class="info">
@@ -868,12 +878,16 @@
                         </div>
                         <div class="upload-field">
                           <span id="secured-graduation-name" data-original="Graduation">Graduation</span>
-                          <span id="secured-graduation-remove-icon" class="remove-icon" onclick="removeFile('secured-graduation', 'secured-graduation-name', 'secured-graduation-upload-icon', 'secured-graduation-remove-icon')"><span class="thin-x"></span></span>
+                          <span id="secured-graduation-remove-icon" class="remove-icon"
+                            onclick="removeFile('secured-graduation', 'secured-graduation-name', 'secured-graduation-upload-icon', 'secured-graduation-remove-icon')"><span
+                              class="thin-x"></span></span>
                           <div class="file-actions">
                             <label for="secured-graduation" class="upload-icon" id="secured-graduation-upload-icon">
                               <img src="assets/images/upload.png" alt="Upload Icon" />
                             </label>
-                            <input type="file" id="secured-graduation" name="documents[secured_marks][graduation]" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, 'secured-graduation-name', 'secured-graduation-upload-icon', 'secured-graduation-remove-icon')" />
+                            <input type="file" id="secured-graduation" name="documents[secured_marks][graduation]"
+                              accept=".jpg, .png, .pdf"
+                              onchange="handleFileUpload(event, 'secured-graduation-name', 'secured-graduation-upload-icon', 'secured-graduation-remove-icon')" />
                           </div>
                         </div>
                         <div class="info">
@@ -916,13 +930,19 @@
                           Experience Letter
                         </div>
                         <div class="upload-field">
-                          <span id="work-experience-experience-letter" data-original="Experience Letter">Experience Letter</span>
-                          <span id="work-experience-tenth-remove-icon" class="remove-icon" onclick="removeFile('work-experience-tenth', 'work-experience-experience-letter', 'work-experience-tenth-upload-icon', 'work-experience-tenth-remove-icon')"><span class="thin-x"></span></span>
+                          <span id="work-experience-experience-letter" data-original="Experience Letter">Experience
+                            Letter</span>
+                          <span id="work-experience-tenth-remove-icon" class="remove-icon"
+                            onclick="removeFile('work-experience-tenth', 'work-experience-experience-letter', 'work-experience-tenth-upload-icon', 'work-experience-tenth-remove-icon')"><span
+                              class="thin-x"></span></span>
                           <div class="file-actions">
-                            <label for="work-experience-tenth" class="upload-icon" id="work-experience-tenth-upload-icon">
+                            <label for="work-experience-tenth" class="upload-icon"
+                              id="work-experience-tenth-upload-icon">
                               <img src="assets/images/upload.png" alt="Upload Icon" />
                             </label>
-                            <input type="file" id="work-experience-tenth" name="documents[work_experience][experience_letter]" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, 'work-experience-experience-letter', 'work-experience-tenth-upload-icon', 'work-experience-tenth-remove-icon')" />
+                            <input type="file" id="work-experience-tenth"
+                              name="documents[work_experience][experience_letter]" accept=".jpg, .png, .pdf"
+                              onchange="handleFileUpload(event, 'work-experience-experience-letter', 'work-experience-tenth-upload-icon', 'work-experience-tenth-remove-icon')" />
                           </div>
                         </div>
                         <div class="info">
@@ -942,13 +962,19 @@
                           3 Months Salary Slip
                         </div>
                         <div class="upload-field">
-                          <span id="work-experience-monthly-slip" data-original="3 Months Salary Slip">3 Months Salary Slip</span>
-                          <span id="work-experience-twelfth-remove-icon" class="remove-icon" onclick="removeFile('work-experience-twelfth', 'work-experience-monthly-slip', 'work-experience-twelfth-upload-icon', 'work-experience-twelfth-remove-icon')"><span class="thin-x"></span></span>
+                          <span id="work-experience-monthly-slip" data-original="3 Months Salary Slip">3 Months Salary
+                            Slip</span>
+                          <span id="work-experience-twelfth-remove-icon" class="remove-icon"
+                            onclick="removeFile('work-experience-twelfth', 'work-experience-monthly-slip', 'work-experience-twelfth-upload-icon', 'work-experience-twelfth-remove-icon')"><span
+                              class="thin-x"></span></span>
                           <div class="file-actions">
-                            <label for="work-experience-twelfth" class="upload-icon" id="work-experience-twelfth-upload-icon">
+                            <label for="work-experience-twelfth" class="upload-icon"
+                              id="work-experience-twelfth-upload-icon">
                               <img src="assets/images/upload.png" alt="Upload Icon" />
                             </label>
-                            <input type="file" id="work-experience-twelfth" name="documents[work_experience][salary_slip]" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, 'work-experience-monthly-slip', 'work-experience-twelfth-upload-icon', 'work-experience-twelfth-remove-icon')" />
+                            <input type="file" id="work-experience-twelfth"
+                              name="documents[work_experience][salary_slip]" accept=".jpg, .png, .pdf"
+                              onchange="handleFileUpload(event, 'work-experience-monthly-slip', 'work-experience-twelfth-upload-icon', 'work-experience-twelfth-remove-icon')" />
                           </div>
                         </div>
                         <div class="info">
@@ -969,12 +995,17 @@
                         </div>
                         <div class="upload-field">
                           <span id="work-experience-office-id" data-original="Office ID">Office ID</span>
-                          <span id="work-experience-graduation-remove-icon" class="remove-icon" onclick="removeFile('work-experience-graduation', 'work-experience-office-id', 'work-experience-graduation-upload-icon', 'work-experience-graduation-remove-icon')"><span class="thin-x"></span></span>
+                          <span id="work-experience-graduation-remove-icon" class="remove-icon"
+                            onclick="removeFile('work-experience-graduation', 'work-experience-office-id', 'work-experience-graduation-upload-icon', 'work-experience-graduation-remove-icon')"><span
+                              class="thin-x"></span></span>
                           <div class="file-actions">
-                            <label for="work-experience-graduation" class="upload-icon" id="work-experience-graduation-upload-icon">
+                            <label for="work-experience-graduation" class="upload-icon"
+                              id="work-experience-graduation-upload-icon">
                               <img src="assets/images/upload.png" alt="Upload Icon" />
                             </label>
-                            <input type="file" id="work-experience-graduation" name="documents[work_experience][office_id]" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, 'work-experience-office-id', 'work-experience-graduation-upload-icon', 'work-experience-graduation-remove-icon')" />
+                            <input type="file" id="work-experience-graduation"
+                              name="documents[work_experience][office_id]" accept=".jpg, .png, .pdf"
+                              onchange="handleFileUpload(event, 'work-experience-office-id', 'work-experience-graduation-upload-icon', 'work-experience-graduation-remove-icon')" />
                           </div>
                         </div>
                         <div class="info">
@@ -998,12 +1029,17 @@
                         </div>
                         <div class="upload-field">
                           <span id="work-experience-joining-letter" data-original="Joining Letter">Joining Letter</span>
-                          <span id="work-experience-fourth-remove-icon" class="remove-icon" onclick="removeFile('work-experience-fourth', 'work-experience-joining-letter', 'work-experience-fourth-upload-icon', 'work-experience-fourth-remove-icon')"><span class="thin-x"></span></span>
+                          <span id="work-experience-fourth-remove-icon" class="remove-icon"
+                            onclick="removeFile('work-experience-fourth', 'work-experience-joining-letter', 'work-experience-fourth-upload-icon', 'work-experience-fourth-remove-icon')"><span
+                              class="thin-x"></span></span>
                           <div class="file-actions">
-                            <label for="work-experience-fourth" class="upload-icon" id="work-experience-fourth-upload-icon">
+                            <label for="work-experience-fourth" class="upload-icon"
+                              id="work-experience-fourth-upload-icon">
                               <img src="assets/images/upload.png" alt="Upload Icon" />
                             </label>
-                            <input type="file" id="work-experience-fourth" name="documents[work_experience][joining_letter]" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, 'work-experience-joining-letter', 'work-experience-fourth-upload-icon', 'work-experience-fourth-remove-icon')" />
+                            <input type="file" id="work-experience-fourth"
+                              name="documents[work_experience][joining_letter]" accept=".jpg, .png, .pdf"
+                              onchange="handleFileUpload(event, 'work-experience-joining-letter', 'work-experience-fourth-upload-icon', 'work-experience-fourth-remove-icon')" />
                           </div>
                         </div>
                         <div class="info">
@@ -1048,12 +1084,16 @@
                           </div>
                           <div class="upload-field">
                             <span id="co-pan-card-name" data-original="PAN Card">PAN Card</span>
-                            <span id="co-remove-icon" class="remove-icon" onclick="removeFile('co-pan-card', 'co-pan-card-name', 'co-upload-icon', 'co-remove-icon')"><span class="thin-x"></span></span>
+                            <span id="co-remove-icon" class="remove-icon"
+                              onclick="removeFile('co-pan-card', 'co-pan-card-name', 'co-upload-icon', 'co-remove-icon')"><span
+                                class="thin-x"></span></span>
                             <div class="file-actions">
                               <label for="co-pan-card" class="upload-icon" id="co-upload-icon">
                                 <img src="assets/images/upload.png" alt="Upload Icon" />
                               </label>
-                              <input type="file" id="co-pan-card" name="documents[co_borrower_kyc][pan_card]" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, 'co-pan-card-name', 'co-upload-icon', 'co-remove-icon')" />
+                              <input type="file" id="co-pan-card" name="documents[co_borrower_kyc][pan_card]"
+                                accept=".jpg, .png, .pdf"
+                                onchange="handleFileUpload(event, 'co-pan-card-name', 'co-upload-icon', 'co-remove-icon')" />
                             </div>
                           </div>
                           <div class="info">
@@ -1074,12 +1114,16 @@
                           </div>
                           <div class="upload-field">
                             <span id="co-aadhar-card-name" data-original="Aadhar Card">Aadhar Card</span>
-                            <span id="co-aadhar-remove-icon" class="remove-icon" onclick="removeFile('co-aadhar-card', 'co-aadhar-card-name', 'co-aadhar-upload-icon', 'co-aadhar-remove-icon')"><span class="thin-x"></span></span>
+                            <span id="co-aadhar-remove-icon" class="remove-icon"
+                              onclick="removeFile('co-aadhar-card', 'co-aadhar-card-name', 'co-aadhar-upload-icon', 'co-aadhar-remove-icon')"><span
+                                class="thin-x"></span></span>
                             <div class="file-actions">
                               <label for="co-aadhar-card" class="upload-icon" id="co-aadhar-upload-icon">
                                 <img src="assets/images/upload.png" alt="Upload Icon" />
                               </label>
-                              <input type="file" id="co-aadhar-card" name="documents[co_borrower_kyc][aadhar_card]" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, 'co-aadhar-card-name', 'co-aadhar-upload-icon', 'co-aadhar-remove-icon')" />
+                              <input type="file" id="co-aadhar-card" name="documents[co_borrower_kyc][aadhar_card]"
+                                accept=".jpg, .png, .pdf"
+                                onchange="handleFileUpload(event, 'co-aadhar-card-name', 'co-aadhar-upload-icon', 'co-aadhar-remove-icon')" />
                             </div>
                           </div>
                           <div class="info">
@@ -1100,12 +1144,16 @@
                           </div>
                           <div class="upload-field">
                             <span id="co-addressproof" data-original="Address Proof">Address Proof</span>
-                            <span id="co-passport-remove-icon" class="remove-icon" onclick="removeFile('co-passport', 'co-addressproof', 'co-passport-upload-icon', 'co-passport-remove-icon')"><span class="thin-x"></span></span>
+                            <span id="co-passport-remove-icon" class="remove-icon"
+                              onclick="removeFile('co-passport', 'co-addressproof', 'co-passport-upload-icon', 'co-passport-remove-icon')"><span
+                                class="thin-x"></span></span>
                             <div class="file-actions">
                               <label for="co-passport" class="upload-icon" id="co-passport-upload-icon">
                                 <img src="assets/images/upload.png" alt="Upload Icon" />
                               </label>
-                              <input type="file" id="co-passport" name="documents[co_borrower_kyc][address_proof]" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, 'co-addressproof', 'co-passport-upload-icon', 'co-passport-remove-icon')" />
+                              <input type="file" id="co-passport" name="documents[co_borrower_kyc][address_proof]"
+                                accept=".jpg, .png, .pdf"
+                                onchange="handleFileUpload(event, 'co-addressproof', 'co-passport-upload-icon', 'co-passport-remove-icon')" />
                             </div>
                           </div>
                           <div class="info">
@@ -1152,12 +1200,16 @@
                         <div class="document-name" id="salary-slip-id" style="display: none;">3 months salary slip</div>
                         <div class="upload-field">
                           <span id="salary-slip-name" data-original="3 months salary slip">3 months salary slip</span>
-                          <span id="salary-slip-remove-icon" class="remove-icon" style="display: none;" onclick="removeFile('salary-slip', 'salary-slip-name', 'salary-slip-upload-icon', 'salary-slip-remove-icon')"><span class="thin-x"></span></span>
+                          <span id="salary-slip-remove-icon" class="remove-icon" style="display: none;"
+                            onclick="removeFile('salary-slip', 'salary-slip-name', 'salary-slip-upload-icon', 'salary-slip-remove-icon')"><span
+                              class="thin-x"></span></span>
                           <div class="file-actions">
                             <label for="salary-slip" class="upload-icon" id="salary-slip-upload-icon">
                               <img src="assets/images/upload.png" alt="Upload Icon" />
                             </label>
-                            <input type="file" id="salary-slip" name="documents[salaried_business][salaried][salary_slip]" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, 'salary-slip-name', 'salary-slip-upload-icon', 'salary-slip-remove-icon')" />
+                            <input type="file" id="salary-slip"
+                              name="documents[salaried_business][salaried][salary_slip]" accept=".jpg, .png, .pdf"
+                              onchange="handleFileUpload(event, 'salary-slip-name', 'salary-slip-upload-icon', 'salary-slip-remove-icon')" />
                           </div>
                         </div>
                         <div class="info">
@@ -1173,15 +1225,21 @@
                       </div>
                       <!-- 6 Months Bank Statement -->
                       <div class="document-box salary-upload-box">
-                        <div class="document-name" id="bank-statement-id" style="display: none;">6 months bank statement</div>
+                        <div class="document-name" id="bank-statement-id" style="display: none;">6 months bank statement
+                        </div>
                         <div class="upload-field">
-                          <span id="bank-statement-name" data-original="6 months bank statement">6 months bank statement</span>
-                          <span id="bank-statement-remove-icon" class="remove-icon" style="display: none;" onclick="removeFile('bank-statement', 'bank-statement-name', 'bank-statement-upload-icon', 'bank-statement-remove-icon')"><span class="thin-x"></span></span>
+                          <span id="bank-statement-name" data-original="6 months bank statement">6 months bank
+                            statement</span>
+                          <span id="bank-statement-remove-icon" class="remove-icon" style="display: none;"
+                            onclick="removeFile('bank-statement', 'bank-statement-name', 'bank-statement-upload-icon', 'bank-statement-remove-icon')"><span
+                              class="thin-x"></span></span>
                           <div class="file-actions">
                             <label for="bank-statement" class="upload-icon" id="bank-statement-upload-icon">
                               <img src="assets/images/upload.png" alt="Upload Icon" />
                             </label>
-                            <input type="file" id="bank-statement" name="documents[salaried_business][salaried][bank_statement]" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, 'bank-statement-name', 'bank-statement-upload-icon', 'bank-statement-remove-icon')" />
+                            <input type="file" id="bank-statement"
+                              name="documents[salaried_business][salaried][bank_statement]" accept=".jpg, .png, .pdf"
+                              onchange="handleFileUpload(event, 'bank-statement-name', 'bank-statement-upload-icon', 'bank-statement-remove-icon')" />
                           </div>
                         </div>
                         <div class="info">
@@ -1197,15 +1255,20 @@
                       </div>
                       <!-- Address Proof -->
                       <div class="document-box salary-upload-box">
-                        <div class="document-name" id="address-proof-salary-id" style="display: none;">Address Proof</div>
+                        <div class="document-name" id="address-proof-salary-id" style="display: none;">Address Proof
+                        </div>
                         <div class="upload-field">
                           <span id="address-proof-salary-name" data-original="Address Proof">Address Proof</span>
-                          <span id="address-proof-salary-remove-icon" class="remove-icon" style="display: none;" onclick="removeFile('address-proof-salary', 'address-proof-salary-name', 'address-proof-salary-upload-icon', 'address-proof-salary-remove-icon')"><span class="thin-x"></span></span>
+                          <span id="address-proof-salary-remove-icon" class="remove-icon" style="display: none;"
+                            onclick="removeFile('address-proof-salary', 'address-proof-salary-name', 'address-proof-salary-upload-icon', 'address-proof-salary-remove-icon')"><span
+                              class="thin-x"></span></span>
                           <div class="file-actions">
                             <label for="address-proof-salary" class="upload-icon" id="address-proof-salary-upload-icon">
                               <img src="assets/images/upload.png" alt="Upload Icon" />
                             </label>
-                            <input type="file" id="address-proof-salary" name="documents[salaried_business][salaried][address_proof]" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, 'address-proof-salary-name', 'address-proof-salary-upload-icon', 'address-proof-salary-remove-icon')" />
+                            <input type="file" id="address-proof-salary"
+                              name="documents[salaried_business][salaried][address_proof]" accept=".jpg, .png, .pdf"
+                              onchange="handleFileUpload(event, 'address-proof-salary-name', 'address-proof-salary-upload-icon', 'address-proof-salary-remove-icon')" />
                           </div>
                         </div>
                         <div class="info">
@@ -1230,12 +1293,16 @@
                         <div class="document-name" id="itr-id" style="display: none;">2 years of ITR</div>
                         <div class="upload-field">
                           <span id="itr-name" data-original="2 years of ITR">2 years of ITR</span>
-                          <span id="itr-remove-icon" class="remove-icon" style="display: none;" onclick="removeFile('itr', 'itr-name', 'itr-upload-icon', 'itr-remove-icon')"><span class="thin-x"></span></span>
+                          <span id="itr-remove-icon" class="remove-icon" style="display: none;"
+                            onclick="removeFile('itr', 'itr-name', 'itr-upload-icon', 'itr-remove-icon')"><span
+                              class="thin-x"></span></span>
                           <div class="file-actions">
                             <label for="itr" class="upload-icon" id="itr-upload-icon">
                               <img src="assets/images/upload.png" alt="Upload Icon" />
                             </label>
-                            <input type="file" id="itr" name="documents[salaried_business][business][itr]" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, 'itr-name', 'itr-upload-icon', 'itr-remove-icon')" />
+                            <input type="file" id="itr" name="documents[salaried_business][business][itr]"
+                              accept=".jpg, .png, .pdf"
+                              onchange="handleFileUpload(event, 'itr-name', 'itr-upload-icon', 'itr-remove-icon')" />
                           </div>
                         </div>
                         <div class="info">
@@ -1251,15 +1318,22 @@
                       </div>
                       <!-- 6 Months Bank Statement -->
                       <div class="document-box salary-upload-box">
-                        <div class="document-name" id="business-bank-statement-id" style="display: none;">6 months bank statement</div>
+                        <div class="document-name" id="business-bank-statement-id" style="display: none;">6 months bank
+                          statement</div>
                         <div class="upload-field">
-                          <span id="business-bank-statement-name" data-original="6 months bank statement">6 months bank statement</span>
-                          <span id="business-bank-statement-remove-icon" class="remove-icon" style="display: none;" onclick="removeFile('business-bank-statement', 'business-bank-statement-name', 'business-bank-statement-upload-icon', 'business-bank-statement-remove-icon')"><span class="thin-x"></span></span>
+                          <span id="business-bank-statement-name" data-original="6 months bank statement">6 months bank
+                            statement</span>
+                          <span id="business-bank-statement-remove-icon" class="remove-icon" style="display: none;"
+                            onclick="removeFile('business-bank-statement', 'business-bank-statement-name', 'business-bank-statement-upload-icon', 'business-bank-statement-remove-icon')"><span
+                              class="thin-x"></span></span>
                           <div class="file-actions">
-                            <label for="business-bank-statement" class="upload-icon" id="business-bank-statement-upload-icon">
+                            <label for="business-bank-statement" class="upload-icon"
+                              id="business-bank-statement-upload-icon">
                               <img src="assets/images/upload.png" alt="Upload Icon" />
                             </label>
-                            <input type="file" id="business-bank-statement" name="documents[salaried_business][business][bank_statement]" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, 'business-bank-statement-name', 'business-bank-statement-upload-icon', 'business-bank-statement-remove-icon')" />
+                            <input type="file" id="business-bank-statement"
+                              name="documents[salaried_business][business][bank_statement]" accept=".jpg, .png, .pdf"
+                              onchange="handleFileUpload(event, 'business-bank-statement-name', 'business-bank-statement-upload-icon', 'business-bank-statement-remove-icon')" />
                           </div>
                         </div>
                         <div class="info">
@@ -1275,15 +1349,21 @@
                       </div>
                       <!-- Office/Shop Photographs -->
                       <div class="document-box salary-upload-box">
-                        <div class="document-name" id="office-shop-photos-id" style="display: none;">Office/Shop photographs</div>
+                        <div class="document-name" id="office-shop-photos-id" style="display: none;">Office/Shop
+                          photographs</div>
                         <div class="upload-field">
-                          <span id="office-shop-photos-name" data-original="Office/Shop photographs">Office/Shop photographs</span>
-                          <span id="office-shop-photos-remove-icon" class="remove-icon" style="display: none;" onclick="removeFile('office-shop-photos', 'office-shop-photos-name', 'office-shop-photos-upload-icon', 'office-shop-photos-remove-icon')"><span class="thin-x"></span></span>
+                          <span id="office-shop-photos-name" data-original="Office/Shop photographs">Office/Shop
+                            photographs</span>
+                          <span id="office-shop-photos-remove-icon" class="remove-icon" style="display: none;"
+                            onclick="removeFile('office-shop-photos', 'office-shop-photos-name', 'office-shop-photos-upload-icon', 'office-shop-photos-remove-icon')"><span
+                              class="thin-x"></span></span>
                           <div class="file-actions">
                             <label for="office-shop-photos" class="upload-icon" id="office-shop-photos-upload-icon">
                               <img src="assets/images/upload.png" alt="Upload Icon" />
                             </label>
-                            <input type="file" id="office-shop-photos" name="documents[salaried_business][business][office_photos]" accept=".jpg, .png, .pdf" onchange="handleFileUpload(event, 'office-shop-photos-name', 'office-shop-photos-upload-icon', 'office-shop-photos-remove-icon')" />
+                            <input type="file" id="office-shop-photos"
+                              name="documents[salaried_business][business][office_photos]" accept=".jpg, .png, .pdf"
+                              onchange="handleFileUpload(event, 'office-shop-photos-name', 'office-shop-photos-upload-icon', 'office-shop-photos-remove-icon')" />
                           </div>
                         </div>
                         <div class="info">
@@ -1311,16 +1391,18 @@
             </div>
           </div>
         </div>
-        <button type="button" id="admin-student-form-save-btn-id" class="admin-student-form-save-btn">Save Changes</button>
+        <button type="button" id="admin-student-form-save-btn-id" class="admin-student-form-save-btn">Save
+          Changes</button>
       </form>
     </div>
   </div>
 
 
   <script>
-    // adminstuapplication.js
-    document.addEventListener('DOMContentLoaded', () => {
-      // Initialize all managers
+     document.addEventListener('DOMContentLoaded', () => {
+
+      fetchAndAppendSocialNames();
+      fetchAndRenderStudyLocations();
       const managers = [
         SectionToggler,
         InputFieldManager,
@@ -1343,58 +1425,57 @@
       if (icon) icon.classList.toggle(rotateClass, !isVisible);
     };
 
-    // Section Toggler
     const SectionToggler = {
       init() {
         this.setupToggles([{
-            header: '.admin-student-section-header',
-            content: '.admin-student-section-content',
-            arrow: '.admin-student-arrow-icon img',
-            arrowClasses: ['admin-student-arrow-up', 'admin-student-arrow-down']
-          },
-          {
-            id: 'admin-student-person-info',
-            sectionId: 'person-info-section'
-          },
-          {
-            id: 'admin-student-about-us',
-            sectionId: 'about-us-section'
-          },
-          {
-            header: '.admin-student-section-header-course',
-            content: '.admin-student-section-content-course',
-            arrow: '.admin-student-arrow-icon-course',
-            rotate: true
-          },
-          {
-            header: '.admin-student-section-header-academic',
-            content: '.admin-student-section-content-academic',
-            arrow: '.admin-student-arrow-icon-academic',
-            rotate: true
-          },
-          {
-            header: '.admin-student-section-header-co-borrower',
-            content: '.admin-student-form-section-co-borrower-info',
-            arrow: '.admin-student-arrow-icon-co-borrower',
-            rotate: true
-          },
-          {
-            header: '.admin-student-section-header-document-upload',
-            content: '.admin-student-section-content-document-upload',
-            arrow: '.admin-student-arrow-icon-document-upload',
-            rotate: true
-          },
-          // Add Work Experience section for toggling
-          {
-            header: '#work-experience-row',
-            content: '#work-experience-section',
-            arrow: '#work-experience-row .admin-student-dropdown-icon',
-            rotate: true
-          }
+          header: '.admin-student-section-header',
+          content: '.admin-student-section-content',
+          arrow: '.admin-student-arrow-icon img',
+          arrowClasses: ['admin-student-arrow-up', 'admin-student-arrow-down']
+        },
+        {
+          id: 'admin-student-person-info',
+          sectionId: 'person-info-section'
+        },
+        {
+          id: 'admin-student-about-us',
+          sectionId: 'about-us-section'
+        },
+        {
+          header: '.admin-student-section-header-course',
+          content: '.admin-student-section-content-course',
+          arrow: '.admin-student-arrow-icon-course',
+          rotate: true
+        },
+        {
+          header: '.admin-student-section-header-academic',
+          content: '.admin-student-section-content-academic',
+          arrow: '.admin-student-arrow-icon-academic',
+          rotate: true
+        },
+        {
+          header: '.admin-student-section-header-co-borrower',
+          content: '.admin-student-form-section-co-borrower-info',
+          arrow: '.admin-student-arrow-icon-co-borrower',
+          rotate: true
+        },
+        {
+          header: '.admin-student-section-header-document-upload',
+          content: '.admin-student-section-content-document-upload',
+          arrow: '.admin-student-arrow-icon-document-upload',
+          rotate: true
+        },
+        // Add Work Experience section for toggling
+        {
+          header: '#work-experience-row',
+          content: '#work-experience-section',
+          arrow: '#work-experience-row .admin-student-dropdown-icon',
+          rotate: true
+        }
         ]);
       },
 
-      setupToggles(configs) {
+    setupToggles(configs) {
         configs.forEach(config => {
           if (config.header) {
             const header = document.querySelector(config.header);
@@ -1432,8 +1513,8 @@
       }
     };
 
-    // Input Field Manager
-    const InputFieldManager = {
+    
+     const InputFieldManager = {
       section: 'Personal Information',
       modified: false,
 
@@ -1534,8 +1615,7 @@
       }
     };
 
-    // Social Options Manager
-    const SocialOptionsManager = {
+     const SocialOptionsManager = {
       section: 'Personal Information',
       modified: false,
 
@@ -1561,20 +1641,33 @@
           addSocialButton.addEventListener('click', () => {
             const userInput = prompt("Enter dropdown option", "")?.trim();
             if (userInput) {
-              const newOption = document.createElement('div');
-              newOption.className = 'social-option';
-              newOption.innerHTML = `
-                    <span class="social-name">${userInput}</span>
-                    <span class="social-remove">×</span>
-                `;
-              document.querySelector('.second-question-options')?.appendChild(newOption);
-              newOption.querySelector('.social-remove').addEventListener('click', () => {
-                newOption.remove();
-                this.modified = true;
-                FormSubmissionManager.setModifiedSection(this.section);
-              });
-              this.modified = true;
-              FormSubmissionManager.setModifiedSection(this.section);
+              fetch('/storesocialoption', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
+                },
+                body: JSON.stringify({ name: userInput })
+              })
+                .then(response => response.json())
+                .then(data => {
+                  if (data.error) {
+                    alert(`Error: ${data.error}`);
+                    return;
+                  }
+
+                  fetchAndAppendSocialNames();
+
+
+
+
+
+
+                })
+                .catch(error => {
+                  console.error('Fetch error:', error);
+                  alert('An error occurred while saving the option.');
+                });
             }
           });
         }
@@ -2034,20 +2127,20 @@
 
       init() {
         this.setupDropdowns([{
-            containerId: 'co-borrower-container',
-            rowId: 'co-borrower-row',
-            optionsId: 'co-borrower-options'
-          },
-          {
-            containerId: 'income-container',
-            rowId: 'income-row',
-            optionsId: 'income-options'
-          },
-          {
-            containerId: 'liability-container',
-            rowId: 'liability-row',
-            optionsId: 'liability-options'
-          }
+          containerId: 'co-borrower-container',
+          rowId: 'co-borrower-row',
+          optionsId: 'co-borrower-options'
+        },
+        {
+          containerId: 'income-container',
+          rowId: 'income-row',
+          optionsId: 'income-options'
+        },
+        {
+          containerId: 'liability-container',
+          rowId: 'liability-row',
+          optionsId: 'liability-options'
+        }
         ]);
         this.setupCoBorrowerOptions();
         this.setupIncomeFields();
@@ -2225,35 +2318,35 @@
 
       init() {
         const buttons = [{
-            id: 'add-document-btn',
-            type: 'document',
-            containerId: 'document-fields-container'
-          },
-          {
-            id: 'add-academic-btn',
-            type: 'academic',
-            containerId: 'academic-fields-container'
-          },
-          {
-            id: 'add-secured-btn',
-            type: 'secured',
-            containerId: 'secured-fields-container'
-          },
-          {
-            id: 'add-work-experience-btn',
-            type: 'workExperience',
-            containerId: 'work-experience-row-2'
-          },
-          {
-            id: 'add-co-borrower-btn',
-            type: 'coBorrower',
-            containerId: 'co-borrower-fields-container'
-          },
-          {
-            id: 'add-salaried-business-btn',
-            type: 'salariedBusiness',
-            containerId: 'salaried-business-fields-container'
-          }
+          id: 'add-document-btn',
+          type: 'document',
+          containerId: 'document-fields-container'
+        },
+        {
+          id: 'add-academic-btn',
+          type: 'academic',
+          containerId: 'academic-fields-container'
+        },
+        {
+          id: 'add-secured-btn',
+          type: 'secured',
+          containerId: 'secured-fields-container'
+        },
+        {
+          id: 'add-work-experience-btn',
+          type: 'workExperience',
+          containerId: 'work-experience-row-2'
+        },
+        {
+          id: 'add-co-borrower-btn',
+          type: 'coBorrower',
+          containerId: 'co-borrower-fields-container'
+        },
+        {
+          id: 'add-salaried-business-btn',
+          type: 'salariedBusiness',
+          containerId: 'salaried-business-fields-container'
+        }
         ];
 
         buttons.forEach(({
@@ -2360,90 +2453,90 @@
         }
 
         const sections = [{
-            sectionName: 'Personal Information',
-            questions: [{
-                title: 'Let us know more about you',
-                fields: InputFieldManager.getDynamicFields(),
-                manager: InputFieldManager
-              },
-              {
-                title: 'How did you find about us?',
-                fields: SocialOptionsManager.getDynamicFields(),
-                manager: SocialOptionsManager
-              }
-            ]
+          sectionName: 'Personal Information',
+          questions: [{
+            title: 'Let us know more about you',
+            fields: InputFieldManager.getDynamicFields(),
+            manager: InputFieldManager
           },
           {
-            sectionName: 'Course Information',
-            questions: [{
-                title: 'Where are you planning to study?',
-                fields: CourseLocationManager.getDynamicFields(),
-                manager: CourseLocationManager
-              },
-              {
-                title: 'Select the type of degree you want to pursue',
-                fields: CourseOptionsManager.getDynamicFields(),
-                manager: CourseOptionsManager
-              },
-              {
-                title: 'What is the duration of the course?',
-                fields: CourseDurationManager.getDynamicFields(),
-                manager: CourseDurationManager
-              },
-              {
-                title: 'Course Details',
-                fields: CourseDetailsManager.getDynamicFields(),
-                manager: CourseDetailsManager
-              }
-            ]
-          },
-          {
-            sectionName: 'Academic Details',
-            questions: [{
-                title: 'Academic details',
-                fields: AcademicDetailsManager.getDynamicFields(),
-                manager: AcademicDetailsManager
-              },
-              {
-                title: 'Do you have any gap in your academics?',
-                fields: AcademicDetailsManager.getDynamicFieldsForGap(),
-                manager: AcademicDetailsManager
-              }
-            ]
-          },
-          {
-            sectionName: 'Co-Borrower Information',
-            questions: [{
-                title: 'How is the co-borrower related to you?',
-                fields: CoBorrowerManager.getDynamicFields().filter(f => f.name === 'Relation'),
-                manager: CoBorrowerManager
-              },
-              {
-                title: 'What is the gross monthly income of co-borrower?',
-                fields: CoBorrowerManager.getDynamicFields().filter(f => f.name !== 'Relation' && f.name !== 'Liability'),
-                manager: CoBorrowerManager
-              },
-              {
-                title: 'Is there any existing co-borrower monthly liability?',
-                fields: CoBorrowerManager.getDynamicFields().filter(f => f.name === 'Liability'),
-                manager: CoBorrowerManager
-              }
-            ]
-          },
-          {
-            sectionName: 'Document Upload',
-            questions: [{
-                title: 'Student KYC Document',
-                fields: DocumentFieldManager.getDynamicFields().filter(f => ['document', 'coBorrower'].includes(f.name.split('-')[0])),
-                manager: DocumentFieldManager
-              },
-              {
-                title: 'Academic Mark Sheets',
-                fields: DocumentFieldManager.getDynamicFields().filter(f => ['academic', 'secured'].includes(f.name.split('-')[0])),
-                manager: DocumentFieldManager
-              }
-            ]
+            title: 'How did you find about us?',
+            fields: SocialOptionsManager.getDynamicFields(),
+            manager: SocialOptionsManager
           }
+          ]
+        },
+        {
+          sectionName: 'Course Information',
+          questions: [{
+            title: 'Where are you planning to study?',
+            fields: CourseLocationManager.getDynamicFields(),
+            manager: CourseLocationManager
+          },
+          {
+            title: 'Select the type of degree you want to pursue',
+            fields: CourseOptionsManager.getDynamicFields(),
+            manager: CourseOptionsManager
+          },
+          {
+            title: 'What is the duration of the course?',
+            fields: CourseDurationManager.getDynamicFields(),
+            manager: CourseDurationManager
+          },
+          {
+            title: 'Course Details',
+            fields: CourseDetailsManager.getDynamicFields(),
+            manager: CourseDetailsManager
+          }
+          ]
+        },
+        {
+          sectionName: 'Academic Details',
+          questions: [{
+            title: 'Academic details',
+            fields: AcademicDetailsManager.getDynamicFields(),
+            manager: AcademicDetailsManager
+          },
+          {
+            title: 'Do you have any gap in your academics?',
+            fields: AcademicDetailsManager.getDynamicFieldsForGap(),
+            manager: AcademicDetailsManager
+          }
+          ]
+        },
+        {
+          sectionName: 'Co-Borrower Information',
+          questions: [{
+            title: 'How is the co-borrower related to you?',
+            fields: CoBorrowerManager.getDynamicFields().filter(f => f.name === 'Relation'),
+            manager: CoBorrowerManager
+          },
+          {
+            title: 'What is the gross monthly income of co-borrower?',
+            fields: CoBorrowerManager.getDynamicFields().filter(f => f.name !== 'Relation' && f.name !== 'Liability'),
+            manager: CoBorrowerManager
+          },
+          {
+            title: 'Is there any existing co-borrower monthly liability?',
+            fields: CoBorrowerManager.getDynamicFields().filter(f => f.name === 'Liability'),
+            manager: CoBorrowerManager
+          }
+          ]
+        },
+        {
+          sectionName: 'Document Upload',
+          questions: [{
+            title: 'Student KYC Document',
+            fields: DocumentFieldManager.getDynamicFields().filter(f => ['document', 'coBorrower'].includes(f.name.split('-')[0])),
+            manager: DocumentFieldManager
+          },
+          {
+            title: 'Academic Mark Sheets',
+            fields: DocumentFieldManager.getDynamicFields().filter(f => ['academic', 'secured'].includes(f.name.split('-')[0])),
+            manager: DocumentFieldManager
+          }
+          ]
+        }
         ];
 
         // Find the modified section
@@ -2476,18 +2569,17 @@
 
         // Send POST request to /student-application-form
         fetch('/student-application-form', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
-            },
-            body: JSON.stringify(payload)
-          })
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
+          },
+          body: JSON.stringify(payload)
+        })
           .then(response => response.json())
           .then(data => {
             if (data.success) {
               alert(`Changes for "${this.modifiedSection}" saved successfully!`);
-              // Reset modified flags for all managers in this section
               modifiedSectionData.questions.forEach(q => {
                 q.manager.modified = false;
               });
@@ -2502,6 +2594,140 @@
           });
       }
     };
+
+
+
+
+
+    function fetchAndAppendSocialNames() {
+      fetch('/getInfoForAdminSocial')
+        .then(res => res.json())
+        .then(data => {
+          const container = document.querySelector('.second-question-options');
+
+          // Clear existing options
+          container.innerHTML = '';
+
+          data.socialOptions.forEach(item => {
+            const socialOption = document.createElement('div');
+            socialOption.className = 'social-option';
+
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'social-name';
+            nameSpan.textContent = item.name;
+
+            const removeSpan = document.createElement('span');
+            removeSpan.className = 'social-remove';
+            removeSpan.textContent = '×';
+
+            // Add click listener to removeSpan
+            removeSpan.addEventListener('click', () => {
+              fetch(`/deleteInfoForAdminSocial/${item.id}`, {
+                method: 'DELETE',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
+                },
+
+              })
+                .then(response => {
+                  if (response.ok) {
+                    socialOption.remove();
+                    alert(`selected dropdown deleted ${item.name}`)
+                  } else {
+                    console.error('Failed to delete:', item.id);
+                  }
+                })
+                .catch(error => {
+                  console.error('Error deleting data:', error);
+                });
+            });
+
+            socialOption.appendChild(nameSpan);
+            socialOption.appendChild(removeSpan);
+            container.appendChild(socialOption);
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    }
+
+
+
+    function fetchAndRenderStudyLocations() {
+      fetch('/getplantocountries')
+        .then(res => res.json())
+        .then(data => {
+          const container = document.getElementById('selected-study-location-admin');
+
+          const othersCheckbox = container.querySelector('.others-checkbox');
+          const addContainer = container.querySelector('#plantostudycountryadd');
+
+          container.innerHTML = '';
+
+          data.countries.forEach(country => {
+            const label = document.createElement('label');
+
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            input.name = 'where-are-you-planning-to-study[locations][]';
+            input.value = country.country_name;
+
+            label.appendChild(input);
+            label.appendChild(document.createTextNode(' ' + country.country_name));
+            container.appendChild(label);
+          });
+
+          // Append the existing "Others" and "Add" boxes again
+          if (othersCheckbox) container.appendChild(othersCheckbox);
+          if (addContainer) container.appendChild(addContainer);
+
+
+          if (addContainer) {
+            addContainer.addEventListener('click', () => {
+
+              const userInput = prompt("Enter dropdown option", "")?.trim();
+              if (userInput) {
+                fetch('/storeplantostudycountry', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
+                  },
+                  body: JSON.stringify({ country_name: userInput })
+                })
+                  .then(response => response.json())
+                  .then(data => {
+                    if (data.error) {
+                      alert(`Error: ${data.error}`);
+                      return;
+                    }
+
+                    fetchAndRenderStudyLocations();
+                    alert(`${userInput} added`)
+
+
+
+
+
+
+                  })
+                  .catch(error => {
+                    console.error('Fetch error:', error);
+                    alert('An error occurred while saving the option.');
+                  });
+              }
+
+            })
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching countries:', error);
+        });
+    }
+
+
   </script>
 </body>
 

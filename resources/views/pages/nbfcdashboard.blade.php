@@ -2541,18 +2541,18 @@
                 }
                 if (smileIcon) {
                     smileIcon.addEventListener('click', function (e) {
-                        e.stopPropagation();
-                        const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
+                    e.stopPropagation();
+                    const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
 
-                        const existingPicker = document.querySelector(".emoji-picker");
-                        if (existingPicker) {
-                            existingPicker.remove();
-                            return;
-                        }
+                    const existingPicker = document.querySelector(".emoji-picker");
+                    if (existingPicker) {
+                        existingPicker.remove();
+                        return;
+                    }
 
-                        const picker = document.createElement("div");
-                        picker.classList.add("emoji-picker");
-                        picker.style.cssText = `
+                    const picker = document.createElement("div");
+                    picker.classList.add("emoji-picker");
+                    picker.style.cssText = `
                     position: absolute;
                     bottom: 100%;
                     right: 0;

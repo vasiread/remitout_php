@@ -17,10 +17,10 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Session::has('admin_role') || Session::get('admin_role') !== 'superadmin') {
+        if (!Session::has('superadmin')) {
             return redirect('/login')->with('error', 'You must be logged in as Super Admin to access this page.');
         }
-        
+
         return $next($request);
     }
 }

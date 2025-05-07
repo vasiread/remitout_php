@@ -95,7 +95,7 @@
   </section>
 
 
-   
+
   <div class="mobile-heading" id="mobileHeading">Personal Information</div>
   <div class="registration-container" id="step-personal">
     <form>
@@ -222,7 +222,7 @@
       </div>
   </div>
 
-  
+
   <div class="section-02-container" style="display: none;">
     <div class="section section-02">
       <!-- Step Header -->
@@ -236,11 +236,15 @@
           <div class="dropdown-label-about">Select</div>
           <div class="dropdown-icon-about"></div>
           <div class="dropdown-options-about">
-            <div class="dropdown-option-about-us" data-value="youtube">YouTube</div>
-            <div class="dropdown-option-about-us" data-value="google">Google</div>
-            <div class="dropdown-option-about-us" data-value="friend">Friend</div>
-            <div class="dropdown-option-about-us" data-value="other">Other</div>
+            @foreach($socialOptions as $option)
+        <div class="dropdown-option-about-us" data-value="{{ strtolower($option->name) }}">
+          {{ $option->name }}
+        </div>
+      @endforeach
           </div>
+
+
+
         </div>
       </div>
 
@@ -264,39 +268,19 @@
       </div>
 
       <div class="checkbox-group" id="selected-study-location">
-        <label>
-          <input type="checkbox" name="study-location" value="USA"> USA
-        </label>
-        <label>
-          <input type="checkbox" name="study-location" value="UK"> UK
-        </label>
-        <label>
-          <input type="checkbox" name="study-location" value="Ireland"> Ireland
-        </label>
-        <label>
-          <input type="checkbox" name="study-location" value="New Zealand"> New Zealand
-        </label>
-        <label>
-          <input type="checkbox" name="study-location" value="Germany"> Germany
-        </label>
-        <label>
-          <input type="checkbox" name="study-location" value="France"> France
-        </label>
-        <label>
-          <input type="checkbox" name="study-location" value="Sweden"> Sweden
-        </label>
+        @foreach ($countries as $country)
+      <label>
+        <input type="checkbox" name="study-location" value="{{ $country->country_name }}">
+        {{ $country->country_name }}
+      </label>
+    @endforeach
+
+        {{-- Static "Other" checkbox --}}
         <label>
           <input type="checkbox" name="study-location" value="Other" id="other-checkbox"> Other
         </label>
-        <label>
-          <input type="checkbox" name="study-location" value="Italy"> Italy
-        </label>
-        <label>
-          <input type="checkbox" name="study-location" value="Canada"> Canada
-        </label>
-        <label>
-          <input type="checkbox" name="study-location" value="Australia"> Australia
-        </label>
+
+        {{-- Textbox for adding custom country --}}
         <label>
           <div class="add-country-box">
             <input type="text" id="country" class="custom-country-input" placeholder="Add Country">
@@ -304,7 +288,7 @@
         </label>
       </div>
 
-      <!-- Automatically navigate to next step -->
+
 
     </div>
 
@@ -1283,7 +1267,7 @@
 
   </form>
 
-<div id="toast-container" class="toast-container"></div>
+  <div id="toast-container" class="toast-container"></div>
 
   <!-------Navigation button------>
   <div class="navigation">
