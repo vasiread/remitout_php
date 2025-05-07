@@ -37,20 +37,20 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             if (typeof CryptoJS === "undefined") {
                 console.error(
-                    "CryptoJS library is not loaded. Please include it in your HTML."
+                    "CryptoJS library is not loaded. Please include it in your HTML.",
                 );
                 referralInput.value = refParam;
             } else {
                 const bytes = CryptoJS.AES.decrypt(
                     decodeURIComponent(refParam),
-                    secretKey
+                    secretKey,
                 );
                 const decryptedRef = bytes.toString(CryptoJS.enc.Utf8);
                 if (decryptedRef) {
                     referralInput.value = decryptedRef;
                 } else {
                     console.error(
-                        "Decryption failed: Invalid key or corrupted data"
+                        "Decryption failed: Invalid key or corrupted data",
                     );
                     referralInput.value = refParam;
                 }
@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const currentContainers = breadcrumbSections[currentBreadcrumbIndex];
         const currentContainer = currentContainers[currentContainerIndex];
         const inputs = currentContainer.querySelectorAll(
-            "input[required], select[required], textarea[required]"
+            "input[required], select[required], textarea[required]",
         );
         for (const input of inputs) {
             if (!input.value.trim()) {
@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateUserIds() {
         const personalInfoId = document.getElementById(
-            "personal-info-userid"
+            "personal-info-userid",
         ).value;
         fetch("/updatedetailsinfo", {
             method: "POST",
@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
         event.preventDefault();
         function getSelectedAnswer(callback) {
             const selectedOption = document.querySelector(
-                'input[name="borrow-relation"]:checked'
+                'input[name="borrow-relation"]:checked',
             );
             if (selectedOption && selectedOption.value !== "blood-relative") {
                 return callback(selectedOption.value);
@@ -255,7 +255,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 selectedOption.value === "blood-relative"
             ) {
                 const dropdownRelative = document.querySelectorAll(
-                    ".borrow-dropdown .borrow-dropdown-item"
+                    ".borrow-dropdown .borrow-dropdown-item",
                 );
                 dropdownRelative.forEach((item) => {
                     item.addEventListener("click", function () {
@@ -270,15 +270,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         getSelectedAnswer(function (answer) {
             const personalInfoId = document.getElementById(
-                "personal-info-userid"
+                "personal-info-userid",
             ).value;
             var incomeValue =
                 document.getElementById("income-co-borrower").value;
             var selectedLiability = document.querySelector(
-                'input[name="co-borrower-liability"]:checked'
+                'input[name="co-borrower-liability"]:checked',
             ).value;
             var emiAmount = document.querySelector(
-                ".emi-content .emi-content-container"
+                ".emi-content .emi-content-container",
             ).value;
             const coborrowerData = {
                 personalInfoId,
@@ -302,7 +302,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (data.success) {
                         showToast("Details have been saved successfully");
                     } else {
-                        console.error("Failed to update co-borrower info:", data.message);
+                        console.error(
+                            "Failed to update co-borrower info:",
+                            data.message,
+                        );
                     }
                 })
                 .catch((error) => {
@@ -345,28 +348,28 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateUserPersonalInfo(event) {
         event.preventDefault();
         const personalInfoId = document.getElementById(
-            "personal-info-userid"
+            "personal-info-userid",
         ).value;
         const personalInfoName =
             document.getElementById("personal-info-name").value;
         const personalInfoPhone = document.getElementById(
-            "personal-info-phone"
+            "personal-info-phone",
         ).value;
         const personalInfoEmail = document.getElementById(
-            "personal-info-email"
+            "personal-info-email",
         ).value;
         const personalInfoCity =
             document.getElementById("personal-info-city").value;
         const personalInfoReferral = document.getElementById(
-            "personal-info-referral"
+            "personal-info-referral",
         ).value;
         const personalInfoState = document.getElementById(
-            "personal-info-state"
+            "personal-info-state",
         ).value;
         const personalInfoDob =
             document.getElementById("personal-info-dob").value;
         const genderOptions = document.getElementById(
-            "gender-personal-info"
+            "gender-personal-info",
         ).value;
         const personalInfoFindOut = selectedValue;
         if (
@@ -404,7 +407,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         showToast("Details have been saved successfully");
                         navigate("next");
                     } else {
-                        console.error("Failed to update personal info:", data.message);
+                        console.error(
+                            "Failed to update personal info:",
+                            data.message,
+                        );
                     }
                 })
                 .catch((error) => {
@@ -415,7 +421,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function getSelectedExpenseType() {
         const selectedExpense = document.querySelector(
-            'input[name="expense-type"]:checked'
+            'input[name="expense-type"]:checked',
         );
         return selectedExpense ? selectedExpense.value : null;
     }
@@ -427,7 +433,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function getSelectedStudyLocations() {
         const checkboxes = document.querySelectorAll(
-            '#selected-study-location input[type="checkbox"]:checked'
+            '#selected-study-location input[type="checkbox"]:checked',
         );
         const selectedLocations = [];
         checkboxes.forEach((checkbox) => {
@@ -439,10 +445,10 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateUserCourseInfo(event) {
         event.preventDefault();
         const personalInfoId = document.getElementById(
-            "personal-info-userid"
+            "personal-info-userid",
         ).value;
         const selectedDegreeType = document.querySelector(
-            '#course-info-degreetype input[name="degree_type"]:checked'
+            '#course-info-degreetype input[name="degree_type"]:checked',
         ).value;
         const expenseType = getSelectedExpenseType();
         const loanAmount = getLoanAmount();
@@ -472,7 +478,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     showToast("Details have been saved successfully");
                     navigate("next");
                 } else {
-                    console.error("Failed to update course info:", data.message);
+                    console.error(
+                        "Failed to update course info:",
+                        data.message,
+                    );
                 }
             })
             .catch((error) => {
@@ -480,22 +489,92 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     }
 
+    // Function to validate a single score field and update its error message
+    function validateScore(fieldId, scoreValue, minScore, errorMessagePrefix) {
+        const errorElement = document.getElementById(`${fieldId}-error`);
+        errorElement.textContent = "";
+
+        if (scoreValue) {
+            const scoreNum = parseFloat(scoreValue);
+            if (isNaN(scoreNum)) {
+                errorElement.textContent = `${errorMessagePrefix} score must be a valid number`;
+                return false;
+            } else if (scoreNum < minScore) {
+                errorElement.textContent = `${errorMessagePrefix} score must be at least ${minScore}`;
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Function to validate all scores (used on submission)
+    function validateAllScores(ieltsScore, greScore, toeflScore) {
+        let isValid = true;
+
+        // Validate IELTS
+        if (!validateScore("ielts", ieltsScore, 6.5, "IELTS")) {
+            isValid = false;
+        }
+
+        // Validate GRE
+        if (!validateScore("gre", greScore, 280, "GRE")) {
+            isValid = false;
+        }
+
+        // Validate TOEFL
+        if (!validateScore("toefl", toeflScore, 90, "TOEFL")) {
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    // Add real-time validation for each field
+    const ieltsInput = document.getElementById("admit-ielts");
+    const greInput = document.getElementById("admit-gre");
+    const toeflInput = document.getElementById("admit-toefl");
+
+    ieltsInput.addEventListener("input", () => {
+        validateScore("ielts", ieltsInput.value.trim(), 6.5, "IELTS");
+    });
+
+    greInput.addEventListener("input", () => {
+        validateScore("gre", greInput.value.trim(), 280, "GRE");
+    });
+
+    toeflInput.addEventListener("input", () => {
+        validateScore("toefl", toeflInput.value.trim(), 90, "TOEFL");
+    });
+
+    // Optional: Add blur event for validation when the user leaves the field
+    ieltsInput.addEventListener("blur", () => {
+        validateScore("ielts", ieltsInput.value.trim(), 6.5, "IELTS");
+    });
+
+    greInput.addEventListener("blur", () => {
+        validateScore("gre", greInput.value.trim(), 280, "GRE");
+    });
+
+    toeflInput.addEventListener("blur", () => {
+        validateScore("toefl", toeflInput.value.trim(), 90, "TOEFL");
+    });
+
     function updateAcademicsCourseInfo(event) {
         event.preventDefault();
         const personalInfoId = document.getElementById(
-            "personal-info-userid"
+            "personal-info-userid",
         ).value;
         const selectedAcademicGap = document.querySelector(
-            'input[name="academics-gap"]:checked'
+            'input[name="academics-gap"]:checked',
         ).value;
         const reasonForGap = document.querySelector(
-            ".academic-reason textarea"
+            ".academic-reason textarea",
         ).value;
         const selectedAdmitOption = document.querySelector(
-            'input[name="admit-option"]:checked'
+            'input[name="admit-option"]:checked',
         ).value;
         const selectedWorkOption = document.querySelector(
-            'input[name="work-option"]:checked'
+            'input[name="work-option"]:checked',
         ).value;
         const ieltsScore = document.getElementById("admit-ielts").value;
         const greScore = document.getElementById("admit-gre").value;
@@ -507,6 +586,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const universityName =
             document.getElementById("universityschoolid").value;
         const courseName = document.getElementById("educationcourseid").value;
+
+        // Final validation before submission
+        if (!validateAllScores(ieltsScore, greScore, toeflScore)) {
+            return; // Stop submission if validation fails
+        }
+
         const academicDetails = {
             personalInfoId,
             selectedAcademicGap,
@@ -536,7 +621,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     showToast("Details have been saved successfully");
                     navigate("next");
                 } else {
-                    console.error("Failed to update academic info:", data.message);
+                    console.error(
+                        "Failed to update academic info:",
+                        data.message,
+                    );
                 }
             })
             .catch((error) => {
@@ -553,7 +641,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ) {
             if (currentBreadcrumbIndex < breadcrumbSections.length - 1) {
                 breadcrumbSections[currentBreadcrumbIndex].forEach(
-                    (container) => (container.style.display = "none")
+                    (container) => (container.style.display = "none"),
                 );
                 currentBreadcrumbIndex++;
                 currentContainerIndex = 0;
@@ -561,7 +649,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     (container, index) => {
                         container.style.display =
                             index === 0 ? "block" : "none";
-                    }
+                    },
                 );
                 updateBreadcrumbNavigation();
                 updateNavigationButtons();
@@ -576,7 +664,7 @@ document.addEventListener("DOMContentLoaded", () => {
         nextCourseButton.addEventListener("click", () => {
             if (currentBreadcrumbIndex === 1) {
                 breadcrumbSections[currentBreadcrumbIndex].forEach(
-                    (container) => (container.style.display = "none")
+                    (container) => (container.style.display = "none"),
                 );
                 currentBreadcrumbIndex = 2;
                 currentContainerIndex = 0;
@@ -584,7 +672,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     (container, index) => {
                         container.style.display =
                             index === 0 ? "block" : "none";
-                    }
+                    },
                 );
                 updateBreadcrumbNavigation();
                 updateNavigationButtons();
@@ -599,7 +687,7 @@ document.addEventListener("DOMContentLoaded", () => {
         nextAcademicButton.addEventListener("click", () => {
             if (currentBreadcrumbIndex === 2) {
                 breadcrumbSections[currentBreadcrumbIndex].forEach(
-                    (container) => (container.style.display = "none")
+                    (container) => (container.style.display = "none"),
                 );
                 currentBreadcrumbIndex = 3;
                 currentContainerIndex = 0;
@@ -607,7 +695,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     (container, index) => {
                         container.style.display =
                             index === 0 ? "block" : "none";
-                    }
+                    },
                 );
                 updateBreadcrumbNavigation();
                 updateNavigationButtons();
@@ -622,7 +710,7 @@ document.addEventListener("DOMContentLoaded", () => {
         nextBorrowButton.addEventListener("click", () => {
             if (currentBreadcrumbIndex === 3) {
                 breadcrumbSections[currentBreadcrumbIndex].forEach(
-                    (container) => (container.style.display = "none")
+                    (container) => (container.style.display = "none"),
                 );
                 currentBreadcrumbIndex = 4;
                 currentContainerIndex = 0;
@@ -630,7 +718,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     (container, index) => {
                         container.style.display =
                             index === 0 ? "block" : "none";
-                    }
+                    },
                 );
                 updateBreadcrumbNavigation();
                 updateNavigationButtons();
@@ -647,7 +735,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const personalInfoName =
                 document.getElementById("personal-info-name");
             const errorMessage = document.getElementById(
-                "personal-info-name-error"
+                "personal-info-name-error",
             );
             const namePattern = /^[A-Za-z\s]+$/;
             if (!personalInfoName.value.match(namePattern)) {
@@ -663,7 +751,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .addEventListener("input", function () {
             const phone = document.getElementById("personal-info-phone");
             const errorMessage = document.getElementById(
-                "personal-info-phone-error"
+                "personal-info-phone-error",
             );
             const phonePattern = /^[0-9]{10}$/;
             if (!phone.value.match(phonePattern)) {
@@ -680,7 +768,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .addEventListener("input", function () {
             const email = document.getElementById("personal-info-email");
             const errorMessage = document.getElementById(
-                "personal-info-email-error"
+                "personal-info-email-error",
             );
             const emailPattern =
                 /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -723,7 +811,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .getElementById("personal-info-referral")
         .addEventListener("input", function () {
             const referralCode = document.getElementById(
-                "personal-info-referral"
+                "personal-info-referral",
             );
             const errorMessage = document.getElementById("referralCode-error");
             if (!referralCode.value) {
@@ -748,14 +836,14 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             if (index <= currentBreadcrumbIndex) {
                 breadcrumbSections[currentBreadcrumbIndex].forEach(
-                    (container) => (container.style.display = "none")
+                    (container) => (container.style.display = "none"),
                 );
                 currentBreadcrumbIndex = index;
                 currentContainerIndex = 0;
                 breadcrumbSections[currentBreadcrumbIndex].forEach(
                     (container, i) => {
                         container.style.display = i === 0 ? "block" : "none";
-                    }
+                    },
                 );
                 updateBreadcrumbNavigation();
                 updateNavigationButtons();
@@ -825,7 +913,7 @@ document.addEventListener("DOMContentLoaded", () => {
         fileNameId,
         uploadIconId,
         removeIconId,
-        studentId = null
+        studentId = null,
     ) {
         const fileInput = event.target;
         const fileNameElement = document.getElementById(fileNameId);
@@ -834,11 +922,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const file = fileInput.files[0];
         const helpTrigger =
             fileNameElement.parentElement.nextElementSibling.querySelector(
-                ".help-trigger"
+                ".help-trigger",
             );
         const formatInfo =
             fileNameElement.parentElement.nextElementSibling.querySelector(
-                "span:last-child"
+                "span:last-child",
             );
         if (!file) {
             fileNameElement.textContent = "No file chosen";
@@ -908,7 +996,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         if (studentId === null) {
             const userId = document.getElementById(
-                "personal-info-userid"
+                "personal-info-userid",
             ).value;
             await uploadFileToServer(file, userId, fileNameId);
         } else if (studentId !== null) {
@@ -942,7 +1030,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (!response.ok) {
                     return response.json().then((errorData) => {
                         throw new Error(
-                            errorData.error || "Network response was not ok"
+                            errorData.error || "Network response was not ok",
                         );
                     });
                 }
@@ -954,7 +1042,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                     console.error(
                         "Error: No URL returned from the server",
-                        data
+                        data,
                     );
                 }
             })
@@ -968,7 +1056,7 @@ document.addEventListener("DOMContentLoaded", () => {
         fileNameId,
         uploadIconId,
         removeIconId,
-        studentId = null
+        studentId = null,
     ) {
         const fileInput = document.getElementById(fileInputId);
         const fileNameElement = document.getElementById(fileNameId);
@@ -976,11 +1064,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const removeIcon = document.getElementById(removeIconId);
         const helpTrigger =
             fileNameElement.parentElement.nextElementSibling.querySelector(
-                ".help-trigger"
+                ".help-trigger",
             );
         const formatInfo =
             fileNameElement.parentElement.nextElementSibling.querySelector(
-                "span:last-child"
+                "span:last-child",
             );
         fileInput.value = "";
         fileNameElement.textContent = "No file chosen";
@@ -994,7 +1082,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         if (studentId === null) {
             const userId = document.getElementById(
-                "personal-info-userid"
+                "personal-info-userid",
             ).value;
             await deleteFileToServer(userId, fileNameId);
         } else if (studentId !== null) {
@@ -1029,7 +1117,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (!response.ok) {
                     return response.json().then((errorData) => {
                         throw new Error(
-                            errorData.message || "Network response was not ok"
+                            errorData.message || "Network response was not ok",
                         );
                     });
                 }
@@ -1041,7 +1129,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                     console.error(
                         "Error: No data returned from the server",
-                        data
+                        data,
                     );
                 }
             })
@@ -1051,10 +1139,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const borrowBloodRelative = document.querySelector(
-        ".borrow-blood-relative"
+        ".borrow-blood-relative",
     );
     const borrowOptionIcon = borrowBloodRelative.querySelector(
-        ".borrow-option-icon"
+        ".borrow-option-icon",
     );
     const borrowDropdown =
         borrowBloodRelative.querySelector(".borrow-dropdown");
@@ -1064,7 +1152,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function toggleDropdown() {
         borrowBloodRelative.classList.toggle("open");
         borrowDropdown.style.display = borrowBloodRelative.classList.contains(
-            "open"
+            "open",
         )
             ? "flex"
             : "none";
@@ -1143,11 +1231,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 event.stopPropagation();
             });
         });
-       document.addEventListener("click", function (event) {
-           if (!dropdown.contains(event.target)) {
-               dropdown.classList.remove("open");
-           }
-       });
+        document.addEventListener("click", function (event) {
+            if (!dropdown.contains(event.target)) {
+                dropdown.classList.remove("open");
+            }
+        });
     });
 
     function getSelectedCourseDuration() {
@@ -2004,7 +2092,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function handleStateInputChange() {
         const inputValue = stateInput.value.toLowerCase().trim();
         const matchedStates = states.filter((state) =>
-            state.toLowerCase().includes(inputValue)
+            state.toLowerCase().includes(inputValue),
         );
         displaySuggestions(
             matchedStates,
@@ -2016,7 +2104,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 cityInput.value = "";
                 citySuggestionsContainer.innerHTML = "";
                 citySuggestionsContainer.style.display = "none";
-            }
+            },
         );
     }
 
@@ -2030,7 +2118,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const inputValue = cityInput.value.toLowerCase().trim();
         const cities = stateCityMap[selectedState] || [];
         const matchedCities = cities.filter((city) =>
-            city.toLowerCase().includes(inputValue)
+            city.toLowerCase().includes(inputValue),
         );
         displaySuggestions(matchedCities, citySuggestionsContainer, cityInput);
     }
@@ -2039,7 +2127,7 @@ document.addEventListener("DOMContentLoaded", () => {
         suggestions,
         container,
         inputField,
-        onSelectCallback
+        onSelectCallback,
     ) {
         container.innerHTML = "";
         if (suggestions.length > 0) {
@@ -2075,7 +2163,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const othersRadio = document.getElementById("others");
     const otherDegreeInputContainer = document.querySelector(
-        ".other-degree-input-container"
+        ".other-degree-input-container",
     );
     const otherDegreeInput = document.getElementById("other-degree");
     const degreeRadios = document.querySelectorAll('input[name="degree_type"]');
@@ -2127,7 +2215,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .addEventListener("input", function () {
             const incomeInput = document.getElementById("income-co-borrower");
             const errorMessage = document.getElementById(
-                "income-error-message"
+                "income-error-message",
             );
             if (isNaN(incomeInput.value) || incomeInput.value.trim() === "") {
                 errorMessage.style.display = "block";
@@ -2171,7 +2259,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const genderHeader = document.querySelector(".dropdown-gender-header");
     const genderOptions = document.querySelector(".dropdown-options-gender");
     const genderOptionItems = document.querySelectorAll(
-        ".dropdown-option-gender"
+        ".dropdown-option-gender",
     );
     const genderHiddenInput = document.querySelector('input[name="gender"]');
     const genderError = document.querySelector("#gender-error");
