@@ -129,7 +129,15 @@ Route::post('/forgot-passwordmailsentnbfc', [NbfcController::class, 'forgotNbfcC
 Route::post('/forgot-passwordmailsentsc', [scDashboardController::class, 'forgotScCredential']);
 
 //education route for student-dashboard
-Route::get('/education',[StudentDetailsController::class,'getEducationDetails']);
+Route::get('/education', [StudentDetailsController::class, 'getEducationDetails']);
 Route::get('/getrecipients', action: [Admincontroller::class, 'fetchRecipients']);
 Route::get('/admins', [Admincontroller::class, 'getAdmins']);
 Route::post('/admins', [Admincontroller::class, 'createAdmin']);
+Route::get('/student-forms', [AdminController::class, 'showStudentForm']);
+Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser']);
+Route::get('/getInfoForAdminSocial', [Admincontroller::class, 'showStudentFormAdmin']);
+Route::delete('/deleteInfoForAdminSocial/{id}', [AdminController::class, 'deleteInfoForAdminSocial']);
+Route::post('/storesocialoption', [AdminController::class, 'storeSocialOption']);
+
+Route::get('/getplantocountries', [AdminController::class, 'showStudentPlanForCountriesAdmin']);
+

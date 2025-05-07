@@ -31,7 +31,7 @@
             $courseDetailsJson = json_encode($courseDetails);
             $nbfcdata = [];
 
-        @endphp
+      @endphp
                     <div class="studentdashboardprofile-togglesidebar">
                         <ul class="studentdashboardprofile-sidebarlists-top">
                             <li class="active"> <i class="fa-solid fa-square-poll-vertical"></i> Dashboard</li>

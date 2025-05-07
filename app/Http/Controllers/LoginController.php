@@ -25,7 +25,7 @@ class LoginController extends Controller
 
         $isEmail = filter_var($loginName, FILTER_VALIDATE_EMAIL) !== false;
 
-         $scuser = $isEmail
+        $scuser = $isEmail
             ? Scuser::where('email', $loginName)->first()
             : Scuser::where('referral_code', $loginName)->first();
 
@@ -37,7 +37,7 @@ class LoginController extends Controller
             ? Nbfc::where('nbfc_email', $loginName)->first()
             : Nbfc::where('nbfc_id', $loginName)->first();
 
-         if ($scuser && Hash::check($loginPassword, $scuser->passwordField)) {
+        if ($scuser && Hash::check($loginPassword, $scuser->passwordField)) {
             session(['scuser' => $scuser]);
             session()->put('scDetail', $scuser);
             session()->put('expires_at', now()->addSeconds(10000));
@@ -79,12 +79,16 @@ class LoginController extends Controller
         $adminEmail = env('SUPERADMIN_EMAIL');
         $adminPassword = env('SUPERADMIN_PASSWORD');
         $adminId = env('SUPERADMIN_ID');
+        $adminuser = [
+            $adminEmail,
+            $adminId
+        ];
+         if ($loginName === $adminEmail && Hash::check($loginPassword, $adminPassword)) {
+            session(['superadmin' => $adminuser]);
 
-        if ($loginName === $adminEmail && Hash::check($loginPassword, $adminPassword)) {
-            session([
-                'admin_user_id' => $adminId,
-                'admin_role' => 'superadmin',   
-            ]);
+
+
+
             session()->put('expires_at', now()->addSeconds(20000));
 
             return response()->json([
@@ -94,7 +98,7 @@ class LoginController extends Controller
             ]);
         }
 
-        
+
         return response()->json(['success' => false, 'message' => 'Invalid email/ID or password.']);
     }
 

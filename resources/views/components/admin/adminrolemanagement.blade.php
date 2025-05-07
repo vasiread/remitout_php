@@ -44,10 +44,8 @@
             const sessionData = @json(session()->all());
             console.log('Full Session Data:', sessionData);
         });
-        const adminId = @json(session('admin_user_id'));
-        const adminRole = @json(session('admin_role'));
-        console.log('Super Admin ID:', adminId);
-        console.log('Super Admin Role:', adminRole);
+        
+        
         function getCsrfToken() {
             return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         }

@@ -92,9 +92,8 @@
     @endif
 
 
-    <!-- Add this script to fix mobile navigation issues -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
+     <script>
+        document.addEventListener('DOMContentLoaded', function () {
             const mobileMenuBtn = document.getElementById('menu-icon');
             if (mobileMenuBtn) {
                 const mobileNav = document.getElementById('mobile-nav-links') || document.querySelector('.header-links');

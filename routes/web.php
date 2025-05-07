@@ -52,6 +52,7 @@ Route::get('/nbfc-dashboard', function () {
     return view('pages.nbfcdashboard');
 })->name('nbfcdashboard');
 
+
 Route::get('/admin-page', function () {
     $sidebarItems = (new SidebarHandlingController)->admindashboardItems();
     $userDetails = (new StudentDashboardController)->getAllUsersFromAdmin();
@@ -60,8 +61,11 @@ Route::get('/admin-page', function () {
         'sidebarItems' => $sidebarItems,
         'userDetails' => $userDetails,
     ]);
-})->middleware('admin') // Apply middleware here, not to the view
-    ->name('admin-page');
+})->middleware('admin')->name('admin-page');
+
+
+
+
 Route::get('/getnbfcdatapackage', [TrackController::class, 'getnbfcdataPackage']);
 Route::post('/send-message', action: [ChatController::class, 'sendMessage']);
 
@@ -76,24 +80,18 @@ Route::get('/sc-dashboard', function () {
 
 
 Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser'])->name('student-dashboard');
-Route::get('/student-forms', function () {
-    return view('pages.studentformquestionair');
-})->name('student-forms');
 
 
-// Miscellaneous Routes
+
+
 Route::get('pages/student-dashboard', [TrackController::class, 'loanTracker']);
 
-// Google Authentication Routes
-// Route::get('auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google-auth');
 
-// Form Submission Routes
 Route::post('/registerformdata', [RegisterController::class, 'store'])->name('registerformdata');
 Route::post('/emailuniquecheck', [RegisterController::class, 'emailUniqueCheck'])->name('emailUniqueCheck');
 Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
-// Route::post('/session-logout', [LoginController::class, 'sessionLogout'])->name('session.logout');
 
-// Update Routes for Student Details
+
 Route::post('/update-personalinfo', [StudentDetailsController::class, 'updatePersonalInfo']);
 Route::post('/update-courseinfo', [StudentDetailsController::class, 'updateCourseInfo']);
 Route::post('/update-academicsinfo', [StudentDetailsController::class, 'updateAcademicsInfo']);
@@ -101,7 +99,7 @@ Route::post('/updatedetailsinfo', [StudentDetailsController::class, 'updateUserI
 Route::post("/coborrowerData", [StudentDetailsController::class, 'updateCoborrowerInfo']);
 Route::post('/getUserFromNbfc', [StudentDashboardController::class, 'getUserFromNbfc'])->name('getUserFromNbfc');
 
-// Document Upload and Handling Routes
+
 Route::post('/remove-each-documents', [StudentDashboardController::class, 'removeFromServer']);
 Route::post('/upload-each-documents', [StudentDashboardController::class, 'uploadMultipleDocuments']);
 Route::post('/count-documents', [StudentDashboardController::class, 'countFilesInBucket']);
@@ -116,23 +114,20 @@ Route::post('/update-user-id-request', [StudentDashboardController::class, 'upda
 Route::get("/getallscuser", [scDashboardController::class, 'getScAllUsers']);
 Route::post('/getuserbyref', [scDashboardController::class, 'getUsersByCounsellorApi']);
 
-// OTP Routes
+
 Route::post('/send-mobotp', [OTPMobController::class, 'sendOTP']);
 Route::post('/verify-mobotp', [OTPMobController::class, 'verifyOTP']);
 
-// Admin Sidebar Handling Routes
 
-// Profile and Picture Routes
+
 Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFromProfile']);
 Route::post('/upload-profile-picture', [StudentDashboardController::class, 'uploadProfilePicture']);
 Route::post('/retrieve-profile-picture', [StudentDashboardController::class, 'retrieveProfilePicture']);
 Route::post('/passwordchange', [GoogleAuthController::class, 'passwordChange']);
 Route::post('/students/import', [scDashboardController::class, 'import_excel_post'])->name('students.import');
 Route::get('/get-messages/{nbfc_id}/{student_id}', [ChatController::class, 'getMessages']);
-// Google Auth Routes
-// Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
 
-// Miscellaneous API-like Routes
+
 Route::post('/retrieve-file', [StudentDashboardController::class, 'retrieveFile']);
 Route::get("/getalluserdetailsfromadmin", [StudentDashboardController::class, 'getAllUsersFromAdmin']);
 Route::get('/export-excel', [ExportController::class, 'export'])->name('export.excel');
@@ -158,13 +153,7 @@ Route::post("/addbulkusers", [NbfcController::class, 'addBulkNbfc']);
 Route::post("/send-proposals-with-file", [NbfcController::class, 'sendProposalsWithFiles']);
 Route::post('/logout', [LoginController::class, 'sessionLogout'])->name('logout');
 
-// New API route for Google login
-// Route::post('/api/google/login', [GoogleAuthController::class, 'googleLogin'])->name('api.google.login');
 
-// Google callback URL
-// Route::get('login/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('google-auth');
-
-//Google signup Routes
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('/auth/google/call-back', [GoogleAuthController::class, 'handleGoogleCallback']);
 
@@ -183,7 +172,6 @@ Route::post('/multipleregisterbyscuser', [StudentDashboardController::class, 'mu
 Route::get('/retrievedashboarddetails', [Admincontroller::class, 'retrieveDashboardDetails']);
 Route::post('/getprofilecompletionbygender', [Admincontroller::class, 'getProfileCompletionByGenderAndDegree']);
 
-// Admin Routes
 Route::get('/getstatusofusers', [Admincontroller::class, 'pointOfEntries']);
 Route::get('/nbfc-lead-gens', [Admincontroller::class, 'nbfcLeadGens']);
 Route::get('/sc-lead-gens', [Admincontroller::class, 'scLeadGens']);
@@ -216,14 +204,10 @@ Route::post('/send-message-from-adminnbfc', [ChatController::class, 'sendMessage
 Route::post('/send-message-from-adminstudent', action: [ChatController::class, 'sendMessageFromAdminStudent']);
 Route::get('/getrecipients', [Admincontroller::class, 'fetchRecipients']);
 
-// Route::get('/admin-page', function () {
-//     return view('pages.admin-page');
-// })->middleware('admin')->name('admin-page');
 
 Route::post('/age-ratio', [Admincontroller::class, 'ageratioCalculation'])->name("admin.ageratio.calculation");
 Route::post('/sourceregister', [Admincontroller::class, 'sourceRegistration']);
 Route::post('/getproposalfileurl', [NbfcController::class, 'getProposalFileUrl']);
-//education route for student-dashboard
 Route::get('/education', [StudentDetailsController::class, 'getEducationDetails']);
 Route::post('/getprofilecompletionpercentage', [StudentDashboardController::class, 'profileCompletionByUser']);
 Route::post('/loanstatuscount', [StudentDashboardController::class, 'loanStatusCount']);
@@ -232,3 +216,8 @@ Route::post('/forgot-passwordmailsentnbfc', [NbfcController::class, 'forgotNbfcC
 Route::post('/forgot-passwordmailsentsc', [scDashboardController::class, 'forgotScCredential']);
 Route::get('/admins', [Admincontroller::class, 'getAdmins']);
 Route::post('/admins', [Admincontroller::class, 'createAdmin']);
+Route::get('/student-forms', [AdminController::class, 'showStudentForm'])->name('student-forms');
+Route::get('/getInfoForAdminSocial', [Admincontroller::class, 'showStudentFormAdmin']);
+Route::delete('/deleteInfoForAdminSocial/{id}', [AdminController::class, 'deleteInfoForAdminSocial']);
+Route::post('/storesocialoption', [AdminController::class, 'storeSocialOption']);
+Route::get('/getplantocountries', [AdminController::class, 'showStudentPlanForCountriesAdmin']);
