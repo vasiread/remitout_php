@@ -3160,6 +3160,14 @@ p {
     color: #838383;
 }
 
+.validation-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 2px;
+    min-height: 8px; /* Reserve space for error messages */
+    margin-left: 82px;
+}
+
 .next-btn-academic {
     padding: 10px 20px;
     width: 120px;
@@ -4966,6 +4974,7 @@ div.salary-sub p {
 }
 
 .dropdown-gender-header {
+    width: 270px;
     max-width: 100%;
     display: flex;
     justify-content: space-between;

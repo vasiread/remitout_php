@@ -479,6 +479,7 @@
               <span class="admit-input-right">*minimum score 6.5</span>
             </div>
           </div>
+          <div class="validation-message" id="ielts-error"></div>
 
           <div class="admit-exam-field">
             <label for="admit-gre">GRE</label>
@@ -487,6 +488,7 @@
               <span class="admit-input-right">*minimum score 280</span>
             </div>
           </div>
+          <div class="validation-message" id="gre-error"></div>
 
           <div class="admit-exam-field">
             <label for="admit-toefl">TOEFL</label>
@@ -495,6 +497,7 @@
               <span class="admit-input-right">*minimum score 90</span>
             </div>
           </div>
+          <div class="validation-message" id="toefl-error"></div>
 
           <div class="admit-exam-field">
             <label for="admit-others-name">Others</label>
