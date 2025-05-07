@@ -202,6 +202,7 @@ $studentDocumentDetailsInfo = [
 
 
             @endphp
+            <div class="backdrop"></div>
             <div class="scdashboard-parentcontainer">
                 <div class="commonsidebar-togglesidebar">
                     <ul class="commonsidebar-sidebarlists-top">
@@ -516,6 +517,7 @@ $totalPages = ceil($totalStudents / $perPage);
                     </div>
                 </form>
             </div>
+            
 
             <div class="referral-triggered-view" style="display:none">
                 <div class="referral-triggered-view-headersection">

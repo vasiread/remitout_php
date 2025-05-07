@@ -619,51 +619,46 @@
         </div>
       </div>
 
-      <!-- Footer Navigation Section -->
-      <div class="footer-nav-section">
-        <!-- Company Info -->
-        <div class="company-info">
-
-          <div class="footer-logo">
-            <img src="assets/images/footer-logo.png" alt="Remitout" class="logo-img">
-          </div>
-          <div class="company-info-container">
-            <div class="address-container">
-              <img src="assets/images/addres-icon.png " alt="Address" class="icon">
-              <div class="address-info">
-                B/415DAMJI SHAMJI CORPORATE<br>
-                SQUARE BEHIND EVEREST GARDEN GM<br>
-                LINK RD GTK, Mumbai, Maharashtra,<br>
-                India, 400075
-              </div>
-            </div>
-            <div class="phone-container">
-              <img src="assets/images/phone-icon.png" alt="Phone" class="icon">
-              <span style="color: rgba(233, 232, 234, 0.8);">+91 75784 75788</span>
-            </div>
-            <p>Reach us through other platforms!</p>
-            <div class="social-links">
-              <a href="#" class="social-link">
-                <img src="assets/images/Twitter.png" alt="Twitter" class="social-icon"
-                  style="width: 15px; height: 13px;">
-                <span
-                  style="font-family: 'Poppins', sans-serif; font-weight: normal; font-size: 11px;">Twitter</span>
-              </a>
-              <a href="#" class="social-link">
-                <img src="assets/images/Instagram.png" alt="Instagram" class="social-icon"
-                  style="width: 15px; height: 13px;">
-                <span
-                  style="font-family: 'Poppins', sans-serif; font-weight: normal; font-size: 11px;">Instagram</span>
-              </a>
-              <a href="#" class="social-link">
-                <img src="assets/images/Facebook.png" alt="Facebook" class="social-icon"
-                  style="width: 15px; height: 13px;">
-                <span
-                  style="font-family: 'Poppins', sans-serif; font-weight: normal; font-size: 11px;">Facebook</span>
-              </a>
-            </div>
-          </div>
-        </div>
+            <!-- Footer Navigation Section -->
+            <div class="footer-nav-section">
+                <!-- Company Info -->
+                <div class="company-info">
+              
+                    <div class="footer-logo">
+                        <img src="assets/images/footer-logo.png" alt="Remitout" class="logo-img">
+                    </div>
+                <div class="company-info-container">
+                    <div class="address-container">
+                        <img src="assets/images/addres-icon.png " alt="Address" class="icon">
+                        <div class="address-info">
+                            B/415DAMJI SHAMJI CORPORATE<br>
+                            SQUARE BEHIND EVEREST GARDEN GM<br>
+                            LINK RD GTK, Mumbai, Maharashtra,<br>
+                            India, 400075
+                        </div>
+                    </div>
+                    <div class="phone-container">
+                        <img src="assets/images/phone-icon.png" alt="Phone" class="icon">
+                        <span style="color: rgba(233, 232, 234, 0.8);">+91 75784 75788</span>
+                    </div>
+                    <p>Reach us through other platforms!</p>
+                   <div class="social-links">
+                      <a href="https://x.com/RemitoutL" class="social-link">
+                          <img src="assets/images/Twitter.png" alt="Twitter" class="social-icon" style="width: 15px; height: 13px;">
+                          <span style="font-family: 'Poppins', sans-serif; font-weight: normal; font-size: 11px;">Twitter</span>
+                      </a>
+                      <a href="https://www.instagram.com/remitout_india/" class="social-link">
+                          <img src="assets/images/Instagram.png" alt="Instagram" class="social-icon" style="width: 15px; height: 13px;">
+                          <span style="font-family: 'Poppins', sans-serif; font-weight: normal; font-size: 11px;">Instagram</span>
+                      </a>
+                      <a href="https://www.facebook.com/RemitoutIN/" class="social-link">
+                          <img src="assets/images/Facebook.png" alt="Facebook" class="social-icon" style="width: 15px; height: 13px;">
+                          <span style="font-family: 'Poppins', sans-serif; font-weight: normal; font-size: 11px;">Facebook</span>
+                      </a>
+                    
+                  </div>
+                 </div>
+                </div>
 
         <!-- Navigation Links -->
         <div class="footer-links">

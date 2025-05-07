@@ -72,6 +72,7 @@
     @elseif(Route::currentRouteName() === 'signup')
     @yield('signupcontent')
     @elseif(Route::currentRouteName() === 'terms')
+        @yield('termscontent')    
     @yield('termscontent')
     @elseif(Route::currentRouteName() === 'student-dashboard')
     @yield('studentdashboard')

@@ -1143,12 +1143,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 event.stopPropagation();
             });
         });
-        document.addEventListener("click", function (event) {
-            if智能选购
-            if (!dropdown.contains(event.target)) {
-                dropdown.classList.remove("open");
-            }
-        });
+       document.addEventListener("click", function (event) {
+           if (!dropdown.contains(event.target)) {
+               dropdown.classList.remove("open");
+           }
+       });
     });
 
     function getSelectedCourseDuration() {

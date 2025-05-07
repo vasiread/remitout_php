@@ -765,3 +765,194 @@ body {
 .admin-sort-dropdown.active {
     display: block;
 }
+@media screen and (max-width: 768px) {
+    #index-section-id .index-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 380px;
+        margin: 0 auto;
+        padding: 10px;
+        background-color: white;
+        font-family: "Poppins", sans-serif;
+        box-sizing: border-box;
+    }
+
+    .admin-index-section-main-container {
+        width: 100%;
+        max-width: 380px;
+        margin: 0 auto;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .admin-index-main-container {
+        display: none;
+    }
+
+    .mobile-inbox-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 10px;
+        background: white;
+        border-radius: 8px;
+        width: 100%;
+        max-width: 380px;
+        margin: 0 auto;
+    }
+
+    .mobile-inbox-item {
+        font-weight: 600;
+        font-size: 14px;
+        color: #333;
+        cursor: pointer;
+        padding: 8px;
+    }
+
+    .mobile-inbox-item.active {
+        color: #6f25ce;
+        border-bottom: 2px solid #6f25ce;
+    }
+
+    .admin-index-main-sub-container {
+        display: flex;
+        flex-direction: column;
+        background: white;
+        margin: 0;
+        padding-top: 20px;
+        width: 100%;
+        max-width: 380px;
+        box-sizing: border-box;
+    }
+
+    #index-container-id {
+        width: 100%;
+        max-width: 380px;
+        margin: 0 auto;
+        margin-top: 0;
+    }
+
+    #admin-nbfc-inbox-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 380px;
+        margin: 0 auto;
+        padding: 10px;
+        background: white;
+        border-radius: 8px;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+    }
+
+    #admin-nbfc-inbox-container.active {
+        display: flex !important;
+    }
+
+    .admin-nbfc-inbox-container .admin-index-section {
+        width: 100%;
+        padding: 15px;
+        margin: 0;
+        border-radius: 8px;
+        box-sizing: border-box;
+    }
+
+    .admin-nbfc-inbox-container .admin-index-item {
+        width: 100%;
+        min-width: unset;
+        height: 56px;
+        font-size: 14px !important;
+        padding: 10px 15px;
+    }
+
+    .admin-nbfc-inbox-container .admin-index-heading-index h1 {
+        font-size: 24px;
+        margin: 0 15px;
+        text-align: center;
+    }
+
+    .admin-nbfc-inbox-container .inbox-controls {
+        flex-direction: column;
+        gap: 10px;
+        margin: 10px 0;
+        width: 100%;
+    }
+
+    .admin-nbfc-inbox-container .index-search-container {
+        width: 100%;
+    }
+
+    .admin-nbfc-inbox-container .index-search-input {
+        height: 36px;
+        font-size: 13px;
+    }
+
+    .admin-nbfc-inbox-container .admin-inbox-filters,
+    .admin-nbfc-inbox-container #admin-nbfc-sort {
+        width: 100%;
+        height: 36px;
+        font-size: 13px;
+    }
+
+    .admin-nbfc-inbox-container .admin-sort-dropdown,
+    .admin-nbfc-inbox-container .sort-dropdown-nbfc {
+        width: 100%;
+    }
+
+    .admin-nbfc-inbox-container .admin-inbox-btn-view,
+    .admin-nbfc-inbox-container .admin-inbox-btn-close {
+        width: 100%;
+        height: 36px;
+        font-size: 13px;
+    }
+
+    .admin-nbfc-inbox-container .individual-bankmessages {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .admin-nbfc-inbox-container .individual-bankmessages p {
+        max-width: 100%;
+        font-size: 13px;
+    }
+
+    .admin-nbfc-inbox-container .triggeredbutton {
+        width: 100%;
+        height: 32px;
+        font-size: 13px;
+        padding: 6px 12px;
+    }
+
+    .admin-nbfc-inbox-container .messages-wrapper {
+        max-height: 250px;
+        font-size: 13px;
+        width: 100%;
+    }
+
+    .admin-nbfc-inbox-container .individual-bankmessage-input {
+        margin: 15px 0;
+        height: 32px;
+        width: 100%;
+    }
+
+    .admin-nbfc-inbox-container .individual-bankmessage-input input {
+        width: 100%;
+        padding: 10px 30px 10px 12px;
+        font-size: 13px;
+        box-sizing: border-box;
+    }
+
+    .admin-nbfc-inbox-container .individual-bankmessage-input .send-img {
+        right: 10px;
+        width: 20px;
+        height: 20px;
+    }
+}

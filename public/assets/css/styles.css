@@ -24,7 +24,6 @@ html, body {
    z-index: 5;
  }
 
-
  .study-loans-graphview {
    max-width: 79.58%;
    width: 100%;
@@ -42,392 +41,7 @@ html, body {
    display: flex;
    flex-direction: column;
    align-items: flex-end;
-
- }
-
- .study-loans-graphfirstbox p,
- .global-content-graph {
-   font-family: 'Poppins', sans-serif;
-
-   font-weight: 400;
-   font-size: 17px;
-   line-height: 140%;
-   letter-spacing: 0%;
-   text-align: right;
-   width: 100%;
-   color: rgba(150, 143, 158, 0.8)
- }
-
- .study-loans-graphfirstbox h3,
- .global-header-graph {
-   font-family: "aileron", sans-serif;
-   font-weight: 800;
-   font-size: 18px;
-   line-height: 110.00000000000001%;
-   letter-spacing: 0%;
-   text-align: right;
-   color: rgba(85, 67, 107, 1);
-   width: 60%;
-   margin-bottom: 10px;
-
- }
-
- .study-loans-numbertwosection {
-   position: absolute;
-   left: 25.08%;
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-   top: 0;
-   max-width: 7.06%;
-   width: 100%;
- }
-
- #firstverticalline {
-   position: absolute;
-   left: 25.15%;
-   top: 0;
-
- }
-
- #handshake-id {
-   width: 100%;
-   height: 58px;
-
-
- }
-
- #first-diagonal {
-   max-width: 15.7%;
-   width: 100%;
-   height: 85px;
-   position: absolute;
-   left: 25.08%;
-   top: 10%;
- }
-
- #first-diagonal-header,
- .global-diagonal-content {
-   font-family: aileron;
-   font-weight: 500;
-   font-size: 17px;
-   line-height: 110.01%;
-   text-align: center;
-   color: rgba(255, 255, 255, 1);
- }
-
- #first-diagonal-header {
-   position: absolute;
-   left: 30.08%;
-   top: 15%;
-
-
- }
-
-
- .study-loans-numbertwosection #numbertwo {
-   width: 48.96%;
-
- }
-
- #numberone {
-   width: 17.51%;
-   height: 23px;
- }
-
- .study-loans-graphsecondbox {
-   position: absolute;
-   bottom: 8%;
-   display: flex;
-   flex-direction: column;
-   max-width: 21.05%;
-   width: 100%;
-   gap: 0.5rem;
-
-
- }
-
- #second-diagonal {
-   top: 43%;
-   position: absolute;
-   left: 17.5%;
-   height: 85px;
-   max-width: 15.7%;
-   width: 100%;
-   z-index: 1;
- }
-
- #graph-group-img {
-   top: 54%;
-   position: absolute;
-   left: 25.5%;
-   width: 7%;
-   height: 94px;
- }
-
- #vertical-shortfirst {
-   top: 17%;
-   position: absolute;
-   left: 40.4%;
-
- }
-
- #third-diagonal {
-   position: absolute;
-   left: 32.84%;
-   height: 85px;
-   max-width: 15.7%;
-   width: 100%;
-   top: 29.5%;
- }
-
- #third-diagonal-content {
-   top: 34%;
-   position: absolute;
-   left: 37.5%;
- }
-
- #vertical-line-second {
-   top: 45%;
-   position: absolute;
-   left: 40.5%;
- }
-
- #vertical-shortsecond {
-   position: absolute;
-   left: 32.7%;
-   top: 27%;
- }
-
- #first-additional-vector {
-   position: absolute;
-   left: 17.5%;
-   top: 46%;
-   max-width: 15.7%;
-   z-index: 0;
- }
-
- #second-diagonal-content {
-   position: absolute;
-   left: 21%;
-   top: 47%;
-   z-index: 2;
- }
-
- .study-loans-graphthirdbox {
-   max-width: 22.22%;
-   width: 100%;
-   position: absolute;
-   left: 43%;
-   top: 66%;
-   display: flex;
-   flex-direction: column;
-   
-
- }
-
- #sixth-diagonal {
-   position: absolute;
-   left: 54.71%;
-   height: 90px;
-   max-width: 15.7%;
-   width: 100%;
-   bottom: 42.51%;
- }
-
- #sixth-diagonal-content {
-   left: 57.5%;
-   top: 44.5%;
-   width: 97px;
-   font-size: 1rem;
-   position: absolute;
- }
-
- #verticallinethird {
-   position: absolute;
-   z-index: 0;
-   bottom: 50%;
-   left: 54.8%;
-   height: 52%;
-
- }
-
- #fourth-diagonal,
- #second-additional-vector {
-   position: absolute;
-   left: 47.12%;
-   height: 85px;
-   top: 17%;
-   max-width: 15.7%;
-   width: 100%;
-   z-index: 1;
- }
-
- #fourth-diagonal {
-   top: 19%;
- }
-
- #second-additional-vector {
-   top: 23%;
-   z-index: 0;
- }
-
- #fifth-diagonal-content {
-   z-index: 2;
-   position: absolute;
-   left: 50%;
-   top: 24%;
-   width: 10%;
- }
-
- #numberfour {
-   position: absolute;
-   top: 0;
-   left: 50.79%;
-
- }
-
- .study-loans-graphfourthbox {
-   max-width: 25.82%;
-   width: 100%;
-   position: absolute;
-   left: 56.71%;
-   top: 0;
- }
-
- #handpointer-img {
-   height: 13%;
-   position: absolute;
-   left: 50.54%;
-   top: 11%;
-
- }
-
- #fifth-diagonal {
-   position: absolute;
-   right: 14.74%;
-   height: 85px;
-   max-width: 15.7%;
-   width: 100%;
-   top: 28%;
-   z-index: 1;
-
- }
-
- #verticallinefourth {
-   top: 37%;
-   left: 70%;
-   height: 65%;
-   position: absolute
- }
-
- #numbersix {
-   position: absolute;
-   right: 31.15%;
-   bottom: 21.42%;
-
- }
-
- #numberfive {
-   position: absolute;
-   right: 0;
-   top: 30%;
- }
-
- #horizontalsecond {
-   top: 36%;
-   position: absolute;
-   right: 0;
- }
-
- .study-loans-graphfifthbox {
-   position: absolute;
-   max-width: 23.82%;
-   width: 100%;
-   display: flex;
-   flex-direction: column;
-   right: 0;
-   top: 40%;
- }
-
- .study-loans-graphsixthbox {
-   position: absolute;
-   width: 23.03%;
-   bottom: 0;
-   right: 5%;
- }
-
- #numberthree {
-   left: 35%;
-   position: absolute;
-   width: 4.51%;
-   height: 23px;
-   top: 67%;
- }
-
- #fourth-diagonal-content {
-   top: 34%;
-   position: absolute;
-   width: 82px;
-   right: 18.5%;
-   z-index: 2;
- }
-
- #clock-hand {
-   z-index: 0;
-   position: absolute;
-   right: 13%;
-   bottom: 65%;
- }
-/* Banner Section */
-.banner-section {
-    position: relative;
-    width: 100%;
-    height: auto;
-    background-size: cover;
-    background-position: center top;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-    z-index: 5;
-}
- /* Banner Section */
- .banner-section {
-   position: relative;
-   width: 100%;
-   height: auto;
-   background-image: url('../../assets/images/Banner_Remitout 1.png');
-   background-size: cover;
-   background-position: center top;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   margin: 0;
-   padding: 0;
-   z-index: 5;
- }
-
-
- .study-loans-graphview {
-   max-width: 79.58%;
-   width: 100%;
-   min-height: 498px;
-   position: relative;
-   margin-top: 90px;
-   margin-left: 9.37%;
-
-
- }
-
- .study-loans-graphfirstbox {
-   max-width: 22.77%;
-   width: 100%;
-   display: flex;
-   flex-direction: column;
-   align-items: flex-end;
+   gap:11px;
 
  }
 
@@ -679,6 +293,7 @@ html, body {
    position: absolute;
    left: 56.71%;
    top: 0;
+   gap:11px;
  }
 
  #handpointer-img {
@@ -734,6 +349,7 @@ html, body {
    flex-direction: column;
    right: 0;
    top: 40%;
+   gap:11px;
  }
 
  .study-loans-graphsixthbox {
@@ -741,6 +357,7 @@ html, body {
    width: 23.03%;
    bottom: 0;
    right: 5%;
+   gap:11px;
  }
 
  #numberthree {
@@ -3851,74 +3468,22 @@ html, body {
         display: none;
     }
 
-  .search-container {
-        display: flex;
-        flex-direction: row;
-        gap: 12px;
-        margin-bottom: 24px;
-        width: 100%;
-        max-width: 100%;
-    }
+   .search-container {
 
-    .search-box {
-        width: 100%;
-    }
+     gap: 12px;
+     margin-bottom: 24px;
+   }
 
-    .search-input {
-        width: 100%;
-        padding: 12px;
-        font-size: 14px;
-        border: 2px solid #6F25CE;
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.9);
-        font-family: 'Poppins', sans-serif;
-    }
+   .search-input {
+     padding: 12px;
+     font-size: 14px;
+   }
 
-    .sort-button {
-        width: 100%;
-        padding: 12px 16px;
-        font-size: 14px;
-        border: 2px solid #6F25CE;
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.9);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-family: 'Poppins', sans-serif;
-    }
-
-    .sort-button svg {
-        width: 14px;
-        height: 14px;
-    }
-
-    .sort-dropdown {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        max-width: 100%;
-        background: white;
-        border: 1px solid #e0e0e0;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        z-index: 10;
-    }
-
-    .sort-option {
-        padding: 12px 16px;
-        font-size: 14px;
-        color: #666;
-        border-bottom: 1px solid #f0f0f0;
-    }
-
-    .sort-option:last-child {
-        border-bottom: none;
-    }
-
-    .sort-option:hover {
-        background: #f5f5f5;
-    }
+   .sort-button {
+     width: 100%;
+     padding: 12px 16px;
+     justify-content: space-between;
+   }
 
    .faq-container {
      width: 100%;
