@@ -61,11 +61,12 @@
                   <div class="rightpanel-signupbuttoncontainer">
                         <div class="rightpanel-checkboxcontainer">
                             <input type="checkbox" name="confirmpolicy" id="confirmpolicy" style="margin:0;padding:0px" required>
-                            <p>
-                                <a href="{{ route('terms') }}" target="_blank">
-                                    I agree to the terms & policy
+                            <p style="text-decoration: none;">
+                                I agree to the 
+                                <a href="{{ route('terms') }}" target="_blank" style="text-decoration: underline; color: inherit;">
+                                    terms & policy
                                 </a>
-                            </p>
+                                </p>
                         </div>
                         <button type="submit">Sign up</button>
                     </div>

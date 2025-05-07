@@ -30,7 +30,7 @@
                             <div class="custom-dropdown-item" data-value="email-old">Oldest</div>
                         </div>
                     </div>
-                    <button class="role-management-btn role-management-btn-add">+</button>
+                    <button class="role-management-btn role-management-btn-add">Add</button>
                 </div>
             </div>
             <div class="role-management-list" id="roleManagementList">
