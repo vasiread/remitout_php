@@ -47,10 +47,11 @@
                         <div class="logincontainer-signupbuttoncontainer">
                             <div class="logincontainer-checkboxcontainer">
                                <input type="checkbox" id="confirmpolicy" style="margin:0;padding:0" required>
-                                <p>
-                                    <a href="{{ route('terms') }}" target="_blank" style="text-decoration: none; color: inherit;">
-                                        I agree to the terms & policy
-                                    </a>
+                               <p style="text-decoration: none;">
+                                I agree to the 
+                                <a href="{{ route('terms') }}" target="_blank" style="text-decoration: underline; color: inherit;">
+                                    terms & policy
+                                </a>
                                 </p>
                             </div>
                             <button type="submit">Sign In</button>
