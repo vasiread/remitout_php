@@ -426,7 +426,7 @@ input[type="file"] {
 
 .studentdashboardprofile-firstrowtrackprogress {
     /* max-width: 722px; */
-
+    
     max-width: 100%;
 
     height: fit-content;
@@ -1009,7 +1009,9 @@ input[type="file"] {
     margin-right: 10px;
     vertical-align: middle;
     cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s;
+    transition:
+        background-color 0.3s,
+        border-color 0.3s;
 }
 
 .custom-radio .radio-button::after {
