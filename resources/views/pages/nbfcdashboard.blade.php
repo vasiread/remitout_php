@@ -34,14 +34,14 @@
 
 
     @php
-$profileImgPath = 'images/admin-student-profile.png';
-$uploadPanName = '';
-$profileIconPath = "assets/images/account_circle.png";
-$phoneIconPath = "assets/images/call.png";
-$mailIconPath = "assets/images/mail.png";
-$pindropIconPath = "assets/images/pin_drop.png";
-$discordIconPath = "assets/images/icons/discordicon.png";
-$viewIconPath = "assets/images/visibility.png";
+        $profileImgPath = 'images/admin-student-profile.png';
+        $uploadPanName = '';
+        $profileIconPath = "assets/images/account_circle.png";
+        $phoneIconPath = "assets/images/call.png";
+        $mailIconPath = "assets/images/mail.png";
+        $pindropIconPath = "assets/images/pin_drop.png";
+        $discordIconPath = "assets/images/icons/discordicon.png";
+        $viewIconPath = "assets/images/visibility.png";
     @endphp
 
     <nav class="nbfc-navbar">
@@ -50,7 +50,11 @@ $viewIconPath = "assets/images/visibility.png";
         </div>
 
         <div class="nbfc-nav-right">
-           
+            <div class="nbfc-search-container" id="nbfc-search-container-id-index">
+                <img src="assets/images/search.png" alt="Search" class="nbfc-search-icon">
+                <input type="text" class="nbfc-search-input" id="nbfc-search-input-id" placeholder="Search">
+            </div>
+
             <button class="nbfc-dark-mode">
                 <img src="/assets/images/notifications_unread.png" alt="the notification icon"
                     class="notification-icon">
@@ -278,7 +282,7 @@ $viewIconPath = "assets/images/visibility.png";
                 </div>
                 <div class="testscoreseditsection-secondrow">
                     @php
-$counter = 1; 
+                        $counter = 1; 
                     @endphp
 
 
@@ -1259,10 +1263,10 @@ $counter = 1;
 
                 const sessionLogout = document.querySelectorAll(".nbfclogoutBtn");
                 sessionLogout.forEach(button => {
-        button.addEventListener('click', () => {
-            sessionLogoutInitial();
-        });
-    });
+                    button.addEventListener('click', () => {
+                        sessionLogoutInitial();
+                    });
+                });
 
                 return listItem;
             }
@@ -2793,7 +2797,6 @@ $counter = 1;
 
                 console.log('Password change request is valid.');
 
-                const nbfcuser = {!! json_encode(Session::get('nbfcuser')) !!};
                 const userId = nbfcuser ? nbfcuser.nbfc_id : '';
                 console.log(userId)
 

@@ -61,27 +61,27 @@
 
 <body>
     @if(request()->is('/'))
-        <x-header></x-header>
+    <x-header></x-header>
     @elseif(!in_array(Route::currentRouteName(), ['login', 'signup', 'admin-page', 'nbfc-dashboard', 'terms']))
-        <x-navbar></x-navbar>
+    <x-navbar></x-navbar>
     @endif
 
 
     @if(Route::currentRouteName() === 'login')
     @yield('logincontent')
     @elseif(Route::currentRouteName() === 'signup')
-        @yield('signupcontent')
+    @yield('signupcontent')
     @elseif(Route::currentRouteName() === 'terms')
-    @yield('termscontent')    
+    @yield('termscontent')
     @elseif(Route::currentRouteName() === 'student-dashboard')
     @yield('studentdashboard')
     @elseif(Route::currentRouteName() === 'sc-dashboard')
     @yield('scdashboard')
     @elseif(Route::currentRouteName() === 'adminpage')
-        @yield('adminpage')
+    @yield('adminpage')
     @elseif(Route::currentRouteName() === 'nbfc-dashboard')
-        @yield('nbfcdashboard')
-     
+    @yield('nbfcdashboard')
+
     @else
     @yield('homecontent')
     @endif
@@ -93,7 +93,7 @@
 
     <!-- Add this script to fix mobile navigation issues -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuBtn = document.getElementById('menu-icon');
             if (mobileMenuBtn) {
                 const mobileNav = document.getElementById('mobile-nav-links') || document.querySelector('.header-links');
@@ -104,9 +104,9 @@
                     mobileMenuBtn.classList.toggle('open');
                 });
 
-                 
 
-                 if (mobileNav) {
+
+                if (mobileNav) {
                     const mobileLinks = mobileNav.querySelectorAll('a');
                     mobileLinks.forEach(link => {
                         link.addEventListener('click', function(e) {
@@ -116,9 +116,30 @@
                             }
                         });
                     });
-                }; 
+                };
             }
         });
+
+        function handleFooterSignup(event) {
+            event.preventDefault();
+            const form = event.target;
+            const emailInput = form.querySelector('input[name="email"]');
+            const email = emailInput.value.trim();
+
+            // Basic email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email) {
+                alert('Please enter an email address.');
+                return;
+            }
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            // Redirect to signup page with email as query parameter
+            window.location.href = `/signup?email=${encodeURIComponent(email)}`;
+        }
     </script>
 </body>
 
