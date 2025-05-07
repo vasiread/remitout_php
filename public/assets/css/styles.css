@@ -3851,28 +3851,21 @@ html, body {
         display: none;
     }
 
-  .search-container {
-        display: flex;
-        flex-direction: row;
-        gap: 12px;
-        margin-bottom: 24px;
-        width: 100%;
-        max-width: 100%;
+   .search-container {
+
+     gap: 12px;
+     margin-bottom: 24px;
+   }
+   .search-box {
+        flex: none;
     }
 
-    .search-box {
-        width: 100%;
-    }
-
-    .search-input {
-        width: 100%;
-        padding: 12px;
-        font-size: 14px;
-        border: 2px solid #6F25CE;
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.9);
-        font-family: 'Poppins', sans-serif;
-    }
+   .search-input {
+     padding: 12px;
+     font-size: 14px;
+     width:240px;
+     margin:0 auto;
+   }
 
     .sort-button {
         width: 100%;

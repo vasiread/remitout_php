@@ -43,15 +43,22 @@
                         <a href="#" class="forgot-password-login" onclick="showForgotPasswordPopup()">Forgot Password?</a>
                     </div>
 
-                    <!-- Agree to Terms and Sign-In Button -->
-                    <div class="logincontainer-signupbuttoncontainer">
-                        <div class="logincontainer-checkboxcontainer">
-                            <input type="checkbox" id="confirmpolicy" style="margin:0;padding:0px" required>
-                            <p>I agree to the <span>terms & policy</span></p>
+                        <!-- Agree to Terms and Sign-In Button -->
+                        <div class="logincontainer-signupbuttoncontainer">
+                            <div class="logincontainer-checkboxcontainer">
+                               <input type="checkbox" id="confirmpolicy" style="margin:0;padding:0" required>
+                                <p>
+                                    <a href="{{ route('terms') }}" target="_blank" style="text-decoration: none; color: inherit;">
+                                        I agree to the terms & policy
+                                    </a>
+                                </p>
+                            </div>
+                            <button type="submit">Sign In</button>
                         </div>
-                        <button type="submit">Sign In</button>
-                    </div>
-                </form>
+
+                        <?php $googleIcon = "assets/images/googleicon.png" ?>
+                        <?php $appleIcon = "assets/images/appleicon.png" ?>
+                    </form>
 
                 <!-- Sign In with Google/Apple -->
                 <div class="logincontainer-anotherresources">

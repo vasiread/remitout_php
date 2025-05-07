@@ -32,54 +32,58 @@
             <h1 class="loginsingupimagecontainer-header">Lorem ipsum dolor sit amet, <br>consectur adipiscing elit</h1>
         </div>
 
-        <div class="loginsingupcontainer-rightpanel" style="display:flex;">
-            <img src="assets/images/loginsinguprightsideimg.png" class="rightsidevector-img" alt="">
-            <h1>Get Started Now</h1>
-            <form class="loginsingupcontainer-rightpanel-inside" id="signupForm" onsubmit="submitForm(event)">
-                <div class="rightpanel-namecontainer">
-                    <label for="name">Your Name</label>
-                    <input type="text" name="name" id="name" placeholder="Name (as per Aadhar)" required>
-                    <div id="name-error" class="sign-up error-message">Please enter a valid name</div>
-                </div>
-                <div class="rightpanel-phonecontainer">
-                    <label for="phone">Phone</label>
-                    <input type="text" name="phone" id="phone" placeholder="Phone" required>
-                    <div id="phone-error" class="sign-up error-message">Please enter a valid 10-digit phone number</div>
-                </div>
-                <div class="rightpanel-emailcontainer">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email" placeholder="Email" required>
-                    <div id="email-error" class="sign-up error-message">Please enter a valid email address</div>
-                </div>
-                <div class="rightpanel-passwordcontainer">
-                    <label for="passwordinputID">Password</label>
-                    <input type="password" id="passwordinputID" name="password" class="passwordOpen" placeholder="Password" maxlength="20" required>
-                    <i class="fa-regular fa-eye-slash passwordClose"></i>
-                    <div id="password-error" class="sign-up error-message">Password must be valid (6-20 characters).</div>
-                    <a href="#" class="forgot-password" onclick="showForgotPasswordPopup()">Forgot Password?</a>
-                </div>
-                <div class="rightpanel-signupbuttoncontainer">
-                    <div class="rightpanel-checkboxcontainer">
-                        <input type="checkbox" name="confirmpolicy" id="confirmpolicy" style="margin:0;padding:0px" required>
-                        <p>I agree to the <a href="{{ route('terms') }}" class="text-blue-600 hover:underline" target="_blank">terms & policy</a></p>
+            <div class="loginsingupcontainer-rightpanel" style="display:flex;">
+                <img src="assets/images/loginsinguprightsideimg.png" class="rightsidevector-img" alt="">
+                <h1>Get Started Now</h1>
+                <form class="loginsingupcontainer-rightpanel-inside" id="signupForm" onsubmit="submitForm(event)">
+                    <div class="rightpanel-namecontainer">
+                        <label for="name">Your Name</label>
+                        <input type="text" name="name" id="name" placeholder="Name (as per Aadhar)" required>
+                        <div id="name-error" class="sign-up error-message">Please enter a valid name</div>
                     </div>
-                    <button type="submit">Sign up</button>
-                </div>
-            </form>
-            <div class="logincontainer-anotherresources">
-                <p class="or-divider">or</p>
-                <div class="googlesigninbuttoncontainer">
-                    <button class="googlesigninbutton" onclick="window.location.href='{{ route('google.login') }}'">
-                        <img src="{{ asset('assets/images/googleicon.png') }}"> Sign in with Google
-                    </button>
-                </div>
-                <!-- New User Sign Up Option -->
-                <div class="logincontainer-signinoption">
-                    <p>Have an account? </p>
-                    <span onclick="window.location.href='{{ route('login') }}'">Sign In</span>
+                    <div class="rightpanel-phonecontainer">
+                        <label for="phone">Phone</label>
+                        <input type="text" name="phone" id="phone" placeholder="Phone" required>
+                        <div id="phone-error" class="sign-up error-message">Please enter a valid 10-digit phone number</div>
+                    </div>
+                    <div class="rightpanel-emailcontainer">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" id="email" placeholder="Email" required>
+                        <div id="email-error" class="sign-up error-message">Please enter a valid email address</div>
+                    </div>
+                    <div class="rightpanel-passwordcontainer">
+                        <label for="passwordinputID">Password</label>
+                        <input type="password" id="passwordinputID" name="password" class="passwordOpen" placeholder="Password" maxlength="20" required>
+                        <i class="fa-regular fa-eye-slash passwordClose"></i>
+                        <div id="password-error" class="sign-up error-message">Password must be valid (6-20 characters).</div>
+                        <a href="#" class="forgot-password" onclick="showForgotPasswordPopup()">Forgot Password?</a>
+                    </div>
+                  <div class="rightpanel-signupbuttoncontainer">
+                        <div class="rightpanel-checkboxcontainer">
+                            <input type="checkbox" name="confirmpolicy" id="confirmpolicy" style="margin:0;padding:0px" required>
+                            <p>
+                                <a href="{{ route('terms') }}" target="_blank">
+                                    I agree to the terms & policy
+                                </a>
+                            </p>
+                        </div>
+                        <button type="submit">Sign up</button>
+                    </div>
+                </form>
+                <div class="logincontainer-anotherresources">
+                    <p class="or-divider">or</p>
+                    <div class="googlesigninbuttoncontainer">
+                        <button class="googlesigninbutton" onclick="window.location.href='{{ route('google.login') }}'">
+                            <img src="{{ asset('assets/images/googleicon.png') }}"> Sign in with Google
+                        </button>
+                    </div>
+                    <!-- New User Sign Up Option -->
+                    <div class="logincontainer-signinoption">
+                        <p>Have an account? </p>
+                        <span onclick="window.location.href='{{ route('login') }}'">Sign In</span>
+                    </div>
                 </div>
             </div>
-        </div>
 
         <!-- OTP Section -->
         <div class="loginsignupcontainer-otppanel" style="display:none">
@@ -358,18 +362,19 @@
                 return;
             }
 
-            const otpPanelView = document.querySelector('.loginsignupcontainer-otppanel');
-            const rightLoginsingupContainer = document.querySelector('.loginsingupcontainer-rightpanel');
-            if (otpPanelView && rightLoginsingupContainer) {
-                otpPanelView.style.display = 'flex';
-                rightLoginsingupContainer.style.display = 'none';
-                const firstInput = document.getElementById('otp1');
-                firstInput.focus();
-                generateOTP(phoneInput, nameInput);
-            } else {
-                console.error("OTP Panel not found!");
+                const otpPanelView = document.querySelector('.loginsignupcontainer-otppanel');
+                const rightLoginsingupContainer = document.querySelector('.loginsingupcontainer-rightpanel');
+                if (otpPanelView && rightLoginsingupContainer) {
+                    otpPanelView.style.display = 'flex';
+                    rightLoginsingupContainer.style.display = 'none';
+                    const firstInput = document.getElementById('otp1');
+                    firstInput.focus();
+                    generateOTP(phoneInput, nameInput);
+                } else {
+                    console.error("OTP Panel not found!");
+                }
             }
-        }
+            
 
         const generateOTP = (phoneInput, nameInput) => {
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');

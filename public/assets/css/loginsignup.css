@@ -605,6 +605,15 @@
     z-index: -1;
 
 }
+
+.rightpanel-checkboxcontainer p a {
+    color: inherit;
+    text-decoration: none;
+}
+.rightpanel-checkboxcontainer p a:hover {
+    text-decoration: none;
+}
+
 @media (min-width: 1500px) {
     .loginsingupcontainer-leftpanel {
         width: 50%;
