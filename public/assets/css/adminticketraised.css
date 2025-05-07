@@ -307,7 +307,7 @@
         }
 
        
-      @media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .ticket-raised-container {
     width: 100%;
     max-width: 100%;
