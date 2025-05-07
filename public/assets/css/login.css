@@ -233,7 +233,38 @@
     justify-content: center;
 }
 
-.googlesigninbuttoncontainer .googlesigninbutton,
+.logincontainer .loginvector {
+   position: absolute;
+   z-index: -1;
+   top: -70%;
+   left: 10%;
+   width: 829px;
+   height: 806px;
+   opacity: 1;
+
+}
+
+.logincontainer .loginvectorsecond {
+   position: absolute;
+   z-index: 3;
+   bottom: 0%;
+   left: -10%;
+   width: 591px;
+   height: 255px;
+   opacity: 1;
+
+}
+.googlesigninbuttoncontainer .googlesigninbutton {
+   max-width: 50%;
+   width: 100%;
+   height: 100%;
+   border: 0.5px solid rgba(174, 174, 174, 1);
+   border-radius: 4px;
+   background-color: #fff;
+   cursor: pointer;
+
+}
+
 .googlesigninbuttoncontainer .iossigninbutton {
     max-width: 50%;
     width: 100%;

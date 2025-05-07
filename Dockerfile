@@ -35,6 +35,7 @@ RUN composer install --optimize-autoloader --no-dev
 # Install JavaScript dependencies and build frontend
 RUN npm install && npm run build
 
+
 # Set permissions
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
@@ -61,6 +62,7 @@ RUN apk add --no-cache openssl && \
 
 # Copy PHP configuration
 # COPY php.ini /etc/php81/conf.d/custom.ini
+
 # Install PHP extensions in production
 RUN docker-php-ext-install pdo pdo_mysql pdo_pgsql
 
@@ -72,6 +74,8 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy built files from the builder stage
 COPY --from=builder /var/www /var/www
+RUN chown -R www-data:www-data /var/www/public/assets
+RUN chmod -R 755 /var/www/public/assets
 
 # Copy .env file
 COPY .env.production /var/www/.env
@@ -81,8 +85,9 @@ COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 # Set permissions again in case alpine image resets them
-RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache /var/www/public/build /var/www/public/assets
-RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www/public/build /var/www/public/assets
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache /var/www/public
+RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www/public
+
 
 # Expose the port
 EXPOSE 80
