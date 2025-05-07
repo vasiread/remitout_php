@@ -942,7 +942,7 @@
           <div class="help-container work-experience-twelfth-help" style="display: none;">
             <h3 class="help-title">Help</h3>
             <div class="help-content">
-              <p>Please upload your last 3 months' salary slips in JPG, PNG, or PDF format.</p>
+              <p>Please upload your last 3 months salary slips in JPG, PNG, or PDF format.</p>
             </div>
           </div>
         </div>
