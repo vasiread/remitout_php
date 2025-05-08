@@ -209,14 +209,12 @@
                 <div class="admin-student-options-section-course" id="person-info-section-course">
                   <div class="admin-student-options-label-about">Options:</div>
                   <div class="checkbox-group" id="selected-study-location-admin">
-                    <!-- Checkboxes will be injected here -->
-
-                    <!-- "Others" checkbox placeholder -->
-                    <label class="others-checkbox">
+ 
+                     <label class="others-checkbox">
                       <input type="checkbox" name="where-are-you-planning-to-study[locations][]" value="Others"> Others
                     </label>
 
-                    <!-- Add Checkbox Container -->
+                
                     <div class="add-checkbox-container" id="plantostudycountryadd">
                       <span class="add-checkbox-input">Add</span>
                       <span class="add-checkbox-btn" id="add-course-checkbox-id">+</span>
@@ -243,18 +241,7 @@
                   </div>
 
                   <div class="option-grid course-degree-admin" id="optionsContainer">
-                    <div class="option-item">
-                      <input type="checkbox" name="select-the-type-of-degree-you-want-to-pursue[degrees][]"
-                        class="option-checkbox" value="Bachelors (only secured loan)">
-                      <div class="option-name">Bachelors (only secured loan)</div>
-                    </div>
-
-                    <div class="option-item">
-                      <input type="checkbox" name="select-the-type-of-degree-you-want-to-pursue[degrees][]"
-                        class="option-checkbox" value="Masters">
-                      <div class="option-name">Masters</div>
-                    </div>
-
+ 
                     <div class="option-item">
                       <input type="checkbox" name="select-the-type-of-degree-you-want-to-pursue[degrees][]"
                         class="option-checkbox" value="Others">
@@ -267,6 +254,7 @@
                     </div>
                   </div>
                 </div>
+
               </div>
 
               <div class="admin-student-form-question-month">
@@ -1399,10 +1387,11 @@
 
 
   <script>
-     document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
 
       fetchAndAppendSocialNames();
       fetchAndRenderStudyLocations();
+      fetchAndRenderDegrees();
       const managers = [
         SectionToggler,
         InputFieldManager,
@@ -1475,7 +1464,7 @@
         ]);
       },
 
-    setupToggles(configs) {
+      setupToggles(configs) {
         configs.forEach(config => {
           if (config.header) {
             const header = document.querySelector(config.header);
@@ -1513,8 +1502,8 @@
       }
     };
 
-    
-     const InputFieldManager = {
+
+    const InputFieldManager = {
       section: 'Personal Information',
       modified: false,
 
@@ -1615,7 +1604,7 @@
       }
     };
 
-     const SocialOptionsManager = {
+    const SocialOptionsManager = {
       section: 'Personal Information',
       modified: false,
 
@@ -2654,7 +2643,6 @@
     }
 
 
-
     function fetchAndRenderStudyLocations() {
       fetch('/getplantocountries')
         .then(res => res.json())
@@ -2668,25 +2656,59 @@
 
           data.countries.forEach(country => {
             const label = document.createElement('label');
+            label.style.display = 'flex';
+            label.style.alignItems = 'center';
+            label.style.gap = '8px';
 
             const input = document.createElement('input');
             input.type = 'checkbox';
             input.name = 'where-are-you-planning-to-study[locations][]';
             input.value = country.country_name;
 
+            const textNode = document.createTextNode(' ' + country.country_name);
+
+            const removeBtn = document.createElement('span');
+            removeBtn.style.color = '#888';
+            removeBtn.textContent = 'x';
+            removeBtn.style.cursor = 'pointer';
+            removeBtn.addEventListener('click', () => {
+              if (confirm(`Are you sure you want to delete "${country.country_name}"?`)) {
+                fetch(`/deleteplantostudycountry/${country.id}`, {
+                  method: 'DELETE',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
+                  },
+
+                })
+                  .then(response => response.json())
+                  .then(data => {
+                    if (data.message) {
+                      fetchAndRenderStudyLocations();
+                      alert(data.message)
+                    } else {
+                      alert('Failed to delete.');
+                    }
+                  })
+                  .catch(error => {
+                    console.error('Delete error:', error);
+                    alert('Error while deleting.');
+                  });
+              }
+            });
+
             label.appendChild(input);
-            label.appendChild(document.createTextNode(' ' + country.country_name));
+            label.appendChild(textNode);
+            label.appendChild(removeBtn);
             container.appendChild(label);
           });
 
-          // Append the existing "Others" and "Add" boxes again
+          // Re-append Others and Add buttons
           if (othersCheckbox) container.appendChild(othersCheckbox);
           if (addContainer) container.appendChild(addContainer);
 
-
           if (addContainer) {
             addContainer.addEventListener('click', () => {
-
               const userInput = prompt("Enter dropdown option", "")?.trim();
               if (userInput) {
                 fetch('/storeplantostudycountry', {
@@ -2705,21 +2727,14 @@
                     }
 
                     fetchAndRenderStudyLocations();
-                    alert(`${userInput} added`)
-
-
-
-
-
-
+                    alert(`${userInput} added`);
                   })
                   .catch(error => {
                     console.error('Fetch error:', error);
                     alert('An error occurred while saving the option.');
                   });
               }
-
-            })
+            });
           }
         })
         .catch(error => {
@@ -2727,6 +2742,121 @@
         });
     }
 
+
+    function fetchAndRenderDegrees() {
+      fetch('/showstudentcourse')
+        .then(res => res.json())
+        .then(data => {
+          const container = document.getElementById('optionsContainer');
+
+          const othersOption = container.querySelector('.option-item input[value="Others"]')?.closest('.option-item');
+          const addContainer = document.getElementById('addSection');
+
+          // Clear all except "Others" and "Add"
+          container.innerHTML = '';
+
+          data.degree.forEach(degree => {
+            if (degree.name === 'Others') return;
+
+            const optionItem = document.createElement('div');
+            optionItem.className = 'option-item';
+            optionItem.style.display = 'flex';
+            optionItem.style.alignItems = 'center';
+            optionItem.style.justifyContent = 'space-between';
+            optionItem.style.gap = '10px';
+
+            const left = document.createElement('div');
+            left.style.display = 'flex';
+            left.style.alignItems = 'center';
+            left.style.gap = '8px';
+
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            input.name = 'select-the-type-of-degree-you-want-to-pursue[degrees][]';
+            input.className = 'option-checkbox';
+            input.value = degree.name;
+
+            const label = document.createElement('div');
+            label.className = 'option-name';
+            label.textContent = degree.name;
+
+            left.appendChild(input);
+            left.appendChild(label);
+
+            const removeBtn = document.createElement('span');
+            removeBtn.textContent = 'x';
+            removeBtn.style.cursor = 'pointer';
+            removeBtn.style.color = '#888';
+            removeBtn.addEventListener('click', () => {
+              if (confirm(`Are you sure you want to delete "${degree.name}"?`)) {
+                fetch(`/deletedegree/${degree.id}`, {
+                  method: 'DELETE',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
+                  }
+                })
+                  .then(response => response.json())
+                  .then(data => {
+                    if (data.message) {
+                      alert(data.message);
+                      fetchAndRenderDegrees();
+                    } else {
+                      alert('Failed to delete.');
+                    }
+                  })
+                  .catch(error => {
+                    console.error('Delete error:', error);
+                    alert('Error while deleting.');
+                  });
+              }
+            });
+
+            optionItem.appendChild(left);
+            optionItem.appendChild(removeBtn);
+            container.appendChild(optionItem);
+          });
+
+          // Append the "Others" and "Add" back
+          if (othersOption) container.appendChild(othersOption);
+          if (addContainer) container.appendChild(addContainer);
+
+          // Add new degree option handler
+          if (addContainer) {
+            document.getElementById('addSection')?.addEventListener('click', () => {
+              const userInput = prompt("Enter new degree option", "")?.trim();
+              if (userInput) {
+                fetch('/storedegree', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
+                  },
+                  body: JSON.stringify({ degree_type: userInput })
+                })
+                  .then(response => response.json())
+                  .then(data => {
+                    if (data.error) {
+                      alert(`Error: ${data.error}`);
+                      return;
+                    }
+
+                    alert(`${userInput} added`);
+                    fetchAndRenderDegrees(); // Refresh the list
+                  })
+                  .catch(error => {
+                    console.error('Fetch error:', error);
+                    alert('An error occurred while saving the option.');
+                  });
+              }
+            });
+
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching degrees:', error);
+        });
+    }
 
   </script>
 </body>

@@ -137,8 +137,13 @@ Route::get('/student-forms', [AdminController::class, 'showStudentForm']);
 Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser']);
 Route::get('/getInfoForAdminSocial', [Admincontroller::class, 'showStudentFormAdmin']);
 Route::delete('/deleteInfoForAdminSocial/{id}', [AdminController::class, 'deleteInfoForAdminSocial']);
+Route::delete('/deletedegree/{id}', [AdminController::class, 'deleteDegreesAdminside']);
+
 Route::post('/storesocialoption', [AdminController::class, 'storeSocialOption']);
 Route::post('/storeplantostudycountry', [AdminController::class, 'storePlanToStudyCountry']);
+Route::post('/storedegree', [AdminController::class, 'storeDegreeAdmin']);
+
 
 Route::get('/getplantocountries', [AdminController::class, 'showStudentPlanForCountriesAdmin']);
+Route::get('/showstudentcourse', [AdminController::class, 'showStudentCourse']);
 

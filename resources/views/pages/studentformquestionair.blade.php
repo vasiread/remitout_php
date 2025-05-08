@@ -299,23 +299,27 @@
       </div>
       <form id="course-info-degreetype">
         <div class="degrees">
+          @foreach ($degrees as $degree)
+          @php
+        $id = strtolower(str_replace(' ', '-', $degree->name));
+        @endphp
           <div class="degree">
-            <input type="radio" id="bachelors" name="degree_type" value="bachelors">
-            <label for="bachelors">Bachelors (only secured loan)</label>
+          <input type="radio" id="{{ $id }}" name="degree_type" value="{{ $degree->name }}">
+          <label for="{{ $id }}">{{ $degree->name }}</label>
           </div>
-          <div class="degree">
+      @endforeach
+
+           <div class="degree">
             <input type="radio" id="others" name="degree_type" value="others">
             <label for="others">Others</label>
           </div>
-          <div class="degree">
-            <input type="radio" id="masters" name="degree_type" value="masters">
-            <label for="masters">Masters</label>
-          </div>
-          <div class="degree other-degree-input-container" style="display: none;">
+
+           <div class="degree other-degree-input-container" style="display: none;" id="other-degree-container">
             <input type="text" id="other-degree" class="other-degree-input" placeholder="Add Degree">
           </div>
         </div>
       </form>
+
 
     </div>
 
@@ -623,7 +627,7 @@
           <div class="document-name" id="pan-card-document-name" style="display: none;">PAN Card</div>
           <div class="upload-field">
 
-            <span id="pan-card-name">PAN Card</span>
+            <span id="pan-card-name">No file chosen</span>
             <label for="pan-card" class="upload-icon" id="pan-card-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" style="display:none">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
@@ -649,7 +653,7 @@
         <div class="document-box">
           <div class="document-name" id="aadhar-card-document-name" style="display: none;">Aadhar Card</div>
           <div class="upload-field">
-            <span id="aadhar-card-name">Aadhar Card</span>
+            <span id="aadhar-card-name">No file chosen</span>
             <label for="aadhar-card" class="upload-icon" id="aadhar-card-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
@@ -674,7 +678,7 @@
         <div class="document-box">
           <div class="document-name" id="passport-document-name" style="display: none;">Passport</div>
           <div class="upload-field">
-            <span id="passport-card-name">Passport</span>
+            <span id="passport-card-name">No file chosen</span>
             <label for="passport" class="upload-icon" id="passport-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
@@ -713,7 +717,7 @@
 
           <div class="document-name" id="10th-mark-sheet-id" style="display: none;">10th Mark Sheet</div>
           <div class="upload-field">
-            <span id="tenth-grade-name">10th Grade Mark Sheet</span>
+            <span id="tenth-grade-name">No file chosen</span>
             <label for="tenth-grade" class="upload-icon" id="tenth-grade-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
@@ -738,7 +742,7 @@
         <div class="document-box">
           <div class="document-name" id="12th-mark-sheet-id" style="display: none;">12th Mark Sheet</div>
           <div class="upload-field">
-            <span id="twelfth-grade-name">12th Grade Mark Sheet</span>
+            <span id="twelfth-grade-name">No file chosen</span>
             <label for="twelfth-grade" class="upload-icon" id="twelfth-grade-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
@@ -763,7 +767,7 @@
         <div class="document-box">
           <div class="document-name" id="graduation-mark-sheet-id" style="display: none;">Graduation Mark Sheet</div>
           <div class="upload-field">
-            <span id="graduation-grade-name">Graduation Mark Sheet</span>
+            <span id="graduation-grade-name">No file chosen</span>
             <label for="graduation-grade" class="upload-icon" id="graduation-grade-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
@@ -801,7 +805,7 @@
         <div class="document-box">
           <div class="document-name" id="10th-grades-id" style="display: none;">10th Grade</div>
           <div class="upload-field">
-            <span id="secured-tenth-name">10th Grade</span>
+            <span id="secured-tenth-name">No file chosen</span>
             <label for="secured-tenth" class="upload-icon" id="secured-tenth-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
@@ -826,7 +830,7 @@
         <div class="document-box">
           <div class="document-name" id="12th-grade-id" style="display: none;">12th Grade</div>
           <div class="upload-field">
-            <span id="secured-twelfth-name">12th Grade</span>
+            <span id="secured-twelfth-name">No file chosen</span>
             <label for="secured-twelfth" class="upload-icon" id="secured-twelfth-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
@@ -851,7 +855,7 @@
         <div class="document-box">
           <div class="document-name" id="Graduation-id" style="display: none;">Graduation</div>
           <div class="upload-field">
-            <span id="secured-graduation-name">Graduation</span>
+            <span id="secured-graduation-name">No file chosen</span>
             <label for="secured-graduation" class="upload-icon" id="secured-graduation-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
@@ -888,7 +892,7 @@
         <div class="work-experience-box">
           <div class="document-name" id="experience-letter-id" style="display: none;">Experience letter</div>
           <div class="upload-field">
-            <span id="work-experience-experience-letter">Experience letter</span>
+            <span id="work-experience-experience-letter">No file chosen</span>
             <label for="work-experience-tenth" class="upload-icon" id="work-experience-tenth-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
             </label>
@@ -912,7 +916,7 @@
         <div class="work-experience-box">
           <div class="document-name" id="3-months-salary-slip-id" style="display: none;">3 months salary slip</div>
           <div class="upload-field">
-            <span id="work-experience-monthly-slip">3 months salary slip</span>
+            <span id="work-experience-monthly-slip">No file chosen</span>
             <label for="work-experience-twelfth" class="upload-icon" id="work-experience-twelfth-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
             </label>
@@ -936,7 +940,7 @@
         <div class="work-experience-box">
           <div class="document-name" id="office-IDs-id" style="display: none;">office ID</div>
           <div class="upload-field">
-            <span id="work-experience-office-id">office ID</span>
+            <span id="work-experience-office-id">No file chosen</span>
             <label for="work-experience-graduation" class="upload-icon" id="work-experience-graduation-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
             </label>
@@ -963,7 +967,7 @@
           <div class="document-name" id="Joining-letter-id" style="display: none;">Joining letter</div>
 
           <div class="upload-field">
-            <span id="work-experience-joining-letter">Joining letter</span>
+            <span id="work-experience-joining-letter">No file chosen</span>
             <label for="work-experience-fourth" class="upload-icon" id="work-experience-fourth-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
             </label>
@@ -1002,7 +1006,7 @@
         <div class="document-box">
           <div class="document-name" id="pan-card-ids" style="display: none;">PAN Card</div>
           <div class="upload-field">
-            <span id="co-pan-card-name">PAN Card</span>
+            <span id="co-pan-card-name">No file chosen</span>
             <label for="co-pan-card" class="upload-icon" id="co-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
@@ -1027,7 +1031,7 @@
         <div class="document-box">
           <div class="document-name" id="aadhar-card-id" style="display: none;">Aadhar Card</div>
           <div class="upload-field">
-            <span id="co-aadhar-card-name">Aadhar Card</span>
+            <span id="co-aadhar-card-name">No file chosen</span>
             <label for="co-aadhar-card" class="upload-icon" id="co-aadhar-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
@@ -1052,7 +1056,7 @@
         <div class="document-box">
           <div class="document-name" id="address-proof-id" style="display: none;">Address Proof</div>
           <div class="upload-field">
-            <span id="co-addressproof">Address Proof</span>
+            <span id="co-addressproof">No file chosen</span>
             <label for="co-passport" class="upload-icon" id="co-passport-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
@@ -1096,7 +1100,7 @@
         <div class="salary-upload-box">
           <div class="document-name" id="3 months-salary-slip-id" style="display: none;">3 months salary slip</div>
           <div class="upload-field">
-            <span id="salary-upload-salary-slip-name">3 months salary slip</span>
+            <span id="salary-upload-salary-slip-name">No file chosen</span>
             <label for="salary-upload-salary-slip" class="upload-icon" id="salary-upload-salary-slip-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
             </label>
@@ -1122,7 +1126,7 @@
           <div class="document-name" id="6-months-bank-statement-id" style="display: none;">6 months bank statement
           </div>
           <div class="upload-field">
-            <span id="salary-upload-salary-statement-name">6 months bank statement</span>
+            <span id="salary-upload-salary-statement-name">No file chosen</span>
             <label for="salary-upload-salary-statement" class="upload-icon"
               id="salary-upload-salary-statement-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
@@ -1148,7 +1152,7 @@
         <div class="salary-upload-box">
           <div class="document-name" id="address-proof-salary-id" style="display: none;">Address Proof</div>
           <div class="upload-field">
-            <span id="salary-upload-address-proof-name">Address Proof</span>
+            <span id="salary-upload-address-proof-name">No file chosen</span>
             <label for="salary-upload-address-proof" class="upload-icon" id="salary-upload-address-proof-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
             </label>
@@ -1180,7 +1184,7 @@
         <div class="salary-upload-box">
           <div class="document-name" id="2 years of ITR-id" style="display: none;">2 years of ITR</div>
           <div class="upload-field">
-            <span id="salary-upload-itr-name">2 years of ITR</span>
+            <span id="salary-upload-itr-name">No file chosen</span>
             <label for="salary-upload-itr" class="upload-icon" id="salary-upload-itr-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
             </label>
@@ -1207,7 +1211,7 @@
           <div class="document-name" id="6-months-bank-statements-id" style="display: none;">6 months bank statement
           </div>
           <div class="upload-field">
-            <span id="salary-upload-fourth-document-name">6 months bank statement</span>
+            <span id="salary-upload-fourth-document-name">No file chosen</span>
             <label for="salary-upload-fourth-document" class="upload-icon"
               id="salary-upload-fourth-document-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
@@ -1234,7 +1238,7 @@
           <div class="document-name" id="Office/Shop-photographs-id" style="display: none;">Office/Shop photographs
           </div>
           <div class="upload-field">
-            <span id="salary-upload-fifth-document-name">Office/Shop photographs</span>
+            <span id="salary-upload-fifth-document-name">No file chosen</span>
             <label for="salary-upload-fifth-document" class="upload-icon" id="salary-upload-fifth-document-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
             </label>

@@ -314,26 +314,22 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    document
-        .getElementById("personal-info-submit")
+    document.getElementById("personal-info-submit")
         .addEventListener("click", (event) => {
             updateUserPersonalInfo(event);
         });
 
-    document
-        .getElementById("course-info-submit")
+    document.getElementById("course-info-submit")
         .addEventListener("click", (event) => {
             updateUserCourseInfo(event);
         });
 
-    document
-        .getElementById("academics-info-submit")
+    document.getElementById("academics-info-submit")
         .addEventListener("click", (event) => {
             updateAcademicsCourseInfo(event);
         });
 
-    document
-        .getElementById("coborrower-info-submit")
+    document.getElementById("coborrower-info-submit")
         .addEventListener("click", (event) => {
             updateCoborrowerInfo(event);
         });
