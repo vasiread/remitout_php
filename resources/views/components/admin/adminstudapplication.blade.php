@@ -295,37 +295,34 @@
               </div>
 
               <div class="admin-student-form-question" id="course-details-container">
-                <div class="admin-student-question-row" id="course-details-row">
-                  <div class="admin-student-question-title">4. Course Details</div>
-                  <div class="admin-student-dropdown-field" id="course-details-dropdown">
-                    <span class="admin-student-field-text">Check Box</span>
-                    <span class="admin-student-dropdown-icon"></span>
+                  <div class="admin-student-question-row" id="course-details-row">
+                    <div class="admin-student-question-title">4. Course Details</div>
+                    <div class="admin-student-dropdown-field" id="course-details-dropdown">
+                      <span class="admin-student-field-text">Check Box</span>
+                      <span class="admin-student-dropdown-icon"></span>
+                    </div>
                   </div>
-                </div>
 
-                <div class="options-section" id="course-details-options" style="display: none;">
-                  <div class="options-label">Options:</div>
-                  <div class="checkbox-coures-main-container">
-                    <div class="checkbox-options-container">
-                      <div class="checkbox-option">
-                        <input type="checkbox" id="with-expenses" name="course-details[options][]"
-                          value="With living expenses">
-                        <label for="with-expenses">With living expenses</label>
+                  <div class="options-section" id="course-details-options" style="display: none;">
+                    <div class="options-label">Options:</div>
+                    <div class="checkbox-coures-main-container">
+                      <div class="checkbox-options-container">
+                        <div class="checkbox-option">
+                          <input type="checkbox" id="with-expenses" name="course-details[options][]" value="With living expenses">
+                          <label for="with-expenses">With living expenses</label>
+                        </div>
+                        <div class="checkbox-option">
+                          <input type="checkbox" id="without-expenses" name="course-details[options][]" value="Without living expenses">
+                          <label for="without-expenses">Without living expenses</label>
+                        </div>
+                        <div class="add-option" id="add-course-option-btn"> <!-- Moved inside checkbox-options-container -->
+                          <span class="add-option-text">Add</span>
+                          <span class="add-option-icon">+</span>
+                        </div>
                       </div>
-                      <div class="checkbox-option">
-                        <input type="checkbox" id="without-expenses" name="course-details[options][]"
-                          value="Without living expenses">
-                        <label for="without-expenses">Without living expenses</label>
-                      </div>
-                    </div>
-                    <div class="add-option" id="add-option-btn">
-                      <span class="add-option-text">Add</span>
-                      <span class="add-option-icon">+</span>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
           </div>
 
           <!-- Academic Details Section -->
@@ -450,7 +447,7 @@
                       name="how-is-the-co-borrower-related-to-you[relationship][]" value="Blood relative" />
                     <label for="co-borrower-blood-relative">Blood relative</label>
                   </div>
-                  <div class="add-option" id="add-option-btn">
+                  <div class="add-option" id="add-coborrower-option-btn">
                     <span class="add-option-text">Add</span>
                     <span class="add-option-icon">+</span>
                   </div>
@@ -1886,412 +1883,625 @@
       }
     };
 
-    // Course Details Manager
-    const CourseDetailsManager = {
-      section: 'Course Information',
-      modified: false,
+  const CourseDetailsManager = {
+  section: 'Course Information',
+  modified: false,
 
-      init() {
-        this.setupDropdown();
-        this.setupAddOption();
+  init() {
+    const optionsContainer = document.querySelector('#course-details-options .checkbox-options-container');
+    console.log('Initial optionsContainer:', optionsContainer);
+    this.setupDropdown();
+    this.setupAddOption();
+  },
+
+  setupDropdown() {
+    const container = document.getElementById('course-details-container');
+    if (!container) return;
+
+    const row = container.querySelector('#course-details-row');
+    const dropdownIcon = container.querySelector('.admin-student-dropdown-icon');
+    const optionsSection = container.querySelector('#course-details-options');
+    if (!row || !dropdownIcon || !optionsSection) return;
+
+    optionsSection.style.display = 'none';
+    row.addEventListener('click', () => {
+      const isVisible = optionsSection.style.display !== 'none';
+      toggleVisibility(optionsSection, isVisible, dropdownIcon);
+      container.classList.toggle('active', !isVisible);
+    });
+  },
+
+  setupAddOption() {
+    const addOptionBtn = document.getElementById('add-course-option-btn');
+    if (addOptionBtn) {
+      console.log('Attaching event listener to add-course-option-btn');
+      addOptionBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        this.addNewCourseOption();
+        this.modified = true;
+        FormSubmissionManager.setModifiedSection(this.section);
+      });
+    } else {
+      console.error('add-course-option-btn not found');
+    }
+  },
+
+  addNewCourseOption() {
+    const userInput = prompt("Enter new course option", "")?.trim();
+    if (userInput) {
+      const optionsSection = document.querySelector('#course-details-options');
+      const optionsContainer = optionsSection.querySelector('.checkbox-options-container');
+      const addOptionBtn = document.getElementById('add-course-option-btn');
+      console.log('optionsContainer:', optionsContainer);
+      console.log('addOptionBtn:', addOptionBtn);
+      if (!optionsContainer || !addOptionBtn) {
+        console.error('Required elements not found:', { optionsContainer, addOptionBtn });
+        return;
+      }
+
+      optionsSection.style.display = 'block';
+
+      const checkboxId = `course-option-${Date.now()}`;
+      const newOption = document.createElement('div');
+      newOption.className = 'checkbox-option';
+      newOption.innerHTML = `
+        <input type="checkbox" id="${checkboxId}" value="${userInput}" disabled>
+        <label for="${checkboxId}">${userInput}</label>
+      `;
+
+      console.log('Before insertion, optionsContainer children:', Array.from(optionsContainer.children));
+      optionsContainer.insertBefore(newOption, addOptionBtn);
+      console.log('New checkbox added before Add button:', newOption);
+      console.log('After insertion, optionsContainer children:', Array.from(optionsContainer.children));
+    }
+  },
+
+  getDynamicFields() {
+    const checkboxes = document.querySelectorAll('#course-details-options input[type="checkbox"]');
+    const options = Array.from(checkboxes).map(cb => cb.value);
+    return options.length > 0 ? [{
+      name: 'Course Option',
+      type: 'checkbox',
+      options: options
+    }] : [];
+  },
+
+  isModified() {
+    return this.modified;
+  }
+};
+
+
+//Academic details
+const AcademicDetailsManager = {
+  section: 'Academic Details',
+  modified: false,
+  educationRowCount: 0, // Start at 0, increment when creating rows
+  gapOptionCount: 2,
+
+  init() {
+    console.log('AcademicDetailsManager.init called');
+    this.setupSectionToggle();
+    this.setupEducationSection();
+    this.setupAcademicGapSection();
+  },
+
+  setupSectionToggle() {
+    const section = document.getElementById('academic-details-section');
+    const content = document.getElementById('academic-details-content');
+    const arrow = document.querySelector('.admin-student-arrow-icon-academic');
+    if (section && content && arrow) {
+      section.addEventListener('click', () => {
+        content.classList.toggle('expanded');
+        arrow.classList.toggle('rotated');
+      });
+    } else {
+      console.error('setupSectionToggle: Missing elements', { section, content, arrow });
+    }
+  },
+
+  setupEducationSection() {
+    console.log('setupEducationSection called');
+    const container = document.getElementById('education-container');
+    const headerRow = document.getElementById('education-header-row');
+    const dropdownIcon = container?.querySelector('.admin-student-dropdown-icon');
+    const section = document.getElementById('education-section');
+    if (!container || !headerRow || !dropdownIcon || !section) {
+      console.error('setupEducationSection: Missing elements', { container, headerRow, dropdownIcon, section });
+      return;
+    }
+
+    section.style.display = 'none';
+    headerRow.addEventListener('click', e => {
+      e.stopPropagation();
+      const isVisible = section.style.display === 'block';
+      if (typeof toggleVisibility === 'function') {
+        toggleVisibility(section, isVisible, dropdownIcon);
+      } else {
+        console.error('toggleVisibility is not defined');
+        section.style.display = isVisible ? 'none' : 'block';
+      }
+      container.classList.toggle('active', !isVisible);
+    });
+
+    const addButton = document.getElementById('add-education-field-btn');
+    if (addButton) {
+      console.log('Attaching event listener to add-education-field-btn');
+      // Remove existing event listeners to prevent duplicates
+      addButton.removeEventListener('click', this.handleAddEducationField);
+      this.handleAddEducationField = e => {
+        e.stopPropagation();
+        console.log('Add button clicked');
+        this.addEducationField();
+        this.modified = true;
+        try {
+          FormSubmissionManager.setModifiedSection(this.section);
+        } catch (error) {
+          console.error('Error in FormSubmissionManager.setModifiedSection:', error);
+        }
+      };
+      addButton.addEventListener('click', this.handleAddEducationField);
+    } else {
+      console.error('add-education-field-btn not found');
+    }
+
+    this.setupRemoveButtons();
+  },
+
+  setupRemoveButtons() {
+    console.log('setupRemoveButtons called');
+    document.querySelectorAll('.remove-field-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        console.log('Remove button clicked');
+        const field = btn.parentNode;
+        const row = field.parentNode;
+        const addButton = document.getElementById('add-education-field-btn');
+        const educationSection = document.getElementById('education-section');
+
+        field.remove();
+        console.log('Field removed, remaining children in row:', row.children.length);
+
+        if (row.children.length === 0) {
+          // Row is empty; remove it
+          row.remove();
+          console.log('Removed empty education row');
+          // Move Add button to previous row or education-section
+          const previousRow = document.querySelector('.education-row:last-of-type');
+          if (previousRow && addButton) {
+            previousRow.appendChild(addButton);
+            console.log('Moved Add button to previous education row');
+          } else if (addButton && educationSection) {
+            educationSection.appendChild(addButton);
+            console.log('Moved Add button to education-section');
+          }
+        } else if (addButton && !row.contains(addButton)) {
+          // Ensure Add button is at the end of the row if it has fields
+          row.appendChild(addButton);
+          console.log('Moved Add button to end of current education row');
+        }
+
+        // Check if the last row is empty and contains the Add button
+        const lastRow = document.querySelector('.education-row:last-of-type');
+        if (lastRow && lastRow.children.length === 1 && lastRow.contains(addButton)) {
+          // Remove empty last row with only Add button
+          lastRow.remove();
+          console.log('Removed empty last row with Add button');
+          const newLastRow = document.querySelector('.education-row:last-of-type');
+          if (newLastRow && addButton) {
+            newLastRow.appendChild(addButton);
+            console.log('Moved Add button to new last education row');
+          } else if (addButton && educationSection) {
+            educationSection.appendChild(addButton);
+            console.log('Moved Add button to education-section');
+          }
+        }
+
+        this.modified = true;
+        try {
+          FormSubmissionManager.setModifiedSection(this.section);
+        } catch (error) {
+          console.error('Error in FormSubmissionManager.setModifiedSection:', error);
+        }
+      });
+    });
+  },
+
+  addEducationField() {
+    console.log('addEducationField called');
+    const fieldName = prompt("Enter new field name (e.g., Graduation Year):", "")?.trim();
+    if (fieldName) {
+      console.log(`Adding field with name: ${fieldName}`);
+      // Find the last education row with fewer than 2 fields
+      let educationRow = Array.from(document.querySelectorAll('.education-row')).find(
+        row => row.querySelectorAll('.education-field').length < 2
+      );
+      const addButton = document.getElementById('add-education-field-btn');
+      const educationSection = document.getElementById('education-section');
+
+      if (!educationSection) {
+        console.error('education-section not found');
+        return;
+      }
+
+      if (!addButton) {
+        console.error('add-education-field-btn not found in addEducationField');
+        return;
+      }
+
+      // If no suitable row exists, create a new one
+      if (!educationRow) {
+        this.educationRowCount++;
+        console.log('Creating new education row:', `education-row-${this.educationRowCount}`);
+        educationRow = document.createElement('div');
+        educationRow.className = 'education-row';
+        educationRow.id = `education-row-${this.educationRowCount}`;
+        educationSection.appendChild(educationRow);
+      }
+
+      // Create new field
+      const newField = document.createElement('div');
+      newField.className = 'education-field';
+      newField.innerHTML = `
+        <input type="text" placeholder="${fieldName}" name="academic-details[education][${this.educationRowCount}][${fieldName.toLowerCase().replace(/ /g, '_')}]" disabled>
+        <button type="button" class="remove-field-btn">✕</button>
+      `;
+
+      // Insert the new field before the Add button if it's in the row, or append
+      try {
+        if (educationRow.contains(addButton)) {
+          educationRow.insertBefore(newField, addButton);
+        } else {
+          educationRow.appendChild(newField);
+        }
+        console.log('Inserted new field into row');
+      } catch (error) {
+        console.error('Error inserting new field:', error);
+        educationRow.appendChild(newField);
+      }
+
+      // Check if the row now has 2 fields; if so, create a new empty row for the Add button
+      if (educationRow.querySelectorAll('.education-field').length === 2) {
+        this.educationRowCount++;
+        console.log('Creating new empty row for Add button:', `education-row-${this.educationRowCount}`);
+        const newEmptyRow = document.createElement('div');
+        newEmptyRow.className = 'education-row';
+        newEmptyRow.id = `education-row-${this.educationRowCount}`;
+        educationSection.appendChild(newEmptyRow);
+        newEmptyRow.appendChild(addButton);
+        console.log('Moved Add button to new empty row');
+      } else if (!educationRow.contains(addButton)) {
+        // Ensure Add button is in the current row if it has fewer than 2 fields
+        educationRow.appendChild(addButton);
+        console.log('Moved Add button to current education row');
+      }
+
+      // Add event listener for the remove button
+      newField.querySelector('.remove-field-btn').addEventListener('click', e => {
+        e.stopPropagation();
+        console.log('Remove button clicked for field:', fieldName);
+        newField.remove();
+        console.log('Field removed, remaining children in row:', educationRow.children.length);
+
+        if (educationRow.children.length === 0) {
+          // Row is empty; remove it
+          educationRow.remove();
+          console.log('Removed empty education row');
+          // Move Add button to previous row or education-section
+          const previousRow = document.querySelector('.education-row:last-of-type');
+          if (previousRow && addButton) {
+            previousRow.appendChild(addButton);
+            console.log('Moved Add button to previous education row');
+          } else if (addButton && educationSection) {
+            educationSection.appendChild(addButton);
+            console.log('Moved Add button to education-section');
+          }
+        } else if (addButton && !educationRow.contains(addButton)) {
+          // Ensure Add button is at the end of the row if it has fields
+          educationRow.appendChild(addButton);
+          console.log('Moved Add button to end of current education row');
+        }
+
+        // Check if the last row is empty and contains the Add button
+        const lastRow = document.querySelector('.education-row:last-of-type');
+        if (lastRow && lastRow.children.length === 1 && lastRow.contains(addButton)) {
+          // Remove empty last row with only Add button
+          lastRow.remove();
+          console.log('Removed empty last row with Add button');
+          const newLastRow = document.querySelector('.education-row:last-of-type');
+          if (newLastRow && addButton) {
+            newLastRow.appendChild(addButton);
+            console.log('Moved Add button to new last education row');
+          } else if (addButton && educationSection) {
+            educationSection.appendChild(addButton);
+            console.log('Moved Add button to education-section');
+          }
+        }
+
+        this.modified = true;
+        try {
+          FormSubmissionManager.setModifiedSection(this.section);
+        } catch (error) {
+          console.error('Error in FormSubmissionManager.setModifiedSection:', error);
+        }
+      });
+    } else {
+      console.log('No field name provided or prompt cancelled');
+    }
+  },
+
+  getDynamicFields() {
+    console.log('getDynamicFields called');
+    const inputs = document.querySelectorAll('.education-row input[disabled]');
+    const fields = [];
+    inputs.forEach(input => {
+      const fieldName = input.placeholder;
+      fields.push({
+        name: fieldName,
+        type: 'text'
+      });
+    });
+    return fields;
+  },
+
+  setupAcademicGapSection() {
+    console.log('setupAcademicGapSection called');
+    const container = document.getElementById('academic-gap-container');
+    const row = container?.querySelector('#academic-gap-row');
+    const dropdownIcon = container?.querySelector('.admin-student-dropdown-icon');
+    const optionsSection = container?.querySelector('#academic-gap-options');
+    if (!container || !row || !dropdownIcon || !optionsSection) {
+      console.error('setupAcademicGapSection: Missing elements', { container, row, dropdownIcon, optionsSection });
+      return;
+    }
+
+    optionsSection.style.display = 'none';
+    row.addEventListener('click', e => {
+      e.stopPropagation();
+      const isVisible = optionsSection.style.display === 'block';
+      if (typeof toggleVisibility === 'function') {
+        toggleVisibility(optionsSection, isVisible, dropdownIcon);
+      } else {
+        console.error('toggleVisibility is not defined');
+        optionsSection.style.display = isVisible ? 'none' : 'block';
+      }
+      container.classList.toggle('active', !isVisible);
+    });
+
+    const addOptionButton = container.querySelector('#add-academic-option-btn');
+    if (addOptionButton) {
+      addOptionButton.addEventListener('click', e => {
+        e.stopPropagation();
+        this.addAcademicGapOption();
+        this.modified = true;
+        try {
+          FormSubmissionManager.setModifiedSection(this.section);
+        } catch (error) {
+          console.error('Error in FormSubmissionManager.setModifiedSection:', error);
+        }
+      });
+    } else {
+      console.error('add-academic-option-btn not found');
+    }
+  },
+
+  addAcademicGapOption() {
+    console.log('addAcademicGapOption called');
+    const userInput = prompt("Enter new option", "")?.trim();
+    if (userInput) {
+      const optionsContainer = document.querySelector('.academic-options');
+      if (optionsContainer) {
+        const newOption = document.createElement('div');
+        newOption.className = 'academic-option';
+        const radioId = `academic-option-${this.gapOptionCount++}`;
+        newOption.innerHTML = `
+          <input type="radio" id="${radioId}" value="${userInput}" disabled>
+          <label for="${radioId}">${userInput}</label>
+        `;
+        optionsContainer.appendChild(newOption);
+        console.log('Added new academic gap option:', userInput);
+      } else {
+        console.error('.academic-options container not found');
+      }
+    } else {
+      console.log('No option provided or prompt cancelled');
+    }
+  },
+
+  getDynamicFieldsForGap() {
+    console.log('getDynamicFieldsForGap called');
+    const radios = document.querySelectorAll('#academic-gap-options input[type="radio"]');
+    const options = Array.from(radios).map(radio => radio.value);
+    return options.length > 0 ? [{
+      name: 'Gap',
+      type: 'checkbox',
+      options: options
+    }] : [];
+  },
+
+  isModified() {
+    return this.modified;
+  }
+};
+
+const CoBorrowerManager = {
+  section: 'Co-Borrower Information',
+  modified: false,
+
+  init() {
+    this.setupDropdowns([
+      {
+        containerId: 'co-borrower-container',
+        rowId: 'co-borrower-row',
+        optionsId: 'co-borrower-options'
       },
+      {
+        containerId: 'income-container',
+        rowId: 'income-row',
+        optionsId: 'income-options'
+      },
+      {
+        containerId: 'liability-container',
+        rowId: 'liability-row',
+        optionsId: 'liability-options'
+      }
+    ]);
+    this.setupCoBorrowerOptions();
+    this.setupIncomeFields();
+    this.setupLiabilityFields();
+    this.setupCoBorrowerSectionToggle();
+  },
 
-      setupDropdown() {
-        const container = document.getElementById('course-details-container');
-        if (!container) return;
-
-        const row = container.querySelector('#course-details-row');
-        const dropdownIcon = container.querySelector('.admin-student-dropdown-icon');
-        const optionsSection = container.querySelector('#course-details-options');
-        if (!row || !dropdownIcon || !optionsSection) return;
-
-        optionsSection.style.display = 'none';
+  setupDropdowns(dropdowns) {
+    dropdowns.forEach(({ containerId, rowId, optionsId }) => {
+      const container = document.getElementById(containerId);
+      const row = document.getElementById(rowId);
+      const options = document.getElementById(optionsId);
+      const dropdownIcon = row?.querySelector('.admin-student-dropdown-icon');
+      if (container && row && options && dropdownIcon) {
+        options.style.display = 'none';
         row.addEventListener('click', () => {
-          const isVisible = optionsSection.style.display !== 'none';
-          toggleVisibility(optionsSection, isVisible, dropdownIcon);
+          const isVisible = options.style.display !== 'none';
+          toggleVisibility(options, isVisible, dropdownIcon);
           container.classList.toggle('active', !isVisible);
         });
-      },
+      }
+    });
+  },
 
-      setupAddOption() {
-        const addOptionBtn = document.querySelector('#add-option-btn');
-        if (addOptionBtn) {
-          addOptionBtn.addEventListener('click', e => {
-            e.stopPropagation();
-            this.addNewCourseOption();
-            this.modified = true;
-            FormSubmissionManager.setModifiedSection(this.section);
-          });
-        }
-      },
-
-      addNewCourseOption() {
-        const userInput = prompt("Enter new option", "")?.trim();
+  setupCoBorrowerOptions() {
+    const addOptionBtn = document.getElementById('add-coborrower-option-btn');
+    if (addOptionBtn) {
+      addOptionBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        const userInput = prompt("Enter new relationship option", "")?.trim();
         if (userInput) {
-          const optionsContainer = document.querySelector('.checkbox-options-container');
-          if (!optionsContainer) return;
-
+          const optionsContainer = document.querySelector('#co-borrower-options .checkbox-options-container');
           const newOption = document.createElement('div');
           newOption.className = 'checkbox-option';
           newOption.innerHTML = `
             <input type="checkbox" value="${userInput}" disabled>
             <label>${userInput}</label>
-        `;
-          optionsContainer.insertBefore(newOption, document.querySelector('#add-option-btn'));
-        }
-      },
-
-      getDynamicFields() {
-        const checkboxes = document.querySelectorAll('#course-details-options input[type="checkbox"]');
-        const options = Array.from(checkboxes).map(cb => cb.value);
-        return options.length > 0 ? [{
-          name: 'Course Option',
-          type: 'checkbox',
-          options: options
-        }] : [];
-      },
-
-      isModified() {
-        return this.modified;
-      }
-    };
-
-    // Academic Details Manager
-    const AcademicDetailsManager = {
-      section: 'Academic Details',
-      modified: false,
-      educationRowCount: 1,
-      gapOptionCount: 2,
-
-      init() {
-        this.setupSectionToggle();
-        this.setupEducationSection();
-        this.setupAcademicGapSection();
-      },
-
-      setupSectionToggle() {
-        const section = document.getElementById('academic-details-section');
-        const content = document.getElementById('academic-details-content');
-        const arrow = document.querySelector('.admin-student-arrow-icon-academic');
-        if (section && content && arrow) {
-          section.addEventListener('click', () => {
-            content.classList.toggle('expanded');
-            arrow.classList.toggle('rotated');
-          });
-        }
-      },
-
-      setupEducationSection() {
-        const container = document.getElementById('education-container');
-        const headerRow = document.getElementById('education-header-row');
-        const dropdownIcon = container?.querySelector('.admin-student-dropdown-icon');
-        const section = document.getElementById('education-section');
-        if (!container || !headerRow || !dropdownIcon || !section) return;
-
-        section.style.display = 'none';
-        headerRow.addEventListener('click', e => {
-          e.stopPropagation();
-          const isVisible = section.style.display === 'block';
-          toggleVisibility(section, isVisible, dropdownIcon);
-          container.classList.toggle('active', !isVisible);
-        });
-
-        document.getElementById('add-education-field-btn')?.addEventListener('click', e => {
-          e.stopPropagation();
-          this.addEducationField();
+          `;
+          optionsContainer.insertBefore(newOption, addOptionBtn);
           this.modified = true;
           FormSubmissionManager.setModifiedSection(this.section);
-        });
-
-        this.setupRemoveButtons();
-      },
-
-      setupRemoveButtons() {
-        document.querySelectorAll('.remove-field-btn').forEach(btn => {
-          btn.addEventListener('click', e => {
-            e.stopPropagation();
-            const field = btn.parentNode;
-            const row = field.parentNode;
-            field.remove();
-            if (row.children.length === 0) row.remove();
-            this.modified = true;
-            FormSubmissionManager.setModifiedSection(this.section);
-          });
-        });
-      },
-
-      addEducationField() {
-        const fieldName = prompt("Enter new field name (e.g., Graduation Year):", "")?.trim();
-        if (fieldName) {
-          this.educationRowCount++;
-          const newRow = document.createElement('div');
-          newRow.className = 'education-row';
-          newRow.id = `education-row-${this.educationRowCount}`;
-          newRow.innerHTML = `
-            <div class="education-field">
-                <input type="text" placeholder="${fieldName}" disabled>
-                <button type="button" class="remove-field-btn">✕</button>
-            </div>
-        `;
-          document.getElementById('education-section').insertBefore(newRow, document.getElementById('add-education-field-btn'));
-          newRow.querySelector('.remove-field-btn').addEventListener('click', e => {
-            e.stopPropagation();
-            newRow.remove();
-            this.modified = true;
-            FormSubmissionManager.setModifiedSection(this.section);
-          });
         }
-      },
+      });
+    }
+  },
 
-      getDynamicFields() {
-        const inputs = document.querySelectorAll('.education-row input[disabled]');
-        const fields = [];
-        inputs.forEach(input => {
-          const fieldName = input.placeholder;
-          fields.push({
-            name: fieldName,
-            type: 'text'
-          });
-        });
-        return fields;
-      },
+  setupIncomeFields() {
+    document.querySelectorAll('.delete-field').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        btn.closest('.field-container').remove();
+        this.modified = true;
+        FormSubmissionManager.setModifiedSection(this.section);
+      });
+    });
 
-      setupAcademicGapSection() {
-        const container = document.getElementById('academic-gap-container');
-        const row = container?.querySelector('#academic-gap-row');
-        const dropdownIcon = container?.querySelector('.admin-student-dropdown-icon');
-        const optionsSection = container?.querySelector('#academic-gap-options');
-        if (!container || !row || !dropdownIcon || !optionsSection) return;
-
-        optionsSection.style.display = 'none';
-        row.addEventListener('click', e => {
-          e.stopPropagation();
-          const isVisible = optionsSection.style.display === 'block';
-          toggleVisibility(optionsSection, isVisible, dropdownIcon);
-          container.classList.toggle('active', !isVisible);
-        });
-
-        container.querySelector('#add-academic-option-btn')?.addEventListener('click', e => {
-          e.stopPropagation();
-          this.addAcademicGapOption();
-          this.modified = true;
-          FormSubmissionManager.setModifiedSection(this.section);
-        });
-      },
-
-      addAcademicGapOption() {
-        const userInput = prompt("Enter new option", "")?.trim();
+    const addIncomeFieldBtn = document.getElementById('add-income-field-btn');
+    if (addIncomeFieldBtn) {
+      addIncomeFieldBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        const userInput = prompt("Enter field name", "")?.trim();
         if (userInput) {
-          const optionsContainer = document.querySelector('.academic-options');
-          const newOption = document.createElement('div');
-          newOption.className = 'academic-option';
-          const radioId = `academic-option-${this.gapOptionCount++}`;
-          newOption.innerHTML = `
-            <input type="radio" id="${radioId}" value="${userInput}" disabled>
-            <label for="${radioId}">${userInput}</label>
-        `;
-          optionsContainer.appendChild(newOption);
-        }
-      },
-
-      getDynamicFieldsForGap() {
-        const radios = document.querySelectorAll('#academic-gap-options input[type="radio"]');
-        const options = Array.from(radios).map(radio => radio.value);
-        return options.length > 0 ? [{
-          name: 'Gap',
-          type: 'checkbox',
-          options: options
-        }] : [];
-      },
-
-      isModified() {
-        return this.modified;
-      }
-    };
-
-    // Co-Borrower Manager
-    const CoBorrowerManager = {
-      section: 'Co-Borrower Information',
-      modified: false,
-
-      init() {
-        this.setupDropdowns([{
-          containerId: 'co-borrower-container',
-          rowId: 'co-borrower-row',
-          optionsId: 'co-borrower-options'
-        },
-        {
-          containerId: 'income-container',
-          rowId: 'income-row',
-          optionsId: 'income-options'
-        },
-        {
-          containerId: 'liability-container',
-          rowId: 'liability-row',
-          optionsId: 'liability-options'
-        }
-        ]);
-        this.setupCoBorrowerOptions();
-        this.setupIncomeFields();
-        this.setupLiabilityFields();
-        this.setupCoBorrowerSectionToggle();
-      },
-
-      setupDropdowns(dropdowns) {
-        dropdowns.forEach(({
-          containerId,
-          rowId,
-          optionsId
-        }) => {
-          const container = document.getElementById(containerId);
-          const row = document.getElementById(rowId);
-          const options = document.getElementById(optionsId);
-          const dropdownIcon = row?.querySelector('.admin-student-dropdown-icon');
-          if (container && row && options && dropdownIcon) {
-            options.style.display = 'none';
-            row.addEventListener('click', () => {
-              const isVisible = options.style.display !== 'none';
-              toggleVisibility(options, isVisible, dropdownIcon);
-              container.classList.toggle('active', !isVisible);
-            });
-          }
-        });
-      },
-
-      setupCoBorrowerOptions() {
-        const addOptionBtn = document.getElementById('add-option-btn');
-        if (addOptionBtn) {
-          addOptionBtn.addEventListener('click', e => {
+          const fieldsRowContainer = document.querySelector('.fields-row-container');
+          const fieldContainer = document.createElement('div');
+          fieldContainer.className = 'field-container';
+          fieldContainer.innerHTML = `
+            <input type="text" class="text-input" placeholder="${userInput}" disabled>
+            <button class="delete-field">✕</button>
+          `;
+          fieldsRowContainer.insertBefore(fieldContainer, addIncomeFieldBtn);
+          fieldContainer.querySelector('.delete-field').addEventListener('click', e => {
             e.stopPropagation();
-            const userInput = prompt("Enter new relationship option", "")?.trim();
-            if (userInput) {
-              const optionsContainer = document.querySelector('.checkbox-options-container');
-              const newOption = document.createElement('div');
-              newOption.className = 'checkbox-option';
-              newOption.innerHTML = `
-                    <input type="checkbox" value="${userInput}" disabled>
-                    <label>${userInput}</label>
-                `;
-              optionsContainer.insertBefore(newOption, addOptionBtn);
-              this.modified = true;
-              FormSubmissionManager.setModifiedSection(this.section);
-            }
-          });
-        }
-      },
-
-      setupIncomeFields() {
-        document.querySelectorAll('.delete-field').forEach(btn => {
-          btn.addEventListener('click', e => {
-            e.stopPropagation();
-            btn.closest('.field-container').remove();
+            fieldContainer.remove();
             this.modified = true;
             FormSubmissionManager.setModifiedSection(this.section);
           });
-        });
+          this.modified = true;
+          FormSubmissionManager.setModifiedSection(this.section);
+        }
+      });
+    }
+  },
 
-        const addIncomeFieldBtn = document.getElementById('add-income-field-btn');
-        if (addIncomeFieldBtn) {
-          addIncomeFieldBtn.addEventListener('click', e => {
+  setupLiabilityFields() {
+    const addLiabilityBtn = document.getElementById('add-liability-btn');
+    if (addLiabilityBtn) {
+      addLiabilityBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        const userInput = prompt("Enter field name for liability", "")?.trim();
+        if (userInput) {
+          const additionalFields = document.getElementById('additional-liability-fields');
+          const fieldContainer = document.createElement('div');
+          fieldContainer.className = 'liability-input-container';
+          fieldContainer.innerHTML = `
+            <input type="text" class="text-input" placeholder="${userInput}" disabled>
+            <button class="delete-liability-field">✕</button>
+          `;
+          additionalFields.appendChild(fieldContainer);
+          fieldContainer.querySelector('.delete-liability-field').addEventListener('click', e => {
             e.stopPropagation();
-            const userInput = prompt("Enter field name", "")?.trim();
-            if (userInput) {
-              const fieldsRowContainer = document.querySelector('.fields-row-container');
-              const fieldContainer = document.createElement('div');
-              fieldContainer.className = 'field-container';
-              fieldContainer.innerHTML = `
-                    <input type="text" placeholder="${userInput}" disabled>
-                    <button class="delete-field">✕</button>
-                `;
-              fieldsRowContainer.insertBefore(fieldContainer, addIncomeFieldBtn);
-              fieldContainer.querySelector('.delete-field').addEventListener('click', e => {
-                e.stopPropagation();
-                fieldContainer.remove();
-                this.modified = true;
-                FormSubmissionManager.setModifiedSection(this.section);
-              });
-              this.modified = true;
-              FormSubmissionManager.setModifiedSection(this.section);
-            }
+            fieldContainer.remove();
+            this.modified = true;
+            FormSubmissionManager.setModifiedSection(this.section);
           });
+          this.modified = true;
+          FormSubmissionManager.setModifiedSection(this.section);
         }
-      },
+      });
+    }
+  },
 
-      setupLiabilityFields() {
-        const addLiabilityBtn = document.getElementById('add-liability-btn');
-        if (addLiabilityBtn) {
-          addLiabilityBtn.addEventListener('click', e => {
-            e.stopPropagation();
-            const userInput = prompt("Enter field name for liability", "")?.trim();
-            if (userInput) {
-              const additionalFields = document.getElementById('additional-liability-fields');
-              const fieldContainer = document.createElement('div');
-              fieldContainer.className = 'liability-input-container';
-              fieldContainer.innerHTML = `
-                    <input type="text" placeholder="${userInput}" disabled>
-                    <button class="delete-liability-field">✕</button>
-                `;
-              additionalFields.appendChild(fieldContainer);
-              fieldContainer.querySelector('.delete-liability-field').addEventListener('click', e => {
-                e.stopPropagation();
-                fieldContainer.remove();
-                this.modified = true;
-                FormSubmissionManager.setModifiedSection(this.section);
-              });
-              this.modified = true;
-              FormSubmissionManager.setModifiedSection(this.section);
-            }
-          });
-        }
-      },
+  setupCoBorrowerSectionToggle() {
+    const header = document.querySelector('.admin-student-section-header-co-borrower');
+    const content = document.querySelector('.admin-student-form-section-co-borrower-info');
+    const arrow = document.querySelector('.admin-student-arrow-icon-co-borrower');
+    if (header && content && arrow) {
+      content.style.display = 'block';
+      header.addEventListener('click', () => {
+        const isVisible = content.style.display === 'block';
+        content.style.display = isVisible ? 'none' : 'block';
+        arrow.style.transform = isVisible ? 'rotate(0deg)' : 'rotate(180deg)';
+      });
+    }
+  },
 
-      setupCoBorrowerSectionToggle() {
-        const header = document.querySelector('.admin-student-section-header-co-borrower');
-        const content = document.querySelector('.admin-student-form-section-co-borrower-info');
-        const arrow = document.querySelector('.admin-student-arrow-icon-co-borrower');
-        if (header && content && arrow) {
-          content.style.display = 'block';
-          header.addEventListener('click', () => {
-            const isVisible = content.style.display === 'block';
-            content.style.display = isVisible ? 'none' : 'block';
-            arrow.style.transform = isVisible ? 'rotate(0deg)' : 'rotate(180deg)';
-          });
-        }
-      },
+  getDynamicFields() {
+    const fields = [];
+    const relationCheckboxes = document.querySelectorAll('#co-borrower-options input[type="checkbox"]');
+    if (relationCheckboxes.length > 0) {
+      const options = Array.from(relationCheckboxes).map(cb => cb.value);
+      fields.push({
+        name: 'Relation',
+        type: 'checkbox',
+        options: options
+      });
+    }
+    const incomeFields = document.querySelectorAll('.fields-row-container input[disabled]');
+    incomeFields.forEach(input => {
+      fields.push({
+        name: input.placeholder,
+        type: 'text'
+      });
+    });
+    const liabilityFields = document.querySelectorAll('#additional-liability-fields input[disabled]');
+    liabilityFields.forEach(input => {
+      fields.push({
+        name: input.placeholder,
+        type: 'text'
+      });
+    });
+    return fields;
+  },
 
-      getDynamicFields() {
-        const fields = [];
-        const relationCheckboxes = document.querySelectorAll('#co-borrower-options input[type="checkbox"]');
-        if (relationCheckboxes.length > 0) {
-          const options = Array.from(relationCheckboxes).map(cb => cb.value);
-          fields.push({
-            name: 'Relation',
-            type: 'checkbox',
-            options: options
-          });
-        }
-        const incomeFields = document.querySelectorAll('.fields-row-container input[disabled]');
-        incomeFields.forEach(input => {
-          fields.push({
-            name: input.placeholder,
-            type: 'text'
-          });
-        });
-        const liabilityFields = document.querySelectorAll('#additional-liability-fields input[disabled]');
-        liabilityFields.forEach(input => {
-          fields.push({
-            name: input.placeholder,
-            type: 'text'
-          });
-        });
-        return fields;
-      },
-
-      isModified() {
-        return this.modified;
-      }
-    };
-
+  isModified() {
+    return this.modified;
+  }
+};
     // Document Field Manager
     const DocumentFieldManager = {
       section: 'Document Upload',
