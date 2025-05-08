@@ -35,8 +35,7 @@
 
 #commonsidebar-admin .commonsidebar-sidebarlists-bottom li {
     width: 114px;
-    font-size: 13px;
-    gap: 8.5px;
+    font-size: 12px;
     align-items: center;
     justify-content: flex-start;
 }

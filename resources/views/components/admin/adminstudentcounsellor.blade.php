@@ -219,12 +219,13 @@
         const counsellorList = document.getElementById('counsellor-list');
 
         // Fix placeholder visibility for contact number
-        const contactInput = document.getElementById("studentcounsellor-requiredfields-admin-contact");
+       const contactInput = document.getElementById("studentcounsellor-requiredfields-admin-contact");
         if (contactInput) {
             contactInput.style.padding = "10px";
-            contactInput.style.height = "auto";
-            contactInput.style.lineHeight = "normal";
-            contactInput.style.fontSize = "16px";
+            contactInput.style.height = "34px";
+            contactInput.style.lineHeight = "14px";
+            contactInput.style.fontSize = "14px";
+            contactInput.style.boxSizing = "border-box";
         }
 
         getScUsers();
