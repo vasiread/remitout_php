@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\PromotionalContentMail;
 use App\Models\Admin;
+use App\Models\CourseDuration;
 use App\Models\CourseInfo;
 use App\Models\Degree;
 use App\Models\landingpage;
@@ -31,6 +32,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Duration;
 
 class Admincontroller extends Controller
 {
@@ -1091,11 +1093,12 @@ class Admincontroller extends Controller
         $socialOptions = SocialOption::all();
         $countries = PlanToCountry::all();
         $degrees = Degree::all();
+        $courseDuration = CourseDuration::all();
 
 
 
 
-        return view('pages.studentformquestionair', compact('user', 'socialOptions', 'countries', 'degrees'));
+        return view('pages.studentformquestionair', compact('user', 'socialOptions', 'countries', 'degrees','courseDuration'));
     }
 
 

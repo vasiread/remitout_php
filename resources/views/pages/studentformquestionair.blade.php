@@ -309,12 +309,12 @@
           </div>
       @endforeach
 
-           <div class="degree">
+          <div class="degree">
             <input type="radio" id="others" name="degree_type" value="others">
             <label for="others">Others</label>
           </div>
 
-           <div class="degree other-degree-input-container" style="display: none;" id="other-degree-container">
+          <div class="degree other-degree-input-container" style="display: none;" id="other-degree-container">
             <input type="text" id="other-degree" class="other-degree-input" placeholder="Add Degree">
           </div>
         </div>
@@ -337,11 +337,13 @@
             <!-- Dropdown arrow SVG or icon -->
           </div>
           <div class="dropdown-options">
-            <div class="dropdown-option" data-value="12">12 Months</div>
-            <div class="dropdown-option" data-value="24">24 Months</div>
-            <div class="dropdown-option" data-value="36">36 Months</div>
-            <div class="dropdown-option" data-value="42">42 Months</div>
+            @foreach($courseDuration as $course)
+        <div class="dropdown-option" data-value="{{ $course->duration_in_months }}">
+          {{ $course->duration_in_months }} Months
+        </div>
+      @endforeach
           </div>
+
         </div>
       </div>
     </div>
@@ -624,7 +626,7 @@
       <div class="document-container">
 
         <div class="document-box">
-          <div class="document-name" id="pan-card-document-name" style="display: none;">PAN Card</div>
+          <div class="document-name" id="pan-card-document-name">PAN Card</div>
           <div class="upload-field">
 
             <span id="pan-card-name">No file chosen</span>
@@ -651,7 +653,7 @@
 
         <!-- Aadhar Card -->
         <div class="document-box">
-          <div class="document-name" id="aadhar-card-document-name" style="display: none;">Aadhar Card</div>
+          <div class="document-name" id="aadhar-card-document-name">Aadhar Card</div>
           <div class="upload-field">
             <span id="aadhar-card-name">No file chosen</span>
             <label for="aadhar-card" class="upload-icon" id="aadhar-card-upload-icon">
@@ -676,7 +678,7 @@
 
         <!-- Passport -->
         <div class="document-box">
-          <div class="document-name" id="passport-document-name" style="display: none;">Passport</div>
+          <div class="document-name" id="passport-document-name">Passport</div>
           <div class="upload-field">
             <span id="passport-card-name">No file chosen</span>
             <label for="passport" class="upload-icon" id="passport-upload-icon">
@@ -715,7 +717,7 @@
         <!-- 10th Grade Mark Sheet -->
         <div class="document-box">
 
-          <div class="document-name" id="10th-mark-sheet-id" style="display: none;">10th Mark Sheet</div>
+          <div class="document-name" id="10th-mark-sheet-id">10th Mark Sheet</div>
           <div class="upload-field">
             <span id="tenth-grade-name">No file chosen</span>
             <label for="tenth-grade" class="upload-icon" id="tenth-grade-upload-icon">
@@ -740,7 +742,7 @@
 
         <!-- 12th Grade Mark Sheet -->
         <div class="document-box">
-          <div class="document-name" id="12th-mark-sheet-id" style="display: none;">12th Mark Sheet</div>
+          <div class="document-name" id="12th-mark-sheet-id">12th Mark Sheet</div>
           <div class="upload-field">
             <span id="twelfth-grade-name">No file chosen</span>
             <label for="twelfth-grade" class="upload-icon" id="twelfth-grade-upload-icon">
@@ -765,7 +767,7 @@
 
         <!-- Graduation Mark Sheet -->
         <div class="document-box">
-          <div class="document-name" id="graduation-mark-sheet-id" style="display: none;">Graduation Mark Sheet</div>
+          <div class="document-name" id="graduation-mark-sheet-id">Graduation Mark Sheet</div>
           <div class="upload-field">
             <span id="graduation-grade-name">No file chosen</span>
             <label for="graduation-grade" class="upload-icon" id="graduation-grade-upload-icon">
@@ -803,7 +805,7 @@
       <div class="document-container">
         <!-- 10th Grade -->
         <div class="document-box">
-          <div class="document-name" id="10th-grades-id" style="display: none;">10th Grade</div>
+          <div class="document-name" id="10th-grades-id">10th Grade</div>
           <div class="upload-field">
             <span id="secured-tenth-name">No file chosen</span>
             <label for="secured-tenth" class="upload-icon" id="secured-tenth-upload-icon">
@@ -828,7 +830,7 @@
 
         <!-- 12th Grade -->
         <div class="document-box">
-          <div class="document-name" id="12th-grade-id" style="display: none;">12th Grade</div>
+          <div class="document-name" id="12th-grade-id">12th Grade</div>
           <div class="upload-field">
             <span id="secured-twelfth-name">No file chosen</span>
             <label for="secured-twelfth" class="upload-icon" id="secured-twelfth-upload-icon">
@@ -853,7 +855,7 @@
 
         <!-- Graduation -->
         <div class="document-box">
-          <div class="document-name" id="Graduation-id" style="display: none;">Graduation</div>
+          <div class="document-name" id="Graduation-id">Graduation</div>
           <div class="upload-field">
             <span id="secured-graduation-name">No file chosen</span>
             <label for="secured-graduation" class="upload-icon" id="secured-graduation-upload-icon">
@@ -890,7 +892,7 @@
       </div>
       <div class="work-experience-row">
         <div class="work-experience-box">
-          <div class="document-name" id="experience-letter-id" style="display: none;">Experience letter</div>
+          <div class="document-name" id="experience-letter-id">Experience letter</div>
           <div class="upload-field">
             <span id="work-experience-experience-letter">No file chosen</span>
             <label for="work-experience-tenth" class="upload-icon" id="work-experience-tenth-upload-icon">
@@ -914,7 +916,7 @@
         </div>
 
         <div class="work-experience-box">
-          <div class="document-name" id="3-months-salary-slip-id" style="display: none;">3 months salary slip</div>
+          <div class="document-name" id="3-months-salary-slip-id">3 months salary slip</div>
           <div class="upload-field">
             <span id="work-experience-monthly-slip">No file chosen</span>
             <label for="work-experience-twelfth" class="upload-icon" id="work-experience-twelfth-upload-icon">
@@ -938,7 +940,7 @@
         </div>
 
         <div class="work-experience-box">
-          <div class="document-name" id="office-IDs-id" style="display: none;">office ID</div>
+          <div class="document-name" id="office-IDs-id">office ID</div>
           <div class="upload-field">
             <span id="work-experience-office-id">No file chosen</span>
             <label for="work-experience-graduation" class="upload-icon" id="work-experience-graduation-upload-icon">
@@ -964,7 +966,7 @@
 
       <div class="work-experience-row">
         <div class="work-experience-box">
-          <div class="document-name" id="Joining-letter-id" style="display: none;">Joining letter</div>
+          <div class="document-name" id="Joining-letter-id">Joining letter</div>
 
           <div class="upload-field">
             <span id="work-experience-joining-letter">No file chosen</span>
@@ -1004,7 +1006,7 @@
 
         <!-- PAN Card -->
         <div class="document-box">
-          <div class="document-name" id="pan-card-ids" style="display: none;">PAN Card</div>
+          <div class="document-name" id="pan-card-ids">PAN Card</div>
           <div class="upload-field">
             <span id="co-pan-card-name">No file chosen</span>
             <label for="co-pan-card" class="upload-icon" id="co-upload-icon">
@@ -1029,7 +1031,7 @@
 
         <!-- Aadhar Card -->
         <div class="document-box">
-          <div class="document-name" id="aadhar-card-id" style="display: none;">Aadhar Card</div>
+          <div class="document-name" id="aadhar-card-id">Aadhar Card</div>
           <div class="upload-field">
             <span id="co-aadhar-card-name">No file chosen</span>
             <label for="co-aadhar-card" class="upload-icon" id="co-aadhar-upload-icon">
@@ -1054,7 +1056,7 @@
 
         <!-- Passport (Address Proof) -->
         <div class="document-box">
-          <div class="document-name" id="address-proof-id" style="display: none;">Address Proof</div>
+          <div class="document-name" id="address-proof-id">Address Proof</div>
           <div class="upload-field">
             <span id="co-addressproof">No file chosen</span>
             <label for="co-passport" class="upload-icon" id="co-passport-upload-icon">
@@ -1098,7 +1100,7 @@
       <div class="salary-upload-row">
         <!-- Salary Slip -->
         <div class="salary-upload-box">
-          <div class="document-name" id="3 months-salary-slip-id" style="display: none;">3 months salary slip</div>
+          <div class="document-name" id="3 months-salary-slip-id">3 months salary slip</div>
           <div class="upload-field">
             <span id="salary-upload-salary-slip-name">No file chosen</span>
             <label for="salary-upload-salary-slip" class="upload-icon" id="salary-upload-salary-slip-upload-icon">
@@ -1121,9 +1123,8 @@
           </div>
         </div>
 
-        <!-- Bank Statement -->
         <div class="salary-upload-box">
-          <div class="document-name" id="6-months-bank-statement-id" style="display: none;">6 months bank statement
+          <div class="document-name" id="6-months-bank-statement-id">6 months bank statement
           </div>
           <div class="upload-field">
             <span id="salary-upload-salary-statement-name">No file chosen</span>
@@ -1144,13 +1145,14 @@
             <h3 class="help-title">Help</h3>
             <div class="help-content">
               <p>Please upload your 6 months salary statement in jpg, png, or pdf format.</p>
+
             </div>
           </div>
         </div>
 
         <!-- Address Proof -->
         <div class="salary-upload-box">
-          <div class="document-name" id="address-proof-salary-id" style="display: none;">Address Proof</div>
+          <div class="document-name" id="address-proof-salary-id">Address Proof</div>
           <div class="upload-field">
             <span id="salary-upload-address-proof-name">No file chosen</span>
             <label for="salary-upload-address-proof" class="upload-icon" id="salary-upload-address-proof-upload-icon">
@@ -1174,15 +1176,13 @@
         </div>
       </div>
 
-      <!-- Business Documents Section -->
       <div class="salary-sub">
         <p>If in Business:</p>
       </div>
 
       <div class="salary-upload-row">
-        <!-- ITR -->
         <div class="salary-upload-box">
-          <div class="document-name" id="2 years of ITR-id" style="display: none;">2 years of ITR</div>
+          <div class="document-name" id="2 years of ITR-id">2 years of ITR</div>
           <div class="upload-field">
             <span id="salary-upload-itr-name">No file chosen</span>
             <label for="salary-upload-itr" class="upload-icon" id="salary-upload-itr-upload-icon">
@@ -1206,9 +1206,9 @@
         </div>
 
 
-        <!-- 6 Months Bank Statement -->
+
         <div class="salary-upload-box">
-          <div class="document-name" id="6-months-bank-statements-id" style="display: none;">6 months bank statement
+          <div class="document-name" id="6-months-bank-statements-id">6 months bank statement
           </div>
           <div class="upload-field">
             <span id="salary-upload-fourth-document-name">No file chosen</span>
@@ -1233,7 +1233,7 @@
           </div>
         </div>
 
-        <!-- Office/Shop Photographs -->
+
         <div class="salary-upload-box">
           <div class="document-name" id="Office/Shop-photographs-id" style="display: none;">Office/Shop photographs
           </div>
@@ -1275,7 +1275,6 @@
 
   <div id="toast-container" class="toast-container"></div>
 
-  <!-------Navigation button------>
   <div class="navigation">
     <button class="nav-button prev">
       <span class="arrow"></span>
