@@ -30,18 +30,21 @@
         <h1 class="studentcounsellor-header-admin">Add Student Counsellor</h1>
         <div class="studentcounsellor-requiredfields-admin">
             <input type="text" id="studentcounsellor-requiredfields-admin-scname" placeholder="Name of the Student Counsellor">
-            <input type="text" id="studentcounsellor-requiredfields-admin-startdate" placeholder="DoB">
+            <input type="text" id="studentcounsellor-requiredfields-admin-startdate" placeholder="Starting Date">
             <input type="email" id="studentcounsellor-requiredfields-admin-email" placeholder="Email ID">
             <input type="text" id="studentcounsellor-requiredfields-admin-contact" placeholder="Contact No.">
             <textarea id="student-counsellor-admin-address" placeholder="Address"></textarea>
-            <input type="text" placeholder="Upload Profile Image" id="trigger-profile-photo-sc">
-            <input type="file" id="sc-profile-photo-upload" style="display: none;">
+            <div class="upload-container">
+                <input type="text" placeholder="Upload Profile Image" id="trigger-profile-photo-sc" readonly>
+                <input type="file" id="sc-profile-photo-upload" style="display: none;">
+            </div>
         </div>
         <div class="addcouncellor-buttoncontainer">
             <button id="delete-councellor-admin">Delete</button>
             <button id="generate-referral-councellor-admin">Generate Referral Code</button>
         </div>
     </div>
+    
     <div class="studentcounsellorlist-adminside">
         <div class="globallistcontainer-header" id="counsellorlistcontainer-headersection">
             <h2>Student Counsellor List</h2>
