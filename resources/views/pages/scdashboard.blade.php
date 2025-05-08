@@ -1665,14 +1665,14 @@ $totalPages = ceil($totalStudents / $perPage);
             // Show popup
             raiseQueryButton.addEventListener('click', () => {
                 raiseQueryPopup.style.display = "flex";
-                backgroundContainer.classList.add("dull");
+                backgroundContainer.classList.add("blur");
                 queryText.value = ""; // Reset textarea
             });
 
             // Hide popup function
             const hidePopup = () => {
                 raiseQueryPopup.style.display = "none";
-                backgroundContainer.classList.remove("dull");
+                backgroundContainer.classList.remove("blur");
             };
 
             // Close button
