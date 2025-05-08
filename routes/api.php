@@ -138,12 +138,15 @@ Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser'])
 Route::get('/getInfoForAdminSocial', [Admincontroller::class, 'showStudentFormAdmin']);
 Route::delete('/deleteInfoForAdminSocial/{id}', [AdminController::class, 'deleteInfoForAdminSocial']);
 Route::delete('/deletedegree/{id}', [AdminController::class, 'deleteDegreesAdminside']);
+Route::delete('/deletecourseduration/{id}', [AdminController::class, 'deleteCourseDuration']);
 
 Route::post('/storesocialoption', [AdminController::class, 'storeSocialOption']);
 Route::post('/storeplantostudycountry', [AdminController::class, 'storePlanToStudyCountry']);
 Route::post('/storedegree', [AdminController::class, 'storeDegreeAdmin']);
+Route::post('/storecourseduration', [AdminController::class, 'storeCourseDuration']);
 
 
 Route::get('/getplantocountries', [AdminController::class, 'showStudentPlanForCountriesAdmin']);
 Route::get('/showstudentcourse', [AdminController::class, 'showStudentCourse']);
+Route::get('/showstudentcourseduration', [AdminController::class, 'showStudentCourseDuration']);
 

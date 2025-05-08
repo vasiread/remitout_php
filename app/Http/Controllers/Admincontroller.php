@@ -1122,6 +1122,16 @@ class Admincontroller extends Controller
             'countries' => $countries
         ]);
     }
+    public function showStudentCourseDuration()
+    {
+
+
+        $duration = CourseDuration::all();
+
+        return response()->json([
+            'duration' => $duration
+        ]);
+    }
     public function showStudentCourse()
     {
 
@@ -1168,6 +1178,18 @@ class Admincontroller extends Controller
 
         return response()->json(['message' => 'Deleted successfully.'], 200);
     }
+    public function deleteCourseDuration($id)
+    {
+        $duration = CourseDuration::find($id);
+
+        if (!$duration) {
+            return response()->json(['message' => 'Social option not found.'], 404);
+        }
+
+        $duration->delete();
+
+        return response()->json(['message' => 'Duration Deleted successfully.'], 200);
+    }
 
     public function storeSocialOption(Request $request)
     {
@@ -1180,6 +1202,19 @@ class Admincontroller extends Controller
         return response()->json([
             'message' => 'Social option added successfully.',
             'data' => $socialOption
+        ], 201);
+    }
+    public function storeCourseDuration(Request $request)
+    {
+        $validated = $request->validate([
+            'duration_in_months' => 'required|string',
+        ]);
+
+        $courseduration = CourseDuration::create($validated);
+
+        return response()->json([
+            'message' => 'Course Duration added successfully.',
+            'data' => $courseduration
         ], 201);
     }
     public function storePlanToStudyCountry(Request $request)
@@ -1208,6 +1243,8 @@ class Admincontroller extends Controller
             'data' => $degree
         ], 201);
     }
+
+
 
 
 
