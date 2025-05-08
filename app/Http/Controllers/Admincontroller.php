@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Mail\PromotionalContentMail;
 use App\Models\Admin;
+use App\Models\CourseDuration;
 use App\Models\CourseInfo;
+use App\Models\Degree;
 use App\Models\landingpage;
 use App\Models\Nbfc;
 use App\Models\PersonalInfo;
@@ -30,6 +32,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Duration;
 
 class Admincontroller extends Controller
 {
@@ -1089,14 +1092,16 @@ class Admincontroller extends Controller
         // Fetch data from social_options table
         $socialOptions = SocialOption::all();
         $countries = PlanToCountry::all();
-        Log::info($countries);
+        $degrees = Degree::all();
+        $courseDuration = CourseDuration::all();
 
 
 
-        return view('pages.studentformquestionair', compact('user', 'socialOptions','countries'));
+
+        return view('pages.studentformquestionair', compact('user', 'socialOptions', 'countries', 'degrees','courseDuration'));
     }
 
-     
+
     public function showStudentFormAdmin()
     {
 
@@ -1117,6 +1122,28 @@ class Admincontroller extends Controller
             'countries' => $countries
         ]);
     }
+    public function showStudentCourse()
+    {
+
+
+        $degree = Degree::all();
+
+        return response()->json([
+            'degree' => $degree
+        ]);
+    }
+    public function deleteDegreesAdminside($id)
+    {
+        $degree = Degree::find($id);
+
+        if (!$degree) {
+            return response()->json(['message' => 'Social option not found.'], 404);
+        }
+
+        $degree->delete();
+
+        return response()->json(['message' => 'Deleted successfully.'], 200);
+    }
     public function deleteInfoForAdminSocial($id)
     {
         $socialOption = SocialOption::find($id);
@@ -1126,6 +1153,18 @@ class Admincontroller extends Controller
         }
 
         $socialOption->delete();
+
+        return response()->json(['message' => 'Deleted successfully.'], 200);
+    }
+    public function deleteInfoForAdminPlanToStudy($id)
+    {
+        $plantocountry = PlanToCountry::find($id);
+
+        if (!$plantocountry) {
+            return response()->json(['message' => 'Social option not found.'], 404);
+        }
+
+        $plantocountry->delete();
 
         return response()->json(['message' => 'Deleted successfully.'], 200);
     }
@@ -1154,6 +1193,19 @@ class Admincontroller extends Controller
         return response()->json([
             'message' => 'Country added successfully.',
             'data' => $planToStudy
+        ], 201);
+    }
+    public function storeDegreeAdmin(Request $request)
+    {
+        $validated = $request->validate([
+            'degree_type' => 'required|string',
+        ]);
+
+        $degree = Degree::create($validated);
+
+        return response()->json([
+            'message' => 'Degree added successfully.',
+            'data' => $degree
         ], 201);
     }
 
