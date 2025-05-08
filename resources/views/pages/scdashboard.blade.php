@@ -1054,7 +1054,7 @@ $totalPages = ceil($totalStudents / $perPage);
                 button.addEventListener('click', () => {
                     if (studentAddingPopuBar) {
                         studentAddingPopuBar.style.display = 'flex';
-                        backgroundContainer.classList.add('dull');
+                        backgroundContainer.classList.add('blur');
                     }
                 });
 
@@ -1074,7 +1074,7 @@ $totalPages = ceil($totalStudents / $perPage);
                 closePopuTrigger.addEventListener('click', () => {
                     if (studentAddingPopuBar) {
                         studentAddingPopuBar.style.display = "none";
-                        backgroundContainer.classList.remove('dull');
+                        backgroundContainer.classList.remove('blur');
                     }
                 });
             }
@@ -1338,110 +1338,257 @@ $totalPages = ceil($totalStudents / $perPage);
 };
 
 
-        const generateReferLinkPopup = () => {
-            // DOM Elements
-            const triggeredReferralButtons = document.querySelectorAll(".referral-Link-trigger-button, .referral-Link-trigger-anotherbutton");
-            const referralTriggeredView = document.querySelector(".referral-triggered-view");
-            const closeReferralTriggerView = document.querySelector(".referral-triggered-view-headersection img");
-            const generateButton = document.querySelector(".referral-triggered-view-footer button:nth-child(2)"); // "Generate"
-            const cancelButton = document.querySelector(".referral-triggered-view-footer button:nth-child(1)"); // "Cancel"
-            const referralInput = document.querySelector(".referral-triggered-view-content input");
-            const backgroundContainer = document.querySelector(".scdashboard-parentcontainer");
-            const referralCodeElement = document.querySelector("#screferral-id-fromprofile span");
+       const generateReferLinkPopup = () => {
+    // DOM Elements
+    const triggeredReferralButtons = document.querySelectorAll(".referral-Link-trigger-button, .referral-Link-trigger-anotherbutton");
+    const referralTriggeredView = document.querySelector(".referral-triggered-view");
+    const closeReferralTriggerView = document.querySelector(".referral-triggered-view-headersection img");
+    const footerContainer = document.querySelector(".referral-triggered-view-footer");
+    let generateButton = document.querySelector(".referral-triggered-view-footer button:nth-child(2)"); // "Generate"
+    let cancelButton = document.querySelector(".referral-triggered-view-footer button:nth-child(1)"); // "Cancel"
+    const referralInput = document.querySelector(".referral-triggered-view-content input");
+    const backgroundContainer = document.querySelector(".scdashboard-parentcontainer");
+    const referralCodeElement = document.querySelector("#screferral-id-fromprofile span");
 
-            // Base URL for local development
-            const baseUrl = "http://localhost:8000/signup";
+    // Base URL for local development
+    const baseUrl = "http://localhost:8000/signup";
 
-            // Secret key for encryption (keep this secure and consistent)
-            const secretKey = "rJXU0e4lTP7G+KP9dH5V1pq9P7vP8d8sravZmzMGUKM="; // Replace with a strong, unique key
+    // Secret key for encryption (keep this secure and consistent)
+    const secretKey = "rJXU0e4lTP7G+KP9dH5V1pq9P7vP8d8sravZmzMGUKM=";
 
-            // Validation: Check if critical elements exist
-            if (!triggeredReferralButtons.length || !referralTriggeredView || !referralInput || !backgroundContainer || !referralCodeElement) {
-                console.error("Required DOM elements are missing for generateReferLinkPopup:", {
-                    triggeredReferralButtons: !!triggeredReferralButtons.length,
-                    referralTriggeredView: !!referralTriggeredView,
-                    referralInput: !!referralInput,
-                    backgroundContainer: !!backgroundContainer,
-                    referralCodeElement: !!referralCodeElement
-                });
-                return;
-            }
+    // Validation: Check if critical elements exist
+    if (!triggeredReferralButtons.length || !referralTriggeredView || !referralInput || !backgroundContainer || !referralCodeElement || !footerContainer) {
+        console.error("Required DOM elements are missing for generateReferLinkPopup:", {
+            triggeredReferralButtons: !!triggeredReferralButtons.length,
+            referralTriggeredView: !!referralTriggeredView,
+            referralInput: !!referralInput,
+            backgroundContainer: !!backgroundContainer,
+            referralCodeElement: !!referralCodeElement,
+            footerContainer: !!footerContainer
+        });
+        return;
+    }
 
-            // Check if CryptoJS is loaded
-            if (typeof CryptoJS === "undefined") {
-                console.error("CryptoJS library is not loaded. Please include it in your HTML.");
-                return;
-            }
+    // Check if CryptoJS is loaded
+    if (typeof CryptoJS === "undefined") {
+        console.error("CryptoJS library is not loaded. Please include it in your HTML.");
+        return;
+    }
 
-            // Get referral code
-            const referralCode = referralCodeElement.textContent.trim();
-            if (!referralCode) {
-                console.error("Referral code is empty or not found");
-                return;
-            }
+    // Get referral code
+    const referralCode = referralCodeElement.textContent.trim();
+    if (!referralCode) {
+        console.error("Referral code is empty or not found");
+        return;
+    }
 
-            // Encrypt the referral code using AES
-            const encryptedRef = CryptoJS.AES.encrypt(referralCode, secretKey).toString();
-            const encodedEncryptedRef = encodeURIComponent(encryptedRef); // URL-safe encoding
+    // Encrypt the referral code using AES
+    const encryptedRef = CryptoJS.AES.encrypt(referralCode, secretKey).toString();
+    const encodedEncryptedRef = encodeURIComponent(encryptedRef); // URL-safe encoding
 
-            // Construct referral link with encrypted ref
-            const referralLink = `${baseUrl}?ref=${encodedEncryptedRef}`;
+    // Construct referral link with encrypted ref
+    const referralLink = `${baseUrl}?ref=${encodedEncryptedRef}`;
 
-            // Helper function to remove existing listeners (prevent stacking)
-            const removeExistingListeners = (element, event, handler) => {
-                element.removeEventListener(event, handler);
-                element.addEventListener(event, handler);
-            };
+    // Helper function to remove existing listeners (prevent stacking)
+    const removeExistingListeners = (element, event, handler) => {
+        element.removeEventListener(event, handler);
+        element.addEventListener(event, handler);
+    };
 
-            // Show popup
-            triggeredReferralButtons.forEach(button => {
-                const showPopup = () => {
-                    referralTriggeredView.style.display = "flex";
-                    backgroundContainer.classList.add("dull");
-                    referralInput.value = ""; // Reset input
-                };
-                removeExistingListeners(button, "click", showPopup);
-            });
+    // Function to reset the footer to show "Generate" button
+    const resetFooter = () => {
+        footerContainer.innerHTML = `
+            <button>Cancel</button>
+            <div class="action-btn-group">
+                <button class="btn-generate">Generate</button>
+            </div>
+        `;
+        // Rebind buttons after resetting the footer
+        cancelButton = footerContainer.querySelector("button:nth-child(1)"); // Cancel
+        generateButton = footerContainer.querySelector(".btn-generate"); // Generate
 
-            // Hide popup (shared logic for close and cancel)
-            const hidePopup = () => {
-                referralTriggeredView.style.display = "none";
-                backgroundContainer.classList.remove("dull");
-            };
+        // Reattach event listeners for Cancel and Generate buttons
+        if (cancelButton) {
+            removeExistingListeners(cancelButton, "click", hidePopup);
+        }
+        if (generateButton) {
+            removeExistingListeners(generateButton, "click", generateLink);
+        }
+    };
 
-            // Close button
-            if (closeReferralTriggerView) {
-                removeExistingListeners(closeReferralTriggerView, "click", hidePopup);
-            }
-
-            // Cancel button
-            if (cancelButton) {
-                removeExistingListeners(cancelButton, "click", hidePopup);
-            }
-
-            // Generate button
-            if (generateButton) {
-                const generateLink = async () => {
-                    referralInput.value = referralLink;
-                    try {
-                        // Use modern Clipboard API
-                        await navigator.clipboard.writeText(referralLink);
-                        alert("Referral link copied to clipboard!");
-                    } catch (err) {
-                        console.warn("Clipboard copy failed:", err);
-                        // Fallback for older browsers
-                        referralInput.select();
-                        if (document.execCommand("copy")) {
-                            alert("Referral link copied to clipboard!");
-                        } else {
-                            alert("Please copy the link manually.");
-                        }
-                    }
-                };
-                removeExistingListeners(generateButton, "click", generateLink);
-            }
+    // Show popup
+    triggeredReferralButtons.forEach(button => {
+        const showPopup = () => {
+            referralTriggeredView.style.display = "flex";
+            backgroundContainer.classList.add("blur");
+            referralInput.value = ""; // Reset input
+            resetFooter(); // Reset footer to show "Generate" button when popup opens
         };
+        removeExistingListeners(button, "click", showPopup);
+    });
 
+    // CSS to apply the blur effect and button styles
+    const style = document.createElement("style");
+    style.textContent = `
+        .blur {
+            filter: blur(5px); /* Apply blur effect to background */
+            pointer-events: none; /* Prevent interaction with blurred background */
+        }
+        .referral-triggered-view {
+            position: relative;
+            z-index: 10; /* Ensure dialog stays above blurred background */
+        }
+        .referral-triggered-view-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .referral-triggered-view-footer button {
+            padding: 8px 16px;
+            margin: 0;
+            border: 1px solid #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .referral-triggered-view-footer button:nth-child(1) {
+            background-color: #fff;
+            color: #000;
+            border: 1px solid #000;
+        }
+        .action-btn-group {
+            display: flex;
+            gap: 8px;
+        }
+        .action-btn-group .btn-generate {
+            background-color: #000;
+            color: #fff;
+            border: 1px solid #fff;
+        }
+        .action-btn-group .btn-copy-link,
+        .action-btn-group .btn-share {
+            background-color: transparent;
+            color: #fff;
+            border: 1px solid #fff;
+            padding: 8px 12px;
+        }
+        .action-btn-group .btn-copy-link:hover,
+        .action-btn-group .btn-share:hover {
+            background-color: #A855F7; /* Purple color on hover */
+        }
+        .action-btn-group button svg {
+            width: 16px;
+            height: 16px;
+            fill: #fff;
+            flex-shrink: 0;
+            display: inline-block;
+        }
+        .action-btn-group button span {
+            line-height: 1;
+            display: inline-block;
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Hide popup (shared logic for close and cancel)
+    const hidePopup = () => {
+        referralTriggeredView.style.display = "none";
+        backgroundContainer.classList.remove("blur");
+    };
+
+    // Close button
+    if (closeReferralTriggerView) {
+        removeExistingListeners(closeReferralTriggerView, "click", hidePopup);
+    }
+
+    // Cancel button
+    if (cancelButton) {
+        removeExistingListeners(cancelButton, "click", hidePopup);
+    }
+
+    // Generate button logic
+    const generateLink = () => {
+        if (!referralInput) return; // Safety check
+        referralInput.value = referralLink; // Populate the input field with the referral link
+
+        // Replace "Generate" button with "Copy Link" and "Share" buttons inside a div
+        footerContainer.innerHTML = `
+            <button>Cancel</button>
+            <div class="action-btn-group">
+                <button class="btn-copy-link">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM19 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H19C20.1 23 21 22.1 21 21V7C21 5.9 20.1 5 19 5ZM19 21H8V7H19V21Z"/>
+                    </svg>
+                    <span>Copy Link</span>
+                </button>
+                <button class="btn-share">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 16.1C17.4 16.1 16.9 16.3 16.4 16.6L7.9 12.2C7.9 12.1 8 12 8 11.9C8 11.8 7.9 11.7 7.9 11.6L16.4 7.2C16.9 7.5 17.4 7.7 18 7.7C19.7 7.7 21 6.4 21 4.7S19.7 1.7 18 1.7 15 3 15 4.7C15 4.8 15 4.9 15.1 5L6.6 9.4C6.1 9.1 5.6 8.9 5 8.9 3.3 8.9 2 10.2 2 11.9S3.3 14.9 5 14.9C5.6 14.9 6.1 14.7 6.6 14.4L15.1 18.8C15 18.9 15 19 15 19.1 15 20.8 16.3 22.1 18 22.1S21 20.8 21 19.1 19.7 16.1 18 16.1ZM18 3.7C18.6 3.7 19 4.1 19 4.7S18.6 5.7 18 5.7 17 5.3 17 4.7 17.4 3.7 18 3.7ZM5 12.9C5 12.3 4.6 11.9 5 11.9S5 12.3 5 12.9 5.4 13.9 5 13.9 5 13.5 5 12.9ZM18 20.1C17.4 20.1 17 19.7 17 19.1S17.4 18.1 18 18.1 19 18.5 19 19.1 18.6 20.1 18 20.1Z"/>
+                    </svg>
+                    <span>Share</span>
+                </button>
+            </div>
+        `;
+        const newCancelButton = footerContainer.querySelector("button:nth-child(1)");
+        const copyLinkButton = footerContainer.querySelector(".btn-copy-link");
+        const shareButton = footerContainer.querySelector(".btn-share");
+
+        // Reattach Cancel button listener
+        if (newCancelButton) {
+            removeExistingListeners(newCancelButton, "click", hidePopup);
+        }
+
+        // Copy Link button logic
+        if (copyLinkButton) {
+            const copyLink = async () => {
+                try {
+                    await navigator.clipboard.writeText(referralLink);
+                    alert("Referral link copied to clipboard!");
+                } catch (err) {
+                    console.warn("Clipboard copy failed:", err);
+                    referralInput.select();
+                    if (document.execCommand("copy")) {
+                        alert("Referral link copied to clipboard!");
+                    } else {
+                        alert("Please copy the link manually.");
+                    }
+                }
+            };
+            removeExistingListeners(copyLinkButton, "click", copyLink);
+        }
+
+        // Share button logic
+        if (shareButton) {
+            const shareLink = async () => {
+                if (navigator.share) {
+                    try {
+                        await navigator.share({
+                            title: "Referral Link",
+                            text: "Check out this referral link!",
+                            url: referralLink
+                        });
+                    } catch (err) {
+                        console.warn("Sharing failed:", err);
+                    }
+                } else {
+                    alert("Sharing is not supported on this device. Please copy the link manually.");
+                }
+            };
+            removeExistingListeners(shareButton, "click", shareLink);
+        }
+    };
+
+    // Attach Generate button listener
+    if (generateButton) {
+        removeExistingListeners(generateButton, "click", generateLink);
+    }
+};
 
         const queryDetails = () => {
             const scuser = @json(session('scuser'));
