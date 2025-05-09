@@ -1,10 +1,10 @@
 .student-listcontainer {
-     display:none;
-   border-radius: 8px;
+    display: none;
+    border-radius: 8px;
     padding: 20px;
     margin: 0 auto;
     flex-direction: column;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     max-width: 71.04%;
     width: 100%;
     margin-left: 23.04%;
@@ -203,113 +203,113 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .student-listcontainer {
-    display: none;
-    max-width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-    padding: 15px;
-    gap: 10px;
-  }
-  .globallistcontainer-header {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 15px;
-    margin-top: 40px;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.03);
-  }
-  .globallistcontainer-header h2 {
-    font-size: 18px;
-    line-height: 28px;
-  }
-  .globallistcontainer-header #student-list-count {
-    display: none;
-  }
-  .headersection-rightsidecontent {
-    flex-direction: column;
-    width: 100%;
-    gap: 8px;
-    justify-content: flex-start;
-  }
-  #search-student-list {
-    width: 100%;
-    height: 32px;
-    font-size: 14px;
-    padding-left: 30px;
-    border-radius: 3px;
-  }
-  #search-student-list::placeholder {
-    font-size: 11px;
-  }
-  .searchcontainer-rightsidecontent {
-    width: 100%;
-    height: 32px;
-  }
-  .searchcontainer-rightsidecontent .fa-search {
-    top: 35%;
-    font-size: 10px;
-    padding: 0 10px;
-  }
-  .student-list-dropdown-button {
-    width: 100%;
-    height: 32px;
-    padding: 6px 8px;
-    font-size: 11px;
-    line-height: 13px;
-    border-radius: 3px;
-  }
-  .student-list-dropdown-button img {
-    margin-right: 6px;
-  }
-  .student-list-dropdown-button i {
-    font-size: 10px;
-  }
-  .student-list-dropdown-filters {
-    width: 100%;
-    margin-left: 0;
-  }
-  .student-list-dropdown-content {
-    width: 100%;
-    border-radius: 6px;
-    margin-top: 8px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-  }
-  .student-list-dropdown-content a {
-    padding: 6px 20px;
-    font-size: 11px;
-    border-bottom: 1px solid #f0f0f0;
-  }
-  .student-list-dropdown-content a:hover {
-    background: #f0f0f0;
-  }
-  .studentlist-add-button {
-    width: 100%;
-    height: 32px;
-    padding: 0.75rem 1.5rem;
-    font-size: 12px;
-    border-radius: 3px;
-  }
-  .headersection-rightsidecontent #studentlistcontainer-filters {
-    font-size: 11px;
-    line-height: 13px;
-    width: 100%;
-    justify-content: flex-start;
-  }
-  #studentapplicationfromadminstudent {
-    margin-top: 0;
-  }
+    .student-listcontainer {
+        display: none;
+        max-width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+        padding: 15px;
+        gap: 10px;
+    }
+    .globallistcontainer-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        margin-top: 40px;
+        box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.03);
+    }
+    .globallistcontainer-header h2 {
+        font-size: 18px;
+        line-height: 28px;
+    }
+    .globallistcontainer-header #student-list-count {
+        display: none;
+    }
+    .headersection-rightsidecontent {
+        flex-direction: column;
+        width: 100%;
+        gap: 8px;
+        justify-content: flex-start;
+    }
+    #search-student-list {
+        width: 100%;
+        height: 32px;
+        font-size: 14px;
+        padding-left: 30px;
+        border-radius: 3px;
+    }
+    #search-student-list::placeholder {
+        font-size: 11px;
+    }
+    .searchcontainer-rightsidecontent {
+        width: 100%;
+        height: 32px;
+    }
+    .searchcontainer-rightsidecontent .fa-search {
+        top: 35%;
+        font-size: 10px;
+        padding: 0 10px;
+    }
+    .student-list-dropdown-button {
+        width: 100%;
+        height: 32px;
+        padding: 6px 8px;
+        font-size: 11px;
+        line-height: 13px;
+        border-radius: 3px;
+    }
+    .student-list-dropdown-button img {
+        margin-right: 6px;
+    }
+    .student-list-dropdown-button i {
+        font-size: 10px;
+    }
+    .student-list-dropdown-filters {
+        width: 100%;
+        margin-left: 0;
+    }
+    .student-list-dropdown-content {
+        width: 100%;
+        border-radius: 6px;
+        margin-top: 8px;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    }
+    .student-list-dropdown-content a {
+        padding: 6px 20px;
+        font-size: 11px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    .student-list-dropdown-content a:hover {
+        background: #f0f0f0;
+    }
+    .studentlist-add-button {
+        width: 100%;
+        height: 32px;
+        padding: 0.75rem 1.5rem;
+        font-size: 12px;
+        border-radius: 3px;
+    }
+    .headersection-rightsidecontent #studentlistcontainer-filters {
+        font-size: 11px;
+        line-height: 13px;
+        width: 100%;
+        justify-content: flex-start;
+    }
+    #studentapplicationfromadminstudent {
+        margin-top: 0;
+    }
 }
 
 /* --------------------------------------------------------------------------------------------- */
 
 .studentcounsellorlist-adminside {
-    display:none;
-   border-radius: 8px;
+    display: none;
+    border-radius: 8px;
     padding: 20px;
     margin: 0 auto;
     flex-direction: column;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     max-width: 71.04%;
     width: 100%;
     margin-left: 23.04%;
@@ -467,4 +467,3 @@
         color: rgba(93, 92, 92, 1);
     }
 }
-

@@ -26,24 +26,40 @@
     $studentCounsellorsLists = [];
     @endphp
 
-    <div class="add-studentcounsellor-adminside">
-        <h1 class="studentcounsellor-header-admin">Add Student Counsellor</h1>
-        <div class="studentcounsellor-requiredfields-admin">
+   <div class="add-studentcounsellor-adminside">
+    <h1 class="studentcounsellor-header-admin">Add Student Counsellor</h1>
+    <div class="studentcounsellor-requiredfields-admin">
+        <div class="input-container-sc">
             <input type="text" id="studentcounsellor-requiredfields-admin-scname" placeholder="Name of the Student Counsellor">
-            <input type="text" id="studentcounsellor-requiredfields-admin-startdate" placeholder="Starting Date">
-            <input type="email" id="studentcounsellor-requiredfields-admin-email" placeholder="Email ID">
-            <input type="text" id="studentcounsellor-requiredfields-admin-contact" placeholder="Contact No.">
-            <textarea id="student-counsellor-admin-address" placeholder="Address"></textarea>
-            <div class="upload-container">
-                <input type="text" placeholder="Upload Profile Image" id="trigger-profile-photo-sc" readonly>
-                <input type="file" id="sc-profile-photo-upload" style="display: none;">
-            </div>
+            <span class="error-message-sc" id="scname-error"></span>
         </div>
-        <div class="addcouncellor-buttoncontainer">
-            <button id="delete-councellor-admin">Delete</button>
-            <button id="generate-referral-councellor-admin">Generate Referral Code</button>
+        <div class="input-container-sc">
+            <input type="text" id="studentcounsellor-requiredfields-admin-startdate" placeholder="Starting Date">
+            <span class="error-message-sc" id="startdate-error"></span>
+        </div>
+        <div class="input-container-sc">
+            <input type="email" id="studentcounsellor-requiredfields-admin-email" placeholder="Email ID">
+            <span class="error-message-sc" id="email-error"></span>
+        </div>
+        <div class="input-container-sc">
+            <input type="text" id="studentcounsellor-requiredfields-admin-contact" placeholder="Contact No.">
+            <span class="error-message-sc" id="contact-error"></span>
+        </div>
+        <div class="input-container-sc">
+            <textarea id="student-counsellor-admin-address" placeholder="Address"></textarea>
+            <span class="error-message-sc" id="address-error"></span>
+        </div>
+        <div class="upload-container input-container-sc">
+            <input type="text" placeholder="Upload Profile Image" id="trigger-profile-photo-sc" readonly>
+            <input type="file" id="sc-profile-photo-upload" style="display: none;">
+            <span class="error-message-sc" id="profile-photo-error"></span>
         </div>
     </div>
+    <div class="addcouncellor-buttoncontainer">
+        <button id="delete-councellor-admin">Delete</button>
+        <button id="generate-referral-councellor-admin">Generate Referral Code</button>
+    </div>
+</div>
     
     <div class="studentcounsellorlist-adminside">
         <div class="globallistcontainer-header" id="counsellorlistcontainer-headersection">
@@ -212,132 +228,153 @@
     </div>
 
     <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const triggerTextBox = document.getElementById("trigger-profile-photo-sc");
-        const triggeredFileThroughText = document.getElementById("sc-profile-photo-upload");
-        const sortOptions = document.querySelectorAll('#counsellor-dashboard-sort-options .dashboard-sort-option');
-        const counsellorList = document.getElementById('counsellor-list');
+  document.addEventListener("DOMContentLoaded", () => {
+    const triggerTextBox = document.getElementById("trigger-profile-photo-sc");
+    const triggeredFileThroughText = document.getElementById("sc-profile-photo-upload");
+    const sortOptions = document.querySelectorAll('#counsellor-dashboard-sort-options .dashboard-sort-option');
+    const counsellorList = document.getElementById('counsellor-list');
 
-        // Fix placeholder visibility for contact number
-       const contactInput = document.getElementById("studentcounsellor-requiredfields-admin-contact");
-        if (contactInput) {
-            contactInput.style.padding = "10px";
-            contactInput.style.height = "34px";
-            contactInput.style.lineHeight = "14px";
-            contactInput.style.fontSize = "14px";
-            contactInput.style.boxSizing = "border-box";
-        }
+    const contactInput = document.getElementById("studentcounsellor-requiredfields-admin-contact");
+    if (contactInput) {
+        contactInput.style.padding = "10px";
+        contactInput.style.height = "34px";
+        contactInput.style.lineHeight = "14px";
+        contactInput.style.fontSize = "14px";
+        contactInput.style.boxSizing = "border-box";
+    }
 
-        getScUsers();
+    getScUsers();
 
-        const triggerStudentAdd = document.getElementById("generate-referral-councellor-admin");
-        const triggerCancelAdd = document.getElementById("delete-councellor-admin");
+    const triggerStudentAdd = document.getElementById("generate-referral-councellor-admin");
+    const triggerCancelAdd = document.getElementById("delete-councellor-admin");
 
-        if (triggerCancelAdd) {
-            triggerCancelAdd.addEventListener("click", () => {
-                clearfields();
-            });
-        }
+    if (triggerCancelAdd) {
+        triggerCancelAdd.addEventListener("click", () => {
+            clearfields();
+            if (triggerTextBox) {
+                triggerTextBox.value = "Upload Profile Image";
+            }
+            if (triggeredFileThroughText) {
+                triggeredFileThroughText.value = "";
+            }
+            validateInput("profilePhoto");
+        });
+    }
 
-        // Initialize Flatpickr for date inputs
-        customizeDatePicker();
+    customizeDatePicker();
 
-        if (triggerStudentAdd) {
-            triggerStudentAdd.addEventListener("click", () => {
-                addStudentCounsellor();
-            });
-        }
+    if (triggerStudentAdd) {
+        triggerStudentAdd.addEventListener("click", () => {
+            if (triggeredFileThroughText.files.length > 0) {
+                console.log("File to upload:", triggeredFileThroughText.files[0].name);
+            } else {
+                console.log("No file selected for upload.");
+            }
+            addStudentCounsellor();
+        });
+    }
 
-        if (triggerTextBox && triggeredFileThroughText) {
-            triggerTextBox.addEventListener("click", () => {
-                triggeredFileThroughText.click();
-            });
-        }
-
-        // Search functionality using unique ID
-        const searchInput = document.getElementById("counsellor-search-student-list");
-        if (searchInput) {
-            searchInput.addEventListener("input", function () {
-                const searchQuery = this.value.toLowerCase();
-                const counsellorItems = document.querySelectorAll("#counsellor-list .individualcounsellorlists-items");
-
-                counsellorItems.forEach(item => {
-                    const counsellorName = item.querySelector('#student-counsellor-name-id').textContent.toLowerCase();
-                    item.style.display = counsellorName.includes(searchQuery) ? 'flex' : 'none';
-                });
-            });
-        }
-
-        // Sort functionality using unique ID
-           sortOptions.forEach(option => {
-            option.addEventListener('click', (e) => {
-                e.preventDefault();
-                const sortType = option.getAttribute('data-sort');
-                const items = Array.from(counsellorList.querySelectorAll('.individualcounsellorlists-items'));
-
-                items.sort((a, b) => {
-                    const nameA = a.querySelector('#student-counsellor-name-id').textContent.trim().toLowerCase();
-                    const nameB = b.querySelector('#student-counsellor-name-id').textContent.trim().toLowerCase();
-                    const dateA = new Date(a.dataset.added);
-                    const dateB = new Date(b.dataset.added);
-
-                    if (sortType === 'alphabet') {
-                        return nameA.localeCompare(nameB);
-                    } else if (sortType === 'alphabet-reverse') {
-                        return nameB.localeCompare(nameA);
-                    } else if (sortType === 'newest') {
-                        return dateB - dateA;
-                    } else if (sortType === 'oldest') {
-                        return dateA - dateB;
-                    }
-                    return 0;
-                });
-
-                // Clear and re-append sorted items
-                counsellorList.innerHTML = `
-                    <div class="individualcounsellorlists-header">
-                        <p id="counsellor-name-identify">Student Counsellor Name</p>
-                        <p id="counsellor-referralid-identify">Referral Number</p>
-                    </div>
-                `;
-                items.forEach(item => counsellorList.appendChild(item));
-
-                // Close the sort options after selection
-                const sortOptionsContainer = document.getElementById('counsellor-dashboard-sort-options');
-                sortOptionsContainer.style.display = 'none';
-            });
+    if (triggerTextBox && triggeredFileThroughText) {
+        triggerTextBox.addEventListener("click", () => {
+            console.log("Trigger text box clicked, opening file input...");
+            triggeredFileThroughText.click();
         });
 
-        // Handle responsiveness for layout
-        function adjustLayout() {
-            const width = window.innerWidth;
-            const headerSection = document.querySelector('.globallistcontainer-header');
-            const addButton = document.querySelector('.studentlist-add-button');
-
-            if (width <= 768) {
-                if (headerSection) {
-                    headerSection.style.flexDirection = 'column';
-                    headerSection.style.alignItems = 'center';
-                }
-                if (addButton) {
-                    addButton.style.width = '100%';
-                    addButton.style.marginTop = '10px';
-                }
+        triggeredFileThroughText.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                triggerTextBox.value = file.name;
+                console.log("File selected:", file.name, "Size:", file.size, "Type:", file.type);
+                validateInput("profilePhoto");
             } else {
-                if (headerSection) {
-                    headerSection.style.flexDirection = 'row';
-                    headerSection.style.alignItems = 'flex-start';
+                triggerTextBox.value = "Upload Profile Image";
+                console.log("No file selected.");
+                validateInput("profilePhoto");
+            }
+        });
+    } else {
+        console.error("Trigger elements not found:", triggerTextBox, triggeredFileThroughText);
+    }
+
+    const searchInput = document.getElementById("counsellor-search-student-list");
+    if (searchInput) {
+        searchInput.addEventListener("input", function () {
+            const searchQuery = this.value.toLowerCase();
+            const counsellorItems = document.querySelectorAll("#counsellor-list .individualcounsellorlists-items");
+
+            counsellorItems.forEach(item => {
+                const counsellorName = item.querySelector('#student-counsellor-name-id').textContent.toLowerCase();
+                item.style.display = counsellorName.includes(searchQuery) ? 'flex' : 'none';
+            });
+        });
+    }
+
+    sortOptions.forEach(option => {
+        option.addEventListener('click', (e) => {
+            e.preventDefault();
+            const sortType = option.getAttribute('data-sort');
+            const items = Array.from(counsellorList.querySelectorAll('.individualcounsellorlists-items'));
+
+            items.sort((a, b) => {
+                const nameA = a.querySelector('#student-counsellor-name-id').textContent.trim().toLowerCase();
+                const nameB = b.querySelector('#student-counsellor-name-id').textContent.trim().toLowerCase();
+                const dateA = new Date(a.dataset.added);
+                const dateB = new Date(b.dataset.added);
+
+                if (sortType === 'alphabet') {
+                    return nameA.localeCompare(nameB);
+                } else if (sortType === 'alphabet-reverse') {
+                    return nameB.localeCompare(nameA);
+                } else if (sortType === 'newest') {
+                    return dateB - dateA;
+                } else if (sortType === 'oldest') {
+                    return dateA - dateB;
                 }
-                if (addButton) {
-                    addButton.style.width = 'auto';
-                    addButton.style.marginTop = '0';
-                }
+                return 0;
+            });
+
+            counsellorList.innerHTML = `
+                <div class="individualcounsellorlists-header">
+                    <p id="counsellor-name-identify">Student Counsellor Name</p>
+                    <p id="counsellor-referralid-identify">Referral Number</p>
+                </div>
+            `;
+            items.forEach(item => counsellorList.appendChild(item));
+
+            const sortOptionsContainer = document.getElementById('counsellor-dashboard-sort-options');
+            sortOptionsContainer.style.display = 'none';
+        });
+    });
+
+    function adjustLayout() {
+        const width = window.innerWidth;
+        const headerSection = document.querySelector('.globallistcontainer-header');
+        const addButton = document.querySelector('.studentlist-add-button');
+
+        if (width <= 768) {
+            if (headerSection) {
+                headerSection.style.flexDirection = 'column';
+                headerSection.style.alignItems = 'center';
+            }
+            if (addButton) {
+                addButton.style.width = '100%';
+                addButton.style.marginTop = '10px';
+            }
+        } else {
+            if (headerSection) {
+                headerSection.style.flexDirection = 'row';
+                headerSection.style.alignItems = 'flex-start';
+            }
+            if (addButton) {
+                addButton.style.width = 'auto';
+                addButton.style.marginTop = '0';
             }
         }
+    }
 
-        adjustLayout();
-        window.addEventListener('resize', adjustLayout);
-    });
+    adjustLayout();
+    window.addEventListener('resize', adjustLayout);
+});
 
     // Toggle sort options for counsellor list
     function toggleCounsellorSortOptions() {
@@ -381,41 +418,31 @@
                 console.error("Fetch error: ", error);
             });
     }
+        const customizeDatePicker = () => {
+            flatpickr("#studentcounsellor-requiredfields-admin-startdate", {
+                dateFormat: "Y-m-d",
+                altInput: true,
+                altFormat: "Y-m-d",
+                defaultDate: null,
+                minDate: "1900-01-01",
+                maxDate: "today",
+                enableTime: false,
+                onReady: (selectedDates, dateStr) => {},
+                onChange: (selectedDates, dateStr) => {}
+            });
 
-    const customizeDatePicker = () => {
-        flatpickr("#studentcounsellor-requiredfields-admin-startdate", {
-            dateFormat: "Y-m-d",
-            altInput: true,
-            altFormat: "Y-m-d",
-            defaultDate: null,
-            minDate: "1900-01-01",
-            maxDate: "today",
-            enableTime: false,
-            onReady: (selectedDates, dateStr) => {
-                console.log("Initial Date (Add Form): ", dateStr);
-            },
-            onChange: (selectedDates, dateStr) => {
-                console.log("Selected date (Add Form): ", dateStr);
-            }
-        });
-
-        flatpickr("#dob-input", {
-            dateFormat: "Y-m-d",
-            altInput: true,
-            altFormat: "Y-m-d",
-            defaultDate: null,
-            minDate: "1900-01-01",
-            maxDate: "today",
-            enableTime: false,
-            onReady: (selectedDates, dateStr) => {
-                console.log("Initial Date (Edit Mode): ", dateStr);
-            },
-            onChange: (selectedDates, dateStr) => {
-                console.log("Selected date (Edit Mode): ", dateStr);
-            }
-        });
-    };
-
+            flatpickr("#dob-input", {
+                dateFormat: "Y-m-d",
+                altInput: true,
+                altFormat: "Y-m-d",
+                defaultDate: null,
+                minDate: "1900-01-01",
+                maxDate: "today",
+                enableTime: false,
+                onReady: (selectedDates, dateStr) => {},
+                onChange: (selectedDates, dateStr) => {}
+            });
+        };
     const addStudentCounsellor = () => {
         const scUserName = document.getElementById("studentcounsellor-requiredfields-admin-scname").value;
         const scDob = document.getElementById("studentcounsellor-requiredfields-admin-startdate").value;
@@ -712,6 +739,122 @@
 
     function getStatusGroups() {
         console.log("getStatusGroups called, but not implemented.");
+    }
+
+ const validationConfig = {
+        scname: {
+            element: document.getElementById("studentcounsellor-requiredfields-admin-scname"),
+            errorElement: document.getElementById("scname-error"),
+            validate: (value) => {
+                if (!value) return "Name is required.";
+                if (value.length < 2 || value.length > 50) return "Name must be 2-50 characters.";
+                if (!/^[a-zA-Z\s]+$/.test(value)) return "Name can only contain letters and spaces.";
+                return "";
+            }
+        },
+        startdate: {
+            element: document.getElementById("studentcounsellor-requiredfields-admin-startdate"),
+            errorElement: document.getElementById("startdate-error"),
+            validate: (value) => {
+                if (!value) return "Starting date is required.";
+                const date = new Date(value);
+                const today = new Date();
+                if (isNaN(date.getTime())) return "Invalid date format.";
+                if (date > today) return "Date cannot be in the future.";
+                if (date < new Date("1900-01-01")) return "Date is too old.";
+                return "";
+            }
+        },
+        email: {
+            element: document.getElementById("studentcounsellor-requiredfields-admin-email"),
+            errorElement: document.getElementById("email-error"),
+            validate: (value) => {
+                if (!value) return "Email is required.";
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return "Invalid email format.";
+                return "";
+            }
+        },
+        contact: {
+            element: document.getElementById("studentcounsellor-requiredfields-admin-contact"),
+            errorElement: document.getElementById("contact-error"),
+            validate: (value) => {
+                if (!value) return "Contact number is required.";
+                if (!/^[0-9]{10}$/.test(value) || value.length !== 10) {
+                    return "Must be exactly 10 digits.";
+                }
+                return "";
+            }
+        },
+        address: {
+            element: document.getElementById("student-counsellor-admin-address"),
+            errorElement: document.getElementById("address-error"),
+            validate: (value) => {
+                if (!value) return "Address is required.";
+                if (value.length < 5 || value.length > 200) return "Address must be 5-200 characters.";
+                return "";
+            }
+        },
+        profilePhoto: {
+            element: document.getElementById("sc-profile-photo-upload"),
+            errorElement: document.getElementById("profile-photo-error"),
+            validate: (files) => {
+                if (!files || files.length === 0) return "Profile photo is required.";
+                const file = files[0];
+                const validTypes = ["image/jpeg", "image/png", "image/gif"];
+                if (!validTypes.includes(file.type)) return "Only JPEG, PNG, or GIF allowed.";
+                if (file.size > 5 * 1024 * 1024) return "Image must be less than 5MB.";
+                return "";
+            }
+        }
+    };
+
+    const validateInput = (field) => {
+        const value = field === "profilePhoto" ? validationConfig[field].element.files : validationConfig[field].element.value;
+        const error = validationConfig[field].validate(value);
+        validationConfig[field].errorElement.textContent = error;
+        validationConfig[field].errorElement.style.display = error ? "block" : "none";
+        validationConfig[field].element.classList.toggle("input-error", !!error);
+        return !error;
+    };
+
+    const validateAllInputs = () => {
+        let isValid = true;
+        Object.keys(validationConfig).forEach((field) => {
+            if (!validateInput(field)) isValid = false;
+        });
+        return isValid;
+    };
+
+    Object.keys(validationConfig).forEach((field) => {
+        if (field !== "profilePhoto") {
+            validationConfig[field].element.addEventListener("input", () => validateInput(field));
+        } else {
+            validationConfig[field].element.addEventListener("change", () => validateInput(field));
+        }
+    });
+
+    const contactInput = document.getElementById("studentcounsellor-requiredfields-admin-contact");
+    if (contactInput) {
+        contactInput.addEventListener("input", (e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, "");
+            if (e.target.value.length > 10) {
+                e.target.value = e.target.value.slice(0, 10);
+            }
+            validateInput("contact");
+        });
+    }
+
+    const addButton = document.getElementById("generate-referral-councellor-admin");
+    if (addButton) {
+        const originalHandler = addButton.onclick || (() => addStudentCounsellor());
+        addButton.onclick = (e) => {
+            e.preventDefault();
+            if (validateAllInputs()) {
+                originalHandler();
+            } else {
+                alert("Please correct the errors in the form.");
+            }
+        };
     }
     </script>
 </body>
