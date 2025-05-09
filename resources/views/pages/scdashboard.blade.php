@@ -153,11 +153,11 @@
     @extends('layouts.app')
 
     @section('scdashboard')
-            @php
-$profileIconPath = "assets/images/account_circle1.png";
-$phoneIconPath = "assets/images/call.png";
-$mailIconPath = "assets/images/mail.png";
-$pindropIconPath = "assets/images/pin_drop.png";
+        @php
+            $profileIconPath = "assets/images/account_circle1.png";
+            $phoneIconPath = "assets/images/call.png";
+            $mailIconPath = "assets/images/mail.png";
+            $pindropIconPath = "assets/images/pin_drop.png";
 
 
 
@@ -165,395 +165,396 @@ $pindropIconPath = "assets/images/pin_drop.png";
 
 
 
-$proposalsInfo = [
-    [
-        'NBFC' => 'NBFC Name',
-        'ProposalDate' => '20/11/2024',
-        'Status' => 'Approved'
+            $proposalsInfo = [
+                [
+                    'NBFC' => 'NBFC Name',
+                    'ProposalDate' => '20/11/2024',
+                    'Status' => 'Approved'
 
-    ],
-    [
-        'NBFC' => 'NBFC Name',
-        'ProposalDate' => '20/11/2024',
-        'Status' => 'Pending'
+                ],
+                [
+                    'NBFC' => 'NBFC Name',
+                    'ProposalDate' => '20/11/2024',
+                    'Status' => 'Pending'
 
-    ],
+                ],
 
-];
-
-
-
-$studentDocumentDetailsInfo = [
-    ['student_name' => 'Manish', 'DocumentFinalStatus' => 'Missing Documents: 01', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-07-01'],
-    ['student_name' => 'Kumar', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-02-01'],
-    ['student_name' => 'Raji', 'DocumentFinalStatus' => 'Missing Documents: 12', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-12-04'],
-    ['student_name' => 'Venkatesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-01'],
-    ['student_name' => 'Ramya', 'DocumentFinalStatus' => 'Missing Documents: 03', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-02-09'],
-    ['student_name' => 'Chinna', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2025-07-20'],
-    ['student_name' => 'Feroz', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-21'],
-    ['student_name' => 'Ramesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-29'],
-    ['student_name' => 'Vasi', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-09-30'],
-    ['student_name' => 'Aari', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-10-01'],
-    ['student_name' => 'Abinav', 'DocumentFinalStatus' => 'Missing Documents: 02', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-01'],
-
-
-];
+            ];
 
 
 
-            @endphp
-            <div class="backdrop"></div>
-            <div class="scdashboard-parentcontainer">
-                <div class="commonsidebar-togglesidebar">
-                    <ul class="commonsidebar-sidebarlists-top">
-                        @foreach($sidebarItems as $item)
-                            <li class="{{ $item['active'] ? 'active' : '' }}">
-                                <i class="{{ $item['icon'] }}"></i>
-                                <p>{{ $item['name'] }}</p>
-                            </li>
-                        @endforeach
+            $studentDocumentDetailsInfo = [
+                ['student_name' => 'Manish', 'DocumentFinalStatus' => 'Missing Documents: 01', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-07-01'],
+                ['student_name' => 'Kumar', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-02-01'],
+                ['student_name' => 'Raji', 'DocumentFinalStatus' => 'Missing Documents: 12', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-12-04'],
+                ['student_name' => 'Venkatesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-01'],
+                ['student_name' => 'Ramya', 'DocumentFinalStatus' => 'Missing Documents: 03', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-02-09'],
+                ['student_name' => 'Chinna', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2025-07-20'],
+                ['student_name' => 'Feroz', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-21'],
+                ['student_name' => 'Ramesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-29'],
+                ['student_name' => 'Vasi', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-09-30'],
+                ['student_name' => 'Aari', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-10-01'],
+                ['student_name' => 'Abinav', 'DocumentFinalStatus' => 'Missing Documents: 02', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-01'],
+
+
+            ];
+
+
+
+        @endphp
+        <div class="backdrop"></div>
+        <div class="scdashboard-parentcontainer">
+            <div class="commonsidebar-togglesidebar">
+                <ul class="commonsidebar-sidebarlists-top">
+                    @foreach($sidebarItems as $item)
+                        <li class="{{ $item['active'] ? 'active' : '' }}">
+                            <i class="{{ $item['icon'] }}"></i>
+                            <p>{{ $item['name'] }}</p>
+                        </li>
+                    @endforeach
+                </ul>
+                <ul class="commonsidebar-sidebarlists-bottom">
+                    <li class="logoutBtn" onClick="sessionLogout()">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                    </li>
+                    <li>
+                        <img src="{{ asset('assets/images/Icons/support_agent.png') }}" alt=""> Support
+                    </li>
+                </ul>
+            </div>
+
+            <div class="scdashboard-container">
+
+                <div class="scdashboard-dashboardcontent">
+                    <div class="scdashboard-trackprogress">
+                        <div class="trackprogress-firstsection">
+
+                            <h1>Track Progress</h1>
+                            <button class="referral-Link-trigger-anotherbutton">Generate Referral Link</button>
+                            <button id="mobgeneratedreferralcode"> <img src="{{ asset('assets/images/Group icon.png') }}"
+                                    alt=""> Referral Code:
+                                45628</button>
+                        </div>
+                        <div class="trackprogress-secondsection">
+                            <div class="trackprogress-month">
+                                <h1>October</h1>
+                                <p>month</p>
+                            </div>
+                            <div class="trackprogress-noofstudent">
+                                <h1>07</h1>
+                                <p>no. of students</p>
+                            </div>
+                            <div class="trackprogress-amount">
+                                <h1>50,000</h1>
+                                <p>amount in rs.</p>
+                            </div>
+                            <div class="trackprogress-totalamount">
+                                <h1>1,00,000</h1>
+                                <p>total amount</p>
+                            </div>
+
+                        </div>
+                        <div class="trackprogress-thirdsection">
+                            <button id="pcviewgeneratedreferralcode"> <img src="{{ asset('assets/images/Group icon.png') }}"
+                                    alt=""> Referral Code:
+                                45628</button>
+                            <button style="display:none"> <img src="{{ asset('assets/images/dbicon.png') }}" alt="">Track
+                                Commission</button>
+                            <button id="mobgeneratedbutton" class="referral-Link-trigger-button">Generate Referral
+                                Link</button>
+                        </div>
+                    </div>
+
+                    <div class="scdashboard-studentapplication" id="studentapplicationfromstudentdashboard">
+                        <div class="studentapplication-header">
+                            <h1>Applications</h1>
+                            <div class="application-buttoncontainer">
+                                <button class="see-all">See all</button>
+                                <button class="start-new">Start New Registration</button>
+                            </div>
+                            <div class="studentadditbutton">
+                                <button class="start-new">+</button>
+
+                            </div>
+
+                        </div>
+
+                        <div id="user-list">
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="scdashboard-inboxcontent">
+                <div class="scmember-profilecontainer">
+                    <div class="scmember-profilecontainerimg">
+                        <img src="{{asset('assets/images/image-women.jpeg')}}" id="studentcounsellor-profile" alt="">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                        <input type="file" id="sc-profile-upload-cloud" display="none">
+                    </div>
+
+                    <div class="scmember-rowfirst">
+                        <h1>Student Counsellor</h1>
+
+                    </div>
+                    <p id="screferral-id-fromprofile">Referral Number: <span>{{ session('scuser')->referral_code }}</span>
+                    </p>
+                    <div id="screferral-dob-fromprofile" inputmode="Date">
+                        <i class="fa-solid fa-calendar"></i>
+                        <p id="dob-display"></p>
+
+                    </div>
+                    <div id="screferral-dob-fromprofile-editmode" style="display: none;">
+                        <i class="fa-solid fa-calendar"></i>
+                        <input type="date" id="dob-input">
+
+                    </div>
+                    <ul class="scmember_personalinfo">
+
+                        <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
+                            <p> </p>
+                        </li>
+                        <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="">
+                            <p></p>
+                        </li>
+                        <li class="scmember_personal_info_email" style="word-break: break-all;" id="referenceEmailId">
+                            <img src="{{$mailIconPath}}" alt="">
+                            <p>{{ session('scuser')->email}}</p>
+                        </li>
+                        <li class="scmember_personal_info_state"><img src="{{$pindropIconPath}}" alt="">
+                            <p style="line-height:19px"></p>
+                        </li>
+
                     </ul>
-                    <ul class="commonsidebar-sidebarlists-bottom">
-                        <li class="logoutBtn" onClick="sessionLogout()">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                    <ul class="scmember_personalinfo_editmode">
+                        <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
+                            <input type="text">
+                        </li>
+                        <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="">
+                            <input type="text">
+                        </li>
+                        <li class="scmember_personal_info_email" id="referenceEmailId">
+                            <img src="{{$mailIconPath}}" alt="">
+                            <input type="text" disabled>
+                        </li>
+                        <li class="scmember_personal_info_state-edit">
+
+                            <div class="scmember-personal_address_header">
+                                <img src="{{$pindropIconPath}}" alt="">
+                                <input type="text" disabled>
+                            </div>
+
+
+
+                            <div class="subbranch-of-address">
+                                <input type="text" placeholder="area" id="scaddress-address">
+                                <input type="text" placeholder="city" id="scaddress-city">
+                                <input type="text" placeholder="state" id="scaddress-state">
+                                <input type="text" placeholder="pincode" id="scaddress-pincode">
+                            </div>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+                <div class="scdashboard-performancecontainer">
+                    <div class="performancecontainer-firstrow">
+                        <h3>Performance</h3>
+                        <button class="edit-scuser" style="cursor:pointer">Edit</button>
+                        <button class="save-scuser" style="cursor:pointer">Save</button>
+                    </div>
+                    <ul class="scdashboard-individual-performance">
+                        <li>
+                            <p>Average Leads/month</p>
+                            <span>10</span>
+
                         </li>
                         <li>
-                            <img src="{{ asset('assets/images/Icons/support_agent.png') }}" alt=""> Support
+                            <p>Total Leads</p>
+                            <span>20</span>
+
+                        </li>
+                        <li>
+                            <p>Total Commission</p>
+                            <span>10</span>
+
+                        </li>
+                        <li>
+                            <p>Pending Amount</p>
+                            <span>₹2000</span>
+
                         </li>
                     </ul>
-                </div>
-
-                <div class="scdashboard-container">
-
-                    <div class="scdashboard-dashboardcontent">
-                        <div class="scdashboard-trackprogress">
-                            <div class="trackprogress-firstsection">
-
-                                <h1>Track Progress</h1>
-                                <button class="referral-Link-trigger-anotherbutton">Generate Referral Link</button>
-                                <button id="mobgeneratedreferralcode"> <img src="{{ asset('assets/images/Group icon.png') }}"
-                                        alt=""> Referral Code:
-                                    45628</button>
-                            </div>
-                            <div class="trackprogress-secondsection">
-                                <div class="trackprogress-month">
-                                    <h1>October</h1>
-                                    <p>month</p>
+                    <div class="scdashboard-queryraisedcontainer">
+                        <div class="queryraisedcontainer-firstrow">
+                            <p id="queryraised-header">Queries Raised</p>
+                            <div class="queryraisedcontainer-rightcontent">
+                                <button id="sort-by" style="cursor:pointer;">
+                                    <p>Sort by</p> <img src="assets/images/Icons/swap_vert.png" />
+                                </button>
+                                <div class="sort-by-contents">
+                                    <a href="" data-sort="newest">Newest</a>
+                                    <a href="" data-sort="oldest">Oldest</a>
+                                    <a href="" data-sort="alphabet">A-Z</a>
+                                    <a href="" data-sort="alphabet-reverse">Z-A</a>
                                 </div>
-                                <div class="trackprogress-noofstudent">
-                                    <h1>07</h1>
-                                    <p>no. of students</p>
-                                </div>
-                                <div class="trackprogress-amount">
-                                    <h1>50,000</h1>
-                                    <p>amount in rs.</p>
-                                </div>
-                                <div class="trackprogress-totalamount">
-                                    <h1>1,00,000</h1>
-                                    <p>total amount</p>
-                                </div>
-
-                            </div>
-                            <div class="trackprogress-thirdsection">
-                                <button id="pcviewgeneratedreferralcode"> <img src="{{ asset('assets/images/Group icon.png') }}"
-                                        alt=""> Referral Code:
-                                    45628</button>
-                                <button style="display:none"> <img src="{{ asset('assets/images/dbicon.png') }}" alt="">Track
-                                    Commission</button>
-                                <button id="mobgeneratedbutton" class="referral-Link-trigger-button">Generate Referral
-                                    Link</button>
-                            </div>
-                        </div>
-
-                        <div class="scdashboard-studentapplication" id="studentapplicationfromstudentdashboard">
-                            <div class="studentapplication-header">
-                                <h1>Applications</h1>
-                                <div class="application-buttoncontainer">
-                                    <button class="see-all">See all</button>
-                                    <button class="start-new">Start New Registration</button>
-                                </div>
-                                <div class="studentadditbutton">
-                                    <button class="start-new">+</button>
-
-                                </div>
+                                <button id="raised-query" style="cursor:pointer;">Raise Query</button>
 
                             </div>
 
-                            <div id="user-list">
-                            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         </div>
-                    </div>
-                </div>
-                <div class="scdashboard-inboxcontent">
-                    <div class="scmember-profilecontainer">
-                        <div class="scmember-profilecontainerimg">
-                            <img src="{{asset('assets/images/image-women.jpeg')}}" id="studentcounsellor-profile" alt="">
-                            <i class="fa-regular fa-pen-to-square"></i>
-                            <input type="file" id="sc-profile-upload-cloud" display="none">
+                        <div class="groupofraisedquestion-scdashboard">
+                            <p>Loading queries...</p>
                         </div>
-
-                        <div class="scmember-rowfirst">
-                            <h1>Student Counsellor</h1>
-
-                        </div>
-                        <p id="screferral-id-fromprofile">Referral Number: <span>{{ session('scuser')->referral_code }}</span>
-                        </p>
-                        <div id="screferral-dob-fromprofile" inputmode="Date">
-                            <i class="fa-solid fa-calendar"></i>
-                            <p id="dob-display"></p>
-
-                        </div>
-                        <div id="screferral-dob-fromprofile-editmode"  style="display: none;">
-                            <i class="fa-solid fa-calendar"></i>
-                            <input type="date" id="dob-input">
-
-                        </div>
-                        <ul class="scmember_personalinfo">
-
-                            <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
-                                <p> </p>
-                            </li>
-                            <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="">
-                                <p></p>
-                            </li>
-                            <li class="scmember_personal_info_email" style="word-break: break-all;" id="referenceEmailId">
-                                <img src="{{$mailIconPath}}" alt="">
-                                <p>{{ session('scuser')->email}}</p>
-                            </li>
-                            <li class="scmember_personal_info_state"><img src="{{$pindropIconPath}}" alt="">
-                                <p style="line-height:19px"></p>
-                            </li>
-
-                        </ul>
-                        <ul class="scmember_personalinfo_editmode">
-                            <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
-                                <input type="text">
-                            </li>
-                            <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="">
-                                <input type="text">
-                            </li>
-                            <li class="scmember_personal_info_email" id="referenceEmailId">
-                                <img src="{{$mailIconPath}}" alt="">
-                                <input type="text" disabled>
-                            </li>
-                            <li class="scmember_personal_info_state-edit">
-
-                                <div class="scmember-personal_address_header">
-                                    <img src="{{$pindropIconPath}}" alt="">
-                                    <input type="text" disabled>
-                                </div>
-
-
-
-                                <div class="subbranch-of-address">
-                                    <input type="text" placeholder="area" id="scaddress-address">
-                                    <input type="text" placeholder="city" id="scaddress-city">
-                                    <input type="text" placeholder="state" id="scaddress-state">
-                                    <input type="text" placeholder="pincode" id="scaddress-pincode">
-                                </div>
-
-                            </li>
-
-                        </ul>
-
-                    </div>
-                    <div class="scdashboard-performancecontainer">
-                        <div class="performancecontainer-firstrow">
-                            <h3>Performance</h3>
-                            <button class="edit-scuser" style="cursor:pointer">Edit</button>
-                            <button class="save-scuser" style="cursor:pointer">Save</button>
-                        </div>
-                        <ul class="scdashboard-individual-performance">
-                            <li>
-                                <p>Average Leads/month</p>
-                                <span>10</span>
-
-                            </li>
-                            <li>
-                                <p>Total Leads</p>
-                                <span>20</span>
-
-                            </li>
-                            <li>
-                                <p>Total Commission</p>
-                                <span>10</span>
-
-                            </li>
-                            <li>
-                                <p>Pending Amount</p>
-                                <span>₹2000</span>
-
-                            </li>
-                        </ul>
-                        <div class="scdashboard-queryraisedcontainer">
-                            <div class="queryraisedcontainer-firstrow">
-                                <p id="queryraised-header">Queries Raised</p>
-                                <div class="queryraisedcontainer-rightcontent">
-                                    <button id="sort-by" style="cursor:pointer;">
-                                        <p>Sort by</p> <img src="assets/images/Icons/swap_vert.png" />
-                                    </button>
-                                    <div class="sort-by-contents">
-                                        <a href="" data-sort="newest">Newest</a>
-                                        <a href="" data-sort="oldest">Oldest</a>
-                                        <a href="" data-sort="alphabet">A-Z</a>
-                                        <a href="" data-sort="alphabet-reverse">Z-A</a>
-                                    </div>
-                                    <button id="raised-query" style="cursor:pointer;">Raise Query</button>
-
-                                </div>
-
-                            </div>
-                            <div class="groupofraisedquestion-scdashboard">
-                                <p>Loading queries...</p>
-                            </div>
-
-
-                        </div>
-
 
 
                     </div>
-
-                </div>
-                <div class="scdashboard-applicationstatus">
-                    <div class="scapplicationstatus-firstrow">
-                        <h1>Applications</h1>
-                        <div class="firstrowapplication-rightsidecontent">
-                            <button id="applicationstatus-sortby">Sort by <img src="assets/images/Icons/swap_vert.png" />
-                            </button>
-                            <div class="sort-by-contents-applications-studentnames">
-                                <a href="" data-sort="newest">Newest</a>
-                                <a href="" data-sort="oldest">Oldest</a>
-                                <a href="" data-sort="alphabet">A-Z</a>
-                                <a href="" data-sort="alphabet-reverse">Z-A</a>
-                            </div>
-                            <button id="mobwidthdownloadbutton">
-                                <img src="{{asset("assets/images/Icons/download-orange.png")}}" alt="">
-                            </button>
-                            <button id="sc-new-application-generate">Start New Application</button>
-                        </div>
-                    </div>
-                    @php
-$perPage = 3;
-$totalStudents = count($studentDocumentDetailsInfo);
-$totalPages = ceil($totalStudents / $perPage);  
-                    @endphp
-
-                    <div id="student-applicationdetailsstatus">
-
-                    </div>
-
 
 
 
                 </div>
+
             </div>
-
-            <div class="studentAddBySCuserPopup">
-                <div class="studentAddByScuserPopup-headerpart">
-                    <h3>Register Students</h3>
-                    <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="">
-                </div>
-                <div class="studentAddByScuserPopup-content-container">
-                    <div class="studentAddByScuserPopup-contentpart">
-                        <input type="text" placeholder="Name of the Student">
-                        <input type="text" placeholder="bankemail@gmail.com">
-                        <input type="text" placeholder="phone">
-                        <input type="text" placeholder="password">
-                        <button id="delete-student-row" style="cursor:pointer">Delete</button>
-                        <button id="dynamic-add-student-button" style="cursor:pointer">Add Student</button>
-                    </div>
-                </div>
-                <form id="excel-form" enctype="multipart/form-data">
-                    @csrf
-                    <div class="studentAddByScuserPopup-footerpart">
-                        <!-- Excel Upload Button -->
-                        <button id="excel-upload-trigger" type="button" style="cursor:pointer">
-                            Upload xlsx <img src="{{ asset('assets/images/Icons/upload.png') }}" />
+            <div class="scdashboard-applicationstatus">
+                <div class="scapplicationstatus-firstrow">
+                    <h1>Applications</h1>
+                    <div class="firstrowapplication-rightsidecontent">
+                        <button id="applicationstatus-sortby">Sort by <img src="assets/images/Icons/swap_vert.png" />
                         </button>
-                        <button type="button" class="add-student-btn" style="cursor:pointer">Add Student</button>
-                        <button type="button" id="save-multiple-students-bysc" style="cursor:pointer">Save Student
-                            details</button>
-                    </div>
-
-                    <input type="file" id="excel-sheet-student-update" name="excel_file" accept=".xls,.xlsx"
-                        style="display:none">
-
-                    <div id="file-upload-info" style="display:none">
-                        <!-- Display the Selected File Name with Remove Button -->
-                        <div id="file-container" style="display: flex; align-items: center; gap: 10px; position:relative;">
-                            <input id="selected-file-name" readonly style="border: 1px solid #ccc; padding: 5px;" />
-                            <button id="remove-excel-btn" type="button" style="cursor:pointer;">X</button>
+                        <div class="sort-by-contents-applications-studentnames">
+                            <a href="" data-sort="newest">Newest</a>
+                            <a href="" data-sort="oldest">Oldest</a>
+                            <a href="" data-sort="alphabet">A-Z</a>
+                            <a href="" data-sort="alphabet-reverse">Z-A</a>
                         </div>
-                        <!-- Save Excel File Button -->
-                        <button id="save-excelfile-btn" type="button" style="cursor:pointer;">
-                            Save Excel File
+                        <button id="mobwidthdownloadbutton">
+                            <img src="{{asset("assets/images/Icons/download-orange.png")}}" alt="">
                         </button>
+                        <button id="sc-new-application-generate">Start New Application</button>
                     </div>
-                </form>
-            </div>
-            
+                </div>
+                @php
+                    $perPage = 3;
+                    $totalStudents = count($studentDocumentDetailsInfo);
+                    $totalPages = ceil($totalStudents / $perPage);  
+                @endphp
 
-            <div class="referral-triggered-view" style="display:none">
-                <div class="referral-triggered-view-headersection">
-                    <h3>Generate Referral Link</h3>
-                    <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="">
+                <div id="student-applicationdetailsstatus">
 
                 </div>
-                <div class="referral-triggered-view-content">
-                    <input type="input" placeholder="Copy Link here">
-                </div>
-                <div class="referral-triggered-view-footer">
-                    <button> <img src="{{ asset('assets/images/Icons/close_icon.png') }}" /> Cancel</button>
-                    <button>Generate</button>
-                </div>
+
+
+
 
             </div>
-            <!-- Add Raise Query Popup -->
-            <div class="raise-query-popup" style="display:none">
-                <div class="raise-query-popup-headersection">
-                    <h3>Raise a Query</h3>
-                    <button class="close-query-btn">
-                        <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="Close">
+        </div>
+
+        <div class="studentAddBySCuserPopup">
+            <div class="studentAddByScuserPopup-headerpart">
+                <h3>Register Students</h3>
+                <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="">
+            </div>
+            <div class="studentAddByScuserPopup-content-container">
+                <div class="studentAddByScuserPopup-contentpart">
+                    <input type="text" placeholder="Name of the Student">
+                    <input type="text" placeholder="bankemail@gmail.com">
+                    <input type="text" placeholder="phone">
+                    <input type="text" placeholder="password">
+                    <button id="delete-student-row" style="cursor:pointer">Delete</button>
+                    <button id="dynamic-add-student-button" style="cursor:pointer">Add Student</button>
+                </div>
+            </div>
+            <form id="excel-form" enctype="multipart/form-data">
+                @csrf
+                <div class="studentAddByScuserPopup-footerpart">
+                    <!-- Excel Upload Button -->
+                    <button id="excel-upload-trigger" type="button" style="cursor:pointer">
+                        Upload xlsx <img src="{{ asset('assets/images/Icons/upload.png') }}" />
+                    </button>
+                    <button type="button" class="add-student-btn" style="cursor:pointer">Add Student</button>
+                    <button type="button" id="save-multiple-students-bysc" style="cursor:pointer">Save Student
+                        details</button>
+                </div>
+
+                <input type="file" id="excel-sheet-student-update" name="excel_file" accept=".xls,.xlsx"
+                    style="display:none">
+
+                <div id="file-upload-info" style="display:none">
+                    <!-- Display the Selected File Name with Remove Button -->
+                    <div id="file-container" style="display: flex; align-items: center; gap: 10px; position:relative;">
+                        <input id="selected-file-name" readonly style="border: 1px solid #ccc; padding: 5px;" />
+                        <button id="remove-excel-btn" type="button" style="cursor:pointer;">X</button>
+                    </div>
+                    <!-- Save Excel File Button -->
+                    <button id="save-excelfile-btn" type="button" style="cursor:pointer;">
+                        Save Excel File
                     </button>
                 </div>
-                <div class="raise-query-popup-content">
-                    <textarea id="query-text" placeholder="Enter your query here..." rows="4"></textarea>
-                    <select id="query-type">
-                        <option value="student">Student</option>
-                        <option value="nbfc">NBFC</option>
-                    </select>
-                </div>
-                <div class="raise-query-popup-footer">
-                <button class="cancel-query "> <img src="{{ asset('assets/images/Icons/close_icon.png') }}" /> Cancel</button>
-                    <button class="submit-query">Submit</button>
-                </div>
+            </form>
+        </div>
+
+
+        <div class="referral-triggered-view" style="display:none">
+            <div class="referral-triggered-view-headersection">
+                <h3>Generate Referral Link</h3>
+                <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="">
+
             </div>
+            <div class="referral-triggered-view-content">
+                <input type="input" placeholder="Copy Link here">
+            </div>
+            <div class="referral-triggered-view-footer">
+                <button> <img src="{{ asset('assets/images/Icons/close_icon.png') }}" /> Cancel</button>
+                <button>Generate</button>
+            </div>
+
+        </div>
+        <!-- Add Raise Query Popup -->
+        <div class="raise-query-popup" style="display:none">
+            <div class="raise-query-popup-headersection">
+                <h3>Raise a Query</h3>
+                <button class="close-query-btn">
+                    <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="Close">
+                </button>
+            </div>
+            <div class="raise-query-popup-content">
+                <textarea id="query-text" placeholder="Enter your query here..." rows="4"></textarea>
+                <select id="query-type">
+                    <option value="student">Student</option>
+                    <option value="nbfc">NBFC</option>
+                </select>
+            </div>
+            <div class="raise-query-popup-footer">
+                <button class="cancel-query "> <img src="{{ asset('assets/images/Icons/close_icon.png') }}" />
+                    Cancel</button>
+                <button class="submit-query">Submit</button>
+            </div>
+        </div>
 
     @endsection
 
@@ -597,18 +598,18 @@ $totalPages = ceil($totalStudents / $perPage);
                 },
                 body: JSON.stringify({})
             })
-            .then(response => {
-                if (response.ok) {
-                    window.location.href = "{{ route('login') }}";
-                } else {
-                    console.error("Logout failed");
-                    alert("Failed to log out. Please try again.");
-                }
-            })
-            .catch(error => {
-                console.error("Error during logout:", error);
-                alert("An error occurred while logging out.");
-            });
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = "{{ route('login') }}";
+                    } else {
+                        console.error("Logout failed");
+                        alert("Failed to log out. Please try again.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error during logout:", error);
+                    alert("An error occurred while logging out.");
+                });
         }
 
         function triggeredButtons() {
@@ -738,6 +739,7 @@ $totalPages = ceil($totalStudents / $perPage);
                                 <p id="query-raisedbyrow">${queryData.queryType}</p>
                             `;
                             querysContainer.prepend(newQuery);
+
                             closeModal();
                             alert('Query submitted successfully!');
                         } else {
@@ -1049,7 +1051,7 @@ $totalPages = ceil($totalStudents / $perPage);
             const backgroundContainer = document.querySelector(".scdashboard-parentcontainer");
             const popuAddingStudentTriggersApplications = document.getElementById("sc-new-application-generate");
 
- 
+
             popuAddingStudentTriggers.forEach(button => {
                 button.addEventListener('click', () => {
                     if (studentAddingPopuBar) {
@@ -1223,38 +1225,39 @@ $totalPages = ceil($totalStudents / $perPage);
             const getRefCode = document.querySelector("#screferral-id-fromprofile span");
             const referralId = getRefCode ? getRefCode.textContent : '';
 
-    if (!referralId) {
-        console.error("Referral ID is missing");
-        return;
-    }
-
-    fetch("/getuserbyref", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
-        },
-        body: JSON.stringify({ referralId })
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.error) {
-                throw new Error(data.error);
+            if (!referralId) {
+                console.error("Referral ID is missing");
+                return;
             }
 
-            const userListContainer = document.getElementById("user-list");
-            userListContainer.innerHTML = "";
+            fetch("/getuserbyref", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                },
+                body: JSON.stringify({ referralId })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        throw new Error(data.error);
+                    }
 
-            if (data && data.length > 0) {
-                data.forEach((user, index) => {
-                    const isHidden = index >= 3 ? 'style="display:none"' : '';
-                    const userHTML = `
-                        <div class="studentapplication-lists user-item" ${isHidden}>
+                    const userListContainer = document.getElementById("user-list");
+                    userListContainer.innerHTML = "";
+
+                    if (data && data.length > 0) {
+                        // Render user list
+                        data.forEach((user, index) => {
+                            const isHidden = index >= 3 ? 'hidden' : ''; // Use a class instead of inline style
+                            const userHTML = `
+                        <div class="studentapplication-lists user-item ${isHidden}">
                             <div class="individualapplication-list">
                                 <div class="firstsection-lists">
                                     <h1>${user.name}</h1>
@@ -1284,152 +1287,225 @@ $totalPages = ceil($totalStudents / $perPage);
                             </ul>
                         </div>
                     `;
-                    userListContainer.innerHTML += userHTML;
-                });
+                            userListContainer.innerHTML += userHTML;
+                        });
 
-                // Enable "See all" functionality
-                const seeAllBtn = document.querySelector(".see-all");
-                if (seeAllBtn) {
-                    seeAllBtn.style.display = "inline-block"; // Ensure it's visible initially
-                    let isShowingAll = false; // Track the toggle state
-
-                    // Ensure only the first 3 rows are shown initially (on page load)
-                    const userItems = document.querySelectorAll(".user-item");
-                    userItems.forEach((item, index) => {
-                        if (index < 3) {
-                            item.style.display = "block"; // Show first 3 rows
-                        } else {
-                            item.style.display = "none"; // Hide the rest
+                        // Add CSS for hidden class and mobile view "View More" button
+                        const style = document.createElement("style");
+                        style.textContent = `
+                    .hidden {
+                        display: none !important;
+                    }
+                    .studentapplication-lists.user-item {
+                        display: block;
+                    }
+                    .view-more-container {
+                        display: none; /* Hidden by default (web view) */
+                    }
+                    @media (max-width: 768px) {
+                        .see-all {
+                            display: none !important; /* Hide "See All" button in mobile view */
                         }
-                    });
+                        .view-more-container {
+                            display: flex;
+                            justify-content: end;
+                            margin-top: 16px;
+                        }
+                        .view-more-btn {
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            padding: 8px 16px;
+                            border: 1px solid #E98635;
+                            border-radius: 4px;
+                            background-color: #E98635;
+                            color: #fff;
+                            cursor: pointer;
+                            font-size: 14px;
+                        }
+                        .view-more-btn .view-more-icon {
+                            width: 16px;
+                            height: 16px;
+                        }
+                    }
+                `;
+                        document.head.appendChild(style);
 
-                    seeAllBtn.addEventListener("click", () => {
-                        if (!isShowingAll) {
-                            // Show all items
-                            userItems.forEach(item => {
-                                item.style.display = "block";
-                            });
-                            seeAllBtn.textContent = "Hide"; // Change text to "Hide"
-                            seeAllBtn.style.color = "#260254B3"; // Change to green (using a green-500 equivalent hex)
-                            seeAllBtn.style.borderColor = "#260254B3"; // Match border color to green
-                        } else {
-                            // Revert to showing only the first 3 rows
-                            userItems.forEach((item, index) => {
-                                if (index < 3) {
-                                    item.style.display = "block"; // Show first 3 rows
+                        // Web view: "See All" functionality
+                        const seeAllBtn = document.querySelector(".see-all");
+                        if (seeAllBtn) {
+                            seeAllBtn.style.display = "inline-block"; // Ensure it's visible initially in web view
+                            let isShowingAll = false; // Track the toggle state
+
+                            seeAllBtn.addEventListener("click", () => {
+                                const userItems = document.querySelectorAll(".user-item");
+                                if (!isShowingAll) {
+                                    // Show all items
+                                    userItems.forEach(item => {
+                                        item.classList.remove("hidden");
+                                    });
+                                    seeAllBtn.textContent = "Hide";
+                                    seeAllBtn.style.color = "#260254B3";
+                                    seeAllBtn.style.borderColor = "#260254B3";
                                 } else {
-                                    item.style.display = "none"; // Hide the rest
+                                    // Revert to showing only the first 3 rows
+                                    userItems.forEach((item, index) => {
+                                        if (index >= 3) {
+                                            item.classList.add("hidden");
+                                        }
+                                    });
+                                    seeAllBtn.textContent = "See All";
+                                    seeAllBtn.style.color = "#E98635";
+                                    seeAllBtn.style.borderColor = "#E98635";
                                 }
+                                isShowingAll = !isShowingAll; // Toggle the state
                             });
-                            seeAllBtn.textContent = "See All"; // Revert text to "See All"
-                            seeAllBtn.style.color = "#E98635"; // Revert to original orange color
-                            seeAllBtn.style.borderColor = "#E98635"; // Revert border color
                         }
-                        isShowingAll = !isShowingAll; // Toggle the state
-                    });
-                }
-            } else {
-                userListContainer.innerHTML = "<p>No users found.</p>";
+
+                        // Mobile view: Add "View More" button if there are more than 3 users
+                        if (data.length > 3) {
+                            const viewMoreButtonHTML = `
+                        <div class="view-more-container">
+                            <button class="view-more-btn">
+                                <span>View More</span>
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="view-more-icon">
+                                    <path d="M6 9l6 6 6-6H6z" fill="currentColor"/>
+                                </svg>
+                            </button>
+                        </div>
+                    `;
+                            userListContainer.insertAdjacentHTML('beforeend', viewMoreButtonHTML);
+
+                            // Add event listener for "View More" button
+                            const viewMoreButton = document.querySelector(".view-more-btn");
+                            if (viewMoreButton) {
+                                let isShowingAllMobile = false; // Track toggle state for mobile
+                                viewMoreButton.addEventListener("click", () => {
+                                    const userItems = document.querySelectorAll(".user-item");
+                                    if (!isShowingAllMobile) {
+                                        // Show all items
+                                        userItems.forEach(item => {
+                                            item.classList.remove("hidden");
+                                        });
+                                        viewMoreButton.querySelector("span").textContent = "View Less";
+                                        // Rotate the icon to point upwards
+                                        viewMoreButton.querySelector(".view-more-icon").style.transform = "rotate(180deg)";
+                                    } else {
+                                        // Revert to showing only the first 3 rows
+                                        userItems.forEach((item, index) => {
+                                            if (index >= 3) {
+                                                item.classList.add("hidden");
+                                            }
+                                        });
+                                        viewMoreButton.querySelector("span").textContent = "View More";
+                                        // Reset the icon rotation
+                                        viewMoreButton.querySelector(".view-more-icon").style.transform = "rotate(0deg)";
+                                    }
+                                    isShowingAllMobile = !isShowingAllMobile; // Toggle the state
+                                });
+                            }
+                        }
+                    } else {
+                        userListContainer.innerHTML = "<p>No users found.</p>";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching users:", error);
+                });
+        };
+
+        const generateReferLinkPopup = () => {
+            // DOM Elements
+            const triggeredReferralButtons = document.querySelectorAll(".referral-Link-trigger-button, .referral-Link-trigger-anotherbutton");
+            const referralTriggeredView = document.querySelector(".referral-triggered-view");
+            const closeReferralTriggerView = document.querySelector(".referral-triggered-view-headersection img");
+            const footerContainer = document.querySelector(".referral-triggered-view-footer");
+            let generateButton = document.querySelector(".referral-triggered-view-footer button:nth-child(2)"); // "Generate"
+            let cancelButton = document.querySelector(".referral-triggered-view-footer button:nth-child(1)"); // "Cancel"
+            const referralInput = document.querySelector(".referral-triggered-view-content input");
+            const backgroundContainer = document.querySelector(".scdashboard-parentcontainer");
+            const referralCodeElement = document.querySelector("#screferral-id-fromprofile span");
+
+            // Base URL for local development
+            const baseUrl = "http://localhost:8000/signup";
+
+            // Secret key for encryption (keep this secure and consistent)
+            const secretKey = "rJXU0e4lTP7G+KP9dH5V1pq9P7vP8d8sravZmzMGUKM=";
+
+            // Validation: Check if critical elements exist
+            if (!triggeredReferralButtons.length || !referralTriggeredView || !referralInput || !backgroundContainer || !referralCodeElement || !footerContainer) {
+                console.error("Required DOM elements are missing for generateReferLinkPopup:", {
+                    triggeredReferralButtons: !!triggeredReferralButtons.length,
+                    referralTriggeredView: !!referralTriggeredView,
+                    referralInput: !!referralInput,
+                    backgroundContainer: !!backgroundContainer,
+                    referralCodeElement: !!referralCodeElement,
+                    footerContainer: !!footerContainer
+                });
+                return;
             }
-        })
-        .catch(error => {
-            console.error("Error fetching users:", error);
-        });
-};
 
+            // Check if CryptoJS is loaded
+            if (typeof CryptoJS === "undefined") {
+                console.error("CryptoJS library is not loaded. Please include it in your HTML.");
+                return;
+            }
 
-       const generateReferLinkPopup = () => {
-    // DOM Elements
-    const triggeredReferralButtons = document.querySelectorAll(".referral-Link-trigger-button, .referral-Link-trigger-anotherbutton");
-    const referralTriggeredView = document.querySelector(".referral-triggered-view");
-    const closeReferralTriggerView = document.querySelector(".referral-triggered-view-headersection img");
-    const footerContainer = document.querySelector(".referral-triggered-view-footer");
-    let generateButton = document.querySelector(".referral-triggered-view-footer button:nth-child(2)"); // "Generate"
-    let cancelButton = document.querySelector(".referral-triggered-view-footer button:nth-child(1)"); // "Cancel"
-    const referralInput = document.querySelector(".referral-triggered-view-content input");
-    const backgroundContainer = document.querySelector(".scdashboard-parentcontainer");
-    const referralCodeElement = document.querySelector("#screferral-id-fromprofile span");
+            // Get referral code
+            const referralCode = referralCodeElement.textContent.trim();
+            if (!referralCode) {
+                console.error("Referral code is empty or not found");
+                return;
+            }
 
-    // Base URL for local development
-    const baseUrl = "http://localhost:8000/signup";
+            // Encrypt the referral code using AES
+            const encryptedRef = CryptoJS.AES.encrypt(referralCode, secretKey).toString();
+            const encodedEncryptedRef = encodeURIComponent(encryptedRef); // URL-safe encoding
 
-    // Secret key for encryption (keep this secure and consistent)
-    const secretKey = "rJXU0e4lTP7G+KP9dH5V1pq9P7vP8d8sravZmzMGUKM=";
+            // Construct referral link with encrypted ref
+            const referralLink = `${baseUrl}?ref=${encodedEncryptedRef}`;
 
-    // Validation: Check if critical elements exist
-    if (!triggeredReferralButtons.length || !referralTriggeredView || !referralInput || !backgroundContainer || !referralCodeElement || !footerContainer) {
-        console.error("Required DOM elements are missing for generateReferLinkPopup:", {
-            triggeredReferralButtons: !!triggeredReferralButtons.length,
-            referralTriggeredView: !!referralTriggeredView,
-            referralInput: !!referralInput,
-            backgroundContainer: !!backgroundContainer,
-            referralCodeElement: !!referralCodeElement,
-            footerContainer: !!footerContainer
-        });
-        return;
-    }
+            // Helper function to remove existing listeners (prevent stacking)
+            const removeExistingListeners = (element, event, handler) => {
+                element.removeEventListener(event, handler);
+                element.addEventListener(event, handler);
+            };
 
-    // Check if CryptoJS is loaded
-    if (typeof CryptoJS === "undefined") {
-        console.error("CryptoJS library is not loaded. Please include it in your HTML.");
-        return;
-    }
-
-    // Get referral code
-    const referralCode = referralCodeElement.textContent.trim();
-    if (!referralCode) {
-        console.error("Referral code is empty or not found");
-        return;
-    }
-
-    // Encrypt the referral code using AES
-    const encryptedRef = CryptoJS.AES.encrypt(referralCode, secretKey).toString();
-    const encodedEncryptedRef = encodeURIComponent(encryptedRef); // URL-safe encoding
-
-    // Construct referral link with encrypted ref
-    const referralLink = `${baseUrl}?ref=${encodedEncryptedRef}`;
-
-    // Helper function to remove existing listeners (prevent stacking)
-    const removeExistingListeners = (element, event, handler) => {
-        element.removeEventListener(event, handler);
-        element.addEventListener(event, handler);
-    };
-
-    // Function to reset the footer to show "Generate" button
-    const resetFooter = () => {
-        footerContainer.innerHTML = `
+            // Function to reset the footer to show "Generate" button
+            const resetFooter = () => {
+                footerContainer.innerHTML = `
             <button>Cancel</button>
             <div class="action-btn-group">
                 <button class="btn-generate">Generate</button>
             </div>
         `;
-        // Rebind buttons after resetting the footer
-        cancelButton = footerContainer.querySelector("button:nth-child(1)"); // Cancel
-        generateButton = footerContainer.querySelector(".btn-generate"); // Generate
+                // Rebind buttons after resetting the footer
+                cancelButton = footerContainer.querySelector("button:nth-child(1)"); // Cancel
+                generateButton = footerContainer.querySelector(".btn-generate"); // Generate
 
-        // Reattach event listeners for Cancel and Generate buttons
-        if (cancelButton) {
-            removeExistingListeners(cancelButton, "click", hidePopup);
-        }
-        if (generateButton) {
-            removeExistingListeners(generateButton, "click", generateLink);
-        }
-    };
+                // Reattach event listeners for Cancel and Generate buttons
+                if (cancelButton) {
+                    removeExistingListeners(cancelButton, "click", hidePopup);
+                }
+                if (generateButton) {
+                    removeExistingListeners(generateButton, "click", generateLink);
+                }
+            };
 
-    // Show popup
-    triggeredReferralButtons.forEach(button => {
-        const showPopup = () => {
-            referralTriggeredView.style.display = "flex";
-            backgroundContainer.classList.add("blur");
-            referralInput.value = ""; // Reset input
-            resetFooter(); // Reset footer to show "Generate" button when popup opens
-        };
-        removeExistingListeners(button, "click", showPopup);
-    });
+            // Show popup
+            triggeredReferralButtons.forEach(button => {
+                const showPopup = () => {
+                    referralTriggeredView.style.display = "flex";
+                    backgroundContainer.classList.add("blur");
+                    referralInput.value = ""; // Reset input
+                    resetFooter(); // Reset footer to show "Generate" button when popup opens
+                };
+                removeExistingListeners(button, "click", showPopup);
+            });
 
-    // CSS to apply the blur effect and button styles
-    const style = document.createElement("style");
-    style.textContent = `
+            // CSS to apply the blur effect and button styles
+            const style = document.createElement("style");
+            style.textContent = `
         .blur {
             filter: blur(5px); /* Apply blur effect to background */
             pointer-events: none; /* Prevent interaction with blurred background */
@@ -1494,31 +1570,31 @@ $totalPages = ceil($totalStudents / $perPage);
             display: inline-block;
         }
     `;
-    document.head.appendChild(style);
+            document.head.appendChild(style);
 
-    // Hide popup (shared logic for close and cancel)
-    const hidePopup = () => {
-        referralTriggeredView.style.display = "none";
-        backgroundContainer.classList.remove("blur");
-    };
+            // Hide popup (shared logic for close and cancel)
+            const hidePopup = () => {
+                referralTriggeredView.style.display = "none";
+                backgroundContainer.classList.remove("blur");
+            };
 
-    // Close button
-    if (closeReferralTriggerView) {
-        removeExistingListeners(closeReferralTriggerView, "click", hidePopup);
-    }
+            // Close button
+            if (closeReferralTriggerView) {
+                removeExistingListeners(closeReferralTriggerView, "click", hidePopup);
+            }
 
-    // Cancel button
-    if (cancelButton) {
-        removeExistingListeners(cancelButton, "click", hidePopup);
-    }
+            // Cancel button
+            if (cancelButton) {
+                removeExistingListeners(cancelButton, "click", hidePopup);
+            }
 
-    // Generate button logic
-    const generateLink = () => {
-        if (!referralInput) return; // Safety check
-        referralInput.value = referralLink; // Populate the input field with the referral link
+            // Generate button logic
+            const generateLink = () => {
+                if (!referralInput) return; // Safety check
+                referralInput.value = referralLink; // Populate the input field with the referral link
 
-        // Replace "Generate" button with "Copy Link" and "Share" buttons inside a div
-        footerContainer.innerHTML = `
+                // Replace "Generate" button with "Copy Link" and "Share" buttons inside a div
+                footerContainer.innerHTML = `
             <button>Cancel</button>
             <div class="action-btn-group">
                 <button class="btn-copy-link">
@@ -1535,60 +1611,60 @@ $totalPages = ceil($totalStudents / $perPage);
                 </button>
             </div>
         `;
-        const newCancelButton = footerContainer.querySelector("button:nth-child(1)");
-        const copyLinkButton = footerContainer.querySelector(".btn-copy-link");
-        const shareButton = footerContainer.querySelector(".btn-share");
+                const newCancelButton = footerContainer.querySelector("button:nth-child(1)");
+                const copyLinkButton = footerContainer.querySelector(".btn-copy-link");
+                const shareButton = footerContainer.querySelector(".btn-share");
 
-        // Reattach Cancel button listener
-        if (newCancelButton) {
-            removeExistingListeners(newCancelButton, "click", hidePopup);
-        }
+                // Reattach Cancel button listener
+                if (newCancelButton) {
+                    removeExistingListeners(newCancelButton, "click", hidePopup);
+                }
 
-        // Copy Link button logic
-        if (copyLinkButton) {
-            const copyLink = async () => {
-                try {
-                    await navigator.clipboard.writeText(referralLink);
-                    alert("Referral link copied to clipboard!");
-                } catch (err) {
-                    console.warn("Clipboard copy failed:", err);
-                    referralInput.select();
-                    if (document.execCommand("copy")) {
-                        alert("Referral link copied to clipboard!");
-                    } else {
-                        alert("Please copy the link manually.");
-                    }
+                // Copy Link button logic
+                if (copyLinkButton) {
+                    const copyLink = async () => {
+                        try {
+                            await navigator.clipboard.writeText(referralLink);
+                            alert("Referral link copied to clipboard!");
+                        } catch (err) {
+                            console.warn("Clipboard copy failed:", err);
+                            referralInput.select();
+                            if (document.execCommand("copy")) {
+                                alert("Referral link copied to clipboard!");
+                            } else {
+                                alert("Please copy the link manually.");
+                            }
+                        }
+                    };
+                    removeExistingListeners(copyLinkButton, "click", copyLink);
+                }
+
+                // Share button logic
+                if (shareButton) {
+                    const shareLink = async () => {
+                        if (navigator.share) {
+                            try {
+                                await navigator.share({
+                                    title: "Referral Link",
+                                    text: "Check out this referral link!",
+                                    url: referralLink
+                                });
+                            } catch (err) {
+                                console.warn("Sharing failed:", err);
+                            }
+                        } else {
+                            alert("Sharing is not supported on this device. Please copy the link manually.");
+                        }
+                    };
+                    removeExistingListeners(shareButton, "click", shareLink);
                 }
             };
-            removeExistingListeners(copyLinkButton, "click", copyLink);
-        }
 
-        // Share button logic
-        if (shareButton) {
-            const shareLink = async () => {
-                if (navigator.share) {
-                    try {
-                        await navigator.share({
-                            title: "Referral Link",
-                            text: "Check out this referral link!",
-                            url: referralLink
-                        });
-                    } catch (err) {
-                        console.warn("Sharing failed:", err);
-                    }
-                } else {
-                    alert("Sharing is not supported on this device. Please copy the link manually.");
-                }
-            };
-            removeExistingListeners(shareButton, "click", shareLink);
-        }
-    };
-
-    // Attach Generate button listener
-    if (generateButton) {
-        removeExistingListeners(generateButton, "click", generateLink);
-    }
-};
+            // Attach Generate button listener
+            if (generateButton) {
+                removeExistingListeners(generateButton, "click", generateLink);
+            }
+        };
 
         const queryDetails = () => {
             const scuser = @json(session('scuser'));
@@ -2175,42 +2251,42 @@ $totalPages = ceil($totalStudents / $perPage);
             }
 
         }
-    function passwordForgotSc() {
-        const forgotMailTrigger = document.querySelector(".footer-passwordchange p");
+        function passwordForgotSc() {
+            const forgotMailTrigger = document.querySelector(".footer-passwordchange p");
 
-        if (forgotMailTrigger) {
-            forgotMailTrigger.addEventListener('click', () => {
+            if (forgotMailTrigger) {
+                forgotMailTrigger.addEventListener('click', () => {
 
-                var user = @json(session('scuser'));
-                const email = user.email;
-                alert(email);
-
-
+                    var user = @json(session('scuser'));
+                    const email = user.email;
+                    alert(email);
 
 
 
-                fetch("/forgot-passwordmailsentsc", {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({ email: email })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(data);
-                        if (data.message) {
-                            alert(data.message);
-                        }
+
+
+                    fetch("/forgot-passwordmailsentsc", {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({ email: email })
                     })
-                    .catch(error => {
-                        console.error("Error:", error);
-                        alert("There was an error while sending the email.");
-                    });
-            });
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            if (data.message) {
+                                alert(data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Error:", error);
+                            alert("There was an error while sending the email.");
+                        });
+                });
+            }
         }
-    }
 
 
 
