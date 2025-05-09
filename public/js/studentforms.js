@@ -1,4 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const studentFormMenuIcon = document.getElementById(
+        "student-form-menu-icon",
+    );
+    const studentFormNavLinks = document.getElementById(
+        "student-form-nav-links",
+    );
+
+    studentFormMenuIcon.addEventListener("click", () => {
+        studentFormMenuIcon.classList.toggle("active");
+        studentFormNavLinks.classList.toggle("active");
+    });
+
     function showToast(message, duration = 3000) {
         const toastContainer = document.getElementById("toast-container");
         const toast = document.createElement("div");
@@ -314,22 +326,26 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    document.getElementById("personal-info-submit")
+    document
+        .getElementById("personal-info-submit")
         .addEventListener("click", (event) => {
             updateUserPersonalInfo(event);
         });
 
-    document.getElementById("course-info-submit")
+    document
+        .getElementById("course-info-submit")
         .addEventListener("click", (event) => {
             updateUserCourseInfo(event);
         });
 
-    document.getElementById("academics-info-submit")
+    document
+        .getElementById("academics-info-submit")
         .addEventListener("click", (event) => {
             updateAcademicsCourseInfo(event);
         });
 
-    document.getElementById("coborrower-info-submit")
+    document
+        .getElementById("coborrower-info-submit")
         .addEventListener("click", (event) => {
             updateCoborrowerInfo(event);
         });

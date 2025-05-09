@@ -26,30 +26,27 @@
 
 
   <nav class="student-form-nav">
-    <div class="student-form-nav-container">
-      <img src="assets/images/student-form-logo.png" alt="Remitout Logo" class="student-form-logo">
-      <div class="student-form-nav-links" id="student-form-nav-links">
-        <a href="#home">Home</a>
-        <a href="#resources">Resources</a>
-        <a href="#deals">Special Deals</a>
-        <a href="#services">Our Service</a>
-        <a href="#schedule">Schedule Call</a>
-        <a href="#support" class="student-form-nav-mobile">Support</a>
-        <a href="#help" class="student-form-nav-mobile">Help</a>
+      <div class="student-form-nav-container">
+        <img src="assets/images/orange-logo.png" alt="Remitout Logo" class="student-form-logo">
+        <div class="student-form-nav-links" id="student-form-nav-links">
+          <a href="#home">Home</a>
+          <a href="#resources">Resources</a>
+          <a href="#deals">Special Deals</a>
+          <a href="#services">Our Service</a>
+          <a href="#schedule">Schedule Call</a>
+          <a href="#support" class="student-form-nav-mobile">Support</a>
+          <a href="#help" class="student-form-nav-mobile">Help</a>
 
-        <div class="student-form-nav-buttons" display="style:none">
-          <button class="student-form-login-btn" onclick="window.location.href='/login'">Log
-            In</button>
-          <button class="student-form-signup-btn" onclick="window.location.href='/signup'">Sign
-            Up</button>
+          <div class="student-form-nav-buttons">
+            <button class="student-form-login-btn" onclick="window.location.href='http://127.0.0.1:8000/login'">Log In</button>
+            <button class="student-form-signup-btn" onclick="window.location.href='http://localhost:8000/signup'">Sign Up</button>
         </div>
-
-      </div>
-
+        </div>
+        
       <div class="student-form-menu-left">
-        <a href="#" class="student-form-nav-mobile">Login</a>
+           <a href="#" class="student-form-nav-mobile">Login</a>
         <div class="student-form-menu-icon-container" id="student-form-menu-icon-container">
-
+        
           <div class="student-form-menu-icon" id="student-form-menu-icon">
             <span class="bar"></span>
             <span class="bar"></span>
@@ -59,8 +56,8 @@
         </div>
       </div>
 
-    </div>
-  </nav>
+      </div>
+    </nav>
 
 
   <section class="registration-section">

@@ -3,7 +3,6 @@
     width: 767px;
     box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
     background-color: rgba(255, 255, 255, 1);
-    height: 387px;
     margin-top: 135px;
     margin-left: 28%;
     display: none;
@@ -17,13 +16,11 @@
     margin: 20px 24px;
 } */
 
-
 .studentcounsellor-requiredfields-admin {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     gap: 22px;
-
 }
 
 .dashboard-sort-button-container {
@@ -43,7 +40,7 @@
     z-index: 1;
     width: 77px;
     overflow: hidden;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 .dashboard-sort-options button {
@@ -54,7 +51,7 @@
     text-align: left;
     color: #6b7280;
     font-size: 14px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: 400;
     cursor: pointer;
     transition: background-color 0.2s;
@@ -71,14 +68,14 @@
 
 .dashboard-sort-button {
     background: white;
-    border: 1px solid #E2E2E2;
+    border: 1px solid #e2e2e2;
     border-radius: 4px;
     padding: 8px 12px;
     display: flex;
     align-items: center;
     gap: 8px;
     color: #909090;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
@@ -134,24 +131,15 @@
     font-size: 14px;
     line-height: 18px;
     color: rgba(144, 144, 144, 1);
-
-
 }
 
 .studentcounsellor-requiredfields-admin input::placeholder {
     color: rgba(144, 144, 144, 1);
-
 }
 
 .studentcounsellor-requiredfields-admin input:nth-child(5)::placeholder {
-
-
     transform: translateY(-18px);
-
 }
-
-
-
 
 #student-counsellor-admin-address {
     height: 74px;
@@ -162,8 +150,9 @@
     font-weight: 600;
     font-size: 24px;
     line-height: 36px;
-
+    border-bottom: 1px solid #e2e2e2;
     color: rgba(233, 134, 53, 1);
+    padding: 20px 0px;
 }
 
 .addcouncellor-buttoncontainer #delete-councellor-admin {
@@ -183,8 +172,34 @@
     justify-content: center;
     background-color: transparent;
     cursor: pointer;
+    border-radius: 5px;
 }
 
+.upload-container {
+    position: relative;
+}
+#trigger-profile-photo-sc {
+    cursor: pointer;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+#sc-profile-photo-upload {
+    display: none;
+}
+
+.input-container-sc {
+    display: flex;
+    flex-direction: column;
+}
+.error-message-sc {
+    color: red;
+    font-size: 12px;
+    margin-top: 2px;
+    display: none;
+    text-align: left;
+    background-color: white;
+}
 
 #generate-referral-councellor-admin {
     width: 210;
@@ -204,9 +219,7 @@
     color: rgba(255, 255, 255, 1);
     border: none;
     cursor: pointer;
-
 }
-
 
 .addcouncellor-buttoncontainer {
     display: flex;
@@ -219,8 +232,6 @@
     max-width: 100%;
     width: 100%;
     margin-left: 21%;
-
-
 }
 
 #scdashboard-profile-adminside .scmember_personalinfo {
@@ -251,10 +262,9 @@
     width: 100%;
     margin-left: 0.5rem;
     padding: 1.5rem;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     border-radius: 0.6rem;
-    box-shadow: 0px 8px 23px 0px #1A023908;
-
+    box-shadow: 0px 8px 23px 0px #1a023908;
 }
 
 #scdashboard-profile-adminside .scdashboard-performancecontainer {
@@ -266,26 +276,26 @@
 
 /* #scmember-profilecontainer-adminside .scmember-profilecontainer{ */
 
-
-
 /* } */
 
 #scmember-profilecontainer-adminside .scmember-rowfirst .save-scuser {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #6F25CE;
+    border: 1px solid #6f25ce;
     width: 70px;
     height: 35px;
     padding: 16px 22px;
     gap: 8px;
     border-radius: 4px;
-    box-shadow: 0px 0px 10px 0px #92889B21;
+    box-shadow: 0px 0px 10px 0px #92889b21;
     background: transparent;
-
 }
 
-
+/* Remove incorrect placeholder transform */
+.studentcounsellor-requiredfields-admin input:nth-child(5)::placeholder {
+    transform: none;
+}
 
 @media (max-width: 767px) {
     .add-studentcounsellor-adminside {
@@ -334,10 +344,10 @@
     }
 
     #trigger-profile-photo-sc {
-        background: url('data:image/png;base64,iVBORw0KGgo...') no-repeat right 10px center;
+        background: url("data:image/png;base64,iVBORw0KGgo...") no-repeat right
+            10px center;
         background-size: 20px;
         cursor: pointer;
-
     }
 
     .addcouncellor-buttoncontainer {
@@ -374,8 +384,6 @@
     }
 }
 
-
-
 @media (max-width: 767px) {
     .add-studentcounsellor-adminside {
         max-width: 380px;
@@ -423,7 +431,8 @@
     }
 
     #trigger-profile-photo-sc {
-        background: url('data:image/png;base64,iVBORw0KGgo...') no-repeat right 10px center;
+        background: url("data:image/png;base64,iVBORw0KGgo...") no-repeat right
+            10px center;
         /* Placeholder for upload icon */
         background-size: 20px;
         cursor: pointer;
@@ -463,13 +472,10 @@
     }
 }
 
-
-
 #scmember-profilecontainer-adminside {
     margin-top: 10%;
     display: flex;
     margin-left: 21%;
-
 }
 
 #scmember-profilecontainer-adminside .scmember_personalinfo {
@@ -492,34 +498,30 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #6F25CE;
+    border: 1px solid #6f25ce;
     width: 70px;
     height: 35px;
     padding: 16px 22px;
     gap: 8px;
     border-radius: 4px;
-    box-shadow: 0px 0px 10px 0px #92889B21;
+    box-shadow: 0px 0px 10px 0px #92889b21;
     background: transparent;
-
-} 
+}
 
 @media (max-width: 767px) {
     .add-studentcounsellor-adminside {
-        max-width: 70%;
+        max-width: 95%;
         width: 100%;
         margin-left: 10%;
-
     }
 
     .add-studentcounsellor-adminside input,
     #trigger-profile-photo-sc {
         font-size: 12px;
-
     }
 }
 
-
-@media (max-width:767px) {
+@media (max-width: 767px) {
     .add-studentcounsellor-adminside {
         height: fit-content;
         margin: 20px auto;
@@ -561,10 +563,12 @@
     #student-counsellor-admin-address {
         height: 80px;
         resize: none;
+        width: 361px;
     }
 
     #trigger-profile-photo-sc {
-        background: url('data:image/png;base64,iVBORw0KGgo...') no-repeat right 10px center;
+        background: url("data:image/png;base64,iVBORw0KGgo...") no-repeat right
+            10px center;
         /* Placeholder for upload icon */
         background-size: 20px;
         cursor: pointer;
