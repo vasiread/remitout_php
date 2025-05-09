@@ -1242,7 +1242,8 @@ class Admincontroller extends Controller
             'message' => 'Degree added successfully.',
             'data' => $degree
         ], 201);
-    }
+    }   
+
 
 
 

@@ -203,8 +203,7 @@
                 });
         }
 
-        // Validation functions
-        function validateName(name) {
+         function validateName(name) {
             return name.trim().length > 0;
         }
 
@@ -223,7 +222,7 @@
             return passwordRegex.test(password);
         }
 
-        // Function to show/hide error messages
+        
         function showError(inputId, errorId, show) {
             const input = document.getElementById(inputId);
             const error = document.getElementById(errorId);
@@ -235,8 +234,7 @@
             }
         }
 
-        // Function to toggle label visibility based on input content
-        function toggleLabelVisibility(input) {
+         function toggleLabelVisibility(input) {
             const label = input.previousElementSibling;
             if (input.value.length > 0) {
                 label.classList.add('show-label');
@@ -245,8 +243,7 @@
             }
         }
 
-        // Add input event listeners for real-time validation
-        document.getElementById('name').addEventListener('input', function() {
+         document.getElementById('name').addEventListener('input', function() {
             toggleLabelVisibility(this);
             showError('name', 'name-error', !validateName(this.value));
         });
@@ -472,8 +469,7 @@
                 showError('name', 'name-error', true);
                 alert("Name is required");
                 return;
-            }
-            if (!validatePhone(phoneInput)) {
+            }if (!validatePhone(phoneInput)) {
                 showError('phone', 'phone-error', true);
                 alert("Please enter a valid 10-digit phone number");
                 return;

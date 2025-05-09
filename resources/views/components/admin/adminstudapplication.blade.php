@@ -270,20 +270,7 @@
                   <div class="admin-student-options-label">Options:</div>
                   <div class="admin-course-option-main-container">
                     <div class="course-options">
-                      <div class="course-option">
-                        <span class="course-name">12 Months</span>
-                        <span class="course-remove">×</span>
-                      </div>
-
-                      <div class="course-option">
-                        <span class="course-name">24 Months</span>
-                        <span class="course-remove">×</span>
-                      </div>
-
-                      <div class="course-option">
-                        <span class="course-name">36 Months</span>
-                        <span class="course-remove">×</span>
-                      </div>
+                       
                     </div>
 
                     <div class="add-course">
