@@ -1570,6 +1570,15 @@ form {
         right: 0;
         z-index: 10;
     }
+    #ielts-error {
+        margin-left: 0px;
+    }
+    #gre-error {
+        margin-left: 0px;
+    }
+    #toefl-error {
+        margin-left: 0px;
+    }
 }
 
 input.error,
@@ -3431,7 +3440,7 @@ p {
     overflow-y: auto;
     margin-top: 5px;
     width: 310px;
-     background-color: #fff;
+    background-color: #fff;
 }
 
 .borrow-dropdown-item {
