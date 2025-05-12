@@ -196,15 +196,32 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    let isNavigating = false; // Add navigation lock
+
     function navigate(direction) {
+        if (isNavigating) {
+            console.log("Navigation blocked: already navigating");
+            return;
+        }
+        isNavigating = true;
+        console.log("Before navigation:", {
+            currentBreadcrumbIndex,
+            currentContainerIndex,
+        });
+
         const currentContainers = breadcrumbSections[currentBreadcrumbIndex];
         currentContainers[currentContainerIndex].style.display = "none";
+
         if (direction === "next") {
             if (currentContainerIndex < currentContainers.length - 1) {
                 currentContainerIndex++;
             } else if (currentBreadcrumbIndex < breadcrumbSections.length - 1) {
                 currentBreadcrumbIndex++;
-                currentContainerIndex = 0;
+                currentContainerIndex = 0; // Reset to first container
+                // Hide all containers in the new section
+                breadcrumbSections[currentBreadcrumbIndex].forEach(
+                    (container) => (container.style.display = "none"),
+                );
                 showToast("Details have been saved successfully");
             }
         } else if (direction === "prev") {
@@ -216,12 +233,24 @@ document.addEventListener("DOMContentLoaded", () => {
                     breadcrumbSections[currentBreadcrumbIndex].length - 1;
             }
         }
+
         const updatedContainers = breadcrumbSections[currentBreadcrumbIndex];
+        console.log(
+            "Displaying container:",
+            updatedContainers[currentContainerIndex].className,
+        );
         updatedContainers[currentContainerIndex].style.display = "block";
+
         updateBreadcrumbNavigation();
         updateNavigationButtons();
         updateDots();
         updateMobileHeading(currentBreadcrumbIndex);
+
+        console.log("After navigation:", {
+            currentBreadcrumbIndex,
+            currentContainerIndex,
+        });
+        isNavigating = false;
     }
 
     nextButton.addEventListener("click", () => {

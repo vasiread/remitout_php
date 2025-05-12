@@ -1205,7 +1205,6 @@ form {
     flex-direction: column;
     gap: 31px;
 }
-
 .section-02 {
     width: 1000px;
     height: 171px;
@@ -1213,11 +1212,12 @@ form {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-    margin: 20px auto;
     position: relative;
     padding: 40px 50px;
     margin-top: -1px;
+    transform: translateX(20px);
 }
+
 
 .input-container {
     display: flex;
