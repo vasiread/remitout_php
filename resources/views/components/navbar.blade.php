@@ -1,98 +1,499 @@
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Document</title>
-    <link rel="stylesheet" href="{{ asset('assets/css/studentformquestionair.css') }}">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
- 
+    <title>Student Dashboard</title>
+    <!-- Include Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
+    <style>
+        /* Navbar container */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
 
+        .nav-container {
+            padding: 20px 0px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: none;
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .nav-container.fullopacity {
+            background-color: #fff;
+            color: rgba(38, 2, 84, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            width: 138px;
+            height: auto;
+            margin-left: 50px;
+            cursor: pointer;
+        }
+
+        .nav-searchnotificationbars {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            padding: 0 1rem;
+            gap: 15px;
+        }
+
+        .nav-searchnotificationbars .input-container {
+            position: relative;
+        }
+
+        .nav-searchnotificationbars input {
+            width: 242px;
+            height: 37px;
+            border-radius: 4px;
+            border: 1px solid rgba(222, 222, 222, 0.7);
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 19.2px;
+            padding: 0.56rem 0 0.56rem 2.85rem;
+            text-align: left;
+        }
+
+        .nav-searchnotificationbars input::placeholder {
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 19.2px;
+            text-align: left;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            margin-right: 1rem;
+        }
+
+        .unread-notify-container {
+            position: relative;
+        }
+
+        .nav-searchnotificationbars .unread-notify {
+            width: 24px;
+            height: 24px;
+            margin: 0 1.18rem;
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        .nav-searchnotificationbars .unread-notify::after {
+            content: '';
+            background-color: red;
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            width: 10px;
+            height: 10px;
+            z-index: 5;
+            border-radius: 50%;
+        }
+
+        .unread-notify-container p {
+            background-color: #FF7A00;
+            position: absolute;
+            top: -1px;
+            right: 18px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 15px;
+            height: 15px;
+            z-index: 5;
+            font-size: 9px;
+            border-radius: 50%;
+            color: #fff;
+        }
+
+        .nav-profilecontainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            gap: 10px;
+        }
+
+        .nav-searchnotificationbars .nav-profileimg {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            object-fit: cover;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .nav-searchnotificationbars .nav-profileimg:hover {
+            transform: scale(1.1);
+        }
+
+        .nav-searchnotificationbars h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 19.2px;
+            text-align: left;
+            color: rgba(38, 2, 84, 1);
+            max-width: 100%;
+            width: 100%;
+            height: 19px;
+            margin: 0 1.18rem;
+        }
+
+        .nav-searchnotificationbars i {
+            color: rgba(0, 0, 0, 1);
+            width: 15px;
+            height: 7.4px;
+            margin-bottom: 0.5rem;
+            padding-right: 0.3rem;
+            cursor: pointer;
+        }
+
+        .popup-notify-list {
+            position: absolute;
+            flex-direction: column;
+            top: 100%;
+            left: 12%;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            border-radius: 5px;
+            width: 116px;
+            display: none;
+        }
+
+        .popup-notify-list p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.8rem;
+            padding: 0.3rem;
+            border-radius: 4px;
+            margin: 0 3px;
+            color: rgba(38, 2, 84, 1);
+            height: 35px;
+            display: flex;
+            align-items: center;
+        }
+
+        .popup-notify-list p:hover {
+            background: #f9f9f9;
+            cursor: pointer;
+        }
+
+        .menubarcontainer-profile {
+            display: none;
+            cursor: pointer;
+        }
+
+        .menubarcontainer-profile img {
+            display: none;
+        }
+
+        .profile-photo-mobtab {
+            display: none;
+        }
+
+        .profile-photo-mobtab img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .menu-icon {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .menu-icon .bar {
+            width: 100%;
+            height: 3px;
+            background: #333;
+            margin: 2px 0;
+            transition: all 0.3s ease;
+        }
+
+        .menu-icon.menu-open .bar {
+            display: none;
+        }
+
+        .menu-icon.menu-open::before {
+            content: '\f00d';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 24px;
+            color: #333;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Mobile sidebar */
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 250px;
+            height: 100%;
+            background: #fff;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+            transform: translateX(100%);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            z-index: 1001;
+            opacity: 0;
+        }
+
+        .mobile-sidebar.active {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .sidebar-header .logo {
+            width: 120px;
+            margin-left: 0;
+        }
+
+        .sidebar-header .close-icon {
+            cursor: pointer;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .sidebar-menu {
+            padding: 20px;
+        }
+
+        .sidebar-menu .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            color: #333;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .sidebar-menu .menu-item i {
+            margin-right: 10px;
+        }
+
+        .sidebar-menu .menu-item.active {
+            color: #FF7A00;
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Password change container */
+        .password-change-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1002;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .password-change-triggered-view-headersection {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .password-change-triggered-view-headersection h3 {
+            margin: 0;
+        }
+
+        .password-change-triggered-view-headersection img {
+            width: 24px;
+            cursor: pointer;
+        }
+
+        .password-change-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            display: none;
+            margin-bottom: 10px;
+        }
+
+        .footer-passwordchange {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .footer-passwordchange p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            text-decoration: underline;
+            padding-left: 6px;
+            cursor: pointer;
+            color: #0056b3;
+            margin: 0;
+        }
+
+        .footer-passwordchange button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Mobile-specific styles */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 20px 30px;
+            }
+
+            .nav-searchnotificationbars {
+                display: none;
+            }
+
+            .profile-photo-mobtab {
+                display: block;
+            }
+
+            .menu-icon {
+                display: flex;
+            }
+
+            .logo {
+                margin-left: 20px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .nav-searchnotificationbars {
+                display: flex !important;
+            }
+
+            .profile-photo-mobtab {
+                display: none;
+            }
+
+            .menu-icon {
+                display: none;
+            }
+
+            .mobile-sidebar,
+            .sidebar-overlay {
+                display: none;
+            }
+        }
+    </style>
 </head>
-
 <body>
-    <nav class="nav"
-        style="@if (request()->is('/')) position: absolute; top: 0; left: 0; width: 100%; z-index: 10; @else position: relative; @endif">
-        <div class="{{ Request::is('/') ? 'nav-container' : 'nav-container fullopacity' }}">
-            @php
-$navImgPath = "assets/images/Remitoutcolored.png";
-$navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
-$NotificationBell = "assets/images/notifications_unread.png";
-            @endphp
+    <nav class="nav">
+        <div class="nav-container fullopacity">
+            <img onclick="window.location.href='{{ url('/') }}'" src="{{ asset('assets/images/Remitoutcolored.png') }}" alt="Logo" class="logo" id="profile-logo">
 
-            <img onclick="window.location.href='{{ url(' ') }}'"
-                src="{{ asset(Request::is('/') ? $navImgPathWhite : $navImgPath) }}" alt="Logo" class="logo"
-                id="profile-logo">
-
-            <div class="nav-links">
-                <a class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}" href="{{url('/')}}">Home</a>
-                <a href="#resources" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Resources</a>
-                <a href="#deals" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Special Deals</a>
-                <a href="#services" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Our Service</a>
-                <a href="#schedule" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Schedule Call</a>
-            </div>
-
-            @if(session()->has('user'))
+            @if(session()->has('user') || session()->has('scuser'))
                 <div class="nav-searchnotificationbars">
                     <div class="input-container">
                         <input type="text" placeholder="Search">
-                        <img src="assets/images/search.png" class="search-icon" alt="Search Icon">
+                        <img src="{{ asset('assets/images/search.png') }}" class="search-icon" alt="Search Icon">
                     </div>
                     <div class="unread-notify-container">
-                        <img src="{{ $NotificationBell }}" class="unread-notify" id="userNotification" alt="">
-                        <p></p>
-
+                        <img src="{{ asset('assets/images/notifications_unread.png') }}" class="unread-notify" id="userNotification" alt="">
                     </div>
-
                     <div class="nav-profilecontainer" id="notification-userprofile-section">
-                        <img src="{{ asset('assets/images/Icons/account_circle.png') }}" id="nav-profile-photo-id"
-                            class="nav-profileimg" alt="Profile Image">
-                        <h3>{{ session('user')->name }}</h3>
-                        <i class="fa-solid fa-chevron-down" style="cursor:pointer;"></i>
-                        <div class="popup-notify-list" style="display:none">
-                            <p id="change-password-trigger">Change Password</p>
-                            <p class="logoutBtn">Logout</p>
-                        </div>
-                    </div>
-
-                    <div class=" menubarcontainer-profile" id="user-dashboard-menu">
-                        <img src="{{ asset('assets/images/Icons/menu.png') }}" alt="">
-                    </div>
-                </div>
-            @elseif(session()->has('scuser'))
-                <div class="nav-searchnotificationbars">
-                    <div class="input-container">
-                        <input type="text" placeholder="Search">
-                        <img src="assets/images/search.png" class="search-icon" alt="Search Icon">
-                    </div>
-                    <img src="{{ $NotificationBell }}" class="unread-notify" alt="">
-
-                    <div class="nav-profilecontainer">
-                        <img src="{{ asset('assets/images/Icons/account_circle.png') }}" id="nav-profile-photo-id"
-                            class="nav-profileimg" alt="Profile Image">
-                        <h3 style='width:100%'>{{ session('scuser')->full_name }}</h3>
+                        <img src="{{ asset('assets/images/Icons/account_circle.png') }}" id="nav-profile-photo-id" class="nav-profileimg" alt="Profile Image">
+                        <h3>{{ session()->has('user') ? session('user')->name : session('scuser')->full_name }}</h3>
                         <i class="fa-solid fa-chevron-down"></i>
                         <div class="popup-notify-list" style="display:none">
                             <p id="change-password-trigger">Change Password</p>
                             <p class="logoutBtn">Logout</p>
                         </div>
                     </div>
-
-                    <div class="menubarcontainer-profile" id="scuser-dashboard-menu">
-
+                    <div class="menubarcontainer-profile" id="user-dashboard-menu">
+                        <img src="{{ asset('assets/images/Icons/menu.png') }}" alt="">
                     </div>
-                </div>
-
-            @else
-                <div class="nav-buttons">
-                    <button class="login-btn" onclick="window.location.href='{{ route('login') }}'">Log In</button>
-                    <button class="signup-btn" onclick="window.location.href='{{ route('signup') }}'">Sign Up</button>
                 </div>
             @endif
 
             <div class="profile-photo-mobtab" style="display:none">
-                <img src="" id="nav-profile-photo-id" class="nav-profileimg" alt="">
+                <img src="{{ asset('assets/images/Icons/account_circle.png') }}" id="nav-profile-photo-id" class="nav-profileimg" alt="">
             </div>
 
             <div class="menu-icon" id="menu-icon">
@@ -119,19 +520,22 @@ $NotificationBell = "assets/images/notifications_unread.png";
 
         <div class="footer-passwordchange">
             <p href="">Forgot Password</p>
-
             <button id="password-change-save">Save</button>
-
         </div>
     </div>
 
     <script>
+        // Define session data globally
+        window.App = {
+            user: @json(session('user')),
+            scuser: @json(session('scuser')),
+            hasScUserSession: {{ session()->has('scuser') ? 'true' : 'false' }},
+            hasUserSession: {{ session()->has('user') ? 'true' : 'false' }}
+        };
+
         // Logout function
         function sessionLogoutInitial(logoutUrl, loginUrl) {
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-
-            console.log('Initiating logout request to:', logoutUrl);
-            console.log('CSRF Token:', csrfToken);
 
             if (!csrfToken) {
                 console.error('CSRF token not found');
@@ -154,9 +558,7 @@ $NotificationBell = "assets/images/notifications_unread.png";
                 body: JSON.stringify({})
             })
                 .then(response => {
-                    console.log('Logout API response status:', response.status, response.statusText);
                     if (response.ok) {
-                        console.log('Logout successful, redirecting to:', loginUrl);
                         window.location.href = loginUrl;
                     } else {
                         console.error('Logout failed:', response.status, response.statusText);
@@ -172,157 +574,179 @@ $NotificationBell = "assets/images/notifications_unread.png";
                     alert('Logout failed: Network error');
                 });
         }
-        document.addEventListener('DOMContentLoaded', function () {
-            dynamicChangeNavMob();
-            userPopopuOpen();
-            passwordChangeCheck();
-            passwordModelTrigger();
 
-
-            // Add logout event listener
-            const logoutBtn = document.querySelector('.popup-notify-list .logoutBtn');
-            const userPopupTrigger = document.querySelector('.nav-profilecontainer i');
-            const userPopupList = document.querySelector('.popup-notify-list');
-
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', (event) => {
-                    event.stopPropagation(); // Prevent closing dropdown prematurely
-                    console.log('Logout button clicked');
-
-                    // Close the dropdown
-                    if (userPopupTrigger && userPopupList) {
-                        userPopupTrigger.classList.remove('fa-chevron-up');
-                        userPopupTrigger.classList.add('fa-chevron-down');
-                        userPopupList.style.display = 'none';
-                    }
-
-                    // Trigger logout
-                    sessionLogoutInitial('{{ route('logout') }}', '{{ route('login') }}');
-                });
-            } else {
-                console.warn('Logout button (.logoutBtn) not found in .popup-notify-list');
-            }
-
-
-
-            const navButtons = document.querySelector(".nav-buttons");
-            var currentRoute = window.location.pathname;
-            console.log('Current Route:', currentRoute);
-            @if(session('scuser'))
-                retrieveProfilePictureNavSc();
-            @elseif(session('user'))
-                retrieveProfilePictureNav();
-                // fetchUnreadCount();
-            @endif
-
-
-            console.log('Route after retrieveProfilePictureNav:', currentRoute);
-
-            if (currentRoute.includes("/student-dashboard") || currentRoute.includes("/student-forms") || currentRoute.includes("/sc-dashboard")) {
-                console.log('Dashboard or Forms detected');
-                if (window.innerWidth <= 768) {
-                    document.querySelector('.nav-searchnotificationbars').style.display = "none";
-                    document.querySelector('.profile-photo-mobtab').style.display = "block";
-                } else {
-                    document.querySelector('.nav-searchnotificationbars').style.display = "flex";
-                    document.querySelector('.profile-photo-mobtab').style.display = "none";
-                }
-                document.querySelector('.nav-links').style.display = "none";
-                if (navButtons) {
-                    navButtons.style.display = "none";
-                }
-            } else {
-                console.log('Other route detected');
-                document.querySelector('.nav-searchnotificationbars').style.display = "none";
-
-
-                if (window.innerWidth <= 768) {
-                    document.querySelector('.nav-links').style.display = "none";
-                    if (navButtons) {
-                        navButtons.style.display = "none";
-                    }
-                    document.getElementById('menu-icon').style.display = "flex";
-                } else {
-                    document.querySelector('.nav-links').style.display = "flex";
-                    if (navButtons) {
-                        navButtons.style.display = "flex";
-                    }
-                    document.getElementById('menu-icon').style.display = "none";
-                }
-            }
-
-            // Set up mobile menu click handler
+        // Dynamic navbar visibility for mobile
+        const dynamicChangeNavMob = () => {
+            const navSearchNotificationBars = document.querySelector('.nav-searchnotificationbars');
+            const profilePhotoMobTab = document.querySelector('.profile-photo-mobtab');
             const menuIcon = document.getElementById('menu-icon');
-            if (menuIcon && !menuIcon.hasAttribute('data-initialized')) {
-                menuIcon.setAttribute('data-initialized', 'true');
-                menuIcon.addEventListener('click', function () {
-                    const mobileSidebar = document.getElementById('mobile-sidebar');
-                    const overlay = document.getElementById('sidebar-overlay');
+            const navContainer = document.querySelector('.nav-container');
 
-
-                    if (mobileSidebar && overlay) {
-                        // Toggle sidebar visibility
-                        if (mobileSidebar.classList.contains('active')) {
-                            // Close the sidebar
-                            mobileSidebar.classList.remove('active');
-                            overlay.style.display = 'none';
-                            document.body.style.overfl
-                            ow = '';
-                            // Change back to hamburger icon
-                            this.innerHTML = '<span class="bar"></span><span class="bar"></span><span class="bar"></span>';
-                            this.classList.remove('menu-open');
-                        } else {
-                            // Open the sidebar
-                            mobileSidebar.classList.add('active');
-                            overlay.style.display = 'block';
-                            document.body.style.overflow = 'hidden';
-                            // Change to close icon
-                            this.innerHTML = '<i class="fas fa-times"></i>';
-                            this.classList.add('menu-open');
-                        }
-                    } else {
-                        // Create the sidebar and overlay if they don't exist
-                        createMobileSi
-                        debar();
-
-                        // Now that they exist, show them
-                        const newMobileSidebar = document.getElementById('mobile-sidebar');
-                        const newOverlay = document.getElementById('sidebar-overlay');
-                        if (newMobileSidebar && newOverlay) {
-                            newMobileSidebar.classList.add('active');
-                            newOverlay.style.display = 'block';
-                            document.body.style.overflow = 'hidden';
-                            // Change to close icon
-                            this.innerHTML = '<i class="fas fa-times"></i>';
-                            this.classList.add('menu-open');
-                        }
-                    }
-                });
+            if (window.innerWidth <= 768) {
+                if (navSearchNotificationBars) navSearchNotificationBars.style.display = 'none';
+                if (profilePhotoMobTab) profilePhotoMobTab.style.display = 'block';
+                if (menuIcon) menuIcon.style.display = 'flex';
+                if (navContainer) navContainer.style.display = 'flex';
+            } else {
+                if (navSearchNotificationBars) navSearchNotificationBars.style.display = 'flex';
+                if (profilePhotoMobTab) profilePhotoMobTab.style.display = 'none';
+                if (menuIcon) menuIcon.style.display = 'none';
+                if (navContainer) navContainer.style.display = 'flex';
             }
-        });
+        };
 
-        function menuopenclose() {
-            const triggeredSideBar = document.querySelector(".commonsidebar-togglesidebar");
-            const img = document.querySelector("#scuser-dashboard-menu img");
-            if (img.src.includes("menu.png")) {
-                img.src = '{{ asset('assets/images/Icons/close_icon.png') }}';
-                triggeredSideBar.style.display = 'flex';
-            } else if (img.src.includes("close_icon.png")) {
-                img.src = '{{ asset('assets/images/Icons/menu.png') }}';
-                triggeredSideBar.style.display = 'none';
+        // Function to close the sidebar
+        function closeSidebar(mobileSidebar, overlay, menuIcon) {
+            if (mobileSidebar && overlay && menuIcon) {
+                // Immediately set opacity to 0 to prevent flickering
+                mobileSidebar.style.opacity = '0';
+                overlay.style.opacity = '0';
+
+                // Remove active class to trigger transform
+                mobileSidebar.classList.remove('active');
+                overlay.classList.remove('active');
+
+                // Reset body overflow
+                document.body.style.overflow = '';
+
+                // Reset menu icon
+                menuIcon.innerHTML = '<span class="bar"></span><span class="bar"></span><span class="bar"></span>';
+                menuIcon.classList.remove('menu-open');
+
+                // Ensure the sidebar and overlay are fully hidden after transition
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    mobileSidebar.style.display = 'none';
+                }, 300); // Match the transition duration
             }
         }
 
+        // Create mobile sidebar
+        function createMobileSidebar() {
+            let overlay = document.getElementById('sidebar-overlay');
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.id = 'sidebar-overlay';
+                overlay.className = 'sidebar-overlay';
+                document.body.appendChild(overlay);
+            }
+
+            let mobileSidebar = document.getElementById('mobile-sidebar');
+            if (!mobileSidebar) {
+                mobileSidebar = document.createElement('div');
+                mobileSidebar.id = 'mobile-sidebar';
+                mobileSidebar.className = 'mobile-sidebar';
+
+                const isScUser = window.App.hasScUserSession;
+                let sidebarMenuHtml = '';
+
+                if (isScUser) {
+                    sidebarMenuHtml = `
+                        <div class="sidebar-header">
+                            <img src="{{ asset('assets/images/Remitoutcolored.png') }}" alt="Logo" class="logo">
+                            <i class="fa-solid fa-xmark close-icon"></i>
+                        </div>
+                        <div class="sidebar-menu">
+                            <a href="/sc-dashboard" class="menu-item active">
+                                <i class="fa-solid fa-square-poll-vertical"></i> Dashboard
+                            </a>
+                            <a href="/sc-inbox" class="menu-item">
+                                <i class="fa-solid fa-inbox"></i> Inbox
+                            </a>
+                            <a href="/sc-applications" class="menu-item">
+                                <i class="fa-regular fa-clipboard"></i> Applications
+                            </a>
+                        </div>
+                    `;
+                } else {
+                    sidebarMenuHtml = `
+                        <div class="sidebar-header">
+                            <img src="{{ asset('assets/images/Remitoutcolored.png') }}" alt="Logo" class="logo">
+                            <i class="fa-solid fa-xmark close-icon"></i>
+                        </div>
+                        <div class="sidebar-menu">
+                            <a href="/student-dashboard" class="menu-item active">
+                                <i class="fa-solid fa-square-poll-vertical"></i> Dashboard
+                            </a>
+                            <a href="/student-inbox" class="menu-item">
+                                <i class="fa-solid fa-inbox"></i> Inbox
+                            </a>
+                            <a href="/student-applications" class="menu-item">
+                                <i class="fa-regular fa-clipboard"></i> My Applications
+                            </a>
+                        </div>
+                    `;
+                }
+
+                mobileSidebar.innerHTML = `
+                    ${sidebarMenuHtml}
+                    <div class="sidebar-footer">
+                        <a href="javascript:void(0)" class="menu-item logoutBtn" onclick="sessionLogoutInitial('{{ route('logout') }}', '{{ route('login') }}')">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                        </a>
+                        <a href="/support" class="menu-item">
+                            <img src="{{ asset('assets/images/Icons/support_agent.png') }}" alt=""> Support
+                        </a>
+                    </div>
+                `;
+
+                document.body.appendChild(mobileSidebar);
+
+                const menuIcon = document.getElementById('menu-icon');
+
+                // Add close functionality to the X icon
+                const closeIcon = mobileSidebar.querySelector('.close-icon');
+                if (closeIcon) {
+                    closeIcon.addEventListener('click', function () {
+                        closeSidebar(mobileSidebar, overlay, menuIcon);
+                        const navContainer = document.querySelector('.nav-container');
+                        if (navContainer) {
+                            navContainer.style.display = 'flex';
+                        }
+                    });
+                }
+
+                // Overlay click to close
+                overlay.addEventListener('click', function () {
+                    closeSidebar(mobileSidebar, overlay, menuIcon);
+                    const navContainer = document.querySelector('.nav-container');
+                    if (navContainer) {
+                        navContainer.style.display = 'flex';
+                    }
+                });
+            }
+        }
+
+        // Display error messages
+        function displayError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            if (errorElement) {
+                errorElement.innerText = message;
+                errorElement.style.display = 'block';
+            }
+        }
+
+        // Clear error messages
+        function clearErrorMessages() {
+            const errorElements = document.getElementsByClassName('error-message');
+            for (let i = 0; i < errorElements.length; i++) {
+                errorElements[i].innerText = '';
+                errorElements[i].style.display = 'none';
+            }
+        }
+
+        // Retrieve profile picture for user
         const retrieveProfilePictureNav = async () => {
-            const userSession = @json(session('user'));
+            const userSession = window.App.user;
+            if (!userSession || !userSession.unique_id) {
+                return;
+            }
             const userId = userSession.unique_id;
             const profileImgUpdate = document.querySelector(".nav-profilecontainer .nav-profileimg");
             const mobTabProfile = document.querySelector(".profile-photo-mobtab img");
 
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
             if (!csrfToken) {
-                console.error('CSRF token not found');
                 return;
             }
 
@@ -336,31 +760,37 @@ $NotificationBell = "assets/images/notifications_unread.png";
                     },
                     body: JSON.stringify({ userId: userId })
                 });
-
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
                 const data = await response.json();
-
                 if (data.fileUrl) {
-                    console.log("Profile Picture URL:", data.fileUrl);
-                    profileImgUpdate.src = data.fileUrl;
-                    mobTabProfile.src = data.fileUrl;
+                    if (profileImgUpdate) profileImgUpdate.src = data.fileUrl;
+                    if (mobTabProfile) mobTabProfile.src = data.fileUrl;
                 } else {
-                    console.error("Error: No URL returned from the server", data);
+                    const fallbackImage = '{{ asset('assets/images/Icons/account_circle.png') }}';
+                    if (profileImgUpdate) profileImgUpdate.src = fallbackImage;
+                    if (mobTabProfile) mobTabProfile.src = fallbackImage;
                 }
             } catch (error) {
-                console.error("Error retrieving profile picture", error);
+                const fallbackImage = '{{ asset('assets/images/Icons/account_circle.png') }}';
+                if (profileImgUpdate) profileImgUpdate.src = fallbackImage;
+                if (mobTabProfile) mobTabProfile.src = fallbackImage;
             }
         };
 
+        // Retrieve profile picture for scuser
         const retrieveProfilePictureNavSc = async () => {
-            const userSession = @json(session('scuser'));
+            const userSession = window.App.scuser;
+            if (!userSession || !userSession.referral_code) {
+                return;
+            }
             const scuserrefid = userSession.referral_code;
             const profileImgUpdate = document.querySelector(".nav-profilecontainer .nav-profileimg");
             const mobTabProfile = document.querySelector(".profile-photo-mobtab img");
 
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
             if (!csrfToken) {
-                console.error('CSRF token not found');
                 return;
             }
 
@@ -374,176 +804,33 @@ $NotificationBell = "assets/images/notifications_unread.png";
                     },
                     body: JSON.stringify({ scuserrefid: scuserrefid })
                 });
-
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
                 const data = await response.json();
-
                 if (data.fileUrl) {
-                    console.log("Profile Picture URL:", data.fileUrl);
-                    profileImgUpdate.src = data.fileUrl;
-                    mobTabProfile.src = data.fileUrl;
+                    if (profileImgUpdate) profileImgUpdate.src = data.fileUrl;
+                    if (mobTabProfile) mobTabProfile.src = data.fileUrl;
                 } else {
-                    console.error("Error: No URL returned from the server", data);
+                    const fallbackImage = '{{ asset('assets/images/Icons/account_circle.png') }}';
+                    if (profileImgUpdate) profileImgUpdate.src = fallbackImage;
+                    if (mobTabProfile) mobTabProfile.src = fallbackImage;
                 }
             } catch (error) {
-                console.error("Error retrieving profile picture", error);
-            }
-        }
-
-        const dynamicChangeNavMob = () => {
-            const searchTextBoxProfile = document.querySelector(".nav-searchnotificationbars .input-container");
-            const unreadNofifyProfile = document.querySelector(".nav-searchnotificationbars .unread-notify");
-            const nameFromProfile = document.querySelector(".nav-searchnotificationbars .nav-profilecontainer h3");
-            const iconFromProfile = document.querySelector(".nav-searchnotificationbars .nav-profilecontainer i");
-            const menuBarFromProfile = document.querySelector(".menubarcontainer-profile img");
-            const mobileNavLinks = document.querySelector(".nav-links");
-            const navButtons = document.querySelector(".nav-buttons");
-            const menuIcon = document.getElementById('menu-icon');
-
-            if (window.innerWidth <= 768) {
-                if (searchTextBoxProfile) searchTextBoxProfile.style.display = "none";
-                if (unreadNofifyProfile) unreadNofifyProfile.style.display = "none";
-                if (nameFromProfile) nameFromProfile.style.display = "none";
-                if (iconFromProfile) iconFromProfile.style.display = "none";
-                if (menuBarFromProfile) menuBarFromProfile.style.display =
-                    "block";
-
-                // Hide desktop navigation on mobile
-                if (mobileNavLinks) mobileNavLinks.style.display = "none";
-
-
-                // Show menu icon on mobile
-                if (menuIcon) menuIcon.style.display = "flex";
-            } else {
-                if (searchTextBoxProfile) searchTextBoxProfile.style.display = "block";
-                if (unreadNofifyProfile) unreadNofifyProfile.style.display = "block";
-                if (nameFromProfile) nameFromProfile.style.display = "block";
-                if (iconFromProfile) iconFromProfile.style.display = "block";
-                if (menuBarFromProfile) menuBarFromProfile.style.display = "none";
-
-
-                // Show desktop navigation on tablet/desktop
-                if (mobileNavLinks) mobileNavLinks.style.display = "flex";
-
-
-                // Hide menu icon on desktop
-                if (menuIcon) menuIcon.style.display = "none";
-
-
-                // Check current route to determine nav display
-                var currentRoute = window.location.pathname;
-                if (currentRoute.includes("/student-dashboard") || currentRoute.includes("/student-forms") || currentRoute.includes("/sc-dashboard")) {
-                    if (mobileNavLinks) mobileNavLinks.style.display = "none";
-                    if (navButtons) navButtons.style.display = "none";
-                } else {
-                    if (mobileNavLinks) mobileNavLinks.style.display = "flex";
-                    if (navButtons) navButtons.style.display = "flex";
-                }
+                const fallbackImage = '{{ asset('assets/images/Icons/account_circle.png') }}';
+                if (profileImgUpdate) profileImgUpdate.src = fallbackImage;
+                if (mobTabProfile) mobTabProfile.src = fallbackImage;
             }
         };
 
-        function createMobileSidebar() {
-            // Create overlay if it doesn't exist
-            let overlay = document.getElementById('sidebar-overlay');
-            if (!overlay) {
-                overlay = document.createElement('div');
-                overlay.id = 'sidebar-overlay';
-                overlay.className = 'overlay';
-                document.body.appendChild(overlay);
-            }
-
-
-            // Create sidebar if it doesn't exist
-            let mobileSidebar = document.getElementById('mobile-sidebar');
-            if (!mobileSidebar) {
-                mobileSidebar = document.createElement('div');
-                mobileSidebar.id = 'mobile-sidebar';
-                mobileSidebar.className = 'mobile-sidebar';
-
-
-                // Sidebar HTML with close icon and updated content - using data attributes instead of hrefs
-                mobileSidebar.innerHTML = `
-            
-                                            <div class="sidebar-menu">
-                                        <a href="javascript:void(0)" class="menu-item active" data-container="studentdashboardprofile-trackprogress">
-                                            <i class="fa-solid fa-square-poll-vertical"></i> Dashboard
-                                        </a>
-                                        <a href="javascript:void(0)" class="menu-item" data-container="studentdashboardprofile-inbox">
-                                            <i class="fa-solid fa-inbox"></i> Inbox
-                                        </a>
-                                        <a href="javascript:void(0)" class="menu-item" data-container="studentdashboardprofile-myapplication">
-                                            <i class="fa-regular fa-clipboard"></i> My Applications
-                                        </a>
-                                    </div>
-
-                                <div class="sidebar-footer">
-                                    <a href="javascript:void(0)" class="menu-item logoutBtn" onclick="sessionLogout()">
-                                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
-                                    </a>
-                                    <a href="javascript:void(0)" class="menu-item" data-container="studentdashboardprofile-support">
-                                        <img src="assets/images/Icons/support_agent.png" alt=""> Support
-                                    </a>
-                                </div>
-                            `;
-
-
-                document.body.appendChild(mobileSidebar);
-
-
-                // Event listener for the overlay - to close menu
-                overlay.addEventListener('click', function () {
-                    mobileSidebar.classList.remove('active');
-                    overlay.style.display = 'none';
-                    document.body.style.overflow = '';
-
-                    // Change close icon back to hamburger icon
-                    const menuIcon = document.getElementById('menu-icon');
-                    if (menuIcon) {
-                        menuIcon.innerHTML = '<span class="bar"></span><span class="bar"></span><span class="bar"></span>';
-                        menuIcon.classList.remove('menu-open');
-                    }
-                });
-
-
-
-
-
-                function getCookie(name) {
-                    let value = "; " + document.cookie;
-                    let parts = value.split("; " + name + "=");
-                    if (parts.length == 2) return parts.pop().split(";").shift();
-
-                }
-
-
-
-
-
-
-
-            }
-        }
-        function displayError(elementId, message) {
-            var errorElement = document.getElementById(elementId);
-            errorElement.innerText = message;
-            errorElement.style.display = 'block';
-        }
-
-        function clearErrorMessages() {
-            var errorElements = document.getElementsByClassName('error-message');
-            for (var i = 0; i < errorElements.length; i++) {
-                errorElements[i].innerText = '';
-                errorElements[i].style.display = 'none';
-            }
-
-        }
+        // User popup toggle
         const userPopopuOpen = () => {
             const userPopupTrigger = document.querySelector(".nav-profilecontainer i");
             const userPopupList = document.querySelector(".popup-notify-list");
 
             if (userPopupTrigger && userPopupList) {
-                // Toggle dropdown on trigger click
                 userPopupTrigger.addEventListener('click', (event) => {
-                    event.stopPropagation(); // Prevent click from bubbling to document
+                    event.stopPropagation();
                     if (userPopupTrigger.classList.contains("fa-chevron-down")) {
                         userPopupTrigger.classList.remove("fa-chevron-down");
                         userPopupTrigger.classList.add("fa-chevron-up");
@@ -555,7 +842,6 @@ $NotificationBell = "assets/images/notifications_unread.png";
                     }
                 });
 
-                // Close dropdown when clicking outside
                 document.addEventListener('click', (event) => {
                     const isClickInsideTrigger = userPopupTrigger.contains(event.target);
                     const isClickInsidePopup = userPopupList.contains(event.target);
@@ -568,102 +854,104 @@ $NotificationBell = "assets/images/notifications_unread.png";
                 });
             }
         };
+
+        // Password change validation
         const passwordChangeCheck = () => {
-            document.getElementById('password-change-save').addEventListener('click', function () {
-                let currentPassword = document.getElementById('current-password').value.trim();
-                let newPassword = document.getElementById('new-password').value.trim();
-                let confirmNewPassword = document.getElementById('confirm-new-password').value.trim();
-                const passwordChangeContainer = document.querySelector(".password-change-container");
+            const saveButton = document.getElementById('password-change-save');
+            if (saveButton) {
+                saveButton.addEventListener('click', function () {
+                    const currentPassword = document.getElementById('current-password').value.trim();
+                    const newPassword = document.getElementById('new-password').value.trim();
+                    const confirmNewPassword = document.getElementById('confirm-new-password').value.trim();
+                    const passwordChangeContainer = document.querySelector(".password-change-container");
 
+                    clearErrorMessages();
+                    let valid = true;
 
+                    if (!currentPassword) {
+                        displayError('current-password-error', 'Current password cannot be empty.');
+                        valid = false;
+                    }
 
-                clearErrorMessages();
-                let valid = true;
+                    if (!newPassword) {
+                        displayError('new-password-error', 'New password cannot be empty.');
+                        valid = false;
+                    } else if (newPassword.length < 8) {
+                        displayError('new-password-error', 'New password must be at least 8 characters long.');
+                        valid = false;
+                    }
 
-                if (!currentPassword) {
-                    displayError('current-password-error', 'Current password cannot be empty.');
-                    valid = false;
-                }
+                    if (newPassword !== confirmNewPassword) {
+                        displayError('confirm-password-error', 'Passwords do not match.');
+                        valid = false;
+                    }
 
-                if (!newPassword) {
-                    displayError('new-password-error', 'New password cannot be empty.');
-                    valid = false;
-                } else if (newPassword.length < 8) {
-                    displayError('new-password-error', 'New password must be at least 8 characters long.');
-                    valid = false;
-                }
+                    if (!valid) return;
 
-                if (newPassword !== confirmNewPassword) {
-                    displayError('confirm-password-error', 'Passwords do not match.');
-                    valid = false;
-                }
-
-                if (!valid) return;
-
-                console.log('Password change request is valid.');
-                const hasScUserSession = {{ session()->has('scuser') ? 'true' : 'false' }};
-                const hasUserSession = {{ session()->has('user') ? 'true' : 'false' }};
-
-                let userId = '';
-                if (hasScUserSession === true) {
-
-                    const User = JSON.parse(`{!! json_encode(session('scuser')) !!}`);
-
-                    userId = User.referral_code;
-
-                } else if (hasUserSession === true) {
-
-                    const User = JSON.parse(`{!! json_encode(session('user')) !!}`);
-
-                    userId = User.unique_id;
-
-                } else {
-                    console.log("No user session found.");
-                }
-
-
-
-
-
-                const passwordChangeVariables = {
-                    userId,
-                    currentPassword,
-                    newPassword
-                };
-
-
-                fetch("/passwordchange", {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': "application/json",
-                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ""
-                    },
-                    body: JSON.stringify(passwordChangeVariables)
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        if (data.success) {
-                            console.log("Password changed successfully");
-                            alert("Password updated successfully.");
-
-                            if (passwordChangeContainer) {
-                                passwordChangeContainer.style.display = "none";
-                                document.getElementById('current-password').value = '';
-                                document.getElementById('new-password').value = '';
-                                document.getElementById('confirm-new-password').value = '';
-                            }
+                    let userId = '';
+                    if (window.App.hasScUserSession) {
+                        const scUserSession = window.App.scuser;
+                        if (scUserSession && scUserSession.referral_code) {
+                            userId = scUserSession.referral_code;
                         } else {
-                            console.error("Error:", data.message);
-                            alert(data.message);
+                            console.error("No valid scuser session data.");
+                            alert("Session data is invalid.");
+                            return;
                         }
+                    } else if (window.App.hasUserSession) {
+                        const userSession = window.App.user;
+                        if (userSession && userSession.unique_id) {
+                            userId = userSession.unique_id;
+                        } else {
+                            console.error("No valid user session data.");
+                            alert("Session data is invalid.");
+                            return;
+                        }
+                    } else {
+                        console.error("No user session found.");
+                        alert("No user session found.");
+                        return;
+                    }
+
+                    const passwordChangeVariables = {
+                        userId,
+                        currentPassword,
+                        newPassword
+                    };
+
+                    fetch("/passwordchange", {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': "application/json",
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ""
+                        },
+                        body: JSON.stringify(passwordChangeVariables)
                     })
-                    .catch((error) => {
-                        console.error("Fetch error:", error);
-                        alert("An unexpected error occurred.");
-                    });
-            });
+                        .then((response) => response.json())
+                        .then((data) => {
+                            if (data.success) {
+                                console.log("Password changed successfully");
+                                alert("Password updated successfully.");
+                                if (passwordChangeContainer) {
+                                    passwordChangeContainer.style.display = "none";
+                                    document.getElementById('current-password').value = '';
+                                    document.getElementById('new-password').value = '';
+                                    document.getElementById('confirm-new-password').value = '';
+                                }
+                            } else {
+                                console.error("Error:", data.message);
+                                alert(data.message);
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Fetch error:", error);
+                            alert("An unexpected error occurred.");
+                        });
+                });
+            }
         };
 
+        // Password modal trigger
         const passwordModelTrigger = () => {
             const passwordTrigger = document.getElementById("change-password-trigger");
             const passwordChangeContainer = document.querySelector(".password-change-container");
@@ -678,16 +966,13 @@ $NotificationBell = "assets/images/notifications_unread.png";
                     }
                     if (popupPasswordShow) {
                         popupPasswordShow.style.display = "none";
-
                     }
-                    if (arrowUp.classList.contains('fa-chevron-up')) {
+                    if (arrowUp && arrowUp.classList.contains('fa-chevron-up')) {
                         arrowUp.classList.remove("fa-chevron-up");
                         arrowUp.classList.add("fa-chevron-down");
                         arrowUp.style.display = "flex";
                     }
-
-
-                })
+                });
             }
             if (passwordContainerExit) {
                 passwordContainerExit.addEventListener("click", () => {
@@ -697,17 +982,94 @@ $NotificationBell = "assets/images/notifications_unread.png";
                         document.getElementById('new-password').value = '';
                         document.getElementById('confirm-new-password').value = '';
                         clearErrorMessages();
-
                     }
-                })
+                });
+            }
+        };
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            dynamicChangeNavMob();
+            userPopopuOpen();
+            passwordChangeCheck();
+            passwordModelTrigger();
+
+            // Logout event listener
+            const logoutBtn = document.querySelector('.popup-notify-list .logoutBtn');
+            const userPopupTrigger = document.querySelector('.nav-profilecontainer i');
+            const userPopupList = document.querySelector('.popup-notify-list');
+
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    if (userPopupTrigger && userPopupList) {
+                        userPopupTrigger.classList.remove('fa-chevron-up');
+                        userPopupTrigger.classList.add('fa-chevron-down');
+                        userPopupList.style.display = 'none';
+                    }
+                    sessionLogoutInitial('{{ route('logout') }}', '{{ route('login') }}');
+                });
             }
 
-        }
+            // Profile picture retrieval
+            if (window.App.hasScUserSession) {
+                retrieveProfilePictureNavSc();
+            } else if (window.App.hasUserSession) {
+                retrieveProfilePictureNav();
+            }
 
+            // Menu icon click handler
+            const menuIcon = document.getElementById('menu-icon');
+            if (menuIcon && !menuIcon.hasAttribute('data-initialized')) {
+                menuIcon.setAttribute('data-initialized', 'true');
+                menuIcon.addEventListener('click', function () {
+                    const mobileSidebar = document.getElementById('mobile-sidebar');
+                    const overlay = document.getElementById('sidebar-overlay');
+                    const navContainer = document.querySelector('.nav-container');
 
+                    if (mobileSidebar && overlay) {
+                        if (mobileSidebar.classList.contains('active')) {
+                            closeSidebar(mobileSidebar, overlay, this);
+                            if (navContainer) {
+                                navContainer.style.display = 'flex';
+                            }
+                        } else {
+                            mobileSidebar.classList.add('active');
+                            overlay.classList.add('active');
+                            mobileSidebar.style.display = 'block';
+                            mobileSidebar.style.opacity = '1';
+                            overlay.style.display = 'block';
+                            overlay.style.opacity = '1';
+                            document.body.style.overflow = 'hidden';
+                            this.classList.add('menu-open');
+                            if (navContainer) {
+                                navContainer.style.display = 'flex';
+                            }
+                        }
+                    } else {
+                        createMobileSidebar();
+                        const newMobileSidebar = document.getElementById('mobile-sidebar');
+                        const newOverlay = document.getElementById('sidebar-overlay');
+                        if (newMobileSidebar && newOverlay) {
+                            newMobileSidebar.classList.add('active');
+                            newOverlay.classList.add('active');
+                            newMobileSidebar.style.display = 'block';
+                            newMobileSidebar.style.opacity = '1';
+                            newOverlay.style.display = 'block';
+                            newOverlay.style.opacity = '1';
+                            document.body.style.overflow = 'hidden';
+                            this.classList.add('menu-open');
+                            if (navContainer) {
+                                navContainer.style.display = 'flex';
+                            }
+                        }
+                    }
+                });
+            }
+        });
 
+        // Update navbar on resize
+        window.addEventListener('resize', dynamicChangeNavMob);
     </script>
-
 </body>
-
 </html>
