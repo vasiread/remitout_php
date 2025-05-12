@@ -235,3 +235,5 @@ Route::post('/storecourseduration', [AdminController::class, 'storeCourseDuratio
 Route::get('/getplantocountries', [AdminController::class, 'showStudentPlanForCountriesAdmin']);
 Route::get('/showstudentcourse', [AdminController::class, 'showStudentCourse']);
 Route::get('/showstudentcourseduration', [AdminController::class, 'showStudentCourseDuration']);
+Route::get('/referralacceptedcounts', [AdminController::class, 'getReferralAcceptedCounts']);
+Route::post('/upload-documents-chat', [AdminController::class, 'uploadChatFile']);

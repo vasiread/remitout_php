@@ -417,7 +417,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            initialisedocumentsCount();
+            // initialisedocumentsCount();
             expandingStudentDetails();
             initializeSearchAndFilter();
         });
