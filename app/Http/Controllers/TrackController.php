@@ -48,7 +48,7 @@ class TrackController extends Controller
 
             ]);
         } catch (\Exception $e) {
- 
+
             return response()->json(['success' => false, 'message' => 'An error occurred while updating your details.']);
         }
 
@@ -59,7 +59,9 @@ class TrackController extends Controller
     public function getnbfcdata()
     {
         try {
-            $nbfcdata = Nbfc::select('nbfc_name', 'nbfc_email', 'nbfc_id')->get();
+            $nbfcdata = Nbfc::select('nbfc_name', 'nbfc_email', 'nbfc_type', 'nbfc_id')
+                ->where('status', 'active')
+                ->get();
 
             return response()->json([
                 'success' => true,
@@ -85,7 +87,7 @@ class TrackController extends Controller
     {
         try {
             // Fetch the data from the database
-            $nbfcdata = Nbfc::select('nbfc_name', 'nbfc_email', 'nbfc_id')->get();
+            $nbfcdata = Nbfc::select('nbfc_name', 'nbfc_type', 'nbfc_email', 'nbfc_id')->get();
 
             // Return data as a JSON response for the AJAX request
             return response()->json([
@@ -117,9 +119,9 @@ class TrackController extends Controller
             $counsellordataCount = $counsellordata->count();
 
             $overallCounts = [
-               "nbfc"=> $nbfcdataCount,
-               "user"=> $userdataCount,
-               "counsellor"=> $counsellordataCount
+                "nbfc" => $nbfcdataCount,
+                "user" => $userdataCount,
+                "counsellor" => $counsellordataCount
             ];
 
             return response()->json([

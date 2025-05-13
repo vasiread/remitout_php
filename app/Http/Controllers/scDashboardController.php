@@ -129,7 +129,7 @@ class scDashboardController extends Controller
             'scEmail' => 'string|required|email',
             'scContact' => 'string|required',
             'scAddress' => 'string|required',
-            'profilePhoto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'profilePhoto' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         try {
@@ -201,7 +201,8 @@ class scDashboardController extends Controller
     {
 
         try {
-            $scuser = Scuser::get();
+            $scuser = Scuser::where('status', 'active')
+                ->get();
 
             return response()->json([
                 'success' => true,
@@ -267,7 +268,7 @@ class scDashboardController extends Controller
                         'traceprogress.user_id'
                     )
                     ->get();
-               
+
                 $Pending = DB::table('requestedbyusers')
                     ->join('nbfc', 'requestedbyusers.nbfcid', '=', 'nbfc.nbfc_id')
                     ->where('requestedbyusers.userid', $userId)
@@ -594,7 +595,9 @@ class scDashboardController extends Controller
         }
 
         try {
-            $scUser->delete();
+
+            $scUser->status = 'suspended';
+            $scUser->save();
 
             return response()->json([
                 'success' => true,
@@ -603,7 +606,7 @@ class scDashboardController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error deleting counsellor: ' . $e->getMessage()
+                'message' => 'Error Suspending counsellor: ' . $e->getMessage()
             ], 500);
         }
     }

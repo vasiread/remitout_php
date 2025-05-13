@@ -10,6 +10,10 @@ class Nbfc extends Model
     use HasFactory;
 
     protected $table = 'nbfc';
+    protected $casts = [
+        'status' => 'string',
+    ];
+
     protected $fillable = [
         'nbfc_id',
         'nbfc_email',
@@ -17,7 +21,7 @@ class Nbfc extends Model
         'nbfc_name',
         'nbfc_description',
         'nbfc_type',
-
+ 
 
     ];
 }

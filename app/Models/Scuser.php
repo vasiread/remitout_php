@@ -11,6 +11,9 @@ class Scuser extends Model
 
     protected $table = 'studentcounsellorlist';
 
+    protected $casts = [
+        'status' => 'string',
+    ];
     protected $primaryKey = 'referral_code';
 
     public $incrementing = false;

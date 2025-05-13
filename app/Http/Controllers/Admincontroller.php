@@ -1344,6 +1344,100 @@ class Admincontroller extends Controller
         ], 400);
     }
 
+    public function updateNbfc(Request $request)
+    {
+        try {
+            // Validate the incoming request
+            $validator = Validator::make($request->all(), [
+                'id' => 'required|string',
+                'nbfc_name' => 'required|string|max:255',
+                'nbfc_type' => 'required|string|max:255',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation failed.',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            // Retrieve the NBFC record using nbfc_id
+            $nbfc = Nbfc::where('nbfc_id', $request->id)->first();
+
+            if (!$nbfc) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'NBFC not found.'
+                ], 404);
+            }
+
+            // Update fields
+            $nbfc->nbfc_name = $request->nbfc_name;
+            $nbfc->nbfc_type = $request->nbfc_type;
+            $nbfc->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'NBFC updated successfully.',
+                'data' => $nbfc
+            ], 200);
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            Log::error('NBFC update error: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'An unexpected error occurred.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+    public function suspendNbfc(Request $request)
+    {
+        try {
+            // Validate the incoming request
+            $validator = Validator::make($request->all(), [
+                'nbfc_id' => 'required|string',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation failed.',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            // Retrieve the NBFC record using custom string nbfc_id
+            $nbfc = Nbfc::where('nbfc_id', $request->nbfc_id)->first();
+
+            if (!$nbfc) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'NBFC not found with the provided nbfc_id.'
+                ], 404);
+            }
+
+            // Update status
+            $nbfc->status = 'suspended';
+            $nbfc->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'NBFC suspended successfully.',
+                'data' => $nbfc
+            ], 200);
+        } catch (\Exception $e) {
+            Log::error('NBFC Suspend error: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'An unexpected error occurred.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 
 
 

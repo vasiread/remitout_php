@@ -99,8 +99,7 @@ Route::get('/nbfc-lead-gens', [Admincontroller::class, 'nbfcLeadGens']);
 Route::get('/sc-lead-gens', [Admincontroller::class, 'scLeadGens']);
 Route::get('/reports-on-generation', [Admincontroller::class, 'reportsOnGeneration']);
 Route::post('/validateprofilecompletion', [Admincontroller::class, 'validateprofilecompletion']);
-Route::post('/suspendscuser', [scDashboardController::class, 'suspendUser']);
-Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails']);
+ Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails']);
 Route::get('/city-stats', [Admincontroller::class, 'getCityStats']);
 Route::post('/suspendscuser', [scDashboardController::class, 'suspendUser']);
 Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails']);
@@ -151,4 +150,6 @@ Route::get('/showstudentcourse', [AdminController::class, 'showStudentCourse']);
 Route::get('/showstudentcourseduration', [AdminController::class, 'showStudentCourseDuration']);
 Route::get('/referralacceptedcounts', [AdminController::class, 'getReferralAcceptedCounts']);
 Route::post('/upload-documents-chat', [AdminController::class, 'uploadChatFile']);
+Route::post('/updatenbfc', [AdminController::class, 'updateNbfc']);
 
+Route::post('/suspendnbfc', [AdminController::class, 'suspendNbfc']);

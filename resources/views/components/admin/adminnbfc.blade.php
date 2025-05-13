@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -205,80 +206,7 @@
 
             dynamicChangesThroughWindow();
 
-            document.querySelectorAll('.edit-save-button').forEach(button => {
-                button.addEventListener('click', () => {
-                    const item = button.closest('.individualnbfclists-items');
-                    const nameElement = item.querySelector('#nbfc-name-id');
-                    const typeElement = item.querySelector('.individualnbfclists-content p:nth-child(2)');
-                    const isEditing = item.classList.contains('edit-mode');
-                    const isSaveButton = button.classList.contains('save-nbfc');
 
-                    if (!isEditing) {
-                        item.classList.add('edit-mode');
-                        const currentName = nameElement.textContent;
-                        const currentType = typeElement.textContent;
-
-                        nameElement.innerHTML = `<input type="text" value="${currentName}" />`;
-                        typeElement.innerHTML = `
-                            <select>
-                                <option value="NBFC" ${currentType === 'NBFC' ? 'selected' : ''}>NBFC</option>
-                                <option value="Financial Company" ${currentType === 'Financial Company' ? 'selected' : ''}>Financial Company</option>
-                                <option value="Bank" ${currentType === 'Bank' ? 'selected' : ''}>Bank</option>
-                            </select>
-                        `;
-
-                        button.textContent = 'Save';
-                        button.classList.remove('edit-nbfc');
-                        button.classList.add('save-nbfc');
-                    } else if (isSaveButton) {
-                        const newName = item.querySelector('input').value;
-                        const newType = item.querySelector('select').value;
-                        const nbfcId = item.getAttribute('data-id');
-
-                        nameElement.textContent = newName;
-                        typeElement.textContent = newType;
-
-                        fetch('/updatenbfc', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                            },
-                            body: JSON.stringify({
-                                id: nbfcId,
-                                nbfc_name: newName,
-                                nbfc_type: newType
-                            })
-                        })
-                        .then(response => {
-                            if (!response.ok) {
-                                return response.text().then(text => {
-                                    throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${text}`);
-                                });
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            if (data.success) {
-                                alert('NBFC updated successfully');
-                                item.classList.remove('edit-mode');
-                                button.textContent = 'Edit';
-                                button.classList.remove('save-nbfc');
-                                button.classList.add('edit-nbfc');
-                            } else {
-                                throw new Error(data.error || 'Update failed');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error updating NBFC:', error.message);
-                            item.classList.remove('edit-mode');
-                            button.textContent = 'Edit';
-                            button.classList.remove('save-nbfc');
-                            button.classList.add('edit-nbfc');
-                        });
-                    }
-                });
-            });
         });
 
         document.addEventListener('click', (event) => {
@@ -384,84 +312,91 @@
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    if (data.success) {
-                        console.log(data.receivedData);
+                    if (!data.success) {
+                        console.error(data.error);
+                        return;
+                    }
 
-                        const nbfcListContainer = document.getElementById("nbfc-list");
+                    const nbfcListContainer = document.getElementById("nbfc-list");
+                    nbfcListContainer.innerHTML = '';
 
-                        nbfcListContainer.innerHTML = '';
+                    data.receivedData.forEach((item) => {
+                        console.log("NBFC item:", item); // Debug log
 
-                        data.receivedData.forEach((item, index) => {
-                            const nbfcItemDiv = document.createElement('div');
-                            nbfcItemDiv.classList.add('individualnbfclists-items');
-                            nbfcItemDiv.setAttribute('data-id', item.id || index + 1);
+                        const nbfcItemDiv = document.createElement('div');
+                        nbfcItemDiv.classList.add('individualnbfclists-items');
 
-                            // Use date_added if available, otherwise fallback to created_at or default
-                            const dateAdded = item.date_added || item.created_at || '2025-01-01';
-                            nbfcItemDiv.innerHTML = `
-                                <div class="individualnbfclists-content" data-added="${dateAdded}">
-                                    <p id="nbfc-name-id" class="editable">${item.nbfc_name}</p>
-                                    <p class="editable">${item.nbfc_type}</p>
-                                </div>
-                                <div class="individualnbfcs-buttoncontainer">
-                                    <button class="edit-save-button nbfc-list-edit-button edit-nbfc">Edit</button>
-                                    <button>Suspend</button>
-                                </div>
-                            `;
+                        // ✅ Correctly set the actual nbfc_id
+                        nbfcItemDiv.setAttribute('data-id', item.nbfc_id);
 
-                            nbfcListContainer.appendChild(nbfcItemDiv);
-                        });
+                        const dateAdded = item.date_added || item.created_at || '2025-01-01';
 
-                        // Re-attach event listeners for edit buttons
-                        document.querySelectorAll('.edit-save-button').forEach(button => {
-                            button.addEventListener('click', () => {
-                                const item = button.closest('.individualnbfclists-items');
-                                const nameElement = item.querySelector('#nbfc-name-id');
-                                const typeElement = item.querySelector('.individualnbfclists-content p:nth-child(2)');
-                                const isEditing = item.classList.contains('edit-mode');
-                                const isSaveButton = button.classList.contains('save-nbfc');
+                        nbfcItemDiv.innerHTML = `
+                <div class="individualnbfclists-content" data-added="${dateAdded}">
+                    <p id="nbfc-name-id" class="editable">${item.nbfc_name}</p>
+                    <p class="editable">${item.nbfc_type}</p>
+                </div>
+                <div class="individualnbfcs-buttoncontainer">
+                    <button class="edit-save-button nbfc-list-edit-button edit-nbfc">Edit</button>
+                    <button class="suspend-button-nbfc">Suspend</button>
+                </div>
+            `;
 
-                                if (!isEditing) {
-                                    item.classList.add('edit-mode');
-                                    const currentName = nameElement.textContent;
-                                    const currentType = typeElement.textContent;
+                        nbfcListContainer.appendChild(nbfcItemDiv);
+                    });
 
-                                    nameElement.innerHTML = `<input type="text" value="${currentName}" />`;
-                                    typeElement.innerHTML = `
-                                        <select>
-                                            <option value="NBFC" ${currentType === 'NBFC' ? 'selected' : ''}>NBFC</option>
-                                            <option value="Financial Company" ${currentType === 'Financial Company' ? 'selected' : ''}>Financial Company</option>
-                                            <option value="Bank" ${currentType === 'Bank' ? 'selected' : ''}>Bank</option>
-                                        </select>
-                                    `;
+                    document.querySelectorAll('.edit-save-button').forEach(button => {
+                        button.addEventListener('click', () => {
+                            const item = button.closest('.individualnbfclists-items');
+                            const nameElement = item.querySelector('#nbfc-name-id');
+                            const typeElement = item.querySelector('.individualnbfclists-content p:nth-child(2)');
+                            const isEditing = item.classList.contains('edit-mode');
+                            const isSaveButton = button.classList.contains('save-nbfc');
 
-                                    button.textContent = 'Save';
-                                    button.classList.remove('edit-nbfc');
-                                    button.classList.add('save-nbfc');
-                                } else if (isSaveButton) {
-                                    const newName = item.querySelector('input').value;
-                                    const newType = item.querySelector('select').value;
-                                    const nbfcId = item.getAttribute('data-id');
+                            if (!isEditing) {
+                                item.classList.add('edit-mode');
 
-                                    nameElement.textContent = newName;
-                                    typeElement.textContent = newType;
+                                const currentName = nameElement.textContent;
+                                const currentType = typeElement.textContent;
 
-                                    fetch('/updatenbfc', {
-                                        method: 'POST',
-                                        headers: {
-                                            'Content-Type': 'application/json',
-                                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                                        },
-                                        body: JSON.stringify({
-                                            id: nbfcId,
-                                            nbfc_name: newName,
-                                            nbfc_type: newType
-                                        })
+                                nameElement.innerHTML = `<input type="text" value="${currentName}" />`;
+                                typeElement.innerHTML = `
+                        <select>
+                            <option value="NBFC" ${currentType === 'NBFC' ? 'selected' : ''}>NBFC</option>
+                            <option value="Financial Company" ${currentType === 'Financial Company' ? 'selected' : ''}>Financial Company</option>
+                            <option value="Bank" ${currentType === 'Bank' ? 'selected' : ''}>Bank</option>
+                        </select>
+                    `;
+
+                                button.textContent = 'Save';
+                                button.classList.remove('edit-nbfc');
+                                button.classList.add('save-nbfc');
+                            } else if (isSaveButton) {
+                                const newName = item.querySelector('input').value;
+                                const newType = item.querySelector('select').value;
+                                const nbfcId = item.getAttribute('data-id');
+
+                                console.log(`Updating NBFC - ID: ${nbfcId}, Name: ${newName}, Type: ${newType}`);
+
+                                nameElement.textContent = newName;
+                                typeElement.textContent = newType;
+
+                                fetch('/updatenbfc', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                    },
+                                    body: JSON.stringify({
+                                        id: nbfcId,
+                                        nbfc_name: newName,
+                                        nbfc_type: newType
                                     })
+                                })
                                     .then(response => {
                                         if (!response.ok) {
                                             return response.text().then(text => {
-                                                throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${text}`);
+                                                throw new Error(`Network error: ${response.status} ${response.statusText} - ${text}`);
                                             });
                                         }
                                         return response.json();
@@ -469,51 +404,76 @@
                                     .then(data => {
                                         if (data.success) {
                                             alert('NBFC updated successfully');
-                                            item.classList.remove('edit-mode');
-                                            button.textContent = 'Edit';
-                                            button.classList.remove('save-nbfc');
-                                            button.classList.add('edit-nbfc');
                                         } else {
-                                            throw new Error(data.error || 'Update failed');
+                                            throw new Error(data.message || 'Update failed');
                                         }
                                     })
                                     .catch(error => {
                                         console.error('Error updating NBFC:', error.message);
+                                    })
+                                    .finally(() => {
                                         item.classList.remove('edit-mode');
                                         button.textContent = 'Edit';
                                         button.classList.remove('save-nbfc');
                                         button.classList.add('edit-nbfc');
                                     });
-                                }
-                            });
+                            }
                         });
-                    } else {
-                        console.error(data.error);
-                    }
+                    });
+                    document.querySelectorAll('.suspend-button-nbfc').forEach(button => {
+                        button.addEventListener('click', () => {
+                            const item = button.closest('.individualnbfclists-items');
+                            const nbfcId = item.getAttribute('data-id');
+
+                            fetch('/suspendnbfc', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                },
+                                body: JSON.stringify({
+                                    nbfc_id: nbfcId
+                                })
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        alert('NBFC suspended successfully');
+                                        nbfcListInitialize();
+                                        item.classList.add('suspended'); // Optionally add a class to highlight the suspended item
+                                    } else {
+                                        alert('Error suspending NBFC');
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error suspending NBFC:', error.message);
+                                });
+                        });
+                    });
+
+                })
+                .catch((error) => {
+                    console.error('Failed to fetch NBFC data:', error);
                 });
-        }
+        };
 
         const uploadMultipleNbfcUsers = () => {
             const nbfcBulkUsers = [];
-
             const allForms = document.querySelectorAll(".formsection-addnbfcuser");
 
             allForms.forEach(form => {
-                const nbfcName = form.querySelector('#nbfc-name-id-required').value;
-                const nbfcType = form.querySelector('.nbfc-dropdown-trigger p').textContent;
-                const nbfcEmail = form.querySelector('#nbfc-email-id').value;
-                const aboutNbfc = form.querySelector('#about-nbfc-id').value;
+                const nbfcName = form.querySelector('#nbfc-name-id-required')?.value?.trim();
+                const nbfcType = form.querySelector('.nbfc-dropdown-trigger p')?.textContent?.trim();
+                const nbfcEmail = form.querySelector('#nbfc-email-id')?.value?.trim();
+                const aboutNbfc = form.querySelector('#about-nbfc-id')?.value?.trim();
 
-                const formData = {
-                    name: nbfcName,
-                    type: nbfcType,
-                    email: nbfcEmail,
-                    description: aboutNbfc
-                };
-                nbfcBulkUsers.push(formData);
+                nbfcBulkUsers.push({
+                    name: nbfcName || '',
+                    type: nbfcType || '',
+                    email: nbfcEmail || '',
+                    description: aboutNbfc || ''
+                });
             });
-
-            console.log(nbfcBulkUsers);
 
             fetch('/addbulkusers', {
                 method: "POST",
@@ -523,32 +483,42 @@
                 },
                 body: JSON.stringify(nbfcBulkUsers)
             })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.success) {
-                        console.log(data.message);
-                        const newForm = document.querySelectorAll(".formsection-addnbfcuser");
-                        newForm.forEach((item, index) => {
-                            if (index > 0) {
-                                item.remove();
+                .then(response => response.json().then(data => ({ status: response.status, body: data })))
+                .then(({ status, body }) => {
+                    if (status === 200 && body.success) {
+                        // Clear forms except first one
+                        document.querySelectorAll(".formsection-addnbfcuser").forEach((item, index) => {
+                            if (index > 0) item.remove();
+                            else {
+                                item.querySelectorAll("input, textarea").forEach(input => input.value = '');
                             }
-                        })
-                        const inputs = document.querySelectorAll(".formsection-addnbfcuser input");
-
-                        inputs.forEach((item) => {
-                            item.value = '';
-                        })
-
-                        alert(data.message);
-                        nbfcListInitialize(); // Refresh the list after adding new items
-                    } else if (data.error) {
-                        console.error(data.error);
+                        });
+                        alert(body.message);
+                        nbfcListInitialize(); // Refresh list
+                    } else if (status === 422 && body.errors) {
+                        // Compile error messages into a single string
+                        let errorMessages = '';
+                        Object.entries(body.errors).forEach(([index, messages]) => {
+                            errorMessages += `Form #${parseInt(index) + 1}:\n`;
+                            messages.forEach(msg => {
+                                errorMessages += `- ${msg}\n`;
+                            });
+                            errorMessages += '\n';
+                        });
+                        alert("Some entries failed:\n\n" + errorMessages);
+                    } else {
+                        alert("Something went wrong. Please try again.");
+                        console.error(body);
                     }
                 })
-                .catch((e) => {
-                    console.error(e);
+                .catch((error) => {
+                    console.error("Fetch error:", error);
+                    alert("An unexpected error occurred. Try again.");
                 });
+
         };
+
     </script>
 </body>
+
 </html>

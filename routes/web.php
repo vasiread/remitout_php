@@ -66,8 +66,7 @@ Route::get('/admin-page', function () {
 
 
 
-Route::get('/getnbfcdatapackage', [TrackController::class, 'getnbfcdataPackage']);
-Route::post('/send-message', action: [ChatController::class, 'sendMessage']);
+ Route::post('/send-message', action: [ChatController::class, 'sendMessage']);
 
 Route::get('/sc-dashboard', function () {
     $sidebarItems = (new SidebarHandlingController)->scdashboardItems();
@@ -237,3 +236,5 @@ Route::get('/showstudentcourse', [AdminController::class, 'showStudentCourse']);
 Route::get('/showstudentcourseduration', [AdminController::class, 'showStudentCourseDuration']);
 Route::get('/referralacceptedcounts', [AdminController::class, 'getReferralAcceptedCounts']);
 Route::post('/upload-documents-chat', [AdminController::class, 'uploadChatFile']);
+Route::post('/updatenbfc', [AdminController::class, 'updateNbfc']);
+Route::post('/suspendnbfc', [AdminController::class, 'suspendNbfc']);
