@@ -587,6 +587,36 @@ input[type="file"] {
     padding-bottom: 1.5rem;
 }
 
+
+
+.loanproposals-count {
+    background-color: transparent; /* Orange background to match existing theme */
+    color: black;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loanproposals-header-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.loanproposals-header{
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    padding: 0px 10px 0px 10px;
+}
+
 .studentdashboardprofile-loanproposals .loanproposals-header {
     font-family: Inter;
     font-size: 18px;
@@ -1408,7 +1438,7 @@ input[type="file"] {
 
 .educationeditsection-firstrow,
 .testscoreseditsection-firstrow {
-    margin-bottom: 20px;
+    margin-bottom: 0px;
 }
 
 .studentdashboardprofile-educationeditsection {
