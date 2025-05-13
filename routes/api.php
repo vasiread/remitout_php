@@ -99,8 +99,7 @@ Route::get('/nbfc-lead-gens', [Admincontroller::class, 'nbfcLeadGens']);
 Route::get('/sc-lead-gens', [Admincontroller::class, 'scLeadGens']);
 Route::get('/reports-on-generation', [Admincontroller::class, 'reportsOnGeneration']);
 Route::post('/validateprofilecompletion', [Admincontroller::class, 'validateprofilecompletion']);
-Route::post('/suspendscuser', [scDashboardController::class, 'suspendUser']);
-Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails']);
+ Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails']);
 Route::get('/city-stats', [Admincontroller::class, 'getCityStats']);
 Route::post('/suspendscuser', [scDashboardController::class, 'suspendUser']);
 Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails']);
@@ -138,12 +137,19 @@ Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser'])
 Route::get('/getInfoForAdminSocial', [Admincontroller::class, 'showStudentFormAdmin']);
 Route::delete('/deleteInfoForAdminSocial/{id}', [AdminController::class, 'deleteInfoForAdminSocial']);
 Route::delete('/deletedegree/{id}', [AdminController::class, 'deleteDegreesAdminside']);
+Route::delete('/deletecourseduration/{id}', [AdminController::class, 'deleteCourseDuration']);
 
 Route::post('/storesocialoption', [AdminController::class, 'storeSocialOption']);
 Route::post('/storeplantostudycountry', [AdminController::class, 'storePlanToStudyCountry']);
 Route::post('/storedegree', [AdminController::class, 'storeDegreeAdmin']);
+Route::post('/storecourseduration', [AdminController::class, 'storeCourseDuration']);
 
 
 Route::get('/getplantocountries', [AdminController::class, 'showStudentPlanForCountriesAdmin']);
 Route::get('/showstudentcourse', [AdminController::class, 'showStudentCourse']);
+Route::get('/showstudentcourseduration', [AdminController::class, 'showStudentCourseDuration']);
+Route::get('/referralacceptedcounts', [AdminController::class, 'getReferralAcceptedCounts']);
+Route::post('/upload-documents-chat', [AdminController::class, 'uploadChatFile']);
+Route::post('/updatenbfc', [AdminController::class, 'updateNbfc']);
 
+Route::post('/suspendnbfc', [AdminController::class, 'suspendNbfc']);

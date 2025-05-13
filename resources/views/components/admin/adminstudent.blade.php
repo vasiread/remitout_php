@@ -45,8 +45,8 @@
                 <div class="studentapplication-lists" data-status="{{ $users->status ?? 'Pending' }}">
                     <div class="individualapplication-list">
                         <div class="firstsection-lists">
-                            <h1>{{ $users->user_name }}</h1>
-                            <p id="hidden-id-elementforaccess" style="display:none">{{ $users->user_id }}</p>
+                            <h1>{{ $users->name }}</h1>
+                            <p id="hidden-id-elementforaccess" style="display:none">{{ $users->unique_id }}</p>
                             <div class="application-buttoncontainer">
                                 <button>View</button>
                                 <button>Edit</button>
@@ -417,7 +417,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            initialisedocumentsCount();
+            // initialisedocumentsCount();
             expandingStudentDetails();
             initializeSearchAndFilter();
         });
@@ -481,23 +481,31 @@
             });
         };
 
-       const expandingStudentDetails = async () => {
+    const expandingStudentDetails = async () => {
             const listContainer = document.querySelectorAll(".studentapplication-lists");
-            const viewButton = document.querySelectorAll(".individualapplication-list .application-buttoncontainer button:first-child");
+            const expandButton = document.querySelectorAll(".individualapplication-list .application-buttoncontainer .expand-arrow");
             const documentsStatusBar = document.querySelectorAll(".studentapplication-lists-remainingdocuments");
             const studentId = document.querySelectorAll(".studentapplication-lists .firstsection-lists #hidden-id-elementforaccess");
 
             let previousUserId = null;
-            for (let [index, item] of viewButton.entries()) {
+
+            for (let [index, item] of expandButton.entries()) {
                 item.addEventListener('click', async () => {
                     if (listContainer[index] && documentsStatusBar[index] && studentId[index]) {
-                        listContainer[index].style.height = listContainer[index].style.height === "fit-content" ? "140px" : "fit-content";
-                        documentsStatusBar[index].style.display = documentsStatusBar[index].style.display === "block" ? "none" : "block";
+                        const isExpanded = listContainer[index].style.height === "fit-content";
+
+                        // Toggle height and visibility
+                        listContainer[index].style.height = isExpanded ? "140px" : "fit-content";
+                        documentsStatusBar[index].style.display = isExpanded ? "none" : "block";
+
+                        // Toggle rotation
+                        item.style.transform = isExpanded ? "rotate(0deg)" : "rotate(180deg)";
+                        item.style.transition = "transform 0.2s ease"; 
 
                         const userId = studentId[index].textContent.trim();
                         console.log(`Clicked student ${index}, userId: ${userId}`);
 
-                        if (userId && userId !== previousUserId) {
+                        if (!isExpanded && userId && userId !== previousUserId) {
                             previousUserId = userId;
                             await getRemainingDocuments(userId);
                         } else {
@@ -509,6 +517,7 @@
         };
 
         const getRemainingDocuments = async (userId) => {
+ 
             const documentIds = {
                 "pan-card-name/": `pan-card-admin-view-${userId}`,
                 "aadhar-card-name/": `aadhar-card-admin-view-${userId}`,
@@ -651,14 +660,11 @@
                     studentCountElement.style.borderRadius = "50%";
                     studentCountElement.style.backgroundColor = "#E6EDFF";
                     studentCountElement.style.color = "#0A49F3";
-
-                    // Close dropdown after selection
                     filterContent.style.display = 'none';
                 });
     });
 
-    // Set default filter to 'all'
-    document.querySelector('.student-list-dropdown-content a[data-filter="all"]').classList.add('active');
+     document.querySelector('.student-list-dropdown-content a[data-filter="all"]').classList.add('active');
 };
     </script>
 </body>

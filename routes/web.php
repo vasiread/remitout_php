@@ -66,8 +66,7 @@ Route::get('/admin-page', function () {
 
 
 
-Route::get('/getnbfcdatapackage', [TrackController::class, 'getnbfcdataPackage']);
-Route::post('/send-message', action: [ChatController::class, 'sendMessage']);
+ Route::post('/send-message', action: [ChatController::class, 'sendMessage']);
 
 Route::get('/sc-dashboard', function () {
     $sidebarItems = (new SidebarHandlingController)->scdashboardItems();
@@ -221,8 +220,21 @@ Route::get('/getInfoForAdminSocial', [Admincontroller::class, 'showStudentFormAd
 Route::delete('/deleteInfoForAdminSocial/{id}', [AdminController::class, 'deleteInfoForAdminSocial']);
 Route::delete('/deleteplantostudycountry/{id}', [AdminController::class, 'deleteInfoForAdminPlanToStudy']);
 Route::delete('/deletedegree/{id}', [AdminController::class, 'deleteDegreesAdminside']);
+Route::delete('/deletecourseduration/{id}', [AdminController::class, 'deleteCourseDuration']);
+
 Route::post('/storesocialoption', [AdminController::class, 'storeSocialOption']);
 Route::post('/storeplantostudycountry', [AdminController::class, 'storePlanToStudyCountry']);
 Route::post('/storedegree', [AdminController::class, 'storeDegreeAdmin']);
+Route::post('/storecourseduration', [AdminController::class, 'storeCourseDuration']);
+
+
+
+
+
 Route::get('/getplantocountries', [AdminController::class, 'showStudentPlanForCountriesAdmin']);
 Route::get('/showstudentcourse', [AdminController::class, 'showStudentCourse']);
+Route::get('/showstudentcourseduration', [AdminController::class, 'showStudentCourseDuration']);
+Route::get('/referralacceptedcounts', [AdminController::class, 'getReferralAcceptedCounts']);
+Route::post('/upload-documents-chat', [AdminController::class, 'uploadChatFile']);
+Route::post('/updatenbfc', [AdminController::class, 'updateNbfc']);
+Route::post('/suspendnbfc', [AdminController::class, 'suspendNbfc']);

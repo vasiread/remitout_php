@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Mail\ForgotPassword;
 use App\Mail\SendScDetailsMail;
+use App\Models\Admin;
 use App\Models\Nbfc;
 use App\Models\Proposals;
 use App\Models\Requestprogress;
+use App\Models\Scuser;
+use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -22,13 +25,26 @@ class NbfcController extends Controller
     {
         $nbfcUsers = $request->all();
         $errors = [];
-        $successCount = 0; // Counter to track successful users
+        $successCount = 0;
 
         foreach ($nbfcUsers as $index => $user) {
-            $validator = Validator::make($user, [
+            // Check if email exists in User, Nbfc, Scuser, or Admin tables
+            $email = $user['email'];
+
+            $emailExists = User::where('email', $email)->exists() ||
+                Nbfc::where('nbfc_email', $email)->exists() ||
+                Scuser::where('email', $email)->exists() ||
+                Admin::where('email', $email)->exists();
+
+            if ($emailExists) {
+                $errors[$index][] = "Email $email already exists in the system.";
+                continue;
+            }
+
+             $validator = Validator::make($user, [
                 'name' => 'required|string|max:255',
                 'type' => 'required|string|max:255',
-                'email' => 'required|email|max:255|email|unique:nbfc,nbfc_email',
+                'email' => 'required|email|max:255',
                 'description' => 'nullable|string',
             ]);
 
@@ -41,37 +57,29 @@ class NbfcController extends Controller
                 $password = Str::random(12);
                 $hashedPassword = Hash::make($password);
 
-                // Generate a unique nbfc_id
                 $nbfcId = 'NBFC' . str_pad(rand(0, 99999999), 8, '0', STR_PAD_LEFT);
                 while (Nbfc::where('nbfc_id', $nbfcId)->exists()) {
                     $nbfcId = 'NBFC' . str_pad(rand(0, 99999999), 8, '0', STR_PAD_LEFT);
                 }
 
-                // Create new NBFC user
                 $nbfcUser = new Nbfc();
                 $nbfcUser->nbfc_id = $nbfcId;
-                $nbfcUser->nbfc_email = $user['email'];
+                $nbfcUser->nbfc_email = $email;
                 $nbfcUser->password = $hashedPassword;
                 $nbfcUser->nbfc_name = $user['name'];
                 $nbfcUser->nbfc_description = $user['description'] ?? null;
                 $nbfcUser->nbfc_type = $user['type'];
-                $isSaved = $nbfcUser->save();
 
-                if ($isSaved) {
-                    // Send email after saving the user
-                    $referralCode = $nbfcId;
-                    Mail::to($user['email'])->send(new SendScDetailsMail($referralCode, $password));
+                if ($nbfcUser->save()) {
+                    Mail::to($email)->send(new SendScDetailsMail($nbfcId, $password));
                     $successCount++;
                 }
-
             } catch (\Exception $e) {
-                // Log any exception errors
-                $errors[$index] = 'An error occurred: ' . $e->getMessage();
-                continue; // Continue to the next user in case of failure
+                \Log::error("Failed to create NBFC user at index $index: " . $e->getMessage());
+                $errors[$index][] = 'An error occurred: ' . $e->getMessage();
             }
         }
 
-        // Return response based on success/failure
         if (!empty($errors)) {
             return response()->json([
                 'success' => false,
@@ -82,9 +90,10 @@ class NbfcController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => "$successCount users registered successfully!",
-        ], 200);
+            'message' => "$successCount user(s) registered successfully!"
+        ]);
     }
+
 
     public function sendProposalsWithFiles(Request $request)
     {

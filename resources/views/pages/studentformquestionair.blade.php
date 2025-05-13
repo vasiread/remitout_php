@@ -854,6 +854,7 @@
         <div class="document-box">
           <div class="document-name" id="Graduation-id">Graduation</div>
           <div class="upload-field">
+             
             <span id="secured-graduation-name">No file chosen</span>
             <label for="secured-graduation" class="upload-icon" id="secured-graduation-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
@@ -992,7 +993,6 @@
   </section>
 
 
-  <!---document upload step 5--->
   <section class="kyc-section-co-borrower" style="display: none;">
     <div class="kyc-container">
       <div class="step-header">
@@ -1026,8 +1026,7 @@
           </div>
         </div>
 
-        <!-- Aadhar Card -->
-        <div class="document-box">
+         <div class="document-box">
           <div class="document-name" id="aadhar-card-id">Aadhar Card</div>
           <div class="upload-field">
             <span id="co-aadhar-card-name">No file chosen</span>
@@ -1051,8 +1050,7 @@
           </div>
         </div>
 
-        <!-- Passport (Address Proof) -->
-        <div class="document-box">
+         <div class="document-box">
           <div class="document-name" id="address-proof-id">Address Proof</div>
           <div class="upload-field">
             <span id="co-addressproof">No file chosen</span>
@@ -1076,6 +1074,7 @@
           </div>
         </div>
 
+        
       </div>
     </div>
   </section>
@@ -1089,8 +1088,7 @@
         <h2>Document Upload</h2>
       </div>
 
-      <!-- Salaried Documents Section -->
-      <div class="salary-sub">
+       <div class="salary-sub">
         <p>If salaried:</p>
       </div>
 
@@ -1290,6 +1288,7 @@
     <button class="help-btn">Help</button>
   </div>
 
+ 
 
 
 </body>

@@ -564,7 +564,7 @@ body {
     justify-content: flex-start;
     padding: 1rem 1.8rem;
     gap: 10px;
-    height: fit-content;
+    /* height: fit-content; */
     border-top: 1px solid rgba(229, 229, 229, 1);
 }
 

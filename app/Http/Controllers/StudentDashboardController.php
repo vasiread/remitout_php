@@ -362,19 +362,13 @@ class StudentDashboardController extends Controller
 
     public function getAllUsersFromAdmin()
     {
+        $users = User::with([
+            'requestProgress.nbfc'  // Eager load related request progress and their nbfc
+        ])->get();
 
-        $userDetails = DB::table('traceprogress')
-            ->join('users', 'traceprogress.user_id', '=', 'users.unique_id')->join('nbfc', 'traceprogress.nbfc_id', '=', 'nbfc.nbfc_id')
-            ->where('traceprogress.type', Requestprogress::TYPE_PROPOSAL)
-            ->select('traceprogress.*', 'users.name as user_name', 'nbfc.nbfc_name') // Select all requestprogress data and the names
-            ->get();
-
-
-
-        return $userDetails;
-
-
+        return $users;
     }
+
     public function updateFromProfile(Request $request)
     {
         try {

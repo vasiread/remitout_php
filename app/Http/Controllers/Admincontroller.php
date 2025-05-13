@@ -234,7 +234,10 @@ class Admincontroller extends Controller
     public function reportsOnGeneration(Request $request)
     {
         try {
-            // Define the days of the week in order (Monday to Sunday)
+            $month = $request->input('month'); // optional
+            $year = $request->input('year');   // optional
+
+            // Define the days of the week (fixed order)
             $daysOfWeek = [
                 'Monday',
                 'Tuesday',
@@ -245,19 +248,27 @@ class Admincontroller extends Controller
                 'Sunday'
             ];
 
-            // Fetch the count of users grouped by the day of the week
-            $registrationsByDay = User::select(
+            // Base query
+            $query = User::select(
                 DB::raw("DAYNAME(created_at) as day_of_week"),
                 DB::raw("COUNT(*) as registration_count")
-            )
+            );
+
+            // Apply month/year filter if present
+            if ($month && $year) {
+                $query->whereMonth('created_at', $month)
+                    ->whereYear('created_at', $year);
+            }
+
+            $registrationsByDay = $query
                 ->groupBy(DB::raw("DAYNAME(created_at)"))
                 ->pluck('registration_count', 'day_of_week')
                 ->toArray();
 
-            // Initialize the counts array with 0 for each day
+            // Initialize default counts
             $registrationCounts = array_fill(0, 7, 0);
 
-            // Map the counts to the correct day of the week
+            // Map actual counts to correct index
             foreach ($registrationsByDay as $day => $count) {
                 $dayIndex = array_search($day, $daysOfWeek);
                 if ($dayIndex !== false) {
@@ -270,6 +281,7 @@ class Admincontroller extends Controller
                 "days_of_week" => $daysOfWeek,
                 "registration_counts" => $registrationCounts
             ], 200);
+
         } catch (Exception $e) {
             return response()->json([
                 "message" => false,
@@ -277,6 +289,7 @@ class Admincontroller extends Controller
             ], 500);
         }
     }
+
     public function getProfileCompletionByGenderAndDegree()
     {
         try {
@@ -947,7 +960,6 @@ class Admincontroller extends Controller
             if (!empty($info->referral_code)) {
                 $referrer = User::where('referral_code', $info->referral_code)->first();
 
-
                 if ($referrer) {
                     $linkedThrough = strtolower($referrer->linked_through);
 
@@ -978,23 +990,24 @@ class Admincontroller extends Controller
         $addsPercentage = $totalUsers > 0 ? round(($addsCount / $totalUsers) * 100, 2) : 0;
         $organicPercentage = $totalUsers > 0 ? round(($organicCount / $totalUsers) * 100, 2) : 0;
 
-        // Return or print
+        // Return the data as JSON
         return response()->json([
             'SC Referral' => [
                 'count' => $scReferralCount,
-                'percentage' => $scReferralPercentage . '%'
+                'percentage' => $scReferralPercentage
             ],
             'ADDS' => [
                 'count' => $addsCount,
-                'percentage' => $addsPercentage . '%'
+                'percentage' => $addsPercentage
             ],
             'Organic' => [
                 'count' => $organicCount,
-                'percentage' => $organicPercentage . '%'
+                'percentage' => $organicPercentage
             ],
             'Total Users' => $totalUsers
         ]);
     }
+
 
 
     public function fetchRecipients()
@@ -1079,6 +1092,15 @@ class Admincontroller extends Controller
     }
 
 
+
+
+
+
+
+
+
+
+
     public function showStudentForm()
     {
         $user = session('user');
@@ -1098,7 +1120,7 @@ class Admincontroller extends Controller
 
 
 
-        return view('pages.studentformquestionair', compact('user', 'socialOptions', 'countries', 'degrees','courseDuration'));
+        return view('pages.studentformquestionair', compact('user', 'socialOptions', 'countries', 'degrees', 'courseDuration'));
     }
 
 
@@ -1122,6 +1144,16 @@ class Admincontroller extends Controller
             'countries' => $countries
         ]);
     }
+    public function showStudentCourseDuration()
+    {
+
+
+        $duration = CourseDuration::all();
+
+        return response()->json([
+            'duration' => $duration
+        ]);
+    }
     public function showStudentCourse()
     {
 
@@ -1132,6 +1164,7 @@ class Admincontroller extends Controller
             'degree' => $degree
         ]);
     }
+
     public function deleteDegreesAdminside($id)
     {
         $degree = Degree::find($id);
@@ -1168,6 +1201,18 @@ class Admincontroller extends Controller
 
         return response()->json(['message' => 'Deleted successfully.'], 200);
     }
+    public function deleteCourseDuration($id)
+    {
+        $duration = CourseDuration::find($id);
+
+        if (!$duration) {
+            return response()->json(['message' => 'Social option not found.'], 404);
+        }
+
+        $duration->delete();
+
+        return response()->json(['message' => 'Duration Deleted successfully.'], 200);
+    }
 
     public function storeSocialOption(Request $request)
     {
@@ -1180,6 +1225,19 @@ class Admincontroller extends Controller
         return response()->json([
             'message' => 'Social option added successfully.',
             'data' => $socialOption
+        ], 201);
+    }
+    public function storeCourseDuration(Request $request)
+    {
+        $validated = $request->validate([
+            'duration_in_months' => 'required|string',
+        ]);
+
+        $courseduration = CourseDuration::create($validated);
+
+        return response()->json([
+            'message' => 'Course Duration added successfully.',
+            'data' => $courseduration
         ], 201);
     }
     public function storePlanToStudyCountry(Request $request)
@@ -1208,6 +1266,179 @@ class Admincontroller extends Controller
             'data' => $degree
         ], 201);
     }
+
+
+    public function getReferralAcceptedCounts()
+    {
+        $scReferrers = User::whereNotNull('referral_code')->get();
+        $result = [];
+
+        foreach ($scReferrers as $referrer) {
+            $count = Requestprogress::where('type', Requestprogress::TYPE_PROPOSAL)
+                ->whereIn('user_id', function ($query) use ($referrer) {
+                    $query->select('unique_id')
+                        ->from('users')
+                        ->where('referral_code', $referrer->referral_code);
+                })
+                ->distinct('user_id')
+                ->count('user_id');
+
+            $result[$referrer->referral_code] = $count;
+        }
+
+        return response()->json($result);
+    }
+
+
+
+
+    public function uploadChatFile(Request $request)
+    {
+        // Validate the request to ensure a file and chatId are provided
+        $request->validate([
+            'file' => 'required|file|max:5120|mimes:pdf,doc,docx,txt',
+
+            'chatId' => 'required|string'
+        ]);
+
+        // Get the chatId from the request
+        $chatId = $request->input('chatId');
+
+        // Check if the file is uploaded
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            // Generate a unique file name to avoid conflicts
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            // Set the file directory path on S3
+            $fileDirectory = "chats/{$chatId}/files";
+
+            // Upload the file to the specified S3 directory
+            $filePath = "$fileDirectory/$fileName";
+
+            Storage::disk('s3')->put(
+                $filePath,
+                file_get_contents($file),
+                [
+                    'visibility' => 'public',
+                    'ContentType' => $file->getMimeType(), // important!
+                ]
+            );
+
+
+            // Get the URL of the uploaded file on S3
+            $fileUrl = Storage::disk('s3')->url($filePath);
+
+            // Return a success response with the file information
+            return response()->json([
+                'success' => true,
+                'message' => 'File uploaded successfully!',
+                'file_name' => $fileName,
+                'fileUrl' => $fileUrl, // Send the URL to be used in the chat
+            ], 200);
+        }
+
+        // If no file is uploaded, return an error response
+        return response()->json([
+            'success' => false,
+            'message' => 'No file uploaded.',
+        ], 400);
+    }
+
+    public function updateNbfc(Request $request)
+    {
+        try {
+            // Validate the incoming request
+            $validator = Validator::make($request->all(), [
+                'id' => 'required|string',
+                'nbfc_name' => 'required|string|max:255',
+                'nbfc_type' => 'required|string|max:255',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation failed.',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            // Retrieve the NBFC record using nbfc_id
+            $nbfc = Nbfc::where('nbfc_id', $request->id)->first();
+
+            if (!$nbfc) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'NBFC not found.'
+                ], 404);
+            }
+
+            // Update fields
+            $nbfc->nbfc_name = $request->nbfc_name;
+            $nbfc->nbfc_type = $request->nbfc_type;
+            $nbfc->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'NBFC updated successfully.',
+                'data' => $nbfc
+            ], 200);
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            Log::error('NBFC update error: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'An unexpected error occurred.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+    public function suspendNbfc(Request $request)
+    {
+        try {
+            // Validate the incoming request
+            $validator = Validator::make($request->all(), [
+                'nbfc_id' => 'required|string',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation failed.',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            // Retrieve the NBFC record using custom string nbfc_id
+            $nbfc = Nbfc::where('nbfc_id', $request->nbfc_id)->first();
+
+            if (!$nbfc) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'NBFC not found with the provided nbfc_id.'
+                ], 404);
+            }
+
+            // Update status
+            $nbfc->status = 'suspended';
+            $nbfc->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'NBFC suspended successfully.',
+                'data' => $nbfc
+            ], 200);
+        } catch (\Exception $e) {
+            Log::error('NBFC Suspend error: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'An unexpected error occurred.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
 
 
 

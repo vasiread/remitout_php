@@ -209,12 +209,12 @@
                 <div class="admin-student-options-section-course" id="person-info-section-course">
                   <div class="admin-student-options-label-about">Options:</div>
                   <div class="checkbox-group" id="selected-study-location-admin">
- 
-                     <label class="others-checkbox">
+
+                    <label class="others-checkbox">
                       <input type="checkbox" name="where-are-you-planning-to-study[locations][]" value="Others"> Others
                     </label>
 
-                
+
                     <div class="add-checkbox-container" id="plantostudycountryadd">
                       <span class="add-checkbox-input">Add</span>
                       <span class="add-checkbox-btn" id="add-course-checkbox-id">+</span>
@@ -241,7 +241,7 @@
                   </div>
 
                   <div class="option-grid course-degree-admin" id="optionsContainer">
- 
+
                     <div class="option-item">
                       <input type="checkbox" name="select-the-type-of-degree-you-want-to-pursue[degrees][]"
                         class="option-checkbox" value="Others">
@@ -270,20 +270,7 @@
                   <div class="admin-student-options-label">Options:</div>
                   <div class="admin-course-option-main-container">
                     <div class="course-options">
-                      <div class="course-option">
-                        <span class="course-name">12 Months</span>
-                        <span class="course-remove">×</span>
-                      </div>
-
-                      <div class="course-option">
-                        <span class="course-name">24 Months</span>
-                        <span class="course-remove">×</span>
-                      </div>
-
-                      <div class="course-option">
-                        <span class="course-name">36 Months</span>
-                        <span class="course-remove">×</span>
-                      </div>
+                       
                     </div>
 
                     <div class="add-course">
@@ -1389,6 +1376,7 @@
       fetchAndAppendSocialNames();
       fetchAndRenderStudyLocations();
       fetchAndRenderDegrees();
+      fetchAndRenderCourseDurations();
       const managers = [
         SectionToggler,
         InputFieldManager,
@@ -1851,24 +1839,37 @@
       },
 
       addNewDurationOption() {
-        const userInput = prompt("Enter course duration option", "")?.trim();
-        if (userInput) {
-          const newOption = document.createElement('div');
-          newOption.className = 'course-option';
-          newOption.innerHTML = `
-            <span class="course-name">${userInput}</span>
-            <span class="course-remove">×</span>
-        `;
-          document.querySelector('.course-options')?.appendChild(newOption);
-          newOption.querySelector('.course-remove').addEventListener('click', e => {
-            e.stopPropagation();
-            newOption.remove();
-            this.modified = true;
-            FormSubmissionManager.setModifiedSection(this.section);
-          });
+        const userInput = prompt("Enter course duration option (in months)", "")?.trim();
+
+        if (userInput && !isNaN(userInput)) {
+          // Send to backend using fetch
+          fetch('/storecourseduration', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+              duration_in_months: userInput
+            })
+          })
+            .then(response => response.json())
+            .then(data => {
+              if (data.message) {
+                alert(data.message)
+                fetchAndRenderCourseDurations();
+
+
+              } else {
+                alert('Failed to save duration. Please try again.');
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert('Error occurred. Check console for details.');
+            });
         }
       },
-
       getDynamicFields() {
         const options = Array.from(document.querySelectorAll('.course-option .course-name')).map(span => span.textContent);
         return options.length > 0 ? [{
@@ -3067,6 +3068,93 @@ const CoBorrowerManager = {
           console.error('Error fetching degrees:', error);
         });
     }
+
+    function fetchAndRenderCourseDurations() {
+      fetch('/showstudentcourseduration')
+        .then(res => res.json())
+        .then(data => {
+          const container = document.querySelector('.course-options');
+          if (!container) return;
+
+          container.innerHTML = '';
+
+          data.duration.forEach(item => {
+            const courseOption = document.createElement('div');
+            courseOption.className = 'course-option';
+
+            const courseName = document.createElement('span');
+            courseName.className = 'course-name';
+            courseName.textContent = `${item.duration_in_months} Months`;
+
+            const removeBtn = document.createElement('span');
+            removeBtn.className = 'course-remove';
+            removeBtn.textContent = '×';
+
+            removeBtn.addEventListener('click', () => {
+              if (confirm(`Are you sure you want to delete "${item.duration_in_months} Months"?`)) {
+                fetch(`/deletecourseduration/${item.id}`, {
+                  method: 'DELETE',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
+                  }
+                })
+                  .then(response => response.json())
+                  .then(data => {
+                    if (data.message) {
+                      alert(data.message);
+                      fetchAndRenderCourseDurations();
+                    } else {
+                      alert('Failed to delete.');
+                    }
+                  })
+                  .catch(error => {
+                    console.error('Delete error:', error);
+                    alert('Error while deleting.');
+                  });
+              }
+            });
+
+            courseOption.appendChild(courseName);
+            courseOption.appendChild(removeBtn);
+            container.appendChild(courseOption);
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching course durations:', error);
+        });
+    }
+
+    // Add new course duration
+    document.getElementById('addCourseDurationBtn')?.addEventListener('click', () => {
+      const userInput = prompt("Enter new course duration in months (e.g., 12)", "").trim();
+
+      if (userInput && !isNaN(userInput) && Number(userInput) > 0) {
+        fetch('/storecourseduration', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
+          },
+          body: JSON.stringify({ duration_in_months: userInput })
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.error) {
+              alert(`Error: ${data.error}`);
+            } else {
+              alert(`${userInput} Months added`);
+              fetchAndRenderCourseDurations();
+            }
+          })
+          .catch(error => {
+            console.error('Add error:', error);
+            alert('Error while adding course duration.');
+          });
+      } else {
+        alert("Please enter a valid number greater than 0.");
+      }
+    });
 
   </script>
 </body>

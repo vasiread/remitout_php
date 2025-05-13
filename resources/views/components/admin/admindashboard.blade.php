@@ -93,6 +93,7 @@
                         <button data-report="nbfc-generation-leads">NBFC: Generation Leads</button>
                         <button data-report="point-of-entry">Point of entry</button>
                         <button data-report="sc-generation-leads">SC: Generation Leads</button>
+                        <button data-report="sc-generation-leads-approved">SC: Generation Leads Approved</button>
                         <button data-report="sem-rush">Sem Rush</button>
                     </div>
                 </div>
@@ -291,49 +292,30 @@
 
         <div class="admindashboardcontainer-thirdsection">
             <div class="admindashboard-firstpart">
+                <!-- Your HTML stays mostly the same -->
                 <div class="reports-registeration" data-report="registration-reports">
                     <div class="reports-registeration-sectionone">
                         <p>Reports on registration</p>
-                        <button id="calender-reportsregister">Calendar <img src="assets/images/Icons/calendar_month.png"
-                                alt=""></button>
-                        <input type="date" id="date-picker" style="display:none">
+                        <button id="calender-reportsregister">
+                            Calendar <img src="assets/images/Icons/calendar_month.png" alt="">
+                        </button>
+                        <input type="month" id="date-picker-linegraph" style="display:none">
+                        <!-- Remove display:none to make it visible -->
 
+                        <!-- Display selected date -->
+                        <p id="selected-date"></p>
                     </div>
                     <div class="reports-registeration-graph">
                         <div id="chart_div" style="width: 100%; height: 160px;"></div>
                     </div>
                 </div>
+
                 <div class="source-registeration" data-report="registration-source">
                     <p id="source-registeration-header">Source on registration</p>
                     <div class="donutregistration-chart-container">
                         <canvas id="donutRegistrationChart"></canvas>
-                        <div class="donutgraphinfos">
-                            @php
-                                $registrationSourceAnalysis = [
-                                    ['color' => 'rgba(111, 37, 206, 1)', 'AnalyseName' => 'ADDS', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '13%'],
-                                    ['color' => 'rgba(181, 142, 229, 1)', 'AnalyseName' => 'Organic', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '77%'],
-                                    ['color' => 'rgba(226, 211, 245, 1)', 'AnalyseName' => 'SC Referral', 'OverallStrength' => '8,085', 'OverallStrengthPercent' => '10%'],
-                                ];
-                            @endphp
+                        <div class="donutgraphinfos" id="donutGraphInfosContainer"></div>
 
-                            @foreach ($registrationSourceAnalysis as $source)
-                                <div class="graphviewofregistrations">
-                                    <div class="graphviewofregistrations-firstpart">
-                                        <div class="points"
-                                            style="background-color: {{ $source['color'] }}; width: 11px; height: 11px;">
-                                        </div>
-                                        <p>{{ $source['AnalyseName'] }}</p>
-                                    </div>
-                                    <div class="graphviewofregistrations-secondpart">
-                                        <p>{{ $source['OverallStrength'] }}</p>
-                                        <p id='donutRegistrationChart-percentage'>{{ $source['OverallStrengthPercent'] }}
-                                        </p>
-                                    </div>
-
-
-                                </div>
-                            @endforeach
-                        </div>
                     </div>
                 </div>
             </div>
@@ -376,12 +358,12 @@
                         <canvas id="ageratio-donutRegistrationChart"></canvas>
                         <div class="ageratio-donutgraphinfos">
                             @php
-                                $registrationSourceAnalysis = [
-                                    ['color' => 'rgba(111, 37, 206, 1)', 'studentRangeValue' => '16 - 20'],
-                                    ['color' => 'rgba(167, 121, 224, 1)', 'studentRangeValue' => '21 - 25'],
-                                    ['color' => 'rgba(203, 176, 237, 1)', 'studentRangeValue' => '26 - 30'],
-                                    ['color' => 'rgba(226, 211, 245, 1)', 'studentRangeValue' => '30 - 40'],
-                                ];
+$registrationSourceAnalysis = [
+    ['color' => 'rgba(111, 37, 206, 1)', 'studentRangeValue' => '16 - 20'],
+    ['color' => 'rgba(167, 121, 224, 1)', 'studentRangeValue' => '21 - 25'],
+    ['color' => 'rgba(203, 176, 237, 1)', 'studentRangeValue' => '26 - 30'],
+    ['color' => 'rgba(226, 211, 245, 1)', 'studentRangeValue' => '30 - 40'],
+];
                             @endphp
 
                             @foreach ($registrationSourceAnalysis as $source)
@@ -572,7 +554,7 @@
                     </div>
 
                     <!-- Student Counsellors -->
-                    <div class="sc-lead-container"  data-report="sc-generation-leads">
+                    <div class="sc-lead-container" data-report="sc-generation-leads">
                         <div class="sc-lead-header">
                             <h3 class="sc-lead-title">Student Counsellors: Lead Generation</h3>
                             <select class="sc-lead-select">
@@ -605,8 +587,35 @@
 
 
 
-                <div class="admindashboardcontainer-sixth-section" data-report="point-of-entry">
-                    <div class="point-entry">
+                <div class="admindashboardcontainer-sixth-section">
+                    <div class="sc-lead-container" data-report="sc-generation-leads-approved">
+                        <div class="sc-lead-header">
+                            <h3 class="sc-lead-title">Student Counsellors: Approved Profiles</h3>
+                            <select class="sc-lead-select">
+                                <option>Approved</option>
+                            </select>
+                        </div>
+                        <div class="sc-lead-legend">
+                            <div class="sc-lead-legend-item">
+                                <div class="sc-lead-legend-color" style="background-color: #d3b8f0;"></div>
+                                <span>No. Of Approved Profiles</span>
+                            </div>
+                        </div>
+                        <div class="sc-lead-chart-wrapper">
+                            <canvas id="approvedProfileChart" style="height: 170px;"></canvas>
+                        </div>
+                        <div class="sc-lead-pagination">
+                            <button class="sc-lead-prev-btn" id="sc-approved-prev-btn"><i
+                                    class="fas fa-chevron-left"></i></button>
+                            <span class="sc-lead-page-range" id="sc-approved-page-range">1 - 2</span>
+                            <span>/</span>
+                            <span class="sc-lead-total-items" id="sc-approved-total-items">2</span>
+                            <button class="sc-lead-next-btn" id="sc-approved-next-btn"><i
+                                    class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="point-entry" data-report="point-of-entry">
                         <div class="point-entry-donut">
                             <div class="point-entry-title">Point of entry</div>
                             <div class="point-entry-chart-container">
@@ -691,6 +700,7 @@
                 initializeMobileMenu();
                 initializeFilterPanel();
                 highlightHighestValues();
+                fetchReferralAcceptedCounts();
                 initializePaginationAndFilters();
                 updateProfileCompletionByGender()
                 initializeCitiesTable();
@@ -714,6 +724,7 @@
             // initializeDonutGraphAgeRatio();
             initializeNewDonutChart();
             initializeLeadChart();
+            initializeLeadSuccessChart();
         };
 
         // Registration Line Graph with API Data
@@ -909,44 +920,114 @@
 
 
         const initializeDonutGraphSource = () => {
-            var ctx = document.getElementById('donutRegistrationChart').getContext('2d');
-            var donutRegistrationChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['ADDS', 'Organic', 'SC Referral'],
-                    datasets: [{
-                        label: 'Registeration Sources',
-                        data: [25, 30, 45],
-                        backgroundColor: [
-                            'rgba(111, 37, 206, 1)',      // ADDS
-                            'rgba(111, 37, 206, 0.2)',    // Organic
-                            'rgba(111, 37, 206, 0.4)'     // SC Referral
-                        ],
-                        borderWidth: 0,
-                        cutout: 30,
-                    }]
+            fetch('http://localhost:8000/api/sourceregister', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
                 },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'right',
-                            display: false,
-                        },
-                        tooltip: {
-                            enabled: true
-                        },
-                        label: {
-                            font: {
-                                size: 16,
-                                family: "Poppins",
-                            }
-                        },
+                body: JSON.stringify({})
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
                     }
-                }
-            });
+                    return response.json();
+                })
+                .then(data => {
+                    const adds = data["ADDS"]?.count || 0;
+                    const organic = data["Organic"]?.count || 0;
+                    const scReferral = data["SC Referral"]?.count || 0;
+
+                    const total = adds + organic + scReferral;
+
+                    const addsPercent = total ? ((adds / total) * 100).toFixed(1) : 0;
+                    const organicPercent = total ? ((organic / total) * 100).toFixed(1) : 0;
+                    const scReferralPercent = total ? ((scReferral / total) * 100).toFixed(1) : 0;
+
+                    // Update chart
+                    const ctx = document.getElementById('donutRegistrationChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['ADDS', 'Organic', 'SC Referral'],
+                            datasets: [{
+                                data: [addsPercent, organicPercent, scReferralPercent],
+                                backgroundColor: [
+                                    'rgba(111, 37, 206, 1)',
+                                    'rgba(181, 142, 229, 1)',
+                                    'rgba(226, 211, 245, 1)'
+                                ],
+                                borderWidth: 0,
+                                cutout: '30%'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'right',
+                                    display: false
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function (context) {
+                                            return `${context.label}: ${context.raw}%`;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+
+                    // Update HTML view
+                    const sources = [
+                        {
+                            name: 'ADDS',
+                            color: 'rgba(111, 37, 206, 1)',
+                            count: adds.toLocaleString(),
+                            percent: `${addsPercent}%`
+                        },
+                        {
+                            name: 'Organic',
+                            color: 'rgba(181, 142, 229, 1)',
+                            count: organic.toLocaleString(),
+                            percent: `${organicPercent}%`
+                        },
+                        {
+                            name: 'SC Referral',
+                            color: 'rgba(226, 211, 245, 1)',
+                            count: scReferral.toLocaleString(),
+                            percent: `${scReferralPercent}%`
+                        }
+                    ];
+
+                    const container = document.getElementById('donutGraphInfosContainer');
+                    container.innerHTML = ''; // Clear existing content
+
+                    sources.forEach(source => {
+                        const div = document.createElement('div');
+                        div.className = 'graphviewofregistrations';
+                        div.innerHTML = `
+                    <div class="graphviewofregistrations-firstpart">
+                        <div class="points" style="background-color: ${source.color}; width: 11px; height: 11px;"></div>
+                        <p>${source.name}</p>
+                    </div>
+                    <div class="graphviewofregistrations-secondpart">
+                        <p>${source.count}</p>
+                        <p id="donutRegistrationChart-percentage">${source.percent}</p>
+                    </div>
+                `;
+                        container.appendChild(div);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching /sourceregister:', error);
+                });
         };
 
+
+        window.addEventListener('DOMContentLoaded', initializeDonutGraphSource);
 
 
         // Donut Graph for Age Ratio
@@ -1678,6 +1759,114 @@
             }
         };
 
+        const initializeLeadSuccessChart = () => {
+                const ctx = $('#approvedProfileChart')?.getContext('2d');
+                if (!ctx) return console.error('approvedProfileChart canvas not found');
+
+                let currentPage = 1;
+                const itemsPerPage = 5; // Set to 5 for scalability
+                let fullLabels = [];
+                let fullData = [];
+                const prevBtn = $('#sc-approved-prev-btn');
+                const nextBtn = $('#sc-approved-next-btn');
+                const pageRange = $('#sc-approved-page-range');
+                const totalItems = $('#sc-approved-total-items');
+
+                // Fetch data from API
+                fetch('/referralacceptedcounts', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                    .then(response => {
+                        if (!response.ok) throw new Error('Network response was not ok');
+                        return response.json();
+                    })
+                    .then(data => {
+                        // console.log('Fetched SC users approved profiles data:', data);
+
+                        // Validate the API response structure
+                        if (!data || typeof data !== 'object') {
+                            throw new Error('Invalid API response: Expected object');
+                        }
+
+                        // Store the full dataset
+                        fullLabels = Object.keys(data); // SC Referral Codes
+                        fullData = Object.values(data); // Approved Counts
+
+                        // Update total items
+                        totalItems.textContent = fullLabels.length;
+
+                        // Draw the initial chart with the first page
+                        updateChart();
+
+                        // Add event listeners for pagination
+                        prevBtn.addEventListener('click', () => {
+                            if (currentPage > 1) {
+                                currentPage--;
+                                updateChart();
+                            }
+                        });
+
+                        nextBtn.addEventListener('click', () => {
+                            if (currentPage < Math.ceil(fullLabels.length / itemsPerPage)) {
+                                currentPage++;
+                                updateChart();
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching SC users approved profiles data:', error);
+                        // Fallback to static data if API fails
+                        fullLabels = ['SCREF87324409', 'SCREF87324468', 'SCREF75333418'];
+                        fullData = [3, 1, 0];
+
+                        // Update total items
+                        totalItems.textContent = fullLabels.length;
+
+                        // Draw the chart with fallback data
+                        updateChart();
+                    });
+
+                // Function to update the chart based on the current page
+                function updateChart() {
+                    const startIdx = (currentPage - 1) * itemsPerPage;
+                    const endIdx = Math.min(startIdx + itemsPerPage, fullLabels.length);
+                    const paginatedLabels = fullLabels.slice(startIdx, endIdx);
+                    const paginatedData = fullData.slice(startIdx, endIdx);
+
+                    // Log the paginated data for debugging
+                    // console.log('Paginated chart data:', { labels: paginatedLabels, data: paginatedData });
+
+                    // Create the chart
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: paginatedLabels,
+                            datasets: [{
+                                label: 'No. Of Approved Profiles',
+                                data: paginatedData,
+                                backgroundColor: '#d3b8f0',
+                                barThickness: 11
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: { legend: { display: false }, tooltip: { enabled: true } },
+                            scales: {
+                                y: { beginAtZero: true, grid: { display: false }, ticks: { display: false } },
+                                x: { grid: { display: false }, ticks: { font: { family: 'Poppins', size: 12 }, color: '#5D5C5C' } }
+                            }
+                        }
+                    });
+
+                    // Update pagination display
+                    pageRange.textContent = `${startIdx + 1} - ${endIdx}`;
+                }
+            };
+
         // Highlight Highest Values in Tables
         const highlightHighestValues = () => {
             ['city-table', 'country-table'].forEach(tableId => {
@@ -1716,113 +1905,113 @@
             });
         };
         // Updated Dropdown Initialization
-       // Updated Dropdown Initialization
-const initializeDropdown = () => {
-    const dropdownButton = $('#showall-buttongroups');
-    const dropdownOptions = $('#dropdown-options');
-    const icon = $('.fa-chevron-down', dropdownButton);
-    const container = $('.admindashboard-container');
+        // Updated Dropdown Initialization
+        const initializeDropdown = () => {
+            const dropdownButton = $('#showall-buttongroups');
+            const dropdownOptions = $('#dropdown-options');
+            const icon = $('.fa-chevron-down', dropdownButton);
+            const container = $('.admindashboard-container');
 
-    if (!dropdownButton || !dropdownOptions || !icon || !container) {
-        console.error('Dropdown elements missing:', { dropdownButton, dropdownOptions, icon, container });
-        return;
-    }
+            if (!dropdownButton || !dropdownOptions || !icon || !container) {
+                console.error('Dropdown elements missing:', { dropdownButton, dropdownOptions, icon, container });
+                return;
+            }
 
-    let currentReport = 'all';
+            let currentReport = 'all';
 
-    const fallbackMessage = document.createElement('div');
-    fallbackMessage.className = 'report-fallback';
-    fallbackMessage.style.padding = '20px';
-    fallbackMessage.style.textAlign = 'center';
-    fallbackMessage.style.color = '#666';
-    container.appendChild(fallbackMessage);
+            const fallbackMessage = document.createElement('div');
+            fallbackMessage.className = 'report-fallback';
+            fallbackMessage.style.padding = '20px';
+            fallbackMessage.style.textAlign = 'center';
+            fallbackMessage.style.color = '#666';
+            container.appendChild(fallbackMessage);
 
-    const showAllReports = () => {
-        $$('[data-report]').forEach(report => {
-            report.style.removeProperty('display');
-            report.style.removeProperty('visibility');
-            report.style.display = '';
-            report.style.visibility = '';
-        });
-        fallbackMessage.style.display = 'none';
-        dropdownButton.innerHTML = `Show All <i class="fa-solid fa-chevron-down"></i>`;
-        currentReport = 'all';
-    };
+            const showAllReports = () => {
+                $$('[data-report]').forEach(report => {
+                    report.style.removeProperty('display');
+                    report.style.removeProperty('visibility');
+                    report.style.display = '';
+                    report.style.visibility = '';
+                });
+                fallbackMessage.style.display = 'none';
+                dropdownButton.innerHTML = `Show All <i class="fa-solid fa-chevron-down"></i>`;
+                currentReport = 'all';
+            };
 
-    const showReport = (reportId) => {
-        const reportContainer = $(`[data-report="${reportId}"]`);
-        if (!reportContainer) {
-            $$('[data-report]').forEach(report => {
-                report.style.display = 'block';
-                report.style.visibility = 'hidden';
-            });
-            fallbackMessage.textContent = `No data available for ${$(`[data-report="${reportId}"]`, dropdownOptions)?.textContent || 'this report'}.`;
-            fallbackMessage.style.display = 'block';
-        } else {
-            $$('[data-report]').forEach(report => {
-                if (report.dataset.report === reportId) {
-                    report.style.display = 'block';
-                    report.style.visibility = 'visible';
+            const showReport = (reportId) => {
+                const reportContainer = $(`[data-report="${reportId}"]`);
+                if (!reportContainer) {
+                    $$('[data-report]').forEach(report => {
+                        report.style.display = 'block';
+                        report.style.visibility = 'hidden';
+                    });
+                    fallbackMessage.textContent = `No data available for ${$(`[data-report="${reportId}"]`, dropdownOptions)?.textContent || 'this report'}.`;
+                    fallbackMessage.style.display = 'block';
                 } else {
-                    report.style.display = 'block';
-                    report.style.visibility = 'hidden';
+                    $$('[data-report]').forEach(report => {
+                        if (report.dataset.report === reportId) {
+                            report.style.display = 'block';
+                            report.style.visibility = 'visible';
+                        } else {
+                            report.style.display = 'block';
+                            report.style.visibility = 'hidden';
+                        }
+                    });
+                    fallbackMessage.style.display = 'none';
+                }
+                const selectedOption = $(`[data-report="${reportId}"]`, dropdownOptions);
+                const optionText = selectedOption ? selectedOption.textContent.trim() : 'Unknown';
+                dropdownButton.innerHTML = `Show: ${optionText} <i class="fa-solid fa-chevron-down"></i>`;
+                currentReport = reportId;
+            };
+
+            const toggleDropdown = (e) => {
+                e.stopPropagation();
+                dropdownOptions.classList.toggle('show');
+                icon.classList.toggle('show-all-admin-rotate-icon');
+                // Ensure all options are visible in the dropdown
+                $$('.show-all-admin-options button', dropdownOptions).forEach(option => {
+                    option.style.display = 'block';
+                    option.style.visibility = 'visible';
+                });
+                if (dropdownOptions.classList.contains('show')) {
+                    console.log('Dropdown opened with all options');
+                } else {
+                    console.log('Dropdown closed');
+                }
+            };
+
+            const handleOptionClick = (e) => {
+                e.stopPropagation();
+                const reportId = e.target.dataset.report;
+                console.log('Option selected:', reportId);
+                if (reportId === 'all') {
+                    showAllReports();
+                } else if (reportId) {
+                    showReport(reportId);
+                }
+                dropdownOptions.classList.remove('show');
+                icon.classList.remove('show-all-admin-rotate-icon');
+            };
+
+            // Bind events directly
+            dropdownButton.addEventListener('click', toggleDropdown);
+            $$('.show-all-admin-options button', dropdownOptions).forEach(option => {
+                option.addEventListener('click', handleOptionClick);
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.show-all-admin-button-container') && dropdownOptions.classList.contains('show')) {
+                    console.log('Closing dropdown due to outside click');
+                    dropdownOptions.classList.remove('show');
+                    icon.classList.remove('show-all-admin-rotate-icon');
                 }
             });
-            fallbackMessage.style.display = 'none';
-        }
-        const selectedOption = $(`[data-report="${reportId}"]`, dropdownOptions);
-        const optionText = selectedOption ? selectedOption.textContent.trim() : 'Unknown';
-        dropdownButton.innerHTML = `Show: ${optionText} <i class="fa-solid fa-chevron-down"></i>`;
-        currentReport = reportId;
-    };
 
-    const toggleDropdown = (e) => {
-        e.stopPropagation();
-        dropdownOptions.classList.toggle('show');
-        icon.classList.toggle('show-all-admin-rotate-icon');
-        // Ensure all options are visible in the dropdown
-        $$('.show-all-admin-options button', dropdownOptions).forEach(option => {
-            option.style.display = 'block';
-            option.style.visibility = 'visible';
-        });
-        if (dropdownOptions.classList.contains('show')) {
-            console.log('Dropdown opened with all options');
-        } else {
-            console.log('Dropdown closed');
-        }
-    };
-
-    const handleOptionClick = (e) => {
-        e.stopPropagation();
-        const reportId = e.target.dataset.report;
-        console.log('Option selected:', reportId);
-        if (reportId === 'all') {
+            // Initialize with all reports visible
             showAllReports();
-        } else if (reportId) {
-            showReport(reportId);
-        }
-        dropdownOptions.classList.remove('show');
-        icon.classList.remove('show-all-admin-rotate-icon');
-    };
-
-    // Bind events directly
-    dropdownButton.addEventListener('click', toggleDropdown);
-    $$('.show-all-admin-options button', dropdownOptions).forEach(option => {
-        option.addEventListener('click', handleOptionClick);
-    });
-
-    // Close dropdown when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.show-all-admin-button-container') && dropdownOptions.classList.contains('show')) {
-            console.log('Closing dropdown due to outside click');
-            dropdownOptions.classList.remove('show');
-            icon.classList.remove('show-all-admin-rotate-icon');
-        }
-    });
-
-    // Initialize with all reports visible
-    showAllReports();
-};
+        };
 
         // Calendar
         const initializeCalendar = () => {
@@ -2245,8 +2434,47 @@ const initializeDropdown = () => {
                 });
 
         }
+        function fetchReferralAcceptedCounts() {
+            fetch('/referralacceptedcounts')
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Referral Accepted Counts:", data);
+                })
+                .catch(error => {
+                    console.error('Fetch failed:', error);
+                });
+        }
 
-    
+
+        function monthYearPicker() {
+            const button = document.getElementById('calender-reportsregister');
+            const input = document.getElementById('date-picker-linegraph');
+
+            button.addEventListener('click', function () {
+                input.click();
+            });
+
+            input.addEventListener('change', function () {
+                const selectedMonthYear = this.value; // Format: YYYY-MM
+                const [year, month] = selectedMonthYear.split('-');
+
+                // Update button text to show selected month and year
+                button.innerHTML = `Calendar ${getMonthName(month)} ${year} <img src="assets/images/Icons/calendar_month.png" alt="">`;
+            });
+
+            // Helper function to get month name from month number
+            function getMonthName(monthNumber) {
+                const months = [
+                    'January', 'February', 'March', 'April', 'May', 'June',
+                    'July', 'August', 'September', 'October', 'November', 'December'
+                ];
+                return months[parseInt(monthNumber, 10) - 1];  // Adjust for 1-based index
+            }
+        }
+
+
+
+
     </script>
 </body>
 

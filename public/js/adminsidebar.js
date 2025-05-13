@@ -1,4 +1,4 @@
-function initializeAdminSidebar () {
+function initializeAdminSidebar() {
     const adminSidebarItems = document.querySelectorAll("#commonsidebar-admin .commonsidebar-sidebarlists-top li");
     const triggeredSideBar = document.getElementById("commonsidebar-admin");
     const img = document.querySelector("#commonsidebar-admin img");
@@ -59,10 +59,45 @@ function initializeAdminSidebar () {
     const nbfcAdminsideAddAuthority = document.querySelector(
         ".add-nbfc-datasection"
     );
-    const addCounsellorModelTrigger = document.querySelector(".studentlist-add-button");
+   
+    
 
-   
-   
+
+    const addCounsellorModelTrigger = document.getElementById("switch-addcounsellor");
+
+    if (addCounsellorModelTrigger && !addCounsellorModelTrigger.dataset.listenerAdded) {
+        addCounsellorModelTrigger.addEventListener('click', () => {
+ 
+            // Show counsellor add section
+            if (adminCounsellorAdd) adminCounsellorAdd.style.display = "flex";
+
+            // Hide all other sections
+            if (studentTicketRaised) studentTicketRaised.style.display = "none";
+            if (adminManageStudent) adminManageStudent.style.display = "none";
+            if (studentEditIndex) studentEditIndex.style.display = "none";
+            if (adminRoleManagement) adminRoleManagement.style.display = "none";
+            if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
+            if (studentListContainer) studentListContainer.style.display = "none";
+            if (studentCounsellorList) studentCounsellorList.style.display = "none";
+            if (studentApplication) studentApplication.style.display = "none";
+
+            // Remove 'active' class from all sidebar items
+            adminSidebarItems.forEach(item => item.classList.remove("active"));
+
+            // Add 'active' class to the 8th item (index 7)
+            if (adminSidebarItems[8]) {
+                adminSidebarItems[8].classList.add("active");
+            }
+        });
+
+        // Mark listener as added
+        addCounsellorModelTrigger.dataset.listenerAdded = "true";
+    }
+
+
+
+
+
 
     const adminsideScDashboard = document.querySelector("#scdashboard-profile-adminside")
 
