@@ -14,10 +14,10 @@
     @extends('layouts.app');
 
     @php
-$profileIconPath = "assets/images/Icons/account_circle.png";
-$phoneIconPath = "assets/images/call.png";
-$mailIconPath = "assets/images/mail.png";
-$pindropIconPath = "assets/images/pin_drop.png";
+        $profileIconPath = "assets/images/Icons/account_circle.png";
+        $phoneIconPath = "assets/images/call.png";
+        $mailIconPath = "assets/images/mail.png";
+        $pindropIconPath = "assets/images/pin_drop.png";
      @endphp
 
     <div class="student-listcontainer" id="student-admin-section-id">
@@ -999,12 +999,17 @@ $pindropIconPath = "assets/images/pin_drop.png";
         }
 
 
-        function viewStudentEditProfile(){
+        function viewStudentEditProfile() {
 
             const editViewUser = document.querySelectorAll("#edit-student-profile-trigger");
 
-            if(editViewUser){
-                editViewUser.forEach
+            if (editViewUser) {
+                editViewUser.forEach((item) => {
+                    item.addEventListener('click', () => {
+
+                    })
+
+                })
             }
 
 
