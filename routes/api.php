@@ -153,3 +153,4 @@ Route::post('/upload-documents-chat', [AdminController::class, 'uploadChatFile']
 Route::post('/updatenbfc', [AdminController::class, 'updateNbfc']);
 
 Route::post('/suspendnbfc', [AdminController::class, 'suspendNbfc']);
+Route::post('/getuseradminside', [AdminController::class, 'getUserProfileAdminSide']);

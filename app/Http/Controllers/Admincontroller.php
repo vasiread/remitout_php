@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\PromotionalContentMail;
+use App\Models\Academics;
 use App\Models\Admin;
 use App\Models\CourseDuration;
 use App\Models\CourseInfo;
@@ -1434,6 +1435,114 @@ class Admincontroller extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'An unexpected error occurred.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+
+    public function getUserProfileAdminSide(Request $request)
+    {
+        try {
+            $uniqueId = $request->input('unique_id');
+
+            // Step 1: Get the user using unique_id
+            $user = User::where('unique_id', $uniqueId)->first();
+
+            if (!$user) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'User not found.'
+                ], 404);
+            }
+
+            // Step 2: Fetch related info using unique_id as user_id in those tables
+            $personalInfo = PersonalInfo::where('user_id', $user->unique_id)->first();
+            $courseInfo = CourseInfo::where('user_id', $user->unique_id)->first();
+            $academicInfo = Academics::where('user_id', $user->unique_id)->first();
+
+            // Initialize variables
+            $state = '';
+            $city = '';
+            $planToStudy = '';
+            $degreeType = '';
+            $courseDuration = '';
+            $loanAmount = '';
+
+            $ilets = '';
+            $gre = '';
+            $tofel = '';
+            $others = [];
+            $universityName = '';
+            $courseName = '';
+
+            // Fill from personalInfo if exists
+            if ($personalInfo) {
+                $state = $personalInfo->state ?? '';
+                $city = $personalInfo->city ?? '';
+            }
+
+            // Fill from courseInfo if exists
+            if ($courseInfo) {
+                $planToStudy = $courseInfo->{'plan-to-study'} ?? '';
+                $degreeType = $courseInfo->{'degree-type'} ?? '';
+                $courseDuration = $courseInfo->{'course-duration'} ?? '';
+                $loanAmount = $courseInfo->loan_amount_in_lakhs ?? '';
+            }
+
+            // Fill from academicInfo if exists
+            if ($academicInfo) {
+                $ilets = $academicInfo->ILETS ?? '';
+                $gre = $academicInfo->GRE ?? '';
+                $tofel = $academicInfo->TOFEL ?? '';
+                $universityName = $academicInfo->university_school_name ?? '';
+                $courseName = $academicInfo->course_name ?? '';
+
+                if (!empty($academicInfo->Others)) {
+                    $decodedOthers = json_decode($academicInfo->Others, true);
+                    if (json_last_error() === JSON_ERROR_NONE) {
+                        $others = $decodedOthers;
+                    }
+                }
+            }
+
+            // Final response
+            $data = [
+                'name' => $user->name ?? '',
+                'phone' => $user->phone ?? '',
+                'email' => $user->email ?? '',
+                'referral_code' => $user->referral_code ?? '',
+
+                'state' => $state,
+                'city' => $city,
+
+                'plan_to_study' => $planToStudy,
+                'degree_type' => $degreeType,
+                'course_duration' => $courseDuration,
+                'loan_amount' => $loanAmount,
+
+                'university_school_name' => $universityName,
+                'course_name' => $courseName,
+
+                'test_scores' => [
+                    'ILETS' => $ilets,
+                    'TOFEL' => $tofel,
+                    'GRE' => $gre,
+                    'Others' => $others
+                ]
+            ];
+
+            return response()->json([
+                'status' => true,
+                'message' => 'User profile fetched successfully.',
+                'data' => $data
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'An error occurred while fetching the profile.',
                 'error' => $e->getMessage()
             ], 500);
         }

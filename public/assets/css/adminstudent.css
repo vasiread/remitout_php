@@ -401,6 +401,32 @@
     color: rgba(111, 37, 206, 1);
 }
 
+#studentprofile-section-adminsideview{
+    display: none;
+    flex-direction: row;
+    margin-left: 20%;
+    max-width: 100%;
+    width: 100%;
+    gap: 1.5%;
+}
+
+#studentprofile-section-adminsideview .studentdashboardprofile-educationeditsection{
+    display: flex;
+}
+#studentprofile-section-adminsideview .studentdashboardprofile-testscoreseditsection{
+    display: flex;
+}
+#studentprofile-section-adminsideview .studentdashboardprofile-profilesection{
+    max-width: 27.89%;
+    width: 100%;
+    
+}
+#studentprofile-section-adminsideview .studentdashboardprofile-myapplication{
+    display: flex;
+    max-width: 67.21%;
+    width: 100%;
+}
+
 @media (max-width: 768px) {
     .globallistcontainer-header {
         flex-direction: column;

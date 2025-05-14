@@ -238,3 +238,4 @@ Route::get('/referralacceptedcounts', [AdminController::class, 'getReferralAccep
 Route::post('/upload-documents-chat', [AdminController::class, 'uploadChatFile']);
 Route::post('/updatenbfc', [AdminController::class, 'updateNbfc']);
 Route::post('/suspendnbfc', [AdminController::class, 'suspendNbfc']);
+Route::get('/getUserProfileAdminSide', [AdminController::class, 'getUserProfileAdminSide']);
