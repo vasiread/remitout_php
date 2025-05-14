@@ -640,7 +640,7 @@
     bottom: 20px;
     right: 20px;
     padding: 12px 24px;
-    background: #4caf50;
+    background: #f47b20;
     color: white;
     border-radius: 4px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -704,7 +704,6 @@
     color: #e53935;
 }
 
-/* Media constraints info */
 .media-constraints {
     font-size: 12px;
     color: #666;
@@ -726,7 +725,6 @@
     display: block;
 }
 
-/* Highlight background when editing */
 .editable-content:focus {
     background-color: #f5f9ff;
     outline: 2px solid #4a90e2;
@@ -734,7 +732,6 @@
     border-radius: 4px;
 }
 
-/* Responsive table improvements */
 .table-wrapper {
     overflow-x: auto;
 }
@@ -744,13 +741,12 @@
     min-width: 800px;
 }
 
-/* Toast notification improvements */
 .toast {
     position: fixed;
     bottom: 20px;
     right: 20px;
     padding: 12px 20px;
-    background-color: #333;
+    background-color: #e53935;
     color: white;
     border-radius: 4px;
     z-index: 1000;

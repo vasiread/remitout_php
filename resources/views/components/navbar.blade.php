@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Student Dashboard</title>
-    <!-- Include Font Awesome for icons -->
     <script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
     <style>
-        /* Navbar container */
+        /* Existing styles remain unchanged */
         .nav {
             position: fixed;
             top: 0;
@@ -262,24 +261,22 @@
             transform: translate(-50%, -50%);
         }
 
-        /* Mobile sidebar */
         .mobile-sidebar {
             position: fixed;
             top: 0;
-            right: 0;
+            left: -250px;
             width: 250px;
             height: 100%;
             background: #fff;
-            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-            transform: translateX(100%);
-            transition: transform 0.3s ease, opacity 0.3s ease;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+            transition: left 0.3s ease;
             z-index: 1001;
-            opacity: 0;
+            display: none;
         }
 
         .mobile-sidebar.active {
-            transform: translateX(0);
-            opacity: 1;
+            left: 0;
+            display: block;
         }
 
         .sidebar-header {
@@ -312,6 +309,7 @@
             color: #333;
             text-decoration: none;
             font-size: 16px;
+            cursor: pointer;
         }
 
         .sidebar-menu .menu-item i {
@@ -320,6 +318,11 @@
 
         .sidebar-menu .menu-item.active {
             color: #FF7A00;
+        }
+
+        .sidebar-addon {
+            padding: 20px;
+            border-top: 1px solid #eee;
         }
 
         .sidebar-footer {
@@ -347,7 +350,6 @@
             opacity: 1;
         }
 
-        /* Password change container */
         .password-change-container {
             display: none;
             position: fixed;
@@ -372,11 +374,6 @@
 
         .password-change-triggered-view-headersection h3 {
             margin: 0;
-        }
-
-        .password-change-triggered-view-headersection img {
-            width: 24px;
-            cursor: pointer;
         }
 
         .password-change-container input {
@@ -420,7 +417,6 @@
             cursor: pointer;
         }
 
-        /* Mobile-specific styles */
         @media (max-width: 768px) {
             .nav-container {
                 padding: 20px 30px;
@@ -441,6 +437,14 @@
             .logo {
                 margin-left: 20px;
             }
+
+            .mobile-sidebar {
+                display: none;
+            }
+
+            .mobile-sidebar.active {
+                display: block;
+            }
         }
 
         @media (min-width: 769px) {
@@ -457,8 +461,12 @@
             }
 
             .mobile-sidebar,
-            .sidebar-overlay {
-                display: none;
+            .mobile-sidebar.active,
+            .sidebar-overlay,
+            .sidebar-overlay.active {
+                display: none !important;
+                left: -250px !important;
+                opacity: 0 !important;
             }
         }
     </style>
@@ -487,7 +495,7 @@
                         </div>
                     </div>
                     <div class="menubarcontainer-profile" id="user-dashboard-menu">
-                        <img src="{{ asset('assets/images/Icons/menu.png') }}" alt="">
+                        <img src="{{ asset('assets/images/Iicons/menu.png') }}" alt="">
                     </div>
                 </div>
             @endif
@@ -511,13 +519,10 @@
         </div>
         <input type="password" placeholder="Current Password" id="current-password">
         <span id="current-password-error" class="error-message"></span>
-
         <input type="password" placeholder="New Password" id="new-password">
         <span id="new-password-error" class="error-message"></span>
-
         <input type="password" placeholder="Confirm New Password" id="confirm-new-password">
         <span id="confirm-password-error" class="error-message"></span>
-
         <div class="footer-passwordchange">
             <p href="">Forgot Password</p>
             <button id="password-change-save">Save</button>
@@ -525,7 +530,6 @@
     </div>
 
     <script>
-        // Define session data globally
         window.App = {
             user: @json(session('user')),
             scuser: @json(session('scuser')),
@@ -533,10 +537,117 @@
             hasUserSession: {{ session()->has('user') ? 'true' : 'false' }}
         };
 
-        // Logout function
+        function handleIndividualCards(mode = 'index1') {
+            const checkInterval = setInterval(() => {
+                const individualCards = document.querySelectorAll('.indivudalloanstatus-cards');
+
+                if (individualCards.length > 0) {
+                    clearInterval(checkInterval);
+
+                    individualCards.forEach((card) => {
+                        const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
+                        const groupButtonContainer = card.querySelector('.individual-bankmessages-buttoncontainer');
+                        const individualBankMessageInput = card.querySelector('.individual-bankmessage-input');
+
+                        if (mode === 'index1') {
+                            // Inbox behavior (Index 1)
+                            if (triggeredMessageButton && groupButtonContainer) {
+                                triggeredMessageButton.style.display = "flex";
+                                groupButtonContainer.style.display = "none";
+                            }
+                        } else if (mode === 'index0') {
+                            // Loan Proposals behavior (Index 0)
+                            card.style.height = "fit-content";
+
+                            if (individualBankMessageInput) {
+                                individualBankMessageInput.style.display = "none";
+                            }
+                            if (triggeredMessageButton && groupButtonContainer) {
+                                triggeredMessageButton.style.display = "none";
+                                groupButtonContainer.style.display = "flex";
+                            }
+                        }
+                    });
+                } else {
+                    console.log(`Waiting for individual cards for ${mode}...`);
+                }
+            }, 50);
+        }
+
+        function toggleSection(sectionId, index) {
+            // Only execute for mobile devices (≤768px)
+            if (window.innerWidth > 768) {
+                return;
+            }
+
+            const trackProgressDiv = document.querySelector('.studentdashboardprofile-trackprogress');
+            const myApplicationDiv = document.querySelector('.studentdashboardprofile-myapplication');
+            const dynamicHeader = document.getElementById('loanproposals-header');
+            const communityJoinCard = document.querySelector('.studentdashboardprofile-communityjoinsection');
+            const profileStatusCard = document.querySelector('.personalinfo-profilestatus');
+            const profileImgEditIcon = document.querySelector('.studentdashboardprofile-profilesection .fa-pen-to-square');
+            const educationEditSection = document.querySelector('.studentdashboardprofile-educationeditsection');
+            const testScoresEditSection = document.querySelector('.studentdashboardprofile-testscoreseditsection');
+            const menuItems = document.querySelectorAll('.sidebar-menu .menu-item, .studentdashboardprofile-togglesidebar li');
+
+            // Update active class on menu items
+            menuItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-section') === sectionId) {
+                    item.classList.add('active');
+                }
+            });
+
+            // Handle section visibility and UI changes
+            if (sectionId === 'studentdashboardprofile-trackprogress' && index === 0) {
+                // Dashboard (Loan Proposals)
+                if (trackProgressDiv) trackProgressDiv.style.display = 'flex';
+                if (myApplicationDiv) myApplicationDiv.style.display = 'none';
+                if (communityJoinCard) communityJoinCard.style.display = 'flex';
+                if (profileStatusCard) profileStatusCard.style.display = 'block';
+                if (profileImgEditIcon) profileImgEditIcon.style.display = 'none';
+                if (educationEditSection) educationEditSection.style.display = 'none';
+                if (testScoresEditSection) testScoresEditSection.style.display = 'none';
+                if (dynamicHeader) dynamicHeader.textContent = 'Loan Proposals';
+                handleIndividualCards('index0');
+            } else if (sectionId === 'studentdashboardprofile-trackprogress' && index === 1) {
+                // Inbox
+                if (trackProgressDiv) trackProgressDiv.style.display = 'flex';
+                if (myApplicationDiv) myApplicationDiv.style.display = 'none';
+                if (communityJoinCard) communityJoinCard.style.display = 'flex';
+                if (profileStatusCard) profileStatusCard.style.display = 'block';
+                if (profileImgEditIcon) profileImgEditIcon.style.display = 'none';
+                if (educationEditSection) educationEditSection.style.display = 'none';
+                if (testScoresEditSection) testScoresEditSection.style.display = 'none';
+                if (dynamicHeader) dynamicHeader.textContent = 'Inbox';
+                handleIndividualCards('index1');
+            } else if (sectionId === 'studentdashboardprofile-myapplication') {
+                // My Applications
+                if (trackProgressDiv) trackProgressDiv.style.display = 'none';
+                if (myApplicationDiv) myApplicationDiv.style.display = 'flex';
+                if (communityJoinCard) communityJoinCard.style.display = 'none';
+                if (profileStatusCard) profileStatusCard.style.display = 'none';
+                if (profileImgEditIcon) profileImgEditIcon.style.display = 'block';
+                if (educationEditSection) educationEditSection.style.display = 'flex';
+                if (testScoresEditSection) testScoresEditSection.style.display = 'flex';
+                if (dynamicHeader) dynamicHeader.textContent = 'Loan Proposals'; // Reset to default
+            }
+
+            // Close mobile sidebar
+            const mobileSidebar = window.App.hasScUserSession 
+                ? document.getElementById('sc-mobile-sidebar') 
+                : document.getElementById('student-mobile-sidebar');
+            const overlay = window.App.hasScUserSession 
+                ? document.getElementById('sc-sidebar-overlay') 
+                : document.getElementById('student-sidebar-overlay');
+            const menuIcon = document.getElementById('menu-icon');
+            if (mobileSidebar && overlay && menuIcon) {
+                closeSidebar(mobileSidebar, overlay, menuIcon);
+            }
+        }
+
         function sessionLogoutInitial(logoutUrl, loginUrl) {
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-
             if (!csrfToken) {
                 console.error('CSRF token not found');
                 alert('Logout failed: CSRF token missing');
@@ -575,12 +686,17 @@
                 });
         }
 
-        // Dynamic navbar visibility for mobile
         const dynamicChangeNavMob = () => {
             const navSearchNotificationBars = document.querySelector('.nav-searchnotificationbars');
             const profilePhotoMobTab = document.querySelector('.profile-photo-mobtab');
             const menuIcon = document.getElementById('menu-icon');
             const navContainer = document.querySelector('.nav-container');
+            const mobileSidebar = window.App.hasScUserSession 
+                ? document.getElementById('sc-mobile-sidebar') 
+                : document.getElementById('student-mobile-sidebar');
+            const overlay = window.App.hasScUserSession 
+                ? document.getElementById('sc-sidebar-overlay') 
+                : document.getElementById('student-sidebar-overlay');
 
             if (window.innerWidth <= 768) {
                 if (navSearchNotificationBars) navSearchNotificationBars.style.display = 'none';
@@ -592,94 +708,72 @@
                 if (profilePhotoMobTab) profilePhotoMobTab.style.display = 'none';
                 if (menuIcon) menuIcon.style.display = 'none';
                 if (navContainer) navContainer.style.display = 'flex';
+
+                if (mobileSidebar && overlay) {
+                    mobileSidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                    mobileSidebar.style.display = 'none';
+                    mobileSidebar.style.left = '-250px';
+                    overlay.style.display = 'none';
+                    overlay.style.opacity = '0';
+                    document.body.style.overflow = 'auto';
+
+                    if (menuIcon) {
+                        menuIcon.innerHTML = '<span class="bar"></span><span class="bar"></span><span class="bar"></span>';
+                        menuIcon.classList.remove('menu-open');
+                    }
+                }
             }
         };
 
-        // Function to close the sidebar
         function closeSidebar(mobileSidebar, overlay, menuIcon) {
             if (mobileSidebar && overlay && menuIcon) {
-                // Immediately set opacity to 0 to prevent flickering
-                mobileSidebar.style.opacity = '0';
-                overlay.style.opacity = '0';
-
-                // Remove active class to trigger transform
                 mobileSidebar.classList.remove('active');
                 overlay.classList.remove('active');
-
-                // Reset body overflow
-                document.body.style.overflow = '';
-
-                // Reset menu icon
+                document.body.style.overflow = 'auto';
                 menuIcon.innerHTML = '<span class="bar"></span><span class="bar"></span><span class="bar"></span>';
                 menuIcon.classList.remove('menu-open');
-
-                // Ensure the sidebar and overlay are fully hidden after transition
                 setTimeout(() => {
-                    overlay.style.display = 'none';
                     mobileSidebar.style.display = 'none';
-                }, 300); // Match the transition duration
+                    mobileSidebar.style.left = '-250px';
+                    overlay.style.display = 'none';
+                    overlay.style.opacity = '0';
+                }, 300);
+                mobileSidebar.offsetHeight;
+                overlay.offsetHeight;
             }
         }
 
-        // Create mobile sidebar
-        function createMobileSidebar() {
-            let overlay = document.getElementById('sidebar-overlay');
+        function createStudentSidebar() {
+            let overlay = document.getElementById('student-sidebar-overlay');
             if (!overlay) {
                 overlay = document.createElement('div');
-                overlay.id = 'sidebar-overlay';
+                overlay.id = 'student-sidebar-overlay';
                 overlay.className = 'sidebar-overlay';
                 document.body.appendChild(overlay);
             }
 
-            let mobileSidebar = document.getElementById('mobile-sidebar');
+            let mobileSidebar = document.getElementById('student-mobile-sidebar');
             if (!mobileSidebar) {
                 mobileSidebar = document.createElement('div');
-                mobileSidebar.id = 'mobile-sidebar';
+                mobileSidebar.id = 'student-mobile-sidebar';
                 mobileSidebar.className = 'mobile-sidebar';
-
-                const isScUser = window.App.hasScUserSession;
-                let sidebarMenuHtml = '';
-
-                if (isScUser) {
-                    sidebarMenuHtml = `
-                        <div class="sidebar-header">
-                            <img src="{{ asset('assets/images/Remitoutcolored.png') }}" alt="Logo" class="logo">
-                            <i class="fa-solid fa-xmark close-icon"></i>
-                        </div>
-                        <div class="sidebar-menu">
-                            <a href="/sc-dashboard" class="menu-item active">
-                                <i class="fa-solid fa-square-poll-vertical"></i> Dashboard
-                            </a>
-                            <a href="/sc-inbox" class="menu-item">
-                                <i class="fa-solid fa-inbox"></i> Inbox
-                            </a>
-                            <a href="/sc-applications" class="menu-item">
-                                <i class="fa-regular fa-clipboard"></i> Applications
-                            </a>
-                        </div>
-                    `;
-                } else {
-                    sidebarMenuHtml = `
-                        <div class="sidebar-header">
-                            <img src="{{ asset('assets/images/Remitoutcolored.png') }}" alt="Logo" class="logo">
-                            <i class="fa-solid fa-xmark close-icon"></i>
-                        </div>
-                        <div class="sidebar-menu">
-                            <a href="/student-dashboard" class="menu-item active">
-                                <i class="fa-solid fa-square-poll-vertical"></i> Dashboard
-                            </a>
-                            <a href="/student-inbox" class="menu-item">
-                                <i class="fa-solid fa-inbox"></i> Inbox
-                            </a>
-                            <a href="/student-applications" class="menu-item">
-                                <i class="fa-regular fa-clipboard"></i> My Applications
-                            </a>
-                        </div>
-                    `;
-                }
-
                 mobileSidebar.innerHTML = `
-                    ${sidebarMenuHtml}
+                    <div class="sidebar-header">
+                        <img src="{{ asset('assets/images/Remitoutcolored.png') }}" alt="Logo" class="logo">
+                        <i class="fa-solid fa-xmark close-icon"></i>
+                    </div>
+                    <div class="sidebar-menu">
+                        <a class="menu-item active" data-section="studentdashboardprofile-trackprogress" onclick="toggleSection('studentdashboardprofile-trackprogress', 0)">
+                            <i class="fa-solid fa-square-poll-vertical"></i> Dashboard
+                        </a>
+                        <a class="menu-item" data-section="studentdashboardprofile-trackprogress" onclick="toggleSection('studentdashboardprofile-trackprogress', 1)">
+                            <i class="fa-solid fa-inbox"></i> Inbox
+                        </a>
+                        <a class="menu-item" data-section="studentdashboardprofile-myapplication" onclick="toggleSection('studentdashboardprofile-myapplication', 2)">
+                            <i class="fa-regular fa-clipboard"></i> My Applications
+                        </a>
+                    </div>
                     <div class="sidebar-footer">
                         <a href="javascript:void(0)" class="menu-item logoutBtn" onclick="sessionLogoutInitial('{{ route('logout') }}', '{{ route('login') }}')">
                             <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
@@ -689,35 +783,77 @@
                         </a>
                     </div>
                 `;
-
                 document.body.appendChild(mobileSidebar);
 
                 const menuIcon = document.getElementById('menu-icon');
-
-                // Add close functionality to the X icon
                 const closeIcon = mobileSidebar.querySelector('.close-icon');
                 if (closeIcon) {
                     closeIcon.addEventListener('click', function () {
                         closeSidebar(mobileSidebar, overlay, menuIcon);
-                        const navContainer = document.querySelector('.nav-container');
-                        if (navContainer) {
-                            navContainer.style.display = 'flex';
-                        }
                     });
                 }
 
-                // Overlay click to close
                 overlay.addEventListener('click', function () {
                     closeSidebar(mobileSidebar, overlay, menuIcon);
-                    const navContainer = document.querySelector('.nav-container');
-                    if (navContainer) {
-                        navContainer.style.display = 'flex';
-                    }
                 });
             }
         }
 
-        // Display error messages
+        function createScSidebar() {
+            let overlay = document.getElementById('sc-sidebar-overlay');
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.id = 'sc-sidebar-overlay';
+                overlay.className = 'sidebar-overlay';
+                document.body.appendChild(overlay);
+            }
+
+            let mobileSidebar = document.getElementById('sc-mobile-sidebar');
+            if (!mobileSidebar) {
+                mobileSidebar = document.createElement('div');
+                mobileSidebar.id = 'sc-mobile-sidebar';
+                mobileSidebar.className = 'mobile-sidebar';
+                mobileSidebar.innerHTML = `
+                    <div class="sidebar-header">
+                        <img src="{{ asset('assets/images/Remitoutcolored.png') }}" alt="Logo" class="logo">
+                        <i class="fa-solid fa-xmark close-icon"></i>
+                    </div>
+                    <div class="sidebar-menu">
+                        <a href="/sc-dashboard" class="menu-item active">
+                            <i class="fa-solid fa-square-poll-vertical"></i> Dashboard
+                        </a>
+                        <a href="/sc-inbox" class="menu-item">
+                            <i class="fa-solid fa-inbox"></i> Profile
+                        </a>
+                        <a href="/sc-applications" class="menu-item">
+                            <i class="fa-regular fa-clipboard"></i> Applications Status
+                        </a>
+                    </div>
+                    <div class="sidebar-footer">
+                        <a href="javascript:void(0)" class="menu-item logoutBtn" onclick="sessionLogoutInitial('{{ route('logout') }}', '{{ route('login') }}')">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                        </a>
+                        <a href="/support" class="menu-item">
+                            <img src="{{ asset('assets/images/Icons/support_agent.png') }}" alt=""> Support
+                        </a>
+                    </div>
+                `;
+                document.body.appendChild(mobileSidebar);
+
+                const menuIcon = document.getElementById('menu-icon');
+                const closeIcon = mobileSidebar.querySelector('.close-icon');
+                if (closeIcon) {
+                    closeIcon.addEventListener('click', function () {
+                        closeSidebar(mobileSidebar, overlay, menuIcon);
+                    });
+                }
+
+                overlay.addEventListener('click', function () {
+                    closeSidebar(mobileSidebar, overlay, menuIcon);
+                });
+            }
+        }
+
         function displayError(elementId, message) {
             const errorElement = document.getElementById(elementId);
             if (errorElement) {
@@ -726,7 +862,6 @@
             }
         }
 
-        // Clear error messages
         function clearErrorMessages() {
             const errorElements = document.getElementsByClassName('error-message');
             for (let i = 0; i < errorElements.length; i++) {
@@ -735,7 +870,6 @@
             }
         }
 
-        // Retrieve profile picture for user
         const retrieveProfilePictureNav = async () => {
             const userSession = window.App.user;
             if (!userSession || !userSession.unique_id) {
@@ -779,7 +913,6 @@
             }
         };
 
-        // Retrieve profile picture for scuser
         const retrieveProfilePictureNavSc = async () => {
             const userSession = window.App.scuser;
             if (!userSession || !userSession.referral_code) {
@@ -823,7 +956,6 @@
             }
         };
 
-        // User popup toggle
         const userPopopuOpen = () => {
             const userPopupTrigger = document.querySelector(".nav-profilecontainer i");
             const userPopupList = document.querySelector(".popup-notify-list");
@@ -855,7 +987,6 @@
             }
         };
 
-        // Password change validation
         const passwordChangeCheck = () => {
             const saveButton = document.getElementById('password-change-save');
             if (saveButton) {
@@ -951,7 +1082,6 @@
             }
         };
 
-        // Password modal trigger
         const passwordModelTrigger = () => {
             const passwordTrigger = document.getElementById("change-password-trigger");
             const passwordChangeContainer = document.querySelector(".password-change-container");
@@ -987,14 +1117,43 @@
             }
         };
 
-        // Initialize on page load
+        // Initialize sidebar menu item clicks for desktop sidebar
+        const initializeDesktopSidebar = () => {
+            const sidebarItems = document.querySelectorAll('.studentdashboardprofile-togglesidebar li');
+            sidebarItems.forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    let sectionId;
+                    if (index === 0) {
+                        sectionId = 'studentdashboardprofile-trackprogress';
+                    } else if (index === 1) {
+                        sectionId = 'studentdashboardprofile-trackprogress';
+                    } else if (index === 2) {
+                        sectionId = 'studentdashboardprofile-myapplication';
+                    } else if (item.classList.contains('logoutBtn')) {
+                        sessionLogoutInitial('{{ route('logout') }}', '{{ route('login') }}');
+                        return;
+                    } else if (item.textContent.includes('Support')) {
+                        window.location.href = '/support';
+                        return;
+                    }
+                    if (sectionId) {
+                        // Dispatch a custom event for studentdashboard.js to handle
+                        const event = new CustomEvent('desktopSidebarClick', {
+                            detail: { sectionId, index }
+                        });
+                        document.dispatchEvent(event);
+                    }
+                });
+            });
+        };
+
         document.addEventListener('DOMContentLoaded', function () {
             dynamicChangeNavMob();
             userPopopuOpen();
             passwordChangeCheck();
             passwordModelTrigger();
+            initializeDesktopSidebar();
 
-            // Logout event listener
             const logoutBtn = document.querySelector('.popup-notify-list .logoutBtn');
             const userPopupTrigger = document.querySelector('.nav-profilecontainer i');
             const userPopupList = document.querySelector('.popup-notify-list');
@@ -1011,64 +1170,62 @@
                 });
             }
 
-            // Profile picture retrieval
             if (window.App.hasScUserSession) {
+                createScSidebar();
                 retrieveProfilePictureNavSc();
             } else if (window.App.hasUserSession) {
+                createStudentSidebar();
                 retrieveProfilePictureNav();
+                if (window.innerWidth <= 768) {
+                    toggleSection('studentdashboardprofile-trackprogress', 0);
+                }
             }
 
-            // Menu icon click handler
             const menuIcon = document.getElementById('menu-icon');
             if (menuIcon && !menuIcon.hasAttribute('data-initialized')) {
                 menuIcon.setAttribute('data-initialized', 'true');
                 menuIcon.addEventListener('click', function () {
-                    const mobileSidebar = document.getElementById('mobile-sidebar');
-                    const overlay = document.getElementById('sidebar-overlay');
-                    const navContainer = document.querySelector('.nav-container');
+                    if (window.innerWidth > 768) return;
+
+                    let mobileSidebar, overlay;
+                    if (window.App.hasScUserSession) {
+                        createScSidebar();
+                        mobileSidebar = document.getElementById('sc-mobile-sidebar');
+                        overlay = document.getElementById('sc-sidebar-overlay');
+                    } else {
+                        createStudentSidebar();
+                        mobileSidebar = document.getElementById('student-mobile-sidebar');
+                        overlay = document.getElementById('student-sidebar-overlay');
+                    }
 
                     if (mobileSidebar && overlay) {
                         if (mobileSidebar.classList.contains('active')) {
                             closeSidebar(mobileSidebar, overlay, this);
-                            if (navContainer) {
-                                navContainer.style.display = 'flex';
-                            }
                         } else {
+                            const otherSidebar = window.App.hasScUserSession 
+                                ? document.getElementById('student-mobile-sidebar') 
+                                : document.getElementById('sc-mobile-sidebar');
+                            const otherOverlay = window.App.hasScUserSession 
+                                ? document.getElementById('student-sidebar-overlay') 
+                                : document.getElementById('sc-sidebar-overlay');
+                            if (otherSidebar && otherOverlay && otherSidebar.classList.contains('active')) {
+                                closeSidebar(otherSidebar, otherOverlay, this);
+                            }
+
                             mobileSidebar.classList.add('active');
                             overlay.classList.add('active');
                             mobileSidebar.style.display = 'block';
-                            mobileSidebar.style.opacity = '1';
+                            mobileSidebar.style.left = '0';
                             overlay.style.display = 'block';
                             overlay.style.opacity = '1';
                             document.body.style.overflow = 'hidden';
                             this.classList.add('menu-open');
-                            if (navContainer) {
-                                navContainer.style.display = 'flex';
-                            }
-                        }
-                    } else {
-                        createMobileSidebar();
-                        const newMobileSidebar = document.getElementById('mobile-sidebar');
-                        const newOverlay = document.getElementById('sidebar-overlay');
-                        if (newMobileSidebar && newOverlay) {
-                            newMobileSidebar.classList.add('active');
-                            newOverlay.classList.add('active');
-                            newMobileSidebar.style.display = 'block';
-                            newMobileSidebar.style.opacity = '1';
-                            newOverlay.style.display = 'block';
-                            newOverlay.style.opacity = '1';
-                            document.body.style.overflow = 'hidden';
-                            this.classList.add('menu-open');
-                            if (navContainer) {
-                                navContainer.style.display = 'flex';
-                            }
                         }
                     }
                 });
             }
         });
 
-        // Update navbar on resize
         window.addEventListener('resize', dynamicChangeNavMob);
     </script>
 </body>

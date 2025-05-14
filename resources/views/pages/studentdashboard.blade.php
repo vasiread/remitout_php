@@ -32,21 +32,30 @@
             $nbfcdata = [];
 
       @endphp
-                    <div class="studentdashboardprofile-togglesidebar">
+                  <div class="studentdashboardprofile-togglesidebar">
                         <ul class="studentdashboardprofile-sidebarlists-top">
-                            <li class="active"> <i class="fa-solid fa-square-poll-vertical"></i> Dashboard</li>
-                            <li> <i class="fa-solid fa-inbox"></i> Inbox</li>
-                            <li> <i class="fa-regular fa-clipboard"></i> My Applications</li>
+                            <li class="active" data-section="studentdashboardprofile-trackprogress" data-index="0">
+                                <i class="fa-solid fa-square-poll-vertical"></i> Dashboard
+                            </li>
+                            <li data-section="studentdashboardprofile-trackprogress" data-index="1">
+                                <i class="fa-solid fa-inbox"></i> Inbox
+                            </li>
+                            <li data-section="studentdashboardprofile-myapplication" data-index="2">
+                                <i class="fa-regular fa-clipboard"></i> My Applications
+                            </li>
                         </ul>
                         <ul class="studentdashboardprofile-sidebarlists-bottom">
-                            <li class="logoutBtn"> <i class="fa-solid fa-arrow-right-from-bracket"></i>Log
-                                out</li>
-                            <li> <img src="assets/images/Icons/support_agent.png" alt=""> Support</li>
+                            <li class="logoutBtn">
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                            </li>
+                            <li>
+                                <img src="assets/images/Icons/support_agent.png" alt=""> Support
+                            </li>
                         </ul>
                     </div>
                     <div class="studentdashboardprofile">
 
-                        <div class="studentdashboardprofile-trackprogress">
+                        <div class="studentdashboardprofile-trackprogress" id="studentdashboardprofile-trackprogress-id">
                             <div class="studentdashboardprofile-firstrowtrackprogress">
                                 <div class="trackprogress-headercontainer">
                                     <h1 class="trackprogress-header" style="margin:0">Track Progress</h1>
@@ -101,7 +110,7 @@
 
                             </div>
 
-                            <div class="studentdashboardprofile-loanproposals">
+                            <div class="studentdashboardprofile-loanproposals" id="studentdashboardprofile-loanproposals-id">
                                 <h1 class="loanproposals-header" id="loanproposals-header">Loan Proposals</h1>
                                 <div class="loanproposals-loanstatuscards">
 
