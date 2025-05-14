@@ -141,7 +141,7 @@
                     </div>
                     <h1 class="promotional-heading">Header 01</h1>
                     <p class="promotional-sub">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p class="know-more">Click here to know more!</p>
+                    <p class="know-more"><a href="http://localhost:8000/">Click here to know more!</a></p>
                     <div class="promotional-link-container" style="display: none;">
                         <span>Link:</span>
                         <input type="text" class="promotional-link-input" value="">
@@ -154,10 +154,10 @@
                 </div>
                 <div class="promotional-footer">
                     <div>
-                        Visit us: <a href="#" style="color: #f86d21; text-decoration: none;">Remitout.com</a>
+                        Visit us: <a href="https://remitout.com/" style="color: #f86d21; text-decoration: none;">Remitout.com</a>
                         <span style="margin-left: 20px;">Follow us:
-                            <a href="#" style="color: #333; margin-left: 5px;"><i class="fab fa-twitter"></i></a>
-                            <a href="#" style="color: #333; margin-left: 5px;"><i class="fab fa-facebook"></i></a>
+                            <a href="https://x.com/RemitoutL" style="color: #333; margin-left: 5px;"><i class="fab fa-twitter"></i></a>
+                            <a href="https://www.facebook.com/RemitoutIN/" style="color: #333; margin-left: 5px;"><i class="fab fa-facebook"></i></a>
                         </span>
                     </div>
                     <div>©frontend 2023. All rights reserved</div>
@@ -462,6 +462,16 @@
                         }
                     });
                 }
+
+                contentArea.addEventListener('click', function (event) {
+                    const target = event.target;
+                    if (target.tagName === 'A' && target.href) {
+                        event.preventDefault(); // Prevent contenteditable from interfering
+                        window.open(target.href, '_blank'); // Open link in a new tab
+                        // Alternatively, use: window.location.href = target.href; // Navigate in the same tab
+                    }
+                });
+                
                 const sizeSelect = document.getElementById('size');
                 if (sizeSelect) {
                     sizeSelect.addEventListener('change', function () {
@@ -539,7 +549,7 @@
                             }
                         }
                     });
-                    contentArea.addEventListener('mouseup', function () {
+                   contentArea.addEventListener('mouseup', function () {
                         const selection = window.getSelection();
                         if (selection.rangeCount > 0) {
                             const range = selection.getRangeAt(0);
