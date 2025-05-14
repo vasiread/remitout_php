@@ -281,15 +281,17 @@ class CMSEditor {
     }
 
     showToast(message, isError = false) {
-        const toast = document.querySelector('.toast');
-        toast.textContent = message;
-        toast.className = 'toast' + (isError ? ' error' : '');
-        toast.style.display = 'block';
+    const toast = document.querySelector('.toast');
+    toast.textContent = message;
+    toast.className = 'toast' + (isError ? ' error' : '');
+    toast.style.display = 'block';
+    console.log('Showing toast:', message);
 
-        setTimeout(() => {
-            toast.style.display = 'none';
-        }, 3000);
-    }
+    setTimeout(() => {
+        console.log('Hiding toast');
+        toast.style.display = 'none';
+    }, 3000);
+}
 
     // Helper method to place caret at the end of contentEditable
     placeCaretAtEnd(element) {
@@ -542,10 +544,12 @@ class CMSEditor {
     addEditListeners() {
         // Edit button event listeners
         document.querySelectorAll('.edit-contents-cms-edit').forEach(button => {
+           console.log('Attaching edit listener to button:', button);
             button.addEventListener('click', (e) => {
+                console.log('Edit button clicked');
                 const row = e.target.closest('tr');
                 row.classList.toggle('edit-mode');
-                
+
                 // Show character count when entering edit mode
                 const charCount = row.querySelector('.char-count, .char-count-exceeded');
                 if (charCount) {
@@ -707,52 +711,35 @@ class CMSEditor {
 
     // Fixed handle save method
     async handleSave() {
-        try {
-            this.showLoading();
+    try {
+        this.showLoading();
 
-            // Validate all fields before saving
-            let hasErrors = false;
-            
-            // Check character limits
-            this.data.forEach(item => {
-                if (item.maxLength && item.content.length > item.maxLength) {
-                    console.log(`Validation error: "${item.title}" content length ${item.content.length}, max ${item.maxLength}`);
-                    this.showToast(`"${item.title}" exceeds maximum length of ${item.maxLength} characters`, true);
-                    hasErrors = true;
-                }
-            });
-            
-            if (hasErrors) {
-                this.hideLoading();
-                return;
+        let hasErrors = false;
+        this.data.forEach(item => {
+            if (item.maxLength && item.content.length > item.maxLength) {
+                console.warn(`"${item.title}" exceeds max length, truncating`);
+                item.content = item.content.substring(0, item.maxLength);
             }
+        });
 
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1000));
-
-            // Save to localStorage
-            const saveResult = this.saveToLocalStorage();
-            
-            if (!saveResult) {
-                throw new Error('Failed to save to localStorage');
-            }
-
-            // Update originalData with current data
-            this.originalData = JSON.parse(JSON.stringify(this.data));
-
-            // Hide all character counters after saving
-            document.querySelectorAll('.char-count, .char-count-exceeded').forEach(counter => {
-                counter.classList.add('hidden');
-            });
-
-            this.showToast('All changes saved successfully');
-        } catch (error) {
-            this.showToast('Error saving changes. Please try again.', true);
-            console.error('Save error:', error);
-        } finally {
-            this.hideLoading();
+        const saveResult = this.saveToLocalStorage();
+        if (!saveResult) {
+            throw new Error('Failed to save to localStorage');
         }
+
+        this.originalData = JSON.parse(JSON.stringify(this.data));
+        document.querySelectorAll('.char-count, .char-count-exceeded').forEach(counter => {
+            counter.classList.add('hidden');
+        });
+
+        this.showToast('All changes saved successfully');
+    } catch (error) {
+        this.showToast('Error saving changes: ' + error.message, true);
+        console.error('Save error:', error);
+    } finally {
+        this.hideLoading();
     }
+}
 
     // Utility method to check if content has changed
     hasUnsavedChanges() {

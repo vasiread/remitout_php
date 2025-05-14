@@ -9,6 +9,35 @@
 
 }
 
+/* SC Desktop Sidebar Active State */
+.commonsidebar-togglesidebar {
+    position: relative;
+    z-index: 10;
+}
+
+.commonsidebar-togglesidebar .commonsidebar-sidebarlists-top li {
+    background: transparent;
+    color: #333;
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.commonsidebar-togglesidebar .commonsidebar-sidebarlists-top li.active {
+    background: linear-gradient(90deg, #FFA048 0%, #FA7B15 100%);
+    color: #fff;
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+}
+
+.commonsidebar-togglesidebar .commonsidebar-sidebarlists-top li.active i,
+.commonsidebar-togglesidebar .commonsidebar-sidebarlists-top li.active p {
+    color: #fff;
+}
+
 .scdashboard-parentcontainer {
     background-color: #fff;
 }

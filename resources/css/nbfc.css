@@ -2967,38 +2967,12 @@
     }
 }
 
-@media (max-width: 1024px) {
-    .index-student-button-group {
-        display: none;
-    }
-
-    .index-student-send-btn-mobile {
-        display: block;
-    }
-}
-
-
-@media (max-width: 768px) {
-
-    /* Adjust the breakpoint as needed */
-    .index-student-button-group {
-        display: none;
-    }
-
-    .index-student-send-btn-mobile {
-        display: block;
-        /* Ensure it's visible */
-    }
-}
 
 
 @media (max-width: 480px) {
     .index-student-details-container {
         padding: 5px;
     }
-
-
-
     .index-student-name {
         font-size: 12px;
     }
@@ -3009,11 +2983,6 @@
 
     .index-student-button-group {
         gap: 6px;
-    }
-
-    .index-student-message-btn,
-    .index-student-view-btn {
-        display: none;
     }
 
     .action-btn {
