@@ -973,7 +973,7 @@
     box-shadow: 0px 0px 10px 0px #92889B21;
     font-family: 'Poppins', sans-serif;
 
-    font-size: 14px;
+    font-size: 20px;
     font-weight: 500;
     line-height: 16.8px;
     color: #fff;
@@ -1756,6 +1756,10 @@
         display: flex;
         align-items: center;
 
+    }
+    .scdashboard-applicationstatus .scapplicationstatus-firstrow{
+        display: flex;
+        flex-direction: column !important;
     }
 
     .scdashboard-applicationstatus .scapplicationstatus-firstrow #sc-new-application-generate {

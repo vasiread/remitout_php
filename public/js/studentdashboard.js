@@ -221,27 +221,51 @@ const triggerView = () => {
 }
 
 const initializeSideBarTabs = () => {
-    const sideBarTopItems = document.querySelectorAll('.studentdashboardprofile-sidebarlists-top li');
-    const lastTabHiddenDiv = document.querySelector(".studentdashboardprofile-trackprogress");
-    const lastTabVisibleDiv = document.querySelector(".studentdashboardprofile-myapplication");
-    const dynamicHeader = document.getElementById('loanproposals-header');
+    const sideBarTopItems = document.querySelectorAll(
+        ".studentdashboardprofile-sidebarlists-top li",
+    );
+    const lastTabHiddenDiv = document.querySelector(
+        ".studentdashboardprofile-trackprogress",
+    );
+    const lastTabVisibleDiv = document.querySelector(
+        ".studentdashboardprofile-myapplication",
+    );
+    const dynamicHeader = document.getElementById("loanproposals-header");
+    const loanProposalsCount = document.getElementById("loanproposals-count");
 
-
-
-    const communityJoinCard = document.querySelector('.studentdashboardprofile-communityjoinsection');
-    const profileStatusCard = document.querySelector(".personalinfo-profilestatus");
-    const profileImgEditIcon = document.querySelector(".studentdashboardprofile-profilesection .fa-pen-to-square");
-    const educationEditSection = document.querySelector(".studentdashboardprofile-educationeditsection");
-    const testScoresEditSection = document.querySelector(".studentdashboardprofile-testscoreseditsection");
+    const communityJoinCard = document.querySelector(
+        ".studentdashboardprofile-communityjoinsection",
+    );
+    const profileStatusCard = document.querySelector(
+        ".personalinfo-profilestatus",
+    );
+    const profileImgEditIcon = document.querySelector(
+        ".studentdashboardprofile-profilesection .fa-pen-to-square",
+    );
+    const educationEditSection = document.querySelector(
+        ".studentdashboardprofile-educationeditsection",
+    );
+    const testScoresEditSection = document.querySelector(
+        ".studentdashboardprofile-testscoreseditsection",
+    );
 
     // console.log('Initializing sidebar tabs...');
-
+    // Function to update loan proposals count
+    const updateLoanProposalsCount = () => {
+        const loanProposalsContainer = document.querySelector(
+            ".loanproposals-loanstatuscards",
+        );
+        const count = loanProposalsContainer.children.length; // Count child elements
+        if (loanProposalsCount) {
+            loanProposalsCount.textContent = count;
+        }
+    };
 
     sideBarTopItems.forEach((item, index) => {
-        item.addEventListener('click', () => {
+        item.addEventListener("click", () => {
             // console.log('Clicked item index:', index);
-            sideBarTopItems.forEach(i => i.classList.remove('active'));
-            item.classList.add('active');
+            sideBarTopItems.forEach((i) => i.classList.remove("active"));
+            item.classList.add("active");
 
             if (index === 1) {
                 // console.log('Inbox tab selected');
@@ -253,7 +277,7 @@ const initializeSideBarTabs = () => {
                 educationEditSection.style.display = "none";
                 testScoresEditSection.style.display = "none";
 
-                handleIndividualCards('index1');
+                handleIndividualCards("index1");
                 dynamicHeader.textContent = "Inbox";
             } else if (index === 0) {
                 // console.log('Loan Proposals tab selected');
@@ -265,9 +289,11 @@ const initializeSideBarTabs = () => {
                 educationEditSection.style.display = "none";
                 testScoresEditSection.style.display = "none";
 
-                handleIndividualCards('index0');
+                handleIndividualCards("index0");
                 dynamicHeader.textContent = "Loan Proposals";
 
+                // Update loan proposals count when this tab is selected
+                updateLoanProposalsCount();
             } else if (index === 2) {
                 // console.log('My Application tab selected');
 
@@ -280,10 +306,6 @@ const initializeSideBarTabs = () => {
                 testScoresEditSection.style.display = "flex";
             }
         });
-
-
-
-
     });
 }
 
