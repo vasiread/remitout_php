@@ -413,7 +413,19 @@
                 </div>
             @endforeach
         </div>
+
+
+
+
+        
     </div>
+
+
+   
+
+
+
+
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -425,8 +437,7 @@
         const applicationStatusElements = document.querySelectorAll(".individualstudentapplication-status .scdashboard-nbfcstatus-pending span");
         const missingDocumentsCount = document.querySelectorAll(".scdashboard-missingdocumentsstatus");
 
-        // Update statuses and show/hide missing documents count
-        applicationStatusElements.forEach((items, index) => {
+         applicationStatusElements.forEach((items, index) => {
             if (items.textContent.includes("Approved")) {
                 items.style.color = "#3FA27E";
                 items.style.backgroundColor = "#D2FFEE";
@@ -557,6 +568,7 @@
                             console.log(`Displaying missing document: ${missingDocument}`);
                             const documentElement = document.getElementById(elementId);
                             if (documentElement) {
+                                alert(documentElement)
                                 documentElement.style.display = "flex";
                             } else {
                                 console.warn(`Element not found: ${elementId}`);
@@ -586,8 +598,7 @@
                 filterContent.style.display = filterContent.style.display === 'block' ? 'none' : 'block';
             });
 
-            // Close dropdown when clicking outside
-            document.addEventListener('click', (e) => {
+             document.addEventListener('click', (e) => {
                 if (!filterButton.contains(e.target) && !filterContent.contains(e.target)) {
                     filterContent.style.display = 'none';
                 }
