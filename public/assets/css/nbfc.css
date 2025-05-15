@@ -1,3 +1,9 @@
+html, body {
+    height: 100vh;
+    background-color: #F5F5F5;
+}
+
+
 .nbfc-navbar {
     position: fixed;
     top: 0;
@@ -1120,14 +1126,12 @@
 }
 
 /*nbfc main container for dashboard*/
-
 .dashboard-main-content {
-    display: flex;
-
-    margin-left: 17.2%;
-    gap: 1.25%;
+    flex: 1;
+    margin-left: 16%;
     padding: 18px;
     background-color: #F5F5F5;
+
 }
 
 .dashboard-sections-container {
@@ -2193,7 +2197,6 @@
     margin-top: 80px;
     overflow-x: hidden;
     max-width: 100%;
-    width: 100%;
     margin-left: 4.09%;
 }
 
