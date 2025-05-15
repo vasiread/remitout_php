@@ -292,7 +292,6 @@
 
         <div class="admindashboardcontainer-thirdsection">
             <div class="admindashboard-firstpart">
-                <!-- Your HTML stays mostly the same -->
                 <div class="reports-registeration" data-report="registration-reports">
                     <div class="reports-registeration-sectionone">
                         <p>Reports on registration</p>

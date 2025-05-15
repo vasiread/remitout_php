@@ -45,7 +45,6 @@
             console.log('Full Session Data:', sessionData);
         });
         
-        
         function getCsrfToken() {
             return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         }
@@ -65,13 +64,17 @@
             })
             .then(data => {
                 if (data.success && Array.isArray(data.data)) {
-                    admins = data.data.map(admin => ({
-                        admin_id: admin.admin_id,
-                        name: admin.name,
-                        role: admin.is_super_admin ? 'Super Admin' : 'Admin',
-                        email: admin.email,
-                        created_at: admin.created_at
-                    }));
+                    // Get suspended admin IDs from localStorage
+                    const suspendedAdmins = JSON.parse(localStorage.getItem('suspendedAdmins') || '[]');
+                    admins = data.data
+                        .filter(admin => !suspendedAdmins.includes(admin.admin_id))
+                        .map(admin => ({
+                            admin_id: admin.admin_id,
+                            name: admin.name,
+                            role: admin.is_super_admin ? 'Super Admin' : 'Admin',
+                            email: admin.email,
+                            created_at: admin.created_at
+                        }));
                     createUserRows(admins);
                 } else {
                     console.error('Unexpected response format:', data);
@@ -106,6 +109,7 @@
                     </div>
                     <div class="role-management-actions">
                         <button class="role-management-btn role-management-btn-edit">Edit</button>
+                        <button class="role-management-btn role-management-btn-suspend">Suspend</button>
                     </div>
                 `;
                 userList.appendChild(row);
@@ -137,7 +141,7 @@
                         } else {
                             updateAdmin(updatedAdmin, rowIndex);
                         }
-                    } else {
+                    } else if (btn.classList.contains('role-management-btn-edit')) {
                         nameInput.disabled = false;
                         select.disabled = false;
                         email.disabled = false;
@@ -146,6 +150,18 @@
                         btn.textContent = 'Save';
                         btn.classList.remove('role-management-btn-edit');
                         btn.classList.add('role-management-btn-save');
+                    } else if (btn.classList.contains('role-management-btn-suspend')) {
+                        if (adminId) {
+                            // Add admin_id to suspendedAdmins in localStorage
+                            const suspendedAdmins = JSON.parse(localStorage.getItem('suspendedAdmins') || '[]');
+                            if (!suspendedAdmins.includes(adminId)) {
+                                suspendedAdmins.push(adminId);
+                                localStorage.setItem('suspendedAdmins', JSON.stringify(suspendedAdmins));
+                            }
+                        }
+                        // Remove from admins array and re-render
+                        admins = admins.filter((_, i) => i !== rowIndex);
+                        createUserRows(admins);
                     }
                 });
             });
@@ -290,10 +306,12 @@
             });
             document.querySelector('.role-management-search').addEventListener('input', (e) => {
                 const searchTerm = e.target.value.toLowerCase();
-                document.querySelectorAll('.role-management-row').forEach(row => {
-                    const text = row.textContent.toLowerCase();
-                    row.style.display = text.includes(searchTerm) ? '' : 'none';
-                });
+                const filteredAdmins = admins.filter(admin => 
+                    (admin.name || '').toLowerCase().includes(searchTerm) ||
+                    (admin.email || '').toLowerCase().includes(searchTerm) ||
+                    (admin.role || '').toLowerCase().includes(searchTerm)
+                );
+                createUserRows(filteredAdmins);
             });
             fetchAdmins();
         });
