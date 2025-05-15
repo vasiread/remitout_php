@@ -302,27 +302,27 @@
                     card.setAttribute('data-card-id', `admin-nbfc-card-${nbfc.nbfc_id}`);
 
                     card.innerHTML = `
-            <div class="index-student-card">
-                <div class="index-student-info">
-                    <h3 class="student-name">${nbfc.nbfc_name}</h3>
-                    <p class="student-ids">${nbfc.nbfc_id}</p>
-                </div>
-                <div class="index-student-button-group">
-                    <button class="index-student-message-btn triggeredbutton" id="admin-nbfc-button-${chatId}" data-button-id="admin-nbfc-button-${chatId}">Message</button>
-                </div>
-            
-            </div>
-            <div style="display: none; justify-content: flex-end; width: 100%; margin-bottom: 10px;" id="admin-nbfc-clear-container-${chatId}">
-                <button style="background-color: rgb(240, 240, 240); border: none; border-radius: 4px; padding: 6px 20px; font-size: 12px; color: rgb(102, 102, 102); cursor: pointer; font-family: Poppins, sans-serif;" id="admin-nbfc-clear-button-${chatId}">Clear Chat</button>
-            </div>
-            <div class="messages-wrapper" data-chat-id="${chatId}" id="admin-nbfc-messages-${chatId}" style="display: none;"></div>
-            <div class="nbfc-individual-bankmessage-input-message" data-chat-id="${chatId}" id="admin-nbfc-input-${chatId}" style="display: none;">
-                <input placeholder="Send message" type="text" id="admin-nbfc-input-field-${chatId}" class="nbfc-message-input">
-                <img class="send-img nbfc-send-img" src="assets/images/send-nbfc.png" alt="Send" id="admin-nbfc-send-${chatId}">
-                <i class="fa-solid fa-paperclip nbfc-paperclip" id="admin-nbfc-paperclip-${chatId}"></i>
-                <i class="fa-regular fa-face-smile nbfc-face-smile" id="admin-nbfc-smile-${chatId}"></i>
-            </div>
-        `;
+                    <div class="index-student-card">
+                        <div class="index-student-info">
+                            <h3 class="student-name">${nbfc.nbfc_name}</h3>
+                            <p class="student-ids">${nbfc.nbfc_id}</p>
+                        </div>
+                        <div class="index-student-button-group-admin">
+                            <button class="index-student-message-btn triggeredbutton" id="admin-nbfc-button-${chatId}" data-button-id="admin-nbfc-button-${chatId}">Message</button>
+                        </div>
+                    
+                    </div>
+                    <div style="display: none; justify-content: flex-end; width: 100%; margin-bottom: 10px;" id="admin-nbfc-clear-container-${chatId}">
+                        <button style="background-color: rgb(240, 240, 240); border: none; border-radius: 4px; padding: 6px 20px; font-size: 12px; color: rgb(102, 102, 102); cursor: pointer; font-family: Poppins, sans-serif;" id="admin-nbfc-clear-button-${chatId}">Clear Chat</button>
+                    </div>
+                    <div class="messages-wrapper" data-chat-id="${chatId}" id="admin-nbfc-messages-${chatId}" style="display: none;"></div>
+                    <div class="nbfc-individual-bankmessage-input-message" data-chat-id="${chatId}" id="admin-nbfc-input-${chatId}" style="display: none;">
+                        <input placeholder="Send message" type="text" id="admin-nbfc-input-field-${chatId}" class="nbfc-message-input">
+                        <img class="send-img nbfc-send-img" src="assets/images/send-nbfc.png" alt="Send" id="admin-nbfc-send-${chatId}">
+                        <i class="fa-solid fa-paperclip nbfc-paperclip" id="admin-nbfc-paperclip-${chatId}"></i>
+                        <i class="fa-regular fa-face-smile nbfc-face-smile" id="admin-nbfc-smile-${chatId}"></i>
+                    </div>
+                `;
 
                     container.appendChild(card);
 

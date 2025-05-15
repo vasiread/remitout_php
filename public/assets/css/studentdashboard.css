@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 input[type="file"] {
@@ -15,6 +16,7 @@ input[type="file"] {
     background: none;
     margin-left: 19.43%;
     gap: 2.28%;
+    
 }
 
 .studentdashboardprofile-togglesidebar {

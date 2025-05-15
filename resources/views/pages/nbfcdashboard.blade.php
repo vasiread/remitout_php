@@ -4814,10 +4814,11 @@
                 studentIds.classList.add("student-ids");
                 studentIds.textContent = item.unique_id;
 
-
                 const studentInfoDesc = document.createElement("p");
                 studentInfoDesc.classList.add("index-student-description");
-                studentInfoDesc.textContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed "div");
+                studentInfoDesc.textContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";
+
+                const buttonGroup = document.createElement("div");
                 buttonGroup.classList.add("index-student-button-group");
 
                 const messageButton = document.createElement("button");
@@ -4836,8 +4837,6 @@
                 const sendImg = document.createElement("img");
                 sendImg.src = "assets/images/send-index-btn.png";
                 sendImg.alt = "the send image";
-
-
 
                 sendBtnMobile.appendChild(sendImg);
 
@@ -4862,14 +4861,12 @@
 
                 messageInputContainer.append(messageInput, sendIcon, paperClipIcon, smileIcon);
 
+                studentInfo.append(studentInfoHeader, studentIds, studentInfoDesc); // Append studentInfoDesc
                 studentCard.append(studentInfo, buttonGroup, sendBtnMobile);
-
                 msgContainer.append(studentCard, messageInputContainer);
 
                 parentContainer.appendChild(msgContainer);
             });
-
-
         };
 
 

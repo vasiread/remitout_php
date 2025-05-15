@@ -86,10 +86,9 @@
     @yield('homecontent')
     @endif
 
-    @if(!in_array(Route::currentRouteName(), ['login', 'signup', 'admin-page', 'nbfc-dashboard', 'sc-dashboard', 'student-dashboard']))
-    <x-footer></x-footer>
+    @if(!in_array(Route::currentRouteName(), ['login', 'signup', 'admin-page', 'nbfcdashboard', 'sc-dashboard', 'student-dashboard']))
+        <x-footer></x-footer>
     @endif
-
 
      <script>
         document.addEventListener('DOMContentLoaded', function () {

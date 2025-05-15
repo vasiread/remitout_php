@@ -29,13 +29,13 @@
 
 #commonsidebar-admin .commonsidebar-sidebarlists-bottom {
     display: flex;
-    flex-direction: row;
+    
     margin-top: 60px;
 }
 
 #commonsidebar-admin .commonsidebar-sidebarlists-bottom li {
-    width: 114px;
-    font-size: 12px;
+    width: 260px;
+    font-size: 14px;
     align-items: center;
     justify-content: flex-start;
 }
