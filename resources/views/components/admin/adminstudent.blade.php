@@ -504,7 +504,7 @@ $pindropIconPath = "assets/images/pin_drop.png";
                 </div>
 
                 <!-- Display section -->
-                <div class="educationeditsection-secondrow">
+                <div class="educationeditsection-secondrow" style="display:flex">
                     <p>1. Bachelor's Degree in Computer Science</p>
                     <p>2. Master's Degree in AI</p>
                 </div>

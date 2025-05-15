@@ -430,7 +430,15 @@
     width: 100%;
     gap: 1.5%;
 }
+.studentprofile-section-adminsideview-editmode{
+    display: flex;
+    flex-direction: row;
+    margin-left: 20%;
+    max-width: 100%;
+    width: 100%;
+    gap: 1.5%;
 
+}
 #studentprofile-section-adminsideview .studentdashboardprofile-educationeditsection {
     display: flex;
 }
@@ -501,6 +509,8 @@
 
 
 }
+
+
 
 @media (max-width: 768px) {
     .globallistcontainer-header {
