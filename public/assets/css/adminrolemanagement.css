@@ -55,7 +55,7 @@
 
 .role-management-row {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 80px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: center;
     padding: 10px 0;
     border-bottom: 1px solid #eee;
@@ -67,7 +67,15 @@
 }
 
 .role-management-actions {
+    display: flex;
+    flex-direction: row;
     text-align: right;
+}
+
+.role-management-btn-suspend {
+    background-color: #dc3545; /* Red for suspend action */
+    color: white;
+    margin-left: 5px; /* Space between Edit and Suspend buttons */
 }
 
 .role-management-btn {
@@ -79,7 +87,7 @@
     background: transparent;
     color: #6f25ce;
     transition: all 0.3s ease;
-    width: 60px;
+    width: 90px;
     height: 32px;
 }
 .role-management-btn-add {

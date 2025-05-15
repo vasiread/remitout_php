@@ -61,12 +61,12 @@ Route::get('/admin-page', function () {
         'sidebarItems' => $sidebarItems,
         'userDetails' => $userDetails,
     ]);
-})->middleware('admin')->name('admin-page');
+})->name('admin-page');
 
 
 
 
- Route::post('/send-message', action: [ChatController::class, 'sendMessage']);
+Route::post('/send-message', action: [ChatController::class, 'sendMessage']);
 
 Route::get('/sc-dashboard', function () {
     $sidebarItems = (new SidebarHandlingController)->scdashboardItems();
