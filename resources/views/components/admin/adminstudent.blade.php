@@ -14,10 +14,10 @@
     @extends('layouts.app');
 
     @php
-        $profileIconPath = "assets/images/Icons/account_circle.png";
-        $phoneIconPath = "assets/images/call.png";
-        $mailIconPath = "assets/images/mail.png";
-        $pindropIconPath = "assets/images/pin_drop.png";
+$profileIconPath = "assets/images/Icons/account_circle.png";
+$phoneIconPath = "assets/images/call.png";
+$mailIconPath = "assets/images/mail.png";
+$pindropIconPath = "assets/images/pin_drop.png";
      @endphp
 
     <div class="student-listcontainer" id="student-admin-section-id">
@@ -502,11 +502,21 @@
                 <div class="educationeditsection-firstrow">
                     <h1>Education</h1>
                 </div>
+
+                <!-- Display section -->
                 <div class="educationeditsection-secondrow">
                     <p>1. Bachelor's Degree in Computer Science</p>
                     <p>2. Master's Degree in AI</p>
                 </div>
+
+                <!-- Edit inputs -->
+                <div class="educationeditsection-secondrow-edit">
+                    <input type="text" class="inputs-adminsidestudentprofile"
+                        value="Bachelor's Degree in Computer Science" />
+                    <input type="text" class="inputs-adminsidestudentprofile" value="Master's Degree in AI" />
+                </div>
             </div>
+
 
             <div class="studentdashboardprofile-testscoreseditsection">
                 <div class="testscoreseditsection-firstrow">
@@ -616,7 +626,16 @@
                     incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
                     exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
+
+            <div class="savecancelbuttoncontainer">
+                <button id="save-student-details-adminside"> Save </button>
+                <button id="cancel-student-details-adminside"> Cancel</button>
+
+            </div>
+
+
         </div>
+
     </div>
 
 
@@ -900,28 +919,24 @@
                                 if (data.status) {
                                     const userProfile = data.data;
 
-                                    // Profile image and personal info
                                     document.getElementById("profile-photo-id").src = `path/to/profile_images/${userProfile.name}.jpg`;
                                     document.getElementById("referenceNameId").querySelector('p').textContent = userProfile.name || '';
                                     document.getElementById("referenceEmailId").querySelector('p').textContent = userProfile.email || '';
                                     document.querySelector('.personal_info_phone p').textContent = userProfile.phone || '';
                                     document.getElementById("personal_state_id").textContent = userProfile.state || '';
-
-                                    // Editable inputs
                                     document.querySelector('.personalinfosecondrow-editsection input[type="text"]').value = userProfile.name || '';
                                     document.querySelector('.personalinfosecondrow-editsection input[type="email"]').value = userProfile.email || '';
-                                    document.querySelectorAll('.personalinfosecondrow-editsection input[type="text"]')[1].value = userProfile.state || '';
-                                    document.querySelectorAll('.personalinfosecondrow-editsection input[type="text"]')[2].value = userProfile.phone || '';
+                                    document.querySelectorAll('.personalinfosecondrow-editsection input[type="text"]')[2].value = userProfile.state || '';
+                                    document.querySelectorAll('.personalinfosecondrow-editsection input[type="text"]')[1].value = userProfile.phone || '';
                                     document.querySelector(".myapplication-fourthcolumn-additional input").value = userProfile.course_duration || '';
                                     document.querySelector(".myapplication-fourthcolumn input").value = userProfile.loan_amount || '';
                                     document.querySelector(".myapplication-fifthcolumn input").value = userProfile.referral_code || '';
-
                                     document.querySelectorAll(".educationeditsection-secondrow p")[0].textContent = userProfile.course_name || '';
                                     document.querySelectorAll(".educationeditsection-secondrow p")[1].textContent = userProfile.university_school_name || '';
 
                                     console.log(userProfile)
 
-                                    // Plan to study
+
                                     let planToStudy = userProfile.plan_to_study;
                                     if (typeof planToStudy === 'string') {
                                         try {
@@ -934,20 +949,20 @@
                                     const planToStudyArray = Array.isArray(planToStudy) ? planToStudy : [planToStudy];
                                     document.getElementById("plan-to-study-edit").value = planToStudyArray.join(', ');
 
-                                    // Update checkboxes
+
                                     const checkboxes = document.querySelectorAll('input[name="study-location-edit"]');
                                     checkboxes.forEach(cb => {
                                         cb.checked = planToStudyArray.includes(cb.value);
                                     });
 
-                                    // Degree type radio buttons
+
                                     const degreeType = (userProfile.degree_type || '').toLowerCase();
                                     const radios = document.querySelectorAll('input[name="education-level"]');
                                     radios.forEach(rb => {
                                         rb.checked = rb.value.toLowerCase() === degreeType;
                                     });
 
-                                    // Test scores
+
                                     const testScores = userProfile.test_scores || {};
                                     document.querySelector('input.ilets_score').value = testScores.ILETS || '';
                                     document.querySelector('input.gre_score').value = testScores.GRE || '';
@@ -957,22 +972,20 @@
                                     document.querySelector('span.gre_score').textContent = testScores.GRE || 'N/A';
                                     document.querySelector('span.tofel_score').textContent = testScores.TOFEL || 'N/A';
 
-                                    // Dynamically populate other exams
                                     const otherExamsContainer = document.getElementById('other-exams-container');
                                     if (userProfile.test_scores.Others && Array.isArray(userProfile.test_scores.Others)) {
                                         userProfile.test_scores.Others.forEach(exam => {
                                             const examDiv = document.createElement('div');
                                             examDiv.classList.add('other-exam-entry');
                                             examDiv.innerHTML = `
-            <p class="exam-name">${exam.otherExamName || 'N/A'}</p>
-            <p class="exam-score">${exam.otherExamScore || 'N/A'}</p>
-        `;
+                                                <p class="exam-name">${exam.otherExamName || 'N/A'}</p>
+                                                <p class="exam-score">${exam.otherExamScore || 'N/A'}</p>
+                                            `;
                                             otherExamsContainer.appendChild(examDiv);
                                         });
                                     }
 
 
-                                    // Set course details data attribute
                                     document.getElementById("course-details-container").setAttribute('data-course-details', JSON.stringify({
                                         planToStudy: planToStudyArray,
                                         degreeType: userProfile.degree_type,
@@ -980,7 +993,6 @@
                                         loanAmount: userProfile.loan_amount
                                     }));
 
-                                    // Show profile and hide list
                                     if (studentProfileContainerAdminSide && studentListContainer) {
                                         studentProfileContainerAdminSide.style.display = "flex";
                                         studentListContainer.style.display = "none";
@@ -1000,24 +1012,79 @@
 
 
         function viewStudentEditProfile() {
+            const studentProfileContainerAdminSide = document.getElementById("studentprofile-section-adminsideview");
+            const studentProfileEditTriggerAdminSide = document.querySelectorAll("#edit-student-profile-trigger");
+            const editProfileView = document.querySelector(".personalinfosecondrow-editsection");
+            const studentListContainer = document.getElementById("student-admin-section-id");
+            const userIdElements = document.querySelectorAll("#hidden-id-elementforaccess");
 
-            const editViewUser = document.querySelectorAll("#edit-student-profile-trigger");
 
-            if (editViewUser) {
-                editViewUser.forEach((item) => {
+            if (studentProfileEditTriggerAdminSide) {
+                studentProfileEditTriggerAdminSide.forEach((item, index) => {
                     item.addEventListener('click', () => {
+                        if (studentListContainer && studentProfileContainerAdminSide && editProfileView) {
+                            studentListContainer.style.display = "none";
+                            studentProfileContainerAdminSide.style.display = "flex";
+                            editProfileView.style.display = "flex"
 
+
+                            const saveDetailsTrigger = document.getElementById("save-student-details-adminside");
+                            if (saveDetailsTrigger) {
+                                saveDetailsTrigger.addEventListener('click', () => {
+                                    saveStudentDetails(userIdElements[index].textContent);
+
+                                })
+                            }
+
+
+                        }
+                    });
+                });
+            }
+
+
+            function saveStudentDetails(userId) {
+                 const name = document.querySelector('.personalinfosecondrow-editsection input[type="text"]').value;
+                const email = document.querySelector('.personalinfosecondrow-editsection input[type="email"]').value;
+                const state = document.querySelectorAll('.personalinfosecondrow-editsection input[type="text"]')[2].value;
+                const phone = document.querySelectorAll('.personalinfosecondrow-editsection input[type="text"]')[1].value;
+
+                fetch('/update-personal-info-adminside', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    },
+                    body: JSON.stringify({
+                        user_id: userId,
+                        name,
+                        email,
+                        state,
+                        phone
                     })
-
                 })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert("User Details Changes Saved")
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
             }
 
 
 
 
 
-        }
-    </script>
+
+
+
+
+
+
+
+
+        } </script>
 </body>
 
 </html>

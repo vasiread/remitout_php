@@ -1551,6 +1551,47 @@ class Admincontroller extends Controller
 
 
 
+    public function updatepersonalinfoadminside(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'string|required',
+            'name' => 'nullable|string',
+            'email' => 'nullable|email',
+            'state' => 'nullable|string',
+            'phone' => 'nullable|string',
+        ]);
+
+        $user = User::where('unique_id', $request->user_id)->first();
+
+        if (!$user) {
+            return response()->json(['success' => false, 'message' => 'User not found.'], 404);
+        }
+
+        $user->name = $request->name ?? $user->name;
+        $user->email = $request->email ?? $user->email;
+        $user->phone = $request->phone ?? $user->phone;
+        $user->save();
+
+        // Update or create personal info
+        $personalInfo = PersonalInfo::updateOrCreate(
+            ['user_id' => $user->unique_id], // ✅ use unique_id to match the foreign key
+            [
+                'full_name' => $request->name,
+                'email' => $request->email,
+                'state' => $request->state,
+            ]
+        );
+
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User details updated successfully.',
+            'user' => $user,
+            'personal_info' => $personalInfo
+        ]);
+    }
+
+
 
 
 }

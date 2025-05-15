@@ -154,3 +154,4 @@ Route::post('/updatenbfc', [AdminController::class, 'updateNbfc']);
 
 Route::post('/suspendnbfc', [AdminController::class, 'suspendNbfc']);
 Route::post('/getuseradminside', [AdminController::class, 'getUserProfileAdminSide']);
+Route::post('/update-personal-info-adminside', [AdminController::class, 'updatepersonalinfoadminside']);
