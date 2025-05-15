@@ -29,19 +29,25 @@ class User extends Model
 
     }
 
-    public function personalInfo()
-    {
-        return $this->hasOne(PersonalInfo::class, 'user_id', 'unique_id');
-    }
+    
     public function requestProgress()
     {
         return $this->hasMany(Requestprogress::class, 'user_id', 'unique_id');
     }
 
+    // User.php
+
+    public function personalInfo()
+    {
+        return $this->hasOne(PersonalInfo::class, 'user_id', 'id');
+    }
 
     public function courseInfo()
     {
-        return $this->hasMany(CourseInfo::class, 'user_id', 'unique_id');
+        return $this->hasMany(CourseInfo::class, 'user_id', 'id');
     }
+
+
+
 
 }
