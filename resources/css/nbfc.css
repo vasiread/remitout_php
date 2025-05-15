@@ -1,3 +1,8 @@
+html, body {
+    height: 100vh;
+    background-color: #F5F5F5;
+}
+
 .nbfc-navbar {
     position: fixed;
     top: 0;
@@ -215,7 +220,7 @@
 }
 
 .nbfc-mobile-menu-top li.active {
-    color: #FF9A3F;
+    color: white;
     background: linear-gradient(88.18deg, #FFA048 3.11%, #FA7B15 98.46%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -554,11 +559,6 @@
 
 }
 
-/* #nbfc-list-of-student-profilesections {
-    max-width: 50%;
-} */
-
-/*nav bar for tablets*/
 
 @media screen and (max-width: 1023px) {
     .nbfc-navbar {
@@ -740,18 +740,6 @@
     left: 3px;
 }
 
-/* 
-
-.nbfcstudentdashboardprofile-togglesidebar {
-     padding: 35px 10px;
-    max-width: 19%;
-    width: 100%;
-    box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
-    background-color: rgba(255, 255, 255, 1);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-} */
 
 .nbfcstudentdashboardprofile-togglesidebar ul {
     list-style: none;
@@ -1531,8 +1519,6 @@
         flex: 1;
         border-radius: 8px;
         padding: 14px;
-
-
     }
 
     .dashboard-section-header {
@@ -2786,6 +2772,11 @@
         border-radius: 4px;
         padding: 10px;
     }
+    .index-student-button-group {
+        display:flex;
+        flex-direction: column;
+        gap: 8px;
+    }
 }
 
 
@@ -2870,6 +2861,7 @@
     }
 
     .index-student-button-group {
+        display:flex;
         flex-direction: column;
         gap: 8px;
     }
@@ -2960,14 +2952,16 @@
 
     }
 }
-
-@media (min-width: 1025px) {
-    .index-student-send-btn-mobile {
-        display: none !important;
+@media (max-width: 768px) {
+    .index-student-button-group {
+        display: flex; 
     }
 }
-
-
+@media (max-width: 1024px) {
+    .index-student-button-group {
+        display: flex; 
+    }
+}
 
 @media (max-width: 480px) {
     .index-student-details-container {
@@ -3062,15 +3056,12 @@
     margin-left: 20px;
     margin-right: 0;
 
-
-
 }
 
 .nbfc-student-dashboard-section-main-contents .studentdashboardprofile-profilesection {
     background-color: white;
     margin-top: 19px;
     max-width: 100%;
-
 }
 
 .nbfc-student-dashboard-section-main-contents .myapplication-firstcolumn h1 {
@@ -3089,9 +3080,6 @@
     gap: 20px;
 
 }
-
-
-
 
 .personalinfo-secondrow li,
 .personal_info_name,
@@ -3122,15 +3110,12 @@
     display: flex;
     flex-direction: column;
     margin: 13px 0;
-
 }
-
 
 .nbfc-student-dashboard-section-main-contents .myapplication-eleventhcolumn {
     display: flex;
     justify-content: flex-start;
     gap: 300px;
-
 }
 
 .myapplication-eleventhcolumn {
@@ -3167,26 +3152,19 @@
 .myapplication-eleventhcolumn-buttons {
     display: flex;
     gap: 10px;
-
     width: 100%;
     height: 35px;
     padding: 16px 10px;
     gap: 8px;
     border-radius: 4px;
-
     background: transparent;
     font-family: 'Poppins', sans-serif;
-
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
     text-align: left;
-
-    display: flex;
     align-items: center;
     justify-content: center;
-
-
 }
 
 .nbfc-message-button,

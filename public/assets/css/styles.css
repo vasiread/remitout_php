@@ -360,6 +360,20 @@ html, body {
    gap:11px;
  }
 
+
+ .study-loans-graphsixthbox .global-content-graph
+ {
+  margin-top: 10px;
+ }
+ .study-loans-graphfourthbox .global-header-graph, 
+ .study-loans-graphfourthbox .global-content-graph{
+  margin-bottom: 10px;
+
+ }
+ .study-loans-graphfourthbox{
+  margin-top: -20px;
+ }
+
  #numberthree {
    left: 35%;
    position: absolute;

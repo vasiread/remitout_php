@@ -22,6 +22,22 @@
             border-radius: 4px;
             margin: 10px 0;
         }
+        .attachment-file-promotional {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+        .attachment-file-promotional .file-icon {
+            margin-right: 10px;
+        }
+        .attachment-file-promotional a {
+            flex-grow: 1;
+            word-break: break-all;
+        }
+        .attachment-file-promotional .remove-file {
+            margin-left: 10px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -77,7 +93,7 @@
                                 <option>Roboto</option>
                                 <option>Open Sans</option>
                                 <option>Lato</option>
-                                <option>Montserrat</option>
+                                <option>M sloping</option>
                                 <option>Ubuntu</option>
                                 <option>Merriweather</option>
                                 <option>Noto Sans</option>
@@ -168,11 +184,7 @@
                         <button class="btn-promo btn-draft"><i class="fas fa-paperclip"></i> Attach files</button>
                         <button class="btn-promo btn-insert" id="insertLinkBtn"><i class="fas fa-link"></i> Insert Link</button>
                     </div>
-                    <div class="attachment-file-promotional" id="linkContainer" style="display: none;">
-                        <i class="fas fa-link file-icon"></i>
-                        <a id="insertedLink" href="#" target="_blank">Inserted Link</a>
-                        <i class="fas fa-times remove-file" id="removeLink"></i>
-                    </div>
+                    <div id="linkContainer"></div>
                 </div>
                 <div class="promotional-recipients-section">
                     <div class="promotional-recipients-header">
@@ -200,8 +212,9 @@
                                 <option>Bangalore</option>
                                 <option>Mumbai</option>
                             </select>
-                            <div style="position: relative;">
-                                <input type="text" placeholder="Search" id="promotional-search-input">
+                           <div style="position: relative;">
+                                <input type="text" placeholder="Search" id="promotional-search-input" style="padding-left: 30px;">
+                                <img src="assets/images/search.png" alt="Search Icon" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px;">
                             </div>
                         </div>
                     </div>
@@ -251,6 +264,7 @@
             let entriesPerPage = parseInt(entriesPerPageSelect.value);
             let uploadedImageUrl = null;
             let attachedFiles = [];
+            let insertedLinks = []; // Array to store inserted links
             const getCsrfToken = () => document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
             initializeEditor();
             updateWordCount();
@@ -462,16 +476,13 @@
                         }
                     });
                 }
-
                 contentArea.addEventListener('click', function (event) {
                     const target = event.target;
                     if (target.tagName === 'A' && target.href) {
-                        event.preventDefault(); // Prevent contenteditable from interfering
-                        window.open(target.href, '_blank'); // Open link in a new tab
-                        // Alternatively, use: window.location.href = target.href; // Navigate in the same tab
+                        event.preventDefault();
+                        window.open(target.href, '_blank');
                     }
                 });
-                
                 const sizeSelect = document.getElementById('size');
                 if (sizeSelect) {
                     sizeSelect.addEventListener('change', function () {
@@ -549,7 +560,7 @@
                             }
                         }
                     });
-                   contentArea.addEventListener('mouseup', function () {
+                    contentArea.addEventListener('mouseup', function () {
                         const selection = window.getSelection();
                         if (selection.rangeCount > 0) {
                             const range = selection.getRangeAt(0);
@@ -851,11 +862,9 @@
                 const linkInput = document.querySelector('.promotional-link-input');
                 const linkContainer = document.querySelector('.promotional-link-container');
                 const insertLinkBtn = document.getElementById('insertLinkBtn');
-                const removeLinkBtn = document.getElementById('removeLink');
-                const insertedLink = document.getElementById('insertedLink');
-                const insertedLinkContainer = document.getElementById('linkContainer');
+                const linkContainerDiv = document.getElementById('linkContainer');
                 if (changeButton && removeButton && linkInput && linkContainer) {
-                    changeButton.addEventListener('click', function () {
+                  changeButton.addEventListener('click', function () {
                         const newLink = prompt('Update link:', linkInput.value);
                         if (newLink) {
                             linkInput.value = newLink;
@@ -869,22 +878,32 @@
                         }
                     });
                 }
-                if (insertLinkBtn && insertedLink && insertedLinkContainer) {
+                if (insertLinkBtn && linkContainerDiv) {
                     insertLinkBtn.addEventListener('click', function () {
                         const link = prompt('Enter the link:', 'https://');
                         if (link) {
                             const normalizedLink = link.startsWith('http://') || link.startsWith('https://') ? link : 'https://' + link;
-                            insertedLink.href = normalizedLink;
-                            insertedLink.textContent = normalizedLink;
-                            insertedLinkContainer.style.display = 'flex';
+                            insertedLinks.push(normalizedLink);
+                            renderLinks();
                         }
                     });
                 }
-                if (removeLinkBtn && insertedLinkContainer) {
-                    removeLinkBtn.addEventListener('click', function () {
-                        insertedLinkContainer.style.display = 'none';
-                        insertedLink.textContent = 'Inserted Link';
-                        insertedLink.removeAttribute('href');
+                function renderLinks() {
+                    linkContainerDiv.innerHTML = '';
+                    insertedLinks.forEach((link, index) => {
+                        const linkElement = document.createElement('div');
+                        linkElement.className = 'attachment-file-promotional';
+                        linkElement.setAttribute('data-link-id', index);
+                        linkElement.innerHTML = `
+                            <i class="fas fa-link file-icon"></i>
+                            <a href="${link}" target="_blank">${link}</a>
+                            <i class="fas fa-times remove-file"></i>
+                        `;
+                        linkContainerDiv.appendChild(linkElement);
+                        linkElement.querySelector('.remove-file').addEventListener('click', function () {
+                            insertedLinks = insertedLinks.filter((_, i) => i !== index);
+                            renderLinks();
+                        });
                     });
                 }
             }
@@ -973,6 +992,7 @@
                 const formData = new FormData();
                 formData.append('content', content);
                 formData.append('recipients', JSON.stringify(selectedRecipients));
+                formData.append('links', JSON.stringify(insertedLinks)); // Include links in formData
                 attachedFiles.forEach((file, index) => {
                     formData.append(`attachments[${index}]`, file);
                 });
@@ -1001,9 +1021,11 @@
                             alert(message);
                             localStorage.removeItem('emailDraft');
                             attachedFiles = [];
+                            insertedLinks = []; // Clear links after sending
                             const attachmentSection = document.getElementById('attachmentSection');
                             const fileElements = attachmentSection.querySelectorAll('.attachment-file-promotional:not(#linkContainer)');
                             fileElements.forEach(element => element.remove());
+                            document.getElementById('linkContainer').innerHTML = ''; // Clear link container
                         } else {
                             alert('Failed to send email: ' + (data.error || 'Unknown error'));
                         }
