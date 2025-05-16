@@ -1782,6 +1782,9 @@ text[fill="#222222"] {
     align-items: center;
     margin-bottom: 5px;
     font-size: 12px;
+    justify-content:space-between ;
+    color: #5d5c5c;
+    
 }
 .sc-lead-legend-item span {
     font-size: 12px;

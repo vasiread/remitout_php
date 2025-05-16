@@ -1,0 +1,1750 @@
+* {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+input[type="file"] {
+    display: none;
+    margin-top: 10px;
+}
+
+.studentdashboardprofile {
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    background: none;
+    margin-left: 19.43%;
+    gap: 2.28%;
+    overflow-x: hidden;
+}
+
+.studentdashboardprofile-togglesidebar {
+    height: 100vh;
+    padding: 35px 0px;
+    position: fixed;
+
+    box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
+    background-color: rgba(255, 255, 255, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 85px;
+    max-width: 17.43%;
+    width: 100%;
+}
+
+.studentdashboardprofile-togglesidebar ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 202px;
+    max-width: 100%;
+    align-items: center;
+}
+
+.studentdashboardprofile-sidebarlists-bottom img {
+    width: 20px;
+    height: 20px;
+}
+
+.studentdashboardprofile-sidebarlists-top li {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.2px;
+    text-align: left;
+    color: rgba(38, 2, 84, 0.7);
+    padding: 0.93rem;
+    cursor: pointer;
+    width: 100%;
+    max-width: 100%;
+    height: 54px;
+    display: flex;
+    gap: 6.07%;
+    align-items: center;
+
+    border-radius: 4px;
+    opacity: 0px;
+    padding-left: 11.74%;
+}
+
+.studentdashboardprofile-sidebarlists-bottom {
+    width: 100%;
+    margin: 0;
+}
+
+.studentdashboardprofile-sidebarlists-bottom li {
+    border: 1px solid rgba(222, 222, 222, 0.8);
+    background-color: rgba(255, 255, 255, 1);
+    display: flex;
+    gap: 18px;
+    max-width: 77.32%;
+    width: 100%;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.2px;
+    text-align: left;
+    color: rgba(38, 2, 84, 0.7);
+    padding: 0.93rem;
+    cursor: pointer;
+    width: 100%;
+    max-width: 77.32%;
+    height: 54px;
+    display: flex;
+    gap: 6.07%;
+    align-items: center;
+
+    border-radius: 4px;
+    opacity: 0px;
+}
+
+.personalinfo-secondrow li img {
+    width: 20px;
+    height: 20px;
+}
+
+.studentdashboardprofile-sidebarlists-top li {
+    display: flex;
+    gap: 6.07%;
+}
+
+.studentdashboardprofile-sidebarlists-top li.active {
+    background: linear-gradient(88.18deg, #ffa048 3.11%, #fa7b15 98.46%);
+    color: rgba(255, 255, 255, 1);
+    display: flex;
+    gap: 6.07%;
+}
+
+/* profilesection */
+.testscoreseditsection-secondrow-editsection {
+    display: none;
+    flex-direction: column;
+}
+
+.testscoreseditsection-secondrow-editsection input {
+    border: none;
+    outline: none;
+    border-bottom: 0.3px solid rgba(33, 33, 33, 0.5);
+    color: rgba(33, 33, 33, 0.5);
+    font-size: 0.8rem;
+    margin: 0.2rem 0;
+}
+
+.testscoreseditsection-secondrow-editsection p {
+    color: rgba(33, 33, 33, 0.7);
+    font-size: 0.8rem;
+    margin: 0.2rem 0;
+}
+
+.nbfc-studentdashboard-profile-container {
+    display: flex;
+}
+
+.studentdashboardprofile-profilesection {
+    margin-top: 105.8px;
+    height: fit-content;
+
+    padding: 20px 20px 31px 22px;
+    box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    flex: 1;
+    position: relative;
+    max-width: 21.8%;
+    width: 100%;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
+}
+
+.studentdashboardprofile-profilesection .fa-pen-to-square {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1.7rem;
+    color: rgba(38, 2, 84, 0.7);
+    display: none;
+    cursor: pointer;
+}
+
+.studentdashboardprofile-profilesection .profileImg {
+    border-radius: 6px;
+    position: relative;
+    height: 122px;
+    width: 100%;
+}
+
+.studentdashboardprofile-personalinfo {
+    height: 262px;
+    max-width: 272px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    justify-content: flex-start;
+}
+
+.studentdashboardprofile-personalinfo .personalinfo-firstrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 0;
+}
+
+.studentdashboardprofile-personalinfo .personalinfo-firstrow h1 {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 27px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: rgba(0, 0, 0, 1);
+    margin: 0;
+}
+
+.studentdashboardprofile-personalinfo .personalinfo-firstrow button {
+    width: 72px;
+    height: 35px;
+
+    padding: 16px 32px;
+    gap: 8px;
+    border-radius: 4px;
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(226, 226, 226, 1);
+    color: rgba(111, 37, 206, 0.87);
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.studentdashboardprofile-personalinfo .personalinfo-secondrow {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    overflow: hidden;
+    padding-right: 1rem;
+}
+
+.personalinfo-secondrow li {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 15.6px;
+    text-align: left;
+    color: rgba(33, 33, 33, 0.5);
+    display: flex;
+    gap: 20px;
+}
+
+.studentdashboardprofile-profilesection .progress-ring-circle {
+    stroke-dasharray: 330;
+    stroke-dashoffset: 0;
+}
+
+.studentdashboardprofile-profilesection .progress-ring-fill {
+    stroke-dasharray: 330;
+    stroke-dashoffset: 330;
+}
+
+.personalinfo-profilestatus h1 {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 19.5px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: rgba(0, 0, 0, 1);
+    padding-bottom: 1rem;
+}
+
+.profilestatus-graph-section {
+    max-width: 124px;
+    height: 165px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+    border: 1px solid rgba(229, 229, 229, 1);
+    color: rgba(255, 255, 255, 1);
+}
+
+.personalinfo-graphsectioncontainer {
+    display: flex;
+    gap: 20.99px;
+}
+
+.profilestatus-graph-section p {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.01em;
+
+    color: rgba(255, 154, 63, 1);
+    padding: 12px;
+}
+
+.profilestatus-graph-secondsection span {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 45px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: rgba(131, 131, 131, 0.3);
+    margin-left: 2rem;
+    margin-bottom: 2rem;
+}
+
+.profilestatus-graph-secondsection p {
+    padding-top: 1rem;
+    font-family: "Poppins", sans-serif;
+
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 0px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: rgba(255, 154, 63, 1);
+    /* padding: 12px; */
+}
+
+.profilestatus-graph-secondsection {
+    max-width: 124px;
+    width: 100%;
+    height: 165px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+    border: 1px solid rgba(229, 229, 229, 1);
+}
+
+.profilestatus-graph-secondsection .secondsection-inside {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.01em;
+
+    color: rgba(255, 154, 63, 1);
+    padding: 12px;
+}
+
+.studentdashboardprofile-communityjoinsection {
+    max-width: 100%;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    width: 272px;
+    height: 50px;
+    padding: 15px;
+    gap: 15px;
+    border-radius: 4px;
+    cursor: pointer;
+
+    border: 1px solid rgba(222, 222, 222, 0.8);
+}
+
+.studentdashboardprofile-communityjoinsection p {
+    color: rgba(38, 2, 84, 0.7);
+    font-family: "Poppins", sans-serif;
+
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.2px;
+}
+
+.studentdashboardprofile-trackprogress {
+    display: flex;
+    /* display: none; */
+    flex-direction: column;
+    max-width: 53.54%;
+    width: 100%;
+
+    flex: 1;
+    margin-top: 85px;
+    max-width: 53.54%;
+    /* box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03); */
+}
+
+.studentdashboardprofile-trackprogress .trackprogress-header {
+    font-family: Inter;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 33.89px;
+    text-align: left;
+    color: rgba(233, 134, 53, 1);
+
+    /* margin: 30px 0px 30px 24px; */
+}
+
+.studentdashboardprofile-trackprogress h1 {
+    font-family: Inter;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 33.89px;
+    text-align: left;
+    color: rgba(233, 134, 53, 1);
+    margin: 30px 0px 30px 24px;
+}
+
+.trackprogress-headercontainer {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 100%;
+}
+
+.trackprogress-contentcontainer {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    gap: 24px;
+}
+
+.studentdashboardprofile-firstrowtrackprogress {
+    /* max-width: 722px; */
+
+    max-width: 100%;
+
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    background-color: rgba(255, 255, 255, 1);
+    margin-top: 2.5rem;
+    padding: 29px 24px 25px 24px;
+
+    box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
+}
+
+.trackprogress-leftsection {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 349px;
+    height: 135px;
+    /* width: 100%; */
+    gap: 0.93rem;
+    border: 1px solid rgba(229, 229, 229, 1);
+}
+
+.leftsection-detailsinfo {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+}
+
+.leftsection-detailsinfo div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.leftsection-detailsinfo div h1 {
+    margin: 0;
+}
+
+.trackprogress-leftsection p {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: rgba(144, 144, 144, 1);
+}
+
+.trackprogress-leftsection h1 {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 45px;
+    letter-spacing: -0.01em;
+    text-align: center;
+    color: rgba(210, 210, 210, 1);
+}
+
+/* display: flex;
+ flex-direction: column;
+ justify-content: flex-start;
+ max-width: 349px;
+ height: 135px;
+ width: 100%;
+ gap: 0.93rem;
+ border: 1px solid rgba(229, 229, 229, 1); */
+
+.trackprogress-rightsection {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: 1px solid rgba(229, 229, 229, 1);
+    height: 135px;
+    width: 349px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.uploadsectionsandglass i {
+    color: rgba(210, 210, 210, 1);
+    font-size: 30px;
+}
+
+.rightsection-uploadsection {
+    display: flex;
+    max-width: 100%;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 1.5rem;
+}
+
+.rightsection-uploadsection button {
+    width: 99px;
+    height: 42px;
+    top: 73px;
+    left: 604px;
+    padding: 16px 32px;
+    gap: 8px;
+    border-radius: 4px;
+    background-color: rgba(111, 37, 206, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.8px;
+    color: rgba(255, 255, 255, 1);
+    border: none;
+    cursor: pointer;
+}
+
+.uploadsectionsandglass {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.uploadsectionsandglass .upload-status-hourglass {
+    color: rgba(144, 144, 144, 1);
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.01em;
+}
+
+.trackprogress-rightsection p {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 27px;
+    color: rgba(0, 0, 0, 1);
+
+    letter-spacing: -0.01em;
+    text-align: left;
+}
+
+.rightsection-uploadsection .uploadsectionsandglass {
+    display: flex;
+}
+
+.studentdashboardprofile-loanproposals {
+    margin: 25px 0;
+    box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
+    background-color: rgba(255, 255, 255, 1);
+    padding-bottom: 1.5rem;
+}
+
+.studentdashboardprofile-loanproposals .loanproposals-header {
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 21.78px;
+    text-align: left;
+    color: rgba(233, 134, 53, 1);
+}
+
+.loanproposals-loanstatuscards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    /* margin: 25px 0; */
+    /* background-color: red; */
+}
+
+.indivudalloanstatus-cards {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 1rem 1.8rem;
+
+    gap: 10px;
+    height: fit-content;
+    border-top: 1px solid rgba(229, 229, 229, 1);
+}
+
+.indivudalloanstatus-cards h1 {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+
+    color: rgba(93, 92, 92, 1);
+}
+
+.indivudalloanstatus-cards p {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: rgba(144, 144, 144, 1);
+    max-width: 370px;
+    width: 100%;
+}
+
+.individual-bankmessages {
+    display: flex;
+    justify-content: space-between;
+}
+
+.individual-bankmessages-buttoncontainer {
+    display: flex;
+    gap: 0.9rem;
+}
+
+.individual-bankmessages-buttoncontainer button {
+    width: 72px;
+    height: 35px;
+
+    padding: 16px 32px;
+    gap: 8px;
+    border-radius: 4px;
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.8px;
+    text-align: left;
+    color: rgba(111, 37, 206, 0.87);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
+    border: 1px solid rgba(111, 37, 206, 1);
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.individual-bankmessages-buttoncontainer button:hover {
+    background-color: rgba(111, 37, 206, 1);
+    color: rgba(255, 255, 255, 0.87);
+}
+
+.individual-bankmessages .triggeredbutton {
+    width: 109px;
+    height: 35px;
+    gap: 8px;
+    border-radius: 4px;
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.8px;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(111, 37, 206, 1);
+    border: none;
+    display: none;
+    cursor: pointer;
+    position: relative;
+}
+.triggeredbutton.has-unread::after {
+    content: "";
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    z-index: 6;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgb(234, 120, 27);
+    display: inline-block;
+}
+
+.individual-bankmessage-input {
+    max-width: 100%;
+    height: 35px;
+    margin: 33px 0px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    display: none;
+}
+
+.individual-bankmessage-input input {
+    max-width: 100%;
+    width: 85%;
+    height: 100%;
+    padding: 16px 32px 16px 17px;
+    gap: 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(226, 226, 226, 1);
+    font-family: "Poppins", sans-serif;
+
+    color: rgba(144, 144, 144, 1);
+}
+
+.individual-bankmessages-buttoncontainer .bankmessage-buttoncontainer-reject {
+    color: #ff7a00;
+    border: 1px solid #e2e2e2;
+}
+
+.individual-bankmessages-buttoncontainer
+    .bankmessage-buttoncontainer-reject:hover {
+    background-color: rgba(111, 37, 206, 1);
+    color: rgba(255, 255, 255, 0.87);
+}
+
+.individual-bankmessage-input input::placeholder {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.8px;
+    text-align: left;
+    color: rgba(111, 37, 206, 1);
+}
+
+.individual-bankmessage-input i {
+    font-size: 1.2rem;
+    color: rgba(187, 187, 187, 1);
+    cursor: pointer;
+}
+
+.individual-bankmessage-input .send-img {
+    position: absolute;
+    right: 15%;
+    padding: 0px 9px 0px 0;
+
+    z-index: 2;
+}
+
+.personalinfo-secondrow i {
+    font-size: 18px;
+}
+
+/* --------------------My Application------------- */
+
+.studentdashboardprofile-myapplication {
+    display: none;
+    max-width: 49.54%;
+    width: 100%;
+    height: fit-content;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
+    margin: 105px 0;
+    padding: 20px 24px;
+    display: none;
+    flex-direction: column;
+    gap: 1.87rem;
+}
+
+.myapplication-firstcolumn {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.myapplication-firstcolumn h1 {
+    font-family: Inter;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 33.89px;
+    text-align: left;
+    color: rgba(233, 134, 53, 1);
+}
+
+.myapplication-firstcolumn button {
+    width: 109px;
+    height: 35px;
+    padding: 16px 32px;
+    gap: 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(111, 37, 206, 1);
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.8px;
+    text-align: left;
+    color: rgba(38, 2, 84, 1);
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.myapplication-secondcolumn {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.myapplication-secondcolumn p {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.2px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: rgba(25, 24, 37, 1);
+}
+
+.myapplication-secondcolumn input {
+    width: 100%;
+    height: 38px;
+
+    padding: 10px 13px;
+    gap: 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(226, 226, 226, 1);
+    outline: none;
+}
+
+.myapplication-thirdcolumn {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.checkbox-group-edit {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+    margin-top: 10px;
+    position: relative;
+}
+
+.checkbox-group-edit label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    color: #75747c;
+    cursor: pointer;
+    line-height: 1.2rem;
+}
+
+.checkbox-group-edit input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #e2e8f0;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    margin-right: 10px;
+    transition: all 0.3s ease-in-out;
+    color: #dfdfdf;
+}
+
+.checkbox-group-edit input[type="checkbox"]:checked {
+    border-color: #e98635;
+}
+
+.checkbox-group-edit input[type="checkbox"]:checked::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background-color: #e98635;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 2px;
+}
+
+/* Custom Input Box for adding country */
+.add-country-box-edit {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.add-country-box-edit #additionalinput {
+    background-color: red;
+    width: 20%;
+}
+
+/* .custom-country-edit {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #E2E8F0;
+    border-radius: 4px;
+    font-size: 14px;
+} */
+
+.add-country-box-edit {
+    grid-column: 1 / -1;
+    display: none;
+}
+
+#country-edit {
+    width: 142px;
+    padding: 8px;
+    font-size: 14px;
+    color: #75747c;
+    border-radius: 6px;
+    outline: none;
+    position: absolute;
+    margin-top: -23px;
+    border: 1px solid #ccc;
+}
+
+.custom-country-edit::placeholder {
+    font-size: 14px;
+    color: #b0b0b0;
+}
+
+.checkbox-group-edit {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 30px;
+    place-items: flex-start;
+    margin-top: 10px;
+    position: relative;
+    font-family: "Poppins", sans-serif;
+}
+
+.myapplication-thirdcolumn .degreetypescheckboxes {
+    display: flex;
+    gap: 12px;
+    height: fit-content;
+}
+
+.myapplication-thirdcolumn h6 {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.2px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: rgba(25, 24, 37, 1);
+}
+
+.myapplication-thirdcolumn p {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 28.8px;
+    letter-spacing: -0.01em;
+    color: rgba(25, 24, 37, 0.6);
+}
+
+.custom-radio input[type="radio"] {
+    display: none;
+}
+
+.custom-radio {
+    display: flex;
+}
+
+.custom-radio .radio-button {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba(223, 223, 223, 1);
+    border-radius: 2px;
+    position: relative;
+    margin-right: 10px;
+    vertical-align: middle;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.custom-radio .radio-button::after {
+    content: "";
+    display: block;
+    width: 16px;
+    height: 16px;
+    border-radius: 2px;
+    background-color: rgba(233, 134, 53, 1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.custom-radio input[type="radio"]:checked + .radio-button::after {
+    opacity: 1;
+}
+
+.custom-radio .radio-button:hover {
+    border-color: rgba(233, 134, 53, 1);
+}
+
+.custom-radio input[type="radio"]:focus + .radio-button {
+    box-shadow: 0 0 0 3px rgba(233, 134, 53, 0.5);
+}
+
+.myapplication-thirdcolumn input[type="text"] {
+    width: 100%;
+    height: 38px;
+
+    padding: 10px 13px;
+    gap: 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(226, 226, 226, 1);
+    outline: none;
+}
+
+.studentdashboardprofile-myapplication input[type="text"]::placeholder {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: rgba(144, 144, 144, 1);
+}
+
+.myapplication-fourthcolumn,
+.myapplication-fourthcolumn-additional {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.myapplication-fourthcolumn p,
+.myapplication-fourthcolumn-additional p {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.2px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: rgba(25, 24, 37, 1);
+}
+
+.myapplication-fourthcolumn input,
+.myapplication-fourthcolumn-additional input {
+    width: 100%;
+    height: 38px;
+
+    padding: 10px 13px;
+    gap: 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(226, 226, 226, 1);
+    outline: none;
+}
+
+.myapplication-fifthcolumn {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.myapplication-fifthcolumn p {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.2px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: rgba(25, 24, 37, 1);
+}
+
+.myapplication-fifthcolumn input {
+    width: 100%;
+    height: 38px;
+
+    padding: 10px 13px;
+    gap: 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(226, 226, 226, 1);
+    outline: none;
+}
+
+.myapplication-sixthcolumn {
+    width: 100%;
+    height: fit-content;
+    border: 1px solid rgba(226, 226, 226, 1);
+    border-radius: 4px;
+}
+
+.myapplication-sixthcolumn p {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 19.5px;
+    text-align: left;
+    color: rgba(33, 33, 33, 0.5);
+    padding: 10px 13px;
+    max-width: 697px;
+}
+
+.myapplication-seventhcolumn {
+    display: flex;
+    flex-direction: column;
+}
+
+.myapplication-eightcolumn {
+    flex-direction: column;
+}
+
+.myapplication-seventhcolumn h1 {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.2px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: rgba(111, 37, 206, 1);
+    border-top: 1.2px solid rgba(194, 194, 194, 0.7);
+    padding: 2rem 0;
+}
+
+.myapplication-seventhcolum-documentscolumn {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem 0;
+    gap: 2rem;
+}
+
+.myapplication-seventhcolum-documentscolumn h4 {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: rgba(25, 24, 37, 1);
+}
+
+.inputfilecontainer {
+    display: flex;
+    gap: 11px;
+    max-width: 291px;
+    width: 100%;
+    height: 45px;
+    border: 0.5px solid rgba(174, 174, 174, 1);
+    border-radius: 4px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+.inputfilecontainer-marksheet,
+.inputfilecontainer-secured-admission,
+.inputfilecontainer-work-experiencecolumn,
+.inputfilecontainer-coborrower-kyccolumn {
+    display: flex;
+    gap: 11px;
+    max-width: 291px;
+    width: 100%;
+    height: 45px;
+    border: 0.5px solid rgba(174, 174, 174, 1);
+    border-radius: 4px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.individualkycdocuments {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.individualkycdocuments .document-name {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+    text-align: left;
+    color: rgba(0, 0, 0, 1);
+}
+
+.individualkycdocuments .document-status {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: left;
+    color: rgba(131, 131, 131, 0.5);
+}
+
+.inputfilecontainer p {
+    width: 204px;
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    color: rgba(131, 131, 131, 1);
+
+    overflow: hidden;
+}
+
+.inputfilecontainer-marksheet p,
+.inputfilecontainer-secured-admission p,
+.inputfilecontainer-work-experiencecolumn p,
+.inputfilecontainer-coborrower-kyccolumn p {
+    width: 204px;
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    color: rgba(131, 131, 131, 1);
+}
+
+.myapplication-seventhcolumn .kycdocumentscolumn {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+.seventhcolumn-additional-firstcolumn .marksheetdocumentscolumn,
+.secured-admissioncolumn,
+.work-experiencecolumn,
+.coborrower-kyccolumn {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+.individualmarksheetdocuments,
+.individual-secured-admission-documents,
+.individual-work-experiencecolumn-documents,
+.individual-coborrower-kyc-documents {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.individualmarksheetdocuments .document-name,
+.individual-secured-admission-documents .document-name,
+.individual-work-experiencecolumn-documents .document-name,
+.individual-coborrower-kyc-documents .document-name {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+    text-align: left;
+    color: rgba(0, 0, 0, 1);
+}
+
+.individualmarksheetdocuments .document-status,
+.individual-secured-admission-documents .document-status,
+.individual-work-experiencecolumn-documents .document-status,
+.individual-coborrower-kyc-documents .document-status {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: left;
+    color: rgba(131, 131, 131, 0.5);
+}
+
+.myapplication-seventhcolum-documentscolumn .inputfilecontainer .fa-image {
+    color: rgba(233, 134, 53, 1) !important;
+}
+
+.seventhcolumn-additional,
+.myapplication-seventhcolumn,
+.myapplication-eightcolumn,
+.myapplication-ninthcolumn,
+.myapplication-tenthcolumn {
+    display: flex;
+    font-family: "Poppins", sans-serif;
+
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    border-bottom: 1.2px solid rgba(194, 194, 194, 0.7);
+    padding-bottom: 2rem;
+    color: rgba(25, 24, 37, 1);
+}
+
+.seventhcolumn-header,
+.seventhcolumnadditional-header,
+.eightcolumn-header,
+.ninthcolumn-header,
+.tenthcolumn-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.fa-solid.fa-image {
+    color: rgba(233, 134, 53, 1);
+}
+
+.myapplication-ninthcolumn .ninthcolumn-firstsection,
+.myapplication-tenthcolumn .tenthcolumn-firstsection,
+.myapplication-eightcolumn .eightcolumn-firstsection,
+.myapplication-seventhcolumn .seventhcolum-firstsection,
+.seventhcolumn-additional .seventhcolumn-additional-firstcolumn {
+    display: flex;
+    max-width: 100%;
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1rem;
+    cursor: pointer;
+    height: 20px;
+    transition: height 0.5s ease;
+    overflow: hidden;
+}
+
+.myapplication-eleventhcolumn {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.studentdashboardprofile-myapplication
+    .myapplication-eleventhcolumn
+    .mailnbfcbutton {
+    max-width: 168px;
+    width: 100%;
+    height: 35px;
+    padding: 16px 10px;
+    gap: 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(111, 37, 206, 1);
+    background: transparent;
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.8px;
+    text-align: left;
+    color: rgba(79, 79, 79, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
+}
+
+.studentdashboardprofile-myapplication
+    .myapplication-eleventhcolumn
+    .mailnbfcbutton:hover {
+    background-color: rgba(111, 37, 206, 1);
+    color: #fff;
+}
+
+.educationeditsection-firstrow,
+.testscoreseditsection-firstrow {
+    margin-bottom: 20px;
+}
+
+.studentdashboardprofile-educationeditsection {
+    display: none;
+    flex-direction: column;
+    margin: 13px 0;
+}
+
+.educationeditsection-firstrow {
+    display: flex;
+    justify-content: space-between;
+}
+
+.educationeditsection-firstrow h1 {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 27px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+.educationeditsection-firstrow button {
+    width: 72px;
+    height: 35px;
+
+    padding: 16px 32px;
+    gap: 8px;
+    border-radius: 4px;
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(226, 226, 226, 1);
+    color: rgba(111, 37, 206, 0.87);
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.educationeditsection-secondrow {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.educationeditsection-secondrow p {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 15.6px;
+    text-align: left;
+    color: rgba(33, 33, 33, 0.5);
+}
+
+.personalinfosecondrow-editsection {
+    display: none;
+    flex-direction: column;
+    list-style: none;
+}
+
+.personalinfosecondrow-editsection li:nth-child(1) {
+    display: flex;
+    flex-direction: row;
+}
+
+.personalinfosecondrow-editsection li {
+    display: flex;
+    flex-direction: column;
+    font-family: "Poppins", sans-serif;
+
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 13.6px;
+    text-align: left;
+    color: rgba(33, 33, 33, 0.5);
+    display: flex;
+    gap: 0.2rem;
+    margin: 0.2rem 0;
+}
+
+.personalinfosecondrow-editsection li input {
+    outline: none;
+    padding: 0.2rem;
+    border: 1px solid #c1c1c5;
+    color: rgb(99 96 96 / 70%);
+}
+
+.studentdashboardprofile-myapplication
+    .myapplication-firstcolumn
+    .personalinfo-firstrow
+    .saved-msg {
+    color: rgb(104, 198, 121);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.studentdashboardprofile-testscoreseditsection {
+    display: none;
+    flex-direction: column;
+    margin: 13px 0;
+}
+
+.testscoreseditsection-firstrow {
+    display: flex;
+    justify-content: space-between;
+}
+
+.testscoreseditsection-firstrow h1 {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 27px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+.testscoreseditsection-firstrow button {
+    width: 72px;
+    height: 35px;
+
+    padding: 16px 32px;
+    gap: 8px;
+    border-radius: 4px;
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(226, 226, 226, 1);
+    color: rgba(111, 37, 206, 0.87);
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.testscoreseditsection-secondrow {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.testscoreseditsection-secondrow p {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 15.6px;
+    text-align: left;
+    color: rgba(33, 33, 33, 0.5);
+    display: flex;
+    justify-content: space-between;
+    /*  padding: 0 1rem; */
+}
+
+.pdf-viewer-container {
+    width: 57%;
+    height: 833px;
+    margin: 0 auto;
+
+    background: #fff;
+    position: fixed;
+    top: 10%;
+    left: 23%;
+    z-index: 1000;
+}
+
+#pdfViewerModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+@media (max-width: 1200px) {
+    .trackprogress-contentcontainer {
+        flex-direction: column;
+        align-items: center;
+        height: fit-content;
+        padding-bottom: 1.2rem;
+    }
+
+    .indivudalloanstatus-cards {
+        height: fit-content;
+    }
+
+    .individual-bankmessages {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .studentdashboardprofile {
+        gap: 1rem;
+    }
+
+    .myapplication-thirdcolumn .degreetypescheckboxes {
+        flex-direction: column;
+    }
+
+    .myapplication-seventhcolumn .kycdocumentscolumn,
+    .seventhcolumn-additional-firstcolumn .marksheetdocumentscolumn,
+    .secured-admissioncolumn,
+    .work-experiencecolumn,
+    .coborrower-kyccolumn {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 1020px) {
+    .personalinfo-secondrow p {
+        font-size: 0.7rem;
+    }
+
+    .studentdashboardprofile {
+        gap: 0;
+    }
+
+    .studentdashboardprofile-loanproposals .loanproposals-header {
+        padding: 20px 24px;
+    }
+
+    .studentdashboardprofile-profilesection {
+        max-width: 31.8%;
+        width: 100%;
+    }
+
+    .studentdashboardprofile-togglesidebar ul li {
+        font-size: 0.8rem;
+        gap: 6.07%;
+    }
+
+    .checkbox-group-edit {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .studentdashboardprofile {
+        gap: 0;
+        margin: 0px;
+    }
+    .studentdashboardprofile-profilesection {
+        display: none;
+    }
+
+    .studentdashboardprofile {
+        margin: 0;
+    }
+
+    .studentdashboardprofile-myapplication {
+        max-width: 100%;
+    }
+
+    .studentdashboardprofile-togglesidebar {
+        display: none;
+    }
+
+    .trackprogress-contentcontainer {
+        align-items: center;
+    }
+
+    .studentdashboardprofile-firstrowtrackprogress {
+        flex-direction: column;
+        height: fit-content;
+    }
+
+    .individual-bankmessages {
+        flex-direction: column;
+        height: fit-content;
+        gap: 1rem;
+    }
+
+    .loanproposals-loanstatuscards {
+        gap: 4rem;
+    }
+
+    .individual-bankmessages-buttoncontainer {
+        flex-direction: row-reverse;
+    }
+
+    .bankmessage-buttoncontainer-reject {
+        margin-right: 3rem;
+    }
+
+    .indivudalloanstatus-cards {
+        padding: 1rem 0.6rem;
+    }
+
+    .studentdashboardprofile-trackprogress {
+        display: flex;
+        max-width: 100%;
+        width: 100%;
+        padding: 0 1.5rem;
+    }
+
+    .studentdashboardprofile-trackprogress .trackprogress-header {
+        font-size: 24px;
+    }
+
+    .studentdashboardprofile-trackprogress h1 {
+        margin: 0;
+    }
+
+    .myapplication-thirdcolumn .degreetypescheckboxes {
+        flex-direction: column;
+        gap: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .trackprogress-leftsection,
+    .trackprogress-rightsection {
+        width: 100%;
+    }
+}
+/* Hide redundant sidebar on mobile */
+@media (max-width: 768px) {
+    .studentdashboardprofile-togglesidebar {
+        display: none;
+    }
+}
+
