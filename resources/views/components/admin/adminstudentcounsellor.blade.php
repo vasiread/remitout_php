@@ -53,7 +53,10 @@
                 <span class="error-message-sc" id="address-error"></span>
             </div>
             <div class="upload-container input-container-sc">
-                <input type="text" placeholder="Upload Profile Image" id="trigger-profile-photo-sc" readonly>
+                <div class="input-wrapper">
+                    <input type="text" placeholder="Upload Profile Image" id="trigger-profile-photo-sc" readonly="">
+                    <img src="assets/images/upload.png" alt="Upload Icon" class="upload-icon">
+                </div>
                 <input type="file" id="sc-profile-photo-upload" style="display: none;">
                 <span class="error-message-sc" id="profile-photo-error"></span>
             </div>

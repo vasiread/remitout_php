@@ -292,9 +292,28 @@
     background: transparent;
 }
 
-/* Remove incorrect placeholder transform */
 .studentcounsellor-requiredfields-admin input:nth-child(5)::placeholder {
     transform: none;
+}
+
+.input-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+#trigger-profile-photo-sc {
+    padding-right: 40px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.upload-icon {
+    position: absolute;
+    right: 10px;
+    width: 24px; 
+    height: 24px;
+    pointer-events: none; 
 }
 
 @media (max-width: 767px) {
