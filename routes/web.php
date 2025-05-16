@@ -214,7 +214,7 @@ Route::post('/forgot-passwordmailsent', [StudentDashboardController::class, 'for
 Route::post('/forgot-passwordmailsentnbfc', [NbfcController::class, 'forgotNbfcCredential']);
 Route::post('/forgot-passwordmailsentsc', [scDashboardController::class, 'forgotScCredential']);
 Route::get('/admins', [Admincontroller::class, 'getAdmins']);
-Route::post('/admins', [Admincontroller::class, 'createAdmin']);
+Route::post('/postadmins', [Admincontroller::class, 'createAdmin']);
 Route::get('/student-forms', [AdminController::class, 'showStudentForm'])->name('student-forms');
 Route::get('/getInfoForAdminSocial', [Admincontroller::class, 'showStudentFormAdmin']);
 Route::delete('/deleteInfoForAdminSocial/{id}', [AdminController::class, 'deleteInfoForAdminSocial']);
@@ -240,3 +240,7 @@ Route::post('/updatenbfc', [AdminController::class, 'updateNbfc']);
 Route::post('/suspendnbfc', [AdminController::class, 'suspendNbfc']);
 Route::get('/getUserProfileAdminSide', [AdminController::class, 'getUserProfileAdminSide']);
 Route::post('/update-personal-info-adminside', [AdminController::class, 'updatepersonalinfoadminside']);
+
+
+
+Route::get('/documents', [StudentDetailsController::class, 'getDynamicDocuments']);

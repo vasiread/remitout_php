@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Mail\PromotionalContentMail;
 use App\Models\Academics;
+use App\Models\AdditionalField;
 use App\Models\Admin;
 use App\Models\CourseDuration;
 use App\Models\CourseInfo;
 use App\Models\Degree;
+use App\Models\DocumentType;
 use App\Models\landingpage;
 use App\Models\Nbfc;
 use App\Models\PersonalInfo;
@@ -22,6 +24,7 @@ use App\Models\SocialOption;
 use App\Models\StudentApplicationForm;
 use App\Models\StudentApplicationSection;
 use App\Models\User;
+use App\Models\UserAdditionalFieldValue;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -1054,10 +1057,10 @@ class Admincontroller extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:admin,email',
-            'password' => 'required|string|min:8',
+            'email' => 'required|email',
             'is_super_admin' => 'boolean'
         ]);
+
         if ($validator->fails()) {
             Log::error('Validation failed for creating admin', $validator->errors()->toArray());
             return response()->json([
@@ -1065,13 +1068,35 @@ class Admincontroller extends Controller
                 'details' => $validator->errors()
             ], 422);
         }
+
+        $email = $request->input('email');
+
+        // Check email existence across all models
+        $emailExists =
+            Admin::where('email', $email)->exists() ||
+            User::where('email', $email)->exists() ||
+            Nbfc::where('nbfc_email', $email)->exists() ||
+            Scuser::where('email', $email)->exists();
+
+        if ($emailExists) {
+            return response()->json([
+                'error' => 'Email already exists in the system. Please use a different email.'
+            ], 409); // 409 Conflict
+        }
+
         try {
+            $generatedPassword = Str::random(12); // Secure random password
+
             $admin = Admin::create([
                 'name' => $request->input('name'),
-                'email' => $request->input('email'),
-                'password' => Hash::make($request->input('password')),
+                'email' => $email,
+                'password' => Hash::make($generatedPassword),
                 'is_super_admin' => $request->input('is_super_admin', false),
             ]);
+
+            // Optionally email the password
+            // Mail::to($admin->email)->send(new NewAdminPasswordMail($generatedPassword));
+
             return response()->json([
                 'success' => true,
                 'message' => 'Admin created successfully',
@@ -1080,8 +1105,8 @@ class Admincontroller extends Controller
                     'name' => $admin->name,
                     'email' => $admin->email,
                     'is_super_admin' => $admin->is_super_admin,
-                    'created_at' => $admin->created_at
-                ]
+                    'created_at' => $admin->created_at,
+                 ]
             ], 201);
         } catch (\Exception $e) {
             Log::error('Error creating admin: ' . $e->getMessage());
@@ -1090,11 +1115,10 @@ class Admincontroller extends Controller
                 'details' => $e->getMessage()
             ], 500);
         }
+
+
+
     }
-
-
-
-
 
 
 
@@ -1117,11 +1141,15 @@ class Admincontroller extends Controller
         $countries = PlanToCountry::all();
         $degrees = Degree::all();
         $courseDuration = CourseDuration::all();
+        $additionalFields = AdditionalField::all();
+        $documentTypes = DocumentType::all();
 
 
 
 
-        return view('pages.studentformquestionair', compact('user', 'socialOptions', 'countries', 'degrees', 'courseDuration'));
+
+
+        return view('pages.studentformquestionair', compact('user', 'socialOptions', 'countries', 'degrees', 'courseDuration','additionalFields','documentTypes'));
     }
 
 
@@ -1574,7 +1602,7 @@ class Admincontroller extends Controller
 
         // Update or create personal info
         $personalInfo = PersonalInfo::updateOrCreate(
-            ['user_id' => $user->unique_id], // ✅ use unique_id to match the foreign key
+            ['user_id' => $user->unique_id],
             [
                 'full_name' => $request->name,
                 'email' => $request->email,
@@ -1582,6 +1610,14 @@ class Admincontroller extends Controller
             ]
         );
 
+         if ($request->has('dynamic_fields')) {
+            foreach ($request->input('dynamic_fields') as $fieldId => $value) {
+                 UserAdditionalFieldValue::updateOrCreate(
+                    ['user_id' => $user->id, 'field_id' => $fieldId],
+                    ['value' => $value]
+                );
+            }
+        }
 
         return response()->json([
             'success' => true,
@@ -1590,6 +1626,7 @@ class Admincontroller extends Controller
             'personal_info' => $personalInfo
         ]);
     }
+
 
 
 
