@@ -19,7 +19,7 @@
         <div class="ticket-raised-header">
             <h2 class="ticket-raised-title">Tickets Raised</h2>
             <div class="ticket-raised-inbox-filters" id="ticket-raised-index-nbfc-sort-id">
-                <span>Sort by: </span>
+                <span>Sort by </span>
                 <img src="assets/images/filter-icon.png" alt="Filters">
                 <ul class="ticket-raised-sort-dropdown-nbfc" id="ticket-raised-sort-options-index-nbfc">
                     <li data-sort="az" onclick="sortTickets('az')">A-Z</li>

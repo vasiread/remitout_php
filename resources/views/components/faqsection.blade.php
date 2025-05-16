@@ -347,6 +347,20 @@ document.addEventListener('DOMContentLoaded', () => {
     displayFAQs();
 });
 
+function updatePlaceholder() {
+    const input = document.querySelector('.search-input');
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    input.placeholder = isMobile
+      ? 'Search Keywords'
+      : 'Type keywords to find related queries';
+  }
+
+  // Run on load
+  updatePlaceholder();
+
+  // Run on resize
+  window.addEventListener('resize', updatePlaceholder);
+
     </script>
 </body>
 

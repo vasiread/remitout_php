@@ -357,12 +357,12 @@
                         <canvas id="ageratio-donutRegistrationChart"></canvas>
                         <div class="ageratio-donutgraphinfos">
                             @php
-$registrationSourceAnalysis = [
-    ['color' => 'rgba(111, 37, 206, 1)', 'studentRangeValue' => '16 - 20'],
-    ['color' => 'rgba(167, 121, 224, 1)', 'studentRangeValue' => '21 - 25'],
-    ['color' => 'rgba(203, 176, 237, 1)', 'studentRangeValue' => '26 - 30'],
-    ['color' => 'rgba(226, 211, 245, 1)', 'studentRangeValue' => '30 - 40'],
-];
+                                $registrationSourceAnalysis = [
+                                    ['color' => 'rgba(111, 37, 206, 1)', 'studentRangeValue' => '16 - 20'],
+                                    ['color' => 'rgba(167, 121, 224, 1)', 'studentRangeValue' => '21 - 25'],
+                                    ['color' => 'rgba(203, 176, 237, 1)', 'studentRangeValue' => '26 - 30'],
+                                    ['color' => 'rgba(226, 211, 245, 1)', 'studentRangeValue' => '30 - 40'],
+                                ];
                             @endphp
 
                             @foreach ($registrationSourceAnalysis as $source)
@@ -521,8 +521,9 @@ $registrationSourceAnalysis = [
                         <div class="nbfc-lead-header">
                             <h2 class="nbfc-lead-title">NBFCs: Lead Generation</h2>
                             <div class="nbfc-lead-converted-dropdown">
-                                <select>
-                                    <option selected>Converted</option>
+                                <select id="convertedDropdown">
+                                    <option selected disabled hidden>Filter</option>
+                                    <option value="converted">Converted</option>
                                 </select>
                             </div>
                         </div>
@@ -556,11 +557,13 @@ $registrationSourceAnalysis = [
                     <div class="sc-lead-container" data-report="sc-generation-leads">
                         <div class="sc-lead-header">
                             <h3 class="sc-lead-title">Student Counsellors: Lead Generation</h3>
-                            <select class="sc-lead-select">
-                                <option>Converted</option>
+                            <select class="sc-lead-select" id="scLeadDropdown">
+                                <option selected disabled hidden>Filter</option>
+                                <option value="converted">Converted</option>
                             </select>
                         </div>
                         <div class="sc-lead-legend">
+                            <div>Referral No. Vs</div>
                             <div class="sc-lead-legend-item">
                                 <div class="sc-lead-legend-color" style="background-color: #d3b8f0;"></div>
                                 <span>No. Of Leads</span>
@@ -1644,6 +1647,20 @@ $registrationSourceAnalysis = [
             }
         };
 
+        const dropdown = document.getElementById('convertedDropdown');
+
+        dropdown.addEventListener('change', function () {
+            if (this.value === 'converted') {
+                // Change the placeholder back to "Filter" after selection
+                this.selectedIndex = 1; // Show "Filter" again
+            }
+        });
+
+        // Optional: Reset dropdown on focus so that "Filter" is always shown at top
+        dropdown.addEventListener('focus', function () {
+            this.selectedIndex = 0;
+        });
+
         // Lead Chart with API Data and Pagination
         const initializeLeadChart = () => {
             const ctx = $('#leadChart')?.getContext('2d');
@@ -1758,113 +1775,127 @@ $registrationSourceAnalysis = [
             }
         };
 
+        //sc-lead generation dropdown
+        const scDropdown = document.getElementById('scLeadDropdown');
+
+        scDropdown.addEventListener('change', function () {
+            if (this.value === 'converted') {
+                this.selectedIndex = 1; // Revert to "Filter"
+            }
+        });
+
+        scDropdown.addEventListener('focus', function () {
+            this.selectedIndex = 0;
+        });
+
+
         const initializeLeadSuccessChart = () => {
-                const ctx = $('#approvedProfileChart')?.getContext('2d');
-                if (!ctx) return console.error('approvedProfileChart canvas not found');
+            const ctx = $('#approvedProfileChart')?.getContext('2d');
+            if (!ctx) return console.error('approvedProfileChart canvas not found');
 
-                let currentPage = 1;
-                const itemsPerPage = 5; // Set to 5 for scalability
-                let fullLabels = [];
-                let fullData = [];
-                const prevBtn = $('#sc-approved-prev-btn');
-                const nextBtn = $('#sc-approved-next-btn');
-                const pageRange = $('#sc-approved-page-range');
-                const totalItems = $('#sc-approved-total-items');
+            let currentPage = 1;
+            const itemsPerPage = 5; // Set to 5 for scalability
+            let fullLabels = [];
+            let fullData = [];
+            const prevBtn = $('#sc-approved-prev-btn');
+            const nextBtn = $('#sc-approved-next-btn');
+            const pageRange = $('#sc-approved-page-range');
+            const totalItems = $('#sc-approved-total-items');
 
-                // Fetch data from API
-                fetch('/referralacceptedcounts', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                })
-                    .then(response => {
-                        if (!response.ok) throw new Error('Network response was not ok');
-                        return response.json();
-                    })
-                    .then(data => {
-                        // console.log('Fetched SC users approved profiles data:', data);
-
-                        // Validate the API response structure
-                        if (!data || typeof data !== 'object') {
-                            throw new Error('Invalid API response: Expected object');
-                        }
-
-                        // Store the full dataset
-                        fullLabels = Object.keys(data); // SC Referral Codes
-                        fullData = Object.values(data); // Approved Counts
-
-                        // Update total items
-                        totalItems.textContent = fullLabels.length;
-
-                        // Draw the initial chart with the first page
-                        updateChart();
-
-                        // Add event listeners for pagination
-                        prevBtn.addEventListener('click', () => {
-                            if (currentPage > 1) {
-                                currentPage--;
-                                updateChart();
-                            }
-                        });
-
-                        nextBtn.addEventListener('click', () => {
-                            if (currentPage < Math.ceil(fullLabels.length / itemsPerPage)) {
-                                currentPage++;
-                                updateChart();
-                            }
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Error fetching SC users approved profiles data:', error);
-                        // Fallback to static data if API fails
-                        fullLabels = ['SCREF87324409', 'SCREF87324468', 'SCREF75333418'];
-                        fullData = [3, 1, 0];
-
-                        // Update total items
-                        totalItems.textContent = fullLabels.length;
-
-                        // Draw the chart with fallback data
-                        updateChart();
-                    });
-
-                // Function to update the chart based on the current page
-                function updateChart() {
-                    const startIdx = (currentPage - 1) * itemsPerPage;
-                    const endIdx = Math.min(startIdx + itemsPerPage, fullLabels.length);
-                    const paginatedLabels = fullLabels.slice(startIdx, endIdx);
-                    const paginatedData = fullData.slice(startIdx, endIdx);
-
-                    // Log the paginated data for debugging
-                    // console.log('Paginated chart data:', { labels: paginatedLabels, data: paginatedData });
-
-                    // Create the chart
-                    new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: paginatedLabels,
-                            datasets: [{
-                                label: 'No. Of Approved Profiles',
-                                data: paginatedData,
-                                backgroundColor: '#d3b8f0',
-                                barThickness: 11
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: { legend: { display: false }, tooltip: { enabled: true } },
-                            scales: {
-                                y: { beginAtZero: true, grid: { display: false }, ticks: { display: false } },
-                                x: { grid: { display: false }, ticks: { font: { family: 'Poppins', size: 12 }, color: '#5D5C5C' } }
-                            }
-                        }
-                    });
-
-                    // Update pagination display
-                    pageRange.textContent = `${startIdx + 1} - ${endIdx}`;
+            // Fetch data from API
+            fetch('/referralacceptedcounts', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
                 }
-            };
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    // console.log('Fetched SC users approved profiles data:', data);
+
+                    // Validate the API response structure
+                    if (!data || typeof data !== 'object') {
+                        throw new Error('Invalid API response: Expected object');
+                    }
+
+                    // Store the full dataset
+                    fullLabels = Object.keys(data); // SC Referral Codes
+                    fullData = Object.values(data); // Approved Counts
+
+                    // Update total items
+                    totalItems.textContent = fullLabels.length;
+
+                    // Draw the initial chart with the first page
+                    updateChart();
+
+                    // Add event listeners for pagination
+                    prevBtn.addEventListener('click', () => {
+                        if (currentPage > 1) {
+                            currentPage--;
+                            updateChart();
+                        }
+                    });
+
+                    nextBtn.addEventListener('click', () => {
+                        if (currentPage < Math.ceil(fullLabels.length / itemsPerPage)) {
+                            currentPage++;
+                            updateChart();
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching SC users approved profiles data:', error);
+                    // Fallback to static data if API fails
+                    fullLabels = ['SCREF87324409', 'SCREF87324468', 'SCREF75333418'];
+                    fullData = [3, 1, 0];
+
+                    // Update total items
+                    totalItems.textContent = fullLabels.length;
+
+                    // Draw the chart with fallback data
+                    updateChart();
+                });
+
+            // Function to update the chart based on the current page
+            function updateChart() {
+                const startIdx = (currentPage - 1) * itemsPerPage;
+                const endIdx = Math.min(startIdx + itemsPerPage, fullLabels.length);
+                const paginatedLabels = fullLabels.slice(startIdx, endIdx);
+                const paginatedData = fullData.slice(startIdx, endIdx);
+
+                // Log the paginated data for debugging
+                // console.log('Paginated chart data:', { labels: paginatedLabels, data: paginatedData });
+
+                // Create the chart
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: paginatedLabels,
+                        datasets: [{
+                            label: 'No. Of Approved Profiles',
+                            data: paginatedData,
+                            backgroundColor: '#d3b8f0',
+                            barThickness: 11
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false }, tooltip: { enabled: true } },
+                        scales: {
+                            y: { beginAtZero: true, grid: { display: false }, ticks: { display: false } },
+                            x: { grid: { display: false }, ticks: { font: { family: 'Poppins', size: 12 }, color: '#5D5C5C' } }
+                        }
+                    }
+                });
+
+                // Update pagination display
+                pageRange.textContent = `${startIdx + 1} - ${endIdx}`;
+            }
+        };
 
         // Highlight Highest Values in Tables
         const highlightHighestValues = () => {

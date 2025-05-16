@@ -34,7 +34,7 @@ $pindropIconPath = "assets/images/pin_drop.png";
                 <div class="student-list-dropdown-filters" id="student-list-dropdown-filters">
                     <button class="student-list-dropdown-button">
                         <img src="{{ asset('assets/images/Icons/filter_icon.png') }}" alt="">
-                        All
+                        Filters
                         <i class="fa-solid fa-chevron-down"></i>
                     </button>
                     <div class="student-list-dropdown-content" style="display: none;">
@@ -43,7 +43,7 @@ $pindropIconPath = "assets/images/pin_drop.png";
                         <a href="#" data-filter="approved">Approved</a>
                     </div>
                 </div>
-                <button class="studentlist-add-button">Add</button>
+                <button class="studentlist-add">Add</button>
             </div>
         </div>
 
