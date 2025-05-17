@@ -190,7 +190,6 @@
     border: 1px solid #e0e0e0;
     border-radius: 4px;
     background: #fff;
-    width:500px;
 }
 
 .promotional-link-input {
@@ -200,7 +199,6 @@
     background: transparent;
     color: #7b68ee;
     font-family: "Poppins", sans-serif;
-    width:300px;
 }
 
 .promotional-link-actions {
@@ -213,13 +211,22 @@
     padding: 5px 10px;
     border: none;
     background: none;
+    color: #666;
     cursor: pointer;
     font-family: "Poppins", sans-serif;
 }
+#promotional-link-button-id{
+    padding: 5px 10px;
+    border: none;
+    background: none;
+    color: #f86d21;;
+    cursor: pointer;
+    font-family: "Poppins", sans-serif;
 
-.know-more {
-    color: #7b68ee;
-    text-decoration: none;
+}
+
+.know-more a{
+    color: #6F25CE;
     font-weight: 500;
     cursor: pointer;
     font-size: 13px;
