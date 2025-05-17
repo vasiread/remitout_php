@@ -741,6 +741,10 @@
                         enterEditMode();
                     } else {
                         exitEditMode();
+                        // Hide buttons in view mode
+                        document.getElementById('edit-profile-btn').style.display = 'none';
+                        document.getElementById('save-profile-btn').style.display = 'none';
+                        document.querySelector('.savecancelbuttoncontainer').style.display = 'none';
                     }
                 } else {
                     console.error('Failed to fetch user profile:', data.message);
@@ -844,7 +848,8 @@
             document.querySelector('.testscoreseditsection-secondrow-editsection').style.display = 'block';
             document.querySelector('.savecancelbuttoncontainer').style.display = 'flex';
             document.getElementById('edit-profile-btn').style.display = 'none';
-            document.getElementById('save-profile-btn').style.display = 'block';
+            // Keep save-profile-btn hidden
+            document.getElementById('save-profile-btn').style.display = 'none';
 
             // Enable inputs
             const inputs = [

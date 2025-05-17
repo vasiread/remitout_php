@@ -164,7 +164,7 @@
                         <div class="promotional-link-actions">
                             <button class="promotional-link-button">Change</button>
                             <span>|</span>
-                            <button class="promotional-link-button">×</button>
+                            <button class="promotional-link-button" id="promotional-link-button-id">X</button>
                         </div>
                     </div>
                 </div>
