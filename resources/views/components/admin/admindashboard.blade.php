@@ -61,19 +61,19 @@
         <div class="referral-triggered-view hidden" id="referralModal">
             <div class="referral-triggered-view-headersection">
                 <h3>Generate Referral Link</h3>
-                <span class="close-icon" id="closeModal">&#10005;</span>
+                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="Close Icon" class="close-icon" id="closeModal">
             </div>
             <div class="referral-triggered-view-content">
                 <input type="text" id="referralLink" placeholder="Copy Link here">
             </div>
-            <div class="referral-triggered-view-footer">
+            <div class="referral-triggered-view-footer" id="modalFooter">
                 <button id="cancelBtn">
-                    <span class="cancel-icon">&#10005;</span> Cancel
+                    <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="Cancel Icon" class="cancel-icon">
+                    Cancel
                 </button>
                 <button id="generateBtn">Generate</button>
             </div>
         </div>
-
 
 
         <div class="admindashboardcontainer-secondsection">
@@ -2225,14 +2225,14 @@
 
         // Referral Modal
         const initializeReferralModal = () => {
-            const referralLinkBtn = $('#referral-link-admindashboard');
-            const referralLinkBtnMobile = $('#referral-link-admindashboard-mobile');
-            const modal = $('#referralModal');
-            const backdrop = $('#backdrop');
-            const closeBtn = $('#closeModal');
-            const cancelBtn = $('#cancelBtn');
-            const generateBtn = $('#generateBtn');
-            const inputField = $('#referralLink');
+            const referralLinkBtn = document.getElementById('referral-link-admindashboard');
+            const modal = document.getElementById('referralModal');
+            const backdrop = document.getElementById('backdrop');
+            const closeBtn = document.getElementById('closeModal');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const generateBtn = document.getElementById('generateBtn');
+            const inputField = document.getElementById('referralLink');
+            const modalFooter = document.getElementById('modalFooter');
 
             if (!referralLinkBtn || !modal || !backdrop || !closeBtn || !cancelBtn || !generateBtn || !inputField) {
                 return console.error('Referral modal elements missing');
@@ -2247,18 +2247,59 @@
                 modal.classList.add('hidden');
                 backdrop.classList.remove('active');
                 inputField.value = '';
+                modalFooter.innerHTML = `
+                    <button id="cancelBtn">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="Cancel Icon" class="cancel-icon">
+                        Cancel
+                    </button>
+                    <button id="generateBtn">Generate</button>
+                `;
+            };
+
+            const updateFooterButtons = (link) => {
+                modalFooter.innerHTML = `
+                    <button id="cancelBtn">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="Cancel Icon" class="cancel-icon">
+                        Cancel
+                    </button>
+                    <div class="button-group">
+                        <div class="copy-button-container">
+                            <button id="copyBtn">
+                                <img src="assets/images/content_copy-icon.png" alt="Copy Icon" class="copy-icon">
+                                Copy Link
+                            </button>
+                        </div>
+                        <div class="share-button-container">
+                            <button id="shareBtn">
+                                <img src="assets/images/share-icon.png" alt="Share Icon" class="share-icon">
+                                Share
+                            </button>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('cancelBtn').addEventListener('click', closeModal);
+                document.getElementById('copyBtn').addEventListener('click', () => {
+                    navigator.clipboard.writeText(link).then(() => {
+                        alert('Link copied to clipboard!');
+                    });
+                });
+                document.getElementById('shareBtn').addEventListener('click', () => {
+                    alert('Share this link: ' + link);
+                });
             };
 
             referralLinkBtn.addEventListener('click', openModal);
-            referralLinkBtnMobile?.addEventListener('click', openModal);
             closeBtn.addEventListener('click', closeModal);
             cancelBtn.addEventListener('click', closeModal);
             backdrop.addEventListener('click', closeModal);
 
             generateBtn.addEventListener('click', () => {
-                inputField.value = `https://example.com/referral?code=${Math.random().toString(36).substr(2, 8)}`;
+                const newLink = `https://example.com/referral?code=${Math.random().toString(36).substr(2, 8)}`;
+                inputField.value = newLink;
+                updateFooterButtons(newLink);
             });
         };
+       
 
         // Mobile Menu Modal
         const initializeMobileMenu = () => {

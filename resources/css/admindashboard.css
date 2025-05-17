@@ -14,6 +14,12 @@
     align-items: center;
     justify-content: space-between;
 }
+.admindashboardcontainer-sixth-section{
+    display:flex;
+    gap: 20px;
+        width: 100%;
+            max-width: 81%;
+}
 
 .admindashboardcontainer-firstsection h1 {
     font-family: Poppins;
@@ -1453,7 +1459,7 @@ canvas {
     max-width: 200px; /* Optional: Maximum width to prevent excessive stretching */
     overflow: hidden; /* Hide overflow if text is too long */
     text-overflow: ellipsis; /* Add ellipsis if text overflows */
-    position: relative; /
+    position: relative; 
 }
 
 .admin-desti-country-filter-btn i,
@@ -1775,6 +1781,10 @@ text[fill="#222222"] {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
+    font-size: 12px;
+    justify-content:space-between ;
+    color: #5d5c5c;
+    
 }
 .sc-lead-legend-item span {
     font-size: 12px;
@@ -1932,7 +1942,6 @@ text[fill="#222222"] {
 .backdrop.active {
     display: block;
 }
-
 .referral-triggered-view {
     display: flex;
     flex-direction: column;
@@ -1967,13 +1976,12 @@ text[fill="#222222"] {
 
 .close-icon {
     cursor: pointer;
-    font-size: 18px;
-    font-weight: bold;
-    color: #666;
+    width: 18px;
+    height: 18px;
 }
 
 .close-icon:hover {
-    color: #333;
+    opacity: 0.7;
 }
 
 .referral-triggered-view-content input::placeholder {
@@ -1995,6 +2003,7 @@ text[fill="#222222"] {
 .referral-triggered-view-footer {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .referral-triggered-view-footer button:first-child {
@@ -2015,16 +2024,16 @@ text[fill="#222222"] {
 }
 
 .cancel-icon {
-    font-size: 12px;
+    width: 12px;
+    height: 12px;
     margin-right: 5px;
 }
 
-.referral-triggered-view-footer button:last-child {
+.referral-triggered-view-footer button {
     width: 126px;
     height: 35px;
     gap: 8px;
     border-radius: 4px;
-    background-color: rgba(111, 37, 206, 1);
     box-shadow: 0px 0px 10px rgba(146, 136, 155, 0.13);
     font-weight: 500;
     font-size: 14px;
@@ -2037,6 +2046,57 @@ text[fill="#222222"] {
 .referral-triggered-view.hidden {
     display: none;
 }
+
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+.copy-button-container, .share-button-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.copy-button-container button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16.8px;
+    cursor: pointer;
+    border: 1px solid rgba(111, 37, 206, 1);
+    background: #fff;
+    color: #000;
+    white-space: nowrap;
+}
+
+#shareBtn{
+    background-color: rgba(111, 37, 206, 1);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16.8px;
+    cursor: pointer;
+    border: none;
+    background-color: rgba(111, 37, 206, 1);
+    color: #fff;
+
+}
+
+.copy-icon, .share-icon {
+    width: 16px;
+    height: 16px;
+}
+
+
 @media (max-width: 767px) {
     .admindashboardcontainer-fourth-section {
         width: 100%;

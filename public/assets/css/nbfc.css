@@ -1,6 +1,6 @@
 html, body {
     height: 100vh;
-    background-color: #F5F5F5;
+
 }
 
 
@@ -1129,8 +1129,11 @@ html, body {
 .dashboard-main-content {
     flex: 1;
     margin-left: 16%;
+    flex: 1;
+    margin-left: 16%;
     padding: 18px;
     background-color: #F5F5F5;
+
 
 }
 
@@ -2191,7 +2194,6 @@ html, body {
     }
 }
 
-/* Inbox Styles */
 
 #index-section-id-nbfc {
     margin-top: 80px;
