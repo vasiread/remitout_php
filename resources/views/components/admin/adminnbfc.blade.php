@@ -295,7 +295,7 @@
         });
 
         function dynamicChangesThroughWindow() {
-            if (window.innerWidth > 768) {
+            if (window.innerWidth < 768) {
                 document.querySelector('.studentlist-add-button').innerHTML = "+";
             } else {
                 document.querySelector('.studentlist-add-button').innerHTML = "Add";

@@ -47,6 +47,10 @@ class User extends Model
         return $this->hasMany(CourseInfo::class, 'user_id', 'id');
     }
 
+    public function additionalFieldValues()
+    {
+        return $this->hasMany(UserAdditionalFieldValue::class, 'user_id', 'id');
+    }
 
 
 

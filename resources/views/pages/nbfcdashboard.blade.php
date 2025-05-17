@@ -34,14 +34,14 @@
 
 
     @php
-        $profileImgPath = 'images/admin-student-profile.png';
-        $uploadPanName = '';
-        $profileIconPath = "assets/images/account_circle.png";
-        $phoneIconPath = "assets/images/call.png";
-        $mailIconPath = "assets/images/mail.png";
-        $pindropIconPath = "assets/images/pin_drop.png";
-        $discordIconPath = "assets/images/icons/discordicon.png";
-        $viewIconPath = "assets/images/visibility.png";
+$profileImgPath = 'images/admin-student-profile.png';
+$uploadPanName = '';
+$profileIconPath = "assets/images/account_circle.png";
+$phoneIconPath = "assets/images/call.png";
+$mailIconPath = "assets/images/mail.png";
+$pindropIconPath = "assets/images/pin_drop.png";
+$discordIconPath = "assets/images/icons/discordicon.png";
+$viewIconPath = "assets/images/visibility.png";
     @endphp
 
     <nav class="nbfc-navbar">
@@ -262,45 +262,44 @@
                     </ul>
 
                 </div>
+                <div class="studentdashboardprofile-educationeditsection">
+                    <div class="educationeditsection-firstrow">
+                        <h1>Education</h1>
+                        <!-- <button>Edit</button> -->
+                    </div>
+                    <div class="educationeditsection-secondrow">
+                        
+                    </div>
+                </div>
+
+                <div class="studentdashboardprofile-testscoreseditsection">
+                    <div class="testscoreseditsection-firstrow">
+                        <h1>Test Scores</h1>
+                    </div>
+                    <div class="testscoreseditsection-secondrow">
+                        @php
+$counter = 1; 
+                        @endphp
+
+
+                        <p>{{ $counter++ }}. IELTS <span class="ilets_score"></span></p>
+
+
+                        <p>{{ $counter++ }}. GRE <span class="gre_score"></span></p>
+
+                        <p>{{ $counter++ }}. TOEFL <span class="tofel_score"></span></p>
+
+
+
+
+                    </div>
+
+
+
+                </div>
             </div>
 
-            <div class="studentdashboardprofile-educationeditsection">
-                <div class="educationeditsection-firstrow">
-                    <h1>Education</h1>
-                    <!-- <button>Edit</button> -->
-                </div>
-                <div class="educationeditsection-secondrow">
-                    <p>1. </p>
-                    <p>2. Consequuntur magni dolores</p>
-                    <p>3. Voluptatem accusantium</p>
-                </div>
-            </div>
 
-            <div class="studentdashboardprofile-testscoreseditsection">
-                <div class="testscoreseditsection-firstrow">
-                    <h1>Test Scores</h1>
-                </div>
-                <div class="testscoreseditsection-secondrow">
-                    @php
-                        $counter = 1; 
-                    @endphp
-
-
-                    <p>{{ $counter++ }}. IELTS <span class="ilets_score"></span></p>
-
-
-                    <p>{{ $counter++ }}. GRE <span class="gre_score"></span></p>
-
-                    <p>{{ $counter++ }}. TOEFL <span class="tofel_score"></span></p>
-
-
-
-
-                </div>
-
-
-
-            </div>
         </div>
 
         <div class="studentdashboardprofile-myapplication" id=nbfc-student-profile-details>
@@ -426,8 +425,8 @@
                     </div>
                 </div>
             </div>
-         
-         
+
+
             <div class="seventhcolumn-additional">
                 <div class="seventhcolumn-additional-firstcolumn">
                     <div class="seventhcolumnadditional-header">
@@ -2542,18 +2541,18 @@
                 }
                 if (smileIcon) {
                     smileIcon.addEventListener('click', function (e) {
-                    e.stopPropagation();
-                    const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
+                        e.stopPropagation();
+                        const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
 
-                    const existingPicker = document.querySelector(".emoji-picker");
-                    if (existingPicker) {
-                        existingPicker.remove();
-                        return;
-                    }
+                        const existingPicker = document.querySelector(".emoji-picker");
+                        if (existingPicker) {
+                            existingPicker.remove();
+                            return;
+                        }
 
-                    const picker = document.createElement("div");
-                    picker.classList.add("emoji-picker");
-                    picker.style.cssText = `
+                        const picker = document.createElement("div");
+                        picker.classList.add("emoji-picker");
+                        picker.style.cssText = `
                     position: absolute;
                     bottom: 100%;
                     right: 0;
@@ -4582,8 +4581,14 @@
                 console.error('Error fetching user details:', error);
             }
         };
-        const updateProfileView = (container, usersListcontainer, data) => {
-            let courseInput = container.querySelector("#plan-to-study-edit");
+      const updateProfileView = (container, usersListcontainer, data) => {
+            // Input Fields
+            const courseInput = container.querySelector("#plan-to-study-edit");
+            const courseDuration = container.querySelector(".myapplication-fourthcolumn-additional input");
+            const loanAmount = container.querySelector(".myapplication-fourthcolumn input");
+            const scReferral = container.querySelector(".myapplication-fifthcolumn input");
+
+            // Degree Radio Buttons & Labels
             const degreeRadioBachelors = container.querySelector('input[name="education-level"][value="Bachelors"]');
             const degreeRadioMasters = container.querySelector('input[name="education-level"][value="Masters"]');
             const degreeRadioOthers = container.querySelector('input[name="education-level"][value="Others"]');
@@ -4591,86 +4596,117 @@
             const bachelorsLabel = container.querySelector("#bachelors-label");
             const mastersLabel = container.querySelector("#masters-label");
             const othersLabel = container.querySelector("#others-label");
-
             const otherDegreeInputNBFC = container.querySelector("#otherDegreeInputNBFC");
-            const courseDuration = container.querySelector(".myapplication-fourthcolumn-additional input");
-            const loanAmount = container.querySelector(".myapplication-fourthcolumn input");
-            const scReferral = container.querySelector(".myapplication-fifthcolumn input");
 
+            // Personal Info
             const userName = usersListcontainer.querySelector(".personal_info_name p");
             const userPhone = usersListcontainer.querySelector(".personal_info_phone p");
             const userMail = usersListcontainer.querySelector(".personal_info_email p");
             const userState = usersListcontainer.querySelector(".personal_info_state p");
-            const userQualification = usersListcontainer.querySelector(".educationeditsection-secondrow p:first-child");
 
+            // Education Info container
+            const educationContainer = usersListcontainer.querySelector(
+                "#nbfc-list-of-student-profilesections .studentdashboardprofile-educationeditsection .educationeditsection-secondrow"
+            );
 
+            const academic = data.academicDetails?.[0] ?? {};
+            const personal = data.personalDetails?.[0] ?? {};
+            const user = data.userDetails?.[0] ?? {};
+            const course = data.courseDetails?.[0] ?? {};
 
-            userName ? userName.textContent = data.personalDetails[0]['full_name'] : "";
-            console.log(data.personalDetails[0]);
-
-
-
-            userPhone ? userPhone.textContent = data.userDetails[0]['phone'] : "";
-            userMail ? userMail.textContent = data.userDetails[0]['email'] : "";
-            userMail ? userMail.title = data.userDetails[0]['email'] : "";
-            userState ? userState.textContent = data.personalDetails[0]['state'] : "";
-
-            userQualification ? userQualification.textContent = data.courseDetails[0]['degree-type'] : "";
-            const ieltsScore = usersListcontainer.querySelector(".testscoreseditsection-secondrow .ilets_score");
-            const greScore = usersListcontainer.querySelector(".testscoreseditsection-secondrow .gre_score");
-            const tofelScore = usersListcontainer.querySelector(".testscoreseditsection-secondrow .tofel_score");
-
-            // Set course duration, loan amount, and referral code
-            console.log(data.academicDetails[0])
-            if (courseDuration) {
-                courseDuration.value = data.courseDetails[0]['course-duration'];
-            }
-            if (loanAmount) {
-                loanAmount.value = data.courseDetails[0]['loan_amount_in_lakhs'];
-            }
-            if (scReferral) {
-                scReferral.value = data.personalDetails[0]['referral_code'];
+            // Update Education Paragraphs with label and value spans for styling
+            if (educationContainer) {
+                educationContainer.innerHTML = `
+            <p><span class="label">1. Course</span><span class="value">${academic.course_name ?? ''}</span></p>
+            <p><span class="label">2. University</span><span class="value">${academic.university_school_name ?? ''}</span></p>
+        `;
             }
 
-            // Process 'plan-to-study' field
-            if (data.courseDetails && data.courseDetails[0]) {
-                let planToStudy = data.courseDetails[0]['plan-to-study'];
-
-                try {
-                    planToStudy = typeof planToStudy === 'string' ? JSON.parse(planToStudy) : planToStudy;
-                } catch (e) {
-                    console.error("Error parsing 'plan-to-study' as JSON:", e);
-                }
-
-                courseInput.value = Array.isArray(planToStudy) ? planToStudy.join(', ') : (planToStudy ?? '');
+            // Personal Info Update
+            if (userName) userName.textContent = personal.full_name ?? '';
+            if (userPhone) userPhone.textContent = user.phone ?? '';
+            if (userMail) {
+                userMail.textContent = user.email ?? '';
+                userMail.title = user.email ?? '';
             }
-            if (ieltsScore) ieltsScore.textContent = data.academicDetails[0]['ILETS'];
-            if (greScore) greScore.textContent = data.academicDetails[0]['GRE'];
-            if (tofelScore) tofelScore.textContent = data.academicDetails[0]['TOFEL'];
+            if (userState) userState.textContent = personal.state ?? '';
 
+            // Course Inputs
+            if (courseDuration) courseDuration.value = course['course-duration'] ?? '';
+            if (loanAmount) loanAmount.value = course.loan_amount_in_lakhs ?? '';
+            if (scReferral) scReferral.value = personal.referral_code ?? '';
 
-            const degreeType = data.courseDetails[0]['degree-type'];
-            console.log(degreeType);
-
+            // Degree Type
+            const degreeType = course['degree-type'];
             bachelorsLabel.style.display = 'none';
             mastersLabel.style.display = 'none';
             othersLabel.style.display = 'none';
             otherDegreeInputNBFC.style.display = 'none';
 
-            // Show and update relevant degree information based on degreeType
             if (degreeType === 'Bachelors') {
                 bachelorsLabel.style.display = 'flex';
                 degreeRadioBachelors.checked = true;
             } else if (degreeType === 'Masters') {
                 mastersLabel.style.display = 'flex';
                 degreeRadioMasters.checked = true;
-            } else {
+            } else if (degreeType) {
                 othersLabel.style.display = 'flex';
                 degreeRadioOthers.checked = true;
-
                 otherDegreeInputNBFC.style.display = 'flex';
                 otherDegreeInputNBFC.disabled = false;
                 otherDegreeInputNBFC.value = degreeType;
+            }
+
+            // Plan to Study
+            let planToStudy = course['plan-to-study'];
+            try {
+                planToStudy = typeof planToStudy === 'string' ? JSON.parse(planToStudy) : planToStudy;
+            } catch (e) {
+                console.error("Invalid JSON in 'plan-to-study':", e);
+            }
+            if (courseInput) {
+                courseInput.value = Array.isArray(planToStudy) ? planToStudy.join(', ') : (planToStudy ?? '');
+            }
+
+            // Test Scores Section
+            const testScoresSection = usersListcontainer.querySelector(".testscoreseditsection-secondrow");
+            if (testScoresSection) {
+                testScoresSection.innerHTML = '';
+
+                const scores = [];
+
+                if (academic.ILETS) scores.push({ label: "IELTS", score: academic.ILETS });
+                if (academic.GRE) scores.push({ label: "GRE", score: academic.GRE });
+                if (academic.TOFEL) scores.push({ label: "TOEFL", score: academic.TOFEL });
+
+                // Parse Others JSON
+                try {
+                    const others = typeof academic.Others === 'string' ? JSON.parse(academic.Others) : academic.Others;
+                    if (others?.otherExamName && others?.otherExamScore) {
+                        scores.push({ label: others.otherExamName.toUpperCase(), score: others.otherExamScore });
+                    }
+                } catch (e) {
+                    console.error('Invalid JSON in "Others":', academic.Others);
+                }
+
+                // Render scores with dynamic serial number
+                scores.forEach((item, index) => {
+                    const p = document.createElement("p");
+
+                    const labelSpan = document.createElement("span");
+                    labelSpan.textContent = `${index + 1}. ${item.label}`;
+                    labelSpan.style.display = "inline-block";
+                    labelSpan.style.width = "150px";
+                    labelSpan.style.fontWeight = "500";
+
+                    const valueSpan = document.createElement("span");
+                    valueSpan.textContent = item.score;
+                    valueSpan.style.fontWeight = "500";
+
+                    p.appendChild(labelSpan);
+                    p.appendChild(valueSpan);
+                    testScoresSection.appendChild(p);
+                });
             }
         };
 

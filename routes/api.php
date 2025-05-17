@@ -131,13 +131,15 @@ Route::post('/forgot-passwordmailsentsc', [scDashboardController::class, 'forgot
 Route::get('/education', [StudentDetailsController::class, 'getEducationDetails']);
 Route::get('/getrecipients', action: [Admincontroller::class, 'fetchRecipients']);
 Route::get('/admins', [Admincontroller::class, 'getAdmins']);
-Route::post('/admins', [Admincontroller::class, 'createAdmin']);
+Route::post('/postadmins', [Admincontroller::class, 'createAdmin']);
 Route::get('/student-forms', [AdminController::class, 'showStudentForm']);
 Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser']);
 Route::get('/getInfoForAdminSocial', [Admincontroller::class, 'showStudentFormAdmin']);
+Route::get('/getdocumenttypesadminform', [Admincontroller::class, 'showStudentPersonalInfoAdditionalField']);
 Route::delete('/deleteInfoForAdminSocial/{id}', [AdminController::class, 'deleteInfoForAdminSocial']);
 Route::delete('/deletedegree/{id}', [AdminController::class, 'deleteDegreesAdminside']);
 Route::delete('/deletecourseduration/{id}', [AdminController::class, 'deleteCourseDuration']);
+Route::delete('/deletekycdocument/{id}', [AdminController::class, 'deleteDynamicKycField']);
 
 Route::post('/storesocialoption', [AdminController::class, 'storeSocialOption']);
 Route::post('/storeplantostudycountry', [AdminController::class, 'storePlanToStudyCountry']);
@@ -155,3 +157,13 @@ Route::post('/updatenbfc', [AdminController::class, 'updateNbfc']);
 Route::post('/suspendnbfc', [AdminController::class, 'suspendNbfc']);
 Route::post('/getuseradminside', [AdminController::class, 'getUserProfileAdminSide']);
 Route::post('/update-personal-info-adminside', [AdminController::class, 'updatepersonalinfoadminside']);
+
+
+
+Route::post('/kycdynamicpost', [Admincontroller::class, 'storeKYCDynamic']);
+
+
+
+Route::get('/additionalpersonalinfodata', [Admincontroller::class, 'showAdditionalPersonalInfoData']);
+Route::post('/addadditionalpersonalinfodata', [Admincontroller::class, 'addAdditionalPersonalInfoData']);
+Route::delete('/additionalfields/{id}', [Admincontroller::class, 'deletePersonalInfoDynamicFields']);

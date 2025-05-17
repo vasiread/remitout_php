@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Academics;
 use App\Models\CoBorrowerInfo;
 use App\Models\CourseInfo;
+use App\Models\DocumentType;
 use App\Models\PersonalInfo;
 use App\Models\User;
+use App\Models\UserAdditionalFieldValue;
+use App\Models\UserDocument;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -17,14 +20,11 @@ class StudentDetailsController extends Controller
     public function updatePersonalInfo(Request $request)
     {
         try {
-            // Log the request input
             Log::info('Request received:', $request->all());
 
-            // Fetch the personal info and user models
             $personalInfoDetail = PersonalInfo::find($request->personalInfoId);
             $user = User::where('unique_id', $request->personalInfoId)->first();
 
-            // Check if either is missing
             if (!$personalInfoDetail || !$user) {
                 return response()->json([
                     'success' => false,
@@ -32,25 +32,33 @@ class StudentDetailsController extends Controller
                 ]);
             }
 
-            // Log the user object safely
             Log::info('User found:', ['user' => $user]);
 
-            // Update fields
+            // Update personal info fields
             $personalInfoDetail->full_name = $request->input('personalInfoName');
             $personalInfoDetail->referral_code = $request->input('personalInfoReferral');
             $personalInfoDetail->email = $request->input('personalInfoEmail');
             $personalInfoDetail->city = $request->input('personalInfoCity');
             $personalInfoDetail->state = $request->input('personalInfoState');
-
             $personalInfoDetail->linked_through = $request->input('personalInfoFindOut');
             $personalInfoDetail->gender = $request->input('genderOptions');
             $personalInfoDetail->dob = $request->input('personalInfoDob');
 
+            // Also update the user table
             $user->referral_code = $request->input('personalInfoReferral');
 
-            // Save both
             $personalInfoDetail->save();
             $user->save();
+
+            // ✅ Handle dynamic_fields
+            if ($request->has('dynamic_fields')) {
+                foreach ($request->input('dynamic_fields') as $fieldId => $value) {
+                    UserAdditionalFieldValue::updateOrCreate(
+                        ['user_id' => $user->id, 'field_id' => $fieldId],
+                        ['value' => $value]
+                    );
+                }
+            }
 
             return response()->json([
                 'success' => true,
@@ -65,6 +73,7 @@ class StudentDetailsController extends Controller
             ]);
         }
     }
+
 
     public function updateCourseInfo(Request $request)
     {
@@ -244,5 +253,24 @@ class StudentDetailsController extends Controller
         ], 200);
     }
 
+
+    public function getDynamicDocuments(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|integer'
+        ]);
+
+        $user_id = $request->user_id;
+
+        $documentTypes = DocumentType::all();
+
+        // Get user documents keyed by document_type_id for quick lookup
+        $userDocuments = UserDocument::where('user_id', $user_id)->get()->keyBy('document_type_id');
+
+        return response()->json([
+            'documentTypes' => $documentTypes,
+            'userDocuments' => $userDocuments,
+        ]);
+    }
 
 }

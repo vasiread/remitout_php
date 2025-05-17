@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
     loanStatusCount();
     passwordForgot();
     displayEducationDetails();
+ 
 
     const sessionLogout = document.querySelector(".studentdashboardprofile-sidebarlists-bottom .logoutBtn");
     if (sessionLogout) {
@@ -251,15 +252,7 @@ const initializeSideBarTabs = () => {
 
     // console.log('Initializing sidebar tabs...');
     // Function to update loan proposals count
-    const updateLoanProposalsCount = () => {
-        const loanProposalsContainer = document.querySelector(
-            ".loanproposals-loanstatuscards",
-        );
-        const count = loanProposalsContainer.children.length; // Count child elements
-        if (loanProposalsCount) {
-            loanProposalsCount.textContent = count;
-        }
-    };
+   
 
     sideBarTopItems.forEach((item, index) => {
         item.addEventListener("click", () => {
@@ -292,8 +285,6 @@ const initializeSideBarTabs = () => {
                 handleIndividualCards("index0");
                 dynamicHeader.textContent = "Loan Proposals";
 
-                // Update loan proposals count when this tab is selected
-                updateLoanProposalsCount();
             } else if (index === 2) {
                 // console.log('My Application tab selected');
 
@@ -4485,6 +4476,7 @@ const loanStatusCount = () => {
             const formatCount = (num) => num.toString().padStart(2, '0');
 
             document.querySelector(".leftsection-detailsinfo .loan-receivedsection h1").textContent = formatCount(data.received_proposals);
+            document.querySelector("#studentdashboardprofile-loanproposals-id .loanproposal-headerstudentside p").textContent = formatCount(data.received_proposals);
             document.querySelector(".leftsection-detailsinfo .loan-onholdsection h1").textContent = formatCount(data.hold_requests);
 
             let rejectedTotal = 0;
@@ -4534,3 +4526,5 @@ const passwordForgot = () => {
     }
 }
 
+
+ 

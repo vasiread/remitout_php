@@ -26,27 +26,29 @@
 
 
   <nav class="student-form-nav">
-      <div class="student-form-nav-container">
-        <img src="assets/images/orange-logo.png" alt="Remitout Logo" class="student-form-logo">
-        <div class="student-form-nav-links" id="student-form-nav-links">
-          <a href="#home">Home</a>
-          <a href="#resources">Resources</a>
-          <a href="#deals">Special Deals</a>
-          <a href="#services">Our Service</a>
-          <a href="#schedule">Schedule Call</a>
-          <a href="#support" class="student-form-nav-mobile">Support</a>
-          <a href="#help" class="student-form-nav-mobile">Help</a>
+    <div class="student-form-nav-container">
+      <img src="assets/images/orange-logo.png" alt="Remitout Logo" class="student-form-logo">
+      <div class="student-form-nav-links" id="student-form-nav-links">
+        <a href="#home">Home</a>
+        <a href="#resources">Resources</a>
+        <a href="#deals">Special Deals</a>
+        <a href="#services">Our Service</a>
+        <a href="#schedule">Schedule Call</a>
+        <a href="#support" class="student-form-nav-mobile">Support</a>
+        <a href="#help" class="student-form-nav-mobile">Help</a>
 
-          <div class="student-form-nav-buttons">
-            <button class="student-form-login-btn" onclick="window.location.href='http://127.0.0.1:8000/login'">Log In</button>
-            <button class="student-form-signup-btn" onclick="window.location.href='http://localhost:8000/signup'">Sign Up</button>
+        <div class="student-form-nav-buttons">
+          <button class="student-form-login-btn" onclick="window.location.href='http://127.0.0.1:8000/login'">Log
+            In</button>
+          <button class="student-form-signup-btn" onclick="window.location.href='http://localhost:8000/signup'">Sign
+            Up</button>
         </div>
-        </div>
-        
+      </div>
+
       <div class="student-form-menu-left">
-           <a href="#" class="student-form-nav-mobile">Login</a>
+        <a href="#" class="student-form-nav-mobile">Login</a>
         <div class="student-form-menu-icon-container" id="student-form-menu-icon-container">
-        
+
           <div class="student-form-menu-icon" id="student-form-menu-icon">
             <span class="bar"></span>
             <span class="bar"></span>
@@ -56,8 +58,8 @@
         </div>
       </div>
 
-      </div>
-    </nav>
+    </div>
+  </nav>
 
 
   <section class="registration-section">
@@ -213,6 +215,19 @@
             </div>
           </div>
         </div>
+        <!-- Dynamic Inputs -->
+        <div class="input-row">
+          @foreach($additionalFields as $field)
+        <div class="input-group">
+        <input type="{{ $field->type }}" name="dynamic_fields[{{ $field->id }}]" id="{{ $field->name }}"
+          placeholder="{{ $field->label }}" value="{{ $userFieldValues[$field->id] ?? '' }}" @if($field->required)
+      required @endif />
+        </div>
+      @endforeach
+
+
+        </div>
+
 
 
       </div>
@@ -298,8 +313,8 @@
         <div class="degrees">
           @foreach ($degrees as $degree)
           @php
-        $id = strtolower(str_replace(' ', '-', $degree->name));
-        @endphp
+  $id = strtolower(str_replace(' ', '-', $degree->name));
+      @endphp
           <div class="degree">
           <input type="radio" id="{{ $id }}" name="degree_type" value="{{ $degree->name }}">
           <label for="{{ $id }}">{{ $degree->name }}</label>
@@ -698,6 +713,44 @@
           </div>
         </div>
 
+
+        @foreach($documentTypes as $doc)
+            @php
+        $fileUrl = $userDocumentUrls[$doc->id] ?? null;
+
+        // Extract file name if URL is available
+        $actualFileName = $fileUrl ? basename($fileUrl) : 'No file chosen';
+            @endphp
+
+            <div class="document-box">
+            <div class="document-name" id="{{ $doc->id }}-document-name">{{ $doc->name }}</div>
+            <div class="upload-field">
+            <span id="{{ $doc->id }}-name">{{ $actualFileName }}</span>
+            <label for="{{ $doc->id }}" class="upload-icon" id="{{ $doc->id }}-upload-icon">
+            <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
+            </label>
+            <input type="file" id="{{ $doc->id }}" name="dynamic_documents[{{ $doc->id }}]" accept=".jpg, .png, .pdf"
+              onchange="handleFileUpload(event, '{{ $doc->id }}-name', '{{ $doc->id }}-upload-icon', '{{ $doc->id }}-remove-icon', '{{ $doc->type }}')" />
+
+
+
+            <span id="{{ $doc->id }}-remove-icon" class="remove-icon" style="display: none;"
+            onclick="removeFile('{{ $doc->id }}', '{{ $doc->id }}-name', '{{ $doc->id }}-upload-icon', '{{ $doc->id }}-remove-icon')">✖</span>
+            </div>
+            <div class="info">
+            <span class="help-trigger" data-target="{{ $doc->id }}-help">ⓘ Help</span>
+            <span>*jpg, png, pdf formats</span>
+            </div>
+            <div class="help-container {{ $doc->id }}-help" style="display: none;">
+            <h3 class="help-title">Help</h3>
+            <div class="help-content">
+            <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+            </div>
+            </div>
+            </div>
+    @endforeach
+
+
       </div>
     </div>
   </section>
@@ -854,7 +907,7 @@
         <div class="document-box">
           <div class="document-name" id="Graduation-id">Graduation</div>
           <div class="upload-field">
-             
+
             <span id="secured-graduation-name">No file chosen</span>
             <label for="secured-graduation" class="upload-icon" id="secured-graduation-upload-icon">
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
@@ -1026,7 +1079,7 @@
           </div>
         </div>
 
-         <div class="document-box">
+        <div class="document-box">
           <div class="document-name" id="aadhar-card-id">Aadhar Card</div>
           <div class="upload-field">
             <span id="co-aadhar-card-name">No file chosen</span>
@@ -1050,7 +1103,7 @@
           </div>
         </div>
 
-         <div class="document-box">
+        <div class="document-box">
           <div class="document-name" id="address-proof-id">Address Proof</div>
           <div class="upload-field">
             <span id="co-addressproof">No file chosen</span>
@@ -1074,7 +1127,7 @@
           </div>
         </div>
 
-        
+
       </div>
     </div>
   </section>
@@ -1088,7 +1141,7 @@
         <h2>Document Upload</h2>
       </div>
 
-       <div class="salary-sub">
+      <div class="salary-sub">
         <p>If salaried:</p>
       </div>
 
@@ -1288,7 +1341,7 @@
     <button class="help-btn">Help</button>
   </div>
 
- 
+
 
 
 </body>

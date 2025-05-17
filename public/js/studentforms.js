@@ -388,31 +388,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateUserPersonalInfo(event) {
         event.preventDefault();
-        const personalInfoId = document.getElementById(
-            "personal-info-userid",
-        ).value;
-        const personalInfoName =
-            document.getElementById("personal-info-name").value;
-        const personalInfoPhone = document.getElementById(
-            "personal-info-phone",
-        ).value;
-        const personalInfoEmail = document.getElementById(
-            "personal-info-email",
-        ).value;
-        const personalInfoCity =
-            document.getElementById("personal-info-city").value;
-        const personalInfoReferral = document.getElementById(
-            "personal-info-referral",
-        ).value;
-        const personalInfoState = document.getElementById(
-            "personal-info-state",
-        ).value;
-        const personalInfoDob =
-            document.getElementById("personal-info-dob").value;
-        const genderOptions = document.getElementById(
-            "gender-personal-info",
-        ).value;
-        const personalInfoFindOut = selectedValue;
+
+        const personalInfoId = document.getElementById("personal-info-userid").value;
+        const personalInfoName = document.getElementById("personal-info-name").value;
+        const personalInfoPhone = document.getElementById("personal-info-phone").value;
+        const personalInfoEmail = document.getElementById("personal-info-email").value;
+        const personalInfoCity = document.getElementById("personal-info-city").value;
+        const personalInfoReferral = document.getElementById("personal-info-referral").value;
+        const personalInfoState = document.getElementById("personal-info-state").value;
+        const personalInfoDob = document.getElementById("personal-info-dob").value;
+        const genderOptions = document.getElementById("gender-personal-info").value;
+        const personalInfoFindOut = selectedValue; // assuming selectedValue is defined globally
+
+        // ✅ Collect dynamic fields
+        const dynamicFields = {};
+        document.querySelectorAll('input[name^="dynamic_fields["]').forEach((input) => {
+            const name = input.getAttribute("name"); // e.g., "dynamic_fields[5]"
+            const match = name.match(/^dynamic_fields\[(\d+)\]$/);
+            if (match) {
+                const fieldId = match[1];
+                dynamicFields[fieldId] = input.value;
+            }
+        });
+
+        // ✅ Validate required fields (as you already do)
         if (
             personalInfoName !== "" &&
             personalInfoPhone !== "" &&
@@ -431,7 +430,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 personalInfoState,
                 personalInfoReferral,
                 personalInfoFindOut,
+                dynamic_fields: dynamicFields 
             };
+
             fetch("/update-personalinfo", {
                 method: "POST",
                 headers: {
@@ -448,10 +449,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         showToast("Details have been saved successfully");
                         navigate("next");
                     } else {
-                        console.error(
-                            "Failed to update personal info:",
-                            data.message,
-                        );
+                        console.error("Failed to update personal info:", data.message);
                     }
                 })
                 .catch((error) => {
@@ -954,6 +952,8 @@ document.addEventListener("DOMContentLoaded", () => {
         fileNameId,
         uploadIconId,
         removeIconId,
+        clearName=null,       
+
         studentId = null,
     ) {
         const fileInput = event.target;
@@ -1035,23 +1035,27 @@ document.addEventListener("DOMContentLoaded", () => {
             .forEach((documentElement) => {
                 documentElement.style.display = "block";
             });
+        alert(studentId)
         if (studentId === null) {
             const userId = document.getElementById(
                 "personal-info-userid",
             ).value;
-            await uploadFileToServer(file, userId, fileNameId);
+            alert(userId)
+            await uploadFileToServer(file, userId, fileNameId, clearName);
         } else if (studentId !== null) {
             const userId = studentId;
-            await uploadFileToServer(file, userId, fileNameId);
+            await uploadFileToServer(file, userId, fileNameId, clearName);
         }
     }
 
-    function uploadFileToServer(file, userId, fileNameId) {
+    function uploadFileToServer(file, userId, fileNameId, clearName) {
         fileNameId = fileNameId.replace(`-${userId}`, "");
         const formDetailsData = new FormData();
         formDetailsData.append("file", file);
         formDetailsData.append("userId", userId);
         formDetailsData.append("fileNameId", fileNameId);
+        formDetailsData.append("clearName", clearName);  // send clearName here
+
         const csrfToken = document
             .querySelector('meta[name="csrf-token"]')
             .getAttribute("content");

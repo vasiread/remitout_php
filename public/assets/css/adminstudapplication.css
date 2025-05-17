@@ -1134,7 +1134,6 @@ textarea::placeholder {
     border: none;
     padding: 5px;
 }
-
 /* Media Query for smaller screens */
 @media (max-width: 768px) {
     .admin-student-form-question,

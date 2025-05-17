@@ -16,7 +16,7 @@ input[type="file"] {
     background: none;
     margin-left: 19.43%;
     gap: 2.28%;
-    
+
 }
 
 .studentdashboardprofile-togglesidebar {
@@ -428,7 +428,7 @@ input[type="file"] {
 
 .studentdashboardprofile-firstrowtrackprogress {
     /* max-width: 722px; */
-    
+
     max-width: 100%;
 
     height: fit-content;
@@ -592,7 +592,8 @@ input[type="file"] {
 
 
 .loanproposals-count {
-    background-color: transparent; /* Orange background to match existing theme */
+    background-color: transparent;
+    /* Orange background to match existing theme */
     color: black;
     padding: 4px 12px;
     border-radius: 12px;
@@ -612,9 +613,9 @@ input[type="file"] {
     margin-bottom: 16px;
 }
 
-.loanproposals-header{
-    display:flex;
-    flex-direction:row;
+.loanproposals-header {
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
     padding: 0px 10px 0px 10px;
 }
@@ -732,6 +733,7 @@ input[type="file"] {
     cursor: pointer;
     position: relative;
 }
+
 .triggeredbutton.has-unread::after {
     content: "";
     position: absolute;
@@ -774,8 +776,7 @@ input[type="file"] {
     border: 1px solid #e2e2e2;
 }
 
-.individual-bankmessages-buttoncontainer
-    .bankmessage-buttoncontainer-reject:hover {
+.individual-bankmessages-buttoncontainer .bankmessage-buttoncontainer-reject:hover {
     background-color: rgba(111, 37, 206, 1);
     color: rgba(255, 255, 255, 0.87);
 }
@@ -1061,7 +1062,7 @@ input[type="file"] {
     transition: opacity 0.3s ease;
 }
 
-.custom-radio input[type="radio"]:checked + .radio-button::after {
+.custom-radio input[type="radio"]:checked+.radio-button::after {
     opacity: 1;
 }
 
@@ -1069,7 +1070,7 @@ input[type="file"] {
     border-color: rgba(233, 134, 53, 1);
 }
 
-.custom-radio input[type="radio"]:focus + .radio-button {
+.custom-radio input[type="radio"]:focus+.radio-button {
     box-shadow: 0 0 0 3px rgba(233, 134, 53, 0.5);
 }
 
@@ -1407,9 +1408,7 @@ input[type="file"] {
     justify-content: flex-end;
 }
 
-.studentdashboardprofile-myapplication
-    .myapplication-eleventhcolumn
-    .mailnbfcbutton {
+.studentdashboardprofile-myapplication .myapplication-eleventhcolumn .mailnbfcbutton {
     max-width: 168px;
     width: 100%;
     height: 35px;
@@ -1431,9 +1430,7 @@ input[type="file"] {
     box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
 }
 
-.studentdashboardprofile-myapplication
-    .myapplication-eleventhcolumn
-    .mailnbfcbutton:hover {
+.studentdashboardprofile-myapplication .myapplication-eleventhcolumn .mailnbfcbutton:hover {
     background-color: rgba(111, 37, 206, 1);
     color: #fff;
 }
@@ -1536,10 +1533,7 @@ input[type="file"] {
     color: rgb(99 96 96 / 70%);
 }
 
-.studentdashboardprofile-myapplication
-    .myapplication-firstcolumn
-    .personalinfo-firstrow
-    .saved-msg {
+.studentdashboardprofile-myapplication .myapplication-firstcolumn .personalinfo-firstrow .saved-msg {
     color: rgb(104, 198, 121);
     display: none;
     justify-content: center;
@@ -1631,6 +1625,26 @@ input[type="file"] {
     z-index: 999;
 }
 
+
+/* Loan Counts */
+#studentdashboardprofile-loanproposals-id .loanproposal-headerstudentside {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 1.7rem;
+}
+
+#studentdashboardprofile-loanproposals-id .loanproposal-headerstudentside p {
+    color: rgba(93, 92, 92, 1);
+    font-family: "Poppins", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+
+
+/*  */
+
 @media (max-width: 1200px) {
     .trackprogress-contentcontainer {
         align-items: center;
@@ -1697,6 +1711,7 @@ input[type="file"] {
         gap: 0;
         margin: 0px;
     }
+
     .studentdashboardprofile-profilesection {
         display: none;
     }
@@ -1765,6 +1780,7 @@ input[type="file"] {
 }
 
 @media (max-width: 480px) {
+
     .trackprogress-leftsection,
     .trackprogress-rightsection {
         width: 100%;

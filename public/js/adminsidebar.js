@@ -9,6 +9,7 @@ function initializeAdminSidebar() {
     const sidebarStudentCounsellorChevronUpDown = document.querySelector(
         "#expand-icon-StudentCounsellor"
     );
+    const manageStudentSwitch = document.getElementById("manage-student-admindashboard");
     const expandedStudentFromAdmin = document.getElementById(
         "expanded-student-admin-side"
     );
@@ -59,7 +60,7 @@ function initializeAdminSidebar() {
     const nbfcAdminsideAddAuthority = document.querySelector(
         ".add-nbfc-datasection"
     );
-   
+
     const studentProfileContainerAdminSide = document.getElementById("studentprofile-section-adminsideview");
 
 
@@ -67,7 +68,7 @@ function initializeAdminSidebar() {
 
     if (addCounsellorModelTrigger && !addCounsellorModelTrigger.dataset.listenerAdded) {
         addCounsellorModelTrigger.addEventListener('click', () => {
- 
+
             // Show counsellor add section
             if (adminCounsellorAdd) adminCounsellorAdd.style.display = "flex";
 
@@ -92,6 +93,32 @@ function initializeAdminSidebar() {
 
         // Mark listener as added
         addCounsellorModelTrigger.dataset.listenerAdded = "true";
+    }
+
+
+    if (manageStudentSwitch) {
+        manageStudentSwitch.addEventListener('click', () => {
+            if (adminCounsellorAdd) adminCounsellorAdd.style.display = "none";
+
+             if (studentTicketRaised) studentTicketRaised.style.display = "none";
+            if (adminManageStudent) adminManageStudent.style.display = "flex";
+            if (studentEditIndex) studentEditIndex.style.display = "none";
+            if (adminRoleManagement) adminRoleManagement.style.display = "none";
+            if (adminPromotionalEmail) adminPromotionalEmail.style.display = "none";
+            if (studentListContainer) studentListContainer.style.display = "none";
+            if (studentCounsellorList) studentCounsellorList.style.display = "none";
+            if (studentApplication) studentApplication.style.display = "none";
+            if (adminPropertyOne) adminPropertyOne.style.display = "none";
+            adminSidebarItems.forEach(item => item.classList.remove("active"));
+
+            // Add 'active' class to the 8th item (index 7)
+            if (adminSidebarItems[10]) {
+                adminSidebarItems[10].classList.add("active");
+            }
+
+
+
+        })
     }
 
 
@@ -485,6 +512,8 @@ function initializeAdminSidebar() {
                 if (studentListContainer) studentListContainer.style.display = "none";
                 if (studentProfileContainerAdminSide)
                     studentProfileContainerAdminSide.style.display = "none";
+                if (adminCounsellorAdd)
+                    adminCounsellorAdd.style.display = "none";
 
 
             }
