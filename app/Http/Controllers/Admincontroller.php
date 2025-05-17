@@ -1106,7 +1106,7 @@ class Admincontroller extends Controller
                     'email' => $admin->email,
                     'is_super_admin' => $admin->is_super_admin,
                     'created_at' => $admin->created_at,
-                 ]
+                ]
             ], 201);
         } catch (\Exception $e) {
             Log::error('Error creating admin: ' . $e->getMessage());
@@ -1149,7 +1149,7 @@ class Admincontroller extends Controller
 
 
 
-        return view('pages.studentformquestionair', compact('user', 'socialOptions', 'countries', 'degrees', 'courseDuration','additionalFields','documentTypes'));
+        return view('pages.studentformquestionair', compact('user', 'socialOptions', 'countries', 'degrees', 'courseDuration', 'additionalFields', 'documentTypes'));
     }
 
 
@@ -1162,6 +1162,47 @@ class Admincontroller extends Controller
         return response()->json([
             'socialOptions' => $socialOptions
         ]);
+    }
+    public function showAdditionalPersonalInfoData()
+    {
+
+
+        $additionalFields = AdditionalField::all();
+
+
+        return response()->json([
+            'additionalFields' => $additionalFields
+        ]);
+    }
+    public function addAdditionalPersonalInfoData(Request $request)
+    {
+        $validated = $request->validate([
+            'fieldType' => 'required|string|max:255',
+        ]);
+
+        $fieldType = $validated['fieldType'];
+
+        // Convert it into a name-safe format
+        $name = strtolower(str_replace(' ', '_', $fieldType));
+
+        $field = AdditionalField::create([
+            'label' => $fieldType,
+            'name' => $name,
+            'type' => 'text',
+            'required' => false,
+        ]);
+
+        return response()->json(['message' => 'Field added successfully', 'field' => $field], 201);
+
+    }
+    public function showStudentPersonalInfoAdditionalField()
+    {
+        $documentTypes = DocumentType::all();
+
+        return response()->json([
+            'documentTypes' => $documentTypes
+        ]);
+
     }
     public function showStudentPlanForCountriesAdmin()
     {
@@ -1242,6 +1283,19 @@ class Admincontroller extends Controller
 
         return response()->json(['message' => 'Duration Deleted successfully.'], 200);
     }
+    public function deleteDynamicKycField($id)
+    {
+        $document = DocumentType::find($id);
+
+        if (!$document) {
+            return response()->json(['message' => 'Document not found.'], 404);
+        }
+
+        $document->delete();
+
+        return response()->json(['message' => 'Document deleted successfully.'], 200);
+    }
+
 
     public function storeSocialOption(Request $request)
     {
@@ -1579,6 +1633,29 @@ class Admincontroller extends Controller
 
 
 
+    public function storeKYCDynamic(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
+
+        $name = strtolower(trim($request->input('name')));
+
+        Log::info($name);
+        $existing = DocumentType::whereRaw('LOWER(name) = ?', [$name])->first();
+        Log::info($existing);
+
+        if ($existing) {
+            return response()->json(['message' => 'Document type already exists.'], 409);
+        }
+
+        $documentType = DocumentType::create([
+            'name' => $request->input('name'), // Store original casing
+            'key' => \Str::slug($request->input('name')) // optional
+        ]);
+
+        return response()->json($documentType, 201);
+    }
     public function updatepersonalinfoadminside(Request $request)
     {
         $request->validate([
@@ -1610,9 +1687,9 @@ class Admincontroller extends Controller
             ]
         );
 
-         if ($request->has('dynamic_fields')) {
+        if ($request->has('dynamic_fields')) {
             foreach ($request->input('dynamic_fields') as $fieldId => $value) {
-                 UserAdditionalFieldValue::updateOrCreate(
+                UserAdditionalFieldValue::updateOrCreate(
                     ['user_id' => $user->id, 'field_id' => $fieldId],
                     ['value' => $value]
                 );
@@ -1628,7 +1705,18 @@ class Admincontroller extends Controller
     }
 
 
+    public function deletePersonalInfoDynamicFields($id)
+    {
+        $field = AdditionalField::find($id);
 
+        if (!$field) {
+            return response()->json(['error' => 'Field not found.'], 404);
+        }
+
+        $field->delete();
+
+        return response()->json(['success' => true]);
+    }
 
 
 }

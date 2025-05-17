@@ -244,3 +244,11 @@ Route::post('/update-personal-info-adminside', [AdminController::class, 'updatep
 
 
 Route::get('/documents', [StudentDetailsController::class, 'getDynamicDocuments']);
+Route::get('/getdocumenttypesadminform', [Admincontroller::class, 'showStudentPersonalInfoAdditionalField']);
+Route::get('/additionalpersonalinfodata', [Admincontroller::class, 'showAdditionalPersonalInfoData']);
+
+
+Route::post('/kycdynamicpost', [Admincontroller::class, 'storeKYCDynamic']);
+Route::delete('/deletekycdocument/{id}', [AdminController::class, 'deleteDynamicKycField']);
+Route::post('/addadditionalpersonalinfodata', [Admincontroller::class, 'addAdditionalPersonalInfoData']);
+Route::delete('/additionalfields/{id}', [Admincontroller::class, 'deletePersonalInfoDynamicFields']);
