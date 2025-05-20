@@ -702,27 +702,26 @@ $counter = 1;
 
 
 
-        <div class="password-change-container-nbfc">
-            <div class="password-change-triggered-view-headersection-nbfc">
-                <h3>Password Change Request</h3>
-                <img src="{{ asset('assets/images/Icons/close_small.png') }}" style="cursor:pointer" alt="">
+        <div class="overlay-password-change-nbfc"></div>
+            <div class="password-change-container-nbfc">
+                <div class="password-change-triggered-view-headersection-nbfc">
+                    <h3>Password Change Request</h3>
+                    <img src="{{ asset('assets/images/Icons/close_small.png') }}" style="cursor:pointer" alt="">
+                </div>
+                <input type="password" placeholder="Current Password" id="current-password-nbfc">
+                <span id="current-password-error-nbfc" class="error-message"></span>
+
+                <input type="password" placeholder="New Password" id="new-password-nbfc">
+                <span id="new-password-error-nbfc" class="error-message"></span>
+
+                <input type="password" placeholder="Confirm New Password" id="confirm-new-password-nbfc">
+                <span id="confirm-password-error-nbfc" class="error-message"></span>
+
+                <div class="footer-passwordchange-nbfc">
+                    <p>Forgot Password</p>
+                    <button id="password-change-save-nbfc">Save</button>
+                </div>
             </div>
-            <input type="password" placeholder="Current Password" id="current-password-nbfc">
-            <span id="current-password-error-nbfc" class="error-message"></span>
-
-            <input type="password" placeholder="New Password" id="new-password-nbfc">
-            <span id="new-password-error-nbfc" class="error-message"></span>
-
-            <input type="password" placeholder="Confirm New Password" id="confirm-new-password-nbfc">
-            <span id="confirm-password-error-nbfc" class="error-message"></span>
-
-            <div class="footer-passwordchange-nbfc">
-                <p>Forgot Password</p>
-
-                <button id="password-change-save-nbfc">Save</button>
-
-            </div>
-        </div>
     </section>
 
     <script>
@@ -2682,43 +2681,52 @@ $counter = 1;
 
 
         // Initialize when DOM is loaded
-        document.addEventListener('DOMContentLoaded', initializeChats);
-        const passwordModelTriggerNbfc = () => {
-            const passwordTrigger = document.getElementById("change-password-trigger-nbfc");
+     document.addEventListener('DOMContentLoaded', initializeChats);
+      const passwordModelTriggerNbfc = () => {
+    const passwordTrigger = document.getElementById("change-password-trigger-nbfc");
+    const passwordChangeContainer = document.querySelector(".password-change-container-nbfc");
+    const passwordContainerExit = document.querySelector(".password-change-triggered-view-headersection-nbfc img");
+    const popupPasswordShow = document.querySelector(".popup-notify-list-nbfc");
+    const arrowUp = document.querySelector(".nbfc-profile .nbfc-dropdown-icon");
+    const overlay = document.querySelector(".overlay-password-change-nbfc");
 
-            const passwordChangeContainer = document.querySelector(".password-change-container-nbfc");
-            const passwordContainerExit = document.querySelector(".password-change-container-nbfc .password-change-triggered-view-headersection-nbfc img");
-            const popupPasswordShow = document.querySelector(".popup-notify-list-nbfc");
-            const arrowUp = document.querySelector(".nbfc-profile .nbfc-dropdown-icon");
-
-            if (passwordTrigger) {
-                passwordTrigger.addEventListener("click", () => {
-                    if (passwordChangeContainer) {
-                        passwordChangeContainer.style.display = "flex";
-                        if (popupPasswordShow) {
-                            popupPasswordShow.style.display = "none";
-
-                        }
-                        if (arrowUp) {
-                            arrowUp.style.transform = 'rotate(0deg)';
-
-                        }
-                    }
-
-
-
-                })
+    if (passwordTrigger) {
+        passwordTrigger.addEventListener("click", () => {
+            if (passwordChangeContainer && overlay) {
+                passwordChangeContainer.style.display = "flex";
+                overlay.style.display = "block";
+                document.body.style.overflow = "hidden"; // Prevent background scrolling
+                if (popupPasswordShow) {
+                    popupPasswordShow.style.display = "none";
+                }
+                if (arrowUp) {
+                    arrowUp.style.transform = "rotate(0deg)";
+                }
             }
-            if (passwordContainerExit) {
-                passwordContainerExit.addEventListener("click", () => {
-                    if (passwordChangeContainer) {
-                        passwordChangeContainer.style.display = "none";
-                    }
-                })
+        });
+    }
+
+    if (passwordContainerExit) {
+        passwordContainerExit.addEventListener("click", () => {
+            if (passwordChangeContainer && overlay) {
+                passwordChangeContainer.style.display = "none";
+                overlay.style.display = "none";
+                document.body.style.overflow = "auto"; // Restore scrolling
             }
+        });
+    }
 
-        }
-
+    // Close modal when clicking the overlay
+    if (overlay) {
+        overlay.addEventListener("click", () => {
+            if (passwordChangeContainer && overlay) {
+                passwordChangeContainer.style.display = "none";
+                overlay.style.display = "none";
+                document.body.style.overflow = "auto"; // Restore scrolling
+            }
+        });
+    }
+};
         const userPopopuOpenNbfc = () => {
             const userPopupTrigger = document.querySelector(".nbfc-profile .nbfc-dropdown-icon");
             const userPopupList = document.querySelector(".popup-notify-list-nbfc");

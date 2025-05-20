@@ -162,9 +162,10 @@
                         <span>Link:</span>
                         <input type="text" class="promotional-link-input" value="">
                         <div class="promotional-link-actions">
+                             <span>|</span>
                             <button class="promotional-link-button">Change</button>
                             <span>|</span>
-                            <button class="promotional-link-button" id="promotional-link-button-id">X</button>
+                            <button class="promotional-link-button" id="promotional-link-button-id">✕</button>
                         </div>
                     </div>
                 </div>

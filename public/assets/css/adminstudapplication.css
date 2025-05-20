@@ -61,7 +61,6 @@
 .admin-student-form-section-course-details {
     margin-bottom: 20px;
     padding: 15px 0;
-    border-bottom: 1px solid #f0f0f0;
 }
 
 .admin-student-section-header,
@@ -78,7 +77,10 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-}
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 15px;
+    }
 
 .admin-student-section-title,
 .admin-student-section-title-course,
@@ -122,10 +124,6 @@
     width: 24px;
     height: 24px;
     transition: transform 0.3s ease;
-}
-
-.admin-student-arrow-down {
-    transform: rotate(0deg);
 }
 
 .admin-student-arrow-up {
@@ -203,15 +201,10 @@
     color: #212121;
 }
 
-.admin-student-dropdown-icon,
-.admin-student-dropdown-icon-course {
-    width: 8px;
-    height: 8px;
-    transform: rotate(45deg);
-    border-right: 2px solid rgb(25, 24, 37);
-    border-bottom: 2px solid rgb(25, 24, 37);
-    transition: transform 0.3s;
+selector {
+    transform: none !important;
 }
+
 
 .admin-student-options-label {
     font-size: 14px;
@@ -715,7 +708,6 @@
 
 .options-section {
     padding: 15px 0;
-    display: none;
 }
 
 .academic-options-container {
@@ -934,7 +926,6 @@ textarea::placeholder {
 /*--co-borrower--*/
 
 .admin-student-arrow-icon-co-borrower {
-    transform: rotate(0deg);
     transition: transform 0.3s;
 }
 
@@ -1319,17 +1310,10 @@ textarea::placeholder {
         color: #555;
         font-weight: 400;
       }
-    
-      .admin-student-arrow-icon-document-upload img {
-        width: 20px;
-        transition: transform 0.3s;
-      }
       .admin-student-arrow-up {
         transform: rotate(180deg);
       }
-      .admin-student-arrow-down-document-upload {
-        transform: rotate(0deg);
-      }
+     
       .admin-student-section-content-document-upload {
         display: block;
         
@@ -1655,4 +1639,3 @@ textarea::placeholder {
   margin-top: 20px;
 }
     
-

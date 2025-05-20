@@ -294,12 +294,13 @@
     gap: 1rem;
     padding: 1rem 0;
     border-radius: 5px;
-    width: 116px;
+    width: 95%;
+    margin-top: 20px;
 }
 
 .popup-notify-list p {
     font-family: 'Poppins', sans-serif;
-    font-size: 0.8rem;
+    font-size: 14px;
     padding: 0.4rem 0;
     border-radius: 4px;
     margin: 0 3px;
@@ -446,11 +447,22 @@
     visibility: visible;
 }
 
-/* Password Change Container */
+.password-change-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(128, 128, 128, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 999;
+    display: none;
+}
+
 .password-change-container {
     transform: translate(-50%, -50%);
     position: fixed;
-    z-index: 1001;
+    z-index: 1001; 
     top: 50%;
     left: 50%;
     display: none;
@@ -462,6 +474,7 @@
     max-width: 40%;
     width: 100%;
     padding: 1.5rem;
+    border-radius: 8px;
 }
 
 .password-change-container input {
@@ -471,7 +484,7 @@
     border-radius: 2px;
     border: 1px solid rgba(226, 226, 226, 1);
     outline: none;
-    font-size: 0.9rem;
+    font-size: 14px;
     font-family: 'Poppins', sans-serif;
     padding-left: 6px;
 }
@@ -490,6 +503,7 @@
     color: rgba(255, 255, 255, 1);
     border: none;
     align-self: flex-end;
+    font-size: 14px;
 }
 
 .password-change-triggered-view-headersection {
@@ -505,6 +519,7 @@
     font-size: clamp(9px, 4vw, 15px);
     line-height: clamp(11px, 4vw, 27px);
     color: rgba(233, 134, 53, 1);
+    font-size: 18px;
 }
 
 .footer-passwordchange {
@@ -515,7 +530,7 @@
 
 .footer-passwordchange p {
     font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
+    font-size: 12px;
     text-decoration: none;
     padding-left: 6px;
     cursor: pointer;
