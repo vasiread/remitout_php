@@ -196,34 +196,34 @@
 
 
 
-        <div class="input-row">
-          <div class="input-group">
-            <div class="input-content">
-              <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
-              <input type="text" placeholder="State" name="state" id="personal-info-state" required />
-              <div id="suggestions-state" class="suggestions-container"></div>
-              <div class="validation-message" id="state-error"></div>
+          <div class="input-row">
+            <div class="input-group">
+              <div class="input-content">
+                <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
+                <input type="text" placeholder="State" name="state" id="personal-info-state" required />
+                <div id="suggestions-state" class="suggestions-container"></div>
+                <div class="validation-message" id="state-error"></div>
+              </div>
             </div>
-          </div>
 
-          <div class="input-group">
-            <div class="input-content">
-              <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
-              <input type="text" placeholder="City" name="city" id="personal-info-city" required />
-              <div id="suggestions-city" class="suggestions-container"></div>
-              <div class="validation-message" id="city-error"></div>
+            <div class="input-group">
+              <div class="input-content">
+                <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
+                <input type="text" placeholder="City" name="city" id="personal-info-city" required />
+                <div id="suggestions-city" class="suggestions-container"></div>
+                <div class="validation-message" id="city-error"></div>
+              </div>
             </div>
           </div>
-        </div>
-        <!-- Dynamic Inputs -->
-        <div class="input-row">
-          @foreach($additionalFields as $field)
-        <div class="input-group">
-        <input type="{{ $field->type }}" name="dynamic_fields[{{ $field->id }}]" id="{{ $field->name }}"
-          placeholder="{{ $field->label }}" value="{{ $userFieldValues[$field->id] ?? '' }}" @if($field->required)
-      required @endif />
-        </div>
-      @endforeach
+          <!-- Dynamic Inputs -->
+          <div class="input-row">
+            @foreach($additionalFields as $field)
+          <div class="input-group">
+          <input type="{{ $field->type }}" name="dynamic_fields[{{ $field->id }}]" id="{{ $field->name }}"
+            placeholder="{{ $field->label }}" value="{{ $userFieldValues[$field->id] ?? '' }}" @if($field->required)
+        required @endif />
+          </div>
+        @endforeach
 
 
         </div>
@@ -723,25 +723,25 @@
             @endphp
 
             <div class="document-box">
-            <div class="document-name" id="{{ $doc->id }}-document-name">{{ $doc->name }}</div>
+            <div class="document-name" id="{{ $doc->key }}-document-name">{{ $doc->key }}</div>
             <div class="upload-field">
-            <span id="{{ $doc->id }}-name">{{ $actualFileName }}</span>
-            <label for="{{ $doc->id }}" class="upload-icon" id="{{ $doc->id }}-upload-icon">
+            <span id="{{ $doc->key }}-name">{{ $actualFileName }}</span>
+            <label for="{{ $doc->key }}" class="upload-icon" id="{{ $doc->key }}-upload-icon">
             <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
             </label>
-            <input type="file" id="{{ $doc->id }}" name="dynamic_documents[{{ $doc->id }}]" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, '{{ $doc->id }}-name', '{{ $doc->id }}-upload-icon', '{{ $doc->id }}-remove-icon', '{{ $doc->type }}')" />
+            <input type="file" id="{{ $doc->key }}" name="dynamic_documents[{{ $doc->key }}]" accept=".jpg, .png, .pdf"
+              onchange="handleFileUpload(event, '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', '{{ $doc->key }}')" />
 
 
 
-            <span id="{{ $doc->id }}-remove-icon" class="remove-icon" style="display: none;"
-            onclick="removeFile('{{ $doc->id }}', '{{ $doc->id }}-name', '{{ $doc->id }}-upload-icon', '{{ $doc->id }}-remove-icon')">✖</span>
+            <span id="{{ $doc->key }}-remove-icon" class="remove-icon" style="display: none;"
+            onclick="removeFile('{{ $doc->key }}', '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon')">✖</span>
             </div>
             <div class="info">
-            <span class="help-trigger" data-target="{{ $doc->id }}-help">ⓘ Help</span>
+            <span class="help-trigger" data-target="{{ $doc->key }}-help">ⓘ Help</span>
             <span>*jpg, png, pdf formats</span>
             </div>
-            <div class="help-container {{ $doc->id }}-help" style="display: none;">
+            <div class="help-container {{ $doc->key }}-help" style="display: none;">
             <h3 class="help-title">Help</h3>
             <div class="help-content">
             <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>

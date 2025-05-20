@@ -645,4 +645,31 @@ class scDashboardController extends Controller
     }
 
 
+
+    public function postQueryScside(Request $request)
+    {
+
+    
+        // Validate the incoming request data
+        $request->validate([
+            'scuserid'    => 'required|string',
+            'querytype'   => 'required|string|max:255',
+            'queryraised' => 'required|string',
+        ]);
+
+        // Create a new query record
+        $query = Queries::create([
+            'scuserid'    => $request->input('scuserid'),
+            'querytype'   => $request->input('querytype'),
+            'queryraised' => $request->input('queryraised'),
+        ]);
+
+        // Return a success response
+        return response()->json([
+            'message' => 'Query raised successfully!',
+            'data'    => $query
+        ], 201);
+    
+
+    }
 }

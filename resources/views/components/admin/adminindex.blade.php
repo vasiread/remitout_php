@@ -47,7 +47,7 @@
                         </div>
                         <div class="admin-inbox-filters" id="admin-side-student-sort">
                             <span>Sort</span>
-                            <img src="assets/images/filter-icon.png" alt="Filters">
+                            <img src="assets/images/filter-icon.png" alt="Filters" style="width:16px;height:17px;">
                             <ul class="admin-sort-dropdown" id="admin-side-student-sort-options">
                                 <li data-sort="az">A-Z</li>
                                 <li data-sort="za">Z-A</li>
@@ -76,7 +76,7 @@
                         <div class="inbox-filters" id="admin-side-nbfc-sort">
                             <span>Sort</span>
                             <img src="assets/images/filter-icon.png" alt="Filters">
-                            <ul class="sort-dropdown-nbfc" id="admin-side-nbfc-sort-options">
+                            <ul class="sort-dropdown-nbfc" id="admin-side-nbfc-sort-options" style="width:100%">
                                 <li data-sort="az">A-Z</li>
                                 <li data-sort="za">Z-A</li>
                                 <li data-sort="newest">Newest</li>
@@ -825,6 +825,9 @@
                         const nameB = b.name.toLowerCase();
                         const dateA = a.created_at ? new Date(a.created_at).getTime() : new Date().getTime();
                         const dateB = b.created_at ? new Date(b.created_at).getTime() : new Date().getTime();
+                        console.log("--------TIME---------")
+                        console.log(a.created_at)
+                        
                         switch (sortType) {
                             case 'az':
                                 return nameA.localeCompare(nameB);
@@ -876,6 +879,9 @@
                         const nameB = b.nbfc_name.toLowerCase();
                         const dateA = a.created_at ? new Date(a.created_at).getTime() : new Date().getTime();
                         const dateB = b.created_at ? new Date(b.created_at).getTime() : new Date().getTime();
+                        console.log("Nbfctime-----------")
+                        console.log(a.created_at);
+                        console.log(b.created_at)
                         switch (sortType) {
                             case 'az':
                                 return nameA.localeCompare(nameB);

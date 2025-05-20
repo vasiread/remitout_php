@@ -270,7 +270,7 @@
                             <h1>Applications</h1>
                             <div class="application-buttoncontainer">
                                 <button class="see-all">See all</button>
-                                <button class="start-new">Start New Registration</button>
+                                <button class="start-new"></button>
                             </div>
                             <div class="studentadditbutton">
                                 <button class="start-new">+</button>
@@ -582,6 +582,7 @@
             triggerExcelRegistration();
             queryDetails();
             initializeRaiseQuery();
+            updateStartNewText();
 
 
 
@@ -657,7 +658,7 @@
             const triggeredSideBar = document.querySelector(".commonsidebar-togglesidebar");
             const img = document.querySelector("#scuser-dashboard-menu img");
 
-            if (window.innerWidth < 768) {
+            if (window.innerWidth <= 768) {
                 if (img.src.includes("menu.png")) {
                     img.src = '{{ asset('assets/images/Icons/close_icon.png') }}';
                 }
@@ -1316,16 +1317,20 @@
                             align-items: center;
                             gap: 8px;
                             padding: 8px 16px;
-                            border: 1px solid #E98635;
-                            border-radius: 4px;
-                            background-color: #E98635;
-                            color: #fff;
+                             border-radius: 4px;
+                             border:none;
+                             background:transparent;
+                             font-weight:600;
+                             
+                            color:rgba(93, 92, 92, 1);
                             cursor: pointer;
                             font-size: 14px;
                         }
                         .view-more-btn .view-more-icon {
                             width: 16px;
                             height: 16px;
+                            color:rgba(93, 92, 92, 1);
+
                         }
                     }
                 `;
@@ -1769,32 +1774,33 @@
                     return;
                 }
 
-                // fetch('/raise-query', {
-                //     method: "POST",
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                //     },
-                //     body: JSON.stringify({
-                //         scUserId: scuserid,
-                //         queryraised: query,
-                //         querytype: type
-                //     })
-                // })
-                //     .then(response => response.json())
-                //     .then(data => {
-                //         if (data.success) {
-                //             alert("Query raised successfully!");
-                //             hidePopup();
-                //             queryDetails(); // Refresh the query list
-                //         } else {
-                //             alert("Failed to raise query: " + (data.error || "Unknown error"));
-                //         }
-                //     })
-                //     .catch(error => {
-                //         console.error("Error raising query:", error);
-                //         alert("An error occurred while raising the query.");
-                //     });
+                fetch('/raise-query', {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        scuserid: scuserid,
+                        querytype: type,
+                        queryraised: query
+                    })
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Network response was not ok");
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        alert("Query raised successfully!");
+                        hidePopup();        // Optional function to close popup
+                        queryDetails();     // Optional function to refresh UI
+                    })
+                    .catch(error => {
+                        console.error("Error raising query:", error);
+                        alert("An error occurred while raising the query.");
+                    });
             });
         };
 
@@ -2285,6 +2291,17 @@
                             alert("There was an error while sending the email.");
                         });
                 });
+            }
+        }
+
+        function updateStartNewText() {
+            const element = document.querySelector('.studentapplication-header .start-new');
+            if (!element) return;
+
+            if (window.innerWidth <= 767) {
+                element.textContent = '+';
+            } else {
+                element.textContent = 'Start New Registration';
             }
         }
 

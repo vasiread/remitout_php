@@ -389,155 +389,86 @@ function addUserToRequest(userId) {
         });
 }
 
-// Global object to store document URLs
-const documentUrls = {};
+ 
 
 // Global object to store document URLs
 
 const endpoints = [
-    {
-        url: "/retrieve-file",
-        selector: ".uploaded-aadhar-name",
-        fileType: "aadhar-card-name",
-    },
-    {
-        url: "/retrieve-file",
-        selector: ".uploaded-pan-name",
-        fileType: "pan-card-name",
-    },
-    {
-        url: "/retrieve-file",
-        selector: ".passport-name-selector",
-        fileType: "passport-card-name",
-    },
-    {
-        url: "/retrieve-file",
-        selector: ".sslc-marksheet",
-        fileType: "tenth-grade-name",
-    },
-    {
-        url: "/retrieve-file",
-        selector: ".hsc-marksheet",
-        fileType: "twelfth-grade-name",
-    },
-    {
-        url: "/retrieve-file",
-        selector: ".graduation-marksheet",
-        fileType: "graduation-grade-name",
-    },
-    {
-        url: "/retrieve-file",
-        selector: ".sslc-grade",
-        fileType: "secured-tenth-name",
-    },
-    {
-        url: "/retrieve-file",
-        selector: ".hsc-grade",
-        fileType: "secured-twelfth-name",
-    },
-    {
-        url: "/retrieve-file",
-        selector: ".graduation-grade",
-        fileType: "secured-graduation-name",
-    },
-    {
-        url: "/retrieve-file",
-        selector: ".experience-letter",
-        fileType: "work-experience-experience-letter",
-    },
-    {
-        url: "/retrieve-file",
-        selector: ".salary-slip",
-        fileType: "work-experience-monthly-slip",
-    },
-    {
-        url: "/retrieve-file",
-        selector: ".office-id",
-        fileType: "work-experience-office-id",
-    },
-    {
-        url: "/retrieve-file",
-        selector: ".joining-letter",
-        fileType: "work-experience-joining-letter",
-    },
-    {
-        url: "/retrieve-file",
-        selector: ".coborrower-pancard",
-        fileType: "co-pan-card-name",
-    },
-    {
-        url: "/retrieve-file",
-        selector: ".coborrower-aadharcard",
-        fileType: "co-aadhar-card-name",
-    },
-    {
-        url: "/retrieve-file",
-        selector: ".coborrower-addressproof",
-        fileType: "co-addressproof",
-    },
+    { url: "/retrieve-file", selector: ".uploaded-aadhar-name", fileType: "aadhar-card-name" },
+    { url: "/retrieve-file", selector: ".uploaded-pan-name", fileType: "pan-card-name" },
+    { url: "/retrieve-file", selector: ".passport-name-selector", fileType: "passport-card-name" },
+    { url: "/retrieve-file", selector: ".sslc-marksheet", fileType: "tenth-grade-name" },
+    { url: "/retrieve-file", selector: ".hsc-marksheet", fileType: "twelfth-grade-name" },
+    { url: "/retrieve-file", selector: ".graduation-marksheet", fileType: "graduation-grade-name" },
+    { url: "/retrieve-file", selector: ".sslc-grade", fileType: "secured-tenth-name" },
+    { url: "/retrieve-file", selector: ".hsc-grade", fileType: "secured-twelfth-name" },
+    { url: "/retrieve-file", selector: ".graduation-grade", fileType: "secured-graduation-name" },
+    { url: "/retrieve-file", selector: ".experience-letter", fileType: "work-experience-experience-letter" },
+    { url: "/retrieve-file", selector: ".salary-slip", fileType: "work-experience-monthly-slip" },
+    { url: "/retrieve-file", selector: ".office-id", fileType: "work-experience-office-id" },
+    { url: "/retrieve-file", selector: ".joining-letter", fileType: "work-experience-joining-letter" },
+    { url: "/retrieve-file", selector: ".coborrower-pancard", fileType: "co-pan-card-name" },
+    { url: "/retrieve-file", selector: ".coborrower-aadharcard", fileType: "co-aadhar-card-name" },
+    { url: "/retrieve-file", selector: ".coborrower-addressproof", fileType: "co-addressproof" },
 ];
 
+const documentUrls = {}; // make sure this is declared in your script scope
+
 const initialiseAllViews = () => {
-    const csrfToken = document
-        .querySelector('meta[name="csrf-token"]')
-        .getAttribute("content");
-    const userIdElement = document.querySelector(
-        ".personalinfo-secondrow .personal_info_id"
-    );
-    const userId = userIdElement ? userIdElement.textContent.trim() : "";
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content");
+    const userId = document.querySelector(".personalinfo-secondrow .personal_info_id")?.textContent.trim();
 
     if (!csrfToken || !userId) {
         console.error("CSRF token or User ID is missing");
         return Promise.reject("CSRF token or User ID is missing");
     }
 
-    const fetchWithUrl = ({ url, selector, fileType }) => {
-        return fetch(url, {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": csrfToken,
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                userId: userId,
-                fileType: fileType,
-            }),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.fileUrl) {
-                    // Store the URL in documentUrls
-                    documentUrls[fileType] = data.fileUrl;
-                    // console.log(`Stored ${fileType}: ${data.fileUrl}`);
+    // Extract fileTypes from endpoints, but backend may return more keys
+    const fileTypes = endpoints.map(ep => ep.fileType);
 
-                    // Update the UI with the file name
-                    const fileName = data.fileUrl.split("/").pop();
-                    const element = document.querySelector(selector);
-                    if (element) {
-                        element.textContent = fileName;
-                        // console.log(`Updated UI for ${fileType}: ${fileName}`);
-                    } else {
-                        console.log(
-                            `Element not found for selector: ${selector}`
-                        );
+    return fetch("/retrieve-file", {
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": csrfToken,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId, fileTypes }),
+    })
+        .then(res => res.json())
+        .then(data => {
+            // data could be a flat object with all files (static + dynamic)
+            const allFiles = data.staticFiles || data;
+
+            // Loop through all keys returned by backend (all files)
+            Object.entries(allFiles).forEach(([fileType, fileUrl]) => {
+                if (fileUrl) {
+                    documentUrls[fileType] = fileUrl;
+                    const fileName = fileUrl.split("/").pop();
+
+                    // Find matching selector from endpoints (if any)
+                    const endpoint = endpoints.find(ep => ep.fileType === fileType);
+                    if (endpoint) {
+                        const element = document.querySelector(endpoint.selector);
+                        if (element) {
+                            element.textContent = fileName;
+                        } else {
+                            console.warn(`Element not found for selector: ${endpoint.selector}`);
+                        }
                     }
-                } else {
-                    console.log(`No fileUrl returned for ${fileType}`, data);
-                }
-            })
-            .catch((error) => {
-                console.error(`Error fetching ${fileType}:`, error);
-            });
-    };
 
-    return Promise.all(endpoints.map(fetchWithUrl)).then(() => {
-        // console.log(
-        //     "All document URLs fetched and stored successfully!",
-        //     documentUrls
-        // );
-    });
+                    console.log(`FileType: ${fileType}, URL: ${fileUrl}`);
+                } else {
+                    console.log(`No file found for ${fileType}`);
+                }
+            });
+        })
+        .catch(error => {
+            console.error("Error fetching files:", error);
+        });
 };
+
+
 
 
 const triggerEditButton = () => {
