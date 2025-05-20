@@ -427,7 +427,7 @@
                     : `/get-messages-adminstudent/${id}/${admin_id}`;
 
                 // Helper function inside displayMessages
-               function createMessageElement(msg) {
+                function createMessageElement(msg) {
     const messageElement = document.createElement('div');
     messageElement.setAttribute('data-message-id', msg.id);
     messageElement.style.cssText = `
@@ -451,13 +451,19 @@
         gap: 8px;
     `;
 
-    // Check if the message is a file URL (e.g., from S3)
-    const isFileUrl = msg.message.startsWith("http") && (
-        msg.message.endsWith(".pdf") || msg.message.endsWith(".doc") || msg.message.endsWith(".docx") || msg.message.endsWith(".txt")
-    );
+    // Improved file detection using URL parsing
+    let isFileUrl = false;
+    try {
+        const url = new URL(msg.message, window.location.origin);
+        const fileExtensions = ['pdf', 'doc', 'docx', 'txt'];
+        const path = url.pathname.toLowerCase();
+        isFileUrl = fileExtensions.some(ext => path.endsWith(`.${ext}`));
+    } catch (e) {
+        isFileUrl = false;
+    }
 
     if (isFileUrl) {
-        const fileName = msg.message.split('/').pop();
+        const fileName = msg.message.split('/').pop().split('?')[0];
 
         const fileLink = document.createElement('a');
         fileLink.href = msg.message;
@@ -731,7 +737,7 @@
 
                                     // Now, send the file URL as a message to the chat
                                     const messageContent = `${data.fileUrl}`;
-                                    sendMessage(chatId, messageContent, parentContainer, type, chatId);
+                                    sendMessage(chatId, messageContent, parentContainer, type, id);
                                     alert(id)
                                     displayMessages(chatId, messagesWrapper, id);
 
