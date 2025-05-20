@@ -99,7 +99,7 @@ Route::get('/nbfc-lead-gens', [Admincontroller::class, 'nbfcLeadGens']);
 Route::get('/sc-lead-gens', [Admincontroller::class, 'scLeadGens']);
 Route::get('/reports-on-generation', [Admincontroller::class, 'reportsOnGeneration']);
 Route::post('/validateprofilecompletion', [Admincontroller::class, 'validateprofilecompletion']);
- Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails']);
+Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails']);
 Route::get('/city-stats', [Admincontroller::class, 'getCityStats']);
 Route::post('/suspendscuser', [scDashboardController::class, 'suspendUser']);
 Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails']);
@@ -131,7 +131,8 @@ Route::post('/forgot-passwordmailsentsc', [scDashboardController::class, 'forgot
 Route::get('/education', [StudentDetailsController::class, 'getEducationDetails']);
 Route::get('/getrecipients', action: [Admincontroller::class, 'fetchRecipients']);
 Route::get('/admins', [Admincontroller::class, 'getAdmins']);
-Route::post('/postadmins', [Admincontroller::class, 'createAdmin']);
+Route::post('/admins', [Admincontroller::class, 'createAdmin']);
+Route::put('/admins/{id}', [AdminController::class, 'updateAdmin']);
 Route::get('/student-forms', [AdminController::class, 'showStudentForm']);
 Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser']);
 Route::get('/getInfoForAdminSocial', [Admincontroller::class, 'showStudentFormAdmin']);

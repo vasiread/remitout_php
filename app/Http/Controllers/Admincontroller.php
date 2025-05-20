@@ -1120,6 +1120,58 @@ class Admincontroller extends Controller
 
     }
 
+    public function updateAdmin(Request $request, $id)
+    {
+        // Retrieve the admin using the custom admin_id field
+        $admin = Admin::where('admin_id', $id)->first();
+        if (!$admin) {
+            Log::error("Admin not found: {$id}");
+            return response()->json([
+                'error' => 'Admin not found'
+            ], 404);
+        }
+
+        // Validate the incoming request
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:admin,email,' . $admin->id, // ignore current admin record
+            'is_super_admin' => 'boolean'
+        ]);
+
+        if ($validator->fails()) {
+            Log::error('Validation failed for updating admin', $validator->errors()->toArray());
+            return response()->json([
+                'error' => 'Validation failed',
+                'details' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            // Update the admin's fields
+            $admin->name = $request->input('name');
+            $admin->email = $request->input('email');
+            $admin->is_super_admin = $request->input('is_super_admin', false);
+            $admin->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Admin updated successfully',
+                'data' => [
+                    'admin_id' => $admin->admin_id,
+                    'name' => $admin->name,
+                    'email' => $admin->email,
+                    'is_super_admin' => $admin->is_super_admin,
+                    'updated_at' => $admin->updated_at
+                ]
+            ], 200);
+        } catch (\Exception $e) {
+            Log::error('Error updating admin: ' . $e->getMessage());
+            return response()->json([
+                'error' => 'Failed to update admin',
+                'details' => $e->getMessage()
+            ], 500);
+        }
+    }
 
 
 
