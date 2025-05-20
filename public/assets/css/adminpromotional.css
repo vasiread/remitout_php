@@ -190,6 +190,7 @@
     border: 1px solid #e0e0e0;
     border-radius: 4px;
     background: #fff;
+    width:500px;
 }
 
 .promotional-link-input {
@@ -213,7 +214,8 @@
     background: none;
     color: #666;
     cursor: pointer;
-    font-family: "Poppins", sans-serif;
+    font-family: "Poppins", sans-serif; 
+    font-size: 14px;
 }
 #promotional-link-button-id{
     padding: 5px 10px;
@@ -654,8 +656,9 @@
         margin-top: 40px;
     }
     .promotional-composer-main-section{
-        width:340px;
-    }
+        width:100%;
+    
+   }
 
     .promotional-header h2 {
         font-size: 18px;

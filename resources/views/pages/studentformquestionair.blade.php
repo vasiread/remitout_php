@@ -843,9 +843,7 @@
     </div>
   </section>
 
-  <!---document upload step 3--->
   <!----secured Admission-->
-
   <section class="kyc-section-Admission" style="display: none;">
     <div class="kyc-container">
       <div class="step-header">

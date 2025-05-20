@@ -51,6 +51,8 @@
         </div>
     </nav>
 
+     <div class="password-change-overlay" style="display: none;"></div>
+
     <div class="password-change-container">
         <div class="password-change-triggered-view-headersection">
             <h3>Password Change Request</h3>
@@ -69,7 +71,7 @@
     </div>
 
     <script>
-        window.App = {
+         window.App = {
             user: @json(session('user')),
             scuser: @json(session('scuser')),
             hasScUserSession: {{ session()->has('scuser') ? 'true' : 'false' }},
@@ -212,10 +214,10 @@
             const navLinks = document.querySelector('.nav-links');
             const navButtons = document.querySelector('.nav-buttons');
 
-            console.log('Window innerWidth:', window.innerWidth); // Debug viewport size
+            console.log('Window innerWidth:', window.innerWidth);
 
             if (window.innerWidth <= 640) {
-                console.log('Switching to mobile navbar'); // Debug log
+                console.log('Switching to mobile navbar');
                 if (navSearchNotificationBars) {
                     navSearchNotificationBars.style.display = 'none';
                     console.log('Hiding nav-searchnotificationbars');
@@ -242,7 +244,7 @@
                     console.log('Hiding nav-buttons');
                 }
             } else {
-                console.log('Switching to desktop navbar'); // Debug log
+                console.log('Switching to desktop navbar');
                 if (navSearchNotificationBars) {
                     navSearchNotificationBars.style.display = 'flex';
                     console.log('Showing nav-searchnotificationbars');
@@ -518,6 +520,7 @@
                     const newPassword = document.getElementById('new-password').value.trim();
                     const confirmNewPassword = document.getElementById('confirm-new-password').value.trim();
                     const passwordChangeContainer = document.querySelector(".password-change-container");
+                    const passwordChangeOverlay = document.querySelector(".password-change-overlay");
                     clearErrorMessages();
                     let valid = true;
                     if (!currentPassword) {
@@ -584,6 +587,7 @@
                                     document.getElementById('new-password').value = '';
                                     document.getElementById('confirm-new-password').value = '';
                                 }
+                                if (passwordChangeOverlay) passwordChangeOverlay.style.display = "none";
                             } else {
                                 console.error("Error:", data.message);
                                 alert(data.message);
@@ -597,15 +601,25 @@
             }
         };
 
+        function clearErrorMessages() {
+            const errorElements = document.getElementsByClassName('error-message');
+            for (let i = 0; i < errorElements.length; i++) {
+                errorElements[i].innerText = '';
+                errorElements[i].style.display = 'none';
+            }
+        }
+
         const passwordModelTrigger = () => {
             const passwordTrigger = document.getElementById("change-password-trigger");
             const passwordChangeContainer = document.querySelector(".password-change-container");
+            const passwordChangeOverlay = document.querySelector(".password-change-overlay");
             const passwordContainerExit = document.querySelector(".password-change-container .password-change-triggered-view-headersection img");
             const popupPasswordShow = document.querySelector(".popup-notify-list");
             const arrowUp = document.querySelector(".nav-profilecontainer i");
             if (passwordTrigger) {
                 passwordTrigger.addEventListener("click", () => {
                     if (passwordChangeContainer) passwordChangeContainer.style.display = "flex";
+                    if (passwordChangeOverlay) passwordChangeOverlay.style.display = "block";
                     if (popupPasswordShow) popupPasswordShow.style.display = "none";
                     if (arrowUp && arrowUp.classList.contains('fa-chevron-up')) {
                         arrowUp.classList.remove("fa-chevron-up");
@@ -623,6 +637,7 @@
                         document.getElementById('confirm-new-password').value = '';
                         clearErrorMessages();
                     }
+                    if (passwordChangeOverlay) passwordChangeOverlay.style.display = "none";
                 });
             }
         };

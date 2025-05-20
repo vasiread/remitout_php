@@ -56,7 +56,6 @@
                                 <input type="password" id="passwordinputID" name="password" class="passwordOpen" placeholder="Password" maxlength="20" required>
                                 <i class="fa-regular fa-eye-slash passwordClose"></i>
                                 <div id="password-error" class="sign-up error-message">Password must be valid (6-20 characters).</div>
-                                <a href="#" class="forgot-password" onclick="showForgotPasswordPopup()">Forgot Password?</a>
                             </div>
                           <div class="rightpanel-signupbuttoncontainer">
                                 <div class="rightpanel-checkboxcontainer">
@@ -105,25 +104,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Forgot Password Popup -->
-                <div class="forgot-password-popup-overlay" id="forgotPasswordPopup">
-                    <div class="forgot-password-popup-container">
-                        <span class="forgot-password-popup-close" onclick="hideForgotPasswordPopup()">×</span>
-                        <h2>Reset your password</h2>
-                        <p>Enter your email to receive a password reset link</p>
-                        <form id="forgotPasswordForm" onsubmit="sendResetLink(event)">
-                            <label for="forgot-email">Email</label>
-                            <input type="email" id="forgot-email" name="email" placeholder="name@example.com" required>
-                            <div id="forgot-email-error" class="forgot-password-popup-error" style="display: none;"></div>
-                            <button type="submit">Send reset link</button>
-                            <div id="forgot-password-status" class="forgot-password-popup-status" style="display: none;"></div>
-                        </form>
-                        <div class="forgot-password-popup-footer">
-                            Remember your password? <a href="http://127.0.0.1:8000/login" onclick="hideForgotPasswordPopup()">Log in</a>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <script>
@@ -144,66 +124,7 @@
                 let generatedOTP = '';
                 let registerFormData = {};
 
-                // Show the forgot password popup
-                function showForgotPasswordPopup() {
-                    document.getElementById('forgotPasswordPopup').style.display = 'flex';
-                }
-
-                // Hide the forgot password popup
-                function hideForgotPasswordPopup() {
-                    document.getElementById('forgotPasswordPopup').style.display = 'none';
-                    document.getElementById('forgot-email-error').style.display = 'none';
-                    document.getElementById('forgot-password-status').style.display = 'none';
-                    document.getElementById('forgot-email').value = '';
-                }
-
-                // Send reset link
-                function sendResetLink(event) {
-                    event.preventDefault();
-                    const email = document.getElementById('forgot-email').value;
-                    const errorElement = document.getElementById('forgot-email-error');
-                    const statusElement = document.getElementById('forgot-password-status');
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-                    // Validate email
-                    if (!emailRegex.test(email)) {
-                        errorElement.textContent = 'Please enter a valid email address';
-                        errorElement.style.display = 'block';
-                        statusElement.style.display = 'none';
-                        return;
-                    }
-
-                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                    fetch('/forgot-password', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': csrfToken,
-                            },
-                            body: JSON.stringify({
-                                email: email
-                            })
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.status === 'We have emailed your password reset link!') {
-                                statusElement.textContent = data.status;
-                                statusElement.style.display = 'block';
-                                errorElement.style.display = 'none';
-                            } else {
-                                errorElement.textContent = data.email || 'An error occurred. Please try again.';
-                                errorElement.style.display = 'block';
-                                statusElement.style.display = 'none';
-                            }
-                        })
-                        .catch(error => {
-                            errorElement.textContent = 'An error occurred. Please try again.';
-                            errorElement.style.display = 'block';
-                            statusElement.style.display = 'none';
-                        });
-                }
-
-                 function validateName(name) {
+                function validateName(name) {
                     return name.trim().length > 0;
                 }
 
@@ -217,11 +138,10 @@
                     return phoneRegex.test(phone);
                 }
 
-            function validatePassword(password) {
+                function validatePassword(password) {
                     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{5,20}$/;
                     return passwordRegex.test(password);
                 }
-
 
                 function showError(inputId, errorId, show) {
                     const input = document.getElementById(inputId);
@@ -234,7 +154,7 @@
                     }
                 }
 
-                 function toggleLabelVisibility(input) {
+                function toggleLabelVisibility(input) {
                     const label = input.previousElementSibling;
                     if (input.value.length > 0) {
                         label.classList.add('show-label');
@@ -243,7 +163,7 @@
                     }
                 }
 
-                 document.getElementById('name').addEventListener('input', function() {
+                document.getElementById('name').addEventListener('input', function() {
                     toggleLabelVisibility(this);
                     showError('name', 'name-error', !validateName(this.value));
                 });
@@ -290,7 +210,6 @@
 
                 const passwordInput = document.getElementById('passwordinputID');
                 const passwordIcon = document.querySelector('.passwordClose');
-                const forgotPasswordLink = document.querySelector('.forgot-password');
                 let passwordView = false;
 
                 passwordIcon.addEventListener('click', function() {
@@ -303,24 +222,6 @@
                         passwordInput.type = 'password';
                         passwordIcon.classList.remove('fa-eye');
                         passwordIcon.classList.add('fa-eye-slash');
-                    }
-                });
-
-                passwordInput.addEventListener('input', function() {
-                    if (passwordInput.value.length > 0) {
-                        forgotPasswordLink.style.display = 'block';
-                    } else {
-                        forgotPasswordLink.style.display = 'none';
-                    }
-                });
-
-                passwordInput.addEventListener('focus', function() {
-                    forgotPasswordLink.style.display = 'block';
-                });
-
-                passwordInput.addEventListener('blur', function() {
-                    if (passwordInput.value.length === 0) {
-                        forgotPasswordLink.style.display = 'none';
                     }
                 });
 
@@ -372,7 +273,6 @@
                             console.error("OTP Panel not found!");
                         }
                     }
-
 
                 const generateOTP = (phoneInput, nameInput) => {
                     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');

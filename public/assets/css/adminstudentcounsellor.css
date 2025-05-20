@@ -315,6 +315,7 @@
     width: 24px; 
     height: 24px;
     pointer-events: none; 
+    top:5px;
 }
 
 @media (max-width: 767px) {
