@@ -168,3 +168,13 @@ Route::post('/kycdynamicpost', [Admincontroller::class, 'storeKYCDynamic']);
 Route::get('/additionalpersonalinfodata', [Admincontroller::class, 'showAdditionalPersonalInfoData']);
 Route::post('/addadditionalpersonalinfodata', [Admincontroller::class, 'addAdditionalPersonalInfoData']);
 Route::delete('/additionalfields/{id}', [Admincontroller::class, 'deletePersonalInfoDynamicFields']);
+
+
+
+
+
+
+Route::post('/raise-query', [scDashboardController::class, 'postQueryScside']);
+
+
+

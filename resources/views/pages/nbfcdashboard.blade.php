@@ -268,7 +268,7 @@ $viewIconPath = "assets/images/visibility.png";
                         <!-- <button>Edit</button> -->
                     </div>
                     <div class="educationeditsection-secondrow">
-                        
+
                     </div>
                 </div>
 
@@ -378,7 +378,7 @@ $counter = 1;
             <div class="myapplication-seventhcolumn">
                 <div class="myapplication-seventhcolumn-headernbfc">
                     <h1>Attached Documents</h1>
-                    <button>Download All</button>
+                    <button id="downloaddocuments">Download All</button>
                 </div>
                 <div class="seventhcolum-firstsection">
                     <div class="seventhcolumn-header">
@@ -762,6 +762,7 @@ $counter = 1;
             initializeMarksheetUpload();
             initializeSecuredAdmissionDocumentUpload();
             initializeWorkExperienceDocumentUpload();
+            downloadDocuments();
 
 
 
@@ -2858,7 +2859,8 @@ $counter = 1;
                 await retreiveUserDetails(userId);
                 await initialiseAllViews(userId);
                 await initialiseProfileView(userId);
-
+                await downloadDocuments(userId);
+                
 
                 console.log("Profile loaded for user:", userId);
             } catch (error) {
@@ -4581,7 +4583,7 @@ $counter = 1;
                 console.error('Error fetching user details:', error);
             }
         };
-      const updateProfileView = (container, usersListcontainer, data) => {
+        const updateProfileView = (container, usersListcontainer, data) => {
             // Input Fields
             const courseInput = container.querySelector("#plan-to-study-edit");
             const courseDuration = container.querySelector(".myapplication-fourthcolumn-additional input");
@@ -4733,7 +4735,6 @@ $counter = 1;
 
 
         const initialiseAllViews = (userId) => {
-
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
             if (!csrfToken || !userId) {
@@ -4741,42 +4742,54 @@ $counter = 1;
                 return Promise.reject("CSRF token or User ID is missing");
             }
 
+            // Prepare fileTypes and selector map
+            const fileTypes = endpoints.map(ep => ep.fileType);
+            const selectorMap = {};
+            endpoints.forEach(ep => {
+                selectorMap[ep.fileType] = ep.selector;
+            });
 
-            const fetchWithUrl = ({ url, selector, fileType }) => {
-                return fetch(url, {
-                    method: "POST",
-                    headers: {
-                        'X-CSRF-TOKEN': csrfToken,
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        userId: userId,
-                        fileType: fileType,
-                    }),
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.fileUrl) {
-                            const fileName = data.fileUrl.split('/').pop();
-                            const element = document.querySelector(selector);
-                            if (element) {
-                                element.textContent = fileName; // Update the element with the file name
-                                console.log(`Fetched ${fileType}:`, data.fileUrl);
+            // Send one request with all fileTypes
+            return fetch('/retrieve-file', {
+                method: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId: userId,
+                    fileTypes: fileTypes,
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.staticFiles) {
+                        console.warn("No staticFiles returned");
+                        return;
+                    }
 
-                            } else {
-                                console.log(`Element not found for selector: ${selector}`);
-                            }
+                    const files = data.staticFiles;
+
+                    // Loop through the returned files and update DOM
+                    for (const [fileType, fileUrl] of Object.entries(files)) {
+                        const selector = selectorMap[fileType];
+                        if (!selector) continue;
+
+                        const element = document.querySelector(selector);
+                        if (element && fileUrl) {
+                            const fileName = fileUrl.split('/').pop();
+                            element.textContent = fileName;
+                            console.log(`Updated ${fileType} → ${fileName}`);
+                            console.log(fileUrl)
                         } else {
-                            console.log(`No fileUrl returned for ${fileType}`, data);
+                            console.log(`Element not found or no fileUrl for: ${fileType}`);
                         }
-                    })
-                    .catch(error => {
-                        console.error(`Error fetching ${fileType}:`, error);
-                    });
-            };
-
-            return Promise.all(endpoints.map(fetchWithUrl));
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching files:", error);
+                });
         };
 
         const initialiseProfileView = (userId) => {
@@ -4964,6 +4977,52 @@ $counter = 1;
                 });
             }
         }
+
+       function downloadDocuments(userId) {
+        console.log(userId)
+            const downloadTrigger = document.querySelector(".myapplication-seventhcolumn-headernbfc #downloaddocuments");
+
+            if (!userId) {
+                console.error("User ID is required to download documents.");
+                return;
+            }
+
+            if (downloadTrigger) {
+                downloadTrigger.addEventListener('click', () => {
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                    fetch('/downloadzip', {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken,
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ userId: userId }),
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error("Network response was not ok");
+                            }
+                            return response.blob(); // get zip file as binary blob
+                        })
+                        .then(blob => {
+                            const url = window.URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = `user_files_${userId}.zip`;
+                            document.body.appendChild(a);
+                            a.click();
+                            a.remove();
+                            window.URL.revokeObjectURL(url);
+                        })
+                        .catch(error => {
+                            console.error("Error downloading documents:", error);
+                            alert("Download failed. Please try again.");
+                        });
+                });
+            }
+        }
+
     </script>
 
     <div id="document-preview-modal" class="modal">

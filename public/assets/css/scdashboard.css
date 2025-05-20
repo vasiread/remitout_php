@@ -255,6 +255,7 @@
 
 }
 
+
 .studentadditbutton .start-new{
     font-size: 24px;
 }
@@ -1734,7 +1735,7 @@
 }
 
 
-@media(max-width:720px) {
+@media(max-width:768px) {
     .scdashboard-nbfcstatus-pending {
         margin-left: 0;
     }
@@ -1793,6 +1794,7 @@
         max-width: 60%;
         width: 100%;
     }
+    
 
 
 }

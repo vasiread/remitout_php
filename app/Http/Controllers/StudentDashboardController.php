@@ -851,36 +851,45 @@ class StudentDashboardController extends Controller
     {
         $request->validate([
             'userId' => 'required|string',
-            'fileType' => 'required|string',
+            'fileTypes' => 'required|array',
         ]);
 
         $userId = $request->input('userId');
-        $fileType = $request->input('fileType');
+        $fileTypes = $request->input('fileTypes');
+        $disk = Storage::disk('s3');
 
-        // Path where the files are stored based on user ID and file type
-        $filePath = "$userId/$fileType";
+        $response = [];
 
-        // Fetch files from the S3 bucket
-        $files = Storage::disk('s3')->files($filePath);
+        // Step 1: Retrieve requested static fileTypes
+        foreach ($fileTypes as $fileType) {
+            $staticPath = "$userId/$fileType";
+            $staticFiles = $disk->files($staticPath);
 
-        if (!empty($files)) {
-            // Get the first file in the list
-            $file = $files[0];
-
-            // Generate the URL for the file
-            $fileUrl = Storage::disk('s3')->url($file);
-
-            // Return success response with file URL
-            return response()->json([
-                'message' => ucfirst(str_replace('-', ' ', $fileType)) . ' retrieved successfully.',
-                'fileUrl' => $fileUrl,
-            ], 200);
+            if (!empty($staticFiles)) {
+                $response[$fileType] = $disk->url($staticFiles[0]);
+            } else {
+                $response[$fileType] = null;
+            }
         }
 
-        return response()->json([
-            'message' => 'No file found for the specified type.',
-            'fileUrl' => null,
-        ], 200);
+        // Step 2: Get dynamic folders and one file from each
+        $allDirectories = $disk->directories($userId);
+
+        foreach ($allDirectories as $folderPath) {
+            $folderName = basename($folderPath);
+
+            // Skip folders that are already processed in static list
+            if (in_array($folderName, $fileTypes)) {
+                continue;
+            }
+
+            $filesInFolder = $disk->files($folderPath);
+            if (!empty($filesInFolder)) {
+                $response[$folderName] = $disk->url($filesInFolder[0]);
+            }
+        }
+
+        return response()->json(['staticFiles' => $response], 200);
     }
 
 
@@ -979,58 +988,48 @@ class StudentDashboardController extends Controller
 
     public function downloadFilesAsZip(Request $request)
     {
-        $request->validate([
-            'userId' => 'required|string',
-        ]);
-
         $userId = $request->input('userId');
-        $folderPath = rtrim($userId, '/') . '/';
 
-
-        if (!Storage::disk('s3')->exists($folderPath)) {
-            dd("Folder path '$folderPath' does not exist on S3.");
+        if (!$userId) {
+            return response()->json(['error' => 'User ID is required'], 400);
         }
 
-        $folders = Storage::disk("s3")->directories($folderPath);
+        $disk = Storage::disk('s3');
+        $allFiles = $disk->allFiles($userId);  
 
-        if (empty($folders)) {
-            return response()->json([
-                'message' => 'No folders found in the specified directory.',
-            ], 404);
+        if (empty($allFiles)) {
+            return response()->json(['error' => 'No files found'], 404);
         }
 
-        $zipFileName = $userId . '_files.zip';
-        $tempFile = tempnam(sys_get_temp_dir(), 'zip');
+        // Create a temporary file for the zip
+        $zipFileName = "user_files_$userId.zip";
+        $tmpFile = tempnam(sys_get_temp_dir(), 'zip');
 
-        // Initialize the ZipArchive
-        $zip = new ZipArchive();
-        if ($zip->open($tempFile, ZipArchive::CREATE) === TRUE) {
-            foreach ($folders as $folder) {
-                $files = Storage::disk('s3')->files($folder);
-
-                foreach ($files as $file) {
-                    try {
-                        $fileContent = Storage::disk('s3')->get($file);
-                    } catch (\Exception $e) {
-                        return response()->json([
-                            'message' => 'Error retrieving file from S3: ' . $e->getMessage(),
-                        ], 500);
-                    }
-
-                    $zip->addFromString($file, $fileContent);
-                }
-            }
-
-            $zip->close();
-        } else {
-            return response()->json([
-                'message' => 'Failed to create ZIP file.',
-            ], 500);
+        $zip = new      ZipArchive();
+        if ($zip->open($tmpFile, ZipArchive::CREATE) !== true) {
+            return response()->json(['error' => 'Could not create ZIP file'], 500);
         }
 
-        // Return a response with the ZIP file download, and delete the temporary file after sending it
-        return response()->download($tempFile, $zipFileName)->deleteFileAfterSend(true);
+        foreach ($allFiles as $filePath) {
+    $stream = $disk->readStream($filePath);
+    if ($stream === false) {
+        continue; // skip files that cannot be read
     }
+    $relativePathInZip = substr($filePath, strlen($userId) + 1);
+    if (!empty($relativePathInZip)) {
+        $zip->addFromString($relativePathInZip, stream_get_contents($stream));
+    }
+    fclose($stream);
+}
+
+
+
+        $zip->close();
+
+        // Send the file as download and delete after sending
+        return response()->download($tmpFile, $zipFileName)->deleteFileAfterSend(true);
+    }
+
 
     public function updateReadMessage(Request $request)
     {

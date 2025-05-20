@@ -14,11 +14,12 @@
     align-items: center;
     justify-content: space-between;
 }
-.admindashboardcontainer-sixth-section{
-    display:flex;
+
+.admindashboardcontainer-sixth-section {
+    display: flex;
     gap: 20px;
-        width: 100%;
-            max-width: 81%;
+    width: 100%;
+    max-width: 81%;
 }
 
 .admindashboardcontainer-firstsection h1 {
@@ -80,6 +81,7 @@
     align-items: center;
     background-color: transparent;
 }
+
 /* Mobile Modal */
 .mobile-admin-dashboard-modal {
     display: none;
@@ -137,6 +139,7 @@
     margin: 10px 0;
     font-family: "Poppins", sans-serif;
 }
+
 .mobile-admin-dashboard-menu-btn {
     background: none;
     border: none;
@@ -199,6 +202,7 @@
         font-weight: 600;
         line-height: 32px;
     }
+
     .admindashboardcontainer-firstsectionbuttoncontainer {
         display: none;
     }
@@ -230,6 +234,7 @@
         font-size: 14px;
         text-align: center;
     }
+
     .admindashboardsecondsection-buttongroups {
         display: none;
     }
@@ -279,6 +284,7 @@
         font-weight: 600;
         line-height: 32px;
     }
+
     .admindashboardcontainer-firstsectionbuttoncontainer {
         display: none;
     }
@@ -310,6 +316,7 @@
         font-size: 14px;
         text-align: center;
     }
+
     .admindashboardsecondsection-buttongroups {
         display: none;
     }
@@ -537,6 +544,7 @@
         border-bottom-left-radius: 8px;
         border-bottom-right-radius: 8px;
     }
+
     .admin-dashboard-search-filter-container {
         flex-wrap: wrap;
     }
@@ -565,6 +573,7 @@
         display: block;
     }
 }
+
 #showall-buttongroups {
     width: 242px;
     padding: 8px 16px;
@@ -722,6 +731,7 @@
 .admindashboard-firstpart {
     width: 330px;
 }
+
 .admindashboard-secondpart,
 .admindashboard-thirdpart {
     flex: 1;
@@ -834,6 +844,7 @@ canvas {
     line-height: 18px;
     color: rgba(93, 92, 92, 1);
 }
+
 .source-name {
     margin: 0px;
 }
@@ -841,6 +852,7 @@ canvas {
 #donutRegistrationChart-percentage {
     color: rgba(111, 37, 206, 1);
 }
+
 #ageratio-donutRegistrationChart {
     width: 103px;
     height: 103px;
@@ -861,6 +873,7 @@ canvas {
     background-color: #f5f5f5;
     max-width: 340px;
 }
+
 .admindashboard-secondpart .totalundergrads-admin,
 .admindashboard-secondpart .totalpostgrads-admin {
     padding: 22px 12px 18px 12px;
@@ -1193,9 +1206,11 @@ canvas {
         max-width: 380px;
         margin: 0 auto;
     }
+
     .totalundergrads-admin {
         width: 380px;
     }
+
     .totalpostgrads-admin {
         width: 380px;
     }
@@ -1213,6 +1228,7 @@ canvas {
         max-width: 380px;
         margin: 0 auto;
     }
+
     .admindashboard-secondpart .ageratio-graph-admin {
         order: 4;
         width: 100%;
@@ -1239,6 +1255,7 @@ canvas {
 }
 
 @media screen and (max-width: 480px) {
+
     #donutRegistrationChart,
     #ageratio-donutRegistrationChart {
         width: 150px !important;
@@ -1444,22 +1461,36 @@ canvas {
     justify-content: space-between;
     gap: 20px;
 }
+
 .admin-desti-country-sort-btn {
-    display: flex; /* Use flexbox to align items in a row */
-    align-items: center; /* Vertically center the text and icon */
-    justify-content: space-between; /* Space between text and icon */
-    padding: 8px 12px; /* Consistent padding */
-    font-size: 14px; /* Readable font size */
-    border: 1px solid #ccc; /* Optional: Match your design */
-    border-radius: 4px; /* Optional: Rounded corners */
-    background-color: #fff; /* Optional: Background color */
+    display: flex;
+    /* Use flexbox to align items in a row */
+    align-items: center;
+    /* Vertically center the text and icon */
+    justify-content: space-between;
+    /* Space between text and icon */
+    padding: 8px 12px;
+    /* Consistent padding */
+    font-size: 14px;
+    /* Readable font size */
+    border: 1px solid #ccc;
+    /* Optional: Match your design */
+    border-radius: 4px;
+    /* Optional: Rounded corners */
+    background-color: #fff;
+    /* Optional: Background color */
     cursor: pointer;
-    white-space: nowrap; /* Prevent text wrapping */
-    min-width: 120px; /* Minimum width to accommodate text */
-    max-width: 200px; /* Optional: Maximum width to prevent excessive stretching */
-    overflow: hidden; /* Hide overflow if text is too long */
-    text-overflow: ellipsis; /* Add ellipsis if text overflows */
-    position: relative; 
+    white-space: nowrap;
+    /* Prevent text wrapping */
+    min-width: 120px;
+    /* Minimum width to accommodate text */
+    max-width: 200px;
+    /* Optional: Maximum width to prevent excessive stretching */
+    overflow: hidden;
+    /* Hide overflow if text is too long */
+    text-overflow: ellipsis;
+    /* Add ellipsis if text overflows */
+    position: relative;
 }
 
 .admin-desti-country-filter-btn i,
@@ -1691,6 +1722,7 @@ canvas {
     display: flex;
     align-items: center;
 }
+
 text[fill="#222222"] {
     font-family: "Poppins", sans-serif;
     font-size: 12px;
@@ -1739,8 +1771,10 @@ text[fill="#222222"] {
     cursor: pointer;
     font-size: 16px;
 }
+
 #nbfc-lead-chart_div {
-    min-height: 170px; /* Ensure minimum height */
+    min-height: 170px;
+    /* Ensure minimum height */
 }
 
 .sc-lead-container {
@@ -1782,10 +1816,11 @@ text[fill="#222222"] {
     align-items: center;
     margin-bottom: 5px;
     font-size: 12px;
-    justify-content:space-between ;
+    justify-content: space-between;
     color: #5d5c5c;
-    
+
 }
+
 .sc-lead-legend-item span {
     font-size: 12px;
     color: #5d5c5c;
@@ -1819,7 +1854,8 @@ text[fill="#222222"] {
     margin-top: 50px;
 }
 
-.sc-lead-prev-btn, .sc-lead-next-btn {
+.sc-lead-prev-btn,
+.sc-lead-next-btn {
     background: none;
     border: none;
     cursor: pointer;
@@ -1829,6 +1865,7 @@ text[fill="#222222"] {
 .sc-lead-pagination span {
     margin: 0 2px;
 }
+
 #leadChart {
     width: 466px !important;
     height: 190px !important;
@@ -1942,6 +1979,7 @@ text[fill="#222222"] {
 .backdrop.active {
     display: block;
 }
+
 .referral-triggered-view {
     display: flex;
     flex-direction: column;
@@ -2052,7 +2090,8 @@ text[fill="#222222"] {
     gap: 10px;
 }
 
-.copy-button-container, .share-button-container {
+.copy-button-container,
+.share-button-container {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -2074,7 +2113,7 @@ text[fill="#222222"] {
     white-space: nowrap;
 }
 
-#shareBtn{
+#shareBtn {
     background-color: rgba(111, 37, 206, 1);
     display: flex;
     align-items: center;
@@ -2091,7 +2130,8 @@ text[fill="#222222"] {
 
 }
 
-.copy-icon, .share-icon {
+.copy-icon,
+.share-icon {
     width: 16px;
     height: 16px;
 }
@@ -2176,10 +2216,12 @@ text[fill="#222222"] {
         overflow-x: auto;
         white-space: nowrap;
     }
+
     .point-entry-legend-container {
         display: block;
         gap: 35px;
     }
+
     .point-entry-chart-container {
         gap: 25px;
     }
@@ -2316,11 +2358,13 @@ text[fill="#222222"] {
         height: 45px;
         font-size: 12px;
     }
+
     .point-entry-legend {
         display: flex;
         flex-direction: column;
         gap: 0px;
     }
+
     .point-entry-legend-container {
         gap: 5px;
     }
@@ -2511,6 +2555,7 @@ text[fill="#222222"] {
         max-width: 1100px;
         margin-left: 32%;
     }
+
     .admindashboard-secondpart .ageratio-graph-admin {
         width: 340px;
     }
@@ -2522,9 +2567,11 @@ text[fill="#222222"] {
         max-width: 1200px;
         margin-left: 40%;
     }
+
     .admindashboard-secondpart .ageratio-graph-admin {
         width: 340px;
     }
+
     #nbfc-lead-chart_container,
     .sc-lead-container,
     .point-entry-donut,

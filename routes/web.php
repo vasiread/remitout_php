@@ -127,7 +127,7 @@ Route::post('/students/import', [scDashboardController::class, 'import_excel_pos
 Route::get('/get-messages/{nbfc_id}/{student_id}', [ChatController::class, 'getMessages']);
 
 
-Route::post('/retrieve-file', [StudentDashboardController::class, 'retrieveFile']);
+Route::post('/retrieve-file', action: [StudentDashboardController::class, 'retrieveFile']);
 Route::get("/getalluserdetailsfromadmin", [StudentDashboardController::class, 'getAllUsersFromAdmin']);
 Route::get('/export-excel', [ExportController::class, 'export'])->name('export.excel');
 
@@ -253,3 +253,8 @@ Route::post('/kycdynamicpost', [Admincontroller::class, 'storeKYCDynamic']);
 Route::delete('/deletekycdocument/{id}', [AdminController::class, 'deleteDynamicKycField']);
 Route::post('/addadditionalpersonalinfodata', [Admincontroller::class, 'addAdditionalPersonalInfoData']);
 Route::delete('/additionalfields/{id}', [Admincontroller::class, 'deletePersonalInfoDynamicFields']);
+
+
+Route::post("/downloadzip", [StudentDashboardController::class, 'downloadFilesAsZip']);
+
+Route::post('/raise-query', [scDashboardController::class, 'postQueryScside']);
