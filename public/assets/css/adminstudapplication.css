@@ -1364,7 +1364,10 @@ textarea::placeholder {
         text-align: center;
         flex: none;
         position: relative;
+        display: block;
+        margin-bottom: 15px;
       }
+    
       .work-experience-container {
         width: 100%;
         display: none;
@@ -1639,11 +1642,7 @@ textarea::placeholder {
   margin-top: 20px;
 }
     
-.document-box {
-    position: relative;
-    display: block;
-    margin-bottom: 15px;
-  }
+
   
   .help-container {
     display: none;
