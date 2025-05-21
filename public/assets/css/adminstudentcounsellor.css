@@ -515,6 +515,11 @@
     margin: 5px 0;
 }
 
+.scmember_personalinfo_editmode{
+    padding-left: 0px;
+}
+
+
 #scmember-profilecontainer-adminside .scmember-rowfirst .save-scuser {
     display: flex;
     align-items: center;

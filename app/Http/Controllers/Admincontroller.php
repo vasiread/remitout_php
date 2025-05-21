@@ -1720,6 +1720,11 @@ class Admincontroller extends Controller
                 'ILETS' => 'nullable|string',
                 'GRE' => 'nullable|string',
                 'TOFEL' => 'nullable|string',
+                'plan_to_study' => 'nullable|array',
+                'degree_type' => 'nullable|string',
+                'course_duration' => 'nullable|string',
+                'loan_amount' => 'nullable|string',
+                'referral_code' => 'nullable|string'
             ]);
 
             $user = User::where('unique_id', $request->unique_id)->first();
@@ -1728,13 +1733,13 @@ class Admincontroller extends Controller
                 return response()->json(['success' => false, 'message' => 'User not found.'], 404);
             }
 
-            // Update User table
+            // Update User
             $user->name = $request->name ?? $user->name;
             $user->email = $request->email ?? $user->email;
             $user->phone = $request->phone ?? $user->phone;
             $user->save();
 
-            // Update or create personal info
+            // Update Personal Info
             $personalInfo = PersonalInfo::updateOrCreate(
                 ['user_id' => $user->unique_id],
                 [
@@ -1744,7 +1749,7 @@ class Admincontroller extends Controller
                 ]
             );
 
-            // Update academic details
+            // Update Academic Info
             $academicDetails = Academics::updateOrCreate(
                 ['user_id' => $user->unique_id],
                 [
@@ -1756,12 +1761,25 @@ class Admincontroller extends Controller
                 ]
             );
 
+            // ✅ Update Course Info
+            $courseInfo = CourseInfo::updateOrCreate(
+                ['user_id' => $user->unique_id],
+                [
+                    'plan-to-study' => json_encode($request->plan_to_study),
+                    'degree-type' => $request->degree_type,
+                    'course-duration' => $request->course_duration,
+                    'course-details' => $request->referral_code,
+                    'loan_amount_in_lakhs' => $request->loan_amount
+                ]
+            );
+
             return response()->json([
                 'success' => true,
                 'message' => 'User details updated successfully.',
                 'user' => $user,
                 'personal_info' => $personalInfo,
-                'academic_details' => $academicDetails
+                'academic_details' => $academicDetails,
+                'course_info' => $courseInfo
             ]);
         } catch (\Exception $e) {
             \Log::error('Error in updatepersonalinfoadminside:', [
@@ -1776,6 +1794,7 @@ class Admincontroller extends Controller
             ], 500);
         }
     }
+
 
 
 
