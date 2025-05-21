@@ -1226,27 +1226,23 @@ class Admincontroller extends Controller
             'additionalFields' => $additionalFields
         ]);
     }
+    // app/Http/Controllers/AdditionalFieldController.php
+
     public function addAdditionalPersonalInfoData(Request $request)
     {
         $validated = $request->validate([
-            'fieldType' => 'required|string|max:255',
+            'label' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'type' => 'required|string|in:text,date,select,checkbox,radio,file',
+            'required' => 'boolean',
+            'options' => 'nullable|array',
         ]);
 
-        $fieldType = $validated['fieldType'];
+        $field = AdditionalField::create($validated);
 
-        // Convert it into a name-safe format
-        $name = strtolower(str_replace(' ', '_', $fieldType));
-
-        $field = AdditionalField::create([
-            'label' => $fieldType,
-            'name' => $name,
-            'type' => 'text',
-            'required' => false,
-        ]);
-
-        return response()->json(['message' => 'Field added successfully', 'field' => $field], 201);
-
+        return response()->json(['field' => $field], 201);
     }
+
     public function showStudentPersonalInfoAdditionalField()
     {
         $documentTypes = DocumentType::all();
@@ -1591,7 +1587,7 @@ class Admincontroller extends Controller
                 ], 404);
             }
 
-            // Step 2: Fetch related info using unique_id as user_id in those tables
+
             $personalInfo = PersonalInfo::where('user_id', $user->unique_id)->first();
             $courseInfo = CourseInfo::where('user_id', $user->unique_id)->first();
             $academicInfo = Academics::where('user_id', $user->unique_id)->first();
@@ -1643,6 +1639,7 @@ class Admincontroller extends Controller
 
             // Final response
             $data = [
+                'user_id' => $user->unique_id,
                 'name' => $user->name ?? '',
                 'phone' => $user->phone ?? '',
                 'email' => $user->email ?? '',
@@ -1687,7 +1684,7 @@ class Admincontroller extends Controller
 
     public function storeKYCDynamic(Request $request)
     {
-        $request->validate([
+        $request->validate(rules: [
             'name' => 'required|string|max:255'
         ]);
 
@@ -1708,53 +1705,80 @@ class Admincontroller extends Controller
 
         return response()->json($documentType, 201);
     }
+
     public function updatepersonalinfoadminside(Request $request)
     {
-        $request->validate([
-            'user_id' => 'string|required',
-            'name' => 'nullable|string',
-            'email' => 'nullable|email',
-            'state' => 'nullable|string',
-            'phone' => 'nullable|string',
-        ]);
+        try {
+            $request->validate([
+                'unique_id' => 'required|string',
+                'name' => 'nullable|string',
+                'email' => 'nullable|email',
+                'state' => 'nullable|string',
+                'phone' => 'nullable|string',
+                'university_school_name' => 'nullable|string',
+                'course_name' => 'nullable|string',
+                'ILETS' => 'nullable|string',
+                'GRE' => 'nullable|string',
+                'TOFEL' => 'nullable|string',
+            ]);
 
-        $user = User::where('unique_id', $request->user_id)->first();
+            $user = User::where('unique_id', $request->unique_id)->first();
 
-        if (!$user) {
-            return response()->json(['success' => false, 'message' => 'User not found.'], 404);
-        }
-
-        $user->name = $request->name ?? $user->name;
-        $user->email = $request->email ?? $user->email;
-        $user->phone = $request->phone ?? $user->phone;
-        $user->save();
-
-        // Update or create personal info
-        $personalInfo = PersonalInfo::updateOrCreate(
-            ['user_id' => $user->unique_id],
-            [
-                'full_name' => $request->name,
-                'email' => $request->email,
-                'state' => $request->state,
-            ]
-        );
-
-        if ($request->has('dynamic_fields')) {
-            foreach ($request->input('dynamic_fields') as $fieldId => $value) {
-                UserAdditionalFieldValue::updateOrCreate(
-                    ['user_id' => $user->id, 'field_id' => $fieldId],
-                    ['value' => $value]
-                );
+            if (!$user) {
+                return response()->json(['success' => false, 'message' => 'User not found.'], 404);
             }
-        }
 
-        return response()->json([
-            'success' => true,
-            'message' => 'User details updated successfully.',
-            'user' => $user,
-            'personal_info' => $personalInfo
-        ]);
+            // Update User table
+            $user->name = $request->name ?? $user->name;
+            $user->email = $request->email ?? $user->email;
+            $user->phone = $request->phone ?? $user->phone;
+            $user->save();
+
+            // Update or create personal info
+            $personalInfo = PersonalInfo::updateOrCreate(
+                ['user_id' => $user->unique_id],
+                [
+                    'full_name' => $request->name,
+                    'email' => $request->email,
+                    'state' => $request->state,
+                ]
+            );
+
+            // Update academic details
+            $academicDetails = Academics::updateOrCreate(
+                ['user_id' => $user->unique_id],
+                [
+                    'university_school_name' => $request->university_school_name,
+                    'course_name' => $request->course_name,
+                    'ILETS' => $request->ILETS,
+                    'GRE' => $request->GRE,
+                    'TOFEL' => $request->TOFEL,
+                ]
+            );
+
+            return response()->json([
+                'success' => true,
+                'message' => 'User details updated successfully.',
+                'user' => $user,
+                'personal_info' => $personalInfo,
+                'academic_details' => $academicDetails
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Error in updatepersonalinfoadminside:', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while updating user info.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
+
+
+
 
 
     public function deletePersonalInfoDynamicFields($id)
@@ -1770,5 +1794,63 @@ class Admincontroller extends Controller
         return response()->json(['success' => true]);
     }
 
+
+
+
+
+
+    public function getUserDynamicFields($uniqueId)
+    {
+        $user = User::where('unique_id', $uniqueId)->first();
+
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+        $fieldValues = UserAdditionalFieldValue::with('field')
+            ->where('user_id', $user->id)
+            ->get();
+
+        $formatted = $fieldValues->mapWithKeys(function ($item) {
+            return [$item->field->label => $item->value];
+        });
+
+        return response()->json([
+            'user' => $user->name,
+            'fields' => $formatted
+        ]);
+    }
+
+    public function getUserDynamicFieldsGroupedBySection($uniqueId)
+    {
+        // 1. Find the user by unique_id
+        $user = User::where('unique_id', $uniqueId)->first();
+
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+        // 2. Get the additional field values with their related field definitions
+        $fieldValues = UserAdditionalFieldValue::with('field')
+            ->where('user_id', $user->id)
+            ->get()
+            ->groupBy(fn($item) => $item->field->section); // group by section
+
+        // 3. Format the grouped data
+        $formatted = $fieldValues->map(function ($items, $section) {
+            return [
+                'section' => $section,
+                'fields' => $items->mapWithKeys(function ($item) {
+                    return [$item->field->label => $item->value];
+                }),
+            ];
+        })->values(); // to reset keys to numeric array
+
+        // 4. Return the formatted response
+        return response()->json([
+            'user' => $user->name,
+            'sections' => $formatted
+        ]);
+    }
 
 }

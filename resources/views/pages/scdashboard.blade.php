@@ -486,9 +486,9 @@
                     <input type="text" placeholder="phone">
                     <input type="text" placeholder="password">
                     <button id="delete-student-row" style="cursor:pointer">Delete</button>
-                    <button id="dynamic-add-student-button" style="cursor:pointer">Add Student</button>
                 </div>
             </div>
+            <button id="dynamic-add-student-button" style="cursor:pointer">Add Student</button>
             <form id="excel-form" enctype="multipart/form-data">
                 @csrf
                 <div class="studentAddByScuserPopup-footerpart">
@@ -1084,7 +1084,7 @@
         };
 
         const addDynamicInputFields = () => {
-            const addStudentButtons = document.querySelectorAll(".studentAddByScuserPopup-footerpart button:nth-child(2), .studentAddByScuserPopup-contentpart #dynamic-add-student-button");
+            const addStudentButtons = document.querySelectorAll(".studentAddByScuserPopup-footerpart button:nth-child(2), #dynamic-add-student-button");
             const studentFormContainer = document.querySelector(".studentAddByScuserPopup-contentpart");
 
             const addNewStudentForm = () => {
