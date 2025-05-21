@@ -776,21 +776,7 @@
                     document.execCommand('insertHTML', false, table);
                 }
             }
-            function handleTextColor() {
-                if (!contentArea) return;
-                const selection = window.getSelection();
-                if (selection.rangeCount === 0) return;
-                const range = selection.getRangeAt(0);
-                const colorPicker = document.createElement('input');
-                colorPicker.type = 'color';
-                colorPicker.addEventListener('change', function () {
-                    contentArea.focus();
-                    selection.removeAllRanges();
-                    selection.addRange(range);
-                    document.execCommand('foreColor', false, this.value);
-                });
-                colorPicker.click();
-            }
+         
             function handleBackgroundColor() {
                 if (!contentArea) return;
                 const selection = window.getSelection();

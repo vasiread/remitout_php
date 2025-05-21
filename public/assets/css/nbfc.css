@@ -442,37 +442,36 @@ body {
 
 #profilesection-nbfcapprovalcolumn .studentdashboardprofile-educationeditsection {
     display: flex;
-}
+ }
+ #nbfc-list-of-student-profilesections .educationeditsection-secondrow p {
+     display: flex;
+     width: 80%;
+     margin-bottom: 8px;
+ }
 
-#nbfc-list-of-student-profilesections .educationeditsection-secondrow p {
-    display: flex;
-    width: 80%;
-    margin-bottom: 8px;
-}
+ #nbfc-list-of-student-profilesections .educationeditsection-secondrow .label {
+     flex: 0 0 140px;
+     /* fixed width for labels */
+     font-weight: 600;
+     text-align: right;
+     padding-right: 12px;
+     white-space: nowrap;
+     display: flex;
+     align-items: center;
+     justify-content: flex-start;
+ }
 
-#nbfc-list-of-student-profilesections .educationeditsection-secondrow .label {
-    flex: 0 0 140px;
-    /* fixed width for labels */
-    font-weight: 600;
-    text-align: right;
-    padding-right: 12px;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-}
+ #nbfc-list-of-student-profilesection .educationeditsection-secondrow .label::after {
+     content: ":";
+     padding-left: 6px;
+ }
 
-#nbfc-list-of-student-profilesection .educationeditsection-secondrow .label::after {
-    content: ":";
-    padding-left: 6px;
-}
-
-#nbfc-list-of-student-profilesections .educationeditsection-secondrow .value {
-    flex: 1 1 auto;
-    /* allow value to grow & wrap */
-    word-break: break-word;
-    overflow-wrap: break-word;
-}
+ #nbfc-list-of-student-profilesections .educationeditsection-secondrow .value {
+     flex: 1 1 auto;
+     /* allow value to grow & wrap */
+     word-break: break-word;
+     overflow-wrap: break-word;
+ }
 
 .myapplication-seventhcolumn-headernbfc button {
     cursor: pointer;
@@ -1098,7 +1097,7 @@ body {
     margin-left: 1.2rem;
     max-width: 100%;
     width: 100%;
-    flex-direction: row;
+    flex-direction: column;
 
 
 }
@@ -2303,17 +2302,6 @@ body {
     border: 1px solid #ccc;
     padding: 10px;
     width: fit-content;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 10px;
-    cursor: pointer;
-    background-color: white;
-    height: 38px;
-    width: 117px;
-
 }
 
 .sort-dropdown-nbfc {
