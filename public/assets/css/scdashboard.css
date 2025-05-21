@@ -1794,7 +1794,14 @@
         max-width: 60%;
         width: 100%;
     }
-    
+
+
+        .firstrowapplication-rightsidecontent{
+            width: 100%;
+        }
+           .scdashboard-applicationstatus .scapplicationstatus-firstrow #applicationstatus-sortby{
+            flex: 0.8;
+        }
 
 
 }

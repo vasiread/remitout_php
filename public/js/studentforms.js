@@ -402,14 +402,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // ✅ Collect dynamic fields
         const dynamicFields = {};
-        document.querySelectorAll('input[name^="dynamic_fields["]').forEach((input) => {
-            const name = input.getAttribute("name"); // e.g., "dynamic_fields[5]"
-            const match = name.match(/^dynamic_fields\[(\d+)\]$/);
-            if (match) {
-                const fieldId = match[1];
-                dynamicFields[fieldId] = input.value;
+
+        // Select all inputs and selects starting with dynamic_fields[
+        document.querySelectorAll('input[name^="dynamic_fields["], select[name^="dynamic_fields["]').forEach(input => {
+            const name = input.getAttribute('name'); // e.g. dynamic_fields[5], dynamic_fields[5][]
+
+            // Extract field ID and check if multiple (with [])
+            const multipleMatch = name.match(/^dynamic_fields\[(\d+)\]\[\]$/);
+            const singleMatch = name.match(/^dynamic_fields\[(\d+)\]$/);
+
+            if (multipleMatch) {
+                const fieldId = multipleMatch[1];
+                if (!dynamicFields[fieldId]) {
+                    dynamicFields[fieldId] = [];
+                }
+                // For checkboxes, only add if checked
+                if ((input.type === 'checkbox' || input.type === 'radio') && input.checked) {
+                    dynamicFields[fieldId].push(input.value);
+                }
+            } else if (singleMatch) {
+                const fieldId = singleMatch[1];
+                if (input.type === 'checkbox' || input.type === 'radio') {
+                    if (input.checked) {
+                        dynamicFields[fieldId] = input.value;
+                    }
+                } else if (input.tagName.toLowerCase() === 'select') {
+                    dynamicFields[fieldId] = input.value;
+                } else {
+                    dynamicFields[fieldId] = input.value;
+                }
             }
         });
+
+        console.log(dynamicFields);
+
 
         // ✅ Validate required fields (as you already do)
         if (

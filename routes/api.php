@@ -103,6 +103,7 @@ Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails'])
 Route::get('/city-stats', [Admincontroller::class, 'getCityStats']);
 Route::post('/suspendscuser', [scDashboardController::class, 'suspendUser']);
 Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails']);
+Route::post('/update-academicsinfo', [StudentDetailsController::class, 'updateAcademicsInfo']);
 
 Route::get('/dest-countries', [Admincontroller::class, 'getDestinationCountries']);
 Route::get('/landingpage', [Admincontroller::class, 'landingPage']);
@@ -159,6 +160,7 @@ Route::post('/suspendnbfc', [AdminController::class, 'suspendNbfc']);
 Route::post('/getuseradminside', [AdminController::class, 'getUserProfileAdminSide']);
 Route::post('/update-personal-info-adminside', [AdminController::class, 'updatepersonalinfoadminside']);
 
+Route::get('/getUserProfileAdminSide', [AdminController::class, 'getUserProfileAdminSide']);
 
 
 Route::post('/kycdynamicpost', [Admincontroller::class, 'storeKYCDynamic']);
@@ -175,6 +177,8 @@ Route::delete('/additionalfields/{id}', [Admincontroller::class, 'deletePersonal
 
 
 Route::post('/raise-query', [scDashboardController::class, 'postQueryScside']);
+// Route::get('/user/{uniqueId}/fields', [Admincontroller::class, 'getUserDynamicFieldsGroupedBySection']);
 
 
 
+Route::get('/user-fields/{uniqueId}', [Admincontroller::class, 'getUserDynamicFields']);

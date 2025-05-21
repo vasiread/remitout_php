@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Academics;
+use App\Models\AdditionalField;
 use App\Models\CoBorrowerInfo;
 use App\Models\CourseInfo;
 use App\Models\DocumentType;
@@ -20,45 +21,53 @@ class StudentDetailsController extends Controller
     public function updatePersonalInfo(Request $request)
     {
         try {
-            Log::info('Request received:', $request->all());
+            Log::info('updatePersonalInfo called:', $request->all());
 
             $personalInfoDetail = PersonalInfo::find($request->personalInfoId);
             $user = User::where('unique_id', $request->personalInfoId)->first();
 
             if (!$personalInfoDetail || !$user) {
+                Log::warning('User or PersonalInfo not found.', ['personalInfoId' => $request->personalInfoId]);
                 return response()->json([
                     'success' => false,
                     'message' => 'User not found.'
                 ]);
             }
 
-            Log::info('User found:', ['user' => $user]);
+            // Update fields as before...
 
-            // Update personal info fields
-            $personalInfoDetail->full_name = $request->input('personalInfoName');
-            $personalInfoDetail->referral_code = $request->input('personalInfoReferral');
-            $personalInfoDetail->email = $request->input('personalInfoEmail');
-            $personalInfoDetail->city = $request->input('personalInfoCity');
-            $personalInfoDetail->state = $request->input('personalInfoState');
-            $personalInfoDetail->linked_through = $request->input('personalInfoFindOut');
-            $personalInfoDetail->gender = $request->input('genderOptions');
-            $personalInfoDetail->dob = $request->input('personalInfoDob');
-
-            // Also update the user table
-            $user->referral_code = $request->input('personalInfoReferral');
-
-            $personalInfoDetail->save();
-            $user->save();
-
-            // ✅ Handle dynamic_fields
             if ($request->has('dynamic_fields')) {
+                Log::info('Processing dynamic_fields in updatePersonalInfo...');
                 foreach ($request->input('dynamic_fields') as $fieldId => $value) {
+                    $field = AdditionalField::find($fieldId);
+
+                    if (!$field) {
+                        Log::warning("AdditionalField not found for field_id: $fieldId");
+                        continue;
+                    }
+
+                    if (empty($value) && $value !== '0') { // accept '0' as valid value
+                        Log::warning("Empty value for dynamic field", ['field_id' => $fieldId, 'value' => $value]);
+                        continue;
+                    }
+
                     UserAdditionalFieldValue::updateOrCreate(
                         ['user_id' => $user->id, 'field_id' => $fieldId],
                         ['value' => $value]
                     );
+
+                    Log::info("Dynamic field updated", [
+                        'user_id' => $user->id,
+                        'field_id' => $fieldId,
+                        'value' => $value
+                    ]);
                 }
+            } else {
+                Log::info('No dynamic_fields present in updatePersonalInfo request.');
             }
+
+            $personalInfoDetail->save();
+            $user->save();
 
             return response()->json([
                 'success' => true,
@@ -74,26 +83,114 @@ class StudentDetailsController extends Controller
         }
     }
 
-
     public function updateCourseInfo(Request $request)
+    {
+        try {
+            Log::info('updateCourseInfo called:', $request->all());
+
+            $courseInfoDetail = CourseInfo::find($request->personalInfoId);
+            $user = User::where('unique_id', $request->personalInfoId)->first();
+
+            if (!$courseInfoDetail || !$user) {
+                Log::warning('User or CourseInfo not found.', ['personalInfoId' => $request->personalInfoId]);
+                return response()->json(['success' => false, 'message' => 'User not found.']);
+            }
+
+            // Update course fields...
+
+            if ($request->has('dynamic_fields')) {
+                Log::info('Processing dynamic_fields in updateCourseInfo...');
+                foreach ($request->input('dynamic_fields') as $fieldId => $value) {
+                    $field = AdditionalField::find($fieldId);
+
+                    Log::info('Processing dynamic field', [
+                        'user_id' => $user?->id,
+                        'field_id' => $fieldId,
+                        'value' => $value,
+                        'field_section' => $field?->section
+                    ]);
+
+                    if (!$field) {
+                        Log::warning("AdditionalField not found for field_id: $fieldId");
+                        continue;
+                    }
+
+                    if ($field->section === 'course') {
+                        if (empty($value) && $value !== '0') {
+                            Log::warning("Empty value for dynamic field in course section", ['field_id' => $fieldId, 'value' => $value]);
+                            continue;
+                        }
+                        UserAdditionalFieldValue::updateOrCreate(
+                            ['user_id' => $user->id, 'field_id' => $fieldId],
+                            ['value' => is_array($value) ? json_encode($value) : $value]
+                        );
+                        Log::info("Dynamic field updated for course", [
+                            'user_id' => $user->id,
+                            'field_id' => $fieldId,
+                            'value' => $value
+                        ]);
+                    } else {
+                        Log::info("Field section mismatch, skipping dynamic field", [
+                            'field_id' => $fieldId,
+                            'expected_section' => 'course',
+                            'actual_section' => $field->section
+                        ]);
+                    }
+                }
+            } else {
+                Log::info('No dynamic_fields present in updateCourseInfo request.');
+            }
+
+            $courseInfoDetail->save();
+
+            return response()->json(['success' => true, 'message' => 'Your details have been updated successfully.']);
+        } catch (\Exception $e) {
+            Log::error('Error updating course info: ' . $e->getMessage());
+
+            return response()->json(['success' => false, 'message' => 'An error occurred while updating your details.']);
+        }
+    }
+
+    public function updateAcademicsInfo(Request $request)
     {
         try {
             Log::info($request->all());
 
-            $courseInfoDetail = CourseInfo::find($request->personalInfoId);
+            $academicsDetailsInfo = Academics::find($request->personalInfoId);
+            $user = User::where('unique_id', $request->personalInfoId)->first();
 
 
-            if (!$courseInfoDetail) {
+            if (!$academicsDetailsInfo || !$user) {
                 return response()->json(['success' => false, 'message' => 'User not found.']);
             }
-            $courseInfoDetail->{'plan-to-study'} = $request->input('studyLocations');
-            $courseInfoDetail->{'degree-type'} = $request->input('selectedDegreeType');
-            $courseInfoDetail->{'course-duration'} = $request->input('courseDuration');
 
-            $courseInfoDetail->{'course-details'} = $request->input('expenseType');
-            $courseInfoDetail->loan_amount_in_lakhs = $request->input('loanAmount');
+            $academicsDetailsInfo->gap_in_academics = $request->input('selectedAcademicGap');
+            $academicsDetailsInfo->reason_for_gap = $request->input('reasonForGap');
+            $academicsDetailsInfo->work_experience = $request->input('selectedWorkOption');
 
-            $courseInfoDetail->save();
+            $academicsDetailsInfo->ILETS = $request->input('ieltsScore');
+            $academicsDetailsInfo->GRE = $request->input('greScore');
+            $academicsDetailsInfo->TOFEL = $request->input('toeflScore');
+            $academicsDetailsInfo->Others = json_encode($request->input('others'));
+            $academicsDetailsInfo->university_school_name = $request->input("universityName");
+            $academicsDetailsInfo->course_name = $request->input("courseName");
+            if ($request->has('dynamic_fields')) {
+                foreach ($request->input('dynamic_fields') as $fieldId => $value) {
+                    $field = AdditionalField::find($fieldId);
+                    Log::info($field);
+
+                    if ($field && $field->section === 'academic') {
+                        UserAdditionalFieldValue::updateOrCreate(
+                            ['user_id' => $user->id, 'field_id' => $fieldId],
+                            ['value' => is_array($value) ? json_encode($value) : $value]
+                        );
+                    }
+
+                }
+            }
+
+
+            $academicsDetailsInfo->save();
 
             return response()->json(['success' => true, 'message' => 'Your details have been updated successfully.']);
         } catch (\Exception $e) {
@@ -158,38 +255,7 @@ class StudentDetailsController extends Controller
     }
 
 
-    public function updateAcademicsInfo(Request $request)
-    {
-        try {
-            Log::info($request->all());
 
-            $academicsDetailsInfo = Academics::find($request->personalInfoId);
-
-
-            if (!$academicsDetailsInfo) {
-                return response()->json(['success' => false, 'message' => 'User not found.']);
-            }
-            $academicsDetailsInfo->gap_in_academics = $request->input('selectedAcademicGap');
-            $academicsDetailsInfo->reason_for_gap = $request->input('reasonForGap');
-            $academicsDetailsInfo->work_experience = $request->input('selectedWorkOption');
-
-            $academicsDetailsInfo->ILETS = $request->input('ieltsScore');
-            $academicsDetailsInfo->GRE = $request->input('greScore');
-            $academicsDetailsInfo->TOFEL = $request->input('toeflScore');
-            $academicsDetailsInfo->Others = $request->input('others');
-            $academicsDetailsInfo->university_school_name = $request->input("universityName");
-            $academicsDetailsInfo->course_name = $request->input("courseName");
-
-
-            $academicsDetailsInfo->save();
-
-            return response()->json(['success' => true, 'message' => 'Your details have been updated successfully.']);
-        } catch (\Exception $e) {
-            Log::error('Error updating personal info: ' . $e->getMessage());
-
-            return response()->json(['success' => false, 'message' => 'An error occurred while updating your details.']);
-        }
-    }
 
 
 
@@ -198,6 +264,7 @@ class StudentDetailsController extends Controller
         try {
             // Log incoming request data for debugging
             Log::info('Request data:', $request->all());
+
 
             // Find the co-borrower info by user_id
             $coBorrowerInfo = CoBorrowerInfo::where('user_id', $request->personalInfoId)->first();

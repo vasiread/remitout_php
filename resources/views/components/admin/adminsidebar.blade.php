@@ -18,7 +18,7 @@
         <ul class="commonsidebar-sidebarlists-top">
             @foreach($sidebarItems as $item)
                 <li class="{{ $item['active'] ? 'active' : '' }}">
-                    <i class="{{ $item['icon'] }}"></i>
+                    <img src="{{ $item['icon'] }}" alt="{{ $item['name'] }} Icon" class="sidebar-icon" />
                     <p>{{ $item['name'] }}</p>
                     @if ($item['name'] === 'Student' || $item['name'] === 'Student Counsellor')
                         <i id="expand-icon-{{ str_replace(' ', '', $item['name']) }}" class="fa-solid fa-chevron-down"></i>

@@ -19,7 +19,36 @@
 
   <script src="{{ asset('js/studentforms.js') }}"></script>
 
+  <style>
+    select {
+      width: 100%;
+      height: 40px;
+      padding: 8px 12px;
+      font-size: 16px;
+      font-family: inherit;
+      color: #333;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
 
+      /* Orange arrow icon (fill=#f47b20) */
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='gray' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px 16px;
+
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: #5b9bd5;
+      box-shadow: 0 0 0 3px rgba(91, 155, 213, 0.2);
+    }
+  </style>
 </head>
 
 <body>
@@ -196,37 +225,91 @@
 
 
 
-          <div class="input-row">
-            <div class="input-group">
-              <div class="input-content">
-                <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
-                <input type="text" placeholder="State" name="state" id="personal-info-state" required />
-                <div id="suggestions-state" class="suggestions-container"></div>
-                <div class="validation-message" id="state-error"></div>
-              </div>
-            </div>
-
-            <div class="input-group">
-              <div class="input-content">
-                <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
-                <input type="text" placeholder="City" name="city" id="personal-info-city" required />
-                <div id="suggestions-city" class="suggestions-container"></div>
-                <div class="validation-message" id="city-error"></div>
-              </div>
-            </div>
-          </div>
-          <!-- Dynamic Inputs -->
-          <div class="input-row">
-            @foreach($additionalFields as $field)
+        <div class="input-row">
           <div class="input-group">
-          <input type="{{ $field->type }}" name="dynamic_fields[{{ $field->id }}]" id="{{ $field->name }}"
-            placeholder="{{ $field->label }}" value="{{ $userFieldValues[$field->id] ?? '' }}" @if($field->required)
-        required @endif />
+            <div class="input-content">
+              <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
+              <input type="text" placeholder="State" name="state" id="personal-info-state" required />
+              <div id="suggestions-state" class="suggestions-container"></div>
+              <div class="validation-message" id="state-error"></div>
+            </div>
           </div>
-        @endforeach
 
-
+          <div class="input-group">
+            <div class="input-content">
+              <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
+              <input type="text" placeholder="City" name="city" id="personal-info-city" required />
+              <div id="suggestions-city" class="suggestions-container"></div>
+              <div class="validation-message" id="city-error"></div>
+            </div>
+          </div>
         </div>
+        <!-- Dynamic Inputs -->
+        <div class="input-row">
+    @foreach($additionalFields as $field)
+        @if($field->section === 'general') {{-- ✅ Only allow general section --}}
+            @php
+    // Dynamic inline style based on field type
+    $inputGroupStyle = '';
+    if (in_array($field->type, ['checkbox', 'radio'])) {
+      $inputGroupStyle = 'padding-bottom: 10px; padding-top: 6px; height: fit-content; display: flex; flex-direction: column; align-items: flex-start;color:#75747c;';
+    } elseif ($field->type === 'select') {
+      $inputGroupStyle = 'padding-bottom: 8px;display: flex;flex-direction: column;align-items: flex-start;color:#75747c;height:fit-content';
+    } elseif ($field->type === 'date') {
+      $inputGroupStyle = 'display: flex; flex-direction: column; align-items: flex-start;color:#75747c;height:fit-content';
+    }
+            @endphp
+
+            <div class="input-group" style="{{ $inputGroupStyle }}">
+                {{-- Only show label for types other than text/url/date/file --}}
+                @if(!in_array($field->type, ['text', 'url']))
+                    <label for="{{ $field->name }}">{{ $field->label }}</label>
+                @endif
+
+                {{-- Input Types --}}
+                @if(in_array($field->type, ['text', 'date', 'url', 'file']))
+                    <input type="{{ $field->type }}" name="dynamic_fields[{{ $field->id }}]" id="{{ $field->name }}"
+                        value="{{ $userFieldValues[$field->id] ?? '' }}" placeholder="{{ $field->label }}" @if($field->required) required @endif />
+                
+                @elseif($field->type === 'select')
+                    <select name="dynamic_fields[{{ $field->id }}]" id="{{ $field->name }}" @if($field->required) required @endif>
+                        <option value="">Select {{ $field->label }}</option>
+                        @foreach($field->options ?? [] as $option)
+                            <option value="{{ $option }}" @if(($userFieldValues[$field->id] ?? '') == $option) selected @endif>
+                                {{ ucfirst($option) }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                @elseif($field->type === 'checkbox')
+                    <div style="margin-top: 6px;">
+                        @foreach($field->options ?? [] as $option)
+                            <label style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;color:#75747c;">
+                                <input type="checkbox" name="dynamic_fields[{{ $field->id }}][]" value="{{ $option }}"
+                                    @if(in_array($option, $userFieldValues[$field->id] ?? [])) checked @endif />
+                                {{ ucfirst($option) }}
+                            </label>
+                        @endforeach
+                    </div>
+
+                @elseif($field->type === 'radio')
+                    <div style="margin-top: 6px;">
+                        @foreach($field->options ?? [] as $option)
+                            <label style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;color:#75747c">
+                                <input type="radio" name="dynamic_fields[{{ $field->id }}]" value="{{ $option }}"
+                                    @if(($userFieldValues[$field->id] ?? '') == $option) checked @endif />
+                                {{ ucfirst($option) }}
+                            </label>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+        @endif
+    @endforeach
+</div>
+
+
+
 
 
 
@@ -369,33 +452,73 @@
           <h2>Course Details</h2>
         </div>
 
-        <div class="content-wrapper">
-          <div class="left-section">
-            <div class="form-group academic-option">
-              <label for="living-expenses">
-                <input type="radio" id="living-expenses" name="expense-type" value="with-living">
-                With living expenses
-              </label>
-            </div>
-            <div class="form-group academic-option">
-              <label for="no-living-expenses">
-                <input type="radio" id="no-living-expenses" name="expense-type" value="without-living">
-                Without living expenses
-              </label>
-            </div>
+      <div class="content-wrapper">
+        <div class="left-section">
+          <div class="form-group academic-option">
+            <label for="living-expenses">
+              <input type="radio" id="living-expenses" name="expense-type" value="with-living">
+              With living expenses
+            </label>
           </div>
-
-          <div class="right-section">
-            <div class="loan-amount-container">
-              <label for="loan-amount" class="loan-label">Enter desired loan amount</label>
-              <input type="number" id="loan-amount" class="loan-input" placeholder="₹ Rupees in Lakhs" />
-              <span id="loan-error-message" class="error-message" style="display:none; color:red;">Please enter a valid
-                loan amount (numeric values only).</span>
-            </div>
+          <div class="form-group academic-option">
+            <label for="no-living-expenses">
+              <input type="radio" id="no-living-expenses" name="expense-type" value="without-living">
+              Without living expenses
+            </label>
           </div>
-          <!-- Only this step has the button -->
-          <button type="submit" id="course-info-submit" class="next-btn-course">Next</button>
         </div>
+      
+        <div class="right-section">
+          <div class="loan-amount-container">
+            <label for="loan-amount" class="loan-label">Enter desired loan amount</label>
+            <input type="number" id="loan-amount" class="loan-input" placeholder="₹ Rupees in Lakhs" />
+            <span id="loan-error-message" class="error-message" style="display:none; color:red;">
+              Please enter a valid loan amount (numeric values only).
+            </span>
+          </div>
+      
+          {{-- Dynamically injected fields for section = "course" --}}
+         @foreach($additionalFields as $field)
+  @if($field->section === 'academic')
+    <div class="form-group" style="margin-top: 15px;">
+      @if(!in_array($field->type, ['text', 'url']))
+        <label for="{{ $field->name }}">{{ $field->label }}</label>
+      @endif
+
+      @if(in_array($field->type, ['text', 'url', 'date']))
+        <input
+          type="{{ $field->type }}"
+          name="dynamic_fields[{{ $field->id }}]"
+          id="{{ $field->name }}"
+          value="{{ $userFieldValues[$field->id] ?? '' }}"
+          placeholder="{{ $field->label }}"
+          @if($field->required) required @endif
+        />
+      @elseif($field->type === 'select')
+        <select
+          name="dynamic_fields[{{ $field->id }}]"
+          id="{{ $field->name }}"
+          @if($field->required) required @endif
+        >
+          <option value="">Select {{ $field->label }}</option>
+          @foreach($field->options ?? [] as $option)
+            <option
+              value="{{ $option }}"
+              @if(($userFieldValues[$field->id] ?? '') == $option) selected @endif
+            >
+              {{ ucfirst($option) }}
+            </option>
+          @endforeach
+        </select>
+      @endif
+    </div>
+  @endif
+@endforeach
+        </div>
+      
+        <button type="submit" id="course-info-submit" class="next-btn-course">Next</button>
+      </div>
+
       </div>
 
 
@@ -445,14 +568,39 @@
 
         <div class="education-label">Education</div>
 
-        <div class="input-grid">
-          <div class="input-field">
-            <input type="text" id="universityschoolid" placeholder="University/School">
-          </div>
-          <div class="input-field">
-            <input type="text" id="educationcourseid" placeholder="Course Name">
-          </div>
-        </div>
+    <div class="input-grid">
+      <div class="input-field">
+        <input type="text" id="universityschoolid" placeholder="University/School" />
+      </div>
+      <div class="input-field">
+        <input type="text" id="educationcourseid" placeholder="Course Name" />
+      </div>
+    
+      {{-- Dynamically add fields for "academic" section --}}
+      @foreach($additionalFields as $field)
+      @if($field->section === 'academic')
+      <div class="input-field">
+      @if(in_array($field->type, ['text', 'url', 'date']))
+      <input type="{{ $field->type }}" name="dynamic_fields[{{ $field->id }}]" id="{{ $field->name }}"
+      value="{{ old('dynamic_fields.' . $field->id, $userFieldValues[$field->id] ?? '') }}"
+      placeholder="{{ $field->label }}" @if($field->required) required @endif />
+    @elseif($field->type === 'select')
+      <label for="{{ $field->name }}">{{ $field->label }}</label>
+      <select name="dynamic_fields[{{ $field->id }}]" id="{{ $field->name }}" @if($field->required) required @endif>
+      <option value="">Select {{ $field->label }}</option>
+      @foreach($field->options ?? [] as $option)
+      <option value="{{ $option }}" @if(old('dynamic_fields.' . $field->id, $userFieldValues[$field->id] ?? '') == $option) selected @endif>
+      {{ ucfirst($option) }}
+      </option>
+      @endforeach
+      </select>
+    @endif
+      </div>
+    @endif
+    @endforeach
+    </div>
+
+
       </div>
     </div>
 
@@ -715,39 +863,39 @@
 
 
         @foreach($documentTypes as $doc)
-            @php
-        $fileUrl = $userDocumentUrls[$doc->id] ?? null;
+        @php
+  $fileUrl = $userDocumentUrls[$doc->id] ?? null;
 
-        // Extract file name if URL is available
-        $actualFileName = $fileUrl ? basename($fileUrl) : 'No file chosen';
-            @endphp
+  // Extract file name if URL is available
+  $actualFileName = $fileUrl ? basename($fileUrl) : 'No file chosen';
+        @endphp
 
-            <div class="document-box">
-            <div class="document-name" id="{{ $doc->key }}-document-name">{{ $doc->key }}</div>
-            <div class="upload-field">
-            <span id="{{ $doc->key }}-name">{{ $actualFileName }}</span>
-            <label for="{{ $doc->key }}" class="upload-icon" id="{{ $doc->key }}-upload-icon">
+        <div class="document-box">
+          <div class="document-name" id="{{ $doc->key }}-document-name">{{ $doc->key }}</div>
+          <div class="upload-field">
+          <span id="{{ $doc->key }}-name">{{ $actualFileName }}</span>
+          <label for="{{ $doc->key }}" class="upload-icon" id="{{ $doc->key }}-upload-icon">
             <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
-            </label>
-            <input type="file" id="{{ $doc->key }}" name="dynamic_documents[{{ $doc->key }}]" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', '{{ $doc->key }}')" />
+          </label>
+          <input type="file" id="{{ $doc->key }}" name="dynamic_documents[{{ $doc->key }}]" accept=".jpg, .png, .pdf"
+            onchange="handleFileUpload(event, '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', '{{ $doc->key }}')" />
 
 
 
-            <span id="{{ $doc->key }}-remove-icon" class="remove-icon" style="display: none;"
+          <span id="{{ $doc->key }}-remove-icon" class="remove-icon" style="display: none;"
             onclick="removeFile('{{ $doc->key }}', '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon')">✖</span>
-            </div>
-            <div class="info">
-            <span class="help-trigger" data-target="{{ $doc->key }}-help">ⓘ Help</span>
-            <span>*jpg, png, pdf formats</span>
-            </div>
-            <div class="help-container {{ $doc->key }}-help" style="display: none;">
-            <h3 class="help-title">Help</h3>
-            <div class="help-content">
+          </div>
+          <div class="info">
+          <span class="help-trigger" data-target="{{ $doc->key }}-help">ⓘ Help</span>
+          <span>*jpg, png, pdf formats</span>
+          </div>
+          <div class="help-container {{ $doc->key }}-help" style="display: none;">
+          <h3 class="help-title">Help</h3>
+          <div class="help-content">
             <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
-            </div>
-            </div>
-            </div>
+          </div>
+          </div>
+        </div>
     @endforeach
 
 

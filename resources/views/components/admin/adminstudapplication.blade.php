@@ -1546,24 +1546,43 @@
         const addInputField = document.getElementById('add-input-field');
         if (addInputField) {
           addInputField.addEventListener('click', () => {
-            const fieldType = prompt("Enter field type (e.g., Country, Pincode):")?.trim();
-            if (fieldType) {
-              this.addNewInputField(fieldType);
-              // this.modified = true;
-              // FormSubmissionManager.setModifiedSection(this.section);
-            }
+            const label = prompt("Enter field label (e.g., Country, Favorite Color):")?.trim();
+            if (!label) return;
+
+            const name = prompt("Enter a unique field name (e.g., country, favorite_color):")?.trim();
+            if (!name) return;
+
+            const fieldType = prompt("Enter field type (text, select, checkbox, radio, date, file):")?.trim();
+            if (!fieldType) return;
+
+            this.addNewInputField({ label, name, type: fieldType });
           });
         }
       },
 
-      addNewInputField(fieldType) {
+      addNewInputField({ label, name, type }) {
+        let options = [];
+
+        if (['select', 'checkbox', 'radio'].includes(type)) {
+          const optionString = prompt("Enter options separated by commas (e.g., Red,Green,Blue):");
+          if (optionString) {
+            options = optionString.split(',').map(opt => opt.trim()).filter(Boolean);
+          }
+        }
+
         fetch('/addadditionalpersonalinfodata', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
           },
-          body: JSON.stringify({ fieldType })
+          body: JSON.stringify({
+            label,
+            name,
+            type,
+            required: true,
+            options
+          })
         })
           .then(res => res.json())
           .then(data => {
@@ -1576,7 +1595,6 @@
           })
           .catch(err => console.error('API Error:', err));
       },
-
 
       reorganizeInputs() {
         const allInputs = document.querySelectorAll('.input-group');
@@ -3068,7 +3086,7 @@
           if (othersOption) container.appendChild(othersOption);
           if (addContainer) container.appendChild(addContainer);
 
-           if (addContainer) {
+          if (addContainer) {
             document.getElementById('addSection')?.addEventListener('click', () => {
               const userInput = prompt("Enter new degree option", "")?.trim();
               if (userInput) {
@@ -3088,7 +3106,7 @@
                     }
 
                     alert(`${userInput} added`);
-                    fetchAndRenderDegrees();  
+                    fetchAndRenderDegrees();
                   })
                   .catch(error => {
                     console.error('Fetch error:', error);
@@ -3195,7 +3213,7 @@
       const container = document.getElementById("document-row-1");
       container.innerHTML = ""; // Clear existing content
 
-       const staticDocs = [
+      const staticDocs = [
         { key: "pan-card", name: "PAN Card" },
         { key: "aadhar-card", name: "Aadhar Card" },
         { key: "passport", name: "Passport" }
