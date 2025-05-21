@@ -34,14 +34,14 @@
 
 
     @php
-$profileImgPath = 'images/admin-student-profile.png';
-$uploadPanName = '';
-$profileIconPath = "assets/images/account_circle.png";
-$phoneIconPath = "assets/images/call.png";
-$mailIconPath = "assets/images/mail.png";
-$pindropIconPath = "assets/images/pin_drop.png";
-$discordIconPath = "assets/images/icons/discordicon.png";
-$viewIconPath = "assets/images/visibility.png";
+        $profileImgPath = 'images/admin-student-profile.png';
+        $uploadPanName = '';
+        $profileIconPath = "assets/images/account_circle.png";
+        $phoneIconPath = "assets/images/call.png";
+        $mailIconPath = "assets/images/mail.png";
+        $pindropIconPath = "assets/images/pin_drop.png";
+        $discordIconPath = "assets/images/icons/discordicon.png";
+        $viewIconPath = "assets/images/visibility.png";
     @endphp
 
     <nav class="nbfc-navbar">
@@ -746,7 +746,6 @@ $counter = 1;
 
             ];
 
-
             passwordModelTriggerNbfc();
             passwordForgotNbfc();
             userPopopuOpenNbfc();
@@ -763,13 +762,6 @@ $counter = 1;
             initializeWorkExperienceDocumentUpload();
             downloadDocuments();
 
-
-
-
-
-
-
-
             //toggle function
             // Select the Dashboard and Inbox menu items
             const dashboardMenuItem = document.querySelector(".nbfcstudentdashboardprofile-sidebarlists-top li:nth-child(1)");
@@ -777,11 +769,6 @@ $counter = 1;
 
             // Select the containers
             const dashboardSectionsContainer = document.querySelector(".dashboard-sections-container");
-
-
-
-
-
             function checkWindowSize() {
                 if (window.innerWidth > 768) { // Hide mobile menu and sidebar for screens greater than 768px
                     mobileSidebar.classList.remove('active');
@@ -795,7 +782,6 @@ $counter = 1;
 
             checkWindowSize();
             window.addEventListener('resize', checkWindowSize);
-
 
             function toggleMobileSidebar() {
 

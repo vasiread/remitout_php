@@ -542,18 +542,19 @@
                     class="admin-student-arrow-down-document-upload" />
                 </div>
               </div>
-              <div class="admin-student-section-content-document-upload">
+            
+              <div class="admin-student-section-content-document-upload" id="adminside-student-section-content-document-upload">   
                 <!-- 1. Student KYC Document -->
-                <div class="admin-student-form-question">
+                <div class="admin-student-form-question" id="adminside-student-form-question-kyc">
                   <div class="admin-student-question-row" id="student-kyc-row">
                     <div class="admin-student-question-title">Student KYC Document</div>
-                    <div class="admin-student-dropdown-field">
-                      <span class="admin-student-field-text">Text Field</span>
-                      <span class="admin-student-dropdown-icon"></span>
+                    <div class="admin-student-dropdown-field" id="adminside-student-dropdown-field-kyc">
+                      <span class="admin-student-field-text" id="adminside-student-field-text-kyc">Text Field</span>
+                      <span class="admin-student-dropdown-icon" id="adminside-student-dropdown-icon-kyc"></span>
                     </div>
                   </div>
                   <div class="admin-student-options-section-dashboard" id="student-kyc-section">
-                    <div class="document-container-admin">
+                    <div class="document-container-admin" id="adminside-document-container-kyc">
                       <div class="document-row" id="document-row-1">
                         <!-- PAN Card -->
                         <div class="document-box">
@@ -578,13 +579,14 @@
                             <span class="help-trigger" data-target="kyc-pan-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container kyc-pan-help" style="display: none">
+                          <div class="help-container kyc-pan-help" id="help-container-kyc-id" style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
                             </div>
                           </div>
                         </div>
+                 
                         <!-- Aadhar Card -->
                         <div class="document-box">
                           <div class="document-name" id="aadhar-card-document-name" style="display: none">
@@ -608,7 +610,7 @@
                             <span class="help-trigger" data-target="aadhar-card-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container aadhar-card-help" style="display: none">
+                          <div class="help-container aadhar-card-help" id="help-container-aadhar-id" style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
@@ -638,7 +640,7 @@
                             <span class="help-trigger" data-target="passport-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container passport-help" style="display: none">
+                          <div class="help-container passport-help" id="help-container-password-id" style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
@@ -647,26 +649,28 @@
                         </div>
                       </div>
                       <!-- Document fields container -->
-                      <div class="document-row" id="document-fields-container">
-                        <div class="add-document" id="add-document-btn">
+                         <div class="document-row" id="document-fields-container-kyc-id">
+                        <div class="add-document" id="add-document-btn-kyc-id">
                           <span class="add-text">Add</span>
                           <span class="add-icon">+</span>
                         </div>
+
                       </div>
                     </div>
                   </div>
                 </div>
+              
                 <!-- 2. Academic Mark Sheets -->
-                <div class="admin-student-form-question">
+                <div class="admin-student-form-question" id="adminside-student-form-question-academic">
                   <div class="admin-student-question-row" id="academic-marks-row">
                     <div class="admin-student-question-title">Academic Mark Sheets</div>
-                    <div class="admin-student-dropdown-field">
-                      <span class="admin-student-field-text">Text Field</span>
-                      <span class="admin-student-dropdown-icon"></span>
+                    <div class="admin-student-dropdown-field" id="adminside-student-dropdown-field-academic">
+                      <span class="admin-student-field-text" id="adminside-student-field-text-academic">Text Field</span>
+                      <span class="admin-student-dropdown-icon" id="adminside-student-dropdown-icon-academic"></span>
                     </div>
                   </div>
                   <div class="admin-student-options-section" id="academic-marks-section">
-                    <div class="document-container-admin">
+                    <div class="document-container-admin" id="adminside-document-container-academic">
                       <div class="document-row" id="academic-row-1">
                         <!-- 10th Grade Mark Sheet -->
                         <div class="document-box">
@@ -674,8 +678,7 @@
                             10th Mark Sheet
                           </div>
                           <div class="upload-field">
-                            <span id="tenth-grade-name" data-original="10th Grade Mark Sheet">10th Grade Mark
-                              Sheet</span>
+                            <span id="tenth-grade-name" data-original="10th Grade Mark Sheet">10th Grade Mark Sheet</span>
                             <span id="tenth-grade-remove-icon" class="remove-icon"
                               onclick="removeFile('tenth-grade', 'tenth-grade-name', 'tenth-grade-upload-icon', 'tenth-grade-remove-icon')"><span
                                 class="thin-x"></span></span>
@@ -692,21 +695,21 @@
                             <span class="help-trigger" data-target="tenth-grade-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container tenth-grade-help" style="display: none">
+                          <div class="help-container tenth-grade-help" id="help-container-grade-id" style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
                             </div>
                           </div>
                         </div>
+                 
                         <!-- 12th Grade Mark Sheet -->
                         <div class="document-box">
                           <div class="document-name" id="12th-mark-sheet-id" style="display: none">
                             12th Mark Sheet
                           </div>
                           <div class="upload-field">
-                            <span id="twelfth-grade-name" data-original="12th Grade Mark Sheet">12th Grade Mark
-                              Sheet</span>
+                            <span id="twelfth-grade-name" data-original="12th Grade Mark Sheet">12th Grade Mark Sheet</span>
                             <span id="twelfth-grade-remove-icon" class="remove-icon"
                               onclick="removeFile('twelfth-grade', 'twelfth-grade-name', 'twelfth-grade-upload-icon', 'twelfth-grade-remove-icon')"><span
                                 class="thin-x"></span></span>
@@ -723,7 +726,7 @@
                             <span class="help-trigger" data-target="twelfth-grade-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container twelfth-grade-help" style="display: none">
+                          <div class="help-container twelfth-grade-help" id="help-container-twelfth-id" style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
@@ -736,8 +739,7 @@
                             Graduation Mark Sheet
                           </div>
                           <div class="upload-field">
-                            <span id="graduation-grade-name" data-original="Graduation Mark Sheet">Graduation Mark
-                              Sheet</span>
+                            <span id="graduation-grade-name" data-original="Graduation Mark Sheet">Graduation Mark Sheet</span>
                             <span id="graduation-grade-remove-icon" class="remove-icon"
                               onclick="removeFile('graduation-grade', 'graduation-grade-name', 'graduation-grade-upload-icon', 'graduation-grade-remove-icon')"><span
                                 class="thin-x"></span></span>
@@ -754,7 +756,7 @@
                             <span class="help-trigger" data-target="graduation-grade-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container graduation-grade-help" style="display: none">
+                          <div class="help-container graduation-grade-help" id="help-container-graduation-id" style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
@@ -763,8 +765,8 @@
                         </div>
                       </div>
                       <!-- Academic document fields container -->
-                      <div class="document-row" id="academic-fields-container">
-                        <div class="add-document" id="add-academic-btn">
+                      <div class="document-row" id="academic-fields-container-id">
+                        <div class="add-document" id="add-academic-btn-id">
                           <span class="add-text">Add</span>
                           <span class="add-icon">+</span>
                         </div>
@@ -772,17 +774,18 @@
                     </div>
                   </div>
                 </div>
+               
                 <!-- 3. Secured Marks -->
-                <div class="admin-student-form-question">
+                <div class="admin-student-form-question" id="adminside-student-form-question-secured">
                   <div class="admin-student-question-row" id="secured-marks-row">
                     <div class="admin-student-question-title">Secured Marks</div>
-                    <div class="admin-student-dropdown-field">
-                      <span class="admin-student-field-text">Text Field</span>
-                      <span class="admin-student-dropdown-icon"></span>
+                    <div class="admin-student-dropdown-field" id="adminside-student-dropdown-field-secured">
+                      <span class="admin-student-field-text" id="adminside-student-field-text-secured">Text Field</span>
+                      <span class="admin-student-dropdown-icon" id="adminside-student-dropdown-icon-secured"></span>
                     </div>
                   </div>
                   <div class="admin-student-options-section" id="secured-marks-section">
-                    <div class="document-container-admin">
+                    <div class="document-container-admin" id="adminside-document-container-secured">
                       <div class="document-row" id="secured-row-1">
                         <!-- 10th Grade -->
                         <div class="document-box">
@@ -807,13 +810,14 @@
                             <span class="help-trigger" data-target="secured-tenth-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container secured-tenth-help" style="display: none">
+                          <div class="help-container secured-tenth-help" id="help-container-tenth-id" style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload your 10th grade mark sheet in jpg, png, or pdf format.</p>
                             </div>
                           </div>
                         </div>
+                      
                         <!-- 12th Grade -->
                         <div class="document-box">
                           <div class="document-name" id="12th-grade-id" style="display: none">
@@ -837,13 +841,14 @@
                             <span class="help-trigger" data-target="secured-twelfth-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container secured-twelfth-help" style="display: none">
+                          <div class="help-container secured-twelfth-help" id="help-container-secure-twelfth-id" style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload your 12th grade mark sheet in jpg, png, or pdf format.</p>
                             </div>
                           </div>
                         </div>
+                      
                         <!-- Graduation -->
                         <div class="document-box">
                           <div class="document-name" id="graduation-id" style="display: none">
@@ -867,7 +872,7 @@
                             <span class="help-trigger" data-target="secured-graduation-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container secured-graduation-help" style="display: none">
+                          <div class="help-container secured-graduation-help" id="help-container-secure-graduation-id" style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload your graduation mark sheet in jpg, png, or pdf format.</p>
@@ -876,8 +881,8 @@
                         </div>
                       </div>
                       <!-- Secured marks document fields container -->
-                      <div class="document-row" id="secured-fields-container">
-                        <div class="add-document" id="add-secured-btn">
+                      <div class="document-row" id="secured-fields-container-id">
+                        <div class="add-document" id="add-secured-btn-id">
                           <span class="add-text">Add</span>
                           <span class="add-icon">+</span>
                         </div>
@@ -885,17 +890,18 @@
                     </div>
                   </div>
                 </div>
+              
                 <!-- 4. Work Experience -->
-                <div class="admin-student-form-question">
+                <div class="admin-student-form-question" id="adminside-student-form-question-work-experience">
                   <div class="admin-student-question-row" id="work-experience-row">
                     <div class="admin-student-question-title">Work Experience</div>
-                    <div class="admin-student-dropdown-field">
-                      <span class="admin-student-field-text">Text Field</span>
-                      <span class="admin-student-dropdown-icon"></span>
+                    <div class="admin-student-dropdown-field" id="adminside-student-dropdown-field-work-experience">
+                      <span class="admin-student-field-text" id="adminside-student-field-text-work-experience">Text Field</span>
+                      <span class="admin-student-dropdown-icon" id="adminside-student-dropdown-icon-work-experience"></span>
                     </div>
                   </div>
                   <div class="admin-student-options-section" id="work-experience-section">
-                    <div class="work-experience-container">
+                    <div class="work-experience-container" id="adminside-work-experience-container">
                       <div class="work-experience-row" id="work-experience-row-1">
                         <!-- Experience Letter -->
                         <div class="work-experience-box">
@@ -903,18 +909,16 @@
                             Experience Letter
                           </div>
                           <div class="upload-field">
-                            <span id="work-experience-experience-letter" data-original="Experience Letter">Experience
-                              Letter</span>
+                            <span id="work-experience-experience-letter" data-original="Experience Letter">Experience Letter</span>
                             <span id="work-experience-tenth-remove-icon" class="remove-icon"
                               onclick="removeFile('work-experience-tenth', 'work-experience-experience-letter', 'work-experience-tenth-upload-icon', 'work-experience-tenth-remove-icon')"><span
                                 class="thin-x"></span></span>
                             <div class="file-actions">
-                              <label for="work-experience-tenth" class="upload-icon"
-                                id="work-experience-tenth-upload-icon">
+                              <label for="work-experience-tenth" class="upload-icon" id="work-experience-tenth-upload-icon">
                                 <img src="assets/images/upload.png" alt="Upload Icon" />
                               </label>
-                              <input type="file" id="work-experience-tenth"
-                                name="documents[work_experience][experience_letter]" accept=".jpg, .png, .pdf"
+                              <input type="file" id="work-experience-tenth" name="documents[work_experience][experience_letter]"
+                                accept=".jpg, .png, .pdf"
                                 onchange="handleFileUpload(event, 'work-experience-experience-letter', 'work-experience-tenth-upload-icon', 'work-experience-tenth-remove-icon')" />
                             </div>
                           </div>
@@ -922,31 +926,30 @@
                             <span class="help-trigger" data-target="work-experience-tenth-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container work-experience-tenth-help" style="display: none">
+                          <div class="help-container work-experience-tenth-help" id="help-container-work-experience-id" style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload your experience letter in jpg, png, or pdf format.</p>
                             </div>
                           </div>
                         </div>
+                     
                         <!-- 3 Months Salary Slip -->
                         <div class="work-experience-box">
                           <div class="document-name" id="3-months-salary-slip-id" style="display: none">
                             3 Months Salary Slip
                           </div>
                           <div class="upload-field">
-                            <span id="work-experience-monthly-slip" data-original="3 Months Salary Slip">3 Months Salary
-                              Slip</span>
+                            <span id="work-experience-monthly-slip" data-original="3 Months Salary Slip">3 Months Salary Slip</span>
                             <span id="work-experience-twelfth-remove-icon" class="remove-icon"
                               onclick="removeFile('work-experience-twelfth', 'work-experience-monthly-slip', 'work-experience-twelfth-upload-icon', 'work-experience-twelfth-remove-icon')"><span
                                 class="thin-x"></span></span>
                             <div class="file-actions">
-                              <label for="work-experience-twelfth" class="upload-icon"
-                                id="work-experience-twelfth-upload-icon">
+                              <label for="work-experience-twelfth" class="upload-icon" id="work-experience-twelfth-upload-icon">
                                 <img src="assets/images/upload.png" alt="Upload Icon" />
                               </label>
-                              <input type="file" id="work-experience-twelfth"
-                                name="documents[work_experience][salary_slip]" accept=".jpg, .png, .pdf"
+                              <input type="file" id="work-experience-twelfth" name="documents[work_experience][salary_slip]"
+                                accept=".jpg, .png, .pdf"
                                 onchange="handleFileUpload(event, 'work-experience-monthly-slip', 'work-experience-twelfth-upload-icon', 'work-experience-twelfth-remove-icon')" />
                             </div>
                           </div>
@@ -954,13 +957,14 @@
                             <span class="help-trigger" data-target="work-experience-twelfth-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container work-experience-twelfth-help" style="display: none">
+                          <div class="help-container work-experience-twelfth-help" id="help-container-work-experience-twelfth-id" style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload your 3 months salary slip in jpg, png, or pdf format.</p>
                             </div>
                           </div>
                         </div>
+                  
                         <!-- Office ID -->
                         <div class="work-experience-box">
                           <div class="document-name" id="office-IDs-id" style="display: none">
@@ -972,12 +976,11 @@
                               onclick="removeFile('work-experience-graduation', 'work-experience-office-id', 'work-experience-graduation-upload-icon', 'work-experience-graduation-remove-icon')"><span
                                 class="thin-x"></span></span>
                             <div class="file-actions">
-                              <label for="work-experience-graduation" class="upload-icon"
-                                id="work-experience-graduation-upload-icon">
+                              <label for="work-experience-graduation" class="upload-icon" id="work-experience-graduation-upload-icon">
                                 <img src="assets/images/upload.png" alt="Upload Icon" />
                               </label>
-                              <input type="file" id="work-experience-graduation"
-                                name="documents[work_experience][office_id]" accept=".jpg, .png, .pdf"
+                              <input type="file" id="work-experience-graduation" name="documents[work_experience][office_id]"
+                                accept=".jpg, .png, .pdf"
                                 onchange="handleFileUpload(event, 'work-experience-office-id', 'work-experience-graduation-upload-icon', 'work-experience-graduation-remove-icon')" />
                             </div>
                           </div>
@@ -985,7 +988,7 @@
                             <span class="help-trigger" data-target="work-experience-graduation-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container work-experience-graduation-help" style="display: none">
+                          <div class="help-container work-experience-graduation-help" id="help-container-work-graduation-id" style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload your office ID in jpg, png, or pdf format.</p>
@@ -993,6 +996,7 @@
                           </div>
                         </div>
                       </div>
+                
                       <!-- Second row of work experience documents -->
                       <div class="work-experience-row" id="work-experience-row-2">
                         <!-- Joining Letter -->
@@ -1001,18 +1005,16 @@
                             Joining Letter
                           </div>
                           <div class="upload-field">
-                            <span id="work-experience-joining-letter" data-original="Joining Letter">Joining
-                              Letter</span>
+                            <span id="work-experience-joining-letter" data-original="Joining Letter">Joining Letter</span>
                             <span id="work-experience-fourth-remove-icon" class="remove-icon"
                               onclick="removeFile('work-experience-fourth', 'work-experience-joining-letter', 'work-experience-fourth-upload-icon', 'work-experience-fourth-remove-icon')"><span
                                 class="thin-x"></span></span>
                             <div class="file-actions">
-                              <label for="work-experience-fourth" class="upload-icon"
-                                id="work-experience-fourth-upload-icon">
+                              <label for="work-experience-fourth" class="upload-icon" id="work-experience-fourth-upload-icon">
                                 <img src="assets/images/upload.png" alt="Upload Icon" />
                               </label>
-                              <input type="file" id="work-experience-fourth"
-                                name="documents[work_experience][joining_letter]" accept=".jpg, .png, .pdf"
+                              <input type="file" id="work-experience-fourth" name="documents[work_experience][joining_letter]"
+                                accept=".jpg, .png, .pdf"
                                 onchange="handleFileUpload(event, 'work-experience-joining-letter', 'work-experience-fourth-upload-icon', 'work-experience-fourth-remove-icon')" />
                             </div>
                           </div>
@@ -1020,7 +1022,7 @@
                             <span class="help-trigger" data-target="work-experience-fourth-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container work-experience-fourth-help" style="display: none">
+                          <div class="help-container work-experience-fourth-help" id="help-container-work-experience-fourth-id" style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload your joining letter in jpg, png, or pdf format.</p>
@@ -1028,7 +1030,8 @@
                           </div>
                         </div>
                         <!-- Add button for work experience documents -->
-                        <div class="add-document" id="add-work-experience-btn">
+                        <div class="document-row" id="work-experience-container-id">
+                        <div class="add-document" id="add-work-experience-btn-id">
                           <span class="add-text">Add</span>
                           <span class="add-icon">+</span>
                         </div>
@@ -1036,20 +1039,22 @@
                     </div>
                   </div>
                 </div>
+              
                 <!-- 5. Co-borrower KYC Documents -->
-                <div class="admin-student-form-question">
+                <div class="admin-student-form-question" id="adminside-student-form-question-co-borrower">
                   <div class="admin-student-question-row" id="co-borrower-kyc-row">
                     <div class="admin-student-question-title">
                       Co-borrower KYC Documents
                     </div>
-                    <div class="admin-student-dropdown-field">
-                      <span class="admin-student-field-text">Text Field</span>
-                      <span class="admin-student-dropdown-icon"></span>
+                    <div class="admin-student-dropdown-field" id="adminside-student-dropdown-field-co-borrower">
+                      <span class="admin-student-field-text" id="adminside-student-field-text-co-borrower">Text Field</span>
+                      <span class="admin-student-dropdown-icon" id="adminside-student-dropdown-icon-co-borrower"></span>
                     </div>
                   </div>
+                
                   <div class="admin-student-options-section" id="co-borrower-kyc-section">
-                    <div class="kyc-container-admin">
-                      <div class="document-container-admin">
+                    <div class="kyc-container-admin" id="adminside-kyc-container-co-borrower">
+                      <div class="document-container-admin" id="adminside-document-container-co-borrower">
                         <div class="document-row" id="co-borrower-row-1">
                           <!-- PAN Card -->
                           <div class="document-box">
@@ -1111,6 +1116,7 @@
                               </div>
                             </div>
                           </div>
+                   
                           <!-- Address Proof -->
                           <div class="document-box">
                             <div class="document-name" id="address-proof-id" style="display: none">
@@ -1144,7 +1150,7 @@
                         </div>
                         <!-- Co-borrower fields container -->
                         <div class="document-row" id="co-borrower-fields-container">
-                          <div class="add-document" id="add-co-borrower-btn">
+                          <div class="add-document" id="add-co-borrower-btn-id">
                             <span class="add-text">Add</span>
                             <span class="add-icon">+</span>
                           </div>
@@ -1153,26 +1159,27 @@
                     </div>
                   </div>
                 </div>
+              
                 <!-- 6. Salaried and Business Documents -->
-                <div class="admin-student-form-question">
+                <div class="admin-student-form-question" id="adminside-student-form-question-salaried-business">
                   <div class="admin-student-question-row" id="salaried-business-row">
                     <div class="admin-student-question-title">Salaried and Business Documents</div>
-                    <div class="admin-student-dropdown-field">
-                      <span class="admin-student-field-text">Text Field</span>
-                      <span class="admin-student-dropdown-icon"></span>
+                    <div class="admin-student-dropdown-field" id="adminside-student-dropdown-field-salaried-business">
+                      <span class="admin-student-field-text" id="adminside-student-field-text-salaried-business">Text Field</span>
+                      <span class="admin-student-dropdown-icon" id="adminside-student-dropdown-icon-salaried-business"></span>
                     </div>
                   </div>
                   <div class="admin-student-options-section" id="salaried-business-section">
-                    <div class="document-container-admin">
+                    <div class="document-container-admin" id="adminside-document-container-salaried-business">
                       <!-- Salaried Documents Section -->
-                      <div class="salary-sub-admin">
+                      <div class="salary-sub-admin" id="adminside-salary-sub-salaried">
                         <p>If salaried:</p>
                       </div>
+                     
                       <div class="document-row salary-upload-row" id="salaried-row-1">
                         <!-- 3 Months Salary Slip -->
                         <div class="document-box salary-upload-box">
-                          <div class="document-name" id="salary-slip-id" style="display: none;">3 months salary slip
-                          </div>
+                          <div class="document-name" id="salary-slip-id" style="display: none;">3 months salary slip</div>
                           <div class="upload-field">
                             <span id="salary-slip-name" data-original="3 months salary slip">3 months salary slip</span>
                             <span id="salary-slip-remove-icon" class="remove-icon" style="display: none;"
@@ -1182,8 +1189,8 @@
                               <label for="salary-slip" class="upload-icon" id="salary-slip-upload-icon">
                                 <img src="assets/images/upload.png" alt="Upload Icon" />
                               </label>
-                              <input type="file" id="salary-slip"
-                                name="documents[salaried_business][salaried][salary_slip]" accept=".jpg, .png, .pdf"
+                              <input type="file" id="salary-slip" name="documents[salaried_business][salaried][salary_slip]"
+                                accept=".jpg, .png, .pdf"
                                 onchange="handleFileUpload(event, 'salary-slip-name', 'salary-slip-upload-icon', 'salary-slip-remove-icon')" />
                             </div>
                           </div>
@@ -1198,14 +1205,12 @@
                             </div>
                           </div>
                         </div>
+                     
                         <!-- 6 Months Bank Statement -->
                         <div class="document-box salary-upload-box">
-                          <div class="document-name" id="bank-statement-id" style="display: none;">6 months bank
-                            statement
-                          </div>
+                          <div class="document-name" id="bank-statement-id" style="display: none;">6 months bank statement</div>
                           <div class="upload-field">
-                            <span id="bank-statement-name" data-original="6 months bank statement">6 months bank
-                              statement</span>
+                            <span id="bank-statement-name" data-original="6 months bank statement">6 months bank statement</span>
                             <span id="bank-statement-remove-icon" class="remove-icon" style="display: none;"
                               onclick="removeFile('bank-statement', 'bank-statement-name', 'bank-statement-upload-icon', 'bank-statement-remove-icon')"><span
                                 class="thin-x"></span></span>
@@ -1213,8 +1218,8 @@
                               <label for="bank-statement" class="upload-icon" id="bank-statement-upload-icon">
                                 <img src="assets/images/upload.png" alt="Upload Icon" />
                               </label>
-                              <input type="file" id="bank-statement"
-                                name="documents[salaried_business][salaried][bank_statement]" accept=".jpg, .png, .pdf"
+                              <input type="file" id="bank-statement" name="documents[salaried_business][salaried][bank_statement]"
+                                accept=".jpg, .png, .pdf"
                                 onchange="handleFileUpload(event, 'bank-statement-name', 'bank-statement-upload-icon', 'bank-statement-remove-icon')" />
                             </div>
                           </div>
@@ -1229,18 +1234,17 @@
                             </div>
                           </div>
                         </div>
+                     
                         <!-- Address Proof -->
                         <div class="document-box salary-upload-box">
-                          <div class="document-name" id="address-proof-salary-id" style="display: none;">Address Proof
-                          </div>
+                          <div class="document-name" id="address-proof-salary-id" style="display: none;">Address Proof</div>
                           <div class="upload-field">
                             <span id="address-proof-salary-name" data-original="Address Proof">Address Proof</span>
                             <span id="address-proof-salary-remove-icon" class="remove-icon" style="display: none;"
                               onclick="removeFile('address-proof-salary', 'address-proof-salary-name', 'address-proof-salary-upload-icon', 'address-proof-salary-remove-icon')"><span
                                 class="thin-x"></span></span>
                             <div class="file-actions">
-                              <label for="address-proof-salary" class="upload-icon"
-                                id="address-proof-salary-upload-icon">
+                              <label for="address-proof-salary" class="upload-icon" id="address-proof-salary-upload-icon">
                                 <img src="assets/images/upload.png" alt="Upload Icon" />
                               </label>
                               <input type="file" id="address-proof-salary"
@@ -1260,8 +1264,9 @@
                           </div>
                         </div>
                       </div>
+                     
                       <!-- Business Documents Section -->
-                      <div class="salary-sub-admin">
+                      <div class="salary-sub-admin" id="adminside-salary-sub-business">
                         <p>If in Business:</p>
                       </div>
                       <div class="document-row salary-upload-row" id="business-row-1">
@@ -1277,8 +1282,7 @@
                               <label for="itr" class="upload-icon" id="itr-upload-icon">
                                 <img src="assets/images/upload.png" alt="Upload Icon" />
                               </label>
-                              <input type="file" id="itr" name="documents[salaried_business][business][itr]"
-                                accept=".jpg, .png, .pdf"
+                              <input type="file" id="itr" name="documents[salaried_business][business][itr]" accept=".jpg, .png, .pdf"
                                 onchange="handleFileUpload(event, 'itr-name', 'itr-upload-icon', 'itr-remove-icon')" />
                             </div>
                           </div>
@@ -1293,21 +1297,19 @@
                             </div>
                           </div>
                         </div>
+                     
                         <!-- 6 Months Bank Statement -->
                         <div class="document-box salary-upload-box">
-                          <div class="document-name" id="business-bank-statement-id" style="display: none;">6 months
-                            bank
-                            statement</div>
+                          <div class="document-name" id="business-bank-statement-id" style="display: none;">6 months bank statement
+                          </div>
                           <div class="upload-field">
-                            <span id="business-bank-statement-name" data-original="6 months bank statement">6 months
-                              bank
-                              statement</span>
+                            <span id="business-bank-statement-name" data-original="6 months bank statement">6 months bank statement
+                            </span>
                             <span id="business-bank-statement-remove-icon" class="remove-icon" style="display: none;"
                               onclick="removeFile('business-bank-statement', 'business-bank-statement-name', 'business-bank-statement-upload-icon', 'business-bank-statement-remove-icon')"><span
                                 class="thin-x"></span></span>
                             <div class="file-actions">
-                              <label for="business-bank-statement" class="upload-icon"
-                                id="business-bank-statement-upload-icon">
+                              <label for="business-bank-statement" class="upload-icon" id="business-bank-statement-upload-icon">
                                 <img src="assets/images/upload.png" alt="Upload Icon" />
                               </label>
                               <input type="file" id="business-bank-statement"
@@ -1328,11 +1330,9 @@
                         </div>
                         <!-- Office/Shop Photographs -->
                         <div class="document-box salary-upload-box">
-                          <div class="document-name" id="office-shop-photos-id" style="display: none;">Office/Shop
-                            photographs</div>
+                          <div class="document-name" id="office-shop-photos-id" style="display: none;">Office/Shop photographs</div>
                           <div class="upload-field">
-                            <span id="office-shop-photos-name" data-original="Office/Shop photographs">Office/Shop
-                              photographs</span>
+                            <span id="office-shop-photos-name" data-original="Office/Shop photographs">Office/Shop photographs</span>
                             <span id="office-shop-photos-remove-icon" class="remove-icon" style="display: none;"
                               onclick="removeFile('office-shop-photos', 'office-shop-photos-name', 'office-shop-photos-upload-icon', 'office-shop-photos-remove-icon')"><span
                                 class="thin-x"></span></span>
@@ -1340,8 +1340,8 @@
                               <label for="office-shop-photos" class="upload-icon" id="office-shop-photos-upload-icon">
                                 <img src="assets/images/upload.png" alt="Upload Icon" />
                               </label>
-                              <input type="file" id="office-shop-photos"
-                                name="documents[salaried_business][business][office_photos]" accept=".jpg, .png, .pdf"
+                              <input type="file" id="office-shop-photos" name="documents[salaried_business][business][office_photos]"
+                                accept=".jpg, .png, .pdf"
                                 onchange="handleFileUpload(event, 'office-shop-photos-name', 'office-shop-photos-upload-icon', 'office-shop-photos-remove-icon')" />
                             </div>
                           </div>
@@ -1359,7 +1359,7 @@
                       </div>
                       <!-- Salaried and Business fields container -->
                       <div class="document-row" id="salaried-business-fields-container">
-                        <div class="add-document" id="add-salaried-business-btn">
+                        <div class="add-document" id="add-salaried-business-btn-id">
                           <span class="add-text">Add</span>
                           <span class="add-icon">+</span>
                         </div>
@@ -1368,6 +1368,7 @@
                   </div>
                 </div>
               </div>
+            </div>
             </div>
           </div>
           <button type="button" id="admin-student-form-save-btn-id" class="admin-student-form-save-btn">Save
@@ -2567,8 +2568,7 @@
       return this.modified;
     }
   };
-
-    // Document Field Manager
+  
     const DocumentFieldManager = {
       section: 'Document Upload',
       modified: false,
@@ -2582,61 +2582,190 @@
       },
 
       init() {
-        const buttons = [{
-          id: 'add-document-btn',
-          type: 'document',
-          containerId: 'document-fields-container'
-        },
-        {
-          id: 'add-academic-btn',
-          type: 'academic',
-          containerId: 'academic-fields-container'
-        },
-        {
-          id: 'add-secured-btn',
-          type: 'secured',
-          containerId: 'secured-fields-container'
-        },
-        {
-          id: 'add-work-experience-btn',
-          type: 'workExperience',
-          containerId: 'work-experience-row-2'
-        },
-        {
-          id: 'add-co-borrower-btn',
-          type: 'coBorrower',
-          containerId: 'co-borrower-fields-container'
-        },
-        {
-          id: 'add-salaried-business-btn',
-          type: 'salariedBusiness',
-          containerId: 'salaried-business-fields-container'
-        }
+        const buttons = [
+          {
+            id: 'add-document-btn-kyc-id',
+            type: 'document',
+            containerId: 'document-fields-container-kyc-id',
+            rowId: 'document-row-1',
+            apiEndpoint: '/getdocumenttypesadminform',
+            namePrefix: 'student_kyc'
+          },
+          {
+            id: 'add-academic-btn-id',
+            type: 'academic',
+            containerId: 'academic-fields-container-id',
+            rowId: 'academic-row-1',
+            apiEndpoint: '/getacademicdocuments',
+            namePrefix: 'academic_marks'
+          },
+          {
+            id: 'add-secured-btn-id',
+            type: 'secured',
+            containerId: 'secured-fields-container-id',
+            rowId: 'secured-row-1',
+            apiEndpoint: '/getsecuredmarksdocuments',
+            namePrefix: 'secured_marks'
+          },
+          {
+            id: 'add-work-experience-btn-id',
+            type: 'workExperience',
+            containerId: 'work-experience-container-id',
+            rowId: 'work-experience-row-1',
+            apiEndpoint: '/getworkexperiencedocuments',
+            namePrefix: 'work_experience'
+          },
+          {
+            id: 'add-co-borrower-btn-id',
+            type: 'coBorrower',
+            containerId: 'co-borrower-fields-container',
+            rowId: 'co-borrower-row-1',
+            apiEndpoint: '/getcoborrowerdocuments',
+            namePrefix: 'co_borrower_kyc'
+          },
+          {
+            id: 'add-salaried-business-btn-id',
+            type: 'salariedBusiness',
+            containerId: 'salaried-business-fields-container',
+            rowId: 'salaried-row-1',
+            apiEndpoint: '/getsalariedbusinessdocuments',
+            namePrefix: 'salaried_business',
+            subSections: ['salaried', 'business']
+          }
         ];
 
-        buttons.forEach(({
-          id,
-          type,
-          containerId
-        }) => {
+        buttons.forEach(({ id, type, containerId, rowId, apiEndpoint, namePrefix, subSections }) => {
           const button = document.getElementById(id);
           if (button) {
-            button.addEventListener('click', e => {
+            button.addEventListener('click', (e) => {
               e.stopPropagation();
-              const fieldType = prompt(`Enter ${type} document type:`)?.trim();
+              let fieldType = prompt(`Enter ${type} document type:`)?.trim();
+              let subSection = '';
+              if (type === 'salariedBusiness' && fieldType) {
+                subSection = prompt('Enter sub-section (salaried or business):')?.trim();
+                if (!['salaried', 'business'].includes(subSection)) {
+                  alert('Invalid sub-section. Please enter "salaried" or "business".');
+                  return;
+                }
+              }
               if (fieldType) {
-                this.addNewDocumentField(fieldType, type, containerId);
+                this.addNewDocumentField(fieldType, type, containerId, rowId, apiEndpoint, namePrefix, subSection);
                 this.modified = true;
-                FormSubmissionManager.setModifiedSection(this.section);
+                // Assuming FormSubmissionManager exists
+                if (typeof FormSubmissionManager !== 'undefined') {
+                  FormSubmissionManager.setModifiedSection(this.section);
+                }
               }
             });
           }
+          this.initializeSection(containerId, rowId, apiEndpoint, namePrefix, type, subSections);
         });
+
+        this.setupHelpTriggerListener();
       },
 
-      addNewDocumentField(fieldType, type, containerId) {
+      setupHelpTriggerListener() {
+        document.removeEventListener('click', this.handleHelpTriggerClick);
+        this.handleHelpTriggerClick = (e) => {
+          if (e.target.classList.contains('help-trigger')) {
+            e.stopPropagation(); // Prevent interference with other click events
+            const targetId = e.target.getAttribute('data-target');
+            const helpContainer = document.querySelector(`.${targetId}`);
+            if (helpContainer) {
+              helpContainer.style.display = helpContainer.style.display === 'none' ? 'block' : 'none';
+            } else {
+              console.warn(`Help container with class .${targetId} not found`);
+            }
+          }
+        };
+        document.addEventListener('click', this.handleHelpTriggerClick);
+      },
 
+      initializeSection(containerId, rowId, apiEndpoint, namePrefix, type, subSections) {
+        const container = document.getElementById(rowId);
+        if (!container) return;
 
+        container.innerHTML = '';
+
+        const staticDocs = {
+          document: [
+            { key: 'pan-card', name: 'PAN Card' },
+            { key: 'aadhar-card', name: 'Aadhar Card' },
+            { key: 'passport', name: 'Passport' }
+          ],
+          academic: [
+            { key: 'tenth-grade', name: '10th Grade Mark Sheet' },
+            { key: 'twelfth-grade', name: '12th Grade Mark Sheet' },
+            { key: 'graduation-grade', name: 'Graduation Mark Sheet' }
+          ],
+          secured: [
+            { key: 'secured-tenth', name: '10th Grade' },
+            { key: 'secured-twelfth', name: '12th Grade' },
+            { key: 'secured-graduation', name: 'Graduation' }
+          ],
+          workExperience: [
+            { key: 'work-experience-letter', name: 'Experience Letter' },
+            { key: 'work-salary-slip', name: '3 Months Salary Slip' },
+            { key: 'work-office-id', name: 'Office ID' },
+            { key: 'work-joining-letter', name: 'Joining Letter' }
+          ],
+          coBorrower: [
+            { key: 'co-pan-card', name: 'PAN Card' },
+            { key: 'co-aadhar-card', name: 'Aadhar Card' },
+            { key: 'co-address-proof', name: 'Address Proof' }
+          ],
+          salariedBusiness: [
+            { key: 'salary-slip', name: '3 months salary slip', subSection: 'salaried' },
+            { key: 'bank-statement', name: '6 months bank statement', subSection: 'salaried' },
+            { key: 'address-proof-salary', name: 'Address Proof', subSection: 'salaried' },
+            { key: 'itr', name: '2 years of ITR', subSection: 'business' },
+            { key: 'business-bank-statement', name: '6 months bank statement', subSection: 'business' },
+            { key: 'office-shop-photos', name: 'Office/Shop photographs', subSection: 'business' }
+          ]
+        };
+
+        if (type === 'salariedBusiness') {
+          const salariedContainer = document.getElementById('salaried-row-1');
+          const businessContainer = document.getElementById('business-row-1');
+          if (salariedContainer && businessContainer) {
+            salariedContainer.innerHTML = '';
+            businessContainer.innerHTML = '';
+            staticDocs[type].forEach(doc => {
+              const targetContainer = doc.subSection === 'salaried' ? salariedContainer : businessContainer;
+              targetContainer.appendChild(this.createDocumentBox(doc, false, namePrefix, type));
+            });
+          }
+        } else {
+          staticDocs[type].forEach(doc => {
+            container.appendChild(this.createDocumentBox(doc, false, namePrefix, type));
+          });
+        }
+
+        fetch(apiEndpoint)
+          .then(res => res.json())
+          .then(data => {
+            const dynamicDocs = data.documentTypes || [];
+            if (type === 'salariedBusiness') {
+              const salariedContainer = document.getElementById('salaried-row-1');
+              const businessContainer = document.getElementById('business-row-1');
+              if (salariedContainer && businessContainer) {
+                dynamicDocs.forEach(doc => {
+                  const targetContainer = doc.subSection === 'salaried' ? salariedContainer : businessContainer;
+                  targetContainer.appendChild(this.createDocumentBox(doc, true, namePrefix, type));
+                });
+              }
+            } else {
+              dynamicDocs.forEach(doc => {
+                container.appendChild(this.createDocumentBox(doc, true, namePrefix, type));
+              });
+            }
+            this.deleteInitialization(containerId, apiEndpoint, namePrefix, type);
+            this.setupHelpTriggerListener();
+          })
+          .catch(err => console.error(`Error fetching dynamic documents for ${type}:`, err));
+      },
+
+      addNewDocumentField(fieldType, type, containerId, rowId, apiEndpoint, namePrefix, subSection = '') {
         fetch('/kycdynamicpost', {
           method: 'POST',
           headers: {
@@ -2644,7 +2773,7 @@
             'Accept': 'application/json',
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
           },
-          body: JSON.stringify({ name: fieldType })
+          body: JSON.stringify({ name: fieldType, type, subSection })
         })
           .then(response => {
             if (response.ok) return response.json();
@@ -2652,29 +2781,135 @@
           })
           .then(data => {
             console.log("Added Document Type:", data);
-            kycInitialization();
+            this.initializeSection(containerId, rowId, apiEndpoint, namePrefix, type, ['salaried', 'business']);
           })
           .catch(error => {
             alert(error.message);
           });
       },
 
+      createDocumentBox(doc, isDynamic, namePrefix, type) {
+        const key = (doc.key || doc.name.toLowerCase().replace(/[^a-z0-9-_]/g, '-')).trim();
+        const displayName = doc.name;
+        const subSection = doc.subSection || '';
+
+        const uploadIconHTML = isDynamic
+          ? `<p class="kyc-delete-dynamic-content" data-id="${doc.id}" data-target="${key}" style="cursor: pointer; color: grey; font-size: 14px; margin: 0;">x</p>`
+          : '';
+
+        const div = document.createElement('div');
+        div.className = `document-box ${subSection ? 'salary-upload-box' : type === 'workExperience' ? 'work-experience-box' : ''}`;
+        div.id = `document-box-${key}`;
+        div.innerHTML = `
+          <div class="document-name" id="${key}-document-name" style="display: none">${displayName}</div>
+          <div class="upload-field">
+            <span id="${key}-name" data-original="${displayName}" title="${displayName}">${displayName}</span>
+            <span id="${key}-remove-icon" class="remove-icon" style="display: none;"
+              onclick="DocumentFieldManager.removeFile('${key}', '${key}-name', '${key}-upload-icon', '${key}-remove-icon')"><span class="thin-x">×</span></span>
+            <div class="file-actions">
+              <label for="${key}" class="upload-icon" id="${key}-upload-icon" onclick="console.log('Upload icon clicked for ${key}')">
+                <img src="/assets/images/upload.png" alt="Upload Icon" />
+                ${uploadIconHTML}
+              </label>
+              <input type="file" id="${key}" name="documents[${namePrefix}${subSection ? `[${subSection}]` : ''}][${key}]"
+                accept=".jpg, .png, .pdf"
+                style="display: none;"
+                onchange="DocumentFieldManager.handleFileUpload(event, '${key}-name', '${key}-upload-icon', '${key}-remove-icon')" />
+            </div>
+          </div>
+          <div class="info">
+            <span class="help-trigger" data-target="${key}-help">ⓘ Help</span>
+            <span>*jpg, png, pdf formats</span>
+          </div>
+          <div class="help-container ${key}-help" style="display: none">
+            <h3 class="help-title">Help</h3>
+            <div class="help-content">
+              <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+            </div>
+          </div>
+        `;
+        return div;
+      },
+
+      deleteInitialization(containerId, apiEndpoint, namePrefix, type) {
+        const container = document.getElementById(containerId)?.parentElement;
+        if (!container) return;
+
+        const deleteButtons = container.querySelectorAll('.kyc-delete-dynamic-content');
+        deleteButtons.forEach(button => {
+          button.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent any default behavior
+            e.stopPropagation(); // Prevent the click from bubbling to the label
+            const key = button.getAttribute('data-target');
+            const id = button.getAttribute('data-id');
+            const box = document.getElementById(`document-box-${key}`);
+            if (box && confirm(`Are you sure you want to delete "${key}"?`)) {
+              box.remove();
+              fetch(`/deletekycdocument/${id}`, {
+                method: 'DELETE',
+                headers: {
+                  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+                }
+              })
+                .then(res => {
+                  if (!res.ok) throw new Error('Delete failed');
+                  alert(`Deleted: ${key}`);
+                  const rowIdElement = document.getElementById(containerId).parentElement.querySelector('.document-row:not(:last-child)');
+                  const rowId = rowIdElement ? rowIdElement.id : document.getElementById(containerId).parentElement.querySelector('.document-row').id;
+                  this.initializeSection(containerId, rowId, apiEndpoint, namePrefix, type, ['salaried', 'business']);
+                })
+                .catch(err => console.error(err));
+            }
+          });
+        });
+      },
+
+      handleFileUpload(event, nameId, uploadIconId, removeIconId) {
+        const fileInput = event.target;
+        const fileNameSpan = document.getElementById(nameId);
+        const uploadIcon = document.getElementById(uploadIconId);
+        const removeIcon = document.getElementById(removeIconId);
+
+        if (fileInput.files.length > 0) {
+          const file = fileInput.files[0];
+          if (file.size > 5 * 1024 * 1024) {
+            alert('File size must be less than 5MB.');
+            fileInput.value = '';
+            return;
+          }
+          fileNameSpan.textContent = file.name;
+          uploadIcon.style.display = 'none';
+          removeIcon.style.display = 'inline-block';
+        }
+      },
+
+      removeFile(inputId, nameId, uploadIconId, removeIconId) {
+        const fileInput = document.getElementById(inputId);
+        const fileNameSpan = document.getElementById(nameId);
+        const uploadIcon = document.getElementById(uploadIconId);
+        const removeIcon = document.getElementById(removeIconId);
+
+        fileInput.value = '';
+        fileNameSpan.textContent = fileNameSpan.dataset.original;
+        uploadIcon.style.display = 'inline-flex'; // Use inline-flex to match .upload-icon CSS
+        removeIcon.style.display = 'none';
+      },
 
       getDynamicFields() {
         const fields = [];
         const containers = {
-          document: document.getElementById('document-fields-container'),
-          academic: document.getElementById('academic-fields-container'),
-          secured: document.getElementById('secured-fields-container'),
-          workExperience: document.getElementById('work-experience-row-2'),
+          document: document.getElementById('document-fields-container-kyc-id'),
+          academic: document.getElementById('academic-fields-container-id'),
+          secured: document.getElementById('secured-fields-container-id'),
+          workExperience: document.getElementById('work-experience-container-id'),
           coBorrower: document.getElementById('co-borrower-fields-container'),
           salariedBusiness: document.getElementById('salaried-business-fields-container')
         };
         for (const [type, container] of Object.entries(containers)) {
           if (container) {
-            const fieldNames = Array.from(container.querySelectorAll('.document-name')).map(name => name.textContent);
+            const fieldNames = Array.from(container.parentElement.querySelectorAll('.document-name')).map(name => name.textContent);
             fieldNames.forEach(name => fields.push({
-              name: name,
+              name: `${type}-${name.toLowerCase().replace(/\s+/g, '-')}`,
               type: 'file'
             }));
           }
@@ -2686,6 +2921,7 @@
         return this.modified;
       }
     };
+
 
     // Form Submission Manager
     const FormSubmissionManager = {
