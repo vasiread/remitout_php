@@ -398,7 +398,7 @@
               </div>
             </div>
 
-          <!-- Co-borrower Info Section -->
+            <!-- Co-borrower Info Section -->
             <div class="admin-student-form-section-co-borrower-info">
               <div class="admin-student-section-header-co-borrower" id="admin-student-section-header-co-borrower-id">
                 <div class="admin-student-section-title-co-borrower">
@@ -426,15 +426,18 @@
                   <div class="options-section" id="co-borrower-options" style="display: none;">
                     <div class="checkbox-options-container" id="checkbox-options-container-relation">
                       <div class="checkbox-option">
-                        <input type="checkbox" id="co-borrower-parent" name="how-is-the-co-borrower-related-to-you[relationship][]" value="Parent" />
+                        <input type="checkbox" id="co-borrower-parent"
+                          name="how-is-the-co-borrower-related-to-you[relationship][]" value="Parent" />
                         <label for="co-borrower-parent">Parent</label>
                       </div>
                       <div class="checkbox-option">
-                        <input type="checkbox" id="co-borrower-spouse" name="how-is-the-co-borrower-related-to-you[relationship][]" value="Spouse" />
+                        <input type="checkbox" id="co-borrower-spouse"
+                          name="how-is-the-co-borrower-related-to-you[relationship][]" value="Spouse" />
                         <label for="co-borrower-spouse">Spouse</label>
                       </div>
                       <div class="checkbox-option">
-                        <input type="checkbox" id="co-borrower-blood-relative" name="how-is-the-co-borrower-related-to-you[relationship][]" value="Blood relative" />
+                        <input type="checkbox" id="co-borrower-blood-relative"
+                          name="how-is-the-co-borrower-related-to-you[relationship][]" value="Blood relative" />
                         <label for="co-borrower-blood-relative">Blood relative</label>
                       </div>
                       <div class="add-option" id="add-coborrower-option-btn">
@@ -460,7 +463,8 @@
                   <div class="options-section" id="income-options" style="display: none;">
                     <div class="fields-row-container">
                       <div class="field-container">
-                        <input type="text" class="text-input" placeholder="₹ Rupees in thousands" name="what-is-the-gross-monthly-income-of-co-borrower[income]" required />
+                        <input type="text" class="text-input" placeholder="₹ Rupees in thousands"
+                          name="what-is-the-gross-monthly-income-of-co-borrower[income]" required />
                         <button class="delete-field" type="button">✕</button>
                         <p class="minimum-amount">
                           *minimum amount of 5% after deductions for eligibility
@@ -493,11 +497,13 @@
                         <!-- Radio buttons on the left -->
                         <div class="monthly-liability-radio-buttons">
                           <label>
-                            <input type="radio" name="is-there-any-existing-co-borrower-monthly-liability[liability]" id="yes-liability" value="Yes" required />
+                            <input type="radio" name="is-there-any-existing-co-borrower-monthly-liability[liability]"
+                              id="yes-liability" value="Yes" required />
                             Yes
                           </label>
                           <label>
-                            <input type="radio" name="is-there-any-existing-co-borrower-monthly-liability[liability]" id="no-liability" value="No" required />
+                            <input type="radio" name="is-there-any-existing-co-borrower-monthly-liability[liability]"
+                              id="no-liability" value="No" required />
                             No
                           </label>
                         </div>
@@ -508,7 +514,9 @@
                             <p class="amount-thousand-mobile">
                               Enter the amount in thousands
                             </p>
-                            <input type="text" id="emi-amount" class="emi-content-container" placeholder="Enter EMI amount" name="is-there-any-existing-co-borrower-monthly-liability[emi_amount]" />
+                            <input type="text" id="emi-amount" class="emi-content-container"
+                              placeholder="Enter EMI amount"
+                              name="is-there-any-existing-co-borrower-monthly-liability[emi_amount]" />
                             <span id="emi-error-message" class="error-message" style="display: none; color: red;">
                               Please enter a valid EMI amount (numeric values only).
                             </span>
@@ -1409,123 +1417,123 @@
       element.style.display = isVisible ? 'none' : 'block';
       if (icon) icon.classList.toggle(rotateClass, !isVisible);
     };
-      const SectionToggler = {
-        init() {
-          this.setupToggles([
-            {
-              header: '.admin-student-section-header',
-              content: '.admin-student-section-content',
-              arrow: '.admin-student-arrow-icon img',
-              arrowClasses: ['admin-student-arrow-up', 'admin-student-arrow-down'],
-              defaultExpanded: true
-            },
-            {
-              header: '#admin-student-person-info',
-              content: '#person-info-section',
-              defaultExpanded: false
-            },
-            {
-              header: '#admin-student-about-us',
-              content: '#about-us-section',
-              defaultExpanded: false
-            },
-            {
-              header: '.admin-student-section-header-course',
-              content: '.admin-student-section-content-course',
-              arrow: '.admin-student-arrow-icon-course img',
-              rotate: true,
-              defaultExpanded: true
-            },
-            {
-              header: '.admin-student-section-header-academic',
-              content: '.admin-student-section-content-academic',
-              arrow: '.admin-student-arrow-icon-academic img',
-              rotate: true,
-              defaultExpanded: true
-            },
-            {
-              header: '#course-details-row-id',
-              content: '#course-details-options',
-              defaultExpanded: false
-            },
-            {
-              header: '#admin-student-section-header-co-borrower-id',
-              content: '.admin-student-section-content-co-borrower',
-              arrow: '.admin-student-arrow-icon-co-borrower img',
-              rotate: true,
-              defaultExpanded: true
-            },
-            {
-              header: '.admin-student-section-header-document-upload',
-              content: '.admin-student-section-content-document-upload',
-              defaultExpanded: true
-            },
-            {
-              header: '#student-kyc-row',
-              content: '#student-kyc-section',
-              defaultExpanded: false
-            },
-            {
-              header: '#academic-marks-row',
-              content: '#academic-marks-section',
-              defaultExpanded: false
-            },
-            {
-              header: '#secured-marks-row',
-              content: '#secured-marks-section',
-              defaultExpanded: false
-            },
-            {
-              header: '#work-experience-row',
-              content: '#work-experience-section',
-              defaultExpanded: false
-            },
-            {
-              header: '#co-borrower-kyc-row',
-              content: '#co-borrower-kyc-section',
-              defaultExpanded: false
-            },
-            {
-              header: '#salaried-business-row',
-              content: '#salaried-business-section',
-              defaultExpanded: false
-            }
-          ]);
-        },
+    const SectionToggler = {
+      init() {
+        this.setupToggles([
+          {
+            header: '.admin-student-section-header',
+            content: '.admin-student-section-content',
+            arrow: '.admin-student-arrow-icon img',
+            arrowClasses: ['admin-student-arrow-up', 'admin-student-arrow-down'],
+            defaultExpanded: true
+          },
+          {
+            header: '#admin-student-person-info',
+            content: '#person-info-section',
+            defaultExpanded: false
+          },
+          {
+            header: '#admin-student-about-us',
+            content: '#about-us-section',
+            defaultExpanded: false
+          },
+          {
+            header: '.admin-student-section-header-course',
+            content: '.admin-student-section-content-course',
+            arrow: '.admin-student-arrow-icon-course img',
+            rotate: true,
+            defaultExpanded: true
+          },
+          {
+            header: '.admin-student-section-header-academic',
+            content: '.admin-student-section-content-academic',
+            arrow: '.admin-student-arrow-icon-academic img',
+            rotate: true,
+            defaultExpanded: true
+          },
+          {
+            header: '#course-details-row-id',
+            content: '#course-details-options',
+            defaultExpanded: false
+          },
+          {
+            header: '#admin-student-section-header-co-borrower-id',
+            content: '.admin-student-section-content-co-borrower',
+            arrow: '.admin-student-arrow-icon-co-borrower img',
+            rotate: true,
+            defaultExpanded: true
+          },
+          {
+            header: '.admin-student-section-header-document-upload',
+            content: '.admin-student-section-content-document-upload',
+            defaultExpanded: true
+          },
+          {
+            header: '#student-kyc-row',
+            content: '#student-kyc-section',
+            defaultExpanded: false
+          },
+          {
+            header: '#academic-marks-row',
+            content: '#academic-marks-section',
+            defaultExpanded: false
+          },
+          {
+            header: '#secured-marks-row',
+            content: '#secured-marks-section',
+            defaultExpanded: false
+          },
+          {
+            header: '#work-experience-row',
+            content: '#work-experience-section',
+            defaultExpanded: false
+          },
+          {
+            header: '#co-borrower-kyc-row',
+            content: '#co-borrower-kyc-section',
+            defaultExpanded: false
+          },
+          {
+            header: '#salaried-business-row',
+            content: '#salaried-business-section',
+            defaultExpanded: false
+          }
+        ]);
+      },
 
-        setupToggles(configs) {
-          configs.forEach(config => {
-            if (!config.header || !config.content) {
-              console.warn(`Invalid config: header (${config.header}) or content (${config.content}) missing`);
-              return;
-            }
+      setupToggles(configs) {
+        configs.forEach(config => {
+          if (!config.header || !config.content) {
+            console.warn(`Invalid config: header (${config.header}) or content (${config.content}) missing`);
+            return;
+          }
 
-            const header = document.querySelector(config.header);
-            const content = document.querySelector(config.content);
-            const arrow = config.arrow ? document.querySelector(config.arrow) : null;
+          const header = document.querySelector(config.header);
+          const content = document.querySelector(config.content);
+          const arrow = config.arrow ? document.querySelector(config.arrow) : null;
 
-            if (!header) console.warn(`Header not found: ${config.header}`);
-            if (!content) console.warn(`Content not found: ${config.content}`);
-            if (config.arrow && !arrow) console.warn(`Arrow not found: ${config.arrow}`);
-            if (!header || !content) return;
+          if (!header) console.warn(`Header not found: ${config.header}`);
+          if (!content) console.warn(`Content not found: ${config.content}`);
+          if (config.arrow && !arrow) console.warn(`Arrow not found: ${config.arrow}`);
+          if (!header || !content) return;
 
-            content.style.display = config.defaultExpanded === false ? 'none' : 'block';
+          content.style.display = config.defaultExpanded === false ? 'none' : 'block';
+          if (arrow && config.rotate) {
+            arrow.style.transition = 'transform 0.3s ease';
+            arrow.style.transform = config.defaultExpanded === false ? 'rotate(0deg)' : 'rotate(180deg)';
+          }
+
+          header.addEventListener('click', () => {
+            const isVisible = content.style.display === 'block';
+            console.log(`Toggling ${config.content}: isVisible=${isVisible}`);
+            content.style.display = isVisible ? 'none' : 'block';
             if (arrow && config.rotate) {
-              arrow.style.transition = 'transform 0.3s ease';
-              arrow.style.transform = config.defaultExpanded === false ? 'rotate(0deg)' : 'rotate(180deg)';
+              arrow.style.transform = isVisible ? 'rotate(0deg)' : 'rotate(180deg)';
             }
-
-            header.addEventListener('click', () => {
-              const isVisible = content.style.display === 'block';
-              console.log(`Toggling ${config.content}: isVisible=${isVisible}`);
-              content.style.display = isVisible ? 'none' : 'block';
-              if (arrow && config.rotate) {
-                arrow.style.transform = isVisible ? 'rotate(0deg)' : 'rotate(180deg)';
-              }
-            });
           });
-        }
-      };
+        });
+      }
+    };
 
     const InputFieldManager = {
       section: 'Personal Information',
@@ -1553,15 +1561,15 @@
             const name = prompt("Enter a unique field name (e.g., country, favorite_color):")?.trim();
             if (!name) return;
 
-            const fieldType = prompt("Enter field type (text, select, checkbox, radio, date, file):")?.trim();
+            const fieldType = prompt("Enter field type (text, select, checkbox, radio, date):")?.trim();
             if (!fieldType) return;
-
-            this.addNewInputField({ label, name, type: fieldType });
+            const sectionSeperate = "general";
+            this.addNewInputField({ label, name, type: fieldType, sectionSeperate });
           });
         }
       },
 
-      addNewInputField({ label, name, type }) {
+      addNewInputField({ label, name, type,sectionSeperate }) {
         let options = [];
 
         if (['select', 'checkbox', 'radio'].includes(type)) {
@@ -1582,7 +1590,8 @@
             name,
             type,
             required: true,
-            options
+            options,
+            sectionSeperate
           })
         })
           .then(res => res.json())
@@ -2089,30 +2098,64 @@
           container.classList.toggle('active', !isVisible);
         });
 
-        const addButton = document.getElementById('add-education-field-btn');
-        if (addButton) {
-          console.log('Attaching event listener to add-education-field-btn');
-          // Remove existing event listeners to prevent duplicates
-          addButton.removeEventListener('click', this.handleAddEducationField);
-          this.handleAddEducationField = e => {
-            e.stopPropagation();
-            console.log('Add button clicked');
-            this.addEducationField();
-            this.modified = true;
-            try {
-              FormSubmissionManager.setModifiedSection(this.section);
-            } catch (error) {
-              console.error('Error in FormSubmissionManager.setModifiedSection:', error);
-            }
-          };
-          addButton.addEventListener('click', this.handleAddEducationField);
-        } else {
-          console.error('add-education-field-btn not found');
+        const addButtonEducation = document.getElementById('add-education-field-btn');
+       if (addButtonEducation) {
+          addButtonEducation.addEventListener('click', () => {
+            const label = prompt("Enter field label (e.g., Country, Favorite Color):")?.trim();
+            if (!label) return;
+
+            const name = prompt("Enter a unique field name (e.g., country, favorite_color):")?.trim();
+            if (!name) return;
+
+            const fieldType = prompt("Enter field type (text, select, checkbox, radio, date):")?.trim();
+            if (!fieldType) return;
+
+            const academicSection = 'academic';
+
+ 
+            // Ensure this method exists in your context
+            this.addEducationInputField({ label, name, type: fieldType, sectionSeperate:academicSection });
+          });
+        }
+      },
+      addEducationInputField({ label, name, type, sectionSeperate }) {
+        let options = [];
+
+        if (['select', 'checkbox', 'radio'].includes(type)) {
+          const optionString = prompt("Enter options separated by commas (e.g., Red,Green,Blue):");
+          if (optionString) {
+            options = optionString.split(',').map(opt => opt.trim()).filter(Boolean);
+          }
         }
 
-        this.setupRemoveButtons();
+        fetch('/addadditionalpersonalinfodata', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
+          },
+          body: JSON.stringify({
+            label,
+            name,
+            type,
+            required: true,
+            options,
+            sectionSeperate
+          })
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.field) {
+              console.log('Field added:', data.field);
+              fetchAdditionalPersonalFields();
+            } else {
+              console.error('Failed to add field:', data);
+            }
+          })
+          .catch(err => console.error('API Error:', err));
       },
 
+  
       setupRemoveButtons() {
         console.log('setupRemoveButtons called');
         document.querySelectorAll('.remove-field-btn').forEach(btn => {
@@ -2389,180 +2432,180 @@
       }
     };
 
-  const CoBorrowerManager = {
-    section: 'Co-Borrower Information',
-    modified: false,
+    const CoBorrowerManager = {
+      section: 'Co-Borrower Information',
+      modified: false,
 
-    init() {
-      this.setupDropdowns([
-        {
-          containerId: 'co-borrower-container',
-          rowId: 'co-borrower-row',
-          optionsId: 'co-borrower-options'
-        },
-        {
-          containerId: 'income-container',
-          rowId: 'income-row',
-          optionsId: 'income-options'
-        },
-        {
-          containerId: 'liability-container',
-          rowId: 'liability-row',
-          optionsId: 'liability-options'
-        }
-      ]);
-      this.setupCoBorrowerOptions();
-      this.setupIncomeFields();
-      this.setupLiabilityFields();
-      this.setupCoBorrowerSectionToggle();
-    },
+      init() {
+        this.setupDropdowns([
+          {
+            containerId: 'co-borrower-container',
+            rowId: 'co-borrower-row',
+            optionsId: 'co-borrower-options'
+          },
+          {
+            containerId: 'income-container',
+            rowId: 'income-row',
+            optionsId: 'income-options'
+          },
+          {
+            containerId: 'liability-container',
+            rowId: 'liability-row',
+            optionsId: 'liability-options'
+          }
+        ]);
+        this.setupCoBorrowerOptions();
+        this.setupIncomeFields();
+        this.setupLiabilityFields();
+        this.setupCoBorrowerSectionToggle();
+      },
 
-    setupDropdowns(dropdowns) {
-      dropdowns.forEach(({ containerId, rowId, optionsId }) => {
-        const container = document.getElementById(containerId);
-        const row = document.getElementById(rowId);
-        const options = document.getElementById(optionsId);
-        const dropdownIcon = row?.querySelector('.admin-student-dropdown-icon');
-        if (container && row && options && dropdownIcon) {
-          options.style.display = 'none';
-          row.addEventListener('click', () => {
-            const isVisible = options.style.display !== 'none';
-            toggleVisibility(options, isVisible, dropdownIcon);
-            container.classList.toggle('active', !isVisible);
-          });
-        }
-      });
-    },
+      setupDropdowns(dropdowns) {
+        dropdowns.forEach(({ containerId, rowId, optionsId }) => {
+          const container = document.getElementById(containerId);
+          const row = document.getElementById(rowId);
+          const options = document.getElementById(optionsId);
+          const dropdownIcon = row?.querySelector('.admin-student-dropdown-icon');
+          if (container && row && options && dropdownIcon) {
+            options.style.display = 'none';
+            row.addEventListener('click', () => {
+              const isVisible = options.style.display !== 'none';
+              toggleVisibility(options, isVisible, dropdownIcon);
+              container.classList.toggle('active', !isVisible);
+            });
+          }
+        });
+      },
 
-    setupCoBorrowerOptions() {
-      const addOptionBtn = document.getElementById('add-coborrower-option-btn');
-      if (addOptionBtn) {
-        addOptionBtn.addEventListener('click', e => {
-          e.stopPropagation();
-          const userInput = prompt("Enter new relationship option", "")?.trim();
-          if (userInput) {
-            const optionsContainer = document.querySelector('#co-borrower-options .checkbox-options-container');
-            const newOption = document.createElement('div');
-            newOption.className = 'checkbox-option';
-            newOption.innerHTML = `
+      setupCoBorrowerOptions() {
+        const addOptionBtn = document.getElementById('add-coborrower-option-btn');
+        if (addOptionBtn) {
+          addOptionBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            const userInput = prompt("Enter new relationship option", "")?.trim();
+            if (userInput) {
+              const optionsContainer = document.querySelector('#co-borrower-options .checkbox-options-container');
+              const newOption = document.createElement('div');
+              newOption.className = 'checkbox-option';
+              newOption.innerHTML = `
               <input type="checkbox" value="${userInput}" disabled>
               <label>${userInput}</label>
             `;
-            optionsContainer.insertBefore(newOption, addOptionBtn);
+              optionsContainer.insertBefore(newOption, addOptionBtn);
+              this.modified = true;
+              FormSubmissionManager.setModifiedSection(this.section);
+            }
+          });
+        }
+      },
+
+      setupIncomeFields() {
+        document.querySelectorAll('.delete-field').forEach(btn => {
+          btn.addEventListener('click', e => {
+            e.stopPropagation();
+            btn.closest('.field-container').remove();
             this.modified = true;
             FormSubmissionManager.setModifiedSection(this.section);
-          }
+          });
         });
-      }
-    },
 
-    setupIncomeFields() {
-      document.querySelectorAll('.delete-field').forEach(btn => {
-        btn.addEventListener('click', e => {
-          e.stopPropagation();
-          btn.closest('.field-container').remove();
-          this.modified = true;
-          FormSubmissionManager.setModifiedSection(this.section);
-        });
-      });
-
-      const addIncomeFieldBtn = document.getElementById('add-income-field-btn');
-      if (addIncomeFieldBtn) {
-        addIncomeFieldBtn.addEventListener('click', e => {
-          e.stopPropagation();
-          const userInput = prompt("Enter field name", "")?.trim();
-          if (userInput) {
-            const fieldsRowContainer = document.querySelector('.fields-row-container');
-            const fieldContainer = document.createElement('div');
-            fieldContainer.className = 'field-container';
-            fieldContainer.innerHTML = `
+        const addIncomeFieldBtn = document.getElementById('add-income-field-btn');
+        if (addIncomeFieldBtn) {
+          addIncomeFieldBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            const userInput = prompt("Enter field name", "")?.trim();
+            if (userInput) {
+              const fieldsRowContainer = document.querySelector('.fields-row-container');
+              const fieldContainer = document.createElement('div');
+              fieldContainer.className = 'field-container';
+              fieldContainer.innerHTML = `
               <input type="text" class="text-input" placeholder="${userInput}" disabled>
               <button class="delete-field">✕</button>
             `;
-            fieldsRowContainer.insertBefore(fieldContainer, addIncomeFieldBtn);
-            fieldContainer.querySelector('.delete-field').addEventListener('click', e => {
-              e.stopPropagation();
-              fieldContainer.remove();
+              fieldsRowContainer.insertBefore(fieldContainer, addIncomeFieldBtn);
+              fieldContainer.querySelector('.delete-field').addEventListener('click', e => {
+                e.stopPropagation();
+                fieldContainer.remove();
+                this.modified = true;
+                FormSubmissionManager.setModifiedSection(this.section);
+              });
               this.modified = true;
               FormSubmissionManager.setModifiedSection(this.section);
-            });
-            this.modified = true;
-            FormSubmissionManager.setModifiedSection(this.section);
-          }
-        });
-      }
-    },
+            }
+          });
+        }
+      },
 
-    setupLiabilityFields() {
-      const addLiabilityBtn = document.getElementById('add-liability-btn');
-      if (addLiabilityBtn) {
-        addLiabilityBtn.addEventListener('click', e => {
-          e.stopPropagation();
-          const userInput = prompt("Enter field name for liability", "")?.trim();
-          if (userInput) {
-            const additionalFields = document.getElementById('additional-liability-fields');
-            const fieldContainer = document.createElement('div');
-            fieldContainer.className = 'liability-input-container';
-            fieldContainer.innerHTML = `
+      setupLiabilityFields() {
+        const addLiabilityBtn = document.getElementById('add-liability-btn');
+        if (addLiabilityBtn) {
+          addLiabilityBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            const userInput = prompt("Enter field name for liability", "")?.trim();
+            if (userInput) {
+              const additionalFields = document.getElementById('additional-liability-fields');
+              const fieldContainer = document.createElement('div');
+              fieldContainer.className = 'liability-input-container';
+              fieldContainer.innerHTML = `
               <input type="text" class="text-input" placeholder="${userInput}" disabled>
               <button class="delete-liability-field">✕</button>
             `;
-            additionalFields.appendChild(fieldContainer);
-            fieldContainer.querySelector('.delete-liability-field').addEventListener('click', e => {
-              e.stopPropagation();
-              fieldContainer.remove();
+              additionalFields.appendChild(fieldContainer);
+              fieldContainer.querySelector('.delete-liability-field').addEventListener('click', e => {
+                e.stopPropagation();
+                fieldContainer.remove();
+                this.modified = true;
+                FormSubmissionManager.setModifiedSection(this.section);
+              });
               this.modified = true;
               FormSubmissionManager.setModifiedSection(this.section);
-            });
-            this.modified = true;
-            FormSubmissionManager.setModifiedSection(this.section);
-          }
-        });
-      }
-    },
+            }
+          });
+        }
+      },
 
-    setupCoBorrowerSectionToggle() {
-      const header = document.querySelector('.admin-student-section-header-co-borrower');
-      const content = document.querySelector('.admin-student-form-section-co-borrower');
-      const arrow = document.querySelector('.admin-student-arrow-icon-co-borrower');
-      if (header && content && arrow) {
-        content.classList.add('visible'); // Ensure section is visible by default
-        header.addEventListener('click', () => {
-          const isVisible = content.classList.contains('visible');
-          content.classList.toggle('visible', !isVisible);
-          content.classList.toggle('hidden', isVisible);
-          arrow.classList.toggle('rotated', !isVisible);
-        });
-      }
-    },
+      setupCoBorrowerSectionToggle() {
+        const header = document.querySelector('.admin-student-section-header-co-borrower');
+        const content = document.querySelector('.admin-student-form-section-co-borrower');
+        const arrow = document.querySelector('.admin-student-arrow-icon-co-borrower');
+        if (header && content && arrow) {
+          content.classList.add('visible'); // Ensure section is visible by default
+          header.addEventListener('click', () => {
+            const isVisible = content.classList.contains('visible');
+            content.classList.toggle('visible', !isVisible);
+            content.classList.toggle('hidden', isVisible);
+            arrow.classList.toggle('rotated', !isVisible);
+          });
+        }
+      },
 
-    getDynamicFields() {
-      const fields = [];
-      const relationCheckboxes = document.querySelectorAll('#co-borrower-options input[type="checkbox"]');
-      if (relationCheckboxes.length > 0) {
-        const options = Array.from(relationCheckboxes).map(cb => cb.value);
-        fields.push({
-          name: 'Relation',
-          type: 'checkbox',
-          options: options
+      getDynamicFields() {
+        const fields = [];
+        const relationCheckboxes = document.querySelectorAll('#co-borrower-options input[type="checkbox"]');
+        if (relationCheckboxes.length > 0) {
+          const options = Array.from(relationCheckboxes).map(cb => cb.value);
+          fields.push({
+            name: 'Relation',
+            type: 'checkbox',
+            options: options
+          });
+        }
+        const incomeFields = document.querySelectorAll('.fields-row-container input[disabled]');
+        incomeFields.forEach(input => {
+          fields.push({
+            name: input.placeholder,
+            type: 'text'
+          });
         });
-      }
-      const incomeFields = document.querySelectorAll('.fields-row-container input[disabled]');
-      incomeFields.forEach(input => {
-        fields.push({
-          name: input.placeholder,
-          type: 'text'
+        const liabilityFields = document.querySelectorAll('#additional-liability-fields input[disabled]');
+        liabilityFields.forEach(input => {
+          fields.push({
+            name: input.placeholder,
+            type: 'text'
+          });
         });
-      });
-      const liabilityFields = document.querySelectorAll('#additional-liability-fields input[disabled]');
-      liabilityFields.forEach(input => {
-        fields.push({
-          name: input.placeholder,
-          type: 'text'
-        });
-      });
-      return fields;
-    },
+        return fields;
+      },
 
     isModified() {
       return this.modified;
@@ -3565,6 +3608,9 @@
               p.textContent = field.label;
               p.style.display = 'inline-block';
               p.style.marginRight = '10px';
+              p.style.color = '#75747c';
+              p.style.fontSize = '14px';
+              p.style.fontWeight = '400';
 
               const deleteBtn = document.createElement('button');
               deleteBtn.textContent = 'x';

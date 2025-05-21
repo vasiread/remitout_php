@@ -182,3 +182,7 @@ Route::post('/raise-query', [scDashboardController::class, 'postQueryScside']);
 
 
 Route::get('/user-fields/{uniqueId}', [Admincontroller::class, 'getUserDynamicFields']);
+
+
+
+Route::post('/update-courseinfo', [StudentDetailsController::class, 'updateCourseInfo']);

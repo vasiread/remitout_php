@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Academics;
 use App\Models\AdditionalField;
 use App\Models\CoBorrowerInfo;
@@ -23,6 +22,7 @@ class StudentDetailsController extends Controller
         try {
             Log::info('updatePersonalInfo called:', $request->all());
 
+            // Find personal info and user by unique ID
             $personalInfoDetail = PersonalInfo::find($request->personalInfoId);
             $user = User::where('unique_id', $request->personalInfoId)->first();
 
@@ -34,8 +34,7 @@ class StudentDetailsController extends Controller
                 ]);
             }
 
-            // Update fields as before...
-
+            // Process dynamic fields if present
             if ($request->has('dynamic_fields')) {
                 Log::info('Processing dynamic_fields in updatePersonalInfo...');
                 foreach ($request->input('dynamic_fields') as $fieldId => $value) {
@@ -46,25 +45,34 @@ class StudentDetailsController extends Controller
                         continue;
                     }
 
-                    if (empty($value) && $value !== '0') { // accept '0' as valid value
+                    // Accept '0' as valid but skip empty values otherwise
+                    if (empty($value) && $value !== '0') {
                         Log::warning("Empty value for dynamic field", ['field_id' => $fieldId, 'value' => $value]);
                         continue;
                     }
 
+                    // If value is array (like multiple select), JSON encode it
+                    $valueToSave = is_array($value) ? json_encode($value) : $value;
+
                     UserAdditionalFieldValue::updateOrCreate(
                         ['user_id' => $user->id, 'field_id' => $fieldId],
-                        ['value' => $value]
+                        ['value' => $valueToSave]
                     );
 
                     Log::info("Dynamic field updated", [
                         'user_id' => $user->id,
                         'field_id' => $fieldId,
-                        'value' => $value
+                        'value' => $valueToSave
                     ]);
                 }
             } else {
                 Log::info('No dynamic_fields present in updatePersonalInfo request.');
             }
+
+            // If you have fields on $personalInfoDetail or $user to update from request, do it here
+            // For example:
+            // $personalInfoDetail->name = $request->input('name', $personalInfoDetail->name);
+            // $user->email = $request->input('email', $user->email);
 
             $personalInfoDetail->save();
             $user->save();
@@ -82,6 +90,7 @@ class StudentDetailsController extends Controller
             ]);
         }
     }
+
 
     public function updateCourseInfo(Request $request)
     {
@@ -151,6 +160,7 @@ class StudentDetailsController extends Controller
         }
     }
 
+
     public function updateAcademicsInfo(Request $request)
     {
         try {
@@ -199,6 +209,7 @@ class StudentDetailsController extends Controller
             return response()->json(['success' => false, 'message' => 'An error occurred while updating your details.']);
         }
     }
+
 
     public function updateUserIds(Request $request)
     {

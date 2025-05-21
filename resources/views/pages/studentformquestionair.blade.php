@@ -260,50 +260,65 @@
     }
             @endphp
 
-            <div class="input-group" style="{{ $inputGroupStyle }}">
-                {{-- Only show label for types other than text/url/date/file --}}
-                @if(!in_array($field->type, ['text', 'url']))
-                    <label for="{{ $field->name }}">{{ $field->label }}</label>
-                @endif
+          <div class="input-group" style="{{ $inputGroupStyle }}">
+    {{-- Only show label for types other than text/url/date/file --}}
+    @if(!in_array($field->type, ['text', 'url']))
+        <label for="{{ $field->name }}">{{ $field->label }}</label>
+    @endif
 
-                {{-- Input Types --}}
-                @if(in_array($field->type, ['text', 'date', 'url', 'file']))
-                    <input type="{{ $field->type }}" name="dynamic_fields[{{ $field->id }}]" id="{{ $field->name }}"
-                        value="{{ $userFieldValues[$field->id] ?? '' }}" placeholder="{{ $field->label }}" @if($field->required) required @endif />
-                
-                @elseif($field->type === 'select')
-                    <select name="dynamic_fields[{{ $field->id }}]" id="{{ $field->name }}" @if($field->required) required @endif>
-                        <option value="">Select {{ $field->label }}</option>
-                        @foreach($field->options ?? [] as $option)
-                            <option value="{{ $option }}" @if(($userFieldValues[$field->id] ?? '') == $option) selected @endif>
-                                {{ ucfirst($option) }}
-                            </option>
-                        @endforeach
-                    </select>
+    {{-- Input Types --}}
+    @if(in_array($field->type, ['text', 'date', 'url', 'file']))
+        <input type="{{ $field->type }}" 
+               name="dynamic_fields[{{ $field->id }}]" 
+               id="{{ $field->name }}"
+               value="{{ $userFieldValues[$field->id] ?? '' }}" 
+               placeholder="{{ $field->label }}" 
+               @if($field->required) required @endif
+               @if(isset($field->editable) && !$field->editable) disabled @endif />
+    
+    @elseif($field->type === 'select')
+        <select name="dynamic_fields[{{ $field->id }}]" 
+                id="{{ $field->name }}" 
+                @if($field->required) required @endif
+                @if(isset($field->editable) && !$field->editable) disabled @endif>
+            <option value="">Select {{ $field->label }}</option>
+            @foreach($field->options ?? [] as $option)
+                <option value="{{ $option }}" @if(($userFieldValues[$field->id] ?? '') == $option) selected @endif>
+                    {{ ucfirst($option) }}
+                </option>
+            @endforeach
+        </select>
 
-                @elseif($field->type === 'checkbox')
-                    <div style="margin-top: 6px;">
-                        @foreach($field->options ?? [] as $option)
-                            <label style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;color:#75747c;">
-                                <input type="checkbox" name="dynamic_fields[{{ $field->id }}][]" value="{{ $option }}"
-                                    @if(in_array($option, $userFieldValues[$field->id] ?? [])) checked @endif />
-                                {{ ucfirst($option) }}
-                            </label>
-                        @endforeach
-                    </div>
+    @elseif($field->type === 'checkbox')
+        <div style="margin-top: 6px;">
+            @foreach($field->options ?? [] as $option)
+                <label style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;color:#75747c;">
+                    <input type="checkbox" 
+                           name="dynamic_fields[{{ $field->id }}][]" 
+                           value="{{ $option }}"
+                           @if(in_array($option, $userFieldValues[$field->id] ?? [])) checked @endif
+                           @if(isset($field->editable) && !$field->editable) disabled @endif />
+                    {{ ucfirst($option) }}
+                </label>
+            @endforeach
+        </div>
 
-                @elseif($field->type === 'radio')
-                    <div style="margin-top: 6px;">
-                        @foreach($field->options ?? [] as $option)
-                            <label style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;color:#75747c">
-                                <input type="radio" name="dynamic_fields[{{ $field->id }}]" value="{{ $option }}"
-                                    @if(($userFieldValues[$field->id] ?? '') == $option) checked @endif />
-                                {{ ucfirst($option) }}
-                            </label>
-                        @endforeach
-                    </div>
-                @endif
-            </div>
+    @elseif($field->type === 'radio')
+        <div style="margin-top: 6px;">
+            @foreach($field->options ?? [] as $option)
+                <label style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;color:#75747c">
+                    <input type="radio" 
+                           name="dynamic_fields[{{ $field->id }}]" 
+                           value="{{ $option }}"
+                           @if(($userFieldValues[$field->id] ?? '') == $option) checked @endif
+                           @if(isset($field->editable) && !$field->editable) disabled @endif />
+                    {{ ucfirst($option) }}
+                </label>
+            @endforeach
+        </div>
+    @endif
+</div>
+
         @endif
     @endforeach
 </div>
@@ -478,42 +493,31 @@
           </div>
       
           {{-- Dynamically injected fields for section = "course" --}}
-         @foreach($additionalFields as $field)
-  @if($field->section === 'academic')
-    <div class="form-group" style="margin-top: 15px;">
-      @if(!in_array($field->type, ['text', 'url']))
+          @foreach($additionalFields as $field)
+          @if($field->section === 'course')
+          <div class="form-group" style="margin-top: 15px;">
+          @if(!in_array($field->type, ['text', 'url']))
         <label for="{{ $field->name }}">{{ $field->label }}</label>
-      @endif
+        @endif
 
-      @if(in_array($field->type, ['text', 'url', 'date']))
-        <input
-          type="{{ $field->type }}"
-          name="dynamic_fields[{{ $field->id }}]"
-          id="{{ $field->name }}"
-          value="{{ $userFieldValues[$field->id] ?? '' }}"
-          placeholder="{{ $field->label }}"
-          @if($field->required) required @endif
-        />
-      @elseif($field->type === 'select')
-        <select
-          name="dynamic_fields[{{ $field->id }}]"
-          id="{{ $field->name }}"
-          @if($field->required) required @endif
-        >
+          @if(in_array($field->type, ['text', 'url', 'date']))
+          <input type="{{ $field->type }}" name="dynamic_fields[{{ $field->id }}]" id="{{ $field->name }}"
+          value="{{ $userFieldValues[$field->id] ?? '' }}" placeholder="{{ $field->label }}" @if($field->required)
+        required @endif />
+
+        @elseif($field->type === 'select')
+          <select name="dynamic_fields[{{ $field->id }}]" id="{{ $field->name }}" @if($field->required) required @endif>
           <option value="">Select {{ $field->label }}</option>
           @foreach($field->options ?? [] as $option)
-            <option
-              value="{{ $option }}"
-              @if(($userFieldValues[$field->id] ?? '') == $option) selected @endif
-            >
-              {{ ucfirst($option) }}
-            </option>
-          @endforeach
-        </select>
-      @endif
-    </div>
-  @endif
-@endforeach
+          <option value="{{ $option }}" @if(($userFieldValues[$field->id] ?? '') == $option) selected @endif>
+          {{ ucfirst($option) }}
+          </option>
+        @endforeach
+          </select>
+        @endif
+          </div>
+        @endif
+      @endforeach
         </div>
       
         <button type="submit" id="course-info-submit" class="next-btn-course">Next</button>
@@ -568,38 +572,37 @@
 
         <div class="education-label">Education</div>
 
-    <div class="input-grid">
-      <div class="input-field">
-        <input type="text" id="universityschoolid" placeholder="University/School" />
-      </div>
-      <div class="input-field">
-        <input type="text" id="educationcourseid" placeholder="Course Name" />
-      </div>
-    
-      {{-- Dynamically add fields for "academic" section --}}
-      @foreach($additionalFields as $field)
-      @if($field->section === 'academic')
-      <div class="input-field">
-      @if(in_array($field->type, ['text', 'url', 'date']))
-      <input type="{{ $field->type }}" name="dynamic_fields[{{ $field->id }}]" id="{{ $field->name }}"
-      value="{{ old('dynamic_fields.' . $field->id, $userFieldValues[$field->id] ?? '') }}"
-      placeholder="{{ $field->label }}" @if($field->required) required @endif />
-    @elseif($field->type === 'select')
-      <label for="{{ $field->name }}">{{ $field->label }}</label>
-      <select name="dynamic_fields[{{ $field->id }}]" id="{{ $field->name }}" @if($field->required) required @endif>
-      <option value="">Select {{ $field->label }}</option>
-      @foreach($field->options ?? [] as $option)
-      <option value="{{ $option }}" @if(old('dynamic_fields.' . $field->id, $userFieldValues[$field->id] ?? '') == $option) selected @endif>
-      {{ ucfirst($option) }}
-      </option>
-      @endforeach
-      </select>
-    @endif
-      </div>
-    @endif
+      <div class="input-grid">
+        <div class="input-field">
+          <input type="text" id="universityschoolid" placeholder="University/School">
+        </div>
+        <div class="input-field">
+          <input type="text" id="educationcourseid" placeholder="Course Name">
+        </div>
+      
+        {{-- Dynamically add fields for "social" section --}}
+        @foreach($additionalFields as $field)
+        @if($field->section === 'academic')
+        <div class="input-field">
+          @if(in_array($field->type, ['text', 'url', 'date']))
+          <input type="{{ $field->type }}" name="dynamic_fields[{{ $field->id }}]" id="{{ $field->name }}"
+          value="{{ $userFieldValues[$field->id] ?? '' }}" placeholder="{{ $field->label }}" @if($field->required) required
+        @endif>
+        @elseif($field->type === 'select')
+          <label for="{{ $field->name }}">{{ $field->label }}</label>
+          <select name="dynamic_fields[{{ $field->id }}]" id="{{ $field->name }}">
+          <option value="">Select {{ $field->label }}</option>
+          @foreach($field->options ?? [] as $option)
+        <option value="{{ $option }}" @if(($userFieldValues[$field->id] ?? '') == $option) selected @endif>
+          {{ ucfirst($option) }}
+        </option>
+        @endforeach
+          </select>
+        @endif
+        </div>
+      @endif
     @endforeach
-    </div>
-
+      </div>
 
       </div>
     </div>
@@ -991,7 +994,9 @@
     </div>
   </section>
 
+  <!---document upload step 3--->
   <!----secured Admission-->
+
   <section class="kyc-section-Admission" style="display: none;">
     <div class="kyc-container">
       <div class="step-header">
