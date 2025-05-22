@@ -1443,23 +1443,26 @@
                 element.addEventListener(event, handler);
             };
 
-            const resetFooter = () => {
-                footerContainer.innerHTML = `
-                    <button>Cancel</button>
-                    <div class="action-btn-group">
-                        <button class="btn-generate">Generate</button>
-                    </div>
-                `;
-                cancelButton = footerContainer.querySelector("button:nth-child(1)");
-                generateButton = footerContainer.querySelector(".btn-generate");
+          const resetFooter = () => {
+            footerContainer.innerHTML = `
+                <button>
+                    <img src="{{ asset('assets/images/Icons/close_icon.png') }}" alt="Cancel Icon" />
+                    Cancel
+                </button>
+                <div class="action-btn-group">
+                    <button class="btn-generate">Generate</button>
+                </div>
+            `;
+            cancelButton = footerContainer.querySelector("button:nth-child(1)");
+            generateButton = footerContainer.querySelector(".btn-generate");
 
-                if (cancelButton) {
-                    removeExistingListeners(cancelButton, "click", hidePopup);
-                }
-                if (generateButton) {
-                    removeExistingListeners(generateButton, "click", generateLink);
-                }
-            };
+            if (cancelButton) {
+                removeExistingListeners(cancelButton, "click", hidePopup);
+            }
+            if (generateButton) {
+                removeExistingListeners(generateButton, "click", generateLink);
+            }
+        };
 
             const showPopup = () => {
                 referralTriggeredView.style.display = "flex";
@@ -1473,11 +1476,14 @@
                 overlay.style.display = "none";
             };
 
-            const generateLink = () => {
+           const generateLink = () => {
                 if (!referralInput) return;
                 referralInput.value = referralLink;
                 footerContainer.innerHTML = `
-                    <button>Cancel</button>
+                    <button>
+                        <img src="{{ asset('assets/images/Icons/close_icon.png') }}" alt="Cancel Icon" />
+                        Cancel
+                    </button>
                     <div class="action-btn-group">
                         <button class="btn-copy-link">
                             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1594,23 +1600,35 @@
                     color: #fff;
                     border: 1px solid #fff;
                 }
-                .action-btn-group .btn-copy-link,
+                .action-btn-group .btn-copy-link {
+                    background-color: transparent;
+                    color: black;
+                    border: 1px solid #fff;
+                    padding: 8px 12px;
+                    white-space: nowrap;
+                }
                 .action-btn-group .btn-share {
                     background-color: transparent;
                     color: #fff;
                     border: 1px solid #fff;
                     padding: 8px 12px;
                 }
-                .action-btn-group .btn-copy-link:hover,
+                
                 .action-btn-group .btn-share:hover {
                     background-color: #A855F7;
                 }
-                .action-btn-group button svg {
+                .action-btn-group .btn-copy-link svg {
                     width: 16px;
                     height: 16px;
-                    fill: #fff;
                     flex-shrink: 0;
                     display: inline-block;
+                }
+                 .action-btn-group .btn-share svg {
+                    width: 16px;
+                    height: 16px;
+                    flex-shrink: 0;
+                    display: inline-block;
+                    fill: #fff;
                 }
                 .action-btn-group button span {
                     line-height: 1;

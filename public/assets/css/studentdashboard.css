@@ -352,31 +352,27 @@ input[type="file"] {
     color: rgba(255, 154, 63, 1);
     padding: 12px;
 }
-
 .studentdashboardprofile-communityjoinsection {
     max-width: 100%;
     display: flex;
+    flex-direction: row;
     gap: 15px;
     align-items: center;
     width: 272px;
     height: 50px;
     padding: 15px;
-    gap: 15px;
     border-radius: 4px;
     cursor: pointer;
-
     border: 1px solid rgba(222, 222, 222, 0.8);
 }
 
 .studentdashboardprofile-communityjoinsection p {
     color: rgba(38, 2, 84, 0.7);
     font-family: "Poppins", sans-serif;
-
     font-size: 16px;
     font-weight: 500;
     line-height: 19.2px;
 }
-
 .studentdashboardprofile-trackprogress {
     display: flex;
     /* display: none; */
@@ -1728,8 +1724,12 @@ input[type="file"] {
     }
 
     .trackprogress-contentcontainer {
-        align-items: center;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px;
     }
+
 
     .studentdashboardprofile-firstrowtrackprogress {
         flex-direction: column;
@@ -1739,10 +1739,6 @@ input[type="file"] {
     .individual-bankmessages {
         height: fit-content;
         gap: 1rem;
-    }
-
-    .loanproposals-loanstatuscards {
-        gap: 4rem;
     }
 
     .individual-bankmessages-buttoncontainer {

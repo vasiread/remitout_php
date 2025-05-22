@@ -198,9 +198,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="studentdashboardprofile-communityjoinsection">
-                                <img src={{asset($discordIconPath)}}>
-                                <p> Join Community</p>
+                           <div class="studentdashboardprofile-communityjoinsection">
+                                <a href="https://discord.com/" target="_blank" style="text-decoration: none; color: inherit; display: contents;">
+                                    <img src="{{asset($discordIconPath)}}" alt="Discord Icon" style="width: 24px; height: 24px;">
+                                    <p>Join Community</p>
+                                </a>
                             </div>
                             <div class="studentdashboardprofile-educationeditsection">
                                 <div class="educationeditsection-firstrow">
