@@ -385,7 +385,8 @@
     color: #FA7B15;
     background-color: #FFE3CACC;
     border-radius: 50px;
-    width: 85px;
+    width: fit-content;
+    padding: 0.5rem;
     height: 2rem;
     display: flex;
     align-items: center;

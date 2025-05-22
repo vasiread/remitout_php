@@ -186,3 +186,4 @@ Route::get('/user-fields/{uniqueId}', [Admincontroller::class, 'getUserDynamicFi
 
 
 Route::post('/update-courseinfo', [StudentDetailsController::class, 'updateCourseInfo']);
+Route::post('/update-review-status', [NbfcController::class, 'updateReviewStatus']);

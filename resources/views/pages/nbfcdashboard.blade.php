@@ -34,14 +34,14 @@
 
 
     @php
-        $profileImgPath = 'images/admin-student-profile.png';
-        $uploadPanName = '';
-        $profileIconPath = "assets/images/account_circle.png";
-        $phoneIconPath = "assets/images/call.png";
-        $mailIconPath = "assets/images/mail.png";
-        $pindropIconPath = "assets/images/pin_drop.png";
-        $discordIconPath = "assets/images/icons/discordicon.png";
-        $viewIconPath = "assets/images/visibility.png";
+$profileImgPath = 'images/admin-student-profile.png';
+$uploadPanName = '';
+$profileIconPath = "assets/images/account_circle.png";
+$phoneIconPath = "assets/images/call.png";
+$mailIconPath = "assets/images/mail.png";
+$pindropIconPath = "assets/images/pin_drop.png";
+$discordIconPath = "assets/images/icons/discordicon.png";
+$viewIconPath = "assets/images/visibility.png";
     @endphp
 
     <nav class="nbfc-navbar">
@@ -703,25 +703,25 @@ $counter = 1;
 
 
         <div class="overlay-password-change-nbfc"></div>
-            <div class="password-change-container-nbfc">
-                <div class="password-change-triggered-view-headersection-nbfc">
-                    <h3>Password Change Request</h3>
-                    <img src="{{ asset('assets/images/Icons/close_small.png') }}" style="cursor:pointer" alt="">
-                </div>
-                <input type="password" placeholder="Current Password" id="current-password-nbfc">
-                <span id="current-password-error-nbfc" class="error-message"></span>
-
-                <input type="password" placeholder="New Password" id="new-password-nbfc">
-                <span id="new-password-error-nbfc" class="error-message"></span>
-
-                <input type="password" placeholder="Confirm New Password" id="confirm-new-password-nbfc">
-                <span id="confirm-password-error-nbfc" class="error-message"></span>
-
-                <div class="footer-passwordchange-nbfc">
-                    <p>Forgot Password</p>
-                    <button id="password-change-save-nbfc">Save</button>
-                </div>
+        <div class="password-change-container-nbfc">
+            <div class="password-change-triggered-view-headersection-nbfc">
+                <h3>Password Change Request</h3>
+                <img src="{{ asset('assets/images/Icons/close_small.png') }}" style="cursor:pointer" alt="">
             </div>
+            <input type="password" placeholder="Current Password" id="current-password-nbfc">
+            <span id="current-password-error-nbfc" class="error-message"></span>
+
+            <input type="password" placeholder="New Password" id="new-password-nbfc">
+            <span id="new-password-error-nbfc" class="error-message"></span>
+
+            <input type="password" placeholder="Confirm New Password" id="confirm-new-password-nbfc">
+            <span id="confirm-password-error-nbfc" class="error-message"></span>
+
+            <div class="footer-passwordchange-nbfc">
+                <p>Forgot Password</p>
+                <button id="password-change-save-nbfc">Save</button>
+            </div>
+        </div>
     </section>
 
     <script>
@@ -2667,52 +2667,52 @@ $counter = 1;
 
 
         // Initialize when DOM is loaded
-     document.addEventListener('DOMContentLoaded', initializeChats);
-      const passwordModelTriggerNbfc = () => {
-    const passwordTrigger = document.getElementById("change-password-trigger-nbfc");
-    const passwordChangeContainer = document.querySelector(".password-change-container-nbfc");
-    const passwordContainerExit = document.querySelector(".password-change-triggered-view-headersection-nbfc img");
-    const popupPasswordShow = document.querySelector(".popup-notify-list-nbfc");
-    const arrowUp = document.querySelector(".nbfc-profile .nbfc-dropdown-icon");
-    const overlay = document.querySelector(".overlay-password-change-nbfc");
+        document.addEventListener('DOMContentLoaded', initializeChats);
+        const passwordModelTriggerNbfc = () => {
+            const passwordTrigger = document.getElementById("change-password-trigger-nbfc");
+            const passwordChangeContainer = document.querySelector(".password-change-container-nbfc");
+            const passwordContainerExit = document.querySelector(".password-change-triggered-view-headersection-nbfc img");
+            const popupPasswordShow = document.querySelector(".popup-notify-list-nbfc");
+            const arrowUp = document.querySelector(".nbfc-profile .nbfc-dropdown-icon");
+            const overlay = document.querySelector(".overlay-password-change-nbfc");
 
-    if (passwordTrigger) {
-        passwordTrigger.addEventListener("click", () => {
-            if (passwordChangeContainer && overlay) {
-                passwordChangeContainer.style.display = "flex";
-                overlay.style.display = "block";
-                document.body.style.overflow = "hidden"; // Prevent background scrolling
-                if (popupPasswordShow) {
-                    popupPasswordShow.style.display = "none";
-                }
-                if (arrowUp) {
-                    arrowUp.style.transform = "rotate(0deg)";
-                }
+            if (passwordTrigger) {
+                passwordTrigger.addEventListener("click", () => {
+                    if (passwordChangeContainer && overlay) {
+                        passwordChangeContainer.style.display = "flex";
+                        overlay.style.display = "block";
+                        document.body.style.overflow = "hidden"; // Prevent background scrolling
+                        if (popupPasswordShow) {
+                            popupPasswordShow.style.display = "none";
+                        }
+                        if (arrowUp) {
+                            arrowUp.style.transform = "rotate(0deg)";
+                        }
+                    }
+                });
             }
-        });
-    }
 
-    if (passwordContainerExit) {
-        passwordContainerExit.addEventListener("click", () => {
-            if (passwordChangeContainer && overlay) {
-                passwordChangeContainer.style.display = "none";
-                overlay.style.display = "none";
-                document.body.style.overflow = "auto"; // Restore scrolling
+            if (passwordContainerExit) {
+                passwordContainerExit.addEventListener("click", () => {
+                    if (passwordChangeContainer && overlay) {
+                        passwordChangeContainer.style.display = "none";
+                        overlay.style.display = "none";
+                        document.body.style.overflow = "auto"; // Restore scrolling
+                    }
+                });
             }
-        });
-    }
 
-    // Close modal when clicking the overlay
-    if (overlay) {
-        overlay.addEventListener("click", () => {
-            if (passwordChangeContainer && overlay) {
-                passwordChangeContainer.style.display = "none";
-                overlay.style.display = "none";
-                document.body.style.overflow = "auto"; // Restore scrolling
+            // Close modal when clicking the overlay
+            if (overlay) {
+                overlay.addEventListener("click", () => {
+                    if (passwordChangeContainer && overlay) {
+                        passwordChangeContainer.style.display = "none";
+                        overlay.style.display = "none";
+                        document.body.style.overflow = "auto"; // Restore scrolling
+                    }
+                });
             }
-        });
-    }
-};
+        };
         const userPopopuOpenNbfc = () => {
             const userPopupTrigger = document.querySelector(".nbfc-profile .nbfc-dropdown-icon");
             const userPopupList = document.querySelector(".popup-notify-list-nbfc");
@@ -2854,7 +2854,7 @@ $counter = 1;
                 await initialiseAllViews(userId);
                 await initialiseProfileView(userId);
                 await downloadDocuments(userId);
-                
+
 
                 console.log("Profile loaded for user:", userId);
             } catch (error) {
@@ -4570,6 +4570,8 @@ $counter = 1;
                 // Update the view with the fetched data (await the async function)
                 await updateProfileView(profileViewContainerNbfc, profileContainerSection, data);
 
+                reviwedUsers(userId);
+
                 // Hide the list and show the profile
                 nbfcListUsers.style.display = "none";
                 parentContainerNBFC.style.display = "flex";
@@ -4786,6 +4788,7 @@ $counter = 1;
                 });
         };
 
+
         const initialiseProfileView = (userId) => {
 
 
@@ -4972,8 +4975,8 @@ $counter = 1;
             }
         }
 
-       function downloadDocuments(userId) {
-        console.log(userId)
+        function downloadDocuments(userId) {
+            console.log(userId)
             const downloadTrigger = document.querySelector(".myapplication-seventhcolumn-headernbfc #downloaddocuments");
 
             if (!userId) {
@@ -5016,6 +5019,45 @@ $counter = 1;
                 });
             }
         }
+
+
+
+       const reviwedUsers = (userId) => {
+
+        
+            const user = @json(session('nbfcuser'));
+            
+
+            if (user && user.nbfc_id) {
+                const nbfcId = user.nbfc_id;
+                alert(nbfcId)
+
+                fetch('/update-review-status', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ user_id: userId, nbfc_id: nbfcId })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log('Marked as reviewed!');
+                        } else {
+                            console.log('Error: ' + data.message); 
+                            console.error('Server Error:', data.message);
+                        }
+                    })
+                    .catch(error => {
+                        alert('Network or server error. Check console.');
+                        console.error('Fetch Error:', error);
+                    });
+            } else {
+                alert('NBFC user not found in session.');
+            }
+        };
+
 
     </script>
 

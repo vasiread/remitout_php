@@ -360,14 +360,15 @@ class StudentDashboardController extends Controller
     }
 
 
+
     public function getAllUsersFromAdmin()
     {
-        $users = User::with([
-            'requestProgress.nbfc'  // Eager load related request progress and their nbfc
-        ])->get();
+        $users = Requestprogress::with(['nbfc', 'user'])->get();
 
         return $users;
     }
+
+
 
     public function updateFromProfile(Request $request)
     {

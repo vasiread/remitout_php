@@ -18,14 +18,14 @@
     @extends('layouts.app')
 
     @php
-        $profileIconPath = "assets/images/account_circle1.png";
-        $phoneIconPath = "assets/images/call.png";
-        $mailIconPath = "assets/images/mail.png";
-        $pindropIconPath = "assets/images/pin_drop.png";
+$profileIconPath = "assets/images/account_circle1.png";
+$phoneIconPath = "assets/images/call.png";
+$mailIconPath = "assets/images/mail.png";
+$pindropIconPath = "assets/images/pin_drop.png";
     @endphp
 
     @php
-        $studentCounsellorsLists = [];
+$studentCounsellorsLists = [];
     @endphp
 
     <div class="add-studentcounsellor-adminside">
@@ -276,7 +276,7 @@
                     } else {
                         console.log("No file selected for upload.");
                     }
-                 });
+                });
             }
 
             if (triggerTextBox && triggeredFileThroughText) {
@@ -387,21 +387,14 @@
             sortOptions.style.display = sortOptions.style.display === 'block' ? 'none' : 'block';
         }
 
+
         function getScUsers() {
             const modelScProfile = document.getElementById("scdashboard-profile-adminside");
             const studentCounsellorList = document.querySelector(".studentcounsellorlist-adminside");
             const profileTextContent = document.querySelector("#scdashboard-profile-adminside .performancecontainer-firstrow h3");
-            const insideSuspendTrigger = document.querySelector("#scdashboard-profile-adminside .performancecontainer-firstrow .edit-scuser");
 
             if (profileTextContent) {
                 profileTextContent.textContent = "Profile";
-            }
-            if (insideSuspendTrigger) {
-                insideSuspendTrigger.textContent = "Suspend";
-                insideSuspendTrigger.style.color = "rgba(111, 37, 206, 1)";
-                insideSuspendTrigger.style.padding = "9px 22px";
-                insideSuspendTrigger.style.width = "106px";
-                insideSuspendTrigger.style.height = "35px";
             }
 
             fetch('/getallscuser', {
@@ -499,6 +492,19 @@
 
         function dynamicTriggerModel(viewButton, editButton, suspendButton, counsellor, modelScProfile, studentCounsellorList) {
             let editmode = false;
+            const insideSuspendTrigger = document.querySelector("#scdashboard-profile-adminside .performancecontainer-firstrow .edit-scuser");
+            if (insideSuspendTrigger) {
+                insideSuspendTrigger.textContent = "Suspend";
+                insideSuspendTrigger.style.color = "rgba(111, 37, 206, 1)";
+                insideSuspendTrigger.style.padding = "9px 22px";
+                insideSuspendTrigger.style.width = "106px";
+                insideSuspendTrigger.style.height = "35px";
+
+
+
+
+            }
+
 
             async function renderProfile() {
                 if (modelScProfile && studentCounsellorList) {
@@ -557,6 +563,8 @@
                         if (data.success) {
                             alert("Counsellor suspended successfully.");
                             getScUsers();
+                            modelScProfile.style.display = "none";
+                            studentCounsellorList.style.display = "flex";
                         } else {
                             alert("Failed to suspend counsellor: " + data.message);
                         }
@@ -569,6 +577,22 @@
             viewButton.addEventListener('click', () => {
                 editmode = false;
                 renderProfile();
+
+                const insideSuspendTrigger = document.querySelector("#scdashboard-profile-adminside .performancecontainer-firstrow .edit-scuser");
+
+                if (insideSuspendTrigger) {
+                    insideSuspendTrigger.addEventListener('click', () => {
+                        eliminateScUser();
+
+
+                    })
+                }
+
+
+
+
+
+
             });
 
             editButton.addEventListener('click', () => {
@@ -861,7 +885,7 @@
             addButton.onclick = (e) => {
                 e.preventDefault();
                 if (validateAllInputs()) {
-                    originalHandler(); 
+                    originalHandler();
                 } else {
                     alert("Please correct the errors in the form.");
                 }
