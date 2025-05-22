@@ -509,16 +509,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateUserCourseInfo(event) {
         event.preventDefault();
-        const personalInfoId = document.getElementById(
-            "personal-info-userid",
-        ).value;
-        const selectedDegreeType = document.querySelector(
-            '#course-info-degreetype input[name="degree_type"]:checked',
-        ).value;
-        const expenseType = getSelectedExpenseType();
-        const loanAmount = getLoanAmount();
-        const courseDuration = getSelectedCourseDuration();
-        const studyLocations = getSelectedStudyLocations();
+
+        const personalInfoId = document.getElementById("personal-info-userid").value;
+        const selectedDegreeType = document.querySelector('#course-info-degreetype input[name="degree_type"]:checked')?.value;
+        const expenseType = getSelectedExpenseType();  // Custom method you already use
+        const loanAmount = getLoanAmount();            // Custom method you already use
+        const courseDuration = getSelectedCourseDuration(); // Custom method
+        const studyLocations = getSelectedStudyLocations(); // Custom method
+
+        // ✅ Collect dynamic fields (same logic as in personal info)
+        const dynamicFields = {};
+
+        document.querySelectorAll('input[name^="dynamic_fields["], select[name^="dynamic_fields["]').forEach(input => {
+            const name = input.getAttribute('name'); // e.g. dynamic_fields[5], dynamic_fields[5][]
+            const multipleMatch = name.match(/^dynamic_fields\[(\d+)\]\[\]$/);
+            const singleMatch = name.match(/^dynamic_fields\[(\d+)\]$/);
+
+            if (multipleMatch) {
+                const fieldId = multipleMatch[1];
+                if (!dynamicFields[fieldId]) {
+                    dynamicFields[fieldId] = [];
+                }
+                if ((input.type === 'checkbox' || input.type === 'radio') && input.checked) {
+                    dynamicFields[fieldId].push(input.value);
+                }
+            } else if (singleMatch) {
+                const fieldId = singleMatch[1];
+                if (input.type === 'checkbox' || input.type === 'radio') {
+                    if (input.checked) {
+                        dynamicFields[fieldId] = input.value;
+                    }
+                } else if (input.tagName.toLowerCase() === 'select') {
+                    dynamicFields[fieldId] = input.value;
+                } else {
+                    dynamicFields[fieldId] = input.value;
+                }
+            }
+        });
+
+        // ✅ Construct final payload
         const courseInfoData = {
             personalInfoId,
             selectedDegreeType,
@@ -526,7 +555,10 @@ document.addEventListener("DOMContentLoaded", () => {
             loanAmount,
             courseDuration,
             studyLocations,
+            dynamic_fields: dynamicFields
         };
+
+        // ✅ Send data to backend
         fetch("/update-courseinfo", {
             method: "POST",
             headers: {
@@ -543,16 +575,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     showToast("Details have been saved successfully");
                     navigate("next");
                 } else {
-                    console.error(
-                        "Failed to update course info:",
-                        data.message,
-                    );
+                    console.error("Failed to update course info:", data.message);
                 }
             })
             .catch((error) => {
                 console.error("Error updating course info:", error);
             });
     }
+
 
     // Function to validate a single score field and update its error message
     function validateScore(fieldId, scoreValue, minScore, errorMessagePrefix) {
@@ -626,37 +656,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateAcademicsCourseInfo(event) {
         event.preventDefault();
-        const personalInfoId = document.getElementById(
-            "personal-info-userid",
-        ).value;
-        const selectedAcademicGap = document.querySelector(
-            'input[name="academics-gap"]:checked',
-        ).value;
-        const reasonForGap = document.querySelector(
-            ".academic-reason textarea",
-        ).value;
-        const selectedAdmitOption = document.querySelector(
-            'input[name="admit-option"]:checked',
-        ).value;
-        const selectedWorkOption = document.querySelector(
-            'input[name="work-option"]:checked',
-        ).value;
-        const ieltsScore = document.getElementById("admit-ielts").value;
-        const greScore = document.getElementById("admit-gre").value;
-        const toeflScore = document.getElementById("admit-toefl").value;
-        const otherExamName =
-            document.getElementById("admit-others-name").value;
-        const otherExamScore =
-            document.getElementById("admit-others-score").value;
-        const universityName =
-            document.getElementById("universityschoolid").value;
-        const courseName = document.getElementById("educationcourseid").value;
 
-        // Final validation before submission
-        if (!validateAllScores(ieltsScore, greScore, toeflScore)) {
+        const personalInfoId = document.getElementById("personal-info-userid").value;
+        const selectedAcademicGap = document.querySelector('input[name="academics-gap"]:checked')?.value;
+        const reasonForGap = document.querySelector(".academic-reason textarea")?.value;
+        const selectedAdmitOption = document.querySelector('input[name="admit-option"]:checked')?.value;
+        const selectedWorkOption = document.querySelector('input[name="work-option"]:checked')?.value;
+        const ieltsScore = document.getElementById("admit-ielts")?.value;
+        const greScore = document.getElementById("admit-gre")?.value;
+        const toeflScore = document.getElementById("admit-toefl")?.value;
+        const otherExamName = document.getElementById("admit-others-name")?.value;
+        const otherExamScore = document.getElementById("admit-others-score")?.value;
+        const universityName = document.getElementById("universityschoolid")?.value;
+        const courseName = document.getElementById("educationcourseid")?.value;
+
+         if (!validateAllScores(ieltsScore, greScore, toeflScore)) {
             return; // Stop submission if validation fails
         }
 
+         const dynamicFields = {};
+        document.querySelectorAll('input[name^="dynamic_fields["], select[name^="dynamic_fields["]').forEach(input => {
+            const name = input.getAttribute('name');
+            const multipleMatch = name.match(/^dynamic_fields\[(\d+)\]\[\]$/);
+            const singleMatch = name.match(/^dynamic_fields\[(\d+)\]$/);
+
+            if (multipleMatch) {
+                const fieldId = multipleMatch[1];
+                if (!dynamicFields[fieldId]) {
+                    dynamicFields[fieldId] = [];
+                }
+                if ((input.type === 'checkbox' || input.type === 'radio') && input.checked) {
+                    dynamicFields[fieldId].push(input.value);
+                }
+            } else if (singleMatch) {
+                const fieldId = singleMatch[1];
+                if (input.type === 'checkbox' || input.type === 'radio') {
+                    if (input.checked) {
+                        dynamicFields[fieldId] = input.value;
+                    }
+                } else {
+                    dynamicFields[fieldId] = input.value;
+                }
+            }
+        });
+
+        // ✅ Final payload
         const academicDetails = {
             personalInfoId,
             selectedAcademicGap,
@@ -666,11 +710,16 @@ document.addEventListener("DOMContentLoaded", () => {
             ieltsScore,
             greScore,
             toeflScore,
-            others: { otherExamName, otherExamScore },
+            others: {
+                otherExamName,
+                otherExamScore
+            },
             universityName,
             courseName,
+            dynamic_fields: dynamicFields
         };
-        fetch("/update-academicsinfo", {
+
+         fetch("/update-academicsinfo", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -686,16 +735,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     showToast("Details have been saved successfully");
                     navigate("next");
                 } else {
-                    console.error(
-                        "Failed to update academic info:",
-                        data.message,
-                    );
+                    console.error("Failed to update academic info:", data.message);
                 }
             })
             .catch((error) => {
                 console.error("Error updating academic info:", error);
             });
     }
+
 
     prevButton.addEventListener("click", () => navigate("prev"));
 

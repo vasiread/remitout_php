@@ -258,3 +258,4 @@ Route::delete('/additionalfields/{id}', [Admincontroller::class, 'deletePersonal
 Route::post("/downloadzip", [StudentDashboardController::class, 'downloadFilesAsZip']);
 
 Route::post('/raise-query', [scDashboardController::class, 'postQueryScside']);
+Route::post('/update-review-status', [NbfcController::class, 'updateReviewStatus']);

@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
- 
+
 use Storage;
 
 class NbfcController extends Controller
@@ -41,7 +41,7 @@ class NbfcController extends Controller
                 continue;
             }
 
-             $validator = Validator::make($user, [
+            $validator = Validator::make($user, [
                 'name' => 'required|string|max:255',
                 'type' => 'required|string|max:255',
                 'email' => 'required|email|max:255',
@@ -141,7 +141,7 @@ class NbfcController extends Controller
                     'nbfc_id' => $nbfcId
                 ],
                 [
-                    'remarks' => $remarks,    
+                    'remarks' => $remarks,
                     'status_modified_by_students' => Proposals::PENDING
                 ]
             );
@@ -245,6 +245,34 @@ class NbfcController extends Controller
             return response()->json(['message' => 'The password has not changed.']);
         }
     }
+
+
+
+    public function updateReviewStatus(Request $request)
+    {
+        
+        try {
+            $request->validate([
+                'user_id' => 'required|string',
+                'nbfc_id' => 'required|string',
+            ]);
+
+            $updated = Requestprogress::where('user_id', $request->user_id)
+                ->where('nbfc_id', $request->nbfc_id)
+                ->where('type', Requestprogress::TYPE_REQUEST)
+                ->update(['reviewed' => 1]);
+
+            if ($updated) {
+                return response()->json(['success' => true, 'message' => 'Review status updated.']);
+            } else {
+                return response()->json(['success' => false, 'message' => 'No matching request found.']);
+            }
+        } catch (\Exception $e) {
+            Log::error('Update Review Status Error: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+
 
 
 

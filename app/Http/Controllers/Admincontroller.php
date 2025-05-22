@@ -1233,15 +1233,21 @@ class Admincontroller extends Controller
         $validated = $request->validate([
             'label' => 'required|string|max:255',
             'name' => 'required|string|max:255',
-            'type' => 'required|string|in:text,date,select,checkbox,radio,file',
+            'type' => 'required|string|in:text,date,select,checkbox,radio',
             'required' => 'boolean',
             'options' => 'nullable|array',
+            'sectionSeperate' => 'required|string'
         ]);
+
+        // Remap the field to match the model column name
+        $validated['section'] = $validated['sectionSeperate'];
+        unset($validated['sectionSeperate']);
 
         $field = AdditionalField::create($validated);
 
         return response()->json(['field' => $field], 201);
     }
+
 
     public function showStudentPersonalInfoAdditionalField()
     {
