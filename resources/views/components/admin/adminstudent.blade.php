@@ -1061,7 +1061,7 @@
         }
 
         async function saveAllDetails() {
-            alert("Saving...");
+            // alert("Saving...");
 
             const uniqueId = document.querySelector('.personal_info_id').textContent.trim();
 
@@ -1097,43 +1097,28 @@
             }
 
             try {
-                // ✅ Send personal info, education, and test scores
-                const personalResponse = await fetch('/update-personal-info-adminside', {
+                const fullData = {
+                    unique_id: uniqueId,
+                    ...personalInfo,
+                    ...education,
+                    ...testScores,
+                    ...courseDetails
+                };
+                console.log("fullData",fullData)
+
+                const response = await fetch('/update-personal-info-adminside', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                     },
-                    body: JSON.stringify({
-                        unique_id: uniqueId,  // ✅ Corrected to match backend
-                        ...personalInfo,
-                        ...education,
-                        ...testScores
-                    })
+                    body: JSON.stringify(fullData)
                 });
 
-                const personalData = await personalResponse.json();
-                if (!personalData.success) {
-                    alert('Failed to save personal info: ' + personalData.message);
-                    return;
-                }
+                const data = await response.json();
 
-                // ✅ Send course details
-                const courseResponse = await fetch('/update-personal-info-adminside', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({
-                        unique_id: uniqueId,  // ✅ Same correction here
-                        ...courseDetails
-                    })
-                });
-
-                const courseData = await courseResponse.json();
-                if (!courseData.success) {
-                    alert('Failed to save course details: ' + courseData.message);
+                if (!data.success) {
+                    alert('Failed to save details: ' + data.message);
                     return;
                 }
 
