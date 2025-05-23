@@ -1402,7 +1402,7 @@ textarea::placeholder {
         padding: 0px 15px;
         position: relative;
         height: 40px;  
-        width:269px;
+        width:250px;
       }
       .upload-field.clickable {
         cursor: pointer;

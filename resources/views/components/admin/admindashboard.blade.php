@@ -712,7 +712,7 @@ $registrationSourceAnalysis = [
                 funnelreport();
                 initializePostgradDropdowns();
 
-                loadAgeRatioChart();
+                // loadAgeRatioChart();
 
             } catch (error) {
                 console.error('Initialization error:', error);
@@ -726,7 +726,7 @@ $registrationSourceAnalysis = [
                 drawNBFCChart();
 
                 const datePicker = document.getElementById('date-picker-linegraph');
-                const selectedDateText = document.getElementById('selected-date');
+                // const selectedDateText = document.getElementById('selected-date');
 
                 // 🗓️ Auto-select current month/year on load
                 const now = new Date();
@@ -735,7 +735,7 @@ $registrationSourceAnalysis = [
                 const formattedDate = `${currentYear}-${currentMonth}`; // yyyy-mm
 
                 datePicker.value = formattedDate;
-                selectedDateText.textContent = `Selected: ${currentMonth}/${currentYear}`;
+                // selectedDateText.textContent = `Selected: ${currentMonth}/${currentYear}`;
 
                 // 🟢 Initial API hit with current date
                 initializeRegistrationLineGraph(currentMonth, currentYear);
