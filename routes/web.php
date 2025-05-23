@@ -259,3 +259,12 @@ Route::post("/downloadzip", [StudentDashboardController::class, 'downloadFilesAs
 
 Route::post('/raise-query', [scDashboardController::class, 'postQueryScside']);
 Route::post('/update-review-status', [NbfcController::class, 'updateReviewStatus']);
+
+
+
+
+
+Route::get('/video-url', [TermsController::class, 'getFirstVideoFromS3']);
+
+
+

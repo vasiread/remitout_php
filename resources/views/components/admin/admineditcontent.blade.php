@@ -410,7 +410,7 @@ class CMSEditor {
                     <td>${index + 1}</td>
                     <td>${item.section}</td>
                     <td class="editable-cell">
-                        <div class="editable-content" contenteditable="true">${item.title}</div>
+                        <div class="editable-content" contenteditable="true">"${item.title}"</div>
                     </td>
                     <td>
                         <div class="media-container">
@@ -741,8 +741,7 @@ class CMSEditor {
     }
 }
 
-    // Utility method to check if content has changed
-    hasUnsavedChanges() {
+     hasUnsavedChanges() {
         return JSON.stringify(this.data) !== JSON.stringify(this.originalData);
     }
 

@@ -34,14 +34,14 @@
 
 
     @php
-$profileImgPath = 'images/admin-student-profile.png';
-$uploadPanName = '';
-$profileIconPath = "assets/images/account_circle.png";
-$phoneIconPath = "assets/images/call.png";
-$mailIconPath = "assets/images/mail.png";
-$pindropIconPath = "assets/images/pin_drop.png";
-$discordIconPath = "assets/images/icons/discordicon.png";
-$viewIconPath = "assets/images/visibility.png";
+        $profileImgPath = 'images/admin-student-profile.png';
+        $uploadPanName = '';
+        $profileIconPath = "assets/images/account_circle.png";
+        $phoneIconPath = "assets/images/call.png";
+        $mailIconPath = "assets/images/mail.png";
+        $pindropIconPath = "assets/images/pin_drop.png";
+        $discordIconPath = "assets/images/icons/discordicon.png";
+        $viewIconPath = "assets/images/visibility.png";
     @endphp
 
     <nav class="nbfc-navbar">
@@ -129,6 +129,8 @@ $viewIconPath = "assets/images/visibility.png";
 
 
     <section class="dashboard-main-content">
+
+
         <div class="dashboard-sections-container" id="dashboard-container">
             <section class="dashboard-section">
                 <div class="dashboard-section-header">
@@ -193,8 +195,6 @@ $viewIconPath = "assets/images/visibility.png";
             </section>
         </div>
 
-
-
         <div class="nbfc-send-proposal-modal-container" id="modelContainer-send-proposal">
             <div class="nbfc-send-proposal-modal-content">
                 <div class="nbfc-send-proposal-modal-header">
@@ -225,416 +225,418 @@ $viewIconPath = "assets/images/visibility.png";
             </div>
         </div>
 
-        <div class="nbfcdashboard-studentlistscontainer" style="gap:1.2%">
-            <div class="studentdashboardprofile-profilesection" id="nbfc-list-of-student-profilesections">
-                <img src="{{asset($profileImgPath)}}" class="profileImg" id="profile-photo-id" alt="">
-                <div class="myapplication-nbfcapprovalcolumn" id="profilesection-nbfcapprovalcolumn">
-                    <button>Send Proposal</button>
+        <div class="wholeapplicationprofile">
+            <div class="nbfcdashboard-studentlistscontainer" style="gap:1.2%">
+                <div class="studentdashboardprofile-profilesection" id="nbfc-list-of-student-profilesections">
+                    <img src="{{asset($profileImgPath)}}" class="profileImg" id="profile-photo-id" alt="">
+                    <div class="myapplication-nbfcapprovalcolumn" id="profilesection-nbfcapprovalcolumn">
+                        <button>Send Proposal</button>
+                        <div class="nbfcapprovalcolumnrightaligned">
+                            <button>Message</button>
+                            <button>Reject</button>
+                        </div>
+
+
+                    </div>
+                    <i class="fa-regular fa-pen-to-square"></i>
+                    <input type="file" class="profile-upload" accept="image/*" enctype="multipart/form-data">
+                    <div class="studentdashboardprofile-personalinfo">
+                        <div class="personalinfo-firstrow">
+                            <h1>Student Profile</h1>
+                        </div>
+                        <ul class="personalinfo-secondrow">
+                            <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span
+                                    class="personal_info_id" style="margin-left: 6px;"> </span> </li>
+                            <li class="personal_info_name" id="referenceNameId"><img src={{$profileIconPath}} alt="">
+                                <p></p>
+                            </li>
+                            <li class="personal_info_phone"><img src={{$phoneIconPath}} alt="">
+                                <p></p>
+                            </li>
+                            <li class="personal_info_email" id="referenceEmailId">
+                                <img src={{$mailIconPath}} alt="">
+                                <p> </p>
+                            </li>
+                            <li class="personal_info_state"><img src={{$pindropIconPath}} alt="">
+                                <p id="personal_state_id"></p>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div class="studentdashboardprofile-educationeditsection">
+                        <div class="educationeditsection-firstrow">
+                            <h1>Education</h1>
+                            <!-- <button>Edit</button> -->
+                        </div>
+                        <div class="educationeditsection-secondrow">
+
+                        </div>
+                    </div>
+
+                    <div class="studentdashboardprofile-testscoreseditsection">
+                        <div class="testscoreseditsection-firstrow">
+                            <h1>Test Scores</h1>
+                        </div>
+                        <div class="testscoreseditsection-secondrow">
+                            @php
+                                $counter = 1; 
+                            @endphp
+
+
+                            <p>{{ $counter++ }}. IELTS <span class="ilets_score"></span></p>
+
+
+                            <p>{{ $counter++ }}. GRE <span class="gre_score"></span></p>
+
+                            <p>{{ $counter++ }}. TOEFL <span class="tofel_score"></span></p>
+
+
+
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="studentdashboardprofile-myapplication" id="nbfc-student-profile-details">
+                <div class="myapplication-firstcolumn">
+                    <h1>Application Details</h1>
+                    <div class="personalinfo-firstrow" style="display:none">
+                        <button onClick="triggerEditButton()">Edit</button>
+                        <button class="saved-msg">Saved</button>
+                    </div>
+                </div>
+
+                <div class="myapplication-secondcolumn">
+                    <p>1. Country of preference</p>
+                    <input type="text" id="plan-to-study-edit" value="{{ $courseDetails[0]->{'plan-to-study'} ?? '' }}"
+                        disabled>
+                </div>
+
+                <div class="myapplication-thirdcolumn">
+                    <h6>2. Type of Degree</h6>
+                    <div class="degreetypescheckboxes">
+                        <label class="custom-radio" id="bachelors-label">
+                            <input type="radio" name="education-level" value="Bachelors"
+                                @if(isset($courseDetails[0]->{'degree-type'}) && $courseDetails[0]->{'degree-type'} == 'Bachelors') checked @endif
+                                onclick="toggleOtherDegreeInput(event)" disabled>
+                            <span class="radio-button"></span>
+                            <p>Bachelors (only secured loan)</p>
+                        </label>
+                        <br>
+
+                        <label class="custom-radio" id="masters-label">
+                            <input type="radio" name="education-level" value="Masters"
+                                @if(isset($courseDetails[0]->{'degree-type'}) && $courseDetails[0]->{'degree-type'} == 'Masters') checked @endif
+                                onclick="toggleOtherDegreeInput(event)" disabled>
+                            <span class="radio-button"></span>
+                            <p>Masters</p>
+                        </label>
+                        <br>
+
+                        <label class="custom-radio" id="others-label">
+                            <input type="radio" name="education-level" value="Others"
+                                @if(isset($courseDetails[0]->{'degree-type'}) && $courseDetails[0]->{'degree-type'} !== 'Bachelors' && $courseDetails[0]->{'degree-type'} !== 'Masters') checked @endif
+                                onclick="toggleOtherDegreeInput(event)" disabled>
+                            <span class="radio-button"></span>
+                            <p>Others</p>
+                        </label>
+                    </div>
+
+                    <input type="text" placeholder="Enter degree type"
+                        value="{{ $courseDetails[0]->{'degree-type'} ?? '' }}" id="otherDegreeInputNBFC"
+                        @if(!isset($courseDetails[0]->{'degree-type'}) || $courseDetails[0]->{'degree-type'} != 'Others')
+                        disabled @endif>
+                </div>
+
+
+                <div class="myapplication-fourthcolumn-additional">
+                    <p>3. Duration of the course</p>
+                    <input type="text" placeholder="" value="" disabled>
+                </div>
+
+                <div class="myapplication-fourthcolumn">
+                    <p>4. Loan amount required</p>
+                    <input type="number" placeholder="" value="" disabled>
+                </div>
+
+                <div class="myapplication-fifthcolumn">
+                    <p>5. Referral Code</p>
+                    <input type="text" placeholder="" value="" disabled>
+                </div>
+
+                <div class="myapplication-sixthcolumn">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+
+                <div class="myapplication-seventhcolumn">
+                    <div class="myapplication-seventhcolumn-headernbfc">
+                        <h1>Attached Documents</h1>
+                        <button id="downloaddocuments">Download All</button>
+                    </div>
+                    <div class="seventhcolum-firstsection">
+                        <div class="seventhcolumn-header">
+                            <p>Student KYC Document</p>
+                            <i class="fa-solid fa-angle-down"></i>
+                        </div>
+
+                        <div class="kycdocumentscolumn">
+                            <div class="individualkycdocuments">
+                                <p class="document-name">Pan Card</p>
+                                <div class="inputfilecontainer">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="uploaded-pan-name">{{ $kycDocuments[0]->pan_card ?? 'pan_card.jpg' }}</p>
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-pan-card" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-real" />
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+
+                            <div class="individualkycdocuments">
+                                <p class="document-name">Aadhar Card</p>
+                                <div class="inputfilecontainer">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="uploaded-aadhar-name">
+                                        {{ $kycDocuments[0]->aadhar_card ?? 'aadhar_card.jpg' }}
+                                    </p>
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-aadhar-card" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-real" />
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+
+                            <div class="individualkycdocuments">
+                                <p class="document-name">Passport</p>
+                                <div class="inputfilecontainer">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="passport-name-selector">{{ $kycDocuments[0]->passport ?? 'Passport.pdf' }}
+                                    </p>
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-passport-card" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-real" />
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="seventhcolumn-additional">
+                    <div class="seventhcolumn-additional-firstcolumn">
+                        <div class="seventhcolumnadditional-header">
+                            <p>Academic Marksheets</p>
+                            <i class="fa-solid fa-angle-down"></i>
+                        </div>
+
+                        <div class="marksheetdocumentscolumn">
+                            <div class="individualmarksheetdocuments">
+                                <p class="document-name">10th grade marksheet</p>
+                                <div class="inputfilecontainer-marksheet">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="sslc-marksheet">
+                                        {{ $academicDocuments[0]->sslc_marksheet ?? '10th grade marksheet' }}
+                                    </p>
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-sslc-card" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-real-marksheet" />
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+
+                            <div class="individualmarksheetdocuments">
+                                <p class="document-name">12th grade marksheet</p>
+                                <div class="inputfilecontainer-marksheet">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="hsc-marksheet">
+                                        {{ $academicDocuments[0]->hsc_marksheet ?? '12th grade marksheet' }}
+                                    </p>
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-hsc-card" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-real-marksheet" />
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+
+                            <div class="individualmarksheetdocuments">
+                                <p class="document-name">Graduation marksheet</p>
+                                <div class="inputfilecontainer-marksheet">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="graduation-marksheet">
+                                        {{ $academicDocuments[0]->graduation_marksheet ?? 'Graduation Marksheet' }}
+                                    </p>
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-graduation-card" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-real-marksheet" />
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="myapplication-eightcolumn">
+                    <div class="eightcolumn-firstsection">
+                        <div class="eightcolumn-header">
+                            <p>Secured Admissions</p>
+                            <i class="fa-solid fa-angle-down"></i>
+                        </div>
+                        <div class="secured-admissioncolumn">
+                            <div class="individual-secured-admission-documents">
+                                <p class="document-name">10th Grade</p>
+                                <div class="inputfilecontainer-secured-admission">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="sslc-grade">{{ $securedAdmissions[0]->sslc_grade ?? 'SSLC Grade' }}</p>
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-sslc-grade" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-real-marksheet" />
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                            <div class="individual-secured-admission-documents">
+                                <p class="document-name">12th Grade</p>
+                                <div class="inputfilecontainer-secured-admission">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="hsc-grade">{{ $securedAdmissions[0]->hsc_grade ?? 'HSC Grade' }}</p>
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-hsc-grade" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-real-marksheet" />
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                            <div class="individual-secured-admission-documents">
+                                <p class="document-name">Graduation</p>
+                                <div class="inputfilecontainer-secured-admission">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="graduation-grade">
+                                        {{ $securedAdmissions[0]->graduation_grade ?? 'Graduation' }}
+                                    </p>
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-graduation-grade" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-real-marksheet" />
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="myapplication-ninthcolumn">
+                    <div class="ninthcolumn-firstsection">
+                        <div class="ninthcolumn-header">
+                            <p>Work Experience</p>
+                            <i class="fa-solid fa-angle-down"></i>
+                        </div>
+                        <div class="work-experiencecolumn">
+                            <div class="individual-work-experiencecolumn-documents">
+                                <p class="document-name">Experience Letter</p>
+                                <div class="inputfilecontainer-work-experiencecolumn">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="experience-letter">
+                                        {{ $workExperience[0]->experience_letter ?? 'Experience Letter' }}
+                                    </p>
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-experience-letter" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-work-experience" />
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                            <div class="individual-work-experiencecolumn-documents">
+                                <p class="document-name">3 month Salary Slip</p>
+                                <div class="inputfilecontainer-work-experiencecolumn">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="salary-slip">
+                                        {{ $workExperience[0]->salary_slip ?? '3 month salary slip' }}
+                                    </p>
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-salary-slip" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-real-marksheet" />
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                            <div class="individual-work-experiencecolumn-documents">
+                                <p class="document-name">Office ID</p>
+                                <div class="inputfilecontainer-work-experiencecolumn">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="office-id">{{ $workExperience[0]->office_id ?? 'Office ID' }}</p>
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-office-id" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-real-marksheet" />
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                            <div class="individual-work-experiencecolumn-documents">
+                                <p class="document-name">Employment Joining Letter</p>
+                                <div class="inputfilecontainer-work-experiencecolumn">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="joining-letter">
+                                        {{ $workExperience[0]->joining_letter ?? 'Joining Letter' }}
+                                    </p>
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-joining-letter" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-real-marksheet" />
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="myapplication-tenthcolumn">
+                    <div class="tenthcolumn-firstsection">
+                        <div class="tenthcolumn-header">
+                            <p>Co-borrower Documents</p>
+                            <i class="fa-solid fa-angle-down"></i>
+                        </div>
+                        <div class="coborrower-kyccolumn">
+                            <div class="individual-coborrower-kyc-documents">
+                                <p class="document-name">Pan Card</p>
+                                <div class="inputfilecontainer-coborrower-kyccolumn">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="coborrower-pancard">{{ $coBorrowerDocuments[0]->pan_card ?? 'Pan Card' }}
+                                    </p>
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-coborrower-pan" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-kyccoborrwer" />
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                            <div class="individual-coborrower-kyc-documents">
+                                <p class="document-name">Aadhar Card</p>
+                                <div class="inputfilecontainer-coborrower-kyccolumn">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="coborrower-aadharcard">
+                                        {{ $coBorrowerDocuments[0]->aadhar_card ?? 'Aadhar Card' }}
+                                    </p>
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-coborrower-aadhar" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-kyccoborrwer" />
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                            <div class="individual-coborrower-kyc-documents">
+                                <p class="document-name">Address Proof</p>
+                                <div class="inputfilecontainer-coborrower-kyccolumn">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="coborrower-addressproof">
+                                        {{ $coBorrowerDocuments[0]->address_proof ?? 'Address Proof' }}
+                                    </p>
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}"
+                                        id="view-coborrower-addressproof" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-kyccoborrwer" />
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="myapplication-nbfcapprovalcolumn">
+                    <button id="sendproposal-trigger">Send Proposal</button>
                     <div class="nbfcapprovalcolumnrightaligned">
-                        <button>Message</button>
-                        <button>Reject</button>
+                        <button id="index-student-message-btn">Message</button>
+                        <button class='dashboard-inside-reject-button'>Reject</button>
                     </div>
-
-
-                </div>
-                <i class="fa-regular fa-pen-to-square"></i>
-                <input type="file" class="profile-upload" accept="image/*" enctype="multipart/form-data">
-                <div class="studentdashboardprofile-personalinfo">
-                    <div class="personalinfo-firstrow">
-                        <h1>Student Profile</h1>
-                    </div>
-                    <ul class="personalinfo-secondrow">
-                        <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span
-                                class="personal_info_id" style="margin-left: 6px;"> </span> </li>
-                        <li class="personal_info_name" id="referenceNameId"><img src={{$profileIconPath}} alt="">
-                            <p></p>
-                        </li>
-                        <li class="personal_info_phone"><img src={{$phoneIconPath}} alt="">
-                            <p></p>
-                        </li>
-                        <li class="personal_info_email" id="referenceEmailId">
-                            <img src={{$mailIconPath}} alt="">
-                            <p> </p>
-                        </li>
-                        <li class="personal_info_state"><img src={{$pindropIconPath}} alt="">
-                            <p id="personal_state_id"></p>
-                        </li>
-                    </ul>
-
-                </div>
-                <div class="studentdashboardprofile-educationeditsection">
-                    <div class="educationeditsection-firstrow">
-                        <h1>Education</h1>
-                        <!-- <button>Edit</button> -->
-                    </div>
-                    <div class="educationeditsection-secondrow">
-
-                    </div>
-                </div>
-
-                <div class="studentdashboardprofile-testscoreseditsection">
-                    <div class="testscoreseditsection-firstrow">
-                        <h1>Test Scores</h1>
-                    </div>
-                    <div class="testscoreseditsection-secondrow">
-                        @php
-$counter = 1; 
-                        @endphp
-
-
-                        <p>{{ $counter++ }}. IELTS <span class="ilets_score"></span></p>
-
-
-                        <p>{{ $counter++ }}. GRE <span class="gre_score"></span></p>
-
-                        <p>{{ $counter++ }}. TOEFL <span class="tofel_score"></span></p>
-
-
-
-
-                    </div>
-
 
 
                 </div>
             </div>
-
-
         </div>
 
-        <div class="studentdashboardprofile-myapplication" id=nbfc-student-profile-details>
-            <div class="myapplication-firstcolumn">
-                <h1>Application Details</h1>
-                <div class="personalinfo-firstrow" style="display:none">
-                    <button onClick="triggerEditButton()">Edit</button>
-                    <button class="saved-msg">Saved</button>
-                </div>
-            </div>
-
-            <div class="myapplication-secondcolumn">
-                <p>1. Country of preference</p>
-                <input type="text" id="plan-to-study-edit" value="{{ $courseDetails[0]->{'plan-to-study'} ?? '' }}"
-                    disabled>
-            </div>
-
-            <div class="myapplication-thirdcolumn">
-                <h6>2. Type of Degree</h6>
-                <div class="degreetypescheckboxes">
-                    <label class="custom-radio" id="bachelors-label">
-                        <input type="radio" name="education-level" value="Bachelors"
-                            @if(isset($courseDetails[0]->{'degree-type'}) && $courseDetails[0]->{'degree-type'} == 'Bachelors') checked @endif
-                            onclick="toggleOtherDegreeInput(event)" disabled>
-                        <span class="radio-button"></span>
-                        <p>Bachelors (only secured loan)</p>
-                    </label>
-                    <br>
-
-                    <label class="custom-radio" id="masters-label">
-                        <input type="radio" name="education-level" value="Masters"
-                            @if(isset($courseDetails[0]->{'degree-type'}) && $courseDetails[0]->{'degree-type'} == 'Masters') checked @endif
-                            onclick="toggleOtherDegreeInput(event)" disabled>
-                        <span class="radio-button"></span>
-                        <p>Masters</p>
-                    </label>
-                    <br>
-
-                    <label class="custom-radio" id="others-label">
-                        <input type="radio" name="education-level" value="Others"
-                            @if(isset($courseDetails[0]->{'degree-type'}) && $courseDetails[0]->{'degree-type'} !== 'Bachelors' && $courseDetails[0]->{'degree-type'} !== 'Masters') checked @endif
-                            onclick="toggleOtherDegreeInput(event)" disabled>
-                        <span class="radio-button"></span>
-                        <p>Others</p>
-                    </label>
-                </div>
-
-                <input type="text" placeholder="Enter degree type"
-                    value="{{ $courseDetails[0]->{'degree-type'} ?? '' }}" id="otherDegreeInputNBFC"
-                    @if(!isset($courseDetails[0]->{'degree-type'}) || $courseDetails[0]->{'degree-type'} != 'Others')
-                    disabled @endif>
-            </div>
-
-
-            <div class="myapplication-fourthcolumn-additional">
-                <p>3. Duration of the course</p>
-                <input type="text" placeholder="" value="" disabled>
-            </div>
-
-            <div class="myapplication-fourthcolumn">
-                <p>4. Loan amount required</p>
-                <input type="number" placeholder="" value="" disabled>
-            </div>
-
-            <div class="myapplication-fifthcolumn">
-                <p>5. Referral Code</p>
-                <input type="text" placeholder="" value="" disabled>
-            </div>
-
-            <div class="myapplication-sixthcolumn">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            </div>
-
-            <div class="myapplication-seventhcolumn">
-                <div class="myapplication-seventhcolumn-headernbfc">
-                    <h1>Attached Documents</h1>
-                    <button id="downloaddocuments">Download All</button>
-                </div>
-                <div class="seventhcolum-firstsection">
-                    <div class="seventhcolumn-header">
-                        <p>Student KYC Document</p>
-                        <i class="fa-solid fa-angle-down"></i>
-                    </div>
-
-                    <div class="kycdocumentscolumn">
-                        <div class="individualkycdocuments">
-                            <p class="document-name">Pan Card</p>
-                            <div class="inputfilecontainer">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="uploaded-pan-name">{{ $kycDocuments[0]->pan_card ?? 'pan_card.jpg' }}</p>
-                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-pan-card" />
-                            </div>
-                            <input type="file" id="inputfilecontainer-real" />
-                            <span class="document-status">420 MB uploaded</span>
-                        </div>
-
-                        <div class="individualkycdocuments">
-                            <p class="document-name">Aadhar Card</p>
-                            <div class="inputfilecontainer">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="uploaded-aadhar-name">
-                                    {{ $kycDocuments[0]->aadhar_card ?? 'aadhar_card.jpg' }}
-                                </p>
-                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-aadhar-card" />
-                            </div>
-                            <input type="file" id="inputfilecontainer-real" />
-                            <span class="document-status">420 MB uploaded</span>
-                        </div>
-
-                        <div class="individualkycdocuments">
-                            <p class="document-name">Passport</p>
-                            <div class="inputfilecontainer">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="passport-name-selector">{{ $kycDocuments[0]->passport ?? 'Passport.pdf' }}
-                                </p>
-                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-passport-card" />
-                            </div>
-                            <input type="file" id="inputfilecontainer-real" />
-                            <span class="document-status">420 MB uploaded</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="seventhcolumn-additional">
-                <div class="seventhcolumn-additional-firstcolumn">
-                    <div class="seventhcolumnadditional-header">
-                        <p>Academic Marksheets</p>
-                        <i class="fa-solid fa-angle-down"></i>
-                    </div>
-
-                    <div class="marksheetdocumentscolumn">
-                        <div class="individualmarksheetdocuments">
-                            <p class="document-name">10th grade marksheet</p>
-                            <div class="inputfilecontainer-marksheet">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="sslc-marksheet">
-                                    {{ $academicDocuments[0]->sslc_marksheet ?? '10th grade marksheet' }}
-                                </p>
-                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-sslc-card" />
-                            </div>
-                            <input type="file" id="inputfilecontainer-real-marksheet" />
-                            <span class="document-status">420 MB uploaded</span>
-                        </div>
-
-                        <div class="individualmarksheetdocuments">
-                            <p class="document-name">12th grade marksheet</p>
-                            <div class="inputfilecontainer-marksheet">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="hsc-marksheet">
-                                    {{ $academicDocuments[0]->hsc_marksheet ?? '12th grade marksheet' }}
-                                </p>
-                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-hsc-card" />
-                            </div>
-                            <input type="file" id="inputfilecontainer-real-marksheet" />
-                            <span class="document-status">420 MB uploaded</span>
-                        </div>
-
-                        <div class="individualmarksheetdocuments">
-                            <p class="document-name">Graduation marksheet</p>
-                            <div class="inputfilecontainer-marksheet">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="graduation-marksheet">
-                                    {{ $academicDocuments[0]->graduation_marksheet ?? 'Graduation Marksheet' }}
-                                </p>
-                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-graduation-card" />
-                            </div>
-                            <input type="file" id="inputfilecontainer-real-marksheet" />
-                            <span class="document-status">420 MB uploaded</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="myapplication-eightcolumn">
-                <div class="eightcolumn-firstsection">
-                    <div class="eightcolumn-header">
-                        <p>Secured Admissions</p>
-                        <i class="fa-solid fa-angle-down"></i>
-                    </div>
-                    <div class="secured-admissioncolumn">
-                        <div class="individual-secured-admission-documents">
-                            <p class="document-name">10th Grade</p>
-                            <div class="inputfilecontainer-secured-admission">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="sslc-grade">{{ $securedAdmissions[0]->sslc_grade ?? 'SSLC Grade' }}</p>
-                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-sslc-grade" />
-                            </div>
-                            <input type="file" id="inputfilecontainer-real-marksheet" />
-                            <span class="document-status">420 MB uploaded</span>
-                        </div>
-                        <div class="individual-secured-admission-documents">
-                            <p class="document-name">12th Grade</p>
-                            <div class="inputfilecontainer-secured-admission">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="hsc-grade">{{ $securedAdmissions[0]->hsc_grade ?? 'HSC Grade' }}</p>
-                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-hsc-grade" />
-                            </div>
-                            <input type="file" id="inputfilecontainer-real-marksheet" />
-                            <span class="document-status">420 MB uploaded</span>
-                        </div>
-                        <div class="individual-secured-admission-documents">
-                            <p class="document-name">Graduation</p>
-                            <div class="inputfilecontainer-secured-admission">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="graduation-grade">
-                                    {{ $securedAdmissions[0]->graduation_grade ?? 'Graduation' }}
-                                </p>
-                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-graduation-grade" />
-                            </div>
-                            <input type="file" id="inputfilecontainer-real-marksheet" />
-                            <span class="document-status">420 MB uploaded</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="myapplication-ninthcolumn">
-                <div class="ninthcolumn-firstsection">
-                    <div class="ninthcolumn-header">
-                        <p>Work Experience</p>
-                        <i class="fa-solid fa-angle-down"></i>
-                    </div>
-                    <div class="work-experiencecolumn">
-                        <div class="individual-work-experiencecolumn-documents">
-                            <p class="document-name">Experience Letter</p>
-                            <div class="inputfilecontainer-work-experiencecolumn">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="experience-letter">
-                                    {{ $workExperience[0]->experience_letter ?? 'Experience Letter' }}
-                                </p>
-                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-experience-letter" />
-                            </div>
-                            <input type="file" id="inputfilecontainer-work-experience" />
-                            <span class="document-status">420 MB uploaded</span>
-                        </div>
-                        <div class="individual-work-experiencecolumn-documents">
-                            <p class="document-name">3 month Salary Slip</p>
-                            <div class="inputfilecontainer-work-experiencecolumn">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="salary-slip">
-                                    {{ $workExperience[0]->salary_slip ?? '3 month salary slip' }}
-                                </p>
-                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-salary-slip" />
-                            </div>
-                            <input type="file" id="inputfilecontainer-real-marksheet" />
-                            <span class="document-status">420 MB uploaded</span>
-                        </div>
-                        <div class="individual-work-experiencecolumn-documents">
-                            <p class="document-name">Office ID</p>
-                            <div class="inputfilecontainer-work-experiencecolumn">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="office-id">{{ $workExperience[0]->office_id ?? 'Office ID' }}</p>
-                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-office-id" />
-                            </div>
-                            <input type="file" id="inputfilecontainer-real-marksheet" />
-                            <span class="document-status">420 MB uploaded</span>
-                        </div>
-                        <div class="individual-work-experiencecolumn-documents">
-                            <p class="document-name">Employment Joining Letter</p>
-                            <div class="inputfilecontainer-work-experiencecolumn">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="joining-letter">
-                                    {{ $workExperience[0]->joining_letter ?? 'Joining Letter' }}
-                                </p>
-                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-joining-letter" />
-                            </div>
-                            <input type="file" id="inputfilecontainer-real-marksheet" />
-                            <span class="document-status">420 MB uploaded</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="myapplication-tenthcolumn">
-                <div class="tenthcolumn-firstsection">
-                    <div class="tenthcolumn-header">
-                        <p>Co-borrower Documents</p>
-                        <i class="fa-solid fa-angle-down"></i>
-                    </div>
-                    <div class="coborrower-kyccolumn">
-                        <div class="individual-coborrower-kyc-documents">
-                            <p class="document-name">Pan Card</p>
-                            <div class="inputfilecontainer-coborrower-kyccolumn">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="coborrower-pancard">{{ $coBorrowerDocuments[0]->pan_card ?? 'Pan Card' }}
-                                </p>
-                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-coborrower-pan" />
-                            </div>
-                            <input type="file" id="inputfilecontainer-kyccoborrwer" />
-                            <span class="document-status">420 MB uploaded</span>
-                        </div>
-                        <div class="individual-coborrower-kyc-documents">
-                            <p class="document-name">Aadhar Card</p>
-                            <div class="inputfilecontainer-coborrower-kyccolumn">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="coborrower-aadharcard">
-                                    {{ $coBorrowerDocuments[0]->aadhar_card ?? 'Aadhar Card' }}
-                                </p>
-                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-coborrower-aadhar" />
-                            </div>
-                            <input type="file" id="inputfilecontainer-kyccoborrwer" />
-                            <span class="document-status">420 MB uploaded</span>
-                        </div>
-                        <div class="individual-coborrower-kyc-documents">
-                            <p class="document-name">Address Proof</p>
-                            <div class="inputfilecontainer-coborrower-kyccolumn">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="coborrower-addressproof">
-                                    {{ $coBorrowerDocuments[0]->address_proof ?? 'Address Proof' }}
-                                </p>
-                                <img class="fa-eye" src="{{ asset($viewIconPath) }}"
-                                    id="view-coborrower-addressproof" />
-                            </div>
-                            <input type="file" id="inputfilecontainer-kyccoborrwer" />
-                            <span class="document-status">420 MB uploaded</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="myapplication-nbfcapprovalcolumn">
-                <button id="sendproposal-trigger">Send Proposal</button>
-                <div class="nbfcapprovalcolumnrightaligned">
-                    <button id="index-student-message-btn">Message</button>
-                    <button class='dashboard-inside-reject-button'>Reject</button>
-                </div>
-
-
-            </div>
-        </div>
-        </div>
 
         <div class="modal-container" id="model-container-reject-container" style="display: none;">
             <div class="reject-application-modal" id="reject-application-id">
@@ -969,6 +971,19 @@ $counter = 1;
                 document.querySelectorAll(".nbfcstudentdashboardprofile-sidebarlists-top li").forEach(item => {
                     item.classList.remove('nbfcactive');
                 });
+
+                alert(activeItem.textContent)
+
+                if ((activeItem.textContent).trim === "Dashboard") {
+                    alert(activeItem.textContent)
+                    const extrasNeedToHide = document.querySelector(".wholeapplicationprofile");
+                     if (extrasNeedToHide) {
+
+                         extrasNeedToHide.style.display = "none";
+                        extrasNeedToHide.style.background = "blue";
+                    }
+                }
+
                 // Add nbfcactive class to clicked item
                 activeItem.classList.add('nbfcactive');
             }
@@ -976,6 +991,7 @@ $counter = 1;
             // Add event listener to Dashboard menu item
             dashboardMenuItem.addEventListener("click", function () {
                 const viewContainerApplication = document.getElementById("nbfc-student-profile-details");
+
 
                 viewContainerApplication.style.display = "none";
                 inboxContainer.style.display = "none";
@@ -1223,6 +1239,15 @@ $counter = 1;
                     studentApplicationInsideRejection(student);
                     handleSendProposalProcess(studentId);
                     // handleMessageTrigger(studentId);
+
+                });
+                listItem.addEventListener("click", (e) => {
+                    // Only trigger if screen width is 750px or less AND click is NOT on action buttons
+                    if (window.innerWidth <= 750 && !e.target.closest('.dashboard-action-buttons')) {
+                        viewProfileOfUsers(viewButton, studentId, loader);
+                        studentApplicationInsideRejection(student);
+                        handleSendProposalProcess(studentId);
+                    }
 
                 });
                 const loader = document.createElement('div');
@@ -5022,15 +5047,14 @@ $counter = 1;
 
 
 
-       const reviwedUsers = (userId) => {
+        const reviwedUsers = (userId) => {
 
-        
+
             const user = @json(session('nbfcuser'));
-            
+
 
             if (user && user.nbfc_id) {
                 const nbfcId = user.nbfc_id;
-                alert(nbfcId)
 
                 fetch('/update-review-status', {
                     method: 'POST',
@@ -5045,7 +5069,7 @@ $counter = 1;
                         if (data.success) {
                             console.log('Marked as reviewed!');
                         } else {
-                            console.log('Error: ' + data.message); 
+                            console.log('Error: ' + data.message);
                             console.error('Server Error:', data.message);
                         }
                     })

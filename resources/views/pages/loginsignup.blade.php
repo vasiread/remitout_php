@@ -23,7 +23,7 @@
         $loginSignupvectorOne = "assets/images/downsideloginimg.png";
         $profileCardVectorWhite = "assets/images/profileCardVector-white.png";
         $signupmainimgupside = "assets/images/signupmainimgupside.png";
-            ?>
+                                    ?>
 
             <div class="loginsignupcontainer">
                 <div class="loginsingupcontainer-leftpanel">
@@ -32,58 +32,62 @@
                     <h1 class="loginsingupimagecontainer-header">Lorem ipsum dolor sit amet, <br>consectur adipiscing elit</h1>
                 </div>
 
-                    <div class="loginsingupcontainer-rightpanel" style="display:flex;">
-                        <img src="assets/images/loginsinguprightsideimg.png" class="rightsidevector-img" alt="">
-                        <h1>Get Started Now</h1>
-                        <form class="loginsingupcontainer-rightpanel-inside" id="signupForm" onsubmit="submitForm(event)">
-                            <div class="rightpanel-namecontainer">
-                                <label for="name">Your Name</label>
-                                <input type="text" name="name" id="name" placeholder="Name (as per Aadhar)" required>
-                                <div id="name-error" class="sign-up error-message">Please enter a valid name</div>
-                            </div>
-                            <div class="rightpanel-phonecontainer">
-                                <label for="phone">Phone</label>
-                                <input type="text" name="phone" id="phone" placeholder="Phone" required>
-                                <div id="phone-error" class="sign-up error-message">Please enter a valid 10-digit phone number</div>
-                            </div>
-                            <div class="rightpanel-emailcontainer">
-                                <label for="email">Email</label>
-                                <input type="text" name="email" id="email" placeholder="Email" required>
-                                <div id="email-error" class="sign-up error-message">Please enter a valid email address</div>
-                            </div>
-                            <div class="rightpanel-passwordcontainer">
-                                <label for="passwordinputID">Password</label>
-                                <input type="password" id="passwordinputID" name="password" class="passwordOpen" placeholder="Password" maxlength="20" required>
-                                <i class="fa-regular fa-eye-slash passwordClose"></i>
-                                <div id="password-error" class="sign-up error-message">Password must be valid (6-20 characters).</div>
-                            </div>
-                          <div class="rightpanel-signupbuttoncontainer">
-                                <div class="rightpanel-checkboxcontainer">
-                                    <input type="checkbox" name="confirmpolicy" id="confirmpolicy" style="margin:0;padding:0px" required>
-                                    <p style="text-decoration: none;">
-                                        I agree to the 
-                                        <a href="{{ route('terms') }}" target="_blank" style="text-decoration: underline; color: inherit;">
-                                            terms & policy
-                                        </a>
-                                        </p>
-                                </div>
-                                <button type="submit">Sign up</button>
-                            </div>
-                        </form>
-                        <div class="logincontainer-anotherresources">
-                            <p class="or-divider">or</p>
-                            <div class="googlesigninbuttoncontainer">
-                                <button class="googlesigninbutton" onclick="window.location.href='{{ route('google.login') }}'">
-                                    <img src="{{ asset('assets/images/googleicon.png') }}"> Sign in with Google
-                                </button>
-                            </div>
-                            <!-- New User Sign Up Option -->
-                            <div class="logincontainer-signinoption">
-                                <p>Have an account? </p>
-                                <span onclick="window.location.href='{{ route('login') }}'">Sign In</span>
+                <div class="loginsingupcontainer-rightpanel" style="display:flex;">
+                    <img src="assets/images/loginsinguprightsideimg.png" class="rightsidevector-img" alt="">
+                    <h1>Get Started Now</h1>
+                    <form class="loginsingupcontainer-rightpanel-inside" id="signupForm" onsubmit="submitForm(event)">
+                        <div class="rightpanel-namecontainer">
+                            <label for="name">Your Name</label>
+                            <input type="text" name="name" id="name" placeholder="Name (as per Aadhar)" required>
+                            <div id="name-error" class="sign-up error-message">Please enter a valid name</div>
+                        </div>
+                        <div class="rightpanel-phonecontainer">
+                            <label for="phone">Phone</label>
+                            <input type="text" name="phone" id="phone" placeholder="Phone" required>
+                            <div id="phone-error" class="sign-up error-message">Please enter a valid 10-digit phone number</div>
+                        </div>
+                        <div class="rightpanel-emailcontainer">
+                            <label for="email">Email</label>
+                            <input type="text" name="email" id="email" placeholder="Email" required>
+                            <div id="email-error" class="sign-up error-message">Please enter a valid email address</div>
+                        </div>
+                        <div class="rightpanel-passwordcontainer">
+                            <label for="passwordinputID">Password</label>
+                            <input type="password" id="passwordinputID" name="password" class="passwordOpen"
+                                placeholder="Password" maxlength="20" required>
+                            <i class="fa-regular fa-eye-slash passwordClose"></i>
+                            <div id="password-error" class="sign-up error-message">Password must be valid (6-20 characters).
                             </div>
                         </div>
+                        <div class="rightpanel-signupbuttoncontainer">
+                            <div class="rightpanel-checkboxcontainer">
+                                <input type="checkbox" name="confirmpolicy" id="confirmpolicy" style="margin:0;padding:0px"
+                                    required>
+                                <p style="text-decoration: none;">
+                                    I agree to the
+                                    <a href="{{ route('terms') }}" target="_blank"
+                                        style="text-decoration: underline; color: inherit;">
+                                        terms & policy
+                                    </a>
+                                </p>
+                            </div>
+                            <button type="submit">Sign up</button>
+                        </div>
+                    </form>
+                    <div class="logincontainer-anotherresources">
+                        <p class="or-divider">or</p>
+                        <div class="googlesigninbuttoncontainer">
+                            <button class="googlesigninbutton" onclick="window.location.href='{{ route('google.login') }}'">
+                                <img src="{{ asset('assets/images/googleicon.png') }}"> Sign in with Google
+                            </button>
+                        </div>
+                        <!-- New User Sign Up Option -->
+                        <div class="logincontainer-signinoption">
+                            <p>Have an account? </p>
+                            <span onclick="window.location.href='{{ route('login') }}'">Sign In</span>
+                        </div>
                     </div>
+                </div>
 
                 <!-- OTP Section -->
                 <div class="loginsignupcontainer-otppanel" style="display:none">
@@ -93,11 +97,16 @@
                         <div class="otppanel-mainsection">
                             <p>Do not share your OTP!</p>
                             <div class="otpinputcontainer">
-                                <input type="text" class="otp-input" maxlength="1" oninput="restrictToNumbers(this); moveFocus(this, 'otp2')" id="otp1">
-                                <input type="text" class="otp-input" maxlength="1" oninput="restrictToNumbers(this); moveFocus(this, 'otp3')" id="otp2">
-                                <input type="text" class="otp-input" maxlength="1" oninput="restrictToNumbers(this); moveFocus(this, 'otp4')" id="otp3">
-                                <input type="text" class="otp-input" maxlength="1" oninput="restrictToNumbers(this); moveFocus(this, 'otp5')" id="otp4">
-                                <input type="text" class="otp-input" maxlength="1" oninput="restrictToNumbers(this); moveFocus(this, 'otp6')" id="otp5">
+                                <input type="text" class="otp-input" maxlength="1"
+                                    oninput="restrictToNumbers(this); moveFocus(this, 'otp2')" id="otp1">
+                                <input type="text" class="otp-input" maxlength="1"
+                                    oninput="restrictToNumbers(this); moveFocus(this, 'otp3')" id="otp2">
+                                <input type="text" class="otp-input" maxlength="1"
+                                    oninput="restrictToNumbers(this); moveFocus(this, 'otp4')" id="otp3">
+                                <input type="text" class="otp-input" maxlength="1"
+                                    oninput="restrictToNumbers(this); moveFocus(this, 'otp5')" id="otp4">
+                                <input type="text" class="otp-input" maxlength="1"
+                                    oninput="restrictToNumbers(this); moveFocus(this, 'otp6')" id="otp5">
                                 <input type="text" class="otp-input" maxlength="1" oninput="restrictToNumbers(this)" id="otp6">
                             </div>
                             <button onclick="checkOTP()">Verify</button>
@@ -107,7 +116,7 @@
             </div>
 
             <script>
-                document.addEventListener('DOMContentLoaded', function() {
+                document.addEventListener('DOMContentLoaded', function () {
                     // Get the email from the URL query parameter
                     const urlParams = new URLSearchParams(window.location.search);
                     const email = urlParams.get('email');
@@ -163,23 +172,23 @@
                     }
                 }
 
-                document.getElementById('name').addEventListener('input', function() {
+                document.getElementById('name').addEventListener('input', function () {
                     toggleLabelVisibility(this);
                     showError('name', 'name-error', !validateName(this.value));
                 });
 
-                document.getElementById('email').addEventListener('input', function() {
+                document.getElementById('email').addEventListener('input', function () {
                     toggleLabelVisibility(this);
                     showError('email', 'email-error', !validateEmail(this.value));
                 });
 
-                document.getElementById('phone').addEventListener('input', function() {
+                document.getElementById('phone').addEventListener('input', function () {
                     toggleLabelVisibility(this);
                     this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
                     showError('phone', 'phone-error', !validatePhone(this.value));
                 });
 
-                document.getElementById('passwordinputID').addEventListener('input', function() {
+                document.getElementById('passwordinputID').addEventListener('input', function () {
                     toggleLabelVisibility(this);
                     if (this.value.length > 20) {
                         this.value = this.value.slice(0, 20);
@@ -212,7 +221,7 @@
                 const passwordIcon = document.querySelector('.passwordClose');
                 let passwordView = false;
 
-                passwordIcon.addEventListener('click', function() {
+                passwordIcon.addEventListener('click', function () {
                     passwordView = !passwordView;
                     if (passwordView) {
                         passwordInput.type = 'text';
@@ -225,7 +234,7 @@
                     }
                 });
 
-                window.onload = function() {
+                window.onload = function () {
                     document.getElementById('otp1').focus();
                 }
 
@@ -261,18 +270,18 @@
                         return;
                     }
 
-                        const otpPanelView = document.querySelector('.loginsignupcontainer-otppanel');
-                        const rightLoginsingupContainer = document.querySelector('.loginsingupcontainer-rightpanel');
-                        if (otpPanelView && rightLoginsingupContainer) {
-                            otpPanelView.style.display = 'flex';
-                            rightLoginsingupContainer.style.display = 'none';
-                            const firstInput = document.getElementById('otp1');
-                            firstInput.focus();
-                            generateOTP(phoneInput, nameInput);
-                        } else {
-                            console.error("OTP Panel not found!");
-                        }
+                    const otpPanelView = document.querySelector('.loginsignupcontainer-otppanel');
+                    const rightLoginsingupContainer = document.querySelector('.loginsingupcontainer-rightpanel');
+                    if (otpPanelView && rightLoginsingupContainer) {
+                        otpPanelView.style.display = 'flex';
+                        rightLoginsingupContainer.style.display = 'none';
+                        const firstInput = document.getElementById('otp1');
+                        firstInput.focus();
+                        generateOTP(phoneInput, nameInput);
+                    } else {
+                        console.error("OTP Panel not found!");
                     }
+                }
 
                 const generateOTP = (phoneInput, nameInput) => {
                     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -283,13 +292,13 @@
                         otp: generatedOTP
                     };
                     fetch('/send-mobotp', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': csrfToken,
-                            },
-                            body: JSON.stringify(detailsInfo)
-                        })
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
+                        body: JSON.stringify(detailsInfo)
+                    })
                         .then(response => {
                             if (!response.ok) {
                                 return response.text().then(text => {
@@ -334,13 +343,13 @@
                     };
                     console.log(JSON.stringify(mailOtpdata));
                     fetch('/verify-mobotp', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': csrfToken,
-                            },
-                            body: JSON.stringify(mailOtpdata)
-                        })
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
+                        body: JSON.stringify(mailOtpdata)
+                    })
                         .then(response => response.json())
                         .then(data => {
                             console.log('Response data:', data);
@@ -369,7 +378,7 @@
                         showError('name', 'name-error', true);
                         alert("Name is required");
                         return;
-                    }if (!validatePhone(phoneInput)) {
+                    } if (!validatePhone(phoneInput)) {
                         showError('phone', 'phone-error', true);
                         alert("Please enter a valid 10-digit phone number");
                         return;
@@ -390,15 +399,15 @@
                     }
 
                     fetch("/emailuniquecheck", {
-                            method: "POST",
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                            },
-                            body: JSON.stringify({
-                                email: email
-                            })
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({
+                            email: email
                         })
+                    })
                         .then(response => response.json())
                         .then(data => {
                             console.log('Response data:', data);
@@ -416,6 +425,7 @@
                 }
 
                 function submitVerifiedData() {
+                   
                     const registerFormData = {
                         name: document.getElementById('name').value,
                         phoneInput: document.getElementById('phone').value,
@@ -424,13 +434,13 @@
                     };
                     console.log(registerFormData);
                     fetch('/registerformdata', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                            },
-                            body: JSON.stringify(registerFormData)
-                        })
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify(registerFormData)
+                    })
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {

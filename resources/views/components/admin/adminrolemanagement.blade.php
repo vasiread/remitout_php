@@ -3,9 +3,9 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Role Management</title>
-  <link rel="stylesheet" href="assets/css/adminrolemanagement.css"/>
+  <link rel="stylesheet" href="assets/css/adminrolemanagement.css" />
   <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
@@ -20,11 +20,11 @@
           <button class="role-management-mobile-add-btn">+</button>
         </div>
         <div class="role-management-controls">
-          <input type="text" class="role-management-search" placeholder="Search"/>
+          <input type="text" class="role-management-search" placeholder="Search" />
           <div class="custom-dropdown">
             <div class="custom-dropdown-toggle">
               Sort
-              <img src="assets/images/filter-icon.png" alt="Filter"/>
+              <img src="assets/images/filter-icon.png" alt="Filter" />
             </div>
             <div class="custom-dropdown-menu">
               <div class="custom-dropdown-item" data-value="name">A-Z</div>
@@ -178,7 +178,9 @@
             createUserRows(admins);
             alert('Admin updated successfully');
           } else {
-            alert('Failed to update admin: ' + (data.message || 'Unknown error'));
+            alert('Failed to update admin: ' + (data.message || 'email already exists or invalid email'));
+            createUserRows(admins);
+
           }
         })
         .catch(err => {

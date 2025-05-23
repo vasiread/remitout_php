@@ -2,12 +2,16 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SendDocumentsMail;
+use App\Models\Nbfc;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Mail\WelcomeMail;
+use Illuminate\Support\Str;
+use ZipArchive;
 
 
 
@@ -71,69 +75,85 @@ class MailController extends Controller
 
     public function sendUserDocuments(Request $request)
     {
-        // Validate the request
+        // Validate request input (no need to validate email anymore)
         $request->validate([
             'userId' => 'required|string',
-            'email' => 'required|email',
             'name' => 'required|string'
         ]);
 
         $userId = $request->input('userId');
-        $email = $request->input('email');
         $name = $request->input('name');
 
-        // Set the base file path for the user
         $baseFilePath = "$userId/";
-
-        // Get all the folders under the base path
         $folders = Storage::disk('s3')->directories($baseFilePath);
-
-        // Initialize an array to store file paths
         $filePaths = [];
 
-        // Loop through the folders
         foreach ($folders as $folder) {
-            // Attempt to get the files within each folder
             try {
                 $files = Storage::disk('s3')->files($folder);
-
-                // Loop through the files and collect valid file paths
                 foreach ($files as $file) {
-                    // You could add additional checks here if needed (e.g., file size, extension)
                     $filePaths[] = $file;
                 }
             } catch (\Exception $e) {
-                // Log the error for later investigation
-                \Log::error("Error retrieving files from folder $folder: " . $e->getMessage());
-                // Continue to the next folder if an error occurs
+                Log::error("Error retrieving files from folder $folder: " . $e->getMessage());
                 continue;
             }
         }
 
-        // Check if there are any valid file paths
         if (!empty($filePaths)) {
             try {
-                // Send the email with the documents attached
-                Mail::to($email)->send(new SendDocumentsMail($filePaths, $email, $name, $userId));
+                // Ensure local temp folder exists
+                $localTempDir = storage_path('app/temp');
+                if (!file_exists($localTempDir)) {
+                    mkdir($localTempDir, 0755, true);
+                }
 
-                // Return success response
+                // Create a temporary ZIP file
+                $zipFileName = 'documents_' . Str::random(10) . '.zip';
+                $localZipPath = "$localTempDir/$zipFileName";
+
+                $zip = new ZipArchive;
+                if ($zip->open($localZipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
+                    foreach ($filePaths as $filePath) {
+                        $fileContents = Storage::disk('s3')->get($filePath);
+                        $zip->addFromString(basename($filePath), $fileContents);
+                    }
+                    $zip->close();
+                }
+
+                // Upload ZIP to S3
+                $s3ZipPath = "zips/$zipFileName";
+                Storage::disk('s3')->put($s3ZipPath, file_get_contents($localZipPath));
+
+                // Generate temporary download URL (valid for 2 hours)
+                $zipUrl = Storage::disk('s3')->temporaryUrl($s3ZipPath, now()->addHours(2));
+
+                // Fetch all active NBFC emails
+                $nbfcEmails = Nbfc::where('status', 'active')->pluck('nbfc_email');
+
+                foreach ($nbfcEmails as $nbfcEmail) {
+                    Mail::to($nbfcEmail)->send(new SendDocumentsMail($zipUrl, $name));
+                }
+
+                unlink($localZipPath);
+
                 return response()->json([
-                    'message' => 'All available documents sent as attachments successfully.',
+                    'message' => 'Documents sent successfully to all active NBFCs.',
                 ], 200);
             } catch (\Exception $e) {
-                 \Log::error("Error sending email: " . $e->getMessage());
+                Log::error("Error sending documents: " . $e->getMessage());
+
                 return response()->json([
                     'message' => 'An error occurred while sending the documents.',
+                    'error' => $e->getMessage()
                 ], 500);
             }
         }
 
-        // If no documents were found, return a 404 response
         return response()->json([
             'message' => 'No documents found for this user.',
         ], 404);
     }
-
 
 
 

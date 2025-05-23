@@ -223,7 +223,7 @@ body {
 
 .nbfc-mobile-menu-top li.active {
     background: linear-gradient(88.18deg, #FFA048 3.11%, #FA7B15 98.46%);
-    
+
 }
 
 
@@ -377,7 +377,7 @@ body {
     border-radius: 5px;
     z-index: 15;
     text-align: center;
-    width:190px;
+    width: 190px;
 }
 
 .popup-notify-list-nbfc p {
@@ -408,7 +408,7 @@ body {
     cursor: pointer;
     text-decoration: underline;
     color: #0056b3;
-    font-size:12px;
+    font-size: 12px;
 }
 
 #nbfc-student-profile-details {
@@ -442,36 +442,37 @@ body {
 
 #profilesection-nbfcapprovalcolumn .studentdashboardprofile-educationeditsection {
     display: flex;
- }
- #nbfc-list-of-student-profilesections .educationeditsection-secondrow p {
-     display: flex;
-     width: 80%;
-     margin-bottom: 8px;
- }
+}
 
- #nbfc-list-of-student-profilesections .educationeditsection-secondrow .label {
-     flex: 0 0 140px;
-     /* fixed width for labels */
-     font-weight: 600;
-     text-align: right;
-     padding-right: 12px;
-     white-space: nowrap;
-     display: flex;
-     align-items: center;
-     justify-content: flex-start;
- }
+#nbfc-list-of-student-profilesections .educationeditsection-secondrow p {
+    display: flex;
+    width: 80%;
+    margin-bottom: 8px;
+}
 
- #nbfc-list-of-student-profilesection .educationeditsection-secondrow .label::after {
-     content: ":";
-     padding-left: 6px;
- }
+#nbfc-list-of-student-profilesections .educationeditsection-secondrow .label {
+    flex: 0 0 140px;
+    /* fixed width for labels */
+    font-weight: 600;
+    text-align: right;
+    padding-right: 12px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
 
- #nbfc-list-of-student-profilesections .educationeditsection-secondrow .value {
-     flex: 1 1 auto;
-     /* allow value to grow & wrap */
-     word-break: break-word;
-     overflow-wrap: break-word;
- }
+#nbfc-list-of-student-profilesection .educationeditsection-secondrow .label::after {
+    content: ":";
+    padding-left: 6px;
+}
+
+#nbfc-list-of-student-profilesections .educationeditsection-secondrow .value {
+    flex: 1 1 auto;
+    /* allow value to grow & wrap */
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
 
 .myapplication-seventhcolumn-headernbfc button {
     cursor: pointer;
@@ -695,7 +696,7 @@ body {
     }
 
     #nbfc-student-profile-details {
-        display: flex;
+        display: none;
         width: 100%;
         max-width: 100%;
     }
@@ -2812,6 +2813,14 @@ body {
     opacity: 0.5;
 }
 
+.wholeapplicationprofile {
+    display: flex;
+    flex-direction: row;
+    max-width: 79.65%;
+    width: 100%;
+    gap: 1.2%;
+    margin-left: 1.38%;
+}
 
 @media (min-width: 1700px) {
 
