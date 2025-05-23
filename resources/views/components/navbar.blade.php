@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Student Dashboard</title>
+    <title>SC Dashboard</title>
     <script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/navbar.css') }}">
 </head>
@@ -32,7 +32,7 @@
                             <p class="logoutBtn">Logout</p>
                         </div>
                     </div>
-                    <div class="menubarcontainer-profile" id="user-dashboard-menu">
+                    <div class="menubarcontainer-profile" id="scuser-dashboard-menu">
                         <img src="{{ asset('assets/images/Iicons/menu.png') }}" alt="">
                     </div>
                 </div>
@@ -51,7 +51,7 @@
         </div>
     </nav>
 
-     <div class="password-change-overlay" style="display: none;"></div>
+    <div class="password-change-overlay" style="display: none;"></div>
 
     <div class="password-change-container">
         <div class="password-change-triggered-view-headersection">
@@ -71,7 +71,7 @@
     </div>
 
     <script>
-         window.App = {
+        window.App = {
             user: @json(session('user')),
             scuser: @json(session('scuser')),
             hasScUserSession: {{ session()->has('scuser') ? 'true' : 'false' }},
@@ -111,51 +111,81 @@
 
         function toggleSection(sectionId, index) {
             if (window.innerWidth > 640) return;
-            const trackProgressDiv = document.querySelector('.studentdashboardprofile-trackprogress');
-            const myApplicationDiv = document.querySelector('.studentdashboardprofile-myapplication');
-            const dynamicHeader = document.getElementById('loanproposals-header');
-            const communityJoinCard = document.querySelector('.studentdashboardprofile-communityjoinsection');
-            const profileStatusCard = document.querySelector('.personalinfo-profilestatus');
-            const profileImgEditIcon = document.querySelector('.studentdashboardprofile-profilesection .fa-pen-to-square');
-            const educationEditSection = document.querySelector('.studentdashboardprofile-educationeditsection');
-            const testScoresEditSection = document.querySelector('.studentdashboardprofile-testscoreseditsection');
-            const menuItems = document.querySelectorAll('.sidebar-menu .menu-item, .studentdashboardprofile-togglesidebar li');
+            let trackProgressDiv, myApplicationDiv, dynamicHeader, communityJoinCard, profileStatusCard, profileImgEditIcon, educationEditSection, testScoresEditSection;
+            let scDashboardContainer, scInboxContainer, scApplicationStatus;
+
+            if (window.App.hasScUserSession) {
+                scDashboardContainer = document.querySelector('.scdashboard-container');
+                scInboxContainer = document.querySelector('.scdashboard-inboxcontent');
+                scApplicationStatus = document.querySelector('.scdashboard-applicationstatus');
+            } else {
+                trackProgressDiv = document.querySelector('.studentdashboardprofile-trackprogress');
+                myApplicationDiv = document.querySelector('.studentdashboardprofile-myapplication');
+                dynamicHeader = document.getElementById('loanproposals-header');
+                communityJoinCard = document.querySelector('.studentdashboardprofile-communityjoinsection');
+                profileStatusCard = document.querySelector('.personalinfo-profilestatus');
+                profileImgEditIcon = document.querySelector('.studentdashboardprofile-profilesection .fa-pen-to-square');
+                educationEditSection = document.querySelector('.studentdashboardprofile-educationeditsection');
+                testScoresEditSection = document.querySelector('.studentdashboardprofile-testscoreseditsection');
+            }
+
+            const menuItems = document.querySelectorAll('.sidebar-menu .menu-item, .studentdashboardprofile-togglesidebar li, .commonsidebar-sidebarlists-top li');
+            menuItems.forEach(item => item.classList.remove('active'));
             menuItems.forEach(item => {
-                item.classList.remove('active');
-                if (item.getAttribute('data-section') === sectionId) {
+                const itemSection = item.getAttribute('data-section');
+                const itemIndex = parseInt(item.getAttribute('data-index') || -1);
+                if (itemSection === sectionId && itemIndex === index) {
                     item.classList.add('active');
                 }
             });
-            if (sectionId === 'studentdashboardprofile-trackprogress' && index === 0) {
-                if (trackProgressDiv) trackProgressDiv.style.display = 'flex';
-                if (myApplicationDiv) myApplicationDiv.style.display = 'none';
-                if (communityJoinCard) communityJoinCard.style.display = 'flex';
-                if (profileStatusCard) profileStatusCard.style.display = 'block';
-                if (profileImgEditIcon) profileImgEditIcon.style.display = 'none';
-                if (educationEditSection) educationEditSection.style.display = 'none';
-                if (testScoresEditSection) testScoresEditSection.style.display = 'none';
-                if (dynamicHeader) dynamicHeader.textContent = 'Loan Proposals';
-                handleIndividualCards('index0');
-            } else if (sectionId === 'studentdashboardprofile-trackprogress' && index === 1) {
-                if (trackProgressDiv) trackProgressDiv.style.display = 'flex';
-                if (myApplicationDiv) myApplicationDiv.style.display = 'none';
-                if (communityJoinCard) communityJoinCard.style.display = 'flex';
-                if (profileStatusCard) profileStatusCard.style.display = 'block';
-                if (profileImgEditIcon) profileImgEditIcon.style.display = 'none';
-                if (educationEditSection) educationEditSection.style.display = 'none';
-                if (testScoresEditSection) testScoresEditSection.style.display = 'none';
-                if (dynamicHeader) dynamicHeader.textContent = 'Inbox';
-                handleIndividualCards('index1');
-            } else if (sectionId === 'studentdashboardprofile-myapplication') {
-                if (trackProgressDiv) trackProgressDiv.style.display = 'none';
-                if (myApplicationDiv) myApplicationDiv.style.display = 'flex';
-                if (communityJoinCard) communityJoinCard.style.display = 'none';
-                if (profileStatusCard) profileStatusCard.style.display = 'none';
-                if (profileImgEditIcon) profileImgEditIcon.style.display = 'block';
-                if (educationEditSection) educationEditSection.style.display = 'flex';
-                if (testScoresEditSection) testScoresEditSection.style.display = 'flex';
-                if (dynamicHeader) dynamicHeader.textContent = 'Loan Proposals';
+
+            if (window.App.hasScUserSession) {
+                if (sectionId === 'scdashboard-container' && index === 0) {
+                    if (scDashboardContainer) scDashboardContainer.style.display = 'flex';
+                    if (scInboxContainer) scInboxContainer.style.display = 'none';
+                    if (scApplicationStatus) scApplicationStatus.style.display = 'none';
+                } else if (sectionId === 'scdashboard-inboxcontent' && index === 1) {
+                    if (scDashboardContainer) scDashboardContainer.style.display = 'none';
+                    if (scInboxContainer) scInboxContainer.style.display = 'flex';
+                    if (scApplicationStatus) scApplicationStatus.style.display = 'none';
+                } else if (sectionId === 'scdashboard-applicationstatus' && index === 2) {
+                    if (scDashboardContainer) scDashboardContainer.style.display = 'none';
+                    if (scInboxContainer) scInboxContainer.style.display = 'none';
+                    if (scApplicationStatus) scApplicationStatus.style.display = 'flex';
+                }
+            } else {
+                if (sectionId === 'studentdashboardprofile-trackprogress' && index === 0) {
+                    if (trackProgressDiv) trackProgressDiv.style.display = 'flex';
+                    if (myApplicationDiv) myApplicationDiv.style.display = 'none';
+                    if (communityJoinCard) communityJoinCard.style.display = 'flex';
+                    if (profileStatusCard) profileStatusCard.style.display = 'block';
+                    if (profileImgEditIcon) profileImgEditIcon.style.display = 'none';
+                    if (educationEditSection) educationEditSection.style.display = 'none';
+                    if (testScoresEditSection) testScoresEditSection.style.display = 'none';
+                    if (dynamicHeader) dynamicHeader.textContent = 'Loan Proposals';
+                    handleIndividualCards('index0');
+                } else if (sectionId === 'studentdashboardprofile-trackprogress' && index === 1) {
+                    if (trackProgressDiv) trackProgressDiv.style.display = 'flex';
+                    if (myApplicationDiv) myApplicationDiv.style.display = 'none';
+                    if (communityJoinCard) communityJoinCard.style.display = 'flex';
+                    if (profileStatusCard) profileStatusCard.style.display = 'block';
+                    if (profileImgEditIcon) profileImgEditIcon.style.display = 'none';
+                    if (educationEditSection) educationEditSection.style.display = 'none';
+                    if (testScoresEditSection) testScoresEditSection.style.display = 'none';
+                    if (dynamicHeader) dynamicHeader.textContent = 'Inbox';
+                    handleIndividualCards('index1');
+                } else if (sectionId === 'studentdashboardprofile-myapplication') {
+                    if (trackProgressDiv) trackProgressDiv.style.display = 'none';
+                    if (myApplicationDiv) myApplicationDiv.style.display = 'flex';
+                    if (communityJoinCard) communityJoinCard.style.display = 'none';
+                    if (profileStatusCard) profileStatusCard.style.display = 'none';
+                    if (profileImgEditIcon) profileImgEditIcon.style.display = 'block';
+                    if (educationEditSection) educationEditSection.style.display = 'flex';
+                    if (testScoresEditSection) testScoresEditSection.style.display = 'flex';
+                    if (dynamicHeader) dynamicHeader.textContent = 'Loan Proposals';
+                }
             }
+
             const mobileSidebar = window.App.hasScUserSession ? document.getElementById('sc-mobile-sidebar') : document.getElementById('student-mobile-sidebar');
             const overlay = window.App.hasScUserSession ? document.getElementById('sc-sidebar-overlay') : document.getElementById('student-sidebar-overlay');
             const menuIcon = document.getElementById('menu-icon');
@@ -209,8 +239,6 @@
             const menuIcon = document.getElementById('menu-icon');
             const closeIcon = document.getElementById('close-icon');
             const navContainer = document.querySelector('.nav-container');
-            const mobileSidebar = window.App.hasScUserSession ? document.getElementById('sc-mobile-sidebar') : document.getElementById('student-mobile-sidebar');
-            const overlay = window.App.hasScUserSession ? document.getElementById('sc-sidebar-overlay') : document.getElementById('student-sidebar-overlay');
             const navLinks = document.querySelector('.nav-links');
             const navButtons = document.querySelector('.nav-buttons');
 
@@ -231,7 +259,7 @@
                     console.log('Showing menu-icon');
                 }
                 if (navContainer) navContainer.style.display = 'flex';
-                if (closeIcon && !mobileSidebar?.classList.contains('active')) {
+                if (closeIcon) {
                     closeIcon.style.display = 'none';
                     console.log('Hiding close-icon');
                 }
@@ -270,6 +298,8 @@
                     navButtons.style.display = 'flex';
                     console.log('Showing nav-buttons');
                 }
+                const mobileSidebar = window.App.hasScUserSession ? document.getElementById('sc-mobile-sidebar') : document.getElementById('student-mobile-sidebar');
+                const overlay = window.App.hasScUserSession ? document.getElementById('sc-sidebar-overlay') : document.getElementById('student-sidebar-overlay');
                 if (mobileSidebar && overlay) {
                     mobileSidebar.classList.remove('active');
                     overlay.classList.remove('active');
@@ -277,7 +307,7 @@
                     overlay.style.opacity = '0';
                     overlay.style.visibility = 'hidden';
                     document.body.style.overflow = 'auto';
-                    profilePhotoMobTab.classList.remove('sidebar-active');
+                    if (profilePhotoMobTab) profilePhotoMobTab.classList.remove('sidebar-active');
                 }
             }
         };
@@ -313,13 +343,13 @@
                 mobileSidebar.className = 'mobile-sidebar';
                 mobileSidebar.innerHTML = `
                     <div class="sidebar-menu">
-                        <a class="menu-item active" data-section="studentdashboardprofile-trackprogress" onclick="toggleSection('studentdashboardprofile-trackprogress', 0)">
+                        <a class="menu-item active" data-section="studentdashboardprofile-trackprogress" data-index="0" onclick="toggleSection('studentdashboardprofile-trackprogress', 0)">
                             <i class="fa-solid fa-square-poll-vertical"></i> Dashboard
                         </a>
-                        <a class="menu-item" data-section="studentdashboardprofile-trackprogress" onclick="toggleSection('studentdashboardprofile-trackprogress', 1)">
+                        <a class="menu-item" data-section="studentdashboardprofile-trackprogress" data-index="1" onclick="toggleSection('studentdashboardprofile-trackprogress', 1)">
                             <i class="fa-solid fa-inbox"></i> Inbox
                         </a>
-                        <a class="menu-item" data-section="studentdashboardprofile-myapplication" onclick="toggleSection('studentdashboardprofile-myapplication', 2)">
+                        <a class="menu-item" data-section="studentdashboardprofile-myapplication" data-index="2" onclick="toggleSection('studentdashboardprofile-myapplication', 2)">
                             <i class="fa-regular fa-clipboard"></i> My Applications
                         </a>
                     </div>
@@ -340,6 +370,7 @@
                     closeSidebar(mobileSidebar, overlay, menuIcon, closeIcon);
                 });
             }
+            return { mobileSidebar, overlay };
         }
 
         function createScSidebar() {
@@ -357,18 +388,14 @@
                 mobileSidebar.id = 'sc-mobile-sidebar';
                 mobileSidebar.className = 'mobile-sidebar';
                 mobileSidebar.innerHTML = `
-                    <div class="sidebar-header">
-                        <img src="{{ asset('assets/images/Remitoutcolored.png') }}" alt="Logo" class="logo">
-                        <i class="fa-solid fa-xmark close-sidebar"></i>
-                    </div>
                     <div class="sidebar-menu">
-                        <a href="/sc-dashboard" class="menu-item active">
+                        <a class="menu-item active" data-section="scdashboard-container" data-index="0" onclick="toggleSection('scdashboard-container', 0)">
                             <i class="fa-solid fa-square-poll-vertical"></i> Dashboard
                         </a>
-                        <a href="/sc-inbox" class="menu-item">
+                        <a class="menu-item" data-section="scdashboard-inboxcontent" data-index="1" onclick="toggleSection('scdashboard-inboxcontent', 1)">
                             <i class="fa-solid fa-inbox"></i> Profile
                         </a>
-                        <a href="/sc-applications" class="menu-item">
+                        <a class="menu-item" data-section="scdashboard-applicationstatus" data-index="2" onclick="toggleSection('scdashboard-applicationstatus', 2)">
                             <i class="fa-regular fa-clipboard"></i> Applications Status
                         </a>
                     </div>
@@ -383,19 +410,13 @@
                 `;
                 document.body.appendChild(mobileSidebar);
 
-                const menuIcon = document.getElementById('menu-icon');
-                const closeIcon = mobileSidebar.querySelector('.close-sidebar');
-                if (closeIcon) {
-                    closeIcon.addEventListener('click', function () {
-                        const overlay = document.getElementById('sc-sidebar-overlay');
-                        closeSidebar(mobileSidebar, overlay, menuIcon, document.getElementById('close-icon'));
-                    });
-                }
-
                 overlay.addEventListener('click', function () {
-                    closeSidebar(mobileSidebar, overlay, menuIcon, document.getElementById('close-icon'));
+                    const menuIcon = document.getElementById('menu-icon');
+                    const closeIcon = document.getElementById('close-icon');
+                    closeSidebar(mobileSidebar, overlay, menuIcon, closeIcon);
                 });
             }
+            return { mobileSidebar, overlay };
         }
 
         function displayError(elementId, message) {
@@ -601,14 +622,6 @@
             }
         };
 
-        function clearErrorMessages() {
-            const errorElements = document.getElementsByClassName('error-message');
-            for (let i = 0; i < errorElements.length; i++) {
-                errorElements[i].innerText = '';
-                errorElements[i].style.display = 'none';
-            }
-        }
-
         const passwordModelTrigger = () => {
             const passwordTrigger = document.getElementById("change-password-trigger");
             const passwordChangeContainer = document.querySelector(".password-change-container");
@@ -642,24 +655,36 @@
             }
         };
 
-        const initializeDesktopSidebar = () => {
-            const sidebarItems = document.querySelectorAll('.studentdashboardprofile-togglesidebar li');
-            sidebarItems.forEach((item, index) => {
-                item.addEventListener('click', () => {
-                    let sectionId;
-                    if (index === 0) sectionId = 'studentdashboardprofile-trackprogress';
-                    else if (index === 1) sectionId = 'studentdashboardprofile-trackprogress';
-                    else if (index === 2) sectionId = 'studentdashboardprofile-myapplication';
-                    else if (item.classList.contains('logoutBtn')) {
-                        sessionLogoutInitial('{{ route('logout') }}', '{{ route('login') }}');
-                        return;
-                    } else if (item.textContent.includes('Support')) {
-                        window.location.href = '/support';
-                        return;
+        const initializescsidebar = () => {
+            const scsidebaritems = document.querySelectorAll(".commonsidebar-sidebarlists-top li");
+            const trackprogressContainer = document.querySelector(".scdashboard-container");
+            const scinboxContainer = document.querySelector(".scdashboard-inboxcontent");
+            const scapplicationStatus = document.querySelector(".scdashboard-applicationstatus");
+            const triggeredSideBar = document.querySelector(".commonsidebar-togglesidebar");
+            const img = document.querySelector("#scuser-dashboard-menu img");
+
+            scsidebaritems.forEach((item, index) => {
+                item.addEventListener("click", () => {
+                    if (window.innerWidth <= 768) {
+                        triggeredSideBar.style.display = "none";
+                        if (img.src.includes("close_icon.png")) {
+                            img.src = '{{ asset('assets/images/Icons/menu.png') }}';
+                        }
                     }
-                    if (sectionId) {
-                        const event = new CustomEvent('desktopSidebarClick', { detail: { sectionId, index } });
-                        document.dispatchEvent(event);
+                    scsidebaritems.forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                    if (index === 0) {
+                        trackprogressContainer.style.display = "flex";
+                        scinboxContainer.style.display = "none";
+                        scapplicationStatus.style.display = "none";
+                    } else if (index === 1) {
+                        trackprogressContainer.style.display = "none";
+                        scinboxContainer.style.display = "flex";
+                        scapplicationStatus.style.display = "none";
+                    } else {
+                        trackprogressContainer.style.display = "none";
+                        scinboxContainer.style.display = "none";
+                        scapplicationStatus.style.display = "flex";
                     }
                 });
             });
@@ -670,7 +695,9 @@
             userPopopuOpen();
             passwordChangeCheck();
             passwordModelTrigger();
-            initializeDesktopSidebar();
+            if (window.App.hasScUserSession) {
+                initializescsidebar();
+            }
 
             const logoutBtn = document.querySelector('.popup-notify-list .logoutBtn');
             const userPopupTrigger = document.querySelector('.nav-profilecontainer i');
@@ -687,11 +714,15 @@
                 });
             }
 
+            let mobileSidebar, overlay;
             if (window.App.hasScUserSession) {
-                createScSidebar();
+                ({ mobileSidebar, overlay } = createScSidebar());
                 retrieveProfilePictureNavSc();
+                if (window.innerWidth <= 640) {
+                    toggleSection('scdashboard-container', 0);
+                }
             } else if (window.App.hasUserSession) {
-                createStudentSidebar();
+                ({ mobileSidebar, overlay } = createStudentSidebar());
                 retrieveProfilePictureNav();
                 if (window.innerWidth <= 640) {
                     toggleSection('studentdashboardprofile-trackprogress', 0);
@@ -700,28 +731,34 @@
 
             const menuIcon = document.getElementById('menu-icon');
             const closeIcon = document.getElementById('close-icon');
-            if (menuIcon && closeIcon && !menuIcon.hasAttribute('data-initialized')) {
-                menuIcon.setAttribute('data-initialized', 'true');
-                menuIcon.addEventListener('click', function () {
-                    if (window.innerWidth > 640) return;
-                    let mobileSidebar, overlay;
-                    if (window.App.hasScUserSession) {
-                        createScSidebar();
-                        mobileSidebar = document.getElementById('sc-mobile-sidebar');
-                        overlay = document.getElementById('sc-sidebar-overlay');
-                    } else {
-                        createStudentSidebar();
-                        mobileSidebar = document.getElementById('student-mobile-sidebar');
-                        overlay = document.getElementById('student-sidebar-overlay');
+            if (menuIcon && closeIcon) {
+                menuIcon.addEventListener('click', function (event) {
+                    event.stopPropagation();
+                    console.log('Menu icon clicked, window.innerWidth:', window.innerWidth);
+                    if (window.innerWidth > 640) {
+                        console.log('Menu icon ignored due to window width > 640');
+                        return;
                     }
+                    if (!mobileSidebar || !overlay) {
+                        console.log('Creating sidebar due to missing mobileSidebar or overlay');
+                        if (window.App.hasScUserSession) {
+                            ({ mobileSidebar, overlay } = createScSidebar());
+                        } else {
+                            ({ mobileSidebar, overlay } = createStudentSidebar());
+                        }
+                    }
+                    console.log('Mobile sidebar state:', mobileSidebar?.classList.contains('active'));
                     if (mobileSidebar && overlay) {
                         if (mobileSidebar.classList.contains('active')) {
-                            closeSidebar(mobileSidebar, overlay, this, closeIcon);
+                            console.log('Closing sidebar');
+                            closeSidebar(mobileSidebar, overlay, menuIcon, closeIcon);
                         } else {
+                            console.log('Opening sidebar');
                             const otherSidebar = window.App.hasScUserSession ? document.getElementById('student-mobile-sidebar') : document.getElementById('sc-mobile-sidebar');
                             const otherOverlay = window.App.hasScUserSession ? document.getElementById('student-sidebar-overlay') : document.getElementById('sc-sidebar-overlay');
                             if (otherSidebar && otherOverlay && otherSidebar.classList.contains('active')) {
-                                closeSidebar(otherSidebar, otherOverlay, this, closeIcon);
+                                console.log('Closing other sidebar');
+                                closeSidebar(otherSidebar, otherOverlay, menuIcon, closeIcon);
                             }
                             mobileSidebar.classList.add('active');
                             overlay.classList.add('active');
@@ -729,28 +766,31 @@
                             overlay.style.opacity = '1';
                             overlay.style.visibility = 'visible';
                             document.body.style.overflow = 'hidden';
-                            this.style.display = 'none';
+                            menuIcon.style.display = 'none';
                             closeIcon.style.display = 'block';
                             const profilePhotoMobTab = document.querySelector('.profile-photo-mobtab');
                             if (profilePhotoMobTab) profilePhotoMobTab.classList.add('sidebar-active');
                         }
+                    } else {
+                        console.error('Mobile sidebar or overlay not found');
                     }
                 });
 
                 closeIcon.addEventListener('click', function () {
-                    if (window.innerWidth > 640) return;
-                    let mobileSidebar, overlay;
-                    if (window.App.hasScUserSession) {
-                        mobileSidebar = document.getElementById('sc-mobile-sidebar');
-                        overlay = document.getElementById('sc-sidebar-overlay');
-                    } else {
-                        mobileSidebar = document.getElementById('student-mobile-sidebar');
-                        overlay = document.getElementById('student-sidebar-overlay');
+                    console.log('Close icon clicked');
+                    if (window.innerWidth > 640) {
+                        console.log('Close icon ignored due to window width > 640');
+                        return;
                     }
                     if (mobileSidebar && overlay) {
+                        console.log('Closing sidebar via close icon');
                         closeSidebar(mobileSidebar, overlay, menuIcon, this);
+                    } else {
+                        console.error('Mobile sidebar or overlay not found for close icon');
                     }
                 });
+            } else {
+                console.error('Menu icon or close icon not found');
             }
         });
 
