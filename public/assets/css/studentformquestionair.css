@@ -613,7 +613,7 @@ html {
 
 @media (min-width: 1500px) {
     .breadcrumb a {
-        width: 170px;
+        width:fit-content;
     }
 }
 
@@ -2548,7 +2548,8 @@ h2 {
         height: 40px;
         font-size: 14px;
         right: 0;
-        margin-top: 20px;
+        margin-top: 350px;
+        margin-right:100px;
     }
 }
 
@@ -3272,7 +3273,7 @@ p {
         cursor: pointer;
         margin-top: 160px;
         margin-bottom: 100px;
-        margin-right: 120px;
+        margin-right: 100px;
         position: absolute;
         right: 0;
         z-index: 10;
@@ -4004,7 +4005,7 @@ p {
         cursor: pointer;
         margin-top: 160px;
         margin-bottom: 100px;
-        margin-right: 120px;
+        margin-right: 100px;
         position: absolute;
         right: 0;
         z-index: 10;
@@ -4226,7 +4227,7 @@ input[type="file"] {
 @media (max-width: 767px) {
     .kyc-container {
         width: 100%;
-        max-width: 320px;
+        max-width: 80%;
         padding: 20px;
         margin: 0 auto;
         margin-bottom: 50px;
@@ -4772,9 +4773,9 @@ input[type="file"] {
         border-radius: 5px;
         font-size: 16px;
         cursor: pointer;
-        margin-top: 100px;
+        margin-top: 150px;
         margin-bottom: 100px;
-        margin-right: 120px;
+        margin-right: 70px;
         position: absolute;
         right: 0;
         z-index: 10;

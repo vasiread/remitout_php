@@ -97,7 +97,7 @@ Route::post('/getprofilecompletionbygender', [Admincontroller::class, 'getProfil
 Route::get('/getstatusofusers', [Admincontroller::class, 'pointOfEntries']);
 Route::get('/nbfc-lead-gens', [Admincontroller::class, 'nbfcLeadGens']);
 Route::get('/sc-lead-gens', [Admincontroller::class, 'scLeadGens']);
-Route::get('/reports-on-generation', [Admincontroller::class, 'reportsOnGeneration']);
+Route::post('/reports-on-generation', [Admincontroller::class, 'reportsOnGeneration']);
 Route::post('/validateprofilecompletion', [Admincontroller::class, 'validateprofilecompletion']);
 Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails']);
 Route::get('/city-stats', [Admincontroller::class, 'getCityStats']);
