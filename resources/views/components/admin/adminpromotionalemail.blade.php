@@ -52,6 +52,9 @@
                     <button class="btn-promo btn-draft">Save Draft</button>
                     <button class="btn-promo btn-send" id="send-promotional_email">Send Email</button>
                 </div>
+            </div> 
+            <div class="subject-container mobile-only">
+                <input type="text" id="email-subject" name="email-subject" placeholder="Subject">
             </div>
             <div class="promotional-composer-container">
                 <div class="promotional-toolbar">
@@ -168,17 +171,24 @@
                             <button class="promotional-link-button" id="promotional-link-button-id">✕</button>
                         </div>
                     </div>
+                    
+                     <div class="promotional-footer">
+                        <div class="footer-links">
+                            <span class="visit-us">
+                                Visit us: <a href="https://remitout.com/" style="color: #f86d21; text-decoration: none;">Remitout.com</a>
+                            </span>
+                            <span class="follow-us">
+                                Follow us:
+                                <a href="https://x.com/RemitoutL" style="color: #333; margin-left: 5px;"><i class="fab fa-twitter"></i></a>
+                                <a href="https://www.facebook.com/RemitoutIN/" style="color: #333; margin-left: 5px;"><i class="fab fa-facebook"></i></a>
+                            </span>
+                        </div>
+                    <div class="footer-copyright">©Remitout 2025. All rights reserved</div>
                 </div>
-                <div class="promotional-footer">
-                    <div>
-                        Visit us: <a href="https://remitout.com/" style="color: #f86d21; text-decoration: none;">Remitout.com</a>
-                        <span style="margin-left: 20px;">Follow us:
-                            <a href="https://x.com/RemitoutL" style="color: #333; margin-left: 5px;"><i class="fab fa-twitter"></i></a>
-                            <a href="https://www.facebook.com/RemitoutIN/" style="color: #333; margin-left: 5px;"><i class="fab fa-facebook"></i></a>
-                        </span>
-                    </div>
-                    <div>©frontend 2023. All rights reserved</div>
+
                 </div>
+              
+
                 <div class="promotional-word-count">No. of words: <span id="wordCount">0</span></div>
                 <div class="promotional-attachment-section" id="attachmentSection">
                     <div class="attachment-buttons-promotional">
@@ -843,28 +853,45 @@
                 });
                 contentArea.addEventListener('keyup', updateWordCount);
             }
-            function initializeLinkContainer() {
-                const changeButton = document.querySelector('.promotional-link-container .promotional-link-button:first-child');
-                const removeButton = document.querySelector('.promotional-link-container .promotional-link-button:last-child');
+         function initializeLinkContainer() {
+                const changeButton = document.querySelector('.promotional-link-container .promotional-link-button:not(#promotional-link-button-id)');
+                const removeButton = document.querySelector('#promotional-link-button-id');
                 const linkInput = document.querySelector('.promotional-link-input');
                 const linkContainer = document.querySelector('.promotional-link-container');
                 const insertLinkBtn = document.getElementById('insertLinkBtn');
                 const linkContainerDiv = document.getElementById('linkContainer');
+
+                // Debugging to ensure elements are found
+                console.log('Change Button:', changeButton);
+                console.log('Remove Button:', removeButton);
+                console.log('Link Input:', linkInput);
+                console.log('Link Container:', linkContainer);
+                console.log('Insert Link Button:', insertLinkBtn);
+                console.log('Link Container Div:', linkContainerDiv);
+
                 if (changeButton && removeButton && linkInput && linkContainer) {
-                  changeButton.addEventListener('click', function () {
+                    changeButton.addEventListener('click', function () {
                         const newLink = prompt('Update link:', linkInput.value);
                         if (newLink) {
                             linkInput.value = newLink;
                             linkContainer.style.display = 'flex';
+                            // Optionally update insertedLinks if this link is part of the list
+                            // For example: insertedLinks[0] = newLink; renderLinks();
                         }
                     });
+
                     removeButton.addEventListener('click', function () {
                         if (confirm('Remove this link?')) {
                             linkInput.value = '';
                             linkContainer.style.display = 'none';
+                            // Optionally remove from insertedLinks if applicable
+                            // For example: insertedLinks = []; renderLinks();
                         }
                     });
+                } else {
+                    console.error('One or more elements in promotional-link-container not found');
                 }
+
                 if (insertLinkBtn && linkContainerDiv) {
                     insertLinkBtn.addEventListener('click', function () {
                         const link = prompt('Enter the link:', 'https://');
@@ -875,6 +902,7 @@
                         }
                     });
                 }
+
                 function renderLinks() {
                     linkContainerDiv.innerHTML = '';
                     insertedLinks.forEach((link, index) => {
@@ -894,6 +922,7 @@
                     });
                 }
             }
+                
             function handleAttachment() {
                 const input = document.createElement('input');
                 input.type = 'file';

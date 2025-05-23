@@ -101,7 +101,7 @@
 
 
                 <div class="postgrad-buttongroups" id="postgrad-reports">
-                    <div id="postgrad-buttongroups-insideshow">
+                    <div id="postgrad-buttongroups-insideshow-id">
                         Graduate <i class="fa-solid fa-chevron-down"></i>
                     </div>
                     <div class="dropdown-content-postgrad">
@@ -298,11 +298,76 @@
                         <button id="calender-reportsregister">
                             Calendar <img src="assets/images/Icons/calendar_month.png" alt="">
                         </button>
-                        <input type="month" id="date-picker-linegraph" style="display:none">
-                        <!-- Remove display:none to make it visible -->
+                    <div class="calendar-container" id="calender-reportsregister-report">
+                        <div class="calendar-input-container">
+                            <div class="calendar-date-input calendar-active" id="calendar-start-date-input">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                <span>Start Date</span>
+                            </div>
+                            <div class="calendar-date-input" id="calendar-end-date-input">
+                                <span>End Date</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    style="margin-left: auto;">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                            </div>
+                        </div>
 
-                        <!-- Display selected date -->
-                        <p id="selected-date"></p>
+                        <div class="calendar-header">
+                            <button class="calendar-nav-btn calendar-prev-month">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="15 18 9 12 15 6"></polyline>
+                                </svg>
+                            </button>
+                            <div class="calendar-month-year-selector">
+                                <select id="calendar-month-select">
+                                    <option value="0">January</option>
+                                    <option value="1">February</option>
+                                    <option value="2">March</option>
+                                    <option value="3">April</option>
+                                    <option value="4">May</option>
+                                    <option value="5">June</option>
+                                    <option value="6">July</option>
+                                    <option value="7">August</option>
+                                    <option value="8">September</option>
+                                    <option value="9">October</option>
+                                    <option value="10">November</option>
+                                    <option value="11">December</option>
+                                </select>
+                                <select id="calendar-year-select">
+                                    <!-- Years will be populated by JavaScript -->
+                                </select>
+                            </div>
+                            <button class="calendar-nav-btn calendar-next-month">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="calendar-grid">
+                            <div class="calendar-weekday">Mo</div>
+                            <div class="calendar-weekday">Tu</div>
+                            <div class="calendar-weekday">We</div>
+                            <div class="calendar-weekday">Th</div>
+                            <div class="calendar-weekday">Fr</div>
+                            <div class="calendar-weekday">Sa</div>
+                            <div class="calendar-weekday">Su</div>
+                        </div>
+                    </div>
+                       
                     </div>
                     <div class="reports-registeration-graph">
                         <div id="chart_div" style="width: 100%; height: 160px;"></div>
@@ -343,7 +408,7 @@
                     <div class="agerationcolumn-firstsection">
                         <p id="ageratio-header">Age ratio of students</p>
                         <div class="postgrad-buttongroups" id="postgrad-ageratio">
-                            <div id="postgrad-buttongroups-insideshow">
+                            <div id="postgrad-buttongroups-insideshow-age-ratio-id">
                                 Graduate <i class="fa-solid fa-chevron-down"></i>
                             </div>
                             <div class="dropdown-content-postgrad">
@@ -381,7 +446,7 @@
                 <div class="funnelreport-analyze-header">
                     <p id="funnel-analyze-header">Funnel Report</p>
                     <div class="postgrad-buttongroups" id="postgrad-funnelreports">
-                        <div id="postgrad-buttongroups-insideshow">
+                        <div id="postgrad-buttongroups-insideshow-funnelreports-id">
                             Graduate <i class="fa-solid fa-chevron-down"></i>
                         </div>
                         <div class="dropdown-content-postgrad">
@@ -708,6 +773,7 @@
                 initializeCitiesTable();
                 initializeCountriesTable();
                 funnelreport();
+                initializePostgradDropdowns();
 
                 loadAgeRatioChart();
             } catch (error) {
@@ -2043,184 +2109,211 @@
             showAllReports();
         };
 
-        // Calendar
+ 
+        // Initialize calendars for multiple buttons and containers
         const initializeCalendar = () => {
-            const calendarGrid = $('.calendar-grid');
-            const monthSelect = $('#calendar-month-select');
-            const yearSelect = $('#calendar-year-select');
-            const startDateInput = $('#calendar-start-date-input');
-            const endDateInput = $('#calendar-end-date-input');
-            const prevMonthBtn = $('.calendar-prev-month');
-            const nextMonthBtn = $('.calendar-next-month');
-            const calendarButton = $('#calender-buttongroups');
-            const calendarContainer = $('.calendar-container');
-
-            if (!calendarGrid || !monthSelect || !yearSelect || !startDateInput || !endDateInput || !calendarButton || !calendarContainer) {
-                return console.error('Calendar elements missing');
-            }
-
-            let currentDate = new Date();
-            let startDate = null;
-            let endDate = null;
-            let selectionMode = 'start';
-            let isCalendarOpen = false;
-
-            // Populate year select
-            const currentYear = new Date().getFullYear();
-            for (let year = currentYear - 5; year <= currentYear + 5; year++) {
-                const option = document.createElement('option');
-                option.value = year;
-                option.textContent = year;
-                if (year === currentYear) option.selected = true;
-                yearSelect.appendChild(option);
-            }
-
-            const toggleCalendar = () => {
-                isCalendarOpen = !isCalendarOpen;
-                calendarContainer.style.display = isCalendarOpen ? 'block' : 'none';
-            };
-
-            const updateMonthYearSelects = () => {
-                monthSelect.value = currentDate.getMonth();
-                yearSelect.value = currentDate.getFullYear();
-            };
-
-            const renderCalendar = () => {
-                $$('.calendar-day', calendarGrid).forEach(el => el.remove());
-
-                const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-                const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-                let firstDayIndex = firstDay.getDay() - 1;
-                if (firstDayIndex < 0) firstDayIndex = 6;
-
-                const prevMonthLastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
-                for (let i = prevMonthLastDay - firstDayIndex + 1; i <= prevMonthLastDay; i++) {
-                    addDayToCalendar(i, 'calendar-other-month', new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, i));
+            // Define calendar configurations
+            const calendarConfigs = [
+                {
+                    buttonId: 'calender-buttongroups',
+                    containerClass: '.calendar-container',
+                    wrapperClass: '.calendar-wrapper'
+                },
+                {
+                    buttonId: 'calender-reportsregister',
+                    containerClass: '.calendar-container',
+                    wrapperClass: '.reports-registeration'
                 }
+            ];
 
-                const today = new Date();
-                for (let i = 1; i <= lastDay.getDate(); i++) {
-                    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
-                    const classes = [];
-                    if (today.toDateString() === date.toDateString()) classes.push('calendar-today');
-                    if (startDate && startDate.toDateString() === date.toDateString()) classes.push('calendar-selected-start');
-                    if (endDate && endDate.toDateString() === date.toDateString()) classes.push('calendar-selected-end');
-                    if (startDate && endDate && date > startDate && date < endDate) {
-                        classes.push('calendar-in-range');
-                        if (i === 1 || new Date(currentDate.getFullYear(), currentDate.getMonth(), i - 1) <= startDate) {
-                            classes.push('calendar-first-in-range');
-                        }
-                        if (i === lastDay.getDate() || new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1) >= endDate) {
-                            classes.push('calendar-last-in-range');
-                        }
-                    }
-                    addDayToCalendar(i, classes.join(' '), date);
-                }
+            calendarConfigs.forEach(config => {
+                const calendarButton = document.getElementById(config.buttonId);
+                const calendarContainer = document.querySelector(`${config.wrapperClass} ${config.containerClass}`);
+                const calendarGrid = document.querySelector(`${config.wrapperClass} .calendar-grid`);
+                const monthSelect = document.querySelector(`${config.wrapperClass} #calendar-month-select`);
+                const yearSelect = document.querySelector(`${config.wrapperClass} #calendar-year-select`);
+                const startDateInput = document.querySelector(`${config.wrapperClass} #calendar-start-date-input`);
+                const endDateInput = document.querySelector(`${config.wrapperClass} #calendar-end-date-input`);
+                const prevMonthBtn = document.querySelector(`${config.wrapperClass} .calendar-prev-month`);
+                const nextMonthBtn = document.querySelector(`${config.wrapperClass} .calendar-next-month`);
 
-                const daysRendered = firstDayIndex + lastDay.getDate();
-                const remainingDays = 7 - (daysRendered % 7);
-                if (remainingDays < 7) {
-                    for (let i = 1; i <= remainingDays; i++) {
-                        addDayToCalendar(i, 'calendar-other-month', new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, i));
-                    }
-                }
-            };
-
-            const addDayToCalendar = (dayNumber, classes, date) => {
-                const dayElement = document.createElement('div');
-                dayElement.className = `calendar-day ${classes}`;
-                dayElement.textContent = dayNumber;
-
-                if (!classes.includes('calendar-other-month')) {
-                    dayElement.addEventListener('click', e => {
-                        e.stopPropagation();
-                        if (selectionMode === 'start') {
-                            startDate = new Date(date);
-                            if (endDate && endDate < startDate) endDate = null;
-                            selectionMode = 'end';
-                            startDateInput.classList.remove('calendar-active');
-                            endDateInput.classList.add('calendar-active');
-                        } else {
-                            endDate = new Date(date);
-                            if (startDate && endDate < startDate) {
-                                [startDate, endDate] = [endDate, startDate];
-                            }
-                            selectionMode = 'start';
-                            startDateInput.classList.add('calendar-active');
-                            endDateInput.classList.remove('calendar-active');
-                        }
-                        updateInputs();
-                        renderCalendar();
+                // Validate all required elements
+                if (!calendarButton || !calendarContainer || !calendarGrid || !monthSelect || !yearSelect || !startDateInput || !endDateInput || !prevMonthBtn || !nextMonthBtn) {
+                    console.error(`Calendar elements missing for ${config.buttonId}:`, {
+                        calendarButton, calendarContainer, calendarGrid, monthSelect, yearSelect, startDateInput, endDateInput, prevMonthBtn, nextMonthBtn
                     });
+                    return;
                 }
-                calendarGrid.appendChild(dayElement);
-            };
 
-            const updateInputs = () => {
-                startDateInput.innerHTML = startDate
-                    ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-               ${startDate.getDate().toString().padStart(2, '0')}/${(startDate.getMonth() + 1).toString().padStart(2, '0')}/${startDate.getFullYear()}`
-                    : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><span>Start Date</span>`;
+                let currentDate = new Date();
+                let startDate = null;
+                let endDate = null;
+                let selectionMode = 'start';
+                let isCalendarOpen = false;
 
-                endDateInput.innerHTML = endDate
-                    ? `${endDate.getDate().toString().padStart(2, '0')}/${(endDate.getMonth() + 1).toString().padStart(2, '0')}/${endDate.getFullYear()}
-               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: auto;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`
-                    : `<span>End Date</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: auto;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`;
-            };
+                // Populate year select
+                const currentYear = new Date().getFullYear();
+                for (let year = currentYear - 5; year <= currentYear + 5; year++) {
+                    const option = document.createElement('option');
+                    option.value = year;
+                    option.textContent = year;
+                    if (year === currentYear) option.selected = true;
+                    yearSelect.appendChild(option);
+                }
 
-            startDateInput.addEventListener('click', e => {
-                e.stopPropagation();
-                selectionMode = 'start';
-                startDateInput.classList.add('calendar-active');
-                endDateInput.classList.remove('calendar-active');
-            });
+                const toggleCalendar = () => {
+                    isCalendarOpen = !isCalendarOpen;
+                    calendarContainer.style.display = isCalendarOpen ? 'block' : 'none';
+                    // Ensure the calendar is positioned below the button
+                    calendarContainer.style.position = 'absolute';
+                    calendarContainer.style.top = `${calendarButton.offsetTop + calendarButton.offsetHeight}px`;
+                    calendarContainer.style.left = `${calendarButton.offsetLeft}px`;
+                    console.log(`Toggled calendar for ${config.buttonId}: ${isCalendarOpen ? 'visible' : 'hidden'}`);
+                };
 
-            endDateInput.addEventListener('click', e => {
-                e.stopPropagation();
-                selectionMode = 'end';
-                startDateInput.classList.remove('calendar-active');
-                endDateInput.classList.add('calendar-active');
-            });
+                const updateMonthYearSelects = () => {
+                    monthSelect.value = currentDate.getMonth();
+                    yearSelect.value = currentDate.getFullYear();
+                };
 
-            calendarButton.addEventListener('click', e => {
-                e.stopPropagation();
-                toggleCalendar();
-            });
+                const renderCalendar = () => {
+                    const days = document.querySelectorAll(`${config.wrapperClass} .calendar-day`);
+                    days.forEach(el => el.remove());
 
-            calendarContainer.addEventListener('click', e => e.stopPropagation());
+                    const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+                    const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+                    let firstDayIndex = firstDay.getDay() - 1;
+                    if (firstDayIndex < 0) firstDayIndex = 6;
 
-            document.addEventListener('click', e => {
-                if (isCalendarOpen && !calendarContainer.contains(e.target) && e.target !== calendarButton) {
+                    const prevMonthLastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+                    for (let i = prevMonthLastDay - firstDayIndex + 1; i <= prevMonthLastDay; i++) {
+                        addDayToCalendar(i, 'calendar-other-month', new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, i));
+                    }
+
+                    const today = new Date();
+                    for (let i = 1; i <= lastDay.getDate(); i++) {
+                        const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
+                        const classes = [];
+                        if (today.toDateString() === date.toDateString()) classes.push('calendar-today');
+                        if (startDate && startDate.toDateString() === date.toDateString()) classes.push('calendar-selected-start');
+                        if (endDate && endDate.toDateString() === date.toDateString()) classes.push('calendar-selected-end');
+                        if (startDate && endDate && date > startDate && date < endDate) {
+                            classes.push('calendar-in-range');
+                            if (i === 1 || new Date(currentDate.getFullYear(), currentDate.getMonth(), i - 1) <= startDate) {
+                                classes.push('calendar-first-in-range');
+                            }
+                            if (i === lastDay.getDate() || new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1) >= endDate) {
+                                classes.push('calendar-last-in-range');
+                            }
+                        }
+                        addDayToCalendar(i, classes.join(' '), date);
+                    }
+
+                    const daysRendered = firstDayIndex + lastDay.getDate();
+                    const remainingDays = 7 - (daysRendered % 7);
+                    if (remainingDays < 7) {
+                        for (let i = 1; i <= remainingDays; i++) {
+                            addDayToCalendar(i, 'calendar-other-month', new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, i));
+                        }
+                    }
+                };
+
+                const addDayToCalendar = (dayNumber, classes, date) => {
+                    const dayElement = document.createElement('div');
+                    dayElement.className = `calendar-day ${classes}`;
+                    dayElement.textContent = dayNumber;
+
+                    if (!classes.includes('calendar-other-month')) {
+                        dayElement.addEventListener('click', e => {
+                            e.stopPropagation();
+                            if (selectionMode === 'start') {
+                                startDate = new Date(date);
+                                if (endDate && endDate < startDate) endDate = null;
+                                selectionMode = 'end';
+                                startDateInput.classList.remove('calendar-active');
+                                endDateInput.classList.add('calendar-active');
+                            } else {
+                                endDate = new Date(date);
+                                if (startDate && endDate < startDate) {
+                                    [startDate, endDate] = [endDate, startDate];
+                                }
+                                selectionMode = 'start';
+                                startDateInput.classList.add('calendar-active');
+                                endDateInput.classList.remove('calendar-active');
+                            }
+                            updateInputs();
+                            renderCalendar();
+                        });
+                    }
+                    calendarGrid.appendChild(dayElement);
+                };
+
+                const updateInputs = () => {
+                    startDateInput.innerHTML = startDate
+                        ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        ${startDate.getDate().toString().padStart(2, '0')}/${(startDate.getMonth() + 1).toString().padStart(2, '0')}/${startDate.getFullYear()}`
+                        : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><span>Start Date</span>`;
+
+                    endDateInput.innerHTML = endDate
+                        ? `${endDate.getDate().toString().padStart(2, '0')}/${(endDate.getMonth() + 1).toString().padStart(2, '0')}/${endDate.getFullYear()}
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: auto;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`
+                        : `<span>End Date</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: auto;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`;
+                };
+
+                startDateInput.addEventListener('click', e => {
+                    e.stopPropagation();
+                    selectionMode = 'start';
+                    startDateInput.classList.add('calendar-active');
+                    endDateInput.classList.remove('calendar-active');
+                });
+
+                endDateInput.addEventListener('click', e => {
+                    e.stopPropagation();
+                    selectionMode = 'end';
+                    startDateInput.classList.remove('calendar-active');
+                    endDateInput.classList.add('calendar-active');
+                });
+
+                calendarButton.addEventListener('click', e => {
+                    e.stopPropagation();
                     toggleCalendar();
-                }
-            });
+                });
 
-            prevMonthBtn.addEventListener('click', e => {
-                e.stopPropagation();
-                currentDate.setMonth(currentDate.getMonth() - 1);
+                calendarContainer.addEventListener('click', e => e.stopPropagation());
+
+                document.addEventListener('click', e => {
+                    if (isCalendarOpen && !calendarContainer.contains(e.target) && e.target !== calendarButton) {
+                        toggleCalendar();
+                    }
+                });
+
+                prevMonthBtn.addEventListener('click', e => {
+                    e.stopPropagation();
+                    currentDate.setMonth(currentDate.getMonth() - 1);
+                    updateMonthYearSelects();
+                    renderCalendar();
+                });
+
+                nextMonthBtn.addEventListener('click', e => {
+                    e.stopPropagation();
+                    currentDate.setMonth(currentDate.getMonth() + 1);
+                    updateMonthYearSelects();
+                    renderCalendar();
+                });
+
+                monthSelect.addEventListener('change', () => {
+                    currentDate.setMonth(parseInt(monthSelect.value));
+                    renderCalendar();
+                });
+
+                yearSelect.addEventListener('change', () => {
+                    currentDate.setFullYear(parseInt(yearSelect.value));
+                    renderCalendar();
+                });
+
                 updateMonthYearSelects();
                 renderCalendar();
             });
-
-            nextMonthBtn.addEventListener('click', e => {
-                e.stopPropagation();
-                currentDate.setMonth(currentDate.getMonth() + 1);
-                updateMonthYearSelects();
-                renderCalendar();
-            });
-
-            monthSelect.addEventListener('change', () => {
-                currentDate.setMonth(parseInt(monthSelect.value));
-                renderCalendar();
-            });
-
-            yearSelect.addEventListener('change', () => {
-                currentDate.setFullYear(parseInt(yearSelect.value));
-                renderCalendar();
-            });
-
-            updateMonthYearSelects();
-            renderCalendar();
         };
 
         // Referral Modal
@@ -2542,6 +2635,59 @@
                 return months[parseInt(monthNumber, 10) - 1];  // Adjust for 1-based index
             }
         }
+
+        const initializePostgradDropdowns = () => {
+    const postgradButtons = $$('.postgrad-buttongroups');
+    
+    postgradButtons.forEach(button => {
+        const toggleButton = $('.postgrad-buttongroups-insideshow', button);
+        const dropdownContent = $('.dropdown-content-postgrad', button);
+        const icon = $('.fa-chevron-down', toggleButton);
+        
+        if (!toggleButton || !dropdownContent || !icon) {
+            console.error('Missing elements for postgrad dropdown:', { toggleButton, dropdownContent, icon });
+            return;
+        }
+
+        const toggleDropdown = (e) => {
+            e.stopPropagation();
+            dropdownContent.classList.toggle('show');
+            icon.classList.toggle('rotate-icon');
+            console.log(`Dropdown ${dropdownContent.classList.contains('show') ? 'opened' : 'closed'} for`, button.id);
+        };
+
+        const closeDropdown = () => {
+            dropdownContent.classList.remove('show');
+            icon.classList.remove('rotate-icon');
+        };
+
+        $$('.dropdown-content-postgrad a', button).forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const degreeType = option.textContent.trim();
+                toggleButton.innerHTML = `${degreeType} <i class="fa-solid fa-chevron-down"></i>`;
+                
+                if (button.id === 'postgrad-ageratio') {
+                    loadAgeRatioChart(degreeType);
+                }
+                
+                closeDropdown();
+                console.log(`Selected degree type: ${degreeType} for`, button.id);
+            });
+        });
+
+        toggleButton.addEventListener('click', toggleDropdown);
+
+        document.addEventListener('click', (e) => {
+            if (!button.contains(e.target) && dropdownContent.classList.contains('show')) {
+                closeDropdown();
+                console.log('Closed dropdown due to outside click for', button.id);
+            }
+        });
+    });
+};
 
 
 

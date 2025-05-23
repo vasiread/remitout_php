@@ -9,6 +9,24 @@
     <link rel="stylesheet" href="assets/css/adminindex.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <style>
+        /* Ensure the active class takes precedence over hidden */
+        .individual-bankmessage-input.active {
+            display: flex !important;
+        }
+
+        .individual-bankmessage-input.hidden {
+            display: none;
+        }
+
+        .nbfc-individual-bankmessage-input-message.active {
+            display: flex !important;
+        }
+
+        .nbfc-individual-bankmessage-input-message.hidden {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -125,6 +143,20 @@
                 }
             }
 
+            // Validate and normalize date
+            function getValidDate(dateStr) {
+                if (!dateStr) {
+                    console.warn('Missing date, using current date as fallback');
+                    return new Date();
+                }
+                const date = new Date(dateStr);
+                if (isNaN(date.getTime())) {
+                    console.warn(`Invalid date: ${dateStr}, using current date as fallback`);
+                    return new Date();
+                }
+                return date;
+            }
+
             // Fetch student data
             function fetchStudentData() {
                 fetch('/student-chat-members', {
@@ -139,9 +171,12 @@
                             console.log("Student data retrieved successfully!", data);
                             students = data.data.map(student => ({
                                 ...student,
-                                created_at: student.created_at ? new Date(student.created_at).toISOString() : new Date().toISOString()
+                                created_at: getValidDate(student.created_at).toISOString()
                             }));
-                            console.log("Student created_at values:", students.map(s => s.created_at));
+                            console.log("Student created_at values:", students.map(s => ({
+                                name: s.name,
+                                created_at: s.created_at
+                            })));
                             initializeStudentChat(students);
                             updateStudentCount();
                         } else {
@@ -167,9 +202,12 @@
                             console.log("NBFC data retrieved successfully!", data);
                             nbfcs = data.data.map(nbfc => ({
                                 ...nbfc,
-                                created_at: nbfc.created_at ? new Date(nbfc.created_at).toISOString() : new Date().toISOString()
+                                created_at: getValidDate(nbfc.created_at).toISOString()
                             }));
-                            console.log("NBFC created_at values:", nbfcs.map(n => n.created_at));
+                            console.log("NBFC created_at values:", nbfcs.map(n => ({
+                                nbfc_name: n.nbfc_name,
+                                created_at: n.created_at
+                            })));
                             initializeNbfcChat(nbfcs);
                             updateNbfcCount();
                         } else {
@@ -180,7 +218,6 @@
                         console.error("Fetch NBFC error:", error);
                     });
             }
-
 
             function initializeStudentChat(data) {
                 const container = document.querySelector('#admin-student-details-container');
@@ -239,36 +276,52 @@
                         messageButton.addEventListener('click', (e) => {
                             e.preventDefault();
 
-                            // 🔒 Close all other open input sections
-                            document.querySelectorAll(".individual-bankmessage-input.active").forEach(input => {
-                                input.classList.remove("active");
-                                input.classList.add("hidden");
+                            // Check current state
+                            const isChatOpen = !messagesWrapper.classList.contains('hidden');
+
+                            // Close all other open chats
+                            document.querySelectorAll('.indivudalloanstatus-cards').forEach(otherCard => {
+                                const otherChatId = otherCard.querySelector('.messages-wrapper')?.getAttribute('data-chat-id');
+                                if (otherChatId && otherChatId !== chatId) {
+                                    const otherMessagesWrapper = otherCard.querySelector(`#admin-student-messages-${otherChatId}`);
+                                    const otherInputSection = otherCard.querySelector(`#admin-student-input-${otherChatId}`);
+                                    const otherClearContainer = otherCard.querySelector(`#admin-student-clear-container-${otherChatId}`);
+                                    const otherButton = otherCard.querySelector(`#admin-student-button-${otherChatId}`);
+                                    if (otherMessagesWrapper) {
+                                        otherMessagesWrapper.classList.add('hidden');
+                                        otherInputSection.classList.add('hidden');
+                                        otherInputSection.classList.remove('active');
+                                        otherClearContainer.style.display = 'none';
+                                        otherButton.textContent = 'Message';
+                                    }
+                                }
                             });
 
-                            // 🔒 Hide all other message wrappers
-                            document.querySelectorAll(".messages-wrapper").forEach(wrapper => {
-                                wrapper.classList.add("hidden");
-                            });
-
-                            // 🔒 Hide all other clear buttons
-                            document.querySelectorAll(".clear-button").forEach(btn => {
-                                btn.classList.add("hidden");
-                            });
-
-                            // ✅ Toggle visibility of this chat’s input, message area, and clear button
-                            inputSection.classList.toggle('hidden');
-                            inputSection.classList.toggle('active');
-                            messagesWrapper.classList.toggle('hidden');
-                            clearContainer.classList.toggle('hidden');
-
-                            // 🔄 Change button text based on visibility
-                            messageButton.textContent = messagesWrapper.classList.contains('hidden') ? 'Message' : 'Close';
-
-                            // 💬 Load messages into the chat box
-                            displayMessages(chatId, messagesWrapper, student.unique_id);
+                            // Toggle the current chat
+                            if (isChatOpen) {
+                                // Close the chat
+                                messagesWrapper.classList.add('hidden');
+                                inputSection.classList.add('hidden');
+                                inputSection.classList.remove('active');
+                                clearContainer.style.display = 'none';
+                                messageButton.textContent = 'Message';
+                                card.style.height = 'fit-content';
+                            } else {
+                                // Open the chat
+                                messagesWrapper.classList.remove('hidden');
+                                inputSection.classList.remove('hidden');
+                                inputSection.classList.add('active');
+                                clearContainer.style.display = 'flex';
+                                messageButton.textContent = 'Close';
+                                card.style.height = 'auto';
+                                // Load messages
+                                displayMessages(chatId, messagesWrapper, student.unique_id);
+                                // Force the input section to be visible
+                                inputSection.style.display = 'flex';
+                                // Scroll to the bottom of the chat
+                                scrollToBottom(chatId, messagesWrapper);
+                            }
                         });
-
-
                     }
 
                     // Clear chat button functionality
@@ -276,13 +329,11 @@
                     if (clearButton) {
                         clearButton.addEventListener('click', (e) => {
                             e.preventDefault();
-                            clearChat(chatId, messagesWrapper, student.unique_id);
+                            clearChat(chatId, messagesWrapper, 'student', student.unique_id);
                         });
                     }
                 });
             }
-
-
 
             function initializeNbfcChat(data) {
                 const container = document.querySelector('#admin-nbfc-details-container');
@@ -310,7 +361,6 @@
                         <div class="index-student-button-group-admin">
                             <button class="index-student-message-btn triggeredbutton" id="admin-nbfc-button-${chatId}" data-button-id="admin-nbfc-button-${chatId}">Message</button>
                         </div>
-                    
                     </div>
                     <div style="display: none; justify-content: flex-end; width: 100%; margin-bottom: 10px;" id="admin-nbfc-clear-container-${chatId}">
                         <button style="background-color: rgb(240, 240, 240); border: none; border-radius: 4px; padding: 6px 20px; font-size: 12px; color: rgb(102, 102, 102); cursor: pointer; font-family: Poppins, sans-serif;" id="admin-nbfc-clear-button-${chatId}">Clear Chat</button>
@@ -350,7 +400,6 @@
                             messageButton.textContent = 'Message';
                             currentlyOpenChatId = null;
                         } else {
-
                             const allMessages = container.querySelectorAll('.messages-wrapper');
                             const allInputs = container.querySelectorAll('.nbfc-individual-bankmessage-input-message');
                             const allClears = container.querySelectorAll('[id^="admin-nbfc-clear-container-"]');
@@ -382,7 +431,7 @@
                     admin_id: admin_id,
                     sender_id: admin_id,
                     receiver_id: id,
-                    message: content, // This will now include the file URL as part of the message
+                    message: content,
                     is_read: false
                 };
 
@@ -418,9 +467,7 @@
                     });
             }
 
-
             function displayMessages(chatId, messagesWrapper, id) {
-                console.log(messagesWrapper);
                 const admin_id = 'admin001';
                 const apiUrl = id.includes("NBFC")
                     ? `/get-messages-adminnbfc/${id}/${admin_id}`
@@ -428,82 +475,80 @@
 
                 // Helper function inside displayMessages
                 function createMessageElement(msg) {
-    const messageElement = document.createElement('div');
-    messageElement.setAttribute('data-message-id', msg.id);
-    messageElement.style.cssText = `
-        display: flex;
-        justify-content: ${msg.sender_id === 'admin001' ? 'flex-end' : 'flex-start'};
-        width: 100%;
-        margin-bottom: 10px;
-    `;
+                    const messageElement = document.createElement('div');
+                    messageElement.setAttribute('data-message-id', msg.id);
+                    messageElement.style.cssText = `
+                        display: flex;
+                        justify-content: ${msg.sender_id === 'admin001' ? 'flex-end' : 'flex-start'};
+                        width: 100%;
+                        margin-bottom: 10px;
+                    `;
 
-    const messageContent = document.createElement('div');
-    messageContent.style.cssText = `
-        max-width: 80%;
-        padding: 8px 12px;
-        border-radius: 8px;
-        background-color: ${msg.sender_id === 'admin001' ? '#DCF8C6' : '#FFF'};
-        word-wrap: break-word;
-        font-family: 'Poppins', sans-serif;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    `;
+                    const messageContent = document.createElement('div');
+                    messageContent.style.cssText = `
+                        max-width: 80%;
+                        padding: 8px 12px;
+                        border-radius: 8px;
+                        background-color: ${msg.sender_id === 'admin001' ? '#DCF8C6' : '#FFF'};
+                        word-wrap: break-word;
+                        font-family: 'Poppins', sans-serif;
+                        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                    `;
 
-    // Improved file detection using URL parsing
-    let isFileUrl = false;
-    try {
-        const url = new URL(msg.message, window.location.origin);
-        const fileExtensions = ['pdf', 'doc', 'docx', 'txt'];
-        const path = url.pathname.toLowerCase();
-        isFileUrl = fileExtensions.some(ext => path.endsWith(`.${ext}`));
-    } catch (e) {
-        isFileUrl = false;
-    }
+                    // Improved file detection using URL parsing
+                    let isFileUrl = false;
+                    try {
+                        const url = new URL(msg.message, window.location.origin);
+                        const fileExtensions = ['pdf', 'doc', 'docx', 'txt'];
+                        const path = url.pathname.toLowerCase();
+                        isFileUrl = fileExtensions.some(ext => path.endsWith(`.${ext}`));
+                    } catch (e) {
+                        isFileUrl = false;
+                    }
 
-    if (isFileUrl) {
-        const fileName = msg.message.split('/').pop().split('?')[0];
+                    if (isFileUrl) {
+                        const fileName = msg.message.split('/').pop().split('?')[0];
 
-        const fileLink = document.createElement('a');
-        fileLink.href = msg.message;
-        fileLink.target = "_blank";
-        fileLink.style.cssText = `
-            text-decoration: none;
-            color: #333;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        `;
-        fileLink.innerHTML = `<i class="fa-solid fa-file"></i> <span>${fileName}</span>`;
+                        const fileLink = document.createElement('a');
+                        fileLink.href = msg.message;
+                        fileLink.target = "_blank";
+                        fileLink.style.cssText = `
+                            text-decoration: none;
+                            color: #333;
+                            display: flex;
+                            align-items: center;
+                            gap: 5px;
+                        `;
+                        fileLink.innerHTML = `<i class="fa-solid fa-file"></i> <span>${fileName}</span>`;
 
-        const eyeIcon = document.createElement('a');
-        eyeIcon.href = msg.message;
-        eyeIcon.target = '_blank';
-        eyeIcon.style.cssText = `
-            margin-left: 10px;
-            font-size: 16px;
-            color: #007bff;
-            cursor: pointer;
-        `;
-        eyeIcon.innerHTML = `<i class="fa-solid fa-eye"></i>`;
+                        const eyeIcon = document.createElement('a');
+                        eyeIcon.href = msg.message;
+                        eyeIcon.target = '_blank';
+                        eyeIcon.style.cssText = `
+                            margin-left: 10px;
+                            font-size: 16px;
+                            color: #007bff;
+                            cursor: pointer;
+                        `;
+                        eyeIcon.innerHTML = `<i class="fa-solid fa-eye"></i>`;
 
-        messageContent.appendChild(fileLink);
-        messageContent.appendChild(eyeIcon);
-    } else {
-        messageContent.textContent = msg.message;
-    }
+                        messageContent.appendChild(fileLink);
+                        messageContent.appendChild(eyeIcon);
+                    } else {
+                        messageContent.textContent = msg.message;
+                    }
 
-    messageElement.appendChild(messageContent);
-    return messageElement;
-}
-
+                    messageElement.appendChild(messageContent);
+                    return messageElement;
+                }
 
                 fetch(apiUrl)
                     .then(response => {
                         if (!response.ok) {
                             if (response.status >= 500) throw new Error('Server error');
-                            // If 4xx (like 404), assume no conversation exists yet
                             return { messages: [] };
                         }
                         return response.json();
@@ -543,8 +588,7 @@
                 }
             }
 
-
-            function clearChat(chatId, parentContainer, type) {
+            function clearChat(chatId, parentContainer, type, id) {
                 const messagesWrapper = parentContainer.querySelector(`#admin-${type}-messages-${chatId}`);
                 messagesWrapper.innerHTML = '';
                 adminChatMessages[chatId] = [];
@@ -552,13 +596,13 @@
                 saveMessagesToStorage();
                 const confirmationMsg = document.createElement('div');
                 confirmationMsg.style.cssText = `
-                width: 100%;
-                text-align: center;
-                padding: 10px;
-                color: #666;
-                font-style: italic;
-                font-size: 12px;
-            `;
+                    width: 100%;
+                    text-align: center;
+                    padding: 10px;
+                    color: #666;
+                    font-style: italic;
+                    font-size: 12px;
+                `;
                 confirmationMsg.textContent = 'Chat history cleared';
                 messagesWrapper.appendChild(confirmationMsg);
                 setTimeout(() => {
@@ -580,29 +624,29 @@
                 picker.classList.add('emoji-picker');
                 picker.setAttribute('data-chat-id', chatId);
                 picker.style.cssText = `
-                position: absolute;
-                bottom: 100%;
-                right: 0;
-                background: white;
-                border: 1px solid #ddd;
-                border-radius: 5px;
-                padding: 5px;
-                display: flex;
-                flex-wrap: wrap;
-                gap: 5px;
-                z-index: 1000;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            `;
+                    position: absolute;
+                    bottom: 100%;
+                    right: 0;
+                    background: white;
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
+                    padding: 5px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 5px;
+                    z-index: 1000;
+                    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                `;
                 emojis.forEach(emoji => {
                     const button = document.createElement('button');
                     button.textContent = emoji;
                     button.style.cssText = `
-                    border: none;
-                    background: none;
-                    font-size: 20px;
-                    cursor: pointer;
-                    padding: 5px;
-                `;
+                        border: none;
+                        background: none;
+                        font-size: 20px;
+                        cursor: pointer;
+                        padding: 5px;
+                    `;
                     button.onclick = (e) => {
                         e.stopPropagation();
                         messageInput.value += emoji;
@@ -621,8 +665,7 @@
             }
 
             // Handle file upload
-            function handleFileUpload(chatId, parentContainer, type,id) {
-                console.log(id)
+            function handleFileUpload(chatId, parentContainer, type, id) {
                 const fileInput = document.createElement('input');
                 fileInput.type = 'file';
                 fileInput.accept = '.pdf,.doc,.docx,.txt';
@@ -633,20 +676,14 @@
                     if (file) {
                         const formData = new FormData();
                         formData.append('file', file);
-                        formData.append('chatId', chatId); // send chatId for context
+                        formData.append('chatId', chatId);
 
-                        // Retrieve CSRF token from the meta tag
-                        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-                        // Send to backend for AWS S3 upload
                         fetch('/upload-documents-chat', {
                             method: 'POST',
                             headers: {
                                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                             },
-
-                            body: formData
-
+                            body: FormData
                         })
                             .then(res => res.json())
                             .then(data => {
@@ -671,54 +708,54 @@
                                     const messageElement = document.createElement('div');
                                     messageElement.setAttribute('data-file-id', fileId);
                                     messageElement.style.cssText = `
-                        display: flex;
-                        justify-content: flex-end;
-                        width: 100%;
-                        margin-bottom: 10px;
-                    `;
+                                        display: flex;
+                                        justify-content: flex-end;
+                                        width: 100%;
+                                        margin-bottom: 10px;
+                                    `;
 
                                     const fileContent = document.createElement('div');
                                     fileContent.style.cssText = `
-                        max-width: 80%;
-                        padding: 8px 12px;
-                        border-radius: 8px;
-                        display: flex;
-                        align-items: center;
-                        gap: 8px;
-                        position: relative;
-                    `;
+                                        max-width: 80%;
+                                        padding: 8px 12px;
+                                        border-radius: 8px;
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 8px;
+                                        position: relative;
+                                    `;
 
                                     const downloadLink = document.createElement('a');
-                                    downloadLink.href = data.fileUrl; // from backend
+                                    downloadLink.href = data.fileUrl;
                                     downloadLink.target = '_blank';
                                     downloadLink.style.cssText = `
-                        display: flex;
-                        align-items: center;
-                        gap: 5px;
-                        color: #666;
-                        text-decoration: none;
-                    `;
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 5px;
+                                        color: #666;
+                                        text-decoration: none;
+                                    `;
                                     downloadLink.innerHTML = `
-                        <i class="fa-solid fa-file"></i>
-                        <span>${fileName} (${fileSize} MB)</span>
-                    `;
+                                        <i class="fa-solid fa-file"></i>
+                                        <span>${fileName} (${fileSize} MB)</span>
+                                    `;
 
                                     const removeButton = document.createElement('button');
                                     removeButton.style.cssText = `
-                        background: none;
-                        border: none;
-                        cursor: pointer;
-                        font-size: 18px;
-                        padding: 0;
-                        margin-left: 10px;
-                        display: flex;
-                        justify-content: flex-end;
-                    `;
+                                        background: none;
+                                        border: none;
+                                        cursor: pointer;
+                                        font-size: 18px;
+                                        padding: 0;
+                                        margin-left: 10px;
+                                        display: flex;
+                                        justify-content: flex-end;
+                                    `;
                                     removeButton.innerHTML = `
-                        <svg width="16" height="16" fill="black" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12.146 3.854a.5.5 0 0 0-.708 0L8 7.293 4.854 4.146a.5.5 0 1 0-.708.708L7.293 8l-3.147 3.146a.5.5 0 0 0 .708.708L8 8.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 8l3.146-3.146a.5.5 0 0 0 0-.708z"/>
-                        </svg>
-                    `;
+                                        <svg width="16" height="16" fill="black" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12.146 3.854a.5.5 0 0 0-.708 0L8 7.293 4.854 4.146a.5.5 0 1 0-.708.708L7.293 8l-3.147 3.146a.5.5 0 0 0 .708.708L8 8.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 8l3.146-3.146a.5.5 0 0 0 0-.708z"/>
+                                        </svg>
+                                    `;
                                     removeButton.setAttribute('id', `admin-${type}-remove-file-${fileId}`);
                                     removeButton.addEventListener('click', (e) => {
                                         e.preventDefault();
@@ -735,12 +772,10 @@
                                     messagesWrapper.appendChild(messageElement);
                                     scrollToBottom(messagesWrapper);
 
-                                    // Now, send the file URL as a message to the chat
+                                    // Send the file URL as a message to the chat
                                     const messageContent = `${data.fileUrl}`;
                                     sendMessage(chatId, messageContent, parentContainer, type, id);
-                                    alert(id)
                                     displayMessages(chatId, messagesWrapper, id);
-
                                 } else {
                                     alert('File upload failed.');
                                 }
@@ -756,8 +791,6 @@
                 fileInput.click();
                 document.body.removeChild(fileInput);
             }
-
-
 
             // Search functionality for Students
             function initializeStudentSearch() {
@@ -820,30 +853,33 @@
                     if (!option) return;
                     const sortType = option.getAttribute('data-sort');
                     console.log(`Sorting students by: ${sortType}`);
+
                     const sortedStudents = [...students].sort((a, b) => {
                         const nameA = a.name.toLowerCase();
                         const nameB = b.name.toLowerCase();
-                        const dateA = a.created_at ? new Date(a.created_at).getTime() : new Date().getTime();
-                        const dateB = b.created_at ? new Date(b.created_at).getTime() : new Date().getTime();
-                        console.log("--------TIME---------")
-                        console.log(a.created_at)
-                        
+                        const dateA = getValidDate(a.created_at).getTime();
+                        const dateB = getValidDate(b.created_at).getTime();
+
+                        console.log(`Comparing student: ${a.name} (${a.created_at}, ${dateA}) vs ${b.name} (${b.created_at}, ${dateB})`);
+
                         switch (sortType) {
                             case 'az':
                                 return nameA.localeCompare(nameB);
                             case 'za':
                                 return nameB.localeCompare(nameA);
                             case 'newest':
-                                console.log(`Comparing dates: ${a.created_at} (${dateA}) vs ${b.created_at} (${dateB})`);
                                 return dateB - dateA; // Newest first
                             case 'oldest':
-                                console.log(`Comparing dates: ${a.created_at} (${dateA}) vs ${b.created_at} (${dateB})`);
                                 return dateA - dateB; // Oldest first
                             default:
                                 return 0;
                         }
                     });
-                    console.log("Sorted students:", sortedStudents.map(s => ({ name: s.name, created_at: s.created_at })));
+
+                    console.log("Sorted students:", sortedStudents.map(s => ({
+                        name: s.name,
+                        created_at: s.created_at
+                    })));
                     students = sortedStudents;
                     initializeStudentChat(students);
                     studentSortDropdown.classList.remove('active');
@@ -874,30 +910,33 @@
                     if (!option) return;
                     const sortType = option.getAttribute('data-sort');
                     console.log(`Sorting NBFCs by: ${sortType}`);
+
                     const sortedNbfcs = [...nbfcs].sort((a, b) => {
                         const nameA = a.nbfc_name.toLowerCase();
                         const nameB = b.nbfc_name.toLowerCase();
-                        const dateA = a.created_at ? new Date(a.created_at).getTime() : new Date().getTime();
-                        const dateB = b.created_at ? new Date(b.created_at).getTime() : new Date().getTime();
-                        console.log("Nbfctime-----------")
-                        console.log(a.created_at);
-                        console.log(b.created_at)
+                        const dateA = getValidDate(a.created_at).getTime();
+                        const dateB = getValidDate(b.created_at).getTime();
+
+                        console.log(`Comparing NBFC: ${a.nbfc_name} (${a.created_at}, ${dateA}) vs ${b.nbfc_name} (${b.created_at}, ${dateB})`);
+
                         switch (sortType) {
                             case 'az':
                                 return nameA.localeCompare(nameB);
                             case 'za':
                                 return nameB.localeCompare(nameA);
                             case 'newest':
-                                console.log(`Comparing dates: ${a.created_at} (${dateA}) vs ${b.created_at} (${dateB})`);
                                 return dateB - dateA; // Newest first
                             case 'oldest':
-                                console.log(`Comparing dates: ${a.created_at} (${dateA}) vs ${b.created_at} (${dateB})`);
                                 return dateA - dateB; // Oldest first
                             default:
                                 return 0;
                         }
                     });
-                    console.log("Sorted NBFCs:", sortedNbfcs.map(n => ({ nbfc_name: n.nbfc_name, created_at: n.created_at })));
+
+                    console.log("Sorted NBFCs:", sortedNbfcs.map(n => ({
+                        nbfc_name: n.nbfc_name,
+                        created_at: n.created_at
+                    })));
                     nbfcs = sortedNbfcs;
                     initializeNbfcChat(nbfcs);
                     nbfcSortDropdown.classList.remove('active');
@@ -924,7 +963,7 @@
                 });
             });
 
-            // Event delegation for dynamic buttons
+            // Event delegation for dynamic buttons (excluding triggeredbutton for students)
             document.addEventListener('click', (e) => {
                 const target = e.target;
                 const parentContainer = target.closest('.indivudalloanstatus-cards, .index-student-message-container');
@@ -935,7 +974,8 @@
                 const chatId = parentContainer.querySelector(`.${isStudent ? 'individual-bankmessage-input' : 'nbfc-individual-bankmessage-input-message'}`).getAttribute('data-chat-id');
                 const id = parentContainer.querySelector(`.${isStudent ? 'messageinputnbfcids' : 'student-ids'}`).textContent;
 
-                if (target.classList.contains('triggeredbutton')) {
+                // Only handle triggeredbutton for NBFC chats
+                if (target.classList.contains('triggeredbutton') && !isStudent) {
                     const messagesWrapper = parentContainer.querySelector(`#admin-${type}-messages-${chatId}`);
                     const chatContainer = parentContainer.querySelector(`#admin-${type}-input-${chatId}`);
                     const clearButtonContainer = parentContainer.querySelector(`#admin-${type}-clear-container-${chatId}`);
@@ -945,7 +985,6 @@
                         clearButtonContainer.style.display = 'flex';
                         parentContainer.style.height = 'auto';
                         target.textContent = 'Close';
-
                         scrollToBottom(messagesWrapper);
                     } else {
                         messagesWrapper.style.display = 'none';
@@ -962,7 +1001,7 @@
                 }
 
                 if (target.id === `admin-${type}-clear-button-${chatId}`) {
-                    clearChat(chatId, parentContainer, type);
+                    clearChat(chatId, parentContainer, type, id);
                 }
 
                 if (target.id === `admin-${type}-smile-${chatId}`) {
@@ -972,7 +1011,7 @@
                 }
 
                 if (target.id === `admin-${type}-paperclip-${chatId}`) {
-                    handleFileUpload(chatId, parentContainer, type,id);
+                    handleFileUpload(chatId, parentContainer, type, id);
                 }
             });
 
