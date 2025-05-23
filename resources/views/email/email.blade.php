@@ -1,24 +1,12 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Your Documents</title>
 </head>
-
 <body>
-    <p>Hi, Sharing profile and documents of</p>
-    <br>
-    <p>Case No: <span>343l34JSIELSI</span> </p>
-    <p> Unique ID: <span>{{$userId}}</span>
-    </p>
-
-    <ul>
-         @foreach($filePaths as $file)
-            <li>{{ basename($file) }}</li>
-            
-        @endforeach
-    </ul>
-
+    <p>Hi {{ $name }},</p>
+    <p>Your documents are ready. Click the link below to download them:</p>
+    <p><a href="{{ $zipUrl }}" target="_blank">Download Documents</a></p>
+    <p>Note: This link will expire in 2 hours.</p>
 </body>
-
 </html>

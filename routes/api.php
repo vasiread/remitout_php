@@ -14,6 +14,7 @@ use App\Http\Controllers\SidebarHandlingController;
 use App\Http\Controllers\StudentCounsellorController;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\StudentDetailsController;
+use App\Http\Controllers\TermsController;
 use App\Http\Controllers\TrackController;
 use App\Models\student_admin_application;
 use App\Models\StudentApplicationField;
@@ -187,3 +188,4 @@ Route::get('/user-fields/{uniqueId}', [Admincontroller::class, 'getUserDynamicFi
 
 Route::post('/update-courseinfo', [StudentDetailsController::class, 'updateCourseInfo']);
 Route::post('/update-review-status', [NbfcController::class, 'updateReviewStatus']);
+Route::get('/video-url', [TermsController::class, 'getFirstVideoFromS3']);

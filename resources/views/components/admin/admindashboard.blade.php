@@ -61,14 +61,16 @@
         <div class="referral-triggered-view hidden" id="referralModal">
             <div class="referral-triggered-view-headersection">
                 <h3>Generate Referral Link</h3>
-                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="Close Icon" class="close-icon" id="closeModal">
+                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="Close Icon" class="close-icon"
+                    id="closeModal">
             </div>
             <div class="referral-triggered-view-content">
                 <input type="text" id="referralLink" placeholder="Copy Link here">
             </div>
             <div class="referral-triggered-view-footer" id="modalFooter">
                 <button id="cancelBtn">
-                    <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="Cancel Icon" class="cancel-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="Cancel Icon"
+                        class="cancel-icon">
                     Cancel
                 </button>
                 <button id="generateBtn">Generate</button>
@@ -104,7 +106,7 @@
                     <div id="postgrad-buttongroups-insideshow-id">
                         Graduate <i class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div class="dropdown-content-postgrad">
+                    <div class="dropdown-content-postgrad" id="postgrad-overallprogress">
                         <a href="#">Post Graduate</a>
                         <a href="#">Under Graduate</a>
                         <a href="#">Others</a>
@@ -298,76 +300,76 @@
                         <button id="calender-reportsregister">
                             Calendar <img src="assets/images/Icons/calendar_month.png" alt="">
                         </button>
-                    <div class="calendar-container" id="calender-reportsregister-report">
-                        <div class="calendar-input-container">
-                            <div class="calendar-date-input calendar-active" id="calendar-start-date-input">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                                </svg>
-                                <span>Start Date</span>
+                        <div class="calendar-container" id="calender-reportsregister-report">
+                            <div class="calendar-input-container">
+                                <div class="calendar-date-input calendar-active" id="calendar-start-date-input">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                                    </svg>
+                                    <span>Start Date</span>
+                                </div>
+                                <div class="calendar-date-input" id="calendar-end-date-input">
+                                    <span>End Date</span>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        style="margin-left: auto;">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                                    </svg>
+                                </div>
                             </div>
-                            <div class="calendar-date-input" id="calendar-end-date-input">
-                                <span>End Date</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                    style="margin-left: auto;">
-                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                                </svg>
+
+                            <div class="calendar-header">
+                                <button class="calendar-nav-btn calendar-prev-month">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="15 18 9 12 15 6"></polyline>
+                                    </svg>
+                                </button>
+                                <div class="calendar-month-year-selector">
+                                    <select id="calendar-month-select">
+                                        <option value="0">January</option>
+                                        <option value="1">February</option>
+                                        <option value="2">March</option>
+                                        <option value="3">April</option>
+                                        <option value="4">May</option>
+                                        <option value="5">June</option>
+                                        <option value="6">July</option>
+                                        <option value="7">August</option>
+                                        <option value="8">September</option>
+                                        <option value="9">October</option>
+                                        <option value="10">November</option>
+                                        <option value="11">December</option>
+                                    </select>
+                                    <select id="calendar-year-select">
+                                        <!-- Years will be populated by JavaScript -->
+                                    </select>
+                                </div>
+                                <button class="calendar-nav-btn calendar-next-month">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="9 18 15 12 9 6"></polyline>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div class="calendar-grid">
+                                <div class="calendar-weekday">Mo</div>
+                                <div class="calendar-weekday">Tu</div>
+                                <div class="calendar-weekday">We</div>
+                                <div class="calendar-weekday">Th</div>
+                                <div class="calendar-weekday">Fr</div>
+                                <div class="calendar-weekday">Sa</div>
+                                <div class="calendar-weekday">Su</div>
                             </div>
                         </div>
 
-                        <div class="calendar-header">
-                            <button class="calendar-nav-btn calendar-prev-month">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="15 18 9 12 15 6"></polyline>
-                                </svg>
-                            </button>
-                            <div class="calendar-month-year-selector">
-                                <select id="calendar-month-select">
-                                    <option value="0">January</option>
-                                    <option value="1">February</option>
-                                    <option value="2">March</option>
-                                    <option value="3">April</option>
-                                    <option value="4">May</option>
-                                    <option value="5">June</option>
-                                    <option value="6">July</option>
-                                    <option value="7">August</option>
-                                    <option value="8">September</option>
-                                    <option value="9">October</option>
-                                    <option value="10">November</option>
-                                    <option value="11">December</option>
-                                </select>
-                                <select id="calendar-year-select">
-                                    <!-- Years will be populated by JavaScript -->
-                                </select>
-                            </div>
-                            <button class="calendar-nav-btn calendar-next-month">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="9 18 15 12 9 6"></polyline>
-                                </svg>
-                            </button>
-                        </div>
-
-                        <div class="calendar-grid">
-                            <div class="calendar-weekday">Mo</div>
-                            <div class="calendar-weekday">Tu</div>
-                            <div class="calendar-weekday">We</div>
-                            <div class="calendar-weekday">Th</div>
-                            <div class="calendar-weekday">Fr</div>
-                            <div class="calendar-weekday">Sa</div>
-                            <div class="calendar-weekday">Su</div>
-                        </div>
-                    </div>
-                       
                     </div>
                     <div class="reports-registeration-graph">
                         <div id="chart_div" style="width: 100%; height: 160px;"></div>
@@ -411,7 +413,7 @@
                             <div id="postgrad-buttongroups-insideshow-age-ratio-id">
                                 Graduate <i class="fa-solid fa-chevron-down"></i>
                             </div>
-                            <div class="dropdown-content-postgrad">
+                            <div class="dropdown-content-postgrad" id="postgrad-ageratioprogress">
                                 <a href="#">Post Graduate</a>
                                 <a href="#">Under Graduate</a>
                                 <a href="#">Others</a>
@@ -422,12 +424,12 @@
                         <canvas id="ageratio-donutRegistrationChart"></canvas>
                         <div class="ageratio-donutgraphinfos">
                             @php
-                                $registrationSourceAnalysis = [
-                                    ['color' => 'rgba(111, 37, 206, 1)', 'studentRangeValue' => '16 - 20'],
-                                    ['color' => 'rgba(167, 121, 224, 1)', 'studentRangeValue' => '21 - 25'],
-                                    ['color' => 'rgba(203, 176, 237, 1)', 'studentRangeValue' => '26 - 30'],
-                                    ['color' => 'rgba(226, 211, 245, 1)', 'studentRangeValue' => '30 - 40'],
-                                ];
+$registrationSourceAnalysis = [
+    ['color' => 'rgba(111, 37, 206, 1)', 'studentRangeValue' => '16 - 20'],
+    ['color' => 'rgba(167, 121, 224, 1)', 'studentRangeValue' => '21 - 25'],
+    ['color' => 'rgba(203, 176, 237, 1)', 'studentRangeValue' => '26 - 30'],
+    ['color' => 'rgba(226, 211, 245, 1)', 'studentRangeValue' => '30 - 40'],
+];
                             @endphp
 
                             @foreach ($registrationSourceAnalysis as $source)
@@ -449,7 +451,7 @@
                         <div id="postgrad-buttongroups-insideshow-funnelreports-id">
                             Graduate <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="dropdown-content-postgrad">
+                        <div class="dropdown-content-postgrad" id="postgrad-funnelreportsprogress">
                             <a href="#">Post Graduate</a>
                             <a href="#">Under Graduate</a>
                             <a href="#">Others</a>
@@ -587,7 +589,7 @@
                             <h2 class="nbfc-lead-title">NBFCs: Lead Generation</h2>
                             <div class="nbfc-lead-converted-dropdown">
                                 <select id="convertedDropdown">
-                                    <option selected disabled hidden>Filter</option>
+                                    <option selected hidden>Filter</option>
                                     <option value="converted">Converted</option>
                                 </select>
                             </div>
@@ -1599,102 +1601,76 @@
 
         // NBFC Chart with API Data and Pagination
         const drawNBFCChart = () => {
-            const chartDiv = $('#nbfc-lead-chart_div');
+            const chartDiv = document.getElementById('nbfc-lead-chart_div');
             if (!chartDiv) return console.error('nbfc-lead-chart_div not found');
 
             let currentPage = 1;
             const itemsPerPage = 5;
             let fullData = [];
-            const prevBtn = $('#nbfc-lead-prev-btn');
-            const nextBtn = $('#nbfc-lead-next-btn');
-            const pageRange = $('#nbfc-lead-page-range');
-            const totalItems = $('#nbfc-lead-total-items');
 
-            // Fetch data from API
-            fetch('/nbfc-lead-gens', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                }
-            })
-                .then(response => {
-                    if (!response.ok) throw new Error('Network response was not ok');
-                    return response.json();
+            const prevBtn = document.getElementById('nbfc-lead-prev-btn');
+            const nextBtn = document.getElementById('nbfc-lead-next-btn');
+            const pageRange = document.getElementById('nbfc-lead-page-range');
+            const totalItems = document.getElementById('nbfc-lead-total-items');
+            const convertedDropdown = document.getElementById('convertedDropdown');
+
+            const fetchAndRender = () => {
+                const isConverted = convertedDropdown?.value === 'converted';
+                const query = isConverted ? '?converted=true' : '';
+
+                fetch(`/nbfc-lead-gens${query}`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
                 })
-                .then(data => {
-                    // console.log('Fetched NBFC lead generation data:', data);
-
-                    // Validate the API response structure
-                    if (!data.nbfcs || !Array.isArray(data.nbfcs) ||
-                        !data.lead_counts || !Array.isArray(data.lead_counts) ||
-                        !data.time_taken || !Array.isArray(data.time_taken) ||
-                        data.nbfcs.length !== data.lead_counts.length ||
-                        data.nbfcs.length !== data.time_taken.length) {
-                        throw new Error('Invalid API response: Mismatched or missing data arrays');
-                    }
-
-                    // Transform API data into the full dataset
-                    fullData = [['NBFC', 'No. Of Leads', 'Time Taken']];
-                    for (let i = 0; i < data.nbfcs.length; i++) {
-                        fullData.push([data.nbfcs[i], data.lead_counts[i], data.time_taken[i]]);
-                    }
-
-                    // Update total items
-                    totalItems.textContent = fullData.length - 1; // Exclude header row
-
-                    // Draw the initial chart with the first page
-                    updateChart();
-
-                    // Add event listeners for pagination
-                    prevBtn.addEventListener('click', () => {
-                        if (currentPage > 1) {
-                            currentPage--;
-                            updateChart();
+                    .then(response => {
+                        if (!response.ok) throw new Error('Network response was not ok');
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (!data.nbfcs || !Array.isArray(data.nbfcs) ||
+                            !data.lead_counts || !Array.isArray(data.lead_counts) ||
+                            !data.time_taken || !Array.isArray(data.time_taken) ||
+                            data.nbfcs.length !== data.lead_counts.length ||
+                            data.nbfcs.length !== data.time_taken.length) {
+                            throw new Error('Invalid API response');
                         }
-                    });
 
-                    nextBtn.addEventListener('click', () => {
-                        if (currentPage < Math.ceil((fullData.length - 1) / itemsPerPage)) {
-                            currentPage++;
-                            updateChart();
+                        fullData = [['NBFC', 'No. Of Leads', 'Time Taken']];
+                        for (let i = 0; i < data.nbfcs.length; i++) {
+                            fullData.push([data.nbfcs[i], data.lead_counts[i], data.time_taken[i]]);
                         }
+
+                        totalItems.textContent = fullData.length - 1;
+                        currentPage = 1;
+                        updateChart();
+                    })
+                    .catch(error => {
+                        console.error('Error fetching NBFC lead generation data:', error);
+                        fullData = [
+                            ['NBFC', 'No. Of Leads', 'Time Taken'],
+                            ['ICICI', 55, 67], ['Baroda', 65, 45], ['AXIS', 60, 80],
+                            ['SBI', 90, 50], ['Canara', 45, 48], ['HDFC', 75, 60]
+                        ];
+                        totalItems.textContent = fullData.length - 1;
+                        currentPage = 1;
+                        updateChart();
                     });
-                })
-                .catch(error => {
-                    console.error('Error fetching NBFC lead generation data:', error);
-                    // Fallback to static data if API fails
-                    fullData = [
-                        ['NBFC', 'No. Of Leads', 'Time Taken'],
-                        ['ICICI', 55, 67], ['Baroda', 65, 45], ['AXIS', 60, 80], ['SBI', 90, 50],
-                        ['Canara', 45, 48], ['HDFC', 75, 60]
-                    ];
+            };
 
-                    // console.log('Using fallback data:', fullData);
+            // Add dropdown listener
+            convertedDropdown.addEventListener('change', () => {
+                fetchAndRender();
+            });
 
-                    // Update total items
-                    totalItems.textContent = fullData.length - 1; // Exclude header row
-
-                    // Draw the chart with fallback data
-                    updateChart();
-                });
-
-            // Function to update the chart based on the current page
-            function updateChart() {
-                const startIdx = (currentPage - 1) * itemsPerPage + 1; // +1 to skip header
+            const updateChart = () => {
+                const startIdx = (currentPage - 1) * itemsPerPage + 1;
                 const endIdx = Math.min(startIdx + itemsPerPage - 1, fullData.length - 1);
                 const paginatedData = [fullData[0], ...fullData.slice(startIdx, endIdx + 1)];
 
-                // Log the paginated data for debugging
-                // console.log('Paginated chart data:', paginatedData);
-
-                // Create the data table
                 const dataTable = google.visualization.arrayToDataTable(paginatedData);
-
-                // Chart options
                 const options = {
                     width: '100%',
-                    height: 170, // Adjusted height to fit 5 items comfortably
+                    height: 170,
                     colors: ['#E6D5F5', '#6C3EE8'],
                     legend: { position: 'none' },
                     hAxis: { textStyle: { fontSize: 10 }, gridlines: { color: 'transparent' } },
@@ -1704,20 +1680,40 @@
                     chartArea: { width: '90%', height: '70%' }
                 };
 
-                // Draw the chart
                 const chart = new google.visualization.ColumnChart(chartDiv);
                 chart.draw(dataTable, options);
 
-                // Update pagination display
                 pageRange.textContent = `${startIdx} - ${endIdx}`;
-            }
+            };
+
+            // Pagination button listeners
+            prevBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    updateChart();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                const maxPage = Math.ceil((fullData.length - 1) / itemsPerPage);
+                if (currentPage < maxPage) {
+                    currentPage++;
+                    updateChart();
+                }
+            });
+
+            // Dropdown listener
+
+
+            // Initial fetch
+            fetchAndRender();
         };
+
 
         const dropdown = document.getElementById('convertedDropdown');
 
         dropdown.addEventListener('change', function () {
             if (this.value === 'converted') {
-                // Change the placeholder back to "Filter" after selection
                 this.selectedIndex = 1; // Show "Filter" again
             }
         });
@@ -1728,131 +1724,134 @@
         });
 
         // Lead Chart with API Data and Pagination
-        const initializeLeadChart = () => {
-            const ctx = $('#leadChart')?.getContext('2d');
-            if (!ctx) return console.error('leadChart canvas not found');
+       let leadChartInstance = null; // Track the current chart instance
 
-            let currentPage = 1;
-            const itemsPerPage = 5; // Set to 5 for scalability, even though we have only 2 items
-            let fullLabels = [];
-            let fullData = [];
-            const prevBtn = $('#sc-lead-prev-btn');
-            const nextBtn = $('#sc-lead-next-btn');
-            const pageRange = $('#sc-lead-page-range');
-            const totalItems = $('#sc-lead-total-items');
+   const initializeLeadChart = (converted = false) => {
+        const ctx = $('#leadChart')?.getContext('2d');
+        if (!ctx) return console.error('leadChart canvas not found');
 
-            // Fetch data from API
-            fetch('/sc-lead-gens', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                }
+        let currentPage = 1;
+        const itemsPerPage = 5;
+        let fullLabels = [];
+        let fullData = [];
+        const prevBtn = $('#sc-lead-prev-btn');
+        const nextBtn = $('#sc-lead-next-btn');
+        const pageRange = $('#sc-lead-page-range');
+        const totalItems = $('#sc-lead-total-items');
+
+        // Use different URLs based on converted value
+        const url = converted ? '/sc-lead-gens?converted=true' : '/sc-lead-gens';
+
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
             })
-                .then(response => {
-                    if (!response.ok) throw new Error('Network response was not ok');
-                    return response.json();
-                })
-                .then(data => {
-                    // console.log('Fetched Student Counsellors lead generation data:', data);
+            .then(data => {
+                if (!data.student_counsellors || !Array.isArray(data.student_counsellors) ||
+                    !data.lead_counts || !Array.isArray(data.lead_counts) ||
+                    data.student_counsellors.length !== data.lead_counts.length) {
+                    throw new Error('Invalid API response: Mismatched or missing data arrays');
+                }
 
-                    // Validate the API response structure
-                    if (!data.student_counsellors || !Array.isArray(data.student_counsellors) ||
-                        !data.lead_counts || !Array.isArray(data.lead_counts) ||
-                        data.student_counsellors.length !== data.lead_counts.length) {
-                        throw new Error('Invalid API response: Mismatched or missing data arrays');
+                fullLabels = data.student_counsellors;
+                fullData = data.lead_counts;
+                totalItems.textContent = fullLabels.length;
+                updateChart();
+
+                prevBtn.onclick = () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        updateChart();
                     }
+                };
 
-                    // Store the full dataset
-                    fullLabels = data.student_counsellors;
-                    fullData = data.lead_counts;
+                nextBtn.onclick = () => {
+                    if (currentPage < Math.ceil(fullLabels.length / itemsPerPage)) {
+                        currentPage++;
+                        updateChart();
+                    }
+                };
+            })
+            .catch(error => {
+                console.error('Error fetching lead generation data:', error);
+                fullLabels = ['Fallback1', 'Fallback2'];
+                fullData = [5, 10];
+                totalItems.textContent = fullLabels.length;
+                updateChart();
+            });
 
-                    // Update total items
-                    totalItems.textContent = fullLabels.length;
+        function updateChart() {
+            const startIdx = (currentPage - 1) * itemsPerPage;
+            const endIdx = Math.min(startIdx + itemsPerPage, fullLabels.length);
+            const paginatedLabels = fullLabels.slice(startIdx, endIdx);
+            const paginatedData = fullData.slice(startIdx, endIdx);
 
-                    // Draw the initial chart with the first page
-                    updateChart();
+            // Destroy previous chart if it exists
+            if (leadChartInstance) {
+                leadChartInstance.destroy();
+            }
 
-                    // Add event listeners for pagination
-                    prevBtn.addEventListener('click', () => {
-                        if (currentPage > 1) {
-                            currentPage--;
-                            updateChart();
-                        }
-                    });
-
-                    nextBtn.addEventListener('click', () => {
-                        if (currentPage < Math.ceil(fullLabels.length / itemsPerPage)) {
-                            currentPage++;
-                            updateChart();
-                        }
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching Student Counsellors lead generation data:', error);
-                    // Fallback to static data if API fails
-                    fullLabels = ['54635', '65783', '56374', '92874', '36057', '10847', '34015', '57610'];
-                    fullData = [5, 12, 10, 4, 18, 8, 6, 10];
-
-                    // console.log('Using fallback data:', { labels: fullLabels, data: fullData });
-
-                    // Update total items
-                    totalItems.textContent = fullLabels.length;
-
-                    // Draw the chart with fallback data
-                    updateChart();
-                });
-
-            // Function to update the chart based on the current page
-            function updateChart() {
-                const startIdx = (currentPage - 1) * itemsPerPage;
-                const endIdx = Math.min(startIdx + itemsPerPage, fullLabels.length);
-                const paginatedLabels = fullLabels.slice(startIdx, endIdx);
-                const paginatedData = fullData.slice(startIdx, endIdx);
-
-                // Log the paginated data for debugging
-                // console.log('Paginated chart data:', { labels: paginatedLabels, data: paginatedData });
-
-                // Create the chart
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: paginatedLabels,
-                        datasets: [{
-                            label: 'No. Of Leads',
-                            data: paginatedData,
-                            backgroundColor: '#d3b8f0',
-                            barThickness: 11
-                        }]
+            leadChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: paginatedLabels,
+                    datasets: [{
+                        label: 'No. Of Leads',
+                        data: paginatedData,
+                        backgroundColor: '#d3b8f0',
+                        barThickness: 11
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: true }
                     },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: { legend: { display: false }, tooltip: { enabled: true } },
-                        scales: {
-                            y: { beginAtZero: true, grid: { display: false }, ticks: { display: false } },
-                            x: { grid: { display: false }, ticks: { font: { family: 'Poppins', size: 12 }, color: '#5D5C5C' } }
+                    scales: {
+                        y: { beginAtZero: true, grid: { display: false }, ticks: { display: false } },
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                font: { family: 'Poppins', size: 12 },
+                                color: '#5D5C5C'
+                            }
                         }
                     }
-                });
+                }
+            });
 
-                // Update pagination display
-                pageRange.textContent = `${startIdx + 1} - ${endIdx}`;
-            }
-        };
+            pageRange.textContent = `${startIdx + 1} - ${endIdx}`;
+        }
+    };
 
-        //sc-lead generation dropdown
-        const scDropdown = document.getElementById('scLeadDropdown');
+    // On load (default – no ?converted param)
+    initializeLeadChart(false);
 
-        scDropdown.addEventListener('change', function () {
-            if (this.value === 'converted') {
-                this.selectedIndex = 1; // Revert to "Filter"
-            }
-        });
+    // Dropdown handler
+    const scDropdown = document.getElementById('scLeadDropdown');
 
-        scDropdown.addEventListener('focus', function () {
-            this.selectedIndex = 0;
-        });
+    scDropdown.addEventListener('change', function () {
+        const isConverted = this.value === 'converted';
+
+        initializeLeadChart(isConverted);
+
+        // Reset dropdown to "Filter"
+        this.selectedIndex = 0;
+    });
+
+    // Optional: reset to default on focus
+    scDropdown.addEventListener('focus', function () {
+        this.selectedIndex = 0;
+    });
+
 
 
         const initializeLeadSuccessChart = () => {
@@ -2109,7 +2108,7 @@
             showAllReports();
         };
 
- 
+
         // Initialize calendars for multiple buttons and containers
         const initializeCalendar = () => {
             // Define calendar configurations
@@ -2392,7 +2391,7 @@
                 updateFooterButtons(newLink);
             });
         };
-       
+
 
         // Mobile Menu Modal
         const initializeMobileMenu = () => {
@@ -2637,57 +2636,57 @@
         }
 
         const initializePostgradDropdowns = () => {
-    const postgradButtons = $$('.postgrad-buttongroups');
-    
-    postgradButtons.forEach(button => {
-        const toggleButton = $('.postgrad-buttongroups-insideshow', button);
-        const dropdownContent = $('.dropdown-content-postgrad', button);
-        const icon = $('.fa-chevron-down', toggleButton);
-        
-        if (!toggleButton || !dropdownContent || !icon) {
-            console.error('Missing elements for postgrad dropdown:', { toggleButton, dropdownContent, icon });
-            return;
-        }
+            const postgradButtons = $$('.postgrad-buttongroups');
 
-        const toggleDropdown = (e) => {
-            e.stopPropagation();
-            dropdownContent.classList.toggle('show');
-            icon.classList.toggle('rotate-icon');
-            console.log(`Dropdown ${dropdownContent.classList.contains('show') ? 'opened' : 'closed'} for`, button.id);
-        };
+            postgradButtons.forEach(button => {
+                const toggleButton = $('.postgrad-buttongroups-insideshow', button);
+                const dropdownContent = $('.dropdown-content-postgrad', button);
+                const icon = $('.fa-chevron-down', toggleButton);
 
-        const closeDropdown = () => {
-            dropdownContent.classList.remove('show');
-            icon.classList.remove('rotate-icon');
-        };
-
-        $$('.dropdown-content-postgrad a', button).forEach(option => {
-            option.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                const degreeType = option.textContent.trim();
-                toggleButton.innerHTML = `${degreeType} <i class="fa-solid fa-chevron-down"></i>`;
-                
-                if (button.id === 'postgrad-ageratio') {
-                    loadAgeRatioChart(degreeType);
+                if (!toggleButton || !dropdownContent || !icon) {
+                    console.error('Missing elements for postgrad dropdown:', { toggleButton, dropdownContent, icon });
+                    return;
                 }
-                
-                closeDropdown();
-                console.log(`Selected degree type: ${degreeType} for`, button.id);
+
+                const toggleDropdown = (e) => {
+                    e.stopPropagation();
+                    dropdownContent.classList.toggle('show');
+                    icon.classList.toggle('rotate-icon');
+                    console.log(`Dropdown ${dropdownContent.classList.contains('show') ? 'opened' : 'closed'} for`, button.id);
+                };
+
+                const closeDropdown = () => {
+                    dropdownContent.classList.remove('show');
+                    icon.classList.remove('rotate-icon');
+                };
+
+                $$('.dropdown-content-postgrad a', button).forEach(option => {
+                    option.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        const degreeType = option.textContent.trim();
+                        toggleButton.innerHTML = `${degreeType} <i class="fa-solid fa-chevron-down"></i>`;
+
+                        if (button.id === 'postgrad-ageratio') {
+                            loadAgeRatioChart(degreeType);
+                        }
+
+                        closeDropdown();
+                        console.log(`Selected degree type: ${degreeType} for`, button.id);
+                    });
+                });
+
+                toggleButton.addEventListener('click', toggleDropdown);
+
+                document.addEventListener('click', (e) => {
+                    if (!button.contains(e.target) && dropdownContent.classList.contains('show')) {
+                        closeDropdown();
+                        console.log('Closed dropdown due to outside click for', button.id);
+                    }
+                });
             });
-        });
-
-        toggleButton.addEventListener('click', toggleDropdown);
-
-        document.addEventListener('click', (e) => {
-            if (!button.contains(e.target) && dropdownContent.classList.contains('show')) {
-                closeDropdown();
-                console.log('Closed dropdown due to outside click for', button.id);
-            }
-        });
-    });
-};
+        };
 
 
 

@@ -281,9 +281,7 @@ updateSlider();
 });
 
 //smart-lending-section
-document.getElementById('loanButton').addEventListener('click', function() {
-    console.log('Loan button clicked');
-});
+ 
 
 
     </script>

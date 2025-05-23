@@ -108,21 +108,20 @@ class Admincontroller extends Controller
         }
     }
 
+
     public function nbfcLeadGens(Request $request)
     {
         try {
+            $converted = $request->input('converted', false);
+
             // Fetch all NBFCs from the nbfc table
             $nbfcRecords = Nbfc::all();
-
-            // Extract NBFC names and IDs
             $nbfcs = $nbfcRecords->pluck('nbfc_name')->toArray();
             $nbfcIds = $nbfcRecords->pluck('nbfc_id', 'nbfc_name')->toArray();
 
             $leadCounts = [];
             $timeTaken = [];
-
             foreach ($nbfcs as $nbfcName) {
-                // Get the NBFC ID for the current NBFC name
                 $nbfcId = $nbfcIds[$nbfcName] ?? null;
 
                 if (!$nbfcId) {
@@ -131,63 +130,62 @@ class Admincontroller extends Controller
                     continue;
                 }
 
+                if ($converted) {
 
-                $leadCount = Requestprogress::where('nbfc_id', $nbfcId)
-                    ->count();
-                $leadCounts[] = $leadCount;
+                    $acceptedProposals = Proposalcompletion::where('nbfc_id', $nbfcId)
+                        ->distinct('user_id')
+                        ->get();
 
-                // Step 2: Calculate the average time taken for accepted proposals in days
-                $acceptedProposals = proposalcompletion::where('nbfc_id', $nbfcId)
-                    ->where('proposal_accept', true)
-                    ->get();
 
-                $totalTimeInDays = 0;
-                $acceptedCount = $acceptedProposals->count();
+                    $acceptedUserIds = $acceptedProposals->pluck('user_id')->unique();
+                    $leadCount = $acceptedUserIds->count();
+                    $leadCounts[] = $leadCount;
 
-                // Log the number of accepted proposals for debugging
-                Log::info("NBFC: {$nbfcName}, NBFC ID: {$nbfcId}, Accepted Proposals Count: {$acceptedCount}");
+                    $totalTimeInDays = 0;
+                    $validProposals = 0;
 
-                if ($acceptedCount > 0) {
+                    foreach ($acceptedUserIds as $userId) {
+                        $proposal = $acceptedProposals->where('user_id', $userId)->first(); // pick any one for average
+                        $requestEntry = Requestprogress::where('user_id', $userId)
+                            ->where('nbfc_id', $nbfcId)
+                            ->first();
+
+                        if ($proposal && $requestEntry) {
+                            $daysDifference = $proposal->created_at->diffInDays($requestEntry->created_at);
+                            $totalTimeInDays += $daysDifference;
+                            $validProposals++;
+                        }
+                    }
+
+                    $averageTimeInDays = $validProposals > 0 ? round($totalTimeInDays / $validProposals, 2) : 0;
+                    $timeTaken[] = $averageTimeInDays;
+                } else {
+                    $leadCount = Requestprogress::where('nbfc_id', $nbfcId)->count();
+                    $leadCounts[] = $leadCount;
+
+                    $acceptedProposals = Proposalcompletion::where('nbfc_id', $nbfcId)->get();
+
+                    $totalTimeInDays = 0;
+                    $validProposals = 0;
+
                     foreach ($acceptedProposals as $proposal) {
                         $userId = $proposal->user_id;
-
-
                         $requestEntry = Requestprogress::where('user_id', $userId)
                             ->where('nbfc_id', $nbfcId)
                             ->first();
 
                         if ($requestEntry) {
-                            // Calculate the time difference in days
-                            $requestTime = $requestEntry->created_at;
-                            $proposalTime = $proposal->created_at;
-
-                            // Ensure timestamps are valid
-                            if ($requestTime && $proposalTime) {
-                                $daysDifference = $proposalTime->diffInDays($requestTime);
-                                $totalTimeInDays += $daysDifference;
-
-                                // Log the time difference for each user
-                                Log::info("NBFC: {$nbfcName}, User: {$userId}, Days Difference: {$daysDifference}, Request Time: {$requestTime},Proposal Time: {$proposalTime}");
-                            } else {
-                                Log::warning("NBFC: {$nbfcName}, User: {$userId}, Invalid timestamps - Request: {$requestTime}, Proposal:{$proposalTime}");
-                            }
-                        } else {
-                            Log::warning("NBFC: {$nbfcName}, User: {$userId}, No matching request entry found in traceprogress");
+                            $daysDifference = $proposal->created_at->diffInDays($requestEntry->created_at);
+                            $totalTimeInDays += $daysDifference;
+                            $validProposals++;
                         }
                     }
 
-                    // Calculate the average time in days
-                    $averageTimeInDays = $acceptedCount > 0 ? round($totalTimeInDays / $acceptedCount, 2) : 0;
-
-                    // Log the average time
-                    Log::info("NBFC: {$nbfcName}, Total Time (Days): {$totalTimeInDays}, Average Time (Days): {$averageTimeInDays}");
-                } else {
-                    $averageTimeInDays = 0;
-                    Log::info("NBFC: {$nbfcName}, No accepted proposals found, setting average time to 0");
+                    $averageTimeInDays = $validProposals > 0 ? round($totalTimeInDays / $validProposals, 2) : 0;
+                    $timeTaken[] = $averageTimeInDays;
                 }
-
-                $timeTaken[] = $averageTimeInDays;
             }
+
 
             return response()->json([
                 "message" => true,
@@ -204,10 +202,13 @@ class Admincontroller extends Controller
         }
     }
 
+
     public function scLeadGens(Request $request)
     {
         try {
-            // Fetch distinct referral codes from the users table (excluding null/empty values)
+            $converted = $request->input('converted', false);
+
+            // Fetch distinct referral codes from users table
             $referralCodes = User::whereNotNull('referral_code')
                 ->where('referral_code', '!=', '')
                 ->distinct()
@@ -216,9 +217,17 @@ class Admincontroller extends Controller
 
             $leadCounts = [];
 
-            // Count the number of users (leads) for each referral code
             foreach ($referralCodes as $referralCode) {
-                $leadCount = User::where('referral_code', $referralCode)->count();
+                if ($converted) {
+                    // Count distinct users who have completed proposals and match the referral code
+                    $leadCount = Proposalcompletion::whereHas('user', function ($query) use ($referralCode) {
+                        $query->where('referral_code', $referralCode);
+                    })->distinct('user_id')->count('user_id');
+                } else {
+                    // Count all users who used the referral code
+                    $leadCount = User::where('referral_code', $referralCode)->count();
+                }
+
                 $leadCounts[] = $leadCount;
             }
 
@@ -234,6 +243,8 @@ class Admincontroller extends Controller
             ], 500);
         }
     }
+
+
 
     public function reportsOnGeneration(Request $request)
     {

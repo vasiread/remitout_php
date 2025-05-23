@@ -309,17 +309,14 @@ function sendDocumenttoEmail(event) {
         ? uniqueIdElement.textContent || uniqueIdElement.innerHTML
         : null;
 
-    const emailElement = document.querySelector("#referenceEmailId p");
-    const email = emailElement
-        ? emailElement.textContent || emailElement.innerHTML
-        : null;
+   
 
     const userNameElement = document.querySelector("#referenceNameId p");
     const name = userNameElement
         ? userNameElement.textContent || userNameElement.innerHTML
         : null;
 
-    if (userId && email && name) {
+    if (userId  && name) {
         // console.log("Unique ID:", userId, "Email:", email, "Name:", name);
     } else {
         console.error("Error: Could not retrieve unique ID, email, or name.");
@@ -328,7 +325,6 @@ function sendDocumenttoEmail(event) {
 
     const sendDocumentsRequiredDetails = {
         userId: userId,
-        email: email,
         name: name,
     };
 
@@ -352,6 +348,7 @@ function sendDocumenttoEmail(event) {
         })
         .then((data) => {
             console.log("Success:", data.message);
+            alert(data.message);
 
             addUserToRequest(userId);
         })
