@@ -723,6 +723,14 @@
 
     align-items: center;
 }
+#date-picker-linegraph {
+    width: 120px;         /* Reduce width */
+    height: 28px;         /* Reduce height */
+    font-size: 12px;      /* Smaller text */
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
 
 .reports-registeration {
     padding: 13.23px 9px 11.25px 6.16px;

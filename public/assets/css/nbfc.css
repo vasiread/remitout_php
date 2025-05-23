@@ -1,9 +1,7 @@
 html,
 body {
     height: 100vh;
-
 }
-
 
 .nbfc-navbar {
     position: fixed;
@@ -20,8 +18,6 @@ body {
     z-index: 9999;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
-
-
 
 .nbfc-logo {
     display: flex;
@@ -55,14 +51,14 @@ body {
     border: 1px solid #e2e2e2;
     border-radius: 4px;
     width: 240px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     background-color: #ffffff;
     font-size: 12px;
 }
 
 .nbfc-search-input::placeholder {
     padding: 0px 10px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: normal;
     font-size: 16px;
     color: #260254;
@@ -104,7 +100,7 @@ body {
     width: 37px;
     height: 37px;
     border-radius: 50%;
-    background-color: #E98635;
+    background-color: #e98635;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -115,10 +111,8 @@ body {
 .nbfc-profile-text {
     color: #260254;
     font-weight: 500;
-    font-family: 'Poppins', sans-serif;
-
+    font-family: "Poppins", sans-serif;
 }
-
 
 .nbfc-dropdown-icon {
     display: inline-block;
@@ -128,7 +122,7 @@ body {
 }
 
 .nbfc-dropdown-icon::after {
-    content: '';
+    content: "";
     position: absolute;
     width: 8px;
     height: 8px;
@@ -174,8 +168,6 @@ body {
     left: 0;
     opacity: 1;
     visibility: visible;
-
-
 }
 
 .nbfc-mobile-overlay.active {
@@ -204,7 +196,6 @@ body {
 
     margin: 15px;
     flex-grow: 1;
-
 }
 
 .nbfc-mobile-menu-top li {
@@ -213,19 +204,17 @@ body {
     gap: 12px;
     padding: 20px 24px;
     color: rgba(38, 2, 84, 0.7);
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
 
-    border-bottom: 1px solid #E8E8E8;
+    border-bottom: 1px solid #e8e8e8;
 }
 
 .nbfc-mobile-menu-top li.active {
-    background: linear-gradient(88.18deg, #FFA048 3.11%, #FA7B15 98.46%);
-
+    background: linear-gradient(88.18deg, #ffa048 3.11%, #fa7b15 98.46%);
 }
-
 
 .nbfc-mobile-menu-bottom {
     list-style: none;
@@ -234,14 +223,11 @@ body {
     position: relative;
     margin: 0 auto;
 
-
     display: flex;
     flex-direction: column;
     gap: 20px;
     height: 202px;
     max-width: 100%;
-
-
 }
 
 .nbfc-mobile-menu-bottom li {
@@ -251,7 +237,7 @@ body {
     gap: 18px;
     padding: 20px 24px;
     color: rgba(38, 2, 84, 0.7);
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
@@ -277,7 +263,7 @@ body {
 }
 
 .nbfc-mobile-menu-top li.applications {
-    border-bottom: 1px solid #E8E8E8;
+    border-bottom: 1px solid #e8e8e8;
 }
 
 .nbfc-mobile-overlay {
@@ -328,7 +314,7 @@ body {
     border: 1px solid rgba(226, 226, 226, 1);
     outline: none;
     font-size: 14px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     padding-left: 6px;
 }
 
@@ -357,7 +343,7 @@ body {
 }
 
 .password-change-triggered-view-headersection-nbfc h3 {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: 500;
     font-size: 18px;
     line-height: clamp(11px, 4vw, 27px);
@@ -378,10 +364,11 @@ body {
     z-index: 15;
     text-align: center;
     width: 190px;
+    width: 190px;
 }
 
 .popup-notify-list-nbfc p {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 14px;
     padding: 0.4rem 0;
     border-radius: 4px;
@@ -409,6 +396,7 @@ body {
     text-decoration: underline;
     color: #0056b3;
     font-size: 12px;
+    font-size: 12px;
 }
 
 #nbfc-student-profile-details {
@@ -426,7 +414,7 @@ body {
     justify-content: space-between;
     margin-bottom: 2rem;
     padding-top: 2rem;
-    border-top: 1.2px solid rgba(194, 194, 194, 0.7)
+    border-top: 1.2px solid rgba(194, 194, 194, 0.7);
 }
 
 #nbfc-student-profile-details .myapplication-seventhcolumn h1 {
@@ -440,10 +428,10 @@ body {
     width: 100%;
 }
 
-#profilesection-nbfcapprovalcolumn .studentdashboardprofile-educationeditsection {
+#profilesection-nbfcapprovalcolumn
+    .studentdashboardprofile-educationeditsection {
     display: flex;
 }
-
 #nbfc-list-of-student-profilesections .educationeditsection-secondrow p {
     display: flex;
     width: 80%;
@@ -461,12 +449,31 @@ body {
     align-items: center;
     justify-content: flex-start;
 }
+#nbfc-list-of-student-profilesections .educationeditsection-secondrow .label {
+    flex: 0 0 140px;
+    /* fixed width for labels */
+    font-weight: 600;
+    text-align: right;
+    padding-right: 12px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
 
-#nbfc-list-of-student-profilesection .educationeditsection-secondrow .label::after {
+#nbfc-list-of-student-profilesection
+    .educationeditsection-secondrow
+    .label::after {
     content: ":";
     padding-left: 6px;
 }
 
+#nbfc-list-of-student-profilesections .educationeditsection-secondrow .value {
+    flex: 1 1 auto;
+    /* allow value to grow & wrap */
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
 #nbfc-list-of-student-profilesections .educationeditsection-secondrow .value {
     flex: 1 1 auto;
     /* allow value to grow & wrap */
@@ -486,16 +493,13 @@ body {
     box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
     border: 1px solid rgba(111, 37, 206, 1);
     background-color: rgba(255, 255, 255, 1);
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-weight: 500;
     font-size: 14px;
     line-height: 120%;
     color: rgba(38, 2, 84, 1);
-
-
 }
-
 
 .myapplication-nbfcapprovalcolumn button:first-child {
     width: 126px;
@@ -508,7 +512,7 @@ body {
     align-items: center;
     justify-content: center;
     justify-self: flex-start;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-weight: 500;
     font-size: 14px;
@@ -516,14 +520,11 @@ body {
     color: rgba(255, 255, 255, 1);
     border: none;
     cursor: pointer;
-
 }
 
 .nbfcapprovalcolumnrightaligned {
     display: flex;
     gap: 2.1rem;
-
-
 }
 
 .nbfcapprovalcolumnrightaligned button:first-child,
@@ -539,19 +540,16 @@ body {
     justify-content: center;
     border: 1px solid rgba(111, 37, 206, 1);
     box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-weight: 500;
     font-size: 14px;
     line-height: 120%;
     color: rgba(38, 2, 84, 1);
     background-color: transparent;
-
-
 }
 
 #profilesection-nbfcapprovalcolumn {
-
     max-width: 100%;
     display: none;
     flex-direction: column-reverse;
@@ -565,7 +563,6 @@ body {
 
 #profilesection-nbfcapprovalcolumn .nbfcapprovalcolumnrightaligned {
     width: 100%;
-
 }
 
 #profilesection-nbfcapprovalcolumn .nbfcapprovalcolumnrightaligned button {
@@ -580,7 +577,6 @@ body {
     margin-left: 1.3%;
     max-width: 28.85%;
     width: 100%;
-
 }
 
 #nbfc-list-of-student-profilesections {
@@ -588,7 +584,6 @@ body {
     max-width: 100%;
     width: 100%;
     border-radius: 8px;
-
 }
 
 .nbfcstudentdashboardprofile-togglesidebar {
@@ -605,7 +600,6 @@ body {
     flex-direction: column;
     justify-content: space-between;
     z-index: 2;
-
 }
 
 /* #nbfc-list-of-student-profilesections {
@@ -652,8 +646,6 @@ body {
         padding: 0;
     }
 
-
-
     .nbfc-avatar {
         width: 40px;
         height: 40px;
@@ -674,7 +666,6 @@ body {
 
     .nbfc-mobile-menu-top {
         flex-grow: 1;
-
     }
 
     .nbfc-mobile-menu-bottom {
@@ -682,7 +673,6 @@ body {
         margin-top: auto;
     }
 }
-
 
 /*mobile responsive nav bar*/
 
@@ -696,8 +686,8 @@ body {
     }
 
     #nbfc-student-profile-details {
-        display: none;
-        width: 100%;
+        display: flex;
+        width: 90%;
         max-width: 100%;
     }
 
@@ -706,8 +696,8 @@ body {
         flex-direction: column;
         align-items: center;
         gap: 1.2%;
+        max-width: 90%;
     }
-
 
     .nbfc-navbar {
         padding: 12px 20px;
@@ -771,7 +761,6 @@ body {
 
     .nbfc-mobile-menu-top {
         flex-grow: 1;
-
     }
 
     .nbfc-mobile-menu-bottom {
@@ -783,7 +772,7 @@ body {
 /*toggle slidebar mobile responsive*/
 
 .nbfc-dropdown-icon::after {
-    content: '';
+    content: "";
     position: absolute;
     width: 8px;
     height: 8px;
@@ -817,7 +806,7 @@ body {
 }
 
 .nbfcstudentdashboardprofile-togglesidebar ul li {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 16px;
     font-weight: 500;
@@ -856,7 +845,7 @@ body {
 }
 
 .nbfcstudentdashboardprofile-sidebarlists-top li.nbfcactive {
-    background: linear-gradient(88.18deg, #FFA048 3.11%, #FA7B15 98.46%);
+    background: linear-gradient(88.18deg, #ffa048 3.11%, #fa7b15 98.46%);
     color: rgba(255, 255, 255, 1);
     display: flex;
     gap: 18px;
@@ -912,7 +901,7 @@ body {
 }
 
 .nbfcstudentdashboardprofile-personalinfo .nbfcpersonalinfo-firstrow h1 {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 18px;
     font-weight: 600;
@@ -929,7 +918,7 @@ body {
     padding: 16px 32px;
     gap: 8px;
     border-radius: 4px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 14px;
     font-weight: 500;
@@ -953,7 +942,7 @@ body {
 }
 
 .nbfcpersonalinfo-secondrow li {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 13px;
     font-weight: 500;
@@ -975,7 +964,7 @@ body {
 }
 
 .nbfcpersonalinfo-profilestatus h1 {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 13px;
     font-weight: 500;
@@ -1004,7 +993,7 @@ body {
 }
 
 .nbfcprofilestatus-graph-section p {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 14px;
     font-weight: 500;
@@ -1015,7 +1004,7 @@ body {
 }
 
 .nbfcprofilestatus-graph-secondsection span {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 30px;
     font-weight: 600;
@@ -1029,7 +1018,7 @@ body {
 
 .nbfcprofilestatus-graph-secondsection p {
     padding-top: 1rem;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 30px;
     font-weight: 500;
@@ -1052,7 +1041,7 @@ body {
 }
 
 .nbfcprofilestatus-graph-secondsection .nbfcsecondsection-inside {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 14px;
     font-weight: 500;
@@ -1078,7 +1067,7 @@ body {
 
 .nbfcstudentdashboardprofile-communityjoinsection p {
     color: rgba(38, 2, 84, 0.7);
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 16px;
     font-weight: 500;
@@ -1089,7 +1078,6 @@ body {
 .nbfcstudentdashboardprofile-sidebarlists-bottom img {
     width: auto;
     height: auto;
-
 }
 
 .dashboard-main-content {
@@ -1098,11 +1086,8 @@ body {
     margin-left: 1.2rem;
     max-width: 100%;
     width: 100%;
-    flex-direction: column;
-
-
+    flex-direction: row;
 }
-
 
 /*tablet toggle sidebar*/
 
@@ -1129,7 +1114,9 @@ body {
         line-height: 24px;
     }
 
-    .nbfcstudentdashboardprofile-personalinfo .nbfcpersonalinfo-firstrow button {
+    .nbfcstudentdashboardprofile-personalinfo
+        .nbfcpersonalinfo-firstrow
+        button {
         width: 65px;
         height: 30px;
         font-size: 13px;
@@ -1174,7 +1161,6 @@ body {
     }
 }
 
-
 /*mobile togglesidebar hidden*/
 
 @media (max-width: 768px) {
@@ -1186,13 +1172,9 @@ body {
 /*nbfc main container for dashboard*/
 .dashboard-main-content {
     flex: 1;
-    margin-left: 16%;
-    flex: 1;
-    margin-left: 16%;
+    margin-left: 20%;
     padding: 18px;
-    background-color: #F5F5F5;
-
-
+    background-color: #f5f5f5;
 }
 
 .dashboard-sections-container {
@@ -1201,15 +1183,16 @@ body {
     grid-template-columns: 1fr 1fr;
     gap: 24px;
     padding: 10px;
-    background-color: #F5F5F5;
+    background-color: #f5f5f5;
     margin-top: 70px;
     max-width: 79.43%;
     width: 100%;
 }
 
-
 .dashboard-sections-container .section {
-    transition: visibility 0.3s, opacity 0.3s;
+    transition:
+        visibility 0.3s,
+        opacity 0.3s;
     opacity: 1;
     visibility: visible;
     position: relative;
@@ -1229,8 +1212,6 @@ body {
     padding: 14px;
     max-width: 100%;
     width: 100%;
-
-
 }
 
 .dashboard-section-header {
@@ -1244,13 +1225,10 @@ body {
 }
 
 .dashboard-section-title {
-
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
     font-weight: 600;
     font-size: 28px;
-    color: #FF6B2C;
-
-
+    color: #ff6b2c;
 }
 
 .dashboard-header-controls {
@@ -1259,7 +1237,6 @@ body {
 }
 
 .dashboard-sort-button-container {
-
     display: inline-block;
     position: relative;
 }
@@ -1276,7 +1253,7 @@ body {
     z-index: 1;
     width: 77px;
     overflow: hidden;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     margin-top: 5px;
 }
 
@@ -1292,7 +1269,7 @@ body {
     background-color: #f1f1f1;
 }
 
-.dashboard-sort-button:focus+.dashboard-sort-options {
+.dashboard-sort-button:focus + .dashboard-sort-options {
     display: block;
 }
 
@@ -1306,14 +1283,13 @@ body {
     align-items: center;
     position: relative;
     cursor: pointer;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     width: 77px;
 }
 
-
 .dashboard-sort-button {
     padding: 8px 12px;
-    border: 1px solid #E2E2E2;
+    border: 1px solid #e2e2e2;
     border-radius: 4px;
     background: white;
     cursor: pointer;
@@ -1321,7 +1297,7 @@ body {
     align-items: center;
     gap: 8px;
     color: #909090;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
@@ -1329,10 +1305,9 @@ body {
     height: 38px;
 }
 
-
 .dashboard-search-button {
     padding: 8px 12px;
-    border: 1px solid #E2E2E2;
+    border: 1px solid #e2e2e2;
     border-radius: 4px;
     background: white;
     cursor: pointer;
@@ -1357,7 +1332,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 26px;
-    border-bottom: 1px solid #F0F0F0;
+    border-bottom: 1px solid #f0f0f0;
 }
 
 .dashboard-student-info {
@@ -1368,15 +1343,15 @@ body {
 
 .dashboard-student-name {
     font-weight: 600;
-    color: #5D5C5C;
-    font-family: 'Poppins', sans-serif;
+    color: #5d5c5c;
+    font-family: "Poppins", sans-serif;
     font-size: 16px;
     line-height: 20px;
 }
 
 .dashboard-student-id {
-    color: #5D5C5C;
-    font-family: 'Poppins', sans-serif;
+    color: #5d5c5c;
+    font-family: "Poppins", sans-serif;
     font-size: 14px;
     line-height: 20px;
 }
@@ -1389,11 +1364,10 @@ body {
 .dashboard-view-button,
 .dashboard-reject-button {
     padding: 8px 16px;
-    border: 1px solid #6F25CE;
+    border: 1px solid #6f25ce;
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
-
 }
 
 .dashboard-view-button {
@@ -1403,24 +1377,21 @@ body {
     align-items: center;
     justify-content: center;
     padding: 8px;
-    color: #6F25CE;
+    color: #6f25ce;
 }
 
 .dashboard-reject-button {
-    color: #6F25CE;
+    color: #6f25ce;
     background: transparent;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 .dashboard-nbfc-search-container {
     position: relative;
-
-
 }
 
 .dashboard-nbfc-search-container-section {
     position: relative;
-
 }
 
 #dashboard-nbfc-search-container-id {
@@ -1432,7 +1403,7 @@ body {
     border: 1px solid #e2e2e2;
     border-radius: 4px;
     width: 140px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     background-color: #ffffff;
     font-size: 12px;
 }
@@ -1442,14 +1413,14 @@ body {
     border: 1px solid #e2e2e2;
     border-radius: 4px;
     width: 240px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     background-color: #ffffff;
     font-size: 12px;
 }
 
 .dashboard-nbfc-search-input::placeholder {
     padding: 0px 10px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: normal;
     font-size: 16px;
     color: #260254;
@@ -1465,7 +1436,6 @@ body {
     opacity: 0.5;
 }
 
-
 /* Tablet view of dashboard */
 @media (max-width: 1024px) {
     .dashboard-nbfc-search-container {
@@ -1477,7 +1447,7 @@ body {
         border: 1px solid #e2e2e2;
         border-radius: 4px;
 
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         background-color: #ffffff;
         font-size: 12px;
     }
@@ -1487,14 +1457,14 @@ body {
         border: 1px solid #e2e2e2;
         border-radius: 4px;
         width: 100%;
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         background-color: #ffffff;
         font-size: 12px;
     }
 
     .dashboard-nbfc-search-input::placeholder {
         padding: 0px 10px;
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         font-weight: normal;
         font-size: 16px;
         color: #260254;
@@ -1526,7 +1496,7 @@ body {
         border: 1px solid #e2e2e2;
         border-radius: 4px;
 
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         background-color: #ffffff;
         font-size: 12px;
     }
@@ -1536,14 +1506,14 @@ body {
         border: 1px solid #e2e2e2;
         border-radius: 4px;
         width: 240px;
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         background-color: #ffffff;
         font-size: 12px;
     }
 
     .dashboard-nbfc-search-input::placeholder {
         padding: 0px 10px;
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         font-weight: normal;
         font-size: 16px;
         color: #260254;
@@ -1560,13 +1530,12 @@ body {
     }
 }
 
-
 @media (min-width: 769px) and (max-width: 1024px) {
     .dashboard-main-content {
         flex: 1;
         margin-left: 21%;
         padding: 20px;
-        background-color: #F5F5F5;
+        background-color: #f5f5f5;
     }
 
     .dashboard-sections-container {
@@ -1575,12 +1544,13 @@ body {
         /* Single column layout */
         gap: 24px;
         padding: 10px;
-        background-color: #F5F5F5;
+        background-color: #f5f5f5;
     }
 
-
     .dashboard-sections-container .section {
-        transition: visibility 0.3s, opacity 0.3s;
+        transition:
+            visibility 0.3s,
+            opacity 0.3s;
         opacity: 1;
         visibility: visible;
         position: relative;
@@ -1598,8 +1568,6 @@ body {
         flex: 1;
         border-radius: 8px;
         padding: 14px;
-
-
     }
 
     .dashboard-section-header {
@@ -1613,13 +1581,10 @@ body {
     }
 
     .dashboard-section-title {
-
-        font-family: 'Inter', sans-serif;
+        font-family: "Inter", sans-serif;
         font-weight: 600;
         font-size: 28px;
-        color: #FF6B2C;
-
-
+        color: #ff6b2c;
     }
 
     .dashboard-header-controls {
@@ -1628,7 +1593,6 @@ body {
     }
 
     .dashboard-sort-button-container {
-
         display: inline-block;
         position: relative;
     }
@@ -1657,14 +1621,13 @@ body {
         background-color: #f1f1f1;
     }
 
-    .dashboard-sort-button:focus+.dashboard-sort-options {
+    .dashboard-sort-button:focus + .dashboard-sort-options {
         display: block;
     }
 
-
     .dashboard-search-button {
         padding: 8px 12px;
-        border: 1px solid #E2E2E2;
+        border: 1px solid #e2e2e2;
         border-radius: 4px;
         background: white;
         cursor: pointer;
@@ -1678,7 +1641,7 @@ body {
 
     .dashboard-sort-button {
         padding: 8px 12px;
-        border: 1px solid #E2E2E2;
+        border: 1px solid #e2e2e2;
         border-radius: 4px;
         background: white;
         cursor: pointer;
@@ -1686,7 +1649,7 @@ body {
         align-items: center;
         gap: 8px;
         color: #909090;
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         font-size: 14px;
         font-weight: 500;
         line-height: 18px;
@@ -1707,7 +1670,7 @@ body {
         justify-content: space-between;
         align-items: center;
         padding: 26px;
-        border-bottom: 1px solid #F0F0F0;
+        border-bottom: 1px solid #f0f0f0;
     }
 
     .dashboard-student-info {
@@ -1718,15 +1681,15 @@ body {
 
     .dashboard-student-name {
         font-weight: 600;
-        color: #5D5C5C;
-        font-family: 'Poppins', sans-serif;
+        color: #5d5c5c;
+        font-family: "Poppins", sans-serif;
         font-size: 16px;
         line-height: 20px;
     }
 
     .dashboard-student-id {
-        color: #5D5C5C;
-        font-family: 'Poppins', sans-serif;
+        color: #5d5c5c;
+        font-family: "Poppins", sans-serif;
         font-size: 14px;
         line-height: 20px;
     }
@@ -1739,11 +1702,10 @@ body {
     .dashboard-view-button,
     .dashboard-reject-button {
         padding: 8px 16px;
-        border: 1px solid #6F25CE;
+        border: 1px solid #6f25ce;
         border-radius: 4px;
         cursor: pointer;
         font-size: 14px;
-
     }
 
     .dashboard-view-button {
@@ -1753,18 +1715,16 @@ body {
         align-items: center;
         justify-content: center;
         padding: 8px;
-        color: #6F25CE;
+        color: #6f25ce;
     }
 
     .dashboard-reject-button {
-        color: #6F25CE;
+        color: #6f25ce;
         background: transparent;
     }
 
     .dashboard-nbfc-search-container {
         position: relative;
-
-
     }
 
     .dashboard-nbfc-search-input {
@@ -1772,7 +1732,7 @@ body {
         border: 1px solid #e2e2e2;
         border-radius: 4px;
         width: 240px;
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         background-color: #ffffff;
         font-size: 12px;
     }
@@ -1782,14 +1742,14 @@ body {
         border: 1px solid #e2e2e2;
         border-radius: 4px;
         width: 240px;
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         background-color: #ffffff;
         font-size: 12px;
     }
 
     .dashboard-nbfc-search-input::placeholder {
         padding: 0px 10px;
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         font-weight: normal;
         font-size: 16px;
         color: #260254;
@@ -1804,7 +1764,6 @@ body {
         height: 24px;
         opacity: 0.5;
     }
-
 }
 
 @media (max-width: 768px) {
@@ -1823,8 +1782,6 @@ body {
         grid-template-columns: 1fr;
         padding: 10px;
         width: 100%;
-
-
     }
 
     .dashboard-section {
@@ -1861,7 +1818,6 @@ body {
         order: 2;
     }
 
-
     .dashboard-sort-options {
         top: 120%;
     }
@@ -1869,7 +1825,6 @@ body {
     .dashboard-sort-button {
         padding: 6px 10px;
         font-size: 12px;
-
     }
 
     .dashboard-search-button {
@@ -1905,7 +1860,6 @@ body {
     .dashboard-view-button {
         display: none;
     }
-
 }
 
 @media (min-width: 540px) and (max-width: 767px) {
@@ -1913,13 +1867,12 @@ body {
         padding: 8px 12px 8px 36px;
         border: 1px solid #e2e2e2;
         border-radius: 4px;
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         background-color: #ffffff;
         font-size: 12px;
         width: 380px;
     }
 }
-
 
 @media (width: 768px) {
     .dashboard-nbfc-search-input {
@@ -1928,7 +1881,6 @@ body {
 }
 
 @media (max-width: 400px) {
-
     .dashboard-main-content {
         margin-left: 0;
         padding: 10px;
@@ -1938,7 +1890,6 @@ body {
         justify-content: center;
         align-items: center;
         flex-direction: column;
-
     }
 
     .dashboard-nbfc-search-input-sec {
@@ -1946,7 +1897,7 @@ body {
         border: 1px solid #e2e2e2;
         border-radius: 4px;
         width: 100%;
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         background-color: #ffffff;
         font-size: 12px;
     }
@@ -1986,7 +1937,6 @@ body {
     .dashboard-header-controls {
         align-items: flex-start;
         gap: 12px;
-
     }
 
     .dashboard-nbfc-search-container {
@@ -1998,7 +1948,6 @@ body {
         order: 2;
     }
 
-
     .dashboard-sort-options {
         top: 120%;
     }
@@ -2006,7 +1955,6 @@ body {
     .dashboard-sort-button {
         padding: 6px 10px;
         font-size: 12px;
-
     }
 
     .dashboard-search-button {
@@ -2042,10 +1990,7 @@ body {
     .dashboard-view-button {
         display: none;
     }
-
-
 }
-
 
 @media (max-width: 380px) {
     .dashboard-nbfc-search-input {
@@ -2053,7 +1998,7 @@ body {
         border: 1px solid #e2e2e2;
         border-radius: 4px;
         width: 190px;
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         background-color: #ffffff;
         font-size: 12px;
     }
@@ -2106,8 +2051,8 @@ body {
 .reject-application-modal-header h3 {
     font-size: 18px;
     font-weight: 500;
-    color: #E98635;
-    font-family: 'Poppins', sans-serif;
+    color: #e98635;
+    font-family: "Poppins", sans-serif;
 }
 
 .reject-application-modal-header .close-button {
@@ -2166,12 +2111,14 @@ body {
 
 .reject-attachment-icon {
     margin-right: 8px;
-    color: #E98635;
+    color: #e98635;
     font-size: 16px;
     display: none;
 }
 
-.reject-attachment-add-btn .reject-attachment-name:not(:empty)~.reject-attachment-icon {
+.reject-attachment-add-btn
+    .reject-attachment-name:not(:empty)
+    ~ .reject-attachment-icon {
     display: inline-block;
 }
 
@@ -2206,16 +2153,16 @@ body {
 }
 
 .reject-application-modal-content .actions .cancel-button {
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     color: #260254;
-    border: 1px solid #6F25CE;
+    border: 1px solid #6f25ce;
     width: 125px;
     height: 35px;
     font-family: "poppins";
 }
 
 .reject-application-modal-content .actions .reject-button {
-    background-color: #6F25CE;
+    background-color: #6f25ce;
     color: white;
     border: none;
     width: 125px;
@@ -2255,20 +2202,18 @@ body {
     }
 }
 
-
 #index-section-id-nbfc {
     margin-top: 80px;
     overflow-x: hidden;
     max-width: 100%;
     width: 100%;
-    margin-left: 4.09%;
-
+    /* margin-left: -4.09%; */
 }
 
 .index-section {
     padding: 0;
 
-    background-color: #F5F5F5;
+    background-color: #f5f5f5;
 }
 
 .inbox-container {
@@ -2276,23 +2221,20 @@ body {
     border-radius: 8px;
     padding: 24px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    margin: 25px;
+    margin: 25px 0px;
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
     max-width: 77.04%;
     width: 100%;
-
 }
 
-
 .dashboard-section-title h2 {
-    color: #FF6B2C;
-    font-family: 'Inter', sans-serif;
+    color: #ff6b2c;
+    font-family: "Inter", sans-serif;
     font-weight: 700;
     font-size: 28px;
 }
-
 
 .inbox-filters {
     position: relative;
@@ -2316,7 +2258,6 @@ body {
     padding: 0;
     margin: 5px 0;
     z-index: 10;
-
 }
 
 .sort-dropdown-nbfc.visible {
@@ -2351,15 +2292,13 @@ body {
 
 .inbox-filters span {
     margin-right: 5px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 12px;
-
 }
 
 .inbox-filters img {
     width: 16px;
 }
-
 
 .inbox-header {
     display: flex;
@@ -2372,17 +2311,15 @@ body {
 .inbox-controls {
     display: flex;
     gap: 16px;
-
 }
 
 .inbox-search {
     position: relative;
 }
 
-
 .inbox-search input {
     padding: 8px 16px 8px 40px;
-    border: 1px solid #E2E2E2;
+    border: 1px solid #e2e2e2;
     border-radius: 8px;
     width: 243px;
 }
@@ -2399,8 +2336,7 @@ body {
 .message-item {
     padding: 24px 0;
 
-    font-family: 'Poppins', sans-serif;
-
+    font-family: "Poppins", sans-serif;
 }
 
 .message-header {
@@ -2411,12 +2347,11 @@ body {
 }
 
 .student-name {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 14px;
     font-weight: 600;
-    color: #5D5C5C;
+    color: #5d5c5c;
 }
-
 
 .message-actions {
     display: flex;
@@ -2425,15 +2360,15 @@ body {
 
 .inbox-btn-close {
     padding: 8px 24px;
-    border: 1px solid #6F25CE;
+    border: 1px solid #6f25ce;
     border-radius: 4px;
-    color: #6F25CE;
+    color: #6f25ce;
     background: white;
     cursor: pointer;
     transition: background-color 0.2s;
     width: 71px;
     height: 36px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: 500;
     font-size: 14px;
     display: flex;
@@ -2443,15 +2378,15 @@ body {
 
 .inbox-btn-view {
     padding: 8px 24px;
-    border: 1px solid #6F25CE;
+    border: 1px solid #6f25ce;
     border-radius: 4px;
-    color: #6F25CE;
+    color: #6f25ce;
     background: white;
     cursor: pointer;
     transition: background-color 0.2s;
     width: 71px;
     height: 36px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: 500;
     font-size: 14px;
     display: flex;
@@ -2460,7 +2395,7 @@ body {
 }
 
 .message-content {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: 500;
     font-size: 14px;
     color: #909090;
@@ -2476,7 +2411,6 @@ body {
     align-items: center;
 }
 
-
 .message-response {
     display: flex;
     flex-direction: column;
@@ -2485,7 +2419,6 @@ body {
     margin-left: auto;
     border-radius: 4px;
     padding: 10px;
-
 }
 
 .message-response-container {
@@ -2500,7 +2433,7 @@ body {
 }
 
 .message-content-container {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 18px;
@@ -2517,14 +2450,13 @@ body {
 }
 
 .message-list li {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.5;
     color: #909090;
     text-align: left;
 }
-
 
 .nbfc-individual-bankmessage-input {
     max-width: 100%;
@@ -2550,18 +2482,19 @@ body {
 }
 
 .nbfc-bankmessages-buttoncontainer .nbfc-bankmessage-buttoncontainer-reject {
-    color: #FF7A00;
-    border: 1px solid #E2E2E2;
+    color: #ff7a00;
+    border: 1px solid #e2e2e2;
 }
 
-.nbfc-bankmessages-buttoncontainer .nbfc-bankmessage-buttoncontainer-reject:hover {
+.nbfc-bankmessages-buttoncontainer
+    .nbfc-bankmessage-buttoncontainer-reject:hover {
     background-color: rgba(111, 37, 206, 1);
     color: rgba(255, 255, 255, 0.87);
 }
 
 .nbfc-individual-bankmessage-input input::placeholder,
 .nbfc-message-input::placeholder {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 14px;
     font-weight: 500;
@@ -2588,7 +2521,6 @@ body {
     font-size: 18px;
 }
 
-
 .index-search-container {
     position: relative;
 }
@@ -2598,17 +2530,17 @@ body {
     border: 1px solid #e2e2e2;
     border-radius: 4px;
     width: 240px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     background-color: #ffffff;
     font-size: 12px;
 }
 
 .index-search-input::placeholder {
     padding: 0px 10px;
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
     font-weight: 500;
     font-size: 12px;
-    color: #5D5C5C;
+    color: #5d5c5c;
 }
 
 .index-search-icon {
@@ -2621,8 +2553,6 @@ body {
     opacity: 0.5;
 }
 
-
-
 /*index container*/
 
 .index-student-details-container {
@@ -2632,8 +2562,7 @@ body {
 .index-student-details-container .index-student-message-container {
     display: flex;
     flex-direction: column;
-    border-bottom: 1px solid #E5E7EB;
-
+    border-bottom: 1px solid #e5e7eb;
 }
 
 .index-student-details-container .index-student-message-container:last-child {
@@ -2645,9 +2574,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: 'Poppins', sans-serif;
-
-
+    font-family: "Poppins", sans-serif;
 }
 
 .index-student-card:last-child {
@@ -2681,25 +2608,25 @@ body {
 }
 
 .index-student-message-btn {
-    background-color: #6F25CE;
+    background-color: #6f25ce;
     color: white;
     border: none;
     padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 14px;
     transition: background-color 0.3s ease;
 }
 
 .index-student-view-btn {
     background-color: transparent;
-    border: 1px solid #6F25CE;
-    color: #6F25CE;
+    border: 1px solid #6f25ce;
+    color: #6f25ce;
     padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 14px;
     transition: all 0.3s ease;
     width: 80px;
@@ -2713,7 +2640,6 @@ body {
     background-color: #f8f4ff;
 }
 
-
 /*new input message*/
 
 .nbfc-individual-bankmessage-input-message {
@@ -2726,7 +2652,6 @@ body {
     align-items: center;
     display: none;
 }
-
 
 .nbfc-individual-bankmessage-input-message input,
 .nbfc-message-input {
@@ -2742,18 +2667,19 @@ body {
 }
 
 .nbfc-bankmessages-buttoncontainer .nbfc-bankmessage-buttoncontainer-reject {
-    color: #FF7A00;
-    border: 1px solid #E2E2E2;
+    color: #ff7a00;
+    border: 1px solid #e2e2e2;
 }
 
-.nbfc-bankmessages-buttoncontainer .nbfc-bankmessage-buttoncontainer-reject:hover {
+.nbfc-bankmessages-buttoncontainer
+    .nbfc-bankmessage-buttoncontainer-reject:hover {
     background-color: rgba(111, 37, 206, 1);
     color: rgba(255, 255, 255, 0.87);
 }
 
 .nbfc-individual-bankmessage-input-message input::placeholder,
 .nbfc-message-input::placeholder {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 14px;
     font-weight: 500;
@@ -2789,18 +2715,17 @@ body {
     border: 1px solid #e2e2e2;
     border-radius: 4px;
     width: auto;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     background-color: #ffffff;
     font-size: 12px;
 }
 
 .index-search-input::placeholder {
     padding: 0px 10px;
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
     font-weight: 500;
     font-size: 12px;
-    color: #5D5C5C;
-
+    color: #5d5c5c;
 }
 
 .index-search-icon {
@@ -2813,30 +2738,16 @@ body {
     opacity: 0.5;
 }
 
-.wholeapplicationprofile {
-    display: flex;
-    flex-direction: row;
-    max-width: 79.65%;
-    width: 100%;
-    gap: 1.2%;
-    margin-left: 1.38%;
-}
-
 @media (min-width: 1700px) {
-
     .index-student-details-container {
         max-width: 1200px;
-
     }
-
-
 
     .index-student-card {
         padding: 20px 10px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-
     }
 
     .index-student-description {
@@ -2845,7 +2756,6 @@ body {
 }
 
 @media (max-width: 1024px) {
-
     .index-student-card {
         padding: 15px;
     }
@@ -2866,9 +2776,7 @@ body {
     }
 }
 
-
 @media only screen and (max-width: 767px) {
-
     .index-section {
         grid-template-columns: 1fr;
         padding: 0px;
@@ -2894,7 +2802,6 @@ body {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
-
     }
 
     .inbox-controls {
@@ -2903,23 +2810,20 @@ body {
         width: 100%;
         max-width: 100%;
         justify-content: space-between;
-
     }
 
     .inbox-search {
         position: absolute;
     }
 
-
     .inbox-search input {
         padding: 8px 12px 8px 36px;
         border: 1px solid #e2e2e2;
         border-radius: 4px;
         width: 190px;
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         background-color: #ffffff;
         font-size: 12px;
-
     }
 
     .index-student-details-container {
@@ -2937,7 +2841,6 @@ body {
     }
 
     .index-student-card {
-
         padding: 15px 0px;
     }
 
@@ -2980,7 +2883,6 @@ body {
         width: 300px;
         height: auto;
         padding: 10px;
-
     }
 
     .composer-actions {
@@ -2992,15 +2894,12 @@ body {
         width: 300px;
         padding: 0;
         margin-left: 5px;
-
-
     }
 
     .messages-wrapper {
         width: 300px;
         padding: 0;
         margin-left: 5px;
-
     }
 
     .message-response-container {
@@ -3011,7 +2910,6 @@ body {
         margin-left: 0px;
         border: 1px solid #e2e2e2;
         width: 300px;
-
     }
 
     .message-content-container {
@@ -3026,19 +2924,15 @@ body {
 
     .messages-wrapper {
         margin-left: 40px;
-
     }
-
 }
 
-@media(max-width:380px) {
-
+@media (max-width: 380px) {
     .message-content {
         border: 1px solid #e2e2e2;
         font-size: 12px;
         width: 270px;
         height: auto;
-
     }
 }
 
@@ -3058,9 +2952,7 @@ body {
     }
 }
 
-
 @media (max-width: 768px) {
-
     /* Adjust the breakpoint as needed */
     .index-student-button-group {
         display: none;
@@ -3072,13 +2964,10 @@ body {
     }
 }
 
-
 @media (max-width: 480px) {
     .index-student-details-container {
         padding: 5px;
     }
-
-
 
     .index-student-name {
         font-size: 12px;
@@ -3108,11 +2997,11 @@ body {
     }
 
     .action-btn.send-icon svg {
-        stroke: #6F25CE;
+        stroke: #6f25ce;
     }
 
     .action-btn:not(.send-icon) svg {
-        stroke: #BBBBBB;
+        stroke: #bbbbbb;
     }
 }
 
@@ -3133,7 +3022,7 @@ body {
         border: 1px solid #e2e2e2;
         border-radius: 4px;
         width: 190px;
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         background-color: #ffffff;
         font-size: 12px;
     }
@@ -3152,7 +3041,6 @@ body {
 .nbfc-studentdashboard-profile-container {
     display: none;
     width: 100%;
-
 }
 
 /*view trigger container*/
@@ -3165,24 +3053,21 @@ body {
     display: flex;
     width: 100%;
     margin-top: 85px;
-
 }
 
-.nbfc-student-dashboard-section-main-contents .studentdashboardprofile-myapplication {
+.nbfc-student-dashboard-section-main-contents
+    .studentdashboardprofile-myapplication {
     display: none;
     width: 100%;
     margin-left: 20px;
     margin-right: 0;
-
-
-
 }
 
-.nbfc-student-dashboard-section-main-contents .studentdashboardprofile-profilesection {
+.nbfc-student-dashboard-section-main-contents
+    .studentdashboardprofile-profilesection {
     background-color: white;
     margin-top: 19px;
     max-width: 100%;
-
 }
 
 .nbfc-student-dashboard-section-main-contents .myapplication-firstcolumn h1 {
@@ -3190,7 +3075,7 @@ body {
 }
 
 .nbfc-student-dashboard-section-main-contents .personalinfo-secondrow li {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 13px !important;
     font-weight: 500;
@@ -3199,18 +3084,14 @@ body {
     color: rgba(33, 33, 33, 0.5);
     display: flex;
     gap: 20px;
-
 }
-
-
-
 
 .personalinfo-secondrow li,
 .personal_info_name,
 .personal_info_phone,
 .personal_info_email,
 .personal_info_state {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 13px !important;
     font-weight: 500;
@@ -3219,30 +3100,26 @@ body {
     color: rgba(33, 33, 33, 0.5);
     display: flex;
     gap: 20px;
-
 }
 
-#nbfc-list-of-student-profilesections .studentdashboardprofile-educationeditsection {
+#nbfc-list-of-student-profilesections
+    .studentdashboardprofile-educationeditsection {
     display: flex;
     flex-direction: column;
     margin: 13px 0;
-
-
 }
 
-#nbfc-list-of-student-profilesections .studentdashboardprofile-testscoreseditsection {
+#nbfc-list-of-student-profilesections
+    .studentdashboardprofile-testscoreseditsection {
     display: flex;
     flex-direction: column;
     margin: 13px 0;
-
 }
-
 
 .nbfc-student-dashboard-section-main-contents .myapplication-eleventhcolumn {
     display: flex;
     justify-content: flex-start;
     gap: 300px;
-
 }
 
 .myapplication-eleventhcolumn {
@@ -3261,7 +3138,7 @@ body {
     border-radius: 4px;
     border: 1px solid rgba(111, 37, 206, 1);
     background: transparent;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 14px;
     font-weight: 500;
@@ -3272,7 +3149,7 @@ body {
     align-items: center;
     justify-content: center;
     box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
-    background-color: #6F25CE;
+    background-color: #6f25ce;
 }
 
 .myapplication-eleventhcolumn-buttons {
@@ -3286,7 +3163,7 @@ body {
     border-radius: 4px;
 
     background: transparent;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 14px;
     font-weight: 500;
@@ -3296,8 +3173,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-
-
 }
 
 .nbfc-message-button,
@@ -3311,7 +3186,7 @@ body {
     border-radius: 4px;
     border: 1px solid rgba(111, 37, 206, 1);
     background: transparent;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 14px;
     font-weight: 500;
@@ -3322,7 +3197,6 @@ body {
     align-items: center;
     justify-content: center;
     box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
-
 }
 
 .nbfc-send-proposal-modal-container {
@@ -3354,7 +3228,7 @@ body {
 }
 
 .nbfc-send-proposal-modal-header h3 {
-    color: #E98635;
+    color: #e98635;
     font-size: 20px;
     margin: 0;
 }
@@ -3421,12 +3295,14 @@ body {
 
 .nbfc-send-proposal-icon {
     margin-right: 8px;
-    color: #E98635;
+    color: #e98635;
     font-size: 16px;
     display: none;
 }
 
-.nbfc-send-proposal-attachment-button .nbfc-send-proposal-file-name:not(:empty)~.nbfc-send-proposal-icon {
+.nbfc-send-proposal-attachment-button
+    .nbfc-send-proposal-file-name:not(:empty)
+    ~ .nbfc-send-proposal-icon {
     display: inline-block;
 }
 
@@ -3463,7 +3339,7 @@ body {
 .nbfc-send-proposal-cancel-button {
     padding: 6px 24px;
     background: white;
-    border: 1px solid #6F25CE;
+    border: 1px solid #6f25ce;
     color: #260254;
     border-radius: 4px;
     cursor: pointer;
@@ -3472,7 +3348,7 @@ body {
 
 .nbfc-send-proposal-send-button {
     padding: 6px 24px;
-    background: #6F25CE;
+    background: #6f25ce;
     color: white;
     border: none;
     border-radius: 4px;

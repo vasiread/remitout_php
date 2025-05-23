@@ -297,79 +297,14 @@
                 <div class="reports-registeration" data-report="registration-reports">
                     <div class="reports-registeration-sectionone">
                         <p>Reports on registration</p>
-                        <button id="calender-reportsregister">
+                        <!-- <button id="calender-reportsregister">
                             Calendar <img src="assets/images/Icons/calendar_month.png" alt="">
-                        </button>
-                        <div class="calendar-container" id="calender-reportsregister-report">
-                            <div class="calendar-input-container">
-                                <div class="calendar-date-input calendar-active" id="calendar-start-date-input">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                        <line x1="16" y1="2" x2="16" y2="6"></line>
-                                        <line x1="8" y1="2" x2="8" y2="6"></line>
-                                        <line x1="3" y1="10" x2="21" y2="10"></line>
-                                    </svg>
-                                    <span>Start Date</span>
-                                </div>
-                                <div class="calendar-date-input" id="calendar-end-date-input">
-                                    <span>End Date</span>
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                        style="margin-left: auto;">
-                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                        <line x1="16" y1="2" x2="16" y2="6"></line>
-                                        <line x1="8" y1="2" x2="8" y2="6"></line>
-                                        <line x1="3" y1="10" x2="21" y2="10"></line>
-                                    </svg>
-                                </div>
-                            </div>
+                        </button> -->
+                        <input type="month" id="date-picker-linegraph">
+                        <!-- Remove display:none to make it visible -->
 
-                            <div class="calendar-header">
-                                <button class="calendar-nav-btn calendar-prev-month">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <polyline points="15 18 9 12 15 6"></polyline>
-                                    </svg>
-                                </button>
-                                <div class="calendar-month-year-selector">
-                                    <select id="calendar-month-select">
-                                        <option value="0">January</option>
-                                        <option value="1">February</option>
-                                        <option value="2">March</option>
-                                        <option value="3">April</option>
-                                        <option value="4">May</option>
-                                        <option value="5">June</option>
-                                        <option value="6">July</option>
-                                        <option value="7">August</option>
-                                        <option value="8">September</option>
-                                        <option value="9">October</option>
-                                        <option value="10">November</option>
-                                        <option value="11">December</option>
-                                    </select>
-                                    <select id="calendar-year-select">
-                                        <!-- Years will be populated by JavaScript -->
-                                    </select>
-                                </div>
-                                <button class="calendar-nav-btn calendar-next-month">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <polyline points="9 18 15 12 9 6"></polyline>
-                                    </svg>
-                                </button>
-                            </div>
-
-                            <div class="calendar-grid">
-                                <div class="calendar-weekday">Mo</div>
-                                <div class="calendar-weekday">Tu</div>
-                                <div class="calendar-weekday">We</div>
-                                <div class="calendar-weekday">Th</div>
-                                <div class="calendar-weekday">Fr</div>
-                                <div class="calendar-weekday">Sa</div>
-                                <div class="calendar-weekday">Su</div>
-                            </div>
-                        </div>
-
+                        <!-- Display selected date -->
+                        <p id="selected-date"></p>
                     </div>
                     <div class="reports-registeration-graph">
                         <div id="chart_div" style="width: 100%; height: 160px;"></div>
@@ -777,7 +712,8 @@ $registrationSourceAnalysis = [
                 funnelreport();
                 initializePostgradDropdowns();
 
-                loadAgeRatioChart();
+                // loadAgeRatioChart();
+
             } catch (error) {
                 console.error('Initialization error:', error);
             }
@@ -787,8 +723,29 @@ $registrationSourceAnalysis = [
         const initializeCharts = () => {
             // Centralize Google Charts callback to avoid multiple setOnLoad calls
             google.charts.setOnLoadCallback(() => {
-                initializeRegistrationLineGraph();
                 drawNBFCChart();
+
+                const datePicker = document.getElementById('date-picker-linegraph');
+                // const selectedDateText = document.getElementById('selected-date');
+
+                // 🗓️ Auto-select current month/year on load
+                const now = new Date();
+                const currentMonth = String(now.getMonth() + 1).padStart(2, '0');
+                const currentYear = now.getFullYear();
+                const formattedDate = `${currentYear}-${currentMonth}`; // yyyy-mm
+
+                datePicker.value = formattedDate;
+                // selectedDateText.textContent = `Selected: ${currentMonth}/${currentYear}`;
+
+                // 🟢 Initial API hit with current date
+                initializeRegistrationLineGraph(currentMonth, currentYear);
+
+                // 🎯 Update on change
+                datePicker.addEventListener('change', function () {
+                    const [year, month] = this.value.split('-');
+                    selectedDateText.textContent = `Selected: ${month}/${year}`;
+                    initializeRegistrationLineGraph(month, year);
+                });
             });
             // initializeDonutGraphSource();
             // initializeDonutGraphAgeRatio();
@@ -797,68 +754,65 @@ $registrationSourceAnalysis = [
             initializeLeadSuccessChart();
         };
 
+
         // Registration Line Graph with API Data
-        const initializeRegistrationLineGraph = () => {
+        const initializeRegistrationLineGraph = (month = null, year = null) => {
             const chartDiv = $('#chart_div');
             if (!chartDiv) return console.error('chart_div not found');
 
+            const requestBody = (month && year) ? {
+                month: String(month).padStart(2, '0'),
+                year: String(year)
+            } : {};
+
+            console.log("RB", requestBody)
+
             // Fetch data from API
             fetch('/reports-on-generation', {
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                }
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify(requestBody)
             })
                 .then(response => {
-                    console.log('Raw response:', response);
-                    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                    // console.log('✅ Actual data from API:', data);  // Add this
+
+                    if (!data.days_of_week || !data.registration_counts || data.days_of_week.length !== data.registration_counts.length) {
+                        console.error('❌ Invalid API response:', data);
+                        throw new Error('Invalid API response');
+                    }
                     return response.json();
                 })
                 .then(data => {
-                    // console.log('Fetched Reports on Registration data:', data);
-
-                    // Validate the API response structure
-                    if (!data || typeof data !== 'object' ||
-                        !Array.isArray(data.days_of_week) ||
-                        !Array.isArray(data.registration_counts) ||
-                        data.days_of_week.length !== data.registration_counts.length) {
-                        console.log('Validation failed. Data structure:', data);
-                        throw new Error('Invalid API response: Mismatched or missing data arrays');
+                    if (!data.days_of_week || !data.registration_counts || data.days_of_week.length !== data.registration_counts.length) {
+                        throw new Error('Invalid API response');
                     }
 
-                    // Create the DataTable
                     const dataTable = new google.visualization.DataTable();
                     dataTable.addColumn('string', 'Day');
                     dataTable.addColumn('number', 'Registrations');
                     dataTable.addColumn({ type: 'string', role: 'annotation' });
 
-                    // Find the highest registration count to set an annotation
                     const maxCount = Math.max(...data.registration_counts);
-                    const maxIndex = data.registration_counts.indexOf(maxCount);
-
-                    // Transform API data into rows
-                    const rows = data.days_of_week.map((day, index) => {
-                        const annotation = index === maxIndex ? maxCount.toString() : null;
-                        return [day, data.registration_counts[index], annotation];
-                    });
+                    const rows = data.days_of_week.map((day, i) => [
+                        day,
+                        data.registration_counts[i],
+                        data.registration_counts[i] === maxCount ? String(maxCount) : null
+                    ]);
 
                     dataTable.addRows(rows);
 
-                    // Log the transformed data for debugging
-                    console.log('Transformed chart data:', rows);
-
-                    // Create a DataView
                     const view = new google.visualization.DataView(dataTable);
                     view.setColumns([0, 1, 2]);
 
-                    // Chart options
                     const options = {
                         maintainAspectRatio: false,
                         hAxis: { title: 'Day of the Week', textStyle: { color: '#333' } },
                         vAxis: {
                             title: 'Registrations',
-                            viewWindow: { min: 0, max: Math.max(maxCount + 10, 50) }, // Adjust max dynamically
+                            viewWindow: { min: 0, max: Math.max(maxCount + 10, 50) },
                             textStyle: { color: '#333' }
                         },
                         annotations: { alwaysOutside: true, textStyle: { color: '#000', fontSize: 12 } },
@@ -868,9 +822,9 @@ $registrationSourceAnalysis = [
                         chartArea: { width: '80%', height: '70%' }
                     };
 
-                    // Draw the chart
                     const chart = new google.visualization.LineChart(chartDiv);
                     chart.draw(view, options);
+
                 })
                 .catch(error => {
                     console.error('Error fetching Reports on Registration data:', error);
@@ -887,7 +841,7 @@ $registrationSourceAnalysis = [
 
                     dataTable.addRows(fallbackRows);
 
-                    console.log('Using fallback data:', fallbackRows);
+                    // console.log('Using fallback data:', fallbackRows);
 
                     const view = new google.visualization.DataView(dataTable);
                     view.setColumns([0, 1, 2]);
@@ -931,7 +885,7 @@ $registrationSourceAnalysis = [
                 body: JSON.stringify({}) // Empty body; adjust if API requires data
             })
                 .then(response => {
-                    console.log('Raw response:', response);
+                    // console.log('Raw response:', response);
                     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
                     return response.json();
                 })
@@ -941,7 +895,7 @@ $registrationSourceAnalysis = [
                     // Validate the API response structure
                     if (!data.success || !data.data || typeof data.data !== 'object' ||
                         !data.data.degree_summary || typeof data.data.degree_summary !== 'object') {
-                        console.log('Validation failed. Data structure:', data);
+                        // console.log('Validation failed. Data structure:', data);
                         throw new Error('Invalid API response: Missing or invalid data structure');
                     }
 
@@ -984,13 +938,13 @@ $registrationSourceAnalysis = [
                     postgradMale.textContent = 20;
                     postgradOthers.textContent = 20;
 
-                    console.log('Using fallback data: Undergrads: 60 (20, 20, 20), Postgrads: 150 (20, 20, 20)');
+                    // console.log('Using fallback data: Undergrads: 60 (20, 20, 20), Postgrads: 150 (20, 20, 20)');
                 });
         };
 
 
         const initializeDonutGraphSource = () => {
-            fetch('http://localhost:8000/api/sourceregister', {
+            fetch('/api/sourceregister', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -1154,19 +1108,19 @@ $registrationSourceAnalysis = [
                 }
             })
                 .then(response => {
-                    console.log('Raw response:', response);
+                    // console.log('Raw response:', response);
                     if (!response.ok) {
-                        console.log('Response status:', response.status, 'Status text:', response.statusText);
+                        // console.log('Response status:', response.status, 'Status text:', response.statusText);
                         throw new Error(`HTTP error! Status: ${response.status}`);
                     }
                     return response.json();
                 })
                 .then(data => {
-                    console.log('Fetched Cities data:', data);
+                    // console.log('Fetched Cities data:', data);
 
                     // Validate the API response structure
                     if (!Array.isArray(data)) {
-                        console.log('Validation failed: Data is not an array', data);
+                        // console.log('Validation failed: Data is not an array', data);
                         throw new Error('Invalid API response: Expected an array of city data');
                     }
 
@@ -1217,7 +1171,7 @@ $registrationSourceAnalysis = [
                 const paginatedData = filteredData.slice(startIdx, endIdx);
 
                 // Log the paginated data for debugging
-                console.log('Paginated table data:', paginatedData);
+                // console.log('Paginated table data:', paginatedData);
 
                 // Update table body
                 tableBody.innerHTML = '';
@@ -1391,7 +1345,7 @@ $registrationSourceAnalysis = [
                     return response.json();
                 })
                 .then(data => {
-                    console.log('Fetched Destination Countries data:', JSON.stringify(data, null, 2));
+                    // console.log('Fetched Destination Countries data:', JSON.stringify(data, null, 2));
 
                     // Validate the API response structure (assuming it could be an array or an object with a 'data' property)
                     let countriesData = data;
@@ -2070,16 +2024,16 @@ $registrationSourceAnalysis = [
                     option.style.visibility = 'visible';
                 });
                 if (dropdownOptions.classList.contains('show')) {
-                    console.log('Dropdown opened with all options');
+                    // console.log('Dropdown opened with all options');
                 } else {
-                    console.log('Dropdown closed');
+                    // console.log('Dropdown closed');
                 }
             };
 
             const handleOptionClick = (e) => {
                 e.stopPropagation();
                 const reportId = e.target.dataset.report;
-                console.log('Option selected:', reportId);
+                // console.log('Option selected:', reportId);
                 if (reportId === 'all') {
                     showAllReports();
                 } else if (reportId) {
@@ -2098,7 +2052,7 @@ $registrationSourceAnalysis = [
             // Close dropdown when clicking outside
             document.addEventListener('click', (e) => {
                 if (!e.target.closest('.show-all-admin-button-container') && dropdownOptions.classList.contains('show')) {
-                    console.log('Closing dropdown due to outside click');
+                    // console.log('Closing dropdown due to outside click');
                     dropdownOptions.classList.remove('show');
                     icon.classList.remove('show-all-admin-rotate-icon');
                 }
@@ -2426,7 +2380,7 @@ $registrationSourceAnalysis = [
 
             manageStudentBtn?.addEventListener('click', e => {
                 e.stopPropagation();
-                console.log('Manage Students clicked');
+                // console.log('Manage Students clicked');
                 closeModal(e);
             });
         };
@@ -2582,7 +2536,7 @@ $registrationSourceAnalysis = [
                 .then(data => {
                     if (data.message) {
                         const counts = data.counts;
-                        console.log(counts)
+                        // console.log(counts)
 
                         document.getElementById('incomplete-count').textContent = counts.incompleteCount;
                         document.getElementById('offer-issued').textContent = counts.offerIssuedStudentsCount;
@@ -2601,7 +2555,7 @@ $registrationSourceAnalysis = [
             fetch('/referralacceptedcounts')
                 .then(response => response.json())
                 .then(data => {
-                    console.log("Referral Accepted Counts:", data);
+                    // console.log("Referral Accepted Counts:", data);
                 })
                 .catch(error => {
                     console.error('Fetch failed:', error);
