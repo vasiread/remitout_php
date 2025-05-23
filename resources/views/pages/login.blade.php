@@ -70,7 +70,7 @@
                         <p class="or-divider">or</p>
                         <div class="googlesigninbuttoncontainer">
                             <button class="googlesigninbutton" onclick="window.location.href='http://localhost:8000/auth/google'">
-                                                            <img src="{{ asset('assets/images/googleicon.png') }}"> Sign in with Google
+                                <img src="{{ asset('assets/images/googleicon.png') }}"> Sign in with Google
 
                             </button>
 

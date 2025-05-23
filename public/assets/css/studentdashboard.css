@@ -181,7 +181,7 @@ input[type="file"] {
 }
 
 .studentdashboardprofile-personalinfo {
-    height: 233px;
+    height: fit-content;
     max-width: 272px;
     width: 100%;
 

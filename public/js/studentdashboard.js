@@ -256,12 +256,22 @@ const initializeSideBarTabs = () => {
 
     sideBarTopItems.forEach((item, index) => {
         item.addEventListener("click", () => {
-            // console.log('Clicked item index:', index);
-            sideBarTopItems.forEach((i) => i.classList.remove("active"));
+             sideBarTopItems.forEach((i) => i.classList.remove("active"));
             item.classList.add("active");
 
             if (index === 1) {
                 // console.log('Inbox tab selected');
+                const personalDivContainer = document.querySelector(".personalinfo-secondrow");
+                const personalDivContainerEdit = document.querySelector(".personalinfosecondrow-editsection");
+                const academicsMarksDivEdit = document.querySelector(".testscoreseditsection-secondrow-editsection");
+                const academicsMarksDiv = document.querySelector(".testscoreseditsection-secondrow");
+
+                personalDivContainerEdit.style.display = "none";
+                personalDivContainer.style.display = "flex";
+                academicsMarksDivEdit.style.display = "none";
+                academicsMarksDiv.style.display = "flex";
+
+
                 lastTabHiddenDiv.style.display = "flex";
                 lastTabVisibleDiv.style.display = "none";
                 communityJoinCard.style.display = "flex";
@@ -282,11 +292,29 @@ const initializeSideBarTabs = () => {
                 educationEditSection.style.display = "none";
                 testScoresEditSection.style.display = "none";
 
+                const personalDivContainer = document.querySelector(".personalinfo-secondrow");
+                const personalDivContainerEdit = document.querySelector(".personalinfosecondrow-editsection");
+                const academicsMarksDivEdit = document.querySelector(".testscoreseditsection-secondrow-editsection");
+                const academicsMarksDiv = document.querySelector(".testscoreseditsection-secondrow");
+
+               
+
+                personalDivContainerEdit.style.display = "none";
+                personalDivContainer.style.display = "flex";
+                academicsMarksDivEdit.style.display = "none";
+                academicsMarksDiv.style.display = "flex";
+
                 handleIndividualCards("index0");
                 dynamicHeader.textContent = "Loan Proposals";
+               
 
             } else if (index === 2) {
-                // console.log('My Application tab selected');
+                
+             
+                const saveChangesButton = document.querySelector(".personalinfo-firstrow button");
+                saveChangesButton.textContent = 'Edit';
+                saveChangesButton.style.backgroundColor = "transparent";
+                saveChangesButton.style.color = "#260254";
 
                 lastTabHiddenDiv.style.display = "none";
                 lastTabVisibleDiv.style.display = "flex";
@@ -3278,7 +3306,7 @@ const saveChangesFunctionality = () => {
             isEditing = !isEditing;
 
             if (isEditing) {
-                toggleSaveState(); // Call toggleSaveState function when entering edit mode
+                toggleSaveState();  
             }
             else {
                 saveChangesButton.textContent = 'Edit';
