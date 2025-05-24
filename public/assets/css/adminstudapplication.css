@@ -55,7 +55,6 @@
 .admin-student-form-section-academic-details,
 .admin-student-form-section-document-upload {
     margin-bottom: 20px;
-    border-bottom: 1px solid #f0f0f0;
     padding: 15px 0;
 }
 .admin-student-form-section-course-details {
@@ -70,6 +69,8 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+     border-bottom: 1px solid #f0f0f0;
+    padding: 15px 0;
 }
 
 .admin-student-section-header-course {
@@ -146,10 +147,27 @@
     margin-bottom: 0px;
 }
 
-/*--.admin-student-form-question.active {
-        border: 1px solid #ccc;
-    }--*/
+.admin-student-form-question-course.active,
+.admin-student-form-question.active {
+    border: 1px solid #ccc;
+    margin-bottom: 40px;
+    transition: border 0.3s ease;
+}
 
+.admin-student-form-question-course.active,
+.admin-student-form-question-course-degree.active,
+.admin-student-form-question-month.active {
+    border: 1px solid #ccc;
+    transition: border 0.3s ease;
+    margin-bottom: 40px;
+}
+
+.admin-student-form-question.active,
+.education-container.active {
+    border: 1px solid #ccc;
+    transition: border 0.3s ease;
+    margin-bottom: 40px;
+}
 .admin-student-question-row,
 .admin-student-question-row-course,
 .admin-student-question-row-course-degree,
@@ -1517,36 +1535,38 @@ textarea::placeholder {
         cursor: pointer;
         color: #0066cc;
       }
-      .help-container {
-        background-color: white;
-        border-radius: 8px;
-        width: 270px;
-        height: auto;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-        padding: 15px;
-        position: absolute;
-        z-index: 10;
-        display: none;
-        left: 0;
-        top: 100%;
-        margin-top: 5px;
-      }
-      .help-container.visible {
-        display: block;
-      }
-      .help-title {
-        font-size: 16px;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 10px;
-        padding: 10px;
-        border-bottom: 1px solid #ddd;
-      }
-      .help-content p {
-        font-size: 12px;
-        color: #838383;
-        margin: 0;
-      }
+     
+
+.help-container {
+    background-color: white;
+    border-radius: 8px;
+    width: 270px;
+    height: auto;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    position: absolute;
+    z-index: 1;
+    display: none;
+}
+
+.help-container.visible {
+    display: block;
+}
+
+.help-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.help-content p {
+    font-size: 12px;
+    color: #838383;
+}
+
       .document-name {
         font-weight: bold;
         margin-bottom: 5px;
