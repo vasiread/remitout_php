@@ -8,11 +8,11 @@
     <script src="{{ asset('js/adminsidebar.js') }}"></script>
     <script src="{{ asset('js/studentforms.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/studentformquestionair.css') }}">
-</head>
+ </head>
 
 <body>
     @extends('layouts.app');
-
+o
     @php
         $profileIconPath = "assets/images/Icons/account_circle.png";
         $phoneIconPath = "assets/images/call.png";
