@@ -219,7 +219,8 @@
     display: flex;
     gap: 20px;
 }
-.see-all{
+
+.see-all {
     cursor: pointer;
 }
 
@@ -256,7 +257,7 @@
 }
 
 
-.studentadditbutton .start-new{
+.studentadditbutton .start-new {
     font-size: 24px;
 }
 
@@ -974,7 +975,7 @@
     border: none;
     box-shadow: 0px 0px 10px 0px #92889B21;
     font-family: 'Poppins', sans-serif;
-    
+
     font-weight: 500;
     line-height: 16.8px;
     color: #fff;
@@ -1129,6 +1130,62 @@
 
 }
 
+.pagination-download-groups {
+    display: flex;
+    height: 35px;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 14.23%;
+
+
+
+}
+
+.pagination-download-groups #download-statusgroups-reports {
+    background: rgba(250, 123, 21, 1);
+    border: none;
+    height: 100%;
+    box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
+    color: rgba(255, 255, 255, 1);
+    max-width: 10.55%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    padding: 0 1.4rem;
+    font-weight: 500;
+
+
+
+}
+
+.inactive-page,
+.active-page,.group-nav-button {
+    width: 26px;
+    height: 26px;
+    font-family: Poppins;
+    color: rgb(184, 184, 184);
+    border: 1px solid rgba(230, 230, 230, 1);
+    background-color: rgba(255, 255, 255, 1);
+    margin: 0 7px;
+    cursor: pointer;
+
+}
+
+.inactive-page:hover,
+.active-page:hover,.group-nav-button {
+    background-color: rgba(230,230,230, 0.7);
+}
+
+.active-page ,.group-nav-button{
+    background-color: rgba(230, 230, 230, 1);
+    color: rgba(0, 0, 0, 1);
+
+
+}
+
+
 .studentapplicaton-datashownpagination {
     align-items: center;
     display: flex;
@@ -1227,6 +1284,7 @@
 .scdashboard-parentcontainer {
     filter: none !important;
 }
+
 .sc-new-registration-overlay {
     display: none;
     position: fixed;
@@ -1263,6 +1321,7 @@
     gap: 17px;
     z-index: 1000;
 }
+
 /* 
 .studentAddBySCuserPopup{
     min-height: 80vh;
@@ -1295,9 +1354,11 @@
 .referral-Link-trigger-anotherbutton {
     cursor: pointer;
 }
-.studentAddByScuserPopup-content-container{
-    overflow-y:scroll;
+
+.studentAddByScuserPopup-content-container {
+    overflow-y: scroll;
 }
+
 .studentAddByScuserPopup-contentpart {
     display: flex;
     flex-direction: column;
@@ -1306,8 +1367,8 @@
     border-bottom: 1px solid rgba(217, 217, 217, 1);
     padding-bottom: 17px;
     flex: 1;
-        /* Take available space */
-        max-height: 400px
+    /* Take available space */
+    max-height: 400px
 }
 
 .studentAddByScuserPopup-contentpart input::placeholder {
@@ -1356,7 +1417,7 @@
     line-height: 16.8px;
     color: rgba(38, 2, 84, 1);
     background: transparent;
-    padding:10px 0px 10px 0px;
+    padding: 10px 0px 10px 0px;
 
 }
 
@@ -1552,7 +1613,8 @@
 .raise-query-popup-headersection .close-query-btn img {
     width: 16px;
     height: 16px;
-    filter: invert(35%) sepia(77%) saturate(1536%) hue-rotate(243deg) brightness(96%) contrast(97%); /* Purple color for the "x" */
+    filter: invert(35%) sepia(77%) saturate(1536%) hue-rotate(243deg) brightness(96%) contrast(97%);
+    /* Purple color for the "x" */
 }
 
 .raise-query-popup-content {
@@ -1610,7 +1672,8 @@
 .raise-query-popup-footer .cancel-query img {
     width: 16px;
     height: 16px;
-    filter: invert(35%) sepia(77%) saturate(1536%) hue-rotate(243deg) brightness(96%) contrast(97%); /* Purple color for the "x" */
+    filter: invert(35%) sepia(77%) saturate(1536%) hue-rotate(243deg) brightness(96%) contrast(97%);
+    /* Purple color for the "x" */
 }
 
 .raise-query-popup-footer .submit-query {
@@ -1618,16 +1681,21 @@
     color: white;
     padding: 8px 16px;
 }
+
 .sc-backdrop {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4); /* Dark, semi-transparent color */
-    backdrop-filter: blur(5px); /* Blurs the content behind */
-    z-index: 999; /* Places it above other content */
-    display: none; /* Hidden by default */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Dark, semi-transparent color */
+    backdrop-filter: blur(5px);
+    /* Blurs the content behind */
+    z-index: 999;
+    /* Places it above other content */
+    display: none;
+    /* Hidden by default */
 }
 
 /* -------------------------------------------Media Queries-------------------------------------------------------------- */
@@ -1788,7 +1856,8 @@
         align-items: center;
 
     }
-    .scdashboard-applicationstatus .scapplicationstatus-firstrow{
+
+    .scdashboard-applicationstatus .scapplicationstatus-firstrow {
         display: flex;
         flex-direction: column !important;
     }
@@ -1827,12 +1896,13 @@
     }
 
 
-        .firstrowapplication-rightsidecontent{
-            width: 100%;
-        }
-           .scdashboard-applicationstatus .scapplicationstatus-firstrow #applicationstatus-sortby{
-            flex: 0.8;
-        }
+    .firstrowapplication-rightsidecontent {
+        width: 100%;
+    }
+
+    .scdashboard-applicationstatus .scapplicationstatus-firstrow #applicationstatus-sortby {
+        flex: 0.8;
+    }
 
 
 }

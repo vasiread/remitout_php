@@ -23,7 +23,7 @@
         $loginSignupvectorOne = "assets/images/downsideloginimg.png";
         $profileCardVectorWhite = "assets/images/profileCardVector-white.png";
         $signupmainimgupside = "assets/images/signupmainimgupside.png";
-                                    ?>
+                                                    ?>
 
             <div class="loginsignupcontainer">
                 <div class="loginsingupcontainer-leftpanel">
@@ -424,36 +424,45 @@
                         });
                 }
 
-                function submitVerifiedData() {
-                   
-                    const registerFormData = {
-                        name: document.getElementById('name').value,
-                        phoneInput: document.getElementById('phone').value,
-                        email: document.getElementById('email').value,
-                        password: document.getElementById('passwordinputID').value,
-                    };
-                    console.log(registerFormData);
-                    fetch('/registerformdata', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        body: JSON.stringify(registerFormData)
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                alert("Registration is Successful");
-                                window.location.href = '/student-forms';
-                            } else {
-                                alert(data.error || 'Something went wrong. Please try again.');
-                            }
-                        })
-                        .catch(() => {
-                            alert('An error occurred. Please try again.');
-                        });
-                }
+              function submitVerifiedData() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const referralId = urlParams.get('ref');  
+
+    const registerFormData = {
+        name: document.getElementById('name').value,
+        phoneInput: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('passwordinputID').value,
+     };
+
+
+
+    alert(referralId);
+
+    console.log(registerFormData);
+
+    fetch('/registerformdata', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify(registerFormData)
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Registration is Successful");
+                window.location.href = '/student-forms';
+            } else {
+                alert(data.error || 'Something went wrong. Please try again.');
+            }
+        })
+        .catch(() => {
+            alert('An error occurred. Please try again.');
+        });
+}
+
             </script>
     @endsection
 </body>

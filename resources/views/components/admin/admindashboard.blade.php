@@ -297,15 +297,10 @@
                 <div class="reports-registeration" data-report="registration-reports">
                     <div class="reports-registeration-sectionone">
                         <p>Reports on registration</p>
-                        <!-- <button id="calender-reportsregister">
-                            Calendar <img src="assets/images/Icons/calendar_month.png" alt="">
-                        </button> -->
+                         
                         <input type="month" id="date-picker-linegraph">
-                        <!-- Remove display:none to make it visible -->
-
-                        <!-- Display selected date -->
-                        <p id="selected-date"></p>
-                    </div>
+                         
+                     </div>
                     <div class="reports-registeration-graph">
                         <div id="chart_div" style="width: 100%; height: 160px;"></div>
                     </div>
@@ -722,31 +717,29 @@
         // Chart Initialization
         const initializeCharts = () => {
             // Centralize Google Charts callback to avoid multiple setOnLoad calls
-            google.charts.setOnLoadCallback(() => {
+           google.charts.setOnLoadCallback(() => {
                 drawNBFCChart();
 
                 const datePicker = document.getElementById('date-picker-linegraph');
-                // const selectedDateText = document.getElementById('selected-date');
+                const selectedDateText = document.getElementById('selected-date'); // optional UI
 
-                // 🗓️ Auto-select current month/year on load
-                const now = new Date();
-                const currentMonth = String(now.getMonth() + 1).padStart(2, '0');
-                const currentYear = now.getFullYear();
-                const formattedDate = `${currentYear}-${currentMonth}`; // yyyy-mm
+                // ✅ Step 1: Initial API hit WITHOUT month/year (overall data)
+                initializeRegistrationLineGraph(); // No arguments = default/overall
 
-                datePicker.value = formattedDate;
-                // selectedDateText.textContent = `Selected: ${currentMonth}/${currentYear}`;
+                // ✅ Step 2: Listen for user input
+                if (datePicker) {
+                    datePicker.addEventListener('change', function () {
+                        const [year, month] = this.value.split('-');
 
-                // 🟢 Initial API hit with current date
-                initializeRegistrationLineGraph(currentMonth, currentYear);
+                         if (selectedDateText) {
+                            selectedDateText.textContent = `Selected: ${month}/${year}`;
+                        }
 
-                // 🎯 Update on change
-                datePicker.addEventListener('change', function () {
-                    const [year, month] = this.value.split('-');
-                    selectedDateText.textContent = `Selected: ${month}/${year}`;
-                    initializeRegistrationLineGraph(month, year);
-                });
+                         initializeRegistrationLineGraph(month, year);
+                    });
+                }
             });
+
             // initializeDonutGraphSource();
             // initializeDonutGraphAgeRatio();
             initializeNewDonutChart();
@@ -757,7 +750,7 @@
 
         // Registration Line Graph with API Data
         const initializeRegistrationLineGraph = (month = null, year = null) => {
-            const chartDiv = $('#chart_div');
+            const chartDiv = document.getElementById('chart_div');
             if (!chartDiv) return console.error('chart_div not found');
 
             const requestBody = (month && year) ? {
@@ -765,9 +758,6 @@
                 year: String(year)
             } : {};
 
-            console.log("RB", requestBody)
-
-            // Fetch data from API
             fetch('/reports-on-generation', {
                 method: 'POST',
                 headers: {
@@ -776,16 +766,10 @@
                 },
                 body: JSON.stringify(requestBody)
             })
-                .then(response => {
-                    // console.log('✅ Actual data from API:', data);  // Add this
-
-                    if (!data.days_of_week || !data.registration_counts || data.days_of_week.length !== data.registration_counts.length) {
-                        console.error('❌ Invalid API response:', data);
-                        throw new Error('Invalid API response');
-                    }
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
+                    console.log('✅ Actual data from API:', data);
+
                     if (!data.days_of_week || !data.registration_counts || data.days_of_week.length !== data.registration_counts.length) {
                         throw new Error('Invalid API response');
                     }
@@ -824,43 +808,12 @@
 
                     const chart = new google.visualization.LineChart(chartDiv);
                     chart.draw(view, options);
-
                 })
                 .catch(error => {
                     console.error('Error fetching Reports on Registration data:', error);
-                    // Fallback to static data if API fails
-                    const dataTable = new google.visualization.DataTable();
-                    dataTable.addColumn('string', 'Day');
-                    dataTable.addColumn('number', 'Registrations');
-                    dataTable.addColumn({ type: 'string', role: 'annotation' });
-
-                    const fallbackRows = [
-                        ['Mon', 100, null], ['Tue', 123, null], ['Wed', 174, '174'],
-                        ['Thu', 118, null], ['Fri', 145, null], ['Sat', 92, null]
-                    ];
-
-                    dataTable.addRows(fallbackRows);
-
-                    // console.log('Using fallback data:', fallbackRows);
-
-                    const view = new google.visualization.DataView(dataTable);
-                    view.setColumns([0, 1, 2]);
-
-                    const options = {
-                        maintainAspectRatio: false,
-                        hAxis: { title: 'Day of the Week', textStyle: { color: '#333' } },
-                        vAxis: { title: 'Registrations', viewWindow: { min: 0, max: 200 }, textStyle: { color: '#333' } },
-                        annotations: { alwaysOutside: true, textStyle: { color: '#000', fontSize: 12 } },
-                        pointSize: 5,
-                        series: { 0: { lineWidth: 2, pointShape: 'circle', color: 'rgb(163, 171, 189)' } },
-                        legend: 'none',
-                        chartArea: { width: '80%', height: '70%' }
-                    };
-
-                    const chart = new google.visualization.LineChart(chartDiv);
-                    chart.draw(view, options);
                 });
         };
+
 
         //Undergrad and Postgrad Chart
         // Function to update profile completion by gender and degree

@@ -8,16 +8,16 @@
     <script src="{{ asset('js/adminsidebar.js') }}"></script>
     <script src="{{ asset('js/studentforms.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/studentformquestionair.css') }}">
-</head>
+ </head>
 
 <body>
     @extends('layouts.app');
-
+o
     @php
-$profileIconPath = "assets/images/Icons/account_circle.png";
-$phoneIconPath = "assets/images/call.png";
-$mailIconPath = "assets/images/mail.png";
-$pindropIconPath = "assets/images/pin_drop.png";
+        $profileIconPath = "assets/images/Icons/account_circle.png";
+        $phoneIconPath = "assets/images/call.png";
+        $mailIconPath = "assets/images/mail.png";
+        $pindropIconPath = "assets/images/pin_drop.png";
     @endphp
 
     <div class="student-listcontainer" id="student-admin-section-id">
@@ -646,6 +646,8 @@ $pindropIconPath = "assets/images/pin_drop.png";
             initializeSearchAndFilter();
             setupProfileTriggers();
             setupEditSaveCancel();
+            initializeSortByFunctionQueries();
+
         });
 
         const applicationStatusElements = document.querySelectorAll(".individualstudentapplication-status .scdashboard-nbfcstatus-pending span");
@@ -1119,7 +1121,7 @@ $pindropIconPath = "assets/images/pin_drop.png";
                     ...testScores,
                     ...courseDetails
                 };
-                console.log("fullData",fullData)
+                console.log("fullData", fullData)
 
                 const response = await fetch('/update-personal-info-adminside', {
                     method: 'POST',
@@ -1162,6 +1164,61 @@ $pindropIconPath = "assets/images/pin_drop.png";
                     console.error('Error refreshing profile:', err);
                 });
         }
+
+
+
+        const initializeSortByFunctionQueries = () => {
+            const sortBy = document.querySelector(".queryraisedcontainer-rightcontent #sort-by");
+            const sortByContents = document.querySelector(".queryraisedcontainer-rightcontent .sort-by-contents");
+
+            const querysContainer = document.querySelector(".groupofraisedquestion-scdashboard");
+            const sortedLinkCateg = document.querySelectorAll(".queryraisedcontainer-rightcontent .sort-by-contents a");
+
+            if (sortByContents) {
+                sortByContents.style.width = "100%";
+            }
+
+            sortedLinkCateg.forEach((item) => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const sortContentsType = e.target.getAttribute('data-sort');
+                    const raisedQuestions = Array.from(querysContainer.querySelectorAll('.individual-raisedquestions'));
+
+                    if (sortContentsType === 'newest') {
+                        raisedQuestions.sort((a, b) => new Date(b.dataset.added) - new Date(a.dataset.added));
+                    } else if (sortContentsType === 'oldest') {
+                        raisedQuestions.sort((a, b) => new Date(a.dataset.added) - new Date(b.dataset.added));
+                    } else if (sortContentsType === 'alphabet') {
+                        raisedQuestions.sort((a, b) => a.querySelector('#queries-row').textContent.trim().localeCompare(b.querySelector('#queries-row').textContent.trim()));
+                    } else if (sortContentsType === 'alphabet-reverse') {
+                        raisedQuestions.sort((a, b) => b.querySelector('#queries-row').textContent.trim().localeCompare(a.querySelector('#queries-row').textContent.trim()));
+                    }
+
+                    raisedQuestions.forEach((question) => {
+                        querysContainer.appendChild(question);
+                    });
+                });
+            });
+
+            sortBy.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (sortByContents) {
+                    sortByContents.style.display = sortByContents.style.display === "none" ? "flex" : "none";
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (sortByContents && sortByContents.style.display === "flex" && !sortBy.contains(e.target)) {
+                    sortByContents.style.display = "none";
+                }
+            });
+        };
+
+
+
+
+
+
     </script>
 </body>
 
