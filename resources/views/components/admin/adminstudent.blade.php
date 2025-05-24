@@ -14,10 +14,10 @@
     @extends('layouts.app');
 
     @php
-$profileIconPath = "assets/images/Icons/account_circle.png";
-$phoneIconPath = "assets/images/call.png";
-$mailIconPath = "assets/images/mail.png";
-$pindropIconPath = "assets/images/pin_drop.png";
+        $profileIconPath = "assets/images/Icons/account_circle.png";
+        $phoneIconPath = "assets/images/call.png";
+        $mailIconPath = "assets/images/mail.png";
+        $pindropIconPath = "assets/images/pin_drop.png";
     @endphp
 
     <div class="student-listcontainer" id="student-admin-section-id">
@@ -47,7 +47,15 @@ $pindropIconPath = "assets/images/pin_drop.png";
 
         <div class="scdashboard-studentapplication" id="studentapplicationfromadminstudent">
             @foreach ($userDetails as $users)
-                <div class="studentapplication-lists" data-status="{{ $users->status ?? 'Pending' }}">
+                @php
+                    $status = 'pending';
+                    if ($users->reviewed == 0) {
+                        $status = 'not-reviewed';
+                    } elseif ($users->type == 'proposal') {
+                        $status = 'approved';
+                    }
+                @endphp
+                <div class="studentapplication-lists" data-status="{{ $status }}">
                     <div class="individualapplication-list">
                         <div class="firstsection-lists">
                             <h1>{{ $users->user->name }}</h1>
@@ -817,6 +825,7 @@ $pindropIconPath = "assets/images/pin_drop.png";
                     filterLinks.forEach(l => l.classList.remove('active'));
                     link.classList.add('active');
 
+                    // Update dropdown text
                     filterButton.childNodes.forEach(node => {
                         if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
                             node.textContent = link.textContent + ' ';
@@ -842,6 +851,7 @@ $pindropIconPath = "assets/images/pin_drop.png";
                         }
                     });
 
+                    // Update count
                     studentCountElement.textContent = visibleCount;
                     studentCountElement.style.padding = "0px 10px 0px 10px";
                     studentCountElement.style.borderRadius = "50%";
@@ -1119,7 +1129,7 @@ $pindropIconPath = "assets/images/pin_drop.png";
                     ...testScores,
                     ...courseDetails
                 };
-                console.log("fullData",fullData)
+                console.log("fullData", fullData)
 
                 const response = await fetch('/update-personal-info-adminside', {
                     method: 'POST',
