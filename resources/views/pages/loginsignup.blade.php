@@ -433,8 +433,7 @@
         phoneInput: document.getElementById('phone').value,
         email: document.getElementById('email').value,
         password: document.getElementById('passwordinputID').value,
-        referralId: referralId 
-    };
+     };
 
 
 

@@ -154,10 +154,10 @@
 
     @section('scdashboard')
         @php
-            $profileIconPath = "assets/images/account_circle1.png";
-            $phoneIconPath = "assets/images/call.png";
-            $mailIconPath = "assets/images/mail.png";
-            $pindropIconPath = "assets/images/pin_drop.png";
+$profileIconPath = "assets/images/account_circle1.png";
+$phoneIconPath = "assets/images/call.png";
+$mailIconPath = "assets/images/mail.png";
+$pindropIconPath = "assets/images/pin_drop.png";
 
 
 
@@ -165,42 +165,42 @@
 
 
 
-            $proposalsInfo = [
-                [
-                    'NBFC' => 'NBFC Name',
-                    'ProposalDate' => '20/11/2024',
-                    'Status' => 'Approved'
+$proposalsInfo = [
+    [
+        'NBFC' => 'NBFC Name',
+        'ProposalDate' => '20/11/2024',
+        'Status' => 'Approved'
 
-                ],
-                [
-                    'NBFC' => 'NBFC Name',
-                    'ProposalDate' => '20/11/2024',
-                    'Status' => 'Pending'
+    ],
+    [
+        'NBFC' => 'NBFC Name',
+        'ProposalDate' => '20/11/2024',
+        'Status' => 'Pending'
 
-                ],
+    ],
 
-            ];
-
-
-
-            $studentDocumentDetailsInfo = [
-                ['student_name' => 'Manish', 'DocumentFinalStatus' => 'Missing Documents: 01', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-07-01'],
-                ['student_name' => 'Kumar', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-02-01'],
-                ['student_name' => 'Raji', 'DocumentFinalStatus' => 'Missing Documents: 12', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-12-04'],
-                ['student_name' => 'Venkatesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-01'],
-                ['student_name' => 'Ramya', 'DocumentFinalStatus' => 'Missing Documents: 03', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-02-09'],
-                ['student_name' => 'Chinna', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2025-07-20'],
-                ['student_name' => 'Feroz', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-21'],
-                ['student_name' => 'Ramesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-29'],
-                ['student_name' => 'Vasi', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-09-30'],
-                ['student_name' => 'Aari', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-10-01'],
-                ['student_name' => 'Abinav', 'DocumentFinalStatus' => 'Missing Documents: 02', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-01'],
+];
 
 
-            ];
+
+$studentDocumentDetailsInfo = [
+    ['student_name' => 'Manish', 'DocumentFinalStatus' => 'Missing Documents: 01', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-07-01'],
+    ['student_name' => 'Kumar', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-02-01'],
+    ['student_name' => 'Raji', 'DocumentFinalStatus' => 'Missing Documents: 12', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-12-04'],
+    ['student_name' => 'Venkatesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-01'],
+    ['student_name' => 'Ramya', 'DocumentFinalStatus' => 'Missing Documents: 03', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-02-09'],
+    ['student_name' => 'Chinna', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2025-07-20'],
+    ['student_name' => 'Feroz', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-21'],
+    ['student_name' => 'Ramesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-29'],
+    ['student_name' => 'Vasi', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-09-30'],
+    ['student_name' => 'Aari', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-10-01'],
+    ['student_name' => 'Abinav', 'DocumentFinalStatus' => 'Missing Documents: 02', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-01'],
+
+
+];
 
         @endphp
-        
+
         <div class="scdashboard-parentcontainer">
             <div class="commonsidebar-togglesidebar">
                 <ul class="commonsidebar-sidebarlists-top">
@@ -427,15 +427,17 @@
                         <button id="sc-new-application-generate">Start New Application</button>
                     </div>
                 </div>
-                @php
-                    $perPage = 3;
-                    $totalStudents = count($studentDocumentDetailsInfo);
-                    $totalPages = ceil($totalStudents / $perPage);  
-                @endphp
+
 
                 <div id="student-applicationdetailsstatus">
 
                 </div>
+                <div class="pagination-download-groups">
+                    <div id="pagination-container-statusgroups"></div>
+                    <button id="download-statusgroups-reports">Download report</button>
+
+                </div>
+
 
 
 
@@ -443,7 +445,7 @@
             </div>
         </div>
 
-     <div class="sc-new-registration-overlay"></div>
+        <div class="sc-new-registration-overlay"></div>
         <div class="studentAddBySCuserPopup">
             <div class="studentAddByScuserPopup-headerpart">
                 <h3>Register Students</h3>
@@ -488,7 +490,7 @@
             </form>
         </div>
 
-    <div class="sc-dashboard-generate-overlay"></div>
+        <div class="sc-dashboard-generate-overlay"></div>
         <div class="referral-triggered-view" style="display:none">
             <div class="referral-triggered-view-headersection">
                 <h3>Generate Referral Link</h3>
@@ -1015,47 +1017,47 @@
         window.addEventListener('load', dynamicChangesWhileScreenShrink);
         window.addEventListener('resize', dynamicChangesWhileScreenShrink);
 
-     const initializePopuAddingstudents = () => {
-    const studentAddingPopuBar = document.querySelector(".studentAddBySCuserPopup");
-    const popuAddingStudentTriggers = document.querySelectorAll(".studentapplication-header .start-new");
-    const closePopuTrigger = document.querySelector(".studentAddByScuserPopup-headerpart img");
-    const backgroundContainer = document.querySelector(".scdashboard-parentcontainer");
-    const popuAddingStudentTriggersApplications = document.getElementById("sc-new-application-generate");
-    const overlay = document.querySelector(".sc-new-registration-overlay");
+        const initializePopuAddingstudents = () => {
+            const studentAddingPopuBar = document.querySelector(".studentAddBySCuserPopup");
+            const popuAddingStudentTriggers = document.querySelectorAll(".studentapplication-header .start-new");
+            const closePopuTrigger = document.querySelector(".studentAddByScuserPopup-headerpart img");
+            const backgroundContainer = document.querySelector(".scdashboard-parentcontainer");
+            const popuAddingStudentTriggersApplications = document.getElementById("sc-new-application-generate");
+            const overlay = document.querySelector(".sc-new-registration-overlay");
 
-    if (!studentAddingPopuBar || !popuAddingStudentTriggers.length || !closePopuTrigger || !backgroundContainer || !overlay) {
-        console.error("Required DOM elements are missing for initializePopuAddingstudents:", {
-            studentAddingPopuBar: !!studentAddingPopuBar,
-            popuAddingStudentTriggers: !!popuAddingStudentTriggers.length,
-            closePopuTrigger: !!closePopuTrigger,
-            backgroundContainer: !!backgroundContainer,
-            overlay: !!overlay
-        });
-        return;
-    }
+            if (!studentAddingPopuBar || !popuAddingStudentTriggers.length || !closePopuTrigger || !backgroundContainer || !overlay) {
+                console.error("Required DOM elements are missing for initializePopuAddingstudents:", {
+                    studentAddingPopuBar: !!studentAddingPopuBar,
+                    popuAddingStudentTriggers: !!popuAddingStudentTriggers.length,
+                    closePopuTrigger: !!closePopuTrigger,
+                    backgroundContainer: !!backgroundContainer,
+                    overlay: !!overlay
+                });
+                return;
+            }
 
-    const showPopup = () => {
-        studentAddingPopuBar.style.display = "flex";
-        overlay.style.display = "block";
-    };
+            const showPopup = () => {
+                studentAddingPopuBar.style.display = "flex";
+                overlay.style.display = "block";
+            };
 
-    const hidePopup = () => {
-        studentAddingPopuBar.style.display = "none";
-        overlay.style.display = "none";
-    };
+            const hidePopup = () => {
+                studentAddingPopuBar.style.display = "none";
+                overlay.style.display = "none";
+            };
 
-    popuAddingStudentTriggers.forEach(button => {
-        button.addEventListener("click", showPopup);
-    });
+            popuAddingStudentTriggers.forEach(button => {
+                button.addEventListener("click", showPopup);
+            });
 
-    if (popuAddingStudentTriggersApplications) {
-        popuAddingStudentTriggersApplications.addEventListener("click", showPopup);
-    }
+            if (popuAddingStudentTriggersApplications) {
+                popuAddingStudentTriggersApplications.addEventListener("click", showPopup);
+            }
 
-    if (closePopuTrigger) {
-        closePopuTrigger.addEventListener("click", hidePopup);
-    }
-};
+            if (closePopuTrigger) {
+                closePopuTrigger.addEventListener("click", hidePopup);
+            }
+        };
 
 
 
@@ -1443,8 +1445,8 @@
                 element.addEventListener(event, handler);
             };
 
-          const resetFooter = () => {
-            footerContainer.innerHTML = `
+            const resetFooter = () => {
+                footerContainer.innerHTML = `
                 <button>
                     <img src="{{ asset('assets/images/Icons/close_icon.png') }}" alt="Cancel Icon" />
                     Cancel
@@ -1453,16 +1455,16 @@
                     <button class="btn-generate">Generate</button>
                 </div>
             `;
-            cancelButton = footerContainer.querySelector("button:nth-child(1)");
-            generateButton = footerContainer.querySelector(".btn-generate");
+                cancelButton = footerContainer.querySelector("button:nth-child(1)");
+                generateButton = footerContainer.querySelector(".btn-generate");
 
-            if (cancelButton) {
-                removeExistingListeners(cancelButton, "click", hidePopup);
-            }
-            if (generateButton) {
-                removeExistingListeners(generateButton, "click", generateLink);
-            }
-        };
+                if (cancelButton) {
+                    removeExistingListeners(cancelButton, "click", hidePopup);
+                }
+                if (generateButton) {
+                    removeExistingListeners(generateButton, "click", generateLink);
+                }
+            };
 
             const showPopup = () => {
                 referralTriggeredView.style.display = "flex";
@@ -1476,7 +1478,7 @@
                 overlay.style.display = "none";
             };
 
-           const generateLink = () => {
+            const generateLink = () => {
                 if (!referralInput) return;
                 referralInput.value = referralLink;
                 footerContainer.innerHTML = `
@@ -2125,92 +2127,151 @@
             }
         };
 
-
-        function getStatusGroups() {
+     function getStatusGroups() {
             const scuser = @json(session('scuser'));
-            const scReferralId = scuser.referral_code;
             const container = document.getElementById("student-applicationdetailsstatus");
+            const paginationContainer = document.getElementById("pagination-container-statusgroups");
 
-            fetch("/getstatusofusers", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content")
-                },
-                body: JSON.stringify({ scReferralId })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success && data.data.length > 0) {
-                        data.data.forEach(student => {
-                            const studentDiv = document.createElement("div");
-                            studentDiv.className = "studentapplicationstatusreports-inscdashboard";
-                            studentDiv.setAttribute("data-added", "");
-                            console.log(student)
+            // ✅ Static test data (30 students)
+            const data = {
+                success: true,
+                data: Array.from({ length: 50 }, (_, i) => ({
+                    userName: `Student ${i + 1}`,
+                    user_id: `U10${i + 1}`,
+                    nbfcs: [
+                        {
+                            nbfc_name: `NBFC ${String.fromCharCode(65 + (i % 5))}`,
+                            statuses: [{
+                                status_type: ["Approved", "Pending", "Rejected"][i % 3],
+                                created_at: `2025-01-${String(i + 1).padStart(2, '0')}`
+                            }]
+                        }
+                    ]
+                }))
+            };
 
-                            const firstRow = `
-                        <div class="reportsindashboard-firstrow">
-                            <div class="reportsindashboard-leftcontentinfirstrow">
-                                <p>${student.userName}</p>
-                                <span>Unique ID: ${student.user_id}</span>
+            if (data.success && data.data.length > 0) {
+                const results = data.data;
+                const itemsPerPage = 3;
+                let currentPage = 1;
+
+                function renderPage(page) {
+                    container.innerHTML = "";
+                    const start = (page - 1) * itemsPerPage;
+                    const end = start + itemsPerPage;
+                    const paginatedItems = results.slice(start, end);
+
+                    paginatedItems.forEach(student => {
+                        const studentDiv = document.createElement("div");
+                        studentDiv.className = "studentapplicationstatusreports-inscdashboard";
+                        studentDiv.setAttribute("data-added", "");
+
+                        const firstRow = `
+                    <div class="reportsindashboard-firstrow">
+                        <div class="reportsindashboard-leftcontentinfirstrow">
+                            <p>${student.userName}</p>
+                            <span>Unique ID: ${student.user_id}</span>
+                        </div>
+                        <div class="reportsindashboard-rightcontentinfirstrow">
+                            <div class="application-buttoncontainer reportsindashboard-buttoncontainer">
+                                <button class="expand-arrow-reportsindashboard" style="cursor:pointer">
+                                    <img src="/assets/images/stat_minus_1.png" class="expand-arrow-rotation" alt="">
+                                </button>
                             </div>
-                            <div class="reportsindashboard-rightcontentinfirstrow">
-                                <div class="application-buttoncontainer reportsindashboard-buttoncontainer">
-                                        <button class="expand-arrow-reportsindashboard" style="cursor:pointer">
-                                        <img src="/assets/images/stat_minus_1.png" class="expand-arrow-rotation" alt="">
-                                    </button>
-                                </div>
-                                <div class="application-shrinkwidtheditcontainer">
-                                    <img src="/assets/images/Icons/edit_icon.png" style="display:none" alt="">
-                                </div>
+                            <div class="application-shrinkwidtheditcontainer">
+                                <img src="/assets/images/Icons/edit_icon.png" style="display:none" alt="">
                             </div>
                         </div>
-                    `;
+                    </div>`;
 
-                            const secondRow = `
-                        <div class="reportsindashboard-secondrow">
-                            <p>Documents: ${getFinalStatus(student.nbfcs)}</p>
-                            <p>Application Date: -</p>
-                            <p>Proposals received: ${student}</p>
-                            <p>Total Duration: -</p>
-                        </div>
-                    `;
-                            console.log(student)
+                        const secondRow = `
+                    <div class="reportsindashboard-secondrow">
+                        <p>Documents: ${getFinalStatus(student.nbfcs)}</p>
+                        <p>Application Date: -</p>
+                        <p>Proposals received: ${student.nbfcs.length}</p>
+                        <p>Total Duration: -</p>
+                    </div>`;
 
-                            const proposalDetails = document.createElement("div");
-                            proposalDetails.className = "reportsproposal-datalists";
+                        const proposalDetails = document.createElement("div");
+                        proposalDetails.className = "reportsproposal-datalists";
 
-                            student.nbfcs.forEach(nbfc => {
-                                nbfc.statuses.forEach(status => {
-                                    const detailDiv = document.createElement("div");
-                                    detailDiv.className = "reportsproposal-individualdatalists";
-                                    detailDiv.innerHTML = `
-                                <p>NFBC: &nbsp;&nbsp;${nbfc.nbfc_name}</p>
-                                <p>Proposal Date: &nbsp;&nbsp;${status.created_at ?? '-'}</p>
-                                <p id="reportspropsal-status-state" class="dynamic-status-hide">
-                                    &nbsp;&nbsp;<span>${status.status_type}</span>
-                                </p>
-                            `;
-                                    proposalDetails.appendChild(detailDiv);
-                                });
+                        student.nbfcs.forEach(nbfc => {
+                            nbfc.statuses.forEach(status => {
+                                const detailDiv = document.createElement("div");
+                                detailDiv.className = "reportsproposal-individualdatalists";
+                                detailDiv.innerHTML = `
+                            <p>NBFC: &nbsp;&nbsp;${nbfc.nbfc_name}</p>
+                            <p>Proposal Date: &nbsp;&nbsp;${status.created_at ?? '-'}</p>
+                            <p id="reportspropsal-status-state" class="dynamic-status-hide">
+                                &nbsp;&nbsp;<span>${status.status_type}</span>
+                            </p>`;
+                                proposalDetails.appendChild(detailDiv);
                             });
-
-                            studentDiv.innerHTML += firstRow;
-                            studentDiv.innerHTML += secondRow;
-                            studentDiv.appendChild(proposalDetails);
-                            container.appendChild(studentDiv);
-
                         });
-                        triggeredButtons();
 
-                    } else {
-                        container.innerHTML = "<p>No application data found.</p>";
+                        studentDiv.innerHTML += firstRow;
+                        studentDiv.innerHTML += secondRow;
+                        studentDiv.appendChild(proposalDetails);
+                        container.appendChild(studentDiv);
+                    });
+
+                    renderPagination();
+                    triggeredButtons();
+                }
+
+                function renderPagination() {
+                    paginationContainer.innerHTML = "";  
+
+                    const totalPages = Math.ceil(results.length / itemsPerPage);
+                    const maxVisiblePages = 5;
+                    const currentGroup = Math.floor((currentPage - 1) / maxVisiblePages);
+                    const startPage = currentGroup * maxVisiblePages + 1;
+                    const endPage = Math.min(startPage + maxVisiblePages - 1, totalPages);
+
+                    const createPageButton = (page, text = null, isActive = false) => {
+                        const btn = document.createElement("button");
+                        btn.textContent = text || page;
+                        btn.disabled = isActive;
+                        btn.className = isActive ? "active-page" : "inactive-page";
+                        btn.addEventListener("click", () => {
+                            currentPage = page;
+                            renderPage(currentPage);
+                        });
+                        return btn;
+                    };
+
+                    // Previous group of pages
+                    if (startPage > 1) {
+                        const prevGroupBtn = document.createElement("button");
+                        prevGroupBtn.textContent = "<";
+                        prevGroupBtn.className = "group-nav-button";
+                        prevGroupBtn.addEventListener("click", () => {
+                            currentPage = startPage - 1;
+                            renderPage(currentPage);
+                        });
+                        paginationContainer.appendChild(prevGroupBtn);
                     }
-                })
-                .catch(error => {
-                    console.error("Fetch error:", error);
-                    container.innerHTML = "<p>Error loading application data.</p>";
-                });
+
+                    // Visible page numbers
+                    for (let i = startPage; i <= endPage; i++) {
+                        paginationContainer.appendChild(createPageButton(i, null, i === currentPage));
+                    }
+
+                     if (endPage < totalPages) {
+                        const nextGroupBtn = document.createElement("button");
+                        nextGroupBtn.textContent = ">";
+                        nextGroupBtn.className = "group-nav-button";
+                        nextGroupBtn.addEventListener("click", () => {
+                            currentPage = endPage + 1;
+                            renderPage(currentPage);
+                        });
+                        paginationContainer.appendChild(nextGroupBtn);
+                    }
+                }
+                renderPage(currentPage);
+            } else {
+                container.innerHTML = "<p>No application data found.</p>";
+            }
 
             function getFinalStatus(nbfcs) {
                 for (const nbfc of nbfcs) {
@@ -2222,8 +2283,8 @@
                 }
                 return "-";
             }
-
         }
+
         function passwordForgotSc() {
             const forgotMailTrigger = document.querySelector(".footer-passwordchange p");
 
