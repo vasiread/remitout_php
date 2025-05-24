@@ -47,7 +47,15 @@ o
 
         <div class="scdashboard-studentapplication" id="studentapplicationfromadminstudent">
             @foreach ($userDetails as $users)
-                <div class="studentapplication-lists" data-status="{{ $users->status ?? 'Pending' }}">
+                @php
+                    $status = 'pending';
+                    if ($users->reviewed == 0) {
+                        $status = 'not-reviewed';
+                    } elseif ($users->type == 'proposal') {
+                        $status = 'approved';
+                    }
+                @endphp
+                <div class="studentapplication-lists" data-status="{{ $status }}">
                     <div class="individualapplication-list">
                         <div class="firstsection-lists">
                             <h1>{{ $users->user->name }}</h1>
@@ -819,6 +827,7 @@ o
                     filterLinks.forEach(l => l.classList.remove('active'));
                     link.classList.add('active');
 
+                    // Update dropdown text
                     filterButton.childNodes.forEach(node => {
                         if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
                             node.textContent = link.textContent + ' ';
@@ -844,6 +853,7 @@ o
                         }
                     });
 
+                    // Update count
                     studentCountElement.textContent = visibleCount;
                     studentCountElement.style.padding = "0px 10px 0px 10px";
                     studentCountElement.style.borderRadius = "50%";
