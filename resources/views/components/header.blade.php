@@ -30,6 +30,7 @@
 
         /* Container */
         .header-container {
+            position: fixed;
             height: 85px;
             padding: 20px 88px;
             display: flex;
@@ -39,6 +40,7 @@
             backdrop-filter: blur(2px);
             -webkit-backdrop-filter: blur(2px);
             width:100%;
+            background-color: rgba(255, 255, 255, 0.35);
            
         }
 
@@ -153,6 +155,7 @@
         align-items: center;
         backdrop-filter: blur(2px);
         -webkit-backdrop-filter: blur(2px);
+        background-color: rgba(255, 255, 255, 0.35);
     }
 
 
@@ -165,6 +168,7 @@
                 align-items: center;
                 padding: 20px 60px;
                 position: relative;
+                background-color: rgba(255, 255, 255, 0.35);
             }
 
             .header-logo-link .logo {
@@ -299,6 +303,7 @@
                 align-items: center;
                 padding: 20px;
                 position: relative;
+                background-color: rgba(255, 255, 255, 0.35);
             }
 
             .header-logo-link .logo {
@@ -427,8 +432,8 @@
         style="@if (request()->is('/')) position: absolute; top: 0; left: 0; width: 100%; z-index: 10; @else position: relative; @endif">
         <div class="{{ Request::is('/') ? 'header-container' : 'header-container fullopacity' }}">
             @php
-                $navImgPath = "assets/images/Remitoutcolored.png";
-                $navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
+$navImgPath = "assets/images/Remitoutcolored.png";
+$navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
             @endphp
 
             <a href="{{ url('/') }}" class="header-logo-link">

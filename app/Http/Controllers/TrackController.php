@@ -59,7 +59,7 @@ class TrackController extends Controller
     public function getnbfcdata()
     {
         try {
-            $nbfcdata = Nbfc::select('nbfc_name', 'nbfc_email', 'nbfc_type', 'nbfc_id','created_at')
+            $nbfcdata = Nbfc::select('nbfc_name', 'nbfc_email', 'nbfc_type', 'nbfc_id', 'created_at')
                 ->where('status', 'active')
                 ->get();
 

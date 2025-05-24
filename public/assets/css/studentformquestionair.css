@@ -704,7 +704,7 @@ html {
 .registration-container {
     border-radius: 10px;
     padding: 40px 40px 0 40px;
-    margin: 0 auto;
+    margin: 10%;
     max-width: 1100px;
     position: relative;
     height: auto;
@@ -4240,9 +4240,6 @@ input[type="file"] {
         gap: 30px;
     }
 
-    .document-box {
-        width: 32%;
-    }
 }
 
 @media (min-width: 1728px) {
@@ -4256,9 +4253,6 @@ input[type="file"] {
         gap: 40px;
     }
 
-    .document-box {
-        width: 33%;
-    }
 }
 
 @media screen and (min-width: 1025px) and (max-width: 1300px) {
@@ -4917,7 +4911,7 @@ input[type="file"] {
 
 #pan-card-remove-icon {
     cursor: pointer;
-    color: #1c1b1f;
+    color: #a5a3a8;
     font-size: 18px;
     margin-left: 10px;
     display: none;

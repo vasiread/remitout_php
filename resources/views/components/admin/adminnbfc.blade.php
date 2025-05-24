@@ -180,7 +180,7 @@
                         items.sort((a, b) => {
                             const dateA = new Date(a.querySelector('.individualnbfclists-content').getAttribute('data-added') || '1970-01-01');
                             const dateB = new Date(b.querySelector('.individualnbfclists-content').getAttribute('data-added') || '1970-01-01');
-                            return dateB - dateA; // Newest first
+                            return dateB - dateA;
                         });
                     } else if (sortType === 'oldest') {
                         items.sort((a, b) => {
@@ -329,7 +329,7 @@
                         // ✅ Correctly set the actual nbfc_id
                         nbfcItemDiv.setAttribute('data-id', item.nbfc_id);
 
-                        const dateAdded = item.date_added || item.created_at || '2025-01-01';
+                        const dateAdded = new Date(item.created_at).toISOString();
 
                         nbfcItemDiv.innerHTML = `
                 <div class="individualnbfclists-content" data-added="${dateAdded}">
