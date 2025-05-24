@@ -966,6 +966,7 @@ canvas {
 
 .dropdown-content-postgrad.show {
     display: block;
+    background-color: white;
 }
 
 .dropdown-content-postgrad a {
