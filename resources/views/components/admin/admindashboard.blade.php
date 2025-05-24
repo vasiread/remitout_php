@@ -1631,132 +1631,132 @@ $registrationSourceAnalysis = [
         });
 
         // Lead Chart with API Data and Pagination
-        let leadChartInstance = null; // Track the current chart instance
+       let leadChartInstance = null; // Track the current chart instance
 
-        const initializeLeadChart = (converted = false) => {
-            const ctx = $('#leadChart')?.getContext('2d');
-            if (!ctx) return console.error('leadChart canvas not found');
+   const initializeLeadChart = (converted = false) => {
+        const ctx = $('#leadChart')?.getContext('2d');
+        if (!ctx) return console.error('leadChart canvas not found');
 
-            let currentPage = 1;
-            const itemsPerPage = 5;
-            let fullLabels = [];
-            let fullData = [];
-            const prevBtn = $('#sc-lead-prev-btn');
-            const nextBtn = $('#sc-lead-next-btn');
-            const pageRange = $('#sc-lead-page-range');
-            const totalItems = $('#sc-lead-total-items');
+        let currentPage = 1;
+        const itemsPerPage = 5;
+        let fullLabels = [];
+        let fullData = [];
+        const prevBtn = $('#sc-lead-prev-btn');
+        const nextBtn = $('#sc-lead-next-btn');
+        const pageRange = $('#sc-lead-page-range');
+        const totalItems = $('#sc-lead-total-items');
 
-            // Use different URLs based on converted value
-            const url = converted ? '/sc-lead-gens?converted=true' : '/sc-lead-gens';
+        // Use different URLs based on converted value
+        const url = converted ? '/sc-lead-gens?converted=true' : '/sc-lead-gens';
 
-            fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
             })
-                .then(response => {
-                    if (!response.ok) throw new Error('Network response was not ok');
-                    return response.json();
-                })
-                .then(data => {
-                    if (!data.student_counsellors || !Array.isArray(data.student_counsellors) ||
-                        !data.lead_counts || !Array.isArray(data.lead_counts) ||
-                        data.student_counsellors.length !== data.lead_counts.length) {
-                        throw new Error('Invalid API response: Mismatched or missing data arrays');
-                    }
-
-                    fullLabels = data.student_counsellors;
-                    fullData = data.lead_counts;
-                    totalItems.textContent = fullLabels.length;
-                    updateChart();
-
-                    prevBtn.onclick = () => {
-                        if (currentPage > 1) {
-                            currentPage--;
-                            updateChart();
-                        }
-                    };
-
-                    nextBtn.onclick = () => {
-                        if (currentPage < Math.ceil(fullLabels.length / itemsPerPage)) {
-                            currentPage++;
-                            updateChart();
-                        }
-                    };
-                })
-                .catch(error => {
-                    console.error('Error fetching lead generation data:', error);
-                    fullLabels = ['Fallback1', 'Fallback2'];
-                    fullData = [5, 10];
-                    totalItems.textContent = fullLabels.length;
-                    updateChart();
-                });
-
-            function updateChart() {
-                const startIdx = (currentPage - 1) * itemsPerPage;
-                const endIdx = Math.min(startIdx + itemsPerPage, fullLabels.length);
-                const paginatedLabels = fullLabels.slice(startIdx, endIdx);
-                const paginatedData = fullData.slice(startIdx, endIdx);
-
-                // Destroy previous chart if it exists
-                if (leadChartInstance) {
-                    leadChartInstance.destroy();
+            .then(data => {
+                if (!data.student_counsellors || !Array.isArray(data.student_counsellors) ||
+                    !data.lead_counts || !Array.isArray(data.lead_counts) ||
+                    data.student_counsellors.length !== data.lead_counts.length) {
+                    throw new Error('Invalid API response: Mismatched or missing data arrays');
                 }
 
-                leadChartInstance = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: paginatedLabels,
-                        datasets: [{
-                            label: 'No. Of Leads',
-                            data: paginatedData,
-                            backgroundColor: '#d3b8f0',
-                            barThickness: 11
-                        }]
+                fullLabels = data.student_counsellors;
+                fullData = data.lead_counts;
+                totalItems.textContent = fullLabels.length;
+                updateChart();
+
+                prevBtn.onclick = () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        updateChart();
+                    }
+                };
+
+                nextBtn.onclick = () => {
+                    if (currentPage < Math.ceil(fullLabels.length / itemsPerPage)) {
+                        currentPage++;
+                        updateChart();
+                    }
+                };
+            })
+            .catch(error => {
+                console.error('Error fetching lead generation data:', error);
+                fullLabels = ['Fallback1', 'Fallback2'];
+                fullData = [5, 10];
+                totalItems.textContent = fullLabels.length;
+                updateChart();
+            });
+
+        function updateChart() {
+            const startIdx = (currentPage - 1) * itemsPerPage;
+            const endIdx = Math.min(startIdx + itemsPerPage, fullLabels.length);
+            const paginatedLabels = fullLabels.slice(startIdx, endIdx);
+            const paginatedData = fullData.slice(startIdx, endIdx);
+
+            // Destroy previous chart if it exists
+            if (leadChartInstance) {
+                leadChartInstance.destroy();
+            }
+
+            leadChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: paginatedLabels,
+                    datasets: [{
+                        label: 'No. Of Leads',
+                        data: paginatedData,
+                        backgroundColor: '#d3b8f0',
+                        barThickness: 11
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: true }
                     },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { display: false },
-                            tooltip: { enabled: true }
-                        },
-                        scales: {
-                            y: { beginAtZero: true, grid: { display: false }, ticks: { display: false } },
-                            x: {
-                                grid: { display: false },
-                                ticks: {
-                                    font: { family: 'Poppins', size: 12 },
-                                    color: '#5D5C5C'
-                                }
+                    scales: {
+                        y: { beginAtZero: true, grid: { display: false }, ticks: { display: false } },
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                font: { family: 'Poppins', size: 12 },
+                                color: '#5D5C5C'
                             }
                         }
                     }
-                });
+                }
+            });
 
-                pageRange.textContent = `${startIdx + 1} - ${endIdx}`;
-            }
-        };
+            pageRange.textContent = `${startIdx + 1} - ${endIdx}`;
+        }
+    };
 
-        // On load (default – no ?converted param)
-        initializeLeadChart(false);
+    // On load (default – no ?converted param)
+    initializeLeadChart(false);
 
-        // Dropdown handler
-        const scDropdown = document.getElementById('scLeadDropdown');
+    // Dropdown handler
+    const scDropdown = document.getElementById('scLeadDropdown');
 
-        scDropdown.addEventListener('change', function () {
-            const isConverted = this.value === 'converted';
+    scDropdown.addEventListener('change', function () {
+        const isConverted = this.value === 'converted';
 
-            initializeLeadChart(isConverted);
+        initializeLeadChart(isConverted);
 
             
         });
 
-        // Optional: reset to default on focus
-        scDropdown.addEventListener('focus', function () {
-            this.selectedIndex = 0;
-        });
+    // Optional: reset to default on focus
+    scDropdown.addEventListener('focus', function () {
+        this.selectedIndex = 0;
+    });
 
 
 
@@ -2391,49 +2391,30 @@ $registrationSourceAnalysis = [
             updatePanelCount();
         };
 
-        const dropdownn = document.getElementById('postgrad-ageratioprogress');
-        const toggleButton = document.getElementById('postgrad-buttongroups-insideshow-age-ratio-id');
-
-        // toggleButton.addEventListener('click', () => {
-        //     dropdownn.classList.toggle('show');
-        // });
-
-        document.getElementById('postgrad-buttongroups-insideshow-age-ratio-id').addEventListener('click', () => {
-            document.getElementById('postgrad-ageratioprogress').classList.toggle('show');
-        });
-
-        document.querySelectorAll('#postgrad-ageratioprogress a').forEach(option => {
-            option.addEventListener('click', (e) => {
-                e.preventDefault();
-                const selectedDegree = e.target.textContent.trim();
-                document.getElementById('postgrad-buttongroups-insideshow-age-ratio-id').innerHTML = `${selectedDegree} <i class="fa-solid fa-chevron-down"></i>`;
-                loadAgeRatioChart(selectedDegree); // 🔁 Filter chart
-
-                dropdownn.classList.remove('show');
-            });
-        })
 
 
         let ageratioChart;
 
         function loadAgeRatioChart(degreeType = '') {
-            let degree_type = '';
 
             if (degreeType === "Post Graduate") {
-                degree_type = "Masters";
-            } else if (degreeType === "Under Graduate") {
-                degree_type = "Bachelors";
-            } else if (degreeType === "Others") {
-                degree_type = "Others";
+                degree_type = "Bachelors"
+
+            } if (degreeType === "Under Graduate") {
+                degree_type = "Masters"
+
             }
+
 
             fetch("{{ route('admin.ageratio.calculation') }}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Important for POST in Laravel
                 },
-                body: JSON.stringify({ degree_type })
+                body: JSON.stringify({
+                    degree_type: degreeType
+                })
             })
                 .then(response => response.json())
                 .then(data => {
@@ -2447,6 +2428,7 @@ $registrationSourceAnalysis = [
                             'rgba(226, 211, 245, 1)',
                         ];
 
+                        // Destroy previous chart if exists
                         if (ageratioChart) {
                             ageratioChart.destroy();
                         }
@@ -2467,7 +2449,7 @@ $registrationSourceAnalysis = [
                                 responsive: true,
                                 plugins: {
                                     legend: {
-                                        display: false
+                                        display: false // Already showing in your custom div
                                     }
                                 }
                             }
@@ -2480,8 +2462,6 @@ $registrationSourceAnalysis = [
                     console.error('Error:', error);
                 });
         }
-
-
 
         loadAgeRatioChart();
 
