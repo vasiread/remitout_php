@@ -687,7 +687,7 @@ body {
 
     #nbfc-student-profile-details {
         display: flex;
-        width: 90%;
+        width: 100%;
         max-width: 100%;
     }
 
@@ -1906,6 +1906,11 @@ body {
         grid-template-columns: 1fr;
         padding: 10px;
         width: auto;
+    }
+    .dashboard-sections-container {
+        margin-left: 0;
+        max-width: 100%;
+        width: 100%;
     }
 
     .dashboard-section {
