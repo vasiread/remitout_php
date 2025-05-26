@@ -34,14 +34,14 @@
 
 
     @php
-        $profileImgPath = 'images/admin-student-profile.png';
-        $uploadPanName = '';
-        $profileIconPath = "assets/images/account_circle.png";
-        $phoneIconPath = "assets/images/call.png";
-        $mailIconPath = "assets/images/mail.png";
-        $pindropIconPath = "assets/images/pin_drop.png";
-        $discordIconPath = "assets/images/icons/discordicon.png";
-        $viewIconPath = "assets/images/visibility.png";
+$profileImgPath = 'images/admin-student-profile.png';
+$uploadPanName = '';
+$profileIconPath = "assets/images/account_circle.png";
+$phoneIconPath = "assets/images/call.png";
+$mailIconPath = "assets/images/mail.png";
+$pindropIconPath = "assets/images/pin_drop.png";
+$discordIconPath = "assets/images/icons/discordicon.png";
+$viewIconPath = "assets/images/visibility.png";
     @endphp
 
     <nav class="nbfc-navbar">
@@ -279,7 +279,7 @@
                         </div>
                         <div class="testscoreseditsection-secondrow">
                             @php
-                                $counter = 1; 
+$counter = 1; 
                             @endphp
 
 
@@ -387,43 +387,40 @@
                             <i class="fa-solid fa-angle-down"></i>
                         </div>
 
-                        <div class="kycdocumentscolumn">
-                            <div class="individualkycdocuments">
-                                <p class="document-name">Pan Card</p>
-                                <div class="inputfilecontainer">
-                                    <i class="fa-solid fa-image"></i>
-                                    <p class="uploaded-pan-name">{{ $kycDocuments[0]->pan_card ?? 'pan_card.jpg' }}</p>
-                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-pan-card" />
-                                </div>
-                                <input type="file" id="inputfilecontainer-real" />
-                                <span class="document-status">420 MB uploaded</span>
+                    <div class="kycdocumentscolumn">
+                        <div class="individualkycdocuments">
+                            <p class="document-name">Pan Card</p>
+                            <div class="inputfilecontainer">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="uploaded-pan-name"> pan_card.jpg</p>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-pan-card" />
                             </div>
-
-                            <div class="individualkycdocuments">
-                                <p class="document-name">Aadhar Card</p>
-                                <div class="inputfilecontainer">
-                                    <i class="fa-solid fa-image"></i>
-                                    <p class="uploaded-aadhar-name">
-                                        {{ $kycDocuments[0]->aadhar_card ?? 'aadhar_card.jpg' }}
-                                    </p>
-                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-aadhar-card" />
-                                </div>
-                                <input type="file" id="inputfilecontainer-real" />
-                                <span class="document-status">420 MB uploaded</span>
-                            </div>
-
-                            <div class="individualkycdocuments">
-                                <p class="document-name">Passport</p>
-                                <div class="inputfilecontainer">
-                                    <i class="fa-solid fa-image"></i>
-                                    <p class="passport-name-selector">{{ $kycDocuments[0]->passport ?? 'Passport.pdf' }}
-                                    </p>
-                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-passport-card" />
-                                </div>
-                                <input type="file" id="inputfilecontainer-real" />
-                                <span class="document-status">420 MB uploaded</span>
-                            </div>
+                            <input type="file" id="inputfilecontainer-real" />
+                            <span class="document-status">420 MB uploaded</span>
                         </div>
+                    
+                        <div class="individualkycdocuments">
+                            <p class="document-name">Aadhar Card</p>
+                            <div class="inputfilecontainer">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="uploaded-aadhar-name"> aadhar_card.jpg</p>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-aadhar-card" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                    
+                        <div class="individualkycdocuments">
+                            <p class="document-name">Passport</p>
+                            <div class="inputfilecontainer">
+                                <i class="fa-solid fa-image"></i>
+                                <p class="passport-name-selector"> Passport.pdf</p>
+                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-passport-card" />
+                            </div>
+                            <input type="file" id="inputfilecontainer-real" />
+                            <span class="document-status">420 MB uploaded</span>
+                        </div>
+                    </div>
                     </div>
                 </div>
 
@@ -747,6 +744,28 @@
             const proposalsData = [
 
             ];
+              
+            const endpoints = [
+                { url: "/retrieve-file", selector: ".uploaded-aadhar-name", fileType: "aadhar-card-name" },
+                { url: "/retrieve-file", selector: ".uploaded-pan-name", fileType: "pan-card-name" },
+                { url: "/retrieve-file", selector: ".passport-name-selector", fileType: "passport-card-name" },
+                { url: "/retrieve-file", selector: ".sslc-marksheet", fileType: "tenth-grade-name" },
+                { url: "/retrieve-file", selector: ".hsc-marksheet", fileType: "twelfth-grade-name" },
+                { url: "/retrieve-file", selector: ".graduation-marksheet", fileType: "graduation-grade-name" },
+                { url: "/retrieve-file", selector: ".sslc-grade", fileType: "secured-tenth-name" },
+                { url: "/retrieve-file", selector: ".hsc-grade", fileType: "secured-twelfth-name" },
+                { url: "/retrieve-file", selector: ".graduation-grade", fileType: "secured-graduation-name" },
+                { url: "/retrieve-file", selector: ".experience-letter", fileType: "work-experience-experience-letter" },
+                { url: "/retrieve-file", selector: ".salary-slip", fileType: "work-experience-monthly-slip" },
+                { url: "/retrieve-file", selector: ".office-id", fileType: "work-experience-office-id" },
+                { url: "/retrieve-file", selector: ".joining-letter", fileType: "work-experience-joining-letter" },
+                { url: "/retrieve-file", selector: ".coborrower-pancard", fileType: "co-pan-card-name" },
+                { url: "/retrieve-file", selector: ".coborrower-aadharcard", fileType: "co-aadhar-card-name" },
+                { url: "/retrieve-file", selector: ".coborrower-addressproof", fileType: "co-addressproof" },
+            ];
+
+            const documentUrls = {};  
+
 
             passwordModelTriggerNbfc();
             passwordForgotNbfc();
@@ -762,7 +781,7 @@
             initializeMarksheetUpload();
             initializeSecuredAdmissionDocumentUpload();
             initializeWorkExperienceDocumentUpload();
-            downloadDocuments();
+            // downloadDocuments();
 
             //toggle function
             // Select the Dashboard and Inbox menu items
@@ -977,9 +996,9 @@
                 if ((activeItem.textContent).trim === "Dashboard") {
                     alert(activeItem.textContent)
                     const extrasNeedToHide = document.querySelector(".wholeapplicationprofile");
-                     if (extrasNeedToHide) {
+                    if (extrasNeedToHide) {
 
-                         extrasNeedToHide.style.display = "none";
+                        extrasNeedToHide.style.display = "none";
                         extrasNeedToHide.style.background = "blue";
                     }
                 }
@@ -1787,6 +1806,9 @@
         const cancelButton = document.querySelector('.nbfc-send-proposal-cancel-button');
         const sendButton = document.querySelector('.nbfc-send-proposal-send-button');
 
+        
+
+        
         function openModal(studentId) {
             console.log(studentId)
             const placeHolder = document.querySelector(".nbfc-send-proposal-remarks-textarea");
@@ -2878,7 +2900,7 @@
                 await retreiveUserDetails(userId);
                 await initialiseAllViews(userId);
                 await initialiseProfileView(userId);
-                await downloadDocuments(userId);
+                // await downloadDocuments(userId);
 
 
                 console.log("Profile loaded for user:", userId);
@@ -3298,168 +3320,222 @@
                 });
             });
         };
+   
+    const initializeKycDocumentUpload = (documentUrls) => {
+          
+       
 
-        const initializeKycDocumentUpload = () => {
-            const individualKycDocumentsUpload = document.querySelectorAll(".individualkycdocuments");
+        console.log(documentUrls)
+        
+        const individualKycDocumentsUpload = document.querySelectorAll(
+            ".individualkycdocuments"
+        );
 
-            individualKycDocumentsUpload.forEach((card) => {
-                let uploadedFile = null;
+        individualKycDocumentsUpload.forEach((card) => {
+            const eyeIcon = card.querySelector(".fa-eye");
 
-                card.querySelector('.inputfilecontainer').addEventListener('click', function () {
-                    card.querySelector('#inputfilecontainer-real').click();
-                });
+            if (!eyeIcon) {
+                console.error("Eye icon not found in card:", card);
+                return;
+            }
 
-                card.querySelector('#inputfilecontainer-real').addEventListener('change', function (event) {
-                    const file = event.target.files[0];
+            eyeIcon.addEventListener("click", function (event) {
+                event.stopPropagation();
 
-                    if (!file) return;
+                const documentType = eyeIcon.id
+                    .replace("view-", "")
+                    .replace("-card", ""); // e.g., "aadhar-card"
+                const fileTypeKey = `${documentType}-card-name`;
+                const fileUrl = documentUrls[fileTypeKey];
+                const fileNameElement = card.querySelector(
+                    `.uploaded-${documentType}-name`
+                );
+                const fileName = fileNameElement
+                    ? fileNameElement.textContent
+                    : "Document.pdf";
 
-                    console.log("Selected file: ", file);
+                console.log(`Previewing ${documentType}: ${fileUrl}`);
 
-                    // Allowed file types based on MIME type
-                    const allowedMimeTypes = ['image/jpeg', 'image/png', 'application/pdf'];
-                    const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
-                    const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
+                // Check if a preview is already active
+                if (eyeIcon.classList.contains('preview-active')) {
+                    const previewWrapper = document.querySelector('.pdf-preview-wrapper');
+                    if (previewWrapper) previewWrapper.remove();
+                    const overlay = document.querySelector('.pdf-preview-overlay');
+                    if (overlay) overlay.remove();
+                    eyeIcon.classList.remove('preview-active');
+                    eyeIcon.src = "/assets/images/visibility.png";
+                    return;
+                }
 
-                    // Validate file type (extension and MIME)
-                    if (!allowedExtensions.includes(fileExtension) || !allowedMimeTypes.includes(file.type)) {
-                        alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
-                        event.target.value = ''; // Clear the file input
-                        card.querySelector('.inputfilecontainer p').textContent = 'No file chosen';
-                        return;
-                    }
+                // If no file URL, show an alert
+                if (!fileUrl) {
+                    alert("No document found to preview.");
+                    return;
+                }
 
-                    // Validate file size (5MB max)
-                    if (file.size > 5 * 1024 * 1024) {
-                        alert("Error: File size exceeds 5MB limit.");
-                        event.target.value = ''; // Clear the file input
-                        card.querySelector('.inputfilecontainer p').textContent = 'No file chosen';
-                        return;
-                    }
+                // Create the preview modal
+                const previewWrapper = document.createElement("div");
+                previewWrapper.className = "pdf-preview-wrapper";
+                previewWrapper.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 60%;
+                height: 80vh;
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 1000;
+                border-radius: 8px;
+            `;
 
-                    // Store the file and update UI
-                    uploadedFile = file;
-                    const truncatedFileName = truncateFileName(file.name);
-                    card.querySelector('.inputfilecontainer p').textContent = truncatedFileName;
+                const overlay = document.createElement("div");
+                overlay.className = "pdf-preview-overlay";
+                overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            `;
 
-                    const fileSize = file.size < 1024 * 1024
-                        ? (file.size / 1024).toFixed(2) + ' KB'
-                        : (file.size / (1024 * 1024)).toFixed(2) + ' MB';
-                    card.querySelector('.document-status').textContent = `${fileSize} Uploaded`;
+                const header = document.createElement("div");
+                header.style.cssText = `
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 8px 16px;
+                background-color: #1a1a1a;
+                color: white;
+                height: 40px;
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+            `;
 
-                    console.log("File uploaded:", uploadedFile);
-                });
+                const fileNameSection = document.createElement("div");
+                fileNameSection.style.cssText = `
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            `;
 
-                card.querySelector('.fa-eye').addEventListener('click', function (event) {
-                    event.stopPropagation();
-                    const eyeIcon = this;
+                const fileNameSpan = document.createElement("span");
+                fileNameSpan.textContent = fileName;
+                fileNameSpan.style.cssText = `
+                color: white;
+                font-size: 14px;
+                font-family: 'Poppins', sans-serif;
+            `;
+                fileNameSection.appendChild(fileNameSpan);
 
-                    if (eyeIcon.classList.contains('preview-active')) {
-                        closePreview();
-                    } else {
-                        if (uploadedFile && uploadedFile.type === 'application/pdf') {
-                            const reader = new FileReader();
-                            reader.onload = function (event) {
-                                openPdfPreview(event.target.result, uploadedFile.name);
-                            };
-                            reader.readAsDataURL(uploadedFile);
-                            eyeIcon.classList.add('preview-active');
-                            eyeIcon.classList.replace('fa-eye', 'fa-times');
-                        } else {
-                            alert('Please upload a valid PDF file to preview.');
-                        }
-                    }
+                const zoomControls = document.createElement("div");
+                zoomControls.style.cssText = `
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            `;
 
-                    function closePreview() {
-                        const previewWrapper = document.querySelector('.pdf-preview-wrapper');
-                        if (previewWrapper) previewWrapper.remove();
-                        const overlay = document.querySelector('.pdf-preview-overlay');
-                        if (overlay) overlay.remove();
-                        eyeIcon.classList.remove('preview-active');
-                        eyeIcon.classList.replace('fa-times', 'fa-eye');
-                    }
+                const zoomOut = document.createElement("button");
+                zoomOut.innerHTML = "−";
+                const zoomIn = document.createElement("button");
+                zoomIn.innerHTML = "+";
 
-                    function openPdfPreview(pdfDataUrl, fileName) {
-                        // Create overlay and preview wrapper
-                        const overlay = document.createElement('div');
-                        overlay.className = 'pdf-preview-overlay';
-                        overlay.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: rgba(0, 0, 0, 0.5);
-                    z-index: 999;
-                `;
-
-                        const previewWrapper = document.createElement('div');
-                        previewWrapper.className = 'pdf-preview-wrapper';
-                        previewWrapper.style.cssText = `
-                    position: fixed;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    width: 90%;
-                    height: 90vh;
-                    background-color: white;
-                    display: flex;
-                    flex-direction: column;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                    z-index: 1000;
-                `;
-
-                        // Create header
-                        const header = document.createElement('div');
-                        header.style.cssText = `
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 8px 16px;
-                    background-color: #1a1a1a;
+                [zoomOut, zoomIn].forEach((btn) => {
+                    btn.style.cssText = `
+                    background: none;
+                    border: 1px solid #fff;
+                    border-radius: 4px;
                     color: white;
-                    height: 40px;
+                    font-size: 16px;
+                    cursor: pointer;
+                    padding: 2px 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Poppins', sans-serif;
                 `;
+                });
 
-                        const fileNameSection = document.createElement('span');
-                        fileNameSection.textContent = fileName;
-                        fileNameSection.style.cssText = 'color: white; font-size: 14px;';
+                zoomControls.appendChild(zoomOut);
+                zoomControls.appendChild(zoomIn);
 
-                        // Close button
-                        const closeButton = document.createElement('button');
-                        closeButton.innerHTML = '&#10005;';
-                        closeButton.style.cssText = `
+                // Close button
+                const closeButton = document.createElement('button');
+                closeButton.innerHTML = '&#10005;';
+                closeButton.style.cssText = `
                     background: none;
                     border: none;
                     color: white;
                     font-size: 18px;
                     cursor: pointer;
                     padding: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                 `;
 
-                        closeButton.addEventListener('click', closePreview);
-                        overlay.addEventListener('click', closePreview);
+                const closePreview = () => {
+                    previewWrapper.remove();
+                    overlay.remove();
+                    eyeIcon.classList.remove('preview-active');
+                    eyeIcon.classList.replace('fa-times', 'fa-eye');
+                };
 
-                        // Create iframe for PDF preview
-                        const iframe = document.createElement('iframe');
-                        iframe.src = pdfDataUrl;
-                        iframe.style.cssText = `
-                    width: 100%;
-                    height: calc(100% - 40px);
-                    border: none;
-                `;
+                closeButton.addEventListener("click", closePreview);
+                overlay.addEventListener("click", closePreview);
 
-                        // Assemble the preview
-                        header.appendChild(fileNameSection);
-                        header.appendChild(closeButton);
-                        previewWrapper.appendChild(header);
-                        previewWrapper.appendChild(iframe);
-                        document.body.appendChild(overlay);
-                        document.body.appendChild(previewWrapper);
+                header.appendChild(fileNameSection);
+                header.appendChild(zoomControls);
+                header.appendChild(closeButton);
+
+                const iframe = document.createElement("iframe");
+                iframe.src = fileUrl;
+                iframe.style.cssText = `
+                width: 100%;
+                height: calc(100% - 40px);
+                border: none;
+                background-color: white;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+            `;
+
+                previewWrapper.appendChild(header);
+                previewWrapper.appendChild(iframe);
+
+                document.body.appendChild(overlay);
+                document.body.appendChild(previewWrapper);
+
+                let currentZoom = 1;
+                zoomIn.addEventListener("click", () => {
+                    currentZoom += 0.1;
+                    iframe.style.transform = `scale(${currentZoom})`;
+                    iframe.style.transformOrigin = "top center";
+                });
+
+                zoomOut.addEventListener("click", () => {
+                    currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                    iframe.style.transform = `scale(${currentZoom})`;
+                    iframe.style.transformOrigin = "top center";
+                });
+
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape") {
+                        closePreview();
                     }
                 });
+
+                eyeIcon.classList.add("preview-active");
+                eyeIcon.src = "/assets/images/close.png"; // Update with your actual path
             });
-        };
+        });
+    };
         const initializeMarksheetUpload = () => {
             const individualMarksheetDocumentsUpload = document.querySelectorAll(".individualmarksheetdocuments");
 
@@ -4733,29 +4809,31 @@
             }
         };
 
-        const endpoints = [
-            { url: '/retrieve-file', selector: ".uploaded-aadhar-name", fileType: "aadhar-card-name" },
-            { url: '/retrieve-file', selector: ".uploaded-pan-name", fileType: "pan-card-name" },
-            { url: '/retrieve-file', selector: ".passport-name-selector", fileType: "passport-name" },
-            { url: '/retrieve-file', selector: ".sslc-marksheet", fileType: "tenth-grade-name" },
-            { url: '/retrieve-file', selector: ".hsc-marksheet", fileType: "twelfth-grade-name" },
-            { url: '/retrieve-file', selector: ".graduation-marksheet", fileType: "graduation-grade-name" },
-            { url: '/retrieve-file', selector: ".sslc-grade", fileType: "secured-tenth-name" },
-            { url: '/retrieve-file', selector: ".hsc-grade", fileType: "secured-twelfth-name" },
-            { url: '/retrieve-file', selector: ".graduation-grade", fileType: "secured-graduation-name" },
-            { url: '/retrieve-file', selector: ".experience-letter", fileType: "work-experience-experience-letter" },
-            { url: '/retrieve-file', selector: ".salary-slip", fileType: "work-experience-monthly-slip" },
-            { url: '/retrieve-file', selector: ".office-id", fileType: "work-experience-office-id" },
-            { url: '/retrieve-file', selector: ".joining-letter", fileType: "work-experience-joining-letter" },
-            { url: '/retrieve-file', selector: ".coborrower-pancard", fileType: "co-pan-card-name" },
-            { url: '/retrieve-file', selector: ".coborrower-aadharcard", fileType: "co-aadhar-card-name" },
-            { url: '/retrieve-file', selector: ".coborrower-addressproof", fileType: "co-addressproof" },
-
-
-        ];
+     
 
 
         const initialiseAllViews = (userId) => {
+             const endpoints = [
+                { url: "/retrieve-file", selector: ".uploaded-aadhar-name", fileType: "aadhar-card-name" },
+                { url: "/retrieve-file", selector: ".uploaded-pan-name", fileType: "pan-card-name" },
+                { url: "/retrieve-file", selector: ".passport-name-selector", fileType: "passport-card-name" },
+                { url: "/retrieve-file", selector: ".sslc-marksheet", fileType: "tenth-grade-name" },
+                { url: "/retrieve-file", selector: ".hsc-marksheet", fileType: "twelfth-grade-name" },
+                { url: "/retrieve-file", selector: ".graduation-marksheet", fileType: "graduation-grade-name" },
+                { url: "/retrieve-file", selector: ".sslc-grade", fileType: "secured-tenth-name" },
+                { url: "/retrieve-file", selector: ".hsc-grade", fileType: "secured-twelfth-name" },
+                { url: "/retrieve-file", selector: ".graduation-grade", fileType: "secured-graduation-name" },
+                { url: "/retrieve-file", selector: ".experience-letter", fileType: "work-experience-experience-letter" },
+                { url: "/retrieve-file", selector: ".salary-slip", fileType: "work-experience-monthly-slip" },
+                { url: "/retrieve-file", selector: ".office-id", fileType: "work-experience-office-id" },
+                { url: "/retrieve-file", selector: ".joining-letter", fileType: "work-experience-joining-letter" },
+                { url: "/retrieve-file", selector: ".coborrower-pancard", fileType: "co-pan-card-name" },
+                { url: "/retrieve-file", selector: ".coborrower-aadharcard", fileType: "co-aadhar-card-name" },
+                { url: "/retrieve-file", selector: ".coborrower-addressproof", fileType: "co-addressproof" },
+            ];
+
+            const documentUrls = {};  
+
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
             if (!csrfToken || !userId) {

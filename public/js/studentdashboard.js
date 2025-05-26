@@ -1469,6 +1469,8 @@ const initializeIndividualCards = () => {
 
 
 const initializeKycDocumentUpload = () => {
+    console.log(documentUrls)
+    console.log("//////////////")
     const individualKycDocumentsUpload = document.querySelectorAll(
         ".individualkycdocuments"
     );
@@ -2823,12 +2825,10 @@ const initializeCoBorrowerDocumentUpload = () => {
                 return;
             }
 
-            // Check if it's a PDF or image based on file extension
             const isPDF = fileUrl.toLowerCase().endsWith('.pdf');
             const isImage = ['.jpg', '.jpeg', '.png'].some(ext => fileUrl.toLowerCase().endsWith(ext));
 
             if (isPDF) {
-                // PDF Preview
                 const previewWrapper = document.createElement('div');
                 previewWrapper.className = 'pdf-preview-wrapper';
                 previewWrapper.style.cssText = `

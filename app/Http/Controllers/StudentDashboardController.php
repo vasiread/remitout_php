@@ -500,14 +500,16 @@ class StudentDashboardController extends Controller
             'file' => 'required|file',
             'userId' => 'required',
             'fileNameId' => 'required|string',
+            'sourceType'=>'required|string'
         ]);
         $userId = $request->input('userId');
         $Category = $request->input('fileNameId');
+        $sourceType = $request->input('sourceType');
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $fileName = $file->getClientOriginalName();
-            $fileDirectory = "$userId/$Category";
+            $fileDirectory = "$userId/$sourceType/$Category";
 
 
             $existingFiles = Storage::disk('s3')->files($fileDirectory);

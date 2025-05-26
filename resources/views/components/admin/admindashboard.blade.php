@@ -1750,8 +1750,7 @@
 
             initializeLeadChart(isConverted);
 
-            // Reset dropdown to "Filter"
-            this.selectedIndex = 0;
+            
         });
 
         // Optional: reset to default on focus
