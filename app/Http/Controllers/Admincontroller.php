@@ -6,6 +6,7 @@ use App\Mail\PromotionalContentMail;
 use App\Models\Academics;
 use App\Models\AdditionalField;
 use App\Models\Admin;
+use App\Models\CourseDetailOption;
 use App\Models\CourseDuration;
 use App\Models\CourseInfo;
 use App\Models\Degree;
@@ -1206,13 +1207,15 @@ class Admincontroller extends Controller
         $courseDuration = CourseDuration::all();
         $additionalFields = AdditionalField::all();
         $documentTypes = DocumentType::all();
+        $courseExpenseOptions = CourseDetailOption::all();
 
 
 
 
 
 
-        return view('pages.studentformquestionair', compact('user', 'socialOptions', 'countries', 'degrees', 'courseDuration', 'additionalFields', 'documentTypes'));
+
+        return view('pages.studentformquestionair', compact('user', 'socialOptions', 'countries', 'degrees', 'courseDuration', 'additionalFields', 'documentTypes','courseExpenseOptions'));
     }
 
 
@@ -1230,7 +1233,7 @@ class Admincontroller extends Controller
     {
 
 
-        $additionalFields = AdditionalField::all();
+        $additionalFields = AdditionalField::where('section', 'academic')->get();;
 
 
         return response()->json([
@@ -1889,4 +1892,67 @@ class Admincontroller extends Controller
         ]);
     }
 
+
+
+    public function getAcademicDynamicAdminSide()
+    {
+        $academicFields = AdditionalField::where('section', 'academic')->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $academicFields,
+        ]);
+    }
+    public function getCourseExpenseOptions()
+    {
+        $courseOptions = CourseDetailOption::all();
+
+        return response()->json([
+            'success' => true,
+            'data' => $courseOptions,
+        ]);
+    }
+    public function addCourseExpenseOptions(Request $request)
+    {
+        $request->validate([
+            'label' => 'required|string',
+        ]);
+
+        $courseOption = CourseDetailOption::create([
+            'label' => $request->input('label'),
+        ]);
+
+        return response()->json($courseOption, 201);
+    }
+
+
+
+    public function deleteAcademicField($id)
+    {
+        $field = AdditionalField::find($id);
+
+        if (!$field) {
+            return response()->json(['success' => false, 'message' => 'Field not found.'], 404);
+        }
+
+        $field->delete();
+
+        return response()->json(['success' => true, 'message' => 'Field deleted successfully.']);
+    }
+
+    public function delCourseExpenseOptions($id)
+    {
+        $option = CourseDetailOption::find($id);
+        if (!$option) {
+            return response()->json(['message' => 'Option not found'], 404);
+        }
+
+        $option->delete();
+
+        return response()->json(['message' => 'Option deleted successfully']);
+    }
+
 }
+
+
+

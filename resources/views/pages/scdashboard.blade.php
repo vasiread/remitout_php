@@ -501,7 +501,7 @@ $studentDocumentDetailsInfo = [
                 <input type="input" placeholder="Copy Link here">
             </div>
             <div class="referral-triggered-view-footer">
-                <button> <img src="{{ asset('assets/images/Icons/close_icon.png') }}" /> Cancel</button>
+                <button id="cancel-referral-link"> <img src="{{ asset('assets/images/Icons/close_icon.png') }}" /> Cancel</button>
                 <button>Generate</button>
             </div>
 
@@ -1459,6 +1459,7 @@ $studentDocumentDetailsInfo = [
                 generateButton = footerContainer.querySelector(".btn-generate");
 
                 if (cancelButton) {
+                    cancelButton.style.border="1px solid rgba(233, 134, 53, 1)";
                     removeExistingListeners(cancelButton, "click", hidePopup);
                 }
                 if (generateButton) {
@@ -1493,7 +1494,7 @@ $studentDocumentDetailsInfo = [
                             </svg>
                             <span>Copy Link</span>
                         </button>
-                        <button class="btn-share">
+                        <button class="btn-share" style="width:98px">
                             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M18 16.1C17.4 16.1 16.9 16.3 16.4 16.6L7.9 12.2C7.9 12.1 8 12 8 11.9C8 11.8 7.9 11.7 7.9 11.6L16.4 7.2C16.9 7.5 17.4 7.7 18 7.7C19.7 7.7 21 6.4 21 4.7S19.7 1.7 18 1.7 15 3 15 4.7C15 4.8 15 4.9 15.1 5L6.6 9.4C6.1 9.1 5.6 8.9 5 8.9 3.3 8.9 2 10.2 2 11.9S3.3 14.9 5 14.9C5.6 14.9 6.1 14.7 6.6 14.4L15.1 18.8C15 18.9 15 19 15 19.1 15 20.8 16.3 22.1 18 22.1S21 20.8 21 19.1 19.7 16.1 18 16.1ZM18 3.7C18.6 3.7 19 4.1 19 4.7S18.6 5.7 18 5.7 17 5.3 17 4.7 17.4 3.7 18 3.7ZM5 12.9C5 12.3 4.6 11.9 5 11.9S5 12.3 5 12.9 5.4 13.9 5 13.9 5 13.5 5 12.9ZM18 20.1C17.4 20.1 17 19.7 17 19.1S17.4 18.1 18 18.1 19 18.5 19 19.1 18.6 20.1 18 20.1Z"/>
                             </svg>
@@ -1575,6 +1576,7 @@ $studentDocumentDetailsInfo = [
                     justify-content: space-between;
                 }
                 .referral-triggered-view-footer button {
+                     
                     padding: 8px 16px;
                     margin: 0;
                     border: 1px solid #fff;
@@ -1592,7 +1594,7 @@ $studentDocumentDetailsInfo = [
                     background-color: #fff;
                     color: #000;
                     border: 1px solid #000;
-                }
+                 }
                 .action-btn-group {
                     display: flex;
                     gap: 8px;
@@ -2127,163 +2129,292 @@ $studentDocumentDetailsInfo = [
             }
         };
 
-     function getStatusGroups() {
-            const scuser = @json(session('scuser'));
-            const container = document.getElementById("student-applicationdetailsstatus");
-            const paginationContainer = document.getElementById("pagination-container-statusgroups");
+      
+        function getStatusGroups() {
+                const scuser = @json(session('scuser'));
+                const scReferralId = scuser?.referral_code;
+                const container = document.getElementById("student-applicationdetailsstatus");
+                const paginationContainer = document.getElementById("pagination-container-statusgroups");
 
-            // ✅ Static test data (30 students)
-            const data = {
-                success: true,
-                data: Array.from({ length: 50 }, (_, i) => ({
-                    userName: `Student ${i + 1}`,
-                    user_id: `U10${i + 1}`,
-                    nbfcs: [
-                        {
-                            nbfc_name: `NBFC ${String.fromCharCode(65 + (i % 5))}`,
-                            statuses: [{
-                                status_type: ["Approved", "Pending", "Rejected"][i % 3],
-                                created_at: `2025-01-${String(i + 1).padStart(2, '0')}`
-                            }]
-                        }
-                    ]
-                }))
-            };
-
-            if (data.success && data.data.length > 0) {
-                const results = data.data;
-                const itemsPerPage = 3;
-                let currentPage = 1;
-
-                function renderPage(page) {
-                    container.innerHTML = "";
-                    const start = (page - 1) * itemsPerPage;
-                    const end = start + itemsPerPage;
-                    const paginatedItems = results.slice(start, end);
-
-                    paginatedItems.forEach(student => {
-                        const studentDiv = document.createElement("div");
-                        studentDiv.className = "studentapplicationstatusreports-inscdashboard";
-                        studentDiv.setAttribute("data-added", "");
-
-                        const firstRow = `
-                    <div class="reportsindashboard-firstrow">
-                        <div class="reportsindashboard-leftcontentinfirstrow">
-                            <p>${student.userName}</p>
-                            <span>Unique ID: ${student.user_id}</span>
-                        </div>
-                        <div class="reportsindashboard-rightcontentinfirstrow">
-                            <div class="application-buttoncontainer reportsindashboard-buttoncontainer">
-                                <button class="expand-arrow-reportsindashboard" style="cursor:pointer">
-                                    <img src="/assets/images/stat_minus_1.png" class="expand-arrow-rotation" alt="">
-                                </button>
-                            </div>
-                            <div class="application-shrinkwidtheditcontainer">
-                                <img src="/assets/images/Icons/edit_icon.png" style="display:none" alt="">
-                            </div>
-                        </div>
-                    </div>`;
-
-                        const secondRow = `
-                    <div class="reportsindashboard-secondrow">
-                        <p>Documents: ${getFinalStatus(student.nbfcs)}</p>
-                        <p>Application Date: -</p>
-                        <p>Proposals received: ${student.nbfcs.length}</p>
-                        <p>Total Duration: -</p>
-                    </div>`;
-
-                        const proposalDetails = document.createElement("div");
-                        proposalDetails.className = "reportsproposal-datalists";
-
-                        student.nbfcs.forEach(nbfc => {
-                            nbfc.statuses.forEach(status => {
-                                const detailDiv = document.createElement("div");
-                                detailDiv.className = "reportsproposal-individualdatalists";
-                                detailDiv.innerHTML = `
-                            <p>NBFC: &nbsp;&nbsp;${nbfc.nbfc_name}</p>
-                            <p>Proposal Date: &nbsp;&nbsp;${status.created_at ?? '-'}</p>
-                            <p id="reportspropsal-status-state" class="dynamic-status-hide">
-                                &nbsp;&nbsp;<span>${status.status_type}</span>
-                            </p>`;
-                                proposalDetails.appendChild(detailDiv);
-                            });
-                        });
-
-                        studentDiv.innerHTML += firstRow;
-                        studentDiv.innerHTML += secondRow;
-                        studentDiv.appendChild(proposalDetails);
-                        container.appendChild(studentDiv);
-                    });
-
-                    renderPagination();
-                    triggeredButtons();
+                if (!container || !paginationContainer || !scReferralId) {
+                    console.error("Missing required DOM elements or referral ID.");
+                    return;
                 }
 
-                function renderPagination() {
-                    paginationContainer.innerHTML = "";  
+                fetch("/getstatusofusers", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content"),
+                    },
+                    body: JSON.stringify({ scReferralId }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success && Array.isArray(data.data) && data.data.length > 0) {
+                            const results = data.data;
+                            const itemsPerPage = 2;
+                            let currentPage = 1;
 
-                    const totalPages = Math.ceil(results.length / itemsPerPage);
-                    const maxVisiblePages = 5;
-                    const currentGroup = Math.floor((currentPage - 1) / maxVisiblePages);
-                    const startPage = currentGroup * maxVisiblePages + 1;
-                    const endPage = Math.min(startPage + maxVisiblePages - 1, totalPages);
+                            const renderPage = (page) => {
+                                container.innerHTML = ""; // Clear previous content
+                                const start = (page - 1) * itemsPerPage;
+                                const end = start + itemsPerPage;
+                                const paginatedItems = results.slice(start, end);
 
-                    const createPageButton = (page, text = null, isActive = false) => {
-                        const btn = document.createElement("button");
-                        btn.textContent = text || page;
-                        btn.disabled = isActive;
-                        btn.className = isActive ? "active-page" : "inactive-page";
-                        btn.addEventListener("click", () => {
-                            currentPage = page;
-                            renderPage(currentPage);
+                                paginatedItems.forEach(student => {
+                                    const studentDiv = document.createElement("div");
+                                    studentDiv.className = "studentapplicationstatusreports-inscdashboard";
+                                    studentDiv.dataset.added = "";
+
+                                    // First Row
+                                    const firstRow = `
+                        <div class="reportsindashboard-firstrow">
+                            <div class="reportsindashboard-leftcontentinfirstrow">
+                                <p>${student.userName}</p>
+                                <span>Unique ID: ${student.user_id}</span>
+                            </div>
+                            <div class="reportsindashboard-rightcontentinfirstrow">
+                                <div class="application-buttoncontainer reportsindashboard-buttoncontainer">
+                                    <button class="expand-arrow-reportsindashboard" style="cursor:pointer">
+                                        <img src="/assets/images/stat_minus_1.png" class="expand-arrow-rotation" alt="">
+                                    </button>
+                                </div>
+                                <div class="application-shrinkwidtheditcontainer">
+                                    <img src="/assets/images/Icons/edit_icon.png" style="display:none" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                                    // Second Row
+                                    const secondRow = `
+                        <div class="reportsindashboard-secondrow">
+                            <p>Documents: ${getFinalStatus(student.nbfcs)}</p>
+                            <p>Application Date: -</p>
+                            <p>Proposals received: ${student.nbfcs.length}</p>
+                            <p>Total Duration: -</p>
+                        </div>
+                    `;
+
+                                    const proposalDetails = document.createElement("div");
+                                    proposalDetails.className = "reportsproposal-datalists";
+
+                                    student.nbfcs.forEach(nbfc => {
+                                        nbfc.statuses.forEach(status => {
+                                            const detailDiv = document.createElement("div");
+                                            detailDiv.className = "reportsproposal-individualdatalists";
+                                            detailDiv.innerHTML = `
+                                <p>NBFC: &nbsp;&nbsp;${nbfc.nbfc_name}</p>
+                                <p>Proposal Date: &nbsp;&nbsp;${status.created_at ?? '-'}</p>
+                                <p id="reportspropsal-status-state" class="dynamic-status-hide">
+                                    &nbsp;&nbsp;<span>${status.status_type}</span>
+                                </p>
+                            `;
+                                            proposalDetails.appendChild(detailDiv);
+                                        });
+                                    });
+
+                                    studentDiv.innerHTML += firstRow + secondRow;
+                                    studentDiv.appendChild(proposalDetails);
+                                    container.appendChild(studentDiv);
+                                });
+
+                                renderPagination();
+                                triggeredButtons(); // Your custom function to handle button actions
+                            };
+
+                            const renderPagination = () => {
+                                paginationContainer.innerHTML = ""; // Clear old pagination
+                                const totalPages = Math.ceil(results.length / itemsPerPage);
+
+                                const createButton = (page, label = null, isActive = false) => {
+                                    const btn = document.createElement("button");
+                                    btn.textContent = label || page;
+                                    btn.disabled = isActive;
+                                    btn.className = isActive ? "active-page" : "inactive-page";
+                                    btn.addEventListener("click", () => {
+                                        currentPage = page;
+                                        renderPage(currentPage);
+                                    });
+                                    return btn;
+                                };
+
+                                if (currentPage > 1) {
+                                    paginationContainer.appendChild(createButton(currentPage - 1, "<"));
+                                }
+
+                                for (let i = 1; i <= totalPages; i++) {
+                                    paginationContainer.appendChild(createButton(i, null, i === currentPage));
+                                }
+
+                                if (currentPage < totalPages) {
+                                    paginationContainer.appendChild(createButton(currentPage + 1, ">"));
+                                }
+                            };
+
+                            const getFinalStatus = (nbfcs) => {
+                                for (const nbfc of nbfcs) {
+                                    for (const status of nbfc.statuses) {
+                                        if (status.status_type) return status.status_type;
+                                    }
+                                }
+                                return "-";
+                            };
+
+                            renderPage(currentPage); // Start with first page
+                        } else {
+                            container.innerHTML = "<p>No application data found.</p>";
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Fetch error:", error);
+                        container.innerHTML = "<p>Error loading application data.</p>";
+                    });
+            }
+    function getStatusGroups() {
+        const scuser = @json(session('scuser'));
+        const scReferralId = scuser?.referral_code;
+        const container = document.getElementById("student-applicationdetailsstatus");
+        const paginationContainer = document.getElementById("pagination-container-statusgroups");
+
+        if (!container || !paginationContainer || !scReferralId) {
+            console.error("Missing required DOM elements or referral ID.");
+            return;
+        }
+
+        fetch("/getstatusofusers", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content"),
+            },
+            body: JSON.stringify({ scReferralId }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && Array.isArray(data.data) && data.data.length > 0) {
+                    const results = data.data;
+                    const itemsPerPage = 3;
+                    let currentPage = 1;
+
+                    const renderPage = (page) => {
+                        container.innerHTML = ""; // Clear previous content
+                        const start = (page - 1) * itemsPerPage;
+                        const end = start + itemsPerPage;
+                        const paginatedItems = results.slice(start, end);
+
+                        paginatedItems.forEach(student => {
+                            const studentDiv = document.createElement("div");
+                            studentDiv.className = "studentapplicationstatusreports-inscdashboard";
+                            studentDiv.dataset.added = "";
+
+                            // First Row
+                            const firstRow = `
+                        <div class="reportsindashboard-firstrow">
+                            <div class="reportsindashboard-leftcontentinfirstrow">
+                                <p>${student.userName}</p>
+                                <span>Unique ID: ${student.user_id}</span>
+                            </div>
+                            <div class="reportsindashboard-rightcontentinfirstrow">
+                                <div class="application-buttoncontainer reportsindashboard-buttoncontainer">
+                                    <button class="expand-arrow-reportsindashboard" style="cursor:pointer">
+                                        <img src="/assets/images/stat_minus_1.png" class="expand-arrow-rotation" alt="">
+                                    </button>
+                                </div>
+                                <div class="application-shrinkwidtheditcontainer">
+                                    <img src="/assets/images/Icons/edit_icon.png" style="display:none" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                            // Second Row
+                            const secondRow = `
+                        <div class="reportsindashboard-secondrow">
+                            <p>Documents: ${getFinalStatus(student.nbfcs)}</p>
+                            <p>Application Date: -</p>
+                            <p>Proposals received: ${student.nbfcs.length}</p>
+                            <p>Total Duration: -</p>
+                        </div>
+                    `;
+
+                            const proposalDetails = document.createElement("div");
+                            proposalDetails.className = "reportsproposal-datalists";
+
+                            student.nbfcs.forEach(nbfc => {
+                                nbfc.statuses.forEach(status => {
+                                    const detailDiv = document.createElement("div");
+                                    detailDiv.className = "reportsproposal-individualdatalists";
+                                    detailDiv.innerHTML = `
+                                <p>NBFC: &nbsp;&nbsp;${nbfc.nbfc_name}</p>
+                                <p>Proposal Date: &nbsp;&nbsp;${status.created_at ?? '-'}</p>
+                                <p id="reportspropsal-status-state" class="dynamic-status-hide">
+                                    &nbsp;&nbsp;<span>${status.status_type}</span>
+                                </p>
+                            `;
+                                    proposalDetails.appendChild(detailDiv);
+                                });
+                            });
+
+                            studentDiv.innerHTML += firstRow + secondRow;
+                            studentDiv.appendChild(proposalDetails);
+                            container.appendChild(studentDiv);
                         });
-                        return btn;
+
+                        renderPagination();
+                        triggeredButtons(); // Your custom function to handle button actions
                     };
 
-                    // Previous group of pages
-                    if (startPage > 1) {
-                        const prevGroupBtn = document.createElement("button");
-                        prevGroupBtn.textContent = "<";
-                        prevGroupBtn.className = "group-nav-button";
-                        prevGroupBtn.addEventListener("click", () => {
-                            currentPage = startPage - 1;
-                            renderPage(currentPage);
-                        });
-                        paginationContainer.appendChild(prevGroupBtn);
-                    }
+                    const renderPagination = () => {
+                        paginationContainer.innerHTML = ""; // Clear old pagination
+                        const totalPages = Math.ceil(results.length / itemsPerPage);
 
-                    // Visible page numbers
-                    for (let i = startPage; i <= endPage; i++) {
-                        paginationContainer.appendChild(createPageButton(i, null, i === currentPage));
-                    }
+                        const createButton = (page, label = null, isActive = false) => {
+                            const btn = document.createElement("button");
+                            btn.textContent = label || page;
+                            btn.disabled = isActive;
+                            btn.className = isActive ? "active-page" : "inactive-page";
+                            btn.addEventListener("click", () => {
+                                currentPage = page;
+                                renderPage(currentPage);
+                            });
+                            return btn;
+                        };
 
-                     if (endPage < totalPages) {
-                        const nextGroupBtn = document.createElement("button");
-                        nextGroupBtn.textContent = ">";
-                        nextGroupBtn.className = "group-nav-button";
-                        nextGroupBtn.addEventListener("click", () => {
-                            currentPage = endPage + 1;
-                            renderPage(currentPage);
-                        });
-                        paginationContainer.appendChild(nextGroupBtn);
-                    }
-                }
-                renderPage(currentPage);
-            } else {
-                container.innerHTML = "<p>No application data found.</p>";
-            }
-
-            function getFinalStatus(nbfcs) {
-                for (const nbfc of nbfcs) {
-                    for (const status of nbfc.statuses) {
-                        if (status.status_type) {
-                            return status.status_type;
+                        if (currentPage > 1) {
+                            paginationContainer.appendChild(createButton(currentPage - 1, "<"));
                         }
-                    }
+
+                        for (let i = 1; i <= totalPages; i++) {
+                            paginationContainer.appendChild(createButton(i, null, i === currentPage));
+                        }
+
+                        if (currentPage < totalPages) {
+                            paginationContainer.appendChild(createButton(currentPage + 1, ">"));
+                        }
+                    };
+
+                    const getFinalStatus = (nbfcs) => {
+                        for (const nbfc of nbfcs) {
+                            for (const status of nbfc.statuses) {
+                                if (status.status_type) return status.status_type;
+                            }
+                        }
+                        return "-";
+                    };
+
+                    renderPage(currentPage); // Start with first page
+                } else {
+                    container.innerHTML = "<p>No application data found.</p>";
                 }
-                return "-";
-            }
-        }
+            })
+            .catch(error => {
+                console.error("Fetch error:", error);
+                container.innerHTML = "<p>Error loading application data.</p>";
+            });
+    }
+
 
         function passwordForgotSc() {
             const forgotMailTrigger = document.querySelector(".footer-passwordchange p");

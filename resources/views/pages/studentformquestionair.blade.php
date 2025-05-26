@@ -48,6 +48,66 @@
       border-color: #5b9bd5;
       box-shadow: 0 0 0 3px rgba(91, 155, 213, 0.2);
     }
+    .radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.radio-label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  cursor: pointer;
+  position: relative;
+  padding-left: 30px;
+  user-select: none;
+}
+
+.radio-option input[type="radio"] {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+}
+
+.radio-option .custom-radio {
+  position: absolute;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  border: 2px solid #666;
+  border-radius: 50%;
+  background: white;
+  transition: 0.2s;
+}
+
+.radio-option input[type="radio"]:checked ~ .custom-radio {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.radio-option .custom-radio::after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.radio-option input[type="radio"]:checked ~ .custom-radio::after {
+  display: block;
+  top: 4px;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
   </style>
 </head>
 
@@ -67,9 +127,9 @@
         <a href="#help" class="student-form-nav-mobile">Help</a>
 
         <div class="student-form-nav-buttons">
-          <button class="student-form-login-btn" onclick="window.location.href='http://127.0.0.1:8000/login'">Log
+          <button class="student-form-login-btn" onclick="window.location.href='/login'">Log
             In</button>
-          <button class="student-form-signup-btn" onclick="window.location.href='http://localhost:8000/signup'">Sign
+          <button class="student-form-signup-btn" onclick="window.location.href='/signup'">Sign
             Up</button>
         </div>
       </div>
@@ -469,18 +529,16 @@
 
       <div class="content-wrapper">
         <div class="left-section">
-          <div class="form-group academic-option">
-            <label for="living-expenses">
-              <input type="radio" id="living-expenses" name="expense-type" value="with-living">
-              With living expenses
-            </label>
-          </div>
-          <div class="form-group academic-option">
-            <label for="no-living-expenses">
-              <input type="radio" id="no-living-expenses" name="expense-type" value="without-living">
-              Without living expenses
-            </label>
-          </div>
+        @foreach ($courseExpenseOptions as $option)
+      <div class="form-group academic-option">
+        <label for="expense-option-{{ $option->id }}">
+        <input type="radio" id="expense-option-{{ $option->id }}" name="expense-type"
+          value="{{ Str::slug($option->label, '-') }}">
+        {{ $option->label }}
+        </label>
+      </div>
+    @endforeach
+
         </div>
       
         <div class="right-section">
@@ -584,23 +642,32 @@
         @foreach($additionalFields as $field)
         @if($field->section === 'academic')
         <div class="input-field">
-          @if(in_array($field->type, ['text', 'url', 'date']))
-          <input type="{{ $field->type }}" name="dynamic_fields[{{ $field->id }}]" id="{{ $field->name }}"
+        @if(in_array($field->type, ['text', 'url', 'date']))
+        <input type="{{ $field->type }}" name="dynamic_fields[{{ $field->id }}]" id="{{ $field->name }}"
           value="{{ $userFieldValues[$field->id] ?? '' }}" placeholder="{{ $field->label }}" @if($field->required) required
         @endif>
         @elseif($field->type === 'select')
-          <label for="{{ $field->name }}">{{ $field->label }}</label>
-          <select name="dynamic_fields[{{ $field->id }}]" id="{{ $field->name }}">
+        <label for="{{ $field->name }}">{{ $field->label }}</label>
+        <select name="dynamic_fields[{{ $field->id }}]" id="{{ $field->name }}">
           <option value="">Select {{ $field->label }}</option>
           @foreach($field->options ?? [] as $option)
         <option value="{{ $option }}" @if(($userFieldValues[$field->id] ?? '') == $option) selected @endif>
-          {{ ucfirst($option) }}
+        {{ ucfirst($option) }}
         </option>
         @endforeach
-          </select>
+        </select>
+        @elseif($field->type === 'radio')
+        <label>{{ $field->label }}</label>
+        @foreach($field->options ?? [] as $option)
+        <label>
+        <input type="radio" name="dynamic_fields[{{ $field->id }}]" value="{{ $option }}" @if(($userFieldValues[$field->id] ?? '') == $option) checked @endif>
+        {{ ucfirst($option) }}
+        </label>
+        @endforeach
         @endif
+
         </div>
-      @endif
+        @endif
     @endforeach
       </div>
 
@@ -798,7 +865,7 @@
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
             <input type="file" id="pan-card" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'pan-card-name', 'pan-card-upload-icon', 'pan-card-remove-icon')">
+              onchange="handleFileUpload(event, 'pan-card-name', 'pan-card-upload-icon', 'pan-card-remove-icon','static')">
             <span id="pan-card-remove-icon" class="remove-icon" style="display: none;"
               onclick="removeFile('pan-card', 'pan-card-name', 'pan-card-upload-icon', 'pan-card-remove-icon')">✖</span>
           </div>
@@ -823,7 +890,7 @@
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
             <input type="file" id="aadhar-card" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'aadhar-card-name', 'aadhar-card-upload-icon', 'aadhar-card-remove-icon')">
+              onchange="handleFileUpload(event, 'aadhar-card-name', 'aadhar-card-upload-icon', 'aadhar-card-remove-icon','static')">
             <span id="aadhar-card-remove-icon" class="remove-icon" style="display: none;"
               onclick="removeFile('aadhar-card', 'aadhar-card-name', 'aadhar-card-upload-icon', 'aadhar-card-remove-icon')">✖</span>
           </div>
@@ -848,7 +915,7 @@
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
             <input type="file" id="passport" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'passport-card-name', 'passport-upload-icon', 'passport-remove-icon')">
+onchange="handleFileUpload(event, 'passport-card-name', 'passport-upload-icon', 'passport-remove-icon', null, 'static')">
             <span id="passport-remove-icon" class="remove-icon" style="display: none;"
               onclick="removeFile('passport', 'passport-card-name', 'passport-upload-icon', 'passport-remove-icon')">✖</span>
           </div>
@@ -866,39 +933,39 @@
 
 
         @foreach($documentTypes as $doc)
-        @php
-  $fileUrl = $userDocumentUrls[$doc->id] ?? null;
+          @php
+        $fileUrl = $userDocumentUrls[$doc->id] ?? null;
 
-  // Extract file name if URL is available
-  $actualFileName = $fileUrl ? basename($fileUrl) : 'No file chosen';
-        @endphp
+        // Extract file name if URL is available
+        $actualFileName = $fileUrl ? basename($fileUrl) : 'No file chosen';
+          @endphp
 
-        <div class="document-box">
-          <div class="document-name" id="{{ $doc->key }}-document-name">{{ $doc->key }}</div>
-          <div class="upload-field">
-          <span id="{{ $doc->key }}-name">{{ $actualFileName }}</span>
-          <label for="{{ $doc->key }}" class="upload-icon" id="{{ $doc->key }}-upload-icon">
+          <div class="document-box">
+            <div class="document-name" id="{{ $doc->key }}-document-name">{{ $doc->key }}</div>
+            <div class="upload-field">
+            <span id="{{ $doc->key }}-name">{{ $actualFileName }}</span>
+            <label for="{{ $doc->key }}" class="upload-icon" id="{{ $doc->key }}-upload-icon">
             <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
-          </label>
-          <input type="file" id="{{ $doc->key }}" name="dynamic_documents[{{ $doc->key }}]" accept=".jpg, .png, .pdf"
-            onchange="handleFileUpload(event, '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', '{{ $doc->key }}')" />
+            </label>
+            <input type="file" id="{{ $doc->key }}" name="dynamic_documents[{{ $doc->key }}]" accept=".jpg, .png, .pdf"
+      onchange="handleFileUpload(event, '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', null, 'dynamic')"/>
 
 
 
-          <span id="{{ $doc->key }}-remove-icon" class="remove-icon" style="display: none;"
+            <span id="{{ $doc->key }}-remove-icon" class="remove-icon" style="display: none;"
             onclick="removeFile('{{ $doc->key }}', '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon')">✖</span>
-          </div>
-          <div class="info">
-          <span class="help-trigger" data-target="{{ $doc->key }}-help">ⓘ Help</span>
-          <span>*jpg, png, pdf formats</span>
-          </div>
-          <div class="help-container {{ $doc->key }}-help" style="display: none;">
-          <h3 class="help-title">Help</h3>
-          <div class="help-content">
+            </div>
+            <div class="info">
+            <span class="help-trigger" data-target="{{ $doc->key }}-help">ⓘ Help</span>
+            <span>*jpg, png, pdf formats</span>
+            </div>
+            <div class="help-container {{ $doc->key }}-help" style="display: none;">
+            <h3 class="help-title">Help</h3>
+            <div class="help-content">
             <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+            </div>
+            </div>
           </div>
-          </div>
-        </div>
     @endforeach
 
 
@@ -925,7 +992,7 @@
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
             <input type="file" id="tenth-grade" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'tenth-grade-name', 'tenth-grade-upload-icon', 'tenth-grade-remove-icon')">
+              onchange="handleFileUpload(event, 'tenth-grade-name', 'tenth-grade-upload-icon', 'tenth-grade-remove-icon','static')">
             <span id="tenth-grade-remove-icon" class="remove-icon" style="display:none;"
               onclick="removeFile('tenth-grade', 'tenth-grade-name', 'tenth-grade-upload-icon', 'tenth-grade-remove-icon')">✖</span>
           </div>
@@ -950,7 +1017,7 @@
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
             <input type="file" id="twelfth-grade" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'twelfth-grade-name', 'twelfth-grade-upload-icon', 'twelfth-grade-remove-icon')">
+              onchange="handleFileUpload(event, 'twelfth-grade-name', 'twelfth-grade-upload-icon', 'twelfth-grade-remove-icon','static')">
             <span id="twelfth-grade-remove-icon" class="remove-icon" style="display:none;"
               onclick="removeFile('twelfth-grade', 'twelfth-grade-name', 'twelfth-grade-upload-icon', 'twelfth-grade-remove-icon')">✖</span>
           </div>
@@ -975,7 +1042,7 @@
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
             <input type="file" id="graduation-grade" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'graduation-grade-name', 'graduation-grade-upload-icon', 'graduation-grade-remove-icon')">
+              onchange="handleFileUpload(event, 'graduation-grade-name', 'graduation-grade-upload-icon', 'graduation-grade-remove-icon','static')">
             <span id="graduation-grade-remove-icon" class="remove-icon" style="display:none;"
               onclick="removeFile('graduation-grade', 'graduation-grade-name', 'graduation-grade-upload-icon', 'graduation-grade-remove-icon')">✖</span>
           </div>
@@ -1013,7 +1080,7 @@
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
             <input type="file" id="secured-tenth" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'secured-tenth-name', 'secured-tenth-upload-icon', 'secured-tenth-remove-icon')">
+              onchange="handleFileUpload(event, 'secured-tenth-name', 'secured-tenth-upload-icon', 'secured-tenth-remove-icon','static')">
             <span id="secured-tenth-remove-icon" class="remove-icon" style="display:none;"
               onclick="removeFile('secured-tenth', 'secured-tenth-name', 'secured-tenth-upload-icon', 'secured-tenth-remove-icon')">✖</span>
           </div>
@@ -1038,7 +1105,7 @@
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
             <input type="file" id="secured-twelfth" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'secured-twelfth-name', 'secured-twelfth-upload-icon', 'secured-twelfth-remove-icon')">
+              onchange="handleFileUpload(event, 'secured-twelfth-name', 'secured-twelfth-upload-icon', 'secured-twelfth-remove-icon','static')">
             <span id="secured-twelfth-remove-icon" class="remove-icon" style="display:none;"
               onclick="removeFile('secured-twelfth', 'secured-twelfth-name', 'secured-twelfth-upload-icon', 'secured-twelfth-remove-icon')">✖</span>
           </div>
@@ -1064,7 +1131,7 @@
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
             <input type="file" id="secured-graduation" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'secured-graduation-name', 'secured-graduation-upload-icon', 'secured-graduation-remove-icon')">
+              onchange="handleFileUpload(event, 'secured-graduation-name', 'secured-graduation-upload-icon', 'secured-graduation-remove-icon','static')">
             <span id="secured-graduation-remove-icon" class="remove-icon" style="display:none;"
               onclick="removeFile('secured-graduation', 'secured-graduation-name', 'secured-graduation-upload-icon', 'secured-graduation-remove-icon')">✖</span>
           </div>
@@ -1101,7 +1168,7 @@
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
             </label>
             <input type="file" id="work-experience-tenth" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'work-experience-experience-letter', 'work-experience-tenth-upload-icon', 'work-experience-tenth-remove-icon')" />
+              onchange="handleFileUpload(event, 'work-experience-experience-letter', 'work-experience-tenth-upload-icon', 'work-experience-tenth-remove-icon','static')" />
             <span id="work-experience-tenth-remove-icon" style="display:none;"
               onclick="removeFile('work-experience-tenth', 'work-experience-experience-letter', 'work-experience-tenth-upload-icon', 'work-experience-tenth-remove-icon')">✖</span>
           </div>
@@ -1125,7 +1192,7 @@
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
             </label>
             <input type="file" id="work-experience-twelfth" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'work-experience-monthly-slip', 'work-experience-twelfth-upload-icon', 'work-experience-twelfth-remove-icon')" />
+              onchange="handleFileUpload(event, 'work-experience-monthly-slip', 'work-experience-twelfth-upload-icon', 'work-experience-twelfth-remove-icon','static')" />
             <span id="work-experience-twelfth-remove-icon" style="display:none;"
               onclick="removeFile('work-experience-twelfth', 'work-experience-monthly-slip', 'work-experience-twelfth-upload-icon', 'work-experience-twelfth-remove-icon')">✖</span>
           </div>
@@ -1149,7 +1216,7 @@
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
             </label>
             <input type="file" id="work-experience-graduation" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'work-experience-office-id', 'work-experience-graduation-upload-icon', 'work-experience-graduation-remove-icon')" />
+              onchange="handleFileUpload(event, 'work-experience-office-id', 'work-experience-graduation-upload-icon', 'work-experience-graduation-remove-icon','static')" />
             <span id="work-experience-graduation-remove-icon" style="display:none;"
               onclick="removeFile('work-experience-graduation', 'work-experience-office-id', 'work-experience-graduation-upload-icon', 'work-experience-graduation-remove-icon')">✖</span>
           </div>
@@ -1176,7 +1243,7 @@
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
             </label>
             <input type="file" id="work-experience-fourth" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'work-experience-joining-letter', 'work-experience-fourth-upload-icon', 'work-experience-fourth-remove-icon')" />
+              onchange="handleFileUpload(event, 'work-experience-joining-letter', 'work-experience-fourth-upload-icon', 'work-experience-fourth-remove-icon','static')" />
             <span id="work-experience-fourth-remove-icon" style="display:none;"
               onclick="removeFile('work-experience-fourth', 'work-experience-joining-letter', 'work-experience-fourth-upload-icon', 'work-experience-fourth-remove-icon')">✖</span>
           </div>
@@ -1214,7 +1281,7 @@
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
             <input type="file" id="co-pan-card" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'co-pan-card-name', 'co-upload-icon', 'co-remove-icon')">
+              onchange="handleFileUpload(event, 'co-pan-card-name', 'co-upload-icon', 'co-remove-icon','static')">
             <span id="co-remove-icon" class="remove-icon" style="display:none;"
               onclick="removeFile('co-pan-card', 'co-pan-card-name', 'co-upload-icon', 'co-remove-icon')">✖</span>
           </div>
@@ -1238,7 +1305,7 @@
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
             <input type="file" id="co-aadhar-card" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'co-aadhar-card-name', 'co-aadhar-upload-icon', 'co-aadhar-remove-icon')">
+              onchange="handleFileUpload(event, 'co-aadhar-card-name', 'co-aadhar-upload-icon', 'co-aadhar-remove-icon','static')">
             <span id="co-aadhar-remove-icon" class="remove-icon" style="display:none;"
               onclick="removeFile('co-aadhar-card', 'co-aadhar-card-name', 'co-aadhar-upload-icon', 'co-aadhar-remove-icon')">✖</span>
           </div>
@@ -1262,7 +1329,7 @@
               <img src="assets/images/upload.png" alt="Upload Icon" width="24">
             </label>
             <input type="file" id="co-passport" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'co-addressproof', 'co-passport-upload-icon', 'co-passport-remove-icon')">
+              onchange="handleFileUpload(event, 'co-addressproof', 'co-passport-upload-icon', 'co-passport-remove-icon','static')">
             <span id="co-passport-remove-icon" class="remove-icon" style="display:none;"
               onclick="removeFile('co-passport', 'co-addressproof', 'co-passport-upload-icon', 'co-passport-remove-icon')">✖</span>
           </div>
@@ -1306,7 +1373,7 @@
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
             </label>
             <input type="file" id="salary-upload-salary-slip" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'salary-upload-salary-slip-name', 'salary-upload-salary-slip-upload-icon', 'salary-remove-salary-slip-1')" />
+              onchange="handleFileUpload(event, 'salary-upload-salary-slip-name', 'salary-upload-salary-slip-upload-icon', 'salary-remove-salary-slip-1','static')" />
             <span id="salary-remove-salary-slip-1" class="remove-icon" style="display: none;"
               onclick="removeFile('salary-upload-salary-slip', 'salary-upload-salary-slip-name', 'salary-upload-salary-slip-upload-icon', 'salary-remove-salary-slip-1')">✖</span>
           </div>
@@ -1332,7 +1399,7 @@
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
             </label>
             <input type="file" id="salary-upload-salary-statement" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'salary-upload-salary-statement-name', 'salary-upload-salary-statement-upload-icon', 'salary-remove-salary-statement-2')" />
+              onchange="handleFileUpload(event, 'salary-upload-salary-statement-name', 'salary-upload-salary-statement-upload-icon', 'salary-remove-salary-statement-2','static')" />
             <span id="salary-remove-salary-statement-2" class="remove-icon" style="display: none;"
               onclick="removeFile('salary-upload-salary-statement', 'salary-upload-salary-statement-name', 'salary-upload-salary-statement-upload-icon', 'salary-remove-salary-statement-2')">✖</span>
           </div>
@@ -1358,7 +1425,7 @@
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
             </label>
             <input type="file" id="salary-upload-address-proof" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'salary-upload-address-proof-name', 'salary-upload-address-proof-upload-icon', 'salary-remove-address-proof-3')" />
+              onchange="handleFileUpload(event, 'salary-upload-address-proof-name', 'salary-upload-address-proof-upload-icon', 'salary-remove-address-proof-3','static')" />
             <span id="salary-remove-address-proof-3" class="remove-icon" style="display: none;"
               onclick="removeFile('salary-upload-address-proof', 'salary-upload-address-proof-name', 'salary-upload-address-proof-upload-icon', 'salary-remove-address-proof-3')">✖</span>
           </div>
@@ -1388,7 +1455,7 @@
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
             </label>
             <input type="file" id="salary-upload-itr" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'salary-upload-itr-name', 'salary-upload-itr-upload-icon', 'salary-remove-itr-4')" />
+              onchange="handleFileUpload(event, 'salary-upload-itr-name', 'salary-upload-itr-upload-icon', 'salary-remove-itr-4','static')" />
             <span id="salary-remove-itr-4" class="remove-icon" style="display: none;"
               onclick="removeFile('salary-upload-itr', 'salary-upload-itr-name', 'salary-upload-itr-upload-icon', 'salary-remove-itr-4')">✖</span>
           </div>
@@ -1416,7 +1483,7 @@
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
             </label>
             <input type="file" id="salary-upload-fourth-document" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'salary-upload-fourth-document-name', 'salary-upload-fourth-document-upload-icon', 'salary-remove-fourth-document-5')" />
+              onchange="handleFileUpload(event, 'salary-upload-fourth-document-name', 'salary-upload-fourth-document-upload-icon', 'salary-remove-fourth-document-5','static')" />
             <span id="salary-remove-fourth-document-5" class="remove-icon" style="display: none;"
               onclick="removeFile('salary-upload-fourth-document', 'salary-upload-fourth-document-name', 'salary-upload-fourth-document-upload-icon', 'salary-remove-fourth-document-5')">✖</span>
           </div>
@@ -1442,7 +1509,7 @@
               <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
             </label>
             <input type="file" id="salary-upload-fifth-document" accept=".jpg, .png, .pdf"
-              onchange="handleFileUpload(event, 'salary-upload-fifth-document-name', 'salary-upload-fifth-document-upload-icon', 'salary-remove-fifth-document-6')" />
+              onchange="handleFileUpload(event, 'salary-upload-fifth-document-name', 'salary-upload-fifth-document-upload-icon', 'salary-remove-fifth-document-6','static')" />
             <span id="salary-remove-fifth-document-6" class="remove-icon" style="display: none;"
               onclick="removeFile('salary-upload-fifth-document', 'salary-upload-fifth-document-name', 'salary-upload-fifth-document-upload-icon', 'salary-remove-fifth-document-6')">✖</span>
           </div>

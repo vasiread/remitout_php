@@ -454,6 +454,7 @@
 .rightpanel-emailcontainer,
 .rightpanel-passwordcontainer {
     margin-bottom: 15px;
+    height:60px;
 }
 .rightpanel-namecontainer label,
 .rightpanel-phonecontainer label,

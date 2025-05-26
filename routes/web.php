@@ -268,3 +268,10 @@ Route::get('/video-url', [TermsController::class, 'getFirstVideoFromS3']);
 
 
 
+
+Route::get('/academics-adminshow', [Admincontroller::class, 'getAcademicDynamicAdminSide']);
+Route::delete('/academics-adminshow/{id}', [Admincontroller::class, 'deleteAcademicField']);
+
+Route::get('/course-detail-options', [Admincontroller::class, 'getCourseExpenseOptions']);
+Route::post('/course-options', [Admincontroller::class, 'addCourseExpenseOptions']);
+Route::delete('/course-options/{id}', [Admincontroller::class, 'delCourseExpenseOptions']);

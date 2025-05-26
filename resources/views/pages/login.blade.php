@@ -69,7 +69,7 @@
                     <div class="logincontainer-anotherresources">
                         <p class="or-divider">or</p>
                         <div class="googlesigninbuttoncontainer">
-                            <button class="googlesigninbutton" onclick="window.location.href='http://localhost:8000/auth/google'">
+                            <button class="googlesigninbutton" onclick="window.location.href='/auth/google'">
                                 <img src="{{ asset('assets/images/googleicon.png') }}"> Sign in with Google
 
                             </button>
@@ -82,7 +82,7 @@
                         <!-- New User Sign Up Option -->
                         <div class="logincontainer-signinoption">
                             <p>New here? </p>
-                            <span onclick="window.location.href='http://localhost:8000/signup'">Sign Up</span>
+                            <span onclick="window.location.href='/signup'">Sign Up</span>
                         </div>
                     </div>
                 </div>

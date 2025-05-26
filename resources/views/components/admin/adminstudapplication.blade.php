@@ -52,7 +52,6 @@
                         <input type="text" placeholder="Full Name" name="let-us-know-more-about-you[full_name]"
                           id="fullName" required />
                       </div>
-                      <span class="remove-option">×</span>
                       <div class="validation-message" id="fullName-error"></div>
                     </div>
 
@@ -62,7 +61,6 @@
                         <input type="tel" placeholder="Phone Number" name="let-us-know-more-about-you[phone_number]"
                           id="phone" required />
                       </div>
-                      <span class="remove-option">×</span>
                       <div class="validation-message" id="phone-error"></div>
                     </div>
 
@@ -72,7 +70,6 @@
                         <input type="text" placeholder="Referral Code" name="let-us-know-more-about-you[referral_code]"
                           id="referralCode" />
                       </div>
-                      <span class="remove-option">×</span>
                       <div class="validation-message" id="referralCode-error"></div>
                     </div>
                   </div>
@@ -85,7 +82,6 @@
                         <input type="email" placeholder="Email ID" name="let-us-know-more-about-you[email]" id="email"
                           required />
                       </div>
-                      <span class="remove-option">×</span>
                       <div class="validation-message" id="email-error"></div>
                     </div>
 
@@ -153,6 +149,8 @@
                       <span class="add-icon">+</span>
                     </div>
                   </div>
+                  <div id="personal-fields-container"></div>
+
 
 
 
@@ -297,16 +295,6 @@
                   <div class="options-label">Options:</div>
                   <div class="checkbox-coures-main-container">
                     <div class="checkbox-options-container" id="checkbox-options-container-expenses">
-                      <div class="checkbox-option">
-                        <input type="checkbox" id="with-expenses" name="course-details[options][]"
-                          value="With living expenses">
-                        <label for="with-expenses">With living expenses</label>
-                      </div>
-                      <div class="checkbox-option">
-                        <input type="checkbox" id="without-expenses" name="course-details[options][]"
-                          value="Without living expenses">
-                        <label for="without-expenses">Without living expenses</label>
-                      </div>
                       <div class="add-option" id="add-course-option-btn">
                         <!-- Moved inside checkbox-options-container -->
                         <span class="add-option-text">Add</span>
@@ -347,20 +335,21 @@
                     <div class="education-field">
                       <input type="text" placeholder="University/School"
                         name="academic-details[education][0][university]">
-                      <button type="button" class="remove-field-btn">✕</button>
                     </div>
                     <div class="education-field">
                       <input type="text" placeholder="Course Name" name="academic-details[education][0][course]">
-                      <button type="button" class="remove-field-btn">✕</button>
                     </div>
                   </div>
-
+                  <div id="education-rows-container"></div>
                   <button type="button" class="add-education-field-btn" id="add-education-field-btn">
                     <span>Add</span>
                     <span class="add-education-icon">+</span>
                   </button>
                 </div>
               </div>
+
+
+
 
               <!-- Academic Gap Question -->
               <div class="admin-student-form-question" id="academic-gap-container">
@@ -550,8 +539,9 @@
                     class="admin-student-arrow-down-document-upload" />
                 </div>
               </div>
-            
-              <div class="admin-student-section-content-document-upload" id="adminside-student-section-content-document-upload">   
+
+              <div class="admin-student-section-content-document-upload"
+                id="adminside-student-section-content-document-upload">
                 <!-- 1. Student KYC Document -->
                 <div class="admin-student-form-question" id="adminside-student-form-question-kyc">
                   <div class="admin-student-question-row" id="student-kyc-row">
@@ -594,7 +584,7 @@
                             </div>
                           </div>
                         </div>
-                 
+
                         <!-- Aadhar Card -->
                         <div class="document-box">
                           <div class="document-name" id="aadhar-card-document-name" style="display: none">
@@ -618,7 +608,8 @@
                             <span class="help-trigger" data-target="aadhar-card-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container aadhar-card-help" id="help-container-aadhar-id" style="display: none">
+                          <div class="help-container aadhar-card-help" id="help-container-aadhar-id"
+                            style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
@@ -648,7 +639,8 @@
                             <span class="help-trigger" data-target="passport-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container passport-help" id="help-container-password-id" style="display: none">
+                          <div class="help-container passport-help" id="help-container-password-id"
+                            style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
@@ -657,7 +649,7 @@
                         </div>
                       </div>
                       <!-- Document fields container -->
-                         <div class="document-row" id="document-fields-container-kyc-id">
+                      <div class="document-row" id="document-fields-container-kyc-id">
                         <div class="add-document" id="add-document-btn-kyc-id">
                           <span class="add-text">Add</span>
                           <span class="add-icon">+</span>
@@ -667,13 +659,14 @@
                     </div>
                   </div>
                 </div>
-              
+
                 <!-- 2. Academic Mark Sheets -->
                 <div class="admin-student-form-question" id="adminside-student-form-question-academic">
                   <div class="admin-student-question-row" id="academic-marks-row">
                     <div class="admin-student-question-title">Academic Mark Sheets</div>
                     <div class="admin-student-dropdown-field" id="adminside-student-dropdown-field-academic">
-                      <span class="admin-student-field-text" id="adminside-student-field-text-academic">Text Field</span>
+                      <span class="admin-student-field-text" id="adminside-student-field-text-academic">Text
+                        Field</span>
                       <span class="admin-student-dropdown-icon" id="adminside-student-dropdown-icon-academic"></span>
                     </div>
                   </div>
@@ -686,7 +679,8 @@
                             10th Mark Sheet
                           </div>
                           <div class="upload-field">
-                            <span id="tenth-grade-name" data-original="10th Grade Mark Sheet">10th Grade Mark Sheet</span>
+                            <span id="tenth-grade-name" data-original="10th Grade Mark Sheet">10th Grade Mark
+                              Sheet</span>
                             <span id="tenth-grade-remove-icon" class="remove-icon"
                               onclick="removeFile('tenth-grade', 'tenth-grade-name', 'tenth-grade-upload-icon', 'tenth-grade-remove-icon')"><span
                                 class="thin-x"></span></span>
@@ -703,21 +697,23 @@
                             <span class="help-trigger" data-target="tenth-grade-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container tenth-grade-help" id="help-container-grade-id" style="display: none">
+                          <div class="help-container tenth-grade-help" id="help-container-grade-id"
+                            style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
                             </div>
                           </div>
                         </div>
-                 
+
                         <!-- 12th Grade Mark Sheet -->
                         <div class="document-box">
                           <div class="document-name" id="12th-mark-sheet-id" style="display: none">
                             12th Mark Sheet
                           </div>
                           <div class="upload-field">
-                            <span id="twelfth-grade-name" data-original="12th Grade Mark Sheet">12th Grade Mark Sheet</span>
+                            <span id="twelfth-grade-name" data-original="12th Grade Mark Sheet">12th Grade Mark
+                              Sheet</span>
                             <span id="twelfth-grade-remove-icon" class="remove-icon"
                               onclick="removeFile('twelfth-grade', 'twelfth-grade-name', 'twelfth-grade-upload-icon', 'twelfth-grade-remove-icon')"><span
                                 class="thin-x"></span></span>
@@ -734,7 +730,8 @@
                             <span class="help-trigger" data-target="twelfth-grade-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container twelfth-grade-help" id="help-container-twelfth-id" style="display: none">
+                          <div class="help-container twelfth-grade-help" id="help-container-twelfth-id"
+                            style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
@@ -747,7 +744,8 @@
                             Graduation Mark Sheet
                           </div>
                           <div class="upload-field">
-                            <span id="graduation-grade-name" data-original="Graduation Mark Sheet">Graduation Mark Sheet</span>
+                            <span id="graduation-grade-name" data-original="Graduation Mark Sheet">Graduation Mark
+                              Sheet</span>
                             <span id="graduation-grade-remove-icon" class="remove-icon"
                               onclick="removeFile('graduation-grade', 'graduation-grade-name', 'graduation-grade-upload-icon', 'graduation-grade-remove-icon')"><span
                                 class="thin-x"></span></span>
@@ -764,7 +762,8 @@
                             <span class="help-trigger" data-target="graduation-grade-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container graduation-grade-help" id="help-container-graduation-id" style="display: none">
+                          <div class="help-container graduation-grade-help" id="help-container-graduation-id"
+                            style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
@@ -782,7 +781,7 @@
                     </div>
                   </div>
                 </div>
-               
+
                 <!-- 3. Secured Marks -->
                 <div class="admin-student-form-question" id="adminside-student-form-question-secured">
                   <div class="admin-student-question-row" id="secured-marks-row">
@@ -818,14 +817,15 @@
                             <span class="help-trigger" data-target="secured-tenth-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container secured-tenth-help" id="help-container-tenth-id" style="display: none">
+                          <div class="help-container secured-tenth-help" id="help-container-tenth-id"
+                            style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload your 10th grade mark sheet in jpg, png, or pdf format.</p>
                             </div>
                           </div>
                         </div>
-                      
+
                         <!-- 12th Grade -->
                         <div class="document-box">
                           <div class="document-name" id="12th-grade-id" style="display: none">
@@ -849,14 +849,15 @@
                             <span class="help-trigger" data-target="secured-twelfth-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container secured-twelfth-help" id="help-container-secure-twelfth-id" style="display: none">
+                          <div class="help-container secured-twelfth-help" id="help-container-secure-twelfth-id"
+                            style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload your 12th grade mark sheet in jpg, png, or pdf format.</p>
                             </div>
                           </div>
                         </div>
-                      
+
                         <!-- Graduation -->
                         <div class="document-box">
                           <div class="document-name" id="graduation-id" style="display: none">
@@ -880,7 +881,8 @@
                             <span class="help-trigger" data-target="secured-graduation-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container secured-graduation-help" id="help-container-secure-graduation-id" style="display: none">
+                          <div class="help-container secured-graduation-help" id="help-container-secure-graduation-id"
+                            style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload your graduation mark sheet in jpg, png, or pdf format.</p>
@@ -898,14 +900,16 @@
                     </div>
                   </div>
                 </div>
-              
+
                 <!-- 4. Work Experience -->
                 <div class="admin-student-form-question" id="adminside-student-form-question-work-experience">
                   <div class="admin-student-question-row" id="work-experience-row">
                     <div class="admin-student-question-title">Work Experience</div>
                     <div class="admin-student-dropdown-field" id="adminside-student-dropdown-field-work-experience">
-                      <span class="admin-student-field-text" id="adminside-student-field-text-work-experience">Text Field</span>
-                      <span class="admin-student-dropdown-icon" id="adminside-student-dropdown-icon-work-experience"></span>
+                      <span class="admin-student-field-text" id="adminside-student-field-text-work-experience">Text
+                        Field</span>
+                      <span class="admin-student-dropdown-icon"
+                        id="adminside-student-dropdown-icon-work-experience"></span>
                     </div>
                   </div>
                   <div class="admin-student-options-section" id="work-experience-section">
@@ -917,16 +921,18 @@
                             Experience Letter
                           </div>
                           <div class="upload-field">
-                            <span id="work-experience-experience-letter" data-original="Experience Letter">Experience Letter</span>
+                            <span id="work-experience-experience-letter" data-original="Experience Letter">Experience
+                              Letter</span>
                             <span id="work-experience-tenth-remove-icon" class="remove-icon"
                               onclick="removeFile('work-experience-tenth', 'work-experience-experience-letter', 'work-experience-tenth-upload-icon', 'work-experience-tenth-remove-icon')"><span
                                 class="thin-x"></span></span>
                             <div class="file-actions">
-                              <label for="work-experience-tenth" class="upload-icon" id="work-experience-tenth-upload-icon">
+                              <label for="work-experience-tenth" class="upload-icon"
+                                id="work-experience-tenth-upload-icon">
                                 <img src="assets/images/upload.png" alt="Upload Icon" />
                               </label>
-                              <input type="file" id="work-experience-tenth" name="documents[work_experience][experience_letter]"
-                                accept=".jpg, .png, .pdf"
+                              <input type="file" id="work-experience-tenth"
+                                name="documents[work_experience][experience_letter]" accept=".jpg, .png, .pdf"
                                 onchange="handleFileUpload(event, 'work-experience-experience-letter', 'work-experience-tenth-upload-icon', 'work-experience-tenth-remove-icon')" />
                             </div>
                           </div>
@@ -934,30 +940,33 @@
                             <span class="help-trigger" data-target="work-experience-tenth-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container work-experience-tenth-help" id="help-container-work-experience-id" style="display: none">
+                          <div class="help-container work-experience-tenth-help" id="help-container-work-experience-id"
+                            style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload your experience letter in jpg, png, or pdf format.</p>
                             </div>
                           </div>
                         </div>
-                     
+
                         <!-- 3 Months Salary Slip -->
                         <div class="work-experience-box">
                           <div class="document-name" id="3-months-salary-slip-id" style="display: none">
                             3 Months Salary Slip
                           </div>
                           <div class="upload-field">
-                            <span id="work-experience-monthly-slip" data-original="3 Months Salary Slip">3 Months Salary Slip</span>
+                            <span id="work-experience-monthly-slip" data-original="3 Months Salary Slip">3 Months Salary
+                              Slip</span>
                             <span id="work-experience-twelfth-remove-icon" class="remove-icon"
                               onclick="removeFile('work-experience-twelfth', 'work-experience-monthly-slip', 'work-experience-twelfth-upload-icon', 'work-experience-twelfth-remove-icon')"><span
                                 class="thin-x"></span></span>
                             <div class="file-actions">
-                              <label for="work-experience-twelfth" class="upload-icon" id="work-experience-twelfth-upload-icon">
+                              <label for="work-experience-twelfth" class="upload-icon"
+                                id="work-experience-twelfth-upload-icon">
                                 <img src="assets/images/upload.png" alt="Upload Icon" />
                               </label>
-                              <input type="file" id="work-experience-twelfth" name="documents[work_experience][salary_slip]"
-                                accept=".jpg, .png, .pdf"
+                              <input type="file" id="work-experience-twelfth"
+                                name="documents[work_experience][salary_slip]" accept=".jpg, .png, .pdf"
                                 onchange="handleFileUpload(event, 'work-experience-monthly-slip', 'work-experience-twelfth-upload-icon', 'work-experience-twelfth-remove-icon')" />
                             </div>
                           </div>
@@ -965,14 +974,15 @@
                             <span class="help-trigger" data-target="work-experience-twelfth-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container work-experience-twelfth-help" id="help-container-work-experience-twelfth-id" style="display: none">
+                          <div class="help-container work-experience-twelfth-help"
+                            id="help-container-work-experience-twelfth-id" style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload your 3 months salary slip in jpg, png, or pdf format.</p>
                             </div>
                           </div>
                         </div>
-                  
+
                         <!-- Office ID -->
                         <div class="work-experience-box">
                           <div class="document-name" id="office-IDs-id" style="display: none">
@@ -984,11 +994,12 @@
                               onclick="removeFile('work-experience-graduation', 'work-experience-office-id', 'work-experience-graduation-upload-icon', 'work-experience-graduation-remove-icon')"><span
                                 class="thin-x"></span></span>
                             <div class="file-actions">
-                              <label for="work-experience-graduation" class="upload-icon" id="work-experience-graduation-upload-icon">
+                              <label for="work-experience-graduation" class="upload-icon"
+                                id="work-experience-graduation-upload-icon">
                                 <img src="assets/images/upload.png" alt="Upload Icon" />
                               </label>
-                              <input type="file" id="work-experience-graduation" name="documents[work_experience][office_id]"
-                                accept=".jpg, .png, .pdf"
+                              <input type="file" id="work-experience-graduation"
+                                name="documents[work_experience][office_id]" accept=".jpg, .png, .pdf"
                                 onchange="handleFileUpload(event, 'work-experience-office-id', 'work-experience-graduation-upload-icon', 'work-experience-graduation-remove-icon')" />
                             </div>
                           </div>
@@ -996,7 +1007,8 @@
                             <span class="help-trigger" data-target="work-experience-graduation-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container work-experience-graduation-help" id="help-container-work-graduation-id" style="display: none">
+                          <div class="help-container work-experience-graduation-help"
+                            id="help-container-work-graduation-id" style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload your office ID in jpg, png, or pdf format.</p>
@@ -1004,7 +1016,7 @@
                           </div>
                         </div>
                       </div>
-                
+
                       <!-- Second row of work experience documents -->
                       <div class="work-experience-row" id="work-experience-row-2">
                         <!-- Joining Letter -->
@@ -1013,16 +1025,18 @@
                             Joining Letter
                           </div>
                           <div class="upload-field">
-                            <span id="work-experience-joining-letter" data-original="Joining Letter">Joining Letter</span>
+                            <span id="work-experience-joining-letter" data-original="Joining Letter">Joining
+                              Letter</span>
                             <span id="work-experience-fourth-remove-icon" class="remove-icon"
                               onclick="removeFile('work-experience-fourth', 'work-experience-joining-letter', 'work-experience-fourth-upload-icon', 'work-experience-fourth-remove-icon')"><span
                                 class="thin-x"></span></span>
                             <div class="file-actions">
-                              <label for="work-experience-fourth" class="upload-icon" id="work-experience-fourth-upload-icon">
+                              <label for="work-experience-fourth" class="upload-icon"
+                                id="work-experience-fourth-upload-icon">
                                 <img src="assets/images/upload.png" alt="Upload Icon" />
                               </label>
-                              <input type="file" id="work-experience-fourth" name="documents[work_experience][joining_letter]"
-                                accept=".jpg, .png, .pdf"
+                              <input type="file" id="work-experience-fourth"
+                                name="documents[work_experience][joining_letter]" accept=".jpg, .png, .pdf"
                                 onchange="handleFileUpload(event, 'work-experience-joining-letter', 'work-experience-fourth-upload-icon', 'work-experience-fourth-remove-icon')" />
                             </div>
                           </div>
@@ -1030,7 +1044,8 @@
                             <span class="help-trigger" data-target="work-experience-fourth-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container work-experience-fourth-help" id="help-container-work-experience-fourth-id" style="display: none">
+                          <div class="help-container work-experience-fourth-help"
+                            id="help-container-work-experience-fourth-id" style="display: none">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload your joining letter in jpg, png, or pdf format.</p>
@@ -1039,16 +1054,16 @@
                         </div>
                         <!-- Add button for work experience documents -->
                         <div class="document-row" id="work-experience-container-id">
-                        <div class="add-document" id="add-work-experience-btn-id">
-                          <span class="add-text">Add</span>
-                          <span class="add-icon">+</span>
+                          <div class="add-document" id="add-work-experience-btn-id">
+                            <span class="add-text">Add</span>
+                            <span class="add-icon">+</span>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                </div>
-              
+
                 <!-- 5. Co-borrower KYC Documents -->
                 <div class="admin-student-form-question" id="adminside-student-form-question-co-borrower">
                   <div class="admin-student-question-row" id="co-borrower-kyc-row">
@@ -1056,11 +1071,12 @@
                       Co-borrower KYC Documents
                     </div>
                     <div class="admin-student-dropdown-field" id="adminside-student-dropdown-field-co-borrower">
-                      <span class="admin-student-field-text" id="adminside-student-field-text-co-borrower">Text Field</span>
+                      <span class="admin-student-field-text" id="adminside-student-field-text-co-borrower">Text
+                        Field</span>
                       <span class="admin-student-dropdown-icon" id="adminside-student-dropdown-icon-co-borrower"></span>
                     </div>
                   </div>
-                
+
                   <div class="admin-student-options-section" id="co-borrower-kyc-section">
                     <div class="kyc-container-admin" id="adminside-kyc-container-co-borrower">
                       <div class="document-container-admin" id="adminside-document-container-co-borrower">
@@ -1125,7 +1141,7 @@
                               </div>
                             </div>
                           </div>
-                   
+
                           <!-- Address Proof -->
                           <div class="document-box">
                             <div class="document-name" id="address-proof-id" style="display: none">
@@ -1168,14 +1184,16 @@
                     </div>
                   </div>
                 </div>
-              
+
                 <!-- 6. Salaried and Business Documents -->
                 <div class="admin-student-form-question" id="adminside-student-form-question-salaried-business">
                   <div class="admin-student-question-row" id="salaried-business-row">
                     <div class="admin-student-question-title">Salaried and Business Documents</div>
                     <div class="admin-student-dropdown-field" id="adminside-student-dropdown-field-salaried-business">
-                      <span class="admin-student-field-text" id="adminside-student-field-text-salaried-business">Text Field</span>
-                      <span class="admin-student-dropdown-icon" id="adminside-student-dropdown-icon-salaried-business"></span>
+                      <span class="admin-student-field-text" id="adminside-student-field-text-salaried-business">Text
+                        Field</span>
+                      <span class="admin-student-dropdown-icon"
+                        id="adminside-student-dropdown-icon-salaried-business"></span>
                     </div>
                   </div>
                   <div class="admin-student-options-section" id="salaried-business-section">
@@ -1184,11 +1202,12 @@
                       <div class="salary-sub-admin" id="adminside-salary-sub-salaried">
                         <p>If salaried:</p>
                       </div>
-                     
+
                       <div class="document-row salary-upload-row" id="salaried-row-1">
                         <!-- 3 Months Salary Slip -->
                         <div class="document-box salary-upload-box">
-                          <div class="document-name" id="salary-slip-id" style="display: none;">3 months salary slip</div>
+                          <div class="document-name" id="salary-slip-id" style="display: none;">3 months salary slip
+                          </div>
                           <div class="upload-field">
                             <span id="salary-slip-name" data-original="3 months salary slip">3 months salary slip</span>
                             <span id="salary-slip-remove-icon" class="remove-icon" style="display: none;"
@@ -1198,8 +1217,8 @@
                               <label for="salary-slip" class="upload-icon" id="salary-slip-upload-icon">
                                 <img src="assets/images/upload.png" alt="Upload Icon" />
                               </label>
-                              <input type="file" id="salary-slip" name="documents[salaried_business][salaried][salary_slip]"
-                                accept=".jpg, .png, .pdf"
+                              <input type="file" id="salary-slip"
+                                name="documents[salaried_business][salaried][salary_slip]" accept=".jpg, .png, .pdf"
                                 onchange="handleFileUpload(event, 'salary-slip-name', 'salary-slip-upload-icon', 'salary-slip-remove-icon')" />
                             </div>
                           </div>
@@ -1214,12 +1233,14 @@
                             </div>
                           </div>
                         </div>
-                     
+
                         <!-- 6 Months Bank Statement -->
                         <div class="document-box salary-upload-box">
-                          <div class="document-name" id="bank-statement-id" style="display: none;">6 months bank statement</div>
+                          <div class="document-name" id="bank-statement-id" style="display: none;">6 months bank
+                            statement</div>
                           <div class="upload-field">
-                            <span id="bank-statement-name" data-original="6 months bank statement">6 months bank statement</span>
+                            <span id="bank-statement-name" data-original="6 months bank statement">6 months bank
+                              statement</span>
                             <span id="bank-statement-remove-icon" class="remove-icon" style="display: none;"
                               onclick="removeFile('bank-statement', 'bank-statement-name', 'bank-statement-upload-icon', 'bank-statement-remove-icon')"><span
                                 class="thin-x"></span></span>
@@ -1227,8 +1248,8 @@
                               <label for="bank-statement" class="upload-icon" id="bank-statement-upload-icon">
                                 <img src="assets/images/upload.png" alt="Upload Icon" />
                               </label>
-                              <input type="file" id="bank-statement" name="documents[salaried_business][salaried][bank_statement]"
-                                accept=".jpg, .png, .pdf"
+                              <input type="file" id="bank-statement"
+                                name="documents[salaried_business][salaried][bank_statement]" accept=".jpg, .png, .pdf"
                                 onchange="handleFileUpload(event, 'bank-statement-name', 'bank-statement-upload-icon', 'bank-statement-remove-icon')" />
                             </div>
                           </div>
@@ -1243,17 +1264,19 @@
                             </div>
                           </div>
                         </div>
-                     
+
                         <!-- Address Proof -->
                         <div class="document-box salary-upload-box">
-                          <div class="document-name" id="address-proof-salary-id" style="display: none;">Address Proof</div>
+                          <div class="document-name" id="address-proof-salary-id" style="display: none;">Address Proof
+                          </div>
                           <div class="upload-field">
                             <span id="address-proof-salary-name" data-original="Address Proof">Address Proof</span>
                             <span id="address-proof-salary-remove-icon" class="remove-icon" style="display: none;"
                               onclick="removeFile('address-proof-salary', 'address-proof-salary-name', 'address-proof-salary-upload-icon', 'address-proof-salary-remove-icon')"><span
                                 class="thin-x"></span></span>
                             <div class="file-actions">
-                              <label for="address-proof-salary" class="upload-icon" id="address-proof-salary-upload-icon">
+                              <label for="address-proof-salary" class="upload-icon"
+                                id="address-proof-salary-upload-icon">
                                 <img src="assets/images/upload.png" alt="Upload Icon" />
                               </label>
                               <input type="file" id="address-proof-salary"
@@ -1273,7 +1296,7 @@
                           </div>
                         </div>
                       </div>
-                     
+
                       <!-- Business Documents Section -->
                       <div class="salary-sub-admin" id="adminside-salary-sub-business">
                         <p>If in Business:</p>
@@ -1291,7 +1314,8 @@
                               <label for="itr" class="upload-icon" id="itr-upload-icon">
                                 <img src="assets/images/upload.png" alt="Upload Icon" />
                               </label>
-                              <input type="file" id="itr" name="documents[salaried_business][business][itr]" accept=".jpg, .png, .pdf"
+                              <input type="file" id="itr" name="documents[salaried_business][business][itr]"
+                                accept=".jpg, .png, .pdf"
                                 onchange="handleFileUpload(event, 'itr-name', 'itr-upload-icon', 'itr-remove-icon')" />
                             </div>
                           </div>
@@ -1306,19 +1330,22 @@
                             </div>
                           </div>
                         </div>
-                     
+
                         <!-- 6 Months Bank Statement -->
                         <div class="document-box salary-upload-box">
-                          <div class="document-name" id="business-bank-statement-id" style="display: none;">6 months bank statement
+                          <div class="document-name" id="business-bank-statement-id" style="display: none;">6 months
+                            bank statement
                           </div>
                           <div class="upload-field">
-                            <span id="business-bank-statement-name" data-original="6 months bank statement">6 months bank statement
+                            <span id="business-bank-statement-name" data-original="6 months bank statement">6 months
+                              bank statement
                             </span>
                             <span id="business-bank-statement-remove-icon" class="remove-icon" style="display: none;"
                               onclick="removeFile('business-bank-statement', 'business-bank-statement-name', 'business-bank-statement-upload-icon', 'business-bank-statement-remove-icon')"><span
                                 class="thin-x"></span></span>
                             <div class="file-actions">
-                              <label for="business-bank-statement" class="upload-icon" id="business-bank-statement-upload-icon">
+                              <label for="business-bank-statement" class="upload-icon"
+                                id="business-bank-statement-upload-icon">
                                 <img src="assets/images/upload.png" alt="Upload Icon" />
                               </label>
                               <input type="file" id="business-bank-statement"
@@ -1339,9 +1366,11 @@
                         </div>
                         <!-- Office/Shop Photographs -->
                         <div class="document-box salary-upload-box">
-                          <div class="document-name" id="office-shop-photos-id" style="display: none;">Office/Shop photographs</div>
+                          <div class="document-name" id="office-shop-photos-id" style="display: none;">Office/Shop
+                            photographs</div>
                           <div class="upload-field">
-                            <span id="office-shop-photos-name" data-original="Office/Shop photographs">Office/Shop photographs</span>
+                            <span id="office-shop-photos-name" data-original="Office/Shop photographs">Office/Shop
+                              photographs</span>
                             <span id="office-shop-photos-remove-icon" class="remove-icon" style="display: none;"
                               onclick="removeFile('office-shop-photos', 'office-shop-photos-name', 'office-shop-photos-upload-icon', 'office-shop-photos-remove-icon')"><span
                                 class="thin-x"></span></span>
@@ -1349,8 +1378,8 @@
                               <label for="office-shop-photos" class="upload-icon" id="office-shop-photos-upload-icon">
                                 <img src="assets/images/upload.png" alt="Upload Icon" />
                               </label>
-                              <input type="file" id="office-shop-photos" name="documents[salaried_business][business][office_photos]"
-                                accept=".jpg, .png, .pdf"
+                              <input type="file" id="office-shop-photos"
+                                name="documents[salaried_business][business][office_photos]" accept=".jpg, .png, .pdf"
                                 onchange="handleFileUpload(event, 'office-shop-photos-name', 'office-shop-photos-upload-icon', 'office-shop-photos-remove-icon')" />
                             </div>
                           </div>
@@ -1376,7 +1405,7 @@
                     </div>
                   </div>
                 </div>
-            </div>
+              </div>
             </div>
           </div>
           <button type="button" id="admin-student-form-save-btn-id" class="admin-student-form-save-btn">Save
@@ -1395,6 +1424,8 @@
       fetchAndRenderCourseDurations();
       kycInitialization();
       fetchAdditionalPersonalFields();
+      fetchAcademics();
+      fetchCourseDetailOptions();
 
       const managers = [
         SectionToggler,
@@ -1517,233 +1548,233 @@
         ]);
       },
 
-        setupToggles(configs) {
-          configs.forEach(config => {
-            if (!config.header || !config.content) {
-              console.warn(`Invalid config: header (${config.header}) or content (${config.content}) missing`);
-              return;
-            }
+      setupToggles(configs) {
+        configs.forEach(config => {
+          if (!config.header || !config.content) {
+            console.warn(`Invalid config: header (${config.header}) or content (${config.content}) missing`);
+            return;
+          }
 
-            const header = document.querySelector(config.header);
-            const content = document.querySelector(config.content);
-            const arrow = config.arrow ? document.querySelector(config.arrow) : null;
-            const parentContainer = config.parentContainer ? header.closest(config.parentContainer) : null;
+          const header = document.querySelector(config.header);
+          const content = document.querySelector(config.content);
+          const arrow = config.arrow ? document.querySelector(config.arrow) : null;
+          const parentContainer = config.parentContainer ? header.closest(config.parentContainer) : null;
 
-            if (!header) console.warn(`Header not found: ${config.header}`);
-            if (!content) console.warn(`Content not found: ${config.content}`);
-            if (config.arrow && !arrow) console.warn(`Arrow not found: ${config.arrow}`);
-            if (!header || !content) return;
+          if (!header) console.warn(`Header not found: ${config.header}`);
+          if (!content) console.warn(`Content not found: ${config.content}`);
+          if (config.arrow && !arrow) console.warn(`Arrow not found: ${config.arrow}`);
+          if (!header || !content) return;
 
-            // Set initial state
-            content.style.display = config.defaultExpanded === false ? 'none' : 'block';
-            if (parentContainer) {
-              parentContainer.classList.toggle('active', config.defaultExpanded !== false);
-            }
+          // Set initial state
+          content.style.display = config.defaultExpanded === false ? 'none' : 'block';
+          if (parentContainer) {
+            parentContainer.classList.toggle('active', config.defaultExpanded !== false);
+          }
+          if (arrow && config.rotate) {
+            arrow.style.transition = 'transform 0.3s ease';
+            arrow.style.transform = config.defaultExpanded === false ? 'rotate(0deg)' : 'rotate(180deg)';
+          }
+
+          // Add click event listener
+          header.addEventListener('click', () => {
+            const isVisible = content.style.display === 'block';
+            console.log(`Toggling ${config.content}: isVisible=${isVisible}`);
+            content.style.display = isVisible ? 'none' : 'block';
             if (arrow && config.rotate) {
-              arrow.style.transition = 'transform 0.3s ease';
-              arrow.style.transform = config.defaultExpanded === false ? 'rotate(0deg)' : 'rotate(180deg)';
+              arrow.style.transform = isVisible ? 'rotate(0deg)' : 'rotate(180deg)';
             }
+            if (parentContainer) {
+              parentContainer.classList.toggle('active', !isVisible);
+            }
+          });
+        });
+      }
+    };
 
-            // Add click event listener
-            header.addEventListener('click', () => {
-              const isVisible = content.style.display === 'block';
-              console.log(`Toggling ${config.content}: isVisible=${isVisible}`);
-              content.style.display = isVisible ? 'none' : 'block';
-              if (arrow && config.rotate) {
-                arrow.style.transform = isVisible ? 'rotate(0deg)' : 'rotate(180deg)';
-              }
-              if (parentContainer) {
-                parentContainer.classList.toggle('active', !isVisible);
-              }
-            });
+    const InputFieldManager = {
+      section: 'Personal Information',
+      modified: false,
+
+      init() {
+        this.setupEvents();
+      },
+
+      setupEvents() {
+        document.addEventListener('click', e => {
+          if (e.target.classList.contains('remove-option')) {
+            e.target.closest('.input-group').remove();
+            this.reorganizeInputs();
+            this.modified = true;
+          }
+        });
+
+        const addInputField = document.getElementById('add-input-field');
+        if (addInputField) {
+          addInputField.addEventListener('click', () => {
+            const label = prompt("Enter field label (e.g., Country, Favorite Color):")?.trim();
+            if (!label) return;
+
+            const name = prompt("Enter a unique field name (e.g., country, favorite_color):")?.trim();
+            if (!name) return;
+
+            const fieldType = prompt("Enter field type (text, select, checkbox, radio, date):")?.trim();
+            if (!fieldType) return;
+            const sectionSeperate = "general";
+            this.addNewInputField({ label, name, type: fieldType, sectionSeperate });
           });
         }
-      };
+      },
 
-      const InputFieldManager = {
-        section: 'Personal Information',
-        modified: false,
+      addNewInputField({ label, name, type, sectionSeperate }) {
+        let options = [];
 
-        init() {
-          this.setupEvents();
-        },
-
-        setupEvents() {
-          document.addEventListener('click', e => {
-            if (e.target.classList.contains('remove-option')) {
-              e.target.closest('.input-group').remove();
-              this.reorganizeInputs();
-              this.modified = true;
-            }
-          });
-
-          const addInputField = document.getElementById('add-input-field');
-          if (addInputField) {
-            addInputField.addEventListener('click', () => {
-              const label = prompt("Enter field label (e.g., Country, Favorite Color):")?.trim();
-              if (!label) return;
-
-              const name = prompt("Enter a unique field name (e.g., country, favorite_color):")?.trim();
-              if (!name) return;
-
-              const fieldType = prompt("Enter field type (text, select, checkbox, radio, date):")?.trim();
-              if (!fieldType) return;
-              const sectionSeperate = "general";
-              this.addNewInputField({ label, name, type: fieldType, sectionSeperate });
-            });
+        if (['select', 'checkbox', 'radio'].includes(type)) {
+          const optionString = prompt("Enter options separated by commas (e.g., Red,Green,Blue):");
+          if (optionString) {
+            options = optionString.split(',').map(opt => opt.trim()).filter(Boolean);
           }
-        },
+        }
 
-        addNewInputField({ label, name, type,sectionSeperate }) {
-          let options = [];
-
-          if (['select', 'checkbox', 'radio'].includes(type)) {
-            const optionString = prompt("Enter options separated by commas (e.g., Red,Green,Blue):");
-            if (optionString) {
-              options = optionString.split(',').map(opt => opt.trim()).filter(Boolean);
-            }
-          }
-
-          fetch('/addadditionalpersonalinfodata', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
-            },
-            body: JSON.stringify({
-              label,
-              name,
-              type,
-              required: true,
-              options,
-              sectionSeperate
-            })
+        fetch('/addadditionalpersonalinfodata', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
+          },
+          body: JSON.stringify({
+            label,
+            name,
+            type,
+            required: true,
+            options,
+            sectionSeperate
           })
-            .then(res => res.json())
-            .then(data => {
-              if (data.field) {
-                console.log('Field added:', data.field);
-                fetchAdditionalPersonalFields();
-              } else {
-                console.error('Failed to add field:', data);
-              }
-            })
-            .catch(err => console.error('API Error:', err));
-        },
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.field) {
+              console.log('Field added:', data.field);
+              fetchAdditionalPersonalFields();
+            } else {
+              console.error('Failed to add field:', data);
+            }
+          })
+          .catch(err => console.error('API Error:', err));
+      },
 
-        reorganizeInputs() {
-          const allInputs = document.querySelectorAll('.input-group');
-          const addField = document.getElementById('add-input-field');
-          let row1 = document.getElementById('input-row-1');
-          let row2 = document.getElementById('input-row-2');
-          if (!row1 || !row2) return;
+      reorganizeInputs() {
+        const allInputs = document.querySelectorAll('.input-group');
+        const addField = document.getElementById('add-input-field');
+        let row1 = document.getElementById('input-row-1');
+        let row2 = document.getElementById('input-row-2');
+        if (!row1 || !row2) return;
 
-          row1.innerHTML = '';
-          row2.innerHTML = '';
-          const existingRow3 = document.getElementById('input-row-3');
-          if (existingRow3) existingRow3.remove();
+        row1.innerHTML = '';
+        row2.innerHTML = '';
+        const existingRow3 = document.getElementById('input-row-3');
+        if (existingRow3) existingRow3.remove();
 
-          let row3 = allInputs.length > 6 ? document.createElement('div') : null;
-          if (row3) {
-            row3.className = 'input-row';
-            row3.id = 'input-row-3';
-            row2.parentNode.insertBefore(row3, row2.nextSibling);
-          }
-
-          allInputs.forEach((input, i) => {
-            if (i < 3) row1.appendChild(input);
-            else if (i < 6) row2.appendChild(input);
-            else if (row3) row3.appendChild(input);
-          });
-
-          const lastRow = row3 || (allInputs.length > 3 ? row2 : row1);
-          const inputsInLastRow = lastRow.querySelectorAll('.input-group').length;
-          if (inputsInLastRow < 3) {
-            lastRow.appendChild(addField);
-          } else {
-            const newRow = document.createElement('div');
-            newRow.className = 'input-row';
-            newRow.id = `input-row-${row3 ? '4' : (row2.children.length > 0 ? '3' : '2')}`;
-            newRow.appendChild(addField);
-            lastRow.parentNode.insertBefore(newRow, lastRow.nextSibling);
-          }
-        },
-
-        getDynamicFields() {
-          const inputs = document.querySelectorAll('.input-group input[disabled]');
-          const fields = [];
-          inputs.forEach(input => {
-            const fieldName = input.placeholder;
-            fields.push({
-              name: fieldName,
-              type: 'text'
-            });
-          });
-          return fields;
-        },
-
-        isModified() {
-          return this.modified;
+        let row3 = allInputs.length > 6 ? document.createElement('div') : null;
+        if (row3) {
+          row3.className = 'input-row';
+          row3.id = 'input-row-3';
+          row2.parentNode.insertBefore(row3, row2.nextSibling);
         }
-      };
 
-      const SocialOptionsManager = {
-        section: 'Personal Information',
-        modified: false,
+        allInputs.forEach((input, i) => {
+          if (i < 3) row1.appendChild(input);
+          else if (i < 6) row2.appendChild(input);
+          else if (row3) row3.appendChild(input);
+        });
 
-        init() {
-          this.setupRemoveButtons();
-          this.setupAddButton();
-        },
+        const lastRow = row3 || (allInputs.length > 3 ? row2 : row1);
+        const inputsInLastRow = lastRow.querySelectorAll('.input-group').length;
+        if (inputsInLastRow < 3) {
+          lastRow.appendChild(addField);
+        } else {
+          const newRow = document.createElement('div');
+          newRow.className = 'input-row';
+          newRow.id = `input-row-${row3 ? '4' : (row2.children.length > 0 ? '3' : '2')}`;
+          newRow.appendChild(addField);
+          lastRow.parentNode.insertBefore(newRow, lastRow.nextSibling);
+        }
+      },
 
-        setupRemoveButtons() {
-          document.querySelectorAll('.social-remove').forEach(btn => {
-            btn.addEventListener('click', () => {
-              const socialOption = btn.parentElement;
-              socialOption.remove();
-              this.modified = true;
-              FormSubmissionManager.setModifiedSection(this.section);
-            });
+      getDynamicFields() {
+        const inputs = document.querySelectorAll('.input-group input[disabled]');
+        const fields = [];
+        inputs.forEach(input => {
+          const fieldName = input.placeholder;
+          fields.push({
+            name: fieldName,
+            type: 'text'
           });
-        },
+        });
+        return fields;
+      },
 
-        setupAddButton() {
-          const addSocialButton = document.querySelector('.add-social');
-          if (addSocialButton) {
-            addSocialButton.addEventListener('click', () => {
-              const userInput = prompt("Enter dropdown option", "")?.trim();
-              if (userInput) {
-                fetch('/storesocialoption', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
-                  },
-                  body: JSON.stringify({ name: userInput })
+      isModified() {
+        return this.modified;
+      }
+    };
+
+    const SocialOptionsManager = {
+      section: 'Personal Information',
+      modified: false,
+
+      init() {
+        this.setupRemoveButtons();
+        this.setupAddButton();
+      },
+
+      setupRemoveButtons() {
+        document.querySelectorAll('.social-remove').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const socialOption = btn.parentElement;
+            socialOption.remove();
+            this.modified = true;
+            FormSubmissionManager.setModifiedSection(this.section);
+          });
+        });
+      },
+
+      setupAddButton() {
+        const addSocialButton = document.querySelector('.add-social');
+        if (addSocialButton) {
+          addSocialButton.addEventListener('click', () => {
+            const userInput = prompt("Enter dropdown option", "")?.trim();
+            if (userInput) {
+              fetch('/storesocialoption', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
+                },
+                body: JSON.stringify({ name: userInput })
+              })
+                .then(response => response.json())
+                .then(data => {
+                  if (data.error) {
+                    alert(`Error: ${data.error}`);
+                    return;
+                  }
+
+                  fetchAndAppendSocialNames();
+
+
+
+
+
+
                 })
-                  .then(response => response.json())
-                  .then(data => {
-                    if (data.error) {
-                      alert(`Error: ${data.error}`);
-                      return;
-                    }
-
-                    fetchAndAppendSocialNames();
-
-
-
-
-
-
-                  })
-                  .catch(error => {
-                    console.error('Fetch error:', error);
-                    alert('An error occurred while saving the option.');
-                  });
-              }
-            });
-          }
-        },
+                .catch(error => {
+                  console.error('Fetch error:', error);
+                  alert('An error occurred while saving the option.');
+                });
+            }
+          });
+        }
+      },
 
       getDynamicFields() {
         const options = Array.from(document.querySelectorAll('.social-option .social-name')).map(span => span.textContent);
@@ -1760,488 +1791,484 @@
     };
 
     // Course Location Manager
-        const CourseLocationManager = {
-        section: 'Course Information',
-        modified: false,
+    const CourseLocationManager = {
+      section: 'Course Information',
+      modified: false,
 
-        init() {
-          this.setupCheckboxContainer();
-          // setupQuestionRow removed; handled by SectionToggler
-        },
+      init() {
+        this.setupCheckboxContainer();
+        // setupQuestionRow removed; handled by SectionToggler
+      },
 
-        setupCheckboxContainer() {
-          const checkboxContainer = document.getElementById('selected-study-location');
-          const addCheckboxContainer = document.querySelector('.add-checkbox-container');
-          if (checkboxContainer && addCheckboxContainer) {
-            addCheckboxContainer.addEventListener('click', e => {
-              e.preventDefault();
-              this.addNewCheckbox(checkboxContainer, addCheckboxContainer);
-              this.modified = true;
-              FormSubmissionManager.setModifiedSection(this.section);
-            });
-          }
-        },
-
-        addNewCheckbox(checkboxContainer, addCheckboxContainer) {
-          const newCountry = prompt("Enter country name", "")?.trim();
-          if (newCountry) {
-            const existingCountries = Array.from(checkboxContainer.querySelectorAll('input[type="checkbox"]'))
-              .map(cb => cb.value.toLowerCase());
-            if (existingCountries.includes(newCountry.toLowerCase())) {
-              alert('This country is already in the list');
-              return;
-            }
-
-            const newLabel = document.createElement('label');
-            newLabel.innerHTML = `
-              <input type="checkbox" value="${newCountry}" disabled> ${newCountry}
-            `;
-            checkboxContainer.insertBefore(newLabel, addCheckboxContainer);
-          }
-        },
-
-        getDynamicFields() {
-          const checkboxes = document.querySelectorAll('#selected-study-location input[type="checkbox"]');
-          const options = Array.from(checkboxes).map(cb => cb.value);
-          return options.length > 0 ? [{
-            name: 'Location',
-            type: 'checkbox',
-            options: options
-          }] : [];
-        },
-
-        isModified() {
-          return this.modified;
-        }
-      };
-
-          // Course Options Manager
-        const CourseOptionsManager = {
-        section: 'Course Information',
-        modified: false,
-
-        init() {
-          this.setupDropdown();
-          this.setupAddOption();
-        },
-
-        setupDropdown() {
-          const optionsContainer = document.getElementById('option-section-degree-container');
-          const dropdownTrigger = document.getElementById('admin-student-course-second');
-          const parentContainer = dropdownTrigger?.closest('.admin-student-form-question-course-degree');
-          if (!optionsContainer || !dropdownTrigger || !parentContainer) {
-            console.error('setupDropdown: Missing elements', { optionsContainer, dropdownTrigger, parentContainer });
-            return;
-          }
-
-          optionsContainer.style.display = 'none';
-          dropdownTrigger.addEventListener('click', e => {
-            e.stopPropagation();
-            const isVisible = optionsContainer.style.display === 'block';
-            toggleVisibility(optionsContainer, isVisible);
-            parentContainer.classList.toggle('active', !isVisible);
-          });
-        },
-
-        setupAddOption() {
-          const addSection = document.getElementById('addSection');
-          const optionsGrid = document.getElementById('optionsContainer');
-          if (addSection && optionsGrid) {
-            addSection.addEventListener('click', e => {
-              e.stopPropagation();
-              const newOptionName = prompt('Enter new degree type:')?.trim();
-              if (newOptionName) {
-                const newOptionItem = document.createElement('div');
-                newOptionItem.className = 'option-item';
-                newOptionItem.innerHTML = `
-                  <input type="checkbox" value="${newOptionName}" disabled>
-                  <div class="option-name">${newOptionName}</div>
-                `;
-                optionsGrid.insertBefore(newOptionItem, addSection);
-                this.modified = true;
-                FormSubmissionManager.setModifiedSection(this.section);
-              }
-            });
-          }
-        },
-
-        getDynamicFields() {
-          const checkboxes = document.querySelectorAll('#optionsContainer input[type="checkbox"]');
-          const options = Array.from(checkboxes).map(cb => cb.value);
-          return options.length > 0 ? [{
-            name: 'Degree',
-            type: 'checkbox',
-            options: options
-          }] : [];
-        },
-
-        isModified() {
-          return this.modified;
-        }
-      };
-          // Course Duration Manager
-        const CourseDurationManager = {
-        section: 'Course Information',
-        modified: false,
-
-        init() {
-          this.setupDropdown();
-          this.setupRemoveButtons();
-          this.setupAddButton();
-        },
-
-        setupDropdown() {
-          const rowElement = document.getElementById('course-row-month-id');
-          const dropdownElement = document.getElementById('course-dropdown-month-id');
-          const optionsSection = document.getElementById('course-duration-section-month');
-          if (!rowElement || !dropdownElement || !optionsSection) return;
-
-          optionsSection.style.display = 'none';
-          const toggleOptions = () => {
-            const isHidden = optionsSection.style.display === 'none';
-          
-
-      toggleVisibility(optionsSection, !isHidden, document.querySelector('#admin-student-dropdown-icon-id'));
-            document.querySelector('.admin-student-form-question-month').classList.toggle('active', isHidden);
-          };
-
-          rowElement.addEventListener('click', toggleOptions);
-          dropdownElement.addEventListener('click', e => {
-            e.stopPropagation();
-            toggleOptions();
-          });
-        },
-
-        setupRemoveButtons() {
-          document.querySelectorAll('.course-remove').forEach(btn => {
-            btn.addEventListener('click', e => {
-              e.stopPropagation();
-              btn.parentElement.remove();
-              this.modified = true;
-              FormSubmissionManager.setModifiedSection(this.section);
-            });
-          });
-        },
-
-        setupAddButton() {
-          document.querySelector('.add-course')?.addEventListener('click', e => {
-            e.stopPropagation();
-            this.addNewDurationOption();
+      setupCheckboxContainer() {
+        const checkboxContainer = document.getElementById('selected-study-location');
+        const addCheckboxContainer = document.querySelector('.add-checkbox-container');
+        if (checkboxContainer && addCheckboxContainer) {
+          addCheckboxContainer.addEventListener('click', e => {
+            e.preventDefault();
+            this.addNewCheckbox(checkboxContainer, addCheckboxContainer);
             this.modified = true;
             FormSubmissionManager.setModifiedSection(this.section);
           });
-        },
-
-        addNewDurationOption() {
-          const userInput = prompt("Enter course duration option (in months)", "")?.trim();
-
-          if (userInput && !isNaN(userInput)) {
-            fetch('/storecourseduration', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-              },
-              body: JSON.stringify({
-                duration_in_months: userInput
-              })
-            })
-              .then(response => response.json())
-              .then(data => {
-                if (data.message) {
-                  alert(data.message);
-                  fetchAndRenderCourseDurations();
-                } else {
-                  alert('Failed to save duration. Please try again.');
-                }
-              })
-              .catch(error => {
-                console.error('Error:', error);
-                alert('Error occurred. Check console for details.');
-              });
-          }
-        },
-
-        getDynamicFields() {
-          const options = Array.from(document.querySelectorAll('.course-option .course-name')).map(span => span.textContent);
-          return options.length > 0 ? [{
-            name: 'Duration',
-            type: 'dropdown',
-            options: options
-          }] : [];
-        },
-
-        isModified() {
-          return this.modified;
         }
-      };
-    
-  const CourseDetailsManager = {
-        section: 'Course Information',
-        modified: false,
+      },
 
-        init() {
-          const optionsContainer = document.querySelector('#course-details-options .checkbox-options-container');
-          console.log('Initial optionsContainer:', optionsContainer);
-          this.setupDropdown();
-          this.setupAddOption();
-        },
+      addNewCheckbox(checkboxContainer, addCheckboxContainer) {
+        const newCountry = prompt("Enter country name", "")?.trim();
+        if (newCountry) {
+          const existingCountries = Array.from(checkboxContainer.querySelectorAll('input[type="checkbox"]'))
+            .map(cb => cb.value.toLowerCase());
+          if (existingCountries.includes(newCountry.toLowerCase())) {
+            alert('This country is already in the list');
+            return;
+          }
 
-        setupDropdown() {
-          const container = document.getElementById('course-details-container');
-          if (!container) return;
+          const newLabel = document.createElement('label');
+          newLabel.innerHTML = `
+              <input type="checkbox" value="${newCountry}" disabled> ${newCountry}
+            `;
+          checkboxContainer.insertBefore(newLabel, addCheckboxContainer);
+        }
+      },
 
-          const row = container.querySelector('#course-details-row');
-          const dropdownIcon = container.querySelector('.admin-student-dropdown-icon');
-          const optionsSection = container.querySelector('#course-details-options');
-          if (!row || !dropdownIcon || !optionsSection) return;
+      getDynamicFields() {
+        const checkboxes = document.querySelectorAll('#selected-study-location input[type="checkbox"]');
+        const options = Array.from(checkboxes).map(cb => cb.value);
+        return options.length > 0 ? [{
+          name: 'Location',
+          type: 'checkbox',
+          options: options
+        }] : [];
+      },
 
-          optionsSection.style.display = 'none';
-          row.addEventListener('click', () => {
-            const isVisible = optionsSection.style.display !== 'none';
-            toggleVisibility(optionsSection, isVisible, dropdownIcon);
-            container.classList.toggle('active', !isVisible);
-          });
-        },
+      isModified() {
+        return this.modified;
+      }
+    };
 
-        setupAddOption() {
-          const addOptionBtn = document.getElementById('add-course-option-btn');
-          if (addOptionBtn) {
-            console.log('Attaching event listener to add-course-option-btn');
-            addOptionBtn.addEventListener('click', e => {
-              e.stopPropagation();
-              this.addNewCourseOption();
+    // Course Options Manager
+    const CourseOptionsManager = {
+      section: 'Course Information',
+      modified: false,
+
+      init() {
+        this.setupDropdown();
+        this.setupAddOption();
+      },
+
+      setupDropdown() {
+        const optionsContainer = document.getElementById('option-section-degree-container');
+        const dropdownTrigger = document.getElementById('admin-student-course-second');
+        const parentContainer = dropdownTrigger?.closest('.admin-student-form-question-course-degree');
+        if (!optionsContainer || !dropdownTrigger || !parentContainer) {
+          console.error('setupDropdown: Missing elements', { optionsContainer, dropdownTrigger, parentContainer });
+          return;
+        }
+
+        optionsContainer.style.display = 'none';
+        dropdownTrigger.addEventListener('click', e => {
+          e.stopPropagation();
+          const isVisible = optionsContainer.style.display === 'block';
+          toggleVisibility(optionsContainer, isVisible);
+          parentContainer.classList.toggle('active', !isVisible);
+        });
+      },
+
+      setupAddOption() {
+        const addSection = document.getElementById('addSection');
+        const optionsGrid = document.getElementById('optionsContainer');
+        if (addSection && optionsGrid) {
+          addSection.addEventListener('click', e => {
+            e.stopPropagation();
+            const newOptionName = prompt('Enter new degree type:')?.trim();
+            if (newOptionName) {
+              const newOptionItem = document.createElement('div');
+              newOptionItem.className = 'option-item';
+              newOptionItem.innerHTML = `
+                  <input type="checkbox" value="${newOptionName}" disabled>
+                  <div class="option-name">${newOptionName}</div>
+                `;
+              optionsGrid.insertBefore(newOptionItem, addSection);
               this.modified = true;
               FormSubmissionManager.setModifiedSection(this.section);
-            });
-          } else {
-            console.error('add-course-option-btn not found');
-          }
-        },
-
-        addNewCourseOption() {
-          const userInput = prompt("Enter new course option", "")?.trim();
-          if (userInput) {
-            const optionsSection = document.querySelector('#course-details-options');
-            const optionsContainer = optionsSection.querySelector('.checkbox-options-container');
-            const addOptionBtn = document.getElementById('add-course-option-btn');
-            console.log('optionsContainer:', optionsContainer);
-            console.log('addOptionBtn:', addOptionBtn);
-            if (!optionsContainer || !addOptionBtn) {
-              console.error('Required elements not found:', { optionsContainer, addOptionBtn });
-              return;
             }
-
-            optionsSection.style.display = 'block';
-
-            const checkboxId = `course-option-${Date.now()}`;
-            const newOption = document.createElement('div');
-            newOption.className = 'checkbox-option';
-            newOption.innerHTML = `
-              <input type="checkbox" id="${checkboxId}" value="${userInput}" disabled>
-              <label for="${checkboxId}">${userInput}</label>
-            `;
-
-            console.log('Before insertion, optionsContainer children:', Array.from(optionsContainer.children));
-            optionsContainer.insertBefore(newOption, addOptionBtn);
-            console.log('New checkbox added before Add button:', newOption);
-            console.log('After insertion, optionsContainer children:', Array.from(optionsContainer.children));
-          }
-        },
-
-        getDynamicFields() {
-          const checkboxes = document.querySelectorAll('#course-details-options input[type="checkbox"]');
-          const options = Array.from(checkboxes).map(cb => cb.value);
-          return options.length > 0 ? [{
-            name: 'Course Option',
-            type: 'checkbox',
-            options: options
-          }] : [];
-        },
-
-        isModified() {
-          return this.modified;
+          });
         }
-      };
+      },
 
+      getDynamicFields() {
+        const checkboxes = document.querySelectorAll('#optionsContainer input[type="checkbox"]');
+        const options = Array.from(checkboxes).map(cb => cb.value);
+        return options.length > 0 ? [{
+          name: 'Degree',
+          type: 'checkbox',
+          options: options
+        }] : [];
+      },
 
- //Academic details
-   
-  const AcademicDetailsManager = {
-    section: 'Academic Details',
-    modified: false,
-    educationRowCount: 0,
-    gapOptionCount: 2,
-
-    init() {
-      console.log('AcademicDetailsManager.init called');
-      this.setupSectionToggle();
-      this.setupEducationSection();
-      this.setupAcademicGapSection();
-    },
-
-    setupSectionToggle() {
-      const section = document.getElementById('academic-details-section');
-      const content = document.getElementById('academic-details-content');
-      const arrow = document.querySelector('.admin-student-arrow-icon-academic');
-      if (section && content && arrow) {
-        section.addEventListener('click', () => {
-          content.classList.toggle('expanded');
-          arrow.classList.toggle('rotated');
-        });
-      } else {
-        console.error('setupSectionToggle: Missing elements', { section, content, arrow });
+      isModified() {
+        return this.modified;
       }
-    },
+    };
+    // Course Duration Manager
+    const CourseDurationManager = {
+      section: 'Course Information',
+      modified: false,
 
-    setupEducationSection() {
-      console.log('setupEducationSection called');
-      const container = document.getElementById('education-container');
-      const headerRow = document.getElementById('education-header-row');
-      const dropdownIcon = container?.querySelector('.admin-student-dropdown-icon');
-      const section = document.getElementById('education-section');
-      if (!container || !headerRow || !dropdownIcon || !section) {
-        console.error('setupEducationSection: Missing elements', { container, headerRow, dropdownIcon, section });
-        return;
-      }
+      init() {
+        this.setupDropdown();
+        this.setupRemoveButtons();
+        this.setupAddButton();
+      },
 
-      section.style.display = 'none';
-      headerRow.addEventListener('click', e => {
-        e.stopPropagation();
-        const isVisible = section.style.display === 'block';
-        toggleVisibility(section, isVisible, dropdownIcon);
-        container.classList.toggle('active', !isVisible);
-      });
+      setupDropdown() {
+        const rowElement = document.getElementById('course-row-month-id');
+        const dropdownElement = document.getElementById('course-dropdown-month-id');
+        const optionsSection = document.getElementById('course-duration-section-month');
+        if (!rowElement || !dropdownElement || !optionsSection) return;
 
-      const addButtonEducation = document.getElementById('add-education-field-btn');
-      if (addButtonEducation) {
-        addButtonEducation.addEventListener('click', () => {
-          const label = prompt("Enter field label (e.g., Country, Favorite Color):")?.trim();
-          if (!label) return;
+        optionsSection.style.display = 'none';
+        const toggleOptions = () => {
+          const isHidden = optionsSection.style.display === 'none';
 
-          const name = prompt("Enter a unique field name (e.g., country, favorite_color):")?.trim();
-          if (!name) return;
 
-          const fieldType = prompt("Enter field type (text, select, checkbox, radio, date):")?.trim();
-          if (!fieldType) return;
+          toggleVisibility(optionsSection, !isHidden, document.querySelector('#admin-student-dropdown-icon-id'));
+          document.querySelector('.admin-student-form-question-month').classList.toggle('active', isHidden);
+        };
 
-          const academicSection = 'academic';
-          this.addEducationInputField({ label, name, type: fieldType, sectionSeperate: academicSection });
-        });
-      }
-    },
-
-    addEducationInputField({ label, name, type, sectionSeperate }) {
-      let options = [];
-
-      if (['select', 'checkbox', 'radio'].includes(type)) {
-        const optionString = prompt("Enter options separated by commas (e.g., Red,Green,Blue):");
-        if (optionString) {
-          options = optionString.split(',').map(opt => opt.trim()).filter(Boolean);
-        }
-      }
-
-      fetch('/addadditionalpersonalinfodata', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
-        },
-        body: JSON.stringify({
-          label,
-          name,
-          type,
-          required: true,
-          options,
-          sectionSeperate
-        })
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (data.field) {
-            console.log('Field added:', data.field);
-            fetchAdditionalPersonalFields();
-          } else {
-            console.error('Failed to add field:', data);
-          }
-        })
-        .catch(err => console.error('API Error:', err));
-    },
-
-    setupAcademicGapSection() {
-      console.log('setupAcademicGapSection called');
-      const container = document.getElementById('academic-gap-container');
-      const row = container?.querySelector('#academic-gap-row');
-      const dropdownIcon = container?.querySelector('.admin-student-dropdown-icon');
-      const optionsSection = container?.querySelector('#academic-gap-options');
-      if (!container || !row || !dropdownIcon || !optionsSection) {
-        console.error('setupAcademicGapSection: Missing elements', { container, row, dropdownIcon, optionsSection });
-        return;
-      }
-
-      optionsSection.style.display = 'none';
-      row.addEventListener('click', e => {
-        e.stopPropagation();
-        const isVisible = optionsSection.style.display === 'block';
-        toggleVisibility(optionsSection, isVisible, dropdownIcon);
-        container.classList.toggle('active', !isVisible);
-      });
-
-      const addOptionButton = container.querySelector('#add-academic-option-btn');
-      if (addOptionButton) {
-        addOptionButton.addEventListener('click', e => {
+        rowElement.addEventListener('click', toggleOptions);
+        dropdownElement.addEventListener('click', e => {
           e.stopPropagation();
-          this.addAcademicGapOption();
-          this.modified = true;
-          try {
-            FormSubmissionManager.setModifiedSection(this.section);
-          } catch (error) {
-            console.error('Error in FormSubmissionManager.setModifiedSection:', error);
-          }
+          toggleOptions();
         });
-      } else {
-        console.error('add-academic-option-btn not found');
-      }
-    },
+      },
 
-  addAcademicGapOption() {
-    console.log('addAcademicGapOption called');
-    const userInput = prompt("Enter new option", "")?.trim();
-    if (userInput) {
-      const optionsContainer = document.querySelector('.academic-options');
-      if (optionsContainer) {
-        const newOption = document.createElement('div');
-        newOption.className = 'academic-option';
-        const radioId = `academic-option-${this.gapOptionCount++}`;
-        newOption.innerHTML = `
+      setupRemoveButtons() {
+        document.querySelectorAll('.course-remove').forEach(btn => {
+          btn.addEventListener('click', e => {
+            e.stopPropagation();
+            btn.parentElement.remove();
+            this.modified = true;
+            FormSubmissionManager.setModifiedSection(this.section);
+          });
+        });
+      },
+
+      setupAddButton() {
+        document.querySelector('.add-course')?.addEventListener('click', e => {
+          e.stopPropagation();
+          this.addNewDurationOption();
+          this.modified = true;
+          FormSubmissionManager.setModifiedSection(this.section);
+        });
+      },
+
+      addNewDurationOption() {
+        const userInput = prompt("Enter course duration option (in months)", "")?.trim();
+
+        if (userInput && !isNaN(userInput)) {
+          fetch('/storecourseduration', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+              duration_in_months: userInput
+            })
+          })
+            .then(response => response.json())
+            .then(data => {
+              if (data.message) {
+                alert(data.message);
+                fetchAndRenderCourseDurations();
+              } else {
+                alert('Failed to save duration. Please try again.');
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert('Error occurred. Check console for details.');
+            });
+        }
+      },
+
+      getDynamicFields() {
+        const options = Array.from(document.querySelectorAll('.course-option .course-name')).map(span => span.textContent);
+        return options.length > 0 ? [{
+          name: 'Duration',
+          type: 'dropdown',
+          options: options
+        }] : [];
+      },
+
+      isModified() {
+        return this.modified;
+      }
+    };
+
+    const CourseDetailsManager = {
+      section: 'Course Information',
+      modified: false,
+
+      init() {
+        const optionsContainer = document.querySelector('#course-details-options .checkbox-options-container');
+        console.log('Initial optionsContainer:', optionsContainer);
+        this.setupDropdown();
+        this.setupAddOption();
+      },
+
+      setupDropdown() {
+        const container = document.getElementById('course-details-container');
+        if (!container) return;
+
+        const row = container.querySelector('#course-details-row');
+        const dropdownIcon = container.querySelector('.admin-student-dropdown-icon');
+        const optionsSection = container.querySelector('#course-details-options');
+        if (!row || !dropdownIcon || !optionsSection) return;
+
+        optionsSection.style.display = 'none';
+        row.addEventListener('click', () => {
+          const isVisible = optionsSection.style.display !== 'none';
+          toggleVisibility(optionsSection, isVisible, dropdownIcon);
+          container.classList.toggle('active', !isVisible);
+        });
+      },
+
+      setupAddOption() {
+        const addOptionBtn = document.getElementById('add-course-option-btn');
+        if (addOptionBtn) {
+          console.log('Attaching event listener to add-course-option-btn');
+          addOptionBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            this.addNewCourseOption();
+            this.modified = true;
+            FormSubmissionManager.setModifiedSection(this.section);
+          });
+        } else {
+          console.error('add-course-option-btn not found');
+        }
+      },
+
+      addNewCourseOption() {
+        const userInput = prompt("Enter new course option", "")?.trim();
+        if (userInput) {
+          // Send the input to Laravel backend
+          fetch('/course-options', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({ label: userInput })
+          })
+            .then(response => response.json())
+            .then(data => {
+              alert(`Course option added: ${data.label}`);
+              fetchCourseDetailOptions();
+
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert('Failed to add course option');
+            });
+        }
+      },
+
+      getDynamicFields() {
+        const checkboxes = document.querySelectorAll('#course-details-options input[type="checkbox"]');
+        const options = Array.from(checkboxes).map(cb => cb.value);
+        return options.length > 0 ? [{
+          name: 'Course Option',
+          type: 'checkbox',
+          options: options
+        }] : [];
+      },
+
+      isModified() {
+        return this.modified;
+      }
+    };
+
+
+    //Academic details
+
+    const AcademicDetailsManager = {
+      section: 'Academic Details',
+      modified: false,
+      educationRowCount: 0,
+      gapOptionCount: 2,
+
+      init() {
+        console.log('AcademicDetailsManager.init called');
+        this.setupSectionToggle();
+        this.setupEducationSection();
+        this.setupAcademicGapSection();
+      },
+
+      setupSectionToggle() {
+        const section = document.getElementById('academic-details-section');
+        const content = document.getElementById('academic-details-content');
+        const arrow = document.querySelector('.admin-student-arrow-icon-academic');
+        if (section && content && arrow) {
+          section.addEventListener('click', () => {
+            content.classList.toggle('expanded');
+            arrow.classList.toggle('rotated');
+          });
+        } else {
+          console.error('setupSectionToggle: Missing elements', { section, content, arrow });
+        }
+      },
+
+      setupEducationSection() {
+        console.log('setupEducationSection called');
+        const container = document.getElementById('education-container');
+        const headerRow = document.getElementById('education-header-row');
+        const dropdownIcon = container?.querySelector('.admin-student-dropdown-icon');
+        const section = document.getElementById('education-section');
+        if (!container || !headerRow || !dropdownIcon || !section) {
+          console.error('setupEducationSection: Missing elements', { container, headerRow, dropdownIcon, section });
+          return;
+        }
+
+        section.style.display = 'none';
+        headerRow.addEventListener('click', e => {
+          e.stopPropagation();
+          const isVisible = section.style.display === 'block';
+          toggleVisibility(section, isVisible, dropdownIcon);
+          container.classList.toggle('active', !isVisible);
+        });
+
+        const addButtonEducation = document.getElementById('add-education-field-btn');
+        if (addButtonEducation) {
+          addButtonEducation.addEventListener('click', () => {
+            const label = prompt("Enter field label (e.g., Country, Favorite Color):")?.trim();
+            if (!label) return;
+
+            const name = prompt("Enter a unique field name (e.g., country, favorite_color):")?.trim();
+            if (!name) return;
+
+            const fieldType = prompt("Enter field type (text, select, checkbox, radio, date):")?.trim();
+            if (!fieldType) return;
+
+            const academicSection = 'academic';
+            this.addEducationInputField({ label, name, type: fieldType, sectionSeperate: academicSection });
+          });
+        }
+      },
+
+      addEducationInputField({ label, name, type, sectionSeperate }) {
+        let options = [];
+
+        if (['select', 'checkbox', 'radio'].includes(type)) {
+          const optionString = prompt("Enter options separated by commas (e.g., Red,Green,Blue):");
+          if (optionString) {
+            options = optionString.split(',').map(opt => opt.trim()).filter(Boolean);
+          }
+        }
+
+        fetch('/addadditionalpersonalinfodata', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
+          },
+          body: JSON.stringify({
+            label,
+            name,
+            type,
+            required: true,
+            options,
+            sectionSeperate
+          })
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.field) {
+              console.log('Field added:', data.field);
+              fetchAcademics();
+            } else {
+              console.error('Failed to add field:', data);
+            }
+          })
+          .catch(err => console.error('API Error:', err));
+      },
+
+      setupAcademicGapSection() {
+        console.log('setupAcademicGapSection called');
+        const container = document.getElementById('academic-gap-container');
+        const row = container?.querySelector('#academic-gap-row');
+        const dropdownIcon = container?.querySelector('.admin-student-dropdown-icon');
+        const optionsSection = container?.querySelector('#academic-gap-options');
+        if (!container || !row || !dropdownIcon || !optionsSection) {
+          console.error('setupAcademicGapSection: Missing elements', { container, row, dropdownIcon, optionsSection });
+          return;
+        }
+
+        optionsSection.style.display = 'none';
+        row.addEventListener('click', e => {
+          e.stopPropagation();
+          const isVisible = optionsSection.style.display === 'block';
+          toggleVisibility(optionsSection, isVisible, dropdownIcon);
+          container.classList.toggle('active', !isVisible);
+        });
+
+        const addOptionButton = container.querySelector('#add-academic-option-btn');
+        if (addOptionButton) {
+          addOptionButton.addEventListener('click', e => {
+            e.stopPropagation();
+            this.addAcademicGapOption();
+            this.modified = true;
+            try {
+              FormSubmissionManager.setModifiedSection(this.section);
+            } catch (error) {
+              console.error('Error in FormSubmissionManager.setModifiedSection:', error);
+            }
+          });
+        } else {
+          console.error('add-academic-option-btn not found');
+        }
+      },
+
+      addAcademicGapOption() {
+        console.log('addAcademicGapOption called');
+        const userInput = prompt("Enter new option", "")?.trim();
+        if (userInput) {
+          const optionsContainer = document.querySelector('.academic-options');
+          if (optionsContainer) {
+            const newOption = document.createElement('div');
+            newOption.className = 'academic-option';
+            const radioId = `academic-option-${this.gapOptionCount++}`;
+            newOption.innerHTML = `
           <input type="radio" id="${radioId}" value="${userInput}" disabled>
           <label for="${radioId}">${userInput}</label>
         `;
-        optionsContainer.appendChild(newOption);
-        console.log('Added new academic gap option:', userInput);
-      } else {
-        console.error('.academic-options container not found');
+            optionsContainer.appendChild(newOption);
+            console.log('Added new academic gap option:', userInput);
+          } else {
+            console.error('.academic-options container not found');
+          }
+        } else {
+          console.log('No option provided or prompt cancelled');
+        }
+      },
+
+      getDynamicFieldsForGap() {
+        console.log('getDynamicFieldsForGap called');
+        const radios = document.querySelectorAll('#academic-gap-options input[type="radio"]');
+        const options = Array.from(radios).map(radio => radio.value);
+        return options.length > 0 ? [{
+          name: 'Gap',
+          type: 'checkbox',
+          options: options
+        }] : [];
+      },
+
+      isModified() {
+        return this.modified;
       }
-    } else {
-      console.log('No option provided or prompt cancelled');
-    }
-  },
-
-  getDynamicFieldsForGap() {
-    console.log('getDynamicFieldsForGap called');
-    const radios = document.querySelectorAll('#academic-gap-options input[type="radio"]');
-    const options = Array.from(radios).map(radio => radio.value);
-    return options.length > 0 ? [{
-      name: 'Gap',
-      type: 'checkbox',
-      options: options
-    }] : [];
-  },
-
-  isModified() {
-    return this.modified;
-  }
-};
+    };
 
     const CoBorrowerManager = {
       section: 'Co-Borrower Information',
@@ -2418,11 +2445,11 @@
         return fields;
       },
 
-    isModified() {
-      return this.modified;
-    }
-  };
-  
+      isModified() {
+        return this.modified;
+      }
+    };
+
     const DocumentFieldManager = {
       section: 'Document Upload',
       modified: false,
@@ -2648,40 +2675,40 @@
         const subSection = doc.subSection || '';
 
         const uploadIconHTML = isDynamic
-          ? `<p class="kyc-delete-dynamic-content" data-id="${doc.id}" data-target="${key}" style="cursor: pointer; color: grey; font-size: 14px; margin: 0;">x</p>`
+          ? `<p class="kyc-delete-dynamic-content" data-id="${doc.id}" data-target="${key}" style="cursor: pointer; color: gray; font-size: 14px; margin: 0;">x</p>`
           : '';
 
         const div = document.createElement('div');
         div.className = `document-box ${subSection ? 'salary-upload-box' : type === 'workExperience' ? 'work-experience-box' : ''}`;
         div.id = `document-box-${key}`;
         div.innerHTML = `
-          <div class="document-name" id="${key}-document-name" style="display: none">${displayName}</div>
-          <div class="upload-field">
-            <span id="${key}-name" data-original="${displayName}" title="${displayName}">${displayName}</span>
-            <span id="${key}-remove-icon" class="remove-icon" style="display: none;"
-              onclick="DocumentFieldManager.removeFile('${key}', '${key}-name', '${key}-upload-icon', '${key}-remove-icon')"><span class="thin-x">×</span></span>
-            <div class="file-actions">
-              <label for="${key}" class="upload-icon" id="${key}-upload-icon" onclick="console.log('Upload icon clicked for ${key}')">
-                <img src="/assets/images/upload.png" alt="Upload Icon" />
-                ${uploadIconHTML}
-              </label>
-              <input type="file" id="${key}" name="documents[${namePrefix}${subSection ? `[${subSection}]` : ''}][${key}]"
-                accept=".jpg, .png, .pdf"
-                style="display: none;"
-                onchange="DocumentFieldManager.handleFileUpload(event, '${key}-name', '${key}-upload-icon', '${key}-remove-icon')" />
-            </div>
+  <div class="document-name" id="${key}-document-name" style="display: none">${displayName}</div>
+  <div class="upload-field">
+    <span id="${key}-name" data-original="${displayName}" title="${displayName}">${displayName}</span>
+    <span id="${key}-remove-icon" class="remove-icon" style="display: none;"
+      onclick="DocumentFieldManager.removeFile('${key}', '${key}-name', '${key}-upload-icon', '${key}-remove-icon')"><span class="thin-x">×</span></span>
+    ${uploadIconHTML} <!-- Add the delete icon here -->
+    <div class="file-actions">
+      <label for="${key}" class="upload-icon" id="${key}-upload-icon" onclick="console.log('Upload icon clicked for ${key}')">
+      </label>
+      <input type="file" id="${key}" name="documents[${namePrefix}${subSection ? `[${subSection}]` : ''}][${key}]"
+        accept=".jpg, .png, .pdf"
+        style="display: none;"
+        onchange="DocumentFieldManager.handleFileUpload(event, '${key}-name', '${key}-upload-icon', '${key}-remove-icon, 'dynamic')" />
           </div>
-          <div class="info">
-            <span class="help-trigger" data-target="${key}-help">ⓘ Help</span>
-            <span>*jpg, png, pdf formats</span>
+        </div>
+        <div class="info">
+          <span class="help-trigger" data-target="${key}-help">ⓘ Help</span>
+          <span>*jpg, png, pdf formats</span>
+        </div>
+        <div class="help-container ${key}-help" style="display: none">
+          <h3 class="help-title">Help</h3>
+          <div class="help-content">
+            <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
           </div>
-          <div class="help-container ${key}-help" style="display: none">
-            <h3 class="help-title">Help</h3>
-            <div class="help-content">
-              <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
-            </div>
-          </div>
-        `;
+        </div>
+      `;
+
         return div;
       },
 
@@ -3319,9 +3346,7 @@
         .then(res => res.json())
         .then(data => {
           const staticKeys = staticDocs.map(d => d.key);
-          data.documentTypes.forEach(doc => {
-            container.appendChild(createDocumentBox(doc, true));
-          });
+          
 
           deleteInitialization();
         })
@@ -3398,81 +3423,404 @@
     }
 
     function fetchAdditionalPersonalFields() {
-      fetch('/additionalpersonalinfodata')
-        .then(response => response.json())
-        .then(data => {
-          if (data && data.additionalFields) {
-            const container = document.querySelector('#input-row-3');
+  const existingStyle = document.getElementById("personal-inline-style");
+  if (!existingStyle) {
+    const style = document.createElement("style");
+    style.id = "personal-inline-style";
+    style.innerHTML = `
+      #personal-fields-container {
+        padding: 20px;
+        border-top: 1px solid #e0e0e0;
+        margin-top: 20px;
+        background-color: #fdfdfd;
+        border-radius: 8px;
+      }
+      #personal-fields-container .personal-field {
+        margin-bottom: 20px;
+        padding: 10px 15px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        position: relative;
+      }
+      #personal-fields-container label {
+        font-weight: 600;
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 8px;
+        display: block;
+      }
+      #personal-fields-container input[type="text"],
+      #personal-fields-container select {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        outline: none;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+      }
+      #personal-fields-container .remove-field-btn {
+        position: absolute;
+        top: 1rem;
+        right: 10px;
+        color: #000;
+        border: none;
+        border-radius: 50%;
+        width: 26px;
+        height: 26px;
+        font-size: 16px;
+        cursor: pointer;
+        line-height: 26px;
+        text-align: center;
+      }
+      #personal-fields-container input[type="radio"],
+      #personal-fields-container input[type="checkbox"] {
+        margin-right: 6px;
+        transform: scale(1.1);
+        cursor: pointer;
+      }
+    `;
+    document.head.appendChild(style);
+  }
 
-            const allDynamicGroups = container.parentNode.querySelectorAll('.input-group.dynamic');
-            allDynamicGroups.forEach(el => el.remove());
+  fetch('/additionalpersonalinfodata')
+    .then(response => response.json())
+    .then(data => {
+      if (data && data.additionalFields) {
+        const container = document.getElementById("personal-fields-container");
+        container.innerHTML = "";  
 
-            data.additionalFields.forEach(field => {
-              const inputGroup = document.createElement('div');
-              inputGroup.className = 'input-group dynamic';
-              inputGroup.style.display = "flex";
-              inputGroup.style.justifyContent = "space-between";
+        data.additionalFields.forEach((field, index) => {
+          const fieldWrapper = document.createElement("div");
+          fieldWrapper.className = "personal-field";
+          fieldWrapper.dataset.id = field.id;
 
-              inputGroup.dataset.fieldId = field.id;
+          const labelElement = document.createElement("label");
+          labelElement.textContent = field.label || "Field";
+          fieldWrapper.appendChild(labelElement);
 
-              const p = document.createElement('p');
-              p.textContent = field.label;
-              p.style.display = 'inline-block';
-              p.style.marginRight = '10px';
-              p.style.color = '#75747c';
-              p.style.fontSize = '14px';
-              p.style.fontWeight = '400';
+          let inputHTML = "";
+          const fieldName = `personal-info[extra][${index}][${field.name}]`;
 
-              const deleteBtn = document.createElement('button');
-              deleteBtn.textContent = 'x';
-              deleteBtn.style.marginLeft = '5px';
-              deleteBtn.style.cursor = 'pointer';
-              deleteBtn.style.background = 'transparent';
-              deleteBtn.style.border = 'none';
-              deleteBtn.style.color = 'gray';
-              deleteBtn.title = 'Remove';
+          if (field.type === "text") {
+            inputHTML = `<input type="text" name="${fieldName}" placeholder="${field.label}">`;
+          } else if (field.type === "select" && Array.isArray(field.options)) {
+            const options = field.options.map(opt => `<option value="${opt}">${opt}</option>`).join("");
+            inputHTML = `<select name="${fieldName}">${options}</select>`;
+          } else if (field.type === "radio" && Array.isArray(field.options)) {
+            inputHTML = field.options.map(opt => `
+              <label style="margin-right:10px">
+                <input type="radio" name="${fieldName}" value="${opt}"> ${opt}
+              </label>
+            `).join("");
+          } else if (field.type === "checkbox" && Array.isArray(field.options)) {
+            inputHTML = field.options.map(opt => `
+              <label style="margin-right:10px">
+                <input type="checkbox" name="${fieldName}[]" value="${opt}"> ${opt}
+              </label>
+            `).join("");
+          }
 
-              deleteBtn.addEventListener('click', () => {
-                const fieldId = inputGroup.dataset.fieldId; // Now this will work
-                console.log("Deleting field with ID:", fieldId);
+          fieldWrapper.innerHTML += inputHTML;
 
-                if (confirm('Are you sure you want to delete this field?')) {
-                  fetch(`/additionalfields/${fieldId}`, {
-                    method: 'DELETE',
+          const deleteBtn = document.createElement("button");
+          deleteBtn.type = "button";
+          deleteBtn.className = "remove-field-btn";
+          deleteBtn.textContent = "✕";
+          deleteBtn.title = "Delete this field";
+
+          deleteBtn.addEventListener("click", () => {
+            const id = fieldWrapper.dataset.id;
+            if (id && confirm("Are you sure you want to delete this field?")) {
+              fetch(`/additionalfields/${id}`, {
+                method: "DELETE",
+                headers: {
+                  "Content-Type": "application/json",
+                  "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                }
+              })
+                .then(res => res.json())
+                .then(response => {
+                  if (response.success) {
+                    fieldWrapper.remove();
+                  } else {
+                    alert("Failed to delete the field.");
+                  }
+                })
+                .catch(err => {
+                  console.error("Error deleting field:", err);
+                });
+            }
+          });
+
+          fieldWrapper.appendChild(deleteBtn);
+          container.appendChild(fieldWrapper);
+        });
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching personal fields:', error);
+    });
+}
+
+
+    function fetchAcademics() {
+      const existingStyle = document.getElementById("education-inline-style");
+      if (!existingStyle) {
+        const style = document.createElement("style");
+        style.id = "education-inline-style"; // prevent duplicates
+        style.innerHTML = `
+      #education-rows-container {
+        padding: 20px;
+        border-top: 1px solid #e0e0e0;
+        margin-top: 20px;
+        background-color: #fafafa;
+        border-radius: 8px;
+      }
+      #education-rows-container .education-field {
+        margin-bottom: 20px;
+        padding: 10px 15px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        position: relative;
+      }
+      #education-rows-container label {
+        font-weight: 600;
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 8px;
+        display: block;
+      }
+      #education-rows-container input[type="text"],
+      #education-rows-container select {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        outline: none;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+      }
+      #education-rows-container .remove-field-btn {
+        position: absolute;
+        top: 1rem;
+        right: 10px;
+        color: #000;
+        border: none;
+         border-radius: 50%;
+        width: 26px;
+        height: 26px;
+        font-size: 16px;
+        cursor: pointer;
+        line-height: 26px;
+        text-align: center;
+       }
+      #education-rows-container input[type="radio"],
+      #education-rows-container input[type="checkbox"] {
+        margin-right: 6px;
+        transform: scale(1.1);
+        cursor: pointer;
+      }
+      #education-rows-container label[style*="margin-right"] {
+        display: inline-block;
+        margin-right: 15px;
+        font-weight: 500;
+        font-size: 14px;
+        color: #555;
+      }
+    `;
+        document.head.appendChild(style);
+      }
+
+      fetch("/academics-adminshow")
+        .then((res) => res.json())
+        .then((data) => {
+          const academicFields = data.data;
+          const rowsContainer = document.getElementById("education-rows-container");
+
+          rowsContainer.innerHTML = ""; // Clear previous data
+
+          academicFields.forEach((field, index) => {
+            const fieldWrapper = document.createElement("div");
+            fieldWrapper.className = "education-field";
+            fieldWrapper.dataset.id = field.id;
+
+
+            // Create label
+            const labelElement = document.createElement("label");
+            labelElement.textContent = field.label || "Field";
+            labelElement.style.display = "block";
+            labelElement.style.marginBottom = "5px";
+            fieldWrapper.appendChild(labelElement);
+
+            // Field input based on type
+            if (field.type === "text") {
+              fieldWrapper.innerHTML += `
+            <input type="text" placeholder="${field.label}" name="academic-details[extra][${index}][${field.name}]">
+            <button type="button" class="remove-field-btn">✕</button>
+          `;
+            } else if (field.type === "select" && Array.isArray(field.options)) {
+              const options = field.options.map(opt => `<option value="${opt}">${opt}</option>`).join("");
+              fieldWrapper.innerHTML += `
+            <select name="academic-details[extra][${index}][${field.name}]">
+              ${options}
+            </select>
+            <button type="button" class="remove-field-btn">✕</button>
+          `;
+            } else if (field.type === "radio" && Array.isArray(field.options)) {
+              const radios = field.options.map(opt => `
+            <label style="margin-right:10px">
+              <input type="radio" name="academic-details[extra][${index}][${field.name}]" value="${opt}">
+              ${opt}
+            </label>`).join("");
+              fieldWrapper.innerHTML += radios + `
+            <button type="button" class="remove-field-btn">✕</button>
+          `;
+            } else if (field.type === "checkbox" && Array.isArray(field.options)) {
+              const checkboxes = field.options.map(opt => `
+            <label style="margin-right:10px">
+              <input type="checkbox" name="academic-details[extra][${index}][${field.name}][]" value="${opt}">
+              ${opt}
+            </label>`).join("");
+              fieldWrapper.innerHTML += checkboxes + `
+            <button type="button" class="remove-field-btn">✕</button>
+          `;
+            }
+
+            rowsContainer.appendChild(fieldWrapper);
+          });
+
+          // Attach remove event listeners
+          // Attach remove event listeners
+          const removeButtons = document.querySelectorAll(".remove-field-btn");
+          removeButtons.forEach((btn, i) => {
+            btn.addEventListener("click", function () {
+              const fieldDiv = btn.closest(".education-field");
+
+              // Get the field ID from backend
+              const id = fieldDiv?.dataset?.id;
+
+              alert(id)
+
+              if (id) {
+                if (confirm("Are you sure you want to delete this field?")) {
+                  fetch(`/academics-adminshow/${id}`, {
+                    method: "DELETE",
                     headers: {
-                      'Content-Type': 'application/json',
-                      'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                      "Content-Type": "application/json",
+                      "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content") // For Laravel CSRF
                     }
                   })
                     .then(res => res.json())
                     .then(response => {
                       if (response.success) {
-                        inputGroup.remove(); // Remove from DOM
+                        fieldDiv.remove();
                       } else {
-                        alert('Failed to delete field.');
+                        alert("Error deleting field.");
                       }
                     })
                     .catch(err => {
-                      console.error('Delete failed:', err);
-                      alert('An error occurred while deleting.');
+                      console.error("Error deleting field:", err);
                     });
                 }
-              });
-
-              inputGroup.appendChild(p);
-              inputGroup.appendChild(deleteBtn);
-
-              // Insert before the #add-input-field element
-              container.parentNode.insertBefore(inputGroup, document.querySelector('#add-input-field'));
+              } else {
+                console.warn("No backend ID found.");
+              }
             });
-          }
+          });
+
         })
-        .catch(error => {
-          console.error('Error fetching additional fields:', error);
-        });
+        .catch((err) => console.error("Error fetching academic fields:", err));
     }
 
-   
+    async function fetchCourseDetailOptions() {
+      try {
+        const response = await fetch('/course-detail-options');
+        const result = await response.json();
+
+        if (result.success && Array.isArray(result.data)) {
+          const container = document.getElementById('checkbox-options-container-expenses');
+
+          // Remove existing checkbox-option elements before inserting new ones
+          container.querySelectorAll('.checkbox-option').forEach(el => el.remove());
+
+          result.data.forEach(option => {
+            const optionDiv = document.createElement('div');
+            optionDiv.className = 'checkbox-option';
+
+            // Checkbox input
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            input.id = `option-${option.id}`;
+            input.name = 'course-details[options][]';
+            input.value = option.label;
+
+            // Label for checkbox
+            const label = document.createElement('label');
+            label.htmlFor = input.id;
+            label.textContent = option.label;
+
+            // P tag with only delete 'x'
+            const p = document.createElement('p');
+            p.style.display = 'inline-block';
+            p.style.marginLeft = '10px';
+            p.style.cursor = 'pointer';
+            p.title = 'Delete this option';
+
+            // Delete 'x' button
+            const deleteBtn = document.createElement('span');
+            deleteBtn.textContent = 'x';
+            deleteBtn.style.cursor = 'pointer';
+
+            deleteBtn.addEventListener('click', () => {
+              if (confirm(`Are you sure you want to delete "${option.label}"?`)) {
+                deleteCourseOption(option.id, optionDiv);
+              }
+            });
+
+            p.appendChild(deleteBtn);
+
+            // Append checkbox, label, and delete button
+            optionDiv.appendChild(input);
+            optionDiv.appendChild(label);
+            optionDiv.appendChild(p);
+
+            const addButton = document.getElementById('add-course-option-btn');
+            container.insertBefore(optionDiv, addButton);
+          });
+
+        }
+      } catch (error) {
+        console.error('Error fetching course detail options:', error);
+      }
+    }
+    async function deleteCourseOption(optionId, optionDiv) {
+      try {
+        const response = await fetch(`/course-options/${optionId}`, {
+          method: 'DELETE',
+          headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Accept': 'application/json',
+          }
+        });
+        if (response.ok) {
+          optionDiv.remove(); // Remove from DOM on success
+          alert('Option deleted successfully.');
+          fetchCourseDetailOptions();
+        } else {
+          alert('Failed to delete option.');
+        }
+      } catch (error) {
+        console.error('Delete error:', error);
+        alert('An error occurred while deleting the option.');
+      }
+    }
 
   </script>
 </body>

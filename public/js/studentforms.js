@@ -774,11 +774,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (nextCourseButton) {
         nextCourseButton.addEventListener("click", () => {
-            if (currentBreadcrumbIndex === 1) {
+            if (currentBreadcrumbIndex === 0) {
                 breadcrumbSections[currentBreadcrumbIndex].forEach(
                     (container) => (container.style.display = "none"),
                 );
-                currentBreadcrumbIndex = 2;
+                currentBreadcrumbIndex = 1;
                 currentContainerIndex = 0;
                 breadcrumbSections[currentBreadcrumbIndex].forEach(
                     (container, index) => {
@@ -797,12 +797,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (nextAcademicButton) {
         nextAcademicButton.addEventListener("click", () => {
-            if (currentBreadcrumbIndex === 2) {
+            if (currentBreadcrumbIndex === 1) {
                 breadcrumbSections[currentBreadcrumbIndex].forEach(
                     (container) => (container.style.display = "none"),
                 );
-                currentBreadcrumbIndex = 3;
-                currentContainerIndex = 0;
+                currentBreadcrumbIndex = 2;
+                currentContainerIndex = 1;
                 breadcrumbSections[currentBreadcrumbIndex].forEach(
                     (container, index) => {
                         container.style.display =
@@ -1025,10 +1025,11 @@ document.addEventListener("DOMContentLoaded", () => {
         fileNameId,
         uploadIconId,
         removeIconId,
-        clearName=null,       
-
-        studentId = null,
+        clearName = null,
+        sourceType = 'static',  // default value
+        studentId = null
     ) {
+        alert(sourceType);
         const fileInput = event.target;
         const fileNameElement = document.getElementById(fileNameId);
         const uploadIcon = document.getElementById(uploadIconId);
@@ -1114,20 +1115,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 "personal-info-userid",
             ).value;
             alert(userId)
-            await uploadFileToServer(file, userId, fileNameId, clearName);
+            await uploadFileToServer(file, userId, fileNameId, clearName,sourceType);
         } else if (studentId !== null) {
             const userId = studentId;
-            await uploadFileToServer(file, userId, fileNameId, clearName);
+            await uploadFileToServer(file, userId, fileNameId, clearName,sourceType);
         }
     }
 
-    function uploadFileToServer(file, userId, fileNameId, clearName) {
+    function uploadFileToServer(file, userId, fileNameId, clearName,sourceType) {
         fileNameId = fileNameId.replace(`-${userId}`, "");
         const formDetailsData = new FormData();
         formDetailsData.append("file", file);
         formDetailsData.append("userId", userId);
         formDetailsData.append("fileNameId", fileNameId);
         formDetailsData.append("clearName", clearName);  // send clearName here
+        formDetailsData.append("sourceType", sourceType);  // send clearName here
 
         const csrfToken = document
             .querySelector('meta[name="csrf-token"]')
