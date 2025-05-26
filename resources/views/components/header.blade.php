@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,40 +9,38 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
-    
         .header-nav {
             position: relative;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 10;
-             background: linear-gradient(
-                90deg,
-                rgba(255, 255, 255, 0.25),
-                rgba(111, 37, 206, 0.15)
-            );
-             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-           font-family: 'Poppins', sans-serif;
+            background: linear-gradient(90deg,
+                    rgba(255, 255, 255, 0.25),
+                    rgba(111, 37, 206, 0.15));
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            font-family: 'Poppins', sans-serif;
         }
 
         /* Container */
         .header-container {
-            position: fixed;
+            position: absolute;
             height: 85px;
             padding: 20px 88px;
             display: flex;
-             margin:0 auto;
+            margin: 0 auto;
             justify-content: space-between;
             align-items: center;
             backdrop-filter: blur(2px);
             -webkit-backdrop-filter: blur(2px);
-            width:100%;
+            width: 100%;
             background-color: rgba(255, 255, 255, 0.35);
-           
+
         }
 
         .fullopacity {
@@ -62,7 +61,7 @@
             display: flex;
             gap: 16px;
             align-items: center;
-           
+
         }
 
         .header-login-btn,
@@ -107,7 +106,7 @@
             gap: 48px;
             align-items: center;
         }
-        
+
 
         .header-links a {
             text-decoration: none;
@@ -115,10 +114,10 @@
             font-size: 16px;
             font-weight: 400;
             transition: color 0.3s ease;
-          
+
         }
 
-       
+
 
         .fullopacitylinks {
             color: #333 !important;
@@ -144,25 +143,25 @@
             border-radius: 2px;
         }
 
-@media (min-width: 1513px) { 
-    .header-container {
-        height: 85px;
-        width: 1460px;
-        padding: 20px 88px;
-        display: flex;
-        margin: 0 auto;
-        justify-content: space-between;
-        align-items: center;
-        backdrop-filter: blur(2px);
-        -webkit-backdrop-filter: blur(2px);
-        background-color: rgba(255, 255, 255, 0.35);
-    }
+        @media (min-width: 1513px) {
+            .header-container {
+                height: 85px;
+                width: 100%;
+                padding: 20px 90px;
+                display: flex;
+                margin: 0 auto;
+                justify-content: space-between;
+                align-items: center;
+                backdrop-filter: blur(2px);
+                -webkit-backdrop-filter: blur(2px);
+                background-color: rgba(255, 255, 255, 0.35);
+            }
 
 
-    }
+        }
 
-        @media (max-width: 1024px){
-             .header-container {
+        @media (max-width: 1024px) {
+            .header-container {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -181,7 +180,7 @@
                 gap: 0;
                 position: absolute;
                 top: 85px;
-                
+
                 left: 0;
                 width: 100%;
                 background-color: #FFFFFF;
@@ -220,10 +219,10 @@
                 width: 100%;
                 margin: 40px auto;
                 font-size: 20px;
-                font-weight:500;
-            
+                font-weight: 500;
+
                 height: auto;
-                padding:0px 40px;
+                padding: 0px 40px;
             }
 
             .header-signup-btn {
@@ -240,7 +239,7 @@
                 background-color: #260254;
                 color: #FFFFFF;
                 border: none;
-                padding:0px 40px;
+                padding: 0px 40px;
             }
 
             .header-login-btn {
@@ -257,7 +256,7 @@
                 border: 1px solid #260254;
                 background-color: #FFFFFF;
                 color: #260254;
-                 padding:0px 40px;
+                padding: 0px 40px;
             }
 
             .header-menu-icon {
@@ -292,7 +291,7 @@
             .header-links.show {
                 display: block;
             }
-            
+
         }
 
         /* Mobile Device */
@@ -316,7 +315,7 @@
                 gap: 0;
                 position: absolute;
                 top: 85px;
-                 height: calc(100vh - 85px);
+                height: calc(100vh - 85px);
                 left: 0;
                 width: 100%;
                 background-color: #FFFFFF;
@@ -357,13 +356,13 @@
                 font-size: 20px;
                 padding-top: 80px;
                 height: auto;
-            
-               
+
+
             }
 
             .header-signup-btn {
                 width: 100%;
-             
+
                 height: 54px;
                 font-size: 20px;
                 line-height: 54px;
@@ -427,36 +426,40 @@
         }
     </style>
 </head>
+
 <body>
-    <nav class="header-nav" 
-        style="@if (request()->is('/')) position: absolute; top: 0; left: 0; width: 100%; z-index: 10; @else position: relative; @endif">
+    <nav class="header-nav"
+        style="@if (request()->is('/')) top: 0; left: 0; width: 100%; z-index: 10; @else position: relative; @endif">
         <div class="{{ Request::is('/') ? 'header-container' : 'header-container fullopacity' }}">
             @php
-$navImgPath = "assets/images/Remitoutcolored.png";
-$navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
+                $navImgPath = "assets/images/Remitoutcolored.png";
+                $navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
             @endphp
 
             <a href="{{ url('/') }}" class="header-logo-link">
-                <img src="{{ asset(Request::is('/') ? $navImgPathWhite : $navImgPath) }}" alt="Remitout Logo" class="logo">
+                <img src="{{ asset(Request::is('/') ? $navImgPathWhite : $navImgPath) }}" alt="Remitout Logo"
+                    class="logo">
             </a>
 
             <div class="header-links">
-            
+
                 <a class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}" href="{{url('/')}}">Home</a>
                 <a href="#resources" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Resources</a>
                 <a href="#deals" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Special Deals</a>
                 <a href="#services" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Our Service</a>
-               <a href="#" id="scheduleCallLink" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Schedule Call</a>
-                <a href="#support" class="header-mobile-link {{ Request::is('/') ? '' : 'fullopacitylinks' }}">Support</a>
+                <a href="#" id="scheduleCallLink" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Schedule
+                    Call</a>
+                <a href="#support"
+                    class="header-mobile-link {{ Request::is('/') ? '' : 'fullopacitylinks' }}">Support</a>
                 <a href="#help" class="header-mobile-link {{ Request::is('/') ? '' : 'fullopacitylinks' }}">Help</a>
-             
-             <div class="header-buttons">
+
+                <div class="header-buttons">
                     <button class="header-login-btn" onclick="window.location.href='/login'">Log In</button>
                     <button class="header-signup-btn" onclick="window.location.href='/signup'">Sign Up</button>
-                </div> 
-                
+                </div>
+
             </div>
-            
+
 
             <div class="header-menu-icon" id="menu-icon">
                 <span class="bar"></span>
@@ -467,78 +470,79 @@ $navImgPathWhite = "assets/images/RemitoutLogoWhite.png";
     </nav>
 
     <script>
-     document.addEventListener('DOMContentLoaded', function () {
-    // Menu icon functionality
-    const menuIcon = document.getElementById('menu-icon');
-    const navLinks = document.querySelector('.header-links');
-    
-    if (menuIcon) {
-        menuIcon.addEventListener('click', () => {
-            navLinks.classList.toggle('show');
-            menuIcon.classList.toggle('open');
-        });
-    }
-    
-    // Schedule Call link functionality
-    const scheduleCallLink = document.getElementById('scheduleCallLink');
-    const contactFormPopup = document.getElementById('contactFormPopup');
-    const contactForm = document.getElementById('contact-form');
-    const contactCloseBtn = document.querySelector('.contact-close-btn');
-    
-    if (scheduleCallLink) {
-        scheduleCallLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            openContactForm();
-            
-            // If mobile menu is open, close it
-            if (navLinks.classList.contains('show')) {
-                navLinks.classList.remove('show');
-                menuIcon.classList.remove('open');
+        document.addEventListener('DOMContentLoaded', function () {
+            // Menu icon functionality
+            const menuIcon = document.getElementById('menu-icon');
+            const navLinks = document.querySelector('.header-links');
+
+            if (menuIcon) {
+                menuIcon.addEventListener('click', () => {
+                    navLinks.classList.toggle('show');
+                    menuIcon.classList.toggle('open');
+                });
+            }
+
+            // Schedule Call link functionality
+            const scheduleCallLink = document.getElementById('scheduleCallLink');
+            const contactFormPopup = document.getElementById('contactFormPopup');
+            const contactForm = document.getElementById('contact-form');
+            const contactCloseBtn = document.querySelector('.contact-close-btn');
+
+            if (scheduleCallLink) {
+                scheduleCallLink.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    openContactForm();
+
+                    // If mobile menu is open, close it
+                    if (navLinks.classList.contains('show')) {
+                        navLinks.classList.remove('show');
+                        menuIcon.classList.remove('open');
+                    }
+                });
+            }
+
+            // Function to open contact form
+            function openContactForm() {
+                if (contactFormPopup) {
+                    contactFormPopup.style.display = 'flex';
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling
+                }
+            }
+
+            // Close popup when close button is clicked
+            if (contactCloseBtn) {
+                contactCloseBtn.addEventListener('click', function () {
+                    closeContactForm();
+                });
+            }
+
+            // Close popup when clicking outside the form
+            if (contactFormPopup) {
+                contactFormPopup.addEventListener('click', function (event) {
+                    if (event.target === contactFormPopup) {
+                        closeContactForm();
+                    }
+                });
+            }
+
+            // Function to close contact form
+            function closeContactForm() {
+                if (contactFormPopup) {
+                    contactFormPopup.style.display = 'none';
+                    document.body.style.overflow = 'auto'; // Re-enable scrolling
+                }
+            }
+
+            // Form submission
+            if (contactForm) {
+                contactForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    alert('Form submitted successfully!');
+                    closeContactForm();
+                });
             }
         });
-    }
-    
-    // Function to open contact form
-    function openContactForm() {
-        if (contactFormPopup) {
-            contactFormPopup.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
-        }
-    }
-    
-    // Close popup when close button is clicked
-    if (contactCloseBtn) {
-        contactCloseBtn.addEventListener('click', function() {
-            closeContactForm();
-        });
-    }
-    
-    // Close popup when clicking outside the form
-    if (contactFormPopup) {
-        contactFormPopup.addEventListener('click', function(event) {
-            if (event.target === contactFormPopup) {
-                closeContactForm();
-            }
-        });
-    }
-    
-    // Function to close contact form
-    function closeContactForm() {
-        if (contactFormPopup) {
-            contactFormPopup.style.display = 'none';
-            document.body.style.overflow = 'auto'; // Re-enable scrolling
-        }
-    }
-    
-    // Form submission
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Form submitted successfully!');
-            closeContactForm();
-        });
-    }
-});
     </script>
 </body>
+
 </html>

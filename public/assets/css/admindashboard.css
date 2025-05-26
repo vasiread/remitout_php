@@ -165,6 +165,13 @@
         max-width: 100%;
         width: 380px;
     }
+    .admindashboardcontainer-sixth-section{
+        display:flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+        max-width: 90%;
+    }
 
     .mobile-admin-dashboard-menu-btn,
     .mobile-admin-dashboard-panel-btn {
@@ -2214,7 +2221,6 @@ text[fill="#222222"] {
 
     .point-entry-donut {
         width: 100%;
-        max-width: 380px;
         margin: 0 auto 15px auto;
     }
 
