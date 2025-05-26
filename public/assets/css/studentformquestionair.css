@@ -704,7 +704,7 @@ html {
 .registration-container {
     border-radius: 10px;
     padding: 40px 40px 0 40px;
-    margin: 0 auto;
+    margin: 10%;
     max-width: 1100px;
     position: relative;
     height: auto;
@@ -2646,9 +2646,9 @@ h2 {
         border-radius: 5px;
         font-size: 16px;
         cursor: pointer;
-        margin-top: 350px;
+        margin-top: 323px;
 
-        margin-right: 120px;
+        margin-right: 100px;
         position: absolute;
         right: 0;
         z-index: 10;
@@ -3338,7 +3338,7 @@ p {
         border-radius: 5px;
         font-size: 16px;
         cursor: pointer;
-        margin-top: 160px;
+        margin-top: 140px;
         margin-bottom: 100px;
         margin-right: 100px;
         position: absolute;
@@ -4240,9 +4240,6 @@ input[type="file"] {
         gap: 30px;
     }
 
-    .document-box {
-        width: 32%;
-    }
 }
 
 @media (min-width: 1728px) {
@@ -4256,9 +4253,6 @@ input[type="file"] {
         gap: 40px;
     }
 
-    .document-box {
-        width: 33%;
-    }
 }
 
 @media screen and (min-width: 1025px) and (max-width: 1300px) {
@@ -4855,7 +4849,7 @@ input[type="file"] {
         border-radius: 5px;
         font-size: 16px;
         cursor: pointer;
-        margin-top: 100px;
+        margin-top: 144px;
         position: absolute;
         right: -1px;
         z-index: 10;
@@ -4874,7 +4868,7 @@ input[type="file"] {
         border-radius: 5px;
         font-size: 16px;
         cursor: pointer;
-        margin-top: 150px;
+        margin-top: 133px;
         margin-bottom: 100px;
         margin-right: 70px;
         position: absolute;
@@ -4917,7 +4911,7 @@ input[type="file"] {
 
 #pan-card-remove-icon {
     cursor: pointer;
-    color: #1c1b1f;
+    color: #a5a3a8;
     font-size: 18px;
     margin-left: 10px;
     display: none;

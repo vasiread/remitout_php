@@ -152,26 +152,7 @@
                 toggleLabelVisibility(this);
             });
 
-            document.getElementById('loginpasswordID').addEventListener('input', function () {
-                toggleLabelVisibility(this);
-                if (this.value.length > 0) {
-                    forgotPasswordLink.classList.add('show');
-                } else {
-                    forgotPasswordLink.classList.remove('show');
-                }
-            });
-
-            // Show forgot password link on focus
-            passwordInput.addEventListener('focus', function () {
-                forgotPasswordLink.classList.add('show');
-            });
-
-            // Hide forgot password link on blur if input is empty
-            passwordInput.addEventListener('blur', function () {
-                if (this.value.length === 0) {
-                    forgotPasswordLink.classList.remove('show');
-                }
-            });
+            
 
             // Function to handle logout session
             function logoutSession() {

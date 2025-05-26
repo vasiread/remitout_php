@@ -56,9 +56,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
                 <div class="admin-nav-dropdown-menu">
-                    <div class="admin-nav-dropdown-item">Profile</div>
-                    <div class="admin-nav-dropdown-item">Settings</div>
-                    <div class="admin-nav-dropdown-item">Logout</div>
+                    <div class="admin-nav-dropdown-item logoutBtn">Logout</div>
                 </div>
             </div>
         </div>
@@ -190,6 +188,49 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+//logout functionality
+const adminLogoutBtn = document.querySelector(".admin-nav-dropdown-menu .logoutBtn");
+
+if (adminLogoutBtn) {
+    adminLogoutBtn.addEventListener('click', () => {
+        console.log("Admin logout clicked");
+        sessionLogoutInitial(); // Call your existing logout logic
+    });
+} else {
+    console.warn("Admin logout button (.logoutBtn) not found in the DOM");
+}
+
+function sessionLogoutInitial() {
+    const logoutUrl = '/logout'; // Hardcoded logout endpoint
+    const loginUrl = '/login';  // Hardcoded login page
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+    // Check for CSRF token
+    if (!csrfToken) {
+        console.error('CSRF token not found');
+        return;
+    }
+
+    fetch(logoutUrl, {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({})
+    })
+        .then(response => {
+            if (response.ok) {
+                console.log('Logout successful', response);
+                window.location.href = loginUrl;
+            } else {
+                console.error('Logout failed:', response.status, response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+        });
+}
 
     
     </script>

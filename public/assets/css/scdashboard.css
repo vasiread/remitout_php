@@ -6,7 +6,26 @@
     width: clamp(65%, 100%, 100%);
     margin: 5% 15% 0% 25.5%;
     background-color: #fff;
+}
 
+.scdashboard-parentcontainer.blur::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Semi-transparent gray */
+    filter: blur(20px);
+    z-index: 100;
+}
+
+.scdashboard-parentcontainer.blur {
+    filter: blur(5px);
+    transition: filter 0.3s ease;
+    pointer-events: none;
+    /* Prevent interaction with blurred content */
 }
 
 .scdashboard-parentcontainer {
@@ -68,41 +87,34 @@
 }
 
 .trackprogress-firstsection h1 {
-    color: #E98635;
+    color: #e98635;
     font-family: Inter;
     font-size: clamp(22px, 5vw, 28px);
     line-height: clamp(26px, 6vw, 33px);
     font-weight: 700;
-
 }
-
-
 
 .trackprogress-firstsection button,
 #mobgeneratedbutton {
-
     width: 224px;
     height: 35px;
     padding: 16px 22px;
     gap: 8px;
     border-radius: 4px;
-    border: 1px solid #E98635;
+    border: 1px solid #e98635;
     background: transparent;
-    color: #E98635;
+    color: #e98635;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'poppins';
+    font-family: "poppins";
 }
-
 
 .trackprogress-secondsection {
     display: flex;
     gap: 24px;
     max-width: 100%;
     width: 100%;
-
-
 }
 
 .scdashboard-dashboardcontent {
@@ -111,7 +123,6 @@
     gap: 24px;
     max-width: 100%;
     width: 72vw;
-
 }
 
 .trackprogress-month,
@@ -123,33 +134,29 @@
     width: 100%;
     height: 135px;
 
-    border: 1px solid #E5E5E5;
+    border: 1px solid #e5e5e5;
     justify-content: center;
     align-items: center;
 }
 
 .trackprogress-secondsection h1 {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 30px;
     font-weight: 600;
     line-height: 45px;
     text-align: center;
-    color: #E98635;
-
-
+    color: #e98635;
 }
 
 .trackprogress-secondsection p {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 14px;
     font-weight: 600;
     line-height: 21px;
     text-align: center;
     color: #909090;
-
-
 }
 
 .trackprogress-thirdsection {
@@ -164,19 +171,18 @@
     padding: 14px 20px;
     gap: 16px;
     border-radius: 4px;
-    border: 1px solid #E5E5E5;
+    border: 1px solid #e5e5e5;
     background-color: transparent;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 14px;
     font-weight: 500;
     line-height: 23.83px;
     text-align: left;
-    color: #A6A5A5;
+    color: #a6a5a5;
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 #mobgeneratedbutton,
@@ -188,11 +194,10 @@
 .scdashboard-studentapplication {
     max-width: 100%;
     width: 100%;
-    box-shadow: 0px 0px 20px 0px #1A02390D;
+    box-shadow: 0px 0px 20px 0px #1a02390d;
     margin-top: 2rem;
     padding: 2rem 25px 17px 2rem;
     background-color: white;
-
 }
 
 .studentapplication-header {
@@ -204,14 +209,13 @@
 }
 
 .studentapplication-header h1 {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 18px;
     font-weight: 600;
     line-height: 21px;
     text-align: center;
-    color: #E98635;
-
+    color: #e98635;
 }
 
 .studentapplication-header .application-buttoncontainer {
@@ -229,15 +233,12 @@
     height: 35px;
     gap: 8px;
     border-radius: 4px;
-    border: 1px solid #E98635;
+    border: 1px solid #e98635;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: transparent;
-    color: #E98635;
-
-
-
+    color: #e98635;
 }
 
 .studentapplication-header .start-new {
@@ -245,17 +246,14 @@
     padding: 16px 22px;
     gap: 8px;
     border-radius: 4px;
-    border: 1px solid #E98635;
+    border: 1px solid #e98635;
     display: flex;
     flex-direction: center;
     align-items: center;
     color: #fff;
-    background-color: #E98635;
+    background-color: #e98635;
     cursor: pointer;
-
-
 }
-
 
 .studentadditbutton .start-new {
     font-size: 24px;
@@ -267,13 +265,10 @@
     max-width: 100%;
     width: 100%;
     height: 140px;
-    border: 1px solid #E5E5E5;
+    border: 1px solid #e5e5e5;
     margin-top: 1.2rem;
     border-radius: 0.5rem;
 }
-
-
-
 
 .firstsection-lists {
     display: flex;
@@ -285,25 +280,23 @@
 
 .individualapplication-list {
     padding: 1rem 0.5rem;
-    border-bottom: 1px solid #E5E5E5;
+    border-bottom: 1px solid #e5e5e5;
     display: flex;
     align-items: center;
     max-width: 100%;
     width: 98%;
     margin: 0 1%;
-
-
 }
 
 .firstsection-lists h1 {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 16px;
     font-weight: 600;
     line-height: 18px;
     letter-spacing: -0.01em;
     text-align: left;
-    color: #5D5C5C;
+    color: #5d5c5c;
     margin: 0;
 }
 
@@ -314,23 +307,22 @@
     padding: 1rem 2rem;
     gap: 8px;
     border-radius: 4px;
-    border: 1px solid #6F25CE;
+    border: 1px solid #6f25ce;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: transparent;
-    color: #6F25CE;
-
+    color: #6f25ce;
 }
 
 .application-buttoncontainer .expand-arrow {
-    background-color: #6F25CE;
+    background-color: #6f25ce;
     color: #fff;
     width: 38px;
     height: 35px;
     padding: 16px 7px;
     gap: 8px;
-    border-radius: 4px
+    border-radius: 4px;
 }
 
 .firstsection-lists .application-buttoncontainer {
@@ -338,10 +330,8 @@
     gap: 0.8rem;
 }
 
-
 .scdashboard-parentcontainer {
     display: flex;
-
 }
 
 .individualstudentapplication-status {
@@ -370,7 +360,7 @@
 .scdashboard-nbfcstatus-pending span,
 .scdashboard-missingdocumentsstatus p,
 .scdashboard-missingdocumentsstatus span {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 14px;
     font-weight: 500;
@@ -379,12 +369,12 @@
 }
 
 .scdashboard-missingdocumentsstatus p {
-    color: #E62E2E;
+    color: #e62e2e;
 }
 
 .scdashboard-nbfcstatus-pending span {
-    color: #FA7B15;
-    background-color: #FFE3CACC;
+    color: #fa7b15;
+    background-color: #ffe3cacc;
     border-radius: 50px;
     width: fit-content;
     padding: 0.5rem;
@@ -392,8 +382,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
-
 }
 
 .studentapplication-header .studentadditbutton {
@@ -406,7 +394,7 @@
     opacity: 0px;
     background-color: transparent;
     font-size: 1.4rem;
-    color: #FFFFFF;
+    color: #ffffff;
     border: none;
     justify-content: center;
     align-items: center;
@@ -421,7 +409,6 @@
     display: none;
     max-width: 100%;
     width: 100%;
-
 }
 
 .scmember-profilecontainer {
@@ -432,12 +419,9 @@
     width: 100%;
     margin-left: 0.5rem;
     padding: 1.5rem;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     border-radius: 0.6rem;
-    box-shadow: 0px 8px 23px 0px #1A023908;
-
-
-
+    box-shadow: 0px 8px 23px 0px #1a023908;
 }
 
 .scmember-profilecontainer #studentcounsellor-profile {
@@ -446,7 +430,6 @@
     height: 122px;
     border-radius: 6px;
     object-fit: cover;
-
 }
 
 .scmember-profilecontainerimg {
@@ -460,9 +443,6 @@
     right: 0;
     padding: 0.4rem;
     color: rgba(38, 2, 84, 0.7);
-
-
-
 }
 
 .scmember-rowfirst {
@@ -473,12 +453,11 @@
 }
 
 .scmember-rowfirst h1 {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 18px;
     font-weight: 600;
     line-height: 27px;
-
 }
 
 .scmember-rowfirst button {
@@ -487,21 +466,20 @@
     height: 32px;
     border-radius: 4px;
     background: transparent;
-    border: 1px solid #E2E2E2;
+    border: 1px solid #e2e2e2;
     padding: 1rem 2rem;
     justify-content: center;
     align-items: center;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
-    color: #6F25CEDE;
-
+    color: #6f25cede;
 }
 
 #screferral-id-fromprofile {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-weight: 500;
     font-size: 13px;
@@ -510,7 +488,7 @@
 }
 
 #screferral-id-fromprofile span {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 13px;
     font-weight: 500;
@@ -521,7 +499,7 @@
 #screferral-dob-fromprofile,
 #screferral-dob-fromprofile-editmode {
     display: flex;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     align-items: center;
     font-size: 13px;
@@ -531,11 +509,11 @@
     gap: 20px;
     margin-top: 1rem;
     padding-bottom: 1.5rem;
-    border-bottom: 1px solid #E5E5E5
+    border-bottom: 1px solid #e5e5e5;
 }
 
 #screferral-dob-fromprofile-editmode {
-    display: none
+    display: none;
 }
 
 #screferral-dob-fromprofile i,
@@ -545,7 +523,7 @@
 
 #screferral-dob-fromprofile p,
 #screferral-dob-fromprofile-editmode p {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-weight: 500;
     font-size: 13px;
@@ -559,12 +537,10 @@
     flex-direction: column;
     margin-top: 1.5rem;
     gap: 11px;
-
-
 }
 
 .scmember_personalinfo p {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 13px;
     font-weight: 500;
@@ -576,7 +552,6 @@
     display: flex;
     align-items: flex-start;
     gap: 20px;
-
 }
 
 .scmember_personalinfo li img,
@@ -590,8 +565,7 @@
     flex-direction: column;
     width: 83%;
     gap: 11px;
-    margin-left: 14.90%;
-
+    margin-left: 14.9%;
 }
 
 .subbranch-of-address input {
@@ -606,16 +580,12 @@
 .scmember_personal_info_state-edit {
     display: flex;
     flex-direction: column;
-
-
-
 }
 
 .scmember_personal_info_state-edit .scmember-personal_address_header {
     display: flex;
     width: 100%;
     gap: 20px;
-
 }
 
 .scmember_personal_info_state input {
@@ -624,30 +594,27 @@
 
 .scmember_personal_info_state_editmode input {
     width: 100%;
-
 }
 
 .scmember_personalinfo_editmode {
-
     list-style-type: none;
     display: none;
     flex-direction: column;
     gap: 11px;
     margin-top: 1.5rem;
-
 }
 
 .scmember_personalinfo_editmode li {
     display: flex;
     align-items: center;
-    gap: 20px
+    gap: 20px;
 }
 
 .scmember_personalinfo_editmode input,
 #screferral-dob-fromprofile-editmode input {
-    border: 1px solid #E5E5E5;
+    border: 1px solid #e5e5e5;
     outline: none;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 11.5px;
     font-weight: 500;
@@ -655,8 +622,6 @@
     color: #21212180;
     padding: 4.5px;
     width: 100%;
-
-
 }
 
 /* --------------------------sc dashboard performance------------------------------------------ */
@@ -667,15 +632,11 @@
     max-width: 66.52%;
     width: 100%;
     height: fit-content;
-    box-shadow: 0px 8px 20px 0px #1A023908;
+    box-shadow: 0px 8px 20px 0px #1a023908;
 
     padding: 20px 24px;
     gap: 30px;
     border-radius: 8px;
-
-
-
-
 }
 
 .performancecontainer-firstrow {
@@ -685,12 +646,12 @@
 }
 
 .performancecontainer-firstrow h3 {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 22px;
     font-weight: 600;
     line-height: 26.4px;
-    color: #E98635;
+    color: #e98635;
 }
 
 .performancecontainer-firstrow .edit-scuser,
@@ -698,22 +659,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #6F25CE;
+    border: 1px solid #6f25ce;
     width: 70px;
     height: 35px;
     padding: 16px 22px;
     gap: 8px;
     border-radius: 4px;
-    box-shadow: 0px 0px 10px 0px #92889B21;
+    box-shadow: 0px 0px 10px 0px #92889b21;
     background: transparent;
-
 }
 
 .performancecontainer-firstrow .save-scuser {
     display: none;
-    background: #6F25CE;
-    color: #FFFFFF;
-
+    background: #6f25ce;
+    color: #ffffff;
 }
 
 .scdashboard-individual-performance {
@@ -723,7 +682,6 @@
     max-width: 100%;
     width: 100%;
     gap: 1.35rem;
-
 }
 
 .scdashboard-individual-performance li {
@@ -736,21 +694,16 @@
     justify-content: space-between;
     padding: 0 13px;
     background-color: transparent;
-    border: 1px solid #E2E2E2;
-
-
-
-
+    border: 1px solid #e2e2e2;
 }
 
 .scdashboard-individual-performance li p {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
     color: #909090;
-
 }
 
 .scdashboard-individual-performance li span {
@@ -758,15 +711,13 @@
     font-size: 18px;
     font-weight: 600;
     line-height: 21.78px;
-    color: #E98635;
-
+    color: #e98635;
 }
 
 .scdashboard-queryraisedcontainer {
     display: flex;
     flex-direction: column;
     height: fit-content;
-
 }
 
 .queryraisedcontainer-firstrow {
@@ -775,11 +726,11 @@
     align-items: center;
     padding-top: 14px;
     padding-bottom: 20px;
-    border-bottom: 1px solid #E5E5E5
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .queryraisedcontainer-firstrow #queryraised-header {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 18px;
     font-weight: 600;
@@ -791,8 +742,6 @@
     display: flex;
     gap: 20px;
     position: relative;
-
-
 }
 
 .queryraisedcontainer-rightcontent #sort-by {
@@ -804,19 +753,17 @@
     padding: 10px 13px;
     gap: 10px;
     border-radius: 4px;
-    border: 1px solid #E2E2E2;
+    border: 1px solid #e2e2e2;
 }
 
 #sort-by p {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
     color: #909090;
 }
-
-
 
 .queryraisedcontainer-rightcontent #raised-query {
     display: flex;
@@ -827,17 +774,15 @@
     height: 35px;
     gap: 8px;
     border-radius: 4px;
-    border: 1px solid #6F25CE;
-    box-shadow: 0px 0px 10px 0px #92889B21;
-    font-family: 'Poppins', sans-serif;
+    border: 1px solid #6f25ce;
+    box-shadow: 0px 0px 10px 0px #92889b21;
+    font-family: "Poppins", sans-serif;
 
     font-size: 14px;
     font-weight: 500;
     line-height: 12.8px;
-    color: #6F25CE;
-
+    color: #6f25ce;
 }
-
 
 .groupofraisedquestion-scdashboard {
     display: flex;
@@ -845,28 +790,26 @@
     height: fit-content;
 }
 
-
 .individual-raisedquestions {
     display: flex;
     padding: 1rem 0;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #E5E5E5
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .individual-raisedquestions #queries-row {
     width: 60%;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
     color: #909090;
-
 }
 
 .individual-raisedquestions #query-raisedbyrow {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 14px;
     font-weight: 500;
@@ -881,7 +824,7 @@
     padding: 16px 20px;
     gap: 8px;
     border-radius: 4px;
-    border: 1px solid #FA7B15;
+    border: 1px solid #fa7b15;
     display: none;
     align-items: center;
     justify-content: center;
@@ -892,19 +835,16 @@
 .scdashboard-applicationstatus {
     display: none;
     padding: 20px 24px;
-    box-shadow: 0px 0px 20px 0px #1A02390D;
+    box-shadow: 0px 0px 20px 0px #1a02390d;
     max-width: 77%;
     width: 100%;
     gap: 20px;
     flex-direction: column;
     margin: 10% 1% 0% 25%;
-
-
 }
 
 .studentapplicationstatusreports-inscdashboard {
     display: none;
-
 }
 
 .studentapplicationstatusreports-inscdashboard {
@@ -912,12 +852,9 @@
     flex-direction: column;
     padding: 1rem;
     border-radius: 8px;
-    border: 1px solid #E5E5E5;
+    border: 1px solid #e5e5e5;
     color: #fff;
     margin-bottom: 12px;
-
-
-
 }
 
 .scdashboard-applicationstatus .scapplicationstatus-firstrow {
@@ -925,15 +862,12 @@
     justify-content: space-between;
     width: 100%;
     align-items: center;
-
-
 }
 
 .firstrowapplication-rightsidecontent {
     display: flex;
     gap: 20px;
     position: relative;
-
 }
 
 .scdashboard-applicationstatus .scapplicationstatus-firstrow h1 {
@@ -941,40 +875,42 @@
     font-size: 18px;
     font-weight: 700;
     line-height: 21.78px;
-    color: #E98635;
+    color: #e98635;
 }
 
-.scdashboard-applicationstatus .scapplicationstatus-firstrow #applicationstatus-sortby {
+.scdashboard-applicationstatus
+    .scapplicationstatus-firstrow
+    #applicationstatus-sortby {
     width: 106px;
     height: 34px;
     padding: 8px 10px;
     gap: 10px;
     border-radius: 4px;
-    border: 1px solid #5252523D;
-    font-family: 'Poppins', sans-serif;
+    border: 1px solid #5252523d;
+    font-family: "Poppins", sans-serif;
 
     font-size: 12px;
     font-weight: 500;
     line-height: 18px;
-    color: #5D5C5C;
+    color: #5d5c5c;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: transparent;
-
-
 }
 
-.scdashboard-applicationstatus .scapplicationstatus-firstrow #sc-new-application-generate {
+.scdashboard-applicationstatus
+    .scapplicationstatus-firstrow
+    #sc-new-application-generate {
     width: fit-content;
     height: 35px;
     padding: 16px 22px;
     gap: 8px;
     border-radius: 4px;
-    background-color: #6F25CE;
+    background-color: #6f25ce;
     border: none;
-    box-shadow: 0px 0px 10px 0px #92889B21;
-    font-family: 'Poppins', sans-serif;
+    box-shadow: 0px 0px 10px 0px #92889b21;
+    font-family: "Poppins", sans-serif;
 
     font-weight: 500;
     line-height: 16.8px;
@@ -1010,21 +946,19 @@
     align-items: center;
     width: 100%;
     margin-right: 15rem;
-
 }
 
 .reportsindashboard-leftcontentinfirstrow p {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 16px;
     font-weight: 600;
     line-height: 18px;
-    color: #5D5C5C;
-
+    color: #5d5c5c;
 }
 
 .reportsindashboard-leftcontentinfirstrow span {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 14px;
     font-weight: 500;
@@ -1033,22 +967,20 @@
 }
 
 .reportsproposal-individualdatalists span {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
 
     color: #909090;
-    background-color: #F0F0F0;
+    background-color: #f0f0f0;
     padding: 7px;
     border-radius: 50px;
     margin-left: 5px;
     max-width: 95px;
     width: 100%;
     height: 2rem;
-
-
 }
 
 .reportsindashboard-secondrow {
@@ -1058,11 +990,10 @@
     gap: 5%;
     padding-bottom: 20px;
     border-bottom: 1px solid transparent;
-
 }
 
 .reportsindashboard-secondrow p {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 14px;
     font-weight: 500;
@@ -1071,7 +1002,7 @@
 }
 
 .reportsproposal-individualdatalists p {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 14px;
     font-weight: 500;
@@ -1086,18 +1017,18 @@
     padding: 1rem 2rem;
     gap: 8px;
     border-radius: 4px;
-    border: 1px solid #6F25CE;
-    box-shadow: 0px 0px 10px 0px #92889B21;
+    border: 1px solid #6f25ce;
+    box-shadow: 0px 0px 10px 0px #92889b21;
     background-color: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
-    color: #6F25CE;
+    color: #6f25ce;
 }
 
 .expand-arrow-reportsindashboard {
@@ -1109,10 +1040,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #6F25CE;
-    box-shadow: 0px 0px 10px 0px #92889B21;
+    background: #6f25ce;
+    box-shadow: 0px 0px 10px 0px #92889b21;
     border: none;
-
 }
 
 .reportsproposal-datalists {
@@ -1121,13 +1051,11 @@
     gap: 1.5rem;
     padding-top: 1.3rem;
     padding-bottom: 1rem;
-
 }
 
 .reportsproposal-datalists .reportsproposal-individualdatalists {
     display: flex;
     gap: 80px;
-
 }
 
 .pagination-download-groups {
@@ -1136,9 +1064,6 @@
     align-items: center;
     justify-content: flex-end;
     gap: 14.23%;
-
-
-
 }
 
 .pagination-download-groups #download-statusgroups-reports {
@@ -1155,13 +1080,11 @@
     border-radius: 4px;
     padding: 0 1.4rem;
     font-weight: 500;
-
-
-
 }
 
 .inactive-page,
-.active-page,.group-nav-button {
+.active-page,
+.group-nav-button {
     width: 26px;
     height: 26px;
     font-family: Poppins;
@@ -1170,21 +1093,19 @@
     background-color: rgba(255, 255, 255, 1);
     margin: 0 7px;
     cursor: pointer;
-
 }
 
 .inactive-page:hover,
-.active-page:hover,.group-nav-button {
-    background-color: rgba(230,230,230, 0.7);
+.active-page:hover,
+.group-nav-button {
+    background-color: rgba(230, 230, 230, 0.7);
 }
 
-.active-page ,.group-nav-button{
+.active-page,
+.group-nav-button {
     background-color: rgba(230, 230, 230, 1);
     color: rgba(0, 0, 0, 1);
-
-
 }
-
 
 .studentapplicaton-datashownpagination {
     align-items: center;
@@ -1204,7 +1125,7 @@
 .studentapplicaton-datashownpagination #nextstudents {
     background-color: transparent;
     border: none;
-    color: #B4B8C1;
+    color: #b4b8c1;
     font-size: 1.7rem;
     height: 7px;
     margin: 0.5rem;
@@ -1212,8 +1133,6 @@
     display: flex;
     align-items: center;
     align-items: center;
-
-
 }
 
 .studentapplicaton-datashownpagination .page-class {
@@ -1223,9 +1142,9 @@
     margin-top: 0.4rem;
     gap: 10px;
     border-radius: 4px;
-    border: 1px solid #E6E6E6;
-    color: #B8B8B8;
-    font-family: 'Poppins', sans-serif;
+    border: 1px solid #e6e6e6;
+    color: #b8b8b8;
+    font-family: "Poppins", sans-serif;
 
     font-size: 12px;
     font-weight: 500;
@@ -1233,12 +1152,11 @@
     background-color: #fff;
     cursor: pointer;
     margin-right: 7px;
-
 }
 
 .studentapplicaton-datashownpagination .page-class.active {
     color: #000;
-    background-color: #E6E6E6;
+    background-color: #e6e6e6;
     border: none;
 }
 
@@ -1248,10 +1166,10 @@
     padding: 16px 22px;
     gap: 8px;
     border-radius: 4px;
-    background-color: #FA7B15;
-    box-shadow: 0px 0px 10px 0px #92889B21;
-    color: #FFFFFF;
-    font-family: 'Poppins', sans-serif;
+    background-color: #fa7b15;
+    box-shadow: 0px 0px 10px 0px #92889b21;
+    color: #ffffff;
+    font-family: "Poppins", sans-serif;
 
     font-size: 14px;
     font-weight: 500;
@@ -1260,7 +1178,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
 .application-shrinkwidtheditcontainer {
@@ -1306,7 +1223,6 @@
     filter: none !important;
 }
 
-
 .studentAddBySCuserPopup,
 .referral-triggered-view {
     display: none;
@@ -1333,8 +1249,6 @@
     overflow: hidden;
 } */
 
-
-
 .studentAddByScuserPopup-headerpart,
 .referral-triggered-view-headersection {
     display: flex;
@@ -1345,7 +1259,7 @@
 
 .studentAddByScuserPopup-headerpart h3,
 .referral-triggered-view-headersection h3 {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-weight: 500;
     font-size: 18px;
@@ -1373,24 +1287,22 @@
     padding-bottom: 17px;
     flex: 1;
     /* Take available space */
-    max-height: 400px
+    max-height: 400px;
 }
 
 .studentAddByScuserPopup-contentpart input::placeholder {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-weight: 500;
     font-size: 14px;
     line-height: 18px;
     color: rgba(144, 144, 144, 1);
-
 }
 
 .referral-triggered-view-footer {
     display: flex;
     justify-content: space-between;
 }
-
 
 .studentAddByScuserPopup-contentpart input {
     width: 100%;
@@ -1402,8 +1314,6 @@
     border-width: 1px;
     border: 1px solid rgba(226, 226, 226, 1);
     outline: none;
-
-
 }
 
 .studentAddByScuserPopup-contentpart #delete-student-row,
@@ -1415,7 +1325,7 @@
     border-radius: 4px;
     gap: 8px;
     border: 1px solid rgba(111, 37, 206, 1);
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-weight: 500;
     font-size: 14px;
@@ -1423,17 +1333,15 @@
     color: rgba(38, 2, 84, 1);
     background: transparent;
     padding: 10px 0px 10px 0px;
-
 }
 
 .studentAddByScuserPopup-footerpart {
     display: flex;
     justify-content: space-between;
-
 }
 
 .studentAddByScuserPopup-footerpart button {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-weight: 500;
     font-size: 14px;
@@ -1441,8 +1349,6 @@
     text-align: center;
     border-radius: 4px;
     height: 35px;
-
-
 }
 
 .studentAddByScuserPopup-footerpart button:first-child {
@@ -1459,7 +1365,6 @@
     align-items: center;
 }
 
-
 .studentAddByScuserPopup-footerpart button:nth-child(2),
 #dynamic-add-student-button {
     background: transparent;
@@ -1469,10 +1374,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
-
-
-
 }
 
 #dynamic-add-student-button {
@@ -1491,7 +1392,6 @@
     box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
     border: none;
     color: rgba(255, 255, 255, 1);
-
 }
 
 .referral-triggered-view-content input::placeholder {
@@ -1519,7 +1419,7 @@
     padding: 1rem 2rem;
     border: 1px solid rgba(233, 134, 53, 1);
     background: rgba(255, 255, 255, 1);
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-weight: 500;
     font-size: 14px;
@@ -1558,7 +1458,7 @@
     font-weight: 400;
     line-height: 1rem;
     text-align: left;
-    color: #A6A5A5
+    color: #a6a5a5;
 }
 
 .referral-triggered-view-footer button:last-child,
@@ -1569,7 +1469,7 @@
     border-radius: 4px;
     background-color: rgba(111, 37, 206, 1);
     box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 
     font-weight: 500;
     font-size: 14px;
@@ -1618,7 +1518,8 @@
 .raise-query-popup-headersection .close-query-btn img {
     width: 16px;
     height: 16px;
-    filter: invert(35%) sepia(77%) saturate(1536%) hue-rotate(243deg) brightness(96%) contrast(97%);
+    filter: invert(35%) sepia(77%) saturate(1536%) hue-rotate(243deg)
+        brightness(96%) contrast(97%);
     /* Purple color for the "x" */
 }
 
@@ -1634,7 +1535,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     resize: vertical;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 14px;
 }
 
@@ -1642,9 +1543,10 @@
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 14px;
-    background: url('data:image/svg+xml;utf8,<svg fill="%23000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 8px center;
+    background: url('data:image/svg+xml;utf8,<svg fill="%23000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>')
+        no-repeat right 8px center;
     background-size: 16px;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -1662,12 +1564,12 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 14px;
 }
 
 .raise-query-popup-footer .cancel-query {
-    background: rgb(245, 229, 229);
+    background: rgb(206, 204, 204);
     padding: 8px;
     display: flex;
     align-items: center;
@@ -1675,14 +1577,16 @@
 }
 
 .raise-query-popup-footer .cancel-query img {
-    width: 16px;
-    height: 16px;
-    filter: invert(35%) sepia(77%) saturate(1536%) hue-rotate(243deg) brightness(96%) contrast(97%);
+    padding: 2px;
+    width: 13px;
+    height: 13px;
+    filter: invert(35%) sepia(77%) saturate(1536%) hue-rotate(243deg)
+        brightness(96%) contrast(97%);
     /* Purple color for the "x" */
 }
 
 .raise-query-popup-footer .submit-query {
-    background: #6F25CE;
+    background: #6f25ce;
     color: white;
     padding: 8px 16px;
 }
@@ -1704,8 +1608,7 @@
 }
 
 /* -------------------------------------------Media Queries-------------------------------------------------------------- */
-@media(max-width:1200px) {
-
+@media (max-width: 1200px) {
     .scdashboard-container {
         margin: 5% 0% 0% 20.5%;
     }
@@ -1718,18 +1621,14 @@
     }
 
     .scdashboard-applicationstatus {
-
         margin: 10% 0% 0% 20.5%;
         width: 78vw;
     }
-
 }
 
-@media (max-width:1024px) {
+@media (max-width: 1024px) {
     .scdashboard-container {
         margin: 5% 12% 0% 16.5%;
-
-
     }
 
     .scdashboard-dashboardcontent {
@@ -1750,18 +1649,14 @@
     #dynamic-add-student-button {
         display: flex;
     }
-
-
 }
 
-@media(max-width:980px) {
+@media (max-width: 980px) {
     .scdashboard-dashboardcontent {
         max-width: 100%;
         width: 78vw;
         margin-top: 3rem;
         padding: 2rem;
-
-
     }
 
     .scmember-profilecontainer {
@@ -1769,7 +1664,6 @@
         width: 100%;
         padding: 0.5rem;
         margin-top: 2rem;
-
     }
 
     .scmember-rowfirst h1 {
@@ -1780,11 +1674,9 @@
     .individualstudentapplication-status {
         justify-content: space-between;
         gap: 1rem;
-
     }
 
     .scdashboard-applicationstatus {
-
         margin: 12% 0% 0% 20.5%;
         width: 78vw;
     }
@@ -1792,8 +1684,6 @@
     .scdashboard-trackprogress {
         margin: 0 auto;
     }
-
-
 
     .trackprogress-secondsection {
         display: grid;
@@ -1812,7 +1702,6 @@
         gap: 1rem;
     }
 
-
     .trackprogress-firstsection {
         justify-content: space-between;
         align-items: flex-start;
@@ -1823,7 +1712,6 @@
         justify-content: space-between;
     }
 
-
     .studentapplication-header h1 {
         margin: 0;
     }
@@ -1832,24 +1720,16 @@
         gap: 0;
         justify-content: space-between;
     }
-
-
-
-
 }
 
-
-@media(max-width:768px) {
+@media (max-width: 768px) {
     .scdashboard-nbfcstatus-pending {
         margin-left: 0;
     }
 
-
-
     .scdashboard-performancecontainer {
         margin: 38px 14px;
     }
-
 
     .reportsproposal-datalists .reportsproposal-individualdatalists {
         gap: 0;
@@ -1859,7 +1739,6 @@
     #reportspropsal-status-state {
         display: flex;
         align-items: center;
-
     }
 
     .scdashboard-applicationstatus .scapplicationstatus-firstrow {
@@ -1867,12 +1746,13 @@
         flex-direction: column !important;
     }
 
-    .scdashboard-applicationstatus .scapplicationstatus-firstrow #sc-new-application-generate {
+    .scdashboard-applicationstatus
+        .scapplicationstatus-firstrow
+        #sc-new-application-generate {
         padding: 1rem;
     }
 
     .scdashboard-applicationstatus {
-
         margin: 14% 0% 0% 20.5%;
         width: 78vw;
     }
@@ -1900,20 +1780,18 @@
         width: 100%;
     }
 
-
     .firstrowapplication-rightsidecontent {
         width: 100%;
     }
 
-    .scdashboard-applicationstatus .scapplicationstatus-firstrow #applicationstatus-sortby {
+    .scdashboard-applicationstatus
+        .scapplicationstatus-firstrow
+        #applicationstatus-sortby {
         flex: 0.8;
     }
-
-
 }
 
-@media(max-width:729px) and (min-width:640px) {
-
+@media (max-width: 729px) and (min-width: 640px) {
     .reportsindashboard-secondrow p,
     .reportsproposal-datalists .reportsproposal-individualdatalists p,
     .scdashboard-individual-performance li p {
@@ -1931,7 +1809,7 @@
     }
 
     .studentapplication-header .start-new {
-        width: 193px
+        width: 193px;
     }
 
     .queryraisedcontainer-rightcontent .sort-by-contents {
@@ -1940,15 +1818,12 @@
 
     .commonsidebar-togglesidebar {
         display: none;
-
     }
-
 }
 
-@media(max-width:767px) {
+@media (max-width: 767px) {
     .commonsidebar-togglesidebar {
         display: none;
-
     }
 
     .scdashboard-container {
@@ -1997,7 +1872,6 @@
         right: 0;
     }
 
-
     .scdashboard-trackprogress {
         margin: 0;
         display: flex;
@@ -2016,7 +1890,6 @@
         margin: 1.3rem;
         max-width: 100%;
         width: 100%;
-
     }
 
     .scdashboard-individual-performance li {
@@ -2048,7 +1921,6 @@
         width: 100%;
     }
 
-
     .trackprogress-thirdsection {
         flex-direction: column;
         align-items: center;
@@ -2058,8 +1930,6 @@
     .trackprogress-thirdsection button {
         width: 100%;
         max-width: 100%;
-
-
     }
 
     .individualstudentapplication-status {
@@ -2095,7 +1965,6 @@
     .firstsection-lists .studenteacheditbutton {
         display: flex;
         border-top-right-radius: 2px;
-
     }
 
     #mobgeneratedbutton {
@@ -2104,7 +1973,6 @@
         width: 320px;
         height: 45px;
     }
-
 
     .trackprogress-secondsection {
         width: 100%;
@@ -2125,8 +1993,6 @@
         gap: 1rem;
     }
 
-
-
     .studentapplicationstatusreports-inscdashboard {
         position: relative;
     }
@@ -2135,12 +2001,11 @@
         position: absolute;
         top: 0;
         left: 0;
-
     }
 
     .studentAddBySCuserPopup,
     .referral-triggered-view {
-        max-width: 70%;
+        max-width: 90%;
         width: 100%;
     }
 
@@ -2149,17 +2014,14 @@
     }
 }
 
-@media(max-width:480px) {
-
+@media (max-width: 480px) {
     .scdashboard-inboxcontent {
         margin: 0.5rem;
     }
 
     .scmember-profilecontainer,
     .scdashboard-performancecontainer {
-
         padding: 0.5rem;
         padding-top: 1.5rem;
     }
-
 }
