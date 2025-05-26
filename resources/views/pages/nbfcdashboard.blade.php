@@ -4940,83 +4940,74 @@ $counter = 1;
                 }
             });
         }
-        const createContainerList = (data) => {
-            console.log(data);
+       const createContainerList = (data) => {
+    console.log(data);
 
-            const parentContainer = document.querySelector(".index-student-details-container");
+    const parentContainer = document.querySelector(".index-student-details-container");
 
-            data.forEach((item) => {
-                const msgContainer = document.createElement("div");
-                msgContainer.classList.add("index-student-message-container");
+    data.forEach((item) => {
+        const msgContainer = document.createElement("div");
+        msgContainer.classList.add("index-student-message-container");
 
-                const studentCard = document.createElement("div");
-                studentCard.classList.add("index-student-card");
+        const studentCard = document.createElement("div");
+        studentCard.classList.add("index-student-card");
 
-                const studentInfo = document.createElement("div");
-                studentInfo.classList.add("index-student-info");
+        const studentInfo = document.createElement("div");
+        studentInfo.classList.add("index-student-info");
 
-                const studentInfoHeader = document.createElement("h3");
-                studentInfoHeader.classList.add("student-name");
-                studentInfoHeader.textContent = item.name;
+        const studentInfoHeader = document.createElement("h3");
+        studentInfoHeader.classList.add("student-name");
+        studentInfoHeader.textContent = item.name;
 
-                const studentIds = document.createElement("p");
-                studentIds.classList.add("student-ids");
-                studentIds.textContent = item.unique_id;
+        const studentIds = document.createElement("p");
+        studentIds.classList.add("student-ids");
+        studentIds.textContent = item.unique_id;
 
-                const studentInfoDesc = document.createElement("p");
-                studentInfoDesc.classList.add("index-student-description");
-                studentInfoDesc.textContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";
+        const studentInfoDesc = document.createElement("p");
+        studentInfoDesc.classList.add("index-student-description");
+        studentInfoDesc.textContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";
 
-                const buttonGroup = document.createElement("div");
-                buttonGroup.classList.add("index-student-button-group");
+        const buttonGroup = document.createElement("div");
+        buttonGroup.classList.add("index-student-button-group");
 
-                const messageButton = document.createElement("button");
-                messageButton.classList.add("index-student-message-btn");
-                messageButton.textContent = "Message";
+        const messageButton = document.createElement("button");
+        messageButton.classList.add("index-student-message-btn");
+        messageButton.textContent = "Message";
 
-                const viewButton = document.createElement("button");
-                viewButton.classList.add("index-student-view-btn");
-                viewButton.textContent = "View";
+        const viewButton = document.createElement("button");
+        viewButton.classList.add("index-student-view-btn");
+        viewButton.textContent = "View";
 
-                buttonGroup.append(messageButton, viewButton);
+        buttonGroup.append(messageButton, viewButton);
 
-                const sendBtnMobile = document.createElement("div");
-                sendBtnMobile.classList.add("index-student-send-btn-mobile");
+        const messageInputContainer = document.createElement("div");
+        messageInputContainer.classList.add("nbfc-individual-bankmessage-input-message");
 
-                const sendImg = document.createElement("img");
-                sendImg.src = "assets/images/send-index-btn.png";
-                sendImg.alt = "the send image";
+        const messageInput = document.createElement("input");
+        messageInput.type = "text";
+        messageInput.placeholder = "Send message";
+        messageInput.classList.add("nbfc-message-input");
 
-                sendBtnMobile.appendChild(sendImg);
+        const sendIcon = document.createElement("img");
+        sendIcon.src = "assets/images/send-nbfc.png";
+        sendIcon.alt = "send icon";
+        sendIcon.classList.add("nbfc-send-img");
 
-                const messageInputContainer = document.createElement("div");
-                messageInputContainer.classList.add("nbfc-individual-bankmessage-input-message");
+        const paperClipIcon = document.createElement("i");
+        paperClipIcon.classList.add("fa-solid", "fa-paperclip", "nbfc-paperclip");
 
-                const messageInput = document.createElement("input");
-                messageInput.type = "text";
-                messageInput.placeholder = "Send message";
-                messageInput.classList.add("nbfc-message-input");
+        const smileIcon = document.createElement("i");
+        smileIcon.classList.add("fa-regular", "fa-face-smile", "nbfc-face-smile");
 
-                const sendIcon = document.createElement("img");
-                sendIcon.src = "assets/images/send-nbfc.png";
-                sendIcon.alt = "send icon";
-                sendIcon.classList.add("nbfc-send-img");
+        messageInputContainer.append(messageInput, sendIcon, paperClipIcon, smileIcon);
 
-                const paperClipIcon = document.createElement("i");
-                paperClipIcon.classList.add("fa-solid", "fa-paperclip", "nbfc-paperclip");
+        studentInfo.append(studentInfoHeader, studentIds, studentInfoDesc);
+        studentCard.append(studentInfo, buttonGroup); // Removed sendBtnMobile
+        msgContainer.append(studentCard, messageInputContainer);
 
-                const smileIcon = document.createElement("i");
-                smileIcon.classList.add("fa-regular", "fa-face-smile", "nbfc-face-smile");
-
-                messageInputContainer.append(messageInput, sendIcon, paperClipIcon, smileIcon);
-
-                studentInfo.append(studentInfoHeader, studentIds, studentInfoDesc); // Append studentInfoDesc
-                studentCard.append(studentInfo, buttonGroup, sendBtnMobile);
-                msgContainer.append(studentCard, messageInputContainer);
-
-                parentContainer.appendChild(msgContainer);
-            });
-        };
+        parentContainer.appendChild(msgContainer);
+    });
+};
 
 
         const insideMessageTrigger = () => {

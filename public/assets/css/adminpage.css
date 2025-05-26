@@ -156,6 +156,7 @@
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
   transition: background-color 0.2s;
+  white-space: nowrap;
 }
 
 .admin-nav-dropdown-item:hover {

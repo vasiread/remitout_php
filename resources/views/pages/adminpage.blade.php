@@ -56,7 +56,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
                 <div class="admin-nav-dropdown-menu">
-                    <div class="admin-nav-dropdown-item logoutBtn">Logout</div>
+                    <div class="admin-nav-dropdown-item">Change Password</div>
+                    <div class="admin-nav-dropdown-item">Logout</div>
                 </div>
             </div>
         </div>
