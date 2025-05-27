@@ -1390,8 +1390,7 @@ onchange="handleFileUpload(event, 'passport-card-name', 'passport-upload-icon', 
         </div>
 
         <div class="salary-upload-box">
-          <div class="document-name" id="6-months-bank-statement-id">6 months bank statement
-          </div>
+          <div class="document-name" id="6-months-bank-statement-id">6 months bank statement</div>
           <div class="upload-field">
             <span id="salary-upload-salary-statement-name">No file chosen</span>
             <label for="salary-upload-salary-statement" class="upload-icon"
@@ -1501,7 +1500,7 @@ onchange="handleFileUpload(event, 'passport-card-name', 'passport-upload-icon', 
 
 
         <div class="salary-upload-box">
-          <div class="document-name" id="Office/Shop-photographs-id" style="display: none;">Office/Shop photographs
+          <div class="document-name" id="Office/Shop-photographs-id">Office/Shop photographs
           </div>
           <div class="upload-field">
             <span id="salary-upload-fifth-document-name">No file chosen</span>

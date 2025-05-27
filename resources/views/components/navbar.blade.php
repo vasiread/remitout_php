@@ -16,10 +16,7 @@
 
             @if(session()->has('user') || session()->has('scuser'))
                 <div class="nav-searchnotificationbars">
-                    <div class="input-container">
-                        <input type="text" placeholder="Search">
-                        <img src="{{ asset('assets/images/search.png') }}" class="search-icon" alt="Search Icon">
-                    </div>
+                   
                     <div class="unread-notify-container">
                         <img src="{{ asset('assets/images/notifications_unread.png') }}" class="unread-notify" id="userNotification" alt="">
                     </div>
