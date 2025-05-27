@@ -84,7 +84,7 @@ class MailController extends Controller
         $userId = $request->input('userId');
         $name = $request->input('name');
 
-        $baseFilePath = "$userId/";
+        $baseFilePath = "$userId/static";
         $folders = Storage::disk('s3')->directories($baseFilePath);
         $filePaths = [];
 

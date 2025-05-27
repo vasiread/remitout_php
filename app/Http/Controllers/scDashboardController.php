@@ -244,6 +244,7 @@ class scDashboardController extends Controller
             ]);
 
             $scUserId = $request->input('scReferralId');
+
             $users = DB::table('users')->where('referral_code', $scUserId)->get();
 
             if ($users->isEmpty()) {
@@ -253,10 +254,12 @@ class scDashboardController extends Controller
             Log::info('Found users:', $users->toArray());
 
             $allStatuses = [];
+            $userIds = [];
 
             foreach ($users as $user) {
                 $userId = $user->unique_id;
                 $userName = $user->name;
+                $userIds[] = $userId;
 
                 $Accepted = DB::table('traceprogress')
                     ->join('nbfc', 'traceprogress.nbfc_id', '=', 'nbfc.nbfc_id')
@@ -304,31 +307,23 @@ class scDashboardController extends Controller
                 }
             }
 
-            $ProposalCount = DB::table('traceprogress')
-                ->join('nbfc', 'traceprogress.nbfc_id', '=', 'nbfc.nbfc_id')
-                ->where('traceprogress.user_id', $userId)
-                ->select(
-                    'nbfc.nbfc_name',
-                    'traceprogress.created_at',
-                    DB::raw("'Accepted' as status_type"),
-                    'traceprogress.user_id'
-                )
-                ->count();
-
-
             if (empty($allStatuses)) {
                 return response()->json(['message' => 'No statuses found for users'], 404);
             }
 
-            // Group by user_id, then nbfc_name
+            // Grouping: user_id -> nbfc_name -> statuses (newest first)
             $grouped = collect($allStatuses)
                 ->groupBy('user_id')
                 ->map(function ($userStatuses, $userId) {
+                    $userName = $userStatuses->first()['userName'] ?? null;
+
                     $nbfcGrouped = collect($userStatuses)
                         ->groupBy('nbfc_name')
                         ->map(function ($statuses, $nbfcName) {
                             $statusList = collect($statuses)
-                                ->sortByDesc('created_at')
+                                ->sortByDesc(function ($status) {
+                                    return $status['created_at'] ?? '0000-00-00 00:00:00';
+                                })
                                 ->map(function ($status) {
                                     return [
                                         'status_type' => $status['status_type'],
@@ -346,16 +341,21 @@ class scDashboardController extends Controller
 
                     return [
                         'user_id' => $userId,
-                        'userName' => $userStatuses->first()['userName'] ?? null,
+                        'userName' => $userName,
                         'nbfcs' => $nbfcGrouped,
                     ];
                 })
                 ->values();
 
+            // Count all proposals for all users
+            $ProposalCount = DB::table('traceprogress')
+                ->whereIn('traceprogress.user_id', $userIds)
+                ->count();
+
             return response()->json([
                 'success' => true,
                 'data' => $grouped,
-                'proposalCount' => $ProposalCount, // ✅ this is correct
+                'proposalCount' => $ProposalCount,
             ]);
         } catch (\Exception $e) {
             return response()->json([

@@ -387,40 +387,39 @@ $counter = 1;
                             <i class="fa-solid fa-angle-down"></i>
                         </div>
 
-                    <div class="kycdocumentscolumn">
-                        <div class="individualkycdocuments">
-                            <p class="document-name">Pan Card</p>
-                            <div class="inputfilecontainer">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="uploaded-pan-name"> pan_card.jpg</p>
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-pan-card" />
+                        <div class="kycdocumentscolumn">
+                            <div class="individualkycdocuments">
+                                <p class="document-name">Pan Card</p>
+                                <div class="inputfilecontainer">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="uploaded-pan-name"> pan_card.jpg</p>
+                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-pan-card" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-real" />
+                                <span class="document-status">420 MB uploaded</span>
                             </div>
-                            <input type="file" id="inputfilecontainer-real" />
-                            <span class="document-status">420 MB uploaded</span>
-                        </div>
-                    
-                        <div class="individualkycdocuments">
-                            <p class="document-name">Aadhar Card</p>
-                            <div class="inputfilecontainer">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="uploaded-aadhar-name"> aadhar_card.jpg</p>
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-aadhar-card" />
+                            <div class="individualkycdocuments">
+                                <p class="document-name">Aadhar Card</p>
+                                <div class="inputfilecontainer">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="uploaded-aadhar-name"> aadhar_card.jpg</p>
+                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-aadhar-card" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-real" />
+                                <span class="document-status">420 MB uploaded</span>
                             </div>
-                            <input type="file" id="inputfilecontainer-real" />
-                            <span class="document-status">420 MB uploaded</span>
-                        </div>
-                    
-                        <div class="individualkycdocuments">
-                            <p class="document-name">Passport</p>
-                            <div class="inputfilecontainer">
-                                <i class="fa-solid fa-image"></i>
-                                <p class="passport-name-selector"> Passport.pdf</p>
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-passport-card" />
+
+                            <div class="individualkycdocuments">
+                                <p class="document-name">Passport</p>
+                                <div class="inputfilecontainer">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="passport-name-selector"> Passport.pdf</p>
+                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-passport-card" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-real" />
+                                <span class="document-status">420 MB uploaded</span>
                             </div>
-                            <input type="file" id="inputfilecontainer-real" />
-                            <span class="document-status">420 MB uploaded</span>
                         </div>
-                    </div>
                     </div>
                 </div>
 
@@ -694,7 +693,15 @@ $counter = 1;
                 </div>
 
                 <div class="index-student-details-container">
+
                 </div>
+                <div class="viewmore-messagenbfc">
+                    <p>view more</p> <img src="{{ asset("assets/images/Icons/stat_minus_1.png") }}" style="margin-top: 9px;
+    margin-left: 8px;
+    width: 12px;
+    height: 7px;" alt="">
+                </div>
+
 
 
         </section>
@@ -726,25 +733,6 @@ $counter = 1;
     <script>
 
         document.addEventListener('DOMContentLoaded', function () {
-
-            const mobileMenuBtn = document.getElementById('nbfcMobileMenuBtn');
-            const mobileSidebar = document.querySelector('.nbfc-mobile-sidebar');
-            const mobileOverlay = document.querySelector('.nbfc-mobile-overlay');
-            const nbfcNavRight = document.querySelector('.nbfc-nav-right');
-
-            // Select elements for menu items
-            const dashboardBtn = document.querySelector('.nbfc-mobile-menu-top li:nth-child(1)'); // Dashboard
-            const inboxBtn = document.querySelector('.nbfc-mobile-menu-top li:nth-child(2)'); // Inbox
-            const dashboardContainer = document.querySelector('.dashboard-sections-container');
-            const inboxContainer = document.querySelector('.inbox-container');
-            const requestsData = [
-
-            ];
-
-            const proposalsData = [
-
-            ];
-              
             const endpoints = [
                 { url: "/retrieve-file", selector: ".uploaded-aadhar-name", fileType: "aadhar-card-name" },
                 { url: "/retrieve-file", selector: ".uploaded-pan-name", fileType: "pan-card-name" },
@@ -763,8 +751,26 @@ $counter = 1;
                 { url: "/retrieve-file", selector: ".coborrower-aadharcard", fileType: "co-aadhar-card-name" },
                 { url: "/retrieve-file", selector: ".coborrower-addressproof", fileType: "co-addressproof" },
             ];
+            let documentUrls = {}; // Define globally
 
-            const documentUrls = {};  
+            const mobileMenuBtn = document.getElementById('nbfcMobileMenuBtn');
+            const mobileSidebar = document.querySelector('.nbfc-mobile-sidebar');
+            const mobileOverlay = document.querySelector('.nbfc-mobile-overlay');
+            const nbfcNavRight = document.querySelector('.nbfc-nav-right');
+
+            // Select elements for menu items
+            const dashboardBtn = document.querySelector('.nbfc-mobile-menu-top li:nth-child(1)'); // Dashboard
+            const inboxBtn = document.querySelector('.nbfc-mobile-menu-top li:nth-child(2)'); // Inbox
+            const dashboardContainer = document.querySelector('.dashboard-sections-container');
+            const inboxContainer = document.querySelector('.inbox-container');
+            const requestsData = [
+
+            ];
+
+            const proposalsData = [
+
+            ];
+
 
 
             passwordModelTriggerNbfc();
@@ -884,22 +890,27 @@ $counter = 1;
                 mobileSidebar.classList.remove('active');
                 mobileOverlay.classList.remove('active');
 
-                // Show inbox container and hide dashboard container
+                // Show inbox container and hide others
                 inboxContainer.style.display = 'block';
                 dashboardContainer.style.display = 'none';
                 parentContainerNBFC.style.display = 'none';
 
-
                 // Show nav-right again on mobile
                 nbfcNavRight.classList.remove('hidden');
 
-                // Change the mobile menu icon to 'bars' when sidebar is closed
+                // Change the mobile menu icon to 'bars'
                 const icon = mobileMenuBtn.querySelector('i');
                 icon.classList.remove('fa-times');
                 icon.classList.add('fa-bars');
 
-                // Set the active tab
+                // Set active tab
                 setActiveTab(inboxBtn);
+
+                // Hide wholeContainer only if inboxBtn is the active tab
+                if (inboxBtn.classList.contains('active')) {
+                    const wholeContainer = document.querySelector(".wholeapplicationprofile");
+                    wholeContainer.style.display = "none";
+                }
             });
 
             // Set default state (optional: show dashboard by default)
@@ -991,17 +1002,8 @@ $counter = 1;
                     item.classList.remove('nbfcactive');
                 });
 
-                alert(activeItem.textContent)
 
-                if ((activeItem.textContent).trim === "Dashboard") {
-                    alert(activeItem.textContent)
-                    const extrasNeedToHide = document.querySelector(".wholeapplicationprofile");
-                    if (extrasNeedToHide) {
 
-                        extrasNeedToHide.style.display = "none";
-                        extrasNeedToHide.style.background = "blue";
-                    }
-                }
 
                 // Add nbfcactive class to clicked item
                 activeItem.classList.add('nbfcactive');
@@ -1028,13 +1030,14 @@ $counter = 1;
                 viewContainerApplication.style.display = "none";
                 const nbfcListUsers = document.querySelector(".dashboard-sections-container");
                 dashboardSectionsContainer.style.display = "none";
-                inboxContainer.style.display = "block";
+                inboxContainer.style.display = "flex";
                 parentContainerNBFC.style.display = 'none';
                 if (nbfcListUsers) {
                     nbfcListUsers.style.display = 'none';
                 }
 
                 setActiveMenuItem(inboxMenuItem);
+                document.querySelector(".wholeapplicationprofile").style.display="none";
             });
 
 
@@ -1254,9 +1257,16 @@ $counter = 1;
 
 
                 viewButton.addEventListener("click", () => {
-                    viewProfileOfUsers(viewButton, studentId, loader);
-                    studentApplicationInsideRejection(student);
-                    handleSendProposalProcess(studentId);
+                    const wholeContainer = document.querySelector(".wholeapplicationprofile");
+                    wholeContainer.style.display = "flex";
+                    if (wholeContainer.style.display === "flex") {
+                        viewProfileOfUsers(viewButton, studentId, loader);
+                        studentApplicationInsideRejection(student);
+                        handleSendProposalProcess(studentId);
+                    }
+
+
+
                     // handleMessageTrigger(studentId);
 
                 });
@@ -1798,7 +1808,7 @@ $counter = 1;
         const modalContainer = document.getElementById('modelContainer-send-proposal');
         const closeButtons = document.querySelectorAll('.nbfc-send-proposal-close-button');
         const fileInput = document.getElementById('fileInput');
-        const attachmentBtn = document.getElementById('attachmentBtn');
+        const attachmentBtn = document.querySelector('.nbfc-send-proposal-attachment-button');
         const attachmentPreview = document.getElementById('attachmentPreview');
         const removeAttachment = document.getElementById('removeAttachment');
         const fileName = document.querySelector('.nbfc-send-proposal-file-name');
@@ -1806,56 +1816,66 @@ $counter = 1;
         const cancelButton = document.querySelector('.nbfc-send-proposal-cancel-button');
         const sendButton = document.querySelector('.nbfc-send-proposal-send-button');
 
-        
 
-        
-        function openModal(studentId) {
-            console.log(studentId)
+
+
+        // Declare this globally
+        let selectedFile = null;
+        let selectedStudentId = null;
+
+        // Attach file input click trigger once
+    attachmentBtn.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // When file is selected
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                fileName.innerHTML = '<img src="{{asset('assets/images/image-pdf.png')}}" />' + file.name;
+                fileSize.textContent = (file.size / 1024).toFixed(2) + ' KB';
+                attachmentPreview.style.display = 'flex';
+
+                // Hide the attachment button and file input
+                attachmentBtn.style.display = 'none';
+                fileInput.style.display = 'none';
+            }
+        });
+        // Attach send button click once
+        const sendProposalTrigger = document.querySelector(".nbfc-send-proposal-send-button");
+        if (sendProposalTrigger) {
+            const user = @json(session('nbfcuser'));
+            const nbfcId = user.nbfc_id;
+
+            sendProposalTrigger.addEventListener('click', () => {
+                const placeHolder = document.querySelector(".nbfc-send-proposal-remarks-textarea");
+                if (selectedFile && selectedStudentId && nbfcId && placeHolder) {
+                    sendProposalByNbfc(selectedFile, selectedStudentId, nbfcId, placeHolder);
+                }
+            });
+        }
+
+        // Open modal function
+        function openModal(studentIdElement) {
             const placeHolder = document.querySelector(".nbfc-send-proposal-remarks-textarea");
-
 
             if (modalContainer) {
                 modalContainer.style.display = 'flex';
 
-
-
                 if (placeHolder) {
                     placeHolder.value = '';
 
-                    if (studentId) {
-                        studentId = studentId.textContent;
-                        placeHolder.placeholder = `Remarks ${studentId}`;
-                        attachmentBtn.addEventListener('click', () => fileInput.click());
-                        fileInput.addEventListener('change', (e) => {
-                            const file = e.target.files[0];
-                            if (file) {
-                                fileName.textContent = file.name;
-                                fileSize.textContent = (file.size / 1024).toFixed(2) + ' KB';
-                                attachmentPreview.style.display = 'flex';
-
-                                const sendProposalTrigger = document.querySelector(".nbfc-send-proposal-send-button");
-                                if (sendProposalTrigger) {
-
-                                    sendProposalTrigger.addEventListener('click', () => {
-                                        var user = @json(session('nbfcuser'));
-                                        const nbfcId = user.nbfc_id;
-                                        if (nbfcId) {
-                                            sendProposalByNbfc(file, studentId, nbfcId, placeHolder)
-
-                                        }
-
-                                    })
-
-                                }
-
-
-
-
-                            }
-                        });
-
+                    if (studentIdElement && studentIdElement.textContent) {
+                        selectedStudentId = studentIdElement.textContent;
+                        placeHolder.placeholder = `Remarks ${selectedStudentId}`;
                     }
                 }
+
+                // Clear previously selected file info
+                selectedFile = null;
+                fileName.textContent = '';
+                fileSize.textContent = '';
+                attachmentPreview.style.display = 'none';
             }
         }
 
@@ -1934,18 +1954,22 @@ $counter = 1;
         };
 
 
-        attachmentBtn.addEventListener('click', () => fileInput.click());
-        fileInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                fileName.textContent = file.name;
-                fileSize.textContent = (file.size / 1024).toFixed(2) + ' KB';
-                attachmentPreview.style.display = 'flex';
-            }
-        });
 
-        removeAttachment.addEventListener('click', clearFileInput);
-        closeButtons.forEach(button => button.addEventListener('click', closeModal));
+
+removeAttachment.addEventListener('click', () => {
+    // Reset file input
+    fileInput.value = '';
+    
+    // Reset preview
+    fileName.textContent = 'No file selected';
+    fileSize.textContent = '';
+
+     
+    attachmentPreview.style.display = 'none';
+
+    
+    attachmentBtn.style.display = 'flex';
+ });        closeButtons.forEach(button => button.addEventListener('click', closeModal));
         cancelButton.addEventListener('click', closeModal);
         sendButton.addEventListener('click', closeModal);
 
@@ -1975,7 +1999,7 @@ $counter = 1;
                 }
             }
 
-            if (addAttachmentBtn && fileInput) {
+           if (addAttachmentBtn && fileInput) {
                 addAttachmentBtn.addEventListener("click", () => {
                     fileInput.click();
                 });
@@ -1983,19 +2007,33 @@ $counter = 1;
                 fileInput.addEventListener("change", (event) => {
                     if (event.target.files && event.target.files[0]) {
                         selectedFile = event.target.files[0];
+
                         if (fileNameSpan && removeAttachmentBtn) {
-                            fileNameSpan.textContent = selectedFile.name;
+                            const fileName = selectedFile.name;
+                            const isPDF = fileName.toLowerCase().endsWith('.pdf');
+
+                            if (isPDF) {
+                                // Add PDF icon before filename (you can change the icon source)
+                                fileNameSpan.innerHTML = `<img src="{{ asset("assets/images/pdf") }}" alt="PDF" style="width:16px;height:16px;margin-right:6px;vertical-align:middle;"> ${fileName}`;
+                            } else {
+                                // Fallback for other file types
+                                fileNameSpan.textContent = fileName;
+                            }
+
                             removeAttachmentBtn.style.display = "inline-flex";
                         }
                     }
                 });
             }
 
+
             if (removeAttachmentBtn) {
                 removeAttachmentBtn.addEventListener("click", () => {
                     if (fileInput && fileNameSpan) {
                         fileInput.value = "";
                         fileNameSpan.textContent = "+ Add Attachment";
+                        fileNameSpan.style.display="flex";
+                        fileNameSpan.style.justifyContent="flex-start";
                         removeAttachmentBtn.style.display = "none";
                         selectedFile = null;
                     }
@@ -2318,7 +2356,6 @@ $counter = 1;
 
 
                     var user = @json(session('nbfcuser'));
-                    console.log(studentId + "----");
 
                     if (!user || !user.nbfc_id) {
                         console.error('User not found or invalid nbfc_id');
@@ -2353,30 +2390,13 @@ $counter = 1;
                         if (response.ok) {
                             console.log('Message sent successfully:', data.message);
 
-                            //                     const messageElement = document.createElement("div");
-                            //                     messageElement.style.cssText = `
-                            //     display: flex;
-                            //     justify-content: flex-end;
-                            //     width: 100%;
-                            //     margin-bottom: 10px;
-                            // `;
-                            //                     const messageContent = document.createElement("div");
-                            //                     messageContent.style.cssText = `
-                            //     max-width: 80%;
-                            //     padding: 8px 12px;
-                            //     border-radius: 8px;
-                            //     background-color: #DCF8C6;
-                            //     word-wrap: break-word;
-                            //     font-family: 'Poppins', sans-serif;
-                            //     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-                            // `;
-                            //                     messageContent.textContent = content;
 
-                            //                     messagesWrapper.appendChild(messageElement);
 
+                            const messageInputStudentids = studentId;
                             scrollToBottom();
 
                             await viewChat(nbfc_id, messageInputStudentids);
+
                         } else {
                             console.error('Failed to send message:', data.error || 'Unknown error');
                         }
@@ -2446,7 +2466,6 @@ $counter = 1;
                     nbfc_id = nbfc_id.trim();
                     const chatId = `chat-${index}`;
 
-                    messagesWrapper.innerHTML = '';
 
                     if (chatId) {
                         const apiUrl = `/get-messages/${nbfc_id}/${student_id}`;
@@ -2488,6 +2507,7 @@ $counter = 1;
                                         messageContent.textContent = message.message;
                                         messageElement.appendChild(messageContent);
                                         messagesWrapper.appendChild(messageElement);
+
                                     });
 
                                     // Scroll to the bottom after loading messages
@@ -2531,8 +2551,6 @@ $counter = 1;
 
 
                 function scrollToBottom() {
-
-
                     messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
                 }
                 var messageBtns = document.querySelectorAll('.index-student-message-btn');
@@ -2632,43 +2650,98 @@ $counter = 1;
                 }
 
                 if (paperclipIcon) {
-                    paperclipIcon.addEventListener('click', function () {
+                    paperclipIcon.addEventListener("click", function () {
                         const fileInput = document.createElement("input");
                         fileInput.type = "file";
-                        fileInput.accept = ".pdf,.jpeg.,.png,.jpg";
+                        fileInput.accept = ".pdf,.doc,.docx,.txt";
                         fileInput.style.display = "none";
 
-                        fileInput.onchange = (e) => {
+                        fileInput.onchange = async (e) => {
                             const file = e.target.files[0];
                             if (file) {
-                                showChat();
-                                const fileName = file.name;
-                                const fileSize = (file.size / 1024 / 1024).toFixed(2);
+                                const formData = new FormData();
+                                formData.append('file', file);
 
-                                const messageElement = document.createElement("div");
-                                messageElement.style.cssText = `
+                                try {
+                                    // Upload file to S3 (via backend)
+                                    const uploadResponse = await fetch('/upload-documents-chat', {
+                                        method: 'POST',
+                                        headers: {
+                                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                        },
+                                        body: formData
+                                    });
+
+                                    const uploadData = await uploadResponse.json();
+
+                                    if (uploadData.success && uploadData.fileUrl) {
+                                        const fileUrl = uploadData.fileUrl;
+                                        const fileName = file.name;
+                                        const fileSize = (file.size / 1024 / 1024).toFixed(2); // MB
+
+                                        // Show in chat UI
+                                        const alignmentContainer = document.createElement("div");
+                                        alignmentContainer.style.cssText = `
                             display: flex;
                             justify-content: flex-end;
                             width: 100%;
                             margin-bottom: 10px;
                         `;
 
-                                const fileContent = document.createElement("div");
-                                fileContent.style.cssText = `
-                            max-width: 80%;
-                            padding: 8px 12px;
-                            border-radius: 8px;
+                                        const messageContainer = document.createElement("div");
+                                        messageContainer.style.cssText = `
+                            max-width: 665px;
+                            padding: 10px;
+                            border: 1px solid #e2e2e2;
+                            border-radius: 4px;
                             display: flex;
+                            justify-content: space-between;
                             align-items: center;
-                            gap: 8px;
-                        `;
-                                fileContent.innerHTML = `
-                          
-                            <span>${fileName} (${fileSize} MB)</span>
+                            font-family: 'Poppins', sans-serif;
                         `;
 
-                                messageElement.appendChild(fileContent);
-                                messagesWrapper.appendChild(messageElement);
+                                        const downloadLink = document.createElement('a');
+                                        downloadLink.href = fileUrl;
+                                        downloadLink.target = '_blank';
+                                        downloadLink.textContent = `${fileName} (${fileSize} MB)`;
+                                        downloadLink.style.cssText = `
+                            color: #666;
+                            text-decoration: none;
+                            flex: 1;
+                        `;
+
+                                        const removeIcon = document.createElement("button");
+                                        removeIcon.innerHTML = `
+                            <svg width="16" height="16" fill="black" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.146 3.854a.5.5 0 0 0-.708 0L8 7.293 4.854 4.146a.5.5 0 1 0-.708.708L7.293 8l-3.147 3.146a.5.5 0 0 0 .708.708L8 8.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 8l3.146-3.146a.5.5 0 0 0 0-.708z"/>
+                            </svg>
+                        `;
+                                        removeIcon.style.cssText = `
+                            background: none;
+                            border: none;
+                            cursor: pointer;
+                            margin-left: 10px;
+                        `;
+                                        removeIcon.onclick = () => {
+                                            messagesWrapper.removeChild(alignmentContainer);
+                                        };
+
+                                        messageContainer.appendChild(downloadLink);
+                                        messageContainer.appendChild(removeIcon);
+                                        alignmentContainer.appendChild(messageContainer);
+                                        messagesWrapper.appendChild(alignmentContainer);
+
+                                        scrollToBottom();
+
+                                        // Send the file URL to backend as a message
+                                        sendMessageToBackend(fileUrl, yourMessageUserId); // Replace with your messageUserId variable
+
+                                    } else {
+                                        console.error('File upload failed:', uploadData.error || 'Unknown error');
+                                    }
+                                } catch (err) {
+                                    console.error('Upload error:', err);
+                                }
                             }
                         };
 
@@ -2677,6 +2750,7 @@ $counter = 1;
                         document.body.removeChild(fileInput);
                     });
                 }
+
 
                 // Initialize message button
 
@@ -3320,63 +3394,60 @@ $counter = 1;
                 });
             });
         };
-   
-    const initializeKycDocumentUpload = (documentUrls) => {
-          
-       
 
-        console.log(documentUrls)
-        
-        const individualKycDocumentsUpload = document.querySelectorAll(
-            ".individualkycdocuments"
-        );
+        const initializeKycDocumentUpload = () => {
 
-        individualKycDocumentsUpload.forEach((card) => {
-            const eyeIcon = card.querySelector(".fa-eye");
 
-            if (!eyeIcon) {
-                console.error("Eye icon not found in card:", card);
-                return;
-            }
+            const individualKycDocumentsUpload = document.querySelectorAll(
+                ".individualkycdocuments"
+            );
 
-            eyeIcon.addEventListener("click", function (event) {
-                event.stopPropagation();
+            individualKycDocumentsUpload.forEach((card) => {
+                const eyeIcon = card.querySelector(".fa-eye");
 
-                const documentType = eyeIcon.id
-                    .replace("view-", "")
-                    .replace("-card", ""); // e.g., "aadhar-card"
-                const fileTypeKey = `${documentType}-card-name`;
-                const fileUrl = documentUrls[fileTypeKey];
-                const fileNameElement = card.querySelector(
-                    `.uploaded-${documentType}-name`
-                );
-                const fileName = fileNameElement
-                    ? fileNameElement.textContent
-                    : "Document.pdf";
-
-                console.log(`Previewing ${documentType}: ${fileUrl}`);
-
-                // Check if a preview is already active
-                if (eyeIcon.classList.contains('preview-active')) {
-                    const previewWrapper = document.querySelector('.pdf-preview-wrapper');
-                    if (previewWrapper) previewWrapper.remove();
-                    const overlay = document.querySelector('.pdf-preview-overlay');
-                    if (overlay) overlay.remove();
-                    eyeIcon.classList.remove('preview-active');
-                    eyeIcon.src = "/assets/images/visibility.png";
+                if (!eyeIcon) {
+                    console.error("Eye icon not found in card:", card);
                     return;
                 }
 
-                // If no file URL, show an alert
-                if (!fileUrl) {
-                    alert("No document found to preview.");
-                    return;
-                }
+                eyeIcon.addEventListener("click", function (event) {
+                    event.stopPropagation();
 
-                // Create the preview modal
-                const previewWrapper = document.createElement("div");
-                previewWrapper.className = "pdf-preview-wrapper";
-                previewWrapper.style.cssText = `
+                    const documentType = eyeIcon.id
+                        .replace("view-", "")
+                        .replace("-card", ""); // e.g., "aadhar-card"
+                    const fileTypeKey = `${documentType}-card-name`;
+                    const fileUrl = documentUrls[fileTypeKey];
+                    const fileNameElement = card.querySelector(
+                        `.uploaded-${documentType}-name`
+                    );
+                    const fileName = fileNameElement
+                        ? fileNameElement.textContent
+                        : "Document.pdf";
+
+                    console.log(`Previewing ${documentType}: ${fileUrl}`);
+
+                    // Check if a preview is already active
+                    if (eyeIcon.classList.contains('preview-active')) {
+                        const previewWrapper = document.querySelector('.pdf-preview-wrapper');
+                        if (previewWrapper) previewWrapper.remove();
+                        const overlay = document.querySelector('.pdf-preview-overlay');
+                        if (overlay) overlay.remove();
+                        eyeIcon.classList.remove('preview-active');
+                        eyeIcon.src = "/assets/images/visibility.png";
+                        return;
+                    }
+
+                    // If no file URL, show an alert
+                    if (!fileUrl) {
+                        alert("No document found to preview.");
+                        return;
+                    }
+
+                    // Create the preview modal
+                    const previewWrapper = document.createElement("div");
+                    previewWrapper.className = "pdf-preview-wrapper";
+                    previewWrapper.style.cssText = `
                 position: fixed;
                 top: 50%;
                 left: 50%;
@@ -3391,9 +3462,9 @@ $counter = 1;
                 border-radius: 8px;
             `;
 
-                const overlay = document.createElement("div");
-                overlay.className = "pdf-preview-overlay";
-                overlay.style.cssText = `
+                    const overlay = document.createElement("div");
+                    overlay.className = "pdf-preview-overlay";
+                    overlay.style.cssText = `
                 position: fixed;
                 top: 0;
                 left: 0;
@@ -3403,8 +3474,8 @@ $counter = 1;
                 z-index: 999;
             `;
 
-                const header = document.createElement("div");
-                header.style.cssText = `
+                    const header = document.createElement("div");
+                    header.style.cssText = `
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -3416,24 +3487,24 @@ $counter = 1;
                 border-top-right-radius: 8px;
             `;
 
-                const fileNameSection = document.createElement("div");
-                fileNameSection.style.cssText = `
+                    const fileNameSection = document.createElement("div");
+                    fileNameSection.style.cssText = `
                 display: flex;
                 align-items: center;
                 gap: 8px;
             `;
 
-                const fileNameSpan = document.createElement("span");
-                fileNameSpan.textContent = fileName;
-                fileNameSpan.style.cssText = `
+                    const fileNameSpan = document.createElement("span");
+                    fileNameSpan.textContent = fileName;
+                    fileNameSpan.style.cssText = `
                 color: white;
                 font-size: 14px;
                 font-family: 'Poppins', sans-serif;
             `;
-                fileNameSection.appendChild(fileNameSpan);
+                    fileNameSection.appendChild(fileNameSpan);
 
-                const zoomControls = document.createElement("div");
-                zoomControls.style.cssText = `
+                    const zoomControls = document.createElement("div");
+                    zoomControls.style.cssText = `
                 display: flex;
                 align-items: center;
                 gap: 12px;
@@ -3442,13 +3513,13 @@ $counter = 1;
                 transform: translateX(-50%);
             `;
 
-                const zoomOut = document.createElement("button");
-                zoomOut.innerHTML = "−";
-                const zoomIn = document.createElement("button");
-                zoomIn.innerHTML = "+";
+                    const zoomOut = document.createElement("button");
+                    zoomOut.innerHTML = "−";
+                    const zoomIn = document.createElement("button");
+                    zoomIn.innerHTML = "+";
 
-                [zoomOut, zoomIn].forEach((btn) => {
-                    btn.style.cssText = `
+                    [zoomOut, zoomIn].forEach((btn) => {
+                        btn.style.cssText = `
                     background: none;
                     border: 1px solid #fff;
                     border-radius: 4px;
@@ -3461,15 +3532,15 @@ $counter = 1;
                     justify-content: center;
                     font-family: 'Poppins', sans-serif;
                 `;
-                });
+                    });
 
-                zoomControls.appendChild(zoomOut);
-                zoomControls.appendChild(zoomIn);
+                    zoomControls.appendChild(zoomOut);
+                    zoomControls.appendChild(zoomIn);
 
-                // Close button
-                const closeButton = document.createElement('button');
-                closeButton.innerHTML = '&#10005;';
-                closeButton.style.cssText = `
+                    // Close button
+                    const closeButton = document.createElement('button');
+                    closeButton.innerHTML = '&#10005;';
+                    closeButton.style.cssText = `
                     background: none;
                     border: none;
                     color: white;
@@ -3481,23 +3552,23 @@ $counter = 1;
                     justify-content: center;
                 `;
 
-                const closePreview = () => {
-                    previewWrapper.remove();
-                    overlay.remove();
-                    eyeIcon.classList.remove('preview-active');
-                    eyeIcon.classList.replace('fa-times', 'fa-eye');
-                };
+                    const closePreview = () => {
+                        previewWrapper.remove();
+                        overlay.remove();
+                        eyeIcon.classList.remove('preview-active');
+                        eyeIcon.classList.replace('fa-times', 'fa-eye');
+                    };
 
-                closeButton.addEventListener("click", closePreview);
-                overlay.addEventListener("click", closePreview);
+                    closeButton.addEventListener("click", closePreview);
+                    overlay.addEventListener("click", closePreview);
 
-                header.appendChild(fileNameSection);
-                header.appendChild(zoomControls);
-                header.appendChild(closeButton);
+                    header.appendChild(fileNameSection);
+                    header.appendChild(zoomControls);
+                    header.appendChild(closeButton);
 
-                const iframe = document.createElement("iframe");
-                iframe.src = fileUrl;
-                iframe.style.cssText = `
+                    const iframe = document.createElement("iframe");
+                    iframe.src = fileUrl;
+                    iframe.style.cssText = `
                 width: 100%;
                 height: calc(100% - 40px);
                 border: none;
@@ -3506,36 +3577,36 @@ $counter = 1;
                 border-bottom-right-radius: 8px;
             `;
 
-                previewWrapper.appendChild(header);
-                previewWrapper.appendChild(iframe);
+                    previewWrapper.appendChild(header);
+                    previewWrapper.appendChild(iframe);
 
-                document.body.appendChild(overlay);
-                document.body.appendChild(previewWrapper);
+                    document.body.appendChild(overlay);
+                    document.body.appendChild(previewWrapper);
 
-                let currentZoom = 1;
-                zoomIn.addEventListener("click", () => {
-                    currentZoom += 0.1;
-                    iframe.style.transform = `scale(${currentZoom})`;
-                    iframe.style.transformOrigin = "top center";
+                    let currentZoom = 1;
+                    zoomIn.addEventListener("click", () => {
+                        currentZoom += 0.1;
+                        iframe.style.transform = `scale(${currentZoom})`;
+                        iframe.style.transformOrigin = "top center";
+                    });
+
+                    zoomOut.addEventListener("click", () => {
+                        currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                        iframe.style.transform = `scale(${currentZoom})`;
+                        iframe.style.transformOrigin = "top center";
+                    });
+
+                    document.addEventListener("keydown", function (e) {
+                        if (e.key === "Escape") {
+                            closePreview();
+                        }
+                    });
+
+                    eyeIcon.classList.add("preview-active");
+                    eyeIcon.src = "/assets/images/close.png"; // Update with your actual path
                 });
-
-                zoomOut.addEventListener("click", () => {
-                    currentZoom = Math.max(currentZoom - 0.1, 0.5);
-                    iframe.style.transform = `scale(${currentZoom})`;
-                    iframe.style.transformOrigin = "top center";
-                });
-
-                document.addEventListener("keydown", function (e) {
-                    if (e.key === "Escape") {
-                        closePreview();
-                    }
-                });
-
-                eyeIcon.classList.add("preview-active");
-                eyeIcon.src = "/assets/images/close.png"; // Update with your actual path
             });
-        });
-    };
+        };
         const initializeMarksheetUpload = () => {
             const individualMarksheetDocumentsUpload = document.querySelectorAll(".individualmarksheetdocuments");
 
@@ -4809,88 +4880,67 @@ $counter = 1;
             }
         };
 
-     
+
+
 
 
         const initialiseAllViews = (userId) => {
-             const endpoints = [
-                { url: "/retrieve-file", selector: ".uploaded-aadhar-name", fileType: "aadhar-card-name" },
-                { url: "/retrieve-file", selector: ".uploaded-pan-name", fileType: "pan-card-name" },
-                { url: "/retrieve-file", selector: ".passport-name-selector", fileType: "passport-card-name" },
-                { url: "/retrieve-file", selector: ".sslc-marksheet", fileType: "tenth-grade-name" },
-                { url: "/retrieve-file", selector: ".hsc-marksheet", fileType: "twelfth-grade-name" },
-                { url: "/retrieve-file", selector: ".graduation-marksheet", fileType: "graduation-grade-name" },
-                { url: "/retrieve-file", selector: ".sslc-grade", fileType: "secured-tenth-name" },
-                { url: "/retrieve-file", selector: ".hsc-grade", fileType: "secured-twelfth-name" },
-                { url: "/retrieve-file", selector: ".graduation-grade", fileType: "secured-graduation-name" },
-                { url: "/retrieve-file", selector: ".experience-letter", fileType: "work-experience-experience-letter" },
-                { url: "/retrieve-file", selector: ".salary-slip", fileType: "work-experience-monthly-slip" },
-                { url: "/retrieve-file", selector: ".office-id", fileType: "work-experience-office-id" },
-                { url: "/retrieve-file", selector: ".joining-letter", fileType: "work-experience-joining-letter" },
-                { url: "/retrieve-file", selector: ".coborrower-pancard", fileType: "co-pan-card-name" },
-                { url: "/retrieve-file", selector: ".coborrower-aadharcard", fileType: "co-aadhar-card-name" },
-                { url: "/retrieve-file", selector: ".coborrower-addressproof", fileType: "co-addressproof" },
-            ];
-
-            const documentUrls = {};  
-
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
             if (!csrfToken || !userId) {
                 console.error("CSRF token or User ID is missing");
                 return Promise.reject("CSRF token or User ID is missing");
             }
 
-            // Prepare fileTypes and selector map
+            // Extract fileTypes from endpoints, but backend may return more keys
             const fileTypes = endpoints.map(ep => ep.fileType);
-            const selectorMap = {};
-            endpoints.forEach(ep => {
-                selectorMap[ep.fileType] = ep.selector;
-            });
 
-            // Send one request with all fileTypes
-            return fetch('/retrieve-file', {
+            console.log("!!")
+            console.log(fileTypes)
+
+            return fetch("/retrieve-file", {
                 method: "POST",
                 headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
+                    "X-CSRF-TOKEN": csrfToken,
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                    userId: userId,
-                    fileTypes: fileTypes,
-                }),
+                body: JSON.stringify({ userId, fileTypes }),
             })
-                .then(response => response.json())
+                .then(res => res.json())
                 .then(data => {
-                    if (!data.staticFiles) {
-                        console.warn("No staticFiles returned");
-                        return;
-                    }
+                    // data could be a flat object with all files (static + dynamic)
+                    const allFiles = data.staticFiles || data;
+                    const documentUrls = {}; // define here if you're returning it
 
-                    const files = data.staticFiles;
 
-                    // Loop through the returned files and update DOM
-                    for (const [fileType, fileUrl] of Object.entries(files)) {
-                        const selector = selectorMap[fileType];
-                        if (!selector) continue;
+                    // Loop through all keys returned by backend (all files)
+                    Object.entries(allFiles).forEach(([fileType, fileUrl]) => {
+                        if (fileUrl) {
+                            documentUrls[fileType] = fileUrl;
+                            const fileName = fileUrl.split("/").pop();
+                            console.log(documenturls)
 
-                        const element = document.querySelector(selector);
-                        if (element && fileUrl) {
-                            const fileName = fileUrl.split('/').pop();
-                            element.textContent = fileName;
-                            console.log(`Updated ${fileType} → ${fileName}`);
-                            console.log(fileUrl)
+                            // Find matching selector from endpoints (if any)
+                            const endpoint = endpoints.find(ep => ep.fileType === fileType);
+                            if (endpoint) {
+                                const element = document.querySelector(endpoint.selector);
+                                if (element) {
+                                    element.textContent = fileName;
+                                } else {
+                                    console.warn(`Element not found for selector: ${endpoint.selector}`);
+                                }
+                            }
+
+                            console.log(`FileType: ${fileType}, URL: ${fileUrl}`);
                         } else {
-                            console.log(`Element not found or no fileUrl for: ${fileType}`);
+                            console.log(`No file found for ${fileType}`);
                         }
-                    }
+                    });
                 })
                 .catch(error => {
                     console.error("Error fetching files:", error);
                 });
         };
-
 
         const initialiseProfileView = (userId) => {
 
@@ -4940,14 +4990,15 @@ $counter = 1;
                 }
             });
         }
+        let viewMoreClicked = false;
+
         const createContainerList = (data) => {
-            console.log(data);
-
             const parentContainer = document.querySelector(".index-student-details-container");
+            parentContainer.innerHTML = "";
 
-            data.forEach((item) => {
+            data.forEach((item, index) => {
                 const msgContainer = document.createElement("div");
-                msgContainer.classList.add("index-student-message-container");
+                msgContainer.classList.add("index-student-message-container", "profile-list-item");
 
                 const studentCard = document.createElement("div");
                 studentCard.classList.add("index-student-card");
@@ -4965,7 +5016,7 @@ $counter = 1;
 
                 const studentInfoDesc = document.createElement("p");
                 studentInfoDesc.classList.add("index-student-description");
-                studentInfoDesc.textContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";
+                studentInfoDesc.textContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit...";
 
                 const buttonGroup = document.createElement("div");
                 buttonGroup.classList.add("index-student-button-group");
@@ -4985,7 +5036,7 @@ $counter = 1;
 
                 const sendImg = document.createElement("img");
                 sendImg.src = "assets/images/send-index-btn.png";
-                sendImg.alt = "the send image";
+                sendImg.alt = "send";
 
                 sendBtnMobile.appendChild(sendImg);
 
@@ -5010,15 +5061,58 @@ $counter = 1;
 
                 messageInputContainer.append(messageInput, sendIcon, paperClipIcon, smileIcon);
 
-                studentInfo.append(studentInfoHeader, studentIds, studentInfoDesc); // Append studentInfoDesc
+                studentInfo.append(studentInfoHeader, studentIds, studentInfoDesc);
                 studentCard.append(studentInfo, buttonGroup, sendBtnMobile);
-                msgContainer.append(studentCard, messageInputContainer);
 
+                msgContainer.append(studentCard, messageInputContainer);
                 parentContainer.appendChild(msgContainer);
             });
+
+            // ✅ Handle visibility
+            const limitVisibleItemsOnMobile = () => {
+                const allItems = document.querySelectorAll(".profile-list-item");
+                const viewMoreBtn = document.querySelector('.viewmore-messagenbfc');
+
+                if (window.innerWidth <= 768) {
+                    if (!viewMoreClicked) {
+                        allItems.forEach((item, index) => {
+                            item.style.display = index < 3 ? "block" : "none";
+                        });
+                        if (allItems.length > 3) {
+                            viewMoreBtn.style.display = "flex";
+                        } else {
+                            viewMoreBtn.style.display = "none";
+                        }
+                    } else {
+                        // Already clicked view more — show all
+                        allItems.forEach(item => item.style.display = "block");
+                        viewMoreBtn.style.display = "none";
+                    }
+                } else {
+                    // Desktop view: always show all
+                    allItems.forEach(item => item.style.display = "block");
+                    viewMoreBtn.style.display = "none";
+                }
+            };
+
+            // Run on initial load
+            limitVisibleItemsOnMobile();
+
+            // Run on window resize
+            window.addEventListener("resize", limitVisibleItemsOnMobile);
+
+            // ✅ Add view more click handler once DOM is updated
+            const viewMoreBtn = document.querySelector('.viewmore-messagenbfc');
+            if (viewMoreBtn) {
+                viewMoreBtn.addEventListener('click', () => {
+                    viewMoreClicked = true; // ✅ Mark as clicked
+                    document.querySelectorAll('.profile-list-item').forEach(item => {
+                        item.style.display = "block";
+                    });
+                    viewMoreBtn.style.display = 'none';
+                });
+            }
         };
-
-
         const insideMessageTrigger = () => {
             // if (messageBtnInside) {
             //     messageBtnInside.addEventListener('click', () => {
@@ -5038,7 +5132,6 @@ $counter = 1;
             //         }
             //     })
             // }
-            console.log("insidetrigger")
 
         }
         function passwordForgotNbfc() {
@@ -5159,6 +5252,17 @@ $counter = 1;
                 alert('NBFC user not found in session.');
             }
         };
+        setTimeout(() => {
+            const viewMoreBtn = document.querySelector('.viewmore-messagenbfc');
+            if (viewMoreBtn) {
+                viewMoreBtn.addEventListener('click', () => {
+                    document.querySelectorAll('.profile-list-item').forEach(item => {
+                        item.style.display = "block";
+                    });
+                    viewMoreBtn.style.display = 'none';
+                });
+            }
+        }, 0);
 
 
     </script>

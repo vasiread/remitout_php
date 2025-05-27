@@ -665,7 +665,11 @@
             }
 
             // Handle file upload
-            function handleFileUpload(chatId, parentContainer, type, id) {
+            function handleFileUploadMessage(chatId, parentContainer, type, id) {
+                console.log(chatId)
+                console.log(parentContainer)
+                console.log(type)
+                console.log(id)
                 const fileInput = document.createElement('input');
                 fileInput.type = 'file';
                 fileInput.accept = '.pdf,.doc,.docx,.txt';
@@ -683,7 +687,7 @@
                             headers: {
                                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                             },
-                            body: FormData
+                            body: formData
                         })
                             .then(res => res.json())
                             .then(data => {
@@ -792,7 +796,6 @@
                 document.body.removeChild(fileInput);
             }
 
-            // Search functionality for Students
             function initializeStudentSearch() {
                 const studentSearchInput = document.getElementById('admin-side-student-search-input');
                 if (!studentSearchInput) {
@@ -1011,7 +1014,7 @@
                 }
 
                 if (target.id === `admin-${type}-paperclip-${chatId}`) {
-                    handleFileUpload(chatId, parentContainer, type, id);
+                    handleFileUploadMessage(chatId, parentContainer, type, id);
                 }
             });
 

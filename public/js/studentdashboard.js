@@ -1069,99 +1069,110 @@ function initializeSimpleChat() {
 
         // Initialize file attachment
         if (paperclipIcon) {
-            paperclipIcon.addEventListener('click', function () {
+            paperclipIcon.addEventListener("click", function () {
                 const fileInput = document.createElement("input");
                 fileInput.type = "file";
-                fileInput.accept = ".pdf,.jpeg,.png,.jpg";
+                fileInput.accept = ".pdf,.doc,.docx,.txt";
                 fileInput.style.display = "none";
 
                 fileInput.onchange = (e) => {
                     const file = e.target.files[0];
                     if (file) {
-                        showChat();
-                        const fileName = file.name;
-                        const fileSize = (file.size / 1024 / 1024).toFixed(2);
-                        const fileId = `file-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+                        const formData = new FormData();
+                        formData.append('file', file);
+                        formData.append('chatId', chatId); 
 
-                        fileStorage[fileId] = file;
+                        fetch('/upload-documents-chat', {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                            },
+                            body: formData
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.success && data.fileUrl) {
+                                    const fileName = file.name;
+                                    const fileSize = (file.size / 1024 / 1024).toFixed(2); // MB
 
-                        const messageElement = document.createElement("div");
-                        messageElement.setAttribute('data-file-id', fileId);
-                        messageElement.style.cssText = `
-                            display: flex;
-                            justify-content: flex-end;
-                            width: 100%;
-                            margin-bottom: 10px;
-                        `;
-                        const fileContent = document.createElement("div");
-                        fileContent.style.cssText = `
-                            max-width: 80%;
-                            padding: 8px 12px;
-                            border-radius: 8px;
-                            display: flex;
-                            align-items: center;
-                            gap: 8px;
-                            position: relative;
-                        `;
+                                    const alignmentContainer = document.createElement("div");
+                                    alignmentContainer.style.cssText = `
+                                display: flex;
+                                justify-content: flex-end;
+                                width: 100%;
+                                margin-bottom: 10px;
+                            `;
 
-                        const downloadLink = document.createElement("a");
-                        downloadLink.href = "#";
-                        downloadLink.style.cssText = `
-                            display: flex;
-                            align-items: center;
-                            gap: 5px;
-                            color: #666;
-                            text-decoration: none;
-                        `;
-                        downloadLink.innerHTML = `
-                            <i class="fa-solid fa-file"></i>
-                            <span>${fileName} (${fileSize} MB)</span>
-                        `;
-                        downloadLink.addEventListener('click', function (e) {
-                            e.preventDefault();
-                            e.stopPropagation();
+                                    const messageContainer = document.createElement("div");
+                                    messageContainer.style.cssText = ` 
+                                width: 665px;
+                                padding: 10px;
+                                border: 1px solid #e2e2e2;
+                                border-radius: 4px;
+                                margin-left: auto;
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                background-color: #f9f9f9;
+                            `;
 
-                            // Create download link for the file
-                            const url = URL.createObjectURL(fileStorage[fileId]);
-                            const tempLink = document.createElement("a");
-                            tempLink.href = url;
-                            tempLink.download = fileName;
-                            document.body.appendChild(tempLink);
-                            tempLink.click();
-                            document.body.removeChild(tempLink);
-                            URL.revokeObjectURL(url);
-                        });
+                                    const downloadLink = document.createElement("a");
+                                    downloadLink.href = data.fileUrl;
+                                    downloadLink.target = "_blank";
+                                    downloadLink.style.cssText = `
+                                font-family: 'Poppins', sans-serif;
+                                font-weight: 500;
+                                font-size: 14px;
+                                color: #909090;
+                                text-decoration: none;
+                                flex: 1;
+                            `;
+                                    downloadLink.textContent = `${fileName} (${fileSize} MB)`;
 
-                        // Create remove button
-                        const removeButton = document.createElement("button");
-                        removeButton.innerHTML = `<i class="fa-solid fa-times"></i>`;
-                        removeButton.style.cssText = `
-                            background: none;
-                            border: none;
-                            color: #999;
-                            font-size: 12px;
-                            cursor: pointer;
-                            padding: 2px 5px;
-                            margin-left: 5px;
-                        `;
-                        removeButton.addEventListener('click', function (e) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            removeMessage(messageElement, fileId);
-                        });
+                                    const removeIcon = document.createElement("button");
+                                    removeIcon.style.cssText = `
+                                background: none;
+                                border: none;
+                                cursor: pointer;
+                                font-size: 18px;
+                                padding: 0;
+                                margin-left: 10px;
+                                display: flex;
+                                justify-content: flex-end;
+                            `;
+                                    removeIcon.innerHTML = `
+                                <svg width="16" height="16" fill="black" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.146 3.854a.5.5 0 0 0-.708 0L8 7.293 4.854 4.146a.5.5 0 1 0-.708.708L7.293 8l-3.147 3.146a.5.5 0 0 0 .708.708L8 8.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 8l3.146-3.146a.5.5 0 0 0 0-.708z"/>
+                                </svg>
+                            `;
+                                    removeIcon.onclick = () => {
+                                        messagesWrapper.removeChild(alignmentContainer);
+                                    };
 
-                        fileContent.appendChild(downloadLink);
-                        fileContent.appendChild(removeButton);
-                        messageElement.appendChild(fileContent);
-                        messagesWrapper.appendChild(messageElement);
-                        messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
+                                    messageContainer.appendChild(downloadLink);
+                                    messageContainer.appendChild(removeIcon);
+                                    alignmentContainer.appendChild(messageContainer);
+                                    messagesWrapper.appendChild(alignmentContainer);
 
-                        // Save file message with ID
-                        saveFileMessage({
-                            id: fileId,
-                            name: fileName,
-                            size: fileSize
-                        }, chatId);
+                                    // Optional: Scroll to bottom
+                                    if (typeof scrollToBottom === 'function') {
+                                        scrollToBottom(messagesWrapper);
+                                    }
+
+                                    // Optional: Send to chat
+                                    const messageContent = `${data.fileUrl}`;
+                                    if (typeof sendMessage === 'function') {
+                                        sendMessage(chatId, messageContent, parentContainer, type, id);
+                                    }
+
+                                } else {
+                                    alert("File upload failed.");
+                                }
+                            })
+                            .catch(err => {
+                                console.error("Upload error:", err);
+                                alert("Something went wrong while uploading the file.");
+                            });
                     }
                 };
 
@@ -1171,6 +1182,8 @@ function initializeSimpleChat() {
             });
         }
 
+
+       
 
         const savedMessages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
         // console.log(savedMessages)
