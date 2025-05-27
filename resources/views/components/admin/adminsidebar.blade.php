@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .sidebar-icon:hover{
+            filter: brightness(0) invert(1);
+        }
+    </style>
 </head>
 
 <body>

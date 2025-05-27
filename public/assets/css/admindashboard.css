@@ -2361,6 +2361,9 @@ text[fill="#222222"] {
         padding: 15px;
         gap: 10px;
     }
+    .nbfc-lead-pagination {
+        bottom:0px;
+    }
 
     .referral-triggered-view-headersection h3 {
         font-size: 18px;
