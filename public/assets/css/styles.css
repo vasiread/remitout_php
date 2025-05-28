@@ -1069,7 +1069,6 @@ html, body {
 
  }
 
- /* Slider styling */
  .testimonial-slider {
    display: flex;
    gap: 20px;
@@ -1077,12 +1076,9 @@ html, body {
    position: relative;
    transition: transform 0.5s ease;
    overflow: visible;
-   /* Allow elements to overflow */
-
 
  }
 
- /* Individual card styling */
  .profilecardsection-individual {
    min-width: 420px;
    flex-shrink: 0;
@@ -1101,7 +1097,6 @@ html, body {
  .pagenavigationcontainer {
    position: absolute;
    right: -100px;
-   /* This alone handles the offset */
    bottom: -120px;
    display: flex;
    align-items: center;
@@ -3124,7 +3119,7 @@ html, body {
 
 .search-input {
     width: 100%;
-    padding: 16px;
+    padding: 16px 22px;
     border: 2px solid #e0e0e0;
     border-radius: 8px;
     font-size: 16px;
@@ -3148,7 +3143,9 @@ html, body {
     gap: 8px;
     font-size: 16px;
     position: relative;
-    white-space: nowrap; /* Prevent text wrapping */
+    white-space: nowrap; 
+  
+
 }
 
 .sort-button svg {

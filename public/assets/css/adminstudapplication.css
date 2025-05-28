@@ -29,7 +29,6 @@
 
 .admin-student-form-container {
     width: 100%;
-    max-width: 1000px;
     background-color: white;
     padding: 20px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
@@ -170,7 +169,7 @@
 .admin-student-question-row-course-degree,
 .admin-student-question-row-month {
     display: flex;
-    justify-content: space-between;
+    gap:20px;
     align-items: center;
     margin-bottom: 5px;
 }
@@ -186,7 +185,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 16px;
-    width: 515px;
+    width: 50%;
     background-color: #fff;
     cursor: pointer;
     position: relative;
@@ -202,7 +201,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 16px;
-    width: 400px;
+    width: 50%;
     background-color: #fff;
     cursor: pointer;
     position: relative;
@@ -832,7 +831,7 @@ textarea::placeholder {
 
 .education-header-row {
     display: flex;
-    justify-content: space-between;
+    gap:20px;
     align-items: center;
     margin-bottom: 15px;
     cursor: pointer;
@@ -843,7 +842,7 @@ textarea::placeholder {
     font-weight: 400;
     color: #333;
     padding: 16px;
-    width: 515px;
+    width: 50%;
     border-bottom: 1px solid #888;
 }
 
@@ -852,7 +851,7 @@ textarea::placeholder {
     align-items: center;
     justify-content: space-between;
     padding: 16px;
-    width: 400px;
+    width: 50%;
     position: relative;
     border: none;
     border-bottom: 1px solid #888;
@@ -1305,389 +1304,314 @@ textarea::placeholder {
 
 /*document upload*/
 
-.admin-student-form-section-document-upload {
-    margin-bottom: 20px;
-    border-bottom: 1px solid #f0f0f0;
-    padding: 15px 0;
-}
-
-.admin-student-question-count-document-upload {
-    font-size: 12px;
-    color: #555;
-    font-weight: 400;
-}
-.admin-student-arrow-up {
-    transform: rotate(180deg);
-}
-
-.admin-student-section-content-document-upload {
-    display: block;
-}
-
-.admin-student-dropdown-field {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px;
-    width: 400px;
-    background-color: #fff;
-    position: relative;
-    border: none;
-    border-bottom: 1px solid #888;
-}
-
-.admin-student-dropdown-icon {
-    width: 8px;
-    height: 8px;
-    transform: rotate(45deg);
-    border-right: 2px solid rgb(25, 24, 37);
-    border-bottom: 2px solid rgb(25, 24, 37);
-    transition: transform 0.3s;
-}
-
-.admin-student-options-section-dashboard {
-    display: block;
-    padding: 10px;
-}
-.document-container-admin,
-.kyc-container-admin {
-    width: 100%;
-    margin-top: 10px;
-    position: relative;
-}
-.document-row {
-    display: flex;
-    justify-content: flex-start;
-    /* gap: 10px; */
-    margin-bottom: 15px;
-    flex-wrap: wrap;
-}
-.document-box {
-    background: #fff;
-    border-radius: 5px;
-    padding: 10px;
-    text-align: center;
-    flex: none;
-    position: relative;
-    display: block;
-    margin-bottom: 15px;
-}
-
-.work-experience-container {
-    width: 100%;
-    display: none;
-    flex-direction: column;
-    gap: 0;
-    margin: 0 auto;
-}
-.work-experience-row {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    gap: 20px;
-    margin-bottom: 15px;
-}
-.work-experience-box {
-    background: white;
-    border: none;
-    border-radius: 10px;
-    padding: 15px;
-    text-align: left;
-    flex: none;
-    position: relative;
-}
-.upload-field {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 0px 15px;
-    position: relative;
-    height: 40px;
-    width: 250px;
-}
-.upload-field.clickable {
-    cursor: pointer;
-}
-
-.upload-icon {
-    cursor: pointer;
-    display: inline-block;
-    z-index: 10;
-}
-.upload-icon img {
-    width: 18px;
-}
-input[type="file"] {
-    display: none;
-    /* width: 290px; */
-}
-.add-document {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 322px;
-    height: 46px;
-    margin-top: 10px;
-    padding: 0 10px;
-    color: #ff8a00;
-    cursor: pointer;
-    border: none;
-    border-bottom: 1px solid #ff8a00;
-    position: relative;
-    z-index: 1;
-}
-.add-text {
-    font-size: 14px;
-    font-weight: 500;
-    color: #ff8a00;
-}
-.add-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 24px;
-    height: 24px;
-    color: #ff8a00;
-    border: 1px solid #ff8a00;
-    border-radius: 50%;
-    font-size: 16px;
-}
-.remove-icon {
-    position: absolute;
-    right: 10px;
-    top: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    color: #888;
-    background: none;
-    border: none;
-    padding: 5px;
-    z-index: 2;
-    display: none;
-    font-weight: 300;
-    line-height: 1;
-}
-.remove-btn {
-    position: absolute;
-    right: 10px;
-    top: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    color: #888;
-    background: none;
-    border: none;
-    padding: 5px;
-    z-index: 2;
-    font-weight: 300;
-    line-height: 1;
-}
-.file-actions {
-    display: flex;
-    align-items: center;
-}
-/* Thin X icon style */
-.thin-x {
-    position: relative;
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-}
-.thin-x:before,
-.thin-x:after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 1px;
-    background-color: #888;
-    top: 50%;
-    left: 0;
-}
-.thin-x:before {
-    transform: rotate(45deg);
-}
-.thin-x:after {
-    transform: rotate(-45deg);
-}
-
-.info {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    color: #666;
-    margin-top: 5px;
-}
-.help-trigger {
-    cursor: pointer;
-    color: #0066cc;
-}
-
-.help-container {
-    background-color: white;
-    border-radius: 8px;
-    width: 270px;
-    height: auto;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    position: absolute;
-    z-index: 1;
-    display: none;
-}
-
-.help-container.visible {
-    display: block;
-}
-
-.help-title {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ddd;
-}
-
-.help-content p {
-    font-size: 12px;
-    color: #838383;
-}
-
-.document-name {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-#document-fields-container,
-#academic-fields-container,
-#secured-fields-container,
-#work-experience-row-2,
-#co-borrower-fields-container,
-#salaried-business-fields-container {
-    position: relative;
-    min-height: 50px;
-}
-
-.document-row,
-.work-experience-row {
-    position: relative;
-}
-
-.kyc-container-admin {
-    margin-bottom: 40px;
-}
-.step-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.step-header h2 {
-    font-size: 16px;
-    font-weight: 500;
-    color: #333;
-}
-
-.salary-sub-admin {
-    font-weight: 400;
-    margin-bottom: 40px;
-    color: #333;
-}
-.salary-upload-row {
-    display: flex;
-    justify-content: flex-start;
-    gap: 10px;
-    margin-bottom: 15px;
-    flex-wrap: wrap;
-}
-.salary-upload-box {
-    background: #fff;
-    border-radius: 5px;
-    padding: 10px;
-    width: 322px;
-    text-align: center;
-    flex: none;
-    position: relative;
-}
-
-@media (min-width: 1500px) {
-    .admin-student-form-container {
-        width: 1200px;
-        margin-left: 5%;
+ .admin-student-form-section-document-upload {
+        margin-bottom: 20px;
+        border-bottom: 1px solid #f0f0f0;
+        padding: 15px 0;
+      }
+     
+     
+      .admin-student-question-count-document-upload {
+        font-size: 12px;
+        color: #555;
+        font-weight: 400;
+      }
+      .admin-student-arrow-up {
+        transform: rotate(180deg);
+      }
+     
+      .admin-student-section-content-document-upload {
+        display: block;
+      }
+      
+      .admin-student-dropdown-field {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px;
+        background-color: #fff;
+        position: relative;
+        border: none;
+        border-bottom: 1px solid #888;
+      }
+      
+      .admin-student-dropdown-icon {
+        width: 8px;
+        height: 8px;
+        transform: rotate(45deg);
+        border-right: 2px solid rgb(25, 24, 37);
+        border-bottom: 2px solid rgb(25, 24, 37);
+        transition: transform 0.3s;
+      }
+      
+      .admin-student-options-section-dashboard {
+        display: block;
+        padding: 10px;
+      }
+      
+      .kyc-container-admin {
+        width: 100%;
+        margin-top: 10px;
+        position: relative;
+        margin-bottom: 40px;
+      }
+      
+      .document-container-admin {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-bottom: 40px;
+      }
+      .document-container-admin-salary
+      {
+        display: grid;
+        gap: 20px;
+        margin-bottom: 40px;
+      }
+      
+      .document-row {
+        display: contents;
+      }
+      
+      .document-box {
+        background: #fff;
+        border-radius: 5px;
+        padding: 10px;
+        text-align: center;
+        position: relative;
+        margin-bottom: 15px;
+      }
+      
+      .work-experience-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-bottom: 20px;
     }
-}
 
-@media (min-width: 1728px) {
-    .admin-student-form-container {
-        max-width: 1400px;
-        margin-left: 5%;
+      #work-experience-row-1{
+        grid-template-columns: repeat(3, 1fr);
+          
+      }
+      
+      .work-experience-box {
+        background: white;
+        border: none;
+        border-radius: 10px;
+        padding: 15px;
+        text-align: left;
+        position: relative;
+      }
+      
+      .upload-field {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 0px 15px;
+        position: relative;
+        height: 40px;
+        width: 250px;
+      }
+      
+      .upload-field.clickable {
+        cursor: pointer;
+      }
+      
+      .upload-icon {
+        cursor: pointer;
+      }
+      
+      .upload-icon img {
+        width: 18px;
+      }
+      
+      input[type="file"] {
+        display: none;
+      }
+      
+      .add-document {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 250px;
+        height: 46px;
+        margin-top: 10px;
+        padding: 0 10px;
+        color: #ff8a00;
+        cursor: pointer;
+        border: none;
+        border-bottom: 1px solid #ff8a00;
+        position: relative;
+        z-index: 1;
+        grid-column: 1 / 2;
+      }
+      
+      .add-text {
+        font-size: 14px;
+        font-weight: 500;
+        color: #ff8a00;
+      }
+      
+      .add-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 24px;
+        height: 24px;
+        color: #ff8a00;
+        border: 1px solid #ff8a00;
+        border-radius: 50%;
+        font-size: 16px;
+      }
+      
+      .remove-icon {
+        position: absolute;
+        right: 10px;
+        top: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        color: #888;
+        background: none;
+        border: none;
+        padding: 5px;
+        z-index: 2;
+        display: none;
+        font-weight: 300;
+        line-height: 1;
+      }
+      
+      .remove-btn {
+        position: absolute;
+        right: 10px;
+        top: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        color: #888;
+        background: none;
+        border: none;
+        padding: 5px;
+        z-index: 2;
+        font-weight: 300;
+        line-height: 1;
+      }
+      
+      .file-actions {
+        display: flex;
+        align-items: center;
+      }
+      
+      .thin-x {
+        position: relative;
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+      }
+      
+      .thin-x:before,
+      .thin-x:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        background-color: #888;
+        top: 50%;
+        left: 0;
+      }
+      
+      .thin-x:before {
+        transform: rotate(45deg);
+      }
+      
+      .thin-x:after {
+        transform: rotate(-45deg);
+      }
+      
+      .info {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        color: #666;
+        margin-top: 5px;
+      }
+      
+      .help-trigger {
+        cursor: pointer;
+        color: #0066cc;
+      }
+      
+      .help-container {
+        background-color: white;
+        border-radius: 8px;
+        width: 270px;
+        height: auto;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        position: absolute;
+        z-index: 1;
+        display: none;
+      }
+      
+      .help-container.visible {
+        display: block;
+      }
+      
+      .help-title {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
         margin-bottom: 10px;
-    }
-}
-
-.admin-student-form-save-btn {
-    background-color: #fa7b15;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    font-family: "poppins";
-    margin-left: auto;
-    display: block;
-    width: 180px;
-    margin-bottom: 60px;
-    margin-right: 70px;
-    margin-top: 20px;
-}
-
-.help-container {
-    display: none;
-    position: relative;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 20px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.help-container[style*="display: block"] {
-    display: block !important;
-}
-
-.help-trigger {
-    cursor: pointer;
-    color: #007bff;
-    margin-right: 10px;
-    font-size: 14px;
-}
-
-.document-row {
-    display: flex;
-    flex-wrap: wrap;
-    /* gap: 15px; */
-    margin-bottom: 20px;
-}
-
-.document-row:last-child {
-    margin-bottom: 30px;
-    display: flex;
-    justify-content: flex-start;
-}
-
-.upload-field {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px;
-}
-
-.info {
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    color: #666;
-}
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+      }
+      
+      .help-content p {
+        font-size: 12px;
+        color: #838383;
+      }
+      
+      .document-name {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      
+      .salary-sub-admin {
+        font-weight: 400;
+        margin-bottom: 40px;
+        color: #333;
+      }
+      
+      .salary-upload-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-bottom: 0px;
+      }
+      
+      .salary-upload-box {
+        background: #fff;
+        border-radius: 5px;
+        padding: 10px;
+        text-align: center;
+        position: relative;
+      }
+      
+      .admin-student-form-save-btn {
+        background-color: #FA7B15;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        font-family: "poppins";
+        margin-left: auto;
+        display: block;
+        width: 180px;
+        margin-bottom: 60px;
+        margin-right: 70px;
+        margin-top: 20px;
+      }
+      
+   
