@@ -75,6 +75,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    window.handleFileUpload = handleFileUpload;
+
     window.removeFile = removeFile;
 
     const prevButton = document.querySelector(".nav-button.prev");
@@ -699,8 +701,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // ✅ Final payload
-        const academicDetails = {
+         const academicDetails = {
             personalInfoId,
             selectedAcademicGap,
             reasonForGap,
@@ -1121,10 +1122,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-    window.handleFileUpload = handleFileUpload;
-  });
-
+    
     function uploadFileToServer(file, userId, fileNameId, clearName,sourceType) {
         fileNameId = fileNameId.replace(`-${userId}`, "");
         const formDetailsData = new FormData();

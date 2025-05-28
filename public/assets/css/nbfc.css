@@ -1443,15 +1443,17 @@ body {
     opacity: 0.5;
 }
 
-.viewmore-messagenbfc {
+.viewmore-messagenbfc,.viewmore-request,.viewmore-proposal {
     display: none;
     justify-content: flex-end;
     margin-right: 10px;
-
+    cursor: pointer;
+ 
 
 }
 
-.viewmore-messagenbfc p {
+.viewmore-messagenbfc p ,.viewmore-request p,
+.viewmore-proposal p{
     color: rgba(93, 92, 92, 1);
     font-family: "Poppins";
     font-weight: 600;
@@ -1514,7 +1516,7 @@ body {
         margin-left: 0;
     }
 
-    .viewmore-messagenbfc {
+    .viewmore-messagenbfc,.viewmore-request,.viewmore-proposal {
         display: flex;
     }
 
@@ -2787,9 +2789,7 @@ body {
         align-items: center;
     }
 
-    .index-student-description {
-        width: 700px;
-    }
+     
 }
 
 @media (max-width: 1024px) {
@@ -2846,8 +2846,7 @@ body {
         gap: 16px;
         width: 100%;
         max-width: 100%;
-        justify-content: space-between;
-    }
+     }
 
     .inbox-search {
         position: absolute;
@@ -2888,8 +2887,7 @@ body {
     }
 
     .index-student-description {
-        width:240px;
-        max-width: 100%;
+         max-width: 100%;
         font-size: 12px;
     }
 
