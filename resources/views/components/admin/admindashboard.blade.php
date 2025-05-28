@@ -707,6 +707,7 @@ $registrationSourceAnalysis = [
                 initializeCountriesTable();
                 funnelreport();
                 initializePostgradDropdowns();
+                updateVisibleReportsFromFilters()
 
                 // loadAgeRatioChart();
 
@@ -2594,6 +2595,31 @@ $registrationSourceAnalysis = [
                 });
             });
         };
+
+        function updateVisibleReportsFromFilters() {
+                const activeTags = Array.from(document.querySelectorAll('.admin-dashboard-filter-tag'))
+                    .map(tag => tag.textContent.trim().replace('×', '').trim().toLowerCase());
+
+                const reports = document.querySelectorAll('[data-report]');
+
+                reports.forEach(report => {
+                    const reportType = report.getAttribute('data-report').replace(/-/g, ' ').toLowerCase();
+                    const shouldShow = activeTags.some(tag => reportType.includes(tag));
+                    report.style.display = shouldShow ? 'block' : 'none';
+                });
+            }
+
+            // Watch for clicks on close icons to update the view
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('admin-dashboard-close-tag')) {
+                    // Remove the tag from the DOM
+                    const tagElement = e.target.closest('.admin-dashboard-filter-tag');
+                    if (tagElement) {
+                        tagElement.remove();
+                        updateVisibleReportsFromFilters(); // Re-run filtering
+                    }
+                }
+            });
 
 
 
