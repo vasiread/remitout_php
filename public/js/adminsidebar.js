@@ -65,6 +65,7 @@ function initializeAdminSidebar() {
 
 
     const addCounsellorModelTrigger = document.getElementById("switch-addcounsellor");
+ 
 
     if (addCounsellorModelTrigger && !addCounsellorModelTrigger.dataset.listenerAdded) {
         addCounsellorModelTrigger.addEventListener('click', () => {
@@ -200,6 +201,8 @@ function initializeAdminSidebar() {
                     adminsideScDashboard.style.display = "none";
                 if (studentProfileContainerAdminSide)
                     studentProfileContainerAdminSide.style.display = "none";
+                if (studentIndexAdmin)
+                    studentIndexAdmin.style.display = "none";
             } else if (index === 1) {
                 if (studentIndexAdmin) studentIndexAdmin.style.display = "flex";
                 if (adminPropertyOne) adminPropertyOne.style.display = "none";

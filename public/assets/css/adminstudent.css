@@ -46,7 +46,13 @@
     justify-content: flex-end;
     gap: 10px;
 }
-
+.upload-field input{
+    display:none;
+}
+.document-box{
+    flex-direction: column;
+    
+}
 #search-student-list {
     height: 100%;
     max-width: 73.01%;

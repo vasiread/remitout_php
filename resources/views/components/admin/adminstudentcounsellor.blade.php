@@ -28,7 +28,7 @@ $pindropIconPath = "assets/images/pin_drop.png";
 $studentCounsellorsLists = [];
     @endphp
 
-    <div class="add-studentcounsellor-adminside">
+    <div class="add-studentcounsellor-adminside" style="display:none">
         <h1 class="studentcounsellor-header-admin">Add Student Counsellor</h1>
         <div class="studentcounsellor-requiredfields-admin">
             <div class="input-container-sc">
