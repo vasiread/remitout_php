@@ -666,9 +666,9 @@ form {
 }
 
 .input-row {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 25px;
-    justify-content: flex-start;
     margin-bottom: 20px;
 }
 
@@ -683,6 +683,7 @@ form {
     padding: 0 0.625rem;
     background-color: #fff;
     margin-top: 0.625rem;
+    
 }
 
 .input-group input {
@@ -778,7 +779,10 @@ form {
     }
 
     .input-row {
-        gap: 20px;
+         display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 15px;
+        justify-content: center;
     }
 
     .input-group {
@@ -1027,7 +1031,8 @@ form {
     }
 
     .input-row {
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
         gap: 15px;
         justify-content: center;
     }
@@ -1458,6 +1463,7 @@ input[type="number"]::-webkit-inner-spin-button {
      display: none;
      width: 100%;
      max-width: 100%;
+     gap:20px;
 
  }
 
