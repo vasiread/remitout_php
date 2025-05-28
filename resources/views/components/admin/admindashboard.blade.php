@@ -102,8 +102,8 @@
 
 
 
-                <div class="postgrad-buttongroups" id="postgrad-reports">
-                    <div id="postgrad-buttongroups-insideshow-id">
+                <div class="postgrad-buttongroups" id="postgrad-reports" style="display: none;">
+                    <div id="postgrad-buttongroups-insideshow-id" >
                         Graduate <i class="fa-solid fa-chevron-down"></i>
                     </div>
                     <div class="dropdown-content-postgrad" id="postgrad-overallprogress">

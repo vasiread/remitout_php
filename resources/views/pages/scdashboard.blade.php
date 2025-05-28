@@ -416,8 +416,8 @@ $studentDocumentDetailsInfo = [
                                 <button id="applicationstatus-sortby">Sort by <img src="assets/images/Icons/swap_vert.png" />
                                 </button>
                                 <div class="sort-by-contents-applications-studentnames">
-                                    <a href="" data-sort="newest">Newest</a>
-                                    <a href="" data-sort="oldest">Oldest</a>
+                                    <a href="" data-sort="newest" style="display: none;">Newest</a>
+                                    <a href="" data-sort="oldest"style="display:none">Oldest</a>
                                     <a href="" data-sort="alphabet">A-Z</a>
                                     <a href="" data-sort="alphabet-reverse">Z-A</a>
                                 </div>
