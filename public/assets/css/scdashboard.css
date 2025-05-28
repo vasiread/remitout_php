@@ -1479,6 +1479,8 @@
 }
 
 /* Raise Query css */
+
+
 .raise-query-popup {
     display: flex;
     flex-direction: column;

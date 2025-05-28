@@ -556,7 +556,7 @@
                       <div class="document-row" id="document-row-1">
                         <!-- PAN Card -->
                         <div class="document-box">
-                          <div class="document-name" id="pan-card-document-name" style="display: none">
+                          <div class="document-name" id="pan-card-document-name" >
                             PAN Card
                           </div>
                           <div class="upload-field">
@@ -577,7 +577,7 @@
                             <span class="help-trigger" data-target="kyc-pan-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
                           </div>
-                          <div class="help-container kyc-pan-help" id="help-container-kyc-id" style="display: none">
+                          <div class="help-container kyc-pan-help" id="help-container-kyc-id">
                             <h3 class="help-title">Help</h3>
                             <div class="help-content">
                               <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
@@ -587,7 +587,7 @@
 
                         <!-- Aadhar Card -->
                         <div class="document-box">
-                          <div class="document-name" id="aadhar-card-document-name" style="display: none">
+                          <div class="document-name" id="aadhar-card-document-name" >
                             Aadhar Card
                           </div>
                           <div class="upload-field">
@@ -618,7 +618,7 @@
                         </div>
                         <!-- Passport -->
                         <div class="document-box">
-                          <div class="document-name" id="passport-document-name" style="display: none">
+                          <div class="document-name" id="passport-document-name" >
                             Passport
                           </div>
                           <div class="upload-field">
@@ -675,7 +675,7 @@
                       <div class="document-row" id="academic-row-1">
                         <!-- 10th Grade Mark Sheet -->
                         <div class="document-box">
-                          <div class="document-name" id="10th-mark-sheet-id" style="display: none">
+                          <div class="document-name" id="10th-mark-sheet-id" >
                             10th Mark Sheet
                           </div>
                           <div class="upload-field">
