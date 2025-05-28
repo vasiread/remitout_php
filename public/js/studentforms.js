@@ -75,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    window.handleFileUpload = handleFileUpload;
     window.removeFile = removeFile;
 
     const prevButton = document.querySelector(".nav-button.prev");
@@ -1121,6 +1120,10 @@ document.addEventListener("DOMContentLoaded", () => {
             await uploadFileToServer(file, userId, fileNameId, clearName,sourceType);
         }
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+    window.handleFileUpload = handleFileUpload;
+  });
 
     function uploadFileToServer(file, userId, fileNameId, clearName,sourceType) {
         fileNameId = fileNameId.replace(`-${userId}`, "");

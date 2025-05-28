@@ -74,27 +74,24 @@ document.addEventListener('DOMContentLoaded', function () {
     // const acceptTriggers = document.querySelectorAll(".user-accept-trigger");
     // const rejectTriggers = document.querySelectorAll(".bankmessage-buttoncontainer-reject");
 
-    let planToStudy = courseDetails[0]['plan-to-study'].replace(/[\[\]"]/g, '');
-    let selectedCountries = planToStudy.split(/\s*,\s*/);
+      
 
-    document.getElementById("plan-to-study-edit").value = planToStudy;
-
-    document.querySelectorAll('input[name="study-location-edit"]').forEach(checkbox => {
-        if (selectedCountries.includes(checkbox.value)) {
-            checkbox.checked = true;
-        }
-    });
+    // document.querySelectorAll('input[name="study-location-edit"]').forEach(checkbox => {
+    //     if (selectedCountries.includes(checkbox.value)) {
+    //         checkbox.checked = true;
+    //     }
+    // });
 
     const otherCheckbox = document.querySelector('#other-checkbox-edit');
     const addCountryBox = document.querySelector('.add-country-box-edit');
     const customCountryInput = document.querySelector('#country-edit');
 
-    if (selectedCountries.includes("Other")) {
-        otherCheckbox.checked = true;
-        addCountryBox.style.display = 'block';
-    } else {
-        addCountryBox.style.display = 'none';
-    }
+    // if (selectedCountries.includes("Other")) {
+    //     otherCheckbox.checked = true;
+    //     addCountryBox.style.display = 'block';
+    // } else {
+    //     addCountryBox.style.display = 'none';
+    // }
 
     otherCheckbox.addEventListener('change', () => {
         if (otherCheckbox.checked) {

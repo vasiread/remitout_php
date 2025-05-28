@@ -1037,7 +1037,7 @@ $counter = 1;
                 }
 
                 setActiveMenuItem(inboxMenuItem);
-                document.querySelector(".wholeapplicationprofile").style.display="none";
+                document.querySelector(".wholeapplicationprofile").style.display = "none";
             });
 
 
@@ -1824,7 +1824,7 @@ $counter = 1;
         let selectedStudentId = null;
 
         // Attach file input click trigger once
-    attachmentBtn.addEventListener('click', () => {
+        attachmentBtn.addEventListener('click', () => {
             fileInput.click();
         });
 
@@ -1832,7 +1832,7 @@ $counter = 1;
         fileInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
-                fileName.innerHTML = '<img src="{{asset('assets/images/image-pdf.png')}}" />' + file.name;
+                fileName.textContent = file.name;
                 fileSize.textContent = (file.size / 1024).toFixed(2) + ' KB';
                 attachmentPreview.style.display = 'flex';
 
@@ -1956,20 +1956,20 @@ $counter = 1;
 
 
 
-removeAttachment.addEventListener('click', () => {
-    // Reset file input
-    fileInput.value = '';
-    
-    // Reset preview
-    fileName.textContent = 'No file selected';
-    fileSize.textContent = '';
+        removeAttachment.addEventListener('click', () => {
+            // Reset file input
+            fileInput.value = '';
 
-     
-    attachmentPreview.style.display = 'none';
+            // Reset preview
+            fileName.textContent = 'No file selected';
+            fileSize.textContent = '';
 
-    
-    attachmentBtn.style.display = 'flex';
- });        closeButtons.forEach(button => button.addEventListener('click', closeModal));
+            // Hide preview
+            attachmentPreview.style.display = 'none';
+
+            // Show the button and file input again
+            attachmentBtn.style.display = 'flex';
+        }); closeButtons.forEach(button => button.addEventListener('click', closeModal));
         cancelButton.addEventListener('click', closeModal);
         sendButton.addEventListener('click', closeModal);
 
@@ -1999,7 +1999,7 @@ removeAttachment.addEventListener('click', () => {
                 }
             }
 
-           if (addAttachmentBtn && fileInput) {
+            if (addAttachmentBtn && fileInput) {
                 addAttachmentBtn.addEventListener("click", () => {
                     fileInput.click();
                 });
@@ -2032,8 +2032,8 @@ removeAttachment.addEventListener('click', () => {
                     if (fileInput && fileNameSpan) {
                         fileInput.value = "";
                         fileNameSpan.textContent = "+ Add Attachment";
-                        fileNameSpan.style.display="flex";
-                        fileNameSpan.style.justifyContent="flex-start";
+                        fileNameSpan.style.display = "flex";
+                        fileNameSpan.style.justifyContent = "flex-start";
                         removeAttachmentBtn.style.display = "none";
                         selectedFile = null;
                     }
@@ -2297,7 +2297,7 @@ removeAttachment.addEventListener('click', () => {
                 // Get elements within this container
                 const messageInput = container.querySelectorAll(".nbfc-message-input");
                 const sendButton = container.querySelector(".nbfc-send-img");
-                const smileIcon = container.querySelector(".nbfc-face-smile");
+                const smileIcon = container.querySelectorAll(".nbfc-face-smile");
                 const paperclipIcon = container.querySelector(".nbfc-paperclip");
 
                 function showChat() {
@@ -2465,6 +2465,7 @@ removeAttachment.addEventListener('click', () => {
                     const student_id = messageInputStudentids;
                     nbfc_id = nbfc_id.trim();
                     const chatId = `chat-${index}`;
+                    alert(chatId)
 
 
                     if (chatId) {
@@ -2475,7 +2476,6 @@ removeAttachment.addEventListener('click', () => {
                             .then(data => {
                                 console.log('API response:', data);
                                 if (data && data.messages && data.messages.length > 0) {
-                                    // Sort messages by ID to ensure chronological order
                                     data.messages.sort((a, b) => a.id - b.id);
 
                                     data.messages.forEach(message => {
@@ -2591,19 +2591,21 @@ removeAttachment.addEventListener('click', () => {
 
                 }
                 if (smileIcon) {
-                    smileIcon.addEventListener('click', function (e) {
-                        e.stopPropagation();
-                        const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
 
-                        const existingPicker = document.querySelector(".emoji-picker");
-                        if (existingPicker) {
-                            existingPicker.remove();
-                            return;
-                        }
+                    smileIcon.forEach((smileIcon, index) => {
+                        smileIcon.addEventListener('click', function (e) {
+                            e.stopPropagation();
+                            const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
 
-                        const picker = document.createElement("div");
-                        picker.classList.add("emoji-picker");
-                        picker.style.cssText = `
+                            const existingPicker = document.querySelector(".emoji-picker");
+                            if (existingPicker) {
+                                existingPicker.remove();
+                                return;
+                            }
+
+                            const picker = document.createElement("div");
+                            picker.classList.add("emoji-picker");
+                            picker.style.cssText = `
                     position: absolute;
                     bottom: 100%;
                     right: 0;
@@ -2616,37 +2618,41 @@ removeAttachment.addEventListener('click', () => {
                     z-index: 1000;
                 `;
 
-                        emojis.forEach(emoji => {
-                            const button = document.createElement("button");
-                            button.textContent = emoji;
-                            button.style.cssText = `
+                            emojis.forEach(emoji => {
+                                const button = document.createElement("button");
+                                button.textContent = emoji;
+                                button.style.cssText = `
                         border: none;
                         background: none;
                         font-size: 20px;
                         cursor: pointer;
                         padding: 5px;
                     `;
-                            button.onclick = (e) => {
-                                e.stopPropagation();
-                                messageInput[index].value += emoji;
-                                picker.remove();
-                                messageInput[index].focus();
-                            };
-                            picker.appendChild(button);
+                                button.onclick = (e) => {
+                                    e.stopPropagation();
+                                    messageInput[index].value += emoji;
+                                    picker.remove();
+                                    messageInput[index].focus();
+                                };
+                                picker.appendChild(button);
+                            });
+
+                            container.appendChild(picker);
+
+
+
+
+                            document.addEventListener("click", function closePicker(e) {
+                                if (!picker.contains(e.target) && e.target !== smileIcon) {
+                                    picker.remove();
+                                    document.removeEventListener("click", closePicker);
+                                }
+                            });
                         });
 
-                        container.appendChild(picker);
+                    })
 
 
-
-
-                        document.addEventListener("click", function closePicker(e) {
-                            if (!picker.contains(e.target) && e.target !== smileIcon) {
-                                picker.remove();
-                                document.removeEventListener("click", closePicker);
-                            }
-                        });
-                    });
                 }
 
                 if (paperclipIcon) {
@@ -4884,18 +4890,14 @@ removeAttachment.addEventListener('click', () => {
 
 
 
-        const initialiseAllViews = (userId) => {
-
+      const initialiseAllViews = (userId) => {
             if (!csrfToken || !userId) {
                 console.error("CSRF token or User ID is missing");
-                return Promise.reject("CSRF token or User ID is missing");
+                return Promise.resolve(); // Avoid rejecting; just log
             }
 
-            // Extract fileTypes from endpoints, but backend may return more keys
             const fileTypes = endpoints.map(ep => ep.fileType);
-
-            console.log("!!")
-            console.log(fileTypes)
+            console.log("File types to fetch:", fileTypes);
 
             return fetch("/retrieve-file", {
                 method: "POST",
@@ -4908,19 +4910,19 @@ removeAttachment.addEventListener('click', () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    // data could be a flat object with all files (static + dynamic)
-                    const allFiles = data.staticFiles || data;
-                    const documentUrls = {}; // define here if you're returning it
+                    const allFiles = (data && data.staticFiles) || data || {}; // Safe fallback
+                    const documentUrls = {};
 
+                    if (!allFiles || typeof allFiles !== "object") {
+                        console.warn("No files returned from server.");
+                        return;
+                    }
 
-                    // Loop through all keys returned by backend (all files)
                     Object.entries(allFiles).forEach(([fileType, fileUrl]) => {
                         if (fileUrl) {
                             documentUrls[fileType] = fileUrl;
                             const fileName = fileUrl.split("/").pop();
-                            console.log(documenturls)
 
-                            // Find matching selector from endpoints (if any)
                             const endpoint = endpoints.find(ep => ep.fileType === fileType);
                             if (endpoint) {
                                 const element = document.querySelector(endpoint.selector);
@@ -4939,6 +4941,7 @@ removeAttachment.addEventListener('click', () => {
                 })
                 .catch(error => {
                     console.error("Error fetching files:", error);
+                    // Don't reject; allow rest of the app to continue
                 });
         };
 

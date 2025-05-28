@@ -556,6 +556,7 @@ $studentDocumentDetailsInfo = [
             queryDetails();
             initializeRaiseQuery();
             updateStartNewText();
+            triggerDownloadTrigger();
 
 
 
@@ -1054,6 +1055,7 @@ $studentDocumentDetailsInfo = [
             };
 
             popuAddingStudentTriggers.forEach(button => {
+                
                 button.addEventListener("click", showPopup);
             });
 
@@ -2229,7 +2231,7 @@ $studentDocumentDetailsInfo = [
                             });
 
                             renderPagination();
-                            triggeredButtons(); // Your custom function to handle button actions
+                            triggeredButtons();  
                         };
 
                         const renderPagination = () => {
@@ -2331,9 +2333,42 @@ $studentDocumentDetailsInfo = [
         }
 
 
+   function triggerDownloadTrigger() {
+        const button = document.getElementById('download-statusgroups-reports');
+        if (!button) return;
 
+        button.addEventListener('click', function () {
+            const scuser = @json(session('scuser'));
 
-    </script>
+            if (!scuser || !scuser.referral_code) {
+                alert('User referral code is missing in session!');
+                return;
+            }
+
+             const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/export-user-status';
+            form.style.display = 'none';
+
+            // CSRF token (required in Laravel for POST requests)
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '_token';
+            csrfInput.value = csrfToken;
+            form.appendChild(csrfInput);
+
+            // Referral Code input
+            const referralInput = document.createElement('input');
+            referralInput.type = 'hidden';
+            referralInput.name = 'scReferralId';
+            referralInput.value = scuser.referral_code;
+            form.appendChild(referralInput);
+
+            document.body.appendChild(form);
+            form.submit();
+        });
+    }  </script>
 </body>
 
 </html>

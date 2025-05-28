@@ -299,43 +299,42 @@ class StudentDashboardController extends Controller
                 'remarks' => 'string'
             ]);
 
-            \Log::info('Received request data:', [
-                'userId' => $request->input('userId'),
-                'nbfcId' => $request->input('nbfcId'),
-                'remarks' => $request->input('remarks')
-            ]);
-
             $userID = $request->input('userId');
             $nbfcID = $request->input('nbfcId');
             $remarks = $request->input('remarks');
 
+            \Log::info('Received request data:', [
+                'userId' => $userID,
+                'nbfcId' => $nbfcID,
+                'remarks' => $remarks
+            ]);
+
             // Delete the user from Requestprogress
-            $deleteQuery = Requestprogress::where('nbfc_id', $nbfcID)
+            $deleteCount = Requestprogress::where('nbfc_id', $nbfcID)
                 ->where('user_id', $userID)
                 ->delete();
 
-            if ($deleteQuery) {
-                // Check if a record with the same nbfc_id and user_id already exists in Rejectedbynbfc
+            \Log::info('Delete result from Requestprogress:', ['deletedRows' => $deleteCount]);
+
+            if ($deleteCount > 0) {
+                // Check for existing rejection record
                 $record = Rejectedbynbfc::where('user_id', $userID)
                     ->where('nbfc_id', $nbfcID)
                     ->first();
 
                 if ($record) {
-                    Rejectedbynbfc::where('user_id', $userID)
-                        ->where('nbfc_id', $nbfcID)
-                        ->update([
-                            'remarks' => $remarks,
-
-                        ]);
-
+                    $record->update(['remarks' => $remarks]);
+                    \Log::info('Rejectedbynbfc record updated.');
                 } else {
-                    // If the record does not exist, create a new one
                     Rejectedbynbfc::create([
                         'user_id' => $userID,
                         'nbfc_id' => $nbfcID,
                         'remarks' => $remarks
                     ]);
+                    \Log::info('Rejectedbynbfc record created.');
                 }
+            } else {
+                \Log::warning('No matching record found in Requestprogress to delete.');
             }
 
             return response()->json([
@@ -344,8 +343,10 @@ class StudentDashboardController extends Controller
             ], 200);
 
         } catch (\Exception $e) {
-            // Log the error for debugging
-            \Log::error('Error during rejection process:', ['error' => $e->getMessage()]);
+            \Log::error('Error during rejection process:', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
 
             return response()->json([
                 'success' => false,

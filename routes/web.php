@@ -83,7 +83,7 @@ Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser'])
 
 
 
-Route::get('pages/student-dashboard', [TrackController::class, 'loanTracker']);
+// Route::get('pages/student-dashboard', [TrackController::class, 'loanTracker']);
 
 
 Route::post('/registerformdata', [RegisterController::class, 'store'])->name('registerformdata');
@@ -171,7 +171,7 @@ Route::post('/multipleregisterbyscuser', [StudentDashboardController::class, 'mu
 Route::get('/retrievedashboarddetails', [Admincontroller::class, 'retrieveDashboardDetails']);
 Route::post('/getprofilecompletionbygender', [Admincontroller::class, 'getProfileCompletionByGenderAndDegree']);
 
-Route::get('/getstatusofusers', [Admincontroller::class, 'pointOfEntries']);
+Route::get('/getstatusofusersadmin', [Admincontroller::class, 'pointOfEntries']);
 Route::get('/nbfc-lead-gens', [Admincontroller::class, 'nbfcLeadGens']);
 Route::get('/sc-lead-gens', [Admincontroller::class, 'scLeadGens']);
 Route::post('/reports-on-generation', [Admincontroller::class, 'reportsOnGeneration']);
@@ -275,3 +275,29 @@ Route::delete('/academics-adminshow/{id}', [Admincontroller::class, 'deleteAcade
 Route::get('/course-detail-options', [Admincontroller::class, 'getCourseExpenseOptions']);
 Route::post('/course-options', [Admincontroller::class, 'addCourseExpenseOptions']);
 Route::delete('/course-options/{id}', [Admincontroller::class, 'delCourseExpenseOptions']);
+
+
+
+
+Route::post('/export-user-status', [scDashboardController::class, 'downloadExcelStatus']);
+
+
+
+Route::post('/send-reset-link', [LoginController::class, 'sendResetLink']);
+
+Route::get('/reset-password', function (Request $request) {
+    // Show reset form, pass token and type to view
+    $token = $request->query('token');
+    $type = $request->query('type');
+    return view('email.resetpassword', compact('token', 'type'));
+});
+
+ 
+
+// POST request to send reset link
+Route::post('/send-reset-link', [LoginController::class, 'sendResetLink']);
+
+// GET request to show reset password form (you need to create this method & view)
+ 
+// POST request to reset password
+ 

@@ -1,12 +1,14 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Exports\UserStatusesExport;
 use App\Mail\ForgotPassword;
 use App\Mail\SendScDetailsMail;
 use App\Models\Queries;
 use App\Models\Requestprogress;
 use App\Models\User;
 use Exception;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
@@ -264,6 +266,9 @@ class scDashboardController extends Controller
                 $Accepted = DB::table('traceprogress')
                     ->join('nbfc', 'traceprogress.nbfc_id', '=', 'nbfc.nbfc_id')
                     ->where('traceprogress.user_id', $userId)
+                    ->where('traceprogress.type', 'proposal') // Only proposals
+                    ->where('traceprogress.reviewed', 1)      // Only accepted ones
+                    ->whereNotNull('traceprogress.created_at')
                     ->select(
                         'nbfc.nbfc_name',
                         'traceprogress.created_at',
@@ -271,6 +276,8 @@ class scDashboardController extends Controller
                         'traceprogress.user_id'
                     )
                     ->get();
+
+
 
                 $Pending = DB::table('requestedbyusers')
                     ->join('nbfc', 'requestedbyusers.nbfcid', '=', 'nbfc.nbfc_id')
@@ -365,14 +372,6 @@ class scDashboardController extends Controller
             ], 500);
         }
     }
-
-
-
-
-
-
-
-
 
 
     public function retrieveScProfilePicture(Request $request)
@@ -649,27 +648,124 @@ class scDashboardController extends Controller
     public function postQueryScside(Request $request)
     {
 
-    
+
         // Validate the incoming request data
         $request->validate([
-            'scuserid'    => 'required|string',
-            'querytype'   => 'required|string|max:255',
+            'scuserid' => 'required|string',
+            'querytype' => 'required|string|max:255',
             'queryraised' => 'required|string',
         ]);
 
         // Create a new query record
         $query = Queries::create([
-            'scuserid'    => $request->input('scuserid'),
-            'querytype'   => $request->input('querytype'),
+            'scuserid' => $request->input('scuserid'),
+            'querytype' => $request->input('querytype'),
             'queryraised' => $request->input('queryraised'),
         ]);
 
         // Return a success response
         return response()->json([
             'message' => 'Query raised successfully!',
-            'data'    => $query
+            'data' => $query
         ], 201);
-    
+
 
     }
+
+    public function downloadExcelStatus(Request $request)
+    {
+        try {
+            $request->validate([
+                'scReferralId' => 'required|string',
+            ]);
+
+            $scUserId = $request->input('scReferralId');
+
+            $users = DB::table('users')->where('referral_code', $scUserId)->get();
+
+            if ($users->isEmpty()) {
+                return response()->json(['message' => 'No user found for this referral'], 404);
+            }
+
+            $allStatuses = [];
+
+            foreach ($users as $user) {
+                $userId = $user->unique_id;
+                $userName = $user->name;
+
+                $Accepted = DB::table('traceprogress')
+                    ->join('nbfc', 'traceprogress.nbfc_id', '=', 'nbfc.nbfc_id')
+                    ->where('traceprogress.user_id', $userId)
+                    ->select(
+                        'nbfc.nbfc_name',
+                        'traceprogress.created_at',
+                        DB::raw("'Accepted' as status_type"),
+                        'traceprogress.user_id'
+                    )->get();
+
+                $Pending = DB::table('requestedbyusers')
+                    ->join('nbfc', 'requestedbyusers.nbfcid', '=', 'nbfc.nbfc_id')
+                    ->where('requestedbyusers.userid', $userId)
+                    ->select(
+                        'nbfc.nbfc_name',
+                        'requestedbyusers.created_at',
+                        DB::raw("'Pending' as status_type"),
+                        'requestedbyusers.userid as user_id'
+                    )->get();
+
+                $Rejected = DB::table('rejectedbynbfc')
+                    ->join('nbfc', 'rejectedbynbfc.nbfc_id', '=', 'nbfc.nbfc_id')
+                    ->where('rejectedbynbfc.user_id', $userId)
+                    ->select(
+                        'nbfc.nbfc_name',
+                        'rejectedbynbfc.created_at',
+                        DB::raw("'Rejected' as status_type"),
+                        'rejectedbynbfc.user_id'
+                    )->get();
+
+                $merged = collect($Accepted)->merge($Pending)->merge($Rejected);
+
+                foreach ($merged as $status) {
+                    $allStatuses[] = [
+                        'User ID' => $status->user_id,
+                        'User Name' => $userName,
+                        'NBFC Name' => $status->nbfc_name,
+                        'Status Type' => $status->status_type,
+                        'Created At' => $status->created_at,
+                    ];
+                }
+            }
+
+            if (empty($allStatuses)) {
+                return response()->json(['message' => 'No statuses found for users'], 404);
+            }
+
+            // Create CSV streamed response
+            $headers = [
+                'Content-Type' => 'text/csv',
+                'Content-Disposition' => 'attachment; filename="user_statuses.csv"',
+            ];
+
+            $callback = function () use ($allStatuses) {
+                $file = fopen('php://output', 'w');
+                fputcsv($file, ['User ID', 'User Name', 'NBFC Name', 'Status Type', 'Created At']);
+
+                foreach ($allStatuses as $row) {
+                    fputcsv($file, $row);
+                }
+
+                fclose($file);
+            };
+
+            return response()->stream($callback, 200, $headers);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error generating CSV file',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+
 }

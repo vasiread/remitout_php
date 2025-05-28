@@ -75,8 +75,8 @@
                             </button>
 
                             <!-- <button class="iossigninbutton">
-                                            <img src="http://localhost:8000/assets/images/appleicon.png" alt="Apple logo"> Sign in with Apple
-                                        </button> -->
+                                                        <img src="http://localhost:8000/assets/images/appleicon.png" alt="Apple logo"> Sign in with Apple
+                                                    </button> -->
                         </div>
 
                         <!-- New User Sign Up Option -->
@@ -97,7 +97,8 @@
                     <form id="forgotPasswordForm" onsubmit="sendResetLink(event)">
                         <label for="forgot-email">Email</label>
                         <input type="email" id="forgot-email" name="email" placeholder="name@example.com" required>
-                        <div id="forgot-email-error" class="forgot-password-popup-error" style="display: none;"></div>
+                        <div id="forgot-email-error" class="forgot-password-popup-error" style="display: none; color: red;">
+                        </div>
                         <button type="submit">Send reset link</button>
                         <div id="forgot-password-status" class="forgot-password-popup-status" style="display: none;"></div>
                     </form>
@@ -115,7 +116,7 @@
                     alert("{{ session('session_expired') }}");
                     logoutSession();
                 @endif
-                    });
+                                });
 
             const passwordInput = document.getElementById('loginpasswordID');
             const passwordIcon = document.querySelector('.passwordClose');
@@ -152,7 +153,7 @@
                 toggleLabelVisibility(this);
             });
 
-            
+
 
             // Function to handle logout session
             function logoutSession() {
@@ -244,48 +245,50 @@
 
             // Send reset link
             function sendResetLink(event) {
-                event.preventDefault();
-                const email = document.getElementById('forgot-email').value;
-                const errorElement = document.getElementById('forgot-email-error');
-                const statusElement = document.getElementById('forgot-password-status');
+                event.preventDefault(); // Prevent default form submission
+
+                const emailInput = document.getElementById("forgot-email");
+                const emailError = document.getElementById("forgot-email-error");
+                const statusMessage = document.getElementById("forgot-password-status");
+                const loginName = emailInput.value.trim();
+
+                // Simple email format validation
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-                // Validate email
-                if (!emailRegex.test(email)) {
-                    errorElement.textContent = 'Please enter a valid email address';
-                    errorElement.style.display = 'block';
-                    statusElement.style.display = 'none';
-                    return;
-                }
+                if (!emailRegex.test(loginName)) {
+                    emailError.textContent = "Please enter a valid email address.";
+                    emailError.style.display = "block";
+                    statusMessage.style.display = "none";
+                } else {
+                    emailError.style.display = "none";
 
-                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                fetch('/forgot-password', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken,
-                    },
-                    body: JSON.stringify({
-                        email: email
+                    fetch('/send-reset-link', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({ loginName })
                     })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'We have emailed your password reset link!') {
-                            statusElement.textContent = data.status;
-                            statusElement.style.display = 'block';
-                            errorElement.style.display = 'none';
-                        } else {
-                            errorElement.textContent = data.email || 'An error occurred. Please try again.';
-                            errorElement.style.display = 'block';
-                            statusElement.style.display = 'none';
-                        }
-                    })
-                    .catch(error => {
-                        errorElement.textContent = 'An error occurred. Please try again.';
-                        errorElement.style.display = 'block';
-                        statusElement.style.display = 'none';
-                    });
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert("Email is working and reset link sent!");
+                                statusMessage.textContent = "Reset link sent successfully!";
+                                statusMessage.style.color = "green";
+                            } else {
+                                statusMessage.textContent = data.message || "User not found.";
+                                statusMessage.style.color = "red";
+                            }
+                            statusMessage.style.display = "block";
+                        })
+                        .catch(error => {
+                            console.error("Error:", error);
+                            statusMessage.textContent = "Something went wrong. Please try again later.";
+                            statusMessage.style.color = "red";
+                            statusMessage.style.display = "block";
+                        });
+                }
             }
 
             // Example of logout button event (to trigger manually)
