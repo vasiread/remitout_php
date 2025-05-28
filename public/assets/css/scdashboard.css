@@ -895,6 +895,7 @@
     justify-content: center;
     align-items: center;
     background-color: transparent;
+    cursor: pointer;
 }
 
 .scdashboard-applicationstatus .scapplicationstatus-firstrow #sc-new-application-generate {
