@@ -1644,6 +1644,13 @@ input[type="number"]::-webkit-inner-spin-button {
     background: #ff7a00;
 }
 
+ .wholeapplicationprofile {
+     display: none;
+     width: 100%;
+     max-width: 100%;
+
+ }
+
 @media (min-width: 1513px) {
     .navigation {
         max-width: 1460px;
@@ -2555,11 +2562,7 @@ h2 {
         padding: 20px;
     }
 
-    .wholeapplicationprofile {
-        width: 100%;
-        max-width: 100%;
-
-    }
+   
 
     .content-wrapper {
         flex-direction: column;

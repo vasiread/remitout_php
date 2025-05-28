@@ -95,7 +95,7 @@ Route::get('/retrievedashboarddetails', [Admincontroller::class, 'retrieveDashbo
 Route::post('/getprofilecompletionbygender', [Admincontroller::class, 'getProfileCompletionByGenderAndDegree']);
 
 // Admin Routes
-Route::get('/getstatusofusers', [Admincontroller::class, 'pointOfEntries']);
+Route::get('/getstatusofusersadmin', [Admincontroller::class, 'pointOfEntries']);
 Route::get('/nbfc-lead-gens', [Admincontroller::class, 'nbfcLeadGens']);
 Route::get('/sc-lead-gens', [Admincontroller::class, 'scLeadGens']);
 Route::post('/reports-on-generation', [Admincontroller::class, 'reportsOnGeneration']);
@@ -203,3 +203,18 @@ Route::get('/course-detail-options', [Admincontroller::class, 'getCourseExpenseO
 Route::post('/course-options', [Admincontroller::class, 'addCourseExpenseOptions']);
 
 Route::delete('/course-options/{id}', [Admincontroller::class, 'delCourseExpenseOptions']);
+
+
+Route::post('/export-user-status', [scDashboardController::class, 'downloadExcelStatus']);
+
+
+
+
+// POST request to send reset link
+Route::post('/send-reset-link', [LoginController::class, 'sendResetLink']);
+
+// GET request to show reset password form (you need to create this method & view)
+Route::get('/reset-password', [LoginController::class, 'showResetForm']);
+
+// POST request to reset password
+Route::post('/reset-password', [LoginController::class, 'resetPassword']);

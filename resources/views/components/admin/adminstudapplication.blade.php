@@ -1426,7 +1426,7 @@
       fetchAdditionalPersonalFields();
       fetchAcademics();
       fetchCourseDetailOptions();
-
+ 
       const managers = [
         SectionToggler,
         InputFieldManager,
@@ -3821,6 +3821,10 @@
         alert('An error occurred while deleting the option.');
       }
     }
+
+
+     
+
 
   </script>
 </body>

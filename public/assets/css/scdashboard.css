@@ -878,9 +878,7 @@
     color: #e98635;
 }
 
-.scdashboard-applicationstatus
-    .scapplicationstatus-firstrow
-    #applicationstatus-sortby {
+.scdashboard-applicationstatus .scapplicationstatus-firstrow #applicationstatus-sortby {
     width: 106px;
     height: 34px;
     padding: 8px 10px;
@@ -899,9 +897,7 @@
     background-color: transparent;
 }
 
-.scdashboard-applicationstatus
-    .scapplicationstatus-firstrow
-    #sc-new-application-generate {
+.scdashboard-applicationstatus .scapplicationstatus-firstrow #sc-new-application-generate {
     width: fit-content;
     height: 35px;
     padding: 16px 22px;
@@ -1070,15 +1066,15 @@
     background: rgba(250, 123, 21, 1);
     border: none;
     height: 100%;
+    max-width: 15.55%;
+    width: 100%;
     box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
     color: rgba(255, 255, 255, 1);
-    max-width: 10.55%;
-    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 4px;
-    padding: 0 1.4rem;
+    padding: 21px 9px;
     font-weight: 500;
 }
 
@@ -1183,10 +1179,11 @@
 .application-shrinkwidtheditcontainer {
     display: none;
 }
+
 #cancel-referral-link {
     border: 1px solid rgba(233, 134, 53, 1);
-    background:red;
-    
+    background: red;
+
 }
 
 /* ---------------------------------------------------------- */
@@ -1520,8 +1517,7 @@
 .raise-query-popup-headersection .close-query-btn img {
     width: 16px;
     height: 16px;
-    filter: invert(35%) sepia(77%) saturate(1536%) hue-rotate(243deg)
-        brightness(96%) contrast(97%);
+    filter: invert(35%) sepia(77%) saturate(1536%) hue-rotate(243deg) brightness(96%) contrast(97%);
     /* Purple color for the "x" */
 }
 
@@ -1547,8 +1543,7 @@
     border-radius: 4px;
     font-family: "Poppins", sans-serif;
     font-size: 14px;
-    background: url('data:image/svg+xml;utf8,<svg fill="%23000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>')
-        no-repeat right 8px center;
+    background: url('data:image/svg+xml;utf8,<svg fill="%23000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 8px center;
     background-size: 16px;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -1582,8 +1577,7 @@
     padding: 2px;
     width: 13px;
     height: 13px;
-    filter: invert(35%) sepia(77%) saturate(1536%) hue-rotate(243deg)
-        brightness(96%) contrast(97%);
+    filter: invert(35%) sepia(77%) saturate(1536%) hue-rotate(243deg) brightness(96%) contrast(97%);
     /* Purple color for the "x" */
 }
 
@@ -1748,9 +1742,7 @@
         flex-direction: column !important;
     }
 
-    .scdashboard-applicationstatus
-        .scapplicationstatus-firstrow
-        #sc-new-application-generate {
+    .scdashboard-applicationstatus .scapplicationstatus-firstrow #sc-new-application-generate {
         padding: 1rem;
     }
 
@@ -1786,14 +1778,13 @@
         width: 100%;
     }
 
-    .scdashboard-applicationstatus
-        .scapplicationstatus-firstrow
-        #applicationstatus-sortby {
+    .scdashboard-applicationstatus .scapplicationstatus-firstrow #applicationstatus-sortby {
         flex: 0.8;
     }
 }
 
 @media (max-width: 729px) and (min-width: 640px) {
+
     .reportsindashboard-secondrow p,
     .reportsproposal-datalists .reportsproposal-individualdatalists p,
     .scdashboard-individual-performance li p {

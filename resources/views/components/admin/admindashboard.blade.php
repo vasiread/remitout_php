@@ -354,12 +354,12 @@
                         <canvas id="ageratio-donutRegistrationChart"></canvas>
                         <div class="ageratio-donutgraphinfos">
                             @php
-                                $registrationSourceAnalysis = [
-                                    ['color' => 'rgba(111, 37, 206, 1)', 'studentRangeValue' => '16 - 20'],
-                                    ['color' => 'rgba(167, 121, 224, 1)', 'studentRangeValue' => '21 - 25'],
-                                    ['color' => 'rgba(203, 176, 237, 1)', 'studentRangeValue' => '26 - 30'],
-                                    ['color' => 'rgba(226, 211, 245, 1)', 'studentRangeValue' => '30 - 40'],
-                                ];
+$registrationSourceAnalysis = [
+    ['color' => 'rgba(111, 37, 206, 1)', 'studentRangeValue' => '16 - 20'],
+    ['color' => 'rgba(167, 121, 224, 1)', 'studentRangeValue' => '21 - 25'],
+    ['color' => 'rgba(203, 176, 237, 1)', 'studentRangeValue' => '26 - 30'],
+    ['color' => 'rgba(226, 211, 245, 1)', 'studentRangeValue' => '30 - 40'],
+];
                             @endphp
 
                             @foreach ($registrationSourceAnalysis as $source)
@@ -1374,7 +1374,7 @@
             if (!ctx) return console.error('donutChart canvas not found');
 
             // Fetch data from API
-            fetch('/getstatusofusers', {
+            fetch('/getstatusofusersadmin', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
