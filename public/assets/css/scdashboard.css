@@ -1475,6 +1475,18 @@
     border: none;
 }
 
+.sc-query-raised-overlay {
+    display: none;
+    position: fixed;
+    top: 85px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 85px);
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 999;
+}
+
 /* Raise Query css */
 
 

@@ -35,7 +35,15 @@
         </div>
 
         <div class="admin-nav-right">
-           
+            <div class="admin-nav-search">
+                <svg class="admin-nav-search-icon" width="16" height="16" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                <input type="text" class="admin-nav-search-input" placeholder="Search">
+            </div>
+
             <button class="admin-nav-notification">
                   <img src="/assets/images/notifications_unread.png" alt="the notification icon" class="notification-icon">
             </button>
@@ -48,7 +56,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
                 <div class="admin-nav-dropdown-menu">
-                    <div class="admin-nav-dropdown-item">Change Password</div>
+                    <div class="admin-nav-dropdown-item">Profile</div>
+                    <div class="admin-nav-dropdown-item">Settings</div>
                     <div class="admin-nav-dropdown-item">Logout</div>
                 </div>
             </div>
@@ -181,49 +190,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-//logout functionality
-const adminLogoutBtn = document.querySelector(".admin-nav-dropdown-menu .logoutBtn");
-
-if (adminLogoutBtn) {
-    adminLogoutBtn.addEventListener('click', () => {
-        console.log("Admin logout clicked");
-        sessionLogoutInitial(); // Call your existing logout logic
-    });
-} else {
-    console.warn("Admin logout button (.logoutBtn) not found in the DOM");
-}
-
-function sessionLogoutInitial() {
-    const logoutUrl = '/logout'; // Hardcoded logout endpoint
-    const loginUrl = '/login';  // Hardcoded login page
-    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-
-    // Check for CSRF token
-    if (!csrfToken) {
-        console.error('CSRF token not found');
-        return;
-    }
-
-    fetch(logoutUrl, {
-        method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': csrfToken,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({})
-    })
-        .then(response => {
-            if (response.ok) {
-                console.log('Logout successful', response);
-                window.location.href = loginUrl;
-            } else {
-                console.error('Logout failed:', response.status, response.statusText);
-            }
-        })
-        .catch(error => {
-            console.error('Fetch error:', error);
-        });
-}
 
     
     </script>

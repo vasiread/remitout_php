@@ -505,29 +505,29 @@ $studentDocumentDetailsInfo = [
                         <button>Generate</button>
                     </div>
 
-                </div>
-                <!-- Add Raise Query Popup -->
-                <div class="sc-dashboard-generate-overlay"></div>
-                <div class="raise-query-popup" style="display:none">
-                    <div class="raise-query-popup-headersection">
-                        <h3>Raise a Query</h3>
-                        <button class="close-query-btn">
-                            <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="Close">
-                        </button>
-                    </div>
-                    <div class="raise-query-popup-content">
-                        <textarea id="query-text" placeholder="Enter your query here..." rows="4"></textarea>
-                        <select id="query-type">
-                            <option value="student">Student</option>
-                            <option value="nbfc">NBFC</option>
-                        </select>
-                    </div>
-                    <div class="raise-query-popup-footer">
-                        <button class="cancel-query "> <img src="{{ asset('assets/images/Icons/close_icon.png') }}" />
-                            Cancel</button>
-                        <button class="submit-query">Submit</button>
-                    </div>
-                </div>
+        </div>
+        <!-- Add Raise Query Popup -->
+        <div class="sc-query-raised-overlay"></div>
+        <div class="raise-query-popup" style="display:none">
+            <div class="raise-query-popup-headersection">
+                <h3>Raise a Query</h3>
+                <button class="close-query-btn">
+                    <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="Close">
+                </button>
+            </div>
+            <div class="raise-query-popup-content">
+                <textarea id="query-text" placeholder="Enter your query here..." rows="4"></textarea>
+                <select id="query-type">
+                    <option value="student">Student</option>
+                    <option value="nbfc">NBFC</option>
+                </select>
+            </div>
+            <div class="raise-query-popup-footer">
+                <button class="cancel-query "> <img src="{{ asset('assets/images/Icons/close_icon.png') }}" />
+                    Cancel</button>
+                <button class="submit-query">Submit</button>
+            </div>
+        </div>
 
     @endsection
 
@@ -1708,82 +1708,97 @@ $studentDocumentDetailsInfo = [
         };
 
 
-        const initializeRaiseQuery = () => {
-            const raiseQueryButton = document.querySelector("#raised-query");
-            const raiseQueryPopup = document.querySelector(".raise-query-popup");
-            const closeQueryPopup = document.querySelector(".raise-query-popup-headersection img");
-            const cancelQueryButton = document.querySelector(".raise-query-popup-footer .cancel-query");
-            const submitQueryButton = document.querySelector(".raise-query-popup-footer .submit-query");
-            const queryText = document.querySelector("#query-text");
-            const queryType = document.querySelector("#query-type");
-            const backgroundContainer = document.querySelector(".scdashboard-parentcontainer");
-            const overlay = document.querySelector(".sc-dashboard-generate-overlay");
+   const initializeRaiseQuery = () => {
+    const raiseQueryButton = document.querySelector("#raised-query");
+    const raiseQueryPopup = document.querySelector(".raise-query-popup");
+    const closeQueryPopup = document.querySelector(".raise-query-popup-headersection img");
+    const cancelQueryButton = document.querySelector(".raise-query-popup-footer .cancel-query");
+    const submitQueryButton = document.querySelector(".raise-query-popup-footer .submit-query");
+    const queryText = document.querySelector("#query-text");
+    const queryType = document.querySelector("#query-type");
+    const backgroundContainer = document.querySelector(".scdashboard-parentcontainer");
 
-            if (!raiseQueryButton || !raiseQueryPopup || !closeQueryPopup || !cancelQueryButton || !submitQueryButton || !queryText || !queryType) {
-                console.error("Required DOM elements for raise query popup are missing");
-                return;
-            }
+    if (!raiseQueryButton || !raiseQueryPopup || !closeQueryPopup || !cancelQueryButton || !submitQueryButton || !queryText || !queryType) {
+        console.error("Required DOM elements for raise query popup are missing");
+        return;
+    }
 
-            // Show popup
-            raiseQueryButton.addEventListener('click', () => {
-                raiseQueryPopup.style.display = "flex";
-                backgroundContainer.classList.add("blur");
-                queryText.value = ""; // Reset textarea
-            });
+    // Create overlay element
+    const overlay = document.createElement("div");
+    overlay.classList.add("sc-query-raised-overlay");
+    overlay.style.display = "none";
+    overlay.style.position = "fixed";
+    overlay.style.top = "85px";
+    overlay.style.left = "0";
+    overlay.style.width = "100%";
+    overlay.style.height = "calc(100% - 85px)";
+    overlay.style.background = "rgba(0, 0, 0, 0.5)";
+    overlay.style.backdropFilter = "blur(5px)";
+    overlay.style.zIndex = "999";
+    document.body.appendChild(overlay);
 
-            // Hide popup function
-            const hidePopup = () => {
-                raiseQueryPopup.style.display = "none";
-                backgroundContainer.classList.remove("blur");
-            };
+    // Show popup and overlay
+    raiseQueryButton.addEventListener('click', () => {
+        raiseQueryPopup.style.display = "flex";
+        overlay.style.display = "block"; // Show overlay
+        backgroundContainer.classList.add("blur");
+        queryText.value = ""; // Reset textarea
+    });
 
-            // Close button
-            closeQueryPopup.addEventListener('click', hidePopup);
+    // Hide popup and overlay function
+    const hidePopup = () => {
+        raiseQueryPopup.style.display = "none";
+        overlay.style.display = "none"; // Hide overlay
+        backgroundContainer.classList.remove("blur");
+    };
 
-            // Cancel button
-            cancelQueryButton.addEventListener('click', hidePopup);
+    // Close button
+    closeQueryPopup.addEventListener('click', hidePopup);
 
-            // Submit query
-            submitQueryButton.addEventListener('click', () => {
-                const query = queryText.value.trim();
-                const type = queryType.value;
-                const scuser = @json(session('scuser'));
-                const scuserid = scuser.referral_code;
+    // Cancel button
+    cancelQueryButton.addEventListener('click', hidePopup);
 
-                if (!query) {
-                    alert("Please enter a query");
-                    return;
+    // Submit query
+    submitQueryButton.addEventListener('click', () => {
+        const query = queryText.value.trim();
+        const type = queryType.value;
+        const scuser = @json(session('scuser'));
+        const scuserid = scuser.referral_code;
+
+        if (!query) {
+            alert("Please enter a query");
+            return;
+        }
+
+        fetch('/raise-query', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                scuserid: scuserid,
+                querytype: type,
+                queryraised: query
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
                 }
-
-                fetch('/raise-query', {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({
-                        scuserid: scuserid,
-                        querytype: type,
-                        queryraised: query
-                    })
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error("Network response was not ok");
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        alert("Query raised successfully!");
-                        hidePopup();        // Optional function to close popup
-                        queryDetails();     // Optional function to refresh UI
-                    })
-                    .catch(error => {
-                        console.error("Error raising query:", error);
-                        alert("An error occurred while raising the query.");
-                    });
+                return response.json();
+            })
+            .then(data => {
+                alert("Query raised successfully!");
+                hidePopup(); // Close popup and overlay
+                queryDetails(); // Optional function to refresh UI
+            })
+            .catch(error => {
+                console.error("Error raising query:", error);
+                alert("An error occurred while raising the query.");
             });
-        };
+    });
+};
 
 
 

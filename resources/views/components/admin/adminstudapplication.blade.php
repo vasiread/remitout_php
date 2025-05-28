@@ -1197,7 +1197,7 @@
                     </div>
                   </div>
                   <div class="admin-student-options-section" id="salaried-business-section">
-                    <div class="document-container-admin" id="adminside-document-container-salaried-business">
+                    <div class="document-container-admin-salary" id="adminside-document-container-salaried-business">
                       <!-- Salaried Documents Section -->
                       <div class="salary-sub-admin" id="adminside-salary-sub-salaried">
                         <p>If salaried:</p>

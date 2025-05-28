@@ -237,21 +237,21 @@
                     </div>
 
                     <div class="admin-dashboard-filter-tags">
-                        <div class="admin-dashboard-filter-tag">
+                        <div class="admin-dashboard-filter-tag" id="admin-dashboard-filter-tag-registration">
                             Registration Reports
                             <span class="admin-dashboard-close-tag">×</span>
                         </div>
                         <div class="admin-dashboard-filter-tag">
                             No of grads <span class="admin-dashboard-close-tag">×</span>
                         </div>
-                        <div class="admin-dashboard-filter-tag">
+                        <div class="admin-dashboard-filter-tag" id="admin-dashboard-filter-tag-source">
                             Registration Source
                             <span class="admin-dashboard-close-tag">×</span>
                         </div>
                         <div class="admin-dashboard-filter-tag">
                             Age ratio Reports <span class="admin-dashboard-close-tag">×</span>
                         </div>
-                        <div class="admin-dashboard-filter-tag">
+                        <div class="admin-dashboard-filter-tag" id=admin-dashboard-filter-tag-funnel">
                             Funnel Reports <span class="admin-dashboard-close-tag">×</span>
                         </div>
                         <div class="admin-dashboard-filter-tag">
@@ -264,21 +264,22 @@
 
                     <div class="admin-dashboard-collapsed-tags" id="collapsedTags">
                         <div class="admin-dashboard-filter-tags">
-                            <div class="admin-dashboard-filter-tag">
-                                Cities <span class="admin-dashboard-close-tag">×</span>
+                            <div class="admin-dashboard-filter-tag" id="admin-dashboard-filter-tag-city">
+                                Cities 
+                                <span class="admin-dashboard-close-tag">×</span>
                             </div>
-                            <div class="admin-dashboard-filter-tag">
+                            <div class="admin-dashboard-filter-tag" id="admin-dashboard-filter-tag-nbfc-lead">
                                 NBFC: Generation Leads
                                 <span class="admin-dashboard-close-tag">×</span>
                             </div>
                             <div class="admin-dashboard-filter-tag">
                                 Point of entry <span class="admin-dashboard-close-tag">×</span>
                             </div>
-                            <div class="admin-dashboard-filter-tag">
+                            <div class="admin-dashboard-filter-tag" id="admin-dashboard-filter-tag-sc-lead">
                                 SC: Generation Leads
                                 <span class="admin-dashboard-close-tag">×</span>
                             </div>
-                            <div class="admin-dashboard-filter-tag">
+                            <div class="admin-dashboard-filter-tag" id="admin-dashboard-filter-tag-semrush">
                                 Sem Rush <span class="admin-dashboard-close-tag">×</span>
                             </div>
                         </div>
