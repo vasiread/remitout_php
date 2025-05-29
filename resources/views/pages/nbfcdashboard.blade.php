@@ -5113,8 +5113,7 @@ $counter = 1;
             // Run on window resize
             window.addEventListener("resize", limitVisibleItemsOnMobile);
 
-            // ✅ Add view more click handler once DOM is updated
-            const viewMoreBtn = document.querySelector('.viewmore-messagenbfc');
+             const viewMoreBtn = document.querySelector('.viewmore-messagenbfc');
             const viewMoreBtnrequest = document.querySelector('.viewmore-request');
             const viewMoreBtnproposal = document.querySelector('.viewmore-proposal');
             if (viewMoreBtn) {
@@ -5126,7 +5125,7 @@ $counter = 1;
                     viewMoreBtn.style.display = 'none';
                 });
             }
-        };
+        
         const insideMessageTrigger = () => {
             // if (messageBtnInside) {
             //     messageBtnInside.addEventListener('click', () => {
