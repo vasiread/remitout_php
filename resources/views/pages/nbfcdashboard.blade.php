@@ -225,7 +225,6 @@
             </div>
         </div>
 
-        <div class="wholeapplicationprofile">
             <div class="nbfcdashboard-studentlistscontainer" style="gap:1.2%">
                 <div class="studentdashboardprofile-profilesection" id="nbfc-list-of-student-profilesections">
                     <img src="{{asset($profileImgPath)}}" class="profileImg" id="profile-photo-id" alt="">
@@ -279,7 +278,7 @@
                         </div>
                         <div class="testscoreseditsection-secondrow">
                             @php
-$counter = 1; 
+                   $counter = 1; 
                             @endphp
 
 
@@ -631,7 +630,6 @@ $counter = 1;
 
                 </div>
             </div>
-        </div>
 
 
         <div class="modal-container" id="model-container-reject-container" style="display: none;">
@@ -907,10 +905,7 @@ $counter = 1;
                 setActiveTab(inboxBtn);
 
                 // Hide wholeContainer only if inboxBtn is the active tab
-                if (inboxBtn.classList.contains('active')) {
-                    const wholeContainer = document.querySelector(".wholeapplicationprofile");
-                    wholeContainer.style.display = "none";
-                }
+                
             });
 
             // Set default state (optional: show dashboard by default)
@@ -1037,8 +1032,7 @@ $counter = 1;
                 }
 
                 setActiveMenuItem(inboxMenuItem);
-                document.querySelector(".wholeapplicationprofile").style.display = "none";
-            });
+             });
 
 
             // Set initial states
@@ -1220,10 +1214,33 @@ $counter = 1;
 
                 studentListContainer.innerHTML = "";
 
-                data.forEach((student) => {
+                let itemsToShow = window.innerWidth <= 768 ? 2 : data.length;
+
+                data.forEach((student, index) => {
                     const studentListItem = createStudentListItem(student);
-                    studentListContainer.appendChild(studentListItem);
+                    if (index < itemsToShow) {
+                        studentListContainer.appendChild(studentListItem);
+                    }
                 });
+
+                const viewMoreBtn = sectionId === "dashboard-request-list"
+                    ? document.querySelector(".viewmore-request")
+                    : document.querySelector(".viewmore-proposal");
+
+                if (window.innerWidth <= 768 && data.length > 2) {
+                    viewMoreBtn.style.display = "flex";
+
+                    viewMoreBtn.onclick = () => {
+                        studentListContainer.innerHTML = "";
+                        data.forEach((student) => {
+                            const studentListItem = createStudentListItem(student);
+                            studentListContainer.appendChild(studentListItem);
+                        });
+                        viewMoreBtn.style.display = "none";
+                    };
+                } else {
+                    viewMoreBtn.style.display = "none";
+                }
             }
 
 
@@ -1257,13 +1274,10 @@ $counter = 1;
 
 
                 viewButton.addEventListener("click", () => {
-                    const wholeContainer = document.querySelector(".wholeapplicationprofile");
-                    wholeContainer.style.display = "flex";
-                    if (wholeContainer.style.display === "flex") {
+                  
                         viewProfileOfUsers(viewButton, studentId, loader);
                         studentApplicationInsideRejection(student);
                         handleSendProposalProcess(studentId);
-                    }
 
 
 
@@ -2303,12 +2317,14 @@ $counter = 1;
                 function showChat() {
 
                     messagesWrapper.style.display = 'flex';
+
                     container.style.display = 'flex';
                     if (viewButton) viewButton.textContent = 'Close';
                 }
 
                 function hideChat() {
-                    messagesWrapper.style.display = 'none';
+                         messagesWrapper.style.display = 'none';
+                     console.log(messagesWrapper)
                     container.style.display = 'none';
                     if (viewButton) viewButton.textContent = 'View';
                 }
@@ -2407,14 +2423,13 @@ $counter = 1;
 
                 if (viewButton) {
                     viewButton.addEventListener('click', function () {
-                        if (messagesWrapper.style.display === 'none') {
+                        const isHidden = getComputedStyle(messagesWrapper).display === 'none';
+                        if (isHidden) {
                             showChat();
-
-
-
                         } else {
                             hideChat();
                         }
+
                     });
                 }
 
@@ -2461,90 +2476,91 @@ $counter = 1;
                         });
                     }
                 })
-                function viewChat(nbfc_id, messageInputStudentids) {
-                    const student_id = messageInputStudentids;
-                    nbfc_id = nbfc_id.trim();
-                    const chatId = `chat-${index}`;
-                    alert(chatId)
+                // function viewChat(nbfc_id, messageInputStudentids) {
+                //     alert(messageUserIds)
+                //     const student_id = messageInputStudentids;
+                //     nbfc_id = nbfc_id.trim();
+                //     const chatId = `chat-${index}`;
+                //     alert(chatId)
 
 
-                    if (chatId) {
-                        const apiUrl = `/get-messages/${nbfc_id}/${student_id}`;
+                //     if (chatId) {
+                //         const apiUrl = `/get-messages/${nbfc_id}/${student_id}`;
 
-                        fetch(apiUrl)
-                            .then(response => response.json())
-                            .then(data => {
-                                console.log('API response:', data);
-                                if (data && data.messages && data.messages.length > 0) {
-                                    data.messages.sort((a, b) => a.id - b.id);
+                //         fetch(apiUrl)
+                //             .then(response => response.json())
+                //             .then(data => {
+                //                 console.log('API response:', data);
+                //                 if (data && data.messages && data.messages.length > 0) {
+                //                     data.messages.sort((a, b) => a.id - b.id);
 
-                                    data.messages.forEach(message => {
-                                        const messageElement = document.createElement("div");
-                                        messageElement.setAttribute('data-chat-id', chatId);
+                //                     data.messages.forEach(message => {
+                //                         const messageElement = document.createElement("div");
+                //                         messageElement.setAttribute('data-chat-id', chatId);
 
-                                        // Determine if the sender is the NBFC (right side) or student (left side)
-                                        const isNbfcSender = message.sender_id === nbfc_id;
+                //                         // Determine if the sender is the NBFC (right side) or student (left side)
+                //                         const isNbfcSender = message.sender_id === nbfc_id;
 
-                                        messageElement.style.cssText = `
-                            display: flex;
-                            justify-content: ${isNbfcSender ? 'flex-end' : 'flex-start'};
-                            width: 100%;
-                            margin-bottom: 10px;
-                            padding-top: 10px;
-                        `;
+                //                         messageElement.style.cssText = `
+                //             display: flex;
+                //             justify-content: ${isNbfcSender ? 'flex-end' : 'flex-start'};
+                //             width: 100%;
+                //             margin-bottom: 10px;
+                //             padding-top: 10px;
+                //         `;
 
-                                        const messageContent = document.createElement("div");
-                                        messageContent.style.cssText = `
-                            max-width: 80%;
-                            padding: 8px 12px;
-                            border-radius: 8px;
-                            background-color: ${isNbfcSender ? '#DCF8C6' : '#FFF'};
-                            overflow-wrap: break-word;
-                            font-family: 'Poppins', sans-serif;
-                            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-                        `;
+                //                         const messageContent = document.createElement("div");
+                //                         messageContent.style.cssText = `
+                //             max-width: 80%;
+                //             padding: 8px 12px;
+                //             border-radius: 8px;
+                //             background-color: ${isNbfcSender ? '#DCF8C6' : '#FFF'};
+                //             overflow-wrap: break-word;
+                //             font-family: 'Poppins', sans-serif;
+                //             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+                //         `;
 
-                                        messageContent.textContent = message.message;
-                                        messageElement.appendChild(messageContent);
-                                        messagesWrapper.appendChild(messageElement);
+                //                         messageContent.textContent = message.message;
+                //                         messageElement.appendChild(messageContent);
+                //                         messagesWrapper.appendChild(messageElement);
 
-                                    });
+                //                     });
 
-                                    // Scroll to the bottom after loading messages
-                                    scrollToBottom();
-                                } else {
-                                    console.log('No messages found');
-                                    // Optionally display a "No messages" placeholder
-                                    const noMessages = document.createElement("div");
-                                    noMessages.textContent = "No messages yet";
-                                    noMessages.style.textAlign = "center";
-                                    noMessages.style.padding = "20px";
-                                    noMessages.style.color = "#999";
-                                    messagesWrapper.appendChild(noMessages);
-                                }
+                //                     // Scroll to the bottom after loading messages
+                //                     scrollToBottom();
+                //                 } else {
+                //                     console.log('No messages found');
+                //                     // Optionally display a "No messages" placeholder
+                //                     const noMessages = document.createElement("div");
+                //                     noMessages.textContent = "No messages yet";
+                //                     noMessages.style.textAlign = "center";
+                //                     noMessages.style.padding = "20px";
+                //                     noMessages.style.color = "#999";
+                //                     messagesWrapper.appendChild(noMessages);
+                //                 }
 
-                                // Add the chat ID to the set of loaded chats
-                                loadedChats.add(chatId);
-                            })
-                            .catch(error => {
-                                console.error('Error fetching messages:', error);
-                                // Optionally display an error message
-                                const errorElement = document.createElement("div");
-                                errorElement.textContent = "Error loading messages";
-                                errorElement.style.color = "red";
-                                errorElement.style.padding = "20px";
-                                errorElement.style.textAlign = "center";
-                                messagesWrapper.appendChild(errorElement);
-                            });
-                    }
+                //                 // Add the chat ID to the set of loaded chats
+                //                 loadedChats.add(chatId);
+                //             })
+                //             .catch(error => {
+                //                 console.error('Error fetching messages:', error);
+                //                 // Optionally display an error message
+                //                 const errorElement = document.createElement("div");
+                //                 errorElement.textContent = "Error loading messages";
+                //                 errorElement.style.color = "red";
+                //                 errorElement.style.padding = "20px";
+                //                 errorElement.style.textAlign = "center";
+                //                 messagesWrapper.appendChild(errorElement);
+                //             });
+                //     }
 
-                    messagesWrapper.style.display = 'flex';
-                    container.style.display = 'flex';
+                //     messagesWrapper.style.display = 'flex';
+                //     container.style.display = 'flex';
 
-                    if (parentContainer) {
-                        parentContainer.style.height = "auto";
-                    }
-                }
+                //     if (parentContainer) {
+                //         parentContainer.style.height = "auto";
+                //     }
+                // }
 
 
 
@@ -2557,17 +2573,25 @@ $counter = 1;
 
                 if (messageBtns.length > 0) {
                     messageBtns[index].addEventListener('click', function () {
-                        showChat();
-                        var user = @json(session('nbfcuser'));
-                        const nbfc_id = user.nbfc_id;
-                        console.log(nbfc_id);
+                        const isHidden = getComputedStyle(messagesWrapper).display === 'none';
 
-                        console.log(messageUserIds[index].textContent);
-                        const messageInputStudentids = messageUserIds[index].textContent;
-                        console.log(messageInputStudentids);
+                        if (isHidden) {
+                            showChat();
 
-                        viewChat(nbfc_id, messageInputStudentids);
+                            // Only run viewChat when showing the chat
+                            const user = @json(session('nbfcuser'));
+                            const nbfc_id = user.nbfc_id;
+                            const messageInputStudentids = messageUserIds[index].textContent;
+
+                            console.log(nbfc_id, messageInputStudentids);
+
+                            viewChat(nbfc_id, messageInputStudentids);
+                        } else {
+                            hideChat();
+                        }
                     });
+
+
                 }
 
 
@@ -2787,6 +2811,104 @@ $counter = 1;
                 //         });
             });
         }
+
+        function viewChat(nbfc_id, student_id) {
+                nbfc_id = nbfc_id.trim();
+                const chatId = `chat-${nbfc_id}-${student_id}`;
+
+                // Hide all other open chat wrappers
+                const allWrappers = document.querySelectorAll('.messages-wrapper');
+                allWrappers.forEach(wrapper => {
+                    if (wrapper.getAttribute('data-chat-id') !== chatId) {
+                        wrapper.style.display = 'none';
+                    }
+                });
+
+                // Get the message container and target wrapper
+                const messageContainer = document.querySelector(`.index-student-message-container[data-student-id="${student_id}"]`);
+                if (!messageContainer) {
+                    console.error("Message container not found for student_id:", student_id);
+                    return;
+                }
+
+                let messagesWrapper = messageContainer.querySelector(`.messages-wrapper[data-chat-id="${chatId}"]`);
+
+                // ✅ Toggle logic
+                if (messagesWrapper && messagesWrapper.style.display === 'flex') {
+                    // Already visible → Hide it
+                    messagesWrapper.style.display = 'none';
+                    return;
+                }
+
+                // Create if not exists
+                if (!messagesWrapper) {
+                    messagesWrapper = document.createElement("div");
+                    messagesWrapper.classList.add("messages-wrapper");
+                    messagesWrapper.setAttribute('data-chat-id', chatId);
+                    messagesWrapper.style.cssText = `
+            display: flex;
+            flex-direction: column;
+            width: 100%;  
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5; 
+            overflow-y: auto;
+            max-height: 300px;
+            background: #fff;
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 10px;
+        `;
+                    const inputBox = messageContainer.querySelector(".nbfc-individual-bankmessage-input-message");
+                    messageContainer.insertBefore(messagesWrapper, inputBox);
+                } else {
+                    messagesWrapper.innerHTML = ""; // Reset
+                    messagesWrapper.style.display = 'flex'; // Show if previously hidden
+                }
+
+                // Load messages
+                const apiUrl = `/get-messages/${nbfc_id}/${student_id}`;
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data && data.messages && data.messages.length > 0) {
+                            data.messages.sort((a, b) => a.id - b.id);
+
+                            data.messages.forEach(message => {
+                                const messageElement = document.createElement("div");
+                                messageElement.setAttribute('data-chat-id', chatId);
+                                messageElement.style.cssText = `
+                        display: flex;
+                        justify-content: ${message.sender_id === nbfc_id ? 'flex-end' : 'flex-start'};
+                        width: 100%;
+                        margin-bottom: 10px;
+                        padding-top: 10px;
+                    `;
+
+                                const messageContent = document.createElement("div");
+                                messageContent.style.cssText = `
+                        max-width: 80%;
+                        padding: 8px 12px;
+                        border-radius: 8px;
+                        background-color: ${message.sender_id === nbfc_id ? '#DCF8C6' : '#FFF'};
+                        overflow-wrap: break-word;
+                        font-family: 'Poppins', sans-serif;
+                        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+                    `;
+                                messageContent.textContent = message.message;
+                                messageElement.appendChild(messageContent);
+                                messagesWrapper.appendChild(messageElement);
+                            });
+                            messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
+                        } else {
+                            messagesWrapper.innerHTML = `<div style="text-align:center; padding: 20px; color: #999;">No messages yet</div>`;
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error fetching messages:", error);
+                        messagesWrapper.innerHTML = `<div style="color:red; text-align:center; padding: 20px;">Error loading messages</div>`;
+                    });
+            }
+
 
         let loadedChats = new Set();
 
@@ -5000,7 +5122,8 @@ $counter = 1;
 
             data.forEach((item) => {
                 const msgContainer = document.createElement("div");
-                msgContainer.classList.add("index-student-message-container");
+                msgContainer.classList.add("index-student-message-container", "profile-list-item");
+                msgContainer.setAttribute('data-student-id', item.unique_id);
 
         const studentCard = document.createElement("div");
         studentCard.classList.add("index-student-card");
@@ -5033,6 +5156,7 @@ $counter = 1;
 
                 buttonGroup.append(messageButton, viewButton);
 
+                //mobile chatbox trigger button
                 const sendBtnMobile = document.createElement("div");
                 sendBtnMobile.classList.add("index-student-send-btn-mobile");
 
@@ -5068,10 +5192,80 @@ $counter = 1;
                 msgContainer.append(studentCard, messageInputContainer);
 
                 parentContainer.appendChild(msgContainer);
+
+
+
+                sendBtnMobile.addEventListener('click', function () {
+                    const messagesWrapper = document.querySelector('.nbfc-messages-wrapper');
+                    const messageBoxContainer = document.querySelector('.nbfc-individualmessage-box-container');
+
+                    if (messagesWrapper && messageBoxContainer) {
+                        messagesWrapper.style.display = 'flex';
+                        messageInputContainer.style.display = 'flex';
+                        messageInputContainer.style.flexDirection = 'row';
+                        messageInputContainer.style.alignItems = 'center';
+                        messageInputContainer.style.justifyContent = 'space-between';
+                        messageInputContainer.style.gap = '10px';
+                    }
+
+                    const user = @json(session('nbfcuser'));
+                    const nbfc_id = user?.nbfc_id;
+                    const messageInputStudentids = item.unique_id;
+
+                    if (nbfc_id && messageInputStudentids) {
+                        viewChat(nbfc_id, messageInputStudentids);
+                    }
+                });
+
             });
+
+            // ✅ Handle visibility
+            const limitVisibleItemsOnMobile = () => {
+                const allItems = document.querySelectorAll(".profile-list-item");
+                const viewMoreBtn = document.querySelector('.viewmore-messagenbfc');
+
+                if (window.innerWidth <= 768) {
+                    if (!viewMoreClicked) {
+                        allItems.forEach((item, index) => {
+                            item.style.display = index < 2 ? "block" : "none";
+                        });
+                        if (allItems.length > 2) {
+                            viewMoreBtn.style.display = "flex";
+                        } else {
+                            viewMoreBtn.style.display = "none";
+                        }
+                    } else {
+                        // Already clicked view more — show all
+                        allItems.forEach(item => item.style.display = "block");
+                        viewMoreBtn.style.display = "none";
+                    }
+                } else {
+                    // Desktop view: always show all
+                    allItems.forEach(item => item.style.display = "block");
+                    viewMoreBtn.style.display = "none";
+                }
+            };
+
+            // Run on initial load
+            limitVisibleItemsOnMobile();
+
+            // Run on window resize
+            window.addEventListener("resize", limitVisibleItemsOnMobile);
+
+            // ✅ Add view more click handler once DOM is updated
+            const viewMoreBtn = document.querySelector('.viewmore-messagenbfc');
+            const viewMoreBtnrequest = document.querySelector('.viewmore-request');
+            const viewMoreBtnproposal = document.querySelector('.viewmore-proposal');
+            if (viewMoreBtn) {
+                viewMoreBtn.addEventListener('click', () => {
+                    viewMoreClicked = true;
+                    document.querySelectorAll('.profile-list-item').forEach(item => {
+                        item.style.display = "block";
+                    });
+                    viewMoreBtn.style.display = 'none';
+                });
+            }
         };
-
-
         const insideMessageTrigger = () => {
             // if (messageBtnInside) {
             //     messageBtnInside.addEventListener('click', () => {

@@ -30,7 +30,7 @@
 </head>
 
 <body>
-    <div class="admin-index-section-main-container" id="index-section-admin-id" style="display: none;">
+    <div class="admin-index-section-main-container" id="index-section-admin-id">
         <section class="index-section" id="index-section-id">
             <div class="admin-index-main-sub-container">
                 <div class="admin-index-heading-index">
