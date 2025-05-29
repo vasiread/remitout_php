@@ -907,7 +907,8 @@ class StudentDashboardController extends Controller
 
         // Step 1: Retrieve requested static fileTypes
         foreach ($fileTypes as $fileType) {
-            $staticPath = "$userId/$fileType";
+            $cleanType = str_replace('static/', '', $fileType); // 👈 Remove static prefix
+            $staticPath = "$userId/$cleanType";
             $staticFiles = $disk->files($staticPath);
 
             if (!empty($staticFiles)) {
