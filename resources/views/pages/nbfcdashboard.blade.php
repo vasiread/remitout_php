@@ -225,7 +225,6 @@
             </div>
         </div>
 
-        <div class="wholeapplicationprofile">
             <div class="nbfcdashboard-studentlistscontainer" style="gap:1.2%">
                 <div class="studentdashboardprofile-profilesection" id="nbfc-list-of-student-profilesections">
                     <img src="{{asset($profileImgPath)}}" class="profileImg" id="profile-photo-id" alt="">
@@ -632,7 +631,6 @@
 
                 </div>
             </div>
-        </div>
 
 
         <div class="modal-container" id="model-container-reject-container" style="display: none;">
@@ -896,10 +894,7 @@
                 setActiveTab(inboxBtn);
 
                 // Hide wholeContainer only if inboxBtn is the active tab
-                if (inboxBtn.classList.contains('active')) {
-                    const wholeContainer = document.querySelector(".wholeapplicationprofile");
-                    wholeContainer.style.display = "none";
-                }
+                
             });
 
             // Set default state (optional: show dashboard by default)
@@ -1029,8 +1024,7 @@
                 }
 
                 setActiveMenuItem(inboxMenuItem);
-                document.querySelector(".wholeapplicationprofile").style.display = "none";
-            });
+             });
 
 
             // Set initial states
@@ -1212,10 +1206,33 @@
 
                 studentListContainer.innerHTML = "";
 
-                data.forEach((student) => {
+                let itemsToShow = window.innerWidth <= 768 ? 2 : data.length;
+
+                data.forEach((student, index) => {
                     const studentListItem = createStudentListItem(student);
-                    studentListContainer.appendChild(studentListItem);
+                    if (index < itemsToShow) {
+                        studentListContainer.appendChild(studentListItem);
+                    }
                 });
+
+                const viewMoreBtn = sectionId === "dashboard-request-list"
+                    ? document.querySelector(".viewmore-request")
+                    : document.querySelector(".viewmore-proposal");
+
+                if (window.innerWidth <= 768 && data.length > 2) {
+                    viewMoreBtn.style.display = "flex";
+
+                    viewMoreBtn.onclick = () => {
+                        studentListContainer.innerHTML = "";
+                        data.forEach((student) => {
+                            const studentListItem = createStudentListItem(student);
+                            studentListContainer.appendChild(studentListItem);
+                        });
+                        viewMoreBtn.style.display = "none";
+                    };
+                } else {
+                    viewMoreBtn.style.display = "none";
+                }
             }
 
 
@@ -2298,12 +2315,14 @@
 
                 function showChat() {
                     messagesWrapper.style.display = 'flex';
+
                     container.style.display = 'flex';
                     if (viewButton) viewButton.textContent = 'Close';
                 }
 
                 function hideChat() {
-                    messagesWrapper.style.display = 'none';
+                         messagesWrapper.style.display = 'none';
+                     console.log(messagesWrapper)
                     container.style.display = 'none';
                     if (viewButton) viewButton.textContent = 'View';
                 }
@@ -4432,7 +4451,8 @@
 
             data.forEach((item) => {
                 const msgContainer = document.createElement("div");
-                msgContainer.classList.add("index-student-message-container");
+                msgContainer.classList.add("index-student-message-container", "profile-list-item");
+                msgContainer.setAttribute('data-student-id', item.unique_id);
 
                 const studentCard = document.createElement("div");
                 studentCard.classList.add("index-student-card");
@@ -4465,6 +4485,7 @@
 
                 buttonGroup.append(messageButton, viewButton);
 
+                //mobile chatbox trigger button
                 const sendBtnMobile = document.createElement("div");
                 sendBtnMobile.classList.add("index-student-send-btn-mobile");
 
