@@ -34,14 +34,14 @@
 
 
     @php
-$profileImgPath = 'images/admin-student-profile.png';
-$uploadPanName = '';
-$profileIconPath = "assets/images/account_circle.png";
-$phoneIconPath = "assets/images/call.png";
-$mailIconPath = "assets/images/mail.png";
-$pindropIconPath = "assets/images/pin_drop.png";
-$discordIconPath = "assets/images/icons/discordicon.png";
-$viewIconPath = "assets/images/visibility.png";
+    $profileImgPath = 'images/admin-student-profile.png';
+    $uploadPanName = '';
+    $profileIconPath = "assets/images/account_circle.png";
+    $phoneIconPath = "assets/images/call.png";
+    $mailIconPath = "assets/images/mail.png";
+    $pindropIconPath = "assets/images/pin_drop.png";
+    $discordIconPath = "assets/images/icons/discordicon.png";
+    $viewIconPath = "assets/images/visibility.png";
     @endphp
 
     <nav class="nbfc-navbar">
@@ -161,12 +161,6 @@ $viewIconPath = "assets/images/visibility.png";
                 <div class="dashboard-student-list" id="dashboard-request-list">
                     <!-- Dynamically populated list for Requests goes here -->
                 </div>
-                <div class="viewmore-request">
-                    <p>view more</p> <img src="{{ asset("assets/images/Icons/stat_minus_1.png") }}" style="margin-top: 9px;
-                                            margin-left: 8px;
-                                            width: 12px;
-                                            height: 7px;" alt="">
-                </div>
             </section>
 
             <section class="dashboard-section">
@@ -197,12 +191,6 @@ $viewIconPath = "assets/images/visibility.png";
                 </div>
                 <div class="dashboard-student-list" id="dashboard-proposal-list">
                     <!-- Dynamically populated list for Proposals goes here -->
-                </div>
-                <div class="viewmore-proposal">
-                    <p>view more</p> <img src="{{ asset("assets/images/Icons/stat_minus_1.png") }}" style="margin-top: 9px;
-                                                            margin-left: 8px;
-                                                            width: 12px;
-                                                            height: 7px;" alt="">
                 </div>
             </section>
         </div>
@@ -709,9 +697,9 @@ $counter = 1;
                 </div>
                 <div class="viewmore-messagenbfc">
                     <p>view more</p> <img src="{{ asset("assets/images/Icons/stat_minus_1.png") }}" style="margin-top: 9px;
-                            margin-left: 8px;
-                            width: 12px;
-                            height: 7px;" alt="">
+    margin-left: 8px;
+    width: 12px;
+    height: 7px;" alt="">
                 </div>
 
 
@@ -2326,7 +2314,6 @@ $counter = 1;
                 }
 
                 function sendMessage(messageInput, messageUserId) {
-                    alert(messageUserId)
                     console.log(messageInput, messageUserId)
                     if (!messageInput) return;
 
@@ -2475,7 +2462,6 @@ $counter = 1;
                     }
                 })
                 function viewChat(nbfc_id, messageInputStudentids) {
-                    alert(messageUserIds)
                     const student_id = messageInputStudentids;
                     nbfc_id = nbfc_id.trim();
                     const chatId = `chat-${index}`;
@@ -4904,7 +4890,7 @@ $counter = 1;
 
 
 
-        const initialiseAllViews = (userId) => {
+      const initialiseAllViews = (userId) => {
             if (!csrfToken || !userId) {
                 console.error("CSRF token or User ID is missing");
                 return Promise.resolve(); // Avoid rejecting; just log
@@ -5007,44 +4993,43 @@ $counter = 1;
                 }
             });
         }
-        let viewMoreClicked = false;
-
         const createContainerList = (data) => {
+            console.log(data);
+
             const parentContainer = document.querySelector(".index-student-details-container");
-            parentContainer.innerHTML = "";
 
-            data.forEach((item, index) => {
+            data.forEach((item) => {
                 const msgContainer = document.createElement("div");
-                msgContainer.classList.add("index-student-message-container", "profile-list-item");
+                msgContainer.classList.add("index-student-message-container");
 
-                const studentCard = document.createElement("div");
-                studentCard.classList.add("index-student-card");
+        const studentCard = document.createElement("div");
+        studentCard.classList.add("index-student-card");
 
-                const studentInfo = document.createElement("div");
-                studentInfo.classList.add("index-student-info");
+        const studentInfo = document.createElement("div");
+        studentInfo.classList.add("index-student-info");
 
-                const studentInfoHeader = document.createElement("h3");
-                studentInfoHeader.classList.add("student-name");
-                studentInfoHeader.textContent = item.name;
+        const studentInfoHeader = document.createElement("h3");
+        studentInfoHeader.classList.add("student-name");
+        studentInfoHeader.textContent = item.name;
 
-                const studentIds = document.createElement("p");
-                studentIds.classList.add("student-ids");
-                studentIds.textContent = item.unique_id;
+        const studentIds = document.createElement("p");
+        studentIds.classList.add("student-ids");
+        studentIds.textContent = item.unique_id;
 
                 const studentInfoDesc = document.createElement("p");
                 studentInfoDesc.classList.add("index-student-description");
-                studentInfoDesc.textContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit...";
+                studentInfoDesc.textContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";
 
-                const buttonGroup = document.createElement("div");
-                buttonGroup.classList.add("index-student-button-group");
+        const buttonGroup = document.createElement("div");
+        buttonGroup.classList.add("index-student-button-group");
 
-                const messageButton = document.createElement("button");
-                messageButton.classList.add("index-student-message-btn");
-                messageButton.textContent = "Message";
+        const messageButton = document.createElement("button");
+        messageButton.classList.add("index-student-message-btn");
+        messageButton.textContent = "Message";
 
-                const viewButton = document.createElement("button");
-                viewButton.classList.add("index-student-view-btn");
-                viewButton.textContent = "View";
+        const viewButton = document.createElement("button");
+        viewButton.classList.add("index-student-view-btn");
+        viewButton.textContent = "View";
 
                 buttonGroup.append(messageButton, viewButton);
 
@@ -5053,85 +5038,40 @@ $counter = 1;
 
                 const sendImg = document.createElement("img");
                 sendImg.src = "assets/images/send-index-btn.png";
-                sendImg.alt = "send";
+                sendImg.alt = "the send image";
 
                 sendBtnMobile.appendChild(sendImg);
 
-                const messageInputContainer = document.createElement("div");
-                messageInputContainer.classList.add("nbfc-individual-bankmessage-input-message");
+        const messageInputContainer = document.createElement("div");
+        messageInputContainer.classList.add("nbfc-individual-bankmessage-input-message");
 
-                const messageInput = document.createElement("input");
-                messageInput.type = "text";
-                messageInput.placeholder = "Send message";
-                messageInput.classList.add("nbfc-message-input");
+        const messageInput = document.createElement("input");
+        messageInput.type = "text";
+        messageInput.placeholder = "Send message";
+        messageInput.classList.add("nbfc-message-input");
 
-                const sendIcon = document.createElement("img");
-                sendIcon.src = "assets/images/send-nbfc.png";
-                sendIcon.alt = "send icon";
-                sendIcon.classList.add("nbfc-send-img");
+        const sendIcon = document.createElement("img");
+        sendIcon.src = "assets/images/send-nbfc.png";
+        sendIcon.alt = "send icon";
+        sendIcon.classList.add("nbfc-send-img");
 
-                const paperClipIcon = document.createElement("i");
-                paperClipIcon.classList.add("fa-solid", "fa-paperclip", "nbfc-paperclip");
+        const paperClipIcon = document.createElement("i");
+        paperClipIcon.classList.add("fa-solid", "fa-paperclip", "nbfc-paperclip");
 
-                const smileIcon = document.createElement("i");
-                smileIcon.classList.add("fa-regular", "fa-face-smile", "nbfc-face-smile");
+        const smileIcon = document.createElement("i");
+        smileIcon.classList.add("fa-regular", "fa-face-smile", "nbfc-face-smile");
 
-                messageInputContainer.append(messageInput, sendIcon, paperClipIcon, smileIcon);
+        messageInputContainer.append(messageInput, sendIcon, paperClipIcon, smileIcon);
 
-                studentInfo.append(studentInfoHeader, studentIds, studentInfoDesc);
+                studentInfo.append(studentInfoHeader, studentIds, studentInfoDesc); // Append studentInfoDesc
                 studentCard.append(studentInfo, buttonGroup, sendBtnMobile);
-
                 msgContainer.append(studentCard, messageInputContainer);
+
                 parentContainer.appendChild(msgContainer);
             });
-
-            // ✅ Handle visibility
-            const limitVisibleItemsOnMobile = () => {
-                const allItems = document.querySelectorAll(".profile-list-item");
-                const viewMoreBtn = document.querySelector('.viewmore-messagenbfc');
-
-                if (window.innerWidth <= 768) {
-                    if (!viewMoreClicked) {
-                        allItems.forEach((item, index) => {
-                            item.style.display = index < 2 ? "block" : "none";
-                        });
-                        if (allItems.length > 2) {
-                            viewMoreBtn.style.display = "flex";
-                        } else {
-                            viewMoreBtn.style.display = "none";
-                        }
-                    } else {
-                        // Already clicked view more — show all
-                        allItems.forEach(item => item.style.display = "block");
-                        viewMoreBtn.style.display = "none";
-                    }
-                } else {
-                    // Desktop view: always show all
-                    allItems.forEach(item => item.style.display = "block");
-                    viewMoreBtn.style.display = "none";
-                }
-            };
-
-            // Run on initial load
-            limitVisibleItemsOnMobile();
-
-            // Run on window resize
-            window.addEventListener("resize", limitVisibleItemsOnMobile);
-
-            // ✅ Add view more click handler once DOM is updated
-            const viewMoreBtn = document.querySelector('.viewmore-messagenbfc');
-            const viewMoreBtnrequest = document.querySelector('.viewmore-request');
-            const viewMoreBtnproposal = document.querySelector('.viewmore-proposal');
-            if (viewMoreBtn) {
-                viewMoreBtn.addEventListener('click', () => {
-                    viewMoreClicked = true; 
-                    document.querySelectorAll('.profile-list-item').forEach(item => {
-                        item.style.display = "block";
-                    });
-                    viewMoreBtn.style.display = 'none';
-                });
-            }
         };
+
+
         const insideMessageTrigger = () => {
             // if (messageBtnInside) {
             //     messageBtnInside.addEventListener('click', () => {
@@ -5288,6 +5228,7 @@ $counter = 1;
 
     <div id="document-preview-modal" class="modal">
         <div class="modal-content">
+            <span id="close-modal" class="close">×</span>
             <div id="document-preview-content"></div>
         </div>
     </div>
