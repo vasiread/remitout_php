@@ -676,6 +676,7 @@ const initialiseTenthcolumn = () => {
 
 }
 
+window.adminFileStorage = window.adminFileStorage || {};
 
 function initializeSimpleChat() {
 
@@ -1077,91 +1078,35 @@ function initializeSimpleChat() {
                     if (file) {
                         const formData = new FormData();
                         formData.append('file', file);
-                        formData.append('chatId', chatId); 
+                        formData.append('chatId', chatId);
 
                         fetch('/upload-documents-chat', {
                             method: 'POST',
                             headers: {
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
                             },
                             body: formData
                         })
                             .then(res => res.json())
                             .then(data => {
                                 if (data.success && data.fileUrl) {
+                                    const fileUrl = data.fileUrl;
+
+                                    var messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
+ 
+                                    messageInputNbfcids = messageInputNbfcids[index].textContent;
+ 
+
                                     const fileName = file.name;
-                                    const fileSize = (file.size / 1024 / 1024).toFixed(2); // MB
+                                    const fileSize = (file.size / 1024 / 1024).toFixed(2);
+                                    const fileId = `file-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+                                    if (!adminFileStorage[chatId]) adminFileStorage[chatId] = {};
+                                    adminFileStorage[chatId][fileId] = file;
 
-                                    const alignmentContainer = document.createElement("div");
-                                    alignmentContainer.style.cssText = `
-                                display: flex;
-                                justify-content: flex-end;
-                                width: 100%;
-                                margin-bottom: 10px;
-                            `;
+                                    sendMessageToBackend(fileUrl, messageInputNbfcids);
 
-                                    const messageContainer = document.createElement("div");
-                                    messageContainer.style.cssText = ` 
-                                width: 665px;
-                                padding: 10px;
-                                border: 1px solid #e2e2e2;
-                                border-radius: 4px;
-                                margin-left: auto;
-                                display: flex;
-                                justify-content: space-between;
-                                align-items: center;
-                                background-color: #f9f9f9;
-                            `;
 
-                                    const downloadLink = document.createElement("a");
-                                    downloadLink.href = data.fileUrl;
-                                    downloadLink.target = "_blank";
-                                    downloadLink.style.cssText = `
-                                font-family: 'Poppins', sans-serif;
-                                font-weight: 500;
-                                font-size: 14px;
-                                color: #909090;
-                                text-decoration: none;
-                                flex: 1;
-                            `;
-                                    downloadLink.textContent = `${fileName} (${fileSize} MB)`;
-
-                                    const removeIcon = document.createElement("button");
-                                    removeIcon.style.cssText = `
-                                background: none;
-                                border: none;
-                                cursor: pointer;
-                                font-size: 18px;
-                                padding: 0;
-                                margin-left: 10px;
-                                display: flex;
-                                justify-content: flex-end;
-                            `;
-                                    removeIcon.innerHTML = `
-                                <svg width="16" height="16" fill="black" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12.146 3.854a.5.5 0 0 0-.708 0L8 7.293 4.854 4.146a.5.5 0 1 0-.708.708L7.293 8l-3.147 3.146a.5.5 0 0 0 .708.708L8 8.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 8l3.146-3.146a.5.5 0 0 0 0-.708z"/>
-                                </svg>
-                            `;
-                                    removeIcon.onclick = () => {
-                                        messagesWrapper.removeChild(alignmentContainer);
-                                    };
-
-                                    messageContainer.appendChild(downloadLink);
-                                    messageContainer.appendChild(removeIcon);
-                                    alignmentContainer.appendChild(messageContainer);
-                                    messagesWrapper.appendChild(alignmentContainer);
-
-                                    // Optional: Scroll to bottom
-                                    if (typeof scrollToBottom === 'function') {
-                                        scrollToBottom(messagesWrapper);
-                                    }
-
-                                    // Optional: Send to chat
-                                    const messageContent = `${data.fileUrl}`;
-                                    if (typeof sendMessage === 'function') {
-                                        sendMessage(chatId, messageContent, parentContainer, type, id);
-                                    }
-
+                                    
                                 } else {
                                     alert("File upload failed.");
                                 }
@@ -1178,6 +1123,8 @@ function initializeSimpleChat() {
                 document.body.removeChild(fileInput);
             });
         }
+
+
 
 
        
@@ -1227,22 +1174,43 @@ function initializeSimpleChat() {
                                 const messageElement = document.createElement("div");
                                 messageElement.setAttribute('data-message-id', message.id); // Unique message ID for checking duplicates
                                 messageElement.style.cssText = `
-                            display: flex;
-                            justify-content: ${message.sender_id === student_id ? 'flex-end' : 'flex-start'};
-                            width: 100%;
-                            margin-bottom: 10px;
-                        `;
+                                        display: flex;
+                                        justify-content: ${message.sender_id === student_id ? 'flex-end' : 'flex-start'};
+                                        width: 100%;
+                                        margin-bottom: 10px;
+                                    `;
                                 const messageContent = document.createElement("div");
                                 messageContent.style.cssText = `
-                            max-width: 80%;
-                            padding: 8px 12px;
-                            border-radius: 8px;
-                            background-color: ${message.sender_id === student_id ? '#DCF8C6' : '#FFF'};
-                            word-wrap: break-word;
-                            font-family: 'Poppins', sans-serif;
-                            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-                        `;
-                                messageContent.textContent = message.message; // Display the message content
+                                        max-width: 80%;
+                                        padding: 8px 12px;
+                                        border-radius: 8px;
+                                        background-color: ${message.sender_id === student_id ? '#DCF8C6' : '#FFF'};
+                                        word-wrap: break-word;
+                                        font-family: 'Poppins', sans-serif;
+                                        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+                                    `;
+                                if (message.message.match(/\.(pdf|docx?|txt)$/i)) {
+                                    // Show file download style
+                                    const downloadLink = document.createElement('a');
+                                    downloadLink.href = message.message;
+                                    downloadLink.target = '_blank';
+                                    downloadLink.style.cssText = `
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 5px;
+                                        color: #666;
+                                        text-decoration: none;
+                                    `;
+                                    const fileName = message.message.split('/').pop();
+                                    downloadLink.innerHTML = `
+                                        <i class="fa-solid fa-file"></i>
+                                        <span>${fileName}</span>
+                                    `;
+                                    messageContent.appendChild(downloadLink);
+                                } else {
+                                    // Regular text message
+                                    messageContent.textContent = message.message;
+                                }
 
                                 messageElement.appendChild(messageContent);
                                 messagesWrapper.appendChild(messageElement);
@@ -3434,6 +3402,7 @@ const saveChangesFunctionality = () => {
 
 
 function loadSavedMessages() {
+
     // Load text messages
     const savedMessages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
 

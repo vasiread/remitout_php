@@ -393,10 +393,10 @@
         gap: 10px;
     }
 
-    .headersection-rightsidecontent {
+    /* .headersection-rightsidecontent {
         width: 300px;
-    }
-
+    } */
+ 
     .individualnbfclists-content,
     .individualcounsellorlists-content {
         flex-direction: column;

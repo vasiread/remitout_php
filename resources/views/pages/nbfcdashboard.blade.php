@@ -128,7 +128,7 @@
 
 
 
-    <section class="dashboard-main-content">
+    <section class="dashboard-main-content" style="display:flex">
 
 
         <div class="dashboard-sections-container" id="dashboard-container">
@@ -229,15 +229,7 @@
             <div class="nbfcdashboard-studentlistscontainer" style="gap:1.2%">
                 <div class="studentdashboardprofile-profilesection" id="nbfc-list-of-student-profilesections">
                     <img src="{{asset($profileImgPath)}}" class="profileImg" id="profile-photo-id" alt="">
-                    <div class="myapplication-nbfcapprovalcolumn" id="profilesection-nbfcapprovalcolumn">
-                        <button>Send Proposal</button>
-                        <div class="nbfcapprovalcolumnrightaligned">
-                            <button>Message</button>
-                            <button>Reject</button>
-                        </div>
 
-
-                    </div>
                     <i class="fa-regular fa-pen-to-square"></i>
                     <input type="file" class="profile-upload" accept="image/*" enctype="multipart/form-data">
                     <div class="studentdashboardprofile-personalinfo">
@@ -247,6 +239,15 @@
                         <ul class="personalinfo-secondrow">
                             <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span
                                     class="personal_info_id" style="margin-left: 6px;"> </span> </li>
+                            <div class="myapplication-nbfcapprovalcolumn" id="profilesection-nbfcapprovalcolumn">
+                                <button>Send Proposal</button>
+                                <div class="nbfcapprovalcolumnrightaligned">
+                                    <button>Message</button>
+                                    <button>Reject</button>
+                                </div>
+
+
+                            </div>
                             <li class="personal_info_name" id="referenceNameId"><img src={{$profileIconPath}} alt="">
                                 <p></p>
                             </li>
@@ -671,7 +672,7 @@ $counter = 1;
 
 
         <section class="index-section" id="index-section-id-nbfc">
-            <div class="inbox-container" style="display: none;">
+            <div class="inbox-container">
                 <div class="inbox-header">
                     <h2 class="dashboard-section-title">Inbox</h2>
                     <div class="inbox-controls">
@@ -733,25 +734,7 @@ $counter = 1;
     <script>
 
         document.addEventListener('DOMContentLoaded', function () {
-            const endpoints = [
-                { url: "/retrieve-file", selector: ".uploaded-aadhar-name", fileType: "aadhar-card-name" },
-                { url: "/retrieve-file", selector: ".uploaded-pan-name", fileType: "pan-card-name" },
-                { url: "/retrieve-file", selector: ".passport-name-selector", fileType: "passport-card-name" },
-                { url: "/retrieve-file", selector: ".sslc-marksheet", fileType: "tenth-grade-name" },
-                { url: "/retrieve-file", selector: ".hsc-marksheet", fileType: "twelfth-grade-name" },
-                { url: "/retrieve-file", selector: ".graduation-marksheet", fileType: "graduation-grade-name" },
-                { url: "/retrieve-file", selector: ".sslc-grade", fileType: "secured-tenth-name" },
-                { url: "/retrieve-file", selector: ".hsc-grade", fileType: "secured-twelfth-name" },
-                { url: "/retrieve-file", selector: ".graduation-grade", fileType: "secured-graduation-name" },
-                { url: "/retrieve-file", selector: ".experience-letter", fileType: "work-experience-experience-letter" },
-                { url: "/retrieve-file", selector: ".salary-slip", fileType: "work-experience-monthly-slip" },
-                { url: "/retrieve-file", selector: ".office-id", fileType: "work-experience-office-id" },
-                { url: "/retrieve-file", selector: ".joining-letter", fileType: "work-experience-joining-letter" },
-                { url: "/retrieve-file", selector: ".coborrower-pancard", fileType: "co-pan-card-name" },
-                { url: "/retrieve-file", selector: ".coborrower-aadharcard", fileType: "co-aadhar-card-name" },
-                { url: "/retrieve-file", selector: ".coborrower-addressproof", fileType: "co-addressproof" },
-            ];
-            let documentUrls = {}; // Define globally
+            // Define globally
 
             const mobileMenuBtn = document.getElementById('nbfcMobileMenuBtn');
             const mobileSidebar = document.querySelector('.nbfc-mobile-sidebar');
@@ -860,17 +843,23 @@ $counter = 1;
 
             const parentContainerNBFC = document.querySelector(".nbfcdashboard-studentlistscontainer");
 
+            const viewContainerApplication = document.getElementById("nbfc-student-profile-details");
+            
+
 
             // Function to show the dashboard and hide the inbox
             dashboardBtn.addEventListener('click', () => {
-                // Hide sidebar when a menu item is clicked
+                
+               
                 mobileSidebar.classList.remove('active');
                 mobileOverlay.classList.remove('active');
 
                 // Show dashboard container and hide inbox container
                 dashboardContainer.style.display = 'block';
+                
                 inboxContainer.style.display = 'none';
                 parentContainerNBFC.style.display = 'none';
+                viewContainerApplication.style.display="none";
 
 
                 // Show nav-right again on mobile
@@ -1014,7 +1003,10 @@ $counter = 1;
                 const viewContainerApplication = document.getElementById("nbfc-student-profile-details");
 
 
-                viewContainerApplication.style.display = "none";
+                if (viewContainerApplication) {
+                    viewContainerApplication.style.display = "none";
+
+                }
                 inboxContainer.style.display = "none";
                 parentContainerNBFC.style.display = 'none';
                 dashboardSectionsContainer.style.display = "grid";
@@ -1258,6 +1250,10 @@ $counter = 1;
 
                 viewButton.addEventListener("click", () => {
                     const wholeContainer = document.querySelector(".wholeapplicationprofile");
+
+                    const inboxContainer = document.getElementById("index-section-id-nbfc");
+                    inboxContainer.style.display = "none";
+
                     wholeContainer.style.display = "flex";
                     if (wholeContainer.style.display === "flex") {
                         viewProfileOfUsers(viewButton, studentId, loader);
@@ -2554,6 +2550,7 @@ $counter = 1;
                     messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
                 }
                 var messageBtns = document.querySelectorAll('.index-student-message-btn');
+                var messageMobBtns = docuemnt.querySelectorAll('.index-student-send-btn-mobile');
 
                 if (messageBtns.length > 0) {
                     messageBtns[index].addEventListener('click', function () {
@@ -2568,6 +2565,27 @@ $counter = 1;
 
                         viewChat(nbfc_id, messageInputStudentids);
                     });
+                }
+
+
+
+                if (messageMobBtns.length > 0) {
+                    messageMobBtns.forEach((messagebuttonmob, index) => {
+                        messageMobBtns.addEventListener('click', function () {
+
+                            showChat();
+                            var user = @json(session('nbfcuser'));
+                            const nbfc_id = user.nbfc_id;
+                            console.log(nbfc_id);
+
+                            console.log(messageUserIds[index].textContent);
+                            const messageInputStudentids = messageUserIds[index].textContent;
+                            console.log(messageInputStudentids);
+
+                            viewChat(nbfc_id, messageInputStudentids);
+                        });
+                    })
+
                 }
 
 
@@ -3098,7 +3116,7 @@ $counter = 1;
                         if (overlay) overlay.remove();
                         eyeIcon.classList.remove('preview-active');
                     } else {
-                        if (uploadedFile && uploadedFile.type === 'application/pdf') {
+                        if (uploadedFile && (uploadedFile.type === 'application/pdf' || uploadedFile.type.startsWith('image/'))) {
                             const reader = new FileReader();
                             reader.onload = function (event) {
                                 // Create wrapper for the preview
@@ -3645,7 +3663,7 @@ $counter = 1;
                         eyeIcon.classList.remove('preview-active');
                         eyeIcon.classList.replace('fa-times', 'fa-eye');
                     } else {
-                        if (uploadedFile && uploadedFile.type === 'application/pdf') {
+                        if (uploadedFile && (uploadedFile.type === 'application/pdf' || uploadedFile.type.startsWith('image/'))) {
                             const reader = new FileReader();
                             reader.onload = function (event) {
                                 // Create wrapper for the preview
@@ -3927,7 +3945,7 @@ $counter = 1;
                         if (overlay) overlay.remove();
                         eyeIcon.classList.remove('preview-active');
                     } else {
-                        if (uploadedFile && uploadedFile.type === 'application/pdf') {
+                        if (uploadedFile && (uploadedFile.type === 'application/pdf' || uploadedFile.type.startsWith('image/'))) {
                             const reader = new FileReader();
                             reader.onload = function (event) {
                                 // Create wrapper for the preview
@@ -4404,7 +4422,7 @@ $counter = 1;
                         if (overlay) overlay.remove();
                         eyeIcon.classList.remove('preview-active');
                     } else {
-                        if (uploadedFile && uploadedFile.type === 'application/pdf') {
+                        if (uploadedFile && (uploadedFile.type === 'application/pdf' || uploadedFile.type.startsWith('image/'))) {
                             const reader = new FileReader();
                             reader.onload = function (event) {
                                 // Create wrapper for the preview
@@ -4774,7 +4792,7 @@ $counter = 1;
             const othersLabel = container.querySelector("#others-label");
             const otherDegreeInputNBFC = container.querySelector("#otherDegreeInputNBFC");
 
-            // Personal Info
+            const userIdinside = usersListcontainer.querySelector("personal_info_id");
             const userName = usersListcontainer.querySelector(".personal_info_name p");
             const userPhone = usersListcontainer.querySelector(".personal_info_phone p");
             const userMail = usersListcontainer.querySelector(".personal_info_email p");
@@ -4806,6 +4824,7 @@ $counter = 1;
                 userMail.title = user.email ?? '';
             }
             if (userState) userState.textContent = personal.state ?? '';
+            if (userIdinside) userIdinside.textContent = user.unique_id ;
 
             // Course Inputs
             if (courseDuration) courseDuration.value = course['course-duration'] ?? '';
@@ -4886,64 +4905,83 @@ $counter = 1;
             }
         };
 
+        /* ----- ENDPOINTS CONFIG ----- */
+        const endpoints = [
+            { url: "/retrieve-file", selector: ".uploaded-aadhar-name", fileType: "aadhar-card-name" },
+            { url: "/retrieve-file", selector: ".uploaded-pan-name", fileType: "pan-card-name" },
+            { url: "/retrieve-file", selector: ".passport-name-selector", fileType: "passport-card-name" },
+            { url: "/retrieve-file", selector: ".sslc-marksheet", fileType: "tenth-grade-name" },
+            { url: "/retrieve-file", selector: ".hsc-marksheet", fileType: "twelfth-grade-name" },
+            { url: "/retrieve-file", selector: ".graduation-marksheet", fileType: "graduation-grade-name" },
+            { url: "/retrieve-file", selector: ".sslc-grade", fileType: "secured-tenth-name" },
+            { url: "/retrieve-file", selector: ".hsc-grade", fileType: "secured-twelfth-name" },
+            { url: "/retrieve-file", selector: ".graduation-grade", fileType: "secured-graduation-name" },
+            { url: "/retrieve-file", selector: ".experience-letter", fileType: "work-experience-experience-letter" },
+            { url: "/retrieve-file", selector: ".salary-slip", fileType: "work-experience-monthly-slip" },
+            { url: "/retrieve-file", selector: ".office-id", fileType: "work-experience-office-id" },
+            { url: "/retrieve-file", selector: ".joining-letter", fileType: "work-experience-joining-letter" },
+            { url: "/retrieve-file", selector: ".coborrower-pancard", fileType: "co-pan-card-name" },
+            { url: "/retrieve-file", selector: ".coborrower-aadharcard", fileType: "co-aadhar-card-name" },
+            { url: "/retrieve-file", selector: ".coborrower-addressproof", fileType: "co-addressproof" }
+        ];
 
+        /* cache of already-retrieved URLs */
+        const documentUrls = {};
 
+        /**
+         * Pull every document URL for one user
+         * and populate the matching DOM elements.
+         */
+        const initialiseAllViews = (userId) => {
+  const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+  if (!csrfToken || !userId) {
+    console.error("CSRF token or User ID is missing");
+    return Promise.reject("Missing CSRF/User ID");
+  }
 
+  const fileTypes = endpoints.map(ep => ep.fileType);
 
-      const initialiseAllViews = (userId) => {
-            if (!csrfToken || !userId) {
-                console.error("CSRF token or User ID is missing");
-                return Promise.resolve(); // Avoid rejecting; just log
+  return fetch("/retrieve-file", {
+    method: "POST",
+    headers: {
+      "X-CSRF-TOKEN": csrfToken,
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ userId, fileTypes }),
+  })
+    .then(res => res.json())
+    .then(data => {
+      const allFiles = data.staticFiles || data;
+
+      Object.entries(allFiles).forEach(([fileType, fileUrl]) => {
+        if (fileUrl) {
+          documentUrls[fileType] = fileUrl;
+          const fileName = decodeURIComponent(fileUrl.split("/").pop());
+
+          const endpoint = endpoints.find(ep => ep.fileType === fileType);
+          if (endpoint) {
+            const element = document.querySelector(endpoint.selector);
+            if (element) {
+              element.textContent = fileName;
+            } else {
+              console.warn(`❗ Selector missing: ${endpoint.selector}`);
             }
+          }
 
-            const fileTypes = endpoints.map(ep => ep.fileType);
-            console.log("File types to fetch:", fileTypes);
+          console.log(`✅ ${fileType}: ${fileUrl}`);
+        } else {
+          console.log(`⚠️ No file for ${fileType}`);
+        }
+      });
 
-            return fetch("/retrieve-file", {
-                method: "POST",
-                headers: {
-                    "X-CSRF-TOKEN": csrfToken,
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ userId, fileTypes }),
-            })
-                .then(res => res.json())
-                .then(data => {
-                    const allFiles = (data && data.staticFiles) || data || {}; // Safe fallback
-                    const documentUrls = {};
-
-                    if (!allFiles || typeof allFiles !== "object") {
-                        console.warn("No files returned from server.");
-                        return;
-                    }
-
-                    Object.entries(allFiles).forEach(([fileType, fileUrl]) => {
-                        if (fileUrl) {
-                            documentUrls[fileType] = fileUrl;
-                            const fileName = fileUrl.split("/").pop();
-
-                            const endpoint = endpoints.find(ep => ep.fileType === fileType);
-                            if (endpoint) {
-                                const element = document.querySelector(endpoint.selector);
-                                if (element) {
-                                    element.textContent = fileName;
-                                } else {
-                                    console.warn(`Element not found for selector: ${endpoint.selector}`);
-                                }
-                            }
-
-                            console.log(`FileType: ${fileType}, URL: ${fileUrl}`);
-                        } else {
-                            console.log(`No file found for ${fileType}`);
-                        }
-                    });
-                })
-                .catch(error => {
-                    console.error("Error fetching files:", error);
-                    // Don't reject; allow rest of the app to continue
-                });
-        };
+      return documentUrls;
+    })
+    .catch(error => {
+      console.error("❌ Error fetching files:", error);
+      return {};
+    });
+};
 
         const initialiseProfileView = (userId) => {
 
@@ -5072,6 +5110,23 @@ $counter = 1;
         };
 
 
+            // Run on window resize
+            window.addEventListener("resize", limitVisibleItemsOnMobile);
+
+            // ✅ Add view more click handler once DOM is updated
+            const viewMoreBtn = document.querySelector('.viewmore-messagenbfc');
+            const viewMoreBtnrequest = document.querySelector('.viewmore-request');
+            const viewMoreBtnproposal = document.querySelector('.viewmore-proposal');
+            if (viewMoreBtn) {
+                viewMoreBtn.addEventListener('click', () => {
+                    viewMoreClicked = true;
+                    document.querySelectorAll('.profile-list-item').forEach(item => {
+                        item.style.display = "block";
+                    });
+                    viewMoreBtn.style.display = 'none';
+                });
+            }
+        };
         const insideMessageTrigger = () => {
             // if (messageBtnInside) {
             //     messageBtnInside.addEventListener('click', () => {

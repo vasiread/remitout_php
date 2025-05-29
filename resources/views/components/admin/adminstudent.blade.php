@@ -22,8 +22,11 @@ $pindropIconPath = "assets/images/pin_drop.png";
 
     <div class="student-listcontainer" id="student-admin-section-id">
         <div class="globallistcontainer-header" id="studentlistcontainer-headersection">
-            <h2>Student List</h2>
+            <div class="insideshort-headerstudentlist">
+                <h2>Student List</h2>
             <h3 id="student-list-count">{{ count($userDetails) }}</h3>
+            </div>
+            
             <div class="headersection-rightsidecontent">
                 <div class="searchcontainer-rightsidecontent" id="search-student-list-container">
                     <input type="text" id="search-student-list" placeholder="Search">

@@ -755,7 +755,18 @@
     border-radius: 4px;
     border: 1px solid #e2e2e2;
 }
-
+#viewmore-queries{
+    display: flex;
+        justify-content: flex-end;
+        margin-right: 10px;
+        cursor: pointer;
+}
+#viewmore-queries p{
+        color: rgba(93, 92, 92, 1);
+            font-family: "Poppins";
+            font-weight: 600;
+            font-size: 0.85rem;
+}
 #sort-by p {
     font-family: "Poppins", sans-serif;
 
@@ -1067,7 +1078,7 @@
     background: rgba(250, 123, 21, 1);
     border: none;
     height: 100%;
-    max-width: 15.55%;
+    max-width: 152px;
     width: 100%;
     box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
     color: rgba(255, 255, 255, 1);
@@ -1739,9 +1750,19 @@
 }
 
 @media (max-width: 768px) {
+
+
     .scdashboard-nbfcstatus-pending {
         margin-left: 0;
     }
+
+    .reportsproposal-datalists .reportsproposal-individualdatalists {
+        padding-top: 20px;
+        border-top: 1px solid rgba(229, 229, 229, 1);
+
+    }
+
+
 
     .scdashboard-performancecontainer {
         margin: 38px 14px;
@@ -1760,6 +1781,7 @@
     .scdashboard-applicationstatus .scapplicationstatus-firstrow {
         display: flex;
         flex-direction: column !important;
+        align-items: flex-start;
     }
 
     .scdashboard-applicationstatus .scapplicationstatus-firstrow #sc-new-application-generate {
@@ -1798,8 +1820,10 @@
         width: 100%;
     }
 
-    .scdashboard-applicationstatus .scapplicationstatus-firstrow #applicationstatus-sortby {
-        flex: 0.8;
+
+
+    .scdashboard-applicationstatus {
+        padding: 0.5rem;
     }
 }
 
@@ -1961,21 +1985,22 @@
     }
 
     .scdashboard-nbfcstatus-pending p,
-    .studentapplication-header .application-buttoncontainer,
-    .firstsection-lists .application-buttoncontainer,
+
     .trackprogress-firstsection button,
     #pcviewgeneratedreferralcode,
     #download-detailsid {
         display: none;
     }
 
-    .firstrowapplication-rightsidecontent #mobwidthdownloadbutton {
-        display: flex;
+    .studentapplication-header .application-buttoncontainer .view-student-profile-trigger,
+    .firstsection-lists .application-buttoncontainer .view-student-profile-trigger,
+    .firstsection-lists .studenteacheditbutton {
+        display: none;
     }
 
+
     .studentapplication-header .studentadditbutton,
-    #mobgeneratedreferralcode,
-    .firstsection-lists .studenteacheditbutton {
+    #mobgeneratedreferralcode {
         display: flex;
         border-top-right-radius: 2px;
     }
@@ -1985,6 +2010,18 @@
         max-width: 100%;
         width: 320px;
         height: 45px;
+    }
+
+    .upload-file {
+        max-width: 71.96%;
+        width: 100%;
+    }
+
+    .headersection-rightsidecontent {
+        max-width: 100%;
+        flex-direction: row;
+        width: 100%;
+
     }
 
     .trackprogress-secondsection {
@@ -2030,6 +2067,18 @@
 @media (max-width: 480px) {
     .scdashboard-inboxcontent {
         margin: 0.5rem;
+    }
+
+    .scdashboard-applicationstatus .scapplicationstatus-firstrow #applicationstatus-sortby {
+        flex: 1;
+    }
+
+    .firstrowapplication-rightsidecontent #mobwidthdownloadbutton {
+        display: flex;
+    }
+
+    .pagination-download-groups #download-statusgroups-reports {
+        display: none;
     }
 
     .scmember-profilecontainer,

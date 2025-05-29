@@ -229,6 +229,7 @@ $studentCounsellorsLists = [];
                 <div class="groupofraisedquestion-scdashboard">
                     <p>Loading queries...</p>
                 </div>
+               </script>
             </div>
         </div>
     </div>

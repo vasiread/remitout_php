@@ -40,19 +40,38 @@
 
 .headersection-rightsidecontent {
     display: flex;
-    max-width:45.65%;
+    max-width: 45.65%;
     width: 100%;
     align-items: center;
     justify-content: flex-end;
     gap: 10px;
+   
 }
-.upload-field input{
-    display:none;
+
+.upload-field input {
+    display: none;
 }
-.document-box{
+
+.document-box {
     flex-direction: column;
-    
+
 }
+
+.insideshort-headerstudentlist {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+    width: 100%;
+
+
+}
+
+.insideshort-headerstudentlist h2 {
+    line-height: 1.05rem;
+}
+
 #search-student-list {
     height: 100%;
     max-width: 73.01%;
@@ -597,6 +616,8 @@
         align-items: flex-start;
     }
 
+    
+
     .individualcounsellorlists-content {
         flex-direction: column;
         gap: 4px;
@@ -656,4 +677,14 @@
         line-height: 18px;
         color: rgba(93, 92, 92, 1);
     }
+        .studentlistcontainer-headersection .headersection-rightsidecontent{
+            /* display: flex;
+            max-width: 45.65%;
+            width: 100%;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px; */
+            display: flex;
+            flex-direction: row;
+        }
 }

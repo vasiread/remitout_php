@@ -75,84 +75,90 @@ class MailController extends Controller
 
     public function sendUserDocuments(Request $request)
     {
-        // Validate request input (no need to validate email anymore)
+        /* ---------- 1. basic validation ------------------------------------ */
         $request->validate([
             'userId' => 'required|string',
             'name' => 'required|string'
+           
         ]);
 
         $userId = $request->input('userId');
-        $name = $request->input('name');
+        $borrower = $request->input('name');
 
-        $baseFilePath = "$userId/static";
-        $folders = Storage::disk('s3')->directories($baseFilePath);
-        $filePaths = [];
+        /* ---------- 2. collect every file below  {userId}/static/… --------- */
+        $base = "$userId/static";
+        $folders = Storage::disk('s3')->directories($base);
+        $fileList = [];
 
         foreach ($folders as $folder) {
             try {
-                $files = Storage::disk('s3')->files($folder);
-                foreach ($files as $file) {
-                    $filePaths[] = $file;
+                foreach (Storage::disk('s3')->files($folder) as $file) {
+                    $fileList[] = $file;
                 }
-            } catch (\Exception $e) {
-                Log::error("Error retrieving files from folder $folder: " . $e->getMessage());
-                continue;
+            } catch (\Throwable $e) {
+                Log::error("S3 list error in [$folder]: {$e->getMessage()}");
             }
         }
 
-        if (!empty($filePaths)) {
-            try {
-                // Ensure local temp folder exists
-                $localTempDir = storage_path('app/temp');
-                if (!file_exists($localTempDir)) {
-                    mkdir($localTempDir, 0755, true);
-                }
-
-                // Create a temporary ZIP file
-                $zipFileName = 'documents_' . Str::random(10) . '.zip';
-                $localZipPath = "$localTempDir/$zipFileName";
-
-                $zip = new ZipArchive;
-                if ($zip->open($localZipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
-                    foreach ($filePaths as $filePath) {
-                        $fileContents = Storage::disk('s3')->get($filePath);
-                        $zip->addFromString(basename($filePath), $fileContents);
-                    }
-                    $zip->close();
-                }
-
-                // Upload ZIP to S3
-                $s3ZipPath = "zips/$zipFileName";
-                Storage::disk('s3')->put($s3ZipPath, file_get_contents($localZipPath));
-
-                // Generate temporary download URL (valid for 2 hours)
-                $zipUrl = Storage::disk('s3')->temporaryUrl($s3ZipPath, now()->addHours(2));
-
-                // Fetch all active NBFC emails
-                $nbfcEmails = Nbfc::where('status', 'active')->pluck('nbfc_email');
-
-                foreach ($nbfcEmails as $nbfcEmail) {
-                    Mail::to($nbfcEmail)->send(new SendDocumentsMail($zipUrl, $name));
-                }
-
-                unlink($localZipPath);
-
-                return response()->json([
-                    'message' => 'Documents sent successfully to all active NBFCs.',
-                ], 200);
-            } catch (\Exception $e) {
-                Log::error("Error sending documents: " . $e->getMessage());
-
-                return response()->json([
-                    'message' => 'An error occurred while sending the documents.',
-                    'error' => $e->getMessage()
-                ], 500);
-            }
+        if (empty($fileList)) {
+            return response()->json([
+                'message' => 'No documents found for this user.'
+            ], 404);
         }
+
+        /* ---------- 3. build ZIP in local temp dir ------------------------- */
+        $localDir = storage_path('app/temp');
+        if (!is_dir($localDir)) {
+            mkdir($localDir, 0755, true);
+        }
+
+        $zipName = 'documents_' . Str::random(10) . '.zip';
+        $localZip = "$localDir/$zipName";
+        $zip = new ZipArchive;
+
+        if ($zip->open($localZip, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== TRUE) {
+            return response()->json(['message' => 'Unable to create ZIP'], 500);
+        }
+
+        foreach ($fileList as $s3Path) {
+            $zip->addFromString(basename($s3Path), Storage::disk('s3')->get($s3Path));
+        }
+        $zip->close();
+
+        /* ---------- 4. upload ZIP to S3 ------------------------------------ */
+        $s3Path = "zips/$zipName";
+
+        // -------  OPTION A: PERMANENT/PUBLIC URL (no time limit)  ------------
+        // Make sure bucket policy or ACL allows public-read.
+        Storage::disk('s3')->put(
+            $s3Path,
+            fopen($localZip, 'r'),
+            ['ACL' => 'public-read']           // or 'visibility' => 'public' in Laravel 11
+        );
+        $zipUrl = Storage::disk('s3')->url($s3Path);   // never expires
+
+        /*  -------  OPTION B: STILL PRIVATE BUT MAX 7 DAYS (comment above lines,
+                       uncomment below).  ------------------------------------
+        Storage::disk('s3')->put($s3Path, fopen($localZip, 'r+'));
+        $zipUrl = Storage::disk('s3')->temporaryUrl($s3Path, now()->addDays(7));
+        */
+
+        /* ---------- 5. e-mail every active NBFC ---------------------------- */
+        $nbfcEmails = Nbfc::where('status', 'active')->pluck('nbfc_email');
+
+        foreach ($nbfcEmails as $email) {
+            // If attachment preferred and file ≤ 10 MB, do:
+            //   Mail::to($email)->send(new SendDocumentsMail($borrower, null, $localZip));
+            Mail::to($email)->send(new SendDocumentsMail($zipUrl, $borrower));
+        }
+
+        /* ---------- 6. housekeeping --------------------------------------- */
+        unlink($localZip);
 
         return response()->json([
-            'message' => 'No documents found for this user.',
-        ], 404);
+            'message' => 'Documents sent successfully to all active NBFCs.',
+            'zipUrl' => $zipUrl          // handy for debugging/API consumers
+        ], 200);
     }
 
 
