@@ -177,6 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const isAtLastContainer =
             currentContainerIndex ===
             breadcrumbSections[currentBreadcrumbIndex].length - 1;
+
         prevButton.disabled = isAtFirstContainer;
         nextButton.disabled = isAtLastContainer || !areFieldsFilled();
         nextBreadcrumbButton.disabled =
@@ -184,16 +185,11 @@ document.addEventListener("DOMContentLoaded", () => {
             breadcrumbSections[currentBreadcrumbIndex].length - 1;
     }
 
+
     function updateBreadcrumbNavigation() {
         breadcrumbLinks.forEach((link, index) => {
-            link.classList.remove("active");
-            link.style.color = "";
-            if (index === currentBreadcrumbIndex) {
-                link.classList.add("active");
-                link.style.color = "#E98635";
-            } else {
-                link.style.color = "";
-            }
+            link.classList.toggle("active", index === currentBreadcrumbIndex);
+            link.style.color = index === currentBreadcrumbIndex ? "#E98635" : "";
         });
     }
 
@@ -399,16 +395,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const personalInfoState = document.getElementById("personal-info-state").value;
         const personalInfoDob = document.getElementById("personal-info-dob").value;
         const genderOptions = document.getElementById("gender-personal-info").value;
-        const personalInfoFindOut = selectedValue; // assuming selectedValue is defined globally
+        const personalInfoFindOut = selectedValue;
+        
 
         // ✅ Collect dynamic fields
         const dynamicFields = {};
 
-        // Select all inputs and selects starting with dynamic_fields[
-        document.querySelectorAll('input[name^="dynamic_fields["], select[name^="dynamic_fields["]').forEach(input => {
-            const name = input.getAttribute('name'); // e.g. dynamic_fields[5], dynamic_fields[5][]
-
-            // Extract field ID and check if multiple (with [])
+         document.querySelectorAll('input[name^="dynamic_fields["], select[name^="dynamic_fields["]').forEach(input => {
+            const name = input.getAttribute('name'); 
             const multipleMatch = name.match(/^dynamic_fields\[(\d+)\]\[\]$/);
             const singleMatch = name.match(/^dynamic_fields\[(\d+)\]$/);
 
@@ -474,7 +468,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then((data) => {
                     if (data.success) {
                         showToast("Details have been saved successfully");
-                        navigate("next");
                     } else {
                         console.error("Failed to update personal info:", data.message);
                     }
@@ -746,7 +739,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     prevButton.addEventListener("click", () => navigate("prev"));
 
-    nextBreadcrumbButton.addEventListener("click", () => {
+    if (nextBreadcrumbButton) {
+         nextBreadcrumbButton.addEventListener("click", () => {
         if (
             currentContainerIndex ===
             breadcrumbSections[currentBreadcrumbIndex].length - 1
@@ -771,6 +765,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     });
+    }
+   
 
     if (nextCourseButton) {
         nextCourseButton.addEventListener("click", () => {
@@ -802,7 +798,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     (container) => (container.style.display = "none"),
                 );
                 currentBreadcrumbIndex = 2;
-                currentContainerIndex = 1;
+                currentContainerIndex = 0;
                 breadcrumbSections[currentBreadcrumbIndex].forEach(
                     (container, index) => {
                         container.style.display =

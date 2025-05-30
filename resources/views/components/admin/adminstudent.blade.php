@@ -27,7 +27,7 @@ $pindropIconPath = "assets/images/pin_drop.png";
             <h3 id="student-list-count">{{ count($userDetails) }}</h3>
             </div>
             
-            <div class="headersection-rightsidecontent">
+            <div class="headersection-rightsidecontent" id="admin-studentlist-headercontent">
                 <div class="searchcontainer-rightsidecontent" id="search-student-list-container">
                     <input type="text" id="search-student-list" placeholder="Search">
                     <i class="fa-solid fa-search"></i>

@@ -250,7 +250,6 @@ class NbfcController extends Controller
 
     public function updateReviewStatus(Request $request)
     {
-        
         try {
             $request->validate([
                 'user_id' => 'required|string',
@@ -272,6 +271,7 @@ class NbfcController extends Controller
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
     }
+
 
 
 
