@@ -398,7 +398,13 @@
     padding: 1.9rem 1rem;
     border-bottom: 1px solid rgba(229, 229, 229, 1);
 }
-
+.studentapplication-lists-remainingdocuments .upload-field span {
+    display: inline-block;
+    max-width: 86%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 .individualcounsellorlists-items p {
     font-family: "Poppins", sans-serif;
 
@@ -632,8 +638,21 @@
         flex-direction: column;
         align-items: flex-start;
     }
+ .studentapplication-lists-remainingdocuments .document-box {
+     width: 80%;
+     margin:0 10%;
+     padding: 0;
+     border-radius: 0;
+     box-shadow: none;
+ }
+
+.studentapplication-lists-remainingdocuments .remove-icon{
+    display: flex;
+         width: 20px;
+        position: absolute;
 
 
+}
 
     .individualcounsellorlists-content {
         flex-direction: column;

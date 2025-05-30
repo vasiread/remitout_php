@@ -205,7 +205,7 @@
                 });
 
                 document.querySelector('.edit-contents-cms-save').addEventListener('click', () => {
-                    this.handleSave();
+                     this.handleSave();
                 });
             }
 
@@ -432,7 +432,7 @@
             async handleSave() {
                 try {
                     this.showLoading();
-
+ 
                     // Simulate API call
                     await new Promise(resolve => setTimeout(resolve, 1000));
 
@@ -441,7 +441,7 @@
 
                     // Update originalData with current data
                     this.originalData = JSON.parse(JSON.stringify(this.data));
-
+                    
                     this.showToast('All changes saved successfully');
                 } catch (error) {
                     this.showToast('Error saving changes. Please try again.', true);
@@ -494,10 +494,9 @@ function renderContent(data) {
         
         // Update the edit button click handler
         row.querySelector('.edit-content-button').addEventListener('click', () => {
-            // Hide the content list
+             // Hide the content list
             contentList.style.display = 'none';
-            // Hide the search input and header
-            document.querySelector('.edit-content-header').style.display = 'none';
+             document.querySelector('.edit-content-header').style.display = 'none';
             // Show the CMS container
             document.querySelector('.edit-contents-cms-container').style.display = 'block';
             

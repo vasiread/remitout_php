@@ -34,14 +34,14 @@
 
 
     @php
-$profileImgPath = 'images/admin-student-profile.png';
-$uploadPanName = '';
-$profileIconPath = "assets/images/account_circle.png";
-$phoneIconPath = "assets/images/call.png";
-$mailIconPath = "assets/images/mail.png";
-$pindropIconPath = "assets/images/pin_drop.png";
-$discordIconPath = "assets/images/icons/discordicon.png";
-$viewIconPath = "assets/images/visibility.png";
+        $profileImgPath = 'images/admin-student-profile.png';
+        $uploadPanName = '';
+        $profileIconPath = "assets/images/account_circle.png";
+        $phoneIconPath = "assets/images/call.png";
+        $mailIconPath = "assets/images/mail.png";
+        $pindropIconPath = "assets/images/pin_drop.png";
+        $discordIconPath = "assets/images/icons/discordicon.png";
+        $viewIconPath = "assets/images/visibility.png";
     @endphp
 
     <nav class="nbfc-navbar">
@@ -280,7 +280,7 @@ $viewIconPath = "assets/images/visibility.png";
                         </div>
                         <div class="testscoreseditsection-secondrow">
                             @php
-$counter = 1; 
+                                $counter = 1; 
                             @endphp
 
 
@@ -2781,214 +2781,319 @@ $counter = 1;
             const coBorrowerDocuments = document.querySelectorAll(".individual-coborrower-kyc-documents");
 
             coBorrowerDocuments.forEach((card) => {
-                let uploadedFile = null;
+                const eyeIcon = card.querySelector(".fa-eye");
 
-                const fileInput = card.querySelector('input[type="file"]');
-                if (!fileInput) return;
-
-                const inputId = fileInput.id;
-                const previewIcon = card.querySelector('.fa-eye');
-                const docNameElem = card.querySelector('.document-name');
-                const docStatusElem = card.querySelector('.document-status');
-
-                // Click on container triggers file input click (except on preview icon)
-                card.querySelector('.inputfilecontainer-coborrower-kyccolumn').addEventListener('click', (event) => {
-                    if (!event.target.classList.contains('fa-eye') && !event.target.id.startsWith('view-')) {
-                        fileInput.click();
-                    }
-                });
-
-                // Helper functions
-                function getDocumentTypeElement() {
-                    if (card.querySelector('.coborrower-pancard')) return card.querySelector('.coborrower-pancard');
-                    if (card.querySelector('.coborrower-aadharcard')) return card.querySelector('.coborrower-aadharcard');
-                    if (card.querySelector('.coborrower-addressproof')) return card.querySelector('.coborrower-addressproof');
-                    return null;
-                }
-                function getOriginalText(element) {
-                    if (element.classList.contains('coborrower-pancard')) return 'Pan Card';
-                    if (element.classList.contains('coborrower-aadharcard')) return 'Aadhar Card';
-                    if (element.classList.contains('coborrower-addressproof')) return 'Address Proof';
-                    return 'No file chosen';
-                }
-                function truncateFileName(name) {
-                    return name.length > 25 ? name.substring(0, 22) + '...' : name;
+                if (!eyeIcon) {
+                    console.error("Eye icon not found in card:", card);
+                    return;
                 }
 
-                // On file selected
-                fileInput.addEventListener('change', (event) => {
-                    const file = event.target.files[0];
-                    if (!file) return;
-
-                    const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
-                    const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
-
-                    if (!allowedExtensions.includes(fileExtension)) {
-                        alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
-                        event.target.value = '';
-                        const docElem = getDocumentTypeElement();
-                        if (docElem) docElem.textContent = getOriginalText(docElem);
-                        docStatusElem.textContent = '';
-                        uploadedFile = null;
-                        return;
-                    }
-
-                    if (file.size > 5 * 1024 * 1024) {
-                        alert("Error: File size exceeds 5MB limit.");
-                        event.target.value = '';
-                        const docElem = getDocumentTypeElement();
-                        if (docElem) docElem.textContent = getOriginalText(docElem);
-                        docStatusElem.textContent = '';
-                        uploadedFile = null;
-                        return;
-                    }
-
-                    uploadedFile = file;
-                    const docElem = getDocumentTypeElement();
-                    if (docElem) docElem.textContent = truncateFileName(file.name);
-
-                    const fileSize = file.size < 1024 * 1024
-                        ? (file.size / 1024).toFixed(2) + ' KB'
-                        : (file.size / (1024 * 1024)).toFixed(2) + ' MB';
-
-                    docStatusElem.textContent = `${fileSize} Uploaded`;
-                });
-
-                // On preview icon clicked
-                previewIcon.addEventListener('click', (event) => {
+                eyeIcon.addEventListener("click", function (event) {
                     event.stopPropagation();
 
-                    // Close if already open
-                    if (previewIcon.classList.contains('preview-active')) {
-                        document.querySelector('.pdf-preview-wrapper')?.remove();
-                        document.querySelector('.pdf-preview-overlay')?.remove();
-                        document.querySelector('.image-preview-wrapper')?.remove();
-                        document.querySelector('.image-preview-overlay')?.remove();
-                        previewIcon.classList.remove('preview-active');
+                    let fileTypeKey;
+                    if (card.querySelector(".coborrower-pancard")) {
+                        fileTypeKey = "co-pan-card-name";
+                    } else if (card.querySelector(".coborrower-aadharcard")) {
+                        fileTypeKey = "co-aadhar-card-name";
+                    } else if (card.querySelector(".coborrower-addressproof")) {
+                        fileTypeKey = "co-addressproof";
+                    }
+
+                    const fileUrl = documentUrls[fileTypeKey];
+                    const fileNameElement = card.querySelector(`.${fileTypeKey.replace("-name", "-grade")}`);
+                    const rawFileName = fileNameElement ? fileNameElement.textContent.trim() : "Document.pdf";
+                    const fileName = truncateFileName ? truncateFileName(rawFileName) : rawFileName;
+
+                    if (eyeIcon.classList.contains("preview-active")) {
+                        // Close preview if already open
+                        const previewWrapper = document.querySelector(".pdf-preview-wrapper, .image-preview-wrapper");
+                        const overlay = document.querySelector(".pdf-preview-overlay, .image-preview-overlay");
+                        if (previewWrapper) previewWrapper.remove();
+                        if (overlay) overlay.remove();
+                        eyeIcon.classList.remove("preview-active");
+                        eyeIcon.src = "/assets/images/visibility.png";
                         return;
                     }
 
-                    if (!uploadedFile) {
-                        alert('Please upload a valid PDF or image file to preview.');
+                    if (!fileUrl) {
+                        alert("No document found to preview.");
                         return;
                     }
 
-                    if (!(uploadedFile.type === 'application/pdf' || uploadedFile.type.startsWith('image/'))) {
-                        alert('Preview supports only PDF or image files.');
-                        return;
-                    }
+                    const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
+                    const isImage = [".jpg", ".jpeg", ".png"].some((ext) => fileUrl.toLowerCase().endsWith(ext));
 
-                    const reader = new FileReader();
-                    reader.onload = function (event) {
-                        const overlay = document.createElement('div');
-                        overlay.className = uploadedFile.type === 'application/pdf' ? 'pdf-preview-overlay' : 'image-preview-overlay';
+                    const closePreview = () => {
+                        const previewWrapper = document.querySelector(".pdf-preview-wrapper, .image-preview-wrapper");
+                        const overlay = document.querySelector(".pdf-preview-overlay, .image-preview-overlay");
+                        if (previewWrapper) previewWrapper.remove();
+                        if (overlay) overlay.remove();
+                        eyeIcon.classList.remove("preview-active");
+                        eyeIcon.src = "/assets/images/visibility.png";
+                        document.removeEventListener("keydown", keydownHandler);
+                    };
+
+                    const keydownHandler = (e) => {
+                        if (e.key === "Escape") {
+                            closePreview();
+                        }
+                    };
+
+                    if (isPDF) {
+                        // PDF PREVIEW
+                        const previewWrapper = document.createElement("div");
+                        previewWrapper.className = "pdf-preview-wrapper";
+                        previewWrapper.style.cssText = `
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 60%;
+          height: 80vh;
+          background-color: white;
+          display: flex;
+          flex-direction: column;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          z-index: 1000;
+          border-radius: 8px;
+        `;
+
+                        const overlay = document.createElement("div");
+                        overlay.className = "pdf-preview-overlay";
                         overlay.style.cssText = `
           position: fixed;
-          top: 0; left: 0;
-          width: 100%; height: 100%;
-          background-color: rgba(0,0,0,0.5);
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
           z-index: 999;
         `;
 
-                        const previewWrapper = document.createElement('div');
-                        previewWrapper.className = uploadedFile.type === 'application/pdf' ? 'pdf-preview-wrapper' : 'image-preview-wrapper';
-                        previewWrapper.style.cssText = `
-          position: fixed;
-          top: 50%; left: 50%;
-          transform: translate(-50%, -50%);
-          width: 90%;
-          max-width: 900px;
-          height: 90vh;
-          background-color: white;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-          display: flex;
-          flex-direction: column;
-          border-radius: 8px;
-          z-index: 1000;
-        `;
-
-                        // Header with filename and close button
-                        const header = document.createElement('div');
+                        const header = document.createElement("div");
                         header.style.cssText = `
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: 10px 16px;
+          padding: 8px 16px;
           background-color: #1a1a1a;
           color: white;
-          font-family: 'Poppins', sans-serif;
+          height: 40px;
           border-top-left-radius: 8px;
           border-top-right-radius: 8px;
-          height: 40px;
+          position: relative;
         `;
 
-                        const fileNameSpan = document.createElement('span');
-                        fileNameSpan.textContent = uploadedFile.name;
-                        fileNameSpan.style.cssText = 'font-size: 14px;';
+                        const fileNameSection = document.createElement("div");
+                        fileNameSection.style.cssText = `display: flex; align-items: center; gap: 8px;`;
 
-                        const closeButton = document.createElement('button');
-                        closeButton.innerHTML = '&#10005;';
+                        const fileNameSpan = document.createElement("span");
+                        fileNameSpan.textContent = fileName;
+                        fileNameSpan.style.cssText = `
+          color: white;
+          font-size: 14px;
+          font-family: 'Poppins', sans-serif;
+        `;
+                        fileNameSection.appendChild(fileNameSpan);
+
+                        const zoomControls = document.createElement("div");
+                        zoomControls.style.cssText = `
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+        `;
+
+                        const zoomOut = document.createElement("button");
+                        zoomOut.innerHTML = "−";
+                        const zoomIn = document.createElement("button");
+                        zoomIn.innerHTML = "+";
+
+                        [zoomOut, zoomIn].forEach((btn) => {
+                            btn.style.cssText = `
+            background: none;
+            border: 1px solid #fff;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 2px 8px;
+            font-family: 'Poppins', sans-serif;
+          `;
+                        });
+
+                        zoomControls.appendChild(zoomOut);
+                        zoomControls.appendChild(zoomIn);
+
+                        const closeButton = document.createElement("button");
+                        closeButton.innerHTML = "✕";
                         closeButton.style.cssText = `
           background: none;
           border: none;
           color: white;
           font-size: 18px;
           cursor: pointer;
-          padding: 0;
-          margin: 0;
-          line-height: 1;
+          padding: 4px;
+          font-family: 'Poppins', sans-serif;
         `;
 
-                        closeButton.addEventListener('click', () => {
-                            previewWrapper.remove();
-                            overlay.remove();
-                            previewIcon.classList.remove('preview-active');
-                        });
-                        overlay.addEventListener('click', () => {
-                            previewWrapper.remove();
-                            overlay.remove();
-                            previewIcon.classList.remove('preview-active');
-                        });
+                        closeButton.addEventListener("click", closePreview);
+                        overlay.addEventListener("click", closePreview);
 
-                        header.appendChild(fileNameSpan);
+                        header.appendChild(fileNameSection);
+                        header.appendChild(zoomControls);
                         header.appendChild(closeButton);
 
-                        previewWrapper.appendChild(header);
+                        const iframe = document.createElement("iframe");
+                        iframe.src = fileUrl;
+                        iframe.style.cssText = `
+          width: 100%;
+          height: calc(100% - 40px);
+          border: none;
+          background-color: white;
+          border-bottom-left-radius: 8px;
+          border-bottom-right-radius: 8px;
+          transform-origin: top center;
+        `;
 
-                        // Content (PDF or image)
-                        if (uploadedFile.type === 'application/pdf') {
-                            const iframe = document.createElement('iframe');
-                            iframe.src = event.target.result;
-                            iframe.style.cssText = `
-            flex: 1;
-            border: none;
-            width: 100%;
-            border-bottom-left-radius: 8px;
-            border-bottom-right-radius: 8px;
-          `;
-                            previewWrapper.appendChild(iframe);
-                        } else {
-                            const img = document.createElement('img');
-                            img.src = event.target.result;
-                            img.style.cssText = `
-            max-width: 100%;
-            max-height: calc(90vh - 40px);
-            margin: auto;
-            object-fit: contain;
-            flex: 1;
-          `;
-                            previewWrapper.appendChild(img);
-                        }
+                        previewWrapper.appendChild(header);
+                        previewWrapper.appendChild(iframe);
 
                         document.body.appendChild(overlay);
                         document.body.appendChild(previewWrapper);
-                        previewIcon.classList.add('preview-active');
-                    };
 
-                    reader.readAsDataURL(uploadedFile);
+                        let currentZoom = 1;
+                        zoomIn.addEventListener("click", () => {
+                            currentZoom += 0.1;
+                            iframe.style.transform = `scale(${currentZoom})`;
+                        });
+
+                        zoomOut.addEventListener("click", () => {
+                            currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                            iframe.style.transform = `scale(${currentZoom})`;
+                        });
+
+                        document.addEventListener("keydown", keydownHandler);
+                        eyeIcon.classList.add("preview-active");
+                        eyeIcon.src = "/assets/images/close.png";
+                    } else if (isImage) {
+                        // IMAGE PREVIEW
+                        const previewWrapper = document.createElement("div");
+                        previewWrapper.className = "image-preview-wrapper";
+                        previewWrapper.style.cssText = `
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 90%;
+          max-width: 800px;
+          max-height: 90vh;
+          background-color: white;
+          display: flex;
+          flex-direction: column;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          z-index: 1000;
+          border-radius: 8px;
+        `;
+
+                        const overlay = document.createElement("div");
+                        overlay.className = "image-preview-overlay";
+                        overlay.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+          z-index: 999;
+        `;
+
+                        const header = document.createElement("div");
+                        header.style.cssText = `
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 8px 16px;
+          background-color: #1a1a1a;
+          color: white;
+          height: 40px;
+          border-top-left-radius: 8px;
+          border-top-right-radius: 8px;
+        `;
+
+                        const fileNameSection = document.createElement("div");
+                        fileNameSection.style.cssText = `display: flex; align-items: center; gap: 8px;`;
+
+                        const fileNameSpan = document.createElement("span");
+                        fileNameSpan.textContent = fileName;
+                        fileNameSpan.style.cssText = `
+          color: white;
+          font-size: 14px;
+          font-family: 'Poppins', sans-serif;
+        `;
+                        fileNameSection.appendChild(fileNameSpan);
+
+                        const closeButton = document.createElement("button");
+                        closeButton.innerHTML = "✕";
+                        closeButton.style.cssText = `
+          background: none;
+          border: none;
+          color: white;
+          font-size: 18px;
+          cursor: pointer;
+          padding: 4px;
+          font-family: 'Poppins', sans-serif;
+        `;
+
+                        closeButton.addEventListener("click", closePreview);
+                        overlay.addEventListener("click", closePreview);
+
+                        header.appendChild(fileNameSection);
+                        header.appendChild(closeButton);
+
+                        const imageContainer = document.createElement("div");
+                        imageContainer.style.cssText = `
+          width: 100%;
+          height: calc(100% - 40px);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+          border-bottom-left-radius: 8px;
+          border-bottom-right-radius: 8px;
+          background-color: #fff;
+        `;
+
+                        const img = document.createElement("img");
+                        img.src = fileUrl;
+                        img.alt = fileName;
+                        img.style.cssText = `
+          max-width: 100%;
+          max-height: 100%;
+          object-fit: contain;
+        `;
+
+                        imageContainer.appendChild(img);
+
+                        previewWrapper.appendChild(header);
+                        previewWrapper.appendChild(imageContainer);
+
+                        document.body.appendChild(overlay);
+                        document.body.appendChild(previewWrapper);
+
+                        document.addEventListener("keydown", keydownHandler);
+                        eyeIcon.classList.add("preview-active");
+                        eyeIcon.src = "/assets/images/close.png";
+                    } else {
+                        alert("Unsupported file format.");
+                    }
                 });
             });
         };
+
 
         const initializeKycDocumentUpload = () => {
 
@@ -3215,7 +3320,7 @@ $counter = 1;
 
         //           eyeIcon.addEventListener("click", function (event) {
         //              event.stopPropagation();
-                  
+
         //               let fileTypeKey;
         //               if(card.querySelector(".sslc-marksheet")){
         //                 fileTypeKey="tenth-grade-name"
@@ -3239,78 +3344,78 @@ $counter = 1;
 
 
 
-          
+
         // };
         const initializeMarksheetUpload = () => {
-                const individualMarksheetDocumentsUpload = document.querySelectorAll(".individualmarksheetdocuments");
+            const individualMarksheetDocumentsUpload = document.querySelectorAll(".individualmarksheetdocuments");
 
-                individualMarksheetDocumentsUpload.forEach((card) => {
-                    const eyeIcon = card.querySelector(".fa-eye");
+            individualMarksheetDocumentsUpload.forEach((card) => {
+                const eyeIcon = card.querySelector(".fa-eye");
 
-                    if (!eyeIcon) {
-                        console.error("Eye icon not found in card:", card);
+                if (!eyeIcon) {
+                    console.error("Eye icon not found in card:", card);
+                    return;
+                }
+
+                eyeIcon.addEventListener("click", function (event) {
+                    event.stopPropagation();
+
+                    // Determine document type
+                    let fileTypeKey;
+                    if (card.querySelector(".sslc-marksheet")) {
+                        fileTypeKey = "tenth-grade-name";
+                    } else if (card.querySelector(".hsc-marksheet")) {
+                        fileTypeKey = "twelfth-grade-name";
+                    } else if (card.querySelector(".graduation-marksheet")) {
+                        fileTypeKey = "graduation-grade-name";
+                    }
+
+                    const fileUrl = documentUrls[fileTypeKey];
+                    const fileNameElement = card.querySelector(`.${fileTypeKey.replace("-name", "-grade")}`);
+                    const rawFileName = fileNameElement ? fileNameElement.textContent.trim() : "Document.pdf";
+                    const fileName = truncateFileName(rawFileName);
+
+                    console.log(`Previewing marksheet (${fileTypeKey}):`, fileUrl);
+
+                    if (eyeIcon.classList.contains("preview-active")) {
+                        const previewWrapper = document.querySelector(".pdf-preview-wrapper, .image-preview-wrapper");
+                        const overlay = document.querySelector(".pdf-preview-overlay, .image-preview-overlay");
+                        if (previewWrapper) previewWrapper.remove();
+                        if (overlay) overlay.remove();
+                        eyeIcon.classList.remove("preview-active");
+                        eyeIcon.src = "/assets/images/visibility.png";
                         return;
                     }
 
-                    eyeIcon.addEventListener("click", function (event) {
-                        event.stopPropagation();
+                    if (!fileUrl) {
+                        alert("No document found to preview.");
+                        return;
+                    }
 
-                        // Determine document type
-                        let fileTypeKey;
-                        if (card.querySelector(".sslc-marksheet")) {
-                            fileTypeKey = "tenth-grade-name";
-                        } else if (card.querySelector(".hsc-marksheet")) {
-                            fileTypeKey = "twelfth-grade-name";
-                        } else if (card.querySelector(".graduation-marksheet")) {
-                            fileTypeKey = "graduation-grade-name";
+                    const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
+                    const isImage = [".jpg", ".jpeg", ".png"].some((ext) => fileUrl.toLowerCase().endsWith(ext));
+
+                    const closePreview = () => {
+                        const previewWrapper = document.querySelector(".pdf-preview-wrapper, .image-preview-wrapper");
+                        const overlay = document.querySelector(".pdf-preview-overlay, .image-preview-overlay");
+                        if (previewWrapper) previewWrapper.remove();
+                        if (overlay) overlay.remove();
+                        eyeIcon.classList.remove("preview-active");
+                        eyeIcon.src = "/assets/images/visibility.png";
+                        document.removeEventListener("keydown", keydownHandler);
+                    };
+
+                    const keydownHandler = (e) => {
+                        if (e.key === "Escape") {
+                            closePreview();
                         }
+                    };
 
-                        const fileUrl = documentUrls[fileTypeKey];
-                        const fileNameElement = card.querySelector(`.${fileTypeKey.replace("-name", "-grade")}`);
-                        const rawFileName = fileNameElement ? fileNameElement.textContent.trim() : "Document.pdf";
-                        const fileName = truncateFileName(rawFileName);
-
-                        console.log(`Previewing marksheet (${fileTypeKey}):`, fileUrl);
-
-                        if (eyeIcon.classList.contains("preview-active")) {
-                            const previewWrapper = document.querySelector(".pdf-preview-wrapper, .image-preview-wrapper");
-                            const overlay = document.querySelector(".pdf-preview-overlay, .image-preview-overlay");
-                            if (previewWrapper) previewWrapper.remove();
-                            if (overlay) overlay.remove();
-                            eyeIcon.classList.remove("preview-active");
-                            eyeIcon.src = "/assets/images/visibility.png";
-                            return;
-                        }
-
-                        if (!fileUrl) {
-                            alert("No document found to preview.");
-                            return;
-                        }
-
-                        const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
-                        const isImage = [".jpg", ".jpeg", ".png"].some((ext) => fileUrl.toLowerCase().endsWith(ext));
-
-                        const closePreview = () => {
-                            const previewWrapper = document.querySelector(".pdf-preview-wrapper, .image-preview-wrapper");
-                            const overlay = document.querySelector(".pdf-preview-overlay, .image-preview-overlay");
-                            if (previewWrapper) previewWrapper.remove();
-                            if (overlay) overlay.remove();
-                            eyeIcon.classList.remove("preview-active");
-                            eyeIcon.src = "/assets/images/visibility.png";
-                            document.removeEventListener("keydown", keydownHandler);
-                        };
-
-                        const keydownHandler = (e) => {
-                            if (e.key === "Escape") {
-                                closePreview();
-                            }
-                        };
-
-                        if (isPDF) {
-                            // PDF PREVIEW
-                            const previewWrapper = document.createElement("div");
-                            previewWrapper.className = "pdf-preview-wrapper";
-                            previewWrapper.style.cssText = `
+                    if (isPDF) {
+                        // PDF PREVIEW
+                        const previewWrapper = document.createElement("div");
+                        previewWrapper.className = "pdf-preview-wrapper";
+                        previewWrapper.style.cssText = `
                     position: fixed;
                     top: 50%;
                     left: 50%;
@@ -3325,9 +3430,9 @@ $counter = 1;
                     border-radius: 8px;
                 `;
 
-                            const overlay = document.createElement("div");
-                            overlay.className = "pdf-preview-overlay";
-                            overlay.style.cssText = `
+                        const overlay = document.createElement("div");
+                        overlay.className = "pdf-preview-overlay";
+                        overlay.style.cssText = `
                     position: fixed;
                     top: 0;
                     left: 0;
@@ -3337,8 +3442,8 @@ $counter = 1;
                     z-index: 999;
                 `;
 
-                            const header = document.createElement("div");
-                            header.style.cssText = `
+                        const header = document.createElement("div");
+                        header.style.cssText = `
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
@@ -3351,20 +3456,20 @@ $counter = 1;
                     position: relative;
                 `;
 
-                            const fileNameSection = document.createElement("div");
-                            fileNameSection.style.cssText = `display: flex; align-items: center; gap: 8px;`;
+                        const fileNameSection = document.createElement("div");
+                        fileNameSection.style.cssText = `display: flex; align-items: center; gap: 8px;`;
 
-                            const fileNameSpan = document.createElement("span");
-                            fileNameSpan.textContent = fileName;
-                            fileNameSpan.style.cssText = `
+                        const fileNameSpan = document.createElement("span");
+                        fileNameSpan.textContent = fileName;
+                        fileNameSpan.style.cssText = `
                     color: white;
                     font-size: 14px;
                     font-family: 'Poppins', sans-serif;
                 `;
-                            fileNameSection.appendChild(fileNameSpan);
+                        fileNameSection.appendChild(fileNameSpan);
 
-                            const zoomControls = document.createElement("div");
-                            zoomControls.style.cssText = `
+                        const zoomControls = document.createElement("div");
+                        zoomControls.style.cssText = `
                     display: flex;
                     align-items: center;
                     gap: 12px;
@@ -3373,13 +3478,13 @@ $counter = 1;
                     transform: translateX(-50%);
                 `;
 
-                            const zoomOut = document.createElement("button");
-                            zoomOut.innerHTML = "−";
-                            const zoomIn = document.createElement("button");
-                            zoomIn.innerHTML = "+";
+                        const zoomOut = document.createElement("button");
+                        zoomOut.innerHTML = "−";
+                        const zoomIn = document.createElement("button");
+                        zoomIn.innerHTML = "+";
 
-                            [zoomOut, zoomIn].forEach((btn) => {
-                                btn.style.cssText = `
+                        [zoomOut, zoomIn].forEach((btn) => {
+                            btn.style.cssText = `
                         background: none;
                         border: 1px solid #fff;
                         border-radius: 4px;
@@ -3389,14 +3494,14 @@ $counter = 1;
                         padding: 2px 8px;
                         font-family: 'Poppins', sans-serif;
                     `;
-                            });
+                        });
 
-                            zoomControls.appendChild(zoomOut);
-                            zoomControls.appendChild(zoomIn);
+                        zoomControls.appendChild(zoomOut);
+                        zoomControls.appendChild(zoomIn);
 
-                            const closeButton = document.createElement("button");
-                            closeButton.innerHTML = "✕";
-                            closeButton.style.cssText = `
+                        const closeButton = document.createElement("button");
+                        closeButton.innerHTML = "✕";
+                        closeButton.style.cssText = `
                     background: none;
                     border: none;
                     color: white;
@@ -3406,16 +3511,16 @@ $counter = 1;
                     font-family: 'Poppins', sans-serif;
                 `;
 
-                            closeButton.addEventListener("click", closePreview);
-                            overlay.addEventListener("click", closePreview);
+                        closeButton.addEventListener("click", closePreview);
+                        overlay.addEventListener("click", closePreview);
 
-                            header.appendChild(fileNameSection);
-                            header.appendChild(zoomControls);
-                            header.appendChild(closeButton);
+                        header.appendChild(fileNameSection);
+                        header.appendChild(zoomControls);
+                        header.appendChild(closeButton);
 
-                            const iframe = document.createElement("iframe");
-                            iframe.src = fileUrl;
-                            iframe.style.cssText = `
+                        const iframe = document.createElement("iframe");
+                        iframe.src = fileUrl;
+                        iframe.style.cssText = `
                     width: 100%;
                     height: calc(100% - 40px);
                     border: none;
@@ -3425,31 +3530,31 @@ $counter = 1;
                     transform-origin: top center;
                 `;
 
-                            previewWrapper.appendChild(header);
-                            previewWrapper.appendChild(iframe);
+                        previewWrapper.appendChild(header);
+                        previewWrapper.appendChild(iframe);
 
-                            document.body.appendChild(overlay);
-                            document.body.appendChild(previewWrapper);
+                        document.body.appendChild(overlay);
+                        document.body.appendChild(previewWrapper);
 
-                            let currentZoom = 1;
-                            zoomIn.addEventListener("click", () => {
-                                currentZoom += 0.1;
-                                iframe.style.transform = `scale(${currentZoom})`;
-                            });
+                        let currentZoom = 1;
+                        zoomIn.addEventListener("click", () => {
+                            currentZoom += 0.1;
+                            iframe.style.transform = `scale(${currentZoom})`;
+                        });
 
-                            zoomOut.addEventListener("click", () => {
-                                currentZoom = Math.max(currentZoom - 0.1, 0.5);
-                                iframe.style.transform = `scale(${currentZoom})`;
-                            });
+                        zoomOut.addEventListener("click", () => {
+                            currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                            iframe.style.transform = `scale(${currentZoom})`;
+                        });
 
-                            document.addEventListener("keydown", keydownHandler);
-                            eyeIcon.classList.add("preview-active");
-                            eyeIcon.src = "/assets/images/close.png";
-                        } else if (isImage) {
-                            // IMAGE PREVIEW
-                            const previewWrapper = document.createElement("div");
-                            previewWrapper.className = "image-preview-wrapper";
-                            previewWrapper.style.cssText = `
+                        document.addEventListener("keydown", keydownHandler);
+                        eyeIcon.classList.add("preview-active");
+                        eyeIcon.src = "/assets/images/close.png";
+                    } else if (isImage) {
+                        // IMAGE PREVIEW
+                        const previewWrapper = document.createElement("div");
+                        previewWrapper.className = "image-preview-wrapper";
+                        previewWrapper.style.cssText = `
                     position: fixed;
                     top: 50%;
                     left: 50%;
@@ -3465,9 +3570,9 @@ $counter = 1;
                     border-radius: 8px;
                 `;
 
-                            const overlay = document.createElement("div");
-                            overlay.className = "image-preview-overlay";
-                            overlay.style.cssText = `
+                        const overlay = document.createElement("div");
+                        overlay.className = "image-preview-overlay";
+                        overlay.style.cssText = `
                     position: fixed;
                     top: 0;
                     left: 0;
@@ -3477,8 +3582,8 @@ $counter = 1;
                     z-index: 999;
                 `;
 
-                            const header = document.createElement("div");
-                            header.style.cssText = `
+                        const header = document.createElement("div");
+                        header.style.cssText = `
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
@@ -3490,21 +3595,21 @@ $counter = 1;
                     border-top-right-radius: 8px;
                 `;
 
-                            const fileNameSection = document.createElement("div");
-                            fileNameSection.style.cssText = `display: flex; align-items: center; gap: 8px;`;
+                        const fileNameSection = document.createElement("div");
+                        fileNameSection.style.cssText = `display: flex; align-items: center; gap: 8px;`;
 
-                            const fileNameSpan = document.createElement("span");
-                            fileNameSpan.textContent = fileName;
-                            fileNameSpan.style.cssText = `
+                        const fileNameSpan = document.createElement("span");
+                        fileNameSpan.textContent = fileName;
+                        fileNameSpan.style.cssText = `
                     color: white;
                     font-size: 14px;
                     font-family: 'Poppins', sans-serif;
                 `;
-                            fileNameSection.appendChild(fileNameSpan);
+                        fileNameSection.appendChild(fileNameSpan);
 
-                            const closeButton = document.createElement("button");
-                            closeButton.innerHTML = "✕";
-                            closeButton.style.cssText = `
+                        const closeButton = document.createElement("button");
+                        closeButton.innerHTML = "✕";
+                        closeButton.style.cssText = `
                     background: none;
                     border: none;
                     color: white;
@@ -3514,14 +3619,14 @@ $counter = 1;
                     font-family: 'Poppins', sans-serif;
                 `;
 
-                            closeButton.addEventListener("click", closePreview);
-                            overlay.addEventListener("click", closePreview);
+                        closeButton.addEventListener("click", closePreview);
+                        overlay.addEventListener("click", closePreview);
 
-                            header.appendChild(fileNameSection);
-                            header.appendChild(closeButton);
+                        header.appendChild(fileNameSection);
+                        header.appendChild(closeButton);
 
-                            const imageContainer = document.createElement("div");
-                            imageContainer.style.cssText = `
+                        const imageContainer = document.createElement("div");
+                        imageContainer.style.cssText = `
                     width: 100%;
                     height: calc(100% - 40px);
                     display: flex;
@@ -3534,28 +3639,28 @@ $counter = 1;
                     border-bottom-right-radius: 8px;
                 `;
 
-                            const image = document.createElement("img");
-                            image.src = fileUrl;
-                            image.style.maxWidth = "100%";
-                            image.style.maxHeight = "100%";
-                            image.style.borderRadius = "4px";
+                        const image = document.createElement("img");
+                        image.src = fileUrl;
+                        image.style.maxWidth = "100%";
+                        image.style.maxHeight = "100%";
+                        image.style.borderRadius = "4px";
 
-                            imageContainer.appendChild(image);
-                            previewWrapper.appendChild(header);
-                            previewWrapper.appendChild(imageContainer);
+                        imageContainer.appendChild(image);
+                        previewWrapper.appendChild(header);
+                        previewWrapper.appendChild(imageContainer);
 
-                            document.body.appendChild(overlay);
-                            document.body.appendChild(previewWrapper);
+                        document.body.appendChild(overlay);
+                        document.body.appendChild(previewWrapper);
 
-                            document.addEventListener("keydown", keydownHandler);
-                            eyeIcon.classList.add("preview-active");
-                            eyeIcon.src = "/assets/images/close.png";
-                        } else {
-                            alert("Unsupported file type.");
-                        }
-                    });
+                        document.addEventListener("keydown", keydownHandler);
+                        eyeIcon.classList.add("preview-active");
+                        eyeIcon.src = "/assets/images/close.png";
+                    } else {
+                        alert("Unsupported file type.");
+                    }
                 });
-            };
+            });
+        };
 
 
         const initializeSecuredAdmissionDocumentUpload = () => {
@@ -4004,329 +4109,7 @@ $counter = 1;
         const initializeWorkExperienceDocumentUpload = () => {
             const workExperienceDocuments = document.querySelectorAll(".individual-work-experiencecolumn-documents");
 
-            workExperienceDocuments.forEach((card) => {
-                let uploadedFile = null;
-
-                const fileInput = card.querySelector('input[type="file"]');
-                const inputId = fileInput.id;
-
-                const documentTypeText = card.querySelector('.document-name').textContent.trim();
-
-                const previewIcon = card.querySelector('.fa-eye');
-
-                // Click on container triggers file input, except when clicking eye icon
-                card.querySelector('.inputfilecontainer-work-experiencecolumn').addEventListener('click', (event) => {
-                    if (!event.target.classList.contains('fa-eye')) {
-                        fileInput.click();
-                    }
-                });
-
-                // Handle file input change
-                fileInput.addEventListener('change', (event) => {
-                    const file = event.target.files[0];
-                    if (!file) return;
-
-                    const allowedExtensions = ['.jpg', '.jpeg', '.png', '.pdf'];
-                    const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
-
-                    if (!allowedExtensions.includes(fileExtension)) {
-                        alert("Error: Only .jpg, .jpeg, .png, and .pdf files are allowed.");
-                        event.target.value = '';
-                        resetDocumentText();
-                        return;
-                    }
-
-                    if (file.size > 5 * 1024 * 1024) {
-                        alert("Error: File size exceeds 5MB limit.");
-                        event.target.value = '';
-                        resetDocumentText();
-                        return;
-                    }
-
-                    uploadedFile = file;
-
-                    // Update displayed filename truncated using your function
-                    updateDocumentText(truncateFileName(file.name));
-
-                    // Show file size
-                    const sizeText = file.size < 1024 * 1024
-                        ? (file.size / 1024).toFixed(2) + ' KB'
-                        : (file.size / (1024 * 1024)).toFixed(2) + ' MB';
-
-                    const statusElem = card.querySelector('.document-status');
-                    if (statusElem) statusElem.textContent = `${sizeText} Uploaded`;
-
-                    console.log(`File uploaded for ${documentTypeText}:`, uploadedFile);
-                });
-
-                // Helper: reset document text to original
-                function resetDocumentText() {
-                    const docNameElem = card.querySelector('.document-name');
-                    if (!docNameElem) return;
-
-                    if (docNameElem.classList.contains('experience-letter')) docNameElem.textContent = 'Experience Letter';
-                    else if (docNameElem.classList.contains('salary-slip')) docNameElem.textContent = '3 month salary slip';
-                    else if (docNameElem.classList.contains('office-id')) docNameElem.textContent = 'Office ID';
-                    else if (docNameElem.classList.contains('joining-letter')) docNameElem.textContent = 'Joining Letter';
-                    else docNameElem.textContent = documentTypeText;
-                }
-
-                // Helper: update document text
-                function updateDocumentText(text) {
-                    const docNameElem = card.querySelector('.document-name');
-                    if (docNameElem) docNameElem.textContent = text;
-                }
-
-                // Preview click handling
-                previewIcon.addEventListener('click', (event) => {
-                    event.stopPropagation();
-
-                    if (previewIcon.classList.contains('preview-active')) {
-                        closePreview();
-                    } else {
-                        if (!uploadedFile) {
-                            alert('Please upload a valid PDF or image file to preview.');
-                            return;
-                        }
-                        if (uploadedFile.type === 'application/pdf') {
-                            previewPDF(uploadedFile);
-                        } else if (uploadedFile.type.startsWith('image/')) {
-                            previewImage(uploadedFile);
-                        } else {
-                            alert('Please upload a valid PDF or image file to preview.');
-                        }
-                    }
-                });
-
-                // Close existing preview if open
-                function closePreview() {
-                    const previewWrapper = document.querySelector('.pdf-preview-wrapper, .image-preview-wrapper');
-                    if (previewWrapper) previewWrapper.remove();
-
-                    const overlay = document.querySelector('.pdf-preview-overlay, .image-preview-overlay');
-                    if (overlay) overlay.remove();
-
-                    previewIcon.classList.remove('preview-active');
-                    document.removeEventListener('keydown', handleEscapeKey);
-                }
-
-                // Escape key handler
-                function handleEscapeKey(e) {
-                    if (e.key === 'Escape') {
-                        closePreview();
-                    }
-                }
-
-                // PDF preview function
-                function previewPDF(file) {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        const overlay = document.createElement('div');
-                        overlay.className = 'pdf-preview-overlay';
-                        Object.assign(overlay.style, {
-                            position: 'fixed',
-                            top: '0',
-                            left: '0',
-                            width: '100%',
-                            height: '100%',
-                            backgroundColor: 'rgba(0,0,0,0.5)',
-                            zIndex: '999'
-                        });
-
-                        const wrapper = document.createElement('div');
-                        wrapper.className = 'pdf-preview-wrapper';
-                        Object.assign(wrapper.style, {
-                            position: 'fixed',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            width: '90%',
-                            height: '90vh',
-                            backgroundColor: 'white',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                            zIndex: '1000'
-                        });
-
-                        const header = document.createElement('div');
-                        Object.assign(header.style, {
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            padding: '8px 16px',
-                            backgroundColor: '#1a1a1a',
-                            color: 'white',
-                            height: '40px',
-                            position: 'relative'
-                        });
-
-                        const fileName = document.createElement('span');
-                        fileName.textContent = file.name;
-                        fileName.style.fontSize = '14px';
-
-                        const zoomControls = document.createElement('div');
-                        Object.assign(zoomControls.style, {
-                            display: 'flex',
-                            gap: '12px',
-                            position: 'absolute',
-                            left: '50%',
-                            transform: 'translateX(-50%)',
-                            alignItems: 'center'
-                        });
-
-                        const zoomOutBtn = document.createElement('button');
-                        zoomOutBtn.innerHTML = '&#8722;';
-                        const zoomInBtn = document.createElement('button');
-                        zoomInBtn.innerHTML = '&#43;';
-
-                        [zoomOutBtn, zoomInBtn].forEach(btn => {
-                            Object.assign(btn.style, {
-                                background: 'none',
-                                border: 'none',
-                                color: 'white',
-                                fontSize: '18px',
-                                cursor: 'pointer',
-                                padding: '4px 8px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            });
-                        });
-
-                        zoomControls.append(zoomOutBtn, zoomInBtn);
-
-                        const closeBtn = document.createElement('button');
-                        closeBtn.innerHTML = '&#10005;';
-                        Object.assign(closeBtn.style, {
-                            background: 'none',
-                            border: 'none',
-                            color: 'white',
-                            fontSize: '18px',
-                            cursor: 'pointer',
-                            padding: '4px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        });
-
-                        header.append(fileName, zoomControls, closeBtn);
-                        wrapper.appendChild(header);
-
-                        const iframe = document.createElement('iframe');
-                        iframe.src = e.target.result;
-                        Object.assign(iframe.style, {
-                            width: '100%',
-                            height: 'calc(100% - 40px)',
-                            border: 'none',
-                            backgroundColor: 'white',
-                            transformOrigin: 'top center'
-                        });
-
-                        wrapper.appendChild(iframe);
-
-                        document.body.append(overlay, wrapper);
-                        previewIcon.classList.add('preview-active');
-
-                        let currentZoom = 100;
-
-                        zoomInBtn.addEventListener('click', () => {
-                            currentZoom += 10;
-                            iframe.style.transform = `scale(${currentZoom / 100})`;
-                        });
-                        zoomOutBtn.addEventListener('click', () => {
-                            currentZoom = Math.max(currentZoom - 10, 50);
-                            iframe.style.transform = `scale(${currentZoom / 100})`;
-                        });
-
-                        closeBtn.addEventListener('click', closePreview);
-                        overlay.addEventListener('click', closePreview);
-
-                        document.addEventListener('keydown', handleEscapeKey);
-                    };
-                    reader.readAsDataURL(file);
-                }
-
-                // Image preview function
-                function previewImage(file) {
-                    console.log("Preview image triggered", file); // check if called
-
-                    const reader = new FileReader();
-
-                    reader.onload = (e) => {
-                        console.log("FileReader loaded"); // check if onload is called
-                        console.log("Image Data URL:", e.target.result); // check data
-
-                        const overlay = document.createElement('div');
-                        overlay.className = 'image-preview-overlay';
-                        Object.assign(overlay.style, {
-                            position: 'fixed',
-                            top: '0',
-                            left: '0',
-                            width: '100%',
-                            height: '100%',
-                            backgroundColor: 'rgba(0,0,0,0.5)',
-                            zIndex: '999'
-                        });
-
-                        const wrapper = document.createElement('div');
-                        wrapper.className = 'image-preview-wrapper';
-                        Object.assign(wrapper.style, {
-                            position: 'fixed',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            maxWidth: '90vw',
-                            maxHeight: '90vh',
-                            backgroundColor: 'white',
-                            padding: '8px',
-                            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-                            zIndex: '1000',
-                            borderRadius: '4px',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'flex-end'
-                        });
-
-                        const closeBtn = document.createElement('button');
-                        closeBtn.innerHTML = '&#10005;';
-                        Object.assign(closeBtn.style, {
-                            background: 'none',
-                            border: 'none',
-                            fontSize: '22px',
-                            cursor: 'pointer',
-                            marginBottom: '4px',
-                            color: '#333',
-                            alignSelf: 'flex-end',
-                        });
-
-                        const img = document.createElement('img');
-                        img.src = e.target.result;
-                        Object.assign(img.style, {
-                            maxWidth: '100%',
-                            maxHeight: 'calc(90vh - 40px)',
-                            borderRadius: '4px',
-                            userSelect: 'none',
-                        });
-
-                        wrapper.append(closeBtn, img);
-                        document.body.append(overlay, wrapper);
-
-                        previewIcon.classList.add('preview-active');
-
-                        closeBtn.addEventListener('click', closePreview);
-                        overlay.addEventListener('click', closePreview);
-                        document.addEventListener('keydown', handleEscapeKey);
-                    };
-
-                    reader.onerror = (e) => {
-                        console.error("FileReader error", e);
-                    };
-
-                    reader.readAsDataURL(file);
-                }
-
-            });
+            
         };
 
         // Your original truncate function as requested:
