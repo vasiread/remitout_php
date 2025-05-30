@@ -45,7 +45,7 @@
     align-items: center;
     justify-content: flex-end;
     gap: 10px;
-   
+
 }
 
 .upload-field input {
@@ -349,6 +349,20 @@
         justify-content: flex-start;
     }
 
+    #admin-studentlist-headercontent {
+        display: flex;
+        flex-direction: row;
+
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .upload-field span {
+
+        width: 100%;
+        font-size: 12px !important;
+    }
+
     #studentapplicationfromadminstudent {
         margin-top: 0;
     }
@@ -609,14 +623,17 @@
     text-align: center;
     cursor: pointer;
 }
-
+  .document-container .document-name {
+     font-weight: normal;
+     margin-bottom: 5px;
+ }
 @media (max-width: 768px) {
     .globallistcontainer-header {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    
+
 
     .individualcounsellorlists-content {
         flex-direction: column;
@@ -677,14 +694,15 @@
         line-height: 18px;
         color: rgba(93, 92, 92, 1);
     }
-        .studentlistcontainer-headersection .headersection-rightsidecontent{
-            /* display: flex;
+
+    .studentlistcontainer-headersection .headersection-rightsidecontent {
+        /* display: flex;
             max-width: 45.65%;
             width: 100%;
             align-items: center;
             justify-content: flex-end;
             gap: 10px; */
-            display: flex;
-            flex-direction: row;
-        }
+        display: flex;
+        flex-direction: row;
+    }
 }

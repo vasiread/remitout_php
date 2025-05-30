@@ -169,6 +169,10 @@
 
 .loginsingupcontainer-rightpanel-inside label.show-label {
     opacity: 1;
+        background: #fff;
+            padding: 0 5px;
+           
+
 }
 
 .loginsingupcontainer-rightpanel-inside input:focus + label,

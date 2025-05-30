@@ -1499,6 +1499,7 @@
                 element.removeEventListener(event, handler);
                 element.addEventListener(event, handler);
             };
+            
 
             const resetFooter = () => {
                 footerContainer.innerHTML = `

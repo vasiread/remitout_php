@@ -1238,6 +1238,10 @@ body {
         width: 100%;
         margin-left: 16%;
         gap: 0.25%;
+        transition: all 0.3s ease;
+            /* optionally add */
+            min-width: 0;
+            overflow: hidden;
 }
 .dashboard-section-title {
     font-family: "Inter", sans-serif;
@@ -2974,10 +2978,10 @@ body {
         font-size: 12px;
         height: auto;
     }
+.nbfc-individual-bankmessage-input-message{
+               margin: 13px 0px;
 
-    .messages-wrapper {
-        margin-left: 40px;
-    }
+}
 }
 
 @media (max-width: 380px) {
