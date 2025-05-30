@@ -402,6 +402,58 @@ body {
     font-size: 12px;
 }
 
+@media screen and (max-width: 768px) {
+    .password-change-container-nbfc {
+        max-width: 90%;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .password-change-container-nbfc input {
+        min-height: 36px;
+        font-size: 0.85rem;
+        padding-left: 4px;
+    }
+
+    #password-change-save-nbfc {
+        max-width: 90px;
+        min-height: 36px;
+        font-size: 0.80rem;
+    }
+
+    .password-change-triggered-view-headersection-nbfc h3 {
+        font-size: 16px;
+        line-height: clamp(10px, 3.5vw, 24px);
+    }
+
+    .popup-notify-list-nbfc {
+        width: 160px;
+        right: 2%;
+        padding: 0.8rem 0;
+    }
+
+    .popup-notify-list-nbfc p {
+        font-size: 0.85rem;
+        height: 30px;
+        padding: 0.2rem;
+    }
+
+    .footer-passwordchange-nbfc p {
+        font-size: 0.75rem;
+    }
+}
+
+/*student application*/
+
+.wholeapplicationprofile {
+    display: none;
+    max-width: 100%;
+    width: 100%;
+    background: none;
+    gap: 20px;
+    background-color: #f5f5f5;
+}
+
 #nbfc-student-profile-details {
     display: none;
     width: 100%;
@@ -628,17 +680,6 @@ body {
         display: none;
     }
 
-    .nbfc-search-container {
-        position: static;
-        display: flex;
-        align-items: center;
-    }
-
-    .nbfc-search-icon {
-        position: static;
-        transform: none;
-    }
-
     .nbfc-nav-right {
         gap: 16px;
         margin-left: 0;
@@ -677,9 +718,14 @@ body {
     }
 }
 
+
 /*mobile responsive nav bar*/
 
 @media screen and (max-width: 768px) {
+    .wholeapplicationprofile {
+        display:flex;
+        flex-direction: column;
+    }
     .myapplication-nbfcapprovalcolumn {
         display: none;
     }
@@ -689,7 +735,6 @@ body {
     }
 
     #nbfc-student-profile-details {
-        display: none;
         width: 100%;
         max-width: 100%;
     }
@@ -725,8 +770,10 @@ body {
     }
 
     .nbfc-search-icon {
-        position: static;
-        transform: none;
+        display:none;
+    }
+    .nbfc-dark-mode{
+        display:none;
     }
 
     .nbfc-nav-right {
@@ -1744,7 +1791,9 @@ body {
         gap: 8px;
     }
 
-    .dashboard-view-button,
+    .dashboard-view-button{
+        display:none;
+    }
     .dashboard-reject-button {
         padding: 8px 16px;
         border: 1px solid #6f25ce;
@@ -1752,6 +1801,7 @@ body {
         cursor: pointer;
         font-size: 14px;
     }
+    
 
     .dashboard-view-button {
         width: 40px;
@@ -1895,7 +1945,7 @@ body {
     }
 
     .dashboard-action-buttons {
-        flex-direction: column;
+        flex-direction: row;
         gap: 6px;
     }
 
@@ -1903,10 +1953,11 @@ body {
         width: 100%;
         padding: 10px;
     }
-
     .dashboard-view-button {
         display: none;
     }
+
+  
 }
 
 @media (min-width: 540px) and (max-width: 767px) {
@@ -2660,6 +2711,7 @@ body {
     align-items: center;
 }
 
+.index-student-message-btn-footer,
 .index-student-message-btn {
     background-color: #6f25ce;
     color: white;

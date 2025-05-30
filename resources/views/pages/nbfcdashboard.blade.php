@@ -625,7 +625,7 @@ $counter = 1;
                 <div class="myapplication-nbfcapprovalcolumn">
                     <button id="sendproposal-trigger">Send Proposal</button>
                     <div class="nbfcapprovalcolumnrightaligned">
-                        <button id="index-student-message-btn">Message</button>
+                        <button id="index-student-message-btn-footer">Message</button>
                         <button class='dashboard-inside-reject-button'>Reject</button>
                     </div>
 
@@ -698,15 +698,11 @@ $counter = 1;
                 </div>
                 <div class="viewmore-messagenbfc">
                     <p>view more</p> <img src="{{ asset("assets/images/Icons/stat_minus_1.png") }}" style="margin-top: 9px;
-    margin-left: 8px;
-    width: 12px;
-    height: 7px;" alt="">
+                        margin-left: 8px;
+                        width: 12px;
+                        height: 7px;" alt="">
                 </div>
-
-
-
         </section>
-
 
 
         <div class="overlay-password-change-nbfc"></div>
@@ -798,9 +794,6 @@ $counter = 1;
                 if (window.innerWidth <= 768) {
                     mobileSidebar.classList.toggle('active');
                     mobileOverlay.classList.toggle('active');
-
-                    // Hide nbfc-nav-right only on mobile
-                    nbfcNavRight.classList.toggle('hidden');
 
                     const icon = mobileMenuBtn.querySelector('i');
 
@@ -912,6 +905,7 @@ $counter = 1;
             // Check window size on load and resize to handle sidebar visibility
             checkWindowSize();
             window.addEventListener('resize', checkWindowSize);
+            
 
 
 
@@ -1032,6 +1026,18 @@ $counter = 1;
                 document.querySelector(".wholeapplicationprofile").style.display = "none";
             });
 
+        const messageButtonNbfc = document.querySelector("#index-student-message-btn-footer");
+
+        messageButtonNbfc.addEventListener("click", function () {
+            const viewContainerApplication = document.getElementById("nbfc-student-profile-details");
+            viewContainerApplication.style.display = "none";
+            const nbfcListUsers = document.querySelector(".dashboard-sections-container");
+            nbfcListUsers.style.display = "none";
+            inboxContainer.style.display = "flex";
+            parentContainerNBFC.style.display = "none";
+            document.querySelector(".wholeapplicationprofile").style.display = "none";
+            setActiveMenuItem(inboxMenuItem);
+        });
 
             // Set initial states
             dashboardSectionsContainer.style.display = "grid";
@@ -2690,18 +2696,18 @@ $counter = 1;
             }
         };
         const userPopopuOpenNbfc = () => {
-            const userPopupTrigger = document.querySelector(".nbfc-profile .nbfc-dropdown-icon");
+            const userPopupTrigger = document.querySelector(".nbfc-profile");
             const userPopupList = document.querySelector(".popup-notify-list-nbfc");
 
             if (userPopupTrigger && userPopupList) {
-                // Toggle dropdown on trigger click
+                // Toggle dropdown on nbfc-profile click
                 userPopupTrigger.addEventListener('click', (event) => {
                     event.stopPropagation(); // Prevent click from bubbling to document
                     if (userPopupList.style.display === "none" || userPopupList.style.display === "") {
-                        userPopupTrigger.style.transform = 'rotate(180deg)';
+                        userPopupTrigger.querySelector(".nbfc-dropdown-icon").style.transform = 'rotate(180deg)';
                         userPopupList.style.display = "flex";
                     } else {
-                        userPopupTrigger.style.transform = 'rotate(0deg)';
+                        userPopupTrigger.querySelector(".nbfc-dropdown-icon").style.transform = 'rotate(0deg)';
                         userPopupList.style.display = "none";
                     }
                 });
@@ -2712,7 +2718,7 @@ $counter = 1;
                     const isClickInsidePopup = userPopupList.contains(event.target);
 
                     if (!isClickInsideTrigger && !isClickInsidePopup && userPopupList.style.display === "flex") {
-                        userPopupTrigger.style.transform = 'rotate(0deg)';
+                        userPopupTrigger.querySelector(".nbfc-dropdown-icon").style.transform = 'rotate(0deg)';
                         userPopupList.style.display = "none";
                     }
                 });
@@ -4734,13 +4740,6 @@ $counter = 1;
 
 
     </script>
-
-    <div id="document-preview-modal" class="modal">
-        <div class="modal-content">
-            <span id="close-modal" class="close">×</span>
-            <div id="document-preview-content"></div>
-        </div>
-    </div>
 
 
 </body>

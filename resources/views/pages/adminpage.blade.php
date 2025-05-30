@@ -51,8 +51,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
                 <div class="admin-nav-dropdown-menu">
-                    <div class="admin-nav-dropdown-item">Profile</div>
-                    <div class="admin-nav-dropdown-item">Settings</div>
+                    <div class="admin-nav-dropdown-item">Possword Change</div>
                     <div class="admin-nav-dropdown-item">Logout</div>
                 </div>
             </div>
