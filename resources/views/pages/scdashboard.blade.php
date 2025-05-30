@@ -125,6 +125,35 @@
             display: block;
         }
 
+        .hidden-raised-query {
+            display: none !important;
+        }
+
+        .view-more-container-raisedqueries {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        .view-more-btn-raisedqueries {
+            background: transparent;
+            border: none;
+            font-weight: 600;
+            font-size: 14px;
+            color: rgba(93, 92, 92, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .view-more-btn-raisedqueries .view-more-icon {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease;
+        }
+
+
         /* Adjust modal for mobile */
         @media (max-width: 768px) {
             .query-modal {
@@ -158,6 +187,11 @@
             $phoneIconPath = "assets/images/call.png";
             $mailIconPath = "assets/images/mail.png";
             $pindropIconPath = "assets/images/pin_drop.png";
+        @php
+            $profileIconPath = "assets/images/account_circle1.png";
+            $phoneIconPath = "assets/images/call.png";
+            $mailIconPath = "assets/images/mail.png";
+            $pindropIconPath = "assets/images/pin_drop.png";
 
 
 
@@ -170,7 +204,17 @@
                     'NBFC' => 'NBFC Name',
                     'ProposalDate' => '20/11/2024',
                     'Status' => 'Approved'
+            $proposalsInfo = [
+                [
+                    'NBFC' => 'NBFC Name',
+                    'ProposalDate' => '20/11/2024',
+                    'Status' => 'Approved'
 
+                ],
+                [
+                    'NBFC' => 'NBFC Name',
+                    'ProposalDate' => '20/11/2024',
+                    'Status' => 'Pending'
                 ],
                 [
                     'NBFC' => 'NBFC Name',
@@ -178,7 +222,9 @@
                     'Status' => 'Pending'
 
                 ],
+                ],
 
+            ];
             ];
 
 
@@ -195,10 +241,24 @@
                 ['student_name' => 'Vasi', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-09-30'],
                 ['student_name' => 'Aari', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-10-01'],
                 ['student_name' => 'Abinav', 'DocumentFinalStatus' => 'Missing Documents: 02', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-01'],
+            $studentDocumentDetailsInfo = [
+                ['student_name' => 'Manish', 'DocumentFinalStatus' => 'Missing Documents: 01', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-07-01'],
+                ['student_name' => 'Kumar', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-02-01'],
+                ['student_name' => 'Raji', 'DocumentFinalStatus' => 'Missing Documents: 12', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-12-04'],
+                ['student_name' => 'Venkatesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-01'],
+                ['student_name' => 'Ramya', 'DocumentFinalStatus' => 'Missing Documents: 03', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-02-09'],
+                ['student_name' => 'Chinna', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2025-07-20'],
+                ['student_name' => 'Feroz', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-21'],
+                ['student_name' => 'Ramesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-29'],
+                ['student_name' => 'Vasi', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-09-30'],
+                ['student_name' => 'Aari', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-10-01'],
+                ['student_name' => 'Abinav', 'DocumentFinalStatus' => 'Missing Documents: 02', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-01'],
 
 
             ];
+            ];
 
+        @endphp
         @endphp
 
         <div class="scdashboard-parentcontainer">
@@ -220,9 +280,55 @@
                     </li>
                 </ul>
             </div>
+        <div class="scdashboard-parentcontainer">
+            <div class="commonsidebar-togglesidebar">
+                <ul class="commonsidebar-sidebarlists-top">
+                    @foreach($sidebarItems as $item)
+                        <li class="{{ $item['active'] ? 'active' : '' }}">
+                            <i class="{{ $item['icon'] }}"></i>
+                            <p>{{ $item['name'] }}</p>
+                        </li>
+                    @endforeach
+                </ul>
+                <ul class="commonsidebar-sidebarlists-bottom">
+                    <li class="logoutBtn" onClick="sessionLogout()">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                    </li>
+                    <li>
+                        <img src="{{ asset('assets/images/Icons/support_agent.png') }}" alt=""> Support
+                    </li>
+                </ul>
+            </div>
 
             <div class="scdashboard-container">
+            <div class="scdashboard-container">
 
+                <div class="scdashboard-dashboardcontent">
+                    <div class="scdashboard-trackprogress">
+                        <div class="trackprogress-firstsection">
+                            <h1>Track Progress</h1>
+                            <button class="referral-Link-trigger-anotherbutton">Generate Referral Link</button>
+                            <button id="mobgeneratedreferralcode"> <img src="{{ asset('assets/images/Group icon.png') }}"
+                                    alt=""> Referral Code:
+                                45628</button>
+                        </div>
+                        <div class="trackprogress-secondsection">
+                            <div class="trackprogress-month">
+                                <h1>October</h1>
+                                <p>month</p>
+                            </div>
+                            <div class="trackprogress-noofstudent">
+                                <h1>07</h1>
+                                <p>no. of students</p>
+                            </div>
+                            <div class="trackprogress-amount">
+                                <h1>50,000</h1>
+                                <p>amount in rs.</p>
+                            </div>
+                            <div class="trackprogress-totalamount">
+                                <h1>1,00,000</h1>
+                                <p>total amount</p>
+                            </div>
                 <div class="scdashboard-dashboardcontent">
                     <div class="scdashboard-trackprogress">
                         <div class="trackprogress-firstsection">
@@ -261,7 +367,41 @@
                                 Link</button>
                         </div>
                     </div>
+                        </div>
+                        <div class="trackprogress-thirdsection">
+                            <button id="pcviewgeneratedreferralcode"> <img src="{{ asset('assets/images/Group icon.png') }}"
+                                    alt=""> Referral Code:
+                                45628</button>
+                            <button style="display:none"> <img src="{{ asset('assets/images/dbicon.png') }}" alt="">Track
+                                Commission</button>
+                            <button id="mobgeneratedbutton" class="referral-Link-trigger-button">Generate Referral
+                                Link</button>
+                        </div>
+                    </div>
 
+                    <div class="scdashboard-studentapplication" id="studentapplicationfromstudentdashboard">
+                        <div class="studentapplication-header">
+                            <h1>Applications</h1>
+                            <div class="application-buttoncontainer">
+                                <button class="see-all">See all</button>
+                                <button class="start-new"></button>
+                            </div>
+                            <div class="studentadditbutton">
+                                <button class="start-new">+</button>
+                            </div>
+                        </div>
+                        <div id="user-list">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="scdashboard-inboxcontent">
+                <div class="scmember-profilecontainer">
+                    <div class="scmember-profilecontainerimg">
+                        <img src="{{asset('assets/images/image-women.jpeg')}}" id="studentcounsellor-profile" alt="">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                        <input type="file" id="sc-profile-upload-cloud" display="none">
+                    </div>
                     <div class="scdashboard-studentapplication" id="studentapplicationfromstudentdashboard">
                         <div class="studentapplication-header">
                             <h1>Applications</h1>
@@ -288,7 +428,15 @@
 
                     <div class="scmember-rowfirst">
                         <h1>Student Counsellor</h1>
+                    <div class="scmember-rowfirst">
+                        <h1>Student Counsellor</h1>
 
+                    </div>
+                    <p id="screferral-id-fromprofile">Referral Number: <span>{{ session('scuser')->referral_code }}</span>
+                    </p>
+                    <div id="screferral-dob-fromprofile" inputmode="Date">
+                        <i class="fa-solid fa-calendar"></i>
+                        <p id="dob-display"></p>
                     </div>
                     <p id="screferral-id-fromprofile">Referral Number: <span>{{ session('scuser')->referral_code }}</span>
                     </p>
@@ -300,10 +448,29 @@
                     <div id="screferral-dob-fromprofile-editmode" style="display: none;">
                         <i class="fa-solid fa-calendar"></i>
                         <input type="date" id="dob-input">
+                    </div>
+                    <div id="screferral-dob-fromprofile-editmode" style="display: none;">
+                        <i class="fa-solid fa-calendar"></i>
+                        <input type="date" id="dob-input">
 
                     </div>
                     <ul class="scmember_personalinfo">
+                    </div>
+                    <ul class="scmember_personalinfo">
 
+                        <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
+                            <p> </p>
+                        </li>
+                        <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="">
+                            <p></p>
+                        </li>
+                        <li class="scmember_personal_info_email" style="word-break: break-all;" id="referenceEmailId">
+                            <img src="{{$mailIconPath}}" alt="">
+                            <p>{{ session('scuser')->email}}</p>
+                        </li>
+                        <li class="scmember_personal_info_state"><img src="{{$pindropIconPath}}" alt="">
+                            <p style="line-height:19px"></p>
+                        </li>
                         <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
                             <p> </p>
                         </li>
@@ -331,7 +498,24 @@
                             <input type="text" disabled>
                         </li>
                         <li class="scmember_personal_info_state-edit">
+                    </ul>
+                    <ul class="scmember_personalinfo_editmode">
+                        <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
+                            <input type="text">
+                        </li>
+                        <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="">
+                            <input type="text">
+                        </li>
+                        <li class="scmember_personal_info_email" id="referenceEmailId">
+                            <img src="{{$mailIconPath}}" alt="">
+                            <input type="text" disabled>
+                        </li>
+                        <li class="scmember_personal_info_state-edit">
 
+                            <div class="scmember-personal_address_header">
+                                <img src="{{$pindropIconPath}}" alt="">
+                                <input type="text" disabled>
+                            </div>
                             <div class="scmember-personal_address_header">
                                 <img src="{{$pindropIconPath}}" alt="">
                                 <input type="text" disabled>
@@ -345,11 +529,30 @@
                                 <input type="text" placeholder="state" id="scaddress-state">
                                 <input type="text" placeholder="pincode" id="scaddress-pincode">
                             </div>
+                            <div class="subbranch-of-address">
+                                <input type="text" placeholder="area" id="scaddress-address">
+                                <input type="text" placeholder="city" id="scaddress-city">
+                                <input type="text" placeholder="state" id="scaddress-state">
+                                <input type="text" placeholder="pincode" id="scaddress-pincode">
+                            </div>
 
+                        </li>
                         </li>
 
                     </ul>
+                    </ul>
 
+                </div>
+                <div class="scdashboard-performancecontainer">
+                    <div class="performancecontainer-firstrow">
+                        <h3>Performance</h3>
+                        <button class="edit-scuser" style="cursor:pointer">Edit</button>
+                        <button class="save-scuser" style="cursor:pointer">Save</button>
+                    </div>
+                    <ul class="scdashboard-individual-performance">
+                        <li>
+                            <p>Average Leads/month</p>
+                            <span>10</span>
                 </div>
                 <div class="scdashboard-performancecontainer">
                     <div class="performancecontainer-firstrow">
@@ -366,12 +569,24 @@
                         <li>
                             <p>Total Leads</p>
                             <span>20</span>
+                        </li>
+                        <li>
+                            <p>Total Leads</p>
+                            <span>20</span>
 
                         </li>
                         <li>
                             <p>Total Commission</p>
                             <span>10</span>
+                        </li>
+                        <li>
+                            <p>Total Commission</p>
+                            <span>10</span>
 
+                        </li>
+                        <li>
+                            <p>Pending Amount</p>
+                            <span>₹2000</span>
                         </li>
                         <li>
                             <p>Pending Amount</p>
@@ -393,28 +608,67 @@
                                     <a href="" data-sort="alphabet-reverse">Z-A</a>
                                 </div>
                                 <button id="raised-query" style="cursor:pointer;">Raise Query</button>
+                        </li>
+                    </ul>
+                    <div class="scdashboard-queryraisedcontainer">
+                        <div class="queryraisedcontainer-firstrow">
+                            <p id="queryraised-header">Queries Raised</p>
+                            <div class="queryraisedcontainer-rightcontent">
+                                <button id="sort-by" style="cursor:pointer;">
+                                    <p>Sort by</p> <img src="assets/images/Icons/swap_vert.png" />
+                                </button>
+                                <div class="sort-by-contents">
+                                    <a href="" data-sort="newest">Newest</a>
+                                    <a href="" data-sort="oldest">Oldest</a>
+                                    <a href="" data-sort="alphabet">A-Z</a>
+                                    <a href="" data-sort="alphabet-reverse">Z-A</a>
+                                </div>
+                                <button id="raised-query" style="cursor:pointer;">Raise Query</button>
 
+                            </div>
                             </div>
 
                         </div>
                         <div class="groupofraisedquestion-scdashboard">
                             <p>Loading queries...</p>
                         </div>
-
-                        <div id="viewmore-queries">
-                            <p>view more</p> <img src="{{ asset("assets/images/Icons/stat_minus_1.png") }}" style="margin-top: 9px;
-                                                                            margin-left: 8px;
-                                                                            width: 12px;
-                                                                            height: 7px;" alt="">
+                        <div class="view-more-container-raisedqueries" style="display: none;">
+                            <button class="view-more-btn-raisedqueries">
+                                <span>View More</span>
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="view-more-icon">
+                                    <path d="M6 9l6 6 6-6H6z" fill="currentColor" />
+                                </svg>
+                            </button>
                         </div>
 
 
+                    </div>
                     </div>
 
 
 
                 </div>
+                </div>
 
+            </div>
+            <div class="scdashboard-applicationstatus">
+                <div class="scapplicationstatus-firstrow">
+                    <h1>Applications</h1>
+                    <div class="firstrowapplication-rightsidecontent">
+                        <button id="applicationstatus-sortby">Sort by <img src="assets/images/Icons/swap_vert.png" />
+                        </button>
+                        <div class="sort-by-contents-applications-studentnames">
+                            <a href="" data-sort="newest" style="display: none;">Newest</a>
+                            <a href="" data-sort="oldest" style="display:none">Oldest</a>
+                            <a href="" data-sort="alphabet">A-Z</a>
+                            <a href="" data-sort="alphabet-reverse">Z-A</a>
+                        </div>
+                        <button id="mobwidthdownloadbutton">
+                            <img src="{{asset("assets/images/Icons/download-orange.png")}}" alt="">
+                        </button>
+                        <button id="sc-new-application-generate">Start New Application</button>
+                    </div>
+                </div>
             </div>
             <div class="scdashboard-applicationstatus">
                 <div class="scapplicationstatus-firstrow">
@@ -437,18 +691,26 @@
 
 
                 <div id="student-applicationdetailsstatus">
+                <div id="student-applicationdetailsstatus">
 
+                </div>
+                <div class="pagination-download-groups">
+                    <div id="pagination-container-statusgroups"></div>
+                    <button id="download-statusgroups-reports">Download report</button>
                 </div>
                 <div class="pagination-download-groups">
                     <div id="pagination-container-statusgroups"></div>
                     <button id="download-statusgroups-reports">Download report</button>
 
                 </div>
+                </div>
 
 
 
 
 
+            </div>
+        </div>
             </div>
         </div>
 
@@ -479,10 +741,52 @@
                     <button type="button" id="save-multiple-students-bysc" style="cursor:pointer">Save Student
                         details</button>
                 </div>
+        <div class="sc-new-registration-overlay"></div>
+        <div class="studentAddBySCuserPopup">
+            <div class="studentAddByScuserPopup-headerpart">
+                <h3>Register Students</h3>
+                <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="">
+            </div>
+            <div class="studentAddByScuserPopup-content-container">
+                <div class="studentAddByScuserPopup-contentpart">
+                    <input type="text" placeholder="Name of the Student">
+                    <input type="text" placeholder="bankemail@gmail.com">
+                    <input type="text" placeholder="phone">
+                    <input type="text" placeholder="password">
+                    <button id="delete-student-row" style="cursor:pointer">Delete</button>
+                </div>
+            </div>
+            <button id="dynamic-add-student-button" style="cursor:pointer">Add Student</button>
+            <form id="excel-form" enctype="multipart/form-data">
+                @csrf
+                <div class="studentAddByScuserPopup-footerpart">
+                    <!-- Excel Upload Button -->
+                    <button id="excel-upload-trigger" type="button" style="cursor:pointer">
+                        Upload xlsx <img src="{{ asset('assets/images/Icons/upload.png') }}" />
+                    </button>
+                    <button type="button" class="add-student-btn" style="cursor:pointer">Add Student</button>
+                    <button type="button" id="save-multiple-students-bysc" style="cursor:pointer">Save Student
+                        details</button>
+                </div>
 
                 <input type="file" id="excel-sheet-student-update" name="excel_file" accept=".xls,.xlsx"
                     style="display:none">
+                <input type="file" id="excel-sheet-student-update" name="excel_file" accept=".xls,.xlsx"
+                    style="display:none">
 
+                <div id="file-upload-info" style="display:none">
+                    <!-- Display the Selected File Name with Remove Button -->
+                    <div id="file-container" style="display: flex; align-items: center; gap: 10px; position:relative;">
+                        <input id="selected-file-name" readonly style="border: 1px solid #ccc; padding: 5px;" />
+                        <button id="remove-excel-btn" type="button" style="cursor:pointer;">X</button>
+                    </div>
+                    <!-- Save Excel File Button -->
+                    <button id="save-excelfile-btn" type="button" style="cursor:pointer;">
+                        Save Excel File
+                    </button>
+                </div>
+            </form>
+        </div>
                 <div id="file-upload-info" style="display:none">
                     <!-- Display the Selected File Name with Remove Button -->
                     <div id="file-container" style="display: flex; align-items: center; gap: 10px; position:relative;">
@@ -502,7 +806,21 @@
             <div class="referral-triggered-view-headersection">
                 <h3>Generate Referral Link</h3>
                 <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="">
+        <div class="sc-dashboard-generate-overlay"></div>
+        <div class="referral-triggered-view" style="display:none">
+            <div class="referral-triggered-view-headersection">
+                <h3>Generate Referral Link</h3>
+                <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="">
 
+            </div>
+            <div class="referral-triggered-view-content">
+                <input type="input" placeholder="Copy Link here">
+            </div>
+            <div class="referral-triggered-view-footer">
+                <button id="cancel-referral-link"> <img src="{{ asset('assets/images/Icons/close_icon.png') }}" />
+                    Cancel</button>
+                <button>Generate</button>
+            </div>
             </div>
             <div class="referral-triggered-view-content">
                 <input type="input" placeholder="Copy Link here">
@@ -1102,6 +1420,7 @@
 
             popuAddingStudentTriggers.forEach(button => {
 
+
                 button.addEventListener("click", showPopup);
             });
 
@@ -1698,63 +2017,131 @@
             document.head.appendChild(style);
         };
 
-        const queryDetails = () => {
+        function queryDetails() {
             const scuser = @json(session('scuser'));
             const scuserid = scuser.referral_code;
+            const container = document.querySelector(".groupofraisedquestion-scdashboard");
 
-            const mobRef = document.getElementById("mobgeneratedreferralcode");
-            const Ref = document.getElementById("pcviewgeneratedreferralcode");
+            if (!scuserid || !container) return;
 
-            if (mobRef && Ref) {
-                mobRef.textContent = `Referral Code:  ${scuserid} `;
-                Ref.textContent = `Referral Code:  ${scuserid} `;
+            fetch(`/get-queries?scUserId=${scuserid}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    container.innerHTML = "";
 
-            }
+                    if (data.success && data.queries.length > 0) {
+                        const sortedQueries = data.queries.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                        const allItems = [];
 
+                        sortedQueries.forEach((item, index) => {
+                            const div = document.createElement("div");
+                            div.classList.add("individual-raisedquestions");
+                            div.setAttribute("data-index", index);
+                            div.innerHTML = `
+                        <p id="queries-row">${item.queryraised}</p>
+                        <p id="query-raisedbyrow">${item.querytype}</p>
+                    `;
+                            allItems.push(div);
+                            container.appendChild(div);
+                        });
 
-            if (scuserid) {
-                fetch(`/get-queries?scUserId=${scuserid}`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        // Save state for later use on resize
+                        container.setAttribute("data-rendered", "true");
+                        container.setAttribute("data-query-count", allItems.length);
+
+                        // Dynamically apply layout
+                        applyResponsiveQueryLayout();
+
+                        // Listen to resize for switching layouts
+                        window.addEventListener("resize", applyResponsiveQueryLayout);
+                    } else {
+                        container.innerHTML = "<p>No queries found.</p>";
                     }
                 })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        const container = document.querySelector(".groupofraisedquestion-scdashboard");
-                        container.innerHTML = ''; // Clear existing
+                .catch((error) => {
+                    console.error("Request failed:", error);
+                });
+        }
 
-                        if (data.success && data.queries.length > 0) {
-                            // Sort queries by created_at (newest first)
-                            const sortedQueries = data.queries.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        function applyResponsiveQueryLayout() {
+            const container = document.querySelector(".groupofraisedquestion-scdashboard");
+            const totalItems = parseInt(container.getAttribute("data-query-count") || 0);
+            const allItems = container.querySelectorAll(".individual-raisedquestions");
+            const isMobile = window.innerWidth < 768;
+            const existingButton = document.querySelector(".view-more-container-raisedqueries");
 
-                            sortedQueries.forEach((item) => {
-                                const div = document.createElement('div');
-                                console.log(item);
-                                div.classList.add('individual-raisedquestions');
-                                div.setAttribute('data-added', item.created_at); // Use created_at here
+            // Reset all items
+            allItems.forEach(el => el.style.display = "block");
+            container.style.maxHeight = "";
+            container.style.overflowY = "unset";
 
-                                div.innerHTML = `
-                            <p id="queries-row">${item.queryraised}</p>
-                            <p id="query-raisedbyrow">${item.querytype}</p>
-                        `;
+            // Remove existing view-more button
+            if (existingButton) existingButton.remove();
 
-                                container.appendChild(div);
-                            });
-                            getStatusGroups();
+            if (isMobile) {
+                // Only show 4, rest hidden
+                allItems.forEach((el, index) => {
+                    if (index >= 4) el.style.display = "none";
+                });
 
-                        } else {
-                            container.innerHTML = '<p>No queries found.</p>';
-                        }
-                    })
-                    .catch((error) => {
-                        console.error("Request failed:", error);
+                if (totalItems > 4) {
+                    const viewMoreWrapper = document.createElement("div");
+                    viewMoreWrapper.className = "view-more-container-raisedqueries";
+                    viewMoreWrapper.innerHTML = `
+                <button class="view-more-btn-raisedqueries">
+                    <span>View More</span>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="view-more-icon">
+                        <path d="M6 9l6 6 6-6H6z" fill="currentColor"/>
+                    </svg>
+                </button>
+            `;
+                    container.parentNode.appendChild(viewMoreWrapper);
+
+                    const toggleButton = viewMoreWrapper.querySelector(".view-more-btn-raisedqueries");
+                    let expanded = false;
+
+                    toggleButton.addEventListener("click", () => {
+                        allItems.forEach((el, idx) => {
+                            if (expanded && idx >= 4) {
+                                el.style.display = "none";
+                            } else {
+                                el.style.display = "block";
+                            }
+                        });
+
+                        toggleButton.querySelector("span").textContent = expanded ? "View More" : "View Less";
+                        toggleButton.querySelector(".view-more-icon").style.transform = expanded ? "rotate(0deg)" : "rotate(180deg)";
+                        expanded = !expanded;
                     });
+                }
+
+            } else {
+                // Web: show all and enable scroll if > 6
+                if (totalItems > 6) {
+                    container.style.maxHeight = "300px";
+                    container.style.overflowY = "auto";
+                }
             }
-        };
+        }
 
 
+
+
+        const initializeRaiseQuery = () => {
+            const raiseQueryButton = document.querySelector("#raised-query");
+            const raiseQueryPopup = document.querySelector(".raise-query-popup");
+            const closeQueryPopup = document.querySelector(".raise-query-popup-headersection img");
+            const cancelQueryButton = document.querySelector(".raise-query-popup-footer .cancel-query");
+            const submitQueryButton = document.querySelector(".raise-query-popup-footer .submit-query");
+            const queryText = document.querySelector("#query-text");
+            const queryType = document.querySelector("#query-type");
+            const backgroundContainer = document.querySelector(".scdashboard-parentcontainer");
         const initializeRaiseQuery = () => {
             const raiseQueryButton = document.querySelector("#raised-query");
             const raiseQueryPopup = document.querySelector(".raise-query-popup");
@@ -1769,7 +2156,24 @@
                 console.error("Required DOM elements for raise query popup are missing");
                 return;
             }
+            if (!raiseQueryButton || !raiseQueryPopup || !closeQueryPopup || !cancelQueryButton || !submitQueryButton || !queryText || !queryType) {
+                console.error("Required DOM elements for raise query popup are missing");
+                return;
+            }
 
+            // Create overlay element
+            const overlay = document.createElement("div");
+            overlay.classList.add("sc-query-raised-overlay");
+            overlay.style.display = "none";
+            overlay.style.position = "fixed";
+            overlay.style.top = "85px";
+            overlay.style.left = "0";
+            overlay.style.width = "100%";
+            overlay.style.height = "calc(100% - 85px)";
+            overlay.style.background = "rgba(0, 0, 0, 0.5)";
+            overlay.style.backdropFilter = "blur(5px)";
+            overlay.style.zIndex = "999";
+            document.body.appendChild(overlay);
             // Create overlay element
             const overlay = document.createElement("div");
             overlay.classList.add("sc-query-raised-overlay");
@@ -1791,7 +2195,20 @@
                 backgroundContainer.classList.add("blur");
                 queryText.value = ""; // Reset textarea
             });
+            // Show popup and overlay
+            raiseQueryButton.addEventListener('click', () => {
+                raiseQueryPopup.style.display = "flex";
+                overlay.style.display = "block"; // Show overlay
+                backgroundContainer.classList.add("blur");
+                queryText.value = ""; // Reset textarea
+            });
 
+            // Hide popup and overlay function
+            const hidePopup = () => {
+                raiseQueryPopup.style.display = "none";
+                overlay.style.display = "none"; // Hide overlay
+                backgroundContainer.classList.remove("blur");
+            };
             // Hide popup and overlay function
             const hidePopup = () => {
                 raiseQueryPopup.style.display = "none";
@@ -1801,7 +2218,11 @@
 
             // Close button
             closeQueryPopup.addEventListener('click', hidePopup);
+            // Close button
+            closeQueryPopup.addEventListener('click', hidePopup);
 
+            // Cancel button
+            cancelQueryButton.addEventListener('click', hidePopup);
             // Cancel button
             cancelQueryButton.addEventListener('click', hidePopup);
 
@@ -1811,7 +2232,17 @@
                 const type = queryType.value;
                 const scuser = @json(session('scuser'));
                 const scuserid = scuser.referral_code;
+            // Submit query
+            submitQueryButton.addEventListener('click', () => {
+                const query = queryText.value.trim();
+                const type = queryType.value;
+                const scuser = @json(session('scuser'));
+                const scuserid = scuser.referral_code;
 
+                if (!query) {
+                    alert("Please enter a query");
+                    return;
+                }
                 if (!query) {
                     alert("Please enter a query");
                     return;
@@ -1846,6 +2277,36 @@
                     });
             });
         };
+                fetch('/raise-query', {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        scuserid: scuserid,
+                        querytype: type,
+                        queryraised: query
+                    })
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Network response was not ok");
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        alert("Query raised successfully!");
+                        hidePopup(); // Close popup and overlay
+                        queryDetails(); // Optional function to refresh UI
+                    })
+                    .catch(error => {
+                        console.error("Error raising query:", error);
+                        alert("An error occurred while raising the query.");
+                    });
+            });
+        };
+
 
 
 
@@ -2295,6 +2756,7 @@
 
                             renderPagination();
                             triggeredButtons();
+                            triggeredButtons();
                         };
 
                         const renderPagination = () => {
@@ -2405,52 +2867,41 @@
 
 
         function triggerDownloadTrigger() {
-            const buttons = [
-                document.getElementById('download-statusgroups-reports'),
-                document.getElementById('mobwidthdownloadbutton')
-            ];
+            const button = document.getElementById('download-statusgroups-reports');
+            if (!button) return;
 
-            // Exit if neither button is found
-            if (!buttons[0] && !buttons[1]) return;
+            button.addEventListener('click', function () {
+                const scuser = @json(session('scuser'));
 
-            buttons.forEach(button => {
-                if (!button) return;
+                if (!scuser || !scuser.referral_code) {
+                    alert('User referral code is missing in session!');
+                    return;
+                }
 
-                button.addEventListener('click', function () {
-                    const scuser = @json(session('scuser'));
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/export-user-status';
+                form.style.display = 'none';
 
-                    if (!scuser || !scuser.referral_code) {
-                        alert('User referral code is missing in session!');
-                        return;
-                    }
+                // CSRF token (required in Laravel for POST requests)
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                const csrfInput = document.createElement('input');
+                csrfInput.type = 'hidden';
+                csrfInput.name = '_token';
+                csrfInput.value = csrfToken;
+                form.appendChild(csrfInput);
 
-                    const form = document.createElement('form');
-                    form.method = 'POST';
-                    form.action = '/export-user-status';
-                    form.style.display = 'none';
+                // Referral Code input
+                const referralInput = document.createElement('input');
+                referralInput.type = 'hidden';
+                referralInput.name = 'scReferralId';
+                referralInput.value = scuser.referral_code;
+                form.appendChild(referralInput);
 
-                    // CSRF token
-                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                    const csrfInput = document.createElement('input');
-                    csrfInput.type = 'hidden';
-                    csrfInput.name = '_token';
-                    csrfInput.value = csrfToken;
-                    form.appendChild(csrfInput);
-
-                    // Referral Code input
-                    const referralInput = document.createElement('input');
-                    referralInput.type = 'hidden';
-                    referralInput.name = 'scReferralId';
-                    referralInput.value = scuser.referral_code;
-                    form.appendChild(referralInput);
-
-                    document.body.appendChild(form);
-                    form.submit();
-                });
+                document.body.appendChild(form);
+                form.submit();
             });
-        }
-
-    </script>
+        }  </script>
 </body>
 
 </html>

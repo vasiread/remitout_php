@@ -576,13 +576,14 @@
                           <div class="info">
                             <span class="help-trigger" data-target="kyc-pan-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
-                          </div>
-                          <div class="help-container kyc-pan-help" id="help-container-kyc-id">
-                            <h3 class="help-title">Help</h3>
-                            <div class="help-content">
-                              <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+                            <div class="help-container kyc-pan-help" id="help-container-kyc-id" style="position: relative;">
+                              <h3 class="help-title">Help</h3>
+                              <div class="help-content">
+                                <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+                              </div>
                             </div>
                           </div>
+                          
                         </div>
 
                         <!-- Aadhar Card -->
@@ -3821,10 +3822,6 @@
         alert('An error occurred while deleting the option.');
       }
     }
-
-
-     
-
 
   </script>
 </body>

@@ -556,7 +556,7 @@
           <div class="form-group" style="margin-top: 15px;">
           @if(!in_array($field->type, ['text', 'url']))
         <label for="{{ $field->name }}">{{ $field->label }}</label>
-        @endif
+        @endifpersonal-info-submit
 
           @if(in_array($field->type, ['text', 'url', 'date']))
           <input type="{{ $field->type }}" name="dynamic_fields[{{ $field->id }}]" id="{{ $field->name }}"

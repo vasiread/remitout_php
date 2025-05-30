@@ -8,6 +8,20 @@ html, body {
   width: 100%;
 }
 
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.global-spinner {
+  display: inline-block;
+  box-sizing: border-box;
+  animation: spin 0.8s linear infinite;
+}
 
  /* Banner Section */
  .banner-section {

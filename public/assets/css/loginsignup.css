@@ -177,7 +177,7 @@
 
 .loginsingupcontainer-rightpanel-inside input:focus + label,
 .loginsingupcontainer-rightpanel-inside input:not(:placeholder-shown) + label {
-    opacity: 0;
+    opacity: 1;
 }
 
 .loginsingupcontainer-rightpanel-inside input {
@@ -457,7 +457,7 @@
 .rightpanel-phonecontainer,
 .rightpanel-emailcontainer,
 .rightpanel-passwordcontainer {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     height:60px;
 }
 .rightpanel-namecontainer label,
@@ -1004,7 +1004,7 @@
     .rightpanel-passwordcontainer,
     .rightpanel-phonecontainer {
         max-width: 100%;
-        margin-bottom: 15px;
+        margin-bottom: 25px;
         display: flex;
         justify-content: center;
         position: relative;
@@ -1218,6 +1218,7 @@
         font-size: 14px;
         padding: 8px;
         max-width: 350px;
+        margin-top: 30px;
     }
 
     .loginsingupcontainer-rightpanel-inside label {
