@@ -301,7 +301,7 @@
                 justify-content: space-between;
                 align-items: center;
                 padding: 20px;
-                position: relative;
+                position: absolute;
                 background-color: rgba(255, 255, 255, 0.35);
             }
 
