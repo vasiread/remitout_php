@@ -70,6 +70,38 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const courseDetailsElement = document.getElementById('course-details-container');
     const courseDetails = JSON.parse(courseDetailsElement.getAttribute('data-course-details'));
+    console.log(courseDetails)
+    const firstItem = courseDetails[0];
+    let selectedCountries = [];
+
+    try {
+        const raw = firstItem["plan-to-study"]; // Note: dash (-), not underscore (_)
+        selectedCountries = JSON.parse(raw);
+        console.log("Selected countries:", selectedCountries);
+    } catch (e) {
+        console.error("Could not parse plan-to-study:", e);
+    }
+
+    // Set checkboxes
+    document.querySelectorAll('input[name="study-location-edit"]').forEach(checkbox => {
+        if (selectedCountries.includes(checkbox.value)) {
+            checkbox.checked = true;
+        }
+    });
+
+    // Set text input field
+    const textInput = document.getElementById('plan-to-study-edit');
+    if (textInput) {
+        textInput.value = selectedCountries.join(', ');
+    }
+
+    // Handle "Other"
+    if (selectedCountries.includes("Other")) {
+        document.getElementById("other-checkbox-edit").checked = true;
+        document.querySelector('.add-country-box-edit').style.display = 'block';
+    } else {
+        document.querySelector('.add-country-box-edit').style.display = 'none';
+    }
     // const personalDetails = JSON.parse(courseDetailsElement.getAttribute('data-personal-details'));
     // const acceptTriggers = document.querySelectorAll(".user-accept-trigger");
     // const rejectTriggers = document.querySelectorAll(".bankmessage-buttoncontainer-reject");
@@ -82,9 +114,9 @@ document.addEventListener('DOMContentLoaded', function () {
     //     }
     // });
 
-    const otherCheckbox = document.querySelector('#other-checkbox-edit');
-    const addCountryBox = document.querySelector('.add-country-box-edit');
-    const customCountryInput = document.querySelector('#country-edit');
+    // const otherCheckbox = document.querySelector('#other-checkbox-edit');
+    // const addCountryBox = document.querySelector('.add-country-box-edit');
+    // const customCountryInput = document.querySelector('#country-edit');
 
     // if (selectedCountries.includes("Other")) {
     //     otherCheckbox.checked = true;
@@ -93,14 +125,14 @@ document.addEventListener('DOMContentLoaded', function () {
     //     addCountryBox.style.display = 'none';
     // }
 
-    otherCheckbox.addEventListener('change', () => {
-        if (otherCheckbox.checked) {
-            addCountryBox.style.display = 'block';
-        } else {
-            addCountryBox.style.display = 'none';
-            customCountryInput.value = '';
-        }
-    });
+    // otherCheckbox.addEventListener('change', () => {
+    //     if (otherCheckbox.checked) {
+    //         addCountryBox.style.display = 'block';
+    //     } else {
+    //         addCountryBox.style.display = 'none';
+    //         customCountryInput.value = '';
+    //     }
+    // });
     document.querySelector('.mailnbfcbutton').addEventListener('click', () => {
         sendDocumenttoEmail();
     });
@@ -1447,8 +1479,7 @@ const initializeIndividualCards = () => {
 
 
 const initializeKycDocumentUpload = () => {
-    console.log(documentUrls)
-    console.log("//////////////")
+    
     const individualKycDocumentsUpload = document.querySelectorAll(
         ".individualkycdocuments"
     );

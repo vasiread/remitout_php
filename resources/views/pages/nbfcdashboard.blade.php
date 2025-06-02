@@ -34,14 +34,14 @@
 
 
     @php
-        $profileImgPath = 'images/admin-student-profile.png';
-        $uploadPanName = '';
-        $profileIconPath = "assets/images/account_circle.png";
-        $phoneIconPath = "assets/images/call.png";
-        $mailIconPath = "assets/images/mail.png";
-        $pindropIconPath = "assets/images/pin_drop.png";
-        $discordIconPath = "assets/images/icons/discordicon.png";
-        $viewIconPath = "assets/images/visibility.png";
+$profileImgPath = 'images/admin-student-profile.png';
+$uploadPanName = '';
+$profileIconPath = "assets/images/account_circle.png";
+$phoneIconPath = "assets/images/call.png";
+$mailIconPath = "assets/images/mail.png";
+$pindropIconPath = "assets/images/pin_drop.png";
+$discordIconPath = "assets/images/icons/discordicon.png";
+$viewIconPath = "assets/images/visibility.png";
     @endphp
 
     <nav class="nbfc-navbar">
@@ -280,7 +280,7 @@
                         </div>
                         <div class="testscoreseditsection-secondrow">
                             @php
-                                $counter = 1; 
+$counter = 1; 
                             @endphp
 
 
@@ -2258,29 +2258,33 @@
 
 
 
-        function initializeChats() {
-            const chatContainer = document.querySelectorAll('.nbfc-individual-bankmessage-input-message');
+    function initializeChats() {
+    const messagesMap = {}; // Tracks studentId => messagesWrapper
+    let activeStudentId = null;
 
-            chatContainer.forEach((container, index) => {
-                const chatId = `chat-${index}`;
-                container.setAttribute('data-chat-id', chatId);
+    const chatContainers = document.querySelectorAll('.nbfc-individual-bankmessage-input-message');
 
-                const parentContainer = container.closest('.index-student-message-container');
-                const viewButton = parentContainer?.querySelector('.index-student-view-btn');
-                const messageBtn = parentContainer?.querySelector('.index-student-message-btn');
-                const messageMobBtn = parentContainer?.querySelector('.index-student-send-btn-mobile');
-                const messageUserIdElem = parentContainer?.querySelector('.student-ids');
-                const messageUserId = messageUserIdElem?.textContent.trim();
+    chatContainers.forEach((container, index) => {
+        const chatId = `chat-${index}`;
+        container.setAttribute('data-chat-id', chatId);
 
-                const sendButton = container.querySelector('.nbfc-send-img');
-                const messageInput = container.querySelector('.nbfc-message-input');
-                const smileIcons = container.querySelectorAll('.nbfc-face-smile');
-                const paperclipIcon = container.querySelector('.nbfc-paperclip');
+        const parentContainer = container.closest('.index-student-message-container');
+        const viewButton = parentContainer?.querySelector('.index-student-view-btn');
+        const messageBtn = parentContainer?.querySelector('.index-student-message-btn');
+        const messageMobBtn = parentContainer?.querySelector('.index-student-send-btn-mobile');
+        const messageUserIdElem = parentContainer?.querySelector('.student-ids');
+        const messageUserId = messageUserIdElem?.textContent.trim();
 
-                const messagesWrapper = document.createElement("div");
-                messagesWrapper.classList.add("messages-wrapper");
-                messagesWrapper.setAttribute('data-chat-id', chatId);
-                messagesWrapper.style.cssText = `
+        const sendButton = container.querySelector('.nbfc-send-img');
+        const messageInput = container.querySelector('.nbfc-message-input');
+        const smileIcons = container.querySelectorAll('.nbfc-face-smile');
+        const paperclipIcon = container.querySelector('.nbfc-paperclip');
+
+        // Create and insert chat message wrapper
+        const messagesWrapper = document.createElement("div");
+        messagesWrapper.classList.add("messages-wrapper");
+        messagesWrapper.setAttribute('data-chat-id', chatId);
+        messagesWrapper.style.cssText = `
             display: none;
             flex-direction: column;
             width: 100%;  
@@ -2294,174 +2298,256 @@
             margin-bottom: 10px;
             padding-top:10px;
         `;
-                container.parentNode.insertBefore(messagesWrapper, container);
+        container.parentNode.insertBefore(messagesWrapper, container);
+        messagesMap[messageUserId] = messagesWrapper;
 
-                function showChat() {
-                    messagesWrapper.style.display = 'flex';
-                    container.style.display = 'flex';
-                    if (viewButton) viewButton.textContent = 'Close';
+        // Utility: Scroll the current chat
+        function scrollToBottom(userId) {
+            const wrapper = messagesMap[userId];
+            if (wrapper) wrapper.scrollTop = wrapper.scrollHeight;
+        }
+
+        // Utility: Show/hide
+        function showChat() {
+            messagesWrapper.style.display = 'flex';
+            container.style.display = 'flex';
+            if (viewButton) viewButton.textContent = 'Close';
+        }
+
+        function hideChat() {
+            messagesWrapper.style.display = 'none';
+            container.style.display = 'none';
+            if (viewButton) viewButton.textContent = 'View';
+        }
+
+        // Append message to the correct chat
+    function appendMessageToChat(messageText, userId) {
+            const chatContainer = messagesMap[userId];
+            if (!chatContainer) return;
+
+            const messageElement = document.createElement("div");
+            messageElement.style.cssText = `
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+        margin-bottom: 10px;
+        padding-top: 10px;
+    `;
+
+            const messageContent = document.createElement("div");
+            messageContent.style.cssText = `
+        max-width: 80%;
+        padding: 8px 12px;
+        border-radius: 8px;
+        background-color: #DCF8C6;
+        font-family: 'Poppins', sans-serif;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        word-wrap: break-word;
+    `;
+
+            // Check if it's a file link
+            if (messageText.match(/\.(pdf|docx?|txt)$/i)) {
+                const downloadLink = document.createElement('a');
+                downloadLink.href = messageText;
+                downloadLink.target = '_blank';
+                downloadLink.style.cssText = `
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #666;
+            text-decoration: none;
+        `;
+                const fileName = messageText.split('/').pop();
+                downloadLink.innerHTML = `
+            <i class="fa-solid fa-file"></i>
+            <span>${fileName}</span>
+        `;
+                messageContent.appendChild(downloadLink);
+            } else {
+                messageContent.textContent = messageText;
+            }
+
+            messageElement.appendChild(messageContent);
+            chatContainer.appendChild(messageElement);
+        }
+
+        // View existing messages
+       async function viewChat(nbfc_id, studentId) {
+            activeStudentId = studentId;
+            const chatContainer = messagesMap[studentId];
+            if (!chatContainer) return;
+
+            chatContainer.innerHTML = '';
+
+            try {
+                const response = await fetch(`/get-messages/${nbfc_id}/${studentId}`);
+                const data = await response.json();
+
+                if (data.messages?.length) {
+                    data.messages.sort((a, b) => a.id - b.id);
+                    data.messages.forEach(msg => {
+                        const isNbfcSender = msg.sender_id === nbfc_id;
+
+                        const wrapper = document.createElement("div");
+                        wrapper.style.cssText = `
+                    display: flex;
+                    justify-content: ${isNbfcSender ? 'flex-end' : 'flex-start'};
+                    width: 100%;
+                    margin-bottom: 10px;
+                    padding-top: 10px;
+                `;
+
+                        const bubble = document.createElement("div");
+                        bubble.style.cssText = `
+                    max-width: 80%;
+                    padding: 8px 12px;
+                    border-radius: 8px;
+                    background-color: ${isNbfcSender ? '#DCF8C6' : '#FFF'};
+                    font-family: 'Poppins', sans-serif;
+                    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+                    word-wrap: break-word;
+                `;
+
+                        // Detect file message by extension
+                        if (msg.message.match(/\.(pdf|docx?|txt)$/i)) {
+                            const downloadLink = document.createElement('a');
+                            downloadLink.href = msg.message;
+                            downloadLink.target = '_blank';
+                            downloadLink.style.cssText = `
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+                        color: #666;
+                        text-decoration: none;
+                    `;
+                            const fileName = msg.message.split('/').pop();
+                            downloadLink.innerHTML = `
+                        <i class="fa-solid fa-file"></i>
+                        <span>${fileName}</span>
+                    `;
+                            bubble.appendChild(downloadLink);
+                        } else {
+                            bubble.textContent = msg.message;
+                        }
+
+                        wrapper.appendChild(bubble);
+                        chatContainer.appendChild(wrapper);
+                    });
+                } else {
+                    const empty = document.createElement("div");
+                    empty.textContent = "No messages yet";
+                    empty.style.cssText = `
+                text-align: center;
+                padding: 20px;
+                color: #999;
+            `;
+                    chatContainer.appendChild(empty);
                 }
+            } catch (error) {
+                console.error('Error fetching messages:', error);
+            }
 
-                function hideChat() {
-                    messagesWrapper.style.display = 'none';
-                    container.style.display = 'none';
-                    if (viewButton) viewButton.textContent = 'View';
+            showChat();
+            scrollToBottom(studentId);
+        }
+
+
+        // Send message
+        async function sendMessageToBackend(content, userId) {
+            const user = @json(session('nbfcuser'));
+            const nbfc_id = user?.nbfc_id;
+            if (!nbfc_id) return;
+
+            const payload = {
+                nbfc_id,
+                student_id: userId,
+                sender_id: nbfc_id,
+                receiver_id: userId,
+                message: content,
+                is_read: false
+            };
+
+            try {
+                const response = await fetch('/send-message', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    appendMessageToChat(content, userId);
+                    scrollToBottom(userId);
+                } else {
+                    console.error('Send failed:', data.error || 'Unknown error');
                 }
+            } catch (error) {
+                console.error('Send error:', error);
+            }
+        }
 
-                function scrollToBottom() {
-                    messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
+        // Event listeners
+        if (sendButton && messageInput && messageUserId) {
+            sendButton.addEventListener('click', e => {
+                e.preventDefault();
+                const content = messageInput.value.trim();
+                if (content) {
+                    messageInput.value = '';
+                    sendMessageToBackend(content, messageUserId);
                 }
+            });
 
-                function sendMessage(messageInput, messageUserId) {
+            messageInput.addEventListener('keypress', e => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
                     const content = messageInput.value.trim();
                     if (content) {
-                        showChat();
-                        messageInput.value = "";
+                        messageInput.value = '';
                         sendMessageToBackend(content, messageUserId);
                     }
                 }
+            });
+        }
 
-                async function sendMessageToBackend(content, messageUserId) {
-                    const user = @json(session('nbfcuser'));
-                    const nbfc_id = user?.nbfc_id;
-                    if (!nbfc_id) return;
-
-                    const payload = {
-                        nbfc_id,
-                        student_id: messageUserId,
-                        sender_id: nbfc_id,
-                        receiver_id: messageUserId,
-                        message: content,
-                        is_read: false
-                    };
-
-                    try {
-                        const response = await fetch('/send-message', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
-                            },
-                            body: JSON.stringify(payload)
-                        });
-
-                        const data = await response.json();
-                        if (response.ok) {
-                            await viewChat(nbfc_id, messageUserId);
-                            scrollToBottom();
-                        } else {
-                            console.error('Failed to send message:', data.error || 'Unknown error');
-                        }
-                    } catch (error) {
-                        console.error('Error sending message:', error);
-                    }
+        if (viewButton) {
+            viewButton.addEventListener('click', () => {
+                const user = @json(session('nbfcuser'));
+                const nbfc_id = user?.nbfc_id;
+                if (messagesWrapper.style.display === 'none') {
+                    viewChat(nbfc_id, messageUserId);
+                } else {
+                    hideChat();
                 }
+            });
+        }
 
-                async function viewChat(nbfc_id, studentId) {
-                    const apiUrl = `/get-messages/${nbfc_id}/${studentId}`;
-                    messagesWrapper.innerHTML = '';
+        if (messageBtn || messageMobBtn) {
+            const btn = messageBtn || messageMobBtn;
+            btn.addEventListener('click', () => {
+                const user = @json(session('nbfcuser'));
+                const nbfc_id = user.nbfc_id;
+                viewChat(nbfc_id, messageUserId);
+            });
+        }
 
-                    try {
-                        const response = await fetch(apiUrl);
-                        const data = await response.json();
-
-                        if (data.messages?.length > 0) {
-                            data.messages.sort((a, b) => a.id - b.id);
-                            data.messages.forEach(message => {
-                                const isNbfcSender = message.sender_id === nbfc_id;
-                                const messageElement = document.createElement("div");
-                                messageElement.style.cssText = `
-                            display: flex;
-                            justify-content: ${isNbfcSender ? 'flex-end' : 'flex-start'};
-                            width: 100%;
-                            margin-bottom: 10px;
-                            padding-top: 10px;
-                        `;
-
-                                const messageContent = document.createElement("div");
-                                messageContent.style.cssText = `
-                            max-width: 80%;
-                            padding: 8px 12px;
-                            border-radius: 8px;
-                            background-color: ${isNbfcSender ? '#DCF8C6' : '#FFF'};
-                            font-family: 'Poppins', sans-serif;
-                            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-                        `;
-                                messageContent.textContent = message.message;
-
-                                messageElement.appendChild(messageContent);
-                                messagesWrapper.appendChild(messageElement);
-                            });
-                        } else {
-                            const noMessages = document.createElement("div");
-                            noMessages.textContent = "No messages yet";
-                            noMessages.style.textAlign = "center";
-                            noMessages.style.padding = "20px";
-                            noMessages.style.color = "#999";
-                            messagesWrapper.appendChild(noMessages);
-                        }
-                    } catch (error) {
-                        console.error('Error fetching messages:', error);
+        // Emoji support
+        if (smileIcons) {
+            smileIcons.forEach(smileIcon => {
+                smileIcon.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
+                    const existingPicker = container.querySelector(".emoji-picker");
+                    if (existingPicker) {
+                        existingPicker.remove();
+                        return;
                     }
 
-                    showChat();
-                }
-
-                if (sendButton && messageInput && messageUserId) {
-                    sendButton.addEventListener('click', e => {
-                        e.preventDefault();
-                        sendMessage(messageInput, messageUserId);
-                    });
-
-                    messageInput.addEventListener('keypress', e => {
-                        if (e.key === 'Enter') {
-                            e.preventDefault();
-                            sendMessage(messageInput, messageUserId);
-                        }
-                    });
-                }
-
-                if (viewButton) {
-                    viewButton.addEventListener('click', () => {
-                        if (messagesWrapper.style.display === 'none') {
-                            showChat();
-                        } else {
-                            hideChat();
-                        }
-                    });
-                }
-
-                if (messageBtn && messageUserId) {
-                    messageBtn.addEventListener('click', () => {
-                        const user = @json(session('nbfcuser'));
-                        const nbfc_id = user.nbfc_id;
-                        viewChat(nbfc_id, messageUserId);
-                    });
-                }
-
-                if (messageMobBtn && messageUserId) {
-                    messageMobBtn.addEventListener('click', () => {
-                        const user = @json(session('nbfcuser'));
-                        const nbfc_id = user.nbfc_id;
-                        viewChat(nbfc_id, messageUserId);
-                    });
-                }
-
-                if (smileIcons) {
-                    smileIcons.forEach((smileIcon) => {
-                        smileIcon.addEventListener('click', function (e) {
-                            e.stopPropagation();
-                            const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
-
-                            const existingPicker = document.querySelector(".emoji-picker");
-                            if (existingPicker) {
-                                existingPicker.remove();
-                                return;
-                            }
-
-                            const picker = document.createElement("div");
-                            picker.classList.add("emoji-picker");
-                            picker.style.cssText = `
+                    const picker = document.createElement("div");
+                    picker.classList.add("emoji-picker");
+                    picker.style.cssText = `
                         position: absolute;
                         bottom: 100%;
                         right: 0;
@@ -2474,103 +2560,81 @@
                         z-index: 1000;
                     `;
 
-                            emojis.forEach(emoji => {
-                                const button = document.createElement("button");
-                                button.textContent = emoji;
-                                button.style.cssText = `
+                    emojis.forEach(emoji => {
+                        const btn = document.createElement("button");
+                        btn.textContent = emoji;
+                        btn.style.cssText = `
                             border: none;
                             background: none;
                             font-size: 20px;
                             cursor: pointer;
                             padding: 5px;
                         `;
-                                button.onclick = (e) => {
-                                    e.stopPropagation();
-                                    messageInput.value += emoji;
-                                    picker.remove();
-                                    messageInput.focus();
-                                };
-                                picker.appendChild(button);
-                            });
-
-                            container.appendChild(picker);
-
-                            document.addEventListener("click", function closePicker(e) {
-                                if (!picker.contains(e.target) && e.target !== smileIcon) {
-                                    picker.remove();
-                                    document.removeEventListener("click", closePicker);
-                                }
-                            });
-                        });
-                    });
-                }
-
-                if (paperclipIcon) {
-                    paperclipIcon.addEventListener("click", function () {
-                        const fileInput = document.createElement("input");
-                        fileInput.type = "file";
-                        fileInput.accept = ".pdf,.doc,.docx,.txt";
-                        fileInput.style.display = "none";
-
-                        fileInput.onchange = (e) => {
-                            const file = e.target.files[0];
-                            if (file) {
-                                const formData = new FormData();
-                                formData.append('file', file);
-                                formData.append('chatId', chatId);
-
-                                fetch('/upload-documents-chat', {
-                                    method: 'POST',
-                                    headers: {
-                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
-                                    },
-                                    body: formData
-                                })
-                                    .then(res => res.json())
-                                    .then(data => {
-                                        if (data.success && data.fileUrl) {
-                                            const fileUrl = data.fileUrl;
-
-                                            // 🟡 Get the matching student ID (nbfcid) from the DOM
-                                            const messageInputNbfcidsList = document.querySelectorAll(".messageinputnbfcids");
-                                            const messageInputNbfcids = messageInputNbfcidsList[index]?.textContent?.trim();
-
-                                            if (!messageInputNbfcids) {
-                                                console.warn("Student ID not found for uploaded file.");
-                                                return;
-                                            }
-
-                                            const fileName = file.name;
-                                            const fileSize = (file.size / 1024 / 1024).toFixed(2);
-                                            const fileId = `file-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-
-                                            // 🟢 Initialize and store in adminFileStorage
-                                            if (!window.adminFileStorage) window.adminFileStorage = {};
-                                            if (!window.adminFileStorage[chatId]) window.adminFileStorage[chatId] = {};
-                                            window.adminFileStorage[chatId][fileId] = file;
-
-                                            // ✅ Send the file URL to backend
-                                            sendMessageToBackend(fileUrl, messageInputNbfcids);
-
-                                        } else {
-                                            alert("File upload failed.");
-                                        }
-                                    })
-                                    .catch(err => {
-                                        console.error("Upload error:", err);
-                                        alert("Something went wrong while uploading the file.");
-                                    });
-                            }
+                        btn.onclick = () => {
+                            messageInput.value += emoji;
+                            picker.remove();
+                            messageInput.focus();
                         };
-
-                        document.body.appendChild(fileInput);
-                        fileInput.click();
-                        document.body.removeChild(fileInput);
+                        picker.appendChild(btn);
                     });
-                }
 
+                    container.appendChild(picker);
+
+                    document.addEventListener("click", function closePicker(e) {
+                        if (!picker.contains(e.target) && e.target !== smileIcon) {
+                            picker.remove();
+                            document.removeEventListener("click", closePicker);
+                        }
+                    });
+                });
             });
         }
+
+        // File attachments
+        if (paperclipIcon) {
+            paperclipIcon.addEventListener("click", function () {
+                const fileInput = document.createElement("input");
+                fileInput.type = "file";
+                fileInput.accept = ".pdf,.doc,.docx,.txt";
+                fileInput.style.display = "none";
+
+                fileInput.onchange = async (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const formData = new FormData();
+                        formData.append('file', file);
+                        formData.append('chatId', chatId);
+
+                        try {
+                            const response = await fetch('/upload-documents-chat', {
+                                method: 'POST',
+                                headers: {
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                },
+                                body: formData
+                            });
+
+                            const data = await response.json();
+                            if (data.success && data.fileUrl) {
+                                sendMessageToBackend(data.fileUrl, messageUserId);
+                             } else {
+                                alert("File upload failed.");
+                            }
+                        } catch (err) {
+                            console.error("Upload error:", err);
+                            alert("Upload failed.");
+                        }
+                    }
+                };
+
+                document.body.appendChild(fileInput);
+                fileInput.click();
+                document.body.removeChild(fileInput);
+            });
+        }
+
+    }); // end of forEach
+}
 
 
         let loadedChats = new Set();

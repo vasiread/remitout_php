@@ -368,8 +368,8 @@
                                 </div>
                                 <div class="myapplication-fifthcolumn">
                                     <p>Referral Code</p>
-                                    <input type="text" placeholder="{{$personalDetails[0]->referral_code}}"
-                                        value="{{$personalDetails[0]->referral_code}}" disabled>
+                                    <input type="text" placeholder="{{ $userDetails[0]->referral_code }}"
+                                        value="{{ $userDetails[0]->referral_code }}" disabled>
                                 </div>
                                 <div class="myapplication-sixthcolumn">
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor

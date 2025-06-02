@@ -125,66 +125,80 @@
             }
         }
 
-        async function getTickets() {
-            try {
-                const response = await fetch('/get-tickets');
+      async function getTickets() {
+    try {
+        const response = await fetch('/get-tickets');
+        if (!response.ok) throw new Error('Network response was not ok');
 
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+            const data = await response.json();
+            console.log('Fetched data:', data);
+    
+        if (data.success && Array.isArray(data.queries)) {
+            const ticketContainer = document.getElementById('ticket-raised-tickets-list');
+            ticketContainer.innerHTML = '';
+
+            data.queries.forEach(ticket => {
+                const ticketDateStr = ticket.created_at.split('.')[0];
+                const ticketDate = new Date(ticketDateStr);
+                const formattedDate = !isNaN(ticketDate) ? ticketDate.toISOString().split('T')[0] : '1970-01-01';
+
+                const ticketItem = document.createElement('div');
+                ticketItem.classList.add('ticket-raised-item');
+                if (ticket.status === 'deactive') {
+                    ticketItem.classList.add('deactivated');
                 }
 
-                const data = await response.json();
-
-                // Debug: Log the response data
-                console.log('Fetched data:', data);
-
-                // Check if the response contains the tickets data
-                if (data.success && Array.isArray(data.queries)) {
-                    const ticketContainer = document.getElementById('ticket-raised-tickets-list');
-                    ticketContainer.innerHTML = '';
-
-                    data.queries.forEach(ticket => {
-                        console.log('Created at:', ticket.created_at);
-
-                        const ticketDateStr = ticket.created_at.split('.')[0];
-                        const ticketDate = new Date(ticketDateStr);
-
-                        const formattedDate = ticketDate instanceof Date && !isNaN(ticketDate)
-                            ? ticketDate.toISOString().split('T')[0]
-                            : '1970-01-01'; // Fallback for invalid dates
-
-                        // Create the HTML structure for each ticket
-                        const ticketItem = `
-                        <div class="ticket-raised-item" data-title="${ticket.querytype}" data-date="${formattedDate}">
-                            <div class="ticket-raised-content">
-                                ${ticket.queryraised}
-                            </div>
-                            <div class="ticket-raised-meta">
-                                <div class="ticket-raised-meta-item-sc">Student Counsellor</div>
-                                <div class="ticket-raised-meta-item-date">${formattedDate}</div>
-                                <div class="ticket-raised-meta-item-student">${ticket.querytype || 'No Type'}</div>
-                            </div>
-                            <div class="ticket-raised-chat-icon-container">
-                                <div class="ticket-raised-chat-icon">
-                                    <img src="assets/images/ticket-icon.png" alt="Message Icon" />
-                                </div>
-                            </div>
+                ticketItem.dataset.id = ticket.id;
+                ticketItem.innerHTML = `
+                    <div class="ticket-raised-content">
+                        ${ticket.queryraised}
+                    </div>
+                    <div class="ticket-raised-meta">
+                        <div class="ticket-raised-meta-item-sc">Student Counsellor</div>
+                        <div class="ticket-raised-meta-item-date">${formattedDate}</div>
+                        <div class="ticket-raised-meta-item-student">${ticket.querytype || 'No Type'}</div>
+                    </div>
+                    <div class="ticket-raised-chat-icon-container">
+                        <div class="ticket-raised-chat-icon">
+                            <img src="assets/images/ticket-icon.png" alt="Message Icon" />
                         </div>
-                        `;
+                    </div>
+                `;
 
-                        // Append the ticket item to the container
-                        ticketContainer.innerHTML += ticketItem;
+                // Click to mark as deactive
+                ticketItem.addEventListener('click', async () => {
+                    const ticketId = ticketItem.dataset.id;
+
+                    const updateResponse = await fetch('/update-ticket-status', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({ id: ticketId })
                     });
 
-                    // Apply default sorting (Newest)
-                    sortTickets('newest');
-                } else {
-                    console.error('No tickets found in the response');
-                }
-            } catch (error) {
-                console.error('Failed to fetch tickets:', error);
-            }
+                    const result = await updateResponse.json();
+                    if (result.success) {
+                        ticketItem.classList.add('deactivated');
+                        alert('Ticket marked as deactive.');
+                        getTickets();
+                    } else {
+                        alert('Failed to update ticket status.');
+                    }
+                });
+
+                ticketContainer.appendChild(ticketItem);
+            });
+
+            sortTickets('newest');
+        } else {
+            console.error('No tickets found in the response');
         }
+    } catch (error) {
+        console.error('Failed to fetch tickets:', error);
+    }
+}
 
         document.addEventListener('DOMContentLoaded', () => {
             getTickets();

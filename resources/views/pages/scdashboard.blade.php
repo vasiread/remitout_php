@@ -154,10 +154,10 @@
 
     @section('scdashboard')
         @php
-            $profileIconPath = "assets/images/account_circle1.png";
-            $phoneIconPath = "assets/images/call.png";
-            $mailIconPath = "assets/images/mail.png";
-            $pindropIconPath = "assets/images/pin_drop.png";
+$profileIconPath = "assets/images/account_circle1.png";
+$phoneIconPath = "assets/images/call.png";
+$mailIconPath = "assets/images/mail.png";
+$pindropIconPath = "assets/images/pin_drop.png";
 
 
 
@@ -165,39 +165,39 @@
 
 
 
-            $proposalsInfo = [
-                [
-                    'NBFC' => 'NBFC Name',
-                    'ProposalDate' => '20/11/2024',
-                    'Status' => 'Approved'
+$proposalsInfo = [
+    [
+        'NBFC' => 'NBFC Name',
+        'ProposalDate' => '20/11/2024',
+        'Status' => 'Approved'
 
-                ],
-                [
-                    'NBFC' => 'NBFC Name',
-                    'ProposalDate' => '20/11/2024',
-                    'Status' => 'Pending'
+    ],
+    [
+        'NBFC' => 'NBFC Name',
+        'ProposalDate' => '20/11/2024',
+        'Status' => 'Pending'
 
-                ],
+    ],
 
-            ];
-
-
-
-            $studentDocumentDetailsInfo = [
-                ['student_name' => 'Manish', 'DocumentFinalStatus' => 'Missing Documents: 01', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-07-01'],
-                ['student_name' => 'Kumar', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-02-01'],
-                ['student_name' => 'Raji', 'DocumentFinalStatus' => 'Missing Documents: 12', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-12-04'],
-                ['student_name' => 'Venkatesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-01'],
-                ['student_name' => 'Ramya', 'DocumentFinalStatus' => 'Missing Documents: 03', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-02-09'],
-                ['student_name' => 'Chinna', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2025-07-20'],
-                ['student_name' => 'Feroz', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-21'],
-                ['student_name' => 'Ramesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-29'],
-                ['student_name' => 'Vasi', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-09-30'],
-                ['student_name' => 'Aari', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-10-01'],
-                ['student_name' => 'Abinav', 'DocumentFinalStatus' => 'Missing Documents: 02', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-01'],
+];
 
 
-            ];
+
+$studentDocumentDetailsInfo = [
+    ['student_name' => 'Manish', 'DocumentFinalStatus' => 'Missing Documents: 01', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-07-01'],
+    ['student_name' => 'Kumar', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-02-01'],
+    ['student_name' => 'Raji', 'DocumentFinalStatus' => 'Missing Documents: 12', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-12-04'],
+    ['student_name' => 'Venkatesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-01'],
+    ['student_name' => 'Ramya', 'DocumentFinalStatus' => 'Missing Documents: 03', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-02-09'],
+    ['student_name' => 'Chinna', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2025-07-20'],
+    ['student_name' => 'Feroz', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-21'],
+    ['student_name' => 'Ramesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-29'],
+    ['student_name' => 'Vasi', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-09-30'],
+    ['student_name' => 'Aari', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-10-01'],
+    ['student_name' => 'Abinav', 'DocumentFinalStatus' => 'Missing Documents: 02', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-01'],
+
+
+];
 
         @endphp
 
@@ -403,9 +403,9 @@
 
                         <div id="viewmore-queries">
                             <p>view more</p> <img src="{{ asset("assets/images/Icons/stat_minus_1.png") }}" style="margin-top: 9px;
-                                                                            margin-left: 8px;
-                                                                            width: 12px;
-                                                                            height: 7px;" alt="">
+                                                                                    margin-left: 8px;
+                                                                                    width: 12px;
+                                                                                    height: 7px;" alt="">
                         </div>
 
 
@@ -1499,7 +1499,7 @@
                 element.removeEventListener(event, handler);
                 element.addEventListener(event, handler);
             };
-            
+
 
             const resetFooter = () => {
                 footerContainer.innerHTML = `
@@ -1699,62 +1699,117 @@
         };
 
         const queryDetails = () => {
-            const scuser = @json(session('scuser'));
-            const scuserid = scuser.referral_code;
-
-            const mobRef = document.getElementById("mobgeneratedreferralcode");
-            const Ref = document.getElementById("pcviewgeneratedreferralcode");
-
-            if (mobRef && Ref) {
-                mobRef.textContent = `Referral Code:  ${scuserid} `;
-                Ref.textContent = `Referral Code:  ${scuserid} `;
-
-            }
+                const scuser = @json(session('scuser'));
+                const scuserid = scuser.referral_code;
+                fetchDeactiveQueryCount(scuserid);
 
 
-            if (scuserid) {
-                fetch(`/get-queries?scUserId=${scuserid}`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    }
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        const container = document.querySelector(".groupofraisedquestion-scdashboard");
-                        container.innerHTML = ''; // Clear existing
+                const mobRef = document.getElementById("mobgeneratedreferralcode");
+                const Ref = document.getElementById("pcviewgeneratedreferralcode");
 
-                        if (data.success && data.queries.length > 0) {
-                            // Sort queries by created_at (newest first)
-                            const sortedQueries = data.queries.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                if (mobRef && Ref) {
+                    mobRef.textContent = `Referral Code:  ${scuserid} `;
+                    Ref.textContent = `Referral Code:  ${scuserid} `;
+                }
 
-                            sortedQueries.forEach((item) => {
-                                const div = document.createElement('div');
-                                console.log(item);
-                                div.classList.add('individual-raisedquestions');
-                                div.setAttribute('data-added', item.created_at); // Use created_at here
-
-                                div.innerHTML = `
-                            <p id="queries-row">${item.queryraised}</p>
-                            <p id="query-raisedbyrow">${item.querytype}</p>
-                        `;
-
-                                container.appendChild(div);
-                            });
-                            getStatusGroups();
-
-                        } else {
-                            container.innerHTML = '<p>No queries found.</p>';
+                if (scuserid) {
+                    fetch(`/get-queries?scUserId=${scuserid}`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                         }
                     })
-                    .catch((error) => {
-                        console.error("Request failed:", error);
+                        .then((response) => response.json())
+                        .then((data) => {
+                            const container = document.querySelector(".groupofraisedquestion-scdashboard");
+                            container.innerHTML = ''; // Clear existing
+
+                            if (data.success && data.queries.length > 0) {
+                                const sortedQueries = data.queries.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+                                sortedQueries.forEach((item) => {
+                                    console.log(item)
+                                    const div = document.createElement('div');
+                                    div.classList.add('individual-raisedquestions');
+                                    div.setAttribute('data-added', item.created_at);
+
+                                    let buttonsHTML = '';
+                                    if (item.status === 'deactive') {
+                                        buttonsHTML = `
+                            <div class="query-actions">
+                                <button style="background:transparent;border:none;outline:none;cursor:pointer" onclick="markQuery('${item.id}', 'deactive')">✅</button>
+                                <button style="background:transparent;border:none;outline:none;cursor:pointer" onclick="markQuery('${item.id}', 'active')">❌</button>
+                            </div>`;
+                                    }
+
+                                    div.innerHTML = `
+                        <p id="queries-row">${item.queryraised}</p>
+                        <p id="query-raisedbyrow">${item.querytype}</p>
+                        ${buttonsHTML}
+                    `;
+
+                                    container.appendChild(div);
+                                });
+
+                                getStatusGroups();
+                            } else {
+                                container.innerHTML = '<p>No queries found.</p>';
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Request failed:", error);
+                        });
+                }
+            };
+          function markQuery(queryId, status) {
+                fetch(`/mark-query`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ query_id: queryId, status: status })
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            queryDetails(); // reload the list after update
+
+                            if (status === 'deactive') {
+                                alert('Query deleted successfully.');
+                            } else if (status === 'active') {
+                                alert('Query sent to admin again.');
+                            }
+                        } else {
+                            alert('Failed to update query.');
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Update error:', err);
+                        alert('An error occurred while updating the query.');
                     });
             }
-        };
 
 
+
+                function fetchDeactiveQueryCount(scUserId) {
+                        fetch(`/count-deactive-queries?scUserId=${scUserId}`)
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.success) {
+                                    const countDisplay = document.getElementById('deactive-query-count');
+                                    if (countDisplay) {
+                                        countDisplay.textContent = `Deactive Queries: ${data.count}`;
+                                    }
+                                } else {
+                                    console.error('Failed to fetch count:', data.message);
+                                }
+                            })
+                            .catch(err => console.error('Error:', err));
+                    }
+
+ 
         const initializeRaiseQuery = () => {
             const raiseQueryButton = document.querySelector("#raised-query");
             const raiseQueryPopup = document.querySelector(".raise-query-popup");

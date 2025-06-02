@@ -4431,8 +4431,7 @@ input[type="file"] {
 
 span[id$="-remove-icon"] {
     cursor: pointer;
-    color: #1c1b1f;
-    font-size: 18px;
+     font-size: 18px;
     margin-left: 10px;
     display: none;
 }

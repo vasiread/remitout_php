@@ -77,6 +77,7 @@ Route::get('/sc-dashboard', function () {
     ]);
 })->name('sc-dashboard');
 
+Route::get('/download-user-report', [Admincontroller::class, 'downloadUserProfileReportPDF']);
 
 Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser'])->name('student-dashboard');
 
@@ -169,8 +170,7 @@ Route::post('/check_userid', [StudentDashboardController::class, 'checkUserId'])
 Route::post('/count-user-status', [StudentDashboardController::class, 'getStatusCount']);
 Route::post('/multipleregisterbyscuser', [StudentDashboardController::class, 'multipleuserbyscuser']);
 Route::get('/retrievedashboarddetails', [Admincontroller::class, 'retrieveDashboardDetails']);
-Route::post('/getprofilecompletionbygender', [Admincontroller::class, 'getProfileCompletionByGenderAndDegree']);
-
+ 
 Route::get('/getstatusofusersadmin', [Admincontroller::class, 'pointOfEntries']);
 Route::get('/nbfc-lead-gens', [Admincontroller::class, 'nbfcLeadGens']);
 Route::get('/sc-lead-gens', [Admincontroller::class, 'scLeadGens']);
@@ -281,6 +281,7 @@ Route::delete('/course-options/{id}', [Admincontroller::class, 'delCourseExpense
 
 Route::post('/export-user-status', [scDashboardController::class, 'downloadExcelStatus']);
 
+Route::post('/update-ticket-status', [AdminController::class, 'updateTicketStatus']);
 
 
 Route::post('/send-reset-link', [LoginController::class, 'sendResetLink']);
@@ -296,8 +297,12 @@ Route::get('/reset-password', function (Request $request) {
 
 // POST request to send reset link
 Route::post('/send-reset-link', [LoginController::class, 'sendResetLink']);
+Route::post('/mark-query', [AdminController::class, 'markQuery']);
+Route::get('/count-deactive-queries', [Admincontroller::class, 'countDeactiveQueries']);
 
 // GET request to show reset password form (you need to create this method & view)
  
 // POST request to reset password
- 
+ Route::get('/reports/user-profile', [Admincontroller::class, 'downloadUserProfileReportPDF']);
+Route::post('/getprofilecompletionbygender', [Admincontroller::class, 'getProfileCompletionByGenderAndDegree']);
+Route::get('/retrievedashboarddetails', [Admincontroller::class, 'retrieveDashboardDetails']);

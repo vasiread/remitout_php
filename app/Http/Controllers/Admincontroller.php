@@ -17,6 +17,7 @@ use App\Models\PersonalInfo;
 use App\Models\PlanToCountry;
 use App\Models\proposalcompletion;
 use App\Models\Proposals;
+use App\Models\Queries;
 use App\Models\Rejectedbynbfc;
 use App\Models\Requestedbyusers;
 use App\Models\Requestprogress;
@@ -37,7 +38,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
-use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Duration;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
+
 
 class Admincontroller extends Controller
 {
@@ -46,35 +48,180 @@ class Admincontroller extends Controller
     public function retrieveDashboardDetails()
     {
         try {
-            // Count of students who have been issued offers
-            $offerIssuedStudentsCount = Requestprogress::where('type', 'proposal')->count();
+             $offerIssuedStudentsCount = Requestprogress::where('type', 'proposal')->count();
 
-            // Count of students who rejected the offer
-            $offerRejectedByStudentCount = proposalcompletion::where('proposal_accept', false)->count();
+             $offerRejectedByStudentCount = proposalcompletion::where('proposal_accept', false)->count();
 
-            // Count of students who accepted and closed the proposal
-            $offerAcceptedAndClosedCount = proposalcompletion::where('proposal_accept', true)->count();
+             $offerAcceptedAndClosedCount = proposalcompletion::where('proposal_accept', true)->count();
 
-            // Total incomplete count (no breakdown)
-            $incompleteCount = DB::table('course_details_formdata')
-                ->count();
+            // Total user count
+            $totalUserCount = User::count();
 
+            // --- Profile Completion Summary ---
+            $results = DB::table('course_details_formdata')
+                ->join('users', 'course_details_formdata.user_id', '=', 'users.unique_id')
+                ->join('personal_infos', 'users.unique_id', '=', 'personal_infos.user_id')
+                ->select(
+                    DB::raw("CASE
+                    WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%bachelor%' THEN 'UG'
+                    WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%ma ster%' THEN 'PG'
+                    WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%mca%' OR LOWER(course_details_formdata.`degree-type`) LIKE '%bca%' THEN 'Other'
+                    ELSE 'Other'
+                END as degree_category"),
+                    'personal_infos.gender',
+                    DB::raw('count(*) as count')
+                )
+                ->groupBy('degree_category', 'personal_infos.gender')
+                ->get();
+
+            $summary = [
+                'UG' => ['total' => 0, 'male' => 0, 'female' => 0, 'other' => 0],
+                'PG' => ['total' => 0, 'male' => 0, 'female' => 0, 'other' => 0],
+                'Other' => ['total' => 0, 'male' => 0, 'female' => 0, 'other' => 0],
+            ];
+
+            $overall = ['total' => 0, 'male' => 0, 'female' => 0, 'other' => 0];
+
+            foreach ($results as $row) {
+                $degree = $row->degree_category;
+                $gender = strtolower($row->gender ?? 'other');
+
+                if (!in_array($gender, ['male', 'female'])) {
+                    $gender = 'other';
+                }
+
+                $summary[$degree][$gender] += $row->count;
+                $summary[$degree]['total'] += $row->count;
+
+                $overall[$gender] += $row->count;
+                $overall['total'] += $row->count;
+            }
+
+            $incompleteProfiles = $totalUserCount - $overall['total'];
+            if ($incompleteProfiles < 0)
+                $incompleteProfiles = 0;
+
+            // Return combined dashboard data
             return response()->json([
-                'message' => true,
+                'success' => true,
                 'counts' => [
                     'offerIssuedStudentsCount' => $offerIssuedStudentsCount,
                     'offerRejectedByStudentCount' => $offerRejectedByStudentCount,
                     'offerAcceptedAndClosedCount' => $offerAcceptedAndClosedCount,
-                    'incompleteCount' => $incompleteCount,
+                    'totalUserCount' => $totalUserCount,
+                ],
+                'incomplete_profiles' => $incompleteProfiles, // 4th variable
+                'complete_profiles' => $overall,              // 5th variable (renamed from "overall")
+                'profile_completion' => [
+                    'degree_summary' => $summary,
+                    'overall' => $overall,
+                    'total_users' => $totalUserCount,
+                    'incomplete_profiles' => $incompleteProfiles,
                 ],
             ]);
-        } catch (Exception $e) {
+
+        } catch (\Exception $e) {
             return response()->json([
-                'message' => false,
+                'success' => false,
+                'message' => 'Error retrieving dashboard details',
                 'error' => $e->getMessage(),
-            ]);
+            ], 500);
         }
     }
+
+    public function validateprofilecompletion(Request $request)
+    {
+        $targetDegree = strtolower(trim($request->input('degree_type')));
+
+        // Define tables and columns to check for profile completion
+        $tablesAndColumns = [
+            'users' => ['email', 'phone'],
+            'personal_infos' => ['full_name', 'referral_code', 'state', 'linked_through'],
+            'academic_details' => ['gap_in_academics', 'work_experience', 'university_school_name', 'course_name'],
+            'coborrower_details' => [
+                'co_borrower_relation',
+                'co_borrower_income',
+                'co_borrower_monthly_liability',
+                'liability_select'
+            ],
+            'course_details_formdata' => [
+                'plan-to-study',
+                'degree-type',
+                'course-duration',
+                'course-details',
+                'loan_amount_in_lakhs'
+            ],
+        ];
+
+        // Get all users
+        $users = DB::table('users')->select('unique_id')->get();
+
+        $matchedUsers = [];
+        $completedUsers = [];
+        $incompleteUsers = [];
+
+        foreach ($users as $user) {
+            $userId = $user->unique_id;
+
+            // Get course data to check if the user matches the target degree
+            $courseData = DB::table('course_details_formdata')->where('user_id', $userId)->first();
+            $degreeType = $courseData?->{'degree-type'} ?? null;
+
+            if (!$degreeType || strtolower(trim($degreeType)) !== $targetDegree) {
+                continue; // Skip users who don't match the target degree
+            }
+
+            $matchedUsers[] = $userId;
+
+            $totalColumns = 0;
+            $filledColumns = 0;
+
+            // Check the completion status for each table/column combination
+            foreach ($tablesAndColumns as $table => $columns) {
+                if (!Schema::hasTable($table))
+                    continue;
+
+                $data = ($table === 'users')
+                    ? DB::table($table)->where('unique_id', $userId)->first()
+                    : DB::table($table)->where('user_id', $userId)->first();
+
+                foreach ($columns as $column) {
+                    $totalColumns++;
+                    if (Schema::hasColumn($table, $column)) {
+                        $value = $data->$column ?? null;
+                        if (!is_null($value) && trim((string) $value) !== '') {
+                            $filledColumns++;
+                        }
+                    }
+                }
+            }
+
+            // Check the document count from the S3 storage (assuming 22 documents means full completion)
+            $folderPath = "$userId"; // Assuming folder path based on userId
+            $files = Storage::disk("s3")->allFiles($folderPath);
+            $documentCount = count($files);
+
+            // The user is considered completed if they have both 100% profile and exactly 22 documents
+            $isProfileCompleted = ($totalColumns > 0 && $filledColumns === $totalColumns);
+            $isDocumentCompleted = ($documentCount === 22);
+
+            if ($isProfileCompleted && $isDocumentCompleted) {
+                $completedUsers[] = $userId; // Add to completed users if both profile and documents are complete
+            } else {
+                $incompleteUsers[] = $userId; // Add to incomplete users otherwise
+            }
+        }
+
+        return response()->json([
+            'filtered_degree_type' => $targetDegree,
+            'total_matching_users' => count($matchedUsers),
+            'completed_profiles' => count($completedUsers),
+            'incomplete_profiles' => count($incompleteUsers),
+            'completed_user_ids' => $completedUsers,
+            'incomplete_user_ids' => $incompleteUsers,
+        ]);
+    }
+
 
     public function pointOfEntries(Request $request)
     {
@@ -309,18 +456,17 @@ class Admincontroller extends Controller
     public function getProfileCompletionByGenderAndDegree()
     {
         try {
-            // Query with proper categorization
+            // Query with proper categorization for completed profiles
             $results = DB::table('course_details_formdata')
                 ->join('users', 'course_details_formdata.user_id', '=', 'users.unique_id')
                 ->join('personal_infos', 'users.unique_id', '=', 'personal_infos.user_id')
                 ->select(
                     DB::raw("CASE
-                        WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%bachelor%' THEN 'UG'
-                        WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%master%' THEN 'PG'
-                        WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%mca%' OR LOWER(course_details_formdata.`degree-type`) LIKE
-                        '%bca%' THEN 'Other'
-                        ELSE 'Other'
-                        END as degree_category"),
+                    WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%bachelor%' THEN 'UG'
+                    WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%master%' THEN 'PG'
+                    WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%mca%' OR LOWER(course_details_formdata.`degree-type`) LIKE '%bca%' THEN 'Other'
+                    ELSE 'Other'
+                    END as degree_category"),
                     'personal_infos.gender',
                     DB::raw('count(*) as count')
                 )
@@ -337,7 +483,7 @@ class Admincontroller extends Controller
             // Initialize overall total
             $overall = ['total' => 0, 'male' => 0, 'female' => 0, 'other' => 0];
 
-            // Fill data
+            // Fill data from completed profiles
             foreach ($results as $row) {
                 $degree = $row->degree_category;
                 $gender = strtolower($row->gender ?? 'other');
@@ -353,11 +499,21 @@ class Admincontroller extends Controller
                 $overall['total'] += $row->count;
             }
 
+            // Get total users count (all users, regardless of profile completion)
+            $totalUsers = DB::table('users')->count();
+
+            // Calculate incomplete profiles count
+            $incompleteProfiles = $totalUsers - $overall['total'];
+            if ($incompleteProfiles < 0)
+                $incompleteProfiles = 0; // safety check
+
             return response()->json([
                 'success' => true,
                 'data' => [
                     'degree_summary' => $summary,
                     'overall' => $overall,
+                    'total_users' => $totalUsers,
+                    'incomplete_profiles' => $incompleteProfiles,
                 ]
             ]);
         } catch (\Exception $e) {
@@ -369,98 +525,7 @@ class Admincontroller extends Controller
         }
     }
 
-    public function validateprofilecompletion(Request $request)
-    {
-        $targetDegree = strtolower(trim($request->input('degree_type')));
 
-        // Define tables and columns to check for profile completion
-        $tablesAndColumns = [
-            'users' => ['email', 'phone'],
-            'personal_infos' => ['full_name', 'referral_code', 'state', 'linked_through'],
-            'academic_details' => ['gap_in_academics', 'work_experience', 'university_school_name', 'course_name'],
-            'coborrower_details' => [
-                'co_borrower_relation',
-                'co_borrower_income',
-                'co_borrower_monthly_liability',
-                'liability_select'
-            ],
-            'course_details_formdata' => [
-                'plan-to-study',
-                'degree-type',
-                'course-duration',
-                'course-details',
-                'loan_amount_in_lakhs'
-            ],
-        ];
-
-        // Get all users
-        $users = DB::table('users')->select('unique_id')->get();
-
-        $matchedUsers = [];
-        $completedUsers = [];
-        $incompleteUsers = [];
-
-        foreach ($users as $user) {
-            $userId = $user->unique_id;
-
-            // Get course data to check if the user matches the target degree
-            $courseData = DB::table('course_details_formdata')->where('user_id', $userId)->first();
-            $degreeType = $courseData?->{'degree-type'} ?? null;
-
-            if (!$degreeType || strtolower(trim($degreeType)) !== $targetDegree) {
-                continue; // Skip users who don't match the target degree
-            }
-
-            $matchedUsers[] = $userId;
-
-            $totalColumns = 0;
-            $filledColumns = 0;
-
-            // Check the completion status for each table/column combination
-            foreach ($tablesAndColumns as $table => $columns) {
-                if (!Schema::hasTable($table))
-                    continue;
-
-                $data = ($table === 'users')
-                    ? DB::table($table)->where('unique_id', $userId)->first()
-                    : DB::table($table)->where('user_id', $userId)->first();
-
-                foreach ($columns as $column) {
-                    $totalColumns++;
-                    if (Schema::hasColumn($table, $column)) {
-                        $value = $data->$column ?? null;
-                        if (!is_null($value) && trim((string) $value) !== '') {
-                            $filledColumns++;
-                        }
-                    }
-                }
-            }
-
-            // Check the document count from the S3 storage (assuming 22 documents means full completion)
-            $folderPath = "$userId"; // Assuming folder path based on userId
-            $files = Storage::disk("s3")->allFiles($folderPath);
-            $documentCount = count($files);
-
-            // The user is considered completed if they have both 100% profile and exactly 22 documents
-            $isProfileCompleted = ($totalColumns > 0 && $filledColumns === $totalColumns);
-            $isDocumentCompleted = ($documentCount === 22);
-
-            if ($isProfileCompleted && $isDocumentCompleted) {
-                $completedUsers[] = $userId; // Add to completed users if both profile and documents are complete
-            } else {
-                $incompleteUsers[] = $userId; // Add to incomplete users otherwise
-            }
-        }
-
-        return response()->json([
-            'filtered_degree_type' => $targetDegree,
-            'total_matching_users' => count($matchedUsers),
-            'completed_profiles' => count($completedUsers),
-            'incomplete_profiles' => count($incompleteUsers),
-            'completed_user_ids' => $completedUsers,
-            'incomplete_user_ids' => $incompleteUsers,
-        ]);
-    }
 
     public function showSCProfileJSON($referral)
     {
@@ -482,103 +547,10 @@ class Admincontroller extends Controller
     }
 
 
-    public function getCityStats()
-    {
-        $data = PersonalInfo::select(
-            'city',
-            'state',
-            DB::raw("SUM(CASE WHEN gender = 'Female' THEN 1 ELSE 0 END) as female"),
-            DB::raw("SUM(CASE WHEN gender = 'Male' THEN 1 ELSE 0 END) as male"),
-            DB::raw("COUNT(*) as total")
-        )
-            ->groupBy('city', 'state')
-            ->get();
-
-        return response()->json($data);
-    }
 
 
-    public function getDestinationCountries()
-    {
-        try {
-            // Fetch the data with plan-to-study (JSON array) and gender
-            $data = CourseInfo::select('course_details_formdata.plan-to-study', 'personal_infos.gender')
-                ->join('personal_infos', 'course_details_formdata.user_id', '=', 'personal_infos.user_id')
-                ->get();
 
-            // Initialize an array to store the aggregated results
-            $countryStats = [];
 
-            // Process each record
-            foreach ($data as $record) {
-                // Decode the plan-to-study JSON array
-                $countries = json_decode($record->{'plan-to-study'}, true);
-
-                // If decoding fails or it's not an array, skip this record
-                if (!is_array($countries)) {
-                    continue;
-                }
-
-                // Get the gender for this record
-                $gender = strtolower($record->gender); // Normalize to lowercase
-
-                // Increment counts for each country in the array
-                foreach ($countries as $country) {
-                    // Normalize country name (trim, remove extra spaces)
-                    $country = trim($country);
-
-                    // Skip empty country names
-                    if (empty($country)) {
-                        continue;
-                    }
-
-                    // Initialize the country in the stats array if not present
-                    if (!isset($countryStats[$country])) {
-                        $countryStats[$country] = [
-                            'female' => 0,
-                            'male' => 0,
-                            'total_students' => 0
-                        ];
-                    }
-
-                    // Increment counts based on gender
-                    if ($gender === 'female') {
-                        $countryStats[$country]['female']++;
-                    } elseif ($gender === 'male') {
-                        $countryStats[$country]['male']++;
-                    }
-
-                    // Increment total students (regardless of gender)
-                    $countryStats[$country]['total_students']++;
-                }
-            }
-
-            // Convert the stats array to the desired response format
-            $result = array_map(function ($country, $stats) {
-                return [
-                    'country' => $country,
-                    'female' => $stats['female'],
-                    'male' => $stats['male'],
-                    'total_students' => $stats['total_students']
-                ];
-            }, array_keys($countryStats), $countryStats);
-
-            // Sort by total_students (descending) for better presentation
-            usort($result, function ($a, $b) {
-                return $b['total_students'] - $a['total_students'];
-            });
-
-            return response()->json([
-                'success' => true,
-                'data' => $result
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to fetch destination countries: ' . $e->getMessage()
-            ], 500);
-        }
-    }
 
 
 
@@ -610,8 +582,8 @@ class Admincontroller extends Controller
 
                 $userDetails = [
                     'unique_id' => $user->unique_id,
-                    'email' => $personalInfo ? $personalInfo->email : null,
-                    'full_name' => $personalInfo ? $personalInfo->full_name : null,
+                    'email' => $user ? $user->email : null,
+                    'full_name' => $user ? $user->name : null,
                     'gender' => $personalInfo ? $personalInfo->gender : null,
                     'dateofbirth' => $personalInfo ? $personalInfo->dob : null,
                     'sourceOfReferral' => $sourceReferral ?? null,
@@ -624,8 +596,10 @@ class Admincontroller extends Controller
                     'degree_type' => null,
                     'loan_amount' => null,
                     'course_info' => [],
-                    'proposal_count' => $proposalCount, // Add proposal count here
+                    'proposal_count' => $proposalCount,
+                    'registration_date' => $user->created_at ? $user->created_at->format('d/m/Y') : null, // <-- added line
                 ];
+
 
                 // Check and add course details
                 if ($courseInfo) {
@@ -1215,7 +1189,7 @@ class Admincontroller extends Controller
 
 
 
-        return view('pages.studentformquestionair', compact('user', 'socialOptions', 'countries', 'degrees', 'courseDuration', 'additionalFields', 'documentTypes','courseExpenseOptions'));
+        return view('pages.studentformquestionair', compact('user', 'socialOptions', 'countries', 'degrees', 'courseDuration', 'additionalFields', 'documentTypes', 'courseExpenseOptions'));
     }
 
 
@@ -1233,7 +1207,8 @@ class Admincontroller extends Controller
     {
 
 
-        $additionalFields = AdditionalField::where('section', 'academic')->get();;
+        $additionalFields = AdditionalField::where('section', 'academic')->get();
+        ;
 
 
         return response()->json([
@@ -1757,6 +1732,7 @@ class Admincontroller extends Controller
             $user->name = $request->name ?? $user->name;
             $user->email = $request->email ?? $user->email;
             $user->phone = $request->phone ?? $user->phone;
+            $user->referral_code = $request->referral_code ?? $user->referral_code;
             $user->save();
 
             // Update Personal Info
@@ -1951,6 +1927,496 @@ class Admincontroller extends Controller
 
         return response()->json(['message' => 'Option deleted successfully']);
     }
+
+    public function updateTicketStatus(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer|exists:queryraised,id',
+        ]);
+
+        $query = Queries::find($request->id);
+        $query->status = 'deactive';
+        $query->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Ticket status updated successfully.'
+        ]);
+    }
+
+
+    public function markQuery(Request $request)
+    {
+        $query = Queries::find($request->query_id);
+        if ($query) {
+            $query->status = $request->status;
+            $query->is_reviewed = true;
+            $query->save();
+
+            if ($request->status === 'deactive') {
+                $query->delete(); // optional
+            }
+
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false, 'message' => 'Query not found']);
+    }
+
+    public function countDeactiveQueries(Request $request)
+    {
+        try {
+            $request->validate([
+                'scUserId' => 'required|string'
+            ]);
+
+            $scUserId = $request->input('scUserId');
+
+            $count = Queries::where('scuserid', $scUserId)
+                ->where('status', 'deactive')
+                ->count();
+
+            return response()->json([
+                'success' => true,
+                'count' => $count
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to count deactive queries',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function userProfileReport()
+    {
+        $users = User::all();
+
+        $report = $users->map(function ($user) {
+            $personalInfo = PersonalInfo::where('user_id', $user->unique_id)->first();
+            $courseInfo = CourseInfo::where('user_id', $user->unique_id)->first();
+
+            // Calculate age from dob
+            $age = null;
+            if ($personalInfo && $personalInfo->dob) {
+                try {
+                    $age = Carbon::parse($personalInfo->dob)->age;
+                } catch (\Exception $e) {
+                    $age = null;
+                }
+            }
+
+            // Degree type logic
+            $degreeTypeRaw = $courseInfo?->{'degree-type'};
+            $degreeType = null;
+
+            if ($degreeTypeRaw) {
+                $degreeType = match (strtolower($degreeTypeRaw)) {
+                    'masters' => 'Post Graduate',
+                    'bachelors' => 'Under Graduate',
+                    default => 'Others',
+                };
+            }
+
+            // Plan to study: JSON string to clean comma list
+            $planToStudy = null;
+            if ($courseInfo && $courseInfo->{'plan-to-study'}) {
+                $decoded = json_decode($courseInfo->{'plan-to-study'}, true);
+                $planToStudy = is_array($decoded) ? implode(', ', $decoded) : $courseInfo->{'plan-to-study'};
+            }
+
+            return [
+                'name' => $user->name,
+                'unique_id' => $user->unique_id,
+                'referral_code' => $user->referral_code,
+                'gender' => $personalInfo?->gender,
+                'age' => $age,
+                'degree_type' => $degreeType,
+                'plan_to_study' => $planToStudy,
+            ];
+        });
+
+        return response()->json($report);
+    }
+    public function overallReportDownloadProgress()
+    {
+        $users = User::all();
+
+        $report = $users->map(function ($user) {
+            $personalInfo = PersonalInfo::where('user_id', $user->unique_id)->first();
+            $linkedThrough = $personalInfo ? $personalInfo->linked_through : null;
+
+            $type = null;
+
+            if (!empty($user->referral_code)) {
+                $type = 'SC Referral';
+            } else {
+                $adsTypes = ['instagram', 'social', 'youtube', 'facebook', 'twitter', 'google'];
+                if ($linkedThrough && in_array(strtolower($linkedThrough), $adsTypes)) {
+                    $type = 'ADDS';
+                }
+            }
+
+            // Format created_at to dd/mm/yyyy
+            $createdAtFormatted = $user->created_at ? $user->created_at->format('d/m/Y') : null;
+
+            return [
+                'name' => $user->name,
+                'created_at' => $createdAtFormatted,
+                'linked_through' => $linkedThrough,
+                'type' => $type,
+            ];
+        });
+
+        return response()->json($report);
+    }
+    public function getDestinationCountries()
+    {
+        try {
+            // Fetch the data with plan-to-study (JSON array) and gender
+            $data = CourseInfo::select('course_details_formdata.plan-to-study', 'personal_infos.gender')
+                ->join('personal_infos', 'course_details_formdata.user_id', '=', 'personal_infos.user_id')
+                ->get();
+
+            $countryStats = [];
+
+            foreach ($data as $record) {
+                // Decode the JSON array of countries
+                $countries = json_decode($record->{'plan-to-study'}, true);
+
+                if (!is_array($countries)) {
+                    continue;
+                }
+
+                $gender = strtolower(trim($record->gender)); // Normalize gender
+
+                foreach ($countries as $country) {
+                    $country = trim($country);
+
+                    if (empty($country)) {
+                        continue;
+                    }
+
+                    // Normalize 'others' country value if needed
+                    if (strtolower($country) === 'others' || strtolower($country) === 'other') {
+                        $country = 'Others';
+                    }
+
+                    // Initialize the country record
+                    if (!isset($countryStats[$country])) {
+                        $countryStats[$country] = [
+                            'female' => 0,
+                            'male' => 0,
+                            'others' => 0,
+                            'total_students' => 0
+                        ];
+                    }
+
+                    // Count based on gender
+                    if ($gender === 'female') {
+                        $countryStats[$country]['female']++;
+                    } elseif ($gender === 'male') {
+                        $countryStats[$country]['male']++;
+                    } else {
+                        $countryStats[$country]['others']++;
+                    }
+
+                    // Increment total
+                    $countryStats[$country]['total_students']++;
+                }
+            }
+
+            // Format result
+            $result = array_map(function ($country, $stats) {
+                return [
+                    'country' => $country,
+                    'female' => $stats['female'],
+                    'male' => $stats['male'],
+                    'others' => $stats['others'],
+                    'total_students' => $stats['total_students']
+                ];
+            }, array_keys($countryStats), $countryStats);
+
+            // Sort descending by total
+            usort($result, function ($a, $b) {
+                return $b['total_students'] - $a['total_students'];
+            });
+
+            return response()->json([
+                'success' => true,
+                'data' => $result
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch destination countries: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+    public function getCityStats()
+    {
+        $data = PersonalInfo::select(
+            'city',
+            'state',
+            DB::raw("SUM(CASE WHEN gender = 'Female' THEN 1 ELSE 0 END) as female"),
+            DB::raw("SUM(CASE WHEN gender = 'Male' THEN 1 ELSE 0 END) as male"),
+            DB::raw("SUM(CASE WHEN gender = 'Others' THEN 1 ELSE 0 END) as others"),
+            DB::raw("COUNT(*) as total")
+        )
+            ->groupBy('city', 'state')
+            ->get();
+
+        return response()->json($data);
+    }
+
+
+    public function downloadUserProfileReportPDF()
+    {
+        $users = User::all();
+
+        // --- 1. User Profile Report ---
+        $userProfileReport = $users->map(function ($user) {
+            $personalInfo = PersonalInfo::where('user_id', $user->unique_id)->first();
+            $courseInfo = CourseInfo::where('user_id', $user->unique_id)->first();
+
+            $age = null;
+            if ($personalInfo && $personalInfo->dob) {
+                try {
+                    $age = Carbon::parse($personalInfo->dob)->age;
+                } catch (\Exception $e) {
+                    $age = null;
+                }
+            }
+
+            $degreeTypeRaw = $courseInfo?->{'degree-type'};
+            $degreeType = $degreeTypeRaw ? match (strtolower($degreeTypeRaw)) {
+                'masters' => 'Post Graduate',
+                'bachelors' => 'Under Graduate',
+                default => 'Others',
+            } : null;
+
+            $planToStudy = null;
+            if ($courseInfo && $courseInfo->{'plan-to-study'}) {
+                $planToStudyRaw = $courseInfo->{'plan-to-study'};
+
+                if (is_string($planToStudyRaw)) {
+                    $decoded = json_decode($planToStudyRaw, true);
+                    $planToStudy = is_array($decoded) ? implode(', ', $decoded) : $planToStudyRaw;
+                } elseif (is_array($planToStudyRaw)) {
+                    $planToStudy = implode(', ', $planToStudyRaw);
+                } else {
+                    $planToStudy = $planToStudyRaw;
+                }
+            }
+            
+
+            return [
+                'name' => $user->name,
+                'unique_id' => $user->unique_id,
+                'referral_code' => $user->referral_code,
+                'gender' => $personalInfo?->gender,
+                'age' => $age,
+                'degree_type' => $degreeType,
+                'plan_to_study' => $planToStudy,
+            ];
+        });
+
+        // --- 2. Download Progress Report ---
+        $downloadProgressReport = $users->map(function ($user) {
+            $personalInfo = PersonalInfo::where('user_id', $user->unique_id)->first();
+            $linkedThrough = $personalInfo?->linked_through;
+
+            $type = null;
+            if (!empty($user->referral_code)) {
+                $type = 'SC Referral';
+            } elseif ($linkedThrough && in_array(strtolower($linkedThrough), ['instagram', 'social', 'youtube', 'facebook', 'twitter', 'google'])) {
+                $type = 'ADDS';
+            }
+
+            $createdAtFormatted = $user->created_at ? $user->created_at->format('d/m/Y') : null;
+
+            return [
+                'name' => $user->name,
+                'created_at' => $createdAtFormatted,
+                'linked_through' => $linkedThrough,
+                'type' => $type,
+            ];
+        });
+
+        // --- 3. Destination Countries Report ---
+        $destinationData = CourseInfo::select('course_details_formdata.plan-to-study', 'personal_infos.gender')
+            ->join('personal_infos', 'course_details_formdata.user_id', '=', 'personal_infos.user_id')
+            ->get();
+
+        $countryStats = [];
+
+        foreach ($destinationData as $record) {
+            $planToStudyRaw = $record->{'plan-to-study'};
+            $countries = is_string($planToStudyRaw) ? json_decode($planToStudyRaw, true) : $planToStudyRaw;
+
+            if (!is_array($countries)) {
+                continue;
+            }
+
+            $gender = strtolower(trim($record->gender));
+
+            foreach ($countries as $country) {
+                $country = trim($country);
+                if (empty($country))
+                    continue;
+
+                if (strtolower($country) === 'others' || strtolower($country) === 'other') {
+                    $country = 'Others';
+                }
+
+                $countryStats[$country] ??= ['female' => 0, 'male' => 0, 'others' => 0, 'total_students' => 0];
+
+                match ($gender) {
+                    'female' => $countryStats[$country]['female']++,
+                    'male' => $countryStats[$country]['male']++,
+                    default => $countryStats[$country]['others']++,
+                };
+
+                $countryStats[$country]['total_students']++;
+            }
+        }
+
+
+        $destinationCountries = collect($countryStats)
+            ->map(fn($stats, $country) => array_merge(['country' => $country], $stats))
+            ->sortByDesc('total_students')
+            ->values();
+
+        // --- 4. City Stats Report ---
+        $cityStats = PersonalInfo::select(
+            'city',
+            'state',
+            DB::raw("SUM(CASE WHEN gender = 'Female' THEN 1 ELSE 0 END) as female"),
+            DB::raw("SUM(CASE WHEN gender = 'Male' THEN 1 ELSE 0 END) as male"),
+            DB::raw("SUM(CASE WHEN gender = 'Others' THEN 1 ELSE 0 END) as others"),
+            DB::raw("COUNT(*) as total")
+        )
+            ->groupBy('city', 'state')
+            ->get();
+
+        // --- 5. Timestamp Data ---
+        $exportDate = Carbon::now()->format('d-m-Y');
+        $exportTime = Carbon::now()->format('h:i A');
+        $exportMonth = Carbon::now()->format('F');
+
+
+
+        $referralsReport = User::whereNotNull('referral_code')
+            ->get()
+            ->filter(function ($student) {
+                return Scuser::find($student->referral_code); // only if referral_code exists in Scuser
+            })
+            ->map(function ($student) {
+                $referrer = Scuser::find($student->referral_code);
+                $courseInfo = CourseInfo::where('user_id', $student->unique_id)->first();
+
+                $degreeTypeRaw = $courseInfo?->{'degree-type'};
+                $degreeType = $degreeTypeRaw ? match (strtolower($degreeTypeRaw)) {
+                    'masters' => 'Post Graduate',
+                    'bachelors' => 'Under Graduate',
+                    default => 'Others',
+                } : 'N/A';
+
+                return [
+                    'referrer_name' => $referrer->full_name,
+                    'referrer_code' => $referrer->referral_code,
+                    'student_name' => $student->name,
+                    'student_id' => $student->unique_id,
+                    'degree_type' => $degreeType,
+                    'created_at' => $student->created_at?->format('d/m/Y') ?? 'N/A',
+                ];
+            })
+            ->values(); // reset keys
+
+
+
+
+
+        $userReport = $users->flatMap(function ($user) {
+            $personalInfo = $user->personalInfo;
+            $courseInfo = $user->courseInfo()->first();
+
+            // Age calculation
+            $age = null;
+            if ($personalInfo && $personalInfo->dob) {
+                try {
+                    $age = Carbon::parse($personalInfo->dob)->age;
+                } catch (\Exception $e) {
+                    $age = null;
+                }
+            }
+
+            // Degree type mapping once per user
+            $degreeTypeRaw = $courseInfo?->{'degree-type'} ?? null;
+            $degreeType = $degreeTypeRaw ? match (strtolower($degreeTypeRaw)) {
+                'masters' => 'Post Graduate',
+                'bachelors' => 'Under Graduate',
+                default => 'Others',
+            } : null;
+
+            // Get proposal records of type 'proposal'
+            $proposalRecords = $user->requestProgress()
+                ->where('type', Requestprogress::TYPE_PROPOSAL)
+                ->get();
+
+            if ($proposalRecords->isEmpty()) {
+                // No proposals for user — return one row with null date and status but with degree type
+                return [
+                    [
+                        'nbfcname' => null,
+                        'name' => $user->name,
+                        'uniqueid' => $user->unique_id,
+                        'status' => null,
+                        'date' => null,
+                        'degreetype' => $degreeType,
+                        'age' => $age,
+                    ]
+                ];
+            }
+
+            // Map each proposal — include degreeType from user, status and date from proposal
+            return $proposalRecords->map(function ($rp) use ($user, $degreeType, $age) {
+                $nbfcName = $rp->nbfc?->nbfc_name ?? null;
+                $status = $rp->status ?? null;
+                $date = $rp->date ? Carbon::parse($rp->date)->format('d/m/Y') : null;
+
+                return [
+                    'nbfcname' => $nbfcName,
+                    'name' => $user->name,
+                    'uniqueid' => $user->unique_id,
+                    'status' => $status,
+                    'date' => $date,
+                    'degreetype' => $degreeType,
+                    'age' => $age,
+                ];
+            });
+        });
+
+        $pdf = PDF::loadView('reports.user-profile', compact(
+            'userProfileReport',
+            'downloadProgressReport',
+            'destinationCountries',
+            'cityStats',
+            'exportDate',
+            'exportTime',
+            'exportMonth',
+            'referralsReport',
+            'userReport'
+        ));
+
+        // Force download the generated PDF immediately
+        return $pdf->download('user_profile_report_' . now()->format('Ymd_His') . '.pdf');
+    }
+
+
+
+
+
 
 }
 

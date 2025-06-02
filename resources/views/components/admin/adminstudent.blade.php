@@ -1154,9 +1154,10 @@ $pindropIconPath = "assets/images/pin_drop.png";
         }
 
         async function saveAllDetails() {
-            // alert("Saving...");
-
+ 
             const uniqueId = document.querySelector('.personal_info_id').textContent.trim();
+
+            
 
 
             const personalInfo = {
