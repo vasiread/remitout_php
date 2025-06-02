@@ -42,11 +42,11 @@
             Watch Demo
           </button>
           <video id="s3Video" width="720" height="480"  controls style="display: none;    
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 200vh;">
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 200vh;">
             <source id="videoSource" src="" type="video/mp4">
             Your browser does not support the video tag.
           </video>

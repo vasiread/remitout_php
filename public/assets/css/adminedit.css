@@ -453,6 +453,7 @@
     font-size: 12px;
     line-height: 18px;
     color: #5d5c5c;
+    white-space: nowrap;
 }
 
 .edit-contents-cms-table tr:last-child td {
@@ -746,7 +747,7 @@
     bottom: 20px;
     right: 20px;
     padding: 12px 20px;
-    background-color: #e53935;
+    background-color: #ff6b2b;
     color: white;
     border-radius: 4px;
     z-index: 1000;

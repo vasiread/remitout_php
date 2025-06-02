@@ -21,6 +21,7 @@ use App\Models\StudentApplicationField;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------|
 | API Routes                                                              |
@@ -188,6 +189,7 @@ Route::get('/user-fields/{uniqueId}', [Admincontroller::class, 'getUserDynamicFi
 Route::post('/update-courseinfo', [StudentDetailsController::class, 'updateCourseInfo']);
 Route::post('/update-review-status', [NbfcController::class, 'updateReviewStatus']);
 Route::get('/video-url', [TermsController::class, 'getFirstVideoFromS3']);
+
 
 
 

@@ -167,6 +167,9 @@
 }
 
 @media(max-width:780px) {
+    .commonsidebar-togglesidebar{
+        display:none;
+    }
 
     .commonsidebar-sidebarlists-top p,
     .commonsidebar-sidebarlists-top li,
