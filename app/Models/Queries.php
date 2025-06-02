@@ -10,7 +10,7 @@ class Queries extends Model
     use HasFactory;
 
     protected $table = 'queryraised';
-    protected $fillable=['scuserid','querytype','queryraised'];
+    protected $fillable=['scuserid','querytype','queryraised','status','is_reviewed'];
     
 
 }

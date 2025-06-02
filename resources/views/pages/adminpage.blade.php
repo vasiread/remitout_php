@@ -5,19 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
-<!-- JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="{{ asset("assets/css/adminpage.css") }}">
+
 </head>
 
 <body>
 
 
- <nav class="admin-nav">
+    <nav class="admin-nav">
         <div class="admin-nav-left">
             <div class="admin-nav-logo">
                 <img src="assets/images/admin-logo.png" alt="Remitout Logo" class="admin-nav-logo-img">
@@ -35,9 +37,10 @@
         </div>
 
         <div class="admin-nav-right">
-           
+
             <button class="admin-nav-notification">
-                  <img src="/assets/images/notifications_unread.png" alt="the notification icon" class="notification-icon">
+                <img src="/assets/images/notifications_unread.png" alt="the notification icon"
+                    class="notification-icon">
             </button>
 
             <div class="admin-nav-dropdown">
@@ -53,6 +56,12 @@
                     <div class="admin-nav-dropdown-item">Logout</div>
                 </div>
             </div>
+            <button id="toggle-admin-sidebar-trigger">
+                <span>☰</span>
+                <img src="{{ asset('assets/images/Icons/close_icon.png') }}" alt="">
+
+            </button>
+
         </div>
     </nav>
 
@@ -62,33 +71,33 @@
 
         <div class="admin-detailedviewcontainer">
             <x-admin.admindashboard />
-            
-            <x-admin.adminstudent :userDetails="$userDetails"/>
-            <x-admin.adminstudentcounsellor/>
-            <x-admin.adminnbfc/>
-            <x-admin.adminindex/>
-            <x-admin.admineditcontent/>
-            <x-admin.adminticketraised/>
-            <x-admin.adminmanagestudent/>
-            <x-admin.adminrolemanagement/>
-            <x-admin.adminpromotionalemail/>
-            <x-admin.adminstudapplication/>
-            
-          
-          
+
+            <x-admin.adminstudent :userDetails="$userDetails" />
+            <x-admin.adminstudentcounsellor />
+            <x-admin.adminnbfc />
+            <x-admin.adminindex />
+            <x-admin.admineditcontent />
+            <x-admin.adminticketraised />
+            <x-admin.adminmanagestudent />
+            <x-admin.adminrolemanagement />
+            <x-admin.adminpromotionalemail />
+            <x-admin.adminstudapplication />
+
+
+
         </div>
     </div>
 
 
 
 
-   <script>
+    <script>
         document.querySelector('.admin-nav-dropdown').addEventListener('click', function () {
             document.querySelector('.admin-nav-dropdown-menu').classList.toggle('active');
             document.querySelector('.admin-nav-dropdown-icon').classList.toggle('active');
         });
 
-     
+
         const backButton = document.querySelector('.back-button');
         const editContentContainer = document.querySelector('.edit-content-container');
         const editContentSubContainer = document.querySelector('.edit-content-sub-container');
@@ -97,7 +106,7 @@
 
         function updateBackButtonVisibility() {
             const isCMSVisible = cmsContainer.style.display === 'block' || editContentContainer.dataset.inCmsMode === 'true';
-            
+
             if (isCMSVisible) {
                 backButton.style.display = 'flex';
             } else {
@@ -114,7 +123,7 @@
                     document.querySelector('.edit-content-header').style.display = 'none';
                     cmsContainer.style.display = 'block';
                     editContentContainer.dataset.inCmsMode = 'true';
-                    
+
                     updateBackButtonVisibility();
                 });
             });
@@ -127,15 +136,11 @@
             });
         }
 
-    
         backButton.addEventListener('click', () => {
             cmsContainer.style.display = 'none';
-            
             document.querySelector('.edit-content-list').style.display = '';
             document.querySelector('.edit-content-header').style.display = '';
-            
             editContentContainer.dataset.inCmsMode = 'false';
-            
             updateBackButtonVisibility();
         });
 
@@ -147,20 +152,50 @@
         };
 
         document.addEventListener('DOMContentLoaded', () => {
-        
             setupEditButtonHandlers();
             updateBackButtonVisibility();
-            
-            if (window.CMSEditor && CMSEditor.prototype.handleSearch) {
-                const originalHandleSearch = CMSEditor.prototype.handleSearch;
-                CMSEditor.prototype.handleSearch = function(searchTerm) {
-                    originalHandleSearch.call(this, searchTerm);
+
+            if (window.CMSEditor && CMSEditor.prototype.handleSearch) {                const originalHandleSearch = CMSEditor.prototype.handleSearch;               CMSEditor.prototype.handleSearch = function (searchTerm) {
+                   originalHandleSearch.call(this, searchTerm);
                     updateBackButtonVisibility();
                 };
             }
         });
 
-    
+
+
+        function renderMobTabSidebarTrigger() {
+            const adminSidebar = document.getElementById("commonsidebar-admin");
+            const mobAdminSidebarTrigger = document.getElementById("toggle-admin-sidebar-trigger");
+            const hamburger = document.querySelector("#toggle-admin-sidebar-trigger span");
+            const closeIcon = document.querySelector("#toggle-admin-sidebar-trigger img");
+            closeIcon.style.display="none"
+
+            if (mobAdminSidebarTrigger) {
+
+                mobAdminSidebarTrigger.addEventListener("click", () => {
+                    if (adminSidebar.style.display === "none" || !adminSidebar.style.display) {
+                        adminSidebar.style.display = "flex"; // or "block" if your layout uses block
+                        hamburger.style.display = "none";
+                        closeIcon.style.display="flex"
+                        // if (toggleIcon) toggleIcon.src = "assets/images/Icons/close_icon.png";
+                    } else {
+                        adminSidebar.style.display = "none";
+                        mobAdminSidebarTrigger.style.displa = "flex";
+                        mobAdminSidebarTrigger.style.display = "flex";
+                        hamburger.style.display = "flex";
+                        closeIcon.style.display = "none"
+                        // if (toggleIcon) toggleIcon.src = "assets/images/Icons/menu.png";
+                    }
+                });
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+
+            renderMobTabSidebarTrigger();
+        })
+
+
     </script>
 
 

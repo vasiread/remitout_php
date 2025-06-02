@@ -522,32 +522,31 @@ class scDashboardController extends Controller
     public function getScuserQueryRaised(Request $request)
     {
         try {
-
             $request->validate([
                 'scUserId' => 'string|required'
             ]);
 
             $scUserId = $request->input('scUserId');
 
-
-            $queries = Queries::where('scuserid', $scUserId)->get();
+            $queries = Queries::where('scuserid', $scUserId)
+                ->select('id', 'queryraised', 'querytype', 'created_at', 'is_reviewed', 'status')
+                ->get();
 
             return response()->json([
                 'success' => true,
                 'queries' => $queries,
-                'message' => "successfully fetched Queries"
-
+                'message' => "Successfully fetched queries"
             ]);
 
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'An Error Occured While retrieve scuser queries',
+                'message' => 'An error occurred while retrieving queries.',
                 'error' => $e->getMessage()
             ], 500);
         }
-
     }
+
     public function getScUserTickets()
     {
         try {
@@ -555,7 +554,7 @@ class scDashboardController extends Controller
 
 
 
-            $queries = Queries::get();
+            $queries = Queries::where('status', 'active')->get();
 
             return response()->json([
                 'success' => true,

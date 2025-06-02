@@ -20,9 +20,14 @@ class CourseInfo extends Model
         'course-details',
         'loan_amount_in_lakhs',
     ];
+    protected $casts = [
+        'plan-to-study' => 'array',
+        'degree-type' => 'string',
+    ];
 
 
-      public function user()
+
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'unique_id');  // user_id in PersonalInfo references id in User
     }

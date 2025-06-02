@@ -100,7 +100,6 @@ Route::get('/nbfc-lead-gens', [Admincontroller::class, 'nbfcLeadGens']);
 Route::get('/sc-lead-gens', [Admincontroller::class, 'scLeadGens']);
 Route::post('/reports-on-generation', [Admincontroller::class, 'reportsOnGeneration']);
 Route::post('/validateprofilecompletion', [Admincontroller::class, 'validateprofilecompletion']);
-Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails']);
 Route::get('/city-stats', [Admincontroller::class, 'getCityStats']);
 Route::post('/suspendscuser', [scDashboardController::class, 'suspendUser']);
 Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails']);
@@ -218,3 +217,4 @@ Route::get('/reset-password', [LoginController::class, 'showResetForm']);
 
 // POST request to reset password
 Route::post('/reset-password', [LoginController::class, 'resetPassword']);
+ Route::get('/reports/user-profile', [Admincontroller::class, 'downloadUserProfileReportPDF']);

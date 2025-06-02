@@ -19,7 +19,7 @@
     display: flex;
     gap: 20px;
     width: 100%;
-    max-width: 81%;
+    max-width: 100%;
 }
 
 .admindashboardcontainer-firstsection h1 {
@@ -170,7 +170,7 @@
         flex-direction: column;
         gap: 20px;
         width: 100%;
-        max-width: 90%;
+        max-width: 100%;
     }
 
     .mobile-admin-dashboard-menu-btn,
@@ -2215,9 +2215,8 @@ text[fill="#222222"] {
 
     .point-entry {
         flex-direction: column;
-        max-width: 380px;
-        margin: 0 auto;
-    }
+        max-width: 100%;
+     }
 
     .point-entry-donut {
         width: 100%;
@@ -2253,7 +2252,8 @@ text[fill="#222222"] {
     }
 
     .point-entry-chart-container {
-        gap: 25px;
+        width: 100%;
+            justify-content: space-around;
     }
 }
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,12 +9,14 @@
     <!-- Include FileSaver.js for cross-browser file download support -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 </head>
+
 <body>
     <div class="manage-student-main-report-container" id="manage-student-main-admin-report-container-id">
         <div class="manage-student-main-admin-report-container">
             <div class="manage-student-report-header">
                 <h1 class="manage-student-report-title">Manage Students Reports</h1>
-                <button class="manage-student-report-export-btn" id="manage-student-report-export-btn-excel">Export to Excel</button>
+                <button class="manage-student-report-export-btn" id="manage-student-report-export-btn-excel">Export to
+                    Excel</button>
             </div>
             <div class="manage-student-report-container">
                 <div class="manage-student-report-filters">
@@ -41,8 +44,11 @@
                     <div class="manage-student-report-filters-row">
                         <div class="manage-student-report-filters-left">
                             <div class="manage-student-report-search-container">
-                                <input type="text" class="manage-student-report-input manage-student-report-search-input" placeholder="Search">
-                                <img src="assets/images/search.png" class="manage-student-report-search-icon" alt="search">
+                                <input type="text"
+                                    class="manage-student-report-input manage-student-report-search-input"
+                                    placeholder="Search">
+                                <img src="assets/images/search.png" class="manage-student-report-search-icon"
+                                    alt="search">
                             </div>
                         </div>
                         <div class="manage-student-report-filters-right">
@@ -63,26 +69,30 @@
                         <h2 class="mobile-report-title-student-report">Manage Students Reports</h2>
                     </div>
                     <h3 class="mobile-report-subtitle-student-report">Reports</h3>
-                    <div class="mobile-report-header-middle-student-report">      
+                    <div class="mobile-report-header-middle-student-report">
                         <div class="mobile-header-actions-student-report">
                             <div class="mobile-search-container-student-report">
                                 <input type="text" class="mobile-search-input-student-report" placeholder="Search">
-                                <img src="assets/images/search.png" class="mobile-search-icon-student-report" alt="search">
+                                <img src="assets/images/search.png" class="mobile-search-icon-student-report"
+                                    alt="search">
                             </div>
                             <button class="mobile-filter-btn-student-report" id="show-mobile-filters">
                                 Filters <span>⌄</span>
                             </button>
                             <button class="mobile-calendar-btn-student-report">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
-                                    <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2"/>
-                                    <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2"/>
-                                    <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2"/>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor"
+                                        stroke-width="2" />
+                                    <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2" />
+                                    <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2" />
+                                    <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2" />
                                 </svg>
                             </button>
                         </div>
                     </div>
-                    <button class="mobile-export-btn-student-report" id="manage-student-report-export-btn-excel-mobile">Export to Excel</button>
+                    <button class="mobile-export-btn-student-report"
+                        id="manage-student-report-export-btn-excel-mobile">Export to Excel</button>
                 </div>
                 <div class="manage-student-report-table-wrapper">
                     <table class="manage-student-report-table">
@@ -100,10 +110,12 @@
                                 <th class="manage-student-report-th" id="th-date-registration">Date of Registration</th>
                                 <th class="manage-student-report-th" id="th-source-referral">Source of Referral</th>
                                 <th class="manage-student-report-th" id="th-referral-no">Referral No.</th>
-                                <th class="manage-student-report-th" id="th-counsellor-name">Student Counsellor Name</th>
+                                <th class="manage-student-report-th" id="th-counsellor-name">Student Counsellor Name
+                                </th>
                                 <th class="manage-student-report-th" id="th-state">State</th>
                                 <th class="manage-student-report-th" id="th-city">City</th>
-                                <th class="manage-student-report-th" id="th-destination-country">Destination Country</th>
+                                <th class="manage-student-report-th" id="th-destination-country">Destination Country
+                                </th>
                                 <th class="manage-student-report-th" id="th-nbfc">NBFC</th>
                                 <th class="manage-student-report-th" id="th-no-proposals">No. of Proposals</th>
                                 <th class="manage-student-report-th" id="th-status">Status</th>
@@ -116,9 +128,10 @@
                 </div>
                 <div class="manage-student-report-pagination">
                     <div class="manage-student-report-pagination-wrapper">
-                        <button class="manage-student-report-pagination-btn" id="prev-page"><</button>
-                        <span class="manage-student-report-pagination-text" id="pagination-text">1-6 / 0</span>
-                        <button class="manage-student-report-pagination-btn" id="next-page">></button>
+                        <button class="manage-student-report-pagination-btn" id="prev-page">
+                            </button>
+                                <span class="manage-student-report-pagination-text" id="pagination-text">1-6 / 0</span>
+                                <button class="manage-student-report-pagination-btn" id="next-page">></button>
                     </div>
                 </div>
             </div>
@@ -180,59 +193,70 @@
         }
 
         // Function to fetch data from the API
-        async function fetchStudentData() {
-            try {
-                const response = await fetch('http://localhost:8000/api/mergestudents', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status} - ${response.statusText}`);
-                }
-
-                const data = await response.json();
-                console.log('Fetched student data:', data);
-
-                // Validate the API response structure
-                let studentData = data;
-                if (data.data && Array.isArray(data.data)) {
-                    studentData = data.data; // Handle { data: [...] } structure
-                } else if (!Array.isArray(data)) {
-                    throw new Error('Invalid API response: Expected an array of student data');
-                }
-
-                // Map the data to ensure all fields are present
-                return studentData.map(item => ({
-                    id: item.id || 0,
-                    name: item.name || 'N/A',
-                    uniqueId: item.uniqueId || 'N/A',
-                    email: item.email || 'N/A',
-                    mobile: item.mobile || 'N/A',
-                    type: item.type || 'N/A',
-                    gender: item.gender || 'N/A',
-                    loanAmount: item.loanAmount || '₹0',
-                    date: item.date || 'N/A',
-                    dateOfRegistration: item.dateOfRegistration || 'N/A',
-                    sourceOfReferral: item.sourceOfReferral || 'N/A',
-                    referralNo: item.referralNo || 'N/A',
-                    counsellor: item.counsellor || 'N/A',
-                    state: item.state || 'N/A',
-                    city: item.city || 'N/A',
-                    country: item.country || 'N/A',
-                    nbfc: item.nbfc || 'N/A',
-                    noOfProposals: item.noOfProposals || 0,
-                    status: item.status || 'N/A',
-                    pointOfEntry: item.pointOfEntry || 'N/A'
-                }));
-            } catch (error) {
-                console.error('Error fetching student data:', error);
-                throw error;
+       async function fetchStudentData() {
+    try {
+        const response = await fetch('/mergestudents', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
             }
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status} - ${response.statusText}`);
         }
+
+        const data = await response.json();
+        console.log('Fetched student data:', data);
+
+        let studentData = data;
+        if (data.data && Array.isArray(data.data)) {
+            studentData = data.data;
+        } else if (!Array.isArray(data)) {
+            throw new Error('Invalid API response: Expected an array of student data');
+        }
+
+        return studentData.map(item => {
+            // Fix: Normalize and check type
+            let typeValue = 'Others';
+            const rawType = (item.type || '').toLowerCase().trim();
+
+            if (rawType.includes('bachelor')) {
+                typeValue = 'Under Graduate';
+            } else if (rawType.includes('master')) {
+                typeValue = 'Post Graduate';
+            }
+
+            return {
+                id: item.id || 0,
+                name: item.full_name || 'N/A',
+                uniqueId: item.unique_id || 'N/A',
+                email: item.email || 'N/A',
+                mobile: item.phone_number || 'N/A',
+                type: typeValue,
+                gender: item.gender || 'N/A',
+                loanAmount: item.loan_amount || '₹0',
+                date: item.dateofbirth || 'N/A',
+                dateOfRegistration: item.registration_date || 'N/A',
+                sourceOfReferral: item.sourceOfReferral || 'N/A',
+                referralNo: item.scReferral || 'N/A',
+                counsellor: item.student_counsellor_name || 'N/A',
+                state: item.state || 'N/A',
+                city: item.city || 'N/A',
+                country: item.country || 'N/A',
+                nbfc: item.nbfc || 'N/A',
+                noOfProposals: item.proposal_count || 0,
+                status: item.status || 'N/A',
+                pointOfEntry: item.PointOfEntry || 'N/A'
+            };
+        });
+
+    } catch (error) {
+        console.error('Error fetching student data:', error);
+        throw error;
+    }
+}
 
         // Function to populate unique options for all filters
         function populateFilterOptions(data) {
@@ -594,14 +618,14 @@
                 // Attach event listeners
                 const desktopSearchInput = document.querySelector('.manage-student-report-search-input');
                 if (desktopSearchInput) {
-                    desktopSearchInput.addEventListener('input', function(e) {
+                    desktopSearchInput.addEventListener('input', function (e) {
                         searchTable(e.target.value);
                     });
                 }
 
                 const mobileSearchInput = document.querySelector('.mobile-search-input-student-report');
                 if (mobileSearchInput) {
-                    mobileSearchInput.addEventListener('input', function(e) {
+                    mobileSearchInput.addEventListener('input', function (e) {
                         searchTable(e.target.value);
                     });
                 }
@@ -693,4 +717,5 @@
         });
     </script>
 </body>
+
 </html>

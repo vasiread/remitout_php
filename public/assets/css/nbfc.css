@@ -2583,8 +2583,7 @@ body {
     padding: 8px 12px 8px 36px;
     border: 1px solid #e2e2e2;
     border-radius: 4px;
-    width: 240px;
-    font-family: "Poppins", sans-serif;
+     font-family: "Poppins", sans-serif;
     background-color: #ffffff;
     font-size: 12px;
 }
@@ -2767,8 +2766,7 @@ body {
     padding: 8px 12px 8px 36px;
     border: 1px solid #e2e2e2;
     border-radius: 4px;
-    width: auto;
-    font-family: "Poppins", sans-serif;
+     font-family: "Poppins", sans-serif;
     background-color: #ffffff;
     font-size: 12px;
 }
