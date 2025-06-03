@@ -4,74 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="assets/css/adminedit.css">
-    <style>
-        .hidden {
-            display: none !important;
-        }
-        .char-count {
-            color: #666;
-            font-size: 12px;
-            margin-top: 4px;
-        }
-        .char-count-exceeded {
-            color: red;
-            font-size: 12px;
-            margin-top: 4px;
-        }
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            background-color: #ff6b2b;
-            color: #fff;
-            border-radius: 5px;
-            z-index: 1000;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            role: alert;
-        }
-        .toast.error {
-            background-color: #d32f2f;
-        }
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-        }
-        .pagination button {
-            margin: 0 5px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            background-color: #fff;
-            cursor: pointer;
-            border-radius: 4px;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .pagination button:disabled {
-            cursor: not-allowed;
-            opacity: 0.5;
-        }
-        .pagination .page-number {
-            margin: 0 5px;
-            padding: 5px 10px;
-            border: 1px solid #ccc;
-            background-color: #fff;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        .pagination .page-number.active {
-            background-color: #ff6b2b;
-            color: #fff;
-            border-color: #ff6b2b;
-        }
-    </style>
+   
 </head>
 <body>
     @extends('layouts.app')
@@ -278,10 +211,7 @@
                         content: 'Watch Demo',
                         status: 'Active',
                         maxLength: 10,
-                        isMedia: true,
-                        mediaConstraints: {
-                            formats: ['mp4', 'webm', 'png', 'jpg', 'jpeg']
-                        }
+                      
                     },
                     // Testimonial Section
                     {
@@ -289,7 +219,7 @@
                         page: 'Landing Page',
                         sectionType: 'testimonial',
                         title: 'Testimonial 1',
-                        content: 'Remitout helped me secure my study loan quickly!',
+                        content: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
                         status: 'Active',
                         maxLength: 100
                     },
@@ -298,7 +228,7 @@
                         page: 'Landing Page',
                         sectionType: 'testimonial',
                         title: 'Testimonial 2',
-                        content: 'Amazing service and support for students.',
+                        content: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
                         status: 'Active',
                         maxLength: 100
                     },

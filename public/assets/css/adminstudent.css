@@ -240,12 +240,11 @@
 @media only screen and (max-width: 768px) {
     .student-listcontainer {
         display: none;
-        max-width: 95%;
+        max-width: 100%;
         margin-left: auto;
         margin-right: auto;
         margin-top: 20px;
-        padding: 15px;
-        gap: 10px;
+        gap: 0px;
     }
 
     .globallistcontainer-header {
@@ -637,6 +636,7 @@
     .globallistcontainer-header {
         flex-direction: column;
         align-items: flex-start;
+        margin-top: 40px;
     }
  .studentapplication-lists-remainingdocuments .document-box {
      width: 80%;
@@ -676,6 +676,7 @@
     .studentcounsellorlist-adminside {
         width: 100%;
         max-width: 100%;
+        margin-left: 0;
     }
 
     .individualcounsellors-buttoncontainer button:first-child {
