@@ -471,13 +471,17 @@ body {
     border: none;
     cursor: pointer;
 }
+.messages-wrapper{
+    max-width: 100%;
+    width: 100%;
+}
 
 .messages-wrapper div[data-message-id] {
     display: flex;
     margin-bottom: 10px;
 }
 .messages-wrapper div[data-message-id] div {
-    max-width: 80%;
+    max-width: 100%;
     padding: 8px 12px;
     border-radius: 8px;
     background-color: #fff;
@@ -683,6 +687,7 @@ body {
     display: none;
     flex-direction: column;
     width: 100%;
+    max-width: 100%;
     font-size: 14px;
     color: #666;
     line-height: 1.5;
@@ -940,6 +945,7 @@ body {
         max-height: 250px;
         font-size: 13px;
         width: 100%;
+        max-width: 100%;
     }
 
     .admin-nbfc-inbox-container .individual-bankmessage-input {

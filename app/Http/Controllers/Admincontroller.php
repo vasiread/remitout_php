@@ -6,6 +6,7 @@ use App\Mail\PromotionalContentMail;
 use App\Models\Academics;
 use App\Models\AdditionalField;
 use App\Models\Admin;
+use App\Models\CoBorrowerInfo;
 use App\Models\CourseDetailOption;
 use App\Models\CourseDuration;
 use App\Models\CourseInfo;
@@ -45,63 +46,71 @@ class Admincontroller extends Controller
 {
 
 
-    public function retrieveDashboardDetails()
+    public function retrieveDashboardDetails(Request $request)
     {
         try {
-             $offerIssuedStudentsCount = Requestprogress::where('type', 'proposal')->count();
+            // Step 1: Get input degree type (optional), lowercase
+            $inputDegree = strtolower($request->input('degree_type'));
 
-             $offerRejectedByStudentCount = proposalcompletion::where('proposal_accept', false)->count();
-
-             $offerAcceptedAndClosedCount = proposalcompletion::where('proposal_accept', true)->count();
-
-            // Total user count
-            $totalUserCount = User::count();
-
-            // --- Profile Completion Summary ---
-            $results = DB::table('course_details_formdata')
-                ->join('users', 'course_details_formdata.user_id', '=', 'users.unique_id')
-                ->join('personal_infos', 'users.unique_id', '=', 'personal_infos.user_id')
-                ->select(
-                    DB::raw("CASE
-                    WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%bachelor%' THEN 'UG'
-                    WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%ma ster%' THEN 'PG'
-                    WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%mca%' OR LOWER(course_details_formdata.`degree-type`) LIKE '%bca%' THEN 'Other'
-                    ELSE 'Other'
-                END as degree_category"),
-                    'personal_infos.gender',
-                    DB::raw('count(*) as count')
-                )
-                ->groupBy('degree_category', 'personal_infos.gender')
-                ->get();
-
-            $summary = [
-                'UG' => ['total' => 0, 'male' => 0, 'female' => 0, 'other' => 0],
-                'PG' => ['total' => 0, 'male' => 0, 'female' => 0, 'other' => 0],
-                'Other' => ['total' => 0, 'male' => 0, 'female' => 0, 'other' => 0],
-            ];
-
-            $overall = ['total' => 0, 'male' => 0, 'female' => 0, 'other' => 0];
-
-            foreach ($results as $row) {
-                $degree = $row->degree_category;
-                $gender = strtolower($row->gender ?? 'other');
-
-                if (!in_array($gender, ['male', 'female'])) {
-                    $gender = 'other';
+            // Step 2: Define a closure to apply degree_type filtering on CourseInfo queries
+            $degreeFilter = function ($query) use ($inputDegree) {
+                if (in_array($inputDegree, ['bachelors', 'masters'])) {
+                    $query->whereRaw('LOWER(`degree-type`) = ?', [$inputDegree]);
+                } elseif ($inputDegree === 'others') {
+                    $query->whereRaw('LOWER(`degree-type`) NOT IN (?, ?)', ['bachelors', 'masters']);
                 }
+                // If no inputDegree or unrecognized, no filter (all)
+            };
 
-                $summary[$degree][$gender] += $row->count;
-                $summary[$degree]['total'] += $row->count;
+            // Step 3: Get filtered user IDs from CourseInfo based on degree_type filter
+            $filteredUserIds = CourseInfo::when($inputDegree, $degreeFilter)
+                ->pluck('user_id')
+                ->toArray();
 
-                $overall[$gender] += $row->count;
-                $overall['total'] += $row->count;
-            }
+            // Step 4: Counts with dynamic filtering using whereHas on CourseInfo relation
 
-            $incompleteProfiles = $totalUserCount - $overall['total'];
-            if ($incompleteProfiles < 0)
-                $incompleteProfiles = 0;
+            // Offer issued students count in Requestprogress (type = proposal)
+            $offerIssuedStudentsCount = Requestprogress::where('type', 'proposal')
+                ->whereHas('courseInfo', $degreeFilter)
+                ->count();
 
-            // Return combined dashboard data
+            // Offer rejected by student count in ProposalCompletion where proposal_accept = false
+            $offerRejectedByStudentCount = proposalcompletion::where('proposal_accept', false)
+                ->whereHas('courseInfo', $degreeFilter)
+                ->count();
+
+            // Offer accepted and closed count in ProposalCompletion where proposal_accept = true
+            $offerAcceptedAndClosedCount = proposalcompletion::where('proposal_accept', true)
+                ->whereHas('courseInfo', $degreeFilter)
+                ->count();
+
+            // Total user count from User model filtered by filteredUserIds from CourseInfo
+            $totalUserCount = User::whereIn('id', $filteredUserIds)->count();
+
+            // Step 5: Profile completion checks (user_id from filteredUserIds)
+
+            // CoBorrower users
+            $coBorrowerUsers = CoBorrowerInfo::whereIn('user_id', $filteredUserIds)
+                ->pluck('user_id')
+                ->toArray();
+
+            // Academics users (where university_school_name and course_name are NOT NULL)
+            $academicsUsers = Academics::whereIn('user_id', $filteredUserIds)
+                ->whereNotNull('university_school_name')
+                ->whereNotNull('course_name')
+                ->pluck('user_id')
+                ->toArray();
+
+            // CourseInfo users (all filtered user IDs)
+            $courseInfoUsers = $filteredUserIds;
+
+            // Completed profiles = intersection of all three arrays
+            $completedProfiles = array_intersect($coBorrowerUsers, $academicsUsers, $courseInfoUsers);
+
+            // Incomplete profiles = filteredUserIds not in completedProfiles
+            $incompleteProfiles = array_diff($courseInfoUsers, $completedProfiles);
+
+            // Step 6: Return JSON response
             return response()->json([
                 'success' => true,
                 'counts' => [
@@ -109,17 +118,11 @@ class Admincontroller extends Controller
                     'offerRejectedByStudentCount' => $offerRejectedByStudentCount,
                     'offerAcceptedAndClosedCount' => $offerAcceptedAndClosedCount,
                     'totalUserCount' => $totalUserCount,
-                ],
-                'incomplete_profiles' => $incompleteProfiles, // 4th variable
-                'complete_profiles' => $overall,              // 5th variable (renamed from "overall")
-                'profile_completion' => [
-                    'degree_summary' => $summary,
-                    'overall' => $overall,
-                    'total_users' => $totalUserCount,
-                    'incomplete_profiles' => $incompleteProfiles,
+                    'completedProfileCount' => count($completedProfiles),
+                    'incompleteProfileCount' => count($incompleteProfiles),
+                    'filteredDegreeType' => $inputDegree ?: 'all',
                 ],
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -128,6 +131,11 @@ class Admincontroller extends Controller
             ], 500);
         }
     }
+
+
+
+
+
 
     public function validateprofilecompletion(Request $request)
     {
@@ -1418,57 +1426,48 @@ class Admincontroller extends Controller
 
 
 
+
     public function uploadChatFile(Request $request)
     {
-        // Validate the request to ensure a file and chatId are provided
-        $request->validate([
-            'file' => 'required|file|max:5120|mimes:pdf,doc,docx,txt',
+        if (!$request->hasFile('file') || !$request->input('chatId')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Missing file or chatId.',
+            ], 400);
+        }
 
-            'chatId' => 'required|string'
-        ]);
-
-        // Get the chatId from the request
+        $file = $request->file('file');
         $chatId = $request->input('chatId');
 
-        // Check if the file is uploaded
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            // Generate a unique file name to avoid conflicts
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            // Set the file directory path on S3
-            $fileDirectory = "chats/{$chatId}/files";
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $fileDirectory = "chats/{$chatId}/files";
+        $filePath = "$fileDirectory/$fileName";
 
-            // Upload the file to the specified S3 directory
-            $filePath = "$fileDirectory/$fileName";
-
+        try {
             Storage::disk('s3')->put(
                 $filePath,
                 file_get_contents($file),
                 [
                     'visibility' => 'public',
-                    'ContentType' => $file->getMimeType(), // important!
+                    'ContentType' => $file->getMimeType(),
                 ]
             );
 
-
-            // Get the URL of the uploaded file on S3
             $fileUrl = Storage::disk('s3')->url($filePath);
 
-            // Return a success response with the file information
             return response()->json([
                 'success' => true,
-                'message' => 'File uploaded successfully!',
-                'file_name' => $fileName,
-                'fileUrl' => $fileUrl, // Send the URL to be used in the chat
-            ], 200);
+                'fileUrl' => $fileUrl,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Upload failed.',
+                'error' => $e->getMessage(),
+            ], 500);
         }
-
-        // If no file is uploaded, return an error response
-        return response()->json([
-            'success' => false,
-            'message' => 'No file uploaded.',
-        ], 400);
     }
+
 
     public function updateNbfc(Request $request)
     {
@@ -2208,7 +2207,7 @@ class Admincontroller extends Controller
                     $planToStudy = $planToStudyRaw;
                 }
             }
-            
+
 
             return [
                 'name' => $user->name,
@@ -2409,7 +2408,6 @@ class Admincontroller extends Controller
             'userReport'
         ));
 
-        // Force download the generated PDF immediately
         return $pdf->download('user_profile_report_' . now()->format('Ymd_His') . '.pdf');
     }
 

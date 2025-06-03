@@ -17,7 +17,7 @@
 
     @section('studentdashboard')
 
-                        @php
+                                @php
         $profileImgPath = '';
         $uploadPanName = '';
         $profileIconPath = "assets/images/account_circle.png";
@@ -31,620 +31,731 @@
         $courseDetailsJson = json_encode($courseDetails);
         $nbfcdata = [];
 
-                          @endphp
-                        <div class="studentdashboardprofile-togglesidebar">
-                            <ul class="studentdashboardprofile-sidebarlists-top">
-                                <li class="active" data-section="studentdashboardprofile-trackprogress" data-index="0">
-                                    <i class="fa-solid fa-square-poll-vertical"></i> Dashboard
-                                </li>
-                                <li data-section="studentdashboardprofile-trackprogress" data-index="1">
-                                    <i class="fa-solid fa-inbox"></i> Inbox
-                                </li>
-                                <li data-section="studentdashboardprofile-myapplication" data-index="2">
-                                    <i class="fa-regular fa-clipboard"></i> My Applications
-                                </li>
-                            </ul>
-                            <ul class="studentdashboardprofile-sidebarlists-bottom">
-                                <li class="logoutBtn">
-                                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
-                                </li>
-                                <li>
-                                    <img src="assets/images/Icons/support_agent.png" alt=""> Support
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="studentdashboardprofile">
+                                  @endphp
+                                <div class="studentdashboardprofile-togglesidebar">
+                                    <ul class="studentdashboardprofile-sidebarlists-top">
+                                        <li class="active" data-section="studentdashboardprofile-trackprogress" data-index="0">
+                                            <i class="fa-solid fa-square-poll-vertical"></i> Dashboard
+                                        </li>
+                                        <li data-section="studentdashboardprofile-trackprogress" data-index="1">
+                                            <i class="fa-solid fa-inbox"></i> Inbox
+                                        </li>
+                                        <li data-section="studentdashboardprofile-myapplication" data-index="2">
+                                            <i class="fa-regular fa-clipboard"></i> My Applications
+                                        </li>
+                                    </ul>
+                                    <ul class="studentdashboardprofile-sidebarlists-bottom">
+                                        <li class="logoutBtn">
+                                            <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                                        </li>
+                                        <li>
+                                            <img src="assets/images/Icons/support_agent.png" alt=""> Support
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="studentdashboardprofile">
 
-                            <div class="studentdashboardprofile-trackprogress" id="studentdashboardprofile-trackprogress-id">
-                                <div class="studentdashboardprofile-firstrowtrackprogress">
-                                    <div class="trackprogress-headercontainer">
-                                        <h1 class="trackprogress-header" style="margin:0">Track Progress</h1>
+                                    <div class="studentdashboardprofile-trackprogress" id="studentdashboardprofile-trackprogress-id">
+                                        <div class="studentdashboardprofile-firstrowtrackprogress">
+                                            <div class="trackprogress-headercontainer">
+                                                <h1 class="trackprogress-header" style="margin:0">Track Progress</h1>
 
 
-                                    </div>
-                                    <div class="trackprogress-contentcontainer">
-                                        <div class="trackprogress-leftsection">
-                                            <p
-                                                style="font-weight:600;
-                                                                                                                                                                                                                                                                                                                                        font-size:18px;
-                                                                                                                                                                                                                                                                                           color:rgba(0, 0, 0, 1); 
-                                                                                                                                                                                                                                                                                                                                        padding:15px 0px 0px 24px">
-                                                Loan
-                                                Status</p>
-
-                                            <div class="leftsection-detailsinfo">
-                                                <div class="loan-receivedsection">
-                                                    <h1 style="color:rgba(255, 154, 63, 1);">--</h1>
-                                                    <p>Received</p>
-                                                </div>
-                                                <div class="loan-onholdsection">
-                                                    <h1>--</h1>
-                                                    <p>On Hold </p>
-                                                </div>
-                                                <div class="loan-rejectedsection">
-                                                    <h1>--</h1>
-                                                    <p>Rejected</p>
-                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="trackprogress-rightsection">
-                                            <p
-                                                style="font-size: 18px;font-weight: 600; line-height: 27px; color:rgba(0, 0, 0, 1);padding:15px 0px 0px 24px">
-                                                Document Status
-                                            </p>
-                                            <div class="rightsection-uploadsection">
-                                                <div class="uploadsectionsandglass">
-                                                    <i class="fa-solid fa-hourglass"></i>
-                                                    <p class="upload-status-hourglass">
-                                                        Status : Pending
+                                            <div class="trackprogress-contentcontainer">
+                                                <div class="trackprogress-leftsection">
+                                                    <p
+                                                        style="font-weight:600;
+                                                                                                                                                                                                                                                                                                                                                font-size:18px;
+                                                                                                                                                                                                                                                                                                   color:rgba(0, 0, 0, 1); 
+                                                                                                                                                                                                                                                                                                                                                padding:15px 0px 0px 24px">
+                                                        Loan
+                                                        Status</p>
+
+                                                    <div class="leftsection-detailsinfo">
+                                                        <div class="loan-receivedsection">
+                                                            <h1 style="color:rgba(255, 154, 63, 1);">--</h1>
+                                                            <p>Received</p>
+                                                        </div>
+                                                        <div class="loan-onholdsection">
+                                                            <h1>--</h1>
+                                                            <p>On Hold </p>
+                                                        </div>
+                                                        <div class="loan-rejectedsection">
+                                                            <h1>--</h1>
+                                                            <p>Rejected</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="trackprogress-rightsection">
+                                                    <p
+                                                        style="font-size: 18px;font-weight: 600; line-height: 27px; color:rgba(0, 0, 0, 1);padding:15px 0px 0px 24px">
+                                                        Document Status
                                                     </p>
+                                                    <div class="rightsection-uploadsection">
+                                                        <div class="uploadsectionsandglass">
+                                                            <i class="fa-solid fa-hourglass"></i>
+                                                            <p class="upload-status-hourglass">
+                                                                Status : Pending
+                                                            </p>
+                                                        </div>
+                                                        <button onclick="window.location.href='{{ asset('student-forms') }}'">
+                                                            Upload
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                                <button onclick="window.location.href='{{ asset('student-forms') }}'">
-                                                    Upload
-                                                </button>
+                                            </div>
+
+
+
+                                        </div>
+
+                                        <div class="studentdashboardprofile-loanproposals" id="studentdashboardprofile-loanproposals-id">
+                                            <div class="loanproposal-headerstudentside">
+                                                <h1 class="loanproposals-header" id="loanproposals-header">Loan Proposals</h1>
+                                                <p> </p>
+
+
+
+                                            </div>
+
+                                            <div class="loanproposals-loanstatuscards">
+                                                <!-- existing messages here -->
+                                            </div>
+
+                                            <!-- Static Admin-Student Chat block -->
+                                            <div class="admin-msg-container" style="
+                                                border: 1px solid #ddd;
+                                                border-radius: 10px;
+                                                margin: 20px 0;
+                                                overflow: hidden;
+                                                font-family: 'Poppins', sans-serif;
+                                                max-width: 100%;
+                                            ">
+                                                <!-- Header -->
+                                                <div style="
+                                                    display: flex;
+                                                    justify-content: space-between;
+                                                    align-items: center;
+                                                    background: #f8f8f8;
+                                                    padding: 12px 16px;
+                                                    border-bottom: 1px solid #eee;
+                                                ">
+                                                    <div style="font-size: 14px; color: #444;">
+                                                        <strong>Admin (admin001)</strong><br>
+                                                        <small>Support & Communication Desk</small>
+                                                    </div>
+                                                    <div>
+                                                        <button style="
+                                                            background-color: #6f25ce;
+                                                            color: white;
+                                                            border: none;
+                                                            padding: 8px 16px;
+                                                            border-radius: 4px;
+                                                            cursor: pointer;
+                                                            font-family: 'Poppins', sans-serif;
+                                                            font-size: 14px;
+                                                            transition: background-color 0.3s ease;
+                                                        ">Message</button>
+                                                        <button style="
+                                                            background-color: transparent;
+                                                            border: 1px solid #6f25ce;
+                                                            color: #6f25ce;
+                                                            padding: 8px 16px;
+                                                            border-radius: 4px;
+                                                            cursor: pointer;
+                                                            font-family: 'Poppins', sans-serif;
+                                                            font-size: 14px;
+                                                            transition: all 0.3s ease;
+                                                            width: 80px;
+                                                        ">View</button>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Chat section (visible by default for static) -->
+                                                <div class="admin-chat-wrapper" style="
+                                                    display: flex;
+                                                    flex-direction: column;
+                                                    padding: 15px;
+                                                    max-height: 300px;
+                                                    overflow-y: auto;
+                                                    background: white;
+                                                    gap: 10px;
+                                                ">
+                                                    <!-- Example messages -->
+                                                    <div style="display: flex; justify-content: flex-start; margin-bottom: 10px;">
+                                                        <div style="
+                                                            max-width: 80%;
+                                                            padding: 8px 12px;
+                                                            border-radius: 8px;
+                                                            background-color: #F1F0F0;
+                                                            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+                                                            word-wrap: break-word;
+                                                        ">
+                                                            Hello, how can I help you today?
+                                                        </div>
+                                                    </div>
+                                                    <div style="display: flex; justify-content: flex-end; margin-bottom: 10px;">
+                                                        <div style="
+                                                            max-width: 80%;
+                                                            padding: 8px 12px;
+                                                            border-radius: 8px;
+                                                            background-color: #DCF8C6;
+                                                            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+                                                            word-wrap: break-word;
+                                                        ">
+                                                            I have a question about my loan status.
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Input area -->
+                                                <div style="
+                                                    display: flex;
+                                                    align-items: center;
+                                                    padding: 10px;
+                                                    background: #fafafa;
+                                                    border-top: 1px solid #eee;
+                                                    position: relative;
+                                                ">
+                                                    <input type="text" placeholder="Send message" style="
+                                                        flex: 1;
+                                                        padding: 8px 12px;
+                                                        border-radius: 20px;
+                                                        border: 1px solid #ccc;
+                                                        margin-right: 10px;
+                                                        font-family: 'Poppins', sans-serif;
+                                                    ">
+                                                    <i class="fa-regular fa-face-smile"
+                                                        style="font-size: 18px; margin-right: 8px; color: #888; cursor: pointer;"></i>
+                                                    <i class="fa-solid fa-paperclip" style="font-size: 18px; margin-right: 8px; color: #888; cursor: pointer;"></i>
+                                                    <img src="assets/images/send-nbfc.png" alt="send icon" style="width: 22px; height: 22px; cursor: pointer;">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="studentdashboardprofile-profilesection" id="intergratestudentdashboardprofile">
+                                        <img src="{{asset($profileImgPath)}}" class="profileImg" id="profile-photo-id" alt="">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                        <input type="file" class="profile-upload" accept="image/*" enctype="multipart/form-data">
+                                        <div class="studentdashboardprofile-personalinfo">
+                                            <div class="personalinfo-firstrow">
+                                                <h1>My Profile</h1>
+                                            </div>
+                                            <ul class="personalinfo-secondrow">
+                                                <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span class="personal_info_id"
+                                                        style="margin-left: 6px;"> {{$user->unique_id}}</span> </li>
+                                                <li class="personal_info_name" id="referenceNameId"><img src={{$profileIconPath}} alt="">
+                                                    <p> {{$userDetails[0]->name ?? 'Name not available'}}</p>
+                                                </li>
+                                                <li class="personal_info_phone"><img src={{$phoneIconPath}} alt="">
+
+                                                    <p>+91 {{$userDetails[0]->phone}}</p>
+                                                </li>
+                                                <li class="personal_info_email" id="referenceEmailId">
+                                                    <img src="{{ $mailIconPath }}" alt="">
+                                                    <p title="{{ $userDetails[0]->email }}">{{ $userDetails[0]->email }}</p>
+
+                                                </li>
+                                                <li class="personal_info_state"><img src={{$pindropIconPath}} alt="">
+                                                    <p id="personal_state_id"> {{ $personalDetails[0]->state }}</p>
+                                                </li>
+                                            </ul>
+                                            <ul class="personalinfosecondrow-editsection">
+                                                <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span
+                                                        style="margin-left: 6px;"> {{$userDetails[0]->unique_id}}</span> </li>
+                                                <li class="personal_info_name">
+                                                    <p>Name</p>
+                                                    <input type="text" value="{{$userDetails[0]->name}}">
+                                                </li>
+                                                <li class="personal_info_phone">
+                                                    <p>Phone</p>
+                                                    <input type="text" value="{{$userDetails[0]->phone}}" disabled>
+                                                </li>
+                                                <li class="personal_info_email">
+                                                    <p>Email</p>
+                                                    <input type="email" value="{{$userDetails[0]->email}}" disabled>
+                                                </li>
+                                                <li class="personal_info_state">
+                                                    <p>State</p>
+                                                    <input type="text" value="{{$personalDetails[0]->state}}">
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="personalinfo-profilestatus">
+                                            <h1>Profile Status</h1>
+                                            <div class="personalinfo-graphsectioncontainer">
+                                                <div class="profilestatus-graph-section">
+                                                    <svg class="progress-ring" width="75" height="75" viewBox="0 0 120 120">
+                                                        <circle class="progress-ring-circle" stroke="rgba(213, 213, 213, 0.41)" stroke-width="18"
+                                                            fill="transparent" r="52" cx="60" cy="60" />
+
+                                                        <circle class="progress-ring-fill" stroke="rgba(255, 154, 63, 1)" stroke-width="18"
+                                                            fill="transparent" r="52" cx="60" cy="60" />
+                                                        <text x="50%" y="50%" text-anchor="middle" fill="rgba(255, 154, 63, 1)" font-weight="600"
+                                                            font-family="Poppins" font-size="14" width="31px" height="21px"
+                                                            class="progress-ring-text"></text>
+                                                    </svg>
+                                                    <p style="color:rgba(144, 144, 144, 1)">Profile Complete</p>
+                                                </div>
+                                                <div class="profilestatus-graph-secondsection">
+                                                    <div class="profilestatus-noofdocuments-section">
+                                                        <p>00</p>
+                                                        <span>/22</span>
+                                                    </div>
+                                                    <p class="secondsection-inside" style="color:rgba(144, 144, 144, 1)">Document Uploaded</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-
-
-
-                                </div>
-
-                                <div class="studentdashboardprofile-loanproposals" id="studentdashboardprofile-loanproposals-id">
-                                    <div class="loanproposal-headerstudentside">
-                                        <h1 class="loanproposals-header" id="loanproposals-header">Loan Proposals</h1>
-                                        <p> </p>
-
-
-
-                                    </div>
-                                    <div class="loanproposals-loanstatuscards">
-
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="studentdashboardprofile-profilesection" id="intergratestudentdashboardprofile">
-                                <img src="{{asset($profileImgPath)}}" class="profileImg" id="profile-photo-id" alt="">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                                <input type="file" class="profile-upload" accept="image/*" enctype="multipart/form-data">
-                                <div class="studentdashboardprofile-personalinfo">
-                                    <div class="personalinfo-firstrow">
-                                        <h1>My Profile</h1>
-                                    </div>
-                                    <ul class="personalinfo-secondrow">
-                                        <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span class="personal_info_id"
-                                                style="margin-left: 6px;"> {{$user->unique_id}}</span> </li>
-                                        <li class="personal_info_name" id="referenceNameId"><img src={{$profileIconPath}} alt="">
-                                            <p> {{$userDetails[0]->name ?? 'Name not available'}}</p>
-                                        </li>
-                                        <li class="personal_info_phone"><img src={{$phoneIconPath}} alt="">
-
-                                            <p>+91 {{$userDetails[0]->phone}}</p>
-                                        </li>
-                                        <li class="personal_info_email" id="referenceEmailId">
-                                            <img src="{{ $mailIconPath }}" alt="">
-                                            <p title="{{ $userDetails[0]->email }}">{{ $userDetails[0]->email }}</p>
-
-                                        </li>
-                                        <li class="personal_info_state"><img src={{$pindropIconPath}} alt="">
-                                            <p id="personal_state_id"> {{ $personalDetails[0]->state }}</p>
-                                        </li>
-                                    </ul>
-                                    <ul class="personalinfosecondrow-editsection">
-                                        <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span
-                                                style="margin-left: 6px;"> {{$userDetails[0]->unique_id}}</span> </li>
-                                        <li class="personal_info_name">
-                                            <p>Name</p>
-                                            <input type="text" value="{{$userDetails[0]->name}}">
-                                        </li>
-                                        <li class="personal_info_phone">
-                                            <p>Phone</p>
-                                            <input type="text" value="{{$userDetails[0]->phone}}" disabled>
-                                        </li>
-                                        <li class="personal_info_email">
-                                            <p>Email</p>
-                                            <input type="email" value="{{$userDetails[0]->email}}" disabled>
-                                        </li>
-                                        <li class="personal_info_state">
-                                            <p>State</p>
-                                            <input type="text" value="{{$personalDetails[0]->state}}">
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="personalinfo-profilestatus">
-                                    <h1>Profile Status</h1>
-                                    <div class="personalinfo-graphsectioncontainer">
-                                        <div class="profilestatus-graph-section">
-                                            <svg class="progress-ring" width="75" height="75" viewBox="0 0 120 120">
-                                                <circle class="progress-ring-circle" stroke="rgba(213, 213, 213, 0.41)" stroke-width="18"
-                                                    fill="transparent" r="52" cx="60" cy="60" />
-
-                                                <circle class="progress-ring-fill" stroke="rgba(255, 154, 63, 1)" stroke-width="18"
-                                                    fill="transparent" r="52" cx="60" cy="60" />
-                                                <text x="50%" y="50%" text-anchor="middle" fill="rgba(255, 154, 63, 1)" font-weight="600"
-                                                    font-family="Poppins" font-size="14" width="31px" height="21px"
-                                                    class="progress-ring-text"></text>
-                                            </svg>
-                                            <p style="color:rgba(144, 144, 144, 1)">Profile Complete</p>
+                                        <div class="studentdashboardprofile-communityjoinsection" onclick="window.open('https://discord.gg/9WfXzR9P', '_blank')"
+                                            style="cursor: pointer;">
+                                            <img src="{{ asset($discordIconPath) }}">
+                                            <p>Join Community</p>
                                         </div>
-                                        <div class="profilestatus-graph-secondsection">
-                                            <div class="profilestatus-noofdocuments-section">
-                                                <p>00</p>
-                                                <span>/22</span>
+
+                                        <div class="studentdashboardprofile-educationeditsection">
+                                            <div class="educationeditsection-firstrow">
+                                                <h1>Education</h1>
+                                                <!-- <button>Edit</button> -->
                                             </div>
-                                            <p class="secondsection-inside" style="color:rgba(144, 144, 144, 1)">Document Uploaded</p>
+                                            <div class="educationeditsection-secondrow">
+                                                <!-- <p>1. {{ $courseDetails[0]->{'degree-type'} }}</p>
+                                                <p>2. Consequuntur magni dolores</p>
+                                                <p>3. Voluptatem accusantium</p> -->
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="studentdashboardprofile-communityjoinsection" onclick="window.open('https://discord.gg/9WfXzR9P', '_blank')"
-                                    style="cursor: pointer;">
-                                    <img src="{{ asset($discordIconPath) }}">
-                                    <p>Join Community</p>
-                                </div>
 
-                                <div class="studentdashboardprofile-educationeditsection">
-                                    <div class="educationeditsection-firstrow">
-                                        <h1>Education</h1>
-                                        <!-- <button>Edit</button> -->
-                                    </div>
-                                    <div class="educationeditsection-secondrow">
-                                        <!-- <p>1. {{ $courseDetails[0]->{'degree-type'} }}</p>
-                                        <p>2. Consequuntur magni dolores</p>
-                                        <p>3. Voluptatem accusantium</p> -->
-                                    </div>
-                                </div>
-
-                                <div class="studentdashboardprofile-testscoreseditsection">
-                                    <div class="testscoreseditsection-firstrow">
-                                        <h1>Test Scores</h1>
-                                    </div>
-                                    <div class="testscoreseditsection-secondrow">
-                                        @php
+                                        <div class="studentdashboardprofile-testscoreseditsection">
+                                            <div class="testscoreseditsection-firstrow">
+                                                <h1>Test Scores</h1>
+                                            </div>
+                                            <div class="testscoreseditsection-secondrow">
+                                                @php
         $counter = 1; 
-                                        @endphp
+                                                @endphp
 
-                                        @if (is_numeric($academicDetails[0]->ILETS) && !empty($academicDetails[0]->ILETS))
-                                            <p>{{ $counter++ }}. IELTS <span class="ilets_score">{{ $academicDetails[0]->ILETS }}</span></p>
-                                        @endif
+                                                @if (is_numeric($academicDetails[0]->ILETS) && !empty($academicDetails[0]->ILETS))
+                                                    <p>{{ $counter++ }}. IELTS <span class="ilets_score">{{ $academicDetails[0]->ILETS }}</span></p>
+                                                @endif
 
-                                        @if (is_numeric($academicDetails[0]->GRE) && !empty($academicDetails[0]->GRE))
-                                            <p>{{ $counter++ }}. GRE <span class="gre_score">{{ $academicDetails[0]->GRE }}</span></p>
-                                        @endif
+                                                @if (is_numeric($academicDetails[0]->GRE) && !empty($academicDetails[0]->GRE))
+                                                    <p>{{ $counter++ }}. GRE <span class="gre_score">{{ $academicDetails[0]->GRE }}</span></p>
+                                                @endif
 
-                                        @if (is_numeric($academicDetails[0]->TOFEL) && !empty($academicDetails[0]->TOFEL))
-                                            <p>{{ $counter++ }}. TOEFL <span class="tofel_score">{{ $academicDetails[0]->TOFEL }}</span></p>
-                                        @endif
+                                                @if (is_numeric($academicDetails[0]->TOFEL) && !empty($academicDetails[0]->TOFEL))
+                                                    <p>{{ $counter++ }}. TOEFL <span class="tofel_score">{{ $academicDetails[0]->TOFEL }}</span></p>
+                                                @endif
 
-                                        @php
+                                                @php
         $others = json_decode($academicDetails[0]->Others, true);
-                                        @endphp
+                                                @endphp
 
-                                        @if (isset($others['otherExamName']) && isset($others['otherExamScore']) && is_numeric($others['otherExamScore']) && !empty($others['otherExamScore']))
-                                            <p>{{ $counter++ }}. {{$others['otherExamName']}} <span>{{$others['otherExamScore']}}</span></p>
-                                        @endif
-                                    </div>
-
-
-                                    <div class="testscoreseditsection-secondrow-editsection">
-                                        <p>ILETS</p>
-                                        <input type="text" class="ilets_score" value={{$academicDetails[0]->ILETS}}>
-                                        <p>GRE</p>
-                                        <input type="text" class="gre_score" value={{$academicDetails[0]->GRE}}>
-                                        <p>TOFEL</p> <input type="text" class="tofel_score" value="{{$academicDetails[0]->TOFEL}}">
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-                            <div class="studentdashboardprofile-myapplication" id="course-details-container"
-                                data-course-details='{{ json_encode($courseDetails) }}'
-                                data-personal-details='{{ json_encode($personalDetails) }}'>
-                                <div class="myapplication-firstcolumn">
-                                    <h1>Course Details</h1>
-                                    <!-- <button >Edit</button> -->
-                                    <div class="personalinfo-firstrow">
-                                        <button onClick="triggerEditButton()">Edit</button>
-                                        <button class="saved-msg">Saved</button>
-                                    </div>
-                                </div>
-
-                                <div class="myapplication-secondcolumn">
-                                    <p>1. Where are you planning to study</p>
-                                    <input type="text" id="plan-to-study-edit" disabled>
-                                    <div class="checkbox-group-edit" id="selected-study-location-edit">
-                                        <label>
-                                            <input type="checkbox" name="study-location-edit" value="USA" disabled> USA
-                                        </label>
-                                        <label>
-                                            <input type="checkbox" name="study-location-edit" value="UK" disabled> UK
-                                        </label>
-                                        <label>
-                                            <input type="checkbox" name="study-location-edit" value="Ireland" disabled> Ireland
-                                        </label>
-                                        <label>
-                                            <input type="checkbox" name="study-location-edit" value="New Zealand" disabled> New Zealand
-                                        </label>
-                                        <label>
-                                            <input type="checkbox" name="study-location-edit" value="Germany" disabled> Germany
-                                        </label>
-                                        <label>
-                                            <input type="checkbox" name="study-location-edit" value="France" disabled> France
-                                        </label>
-                                        <label>
-                                            <input type="checkbox" name="study-location-edit" value="Sweden" disabled> Sweden
-                                        </label>
-                                        <label>
-                                            <input type="checkbox" name="study-location-edit" value="Other" id="other-checkbox-edit"
-                                                disabled> Other
-                                        </label>
-                                        <label>
-                                            <input type="checkbox" name="study-location-edit" value="Italy" disabled> Italy
-                                        </label>
-                                        <label>
-                                            <input type="checkbox" name="study-location-edit" value="Canada" disabled> Canada
-                                        </label>
-                                        <label>
-                                            <input type="checkbox" name="study-location-edit" value="Australia" disabled> Australia
-                                        </label>
-                                        <label>
-                                            <div class="add-country-box-edit">
-                                                <input type="text" id="country-edit" class="custom-country-edit" placeholder="Add Country">
-                                            </div>
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="myapplication-thirdcolumn">
-                                    <h6>2. Type of Degree?</h6>
-                                    <div class="degreetypescheckboxes">
-                                        <!-- First radio button for Bachelors -->
-                                        <label class="custom-radio">
-                                            <input type="radio" name="education-level" value="Bachelors"
-                                                @if($courseDetails[0]->{'degree-type'} == 'Bachelors') checked @endif
-                                                onclick="toggleOtherDegreeInput(event)" disabled>
-                                            <span class="radio-button"></span>
-                                            <p>Bachelors (only secured loan)</p>
-                                        </label>
-                                        <br>
-
-                                        <!-- Second radio button for Masters -->
-                                        <label class="custom-radio">
-                                            <input type="radio" name="education-level" value="Masters"
-                                                @if($courseDetails[0]->{'degree-type'} == 'Masters') checked @endif
-                                                onclick="toggleOtherDegreeInput(event)" disabled>
-                                            <span class="radio-button"></span>
-                                            <p>Masters</p>
-                                        </label>
-                                        <br>
-
-                                        <!-- Third radio button for Others -->
-                                        <label class="custom-radio">
-                                            <input type="radio" name="education-level" value="Others" @if($courseDetails[0]->{'degree-type'} !== 'Bachelors' && $courseDetails[0]->{'degree-type'} !== 'Masters') checked @endif
-                                                onclick="toggleOtherDegreeInput(event)" disabled>
-                                            <span class="radio-button"></span>
-                                            <p>Others</p>
-                                        </label>
-                                    </div>
-
-                                    <input type="text" placeholder="Enter degree type" value="{{ $courseDetails[0]->{'degree-type'} }}"
-                                        id="otherDegreeInput" @if($courseDetails[0]->{'degree-type'} != 'Others') disabled @endif>
-                                </div>
-
-                                <div class="myapplication-fourthcolumn-additional">
-                                    <p>3. What is the duration of the course?</p>
-                                    <input type="text" placeholder="{{ $courseDetails[0]->{'course-duration'} ?? '' }}"
-                                        value="{{ $courseDetails[0]->{'course-duration'} ?? '' }} " disabled>
-
-                                </div>
-                                <div class="myapplication-fourthcolumn">
-                                    <p>4. What is the Loan amount required?</p>
-                                    <input type="number" placeholder={{$courseDetails[0]->loan_amount_in_lakhs}}
-                                        value={{$courseDetails[0]->loan_amount_in_lakhs}} disabled>
-
-                                </div>
-                                <div class="myapplication-fifthcolumn">
-                                    <p>Referral Code</p>
-                                    <input type="text" placeholder="{{ $userDetails[0]->referral_code }}"
-                                        value="{{ $userDetails[0]->referral_code }}" disabled>
-                                </div>
-                                <div class="myapplication-sixthcolumn">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                </div>
-                                <div class="myapplication-seventhcolumn">
-                                    <h1>Attached Documents</h1>
-                                    <div class="seventhcolum-firstsection">
-                                        <div class="seventhcolumn-header">
-                                            <p>Student KYC Document</p>
-                                            <i class="fa-solid fa-angle-down"></i>
-                                        </div>
-
-                                        <div class="kycdocumentscolumn">
-                                            <div class="individualkycdocuments">
-                                                <p class="document-name">Pan Card</p>
-                                                <div class="inputfilecontainer">
-                                                    <i class="fa-solid fa-image"></i>
-                                                    <p class="uploaded-pan-name"> pan_card.jpg</p>
-                                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-pan-card" />
-                                                </div>
-                                                <input type="file" id="inputfilecontainer-real" />
-                                                <span class="document-status">420 MB uploaded</span>
+                                                @if (isset($others['otherExamName']) && isset($others['otherExamScore']) && is_numeric($others['otherExamScore']) && !empty($others['otherExamScore']))
+                                                    <p>{{ $counter++ }}. {{$others['otherExamName']}} <span>{{$others['otherExamScore']}}</span></p>
+                                                @endif
                                             </div>
 
-                                            <div class="individualkycdocuments">
-                                                <p class="document-name">Aadhar Card</p>
-                                                <div class="inputfilecontainer">
-                                                    <i class="fa-solid fa-image"></i>
-                                                    <p class="uploaded-aadhar-name"> aadhar_card.jpg</p>
-                                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-aadhar-card" />
-                                                </div>
-                                                <input type="file" id="inputfilecontainer-real" />
-                                                <span class="document-status">420 MB uploaded</span>
-                                            </div>
 
-                                            <div class="individualkycdocuments">
-                                                <p class="document-name">Passport</p>
-                                                <div class="inputfilecontainer">
-                                                    <i class="fa-solid fa-image"></i>
-                                                    <p class="passport-name-selector"> Passport.pdf</p>
-                                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-passport-card" />
-                                                </div>
-                                                <input type="file" id="inputfilecontainer-real" />
-                                                <span class="document-status">420 MB uploaded</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                            <div class="testscoreseditsection-secondrow-editsection">
+                                                <p>ILETS</p>
+                                                <input type="text" class="ilets_score" value={{$academicDetails[0]->ILETS}}>
+                                                <p>GRE</p>
+                                                <input type="text" class="gre_score" value={{$academicDetails[0]->GRE}}>
+                                                <p>TOFEL</p> <input type="text" class="tofel_score" value="{{$academicDetails[0]->TOFEL}}">
 
-                                <div class="seventhcolumn-additional">
-                                    <div class="seventhcolumn-additional-firstcolumn">
-                                        <div class="seventhcolumnadditional-header">
-                                            <p>Academic Marksheets</p>
-                                            <i class="fa-solid fa-angle-down"></i>
-                                        </div>
-
-                                        <div class="marksheetdocumentscolumn">
-                                            <div class="individualmarksheetdocuments">
-                                                <p class="document-name">10th grade marksheet</p>
-                                                <div class="inputfilecontainer-marksheet">
-                                                    <i class="fa-solid fa-image"></i>
-                                                    <p class="sslc-marksheet"> 10th grade marksheet</p>
-                                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-card" />
-                                                </div>
-                                                <input type="file" id="inputfilecontainer-real-marksheet" />
-                                                <span class="document-status">420 MB uploaded</span>
-                                            </div>
-
-                                            <div class="individualmarksheetdocuments">
-                                                <p class="document-name">12th grade marksheet</p>
-                                                <div class="inputfilecontainer-marksheet">
-                                                    <i class="fa-solid fa-image"></i>
-                                                    <p class="hsc-marksheet"> 12th grade marksheet</p>
-                                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-card" />
-                                                </div>
-                                                <input type="file" id="inputfilecontainer-real-marksheet" />
-                                                <span class="document-status">420 MB uploaded</span>
-                                            </div>
-
-                                            <div class="individualmarksheetdocuments">
-                                                <p class="document-name">Graduation marksheet</p>
-                                                <div class="inputfilecontainer-marksheet">
-                                                    <i class="fa-solid fa-image"></i>
-                                                    <p class="graduation-marksheet"> Graduation Marksheet</p>
-                                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-card" />
-                                                </div>
-                                                <input type="file" id="inputfilecontainer-real-marksheet" />
-                                                <span class="document-status">420 MB uploaded</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="myapplication-eightcolumn">
-                                    <div class="eightcolumn-firstsection">
-                                        <div class="eightcolumn-header">
-
-                                            <p>Secured Admissions</p>
-                                            <i class="fa-solid fa-angle-down"></i>
-                                        </div>
-                                        <div class="secured-admissioncolumn">
-                                            <div class="individual-secured-admission-documents">
-                                                <p class="document-name">10th Grade
-                                                </p>
-                                                <div class="inputfilecontainer-secured-admission">
-                                                    <i class="fa-solid fa-image"></i>
-                                                    <p class="sslc-grade">SSLC Grade</p>
-
-                                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-grade"></>
-
-                                                </div>
-                                                <input type="file" id="inputfilecontainer-real-marksheet">
-
-                                                <span class="document-status">420 MB uploaded</span>
-                                            </div>
-                                            <div class="individual-secured-admission-documents">
-                                                <p class="document-name">12th Grade
-                                                </p>
-                                                <div class="inputfilecontainer-secured-admission">
-                                                    <i class="fa-solid fa-image"></i>
-                                                    <p class="hsc-grade">HSC Grade</p>
-
-                                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-grade"></>
-
-                                                </div>
-                                                <input type="file" id="inputfilecontainer-real-marksheet">
-
-                                                <span class="document-status">420 MB uploaded</span>
-                                            </div>
-                                            <div class="individual-secured-admission-documents">
-                                                <p class="document-name">Graduation
-                                                </p>
-                                                <div class="inputfilecontainer-secured-admission">
-                                                    <i class="fa-solid fa-image"></i>
-                                                    <p class="graduation-grade">Graduation</p>
-
-                                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-grade"></>
-
-                                                </div>
-                                                <input type="file" id="inputfilecontainer-real-marksheet">
-                                                <span class="document-status">420 MB uploaded</span>
                                             </div>
                                         </div>
                                     </div>
 
 
-                                </div>
-                                <div class="myapplication-ninthcolumn">
-                                    <div class="ninthcolumn-firstsection">
-                                        <div class="ninthcolumn-header">
 
-                                            <p>Work Experience</p>
-                                            <i class="fa-solid fa-angle-down"></i>
+                                    <div class="studentdashboardprofile-myapplication" id="course-details-container"
+                                        data-course-details='{{ json_encode($courseDetails) }}'
+                                        data-personal-details='{{ json_encode($personalDetails) }}'>
+                                        <div class="myapplication-firstcolumn">
+                                            <h1>Course Details</h1>
+                                            <!-- <button >Edit</button> -->
+                                            <div class="personalinfo-firstrow">
+                                                <button onClick="triggerEditButton()">Edit</button>
+                                                <button class="saved-msg">Saved</button>
+                                            </div>
                                         </div>
-                                        <div class="work-experiencecolumn">
-                                            <div class="individual-work-experiencecolumn-documents">
-                                                <p class="document-name">Experience Letter
-                                                </p>
-                                                <div class="inputfilecontainer-work-experiencecolumn">
-                                                    <i class="fa-solid fa-image"></i>
-                                                    <p class="experience-letter">Experience Letter</p>
 
-                                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-experience-letter"></>
+                                        <div class="myapplication-secondcolumn">
+                                            <p>1. Where are you planning to study</p>
+                                            <input type="text" id="plan-to-study-edit" disabled>
+                                            <div class="checkbox-group-edit" id="selected-study-location-edit">
+                                                <label>
+                                                    <input type="checkbox" name="study-location-edit" value="USA" disabled> USA
+                                                </label>
+                                                <label>
+                                                    <input type="checkbox" name="study-location-edit" value="UK" disabled> UK
+                                                </label>
+                                                <label>
+                                                    <input type="checkbox" name="study-location-edit" value="Ireland" disabled> Ireland
+                                                </label>
+                                                <label>
+                                                    <input type="checkbox" name="study-location-edit" value="New Zealand" disabled> New Zealand
+                                                </label>
+                                                <label>
+                                                    <input type="checkbox" name="study-location-edit" value="Germany" disabled> Germany
+                                                </label>
+                                                <label>
+                                                    <input type="checkbox" name="study-location-edit" value="France" disabled> France
+                                                </label>
+                                                <label>
+                                                    <input type="checkbox" name="study-location-edit" value="Sweden" disabled> Sweden
+                                                </label>
+                                                <label>
+                                                    <input type="checkbox" name="study-location-edit" value="Other" id="other-checkbox-edit"
+                                                        disabled> Other
+                                                </label>
+                                                <label>
+                                                    <input type="checkbox" name="study-location-edit" value="Italy" disabled> Italy
+                                                </label>
+                                                <label>
+                                                    <input type="checkbox" name="study-location-edit" value="Canada" disabled> Canada
+                                                </label>
+                                                <label>
+                                                    <input type="checkbox" name="study-location-edit" value="Australia" disabled> Australia
+                                                </label>
+                                                <label>
+                                                    <div class="add-country-box-edit">
+                                                        <input type="text" id="country-edit" class="custom-country-edit" placeholder="Add Country">
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="myapplication-thirdcolumn">
+                                            <h6>2. Type of Degree?</h6>
+                                            <div class="degreetypescheckboxes">
+                                                <!-- First radio button for Bachelors -->
+                                                <label class="custom-radio">
+                                                    <input type="radio" name="education-level" value="Bachelors"
+                                                        @if($courseDetails[0]->{'degree-type'} == 'Bachelors') checked @endif
+                                                        onclick="toggleOtherDegreeInput(event)" disabled>
+                                                    <span class="radio-button"></span>
+                                                    <p>Bachelors (only secured loan)</p>
+                                                </label>
+                                                <br>
+
+                                                <!-- Second radio button for Masters -->
+                                                <label class="custom-radio">
+                                                    <input type="radio" name="education-level" value="Masters"
+                                                        @if($courseDetails[0]->{'degree-type'} == 'Masters') checked @endif
+                                                        onclick="toggleOtherDegreeInput(event)" disabled>
+                                                    <span class="radio-button"></span>
+                                                    <p>Masters</p>
+                                                </label>
+                                                <br>
+
+                                                <!-- Third radio button for Others -->
+                                                <label class="custom-radio">
+                                                    <input type="radio" name="education-level" value="Others" @if($courseDetails[0]->{'degree-type'} !== 'Bachelors' && $courseDetails[0]->{'degree-type'} !== 'Masters') checked @endif
+                                                        onclick="toggleOtherDegreeInput(event)" disabled>
+                                                    <span class="radio-button"></span>
+                                                    <p>Others</p>
+                                                </label>
+                                            </div>
+
+                                            <input type="text" placeholder="Enter degree type" value="{{ $courseDetails[0]->{'degree-type'} }}"
+                                                id="otherDegreeInput" @if($courseDetails[0]->{'degree-type'} != 'Others') disabled @endif>
+                                        </div>
+
+                                        <div class="myapplication-fourthcolumn-additional">
+                                            <p>3. What is the duration of the course?</p>
+                                            <input type="text" placeholder="{{ $courseDetails[0]->{'course-duration'} ?? '' }}"
+                                                value="{{ $courseDetails[0]->{'course-duration'} ?? '' }} " disabled>
+
+                                        </div>
+                                        <div class="myapplication-fourthcolumn">
+                                            <p>4. What is the Loan amount required?</p>
+                                            <input type="number" placeholder={{$courseDetails[0]->loan_amount_in_lakhs}}
+                                                value={{$courseDetails[0]->loan_amount_in_lakhs}} disabled>
+
+                                        </div>
+                                        <div class="myapplication-fifthcolumn">
+                                            <p>Referral Code</p>
+                                            <input type="text" placeholder="{{ $userDetails[0]->referral_code }}"
+                                                value="{{ $userDetails[0]->referral_code }}" disabled>
+                                        </div>
+                                        <div class="myapplication-sixthcolumn">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                        </div>
+                                        <div class="myapplication-seventhcolumn">
+                                            <h1>Attached Documents</h1>
+                                            <div class="seventhcolum-firstsection">
+                                                <div class="seventhcolumn-header">
+                                                    <p>Student KYC Document</p>
+                                                    <i class="fa-solid fa-angle-down"></i>
+                                                </div>
+
+                                                <div class="kycdocumentscolumn">
+                                                    <div class="individualkycdocuments">
+                                                        <p class="document-name">Pan Card</p>
+                                                        <div class="inputfilecontainer">
+                                                            <i class="fa-solid fa-image"></i>
+                                                            <p class="uploaded-pan-name"> pan_card.jpg</p>
+                                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-pan-card" />
+                                                        </div>
+                                                        <input type="file" id="inputfilecontainer-real" />
+                                                        <span class="document-status">420 MB uploaded</span>
+                                                    </div>
+
+                                                    <div class="individualkycdocuments">
+                                                        <p class="document-name">Aadhar Card</p>
+                                                        <div class="inputfilecontainer">
+                                                            <i class="fa-solid fa-image"></i>
+                                                            <p class="uploaded-aadhar-name"> aadhar_card.jpg</p>
+                                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-aadhar-card" />
+                                                        </div>
+                                                        <input type="file" id="inputfilecontainer-real" />
+                                                        <span class="document-status">420 MB uploaded</span>
+                                                    </div>
+
+                                                    <div class="individualkycdocuments">
+                                                        <p class="document-name">Passport</p>
+                                                        <div class="inputfilecontainer">
+                                                            <i class="fa-solid fa-image"></i>
+                                                            <p class="passport-name-selector"> Passport.pdf</p>
+                                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-passport-card" />
+                                                        </div>
+                                                        <input type="file" id="inputfilecontainer-real" />
+                                                        <span class="document-status">420 MB uploaded</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="seventhcolumn-additional">
+                                            <div class="seventhcolumn-additional-firstcolumn">
+                                                <div class="seventhcolumnadditional-header">
+                                                    <p>Academic Marksheets</p>
+                                                    <i class="fa-solid fa-angle-down"></i>
+                                                </div>
+
+                                                <div class="marksheetdocumentscolumn">
+                                                    <div class="individualmarksheetdocuments">
+                                                        <p class="document-name">10th grade marksheet</p>
+                                                        <div class="inputfilecontainer-marksheet">
+                                                            <i class="fa-solid fa-image"></i>
+                                                            <p class="sslc-marksheet"> 10th grade marksheet</p>
+                                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-card" />
+                                                        </div>
+                                                        <input type="file" id="inputfilecontainer-real-marksheet" />
+                                                        <span class="document-status">420 MB uploaded</span>
+                                                    </div>
+
+                                                    <div class="individualmarksheetdocuments">
+                                                        <p class="document-name">12th grade marksheet</p>
+                                                        <div class="inputfilecontainer-marksheet">
+                                                            <i class="fa-solid fa-image"></i>
+                                                            <p class="hsc-marksheet"> 12th grade marksheet</p>
+                                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-card" />
+                                                        </div>
+                                                        <input type="file" id="inputfilecontainer-real-marksheet" />
+                                                        <span class="document-status">420 MB uploaded</span>
+                                                    </div>
+
+                                                    <div class="individualmarksheetdocuments">
+                                                        <p class="document-name">Graduation marksheet</p>
+                                                        <div class="inputfilecontainer-marksheet">
+                                                            <i class="fa-solid fa-image"></i>
+                                                            <p class="graduation-marksheet"> Graduation Marksheet</p>
+                                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-card" />
+                                                        </div>
+                                                        <input type="file" id="inputfilecontainer-real-marksheet" />
+                                                        <span class="document-status">420 MB uploaded</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="myapplication-eightcolumn">
+                                            <div class="eightcolumn-firstsection">
+                                                <div class="eightcolumn-header">
+
+                                                    <p>Secured Admissions</p>
+                                                    <i class="fa-solid fa-angle-down"></i>
+                                                </div>
+                                                <div class="secured-admissioncolumn">
+                                                    <div class="individual-secured-admission-documents">
+                                                        <p class="document-name">10th Grade
+                                                        </p>
+                                                        <div class="inputfilecontainer-secured-admission">
+                                                            <i class="fa-solid fa-image"></i>
+                                                            <p class="sslc-grade">SSLC Grade</p>
+
+                                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-grade"></>
+
+                                                        </div>
+                                                        <input type="file" id="inputfilecontainer-real-marksheet">
+
+                                                        <span class="document-status">420 MB uploaded</span>
+                                                    </div>
+                                                    <div class="individual-secured-admission-documents">
+                                                        <p class="document-name">12th Grade
+                                                        </p>
+                                                        <div class="inputfilecontainer-secured-admission">
+                                                            <i class="fa-solid fa-image"></i>
+                                                            <p class="hsc-grade">HSC Grade</p>
+
+                                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-grade"></>
+
+                                                        </div>
+                                                        <input type="file" id="inputfilecontainer-real-marksheet">
+
+                                                        <span class="document-status">420 MB uploaded</span>
+                                                    </div>
+                                                    <div class="individual-secured-admission-documents">
+                                                        <p class="document-name">Graduation
+                                                        </p>
+                                                        <div class="inputfilecontainer-secured-admission">
+                                                            <i class="fa-solid fa-image"></i>
+                                                            <p class="graduation-grade">Graduation</p>
+
+                                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-grade"></>
+
+                                                        </div>
+                                                        <input type="file" id="inputfilecontainer-real-marksheet">
+                                                        <span class="document-status">420 MB uploaded</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="myapplication-ninthcolumn">
+                                            <div class="ninthcolumn-firstsection">
+                                                <div class="ninthcolumn-header">
+
+                                                    <p>Work Experience</p>
+                                                    <i class="fa-solid fa-angle-down"></i>
+                                                </div>
+                                                <div class="work-experiencecolumn">
+                                                    <div class="individual-work-experiencecolumn-documents">
+                                                        <p class="document-name">Experience Letter
+                                                        </p>
+                                                        <div class="inputfilecontainer-work-experiencecolumn">
+                                                            <i class="fa-solid fa-image"></i>
+                                                            <p class="experience-letter">Experience Letter</p>
+
+                                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-experience-letter"></>
+
+                                                        </div>
+                                                        <input type="file" id="inputfilecontainer-work-experience">
+
+                                                        <span class="document-status">420 MB uploaded</span>
+                                                    </div>
+                                                    <div class="individual-work-experiencecolumn-documents">
+                                                        <p class="document-name">3 month Salary Slip
+                                                        </p>
+                                                        <div class="inputfilecontainer-work-experiencecolumn">
+                                                            <i class="fa-solid fa-image"></i>
+                                                            <p class="salary-slip">3 month salary slip</p>
+
+                                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-salary-slip"></>
+
+                                                        </div>
+                                                        <input type="file" id="inputfilecontainer-real-marksheet">
+
+                                                        <span class="document-status">420 MB uploaded</span>
+                                                    </div>
+                                                    <div class="individual-work-experiencecolumn-documents">
+                                                        <p class="document-name">Office ID
+                                                        </p>
+                                                        <div class="inputfilecontainer-work-experiencecolumn">
+                                                            <i class="fa-solid fa-image"></i>
+                                                            <p class="office-id">Office ID</p>
+
+                                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-office-id"></>
+
+                                                        </div>
+                                                        <input type="file" id="inputfilecontainer-real-marksheet">
+
+                                                        <span class="document-status">420 MB uploaded</span>
+                                                    </div>
+                                                    <div class="individual-work-experiencecolumn-documents">
+                                                        <p class="document-name">Employment Joining Letter
+                                                        </p>
+                                                        <div class="inputfilecontainer-work-experiencecolumn">
+                                                            <i class="fa-solid fa-image"></i>
+                                                            <p class="joining-letter">Joining Letter</p>
+
+                                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-joining-letter"></>
+
+                                                        </div>
+                                                        <input type="file" id="inputfilecontainer-real-marksheet">
+
+                                                        <span class="document-status">420 MB uploaded</span>
+                                                    </div>
 
                                                 </div>
-                                                <input type="file" id="inputfilecontainer-work-experience">
-
-                                                <span class="document-status">420 MB uploaded</span>
                                             </div>
-                                            <div class="individual-work-experiencecolumn-documents">
-                                                <p class="document-name">3 month Salary Slip
-                                                </p>
-                                                <div class="inputfilecontainer-work-experiencecolumn">
-                                                    <i class="fa-solid fa-image"></i>
-                                                    <p class="salary-slip">3 month salary slip</p>
 
-                                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-salary-slip"></>
-
+                                        </div>
+                                        <div class="myapplication-tenthcolumn">
+                                            <div class="tenthcolumn-firstsection">
+                                                <div class="tenthcolumn-header">
+                                                    <p>Co-borrower Documents</p>
+                                                    <i class="fa-solid fa-angle-down"></i>
                                                 </div>
-                                                <input type="file" id="inputfilecontainer-real-marksheet">
-
-                                                <span class="document-status">420 MB uploaded</span>
-                                            </div>
-                                            <div class="individual-work-experiencecolumn-documents">
-                                                <p class="document-name">Office ID
-                                                </p>
-                                                <div class="inputfilecontainer-work-experiencecolumn">
-                                                    <i class="fa-solid fa-image"></i>
-                                                    <p class="office-id">Office ID</p>
-
-                                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-office-id"></>
-
+                                                <div class="coborrower-kyccolumn">
+                                                    <div class="individual-coborrower-kyc-documents">
+                                                        <p class="document-name">Pan Card
+                                                        </p>
+                                                        <div class="inputfilecontainer-coborrower-kyccolumn">
+                                                            <i class="fa-solid fa-image"></i>
+                                                            <p class="coborrower-pancard">Pan Card </p>
+                                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-pan"></>
+                                                        </div>
+                                                        <input type="file" id="inputfilecontainer-kyccoborrwer">
+                                                        <span class="document-status">420 MB uploaded</span>
+                                                    </div>
+                                                    <div class="individual-coborrower-kyc-documents">
+                                                        <p class="document-name">Aadhar Card
+                                                        </p>
+                                                        <div class="inputfilecontainer-coborrower-kyccolumn">
+                                                            <i class="fa-solid fa-image"></i>
+                                                            <p class="coborrower-aadharcard">Aadhar Card </p>
+                                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-aadhar"></>
+                                                        </div>
+                                                        <input type="file" id="inputfilecontainer-kyccoborrwer">
+                                                        <span class="document-status">420 MB uploaded</span>
+                                                    </div>
+                                                    <div class="individual-coborrower-kyc-documents">
+                                                        <p class="document-name">Address Proof
+                                                        </p>
+                                                        <div class="inputfilecontainer-coborrower-kyccolumn">
+                                                            <i class="fa-solid fa-image"></i>
+                                                            <p class="coborrower-addressproof">Address Proof </p>
+                                                            <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-addressproof"></>
+                                                        </div>
+                                                        <input type="file" id="inputfilecontainer-kyccoborrwer">
+                                                        <span class="document-status">420 MB uploaded</span>
+                                                    </div>
                                                 </div>
-                                                <input type="file" id="inputfilecontainer-real-marksheet">
-
-                                                <span class="document-status">420 MB uploaded</span>
-                                            </div>
-                                            <div class="individual-work-experiencecolumn-documents">
-                                                <p class="document-name">Employment Joining Letter
-                                                </p>
-                                                <div class="inputfilecontainer-work-experiencecolumn">
-                                                    <i class="fa-solid fa-image"></i>
-                                                    <p class="joining-letter">Joining Letter</p>
-
-                                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-joining-letter"></>
-
-                                                </div>
-                                                <input type="file" id="inputfilecontainer-real-marksheet">
-
-                                                <span class="document-status">420 MB uploaded</span>
                                             </div>
 
+                                        </div>
+                                        <div class="dynamic-fields-column">
+                                            <div class="tenthcolumn-header">
+                                                <p>Additional Details</p>
+                                                <i class="fa-solid fa-angle-down"></i>
+                                            </div>
+                                        </div>
+                                        <div class="myapplication-eleventhcolumn">
+                                            <button class="mailnbfcbutton">Send Email to NBFCs</button>
                                         </div>
                                     </div>
 
-                                </div>
-                                <div class="myapplication-tenthcolumn">
-                                    <div class="tenthcolumn-firstsection">
-                                        <div class="tenthcolumn-header">
-                                            <p>Co-borrower Documents</p>
-                                            <i class="fa-solid fa-angle-down"></i>
-                                        </div>
-                                        <div class="coborrower-kyccolumn">
-                                            <div class="individual-coborrower-kyc-documents">
-                                                <p class="document-name">Pan Card
-                                                </p>
-                                                <div class="inputfilecontainer-coborrower-kyccolumn">
-                                                    <i class="fa-solid fa-image"></i>
-                                                    <p class="coborrower-pancard">Pan Card </p>
-                                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-pan"></>
-                                                </div>
-                                                <input type="file" id="inputfilecontainer-kyccoborrwer">
-                                                <span class="document-status">420 MB uploaded</span>
-                                            </div>
-                                            <div class="individual-coborrower-kyc-documents">
-                                                <p class="document-name">Aadhar Card
-                                                </p>
-                                                <div class="inputfilecontainer-coborrower-kyccolumn">
-                                                    <i class="fa-solid fa-image"></i>
-                                                    <p class="coborrower-aadharcard">Aadhar Card </p>
-                                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-aadhar"></>
-                                                </div>
-                                                <input type="file" id="inputfilecontainer-kyccoborrwer">
-                                                <span class="document-status">420 MB uploaded</span>
-                                            </div>
-                                            <div class="individual-coborrower-kyc-documents">
-                                                <p class="document-name">Address Proof
-                                                </p>
-                                                <div class="inputfilecontainer-coborrower-kyccolumn">
-                                                    <i class="fa-solid fa-image"></i>
-                                                    <p class="coborrower-addressproof">Address Proof </p>
-                                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-addressproof"></>
-                                                </div>
-                                                <input type="file" id="inputfilecontainer-kyccoborrwer">
-                                                <span class="document-status">420 MB uploaded</span>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                 </div>
-                                <div class="dynamic-fields-column">
-                                    <div class="tenthcolumn-header">
-                                        <p>Additional Details</p>
-                                        <i class="fa-solid fa-angle-down"></i>
-                                    </div>
-                                </div>
-                                <div class="myapplication-eleventhcolumn">
-                                    <button class="mailnbfcbutton">Send Email to NBFCs</button>
-                                </div>
-                            </div>
-
-
-                        </div>
 
 
     @endsection

@@ -169,7 +169,7 @@ Route::post('/proposalcompletion', [StudentDashboardController::class, 'proposal
 Route::post('/check_userid', [StudentDashboardController::class, 'checkUserId']);
 Route::post('/count-user-status', [StudentDashboardController::class, 'getStatusCount']);
 Route::post('/multipleregisterbyscuser', [StudentDashboardController::class, 'multipleuserbyscuser']);
-Route::get('/retrievedashboarddetails', [Admincontroller::class, 'retrieveDashboardDetails']);
+Route::post('/retrievedashboarddetails', [Admincontroller::class, 'retrieveDashboardDetails']);
  
 Route::get('/getstatusofusersadmin', [Admincontroller::class, 'pointOfEntries']);
 Route::get('/nbfc-lead-gens', [Admincontroller::class, 'nbfcLeadGens']);

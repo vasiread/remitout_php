@@ -847,11 +847,11 @@
     display: none;
     padding: 20px 24px;
     box-shadow: 0px 0px 20px 0px #1a02390d;
-    max-width: 77%;
-    width: 100%;
+        max-width: 71.84%;
+            width: 100%;
     gap: 20px;
     flex-direction: column;
-    margin: 10% 1% 0% 25%;
+    margin: 8.5% 1% 0% 24%;
 }
 
 .studentapplicationstatusreports-inscdashboard {
@@ -1062,8 +1062,9 @@
 }
 
 .reportsproposal-datalists .reportsproposal-individualdatalists {
-    display: flex;
-    gap: 80px;
+display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
 }
 
 .pagination-download-groups {

@@ -30,5 +30,10 @@ class proposalcompletion extends Model
     {
         return $this->belongsTo(Nbfc::class, 'nbfc_id', 'nbfc_id');
     }
+    public function courseInfo()
+    {
+        return $this->belongsTo(CourseInfo::class, 'user_id', 'user_id');
+    }
+
 }
 

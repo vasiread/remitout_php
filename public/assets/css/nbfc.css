@@ -736,11 +736,16 @@ body {
         padding: 0;
     }
 
-    .nbfc-profile-text,
-    .nbfc-dropdown-icon {
+    .nbfc-profile-text {
         display: none;
     }
+    .password-change-container-nbfc{
+        max-width: 65%;
 
+    }
+.password-change-triggered-view-headersection-nbfc h3{
+    font-size: 12px;
+}
     .nbfc-avatar {
         width: 40px;
         height: 40px;
@@ -2929,8 +2934,7 @@ body {
     }
 
     .messages-wrapper {
-        width: 300px;
-        padding: 0;
+         padding: 0;
         margin-left: 5px;
     }
 

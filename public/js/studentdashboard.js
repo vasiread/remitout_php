@@ -171,7 +171,6 @@ async function displayEducationDetails() {
         const data = await response.json();
 
         if (data.success) {
-            console.log(">>>",data)
             const educationSection = document.querySelector('.studentdashboardprofile-educationeditsection');
             if (!educationSection) {
                 console.error('Education section not found');
@@ -4494,3 +4493,223 @@ const passwordForgot = () => {
 
 
  
+function createAdminChatStudent() {
+    // NBFC user data - replace with actual data or pass as argument
+    const nbfc_id = window.nbfcUser?.nbfc_id || 'user123';
+    const admin_id = 'admin001';
+
+    // Prevent duplicates
+    if (document.querySelector('.admin-msg-container')) return;
+
+    const container = document.querySelector('.adminmessage-inboxnbfc');
+    if (!container) return;
+
+    // Main container
+    const mainDiv = document.createElement('div');
+    mainDiv.classList.add('admin-msg-container');
+    mainDiv.style.cssText = `
+    border: 1px solid #ddd; border-radius: 10px; margin: 20px 0; 
+    overflow: hidden; font-family: 'Poppins', sans-serif;
+    max-width: 400px;
+  `;
+
+    // Header
+    const header = document.createElement('div');
+    header.style.cssText = `
+    display: flex; justify-content: space-between; align-items: center;
+    background: #f8f8f8; padding: 12px 16px; border-bottom: 1px solid #eee;
+  `;
+
+    const titleDiv = document.createElement('div');
+    titleDiv.innerHTML = `<strong>Admin (${admin_id})</strong><br><small>Support & Communication Desk</small>`;
+    titleDiv.style.cssText = `font-size: 14px; color: #444;`;
+
+    const btnGroup = document.createElement('div');
+
+    const messageBtn = document.createElement('button');
+    messageBtn.textContent = 'Message';
+    messageBtn.style.cssText = `
+    background-color: #6f25ce; color: white; border: none; padding: 8px 16px; 
+    border-radius: 4px; cursor: pointer; font-family: Poppins, sans-serif;
+  `;
+
+    const closeBtn = document.createElement('button');
+    closeBtn.textContent = 'View';
+    closeBtn.style.cssText = `
+    background-color: transparent; border: 1px solid #6f25ce; color: #6f25ce;
+    padding: 8px 16px; border-radius: 4px; cursor: pointer; font-family: Poppins, sans-serif;
+    width: 70px;
+  `;
+
+    btnGroup.append(messageBtn, closeBtn);
+    header.append(titleDiv, btnGroup);
+
+    // Chat messages container
+    const chatWrapper = document.createElement('div');
+    chatWrapper.style.cssText = `
+    display: none; flex-direction: column; padding: 15px; max-height: 300px;
+    overflow-y: auto; background: white; font-size: 14px; line-height: 1.3;
+  `;
+
+    // Input area container
+    const inputContainer = document.createElement('div');
+    inputContainer.style.cssText = `
+    display: none; align-items: center; padding: 10px; background: #fafafa;
+    border-top: 1px solid #eee; position: relative;
+  `;
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.placeholder = 'Send message';
+    input.style.cssText = `
+    flex: 1; padding: 8px 12px; border-radius: 20px; border: 1px solid #ccc;
+    margin-right: 10px; font-family: Poppins, sans-serif; font-size: 14px;
+  `;
+
+    const emojiIcon = document.createElement('i');
+    emojiIcon.className = 'fa-regular fa-face-smile';
+    emojiIcon.style.cssText = 'font-size: 18px; margin-right: 8px; color: #888; cursor: pointer;';
+
+    const paperclipIcon = document.createElement('i');
+    paperclipIcon.className = 'fa-solid fa-paperclip';
+    paperclipIcon.style.cssText = 'font-size: 18px; margin-right: 8px; color: #888; cursor: pointer;';
+
+    const sendIcon = document.createElement('img');
+    sendIcon.src = 'assets/images/send-nbfc.png';
+    sendIcon.alt = 'send icon';
+    sendIcon.style.cssText = 'width: 22px; height: 22px; cursor: pointer;';
+
+    // Emoji picker popup
+    const emojiPicker = document.createElement('div');
+    emojiPicker.style.cssText = `
+    position: absolute; bottom: 45px; left: 10px; background: white;
+    border: 1px solid #ddd; border-radius: 8px; padding: 10px;
+    display: none; max-width: 200px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    font-size: 20px; user-select: none; cursor: default; z-index: 1000;
+  `;
+    const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
+    emojis.forEach(emojiChar => {
+        const span = document.createElement('span');
+        span.textContent = emojiChar;
+        span.style.cssText = 'cursor: pointer; padding: 5px; display: inline-block;';
+        span.addEventListener('click', () => {
+            input.value += emojiChar;
+            emojiPicker.style.display = 'none';
+            input.focus();
+        });
+        emojiPicker.appendChild(span);
+    });
+
+    inputContainer.append(input, emojiIcon, paperclipIcon, sendIcon, emojiPicker);
+
+    mainDiv.append(header, chatWrapper, inputContainer);
+    container.appendChild(mainDiv);
+
+    // Fetch and load messages
+    async function loadMessages() {
+        chatWrapper.innerHTML = '';
+        try {
+            const res = await fetch(`/get-messages-adminnbfc/${nbfc_id}/${admin_id}`);
+            const data = await res.json();
+            if (data.messages && data.messages.length) {
+                data.messages.sort((a, b) => a.id - b.id).forEach(msg => {
+                    const isSender = msg.sender_id === nbfc_id;
+                    const msgDiv = document.createElement('div');
+                    msgDiv.style.cssText = `display: flex; justify-content: ${isSender ? 'flex-end' : 'flex-start'}; margin-bottom: 10px;`;
+
+                    const bubble = document.createElement('div');
+                    bubble.style.cssText = `
+            max-width: 80%; padding: 8px 12px; border-radius: 8px;
+            background-color: ${isSender ? '#DCF8C6' : '#F1F0F0'};
+            word-wrap: break-word; box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+          `;
+
+                    if (msg.message.match(/\.(pdf|docx?|txt)$/i)) {
+                        const a = document.createElement('a');
+                        a.href = msg.message;
+                        a.target = '_blank';
+                        a.textContent = msg.message.split('/').pop();
+                        a.style.color = '#333';
+                        bubble.appendChild(a);
+                    } else {
+                        bubble.textContent = msg.message;
+                    }
+
+                    msgDiv.appendChild(bubble);
+                    chatWrapper.appendChild(msgDiv);
+                });
+            } else {
+                chatWrapper.innerHTML = `<div style="text-align:center; padding:20px; color:#999;">No messages yet</div>`;
+            }
+        } catch (e) {
+            console.error('Failed to load messages:', e);
+        }
+    }
+
+    // Show chat and input
+    messageBtn.addEventListener('click', async () => {
+        chatWrapper.style.display = 'flex';
+        inputContainer.style.display = 'flex';
+        closeBtn.textContent = 'Close';
+        await loadMessages();
+        chatWrapper.scrollTop = chatWrapper.scrollHeight;
+    });
+
+    // Hide chat and input
+    closeBtn.addEventListener('click', () => {
+        chatWrapper.style.display = 'none';
+        inputContainer.style.display = 'none';
+        closeBtn.textContent = 'View';
+        emojiPicker.style.display = 'none';
+    });
+
+    // Toggle emoji picker
+    emojiIcon.addEventListener('click', (e) => {
+        e.stopPropagation();
+        emojiPicker.style.display = emojiPicker.style.display === 'none' ? 'block' : 'none';
+    });
+
+    // Close emoji picker on outside click
+    document.addEventListener('click', () => {
+        emojiPicker.style.display = 'none';
+    });
+
+    // Send message function
+    async function sendMessage() {
+        const msg = input.value.trim();
+        if (!msg) return;
+
+        try {
+            const res = await fetch('/send-message-from-adminnbfc', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                },
+                body: JSON.stringify({
+                    id: nbfc_id,
+                    admin_id: admin_id,
+                    sender_id: nbfc_id,
+                    receiver_id: admin_id,
+                    message: msg,
+                    is_read: false
+                })
+            });
+            if (res.ok) {
+                input.value = '';
+                await loadMessages();
+                chatWrapper.scrollTop = chatWrapper.scrollHeight;
+            }
+        } catch (e) {
+            console.error('Send message error:', e);
+        }
+    }
+
+    sendIcon.addEventListener('click', sendMessage);
+    input.addEventListener('keypress', e => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            sendMessage();
+        }
+    });
+}

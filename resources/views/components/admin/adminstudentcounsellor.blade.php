@@ -18,14 +18,14 @@
     @extends('layouts.app')
 
     @php
-$profileIconPath = "assets/images/account_circle1.png";
-$phoneIconPath = "assets/images/call.png";
-$mailIconPath = "assets/images/mail.png";
-$pindropIconPath = "assets/images/pin_drop.png";
+        $profileIconPath = "assets/images/account_circle1.png";
+        $phoneIconPath = "assets/images/call.png";
+        $mailIconPath = "assets/images/mail.png";
+        $pindropIconPath = "assets/images/pin_drop.png";
     @endphp
 
     @php
-$studentCounsellorsLists = [];
+        $studentCounsellorsLists = [];
     @endphp
 
     <div class="add-studentcounsellor-adminside" style="display:none">
@@ -189,8 +189,9 @@ $studentCounsellorsLists = [];
         <div class="scdashboard-performancecontainer">
             <div class="performancecontainer-firstrow">
                 <h3>Performance</h3>
-                <button class="edit-scuser" style="cursor:pointer">Edit</button>
-                <button class="save-scuser" style="cursor:pointer">Save</button>
+                <button class="edit-scuser" id="suspend-scuser-admin"
+                    style="cursor:pointer;display:none;cursor: pointer;display: flex;width: 82px;color: #6f25ce;">Suspend</button>
+                <button class="save-scuser" id="save-scuser-admin" style="cursor:pointer;display:none;">Save</button>
             </div>
             <ul class="scdashboard-individual-performance">
                 <li>
@@ -229,7 +230,7 @@ $studentCounsellorsLists = [];
                 <div class="groupofraisedquestion-scdashboard">
                     <p>Loading queries...</p>
                 </div>
-               </script>
+                </script>
             </div>
         </div>
     </div>
@@ -493,59 +494,69 @@ $studentCounsellorsLists = [];
 
         function dynamicTriggerModel(viewButton, editButton, suspendButton, counsellor, modelScProfile, studentCounsellorList) {
             let editmode = false;
-            const insideSuspendTrigger = document.querySelector("#scdashboard-profile-adminside .performancecontainer-firstrow .edit-scuser");
-            if (insideSuspendTrigger) {
-                insideSuspendTrigger.textContent = "Suspend";
-                insideSuspendTrigger.style.color = "rgba(111, 37, 206, 1)";
-                insideSuspendTrigger.style.padding = "9px 22px";
-                insideSuspendTrigger.style.width = "106px";
-                insideSuspendTrigger.style.height = "35px";
-
-
-
-
-            }
-
 
             async function renderProfile() {
-                if (modelScProfile && studentCounsellorList) {
-                    modelScProfile.style.display = "flex";
-                    studentCounsellorList.style.display = "none";
-                    await queryDetails(counsellor.referral_code);
+                if (!modelScProfile || !studentCounsellorList) return;
 
-                    if (editmode) {
-                        modelScProfile.querySelector(".scmember_personal_info_name input").value = counsellor.full_name || '';
-                        modelScProfile.querySelector(".scmember_personal_info_phone input").value = counsellor.phone || '';
-                        modelScProfile.querySelector(".scmember_personal_info_email input").value = counsellor.email || '';
-                        modelScProfile.querySelector(".scmember_personal_info_state-edit input").value = counsellor.address || '';
-                        modelScProfile.querySelector("#scaddress-address").value = counsellor.address || '';
-                        modelScProfile.querySelector("#scaddress-city").value = counsellor.city || '';
-                        modelScProfile.querySelector("#scaddress-state").value = counsellor.state || '';
-                        modelScProfile.querySelector("#scaddress-pincode").value = counsellor.pincode || '';
-                        modelScProfile.querySelector("#dob-input").value = counsellor.dob || '';
+                modelScProfile.style.display = "flex";
+                studentCounsellorList.style.display = "none";
 
-                        modelScProfile.querySelector(".scmember_personalinfo_editmode").style.display = "block";
-                        modelScProfile.querySelector(".scmember_personalinfo").style.display = "none";
-                        modelScProfile.querySelector("#screferral-dob-fromprofile-editmode").style.display = "flex";
-                        modelScProfile.querySelector("#screferral-dob-fromprofile").style.display = "none";
-                    } else {
-                        modelScProfile.querySelector("#screferral-id-fromprofile span").textContent = counsellor.referral_code || '';
-                        modelScProfile.querySelector(".scmember_personal_info_name p").textContent = counsellor.full_name || '';
-                        modelScProfile.querySelector("#screferral-dob-fromprofile p").textContent = counsellor.dob || '';
-                        modelScProfile.querySelector(".scmember_personal_info_email p").textContent = counsellor.email || '';
-                        modelScProfile.querySelector(".scmember_personal_info_phone p").textContent = counsellor.phone || '';
-                        modelScProfile.querySelector(".scmember_personal_info_state p").textContent = counsellor.address || '';
+                await queryDetails(counsellor.referral_code);
 
-                        modelScProfile.querySelector(".scmember_personalinfo_editmode").style.display = "none";
-                        modelScProfile.querySelector(".scmember_personalinfo").style.display = "block";
-                        modelScProfile.querySelector("#screferral-dob-fromprofile-editmode").style.display = "none";
-                        modelScProfile.querySelector("#screferral-dob-fromprofile").style.display = "flex";
+                if (editmode) {
+                    // Edit mode UI
+                    modelScProfile.querySelector(".scmember_personal_info_name input").value = counsellor.full_name || '';
+                    modelScProfile.querySelector(".scmember_personal_info_phone input").value = counsellor.phone || '';
+                    modelScProfile.querySelector(".scmember_personal_info_email input").value = counsellor.email || '';
+                    modelScProfile.querySelector(".scmember_personal_info_state-edit input").value = counsellor.address || '';
+                    modelScProfile.querySelector("#scaddress-address").value = counsellor.address || '';
+                    modelScProfile.querySelector("#scaddress-city").value = counsellor.city || '';
+                    modelScProfile.querySelector("#scaddress-state").value = counsellor.state || '';
+                    modelScProfile.querySelector("#scaddress-pincode").value = counsellor.pincode || '';
+
+                    if (counsellor.dob) {
+                        const dobPicker = document.querySelector("#dob-input")?._flatpickr;
+                        if (dobPicker) dobPicker.setDate(counsellor.dob, true);
                     }
+
+                    modelScProfile.querySelector(".scmember_personalinfo_editmode").style.display = "block";
+                    modelScProfile.querySelector(".scmember_personalinfo").style.display = "none";
+                    modelScProfile.querySelector("#screferral-dob-fromprofile-editmode").style.display = "flex";
+                    modelScProfile.querySelector("#screferral-dob-fromprofile").style.display = "none";
+
+                    savescUserAdminMode();
+                } else {
+                    // View mode UI
+                    modelScProfile.querySelector("#screferral-id-fromprofile span").textContent = counsellor.referral_code || '';
+                    modelScProfile.querySelector(".scmember_personal_info_name p").textContent = counsellor.full_name || '';
+                    modelScProfile.querySelector("#dob-display").textContent = counsellor.dob || '';
+                    modelScProfile.querySelector(".scmember_personal_info_email p").textContent = counsellor.email || '';
+                    modelScProfile.querySelector(".scmember_personal_info_phone p").textContent = counsellor.phone || '';
+                    modelScProfile.querySelector(".scmember_personal_info_state p").textContent = counsellor.address || '';
+
+                    modelScProfile.querySelector(".scmember_personalinfo_editmode").style.display = "none";
+                    modelScProfile.querySelector(".scmember_personalinfo").style.display = "block";
+                    modelScProfile.querySelector("#screferral-dob-fromprofile-editmode").style.display = "none";
+                    modelScProfile.querySelector("#screferral-dob-fromprofile").style.display = "flex";
                 }
+
+                document.getElementById("save-scuser-admin").style.display = editmode ? "flex" : "none";
+                document.getElementById("suspend-scuser-admin").style.display = !editmode ? "flex" : "none";
+                // Re-attach listener to suspend button in profile view (shown in view mode)
+                const profileSuspendButton = document.getElementById("suspend-scuser-admin");
+                if (profileSuspendButton) {
+                    const newButton = profileSuspendButton.cloneNode(true);
+                    profileSuspendButton.parentNode.replaceChild(newButton, profileSuspendButton);
+
+                    // Attach dynamic version of eliminateScUser
+                    newButton.addEventListener("click", () => eliminateScUser(counsellor));
+                }
+
+
             }
 
-            function eliminateScUser() {
-                const scReferral = counsellor.referral_code;
+            function eliminateScUser(currentCounsellor) {
+                const scReferral = currentCounsellor.referral_code;
                 if (!scReferral) {
                     alert("Referral code is missing.");
                     return;
@@ -575,94 +586,84 @@ $studentCounsellorsLists = [];
                     });
             }
 
-            viewButton.addEventListener('click', () => {
+            if (suspendButton && !suspendButton.classList.contains("listener-attached")) {
+                suspendButton.addEventListener("click", () => eliminateScUser(counsellor));
+                suspendButton.classList.add("listener-attached");
+            }
+
+
+            viewButton.addEventListener("click", () => {
                 editmode = false;
                 renderProfile();
-
-                const insideSuspendTrigger = document.querySelector("#scdashboard-profile-adminside .performancecontainer-firstrow .edit-scuser");
-
-                if (insideSuspendTrigger) {
-                    insideSuspendTrigger.addEventListener('click', () => {
-                        eliminateScUser();
-
-
-                    })
-                }
-
-
-
-
-
-
             });
 
-            editButton.addEventListener('click', () => {
+            editButton.addEventListener("click", () => {
                 editmode = true;
                 renderProfile();
             });
 
-            suspendButton.addEventListener('click', () => {
-                eliminateScUser();
-            });
+            function savescUserAdminMode() {
+                const saveScUserAdmin = document.querySelector("#save-scuser-admin");
 
-            const saveScUserAdmin = document.querySelector("#scdashboard-profile-adminside .save-scuser");
-            if (saveScUserAdmin && !saveScUserAdmin.classList.contains("listener-attached")) {
-                saveScUserAdmin.addEventListener('click', () => {
-                    const updatedName = modelScProfile.querySelector(".scmember_personal_info_name input").value;
-                    const updatedPhone = modelScProfile.querySelector(".scmember_personal_info_phone input").value;
-                    const updatedDob = modelScProfile.querySelector("#dob-input").value;
+                // Remove any existing listeners before adding a new one
+                const newSaveButton = saveScUserAdmin.cloneNode(true);
+                saveScUserAdmin.parentNode.replaceChild(newSaveButton, saveScUserAdmin);
 
-                    const updatedStreet = modelScProfile.querySelector("#scaddress-address").value;
-                    const updatedCity = modelScProfile.querySelector("#scaddress-city").value;
-                    const updatedState = modelScProfile.querySelector("#scaddress-state").value;
-                    const updatedPincode = modelScProfile.querySelector("#scaddress-pincode").value;
-
+                newSaveButton.addEventListener("click", () => {
                     const updatedData = {
                         scRefNo: counsellor.referral_code || '',
-                        updatedScName: updatedName,
-                        updatedScDob: updatedDob,
-                        updatedScPhone: updatedPhone,
-                        street: updatedStreet,
-                        district: updatedCity,
-                        state: updatedState,
-                        pincode: updatedPincode
+                        updatedScName: modelScProfile.querySelector(".scmember_personal_info_name input").value || '',
+                        updatedScDob: modelScProfile.querySelector("#dob-input").value || '',
+                        updatedScPhone: modelScProfile.querySelector(".scmember_personal_info_phone input").value || '',
+                        street: modelScProfile.querySelector("#scaddress-address").value || '',
+                        district: modelScProfile.querySelector("#scaddress-city").value || '',
+                        state: modelScProfile.querySelector("#scaddress-state").value || '',
+                        pincode: modelScProfile.querySelector("#scaddress-pincode").value || ''
                     };
 
                     fetch("/updatescuserdetails", {
                         method: "POST",
                         headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content")
                         },
                         body: JSON.stringify(updatedData)
                     })
-                        .then((response) => response.json())
-                        .then((data) => {
+                        .then(response => {
+                            if (!response.ok) throw new Error("Failed to update details.");
+                            return response.json();
+                        })
+                        .then(data => {
                             if (data.success) {
-                                getScUsers();
-                                alert("All Details Updated for the respective student counsellor");
+                                alert("Details updated successfully!");
 
-                                counsellor.full_name = updatedName;
-                                counsellor.phone = updatedPhone;
-                                counsellor.dob = updatedDob;
-                                counsellor.address = updatedStreet;
-                                counsellor.city = updatedCity;
-                                counsellor.state = updatedState;
-                                counsellor.pincode = updatedPincode;
+                                Object.assign(counsellor, {
+                                    full_name: updatedData.updatedScName,
+                                    dob: updatedData.updatedScDob,
+                                    phone: updatedData.updatedScPhone,
+                                    address: `${updatedData.street}, ${updatedData.district}, ${updatedData.state} - ${updatedData.pincode}`,
+                                    city: updatedData.district,
+                                    state: updatedData.state,
+                                    pincode: updatedData.pincode
+                                });
 
                                 editmode = false;
                                 renderProfile();
+                                getScUsers();
                             } else {
-                                console.error("Update failed: " + data.error);
+                                alert("Failed to save: " + data.message);
                             }
                         })
-                        .catch((error) => {
-                            console.error("Error posting data: ", error);
+                        .catch(error => {
+                            console.error("Save error:", error);
+                            alert("An error occurred while saving the details.");
                         });
                 });
-                saveScUserAdmin.classList.add("listener-attached");
             }
+
         }
+
+
 
         function clearfields() {
             document.getElementById("studentcounsellor-requiredfields-admin-scname").value = '';

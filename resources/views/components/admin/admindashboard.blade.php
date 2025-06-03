@@ -383,10 +383,11 @@ $registrationSourceAnalysis = [
                             Graduate <i class="fa-solid fa-chevron-down"></i>
                         </div>
                         <div class="dropdown-content-postgrad" id="postgrad-funnelreportsprogress">
-                            <a href="#">Post Graduate</a>
-                            <a href="#">Under Graduate</a>
-                            <a href="#">Others</a>
+                            <a href="#" data-value="bachelors">Post Graduate</a>
+                            <a href="#" data-value="masters">Under Graduate</a>
+                            <a href="#" data-value="others">Others</a>
                         </div>
+
                     </div>
 
                 </div>
@@ -414,14 +415,14 @@ $registrationSourceAnalysis = [
                                 & closed</p>
                         </div>
                     </div>
-                    <div class="funnelreport-analyse-right" id="funnelreport-rightsideid">
+                    <div class="funnelreport-analyse-right" id="funnelreport-rightsideid" style="justify-content: center;gap:24px;">
 
-                        <p id="incomplete-count">140</p>
-                        <p id="dummy-1">360</p>
-                        <p id="dummy-2">10</p>
-                        <p id="offer-issued">100</p>
-                        <p id="offer-rejected">20</p>
-                        <p id="offer-accepted">200</p>
+                        <p id="incomplete-count"> </p>
+                        <p id="dummy-1"> </p>
+                        <p id="dummy-2">8 </p>
+                        <p id="offer-issued"> </p>
+                        <p id="offer-rejected"> </p>
+                        <p id="offer-accepted"> </p>
 
                     </div>
 
@@ -2226,6 +2227,7 @@ $registrationSourceAnalysis = [
         // Referral Modal
         const initializeReferralModal = () => {
             const referralLinkBtn = document.getElementById('referral-link-admindashboard');
+            const referralLinkBtnMob = document.getElementById('referral-link-admindashboard-mobile')
             const modal = document.getElementById('referralModal');
             const backdrop = document.getElementById('backdrop');
             const closeBtn = document.getElementById('closeModal');
@@ -2239,8 +2241,14 @@ $registrationSourceAnalysis = [
             }
 
             const openModal = () => {
-                modal.classList.remove('hidden');
-                backdrop.classList.add('active');
+                if (mobPopupForOptions) {
+                    // mobPopupForOptions.style.display = "none";
+                     modal.classList.remove('hidden');
+                    backdrop.classList.add('active');
+
+                }
+               
+
             };
 
             const closeModal = () => {
@@ -2288,7 +2296,15 @@ $registrationSourceAnalysis = [
                 });
             };
 
-            referralLinkBtn.addEventListener('click', openModal);
+            const mobPopupForOptions = document.querySelector(".mobile-admin-dashboard-modal-content");
+
+
+
+            if (referralLinkBtn) referralLinkBtn.addEventListener('click', openModal);
+            if (referralLinkBtnMob) referralLinkBtnMob.addEventListener('click', openModal);
+
+
+
             closeBtn.addEventListener('click', closeModal);
             cancelBtn.addEventListener('click', closeModal);
             backdrop.addEventListener('click', closeModal);
@@ -2398,6 +2414,8 @@ $registrationSourceAnalysis = [
         let ageratioChart;
 
         function loadAgeRatioChart(degreeType = '') {
+            // Map user-friendly labels to backend values
+            let mappedDegreeType = degreeType;
 
             if (degreeType === "Post Graduate") {
                 degree_type = "Bachelors"
@@ -2484,32 +2502,36 @@ $registrationSourceAnalysis = [
 
         })
 
-        function funnelreport() {
-            fetch('/retrieveDashboardDetails')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message) {
-                        const counts = data.counts;
-                        // console.log(counts)
+    function funnelreport(degreeType = '') {
+            console.log("funnelreport working for:", degreeType);
 
-                        document.getElementById('incomplete-count').textContent = counts.incompleteCount;
-                        document.getElementById('offer-issued').textContent = counts.offerIssuedStudentsCount;
-                        document.getElementById('offer-rejected').textContent = counts.offerRejectedByStudentCount;
-                        document.getElementById('offer-accepted').textContent = counts.offerAcceptedAndClosedCount;
+            const url = degreeType
+                ? `/retrievedashboarddetails?degree_type=${degreeType}`
+                : '/retrievedashboarddetails';
+
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        const counts = data.counts;
+
+                        document.getElementById('offer-issued').innerText = counts.offerIssuedStudentsCount;
+                        document.getElementById('offer-rejected').innerText = counts.offerRejectedByStudentCount;
+                        document.getElementById('offer-accepted').innerText = counts.offerAcceptedAndClosedCount;
+
+                        document.getElementById('incomplete-count').innerText = counts.incompleteProfileCount;
+                        document.getElementById('dummy-1').innerText = counts.completedProfileCount;
                     } else {
                         console.error("Error fetching data:", data.error);
                     }
                 })
-                .catch(error => {
-                    console.error('Fetch failed:', error);
-                });
-
+                .catch(err => console.error('Dashboard data error:', err));
         }
         function fetchReferralAcceptedCounts() {
             fetch('/referralacceptedcounts')
                 .then(response => response.json())
                 .then(data => {
-                    // console.log("Referral Accepted Counts:", data);
+                    console.log("Referral Accepted Counts:", data);
                 })
                 .catch(error => {
                     console.error('Fetch failed:', error);
@@ -2622,8 +2644,59 @@ $registrationSourceAnalysis = [
             });
 
 
+       function funnelReportDropdown() {
+            const toggle = document.getElementById('postgrad-buttongroups-insideshow-funnelreports-id');
+            const dropdown = document.getElementById('postgrad-funnelreportsprogress');
+
+            toggle.addEventListener('click', function () {
+                dropdown.classList.toggle('show');
+            });
+
+            const links = dropdown.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const selectedValue = this.getAttribute('data-value');
+                    dropdown.classList.remove('show');
+                    funnelreport(selectedValue);  
+                });
+            });
+        }
+        
+        function ageRatioDropdown() {
+            // Toggle dropdown visibility
+            document.getElementById('postgrad-buttongroups-insideshow-age-ratio-id').addEventListener('click', function () {
+                const dropdown = document.getElementById('postgrad-ageratioprogress');
+                dropdown.classList.toggle('show');
+            });
+
+            // Handle dropdown item clicks and trigger chart update
+            const dropdownItems = document.querySelectorAll('#postgrad-ageratioprogress a');
+            dropdownItems.forEach(item => {
+                item.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const selectedDegreeType = this.textContent.trim();
+
+                    // Optional: update the button text to show the selected type
+                    document.getElementById('postgrad-buttongroups-insideshow-age-ratio-id').innerHTML =
+                        `${selectedDegreeType} <i class="fa-solid fa-chevron-down"></i>`;
+
+                    // Hide the dropdown
+                    document.getElementById('postgrad-ageratioprogress').classList.remove('show');
+
+                    // Load the chart
+                    loadAgeRatioChart(selectedDegreeType);
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+                funnelreport();
+                ageRatioDropdown();
+                funnelReportDropdown();
 
 
+            });
     </script>
 </body>
 

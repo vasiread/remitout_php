@@ -92,7 +92,7 @@ Route::post('/getnbfcdata-proposals', [StudentDashboardController::class, 'nbfcP
 Route::post('/proposalcompletion', [StudentDashboardController::class, 'proposalCompletion']);
 Route::post('/check_userid', [StudentDashboardController::class, 'checkUserId']);
 Route::post('/multipleregisterbyscuser', [StudentDashboardController::class, 'multipleuserbyscuser']);
-Route::get('/retrievedashboarddetails', [Admincontroller::class, 'retrieveDashboardDetails']);
+Route::post('/retrievedashboarddetails', [Admincontroller::class, 'retrieveDashboardDetails']);
 Route::post('/getprofilecompletionbygender', [Admincontroller::class, 'getProfileCompletionByGenderAndDegree']);
 
 // Admin Routes

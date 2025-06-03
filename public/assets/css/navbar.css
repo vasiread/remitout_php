@@ -574,6 +574,20 @@
          margin-right: 20px;
      }
 
+<<<<<<< e02f5e30c0b116d4672d242a89b64182b8a5a98f
+=======
+     .nav-searchnotificationbars {
+         display: flex;
+         /* Hide desktop navbar in mobile view */
+     }
+         .nav-searchnotificationbars h3{
+            display: none;
+         }
+         .nav-searchnotificationbars i {
+             display:block;
+         }
+
+>>>>>>> admin side bug clearence
      .nav-links {
          display: none;
         }
@@ -604,8 +618,7 @@
          display: flex;
          right:-20px;
      }
-
-     .menu-icon {
+      .menu-icon {
          display: none;
      }
 
