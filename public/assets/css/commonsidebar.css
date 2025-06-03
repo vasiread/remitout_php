@@ -167,6 +167,9 @@
 }
 
 @media(max-width:780px) {
+    .commonsidebar-togglesidebar{
+        display:none;
+    }
 
     .commonsidebar-sidebarlists-top p,
     .commonsidebar-sidebarlists-top li,
@@ -292,4 +295,9 @@
         height: 46px;
     }
 
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 0;
 }

@@ -453,6 +453,7 @@
     font-size: 12px;
     line-height: 18px;
     color: #5d5c5c;
+    white-space: nowrap;
 }
 
 .edit-contents-cms-table tr:last-child td {
@@ -746,7 +747,7 @@
     bottom: 20px;
     right: 20px;
     padding: 12px 20px;
-    background-color: #e53935;
+    background-color: #ff6b2b;
     color: white;
     border-radius: 4px;
     z-index: 1000;
@@ -1003,4 +1004,43 @@
         font-size: 12px;
         padding: 4px;
     }
+}
+.hidden {
+    display: none !important;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.pagination button {
+    margin: 0 5px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pagination button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+.pagination .page-number {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.pagination .page-number.active {
+    color: black;
+
 }

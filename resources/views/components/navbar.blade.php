@@ -16,7 +16,6 @@
 
             @if(session()->has('user') || session()->has('scuser'))
                 <div class="nav-searchnotificationbars">
-                   
                     <div class="unread-notify-container">
                         <img src="{{ asset('assets/images/notifications_unread.png') }}" class="unread-notify" id="userNotification" alt="">
                     </div>
@@ -29,15 +28,11 @@
                             <p class="logoutBtn">Logout</p>
                         </div>
                     </div>
-                    <div class="menubarcontainer-profile" id="scuser-dashboard-menu">
-                        <img src="{{ asset('assets/images/Iicons/menu.png') }}" alt="">
+                    <div class="menubarcontainer-profile" id="dashboard-menu">
+                        <img src="{{ asset('assets/images/Icons/menu.png') }}" alt="">
                     </div>
                 </div>
             @endif
-
-            <div class="profile-photo-mobtab" style="display:none">
-                <img src="{{ asset('assets/images/Icons/account_circle.png') }}" id="nav-profile-photo-id" class="nav-profileimg" alt="">
-            </div>
 
             <div class="menu-icon" id="menu-icon">
                 <span class="bar"></span>
@@ -51,43 +46,44 @@
     <div class="password-change-overlay" style="display: none;"></div>
 
     <div class="password-change-container">
-    <div class="password-change-triggered-view-headersection">
-        <h3>Password Change Request</h3>
-        <img src="{{ asset('assets/images/Icons/close_small.png') }}" style="cursor:pointer" alt="">
+        <div class="password-change-triggered-view-headersection">
+            <h3>Password Change Request</h3>
+            <img src="{{ asset('assets/images/Icons/close_small.png') }}" style="cursor:pointer" alt="">
+        </div>
+
+        <!-- Current Password with Eye Icon -->
+        <div class="password-input-wrapper">
+            <input type="password" placeholder="Current Password" id="current-password">
+            <img src="{{ asset('assets/images/Icons/eye.png') }}" 
+                 class="toggle-password" 
+                 data-target="current-password"
+                 style="cursor:pointer; position:absolute; right:10px; top:50%; transform:translateY(-50%); width:20px;" 
+                 alt="Toggle Password">
+        </div>
+        <span id="current-password-error" class="error-message"></span>
+
+        <!-- New Password -->
+        <input type="password" placeholder="New Password" id="new-password">
+        <span id="new-password-error" class="error-message"></span>
+
+        <!-- Confirm Password -->
+        <input type="password" placeholder="Confirm New Password" id="confirm-new-password">
+        <span id="confirm-password-error" class="error"></span>
+
+        <div class="footer-passwordchange">
+            <p href="">Forgot Password</p>
+            <button id="password-change-save">Save</button>
+        </div>
     </div>
-
-    <!-- Current Password with Eye Icon -->
-    <div class="password-input-wrapper">
-        <input type="password" placeholder="Current Password" id="current-password">
-        <img src="{{ asset('assets/images/Icons/eye.png') }}" 
-             class="toggle-password" 
-             data-target="current-password"
-             style="cursor:pointer; position:absolute; right:10px; top:50%; transform:translateY(-50%); width:20px;" 
-             alt="Toggle Password">
-    </div>
-    <span id="current-password-error" class="error-message"></span>
-
-    <!-- New Password -->
-    <input type="password" placeholder="New Password" id="new-password">
-    <span id="new-password-error" class="error-message"></span>
-
-    <!-- Confirm Password -->
-    <input type="password" placeholder="Confirm New Password" id="confirm-new-password">
-    <span id="confirm-password-error" class="error-message"></span>
-
-    <div class="footer-passwordchange">
-        <p href="">Forgot Password</p>
-        <button id="password-change-save">Save</button>
-    </div>
-</div>
-
 
     <script>
         window.App = {
             user: @json(session('user')),
             scuser: @json(session('scuser')),
             hasScUserSession: {{ session()->has('scuser') ? 'true' : 'false' }},
-            hasUserSession: {{ session()->has('user') ? 'true' : 'false' }}
+            hasUserSession: {{ session()->has('user') ? 'true' : 'false' }},
+            activeSection: null,
+            activeIndex: 0
         };
 
         function handleIndividualCards(mode = 'index1') {
@@ -101,17 +97,17 @@
                         const individualBankMessageInput = card.querySelector('.individual-bankmessage-input');
                         if (mode === 'index1') {
                             if (triggeredMessageButton && groupButtonContainer) {
-                                triggeredMessageButton.style.display = "flex";
-                                groupButtonContainer.style.display = "none";
+                                triggeredMessageButton.style.display = 'flex';
+                                groupButtonContainer.style.display = 'none';
                             }
                         } else if (mode === 'index0') {
-                            card.style.height = "fit-content";
+                            card.style.height = 'fit-content';
                             if (individualBankMessageInput) {
-                                individualBankMessageInput.style.display = "none";
+                                individualBankMessageInput.setAttribute('display', 'none');
                             }
                             if (triggeredMessageButton && groupButtonContainer) {
-                                triggeredMessageButton.style.display = "none";
-                                groupButtonContainer.style.display = "flex";
+                                triggeredMessageButton.setAttribute('display', 'none');
+                                groupButtonContainer.style.display = 'flex';
                             }
                         }
                     });
@@ -122,7 +118,9 @@
         }
 
         function toggleSection(sectionId, index) {
-            if (window.innerWidth > 640) return;
+            window.App.activeSection = sectionId;
+            window.App.activeIndex = index;
+
             let trackProgressDiv, myApplicationDiv, dynamicHeader, communityJoinCard, profileStatusCard, profileImgEditIcon, educationEditSection, testScoresEditSection;
             let scDashboardContainer, scInboxContainer, scApplicationStatus;
 
@@ -141,9 +139,9 @@
                 testScoresEditSection = document.querySelector('.studentdashboardprofile-testscoreseditsection');
             }
 
-            const menuItems = document.querySelectorAll('.sidebar-menu .menu-item, .studentdashboardprofile-togglesidebar li, .commonsidebar-sidebarlists-top li');
-            menuItems.forEach(item => item.classList.remove('active'));
+            const menuItems = document.querySelectorAll('.sidebar-menu .menu-item, .sidebarlists-top li');
             menuItems.forEach(item => {
+                item.classList.remove('active');
                 const itemSection = item.getAttribute('data-section');
                 const itemIndex = parseInt(item.getAttribute('data-index') || -1);
                 if (itemSection === sectionId && itemIndex === index) {
@@ -166,6 +164,12 @@
                     if (scApplicationStatus) scApplicationStatus.style.display = 'flex';
                 }
             } else {
+                const personalDivContainer = document.querySelector(".personalinfo-secondrow");
+                const personalDivContainerEdit = document.querySelector(".personalinfosecondrow-editsection");
+                const academicsMarksDivEdit = document.querySelector(".testscoreseditsection-secondrow-editsection");
+                const academicsMarksDiv = document.querySelector(".testscoreseditsection-secondrow");
+                const saveChangesButton = document.querySelector(".personalinfo-firstrow button");
+
                 if (sectionId === 'studentdashboardprofile-trackprogress' && index === 0) {
                     if (trackProgressDiv) trackProgressDiv.style.display = 'flex';
                     if (myApplicationDiv) myApplicationDiv.style.display = 'none';
@@ -174,7 +178,16 @@
                     if (profileImgEditIcon) profileImgEditIcon.style.display = 'none';
                     if (educationEditSection) educationEditSection.style.display = 'none';
                     if (testScoresEditSection) testScoresEditSection.style.display = 'none';
+                    if (personalDivContainerEdit) personalDivContainerEdit.style.display = 'none';
+                    if (personalDivContainer) personalDivContainer.style.display = 'flex';
+                    if (academicsMarksDivEdit) academicsMarksDivEdit.style.display = 'none';
+                    if (academicsMarksDiv) academicsMarksDiv.style.display = 'flex';
                     if (dynamicHeader) dynamicHeader.textContent = 'Loan Proposals';
+                    if (saveChangesButton) {
+                        saveChangesButton.textContent = 'Edit';
+                        saveChangesButton.style.backgroundColor = 'transparent';
+                        saveChangesButton.style.color = '#260254';
+                    }
                     handleIndividualCards('index0');
                 } else if (sectionId === 'studentdashboardprofile-trackprogress' && index === 1) {
                     if (trackProgressDiv) trackProgressDiv.style.display = 'flex';
@@ -184,9 +197,18 @@
                     if (profileImgEditIcon) profileImgEditIcon.style.display = 'none';
                     if (educationEditSection) educationEditSection.style.display = 'none';
                     if (testScoresEditSection) testScoresEditSection.style.display = 'none';
+                    if (personalDivContainerEdit) personalDivContainerEdit.style.display = 'none';
+                    if (personalDivContainer) personalDivContainer.style.display = 'flex';
+                    if (academicsMarksDivEdit) academicsMarksDivEdit.style.display = 'none';
+                    if (academicsMarksDiv) academicsMarksDiv.style.display = 'flex';
                     if (dynamicHeader) dynamicHeader.textContent = 'Inbox';
+                    if (saveChangesButton) {
+                        saveChangesButton.textContent = 'Edit';
+                        saveChangesButton.style.backgroundColor = 'transparent';
+                        saveChangesButton.style.color = '#260254';
+                    }
                     handleIndividualCards('index1');
-                } else if (sectionId === 'studentdashboardprofile-myapplication') {
+                } else if (sectionId === 'studentdashboardprofile-myapplication' && index === 2) {
                     if (trackProgressDiv) trackProgressDiv.style.display = 'none';
                     if (myApplicationDiv) myApplicationDiv.style.display = 'flex';
                     if (communityJoinCard) communityJoinCard.style.display = 'none';
@@ -194,16 +216,22 @@
                     if (profileImgEditIcon) profileImgEditIcon.style.display = 'block';
                     if (educationEditSection) educationEditSection.style.display = 'flex';
                     if (testScoresEditSection) testScoresEditSection.style.display = 'flex';
-                    if (dynamicHeader) dynamicHeader.textContent = 'Loan Proposals';
+                    if (saveChangesButton) {
+                        saveChangesButton.textContent = 'Edit';
+                        saveChangesButton.style.backgroundColor = 'transparent';
+                        saveChangesButton.style.color = '#260254';
+                    }
                 }
             }
 
-            const mobileSidebar = window.App.hasScUserSession ? document.getElementById('sc-mobile-sidebar') : document.getElementById('student-mobile-sidebar');
-            const overlay = window.App.hasScUserSession ? document.getElementById('sc-sidebar-overlay') : document.getElementById('student-sidebar-overlay');
-            const menuIcon = document.getElementById('menu-icon');
-            const closeIcon = document.getElementById('close-icon');
-            if (mobileSidebar && overlay && menuIcon && closeIcon) {
-                closeSidebar(mobileSidebar, overlay, menuIcon, closeIcon);
+            if (window.innerWidth <= 640) {
+                const mobileSidebar = document.getElementById('mobile-sidebar');
+                const overlay = document.getElementById('sidebar-overlay');
+                const menuIcon = document.getElementById('menu-icon');
+                const closeIcon = document.getElementById('close-icon');
+                if (mobileSidebar && overlay && menuIcon && closeIcon) {
+                    closeSidebar(mobileSidebar, overlay, menuIcon, closeIcon);
+                }
             }
         }
 
@@ -237,7 +265,7 @@
                     return response.json();
                 })
                 .then(data => {
-                    console.log('Logout API response data:', data);
+                    console.log('Logout API response:', data);
                 })
                 .catch(error => {
                     console.error('Fetch error during logout:', error);
@@ -245,73 +273,33 @@
                 });
         }
 
-        const dynamicChangeNavMob = () => {
-            const navSearchNotificationBars = document.querySelector('.nav-searchnotificationbars');
-            const profilePhotoMobTab = document.querySelector('.profile-photo-mobtab');
+        function dynamicMobileNav() {
+            const navSearchContainer = document.querySelector('.nav-searchnotificationbars');
+            const profileName = document.querySelector('.nav-profilecontainer h3');
             const menuIcon = document.getElementById('menu-icon');
             const closeIcon = document.getElementById('close-icon');
             const navContainer = document.querySelector('.nav-container');
             const navLinks = document.querySelector('.nav-links');
             const navButtons = document.querySelector('.nav-buttons');
 
-            console.log('Window innerWidth:', window.innerWidth);
-
             if (window.innerWidth <= 640) {
-                console.log('Switching to mobile navbar');
-                if (navSearchNotificationBars) {
-                    navSearchNotificationBars.style.display = 'none';
-                    console.log('Hiding nav-searchnotificationbars');
-                }
-                if (profilePhotoMobTab) {
-                    profilePhotoMobTab.style.display = 'block';
-                    console.log('Showing profile-photo-mobtab');
-                }
-                if (menuIcon) {
-                    menuIcon.style.display = 'flex';
-                    console.log('Showing menu-icon');
-                }
+                if (navSearchContainer) navSearchContainer.style.display = 'flex';
+                if (profileName) profileName.style.display = 'none';
+                if (menuIcon) menuIcon.style.display = 'flex';
                 if (navContainer) navContainer.style.display = 'flex';
-                if (closeIcon) {
-                    closeIcon.style.display = 'none';
-                    console.log('Hiding close-icon');
-                }
-                if (navLinks) {
-                    navLinks.style.display = 'none';
-                    console.log('Hiding nav-links');
-                }
-                if (navButtons) {
-                    navButtons.style.display = 'none';
-                    console.log('Hiding nav-buttons');
-                }
+                if (closeIcon) closeIcon.style.display = 'none';
+                if (navLinks) navLinks.style.display = 'none';
+                if (navButtons) navButtons.style.display = 'none';
             } else {
-                console.log('Switching to desktop navbar');
-                if (navSearchNotificationBars) {
-                    navSearchNotificationBars.style.display = 'flex';
-                    console.log('Showing nav-searchnotificationbars');
-                }
-                if (profilePhotoMobTab) {
-                    profilePhotoMobTab.style.display = 'none';
-                    console.log('Hiding profile-photo-mobtab');
-                }
-                if (menuIcon) {
-                    menuIcon.style.display = 'none';
-                    console.log('Hiding menu-icon');
-                }
-                if (closeIcon) {
-                    closeIcon.style.display = 'none';
-                    console.log('Hiding close-icon');
-                }
+                if (navSearchContainer) navSearchContainer.style.display = 'flex';
+                if (profileName) profileName.style.display = 'block';
+                if (menuIcon) menuIcon.style.display = 'none';
+                if (closeIcon) closeIcon.style.display = 'none';
                 if (navContainer) navContainer.style.display = 'flex';
-                if (navLinks) {
-                    navLinks.style.display = 'flex';
-                    console.log('Showing nav-links');
-                }
-                if (navButtons) {
-                    navButtons.style.display = 'flex';
-                    console.log('Showing nav-buttons');
-                }
-                const mobileSidebar = window.App.hasScUserSession ? document.getElementById('sc-mobile-sidebar') : document.getElementById('student-mobile-sidebar');
-                const overlay = window.App.hasScUserSession ? document.getElementById('sc-sidebar-overlay') : document.getElementById('student-sidebar-overlay');
+                if (navLinks) navLinks.style.display = 'flex';
+                if (navButtons) navButtons.style.display = 'flex';
+                const mobileSidebar = document.getElementById('mobile-sidebar');
+                const overlay = document.getElementById('sidebar-overlay');
                 if (mobileSidebar && overlay) {
                     mobileSidebar.classList.remove('active');
                     overlay.classList.remove('active');
@@ -319,10 +307,12 @@
                     overlay.style.opacity = '0';
                     overlay.style.visibility = 'hidden';
                     document.body.style.overflow = 'auto';
-                    if (profilePhotoMobTab) profilePhotoMobTab.classList.remove('sidebar-active');
+                }
+                if (window.App.activeSection && window.App.activeIndex !== null) {
+                    toggleSection(window.App.activeSection, window.App.activeIndex);
                 }
             }
-        };
+        }
 
         function closeSidebar(mobileSidebar, overlay, menuIcon, closeIcon) {
             if (mobileSidebar && overlay && menuIcon && closeIcon) {
@@ -334,81 +324,34 @@
                 document.body.style.overflow = 'auto';
                 menuIcon.style.display = 'flex';
                 closeIcon.style.display = 'none';
-                const profilePhotoMobTab = document.querySelector('.profile-photo-mobtab');
-                if (profilePhotoMobTab) profilePhotoMobTab.classList.remove('sidebar-active');
             }
         }
 
-        function createStudentSidebar() {
-            let overlay = document.getElementById('student-sidebar-overlay');
+        function createSidebar() {
+            let overlay = document.getElementById('sidebar-overlay');
             if (!overlay) {
                 overlay = document.createElement('div');
-                overlay.id = 'student-sidebar-overlay';
+                overlay.id = 'sidebar-overlay';
                 overlay.className = 'sidebar-overlay';
                 document.body.appendChild(overlay);
             }
 
-            let mobileSidebar = document.getElementById('student-mobile-sidebar');
+            let mobileSidebar = document.getElementById('mobile-sidebar');
             if (!mobileSidebar) {
                 mobileSidebar = document.createElement('div');
-                mobileSidebar.id = 'student-mobile-sidebar';
+                mobileSidebar.id = 'mobile-sidebar';
                 mobileSidebar.className = 'mobile-sidebar';
+                const isScUser = window.App.hasScUserSession;
                 mobileSidebar.innerHTML = `
                     <div class="sidebar-menu">
-                        <a class="menu-item active" data-section="studentdashboardprofile-trackprogress" data-index="0" onclick="toggleSection('studentdashboardprofile-trackprogress', 0)">
+                        <a class="menu-item${window.App.activeIndex === 0 ? ' active' : ''}" data-section="${isScUser ? 'scdashboard-container' : 'studentdashboardprofile-trackprogress'}" data-index="0" onclick="toggleSection('${isScUser ? 'scdashboard-container' : 'studentdashboardprofile-trackprogress'}', 0)">
                             <i class="fa-solid fa-square-poll-vertical"></i> Dashboard
                         </a>
-                        <a class="menu-item" data-section="studentdashboardprofile-trackprogress" data-index="1" onclick="toggleSection('studentdashboardprofile-trackprogress', 1)">
-                            <i class="fa-solid fa-inbox"></i> Inbox
+                        <a class="menu-item${window.App.activeIndex === 1 ? ' active' : ''}" data-section="${isScUser ? 'scdashboard-inboxcontent' : 'studentdashboardprofile-trackprogress'}" data-index="1" onclick="toggleSection('${isScUser ? 'scdashboard-inboxcontent' : 'studentdashboardprofile-trackprogress'}', 1)">
+                            <i class="fa-solid fa-inbox"></i> ${isScUser ? 'Profile' : 'Inbox'}
                         </a>
-                        <a class="menu-item" data-section="studentdashboardprofile-myapplication" data-index="2" onclick="toggleSection('studentdashboardprofile-myapplication', 2)">
-                            <i class="fa-regular fa-clipboard"></i> My Applications
-                        </a>
-                    </div>
-                    <div class="sidebar-footer">
-                        <a href="javascript:void(0)" class="menu-item logoutBtn" onclick="sessionLogoutInitial('{{ route('logout') }}', '{{ route('login') }}')">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
-                        </a>
-                        <a href="/support" class="menu-item">
-                            <img src="{{ asset('assets/images/Icons/support_agent.png') }}" alt=""> Support
-                        </a>
-                    </div>
-                `;
-                document.body.appendChild(mobileSidebar);
-
-                overlay.addEventListener('click', function () {
-                    const menuIcon = document.getElementById('menu-icon');
-                    const closeIcon = document.getElementById('close-icon');
-                    closeSidebar(mobileSidebar, overlay, menuIcon, closeIcon);
-                });
-            }
-            return { mobileSidebar, overlay };
-        }
-
-        function createScSidebar() {
-            let overlay = document.getElementById('sc-sidebar-overlay');
-            if (!overlay) {
-                overlay = document.createElement('div');
-                overlay.id = 'sc-sidebar-overlay';
-                overlay.className = 'sidebar-overlay';
-                document.body.appendChild(overlay);
-            }
-
-            let mobileSidebar = document.getElementById('sc-mobile-sidebar');
-            if (!mobileSidebar) {
-                mobileSidebar = document.createElement('div');
-                mobileSidebar.id = 'sc-mobile-sidebar';
-                mobileSidebar.className = 'mobile-sidebar';
-                mobileSidebar.innerHTML = `
-                    <div class="sidebar-menu">
-                        <a class="menu-item active" data-section="scdashboard-container" data-index="0" onclick="toggleSection('scdashboard-container', 0)">
-                            <i class="fa-solid fa-square-poll-vertical"></i> Dashboard
-                        </a>
-                        <a class="menu-item" data-section="scdashboard-inboxcontent" data-index="1" onclick="toggleSection('scdashboard-inboxcontent', 1)">
-                            <i class="fa-solid fa-inbox"></i> Profile
-                        </a>
-                        <a class="menu-item" data-section="scdashboard-applicationstatus" data-index="2" onclick="toggleSection('scdashboard-applicationstatus', 2)">
-                            <i class="fa-regular fa-clipboard"></i> Applications Status
+                        <a class="menu-item${window.App.activeIndex === 2 ? ' active' : ''}" data-section="${isScUser ? 'scdashboard-applicationstatus' : 'studentdashboardprofile-myapplication'}" data-index="2" onclick="toggleSection('${isScUser ? 'scdashboard-applicationstatus' : 'studentdashboardprofile-myapplication'}', 2)">
+                            <i class="fa-regular fa-clipboard"></i> ${isScUser ? 'Applications Status' : 'My Applications'}
                         </a>
                     </div>
                     <div class="sidebar-footer">
@@ -447,99 +390,92 @@
             }
         }
 
-        const retrieveProfilePictureNav = async () => {
-            const userSession = window.App.user;
-            if (!userSession || !userSession.unique_id) return;
-            const userId = userSession.unique_id;
+        const retrieveProfilePicture = async () => {
             const profileImgUpdate = document.querySelector(".nav-profilecontainer .nav-profileimg");
-            const mobTabProfile = document.querySelector(".profile-photo-mobtab img");
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             if (!csrfToken) return;
-            try {
-                const response = await fetch('/retrieve-profile-picture', {
-                    method: "POST",
-                    headers: {
-                        'X-CSRF-TOKEN': csrfToken,
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ userId: userId })
-                });
-                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                const data = await response.json();
-                if (data.fileUrl) {
-                    if (profileImgUpdate) profileImgUpdate.src = data.fileUrl;
-                    if (mobTabProfile) mobTabProfile.src = data.fileUrl;
-                } else {
+
+            if (window.App.hasScUserSession) {
+                const userSession = window.App.scuser;
+                if (!userSession || !userSession.referral_code) return;
+                const scuserRefid = userSession.referral_code;
+                try {
+                    const response = await fetch('/view-scuserprofile-photo', {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken,
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ scuserRefid: scuserRefid }),
+                    });
+                    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                    const data = await response.json();
+                    if (data.fileUrl && profileImgUpdate) {
+                        profileImgUpdate.src = data.fileUrl;
+                    } else {
+                        const fallbackImage = '{{ asset('assets/images/Icons/account_circle.png') }}';
+                        if (profileImgUpdate) profileImgUpdate.src = fallbackImage;
+                    }
+                } catch (error) {
                     const fallbackImage = '{{ asset('assets/images/Icons/account_circle.png') }}';
                     if (profileImgUpdate) profileImgUpdate.src = fallbackImage;
-                    if (mobTabProfile) mobTabProfile.src = fallbackImage;
                 }
-            } catch (error) {
-                const fallbackImage = '{{ asset('assets/images/Icons/account_circle.png') }}';
-                if (profileImgUpdate) profileImgUpdate.src = fallbackImage;
-                if (mobTabProfile) mobTabProfile.src = fallbackImage;
+            } else if (window.App.hasUserSession) {
+                const userSession = window.App.user;
+                if (!userSession || !userSession.unique_id) return;
+                const userId = userSession.unique_id;
+                try {
+                    const response = await fetch('/retrieve-profile-picture', {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken,
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ userId: userId })
+                    });
+                    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                    const data = await response.json();
+                    if (data.fileUrl && profileImgUpdate) {
+                        profileImgUpdate.src = data.fileUrl;
+                    } else {
+                        const fallbackImage = '{{ asset('assets/images/Icons/account_circle.png') }}';
+                        if (profileImgUpdate) profileImgUpdate.src = fallbackImage;
+                    }
+                } catch (error) {
+                    const fallbackImage = '{{ asset('assets/images/Icons/account_circle.png') }}';
+                    if (profileImgUpdate) profileImgUpdate.src = fallbackImage;
+                }
             }
         };
 
-        const retrieveProfilePictureNavSc = async () => {
-            const userSession = window.App.scuser;
-            if (!userSession || !userSession.referral_code) return;
-            const scuserrefid = userSession.referral_code;
-            const profileImgUpdate = document.querySelector(".nav-profilecontainer .nav-profileimg");
-            const mobTabProfile = document.querySelector(".profile-photo-mobtab img");
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            if (!csrfToken) return;
-            try {
-                const response = await fetch('/view-scuserprofile-photo', {
-                    method: "POST",
-                    headers: {
-                        'X-CSRF-TOKEN': csrfToken,
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ scuserrefid: scuserrefid })
-                });
-                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                const data = await response.json();
-                if (data.fileUrl) {
-                    if (profileImgUpdate) profileImgUpdate.src = data.fileUrl;
-                    if (mobTabProfile) mobTabProfile.src = data.fileUrl;
-                } else {
-                    const fallbackImage = '{{ asset('assets/images/Icons/account_circle.png') }}';
-                    if (profileImgUpdate) profileImgUpdate.src = fallbackImage;
-                    if (mobTabProfile) mobTabProfile.src = fallbackImage;
-                }
-            } catch (error) {
-                const fallbackImage = '{{ asset('assets/images/Icons/account_circle.png') }}';
-                if (profileImgUpdate) profileImgUpdate.src = fallbackImage;
-                if (mobTabProfile) mobTabProfile.src = fallbackImage;
-            }
-        };
-
-        const userPopopuOpen = () => {
-            const userPopupTrigger = document.querySelector(".nav-profilecontainer i");
+        const userPopup = () => {
+            const userPopupTrigger = document.querySelector(".nav-profilecontainer");
             const userPopupList = document.querySelector(".popup-notify-list");
-            if (userPopupTrigger && userPopupList) {
+            const arrowIcon = document.querySelector(".nav-profilecontainer i");
+
+            if (userPopupTrigger && userPopupList && arrowIcon) {
                 userPopupTrigger.addEventListener('click', (event) => {
                     event.stopPropagation();
-                    if (userPopupTrigger.classList.contains("fa-chevron-down")) {
-                        userPopupTrigger.classList.remove("fa-chevron-down");
-                        userPopupTrigger.classList.add("fa-chevron-up");
+                    if (arrowIcon.classList.contains("fa-chevron-down")) {
+                        arrowIcon.classList.remove("fa-chevron-down");
+                        arrowIcon.classList.add("fa-chevron-up");
                         userPopupList.style.display = "flex";
                     } else {
-                        userPopupTrigger.classList.remove("fa-chevron-up");
-                        userPopupTrigger.classList.add("fa-chevron-down");
+                        arrowIcon.classList.remove("fa-chevron-up");
+                        arrowIcon.classList.add("fa-chevron-down");
                         userPopupList.style.display = "none";
                     }
                 });
+
                 document.addEventListener('click', (event) => {
                     const isClickInsideTrigger = userPopupTrigger.contains(event.target);
                     const isClickInsidePopup = userPopupList.contains(event.target);
                     if (!isClickInsideTrigger && !isClickInsidePopup && userPopupList.style.display === "flex") {
-                        userPopupTrigger.classList.remove("fa-chevron-up");
-                        userPopupTrigger.classList.add("fa-chevron-down");
-                        userPopupList.style.display = "none";
+                        arrowIcon.classList.remove("fa-chevron-up");
+                        arrowIcon.classList.add("fa-chevron-down");
+                        userPopupList.style.display = 'none';
                     }
                 });
             }
@@ -604,8 +540,8 @@
                     fetch("/passwordchange", {
                         method: "POST",
                         headers: {
-                            'Content-Type': "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ""
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
                         },
                         body: JSON.stringify(passwordChangeVariables)
                     })
@@ -615,176 +551,235 @@
                                 console.log("Password changed successfully");
                                 alert("Password updated successfully.");
                                 if (passwordChangeContainer) {
-                                    passwordChangeContainer.style.display = "none";
+                                    passwordChangeContainer.style.display = 'none';
                                     document.getElementById('current-password').value = '';
                                     document.getElementById('new-password').value = '';
                                     document.getElementById('confirm-new-password').value = '';
                                 }
-                                if (passwordChangeOverlay) passwordChangeOverlay.style.display = "none";
+                                if (passwordChangeOverlay) passwordChangeOverlay.style.display = 'none';
                             } else {
                                 console.error("Error:", data.message);
-                                alert(data.message);
+                                alert(data.message || "Failed to update password");
                             }
                         })
                         .catch((error) => {
                             console.error("Fetch error:", error);
-                            alert("An unexpected error occurred.");
+                            alert("An error occurred while updating password");
                         });
                 });
             }
         };
 
-        const passwordModelTrigger = () => {
-            const passwordTrigger = document.getElementById("change-password-trigger");
-            const passwordChangeContainer = document.querySelector(".password-change-container");
-            const passwordChangeOverlay = document.querySelector(".password-change-overlay");
-            const passwordContainerExit = document.querySelector(".password-change-container .password-change-triggered-view-headersection img");
-            const popupPasswordShow = document.querySelector(".popup-notify-list");
-            const arrowUp = document.querySelector(".nav-profilecontainer i");
+        const passwordModalTrigger = () => {
+            const passwordTrigger = document.getElementById('change-password-trigger');
+            const passwordChangeContainer = document.querySelector('.password-change-container');
+            const passwordChangeOverlay = document.querySelector('.password-change-overlay');
+            const passwordContainerExit = document.querySelector('.password-change-triggered-view-headersection img');
+            const popupPassword = document.querySelector('.popup-notify-list');
+            const arrowUp = document.querySelector('.nav-profilecontainer i');
+
             if (passwordTrigger) {
-                passwordTrigger.addEventListener("click", () => {
-                    if (passwordChangeContainer) passwordChangeContainer.style.display = "flex";
-                    if (passwordChangeOverlay) passwordChangeOverlay.style.display = "block";
-                    if (popupPasswordShow) popupPasswordShow.style.display = "none";
+                passwordTrigger.addEventListener('click', () => {
+                    if (passwordChangeContainer) {
+                        passwordChangeContainer.style.display = 'flex';
+                    }
+                    if (passwordChangeOverlay) {
+                        passwordChangeOverlay.style.display = 'block';
+                    }
+                    if (popupPassword) {
+                        popupPassword.style.display = 'none';
+                    }
                     if (arrowUp && arrowUp.classList.contains('fa-chevron-up')) {
-                        arrowUp.classList.remove("fa-chevron-up");
-                        arrowUp.classList.add("fa-chevron-down");
-                        arrowUp.style.display = "flex";
+                        arrowUp.classList.remove('fa-chevron-up');
+                        arrowUp.classList.add('fa-chevron-down');
                     }
                 });
             }
+
             if (passwordContainerExit) {
-                passwordContainerExit.addEventListener("click", () => {
+                passwordContainerExit.addEventListener('click', () => {
                     if (passwordChangeContainer) {
-                        passwordChangeContainer.style.display = "none";
+                        passwordChangeContainer.style.display = 'none';
                         document.getElementById('current-password').value = '';
                         document.getElementById('new-password').value = '';
                         document.getElementById('confirm-new-password').value = '';
                         clearErrorMessages();
                     }
-                    if (passwordChangeOverlay) passwordChangeOverlay.style.display = "none";
+                    if (passwordChangeOverlay) {
+                        passwordChangeOverlay.style.display = 'none';
+                    }
                 });
             }
         };
 
-        const initializescsidebar = () => {
-            const scsidebaritems = document.querySelectorAll(".commonsidebar-sidebarlists-top li");
-            const trackprogressContainer = document.querySelector(".scdashboard-container");
-            const scinboxContainer = document.querySelector(".scdashboard-inboxcontent");
-            const scapplicationStatus = document.querySelector(".scdashboard-applicationstatus");
-            const triggeredSideBar = document.querySelector(".commonsidebar-togglesidebar");
-            const img = document.querySelector("#scuser-dashboard-menu img");
+        const initializeSidebar = () => {
+            const sidebarItems = document.querySelectorAll(".sidebarlists-top li");
+            const isScUser = window.App.hasScUserSession;
+            const trackprogressContainer = document.querySelector(isScUser ? ".scdashboard-container" : ".studentdashboardprofile-trackprogress");
+            const inboxContainer = document.querySelector(isScUser ? ".scdashboard-inboxcontent" : ".studentdashboardprofile-trackprogress");
+            const applicationStatus = document.querySelector(isScUser ? ".scdashboard-applicationstatus" : ".studentdashboardprofile-myapplication");
+            const dynamicHeader = document.getElementById("loanproposals-header");
+            const communityJoinCard = document.querySelector(".studentdashboardprofile-communityjoinsection");
+            const profileStatusCard = document.querySelector(".personalinfo-profilestatus");
+            const profileImgEditIcon = document.querySelector(".studentdashboardprofile-profilesection .fa-pen-to-square");
+            const educationEditSection = document.querySelector(".studentdashboardprofile-educationeditsection");
+            const testScoresEditSection = document.querySelector(".studentdashboardprofile-testscoreseditsection");
+            const triggeredSidebar = document.querySelector(".togglesidebar");
 
-            scsidebaritems.forEach((item, index) => {
+            sidebarItems.forEach((item, index) => {
                 item.addEventListener("click", () => {
-                    if (window.innerWidth <= 768) {
-                        triggeredSideBar.style.display = "none";
-                        if (img.src.includes("close_icon.png")) {
-                            img.src = '{{ asset('assets/images/Icons/menu.png') }}';
+                    sidebarItems.forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                    const sectionId = index === 0 ? (isScUser ? 'scdashboard-container' : 'studentdashboardprofile-trackprogress') :
+                                     index === 1 ? (isScUser ? 'scdashboard-inboxcontent' : 'studentdashboardprofile-trackprogress') :
+                                     (isScUser ? 'scdashboard-applicationstatus' : 'studentdashboardprofile-myapplication');
+                    window.App.activeSection = sectionId;
+                    window.App.activeIndex = index;
+
+                    if (isScUser) {
+                        if (index === 0) {
+                            if (trackprogressContainer) trackprogressContainer.style.display = 'flex';
+                            if (inboxContainer) inboxContainer.style.display = 'none';
+                            if (applicationStatus) applicationStatus.style.display = 'none';
+                        } else if (index === 1) {
+                            if (trackprogressContainer) trackprogressContainer.style.display = 'none';
+                            if (inboxContainer) inboxContainer.style.display = 'flex';
+                            if (applicationStatus) applicationStatus.style.display = 'none';
+                        } else {
+                            if (trackprogressContainer) trackprogressContainer.style.display = 'none';
+                            if (inboxContainer) inboxContainer.style.display = 'none';
+                            if (applicationStatus) applicationStatus.style.display = 'flex';
+                        }
+                    } else {
+                        const personalDivContainer = document.querySelector(".personalinfo-secondrow");
+                        const personalDivContainerEdit = document.querySelector(".personalinfosecondrow-editsection");
+                        const academicsMarksDivEdit = document.querySelector(".testscoreseditsection-secondrow-editsection");
+                        const academicsMarksDiv = document.querySelector(".testscoreseditsection-secondrow");
+                        const saveChangesButton = document.querySelector(".personalinfo-firstrow button");
+
+                        if (index === 0) {
+                            if (trackprogressContainer) trackprogressContainer.style.display = 'flex';
+                            if (applicationStatus) applicationStatus.style.display = 'none';
+                            if (communityJoinCard) communityJoinCard.style.display = 'flex';
+                            if (profileStatusCard) profileStatusCard.style.display = 'block';
+                            if (profileImgEditIcon) profileImgEditIcon.style.display = 'none';
+                            if (educationEditSection) educationEditSection.style.display = 'none';
+                            if (testScoresEditSection) testScoresEditSection.style.display = 'none';
+                            if (personalDivContainerEdit) personalDivContainerEdit.style.display = 'none';
+                            if (personalDivContainer) personalDivContainer.style.display = 'flex';
+                            if (academicsMarksDivEdit) academicsMarksDivEdit.style.display = 'none';
+                            if (academicsMarksDiv) academicsMarksDiv.style.display = 'flex';
+                            if (dynamicHeader) dynamicHeader.textContent = 'Loan Proposals';
+                            if (saveChangesButton) {
+                                saveChangesButton.textContent = 'Edit';
+                                saveChangesButton.style.backgroundColor = 'transparent';
+                                saveChangesButton.style.color = '#260254';
+                            }
+                            handleIndividualCards('index0');
+                        } else if (index === 1) {
+                            if (trackprogressContainer) trackprogressContainer.style.display = 'flex';
+                            if (applicationStatus) applicationStatus.style.display = 'none';
+                            if (communityJoinCard) communityJoinCard.style.display = 'flex';
+                            if (profileStatusCard) profileStatusCard.style.display = 'block';
+                            if (profileImgEditIcon) profileImgEditIcon.style.display = 'none';
+                            if (educationEditSection) educationEditSection.style.display = 'none';
+                            if (testScoresEditSection) testScoresEditSection.style.display = 'none';
+                            if (personalDivContainerEdit) personalDivContainerEdit.style.display = 'none';
+                            if (personalDivContainer) personalDivContainer.style.display = 'flex';
+                            if (academicsMarksDivEdit) academicsMarksDivEdit.style.display = 'none';
+                            if (academicsMarksDiv) academicsMarksDiv.style.display = 'flex';
+                            if (dynamicHeader) dynamicHeader.textContent = 'Inbox';
+                            if (saveChangesButton) {
+                                saveChangesButton.textContent = 'Edit';
+                                saveChangesButton.style.backgroundColor = 'transparent';
+                                saveChangesButton.style.color = '#260254';
+                            }
+                            handleIndividualCards('index1');
+                        } else {
+                            if (trackprogressContainer) trackprogressContainer.style.display = 'none';
+                            if (applicationStatus) applicationStatus.style.display = 'flex';
+                            if (communityJoinCard) communityJoinCard.style.display = 'none';
+                            if (profileStatusCard) profileStatusCard.style.display = 'none';
+                            if (profileImgEditIcon) profileImgEditIcon.style.display = 'block';
+                            if (educationEditSection) educationEditSection.style.display = 'flex';
+                            if (testScoresEditSection) testScoresEditSection.style.display = 'flex';
+                            if (saveChangesButton) {
+                                saveChangesButton.textContent = 'Edit';
+                                saveChangesButton.style.backgroundColor = 'transparent';
+                                saveChangesButton.style.color = '#260254';
+                            }
                         }
                     }
-                    scsidebaritems.forEach(i => i.classList.remove('active'));
-                    item.classList.add('active');
-                    if (index === 0) {
-                        trackprogressContainer.style.display = "flex";
-                        scinboxContainer.style.display = "none";
-                        scapplicationStatus.style.display = "none";
-                    } else if (index === 1) {
-                        trackprogressContainer.style.display = "none";
-                        scinboxContainer.style.display = "flex";
-                        scapplicationStatus.style.display = "none";
-                    } else {
-                        trackprogressContainer.style.display = "none";
-                        scinboxContainer.style.display = "none";
-                        scapplicationStatus.style.display = "flex";
+
+                    if (window.innerWidth <= 768) {
+                        if (triggeredSidebar) triggeredSidebar.style.display = 'none';
+                        const img = document.querySelector("#dashboard-menu img");
+                        if (img && img.src.includes("close_icon.png")) {
+                            img.src = '{{ asset('assets/images/Icons/menu.png') }}';
+                        }
                     }
                 });
             });
         };
 
         document.addEventListener('DOMContentLoaded', function () {
-            dynamicChangeNavMob();
-            userPopopuOpen();
+            dynamicMobileNav();
+            userPopup();
             passwordChangeCheck();
-            passwordModelTrigger();
-            if (window.App.hasScUserSession) {
-                initializescsidebar();
-            }
+            passwordModalTrigger();
+            initializeSidebar();
+            retrieveProfilePicture();
+
             document.querySelectorAll('.toggle-password').forEach(icon => {
                 icon.addEventListener('click', () => {
                     const targetId = icon.getAttribute('data-target');
                     const input = document.getElementById(targetId);
-                    if (input.type === "password") {
-                        input.type = "text";
-                        icon.src = "{{ asset('assets/images/Icons/eye_off.png') }}"; // eye-off icon
-                    } else {
-                        input.type = "password";
-                        icon.src = "{{ asset('assets/images/Icons/eye.png') }}"; // eye icon
+                    if (input) {
+                        if (input.type === 'password') {
+                            input.type = 'text';
+                            icon.src = "{{ asset('assets/images/Icons/eye_off.png') }}";
+                        } else {
+                            input.type = 'password';
+                            icon.src = "{{ asset('assets/images/Icons/eye.png') }}";
+                        }
                     }
                 });
             });
 
             const logoutBtn = document.querySelector('.popup-notify-list .logoutBtn');
-            const userPopupTrigger = document.querySelector('.nav-profilecontainer i');
+            const userPopupTrigger = document.querySelector('.nav-profilecontainer');
             const userPopupList = document.querySelector('.popup-notify-list');
             if (logoutBtn) {
                 logoutBtn.addEventListener('click', (event) => {
-                    event.stopPropagation();
+                    event.preventDefault();
                     if (userPopupTrigger && userPopupList) {
-                        userPopupTrigger.classList.remove('fa-chevron-up');
-                        userPopupTrigger.classList.add('fa-chevron-down');
+                        const arrowIcon = userPopupTrigger.querySelector('i');
+                        if (arrowIcon.classList.contains('fa-chevron-up')) {
+                            arrowIcon.classList.remove('fa-chevron-up');
+                            arrowIcon.classList.add('fa-chevron-down');
+                        }
                         userPopupList.style.display = 'none';
                     }
                     sessionLogoutInitial('{{ route('logout') }}', '{{ route('login') }}');
                 });
             }
 
-            let mobileSidebar, overlay;
-            if (window.App.hasScUserSession) {
-                ({ mobileSidebar, overlay } = createScSidebar());
-                retrieveProfilePictureNavSc();
-                if (window.innerWidth <= 640) {
-                    toggleSection('scdashboard-container', 0);
-                }
-            } else if (window.App.hasUserSession) {
-                ({ mobileSidebar, overlay } = createStudentSidebar());
-                retrieveProfilePictureNav();
-                if (window.innerWidth <= 640) {
-                    toggleSection('studentdashboardprofile-trackprogress', 0);
-                }
-            }
+            const { mobileSidebar, overlay } = createSidebar();
+            toggleSection(window.App.hasScUserSession ? 'scdashboard-container' : 'studentdashboardprofile-trackprogress', 0);
 
             const menuIcon = document.getElementById('menu-icon');
             const closeIcon = document.getElementById('close-icon');
             if (menuIcon && closeIcon) {
                 menuIcon.addEventListener('click', function (event) {
-                    event.stopPropagation();
-                    console.log('Menu icon clicked, window.innerWidth:', window.innerWidth);
-                    if (window.innerWidth > 640) {
-                        console.log('Menu icon ignored due to window width > 640');
-                        return;
-                    }
+                    event.preventDefault();
+                    if (window.innerWidth > 640) return;
                     if (!mobileSidebar || !overlay) {
-                        console.log('Creating sidebar due to missing mobileSidebar or overlay');
-                        if (window.App.hasScUserSession) {
-                            ({ mobileSidebar, overlay } = createScSidebar());
-                        } else {
-                            ({ mobileSidebar, overlay } = createStudentSidebar());
-                        }
+                        ({ mobileSidebar, overlay } = createSidebar());
                     }
-                    console.log('Mobile sidebar state:', mobileSidebar?.classList.contains('active'));
                     if (mobileSidebar && overlay) {
                         if (mobileSidebar.classList.contains('active')) {
-                            console.log('Closing sidebar');
                             closeSidebar(mobileSidebar, overlay, menuIcon, closeIcon);
                         } else {
-                            console.log('Opening sidebar');
-                            const otherSidebar = window.App.hasScUserSession ? document.getElementById('student-mobile-sidebar') : document.getElementById('sc-mobile-sidebar');
-                            const otherOverlay = window.App.hasScUserSession ? document.getElementById('student-sidebar-overlay') : document.getElementById('sc-sidebar-overlay');
-                            if (otherSidebar && otherOverlay && otherSidebar.classList.contains('active')) {
-                                console.log('Closing other sidebar');
-                                closeSidebar(otherSidebar, otherOverlay, menuIcon, closeIcon);
-                            }
                             mobileSidebar.classList.add('active');
                             overlay.classList.add('active');
                             mobileSidebar.style.transform = 'translateX(0)';
@@ -793,8 +788,6 @@
                             document.body.style.overflow = 'hidden';
                             menuIcon.style.display = 'none';
                             closeIcon.style.display = 'block';
-                            const profilePhotoMobTab = document.querySelector('.profile-photo-mobtab');
-                            if (profilePhotoMobTab) profilePhotoMobTab.classList.add('sidebar-active');
                         }
                     } else {
                         console.error('Mobile sidebar or overlay not found');
@@ -802,16 +795,11 @@
                 });
 
                 closeIcon.addEventListener('click', function () {
-                    console.log('Close icon clicked');
-                    if (window.innerWidth > 640) {
-                        console.log('Close icon ignored due to window width > 640');
-                        return;
-                    }
+                    if (window.innerWidth > 640) return;
                     if (mobileSidebar && overlay) {
-                        console.log('Closing sidebar via close icon');
-                        closeSidebar(mobileSidebar, overlay, menuIcon, this);
+                        closeSidebar(mobileSidebar, overlay, menuIcon, closeIcon);
                     } else {
-                        console.error('Mobile sidebar or overlay not found for close icon');
+                        console.error('Error: Mobile sidebar or overlay not found');
                     }
                 });
             } else {
@@ -819,7 +807,7 @@
             }
         });
 
-        window.addEventListener('resize', dynamicChangeNavMob);
+        window.addEventListener('resize', dynamicMobileNav);
     </script>
 </body>
 </html>

@@ -587,7 +587,7 @@
     #student-counsellor-admin-address {
         height: 80px;
         resize: none;
-        width: 361px;
+        width: 100%;
     }
 
     #trigger-profile-photo-sc {

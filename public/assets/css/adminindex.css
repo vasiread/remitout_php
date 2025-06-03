@@ -771,6 +771,10 @@ body {
 }
 
 @media screen and (max-width: 768px) {
+    #admin-student-inbox-container{
+        width:100%;
+        border-radius: 8px;
+    }
     .admin-index-heading-index h1 {
         font-weight: 600;
         font-size: 28px;
@@ -790,6 +794,7 @@ body {
         font-family: "Poppins", sans-serif;
         box-sizing: border-box;
     }
+    
 
     .admin-index-section-main-container {
         width: 100%;
@@ -826,6 +831,8 @@ body {
         padding-top: 20px;
         width: 100%;
         box-sizing: border-box;
+        margin-bottom: 20px;
+        border-radius: 8px;
     }
 
     #index-container-id {
@@ -839,7 +846,6 @@ body {
         display: flex;
         flex-direction: column;
         width: 100%;
-        max-width: 380px;
         margin: 0 auto;
         padding: 10px;
         background: white;
@@ -957,13 +963,13 @@ body {
         .dashboard-section-title {
             display: none;
         }
-                #admin-student-header,
-                #admin-nbfc-header{
-                    padding: 10px 10px;
-                }
-                                .inbox-filters{
-                                            width: 100%;
-                                                height: 36px;
-                                                border-radius: 4px;
-                                }
-}
+        #admin-student-header,
+        #admin-nbfc-header{
+            padding: 10px 10px;
+        }
+        .inbox-filters{
+            width: 100%;
+            height: 36px;
+            border-radius: 4px;
+        }
+    }
