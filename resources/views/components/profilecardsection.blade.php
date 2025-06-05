@@ -80,11 +80,11 @@
             <div class="dot-container">
                 <span class="dot"></span>
                 <span class="dot"></span>
-                 <span class="dot"></span>
+                <span class="dot"></span>
                 <span class="dot"></span>
             </div>
             <button class="nav-arrow right" aria-label="Next">
-                <i class="fa-solid fa-arrow-right"></i>
+                <i class="fa-solid fa-arrow-right"></i>     
             </button>
         </div>
     </div>

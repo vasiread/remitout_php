@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Mail\ResetPasswordMail;
+use App\Models\Admin;
 use App\Models\Nbfc;
 use App\Models\Scuser;
 use App\Models\User;
@@ -28,19 +29,42 @@ class LoginController extends Controller
         $loginName = $request->loginName;
         $loginPassword = $request->loginPassword;
 
-        $isEmail = filter_var($loginName, FILTER_VALIDATE_EMAIL) !== false;
+        // ✅ Step 1: Check SUPERADMIN from .env
+        $superAdminEmail = env('SUPERADMIN_EMAIL');
+        $superAdminPasswordHash = env('SUPERADMIN_PASSWORD');
 
+        if ($loginName === $superAdminEmail && Hash::check($loginPassword, $superAdminPasswordHash)) {
+            session(['superadmin' => ['email' => $superAdminEmail]]);
+            session()->put('expires_at', now()->addSeconds(20000));
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Super Admin login successful',
+                'role' => 'superadmin',
+                'redirect' => '/admin-page'
+            ]);
+        }
+
+        // ✅ Step 2: Check Admin Table
+        $admin = Admin::where('email', $loginName)->first();
+        if ($admin && Hash::check($loginPassword, $admin->password)) {
+            session(['admin' => $admin]);
+            session()->put('expires_at', now()->addSeconds(10000));
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Admin login successful',
+                'role' => 'admin',
+                'user' => $admin,
+                'redirect' => '/admin-page'
+            ]);
+        }
+
+        // ✅ Step 3: Check SC User
+        $isEmail = filter_var($loginName, FILTER_VALIDATE_EMAIL) !== false;
         $scuser = $isEmail
             ? Scuser::where('email', $loginName)->first()
             : Scuser::where('referral_code', $loginName)->first();
-
-        $user = $isEmail
-            ? User::where('email', $loginName)->first()
-            : User::where('unique_id', $loginName)->first();
-
-        $nbfcuser = $isEmail
-            ? Nbfc::where('nbfc_email', $loginName)->first()
-            : Nbfc::where('nbfc_id', $loginName)->first();
 
         if ($scuser && Hash::check($loginPassword, $scuser->passwordField)) {
             session(['scuser' => $scuser]);
@@ -49,12 +73,17 @@ class LoginController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Login successful',
+                'message' => 'SC login successful',
+                'role' => 'scuser',
                 'user' => $scuser,
                 'redirect' => '/sc-dashboard'
             ]);
         }
 
+        // ✅ Step 4: Check Normal User
+        $user = $isEmail
+            ? User::where('email', $loginName)->first()
+            : User::where('unique_id', $loginName)->first();
 
         if ($user && Hash::check($loginPassword, $user->password)) {
             session(['user' => $user]);
@@ -62,12 +91,17 @@ class LoginController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Login successful',
+                'message' => 'User login successful',
+                'role' => 'user',
                 'user' => $user,
                 'redirect' => '/student-dashboard'
             ]);
         }
 
+        // ✅ Step 5: Check NBFC
+        $nbfcuser = $isEmail
+            ? Nbfc::where('nbfc_email', $loginName)->first()
+            : Nbfc::where('nbfc_id', $loginName)->first();
 
         if ($nbfcuser && Hash::check($loginPassword, $nbfcuser->password)) {
             session(['nbfcuser' => $nbfcuser]);
@@ -75,37 +109,20 @@ class LoginController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Login successful',
+                'message' => 'NBFC login successful',
+                'role' => 'nbfc',
                 'user' => $nbfcuser,
                 'redirect' => '/nbfc-dashboard'
             ]);
         }
 
-        $adminEmail = env('SUPERADMIN_EMAIL');
-        $adminPassword = env('SUPERADMIN_PASSWORD');
-        $adminId = env('SUPERADMIN_ID');
-        $adminuser = [
-            $adminEmail,
-            $adminId
-        ];
-        if ($loginName === $adminEmail && Hash::check($loginPassword, $adminPassword)) {
-            session(['superadmin' => $adminuser]);
-
-
-
-
-            session()->put('expires_at', now()->addSeconds(20000));
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Super Admin login successful',
-                'redirect' => '/admin-page'
-            ]);
-        }
-
-
-        return response()->json(['success' => false, 'message' => 'Invalid email/ID or password.']);
+         return response()->json([
+            'success' => false,
+            'message' => 'Invalid email/ID or password.'
+        ]);
     }
+
+
 
 
 

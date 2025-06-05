@@ -90,6 +90,11 @@ body {
 .admin-index-count {
     margin-left: auto;
     font-weight: 500;
+     
+}
+
+.admin-index-heading-index p{
+    display:none
 }
 
 .admin-index-count-orange {
@@ -150,7 +155,7 @@ body {
     }
     .mobile-inbox-container {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         align-items: center;
         padding: 10px 0;
         background: white;
@@ -781,11 +786,28 @@ body {
         width:100%;
         border-radius: 8px;
     }
+        .admin-index-heading-index p {
+            display: block
+        }
     .admin-index-heading-index h1 {
         font-weight: 600;
         font-size: 28px;
         color: #e98635;
         margin: 0px;
+    } .admin-index-heading-index{
+        display:flex;
+        align-items: center;
+    
+    }
+    .admin-index-heading-index p{
+        color:rgba(144, 144, 144, 1);
+        font-weight: 600;
+
+        font-size: 14px;
+
+
+
+
     }
     #index-section-id .index-section {
         display: flex;
@@ -978,5 +1000,6 @@ body {
             width: 100%;
             height: 36px;
             border-radius: 4px;
+           
         }
     }

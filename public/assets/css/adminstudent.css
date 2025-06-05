@@ -39,7 +39,7 @@
 
 .headersection-rightsidecontent {
     display: flex;
-    max-width: 45.65%;
+    max-width: 56.65%;
     width: 100%;
     align-items: center;
     justify-content: flex-end;
@@ -447,8 +447,8 @@
 }
 
 .individualcounsellors-buttoncontainer button {
-    width: 86;
-    height: 35;
+    width: 100%;
+    height: 35px;
     border-width: 1px;
     gap: 8px;
     padding: 16px 12px;

@@ -35,6 +35,7 @@
             <div class="admin-index-main-sub-container">
                 <div class="admin-index-heading-index">
                     <h1>Inbox</h1>
+                    <p class="admin-index-count">00</p>
                 </div>
                 <div class="admin-index-main-container">
                     <div class="admin-index-item active" data-tab="students">
@@ -91,7 +92,17 @@
                             <input type="text" class="index-search-input" id="admin-side-nbfc-search-input"
                                 placeholder="Search">
                         </div>
-                        <div class="inbox-filters" id="admin-side-nbfc-sort">
+                        <div class="inbox-filters" id="admin-side-nbfc-sort" style=" border-radius: 4px;
+    position: relative;
+    display: flex
+;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    width: 117px;
+    justify-content: space-between;">
                             <span>Sort</span>
                             <img src="assets/images/filter-icon.png" alt="Filters">
                             <ul class="sort-dropdown-nbfc" id="admin-side-nbfc-sort-options" style="width:100%">
@@ -116,6 +127,8 @@
             let students = [];
             let nbfcs = [];
             let adminChatMessages = JSON.parse(localStorage.getItem('adminChatMessages')) || {};
+             alert(students.length)
+
             const adminFileStorage = {};
 
             // Function to save messages to localStorage
@@ -129,19 +142,32 @@
             }
 
             // Update count displays
-            function updateStudentCount() {
-                const countElement = document.getElementById('student-index-count');
-                if (countElement) {
-                    countElement.textContent = students.length.toString().padStart(2, '0');
+
+          function updateStudentCount() {
+    const countElement = document.getElementById('student-index-count');
+    const count = students.length.toString().padStart(2, '0');
+
+    if (countElement) countElement.textContent = count;
+
+    const activeTab = document.querySelector('.admin-index-item.active')?.getAttribute('data-tab');
+    if (activeTab === 'students') {
+        document.querySelector(".admin-index-heading-index p").textContent = count;
+    }
+            }
+
+
+           function updateNbfcCount() {
+                const countElement = document.getElementById('nbfc-index-count');
+                const count = nbfcs.length.toString().padStart(2, '0');
+
+                if (countElement) countElement.textContent = count;
+
+                const activeTab = document.querySelector('.admin-index-item.active')?.getAttribute('data-tab');
+                if (activeTab === 'nbfcs') {
+                    document.querySelector(".admin-index-heading-index p").textContent = count;
                 }
             }
 
-            function updateNbfcCount() {
-                const countElement = document.getElementById('nbfc-index-count');
-                if (countElement) {
-                    countElement.textContent = nbfcs.length.toString().padStart(2, '0');
-                }
-            }
 
             // Validate and normalize date
             function getValidDate(dateStr) {
@@ -159,6 +185,7 @@
 
             // Fetch student data
             function fetchStudentData() {
+
                 fetch('/student-chat-members', {
                     method: 'GET',
                     headers: {
@@ -220,6 +247,7 @@
             }
 
             function initializeStudentChat(data) {
+
                 const container = document.querySelector('#admin-student-details-container');
                 if (!container) {
                     console.error('Student details container not found');
@@ -349,6 +377,7 @@
                 data.forEach(nbfc => {
                     const chatId = generateAdminChatId('nbfc', nbfc.nbfc_id, nbfc.nbfc_id);
                     const card = document.createElement('div');
+
                     card.classList.add('index-student-message-container');
                     card.setAttribute('data-card-id', `admin-nbfc-card-${nbfc.nbfc_id}`);
 
@@ -362,15 +391,16 @@
                             <button class="index-student-message-btn triggeredbutton" id="admin-nbfc-button-${chatId}" data-button-id="admin-nbfc-button-${chatId}">Message</button>
                         </div>
                     </div>
-                    <div style="display: none; justify-content: flex-end; width: 100%; margin-bottom: 10px;" id="admin-nbfc-clear-container-${chatId}">
-                        <button style="background-color: rgb(240, 240, 240); border: none; border-radius: 4px; padding: 6px 20px; font-size: 12px; color: rgb(102, 102, 102); cursor: pointer; font-family: Poppins, sans-serif;" id="admin-nbfc-clear-button-${chatId}">Clear Chat</button>
-                    </div>
+                   
                     <div class="messages-wrapper" data-chat-id="${chatId}" id="admin-nbfc-messages-${chatId}" style="display: none;"></div>
                     <div class="nbfc-individual-bankmessage-input-message" data-chat-id="${chatId}" id="admin-nbfc-input-${chatId}" style="display: none;">
                         <input placeholder="Send message" type="text" id="admin-nbfc-input-field-${chatId}" class="nbfc-message-input">
                         <img class="send-img nbfc-send-img" src="assets/images/send-nbfc.png" alt="Send" id="admin-nbfc-send-${chatId}">
                         <i class="fa-solid fa-paperclip nbfc-paperclip" id="admin-nbfc-paperclip-${chatId}"></i>
                         <i class="fa-regular fa-face-smile nbfc-face-smile" id="admin-nbfc-smile-${chatId}"></i>
+                    </div>
+                     <div style="display: none; justify-content: flex-end; width: 100%; margin-bottom: 10px;" id="admin-nbfc-clear-container-${chatId}">
+                        <button style="background-color: rgb(240, 240, 240); border: none; border-radius: 4px; padding: 6px 20px; font-size: 12px; color: rgb(102, 102, 102); cursor: pointer; font-family: Poppins, sans-serif;" id="admin-nbfc-clear-button-${chatId}">Clear Chat</button>
                     </div>
                 `;
 
@@ -954,14 +984,20 @@
                     document.querySelectorAll(`[data-tab="${tabType}"]`).forEach(t => t.classList.add('active'));
                     const studentContainer = document.getElementById('admin-student-inbox-container');
                     const nbfcContainer = document.getElementById('admin-nbfc-inbox-container');
+
                     if (tabType === 'students') {
                         studentContainer.style.display = 'block';
                         nbfcContainer.style.display = 'none';
+
+
                         fetchStudentData();
+                        updateStudentCount();
                     } else {
                         studentContainer.style.display = 'none';
                         nbfcContainer.style.display = 'block';
+
                         fetchNbfcData();
+                        updateNbfcCount();
                     }
                 });
             });

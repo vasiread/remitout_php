@@ -7,18 +7,26 @@
     <title>Student Management Dashboard</title>
 
     <script src="{{ asset('js/adminsidebar.js') }}" defer></script>
-    <link rel="stylesheet" href="{{ asset('assets/css/studentformquestionair.css') }}">
+     <link rel="stylesheet" href="{{ asset('assets/css/studentformquestionair.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/scdashboard.css') }}">
 </head>
 
 <body>
     @extends('layouts.app');
     @php
-$profileIconPath = "assets/images/Icons/account_circle.png";
+$profileImgPath = '';
+$uploadPanName = '';
+$profileIconPath = "assets/images/account_circle.png";
 $phoneIconPath = "assets/images/call.png";
 $mailIconPath = "assets/images/mail.png";
 $pindropIconPath = "assets/images/pin_drop.png";
-    @endphp
+$discordIconPath = "assets/images/icons/discordicon.png";
+$viewIconPath = "assets/images/visibility.png";
+
+
+$nbfcdata = [];
+
+      @endphp
 
     <div class="student-listcontainer" id="student-admin-section-id">
         <div class="globallistcontainer-header" id="studentlistcontainer-headersection">
@@ -51,12 +59,12 @@ $pindropIconPath = "assets/images/pin_drop.png";
         <div class="scdashboard-studentapplication" id="studentapplicationfromadminstudent">
             @foreach ($userDetails as $users)
                                                                 @php
-                $status = 'pending';
-                if ($users->reviewed == 0) {
-                    $status = 'not-reviewed';
-                } elseif ($users->type == 'proposal') {
-                    $status = 'approved';
-                }
+    $status = 'pending';
+    if ($users->reviewed == 0) {
+        $status = 'not-reviewed';
+    } elseif ($users->type == 'proposal') {
+        $status = 'approved';
+    }
                                                                 @endphp
                                                             <div class="studentapplication-lists" data-status="{{ $status }}">
                                                                 <div class="individualapplication-list">
@@ -652,6 +660,262 @@ $pindropIconPath = "assets/images/pin_drop.png";
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
                     et dolore magna aliqua.</p>
             </div>
+                <div class="myapplication-seventhcolumn">
+                    <h1>Attached Documents</h1>
+                    <div class="seventhcolum-firstsection">
+                        <div class="seventhcolumn-header">
+                            <p>Student KYC Document</p>
+                            <i class="fa-solid fa-angle-down"></i>
+                        </div>
+                
+                        <div class="kycdocumentscolumn">
+                            <div class="individualkycdocuments">
+                                <p class="document-name">Pan Card</p>
+                                <div class="inputfilecontainer">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="uploaded-pan-name"> pan_card.jpg</p>
+                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-pan-card" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-real" />
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                
+                            <div class="individualkycdocuments">
+                                <p class="document-name">Aadhar Card</p>
+                                <div class="inputfilecontainer">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="uploaded-aadhar-name"> aadhar_card.jpg</p>
+                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-aadhar-card" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-real" />
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                
+                            <div class="individualkycdocuments">
+                                <p class="document-name">Passport</p>
+                                <div class="inputfilecontainer">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="passport-name-selector"> Passport.pdf</p>
+                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-passport-card" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-real" />
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="seventhcolumn-additional">
+                    <div class="seventhcolumn-additional-firstcolumn">
+                        <div class="seventhcolumnadditional-header">
+                            <p>Academic Marksheets</p>
+                            <i class="fa-solid fa-angle-down"></i>
+                        </div>
+                
+                        <div class="marksheetdocumentscolumn">
+                            <div class="individualmarksheetdocuments">
+                                <p class="document-name">10th grade marksheet</p>
+                                <div class="inputfilecontainer-marksheet">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="sslc-marksheet"> 10th grade marksheet</p>
+                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-card" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-real-marksheet" />
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                
+                            <div class="individualmarksheetdocuments">
+                                <p class="document-name">12th grade marksheet</p>
+                                <div class="inputfilecontainer-marksheet">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="hsc-marksheet"> 12th grade marksheet</p>
+                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-card" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-real-marksheet" />
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                
+                            <div class="individualmarksheetdocuments">
+                                <p class="document-name">Graduation marksheet</p>
+                                <div class="inputfilecontainer-marksheet">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="graduation-marksheet"> Graduation Marksheet</p>
+                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-card" />
+                                </div>
+                                <input type="file" id="inputfilecontainer-real-marksheet" />
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="myapplication-eightcolumn">
+                    <div class="eightcolumn-firstsection">
+                        <div class="eightcolumn-header">
+                
+                            <p>Secured Admissions</p>
+                            <i class="fa-solid fa-angle-down"></i>
+                        </div>
+                        <div class="secured-admissioncolumn">
+                            <div class="individual-secured-admission-documents">
+                                <p class="document-name">10th Grade
+                                </p>
+                                <div class="inputfilecontainer-secured-admission">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="sslc-grade">SSLC Grade</p>
+                
+                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-grade"></>
+                
+                                </div>
+                                <input type="file" id="inputfilecontainer-real-marksheet">
+                
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                            <div class="individual-secured-admission-documents">
+                                <p class="document-name">12th Grade
+                                </p>
+                                <div class="inputfilecontainer-secured-admission">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="hsc-grade">HSC Grade</p>
+                
+                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-grade"></>
+                
+                                </div>
+                                <input type="file" id="inputfilecontainer-real-marksheet">
+                
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                            <div class="individual-secured-admission-documents">
+                                <p class="document-name">Graduation
+                                </p>
+                                <div class="inputfilecontainer-secured-admission">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="graduation-grade">Graduation</p>
+                
+                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-grade"></>
+                
+                                </div>
+                                <input type="file" id="inputfilecontainer-real-marksheet">
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                        </div>
+                    </div>
+                
+                
+                </div>
+                <div class="myapplication-ninthcolumn">
+                    <div class="ninthcolumn-firstsection">
+                        <div class="ninthcolumn-header">
+                
+                            <p>Work Experience</p>
+                            <i class="fa-solid fa-angle-down"></i>
+                        </div>
+                        <div class="work-experiencecolumn">
+                            <div class="individual-work-experiencecolumn-documents">
+                                <p class="document-name">Experience Letter
+                                </p>
+                                <div class="inputfilecontainer-work-experiencecolumn">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="experience-letter">Experience Letter</p>
+                
+                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-experience-letter"></>
+                
+                                </div>
+                                <input type="file" id="inputfilecontainer-work-experience">
+                
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                            <div class="individual-work-experiencecolumn-documents">
+                                <p class="document-name">3 month Salary Slip
+                                </p>
+                                <div class="inputfilecontainer-work-experiencecolumn">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="salary-slip">3 month salary slip</p>
+                
+                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-salary-slip"></>
+                
+                                </div>
+                                <input type="file" id="inputfilecontainer-real-marksheet">
+                
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                            <div class="individual-work-experiencecolumn-documents">
+                                <p class="document-name">Office ID
+                                </p>
+                                <div class="inputfilecontainer-work-experiencecolumn">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="office-id">Office ID</p>
+                
+                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-office-id"></>
+                
+                                </div>
+                                <input type="file" id="inputfilecontainer-real-marksheet">
+                
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                            <div class="individual-work-experiencecolumn-documents">
+                                <p class="document-name">Employment Joining Letter
+                                </p>
+                                <div class="inputfilecontainer-work-experiencecolumn">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="joining-letter">Joining Letter</p>
+                
+                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-joining-letter"></>
+                
+                                </div>
+                                <input type="file" id="inputfilecontainer-real-marksheet">
+                
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                
+                        </div>
+                    </div>
+                
+                </div>
+                <div class="myapplication-tenthcolumn">
+                    <div class="tenthcolumn-firstsection">
+                        <div class="tenthcolumn-header">
+                            <p>Co-borrower Documents</p>
+                            <i class="fa-solid fa-angle-down"></i>
+                        </div>
+                        <div class="coborrower-kyccolumn">
+                            <div class="individual-coborrower-kyc-documents">
+                                <p class="document-name">Pan Card
+                                </p>
+                                <div class="inputfilecontainer-coborrower-kyccolumn">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="coborrower-pancard">Pan Card </p>
+                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-pan"></>
+                                </div>
+                                <input type="file" id="inputfilecontainer-kyccoborrwer">
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                            <div class="individual-coborrower-kyc-documents">
+                                <p class="document-name">Aadhar Card
+                                </p>
+                                <div class="inputfilecontainer-coborrower-kyccolumn">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="coborrower-aadharcard">Aadhar Card </p>
+                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-aadhar"></>
+                                </div>
+                                <input type="file" id="inputfilecontainer-kyccoborrwer">
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                            <div class="individual-coborrower-kyc-documents">
+                                <p class="document-name">Address Proof
+                                </p>
+                                <div class="inputfilecontainer-coborrower-kyccolumn">
+                                    <i class="fa-solid fa-image"></i>
+                                    <p class="coborrower-addressproof">Address Proof </p>
+                                    <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-addressproof"></>
+                                </div>
+                                <input type="file" id="inputfilecontainer-kyccoborrwer">
+                                <span class="document-status">420 MB uploaded</span>
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
 
             <div class="savecancelbuttoncontainer" style="display: none;">
                 <button id="save-student-details-adminside">Save</button>
@@ -719,6 +983,24 @@ $pindropIconPath = "assets/images/pin_drop.png";
 
             addDynamicInputFields();
             triggeredButtons();
+
+               Promise.all([
+                initialiseProfileView(),
+                initialiseAllViews(),
+            ])
+                .then(() => {
+                    // console.log("All URLs fetched successfully!", documentUrls);
+
+                    // Initialize document upload/preview functions after URLs are fetched
+                    initializeKycDocumentUpload();
+                    initializeMarksheetUpload();
+                    initializeSecuredAdmissionDocumentUpload();
+                    initializeWorkExperienceDocumentUpload();
+                    initializeCoBorrowerDocumentUpload();
+                })
+                .catch((error) => {
+                    console.error("Error during initialization:", error);
+                });
 
         });
 
@@ -1062,6 +1344,8 @@ $pindropIconPath = "assets/images/pin_drop.png";
                 loanAmount: userProfile.loan_amount,
                 referralCode: userProfile.referral_code
             }));
+
+            
         }
 
 
@@ -1224,6 +1508,81 @@ $pindropIconPath = "assets/images/pin_drop.png";
                 alert('An unexpected error occurred while saving details.');
             }
         }
+        
+            const endpoints = [
+                { url: "/retrieve-file", selector: ".uploaded-aadhar-name", fileType: "aadhar-card-name" },
+                { url: "/retrieve-file", selector: ".uploaded-pan-name", fileType: "pan-card-name" },
+                { url: "/retrieve-file", selector: ".passport-name-selector", fileType: "passport-card-name" },
+                { url: "/retrieve-file", selector: ".sslc-marksheet", fileType: "tenth-grade-name" },
+                { url: "/retrieve-file", selector: ".hsc-marksheet", fileType: "twelfth-grade-name" },
+                { url: "/retrieve-file", selector: ".graduation-marksheet", fileType: "graduation-grade-name" },
+                { url: "/retrieve-file", selector: ".sslc-grade", fileType: "secured-tenth-name" },
+                { url: "/retrieve-file", selector: ".hsc-grade", fileType: "secured-twelfth-name" },
+                { url: "/retrieve-file", selector: ".graduation-grade", fileType: "secured-graduation-name" },
+                { url: "/retrieve-file", selector: ".experience-letter", fileType: "work-experience-experience-letter" },
+                { url: "/retrieve-file", selector: ".salary-slip", fileType: "work-experience-monthly-slip" },
+                { url: "/retrieve-file", selector: ".office-id", fileType: "work-experience-office-id" },
+                { url: "/retrieve-file", selector: ".joining-letter", fileType: "work-experience-joining-letter" },
+                { url: "/retrieve-file", selector: ".coborrower-pancard", fileType: "co-pan-card-name" },
+                { url: "/retrieve-file", selector: ".coborrower-aadharcard", fileType: "co-aadhar-card-name" },
+                { url: "/retrieve-file", selector: ".coborrower-addressproof", fileType: "co-addressproof" },
+            ];
+
+            const documentUrls = {}; // make sure this is declared in your script scope
+
+            const initialiseAllViews = () => {
+                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content");
+                const userId = document.querySelector(".personalinfo-secondrow .personal_info_id")?.textContent.trim();
+
+                if (!csrfToken || !userId) {
+                    console.error("CSRF token or User ID is missing");
+                    return Promise.reject("CSRF token or User ID is missing");
+                }
+
+                // Extract fileTypes from endpoints, but backend may return more keys
+                const fileTypes = endpoints.map(ep => ep.fileType);
+
+                return fetch("/retrieve-file", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": csrfToken,
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ userId, fileTypes }),
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        // data could be a flat object with all files (static + dynamic)
+                        const allFiles = data.staticFiles || data;
+
+                        // Loop through all keys returned by backend (all files)
+                        Object.entries(allFiles).forEach(([fileType, fileUrl]) => {
+                            if (fileUrl) {
+                                documentUrls[fileType] = fileUrl;
+                                const fileName = fileUrl.split("/").pop();
+
+                                // Find matching selector from endpoints (if any)
+                                const endpoint = endpoints.find(ep => ep.fileType === fileType);
+                                if (endpoint) {
+                                    const element = document.querySelector(endpoint.selector);
+                                    if (element) {
+                                        element.textContent = fileName;
+                                    } else {
+                                        console.warn(`Element not found for selector: ${endpoint.selector}`);
+                                    }
+                                }
+
+                                console.log(`FileType: ${fileType}, URL: ${fileUrl}`);
+                            } else {
+                                console.log(`No file found for ${fileType}`);
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        console.error("Error fetching files:", error);
+                    });
+            };
 
 
         function refreshProfileView(uniqueId) {
@@ -1292,6 +1651,1179 @@ $pindropIconPath = "assets/images/pin_drop.png";
         };
 
 
+
+    const initializeKycDocumentUpload = () => {
+
+        const individualKycDocumentsUpload = document.querySelectorAll(
+            ".individualkycdocuments"
+        );
+
+        individualKycDocumentsUpload.forEach((card) => {
+            const eyeIcon = card.querySelector(".fa-eye");
+
+            if (!eyeIcon) {
+                console.error("Eye icon not found in card:", card);
+                return;
+            }
+
+            eyeIcon.addEventListener("click", function (event) {
+                event.stopPropagation();
+
+                const documentType = eyeIcon.id
+                    .replace("view-", "")
+                    .replace("-card", ""); // e.g., "aadhar-card"
+                const fileTypeKey = `${documentType}-card-name`;
+                const fileUrl = documentUrls[fileTypeKey];
+                const fileNameElement = card.querySelector(
+                    `.uploaded-${documentType}-name`
+                );
+                const fileName = fileNameElement
+                    ? fileNameElement.textContent
+                    : "Document.pdf";
+
+                console.log(`Previewing ${documentType}: ${fileUrl}`);
+
+                // Check if a preview is already active
+                if (eyeIcon.classList.contains('preview-active')) {
+                    const previewWrapper = document.querySelector('.pdf-preview-wrapper');
+                    if (previewWrapper) previewWrapper.remove();
+                    const overlay = document.querySelector('.pdf-preview-overlay');
+                    if (overlay) overlay.remove();
+                    eyeIcon.classList.remove('preview-active');
+                    eyeIcon.src = "/assets/images/visibility.png";
+                    return;
+                }
+
+                // If no file URL, show an alert
+                if (!fileUrl) {
+                    alert("No document found to preview.");
+                    return;
+                }
+
+                // Create the preview modal
+                const previewWrapper = document.createElement("div");
+                previewWrapper.className = "pdf-preview-wrapper";
+                previewWrapper.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 60%;
+                height: 80vh;
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 1000;
+                border-radius: 8px;
+            `;
+
+                const overlay = document.createElement("div");
+                overlay.className = "pdf-preview-overlay";
+                overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            `;
+
+                const header = document.createElement("div");
+                header.style.cssText = `
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 8px 16px;
+                background-color: #1a1a1a;
+                color: white;
+                height: 40px;
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+            `;
+
+                const fileNameSection = document.createElement("div");
+                fileNameSection.style.cssText = `
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            `;
+
+                const fileNameSpan = document.createElement("span");
+                fileNameSpan.textContent = fileName;
+                fileNameSpan.style.cssText = `
+                color: white;
+                font-size: 14px;
+                font-family: 'Poppins', sans-serif;
+            `;
+                fileNameSection.appendChild(fileNameSpan);
+
+                const zoomControls = document.createElement("div");
+                zoomControls.style.cssText = `
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            `;
+
+                const zoomOut = document.createElement("button");
+                zoomOut.innerHTML = "−";
+                const zoomIn = document.createElement("button");
+                zoomIn.innerHTML = "+";
+
+                [zoomOut, zoomIn].forEach((btn) => {
+                    btn.style.cssText = `
+                    background: none;
+                    border: 1px solid #fff;
+                    border-radius: 4px;
+                    color: white;
+                    font-size: 16px;
+                    cursor: pointer;
+                    padding: 2px 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Poppins', sans-serif;
+                `;
+                });
+
+                zoomControls.appendChild(zoomOut);
+                zoomControls.appendChild(zoomIn);
+
+                // Close button
+                const closeButton = document.createElement('button');
+                closeButton.innerHTML = '&#10005;';
+                closeButton.style.cssText = `
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 18px;
+                    cursor: pointer;
+                    padding: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                `;
+
+                const closePreview = () => {
+                    previewWrapper.remove();
+                    overlay.remove();
+                    eyeIcon.classList.remove('preview-active');
+                    eyeIcon.classList.replace('fa-times', 'fa-eye');
+                };
+
+                closeButton.addEventListener("click", closePreview);
+                overlay.addEventListener("click", closePreview);
+
+                header.appendChild(fileNameSection);
+                header.appendChild(zoomControls);
+                header.appendChild(closeButton);
+
+                const iframe = document.createElement("iframe");
+                iframe.src = fileUrl;
+                iframe.style.cssText = `
+                width: 100%;
+                height: calc(100% - 40px);
+                border: none;
+                background-color: white;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+            `;
+
+                previewWrapper.appendChild(header);
+                previewWrapper.appendChild(iframe);
+
+                document.body.appendChild(overlay);
+                document.body.appendChild(previewWrapper);
+
+                let currentZoom = 1;
+                zoomIn.addEventListener("click", () => {
+                    currentZoom += 0.1;
+                    iframe.style.transform = `scale(${currentZoom})`;
+                    iframe.style.transformOrigin = "top center";
+                });
+
+                zoomOut.addEventListener("click", () => {
+                    currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                    iframe.style.transform = `scale(${currentZoom})`;
+                    iframe.style.transformOrigin = "top center";
+                });
+
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape") {
+                        closePreview();
+                    }
+                });
+
+                eyeIcon.classList.add("preview-active");
+                eyeIcon.src = "/assets/images/close.png"; // Update with your actual path
+            });
+        });
+    };
+
+
+    const initializeMarksheetUpload = () => {
+        const individualMarksheetDocumentsUpload = document.querySelectorAll(
+            ".individualmarksheetdocuments"
+        );
+
+        individualMarksheetDocumentsUpload.forEach((card) => {
+            const eyeIcon = card.querySelector(".fa-eye");
+
+            if (!eyeIcon) {
+                console.error("Eye icon not found in card:", card);
+                return;
+            }
+
+            eyeIcon.addEventListener("click", function (event) {
+                event.stopPropagation();
+
+                // Get the document type from the eye icon's ID
+                const documentType = eyeIcon.id.replace('view-', '').replace('-card', '');
+
+                // Construct the fileType key used in documentUrls based on the class name
+                let fileTypeKey;
+                if (card.querySelector(".sslc-marksheet")) {
+                    fileTypeKey = "tenth-grade-name";
+                } else if (card.querySelector(".hsc-marksheet")) {
+                    fileTypeKey = "twelfth-grade-name";
+                } else if (card.querySelector(".graduation-marksheet")) {
+                    fileTypeKey = "graduation-grade-name";
+                }
+
+                // Get the URL from documentUrls
+                const fileUrl = documentUrls[fileTypeKey];
+                const fileNameElement = card.querySelector(
+                    `.${fileTypeKey.replace("-name", "-marksheet")}`
+                );
+                const fileName = fileNameElement
+                    ? fileNameElement.textContent
+                    : "Document.pdf";
+
+                console.log(`Previewing marksheet (${fileTypeKey}):`, fileUrl);
+
+                if (eyeIcon.classList.contains("preview-active")) {
+                    const previewWrapper = document.querySelector(
+                        ".pdf-preview-wrapper"
+                    );
+                    const overlay = document.querySelector(".pdf-preview-overlay");
+                    if (previewWrapper) previewWrapper.remove();
+                    if (overlay) overlay.remove();
+                    eyeIcon.classList.remove("preview-active");
+                    eyeIcon.src = "/assets/images/visibility.png";
+                    return;
+                }
+
+                if (!fileUrl) {
+                    alert("No document found to preview.");
+                    return;
+                }
+
+                // Create the preview modal
+                const previewWrapper = document.createElement("div");
+                previewWrapper.className = "pdf-preview-wrapper";
+                previewWrapper.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 60%;
+                height: 80vh;
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 1000;
+                border-radius: 8px;
+            `;
+
+                const overlay = document.createElement("div");
+                overlay.className = "pdf-preview-overlay";
+                overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            `;
+
+                const header = document.createElement("div");
+                header.style.cssText = `
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 8px 16px;
+                background-color: #1a1a1a;
+                color: white;
+                height: 40px;
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+            `;
+
+                const fileNameSection = document.createElement("div");
+                fileNameSection.style.cssText = `
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            `;
+
+                const fileNameSpan = document.createElement("span");
+                fileNameSpan.textContent = fileName;
+                fileNameSpan.style.cssText = `
+                color: white;
+                font-size: 14px;
+                font-family: 'Poppins', sans-serif;
+            `;
+                fileNameSection.appendChild(fileNameSpan);
+
+                const zoomControls = document.createElement("div");
+                zoomControls.style.cssText = `
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            `;
+
+                const zoomOut = document.createElement("button");
+                zoomOut.innerHTML = "−";
+                const zoomIn = document.createElement("button");
+                zoomIn.innerHTML = "+";
+
+                [zoomOut, zoomIn].forEach((btn) => {
+                    btn.style.cssText = `
+                    background: none;
+                    border: 1px solid #fff;
+                    border-radius: 4px;
+                    color: white;
+                    font-size: 16px;
+                    cursor: pointer;
+                    padding: 2px 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Poppins', sans-serif;
+                `;
+                });
+
+                zoomControls.appendChild(zoomOut);
+                zoomControls.appendChild(zoomIn);
+
+                const closeButton = document.createElement("button");
+                closeButton.innerHTML = "✕";
+                closeButton.style.cssText = `
+                background: none;
+                border: none;
+                color: white;
+                font-size: 18px;
+                cursor: pointer;
+                padding: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: 'Poppins', sans-serif;
+            `;
+
+                const closePreview = () => {
+                    previewWrapper.remove();
+                    overlay.remove();
+                    eyeIcon.classList.remove("preview-active");
+                    eyeIcon.src = "/assets/images/visibility.png";
+                };
+
+                closeButton.addEventListener("click", closePreview);
+                overlay.addEventListener("click", closePreview);
+
+                header.appendChild(fileNameSection);
+                header.appendChild(zoomControls);
+                header.appendChild(closeButton);
+
+                const iframe = document.createElement("iframe");
+                iframe.src = fileUrl;
+                iframe.style.cssText = `
+                width: 100%;
+                height: calc(100% - 40px);
+                border: none;
+                background-color: white;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+            `;
+
+                previewWrapper.appendChild(header);
+                previewWrapper.appendChild(iframe);
+
+                document.body.appendChild(overlay);
+                document.body.appendChild(previewWrapper);
+
+                let currentZoom = 1;
+                zoomIn.addEventListener("click", () => {
+                    currentZoom += 0.1;
+                    iframe.style.transform = `scale(${currentZoom})`;
+                    iframe.style.transformOrigin = "top center";
+                });
+
+                zoomOut.addEventListener("click", () => {
+                    currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                    iframe.style.transform = `scale(${currentZoom})`;
+                    iframe.style.transformOrigin = "top center";
+                });
+
+                document.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape") {
+                        closePreview();
+                    }
+                });
+
+                eyeIcon.classList.add("preview-active");
+                eyeIcon.src = "/assets/images/close.png";
+            });
+        });
+    };
+
+    const initializeSecuredAdmissionDocumentUpload = () => {
+        const securedAdmissionDocuments = document.querySelectorAll(
+            ".individual-secured-admission-documents"
+        );
+
+        securedAdmissionDocuments.forEach((card) => {
+            const eyeIcon = card.querySelector(".fa-eye");
+
+            if (!eyeIcon) {
+                console.error("Eye icon not found in card:", card);
+                return;
+            }
+
+            eyeIcon.addEventListener("click", function (event) {
+                event.stopPropagation();
+
+                // Determine document type based on which element exists
+                let fileTypeKey;
+                if (card.querySelector(".sslc-grade")) {
+                    fileTypeKey = "secured-tenth-name";
+                } else if (card.querySelector(".hsc-grade")) {
+                    fileTypeKey = "secured-twelfth-name";
+                } else if (card.querySelector(".graduation-grade")) {
+                    fileTypeKey = "secured-graduation-name";
+                }
+
+                // Get the URL from documentUrls
+                const fileUrl = documentUrls[fileTypeKey];
+                const fileNameElement = card.querySelector(
+                    `.${fileTypeKey.replace("-name", "-grade")}`
+                );
+                const fileName = fileNameElement
+                    ? fileNameElement.textContent
+                    : "Document.pdf";
+
+                console.log(
+                    `Previewing secured admission (${fileTypeKey}):`,
+                    fileUrl
+                );
+
+                if (eyeIcon.classList.contains("preview-active")) {
+                    const previewWrapper = document.querySelector(
+                        ".pdf-preview-wrapper, .image-preview-wrapper"
+                    );
+                    const overlay = document.querySelector(
+                        ".pdf-preview-overlay, .image-preview-overlay"
+                    );
+                    if (previewWrapper) previewWrapper.remove();
+                    if (overlay) overlay.remove();
+                    eyeIcon.classList.remove("preview-active");
+                    eyeIcon.src = "/assets/images/visibility.png";
+                    return;
+                }
+
+                if (!fileUrl) {
+                    alert("No document found to preview.");
+                    return;
+                }
+
+                // Check if it's a PDF or image based on file extension
+                const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
+                const isImage = [".jpg", ".jpeg", ".png"].some((ext) =>
+                    fileUrl.toLowerCase().endsWith(ext)
+                );
+
+                if (isPDF) {
+                    // PDF Preview
+                    const previewWrapper = document.createElement("div");
+                    previewWrapper.className = "pdf-preview-wrapper";
+                    previewWrapper.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 60%;
+                    height: 80vh;
+                    background-color: white;
+                    display: flex;
+                    flex-direction: column;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    z-index: 1000;
+                    border-radius: 8px;
+                `;
+
+                    const overlay = document.createElement("div");
+                    overlay.className = "pdf-preview-overlay";
+                    overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 999;
+                `;
+
+                    const header = document.createElement("div");
+                    header.style.cssText = `
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 8px 16px;
+                    background-color: #1a1a1a;
+                    color: white;
+                    height: 40px;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
+                `;
+
+                    const fileNameSection = document.createElement("div");
+                    fileNameSection.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                `;
+
+                    const fileNameSpan = document.createElement("span");
+                    fileNameSpan.textContent = fileName;
+                    fileNameSpan.style.cssText = `
+                    color: white;
+                    font-size: 14px;
+                    font-family: 'Poppins', sans-serif;
+                `;
+                    fileNameSection.appendChild(fileNameSpan);
+
+                    const zoomControls = document.createElement("div");
+                    zoomControls.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                `;
+
+                    const zoomOut = document.createElement("button");
+                    zoomOut.innerHTML = "−";
+                    const zoomIn = document.createElement("button");
+                    zoomIn.innerHTML = "+";
+
+                    [zoomOut, zoomIn].forEach((btn) => {
+                        btn.style.cssText = `
+                        background: none;
+                        border: 1px solid #fff;
+                        border-radius: 4px;
+                        color: white;
+                        font-size: 16px;
+                        cursor: pointer;
+                        padding: 2px 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-family: 'Poppins', sans-serif;
+                    `;
+                    });
+
+                    zoomControls.appendChild(zoomOut);
+                    zoomControls.appendChild(zoomIn);
+
+                    const closeButton = document.createElement("button");
+                    closeButton.innerHTML = "✕";
+                    closeButton.style.cssText = `
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 18px;
+                    cursor: pointer;
+                    padding: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Poppins', sans-serif;
+                `;
+
+                    const closePreview = () => {
+                        previewWrapper.remove();
+                        overlay.remove();
+                        eyeIcon.classList.remove("preview-active");
+                        eyeIcon.src = "/assets/images/visibility.png";
+                    };
+
+                    closeButton.addEventListener("click", closePreview);
+                    overlay.addEventListener("click", closePreview);
+
+                    header.appendChild(fileNameSection);
+                    header.appendChild(zoomControls);
+                    header.appendChild(closeButton);
+
+                    const iframe = document.createElement("iframe");
+                    iframe.src = fileUrl;
+                    iframe.style.cssText = `
+                    width: 100%;
+                    height: calc(100% - 40px);
+                    border: none;
+                    background-color: white;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                `;
+
+                    previewWrapper.appendChild(header);
+                    previewWrapper.appendChild(iframe);
+
+                    document.body.appendChild(overlay);
+                    document.body.appendChild(previewWrapper);
+
+                    let currentZoom = 1;
+                    zoomIn.addEventListener("click", () => {
+                        currentZoom += 0.1;
+                        iframe.style.transform = `scale(${currentZoom})`;
+                        iframe.style.transformOrigin = "top center";
+                    });
+
+                    zoomOut.addEventListener("click", () => {
+                        currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                        iframe.style.transform = `scale(${currentZoom})`;
+                        iframe.style.transformOrigin = "top center";
+                    });
+
+                    document.addEventListener("keydown", function (e) {
+                        if (e.key === "Escape") {
+                            closePreview();
+                        }
+                    });
+
+                    eyeIcon.classList.add("preview-active");
+                    eyeIcon.src = "/assets/images/close.png";
+                } else if (isImage) {
+                    // Image Preview
+                    const previewWrapper = document.createElement("div");
+                    previewWrapper.className = "image-preview-wrapper";
+                    previewWrapper.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 90%;
+                    max-width: 800px;
+                    max-height: 90vh;
+                    background-color: white;
+                    display: flex;
+                    flex-direction: column;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    z-index: 1000;
+                    border-radius: 8px;
+                `;
+
+                    const overlay = document.createElement("div");
+                    overlay.className = "image-preview-overlay";
+                    overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 999;
+                `;
+
+                    const header = document.createElement("div");
+                    header.style.cssText = `
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 8px 16px;
+                    background-color: #1a1a1a;
+                    color: white;
+                    height: 40px;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
+                `;
+
+                    const fileNameSection = document.createElement("div");
+                    fileNameSection.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                `;
+
+                    const fileNameSpan = document.createElement("span");
+                    fileNameSpan.textContent = fileName;
+                    fileNameSpan.style.cssText = `
+                    color: white;
+                    font-size: 14px;
+                    font-family: 'Poppins', sans-serif;
+                `;
+                    fileNameSection.appendChild(fileNameSpan);
+
+                    const closeButton = document.createElement("button");
+                    closeButton.innerHTML = "✕";
+                    closeButton.style.cssText = `
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 18px;
+                    cursor: pointer;
+                    padding: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Poppins', sans-serif;
+                `;
+
+                    const closePreview = () => {
+                        previewWrapper.remove();
+                        overlay.remove();
+                        eyeIcon.classList.remove("preview-active");
+                        eyeIcon.src = "/assets/images/visibility.png";
+                    };
+
+                    closeButton.addEventListener("click", closePreview);
+                    overlay.addEventListener("click", closePreview);
+
+                    header.appendChild(fileNameSection);
+                    header.appendChild(closeButton);
+
+                    const imageContainer = document.createElement("div");
+                    imageContainer.style.cssText = `
+                    width: 100%;
+                    height: calc(100% - 40px);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: auto;
+                    padding: 20px;
+                    background-color: #f0f0f0;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                `;
+
+                    const img = document.createElement("img");
+                    img.src = fileUrl;
+                    img.style.cssText = `
+                    max-width: 100%;
+                    max-height: 80vh;
+                    object-fit: contain;
+                `;
+
+                    imageContainer.appendChild(img);
+                    previewWrapper.appendChild(header);
+                    previewWrapper.appendChild(imageContainer);
+
+                    document.body.appendChild(overlay);
+                    document.body.appendChild(previewWrapper);
+
+                    document.addEventListener("keydown", function (e) {
+                        if (e.key === "Escape") {
+                            closePreview();
+                        }
+                    });
+
+                    eyeIcon.classList.add("preview-active");
+                    eyeIcon.src = "/assets/images/close.png";
+                } else {
+                    alert(
+                        "Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported."
+                    );
+                }
+            });
+        });
+    };
+
+    function truncateFileName(fileName) {
+        if (fileName.length <= 20) return fileName;
+
+        const extension = fileName.slice(fileName.lastIndexOf("."));
+        const name = fileName.slice(0, fileName.lastIndexOf("."));
+
+        return name.slice(0, 16) + "..." + extension;
+    }
+
+    //  document.addEventListener('DOMContentLoaded', function () {
+    //     initializeSecuredAdmissionDocumentUpload();
+    // });
+
+
+
+    const initializeWorkExperienceDocumentUpload = () => {
+        const workExperienceDocuments = document.querySelectorAll(
+            ".individual-work-experiencecolumn-documents"
+        );
+
+        workExperienceDocuments.forEach((card) => {
+            const eyeIcon = card.querySelector(".fa-eye");
+
+            if (!eyeIcon) {
+                console.error("Eye icon not found in card:", card);
+                return;
+            }
+
+            eyeIcon.addEventListener("click", function (event) {
+                event.stopPropagation();
+
+                // Determine document type based on which element exists
+                let fileTypeKey;
+                if (card.querySelector(".experience-letter")) {
+                    fileTypeKey = "work-experience-experience-letter";
+                } else if (card.querySelector(".salary-slip")) {
+                    fileTypeKey = "work-experience-monthly-slip";
+                } else if (card.querySelector(".office-id")) {
+                    fileTypeKey = "work-experience-office-id";
+                } else if (card.querySelector(".joining-letter")) {
+                    fileTypeKey = "work-experience-joining-letter";
+                }
+
+                // Get the URL from documentUrls
+                const fileUrl = documentUrls[fileTypeKey];
+                const fileNameElement = card.querySelector(
+                    `.${fileTypeKey.split("-").slice(2).join("-")}`
+                );
+                const fileName = fileNameElement
+                    ? fileNameElement.textContent
+                    : "Document.pdf";
+
+                console.log(
+                    `Previewing work experience (${fileTypeKey}):`,
+                    fileUrl
+                );
+
+                if (eyeIcon.classList.contains("preview-active")) {
+                    const previewWrapper = document.querySelector(
+                        ".pdf-preview-wrapper, .image-preview-wrapper"
+                    );
+                    const overlay = document.querySelector(
+                        ".pdf-preview-overlay, .image-preview-overlay"
+                    );
+                    if (previewWrapper) previewWrapper.remove();
+                    if (overlay) overlay.remove();
+                    eyeIcon.classList.remove("preview-active");
+                    eyeIcon.src = "/assets/images/visibility.png";
+                    return;
+                }
+
+                if (!fileUrl) {
+                    alert("No document found to preview.");
+                    return;
+                }
+
+                // Check if it's a PDF or image based on file extension
+                const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
+                const isImage = [".jpg", ".jpeg", ".png"].some((ext) =>
+                    fileUrl.toLowerCase().endsWith(ext)
+                );
+
+                if (isPDF) {
+                    // PDF Preview
+                    const previewWrapper = document.createElement("div");
+                    previewWrapper.className = "pdf-preview-wrapper";
+                    previewWrapper.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 60%;
+                    height: 80vh;
+                    background-color: white;
+                    display: flex;
+                    flex-direction: column;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    z-index: 1000;
+                    border-radius: 8px;
+                `;
+
+                    const overlay = document.createElement("div");
+                    overlay.className = "pdf-preview-overlay";
+                    overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 999;
+                `;
+
+                    const header = document.createElement("div");
+                    header.style.cssText = `
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 8px 16px;
+                    background-color: #1a1a1a;
+                    color: white;
+                    height: 40px;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
+                `;
+
+                    const fileNameSection = document.createElement("div");
+                    fileNameSection.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                `;
+
+                    const fileNameSpan = document.createElement("span");
+                    fileNameSpan.textContent = fileName;
+                    fileNameSpan.style.cssText = `
+                    color: white;
+                    font-size: 14px;
+                    font-family: 'Poppins', sans-serif;
+                `;
+                    fileNameSection.appendChild(fileNameSpan);
+
+                    const zoomControls = document.createElement("div");
+                    zoomControls.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                `;
+
+                    const zoomOut = document.createElement("button");
+                    zoomOut.innerHTML = "−";
+                    const zoomIn = document.createElement("button");
+                    zoomIn.innerHTML = "+";
+
+                    [zoomOut, zoomIn].forEach((btn) => {
+                        btn.style.cssText = `
+                        background: none;
+                        border: 1px solid #fff;
+                        border-radius: 4px;
+                        color: white;
+                        font-size: 16px;
+                        cursor: pointer;
+                        padding: 2px 8px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-family: 'Poppins', sans-serif;
+                    `;
+                    });
+
+                    zoomControls.appendChild(zoomOut);
+                    zoomControls.appendChild(zoomIn);
+
+                    const closeButton = document.createElement("button");
+                    closeButton.innerHTML = "✕";
+                    closeButton.style.cssText = `
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 18px;
+                    cursor: pointer;
+                    padding: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Poppins', sans-serif;
+                `;
+
+                    const closePreview = () => {
+                        previewWrapper.remove();
+                        overlay.remove();
+                        eyeIcon.classList.remove("preview-active");
+                        eyeIcon.src = "/assets/images/visibility.png";
+                    };
+
+                    closeButton.addEventListener("click", closePreview);
+                    overlay.addEventListener("click", closePreview);
+
+                    header.appendChild(fileNameSection);
+                    header.appendChild(zoomControls);
+                    header.appendChild(closeButton);
+
+                    const iframe = document.createElement("iframe");
+                    iframe.src = fileUrl;
+                    iframe.style.cssText = `
+                    width: 100%;
+                    height: calc(100% - 40px);
+                    border: none;
+                    background-color: white;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                `;
+
+                    previewWrapper.appendChild(header);
+                    previewWrapper.appendChild(iframe);
+
+                    document.body.appendChild(overlay);
+                    document.body.appendChild(previewWrapper);
+
+                    let currentZoom = 1;
+                    zoomIn.addEventListener("click", () => {
+                        currentZoom += 0.1;
+                        iframe.style.transform = `scale(${currentZoom})`;
+                        iframe.style.transformOrigin = "top center";
+                    });
+
+                    zoomOut.addEventListener("click", () => {
+                        currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                        iframe.style.transform = `scale(${currentZoom})`;
+                        iframe.style.transformOrigin = "top center";
+                    });
+
+                    document.addEventListener("keydown", function (e) {
+                        if (e.key === "Escape") {
+                            closePreview();
+                        }
+                    });
+
+                    eyeIcon.classList.add("preview-active");
+                    eyeIcon.src = "/assets/images/close.png";
+                } else if (isImage) {
+                    // Image Preview
+                    const previewWrapper = document.createElement("div");
+                    previewWrapper.className = "image-preview-wrapper";
+                    previewWrapper.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 90%;
+                    max-width: 800px;
+                    max-height: 90vh;
+                    background-color: white;
+                    display: flex;
+                    flex-direction: column;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    z-index: 1000;
+                    border-radius: 8px;
+                `;
+
+                    const overlay = document.createElement("div");
+                    overlay.className = "image-preview-overlay";
+                    overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 999;
+                `;
+
+                    const header = document.createElement("div");
+                    header.style.cssText = `
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 8px 16px;
+                    background-color: #1a1a1a;
+                    color: white;
+                    height: 40px;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
+                `;
+
+                    const fileNameSection = document.createElement("div");
+                    fileNameSection.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                `;
+
+                    const fileNameSpan = document.createElement("span");
+                    fileNameSpan.textContent = fileName;
+                    fileNameSpan.style.cssText = `
+                    color: white;
+                    font-size: 14px;
+                    font-family: 'Poppins', sans-serif;
+                `;
+                    fileNameSection.appendChild(fileNameSpan);
+
+                    const closeButton = document.createElement("button");
+                    closeButton.innerHTML = "✕";
+                    closeButton.style.cssText = `
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 18px;
+                    cursor: pointer;
+                    padding: 4px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Poppins', sans-serif;
+                `;
+
+                    const closePreview = () => {
+                        previewWrapper.remove();
+                        overlay.remove();
+                        eyeIcon.classList.remove("preview-active");
+                        eyeIcon.src = "/assets/images/visibility.png";
+                    };
+
+                    closeButton.addEventListener("click", closePreview);
+                    overlay.addEventListener("click", closePreview);
+
+                    header.appendChild(fileNameSection);
+                    header.appendChild(closeButton);
+
+                    const imageContainer = document.createElement("div");
+                    imageContainer.style.cssText = `
+                    width: 100%;
+                    height: calc(100% - 40px);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: auto;
+                    padding: 20px;
+                    background-color: #f0f0f0;
+                    border-bottom-left-radius: 8px;
+                    border-bottom-right-radius: 8px;
+                `;
+
+                    const img = document.createElement("img");
+                    img.src = fileUrl;
+                    img.style.cssText = `
+                    max-width: 100%;
+                    max-height: 80vh;
+                    object-fit: contain;
+                `;
+
+                    imageContainer.appendChild(img);
+                    previewWrapper.appendChild(header);
+                    previewWrapper.appendChild(imageContainer);
+
+                    document.body.appendChild(overlay);
+                    document.body.appendChild(previewWrapper);
+
+                    document.addEventListener("keydown", function (e) {
+                        if (e.key === "Escape") {
+                            closePreview();
+                        }
+                    });
+
+                    eyeIcon.classList.add("preview-active");
+                    eyeIcon.src = "/assets/images/close.png";
+                } else {
+                    alert(
+                        "Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported."
+                    );
+                }
+            });
+        });
+    };
         const initializePopuAddingstudents = () => {
             const studentAddingPopuBar = document.querySelector(".studentAddBySCuserPopup");
             const popuAddingStudentTriggers = document.querySelectorAll(".studentlist-add");
@@ -1850,6 +3382,8 @@ $pindropIconPath = "assets/images/pin_drop.png";
                 console.error("Error deleting file:", error);
             });
     }
+
+
     </script>
     <script src="{{ asset('js/studentforms.js') }}"></script>
 

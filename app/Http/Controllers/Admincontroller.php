@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\PromotionalContentMail;
+use App\Mail\SendScDetailsMail;
 use App\Models\Academics;
 use App\Models\AdditionalField;
 use App\Models\Admin;
@@ -40,6 +41,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Illuminate\Validation\Rule;
 
 
 class Admincontroller extends Controller
@@ -1056,16 +1058,16 @@ class Admincontroller extends Controller
         ]);
 
         if ($validator->fails()) {
-            Log::error('Validation failed for creating admin', $validator->errors()->toArray());
             return response()->json([
-                'error' => 'Validation failed',
-                'details' => $validator->errors()
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
             ], 422);
         }
 
         $email = $request->input('email');
 
-        // Check email existence across all models
+        // Check email across other models
         $emailExists =
             Admin::where('email', $email)->exists() ||
             User::where('email', $email)->exists() ||
@@ -1074,8 +1076,9 @@ class Admincontroller extends Controller
 
         if ($emailExists) {
             return response()->json([
-                'error' => 'Email already exists in the system. Please use a different email.'
-            ], 409); // 409 Conflict
+                'success' => false,
+                'message' => 'Email already exists in the system.'
+            ], 409);
         }
 
         try {
@@ -1088,14 +1091,13 @@ class Admincontroller extends Controller
                 'is_super_admin' => $request->input('is_super_admin', false),
             ]);
 
-            // Optionally email the password
-            // Mail::to($admin->email)->send(new NewAdminPasswordMail($generatedPassword));
+            // Send email
+            Mail::to($admin->email)->send(new SendScDetailsMail($admin->email, $generatedPassword));
 
             return response()->json([
                 'success' => true,
                 'message' => 'Admin created successfully',
                 'data' => [
-                    'admin_id' => $admin->admin_id,
                     'name' => $admin->name,
                     'email' => $admin->email,
                     'is_super_admin' => $admin->is_super_admin,
@@ -1103,16 +1105,14 @@ class Admincontroller extends Controller
                 ]
             ], 201);
         } catch (\Exception $e) {
-            Log::error('Error creating admin: ' . $e->getMessage());
             return response()->json([
-                'error' => 'Failed to create admin',
-                'details' => $e->getMessage()
+                'success' => false,
+                'message' => 'Failed to create admin',
+                'error' => $e->getMessage()
             ], 500);
         }
-
-
-
     }
+
 
     public function updateAdmin(Request $request, $id)
     {
@@ -1128,7 +1128,11 @@ class Admincontroller extends Controller
         // Validate the incoming request
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:admin,email,' . $admin->id, // ignore current admin record
+            'email' => [
+                'required',
+                'email',
+                Rule::unique((new Admin)->getTable(), 'email')->ignore($admin->admin_id, 'admin_id')
+            ],
             'is_super_admin' => 'boolean'
         ]);
 
@@ -1166,6 +1170,7 @@ class Admincontroller extends Controller
             ], 500);
         }
     }
+
 
 
 
@@ -2413,7 +2418,26 @@ class Admincontroller extends Controller
 
 
 
+    public function getLanding()
+    {
+        $landing = landingpage::first(); // Or find($id) if needed
+        return response()->json($landing);
+    }
 
+    public function updateLanding(Request $request)
+    {
+        $landing = landingpage::first(); // or find($id)
+
+        $landing->update($request->only([
+            'banner_header',
+            'banner_little_quote',
+            'banner_little_description',
+            'button_textcontent',
+            'video_trigger_button'
+        ]));
+
+        return response()->json(['message' => 'Updated successfully']);
+    }
 
 
 }

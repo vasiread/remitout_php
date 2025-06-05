@@ -220,3 +220,11 @@ Route::get('/reset-password', [LoginController::class, 'showResetForm']);
 // POST request to reset password
 Route::post('/reset-password', [LoginController::class, 'resetPassword']);
  Route::get('/reports/user-profile', [Admincontroller::class, 'downloadUserProfileReportPDF']);
+
+
+
+
+ Route::get('/api/cms/landing', [Admincontroller::class, 'getLanding']);
+
+// POST update landing page content
+Route::post('/cms/landing/update', [Admincontroller::class, 'updateLanding']);

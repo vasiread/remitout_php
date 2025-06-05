@@ -306,3 +306,7 @@ Route::get('/count-deactive-queries', [Admincontroller::class, 'countDeactiveQue
  Route::get('/reports/user-profile', [Admincontroller::class, 'downloadUserProfileReportPDF']);
 Route::post('/getprofilecompletionbygender', [Admincontroller::class, 'getProfileCompletionByGenderAndDegree']);
 Route::get('/retrievedashboarddetails', [Admincontroller::class, 'retrieveDashboardDetails']);
+
+
+
+Route::post('/cms/landing/update', [Admincontroller::class, 'updateLanding']);

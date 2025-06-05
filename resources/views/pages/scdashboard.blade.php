@@ -637,19 +637,19 @@ $studentDocumentDetailsInfo = [
 
         }
 
-        window.addEventListener('resize', function () {
-            const triggeredSideBar = document.querySelector(".commonsidebar-togglesidebar");
-            const img = document.querySelector("#scuser-dashboard-menu img");
+        // window.addEventListener('resize', function () {
+        //     const triggeredSideBar = document.querySelector(".commonsidebar-togglesidebar");
+        //     const img = document.querySelector("#scuser-dashboard-menu img");
 
-            if (window.innerWidth <= 768) {
-                if (img.src.includes("menu.png")) {
-                    img.src = '{{ asset('assets/images/Icons/close_icon.png') }}';
-                }
-            } else if (window.innerWidth > 768) {
-                triggeredSideBar.style.backgroundColor = '';
-                triggeredSideBar.style.display = "flex";
-            }
-        });
+        //     if (window.innerWidth <= 768) {
+        //         if (img.src.includes("menu.png")) {
+        //             img.src = '{{ asset('assets/images/Icons/close_icon.png') }}';
+        //         }
+        //     } else if (window.innerWidth > 768) {
+        //         triggeredSideBar.style.backgroundColor = '';
+        //         triggeredSideBar.style.display = "flex";
+        //     }
+        // });
 
         const initializeQueryModal = () => {
             const raiseQueryBtn = document.querySelector('#raised-query');
@@ -1737,10 +1737,23 @@ $studentDocumentDetailsInfo = [
                                     let buttonsHTML = '';
                                     if (item.status === 'deactive') {
                                         buttonsHTML = `
-                            <div class="query-actions">
-                                <button style="background:transparent;border:none;outline:none;cursor:pointer" onclick="markQuery('${item.id}', 'deactive')">✅</button>
-                                <button style="background:transparent;border:none;outline:none;cursor:pointer" onclick="markQuery('${item.id}', 'active')">❌</button>
-                            </div>`;
+                           <div class="query-actions" style="display: flex; gap: 8px;">
+  <button
+    style="padding: 6px 12px; font-size: 16px; border-radius: 4px; cursor: pointer; background-color: #f47b20; color: #fff; border: none;"
+    onclick="markQuery('${item.id}', 'deactive')"
+    title="Mark as Done"
+  >
+    ✔
+  </button>
+  <button
+    style="padding: 6px 12px; font-size: 16px; border-radius: 4px; cursor: pointer; background-color: #fff; color: #f47b20; border: 1px solid #f47b20;"
+    onclick="markQuery('${item.id}', 'active')"
+    title="Mark as Active"
+  >
+    ✖
+  </button>
+</div>`;
+
                                     }
 
                                     div.innerHTML = `

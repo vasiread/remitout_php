@@ -11,7 +11,12 @@
 
 
 </head>
+<style>
+    #collapsedTags .admin-dashboard-close-tag {
+    display: none;
+}
 
+</style>
 <body>
     @extends('layouts.app')
 
@@ -33,7 +38,7 @@
             </button>
         </div>
 
-        <!-- Mobile Modal -->
+       
         <div class="mobile-admin-dashboard-modal" id="mobile-admin-dashboard-modal">
             <div class="mobile-admin-dashboard-modal-content">
                 <div class="mobile-admin-dashboard-modal-header">
@@ -54,11 +59,9 @@
 
 
 
-
         <div class="backdrop" id="backdrop"></div>
 
-        <!-- Referral Modal -->
-        <div class="referral-triggered-view hidden" id="referralModal">
+         <div class="referral-triggered-view hidden" id="referralModal">
             <div class="referral-triggered-view-headersection">
                 <h3>Generate Referral Link</h3>
                 <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="Close Icon" class="close-icon"
@@ -76,6 +79,7 @@
                 <button id="generateBtn">Generate</button>
             </div>
         </div>
+        
 
 
         <div class="admindashboardcontainer-secondsection">
@@ -103,7 +107,7 @@
 
 
                 <div class="postgrad-buttongroups" id="postgrad-reports" style="display: none;">
-                    <div id="postgrad-buttongroups-insideshow-id" >
+                    <div id="postgrad-buttongroups-insideshow-id">
                         Graduate <i class="fa-solid fa-chevron-down"></i>
                     </div>
                     <div class="dropdown-content-postgrad" id="postgrad-overallprogress">
@@ -195,11 +199,12 @@
 
         <div class="admindashboardcontainer-secondsection-mobile">
             <div class="admin-dashboard-search-filter-container">
+                
                 <div class="admin-dashboard-search-box">
                     <div class="admin-dashboard-search-icon">
                         <i class="fas fa-search"></i>
                     </div>
-                    <input type="text" class="admin-dashboard-search-input" placeholder="Search" />
+                    <input type="text" id="searchinput-admindashboard" class="admin-dashboard-search-input" placeholder="Search" />
                 </div>
 
                 <button class="admin-dashboard-filter-button" id="filterButton">
@@ -237,51 +242,36 @@
                     </div>
 
                     <div class="admin-dashboard-filter-tags">
-                        <div class="admin-dashboard-filter-tag" id="admin-dashboard-filter-tag-registration">
-                            Registration Reports
-                            <span class="admin-dashboard-close-tag">×</span>
+                        <div class="admin-dashboard-filter-tag">Registration Reports <span
+                                class="admin-dashboard-close-tag">×</span></div>
+                        <div class="admin-dashboard-filter-tag">No of grads <span
+                                class="admin-dashboard-close-tag">×</span></div>
+                        <div class="admin-dashboard-filter-tag">Registration Source <span
+                                class="admin-dashboard-close-tag">×</span></div>
+                        <div class="admin-dashboard-filter-tag">Age ratio Reports <span
+                                class="admin-dashboard-close-tag">×</span></div>
+                        <div class="admin-dashboard-filter-tag">Funnel Reports <span
+                                class="admin-dashboard-close-tag">×</span></div>
+                        <div class="admin-dashboard-filter-tag">Destination countries <span
+                                class="admin-dashboard-close-tag">×</span></div>
+                        <div class="admin-dashboard-filter-tag">Cities <span class="admin-dashboard-close-tag">×</span>
                         </div>
-                        <div class="admin-dashboard-filter-tag">
-                            No of grads <span class="admin-dashboard-close-tag">×</span>
+                        <div class="admin-dashboard-filter-tag">NBFC: Generation Leads <span
+                                class="admin-dashboard-close-tag">×</span>
                         </div>
-                        <div class="admin-dashboard-filter-tag" id="admin-dashboard-filter-tag-source">
-                            Registration Source
-                            <span class="admin-dashboard-close-tag">×</span>
-                        </div>
-                        <div class="admin-dashboard-filter-tag">
-                            Age ratio Reports <span class="admin-dashboard-close-tag">×</span>
-                        </div>
-                        <div class="admin-dashboard-filter-tag" id=admin-dashboard-filter-tag-funnel">
-                            Funnel Reports <span class="admin-dashboard-close-tag">×</span>
-                        </div>
-                        <div class="admin-dashboard-filter-tag">
-                            Destination countries
-                            <span class="admin-dashboard-close-tag">×</span>
-                        </div>
+                        <div class="admin-dashboard-filter-tag">Point of entry <span
+                                class="admin-dashboard-close-tag">×</span></div>
+                        <div class="admin-dashboard-filter-tag">SC: Generation Leads <span
+                                class="admin-dashboard-close-tag">×</span></div>
+                        <div class="admin-dashboard-filter-tag">Sem Rush <span
+                                class="admin-dashboard-close-tag">×</span></div>
                     </div>
 
                     <div class="admin-dashboard-divider"></div>
 
                     <div class="admin-dashboard-collapsed-tags" id="collapsedTags">
                         <div class="admin-dashboard-filter-tags">
-                            <div class="admin-dashboard-filter-tag" id="admin-dashboard-filter-tag-city">
-                                Cities 
-                                <span class="admin-dashboard-close-tag">×</span>
-                            </div>
-                            <div class="admin-dashboard-filter-tag" id="admin-dashboard-filter-tag-nbfc-lead">
-                                NBFC: Generation Leads
-                                <span class="admin-dashboard-close-tag">×</span>
-                            </div>
-                            <div class="admin-dashboard-filter-tag">
-                                Point of entry <span class="admin-dashboard-close-tag">×</span>
-                            </div>
-                            <div class="admin-dashboard-filter-tag" id="admin-dashboard-filter-tag-sc-lead">
-                                SC: Generation Leads
-                                <span class="admin-dashboard-close-tag">×</span>
-                            </div>
-                            <div class="admin-dashboard-filter-tag" id="admin-dashboard-filter-tag-semrush">
-                                Sem Rush <span class="admin-dashboard-close-tag">×</span>
-                            </div>
+
                         </div>
                     </div>
 
@@ -298,10 +288,10 @@
                 <div class="reports-registeration" data-report="registration-reports">
                     <div class="reports-registeration-sectionone">
                         <p>Reports on registration</p>
-                         
+
                         <input type="month" id="date-picker-linegraph">
-                         
-                     </div>
+
+                    </div>
                     <div class="reports-registeration-graph">
                         <div id="chart_div" style="width: 100%; height: 160px;"></div>
                     </div>
@@ -390,6 +380,7 @@ $registrationSourceAnalysis = [
 
                     </div>
 
+
                 </div>
                 <div class="funnelreport-analyze-diagram">
                     <div class="funnelreport-analyse-left">
@@ -415,11 +406,11 @@ $registrationSourceAnalysis = [
                                 & closed</p>
                         </div>
                     </div>
-                    <div class="funnelreport-analyse-right" id="funnelreport-rightsideid" style="justify-content: center;gap:24px;">
+                    <div class="funnelreport-analyse-right" id="funnelreport-rightsideid">
 
                         <p id="incomplete-count"> </p>
                         <p id="dummy-1"> </p>
-                        <p id="dummy-2">8 </p>
+                        <p id="dummy-2">1 </p>
                         <p id="offer-issued"> </p>
                         <p id="offer-rejected"> </p>
                         <p id="offer-accepted"> </p>
@@ -706,7 +697,6 @@ $registrationSourceAnalysis = [
                 updateProfileCompletionByGender()
                 initializeCitiesTable();
                 initializeCountriesTable();
-                funnelreport();
                 initializePostgradDropdowns();
                 updateVisibleReportsFromFilters()
 
@@ -720,7 +710,7 @@ $registrationSourceAnalysis = [
         // Chart Initialization
         const initializeCharts = () => {
             // Centralize Google Charts callback to avoid multiple setOnLoad calls
-           google.charts.setOnLoadCallback(() => {
+            google.charts.setOnLoadCallback(() => {
                 drawNBFCChart();
 
                 const datePicker = document.getElementById('date-picker-linegraph');
@@ -734,11 +724,11 @@ $registrationSourceAnalysis = [
                     datePicker.addEventListener('change', function () {
                         const [year, month] = this.value.split('-');
 
-                         if (selectedDateText) {
+                        if (selectedDateText) {
                             selectedDateText.textContent = `Selected: ${month}/${year}`;
                         }
 
-                         initializeRegistrationLineGraph(month, year);
+                        initializeRegistrationLineGraph(month, year);
                     });
                 }
             });
@@ -1634,132 +1624,132 @@ $registrationSourceAnalysis = [
         });
 
         // Lead Chart with API Data and Pagination
-       let leadChartInstance = null; // Track the current chart instance
+        let leadChartInstance = null; // Track the current chart instance
 
-   const initializeLeadChart = (converted = false) => {
-        const ctx = $('#leadChart')?.getContext('2d');
-        if (!ctx) return console.error('leadChart canvas not found');
+        const initializeLeadChart = (converted = false) => {
+            const ctx = $('#leadChart')?.getContext('2d');
+            if (!ctx) return console.error('leadChart canvas not found');
 
-        let currentPage = 1;
-        const itemsPerPage = 5;
-        let fullLabels = [];
-        let fullData = [];
-        const prevBtn = $('#sc-lead-prev-btn');
-        const nextBtn = $('#sc-lead-next-btn');
-        const pageRange = $('#sc-lead-page-range');
-        const totalItems = $('#sc-lead-total-items');
+            let currentPage = 1;
+            const itemsPerPage = 5;
+            let fullLabels = [];
+            let fullData = [];
+            const prevBtn = $('#sc-lead-prev-btn');
+            const nextBtn = $('#sc-lead-next-btn');
+            const pageRange = $('#sc-lead-page-range');
+            const totalItems = $('#sc-lead-total-items');
 
-        // Use different URLs based on converted value
-        const url = converted ? '/sc-lead-gens?converted=true' : '/sc-lead-gens';
+            // Use different URLs based on converted value
+            const url = converted ? '/sc-lead-gens?converted=true' : '/sc-lead-gens';
 
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-            .then(response => {
-                if (!response.ok) throw new Error('Network response was not ok');
-                return response.json();
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
             })
-            .then(data => {
-                if (!data.student_counsellors || !Array.isArray(data.student_counsellors) ||
-                    !data.lead_counts || !Array.isArray(data.lead_counts) ||
-                    data.student_counsellors.length !== data.lead_counts.length) {
-                    throw new Error('Invalid API response: Mismatched or missing data arrays');
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    if (!data.student_counsellors || !Array.isArray(data.student_counsellors) ||
+                        !data.lead_counts || !Array.isArray(data.lead_counts) ||
+                        data.student_counsellors.length !== data.lead_counts.length) {
+                        throw new Error('Invalid API response: Mismatched or missing data arrays');
+                    }
+
+                    fullLabels = data.student_counsellors;
+                    fullData = data.lead_counts;
+                    totalItems.textContent = fullLabels.length;
+                    updateChart();
+
+                    prevBtn.onclick = () => {
+                        if (currentPage > 1) {
+                            currentPage--;
+                            updateChart();
+                        }
+                    };
+
+                    nextBtn.onclick = () => {
+                        if (currentPage < Math.ceil(fullLabels.length / itemsPerPage)) {
+                            currentPage++;
+                            updateChart();
+                        }
+                    };
+                })
+                .catch(error => {
+                    console.error('Error fetching lead generation data:', error);
+                    fullLabels = ['Fallback1', 'Fallback2'];
+                    fullData = [5, 10];
+                    totalItems.textContent = fullLabels.length;
+                    updateChart();
+                });
+
+            function updateChart() {
+                const startIdx = (currentPage - 1) * itemsPerPage;
+                const endIdx = Math.min(startIdx + itemsPerPage, fullLabels.length);
+                const paginatedLabels = fullLabels.slice(startIdx, endIdx);
+                const paginatedData = fullData.slice(startIdx, endIdx);
+
+                // Destroy previous chart if it exists
+                if (leadChartInstance) {
+                    leadChartInstance.destroy();
                 }
 
-                fullLabels = data.student_counsellors;
-                fullData = data.lead_counts;
-                totalItems.textContent = fullLabels.length;
-                updateChart();
-
-                prevBtn.onclick = () => {
-                    if (currentPage > 1) {
-                        currentPage--;
-                        updateChart();
-                    }
-                };
-
-                nextBtn.onclick = () => {
-                    if (currentPage < Math.ceil(fullLabels.length / itemsPerPage)) {
-                        currentPage++;
-                        updateChart();
-                    }
-                };
-            })
-            .catch(error => {
-                console.error('Error fetching lead generation data:', error);
-                fullLabels = ['Fallback1', 'Fallback2'];
-                fullData = [5, 10];
-                totalItems.textContent = fullLabels.length;
-                updateChart();
-            });
-
-        function updateChart() {
-            const startIdx = (currentPage - 1) * itemsPerPage;
-            const endIdx = Math.min(startIdx + itemsPerPage, fullLabels.length);
-            const paginatedLabels = fullLabels.slice(startIdx, endIdx);
-            const paginatedData = fullData.slice(startIdx, endIdx);
-
-            // Destroy previous chart if it exists
-            if (leadChartInstance) {
-                leadChartInstance.destroy();
-            }
-
-            leadChartInstance = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: paginatedLabels,
-                    datasets: [{
-                        label: 'No. Of Leads',
-                        data: paginatedData,
-                        backgroundColor: '#d3b8f0',
-                        barThickness: 11
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: { enabled: true }
+                leadChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: paginatedLabels,
+                        datasets: [{
+                            label: 'No. Of Leads',
+                            data: paginatedData,
+                            backgroundColor: '#d3b8f0',
+                            barThickness: 11
+                        }]
                     },
-                    scales: {
-                        y: { beginAtZero: true, grid: { display: false }, ticks: { display: false } },
-                        x: {
-                            grid: { display: false },
-                            ticks: {
-                                font: { family: 'Poppins', size: 12 },
-                                color: '#5D5C5C'
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { enabled: true }
+                        },
+                        scales: {
+                            y: { beginAtZero: true, grid: { display: false }, ticks: { display: false } },
+                            x: {
+                                grid: { display: false },
+                                ticks: {
+                                    font: { family: 'Poppins', size: 12 },
+                                    color: '#5D5C5C'
+                                }
                             }
                         }
                     }
-                }
-            });
+                });
 
-            pageRange.textContent = `${startIdx + 1} - ${endIdx}`;
-        }
-    };
+                pageRange.textContent = `${startIdx + 1} - ${endIdx}`;
+            }
+        };
 
-    // On load (default – no ?converted param)
-    initializeLeadChart(false);
+        // On load (default – no ?converted param)
+        initializeLeadChart(false);
 
-    // Dropdown handler
-    const scDropdown = document.getElementById('scLeadDropdown');
+        // Dropdown handler
+        const scDropdown = document.getElementById('scLeadDropdown');
 
-    scDropdown.addEventListener('change', function () {
-        const isConverted = this.value === 'converted';
+        scDropdown.addEventListener('change', function () {
+            const isConverted = this.value === 'converted';
 
-        initializeLeadChart(isConverted);
+            initializeLeadChart(isConverted);
 
-            
+
         });
 
-    // Optional: reset to default on focus
-    scDropdown.addEventListener('focus', function () {
-        this.selectedIndex = 0;
-    });
+        // Optional: reset to default on focus
+        scDropdown.addEventListener('focus', function () {
+            this.selectedIndex = 0;
+        });
 
 
 
@@ -1823,8 +1813,8 @@ $registrationSourceAnalysis = [
                 .catch(error => {
                     console.error('Error fetching SC users approved profiles data:', error);
                     // Fallback to static data if API fails
-                    fullLabels = ['SCREF87324409', 'SCREF87324468', 'SCREF75333418'];
-                    fullData = [3, 1, 0];
+                    // fullLabels = ['SCREF87324409', 'SCREF87324468', 'SCREF75333418'];
+                    // fullData = [3, 1, 0];
 
                     // Update total items
                     totalItems.textContent = fullLabels.length;
@@ -2227,7 +2217,7 @@ $registrationSourceAnalysis = [
         // Referral Modal
         const initializeReferralModal = () => {
             const referralLinkBtn = document.getElementById('referral-link-admindashboard');
-            const referralLinkBtnMob = document.getElementById('referral-link-admindashboard-mobile')
+            const referralLinkBtnMob = document.getElementById('referral-link-admindashboard-mobile');
             const modal = document.getElementById('referralModal');
             const backdrop = document.getElementById('backdrop');
             const closeBtn = document.getElementById('closeModal');
@@ -2235,56 +2225,64 @@ $registrationSourceAnalysis = [
             const generateBtn = document.getElementById('generateBtn');
             const inputField = document.getElementById('referralLink');
             const modalFooter = document.getElementById('modalFooter');
+            const mobPopupForOptions = document.querySelector(".mobile-admin-dashboard-modal-content");
 
-            if (!referralLinkBtn || !modal || !backdrop || !closeBtn || !cancelBtn || !generateBtn || !inputField) {
+            if (!referralLinkBtn || !modal || !backdrop || !closeBtn || !cancelBtn || !generateBtn || !inputField || !modalFooter) {
                 return console.error('Referral modal elements missing');
             }
 
             const openModal = () => {
-                if (mobPopupForOptions) {
-                    // mobPopupForOptions.style.display = "none";
-                     modal.classList.remove('hidden');
-                    backdrop.classList.add('active');
-
-                }
-               
-
+                modal.classList.remove('hidden');
+                backdrop.classList.add('active');
+                inputField.value = '';
+                modalFooter.innerHTML = `
+            <button id="cancelBtn">
+                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="Cancel Icon" class="cancel-icon">
+                Cancel
+            </button>
+            <button id="generateBtn">Generate</button>
+        `;
+                addModalListeners();
             };
 
             const closeModal = () => {
                 modal.classList.add('hidden');
                 backdrop.classList.remove('active');
                 inputField.value = '';
-                modalFooter.innerHTML = `
-                    <button id="cancelBtn">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="Cancel Icon" class="cancel-icon">
-                        Cancel
-                    </button>
-                    <button id="generateBtn">Generate</button>
-                `;
+            };
+
+            const toggleModal = () => {
+                const isOpen = !modal.classList.contains('hidden');
+                if (isOpen) {
+                    closeModal();
+                } else {
+                    if (mobPopupForOptions) mobPopupForOptions.style.display = "none"; // optional
+                    openModal();
+                }
             };
 
             const updateFooterButtons = (link) => {
                 modalFooter.innerHTML = `
-                    <button id="cancelBtn">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="Cancel Icon" class="cancel-icon">
-                        Cancel
+            <button id="cancelBtn">
+                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="Cancel Icon" class="cancel-icon">
+                Cancel
+            </button>
+            <div class="button-group">
+                <div class="copy-button-container">
+                    <button id="copyBtn">
+                        <img src="assets/images/content_copy-icon.png" alt="Copy Icon" class="copy-icon">
+                        Copy Link
                     </button>
-                    <div class="button-group">
-                        <div class="copy-button-container">
-                            <button id="copyBtn">
-                                <img src="assets/images/content_copy-icon.png" alt="Copy Icon" class="copy-icon">
-                                Copy Link
-                            </button>
-                        </div>
-                        <div class="share-button-container">
-                            <button id="shareBtn">
-                                <img src="assets/images/share-icon.png" alt="Share Icon" class="share-icon">
-                                Share
-                            </button>
-                        </div>
-                    </div>
-                `;
+                </div>
+                <div class="share-button-container">
+                    <button id="shareBtn">
+                        <img src="assets/images/share-icon.png" alt="Share Icon" class="share-icon">
+                        Share
+                    </button>
+                </div>
+            </div>
+        `;
+
                 document.getElementById('cancelBtn').addEventListener('click', closeModal);
                 document.getElementById('copyBtn').addEventListener('click', () => {
                     navigator.clipboard.writeText(link).then(() => {
@@ -2296,25 +2294,33 @@ $registrationSourceAnalysis = [
                 });
             };
 
-            const mobPopupForOptions = document.querySelector(".mobile-admin-dashboard-modal-content");
+            const addModalListeners = () => {
+                const newCancelBtn = document.getElementById('cancelBtn');
+                const newGenerateBtn = document.getElementById('generateBtn');
 
+                if (newCancelBtn) newCancelBtn.addEventListener('click', closeModal);
+                if (newGenerateBtn) {
+                    newGenerateBtn.addEventListener('click', () => {
+                        const newLink = `https://example.com/referral?code=${Math.random().toString(36).substr(2, 8)}`;
+                        inputField.value = newLink;
+                        updateFooterButtons(newLink);
+                    });
+                }
+            };
 
-
-            if (referralLinkBtn) referralLinkBtn.addEventListener('click', openModal);
-            if (referralLinkBtnMob) referralLinkBtnMob.addEventListener('click', openModal);
-
-
+            referralLinkBtn?.addEventListener('click', openModal);
+            referralLinkBtnMob?.addEventListener('click', toggleModal);
 
             closeBtn.addEventListener('click', closeModal);
-            cancelBtn.addEventListener('click', closeModal);
             backdrop.addEventListener('click', closeModal);
-
-            generateBtn.addEventListener('click', () => {
+            cancelBtn?.addEventListener('click', closeModal);
+            generateBtn?.addEventListener('click', () => {
                 const newLink = `https://example.com/referral?code=${Math.random().toString(36).substr(2, 8)}`;
                 inputField.value = newLink;
                 updateFooterButtons(newLink);
             });
         };
+
 
 
         // Mobile Menu Modal
@@ -2406,8 +2412,90 @@ $registrationSourceAnalysis = [
                 }
             });
 
-            updatePanelCount();
+            // Move tag to collapsed section when clicking ×
+            document.addEventListener('click', e => {
+                const closeIcon = e.target.closest('.admin-dashboard-close-tag');
+                const tag = e.target.closest('.admin-dashboard-filter-tag');
+                const collapsedSection = document.querySelector('#collapsedTags .admin-dashboard-filter-tags');
+                const activeSection = document.querySelector('.admin-dashboard-filter-panel > .admin-dashboard-filter-container > .admin-dashboard-filter-tags');
+
+               if (closeIcon && tag && activeSection.contains(tag)) {
+                    e.stopPropagation();
+                    collapsedSection.appendChild(tag);
+                    updatePanelCount();
+
+                    // Automatically show the collapsed area if not already visible
+                    if (!collapsedTags.classList.contains('show')) {
+                        collapsedTags.classList.add('show');
+                        showAllBtn.innerHTML = 'Show Less <i class="fa-solid fa-chevron-up"></i>';
+                    }
+                }
+
+
+                if (tag && collapsedSection.contains(tag)) {
+                    // Move tag back to active section
+                    e.stopPropagation();
+                    activeSection.appendChild(tag);
+                    updatePanelCount();
+                }
+            });
+
+
+            // Add click event to collapsed tags to activate them
+            document.querySelectorAll('#collapsedTags .admin-dashboard-filter-tag').forEach(tag => {
+                tag.addEventListener('click', () => {
+                    const activeSection = document.querySelector('.admin-dashboard-filter-panel .admin-dashboard-filter-tags:not(#collapsedTags .admin-dashboard-filter-tags)');
+
+                    // Prevent duplicates
+                    if (!tag.querySelector('.admin-dashboard-close-tag')) {
+                        const closeSpan = document.createElement('span');
+                        closeSpan.className = 'admin-dashboard-close-tag';
+                        closeSpan.textContent = '×';
+                        tag.appendChild(closeSpan);
+
+                        // Add close behavior again
+                        closeSpan.addEventListener('click', e => {
+                            e.stopPropagation();
+                            const collapsedSection = document.querySelector('#collapsedTags .admin-dashboard-filter-tags');
+                            e.target.remove();
+                            collapsedSection.appendChild(tag);
+                        });
+                    }
+
+                    activeSection.appendChild(tag);
+                });
+            });
+
+            updatePanelCount(); // <-- keep this last
+
+            // Restore tags from dropdown (Show All group buttons)
+            document.querySelectorAll('#dropdown-options button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const reportKey = button.getAttribute('data-report');
+
+                    const tag = Array.from(document.querySelectorAll('#collapsedTags .admin-dashboard-filter-tag')).find(tag => {
+                        return tag.textContent.trim().toLowerCase().includes(reportKey.replace(/-/g, ' '));
+                    });
+
+                    if (tag) {
+                        const activeSection = document.querySelector('.admin-dashboard-filter-panel > .admin-dashboard-filter-container > .admin-dashboard-filter-tags');
+
+                        // Add close icon if not present
+                        if (!tag.querySelector('.admin-dashboard-close-tag')) {
+                            const closeSpan = document.createElement('span');
+                            closeSpan.className = 'admin-dashboard-close-tag';
+                            closeSpan.textContent = '×';
+                            tag.appendChild(closeSpan);
+                        }
+
+                        activeSection.appendChild(tag);
+                        updatePanelCount();
+                    }
+                });
+            });
+
         };
+
 
 
 
@@ -2418,91 +2506,110 @@ $registrationSourceAnalysis = [
             let mappedDegreeType = degreeType;
 
             if (degreeType === "Post Graduate") {
-                degree_type = "Bachelors"
-
-            } if (degreeType === "Under Graduate") {
-                degree_type = "Masters"
-
+                mappedDegreeType = "Masters";
+            } else if (degreeType === "Under Graduate") {
+                mappedDegreeType = "Bachelors";
+            } else if (degreeType === "Others") {
+                mappedDegreeType = "Others";
             }
-
 
             fetch("{{ route('admin.ageratio.calculation') }}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Important for POST in Laravel
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
                 body: JSON.stringify({
-                    degree_type: degreeType
+                    degree_type: mappedDegreeType
                 })
             })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        const ageData = Object.values(data.age_ratio);
-                        const ageLabels = Object.keys(data.age_ratio);
-                        const ageColors = [
-                            'rgba(111, 37, 206, 1)',
-                            'rgba(167, 121, 224, 1)',
-                            'rgba(203, 176, 237, 1)',
-                            'rgba(226, 211, 245, 1)',
-                        ];
+                        const ageRatio = data.age_ratio || {};
+                        const ageLabels = Object.keys(ageRatio);
+                        const ageData = Object.values(ageRatio);
 
-                        // Destroy previous chart if exists
-                        if (ageratioChart) {
+                        const isDataEmpty = ageLabels.length === 0 || ageData.every(value => value === 0);
+
+                        // Destroy existing chart if present
+                        if (typeof ageratioChart !== 'undefined' && ageratioChart) {
                             ageratioChart.destroy();
                         }
 
-                        const ctx = document.getElementById('ageratio-donutRegistrationChart').getContext('2d');
-                        ageratioChart = new Chart(ctx, {
-                            type: 'doughnut',
-                            data: {
-                                labels: ageLabels,
-                                datasets: [{
-                                    label: 'Age Ratio',
-                                    data: ageData,
-                                    backgroundColor: ageColors,
-                                    borderWidth: 1,
-                                }]
-                            },
-                            options: {
-                                responsive: true,
-                                plugins: {
-                                    legend: {
-                                        display: false // Already showing in your custom div
+                        const ctx = document.getElementById('ageratio-donutRegistrationChart')?.getContext('2d');
+                        if (!ctx) {
+                            console.error('Canvas context not found');
+                            return;
+                        }
+
+                        if (isDataEmpty) {
+                            // Show placeholder chart with 1 segment
+                            ageratioChart = new Chart(ctx, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: ['No Data'],
+                                    datasets: [{
+                                        data: [1],
+                                        backgroundColor: ['#e0e0e0'],
+                                        borderWidth: 0
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        legend: { display: false },
+                                        tooltip: { enabled: false }
                                     }
                                 }
-                            }
-                        });
+                            });
+
+                            // Optional: Show text notice on chart area
+                            document.getElementById('ageratio-header').textContent = "No age ratio data available";
+                        } else {
+                            const ageColors = [
+                                'rgba(111, 37, 206, 1)',
+                                'rgba(167, 121, 224, 1)',
+                                'rgba(203, 176, 237, 1)',
+                                'rgba(226, 211, 245, 1)'
+                            ];
+
+                            ageratioChart = new Chart(ctx, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: ageLabels,
+                                    datasets: [{
+                                        data: ageData,
+                                        backgroundColor: ageColors.slice(0, ageData.length),
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        legend: { display: false }
+                                    }
+                                }
+                            });
+
+                            document.getElementById('ageratio-header').textContent = "Age ratio of students";
+                        }
                     } else {
-                        alert('Error: ' + data.message);
+                        alert('Error: ' + (data.message || 'Unknown error'));
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
+                    console.error('Fetch error:', error);
                 });
+
         }
 
         loadAgeRatioChart();
 
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.dropdown-content-postgrad a').forEach(item => {
-                item.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const degreeType = this.innerText.trim(); // "Post Graduate", "Under Graduate", "Others"
-
-                    document.getElementById('postgrad-buttongroups-insideshow').innerHTML = degreeType + ' <i class="fa-solid fa-chevron-down"></i>';
-
-                    loadAgeRatioChart(degreeType);
-                });
-            });
 
 
 
-
-        })
-
-    function funnelreport(degreeType = '') {
+        function funnelreport(degreeType = '') {
             console.log("funnelreport working for:", degreeType);
 
             const url = degreeType
@@ -2522,7 +2629,7 @@ $registrationSourceAnalysis = [
                         document.getElementById('incomplete-count').innerText = counts.incompleteProfileCount;
                         document.getElementById('dummy-1').innerText = counts.completedProfileCount;
                     } else {
-                        console.error("Error fetching data:", data.error);
+                        console.error('Failed to fetch dashboard details.');
                     }
                 })
                 .catch(err => console.error('Dashboard data error:', err));
@@ -2619,32 +2726,32 @@ $registrationSourceAnalysis = [
         };
 
         function updateVisibleReportsFromFilters() {
-                const activeTags = Array.from(document.querySelectorAll('.admin-dashboard-filter-tag'))
-                    .map(tag => tag.textContent.trim().replace('×', '').trim().toLowerCase());
+            const activeTags = Array.from(document.querySelectorAll('.admin-dashboard-filter-tag'))
+                .map(tag => tag.textContent.trim().replace('×', '').trim().toLowerCase());
 
-                const reports = document.querySelectorAll('[data-report]');
+            const reports = document.querySelectorAll('[data-report]');
 
-                reports.forEach(report => {
-                    const reportType = report.getAttribute('data-report').replace(/-/g, ' ').toLowerCase();
-                    const shouldShow = activeTags.some(tag => reportType.includes(tag));
-                    report.style.display = shouldShow ? 'block' : 'none';
-                });
-            }
-
-            // Watch for clicks on close icons to update the view
-            document.addEventListener('click', (e) => {
-                if (e.target.classList.contains('admin-dashboard-close-tag')) {
-                    // Remove the tag from the DOM
-                    const tagElement = e.target.closest('.admin-dashboard-filter-tag');
-                    if (tagElement) {
-                        tagElement.remove();
-                        updateVisibleReportsFromFilters(); // Re-run filtering
-                    }
-                }
+            reports.forEach(report => {
+                const reportType = report.getAttribute('data-report').replace(/-/g, ' ').toLowerCase();
+                const shouldShow = activeTags.some(tag => reportType.includes(tag));
+                report.style.display = shouldShow ? 'block' : 'none';
             });
+        }
+
+        // Watch for clicks on close icons to update the view
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('admin-dashboard-close-tag')) {
+                // Remove the tag from the DOM
+                const tagElement = e.target.closest('.admin-dashboard-filter-tag');
+                if (tagElement) {
+                    tagElement.remove();
+                    updateVisibleReportsFromFilters(); // Re-run filtering
+                }
+            }
+        });
 
 
-       function funnelReportDropdown() {
+        function funnelReportDropdown() {
             const toggle = document.getElementById('postgrad-buttongroups-insideshow-funnelreports-id');
             const dropdown = document.getElementById('postgrad-funnelreportsprogress');
 
@@ -2658,11 +2765,11 @@ $registrationSourceAnalysis = [
                     e.preventDefault();
                     const selectedValue = this.getAttribute('data-value');
                     dropdown.classList.remove('show');
-                    funnelreport(selectedValue);  
+                    funnelreport(selectedValue);
                 });
             });
         }
-        
+
         function ageRatioDropdown() {
             // Toggle dropdown visibility
             document.getElementById('postgrad-buttongroups-insideshow-age-ratio-id').addEventListener('click', function () {
@@ -2690,13 +2797,57 @@ $registrationSourceAnalysis = [
             });
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
-                funnelreport();
-                ageRatioDropdown();
-                funnelReportDropdown();
+        function searchMobFunctionality(){
+                const searchInput = document.getElementById('searchinput-admindashboard');
 
+            // Array of section IDs
+            const sectionIds = [
+                'admindashboardcontainer-secondsection',
+                'admindashboardcontainer-thirdsection',
+                'admindashboardcontainer-fourth-section'
+            ];
 
+            searchInput.addEventListener('input', function () {
+                const query = searchInput.value.toLowerCase().trim();
+
+                sectionIds.forEach(sectionId => {
+                    const section = document.getElementById(sectionId);
+
+                    if (section) {
+                        const items = section.querySelectorAll('div'); // or more specific selector if needed
+
+                        items.forEach(item => {
+                            const text = item.textContent.toLowerCase();
+                            item.style.display = text.includes(query) ? '' : 'none';
+                        });
+                    }
+                });
             });
+
+
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            funnelreport();
+            ageRatioDropdown();
+            funnelReportDropdown();
+            searchMobFunctionality();
+
+            const mobileCalendarButton = document.getElementById('calendarButton');
+            const calendarContainer = document.querySelector('.calendar-container');
+
+            if (mobileCalendarButton && calendarContainer) {
+                mobileCalendarButton.addEventListener('click', () => {
+                    calendarContainer.classList.toggle('visible');
+
+                     if (calendarContainer.classList.contains('visible')) {
+                        calendarContainer.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            }
+
+
+        });
     </script>
 </body>
 
