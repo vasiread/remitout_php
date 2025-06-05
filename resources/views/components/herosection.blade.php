@@ -16,12 +16,15 @@
     <div class="content-container">
       <div class="left-container">
         <h1 class="hero-title">
-          <span class="line-1">Secure Fast,</span>
-          <span class="line-2">
-            <span class="bold">Simple </span><span class="thin-italic">Loans for</span>
-          </span>
-          <span class="line-3">a Brighter Future.</span>
-        </h1>
+  <span class="line-1">Secure Fast,</span>
+  <span class="line-2">
+    <span class="bold">Simple </span>
+    <span class="thin-italic">Loans for</span>
+  </span>
+  <span class="line-3">a Brighter Future.</span>
+</h1>
+
+
       </div>
 
       <!-- Right Container -->

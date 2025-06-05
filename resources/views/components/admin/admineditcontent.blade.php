@@ -1962,7 +1962,7 @@
                                 return;
                             }
                             const selection = window.getSelection();
-                            if (selection.toString().length === 0) {
+                            if (selection.toString().length === 0) {    
                                 e.preventDefault();
                             }
                         }
@@ -1970,41 +1970,39 @@
                 });
             }
 
-            async handleSave() {
-                let toastMessage = '';
-                let isError = false;
-                try {
-                    this.showLoading();
-                    const updatedValues = this.data
-                        .filter(item => {
-                            const originalItem = this.originalData.find(orig => orig.id === item.id);
-                            return originalItem && (item.content !== originalItem.content || item.title !== originalItem.title);
-                        })
-                        .map(item => ({
-                            title: item.title,
-                            content: item.content
-                        }));
-                    if (updatedValues.length > 0) {
-                        console.log('Updated Content Values:', updatedValues);
-                        const alertMessage = 'CMS Content updated successfully:\n' +
-                            updatedValues.map(item => `${item.title}: ${item.content}`).join('\n');
-                        alert(alertMessage);
-                        toastMessage = 'All changes saved successfully';
-                    } else {
-                        console.log('No content changes detected.');
-                        alert('CMS Content: No changes detected.');
-                        toastMessage = 'No changes to save';
-                    }
-                    this.originalData = JSON.parse(JSON.stringify(this.data));
-                } catch (error) {
-                    toastMessage = 'Error saving changes: ' + error.message;
-                    isError = true;
-                    console.error('Save error:', error);
-                } finally {
-                    this.hideLoading();
-                    this.showToast(toastMessage, isError);
-                }
-            }
+           async handleSave() {
+    let isError = false;
+    let toastMessage = '';
+    try {
+        this.showLoading();
+
+        const payload = {
+            banner_header: this.data[0].content,
+            banner_little_quote: this.data[1].content,
+            banner_little_description: this.data[2].content,
+            button_textcontent: this.data[4].content,
+            video_trigger_button: this.data[5].content
+        };
+
+        const response = await fetch('/api/cms/landing/update', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) throw new Error('Failed to save');
+
+        toastMessage = 'Landing Page fields updated';
+        this.originalData = JSON.parse(JSON.stringify(this.data));
+    } catch (error) {
+        console.error(error);
+        toastMessage = 'Error saving changes: ' + error.message;
+        isError = true;
+    } finally {
+        this.hideLoading();
+        this.showToast(toastMessage, isError);
+    }
+}
 
             hasUnsavedChanges() {
                 return JSON.stringify(this.data) !== JSON.stringify(this.originalData);

@@ -31,87 +31,87 @@
         <div class="admin-mobile-menu">
             <ul class="admin-mobile-menu-list">
                 <?php
-                $sidebarController = new \App\Http\Controllers\SidebarHandlingController();
-                $sidebarItems = $sidebarController->admindashboardItems();
-                $index = 0;
-                $adjustedItems = [];
-                foreach ($sidebarItems as $item) {
-                    if ($item['name'] === 'Student') {
-                        $adjustedItems[] = [
-                            'name' => 'Student',
-                            'icon' => $item['icon'],
-                            'active' => $item['active'],
-                            'has_dropdown' => true,
-                            'index' => $index++,
-                        ];
-                        $adjustedItems[] = [
-                            'name' => 'Student List',
-                            'icon' => $item['icon'], 
-                            'active' => false,
-                            'parent' => 'Student',
-                            'has_dropdown' => false,
-                            'index' => $index++,
-                        ];
-                        $adjustedItems[] = [
-                            'name' => 'Application',
-                            'icon' => $item['icon'], 
-                            'active' => false,
-                            'parent' => 'Student',
-                            'has_dropdown' => false,
-                            'index' => $index++,
-                        ];
-                    } elseif ($item['name'] === 'Student Counsellor') {
-                        $adjustedItems[] = [
-                            'name' => 'Student Counsellor',
-                            'icon' => $item['icon'],
-                            'active' => $item['active'],
-                            'has_dropdown' => true,
-                            'index' => $index++,
-                        ];
-                        $adjustedItems[] = [
-                            'name' => 'Counsellor List',
-                            'icon' => $item['icon'], 
-                            'active' => false,
-                            'parent' => 'Student Counsellor',
-                            'has_dropdown' => false,
-                            'index' => $index++,
-                        ];
-                        $adjustedItems[] = [
-                            'name' => 'Ticket Raised',
-                            'icon' => $item['icon'], 
-                            'active' => false,
-                            'parent' => 'Student Counsellor',
-                            'has_dropdown' => false,
-                            'index' => $index++,
-                        ];
-                        $adjustedItems[] = [
-                            'name' => 'Add Counsellor',
-                            'icon' => $item['icon'],
-                            'active' => false,
-                            'parent' => 'Student Counsellor',
-                            'has_dropdown' => false,
-                            'index' => $index++,
-                        ];
-                    } else {
-                        $adjustedItems[] = [
-                            'name' => $item['name'],
-                            'icon' => $item['icon'],
-                            'active' => $item['active'],
-                            'has_dropdown' => false,
-                            'index' => $index++,
-                        ];
-                    }
-                }
+$sidebarController = new \App\Http\Controllers\SidebarHandlingController();
+$sidebarItems = $sidebarController->admindashboardItems();
+$index = 0;
+$adjustedItems = [];
+foreach ($sidebarItems as $item) {
+    if ($item['name'] === 'Student') {
+        $adjustedItems[] = [
+            'name' => 'Student',
+            'icon' => $item['icon'],
+            'active' => $item['active'],
+            'has_dropdown' => true,
+            'index' => $index++,
+        ];
+        $adjustedItems[] = [
+            'name' => 'Student List',
+            'icon' => $item['icon'], // Reuse Student icon or specify a new one
+            'active' => false,
+            'parent' => 'Student',
+            'has_dropdown' => false,
+            'index' => $index++,
+        ];
+        $adjustedItems[] = [
+            'name' => 'Application',
+            'icon' => $item['icon'], // Reuse Student icon or specify a new one
+            'active' => false,
+            'parent' => 'Student',
+            'has_dropdown' => false,
+            'index' => $index++,
+        ];
+    } elseif ($item['name'] === 'Student Counsellor') {
+        $adjustedItems[] = [
+            'name' => 'Student Counsellor',
+            'icon' => $item['icon'],
+            'active' => $item['active'],
+            'has_dropdown' => true,
+            'index' => $index++,
+        ];
+        $adjustedItems[] = [
+            'name' => 'Counsellor List',
+            'icon' => $item['icon'], // Reuse Student Counsellor icon or specify a new one
+            'active' => false,
+            'parent' => 'Student Counsellor',
+            'has_dropdown' => false,
+            'index' => $index++,
+        ];
+        $adjustedItems[] = [
+            'name' => 'Ticket Raised',
+            'icon' => $item['icon'], // Reuse Student Counsellor icon or specify a new one
+            'active' => false,
+            'parent' => 'Student Counsellor',
+            'has_dropdown' => false,
+            'index' => $index++,
+        ];
+        $adjustedItems[] = [
+            'name' => 'Add Counsellor',
+            'icon' => $item['icon'], // Reuse Student Counsellor icon or specify a new one
+            'active' => false,
+            'parent' => 'Student Counsellor',
+            'has_dropdown' => false,
+            'index' => $index++,
+        ];
+    } else {
+        $adjustedItems[] = [
+            'name' => $item['name'],
+            'icon' => $item['icon'],
+            'active' => $item['active'],
+            'has_dropdown' => false,
+            'index' => $index++,
+        ];
+    }
+}
 
-                foreach ($adjustedItems as $item) {
-                    $activeClass = $item['active'] ? 'active' : '';
-                    $dropdownClass = $item['has_dropdown'] ? 'has-dropdown' : '';
-                    $parentAttr = isset($item['parent']) ? "data-parent='{$item['parent']}'" : '';
-                    echo "<li class='admin-mobile-menu-item $activeClass $dropdownClass' data-index='{$item['index']}' $parentAttr>";
-                    echo "<img src='{$item['icon']}' alt='{$item['name']} icon' class='admin-mobile-menu-icon'>";
-                    echo "<span>{$item['name']}</span>";
-                    echo "</li>";
-                }
+foreach ($adjustedItems as $item) {
+    $activeClass = $item['active'] ? 'active' : '';
+    $dropdownClass = $item['has_dropdown'] ? 'has-dropdown' : '';
+    $parentAttr = isset($item['parent']) ? "data-parent='{$item['parent']}'" : '';
+    echo "<li class='admin-mobile-menu-item $activeClass $dropdownClass' data-index='{$item['index']}' $parentAttr>";
+    echo "<img src='{$item['icon']}' alt='{$item['name']} icon' class='admin-mobile-menu-icon'>";
+    echo "<span>{$item['name']}</span>";
+    echo "</li>";
+}
                 ?>
             </ul>
             <!-- Bottom Menu Items -->
@@ -144,11 +144,12 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
                 <div class="admin-nav-dropdown-menu">
-                    <div class="admin-nav-dropdown-item">Password Change</div>
+                    <div class="admin-nav-dropdown-item" id="password-change-admin-side">Password Change</div>
                     <div class="admin-nav-dropdown-item">Logout</div>
                 </div>
             </div>
 
+            <!-- Hamburger Menu for Mobile -->
             <button class="admin-nav-hamburger" aria-label="Toggle mobile menu">
                 <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M3 6H21M3 12H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -741,13 +742,136 @@
                 }
             }
 
+              const passwordModelTriggerNbfc = () => {
+                const passwordTrigger = document.getElementById("password-change-admin-side");
+                const passwordChangeContainer = document.getElementById("#password-change-container-admin ");
+                const passwordContainerExit = document.querySelector("#passowrd-changetriggered-adminside img");
+                const popupPasswordShow = document.querySelector(".popup-notify-list-nbfc");
+                const arrowUp = document.querySelector(".nbfc-profile .nbfc-dropdown-icon");
+                const overlay = document.querySelector(".overlay-password-change-nbfc");
+
+                if (passwordTrigger) {
+                    passwordTrigger.addEventListener("click", () => {
+                        if (passwordChangeContainer && overlay) {
+                            passwordChangeContainer.style.display = "flex";
+                            overlay.style.display = "block";
+                            document.body.style.overflow = "hidden"; // Prevent background scrolling
+                            if (popupPasswordShow) {
+                                popupPasswordShow.style.display = "none";
+                            }
+                            if (arrowUp) {
+                                arrowUp.style.transform = "rotate(0deg)";
+                            }
+                        }
+                    });
+                }
+
+                if (passwordContainerExit) {
+                    passwordContainerExit.addEventListener("click", () => {
+                        if (passwordChangeContainer && overlay) {
+                            passwordChangeContainer.style.display = "none";
+                            overlay.style.display = "none";
+                            document.body.style.overflow = "auto"; // Restore scrolling
+                        }
+                    });
+                }
+
+                // Close modal when clicking the overlay
+                if (overlay) {
+                    overlay.addEventListener("click", () => {
+                        if (passwordChangeContainer && overlay) {
+                            passwordChangeContainer.style.display = "none";
+                            overlay.style.display = "none";
+                            document.body.style.overflow = "auto"; // Restore scrolling
+                        }
+                    });
+                }
+            };
+            
+
+
+
+
+            
+            const initialiseEightcolumn = () => {
+                const section = document.querySelector(".eightcolumn-firstsection");
+
+                section.addEventListener("click", function () {
+                    if (section.style.height === "") {
+                        section.style.height = "fit-content";
+                    } else {
+                        section.style.height = "";
+                    }
+                });
+            };
+            const initialiseSeventhcolumn = () => {
+                const section = document.querySelector(".seventhcolum-firstsection");
+
+                section.addEventListener("click", function () {
+                    if (section.style.height === "") {
+                        section.style.height = "fit-content";
+                    } else {
+                        section.style.height = "";
+                    }
+                });
+            };
+            const initialiseSeventhAdditionalColumn = () => {
+                const section = document.querySelector(
+                    ".seventhcolumn-additional-firstcolumn"
+                );
+
+                section.addEventListener("click", function () {
+                    if (section.style.height === "") {
+                        section.style.height = "fit-content";
+                    } else {
+                        section.style.height = "";
+                    }
+                });
+            };
+            const initialiseNinthcolumn = () => {
+
+                const section = document.querySelector('.ninthcolumn-firstsection');
+                section.addEventListener('click', function () {
+                    if (section.style.height === '') {
+                        section.style.height = 'fit-content';
+                    } else {
+                        section.style.height = "";
+                    }
+                });
+
+            }
+
+
+
+
+
+            const initialiseTenthcolumn = () => {
+                const section = document.querySelector(".tenthcolumn-firstsection");
+                section.addEventListener("click", function () {
+                    if (section.style.height === "") {
+                        section.style.height = "fit-content";
+                    } else {
+                        section.style.height = "";
+                    }
+                });
+
+            }
+
+
             // Initialize
+            
+            
             initializeAdminSidebar();
             initializeMobileMenu();
             setupEditButtonHandlers();
             updateBackButtonVisibility();
             handleResponsive();
             window.addEventListener('resize', handleResponsive);
+            // initialiseSeventhcolumn();
+            // initialiseSeventhAdditionalColumn();
+            // initialiseEightcolumn();
+            // initialiseNinthcolumn();
+            // initialiseTenthcolumn();
 
             // Set default state
             hideAllContainers();

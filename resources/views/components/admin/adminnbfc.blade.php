@@ -77,11 +77,12 @@
                 <div class="individualnbfclists-content">
                     <p id="nbfc-name-id" class="editable"></p>
                     <p class="editable"></p>
-                </div>
-                <div class="individualnbfcs-buttoncontainer">
+                     <div class="individualnbfcs-buttoncontainer">
                     <button class="edit-save-button nbfc-list-edit-button edit-nbfc">Edit</button>
                     <button>Suspend</button>
                 </div>
+                </div>
+               
             </div>
         </div>
     </div>
@@ -338,7 +339,7 @@
                 </div>
                 <div class="individualnbfcs-buttoncontainer">
                     <button class="edit-save-button nbfc-list-edit-button edit-nbfc">Edit</button>
-                    <button class="suspend-button-nbfc">Suspend</button>
+                    <button class="suspend-button-nbfc" style="width:fit-content">Suspend</button>
                 </div>
             `;
 

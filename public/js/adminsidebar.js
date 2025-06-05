@@ -6,15 +6,38 @@ function initializeAdminSidebar() {
     const sidebarChevronUpDown = document.querySelector("#expand-icon-Student");
     const sidebarStudentCounsellorChevronUpDown = document.querySelector("#expand-icon-StudentCounsellor");
     const manageStudentSwitch = document.getElementById("manage-student-admindashboard");
-    const expandedStudentFromAdmin = document.getElementById("expanded-student-admin-side");
-    const expandedStudentCounsellorFromAdmin = document.getElementById("expanded-studentcounsellor-admin-side");
-    const studentFirstListChild = document.querySelector("#expanded-student-admin-side li:first-child");
-    const studentCounsellorFirstListChild = document.querySelector("#expanded-studentcounsellor-admin-side li:first-child");
-    const adminCounsellorAdd = document.querySelector(".add-studentcounsellor-adminside");
-    const studentListContainer = document.querySelector(".student-listcontainer");
-    const studentApplication = document.querySelector("#admin-student-form-edit-container");
-    const editContainerAdmin = document.querySelector("#edit-content-main-section");
-    const studentCounsellorList = document.querySelector(".studentcounsellorlist-adminside");
+    const manageStudentSwitchMob = document.getElementById("manage-student-admindashboard-mobile");
+    const expandedStudentFromAdmin = document.getElementById(
+        "expanded-student-admin-side"
+    );
+
+    const expandedStudentCounsellorFromAdmin = document.getElementById(
+        "expanded-studentcounsellor-admin-side"
+    );
+    const studentFirstListChild = document.querySelector(
+        "#expanded-student-admin-side li:first-child"
+    );
+    const studentCounsellorFirstListChild = document.querySelector(
+        "#expanded-studentcounsellor-admin-side li:first-child"
+    );
+
+    const adminCounsellorAdd = document.querySelector(
+        ".add-studentcounsellor-adminside"
+    );
+    const studentListContainer = document.querySelector(
+        ".student-listcontainer"
+    );
+    const studentApplication = document.querySelector(
+        "#admin-student-form-edit-container"
+    );
+    const editContainerAdmin = document.querySelector(
+        "#edit-content-main-section"
+    );
+
+    const studentCounsellorList = document.querySelector(
+        ".studentcounsellorlist-adminside"
+    );
+
     const studentNBFCList = document.querySelector(".nbfclist-adminside");
     const studentIndexAdmin = document.querySelector("#index-section-admin-id");
     const studentEditIndex = document.querySelector("#edit-content-container-id");
@@ -71,6 +94,7 @@ function initializeAdminSidebar() {
     if (manageStudentSwitch) {
         manageStudentSwitch.addEventListener('click', () => {
             if (adminCounsellorAdd) adminCounsellorAdd.style.display = "none";
+
             if (studentTicketRaised) studentTicketRaised.style.display = "none";
             if (adminManageStudent) adminManageStudent.style.display = "flex";
             if (studentEditIndex) studentEditIndex.style.display = "none";
@@ -84,14 +108,24 @@ function initializeAdminSidebar() {
             if (adminSidebarItems[10]) {
                 adminSidebarItems[10].classList.add("active");
             }
+
+
+
         });
     }
 
-    // Hide sub-menus by default
-    if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "none";
-    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
 
-    // Existing sidebar item click handlers
+
+
+
+
+    const adminsideScDashboard = document.querySelector("#scdashboard-profile-adminside")
+
+    if (expandedStudentFromAdmin)
+        expandedStudentFromAdmin.style.display = "none";
+    if (expandedStudentCounsellorFromAdmin)
+        expandedStudentCounsellorFromAdmin.style.display = "none";
+
     adminSidebarItems.forEach((item, index) => {
         item.addEventListener("click", () => {
             if (window.innerWidth <= 768 && triggeredSideBar) {

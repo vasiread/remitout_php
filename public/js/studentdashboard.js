@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
             initializeSecuredAdmissionDocumentUpload();
             initializeWorkExperienceDocumentUpload();
             initializeCoBorrowerDocumentUpload();
+            createAdminChatStudent();
         })
         .catch((error) => {
             console.error("Error during initialization:", error);
@@ -149,29 +150,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-// Function to fetch and display education details using GET
+ 
 async function displayEducationDetails() {
     const userIdElement = document.querySelector(
         ".personalinfo-secondrow .personal_info_id"
     );
     const userId = userIdElement ? userIdElement.textContent.trim() : ""; 
-    // const userId = 'HBNKJI0000001';
-
+ 
     try {
-        // Construct the URL with query parameter
-        const url = `/api/education?user_id=${encodeURIComponent(userId)}`;
+         const url = `/api/education?user_id=${encodeURIComponent(userId)}`;
         const response = await fetch(url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                // No CSRF token needed for API routes in routes/api.php
-            },
+             },
         });
 
         const data = await response.json();
 
         if (data.success) {
-            console.log(">>>",data)
             const educationSection = document.querySelector('.studentdashboardprofile-educationeditsection');
             if (!educationSection) {
                 console.error('Education section not found');
@@ -184,11 +181,10 @@ async function displayEducationDetails() {
                 return;
             }
 
-            // Clear existing content
+          
             secondRow.innerHTML = '';
 
-            // Create and append new elements
-            const degreeType = document.createElement('p');
+             const degreeType = document.createElement('p');
             degreeType.textContent = ` ${data.data.degree_type || 'N/A'}`;
             secondRow.appendChild(degreeType);
 
@@ -227,8 +223,7 @@ function handleIndividualCards(mode = 'index1') {
                         groupButtonContainer.style.display = "none";
                     }
                 } else if (mode === 'index0') {
-                    // Loan Proposals behavior (Index 0)
-                    card.style.height = "fit-content";
+                     card.style.height = "fit-content";
 
                     if (individualBankMessageInput) {
                         individualBankMessageInput.style.display = "none";
@@ -279,8 +274,7 @@ const initializeSideBarTabs = () => {
         ".studentdashboardprofile-testscoreseditsection",
     );
 
-    // console.log('Initializing sidebar tabs...');
-    // Function to update loan proposals count
+     
    
 
     sideBarTopItems.forEach((item, index) => {
@@ -4454,6 +4448,7 @@ const loanStatusCount = () => {
         })
         .catch(error => {
             console.error("Error fetching loan status:", error);
+            
         });
 };
 
@@ -4492,5 +4487,391 @@ const passwordForgot = () => {
     }
 }
 
+async function createAdminChatStudent() {
+    const container = document.querySelector('.adminmessage-inboxnbfc');
+    if (!container) return;
+
+    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+    const student_id = userIdElement ? userIdElement.textContent.trim() : "";
+    const admin_id = 'admin001';
+
+    if (document.querySelector('.admin-msg-container')) return;
+
+    const adminMsgContainer = document.createElement('div');
+    adminMsgContainer.classList.add('admin-msg-container');
+    adminMsgContainer.style.cssText = `
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        margin: 20px 0;
+        overflow: hidden;
+        font-family: 'Poppins', sans-serif;
+    `;
+
+    const header = document.createElement('div');
+    header.style.cssText = `
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #f8f8f8;
+        padding: 12px 16px;
+        border-bottom: 1px solid #eee;
+    `;
+
+    const title = document.createElement('div');
+    title.innerHTML = `<strong>Admin</strong><br><small>Support & Communication Desk</small>`;
+    title.style.cssText = `font-size: 14px; color: #444`;
+
+    const btnGroup = document.createElement('div');
+
+    const toggleBtn = document.createElement('button');
+    toggleBtn.textContent = 'Message';
+    toggleBtn.style.cssText = `
+        background-color: #6f25ce;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-family: "Poppins", sans-serif;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+            margin-right: 15px;
+    `;
+
+    btnGroup.append(toggleBtn);
+    header.append(title, btnGroup);
+
+    const chatWrapper = document.createElement('div');
+    chatWrapper.classList.add('admin-chat-wrapper');
+    chatWrapper.style.cssText = `
+        display: none;
+        flex-direction: column;
+        padding: 15px;
+        max-height: 300px;
+        overflow-y: auto;
+        background: white;
+    `;
+
+    const inputContainer = document.createElement('div');
+    inputContainer.style.cssText = `
+        display: none;
+        align-items: center;
+        padding: 10px;
+        background: #fafafa;
+        border-top: 1px solid #eee;
+        position: relative;
+    `;
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.placeholder = 'Send message';
+    input.classList.add('nbfc-message-input');
+    input.style.cssText = `
+        flex: 1;
+        padding: 8px 12px;
+        border-radius: 20px;
+        border: 1px solid #ccc;
+        margin-right: 10px;
+    `;
+
+    const emoji = document.createElement('i');
+    emoji.classList.add('fa-regular', 'fa-face-smile');
+    emoji.style.cssText = `font-size: 18px; margin-right: 8px; color: #888; cursor: pointer;`;
+
+    const paperclip = document.createElement('i');
+    paperclip.classList.add('fa-solid', 'fa-paperclip');
+    paperclip.style.cssText = `font-size: 18px; margin-right: 8px; color: #888; cursor: pointer;`;
+
+    const sendIcon = document.createElement('img');
+    sendIcon.src = 'assets/images/send-nbfc.png';
+    sendIcon.alt = 'send icon';
+    sendIcon.style.cssText = `width: 22px; height: 22px; cursor: pointer;`;
+
+    const emojiPicker = document.createElement('div');
+    emojiPicker.style.cssText = `
+        position: absolute;
+        bottom: 45px;
+        left: 10px;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        display: none;
+        max-width: 200px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    `;
+
+    inputContainer.append(emoji, paperclip, input, sendIcon, emojiPicker);
+    // Emoji Picker Integration
+    emoji.addEventListener('click', function (e) {
+        e.stopPropagation();
+
+        const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
+        const existingPicker = document.querySelector(".emoji-picker");
+        if (existingPicker) {
+            existingPicker.remove();
+            return;
+        }
+
+        const picker = document.createElement("div");
+        picker.classList.add("emoji-picker");
+        picker.style.cssText = `
+        position: absolute;
+        bottom: 45px;
+        left: 10px;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    `;
+
+        emojis.forEach(emojiChar => {
+            const button = document.createElement("button");
+            button.textContent = emojiChar;
+            button.style.cssText = `
+            border: none;
+            background: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px;
+        `;
+            button.addEventListener('click', function (e) {
+                e.stopPropagation();
+                input.value += emojiChar;
+                picker.remove();
+                input.focus();
+            });
+            picker.appendChild(button);
+        });
+
+        inputContainer.appendChild(picker);
+
+        document.addEventListener("click", function closePicker(ev) {
+            if (!picker.contains(ev.target) && ev.target !== emoji) {
+                picker.remove();
+                document.removeEventListener("click", closePicker);
+            }
+        });
+    });
+    // Paperclip File Upload
+    paperclip.addEventListener("click", function () {
+        const fileInput = document.createElement("input");
+        fileInput.type = "file";
+        fileInput.accept = ".pdf,.doc,.docx,.txt";
+        fileInput.style.display = "none";
+        const chatId = `${student_id}_${admin_id}`; // or fetch from backend
+
+
+        fileInput.onchange = async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('chatId', chatId);
 
  
+            try {
+                const res = await fetch('/upload-documents-chat', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                    },
+                    body: formData
+                });
+
+                const data = await res.json();
+
+                if (data.success && data.fileUrl) {
+                    const fileUrl = data.fileUrl;
+                    console.log(data.fileUrl)
+
+                    const payload = {
+                        id: student_id,
+                        admin_id: admin_id,
+                        sender_id: student_id,
+                        receiver_id: admin_id,
+                        message: fileUrl, // This is the URL sent
+                        is_read: false
+                    };
+
+                    const messageRes = await fetch('/send-message-from-adminstudent', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!messageRes.ok) throw new Error("Failed to send file message");
+
+                    await loadMessages(student_id, admin_id);
+                } else {
+                    alert("File upload failed.");
+                }
+            } catch (err) {
+                console.error("Upload error:", err);
+                alert("Something went wrong while uploading the file.");
+            }
+        };
+
+        document.body.appendChild(fileInput);
+        fileInput.click();
+        document.body.removeChild(fileInput);
+    });
+
+
+    adminMsgContainer.append(header, chatWrapper, inputContainer);
+    container.appendChild(adminMsgContainer);
+
+    async function loadMessages(student_id, admin_id) {
+        const chatWrapper = document.querySelector('.admin-chat-wrapper');
+        if (!chatWrapper) return;
+
+        const apiUrl = `/get-messages-adminstudent/${student_id}/${admin_id}`;
+
+        try {
+            const res = await fetch(apiUrl);
+            if (!res.ok) throw new Error('Failed to fetch messages');
+
+            const data = await res.json();
+            const messages = Array.isArray(data.messages) ? data.messages : [];
+
+            chatWrapper.innerHTML = '';
+
+            messages.forEach(msg => {
+                const messageDiv = document.createElement('div');
+                messageDiv.style.cssText = `
+                    display: flex;
+                    justify-content: ${msg.sender_id === admin_id ? 'flex-start' : 'flex-end'};
+                    margin-bottom: 10px;
+                    width: 100%;
+                `;
+
+                const bubble = document.createElement('div');
+                bubble.style.cssText = `
+                    max-width: 80%;
+                    padding: 10px 14px;
+                    border-radius: 12px;
+                    background-color: ${msg.sender_id === admin_id ? '#f0f0f0' : '#DCF8C6'};
+                    font-size: 14px;
+                    word-wrap: break-word;
+                    font-family: 'Poppins', sans-serif;
+                    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                `;
+
+                let isFileUrl = false;
+                try {
+                    const url = new URL(msg.message, window.location.origin);
+                    const fileExts = ['pdf', 'doc', 'docx', 'txt'];
+                    const path = url.pathname.toLowerCase();
+                    isFileUrl = fileExts.some(ext => path.endsWith(`.${ext}`));
+                } catch {
+                    isFileUrl = false;
+                }
+
+                if (isFileUrl) {
+                    const fileName = msg.message.split('/').pop().split('?')[0];
+                    const link = document.createElement('a');
+                    link.href = msg.message;
+                    link.target = "_blank";
+                    link.innerHTML = `<i class="fa-solid fa-file"></i> ${fileName}`;
+                    link.style.cssText = `color: #333; text-decoration: none;`;
+                    bubble.appendChild(link);
+                } else {
+                    bubble.textContent = msg.message;
+                }
+
+                messageDiv.appendChild(bubble);
+                chatWrapper.appendChild(messageDiv);
+            });
+
+            chatWrapper.scrollTop = chatWrapper.scrollHeight;
+
+        } catch (err) {
+            console.error('Error loading messages:', err);
+            chatWrapper.innerHTML = `<div style="color: red; text-align:center;">Failed to load messages</div>`;
+        }
+    }
+
+    async function sendMessageAdmin() {
+        const input = document.querySelector('.nbfc-message-input');
+        if (!input) return;
+
+        const messageText = input.value.trim();
+        if (!messageText) return;
+
+        const studentIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+        const student_id = studentIdElement ? studentIdElement.textContent.trim() : "";
+
+        if (!student_id) {
+            alert("Student ID not found");
+            return;
+        }
+
+        const payload = {
+            id: student_id,
+            admin_id: admin_id,
+            sender_id: student_id,
+            receiver_id: admin_id,
+            message: messageText,
+            is_read: false
+        };
+
+        try {
+            const res = await fetch('/send-message-from-adminstudent', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!res.ok) throw new Error('Failed to send message');
+
+            input.value = '';
+            await loadMessages(student_id, admin_id);
+        } catch (err) {
+            console.error('Error sending message:', err);
+            alert('Failed to send message. Please try again.');
+        }
+    }
+
+    let isChatOpen = false;
+
+    toggleBtn.addEventListener('click', async () => {
+        if (!isChatOpen) {
+            chatWrapper.style.display = 'flex';
+            inputContainer.style.display = 'flex';
+            toggleBtn.textContent = 'Close';
+            toggleBtn.style.border = '1px solid #6f25ce';
+            toggleBtn.style.background = 'transparent';
+            toggleBtn.style.color = '#6f25ce';
+            isChatOpen = true;
+            await loadMessages(student_id, admin_id);
+        } else {
+            chatWrapper.style.display = 'none';
+            inputContainer.style.display = 'none';
+            toggleBtn.textContent = 'Message';
+            toggleBtn.style.background = '#6f25ce';
+            toggleBtn.style.color = '#fff';
+            toggleBtn.style.border = "none";
+            emojiPicker.style.display = 'none';
+            isChatOpen = false;
+        }
+    });
+
+    sendIcon.addEventListener('click', sendMessageAdmin);
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            sendMessageAdmin();
+        }
+    });
+}

@@ -32,7 +32,7 @@ class scDashboardController extends Controller
     {
         $referralId = "HYU67994003";
 
-        $userByRef = PersonalInfo::where('referral_code', $referralId)->get();
+        $userByRef = User::where('referral_code', $referralId)->get();
         $scDetail = Scuser::where('referral_code', $referralId)->get();
 
         if ($userByRef->isEmpty() || $scDetail->isEmpty()) {
@@ -419,51 +419,57 @@ class scDashboardController extends Controller
         try {
             $studentCounsellor = Scuser::where('referral_code', $request->input('scRefNo'))->first();
 
-            if ($studentCounsellor) {
-                if ($request->has('updatedScName')) {
-                    $studentCounsellor->full_name = $request->input('updatedScName');
-                }
-                if ($request->has('updatedScDob')) {
-                    $studentCounsellor->dob = $request->input('updatedScDob');
-                }
-                if ($request->has('updatedScPhone')) {
-                    $studentCounsellor->phone = $request->input('updatedScPhone');
-                }
-                if ($request->has('street')) {
-                    $studentCounsellor->street = $request->input('street');
-                }
-                if ($request->has('district')) {
-                    $studentCounsellor->district = $request->input('district');
-                }
-                if ($request->has('state')) {
-                    $studentCounsellor->state = $request->input('state');
-                }
-                if ($request->has('pincode')) {
-                    $studentCounsellor->pincode = $request->input('pincode');
-                }
-
-                $fullAddress = $request->input('street') . ', ' . $request->input('district') . ', ' . $request->input('state') . ' - ' . $request->input('pincode');
-
-                if ($fullAddress) {
-                    $studentCounsellor->address = $fullAddress;
-                }
-
-
-                // Save the updated data
-                $studentCounsellor->save();
-
-
-
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Student counsellor details updated successfully',
-                ], 200);
-            } else {
+            if (!$studentCounsellor) {
                 return response()->json([
                     'error' => 'Student counsellor not found',
                 ], 404);
             }
+
+            // Safe assignment only if not null or empty
+            if (!empty($request->input('updatedScName'))) {
+                $studentCounsellor->full_name = $request->input('updatedScName');
+            }
+
+            if (!empty($request->input('updatedScDob'))) {
+                $studentCounsellor->dob = $request->input('updatedScDob');
+            }
+
+            if (!empty($request->input('updatedScPhone'))) {
+                $studentCounsellor->phone = $request->input('updatedScPhone');
+            }
+
+            $street = $request->input('street');
+            $district = $request->input('district');
+            $state = $request->input('state');
+            $pincode = $request->input('pincode');
+
+            if (!empty($street)) {
+                $studentCounsellor->street = $street;
+            }
+            if (!empty($district)) {
+                $studentCounsellor->district = $district;
+            }
+            if (!empty($state)) {
+                $studentCounsellor->state = $state;
+            }
+            if (!empty($pincode)) {
+                $studentCounsellor->pincode = $pincode;
+            }
+
+            // Update address only if all parts exist
+            if (!empty($street) && !empty($district) && !empty($state) && !empty($pincode)) {
+                $studentCounsellor->address = "{$street}, {$district}, {$state} - {$pincode}";
+            }
+
+            $studentCounsellor->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Student counsellor details updated successfully',
+            ], 200);
+
         } catch (\Exception $e) {
+            \Log::error('SC Update Error: ' . $e->getMessage());
             return response()->json([
                 'error' => 'An error occurred while updating the details.',
                 'message' => $e->getMessage(),

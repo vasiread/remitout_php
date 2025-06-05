@@ -692,6 +692,10 @@ $counter = 1;
                         </div>
                     </div>
                 </div>
+                <div class="adminmessage-inboxnbfc" style="border-bottom:1px solid #e5e7eb;">
+
+
+                </div>
 
                 <div class="index-student-details-container">
 
@@ -905,7 +909,7 @@ $counter = 1;
             // Check window size on load and resize to handle sidebar visibility
             checkWindowSize();
             window.addEventListener('resize', checkWindowSize);
-            
+
 
 
 
@@ -1026,18 +1030,18 @@ $counter = 1;
                 document.querySelector(".wholeapplicationprofile").style.display = "none";
             });
 
-        const messageButtonNbfc = document.querySelector("#index-student-message-btn-footer");
+            const messageButtonNbfc = document.querySelector("#index-student-message-btn-footer");
 
-        messageButtonNbfc.addEventListener("click", function () {
-            const viewContainerApplication = document.getElementById("nbfc-student-profile-details");
-            viewContainerApplication.style.display = "none";
-            const nbfcListUsers = document.querySelector(".dashboard-sections-container");
-            nbfcListUsers.style.display = "none";
-            inboxContainer.style.display = "flex";
-            parentContainerNBFC.style.display = "none";
-            document.querySelector(".wholeapplicationprofile").style.display = "none";
-            setActiveMenuItem(inboxMenuItem);
-        });
+            messageButtonNbfc.addEventListener("click", function () {
+                const viewContainerApplication = document.getElementById("nbfc-student-profile-details");
+                viewContainerApplication.style.display = "none";
+                const nbfcListUsers = document.querySelector(".dashboard-sections-container");
+                nbfcListUsers.style.display = "none";
+                inboxContainer.style.display = "flex";
+                parentContainerNBFC.style.display = "none";
+                document.querySelector(".wholeapplicationprofile").style.display = "none";
+                setActiveMenuItem(inboxMenuItem);
+            });
 
             // Set initial states
             dashboardSectionsContainer.style.display = "grid";
@@ -1422,7 +1426,7 @@ $counter = 1;
             const inputContainer = document.querySelector(".nbfc-individual-bankmessage-input");
             const viewButton = document.querySelector(".view");
             const smileIcon = document.querySelector(".nbfc-face-smile");
-            const paperclipIcon = document.querySelector(".nbfc-paperclip");
+            // const paperclipIcon = document.querySelector(".nbfc-paperclip");
 
             let isNBFC = true;
 
@@ -1574,103 +1578,103 @@ $counter = 1;
 
             // File attachment functionality
             // File attachment functionality
-            if (paperclipIcon) {
-                paperclipIcon.addEventListener("click", function () {
-                    const fileInput = document.createElement("input");
-                    fileInput.type = "file";
-                    fileInput.accept = ".pdf,.doc,.docx,.txt";
-                    fileInput.style.display = "none";
+            // if (paperclipIcon) {
+            //     paperclipIcon.addEventListener("click", function () {
+            //         const fileInput = document.createElement("input");
+            //         fileInput.type = "file";
+            //         fileInput.accept = ".pdf,.doc,.docx,.txt";
+            //         fileInput.style.display = "none";
 
-                    fileInput.onchange = (e) => {
-                        const file = e.target.files[0];
-                        if (file) {
-                            // Get the file name and size
-                            const fileName = file.name;
-                            const fileSize = (file.size / 1024 / 1024).toFixed(2); // Size in MB
+            //         fileInput.onchange = (e) => {
+            //             const file = e.target.files[0];
+            //             if (file) {
+            //                 // Get the file name and size
+            //                 const fileName = file.name;
+            //                 const fileSize = (file.size / 1024 / 1024).toFixed(2); // Size in MB
 
-                            // Create the message container
-                            const alignmentContainer = document.createElement("div");
-                            alignmentContainer.style.cssText = `
-                    display: flex;
-                    justify-content: flex-end;
-                    width: 100%;
-                `;
+            //                 // Create the message container
+            //                 const alignmentContainer = document.createElement("div");
+            //                 alignmentContainer.style.cssText = `
+            //         display: flex;
+            //         justify-content: flex-end;
+            //         width: 100%;
+            //     `;
 
-                            const messageContainer = document.createElement("div");
-                            messageContainer.style.cssText = ` 
-                    width: 665px;
-                    padding: 10px;
-                    border: 1px solid #e2e2e2;
-                    border-radius: 4px;
-                    margin-left: auto;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                `;
+            //                 const messageContainer = document.createElement("div");
+            //                 messageContainer.style.cssText = ` 
+            //         width: 665px;
+            //         padding: 10px;
+            //         border: 1px solid #e2e2e2;
+            //         border-radius: 4px;
+            //         margin-left: auto;
+            //         display: flex;
+            //         justify-content: space-between;
+            //         align-items: center;
+            //     `;
 
-                            // Create message content
-                            const messageText = document.createElement("div");
-                            messageText.style.cssText = `
-                    font-family: 'Poppins', sans-serif;
-                    font-weight: 500;
-                    font-size: 14px;
-                    color: #909090;
-                    line-height: 1.5;
-                    padding: 4px 5px;
-                    flex: 1;
-                `;
-                            messageText.textContent = `${fileName} (${fileSize} MB)`;
+            //                 // Create message content
+            //                 const messageText = document.createElement("div");
+            //                 messageText.style.cssText = `
+            //         font-family: 'Poppins', sans-serif;
+            //         font-weight: 500;
+            //         font-size: 14px;
+            //         color: #909090;
+            //         line-height: 1.5;
+            //         padding: 4px 5px;
+            //         flex: 1;
+            //     `;
+            //                 messageText.textContent = `${fileName} (${fileSize} MB)`;
 
-                            // Create remove icon (using SVG)
-                            const removeIcon = document.createElement("button");
-                            removeIcon.style.cssText = `
-                    background: none;
-                    border: none;
-                    cursor: pointer;
-                    font-size: 18px;
-                    padding: 0;
-                    margin-left: 10px;
-                    display: flex;
-                    justify-content: flex-end;
-                `;
-                            removeIcon.innerHTML = `
-                    <svg width="16" height="16" fill="black" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12.146 3.854a.5.5 0 0 0-.708 0L8 7.293 4.854 4.146a.5.5 0 1 0-.708.708L7.293 8l-3.147 3.146a.5.5 0 0 0 .708.708L8 8.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 8l3.146-3.146a.5.5 0 0 0 0-.708z"/>
-                    </svg>
-                `;
-                            removeIcon.onclick = () => {
-                                // Remove the message and reset the file input
-                                messagesWrapper.removeChild(alignmentContainer);
+            //                 // Create remove icon (using SVG)
+            //                 const removeIcon = document.createElement("button");
+            //                 removeIcon.style.cssText = `
+            //         background: none;
+            //         border: none;
+            //         cursor: pointer;
+            //         font-size: 18px;
+            //         padding: 0;
+            //         margin-left: 10px;
+            //         display: flex;
+            //         justify-content: flex-end;
+            //     `;
+            //                 removeIcon.innerHTML = `
+            //         <svg width="16" height="16" fill="black" xmlns="http://www.w3.org/2000/svg">
+            //             <path d="M12.146 3.854a.5.5 0 0 0-.708 0L8 7.293 4.854 4.146a.5.5 0 1 0-.708.708L7.293 8l-3.147 3.146a.5.5 0 0 0 .708.708L8 8.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 8l3.146-3.146a.5.5 0 0 0 0-.708z"/>
+            //         </svg>
+            //     `;
+            //                 removeIcon.onclick = () => {
+            //                     // Remove the message and reset the file input
+            //                     messagesWrapper.removeChild(alignmentContainer);
 
-                                // Remove file data from localStorage
-                                let savedFiles = JSON.parse(localStorage.getItem('files')) || [];
-                                savedFiles = savedFiles.filter(f => f.fileName !== fileName);
-                                localStorage.setItem('files', JSON.stringify(savedFiles));
-                            };
+            //                     // Remove file data from localStorage
+            //                     let savedFiles = JSON.parse(localStorage.getItem('files')) || [];
+            //                     savedFiles = savedFiles.filter(f => f.fileName !== fileName);
+            //                     localStorage.setItem('files', JSON.stringify(savedFiles));
+            //                 };
 
-                            // Append remove icon to the message
-                            messageContainer.appendChild(messageText);
-                            messageContainer.appendChild(removeIcon);
+            //                 // Append remove icon to the message
+            //                 messageContainer.appendChild(messageText);
+            //                 messageContainer.appendChild(removeIcon);
 
-                            // Assemble the message structure
-                            alignmentContainer.appendChild(messageContainer);
-                            messagesWrapper.appendChild(alignmentContainer);
+            //                 // Assemble the message structure
+            //                 alignmentContainer.appendChild(messageContainer);
+            //                 messagesWrapper.appendChild(alignmentContainer);
 
-                            // Scroll to the bottom of the chat
+            //                 // Scroll to the bottom of the chat
 
-                            // Save file data to localStorage
-                            let savedFiles = JSON.parse(localStorage.getItem('files')) || [];
-                            savedFiles.push({ fileName, fileSize });
-                            localStorage.setItem('files', JSON.stringify(savedFiles));
-                        }
-                    };
+            //                 // Save file data to localStorage
+            //                 let savedFiles = JSON.parse(localStorage.getItem('files')) || [];
+            //                 savedFiles.push({ fileName, fileSize });
+            //                 localStorage.setItem('files', JSON.stringify(savedFiles));
+            //             }
+            //         };
 
-                    // Trigger the file input dialog
-                    document.body.appendChild(fileInput);
-                    fileInput.click();
-                    document.body.removeChild(fileInput);
-                });
-            }
+            //         // Trigger the file input dialog
+            //         document.body.appendChild(fileInput);
+            //         fileInput.click();
+            //         document.body.removeChild(fileInput);
+            //     });
+            // }
 
             // Load files from localStorage when the page loads
             function loadFiles() {
@@ -2122,6 +2126,7 @@ $counter = 1;
 
 
         getStudents().then(studentData => {
+            initAdminChat();
             if (studentData) {
                 const studentNames = studentData.map(student => student.name);
                 const studentIds = studentData.map(student => student.unique_id)
@@ -2264,33 +2269,34 @@ $counter = 1;
 
 
 
-    function initializeChats() {
-    const messagesMap = {}; // Tracks studentId => messagesWrapper
-    let activeStudentId = null;
+        function initializeChats() {
+            const messagesMap = {}; // Tracks studentId => messagesWrapper
+            let activeStudentId = null;
 
-    const chatContainers = document.querySelectorAll('.nbfc-individual-bankmessage-input-message');
+            const chatContainers = document.querySelectorAll('.nbfc-individual-bankmessage-input-message');
 
-    chatContainers.forEach((container, index) => {
-        const chatId = `chat-${index}`;
-        container.setAttribute('data-chat-id', chatId);
+            chatContainers.forEach((container, index) => {
+                const chatId = `chat-${index}`;
+                container.setAttribute('data-chat-id', chatId);
 
-        const parentContainer = container.closest('.index-student-message-container');
-        const viewButton = parentContainer?.querySelector('.index-student-view-btn');
-        const messageBtn = parentContainer?.querySelector('.index-student-message-btn');
-        const messageMobBtn = parentContainer?.querySelector('.index-student-send-btn-mobile');
-        const messageUserIdElem = parentContainer?.querySelector('.student-ids');
-        const messageUserId = messageUserIdElem?.textContent.trim();
 
-        const sendButton = container.querySelector('.nbfc-send-img');
-        const messageInput = container.querySelector('.nbfc-message-input');
-        const smileIcons = container.querySelectorAll('.nbfc-face-smile');
-        const paperclipIcon = container.querySelector('.nbfc-paperclip');
+                const parentContainer = container.closest('.index-student-message-container');
+                const viewButton = parentContainer?.querySelector('.index-student-view-btn');
+                const messageBtn = parentContainer?.querySelector('.index-student-message-btn');
+                const messageMobBtn = parentContainer?.querySelector('.index-student-send-btn-mobile');
+                const messageUserIdElem = parentContainer?.querySelector('.student-ids');
+                const messageUserId = messageUserIdElem?.textContent.trim();
 
-        // Create and insert chat message wrapper
-        const messagesWrapper = document.createElement("div");
-        messagesWrapper.classList.add("messages-wrapper");
-        messagesWrapper.setAttribute('data-chat-id', chatId);
-        messagesWrapper.style.cssText = `
+                const sendButton = container.querySelector('.nbfc-send-img');
+                const messageInput = container.querySelector('.nbfc-message-input');
+                const smileIcons = container.querySelectorAll('.nbfc-face-smile');
+                const paperclipIcon = container.querySelector('.nbfc-paperclip');
+
+                // Create and insert chat message wrapper
+                const messagesWrapper = document.createElement("div");
+                messagesWrapper.classList.add("messages-wrapper");
+                messagesWrapper.setAttribute('data-chat-id', chatId);
+                messagesWrapper.style.cssText = `
             display: none;
             flex-direction: column;
             width: 100%;  
@@ -2304,35 +2310,35 @@ $counter = 1;
             margin-bottom: 10px;
             padding-top:10px;
         `;
-        container.parentNode.insertBefore(messagesWrapper, container);
-        messagesMap[messageUserId] = messagesWrapper;
+                container.parentNode.insertBefore(messagesWrapper, container);
+                messagesMap[messageUserId] = messagesWrapper;
 
-        // Utility: Scroll the current chat
-        function scrollToBottom(userId) {
-            const wrapper = messagesMap[userId];
-            if (wrapper) wrapper.scrollTop = wrapper.scrollHeight;
-        }
+                // Utility: Scroll the current chat
+                function scrollToBottom(userId) {
+                    const wrapper = messagesMap[userId];
+                    if (wrapper) wrapper.scrollTop = wrapper.scrollHeight;
+                }
 
-        // Utility: Show/hide
-        function showChat() {
-            messagesWrapper.style.display = 'flex';
-            container.style.display = 'flex';
-            if (viewButton) viewButton.textContent = 'Close';
-        }
+                // Utility: Show/hide
+                function showChat() {
+                    messagesWrapper.style.display = 'flex';
+                    container.style.display = 'flex';
+                    if (viewButton) viewButton.textContent = 'Close';
+                }
 
-        function hideChat() {
-            messagesWrapper.style.display = 'none';
-            container.style.display = 'none';
-            if (viewButton) viewButton.textContent = 'View';
-        }
+                function hideChat() {
+                    messagesWrapper.style.display = 'none';
+                    container.style.display = 'none';
+                    if (viewButton) viewButton.textContent = 'View';
+                }
 
-        // Append message to the correct chat
-    function appendMessageToChat(messageText, userId) {
-            const chatContainer = messagesMap[userId];
-            if (!chatContainer) return;
+                // Append message to the correct chat
+                function appendMessageToChat(messageText, userId) {
+                    const chatContainer = messagesMap[userId];
+                    if (!chatContainer) return;
 
-            const messageElement = document.createElement("div");
-            messageElement.style.cssText = `
+                    const messageElement = document.createElement("div");
+                    messageElement.style.cssText = `
         display: flex;
         justify-content: flex-end;
         width: 100%;
@@ -2340,8 +2346,8 @@ $counter = 1;
         padding-top: 10px;
     `;
 
-            const messageContent = document.createElement("div");
-            messageContent.style.cssText = `
+                    const messageContent = document.createElement("div");
+                    messageContent.style.cssText = `
         max-width: 80%;
         padding: 8px 12px;
         border-radius: 8px;
@@ -2351,51 +2357,51 @@ $counter = 1;
         word-wrap: break-word;
     `;
 
-            // Check if it's a file link
-            if (messageText.match(/\.(pdf|docx?|txt)$/i)) {
-                const downloadLink = document.createElement('a');
-                downloadLink.href = messageText;
-                downloadLink.target = '_blank';
-                downloadLink.style.cssText = `
+                    // Check if it's a file link
+                    if (messageText.match(/\.(pdf|docx?|txt)$/i)) {
+                        const downloadLink = document.createElement('a');
+                        downloadLink.href = messageText;
+                        downloadLink.target = '_blank';
+                        downloadLink.style.cssText = `
             display: flex;
             align-items: center;
             gap: 5px;
             color: #666;
             text-decoration: none;
         `;
-                const fileName = messageText.split('/').pop();
-                downloadLink.innerHTML = `
+                        const fileName = messageText.split('/').pop();
+                        downloadLink.innerHTML = `
             <i class="fa-solid fa-file"></i>
             <span>${fileName}</span>
         `;
-                messageContent.appendChild(downloadLink);
-            } else {
-                messageContent.textContent = messageText;
-            }
+                        messageContent.appendChild(downloadLink);
+                    } else {
+                        messageContent.textContent = messageText;
+                    }
 
-            messageElement.appendChild(messageContent);
-            chatContainer.appendChild(messageElement);
-        }
+                    messageElement.appendChild(messageContent);
+                    chatContainer.appendChild(messageElement);
+                }
 
-        // View existing messages
-       async function viewChat(nbfc_id, studentId) {
-            activeStudentId = studentId;
-            const chatContainer = messagesMap[studentId];
-            if (!chatContainer) return;
+                // View existing messages
+                async function viewChat(nbfc_id, studentId) {
+                    activeStudentId = studentId;
+                    const chatContainer = messagesMap[studentId];
+                    if (!chatContainer) return;
 
-            chatContainer.innerHTML = '';
+                    chatContainer.innerHTML = '';
 
-            try {
-                const response = await fetch(`/get-messages/${nbfc_id}/${studentId}`);
-                const data = await response.json();
+                    try {
+                        const response = await fetch(`/get-messages/${nbfc_id}/${studentId}`);
+                        const data = await response.json();
 
-                if (data.messages?.length) {
-                    data.messages.sort((a, b) => a.id - b.id);
-                    data.messages.forEach(msg => {
-                        const isNbfcSender = msg.sender_id === nbfc_id;
+                        if (data.messages?.length) {
+                            data.messages.sort((a, b) => a.id - b.id);
+                            data.messages.forEach(msg => {
+                                const isNbfcSender = msg.sender_id === nbfc_id;
 
-                        const wrapper = document.createElement("div");
-                        wrapper.style.cssText = `
+                                const wrapper = document.createElement("div");
+                                wrapper.style.cssText = `
                     display: flex;
                     justify-content: ${isNbfcSender ? 'flex-end' : 'flex-start'};
                     width: 100%;
@@ -2403,8 +2409,8 @@ $counter = 1;
                     padding-top: 10px;
                 `;
 
-                        const bubble = document.createElement("div");
-                        bubble.style.cssText = `
+                                const bubble = document.createElement("div");
+                                bubble.style.cssText = `
                     max-width: 80%;
                     padding: 8px 12px;
                     border-radius: 8px;
@@ -2414,146 +2420,162 @@ $counter = 1;
                     word-wrap: break-word;
                 `;
 
-                        // Detect file message by extension
-                        if (msg.message.match(/\.(pdf|docx?|txt)$/i)) {
-                            const downloadLink = document.createElement('a');
-                            downloadLink.href = msg.message;
-                            downloadLink.target = '_blank';
-                            downloadLink.style.cssText = `
+                                // Detect file message by extension
+                                if (msg.message.match(/\.(pdf|docx?|txt)$/i)) {
+                                    const downloadLink = document.createElement('a');
+                                    downloadLink.href = msg.message;
+                                    downloadLink.target = '_blank';
+                                    downloadLink.style.cssText = `
                         display: flex;
                         align-items: center;
                         gap: 5px;
                         color: #666;
                         text-decoration: none;
                     `;
-                            const fileName = msg.message.split('/').pop();
-                            downloadLink.innerHTML = `
+                                    const fileName = msg.message.split('/').pop();
+                                    downloadLink.innerHTML = `
                         <i class="fa-solid fa-file"></i>
                         <span>${fileName}</span>
                     `;
-                            bubble.appendChild(downloadLink);
-                        } else {
-                            bubble.textContent = msg.message;
-                        }
+                                    bubble.appendChild(downloadLink);
+                                } else {
+                                    bubble.textContent = msg.message;
+                                }
 
-                        wrapper.appendChild(bubble);
-                        chatContainer.appendChild(wrapper);
-                    });
-                } else {
-                    const empty = document.createElement("div");
-                    empty.textContent = "No messages yet";
-                    empty.style.cssText = `
+                                wrapper.appendChild(bubble);
+                                chatContainer.appendChild(wrapper);
+                            });
+                        } else {
+                            const empty = document.createElement("div");
+                            empty.textContent = "No messages yet";
+                            empty.style.cssText = `
                 text-align: center;
                 padding: 20px;
                 color: #999;
             `;
-                    chatContainer.appendChild(empty);
-                }
-            } catch (error) {
-                console.error('Error fetching messages:', error);
-            }
-
-            showChat();
-            scrollToBottom(studentId);
-        }
-
-
-        // Send message
-        async function sendMessageToBackend(content, userId) {
-            const user = @json(session('nbfcuser'));
-            const nbfc_id = user?.nbfc_id;
-            if (!nbfc_id) return;
-
-            const payload = {
-                nbfc_id,
-                student_id: userId,
-                sender_id: nbfc_id,
-                receiver_id: userId,
-                message: content,
-                is_read: false
-            };
-
-            try {
-                const response = await fetch('/send-message', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                const data = await response.json();
-                if (response.ok) {
-                    appendMessageToChat(content, userId);
-                    scrollToBottom(userId);
-                } else {
-                    console.error('Send failed:', data.error || 'Unknown error');
-                }
-            } catch (error) {
-                console.error('Send error:', error);
-            }
-        }
-
-        // Event listeners
-        if (sendButton && messageInput && messageUserId) {
-            sendButton.addEventListener('click', e => {
-                e.preventDefault();
-                const content = messageInput.value.trim();
-                if (content) {
-                    messageInput.value = '';
-                    sendMessageToBackend(content, messageUserId);
-                }
-            });
-
-            messageInput.addEventListener('keypress', e => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    const content = messageInput.value.trim();
-                    if (content) {
-                        messageInput.value = '';
-                        sendMessageToBackend(content, messageUserId);
-                    }
-                }
-            });
-        }
-
-        if (viewButton) {
-            viewButton.addEventListener('click', () => {
-                const user = @json(session('nbfcuser'));
-                const nbfc_id = user?.nbfc_id;
-                if (messagesWrapper.style.display === 'none') {
-                    viewChat(nbfc_id, messageUserId);
-                } else {
-                    hideChat();
-                }
-            });
-        }
-
-        if (messageBtn || messageMobBtn) {
-            const btn = messageBtn || messageMobBtn;
-            btn.addEventListener('click', () => {
-                const user = @json(session('nbfcuser'));
-                const nbfc_id = user.nbfc_id;
-                viewChat(nbfc_id, messageUserId);
-            });
-        }
-
-        // Emoji support
-        if (smileIcons) {
-            smileIcons.forEach(smileIcon => {
-                smileIcon.addEventListener('click', function (e) {
-                    e.stopPropagation();
-                    const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
-                    const existingPicker = container.querySelector(".emoji-picker");
-                    if (existingPicker) {
-                        existingPicker.remove();
-                        return;
+                            chatContainer.appendChild(empty);
+                        }
+                    } catch (error) {
+                        console.error('Error fetching messages:', error);
                     }
 
-                    const picker = document.createElement("div");
-                    picker.classList.add("emoji-picker");
-                    picker.style.cssText = `
+                    showChat();
+                    scrollToBottom(studentId);
+                }
+
+
+                // Send message
+                async function sendMessageToBackend(content, userId) {
+                    const user = @json(session('nbfcuser'));
+                    const nbfc_id = user?.nbfc_id;
+                    if (!nbfc_id) return;
+
+                    const payload = {
+                        nbfc_id,
+                        student_id: userId,
+                        sender_id: nbfc_id,
+                        receiver_id: userId,
+                        message: content,
+                        is_read: false
+                    };
+
+                    try {
+                        const response = await fetch('/send-message', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: JSON.stringify(payload)
+                        });
+
+                        const data = await response.json();
+                        if (response.ok) {
+                            appendMessageToChat(content, userId);
+                            scrollToBottom(userId);
+                        } else {
+                            console.error('Send failed:', data.error || 'Unknown error');
+                        }
+                    } catch (error) {
+                        console.error('Send error:', error);
+                    }
+                }
+
+                // Event listeners
+                if (sendButton && messageInput && messageUserId) {
+                    sendButton.addEventListener('click', e => {
+                        e.preventDefault();
+                        const content = messageInput.value.trim();
+                        if (content) {
+                            messageInput.value = '';
+                            sendMessageToBackend(content, messageUserId);
+                        }
+                    });
+
+                    messageInput.addEventListener('keypress', e => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            const content = messageInput.value.trim();
+                            if (content) {
+                                messageInput.value = '';
+                                sendMessageToBackend(content, messageUserId);
+                            }
+                        }
+                    });
+                }
+
+              if (viewButton) {
+                    viewButton.addEventListener('click', () => {
+                        const user = @json(session('nbfcuser'));
+                        const nbfc_id = user?.nbfc_id;
+
+                        if (messagesWrapper.style.display === 'none') {
+                            viewChat(nbfc_id, messageUserId);
+                        } else {
+                            hideChat();
+                        }
+                    });
+                }
+
+                if (messageBtn || messageMobBtn) {
+                    const btn = messageBtn || messageMobBtn;
+
+                    btn.addEventListener('click', () => {
+                        const user = @json(session('nbfcuser'));
+                        const nbfc_id = user.nbfc_id;
+                        viewChat(nbfc_id, messageUserId);
+                    });
+
+                    if (messageMobBtn) {
+                        messageMobBtn.addEventListener('click', () => {
+                            const user = @json(session('nbfcuser'));
+                            const nbfc_id = user.nbfc_id;
+
+                            if (messagesWrapper.style.display === 'none' || messagesWrapper.style.display === '') {
+                                viewChat(nbfc_id, messageUserId);
+                            } else {
+                                hideChat();
+                            }
+                        });
+                    }
+                }
+
+
+                // Emoji support
+                if (smileIcons) {
+                    smileIcons.forEach(smileIcon => {
+                        smileIcon.addEventListener('click', function (e) {
+                            e.stopPropagation();
+                            const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
+                            const existingPicker = container.querySelector(".emoji-picker");
+                            if (existingPicker) {
+                                existingPicker.remove();
+                                return;
+                            }
+
+                            const picker = document.createElement("div");
+                            picker.classList.add("emoji-picker");
+                            picker.style.cssText = `
                         position: absolute;
                         bottom: 100%;
                         right: 0;
@@ -2566,39 +2588,236 @@ $counter = 1;
                         z-index: 1000;
                     `;
 
-                    emojis.forEach(emoji => {
-                        const btn = document.createElement("button");
-                        btn.textContent = emoji;
-                        btn.style.cssText = `
+                            emojis.forEach(emoji => {
+                                const btn = document.createElement("button");
+                                btn.textContent = emoji;
+                                btn.style.cssText = `
                             border: none;
                             background: none;
                             font-size: 20px;
                             cursor: pointer;
                             padding: 5px;
                         `;
-                        btn.onclick = () => {
-                            messageInput.value += emoji;
-                            picker.remove();
-                            messageInput.focus();
+                                btn.onclick = () => {
+                                    messageInput.value += emoji;
+                                    picker.remove();
+                                    messageInput.focus();
+                                };
+                                picker.appendChild(btn);
+                            });
+
+                            container.appendChild(picker);
+
+                            document.addEventListener("click", function closePicker(e) {
+                                if (!picker.contains(e.target) && e.target !== smileIcon) {
+                                    picker.remove();
+                                    document.removeEventListener("click", closePicker);
+                                }
+                            });
+                        });
+                    });
+                }
+
+                // File attachments
+                if (paperclipIcon) {
+                    paperclipIcon.addEventListener("click", function () {
+                        const fileInput = document.createElement("input");
+                        fileInput.type = "file";
+                        fileInput.accept = ".pdf,.doc,.docx,.txt";
+                        fileInput.style.display = "none";
+
+                        fileInput.onchange = async (e) => {
+                            const file = e.target.files[0];
+                            if (file) {
+                                const formData = new FormData();
+                                formData.append('file', file);
+                                formData.append('chatId', chatId);
+
+                                try {
+                                    const response = await fetch('/upload-documents-chat', {
+                                        method: 'POST',
+                                        headers: {
+                                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                        },
+                                        body: formData
+                                    });
+
+                                    const data = await response.json();
+                                    if (data.success && data.fileUrl) {
+                                        sendMessageToBackend(data.fileUrl, messageUserId);
+                                    } else {
+                                        alert("File upload failed.");
+                                    }
+                                } catch (err) {
+                                    console.error("Upload error:", err);
+                                    alert("Upload failed.");
+                                }
+                            }
                         };
-                        picker.appendChild(btn);
-                    });
 
-                    container.appendChild(picker);
-
-                    document.addEventListener("click", function closePicker(e) {
-                        if (!picker.contains(e.target) && e.target !== smileIcon) {
-                            picker.remove();
-                            document.removeEventListener("click", closePicker);
-                        }
+                        document.body.appendChild(fileInput);
+                        fileInput.click();
+                        document.body.removeChild(fileInput);
                     });
-                });
-            });
+                }
+
+            }); // end of forEach
         }
 
-        // File attachments
-        if (paperclipIcon) {
-            paperclipIcon.addEventListener("click", function () {
+
+        let loadedChats = new Set();
+        async function initAdminChat() {
+            const container = document.querySelector('.adminmessage-inboxnbfc');
+            if (!container) return;
+
+            const user = @json(session('nbfcuser'));
+            const nbfc_id = user?.nbfc_id;
+            const admin_id = 'admin001';
+
+            if (document.querySelector('.admin-msg-container')) return;
+
+            const adminMsgContainer = document.createElement('div');
+            adminMsgContainer.classList.add('admin-msg-container');
+            adminMsgContainer.style.cssText = `
+        border-radius: 10px;
+        margin: 20px 0;
+        overflow: hidden;
+        font-family: 'Poppins', sans-serif;
+    `;
+
+            // Header
+            const header = document.createElement('div');
+            header.style.cssText = `
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: transparent;
+        padding: 12px 16px;
+    `;
+
+            const title = document.createElement('div');
+            title.innerHTML = `<h3>Admin</h3><br><p>Support & Communication Desk</p>`;
+            title.style.cssText = `font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #5d5c5c;`;
+
+            const btnGroup = document.createElement('div');
+
+            const messageBtn = document.createElement('button');
+            messageBtn.textContent = 'Message';
+            messageBtn.style.cssText = `
+        background-color: #6f25ce;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-family: "Poppins", sans-serif;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+        margin-right:3px;
+    `;
+
+            const closeBtn = document.createElement('button');
+            closeBtn.textContent = 'View';
+            closeBtn.style.cssText = `
+        background-color: transparent;
+        border: 1px solid #6f25ce;
+        color: #6f25ce;
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-family: "Poppins", sans-serif;
+        font-size: 14px;
+        width: 80px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-left:3px;
+    `;
+
+            btnGroup.append(messageBtn, closeBtn);
+            header.append(title, btnGroup);
+
+            // Chat wrapper
+            const chatWrapper = document.createElement('div');
+            chatWrapper.classList.add('admin-chat-wrapper');
+            chatWrapper.style.cssText = `
+        display: none;
+        flex-direction: column;
+        padding: 15px;
+        max-height: 300px;
+        overflow-y: auto;
+        background: white;
+    `;
+
+            // Input container
+            const inputContainer = document.createElement('div');
+            inputContainer.style.cssText = `
+        display: none;
+        align-items: center;
+        padding: 10px;
+        background: #fafafa;
+        border-top: 1px solid #eee;
+        position: relative;
+    `;
+
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.placeholder = 'Send message';
+            input.classList.add('nbfc-message-input');
+            input.style.cssText = `
+        flex: 1;
+        padding: 8px 12px;
+        border-radius: 20px;
+        border: 1px solid #ccc;
+        margin-right: 10px;
+    `;
+
+            const emoji = document.createElement('i');
+            emoji.classList.add('fa-regular', 'fa-face-smile');
+            emoji.style.cssText = `font-size: 18px; margin-right: 8px; color: #888; cursor: pointer;`;
+
+            const paperclip = document.createElement('i');
+            paperclip.classList.add('fa-solid', 'fa-paperclip');
+            paperclip.style.cssText = `font-size: 18px; margin-right: 8px; color: #888; cursor: pointer;`;
+
+            const sendIcon = document.createElement('img');
+            sendIcon.src = 'assets/images/send-nbfc.png';
+            sendIcon.alt = 'send icon';
+            sendIcon.style.cssText = `width: 22px; height: 22px; cursor: pointer;`;
+
+            // Emoji Picker
+            const emojiPicker = document.createElement('div');
+            emojiPicker.style.cssText = `
+        position: absolute;
+        bottom: 45px;
+        left: 10px;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        display: none;
+        max-width: 200px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        z-index: 1000;
+        font-size: 20px;
+    `;
+
+            const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
+            emojis.forEach(char => {
+                const span = document.createElement('span');
+                span.textContent = char;
+                span.style.cssText = `cursor: pointer; padding: 5px; display: inline-block;`;
+                span.onclick = () => {
+                    input.value += char;
+                    emojiPicker.style.display = 'none';
+                    input.focus();
+                };
+                emojiPicker.appendChild(span);
+            });
+
+            // File Upload
+            paperclip.addEventListener("click", () => {
                 const fileInput = document.createElement("input");
                 fileInput.type = "file";
                 fileInput.accept = ".pdf,.doc,.docx,.txt";
@@ -2606,44 +2825,210 @@ $counter = 1;
 
                 fileInput.onchange = async (e) => {
                     const file = e.target.files[0];
-                    if (file) {
-                        const formData = new FormData();
-                        formData.append('file', file);
-                        formData.append('chatId', chatId);
+                    if (!file) return;
 
-                        try {
-                            const response = await fetch('/upload-documents-chat', {
-                                method: 'POST',
-                                headers: {
-                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                                },
-                                body: formData
-                            });
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    formData.append('chatId', `${nbfc_id}_${admin_id}`);
 
-                            const data = await response.json();
-                            if (data.success && data.fileUrl) {
-                                sendMessageToBackend(data.fileUrl, messageUserId);
-                             } else {
-                                alert("File upload failed.");
-                            }
-                        } catch (err) {
-                            console.error("Upload error:", err);
-                            alert("Upload failed.");
+                    try {
+                        const response = await fetch('/upload-documents-chat', {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                            },
+                            body: formData
+                        });
+                        const data = await response.json();
+                        if (data.success && data.fileUrl) {
+                            await sendMessageNbfcAdmin(data.fileUrl, nbfc_id);
+                        } else {
+                            alert("File upload failed.");
                         }
+                    } catch (err) {
+                        console.error("Upload error:", err);
+                        alert("Upload failed.");
                     }
                 };
 
                 document.body.appendChild(fileInput);
                 fileInput.click();
-                document.body.removeChild(fileInput);
+            });
+
+            inputContainer.append(input, emoji, paperclip, sendIcon, emojiPicker);
+
+            // Append all
+            adminMsgContainer.append(header, chatWrapper, inputContainer);
+            container.appendChild(adminMsgContainer);
+
+            // Load Messages
+            async function loadMessages() {
+                chatWrapper.innerHTML = '';
+                try {
+                    const res = await fetch(`/get-messages-adminnbfc/${nbfc_id}/${admin_id}`);
+                    const data = await res.json();
+
+                    if (data.messages?.length) {
+                        data.messages.sort((a, b) => a.id - b.id);
+                        data.messages.forEach(msg => {
+                            const isNbfcSender = msg.sender_id === nbfc_id;
+                            const msgWrapper = document.createElement('div');
+                            msgWrapper.style.cssText = `
+                        display: flex;
+                        justify-content: ${isNbfcSender ? 'flex-end' : 'flex-start'};
+                        margin-bottom: 10px;
+                    `;
+
+                            const msgBubble = document.createElement('div');
+                            msgBubble.style.cssText = `
+                        max-width: 80%;
+                        padding: 8px 12px;
+                        border-radius: 8px;
+                        background-color: ${isNbfcSender ? '#DCF8C6' : '#F1F0F0'};
+                        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+                        word-wrap: break-word;
+                    `;
+
+                            if (msg.message.match(/\.(pdf|docx?|txt)$/i)) {
+                                const link = document.createElement('a');
+                                link.href = msg.message;
+                                link.target = '_blank';
+                                link.textContent = msg.message.split('/').pop();
+                                link.style.color = '#333';
+                                link.style.textDecoration = 'none';
+                                link.style.color = 'gray';
+                                msgBubble.appendChild(link);
+                            } else {
+                                msgBubble.textContent = msg.message;
+                            }
+
+                            msgWrapper.appendChild(msgBubble);
+                            chatWrapper.appendChild(msgWrapper);
+                            input.value = '';
+
+                            chatWrapper.scrollTop = chatWrapper.scrollHeight;
+
+                        });
+                    } else {
+                        const emptyMsg = document.createElement('div');
+                        emptyMsg.textContent = 'No messages yet';
+                        emptyMsg.style.cssText = 'text-align: center; padding: 20px; color: #999';
+                        chatWrapper.appendChild(emptyMsg);
+                    }
+                } catch (err) {
+                    console.error("Error fetching admin messages:", err);
+                }
+            }
+
+            // Send message
+            async function sendMessageNbfcAdmin(content, userId) {
+                const msg = typeof content === 'string' ? content : input.value.trim();
+                if (!msg) return;
+
+                try {
+                    const res = await fetch('/send-message-from-adminnbfc', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                        },
+                        body: JSON.stringify({
+                            id: nbfc_id,
+                            admin_id,
+                            sender_id: nbfc_id,
+                            receiver_id: admin_id,
+                            message: msg,
+                            is_read: false
+                        })
+                    });
+
+                   if (res.ok) {
+                        input.value = '';
+
+                        const msgWrapper = document.createElement('div');
+                        msgWrapper.style.cssText = `
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 10px;
+    `;
+
+                        const msgBubble = document.createElement('div');
+                        msgBubble.style.cssText = `
+        max-width: 80%;
+        padding: 8px 12px;
+        border-radius: 8px;
+        background-color: #DCF8C6;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        word-wrap: break-word;
+    `;
+
+                        if (msg.match(/\.(pdf|docx?|txt)$/i)) {
+                            const link = document.createElement('a');
+                            link.href = msg;
+                            link.target = '_blank';
+                            link.textContent = msg.split('/').pop();
+                            link.style.color = 'gray';
+                            link.style.textDecoration = 'none';
+                            msgBubble.appendChild(link);
+                        } else {
+                            msgBubble.textContent = msg;
+                        }
+
+                        msgWrapper.appendChild(msgBubble);
+                        chatWrapper.appendChild(msgWrapper);
+
+                        chatWrapper.scrollTop = chatWrapper.scrollHeight;
+                    }
+
+                } catch (e) {
+                    console.error("Message send failed:", e);
+                }
+            }
+
+            sendIcon.addEventListener('click', () => sendMessageNbfcAdmin());
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    sendMessageNbfcAdmin();
+                }
+            });
+
+            let isChatOpen = false;
+
+
+            messageBtn.addEventListener('click', async () => {
+                if (!isChatOpen) {
+                    chatWrapper.style.display = 'flex';
+                    inputContainer.style.display = 'flex';
+                    closeBtn.textContent = 'Close';
+                    isChatOpen = true;
+                    await loadMessages();
+                }
+            });
+
+            closeBtn.addEventListener('click', () => {
+                if (isChatOpen) {
+                    chatWrapper.style.display = 'none';
+                    inputContainer.style.display = 'none';
+                    closeBtn.textContent = 'View';
+                    emojiPicker.style.display = 'none';
+                    isChatOpen = false;
+                }
+            });
+
+            emoji.addEventListener('click', (e) => {
+                e.stopPropagation();
+                emojiPicker.style.display = emojiPicker.style.display === 'none' ? 'block' : 'none';
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!inputContainer.contains(e.target)) {
+                    emojiPicker.style.display = 'none';
+                }
             });
         }
 
-    }); // end of forEach
-}
 
-
-        let loadedChats = new Set();
 
 
 
@@ -4179,7 +4564,7 @@ $counter = 1;
         const initializeWorkExperienceDocumentUpload = () => {
             const workExperienceDocuments = document.querySelectorAll(".individual-work-experiencecolumn-documents");
 
-            
+
         };
 
         // Your original truncate function as requested:

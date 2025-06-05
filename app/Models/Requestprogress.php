@@ -27,6 +27,10 @@ class Requestprogress extends Model
         // If 'user_id' in Requestprogress refers to 'unique_id' in User
     }
 
+    public function courseInfo()
+    {
+        return $this->belongsTo(CourseInfo::class, 'user_id', 'user_id');
+    }
 
 
     public function nbfc()

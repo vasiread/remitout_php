@@ -125,31 +125,31 @@
             }
         }
 
-      async function getTickets() {
-    try {
-        const response = await fetch('/get-tickets');
-        if (!response.ok) throw new Error('Network response was not ok');
+        async function getTickets() {
+            try {
+                const response = await fetch('/get-tickets');
+                if (!response.ok) throw new Error('Network response was not ok');
 
-            const data = await response.json();
-            console.log('Fetched data:', data);
-    
-        if (data.success && Array.isArray(data.queries)) {
-            const ticketContainer = document.getElementById('ticket-raised-tickets-list');
-            ticketContainer.innerHTML = '';
+                const data = await response.json();
+                console.log('Fetched data:', data);
 
-            data.queries.forEach(ticket => {
-                const ticketDateStr = ticket.created_at.split('.')[0];
-                const ticketDate = new Date(ticketDateStr);
-                const formattedDate = !isNaN(ticketDate) ? ticketDate.toISOString().split('T')[0] : '1970-01-01';
+                if (data.success && Array.isArray(data.queries)) {
+                    const ticketContainer = document.getElementById('ticket-raised-tickets-list');
+                    ticketContainer.innerHTML = '';
 
-                const ticketItem = document.createElement('div');
-                ticketItem.classList.add('ticket-raised-item');
-                if (ticket.status === 'deactive') {
-                    ticketItem.classList.add('deactivated');
-                }
+                    data.queries.forEach(ticket => {
+                        const ticketDateStr = ticket.created_at.split('.')[0];
+                        const ticketDate = new Date(ticketDateStr);
+                        const formattedDate = !isNaN(ticketDate) ? ticketDate.toISOString().split('T')[0] : '1970-01-01';
 
-                ticketItem.dataset.id = ticket.id;
-                ticketItem.innerHTML = `
+                        const ticketItem = document.createElement('div');
+                        ticketItem.classList.add('ticket-raised-item');
+                        if (ticket.status === 'deactive') {
+                            ticketItem.classList.add('deactivated');
+                        }
+
+                        ticketItem.dataset.id = ticket.id;
+                        ticketItem.innerHTML = `
                     <div class="ticket-raised-content">
                         ${ticket.queryraised}
                     </div>
@@ -159,46 +159,46 @@
                         <div class="ticket-raised-meta-item-student">${ticket.querytype || 'No Type'}</div>
                     </div>
                     <div class="ticket-raised-chat-icon-container">
-                        <div class="ticket-raised-chat-icon">
-                            <img src="assets/images/ticket-icon.png" alt="Message Icon" />
-                        </div>
+                        <div class="ticket-raised-chat-icon" style="border:1px solid #6f25ce;border-radius:4px;color:#6f25ce;">
+                                                <p>x</p>
+                         </div>
                     </div>
                 `;
 
-                // Click to mark as deactive
-                ticketItem.addEventListener('click', async () => {
-                    const ticketId = ticketItem.dataset.id;
+                        // Click to mark as deactive
+                        ticketItem.addEventListener('click', async () => {
+                            const ticketId = ticketItem.dataset.id;
 
-                    const updateResponse = await fetch('/update-ticket-status', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        body: JSON.stringify({ id: ticketId })
+                            const updateResponse = await fetch('/update-ticket-status', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                },
+                                body: JSON.stringify({ id: ticketId })
+                            });
+
+                            const result = await updateResponse.json();
+                            if (result.success) {
+                                ticketItem.classList.add('deactivated');
+                                alert('Ticket marked as deactive.');
+                                getTickets();
+                            } else {
+                                alert('Failed to update ticket status.');
+                            }
+                        });
+
+                        ticketContainer.appendChild(ticketItem);
                     });
 
-                    const result = await updateResponse.json();
-                    if (result.success) {
-                        ticketItem.classList.add('deactivated');
-                        alert('Ticket marked as deactive.');
-                        getTickets();
-                    } else {
-                        alert('Failed to update ticket status.');
-                    }
-                });
-
-                ticketContainer.appendChild(ticketItem);
-            });
-
-            sortTickets('newest');
-        } else {
-            console.error('No tickets found in the response');
+                    sortTickets('newest');
+                } else {
+                    console.error('No tickets found in the response');
+                }
+            } catch (error) {
+                console.error('Failed to fetch tickets:', error);
+            }
         }
-    } catch (error) {
-        console.error('Failed to fetch tickets:', error);
-    }
-}
 
         document.addEventListener('DOMContentLoaded', () => {
             getTickets();

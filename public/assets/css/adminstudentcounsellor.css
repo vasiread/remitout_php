@@ -518,20 +518,7 @@
     padding-left: 0px;
 }
 
-
-#scmember-profilecontainer-adminside .scmember-rowfirst .save-scuser {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #6f25ce;
-    width: 70px;
-    height: 35px;
-    padding: 16px 22px;
-    gap: 8px;
-    border-radius: 4px;
-    box-shadow: 0px 0px 10px 0px #92889b21;
-    background: transparent;
-}
+ 
 
 @media (max-width: 767px) {
     .add-studentcounsellor-adminside {
@@ -557,6 +544,9 @@
         flex-direction: column;
         align-items: center;
     }
+        #scdashboard-profile-adminside .scmember-profilecontainer{
+            max-width: 100%;
+        }
 
     .studentcounsellor-header-admin {
         font-size: 20px;
