@@ -166,7 +166,6 @@
                 justify-content: space-between;
                 align-items: center;
                 padding: 20px 60px;
-                position: relative;
                 background-color: rgba(255, 255, 255, 0.35);
             }
 
@@ -301,7 +300,6 @@
                 justify-content: space-between;
                 align-items: center;
                 padding: 20px;
-                position: relative;
                 background-color: rgba(255, 255, 255, 0.35);
             }
 
