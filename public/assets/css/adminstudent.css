@@ -1,7 +1,6 @@
 .student-listcontainer {
     display: none;
     border-radius: 8px;
-    padding: 20px;
     margin: 0 auto;
     flex-direction: column;
     font-family: "Poppins", sans-serif;
@@ -18,8 +17,8 @@
     align-items: center;
     width: 100%;
     max-width: 100%;
-    background-color: rgba(255, 255, 255, 1);
-    box-shadow: 0px 0px 28px 0px rgba(0, 0, 0, 0.03);
+    background-color: #FDFDFD;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     justify-content: space-between;
     padding: 24px;
     margin-top: 80px;
@@ -96,6 +95,8 @@
 
 #studentapplicationfromadminstudent {
     margin-top: 0;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 #search-student-list {
@@ -240,7 +241,7 @@
 @media only screen and (max-width: 768px) {
     .student-listcontainer {
         display: none;
-        max-width: 100%;
+        max-width: 90%;
         margin-left: auto;
         margin-right: auto;
         margin-top: 20px;
@@ -265,10 +266,10 @@
     }
 
     .headersection-rightsidecontent {
-        flex-direction: column;
         width: 100%;
         gap: 8px;
-        justify-content: flex-start;
+        margin:0 auto;
+        display:flex;
     }
 
     #search-student-list {
@@ -386,8 +387,8 @@
 
 .individualcounsellorlists-admin {
     padding: 24px 20px;
-    background: rgba(255, 255, 255, 1);
-    box-shadow: 0px 0px 20px 0px rgba(26, 2, 57, 0.03);
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .individualcounsellorlists-items {
@@ -632,12 +633,72 @@
      font-weight: normal;
      margin-bottom: 5px;
  }
-@media (max-width: 768px) {
-    .globallistcontainer-header {
-        flex-direction: column;
-        align-items: flex-start;
-        margin-top: 40px;
+
+ @media (max-width: 768px) {
+    #studentprofile-section-adminsideview {
+      margin-left: 0;
     }
+    #studentprofile-section-adminsideview .studentdashboardprofile-myapplication {
+        max-width: 100%;
+        width: 95%;
+        margin: 50px auto;
+        padding: 15px;
+        gap: 1.5rem;
+    }
+    #selected-study-location-edit{
+        gap:0;
+    }
+
+    #studentdashboardprofile-personalinfo-id {
+        max-width: 100%;
+        width: 90%;
+        margin: 0 auto;
+        align-items: center;
+    }
+
+    #personalinfo-secondrow-id {
+        width: 100%;
+        padding: 0;
+        gap: 10px;
+        align-items: center;
+    }
+
+    #studentprofile-section-adminsideview .inputs-adminsidestudentprofile {
+        width: 90%;
+        max-width: 90%;
+        margin: 0 auto;
+        font-size: 12px;
+        height: 20px;
+    }
+
+    .savecancelbuttoncontainer {
+        max-width: 90%;
+        width: 100%;
+        justify-content: center;
+        gap: 1rem;
+        margin: 0 auto;
+    }
+
+    .savecancelbuttoncontainer button:first-child,
+    .savecancelbuttoncontainer button:last-child {
+        width: 90px;
+        font-size: 13px;
+    }
+
+    #admin-side-edit-button button {
+        width: 90px;
+        font-size: 13px;
+        margin: 0 auto;
+    }
+
+    .document-container .document-name {
+        text-align: center;
+        margin-bottom: 3px;
+    }
+}
+
+@media (max-width: 768px) {
+   
  .studentapplication-lists-remainingdocuments .document-box {
      width: 80%;
      margin:0 10%;
@@ -708,7 +769,6 @@
         display: flex;
         align-self: flex-end;
         font-family: "Poppins", sans-serif;
-
         font-weight: 600;
         font-size: 14px;
         line-height: 18px;

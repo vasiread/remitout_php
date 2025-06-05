@@ -25,13 +25,16 @@
 #admin-student-form-edit-container {
     overflow-x: hidden;
     width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: white; 
+    border-radius: 8px;
+
 }
 
 .admin-student-form-container {
     width: 100%;
     background-color: white;
     padding: 20px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
     font-family: "Poppins", sans-serif;
     border-radius: 8px;
 }
@@ -1165,7 +1168,6 @@ textarea::placeholder {
     .admin-studnet-application-main-container {
         width: 100%;
         padding: 15px;
-        margin: 50px auto 0;
         left: 0;
         right: 0;
         position: relative;

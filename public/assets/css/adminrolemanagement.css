@@ -262,7 +262,7 @@
     }
 
     .role-management-btn {
-        width: 60px;
+        width: 80%;
     }
     .role-management-mobile-add-btn {
         display: block;
@@ -282,7 +282,7 @@
         flex-direction: column;
         align-items: flex-start;
         position: relative;
-        width: 300px;
+        width: 100%;
     }
 
     .role-management-row > div:first-child {

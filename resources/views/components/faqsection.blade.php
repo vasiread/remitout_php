@@ -1,8 +1,5 @@
 <!-- FAQ Section -->
 
-
-
-
 <html lang="en">
 
 <head>

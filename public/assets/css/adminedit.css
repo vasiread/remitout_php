@@ -11,6 +11,8 @@
     margin-top: 100px;
     margin-right: 85px;
     gap: 17px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .edit-content-sub-container {
@@ -352,8 +354,6 @@
     align-items: center;
     margin-bottom: 20px;
     padding: 0px 10px 20px 10px;
-
-    background-color: #f5f5f5;
 }
 
 .edit-contents-cms-title {
@@ -444,6 +444,7 @@
     font-weight: 500;
     color: #5d5c5c;
     font-size: 14px;
+    white-space: nowrap;
 }
 
 .edit-contents-cms-table td {
@@ -884,6 +885,7 @@
         padding: 8px 16px;
         font-size: 14px;
         max-width: 120px;
+        white-space: nowrap;
     }
 
     .edit-contents-cms-controls {
@@ -1008,39 +1010,29 @@
 .hidden {
     display: none !important;
 }
+.pagination-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    padding: 5px 10px; 
+    margin:15px auto;
+}
 
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-}
-.pagination button {
-    margin: 0 5px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    background-color: #fff;
+.pagination-container button {
+    background: none;
+    border: none;
     cursor: pointer;
-    border-radius: 4px;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 5px;
 }
-.pagination button:disabled {
+
+.pagination-container button:disabled {
     cursor: not-allowed;
     opacity: 0.5;
 }
-.pagination .page-number {
-    margin: 0 5px;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    cursor: pointer;
-    border-radius: 4px;
-}
-.pagination .page-number.active {
-    color: black;
 
+.pagination-container span {
+    font-size: 12px;
+    color: #333;
 }

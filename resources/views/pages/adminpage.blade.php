@@ -5,175 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- CSS -->
+     <link rel="stylesheet" href="assets/css/adminpage.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-
-    <!-- JS -->
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <style>
-        /* Hamburger Menu Styles */
-        .admin-nav-hamburger {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        .admin-nav-hamburger svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        /* Mobile Menu Styles */
-        .admin-mobile-menu {
-            display: none;
-            position: fixed;
-            top: 60px;
-            left: 0;
-            width: 100%;
-            height: calc(100vh - 60px);
-            background-color: #ffffff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            overflow-y: auto;
-            transition: transform 0.3s ease-in-out;
-            transform: translateX(-100%);
-        }
-
-        .admin-mobile-menu.active {
-            display: block;
-            transform: translateX(0);
-        }
-
-        .admin-mobile-menu-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .admin-mobile-menu-item {
-            display: flex;
-            align-items: center;
-            padding: 15px 20px;
-            border-bottom: 1px solid #e9ecef;
-            cursor: pointer;
-            font-size: 16px;
-            color: #333;
-            position: relative;
-        }
-
-        .admin-mobile-menu-item.active {
-            background-color: #F5A623;
-            color: #ffffff;
-        }
-
-        .admin-mobile-menu-icon {
-            width: 24px;
-            height: 24px;
-            margin-right: 10px;
-        }
-
-        /* Dropdown Icon for Parent Items */
-        .admin-mobile-menu-item.has-dropdown::after {
-            content: '';
-            display: inline-block;
-            width: 14px;
-            height: 14px;
-            margin-left: auto;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>') no-repeat center;
-            transition: transform 0.3s ease;
-        }
-
-        .admin-mobile-menu-item.has-dropdown.expanded::after {
-            transform: rotate(180deg);
-        }
-
-        /* Child Items (Initially Hidden) */
-        .admin-mobile-menu-item[data-parent] {
-            display: none;
-            padding-left: 50px; /* Indent to visually distinguish child items */
-        }
-
-        .admin-mobile-menu-item[data-parent].visible {
-            display: flex;
-        }
-
-        /* Mobile-Specific Navbar Styles */
-        @media (max-width: 768px) {
-            .admin-nav {
-                background-color: #ffffff;
-                box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-            }
-
-            .admin-nav-left {
-                gap: 0;
-            }
-
-            .admin-nav-hamburger {
-                display: block;
-            }
-
-            .admin-parentcontainer .admin-sidebar {
-                display: none;
-            }
-
-            .admin-nav-left .back-button {
-                display: none;
-            }
-
-            .admin-nav-right {
-                gap: 15px;
-            }
-
-            .admin-nav-search {
-                background: none;
-                border: none;
-                cursor: pointer;
-                padding: 8px;
-            }
-
-            .admin-nav-search svg {
-                width: 24px;
-                height: 24px;
-            }
-
-            .admin-nav-name {
-                display: none;
-            }
-
-            .admin-nav-avatar {
-                width: 32px;
-                height: 32px;
-                border-radius: 50%;
-            }
-
-            .notification-icon {
-                width: 24px;
-                height: 24px;
-            }
-        }
-
-        /* Ensure mobile menu is hidden on desktop */
-        @media (min-width: 769px) {
-            .admin-mobile-menu {
-                display: none !important;
-            }
-
-            .admin-nav-hamburger {
-                display: none;
-            }
-
-            .admin-nav-search {
-                display: none;
-            }
-
-            .admin-parentcontainer .admin-sidebar {
-                display: block !important;
-            }
-        }
-    </style>
 </head>
 <body>
     <nav class="admin-nav">
@@ -209,7 +46,7 @@
                         ];
                         $adjustedItems[] = [
                             'name' => 'Student List',
-                            'icon' => $item['icon'], // Reuse Student icon or specify a new one
+                            'icon' => $item['icon'], 
                             'active' => false,
                             'parent' => 'Student',
                             'has_dropdown' => false,
@@ -217,7 +54,7 @@
                         ];
                         $adjustedItems[] = [
                             'name' => 'Application',
-                            'icon' => $item['icon'], // Reuse Student icon or specify a new one
+                            'icon' => $item['icon'], 
                             'active' => false,
                             'parent' => 'Student',
                             'has_dropdown' => false,
@@ -233,7 +70,7 @@
                         ];
                         $adjustedItems[] = [
                             'name' => 'Counsellor List',
-                            'icon' => $item['icon'], // Reuse Student Counsellor icon or specify a new one
+                            'icon' => $item['icon'], 
                             'active' => false,
                             'parent' => 'Student Counsellor',
                             'has_dropdown' => false,
@@ -241,7 +78,7 @@
                         ];
                         $adjustedItems[] = [
                             'name' => 'Ticket Raised',
-                            'icon' => $item['icon'], // Reuse Student Counsellor icon or specify a new one
+                            'icon' => $item['icon'], 
                             'active' => false,
                             'parent' => 'Student Counsellor',
                             'has_dropdown' => false,
@@ -249,7 +86,7 @@
                         ];
                         $adjustedItems[] = [
                             'name' => 'Add Counsellor',
-                            'icon' => $item['icon'], // Reuse Student Counsellor icon or specify a new one
+                            'icon' => $item['icon'],
                             'active' => false,
                             'parent' => 'Student Counsellor',
                             'has_dropdown' => false,
@@ -277,10 +114,18 @@
                 }
                 ?>
             </ul>
+            <!-- Bottom Menu Items -->
+            <ul class="admin-mobile-menu-bottom">
+                <li class="logoutBtn" onclick="sessionLogout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                </li>
+                <li class="supportBtn">
+                    <img src="{{ asset('assets/images/Icons/support_agent.png') }}" alt="Support icon"> Support
+                </li>
+            </ul>
         </div>
 
         <div class="admin-nav-right">
-            <!-- Search Icon (Mobile Only) -->
             <button class="admin-nav-search">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M11 19C15.4183 19 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -304,7 +149,6 @@
                 </div>
             </div>
 
-            <!-- Hamburger Menu for Mobile -->
             <button class="admin-nav-hamburger" aria-label="Toggle mobile menu">
                 <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M3 6H21M3 12H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -333,6 +177,42 @@
         </div>
     </div>
 
+    <!-- Password Change Overlay and Container -->
+    <div class="password-change-overlay" id="adminside-password-change-overlay" style="display: none;"></div>
+
+    <div class="password-change-container" id="adminside-password-change-container">
+        <div class="password-change-triggered-view-headersection" id="adminside-password-change-triggered-view-headersection">
+            <h3>Password Change Request</h3>
+            <img src="{{ asset('assets/images/Icons/close_small.png') }}" style="cursor:pointer" alt="">
+        </div>
+
+        <!-- Current Password -->
+        <div class="password-input-wrapper">
+            <input type="password" placeholder="Current Password" id="adminside-current-password">
+            <i class="fa-regular fa-eye-slash password-toggle" data-target="adminside-current-password"></i>
+        </div>
+        <span id="adminside-current-password-error" class="error-message"></span>
+
+        <!-- New Password -->
+        <div class="password-input-wrapper">
+            <input type="password" placeholder="New Password" id="adminside-new-password">
+            <i class="fa-regular fa-eye-slash password-toggle" data-target="adminside-new-password"></i>
+        </div>
+        <span id="adminside-new-password-error" class="error-message"></span>
+
+        <!-- Confirm Password -->
+        <div class="password-input-wrapper">
+            <input type="password" placeholder="Confirm New Password" id="adminside-confirm-new-password">
+            <i class="fa-regular fa-eye-slash password-toggle" data-target="adminside-confirm-new-password"></i>
+        </div>
+        <span id="adminside-confirm-new-password-error" class="error-message"></span>
+
+        <div class="footer-passwordchange">
+            <p href="">Forgot Password</p>
+            <button id="adminside-password-change-save">Save</button>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Unified container mapping
@@ -355,7 +235,7 @@
                 'studentprofile': document.querySelector('#studentprofile-section-adminsideview')
             };
 
-            // Hamburger Menu Toggle - Fixed Version
+            // Hamburger Menu Toggle
             const hamburgerButton = document.querySelector('.admin-nav-hamburger');
             const mobileMenu = document.querySelector('.admin-mobile-menu');
             const hamburgerIcon = document.querySelector('.admin-nav-hamburger .hamburger-icon');
@@ -364,7 +244,7 @@
 
             if (hamburgerButton && mobileMenu && hamburgerIcon && closeIcon) {
                 hamburgerButton.addEventListener('click', () => {
-                    console.log('Hamburger menu clicked at:', new Date().toLocaleString()); // Debugging log
+                    console.log('Hamburger menu clicked at:', new Date().toLocaleString());
                     mobileMenu.classList.toggle('active');
                     const isMenuOpen = mobileMenu.classList.contains('active');
                     hamburgerIcon.style.display = isMenuOpen ? 'none' : 'block';
@@ -424,6 +304,7 @@
 
             // Mobile-specific elements
             const mobileMenuItems = document.querySelectorAll('.admin-mobile-menu-item');
+            const mobileMenuBottomItems = document.querySelectorAll('.admin-mobile-menu-bottom li');
 
             // Track the currently selected index globally
             let currentIndex = 0; // Default to Dashboard
@@ -442,19 +323,16 @@
             function handleItemClick(item, index, isMobile = false, isDropdownToggle = false) {
                 console.log(`Item clicked: index=${index}, isMobile=${isMobile}, isDropdownToggle=${isDropdownToggle}, name=${item.querySelector('span')?.textContent || 'Unknown'}`);
 
-                // Update the current index if not just toggling the dropdown
                 if (!isDropdownToggle) {
                     currentIndex = index;
                 }
 
-                // Handle mobile menu visibility
                 if (isMobile && !isDropdownToggle) {
                     mobileMenu.classList.remove('active');
                     hamburgerIcon.style.display = 'block';
                     closeIcon.style.display = 'none';
                 }
 
-                // Handle sidebar visibility in mobile view
                 if (window.innerWidth <= 768 && triggeredSideBar && !isMobile) {
                     triggeredSideBar.style.display = "none";
                     if (img && img.src.includes("close_icon.png")) {
@@ -462,7 +340,6 @@
                     }
                 }
 
-                // Remove active class from all items (including parents) if not toggling dropdown
                 if (!isDropdownToggle) {
                     adminSidebarItems.forEach(i => i.classList.remove("active"));
                     mobileMenuItems.forEach(i => i.classList.remove("active"));
@@ -470,28 +347,21 @@
                     if (studentCounsellorFirstListChild) studentCounsellorFirstListChild.classList.remove("active");
                 }
 
-                // Set active class only on the clicked item
                 if (!isDropdownToggle) {
                     item.classList.add("active");
-                    // Also set the corresponding item in the other view
                     const correspondingItem = isMobile ? adminSidebarItems[index] : mobileMenuItems[index];
                     if (correspondingItem) correspondingItem.classList.add("active");
                 }
 
-                // Handle dropdown toggle in mobile view
                 if (isMobile && isDropdownToggle) {
                     const parentName = item.querySelector('span').textContent;
                     expandedParents[parentName] = !expandedParents[parentName];
                     item.classList.toggle('expanded', expandedParents[parentName]);
-
-                    // Toggle visibility of child items
                     mobileMenuItems.forEach(menuItem => {
                         if (menuItem.getAttribute('data-parent') === parentName) {
                             menuItem.classList.toggle('visible', expandedParents[parentName]);
                         }
                     });
-
-                    // If collapsing, ensure no child items are active
                     if (!expandedParents[parentName]) {
                         mobileMenuItems.forEach(menuItem => {
                             if (menuItem.getAttribute('data-parent') === parentName) {
@@ -499,13 +369,11 @@
                             }
                         });
                     }
-                    return; // Exit early since we're only toggling the dropdown
+                    return;
                 }
 
-                // Hide all containers
                 hideAllContainers();
 
-                // Handle container visibility
                 if (index === 0) {
                     if (adminPropertyOne) adminPropertyOne.style.display = "flex";
                     if (sidebarChevronUpDown) sidebarChevronUpDown.classList.add("fa-chevron-down");
@@ -519,7 +387,7 @@
                     if (sidebarStudentCounsellorChevronUpDown) sidebarStudentCounsellorChevronUpDown.classList.add("fa-chevron-down");
                     if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "none";
                     if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
-                } else if (index === 2 || index === 3) { // Student and Student List
+                } else if (index === 2 || index === 3) {
                     if (adminPropertyOne) adminPropertyOne.style.display = "none";
                     if (sidebarChevronUpDown) {
                         sidebarChevronUpDown.classList.remove("fa-chevron-down");
@@ -530,7 +398,7 @@
                     if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
                     if (studentListContainer) studentListContainer.style.display = "flex";
                     if (studentApplication) studentApplication.style.display = "none";
-                } else if (index === 4) { // Application
+                } else if (index === 4) {
                     if (adminPropertyOne) adminPropertyOne.style.display = "none";
                     if (sidebarChevronUpDown) {
                         sidebarChevronUpDown.classList.remove("fa-chevron-down");
@@ -541,7 +409,7 @@
                     if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
                     if (studentApplication) studentApplication.style.display = "flex";
                     if (studentListContainer) studentListContainer.style.display = "none";
-                } else if (index === 5 || index === 6) { // Student Counsellor and Counsellor List
+                } else if (index === 5 || index === 6) {
                     if (sidebarStudentCounsellorChevronUpDown) {
                         sidebarStudentCounsellorChevronUpDown.classList.remove("fa-chevron-down");
                         sidebarStudentCounsellorChevronUpDown.classList.add("fa-chevron-up");
@@ -553,7 +421,7 @@
                     if (studentCounsellorList) studentCounsellorList.style.display = "flex";
                     if (studentTicketRaised) studentTicketRaised.style.display = "none";
                     if (adminCounsellorAdd) adminCounsellorAdd.style.display = "none";
-                } else if (index === 7) { // Ticket Raised
+                } else if (index === 7) {
                     if (sidebarStudentCounsellorChevronUpDown) {
                         sidebarStudentCounsellorChevronUpDown.classList.remove("fa-chevron-down");
                         sidebarStudentCounsellorChevronUpDown.classList.add("fa-chevron-up");
@@ -565,7 +433,7 @@
                     if (studentTicketRaised) studentTicketRaised.style.display = "flex";
                     if (studentCounsellorList) studentCounsellorList.style.display = "none";
                     if (adminCounsellorAdd) adminCounsellorAdd.style.display = "none";
-                } else if (index === 8) { // Add Counsellor
+                } else if (index === 8) {
                     if (sidebarStudentCounsellorChevronUpDown) {
                         sidebarStudentCounsellorChevronUpDown.classList.remove("fa-chevron-down");
                         sidebarStudentCounsellorChevronUpDown.classList.add("fa-chevron-up");
@@ -577,31 +445,28 @@
                     if (adminCounsellorAdd) adminCounsellorAdd.style.display = "flex";
                     if (studentCounsellorList) studentCounsellorList.style.display = "none";
                     if (studentTicketRaised) studentTicketRaised.style.display = "none";
-                } else if (index === 9) { // NBFC
+                } else if (index === 9) {
                     if (studentNBFCList) studentNBFCList.style.display = "flex";
                     if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "none";
-                    if (expandedStudentCounsellorFromAdmin)_.
-
-                    expandedStudentCounsellorFromAdmin.style.display = "none";
-                } else if (index === 10) { // Manage Student
+                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
+                } else if (index === 10) {
                     if (adminManageStudent) adminManageStudent.style.display = "flex";
                     if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "none";
                     if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
-                } else if (index === 11) { // Role Management
+                } else if (index === 11) {
                     if (adminRoleManagement) adminRoleManagement.style.display = "flex";
                     if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "none";
                     if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
-                } else if (index === 12) { // Edit Content
+                } else if (index === 12) {
                     if (editContainerAdmin) editContainerAdmin.style.display = "flex";
                     if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "none";
                     if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
-                } else if (index === 13) { // Promotional Email
+                } else if (index === 13) {
                     if (adminPromotionalEmail) adminPromotionalEmail.style.display = "flex";
                     if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "none";
                     if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
                 }
 
-                // Hide all other containers not explicitly shown
                 if (index !== 0 && adminPropertyOne) adminPropertyOne.style.display = "none";
                 if (index !== 1 && studentIndexAdmin) studentIndexAdmin.style.display = "none";
                 if (index !== 2 && index !== 3 && studentListContainer) studentListContainer.style.display = "none";
@@ -627,7 +492,6 @@
                     });
                 });
 
-                // Handle Manage Student Switch
                 if (manageStudentSwitch) {
                     manageStudentSwitch.addEventListener('click', () => {
                         console.log('Manage Student switch clicked');
@@ -635,7 +499,6 @@
                     });
                 }
 
-                // Handle Add Counsellor Trigger
                 if (addCounsellorModelTrigger && !addCounsellorModelTrigger.dataset.listenerAdded) {
                     addCounsellorModelTrigger.addEventListener('click', () => {
                         console.log('Add Counsellor trigger clicked');
@@ -652,21 +515,144 @@
                         e.stopPropagation();
                         const isDropdown = item.classList.contains('has-dropdown');
                         if (isDropdown) {
-                            // Toggle dropdown visibility
                             handleItemClick(item, index, true, true);
                         } else {
-                            // Navigate to the item's page
                             handleItemClick(item, index, true);
+                        }
+                    });
+                });
+
+                // Bottom Menu Handlers
+                mobileMenuBottomItems.forEach((item) => {
+                    item.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        mobileMenu.classList.remove('active');
+                        hamburgerIcon.style.display = 'block';
+                        closeIcon.style.display = 'none';
+
+                        if (item.classList.contains('logoutBtn')) {
+                            console.log('Mobile Log out clicked');
+                            sessionLogout();
+                        } else if (item.classList.contains('supportBtn')) {
+                            console.log('Mobile Support clicked');
+                            // Example: window.location.href = '/support';
                         }
                     });
                 });
             }
 
             // Dropdown Menu Toggle
-            document.querySelector('.admin-nav-dropdown').addEventListener('click', () => {
-                document.querySelector('.admin-nav-dropdown-menu').classList.toggle('active');
-                document.querySelector('.admin-nav-dropdown-icon').classList.toggle('active');
+            const adminNavDropdown = document.querySelector('.admin-nav-dropdown');
+            if (adminNavDropdown) {
+                adminNavDropdown.addEventListener('click', (e) => {
+                    const dropdownMenu = adminNavDropdown.querySelector('.admin-nav-dropdown-menu');
+                    const dropdownIcon = adminNavDropdown.querySelector('.admin-nav-dropdown-icon');
+                    if (dropdownMenu && dropdownIcon) {
+                        dropdownMenu.classList.toggle('active');
+                        dropdownIcon.classList.toggle('active');
+                    }
+                });
+            }
+
+            // Password Change Functionality
+            const passwordChangeItem = document.querySelector('.admin-nav-dropdown-item:first-child');
+            const passwordOverlay = document.getElementById('adminside-password-change-overlay');
+            const passwordContainer = document.getElementById('adminside-password-change-container');
+            const closeButton = passwordContainer?.querySelector('img[alt=""]');
+            const passwordToggles = document.querySelectorAll('.password-toggle');
+            const passwordInputs = [
+                document.getElementById('adminside-current-password'),
+                document.getElementById('adminside-new-password'),
+                document.getElementById('adminside-confirm-new-password')
+            ];
+
+            if (passwordChangeItem && passwordOverlay && passwordContainer) {
+                passwordChangeItem.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    passwordOverlay.style.display = 'block';
+                    passwordContainer.style.display = 'block';
+                    // Icons are already visible by default, no need to toggle visibility
+                });
+            }
+
+            if (closeButton && passwordOverlay && passwordContainer) {
+                closeButton.addEventListener('click', () => {
+                    passwordOverlay.style.display = 'none';
+                    passwordContainer.style.display = 'none';
+                    passwordInputs.forEach(input => {
+                        if (input) {
+                            input.value = '';
+                            input.type = 'password'; // Reset to hidden
+                        }
+                    });
+                    const currentError = document.getElementById('adminside-current-password-error');
+                    const newError = document.getElementById('adminside-new-password-error');
+                    const confirmError = document.getElementById('adminside-confirm-new-password-error');
+                    if (currentError) currentError.textContent = '';
+                    if (newError) newError.textContent = '';
+                    if (confirmError) confirmError.textContent = '';
+                    passwordToggles.forEach(toggle => {
+                        toggle.classList.remove('fa-eye');
+                        toggle.classList.add('fa-eye-slash');
+                        // Removed toggle.style.display = 'none'; since icons should always be visible
+                    });
+                });
+            }
+
+            // Toggle password visibility for each input
+            passwordToggles.forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const targetInput = document.getElementById(toggle.dataset.target);
+                    if (targetInput) {
+                        const isHidden = toggle.classList.contains('fa-eye-slash');
+                        targetInput.type = isHidden ? 'text' : 'password';
+                        toggle.classList.toggle('fa-eye-slash', !isHidden);
+                        toggle.classList.toggle('fa-eye', isHidden);
+                    }
+                });
             });
+
+            // Removed the input event listener that controlled icon visibility
+            // Icons are now always visible by default
+
+            const saveButton = document.getElementById('adminside-password-change-save');
+            if (saveButton) {
+                saveButton.addEventListener('click', () => {
+                    const currentPassword = document.getElementById('adminside-current-password')?.value;
+                    const newPassword = document.getElementById('adminside-new-password')?.value;
+                    const confirmPassword = document.getElementById('adminside-confirm-new-password')?.value;
+                    
+                    const currentError = document.getElementById('adminside-current-password-error');
+                    const newError = document.getElementById('adminside-new-password-error');
+                    const confirmError = document.getElementById('adminside-confirm-new-password-error');
+                    if (currentError) currentError.textContent = '';
+                    if (newError) newError.textContent = '';
+                    if (confirmError) confirmError.textContent = '';
+
+                    let isValid = true;
+
+                    if (!currentPassword) {
+                        if (currentError) currentError.textContent = 'Current password is required';
+                        isValid = false;
+                    }
+                    if (!newPassword) {
+                        if (newError) newError.textContent = 'New password is required';
+                        isValid = false;
+                    }
+                    if (newPassword !== confirmPassword) {
+                        if (confirmError) confirmError.textContent = 'Passwords do not match';
+                        isValid = false;
+                    }
+                    if (newPassword && newPassword.length < 8) {
+                        if (newError) newError.textContent = 'New password must be at least 8 characters';
+                        isValid = false;
+                    }
+
+                    if (isValid) {
+                        console.log('Password change submitted');
+                    }
+                });
+            }
 
             // Back Button and CMS Logic
             const backButton = document.querySelector('.back-button');
@@ -676,16 +662,18 @@
 
             function updateBackButtonVisibility() {
                 const isCMSVisible = cmsContainer && (cmsContainer.style.display === 'block' || editContentContainer?.dataset.inCmsMode === 'true');
-                backButton.style.display = isCMSVisible ? 'flex' : 'none';
+                if (backButton) backButton.style.display = isCMSVisible ? 'flex' : 'none';
             }
 
-            backButton.style.display = 'none';
+            if (backButton) backButton.style.display = 'none';
 
             function setupEditButtonHandlers() {
                 document.querySelectorAll('.edit-content-button').forEach(button => {
                     button.addEventListener('click', () => {
-                        document.querySelector('.edit-content-list').style.display = 'none';
-                        document.querySelector('.edit-content-header').style.display = 'none';
+                        const editList = document.querySelector('.edit-content-list');
+                        const editHeader = document.querySelector('.edit-content-header');
+                        if (editList) editList.style.display = 'none';
+                        if (editHeader) editHeader.style.display = 'none';
                         if (cmsContainer) cmsContainer.style.display = 'block';
                         if (editContentContainer) editContentContainer.dataset.inCmsMode = 'true';
                         updateBackButtonVisibility();
@@ -697,13 +685,17 @@
                 searchInput.addEventListener('input', updateBackButtonVisibility);
             }
 
-            backButton.addEventListener('click', () => {
-                if (cmsContainer) cmsContainer.style.display = 'none';
-                document.querySelector('.edit-content-list').style.display = '';
-                document.querySelector('.edit-content-header').style.display = '';
-                if (editContentContainer) editContentContainer.dataset.inCmsMode = 'false';
-                updateBackButtonVisibility();
-            });
+            if (backButton) {
+                backButton.addEventListener('click', () => {
+                    if (cmsContainer) cmsContainer.style.display = 'none';
+                    const editList = document.querySelector('.edit-content-list');
+                    const editHeader = document.querySelector('.edit-content-header');
+                    if (editList) editList.style.display = '';
+                    if (editHeader) editHeader.style.display = '';
+                    if (editContentContainer) editContentContainer.dataset.inCmsMode = 'false';
+                    updateBackButtonVisibility();
+                });
+            }
 
             const originalRenderContent = window.renderContent || function() {};
             window.renderContent = function(data) {
@@ -719,7 +711,6 @@
                     hamburgerIcon.style.display = 'block';
                     closeIcon.style.display = 'none';
 
-                    // Sync active state to desktop sidebar
                     adminSidebarItems.forEach(i => i.classList.remove("active"));
                     mobileMenuItems.forEach(i => i.classList.remove("active"));
                     if (studentFirstListChild) studentFirstListChild.classList.remove("active");
@@ -729,7 +720,6 @@
                 } else {
                     if (adminSidebar) adminSidebar.style.display = 'none';
 
-                    // Sync active state to mobile menu
                     adminSidebarItems.forEach(i => i.classList.remove("active"));
                     mobileMenuItems.forEach(i => i.classList.remove("active"));
                     if (studentFirstListChild) studentFirstListChild.classList.remove("active");
@@ -737,14 +727,13 @@
 
                     if (mobileMenuItems[currentIndex]) mobileMenuItems[currentIndex].classList.add("active");
 
-                    // Sync expanded state
                     mobileMenuItems.forEach(item => {
                         const parentName = item.querySelector('span')?.textContent;
-                        if (parentName in expandedParents) {
-                            item.classList.toggle('expanded', expandedParents[parentName]);
+                        if (item.classList.contains('has-dropdown') && expandedParents[parentName]) {
+                            item.classList.add('expanded');
                             mobileMenuItems.forEach(menuItem => {
                                 if (menuItem.getAttribute('data-parent') === parentName) {
-                                    menuItem.classList.toggle('visible', expandedParents[parentName]);
+                                    menuItem.classList.add('visible');
                                 }
                             });
                         }
@@ -762,7 +751,7 @@
 
             // Set default state
             hideAllContainers();
-            handleItemClick(adminSidebarItems[0], 0, false);
+            if (adminSidebarItems[0]) handleItemClick(adminSidebarItems[0], 0, false);
         });
     </script>
 </body>

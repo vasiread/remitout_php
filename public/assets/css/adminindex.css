@@ -1,5 +1,5 @@
 body {
-    background-color: #f5f5f5;
+    background-color: #FDFDFD;
 }
 
 #index-section-admin-id {
@@ -14,8 +14,7 @@ body {
 }
 .admin-index-section-main-container {
     display:flex;
-   border-radius: 8px;
-    padding: 20px;
+    border-radius: 8px;
     margin: 0 auto;
     flex-direction: column;
     font-family: 'Poppins', sans-serif;
@@ -34,6 +33,7 @@ body {
     padding: 20px;
     margin-top: 20px;
     margin-bottom: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .admin-index-main-container {
@@ -743,6 +743,7 @@ body {
 #admin-student-inbox-container,
 #admin-nbfc-inbox-container {
     display: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 #admin-nbfc-details-container {
     background-color: white;
