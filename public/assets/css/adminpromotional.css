@@ -542,12 +542,14 @@
     .promotional-link-container {
         padding: 6px 8px;
         margin: 10px 0;
-        width:340px;
+        width:100%;
         gap:0;
     }
 
     .promotional-link-input {
         font-size: 12px;
+        width:50%;
+
     }
 
     .promotional-link-button {
