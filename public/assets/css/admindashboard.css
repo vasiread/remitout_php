@@ -355,7 +355,6 @@
     text-align: center;
     margin-top: 15px;
 }
-
 /* Filter Panel Styles */
 .admin-dashboard-filter-panel {
     display: none;
@@ -368,6 +367,29 @@
     z-index: 1000;
     align-items: center;
     justify-content: center;
+}
+
+/* Ensure filter panel only applies to mobile */
+@media (min-width: 768px) {
+    .admin-dashboard-filter-panel {
+        display: none !important; /* Hide filter panel on desktop */
+    }
+    .admin-dashboard-search-filter-container {
+        display: none; /* Hide mobile-specific search/filter UI on desktop */
+    }
+    .admin-dashboard-showing-panels {
+        display: none; /* Hide mobile-specific panels toggle on desktop */
+    }
+    .admin-dashboard-download-button {
+        display: none; /* Hide mobile-specific download button on desktop */
+    }
+}
+
+/* Show desktop-specific elements only on desktop */
+@media (max-width: 767px) {
+    .admindashboardcontainer-secondsection {
+        display: none; /* Hide desktop-specific second section on mobile */
+    }
 }
 
 .admin-dashboard-filter-container {
@@ -418,6 +440,7 @@
     font-size: 14px;
     color: #4b5563;
     font-family: "Poppins", sans-serif;
+    cursor: pointer; /* Make tags clickable for reactivation */
 }
 
 .admin-dashboard-filter-tag .admin-dashboard-close-tag {
@@ -462,6 +485,12 @@
     transition: max-height 0.5s ease-in;
 }
 
+/* Ensure collapsed tags have a distinct style to differentiate them */
+#collapsedTags .admin-dashboard-filter-tag {
+    background-color: #f9fafb;
+    border-color: #d1d5db;
+    color: #6b7280;
+}
 @media (max-width: 767px) {
     .admindashboardcontainer-secondsection-mobile {
         display: block;
@@ -1182,6 +1211,7 @@ canvas {
         width: 100%;
         max-width: 90%;
         margin: 0 auto;
+        height:fit-content;
     }
 
     .admindashboard-thirdpart {

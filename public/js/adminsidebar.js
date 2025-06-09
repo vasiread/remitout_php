@@ -54,12 +54,12 @@ function initializeAdminSidebar() {
     function handleSidebarVisibility() {
         if (triggeredSideBar) {
             if (window.innerWidth > 768) {
-                triggeredSideBar.style.display = "block"; // Show sidebar on desktop
+                triggeredSideBar.style.display = "block"; 
                 if (img && img.src.includes("close_icon.png")) {
-                    img.src = "assets/images/Icons/menu.png"; // Reset icon if needed
+                    img.src = "assets/images/Icons/menu.png"; 
                 }
             } else {
-                triggeredSideBar.style.display = "none"; // Hide sidebar on mobile
+                triggeredSideBar.style.display = "none"; 
             }
         }
     }
@@ -119,7 +119,6 @@ function initializeAdminSidebar() {
 
 
 
-    const adminsideScDashboard = document.querySelector("#scdashboard-profile-adminside")
 
     if (expandedStudentFromAdmin)
         expandedStudentFromAdmin.style.display = "none";

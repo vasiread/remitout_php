@@ -182,6 +182,7 @@ body {
     z-index: 999;
 }
 
+/* Styling for the mobile menu button */
 .nbfc-mobile-menu-btn {
     background: transparent;
     border: none;
@@ -397,79 +398,12 @@ body {
     font-size: 12px;
     font-size: 12px;
 }
-@media (max-width: 768px) {
-    .overlay-password-change-nbfc {
-        width: 100%;
-        height: 100%;
-        display: none;
-    }
-
-    .password-change-container-nbfc {
-        max-width: 90%;
-        width: 90%;
-        padding: 1rem;
-        gap: 1rem;
-        border-radius: 6px;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .password-change-container-nbfc input {
-        min-height: 45px;
-        font-size: 13px;
-        padding-left: 8px;
-    }
-
-    #password-change-save-nbfc {
-        max-width: 100px;
-        min-height: 32px;
-        font-size: 13px;
-        border-radius: 3px;
-    }
-
-    .password-change-triggered-view-headersection-nbfc h3 {
-        font-size: 16px;
-        line-height: clamp(10px, 5vw, 22px);
-    }
-
-    .popup-notify-list-nbfc {
-        width: 160px;
-        right: 2%;
-        padding: 0.8rem 0;
-        border-radius: 4px;
-    }
-
-    .popup-notify-list-nbfc p {
-        font-size: 12px;
-        height: 30px;
-        padding: 0.3rem;
-        margin: 0 2px;
-    }
-
-    .footer-passwordchange-nbfc {
-        flex-direction: column;
-        gap: 0.8rem;
-        align-items: flex-start;
-    }
-
-    .footer-passwordchange-nbfc p {
-        font-size: 11px;
-    }
-}
 
 #nbfc-student-profile-details {
     display: none;
-    max-width: 49.54%;
     width: 100%;
-    height: fit-content;
-    background-color: rgba(255, 255, 255, 1);
-    box-shadow: 0px 8px 20px 0px rgba(26, 2, 57, 0.03);
-    margin: 105px 0;
-    padding: 20px 24px;
-    display: none;
-    flex-direction: column;
-    gap: 1.87rem;
+    max-width: 100%;
+    border-radius: 8px;
 }
 
 .myapplication-seventhcolumn-headernbfc {
@@ -641,12 +575,8 @@ body {
     max-width: 100%;
     width: 100%;
     margin-left: 1.3%;
-    max-width: 21.85%;
+    max-width: 28.85%;
     width: 100%;
-}
-.wholeapplicationprofile{
-    width: 100%;
-    gap:20px;
 }
 
 #nbfc-list-of-student-profilesections {
@@ -660,6 +590,7 @@ body {
     max-width: 18.93%;
     width: 100%;
     padding: 35px 10px;
+    box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
     position: fixed;
     height: 90vh;
     left: 0;
@@ -730,6 +661,7 @@ body {
 
     .nbfc-mobile-sidebar.active {
         display: flex;
+        /* Show only when active */
     }
 
     .nbfc-mobile-menu-top {
@@ -804,16 +736,11 @@ body {
         padding: 0;
     }
 
-    .nbfc-profile-text {
+    .nbfc-profile-text,
+    .nbfc-dropdown-icon {
         display: none;
     }
-    .password-change-container-nbfc{
-        max-width: 65%;
 
-    }
-.password-change-triggered-view-headersection-nbfc h3{
-    font-size: 12px;
-}
     .nbfc-avatar {
         width: 40px;
         height: 40px;
@@ -856,6 +783,18 @@ body {
     left: 3px;
 }
 
+/* 
+
+.nbfcstudentdashboardprofile-togglesidebar {
+     padding: 35px 10px;
+    max-width: 19%;
+    width: 100%;
+    box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
+    background-color: rgba(255, 255, 255, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+} */
 
 .nbfcstudentdashboardprofile-togglesidebar ul {
     list-style: none;
@@ -1147,11 +1086,7 @@ body {
     margin-left: 1.2rem;
     max-width: 100%;
     width: 100%;
-    flex-direction: column;
-    background-color: #f5f5f5;
-    flex: 1;
-    margin-left: 20%;
-    padding: 18px;
+    flex-direction: row;
 }
 
 .index-view-more-mobile {
@@ -1240,10 +1175,17 @@ body {
     }
 }
 
-
+/*nbfc main container for dashboard*/
+.dashboard-main-content {
+    flex: 1;
+    margin-left: 20%;
+    padding: 18px;
+    background-color: #f5f5f5;
+}
 
 .dashboard-sections-container {
     display: grid;
+    margin-left: 4.09%;
     grid-template-columns: 1fr 1fr;
     gap: 24px;
     padding: 10px;
@@ -1870,7 +1812,6 @@ body {
         grid-template-columns: 1fr;
         padding: 10px;
         width: 100%;
-        max-width: 100%;
     }
 
     .dashboard-section {
@@ -2735,7 +2676,7 @@ body {
 .nbfc-individual-bankmessage-input-message {
     max-width: 100%;
     height: 35px;
-    margin: 20px 30px;
+    margin: 33px 0px;
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -2986,7 +2927,8 @@ body {
     }
 
     .messages-wrapper {
-         padding: 0;
+        width: 300px;
+        padding: 0;
         margin-left: 5px;
     }
 
@@ -3479,5 +3421,3 @@ body {
     text-decoration: underline;
     word-wrap: break-word;
 }
-
-
