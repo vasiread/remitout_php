@@ -387,11 +387,12 @@ $registrationSourceAnalysis = [
                         <div id="postgrad-buttongroups-insideshow-funnelreports-id">
                             Graduate <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                        <div class="dropdown-content-postgrad" id="postgrad-funnelreportsprogress">
-                            <a href="#">Post Graduate</a>
-                            <a href="#">Under Graduate</a>
-                            <a href="#">Others</a>
-                        </div>
+                    <div class="dropdown-content-postgrad" id="postgrad-funnelreportsprogress">
+                        <a href="#" data-value="bachelors">Post Graduate</a>
+                        <a href="#" data-value="masters">Under Graduate</a>
+                        <a href="#" data-value="others">Others</a>
+                    </div>
+
                     </div>
 
                 </div>
@@ -2398,32 +2399,34 @@ $registrationSourceAnalysis = [
 
         let ageratioChart;
 
-        function loadAgeRatioChart(degreeType = '') {
+          function loadAgeRatioChart(degreeType = '') {
+            // Map user-friendly labels to backend values
+            let mappedDegreeType = degreeType;
 
             if (degreeType === "Post Graduate") {
-                degree_type = "Bachelors"
-
-            } if (degreeType === "Under Graduate") {
-                degree_type = "Masters"
-
+                mappedDegreeType = "Masters";
+            } else if (degreeType === "Under Graduate") {
+                mappedDegreeType = "Bachelors";
+            } else if (degreeType === "Others") {
+                mappedDegreeType = "Others";
             }
-
 
             fetch("{{ route('admin.ageratio.calculation') }}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Important for POST in Laravel
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
                 body: JSON.stringify({
-                    degree_type: degreeType
+                    degree_type: mappedDegreeType
                 })
             })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        const ageData = Object.values(data.age_ratio);
-                        const ageLabels = Object.keys(data.age_ratio);
+                        const ageRatio = data.age_ratio;
+                        const ageData = Object.values(ageRatio);
+                        const ageLabels = Object.keys(ageRatio);
                         const ageColors = [
                             'rgba(111, 37, 206, 1)',
                             'rgba(167, 121, 224, 1)',
@@ -2431,32 +2434,63 @@ $registrationSourceAnalysis = [
                             'rgba(226, 211, 245, 1)',
                         ];
 
-                        // Destroy previous chart if exists
-                        if (ageratioChart) {
+                        if (typeof ageratioChart !== 'undefined' && ageratioChart) {
                             ageratioChart.destroy();
                         }
 
                         const ctx = document.getElementById('ageratio-donutRegistrationChart').getContext('2d');
-                        ageratioChart = new Chart(ctx, {
-                            type: 'doughnut',
-                            data: {
-                                labels: ageLabels,
-                                datasets: [{
-                                    label: 'Age Ratio',
-                                    data: ageData,
-                                    backgroundColor: ageColors,
-                                    borderWidth: 1,
-                                }]
-                            },
-                            options: {
-                                responsive: true,
-                                plugins: {
-                                    legend: {
-                                        display: false // Already showing in your custom div
+
+                        // Check if data is empty or all zeros
+                        const isEmptyData = ageData.length === 0 || ageData.every(value => value === 0);
+
+                        if (isEmptyData) {
+                            // Show a placeholder chart with a single slice and label 'No data'
+                            ageratioChart = new Chart(ctx, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: ['No data'],
+                                    datasets: [{
+                                        label: 'Age Ratio',
+                                        data: [1],  // dummy data to show the chart
+                                        backgroundColor: ['rgba(200, 200, 200, 0.5)'],
+                                        borderWidth: 1,
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {
+                                            display: true
+                                        },
+                                        tooltip: {
+                                            enabled: false
+                                        }
                                     }
                                 }
-                            }
-                        });
+                            });
+                        } else {
+                            // Render normal chart with actual data
+                            ageratioChart = new Chart(ctx, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: ageLabels,
+                                    datasets: [{
+                                        label: 'Age Ratio',
+                                        data: ageData,
+                                        backgroundColor: ageColors,
+                                        borderWidth: 1,
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {
+                                            display: false
+                                        }
+                                    }
+                                }
+                            });
+                        }
                     } else {
                         alert('Error: ' + data.message);
                     }
@@ -2464,7 +2498,7 @@ $registrationSourceAnalysis = [
                 .catch(error => {
                     console.error('Error:', error);
                 });
-        }
+        } 
 
         loadAgeRatioChart();
 
@@ -2485,27 +2519,50 @@ $registrationSourceAnalysis = [
 
         })
 
-        function funnelreport() {
-            fetch('/retrieveDashboardDetails')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message) {
-                        const counts = data.counts;
-                        // console.log(counts)
+      function funnelreport(degreeType = '') {
+            console.log("funnelreport working for:", degreeType);
 
-                        document.getElementById('incomplete-count').textContent = counts.incompleteCount;
-                        document.getElementById('offer-issued').textContent = counts.offerIssuedStudentsCount;
-                        document.getElementById('offer-rejected').textContent = counts.offerRejectedByStudentCount;
-                        document.getElementById('offer-accepted').textContent = counts.offerAcceptedAndClosedCount;
+            const url = degreeType
+                ? `/retrievedashboarddetails?degree_type=${degreeType}`
+                : '/retrievedashboarddetails';
+
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        const counts = data.counts;
+
+                        document.getElementById('offer-issued').innerText = counts.offerIssuedStudentsCount;
+                        document.getElementById('offer-rejected').innerText = counts.offerRejectedByStudentCount;
+                        document.getElementById('offer-accepted').innerText = counts.offerAcceptedAndClosedCount;
+
+                        document.getElementById('incomplete-count').innerText = counts.incompleteProfileCount;
+                        document.getElementById('dummy-1').innerText = counts.completedProfileCount;
                     } else {
-                        console.error("Error fetching data:", data.error);
+                        console.error('Failed to fetch dashboard details.');
                     }
                 })
-                .catch(error => {
-                    console.error('Fetch failed:', error);
+                .catch(err => console.error('Dashboard data error:', err));
+        }
+        function funnelReportDropdown() {
+                const toggle = document.getElementById('postgrad-buttongroups-insideshow-funnelreports-id');
+                const dropdown = document.getElementById('postgrad-funnelreportsprogress');
+
+                toggle.addEventListener('click', function () {
+                    dropdown.classList.toggle('show');
                 });
 
-        }
+                const links = dropdown.querySelectorAll('a');
+                links.forEach(link => {
+                    link.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const selectedValue = this.getAttribute('data-value');
+                        dropdown.classList.remove('show');
+                        funnelreport(selectedValue); // Call with selected degreeType
+                    });
+                });
+            }
+
         function fetchReferralAcceptedCounts() {
             fetch('/referralacceptedcounts')
                 .then(response => response.json())

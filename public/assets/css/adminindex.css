@@ -149,7 +149,7 @@ body {
 
 @media screen and (max-width: 768px) {
     .admin-index-section-main-container {
-        width: 380px;
+        max-width: 380px;
         margin: 0 auto;
         padding: 0;
     }

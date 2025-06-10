@@ -1437,7 +1437,7 @@
         CourseDetailsManager,
         AcademicDetailsManager,
         CoBorrowerManager,
-        DocumentFieldManager,
+        // DocumentFieldManager,
         FormSubmissionManager
       ];
       managers.forEach(manager => manager.init());

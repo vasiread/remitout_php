@@ -48,10 +48,9 @@ function initializeAdminSidebar() {
     const nbfcAdminsideAddAuthority = document.querySelector(".add-nbfc-datasection");
     const studentProfileContainerAdminSide = document.getElementById("studentprofile-section-adminsideview");
     const addCounsellorModelTrigger = document.getElementById("switch-addcounsellor");
-    // const adminsideScDashboard = document.querySelector("#scdashboard-profile-adminside");
+    const adminsideScDashboard = document.querySelector("#scdashboard-profile-adminside");
 
-    // Function to handle sidebar visibility based on window size
-    function handleSidebarVisibility() {
+     function handleSidebarVisibility() {
         if (triggeredSideBar) {
             if (window.innerWidth > 768) {
                 triggeredSideBar.style.display = "block"; 
