@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- CSS -->
-     <link rel="stylesheet" href="assets/css/adminpage.css">
+    <link rel="stylesheet" href="assets/css/adminpage.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    
+    <meta name="superadmin-email" content="{{ env('SUPERADMIN_EMAIL') }}">
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+
 <body>
     <nav class="admin-nav">
         <div class="admin-nav-left">
@@ -20,8 +24,10 @@
             </div>
             <div class="back-button">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
                 </svg>
                 <span>Back</span>
             </div>
@@ -128,34 +134,42 @@ foreach ($adjustedItems as $item) {
         <div class="admin-nav-right">
             <button class="admin-nav-search">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M11 19C15.4183 19 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path
+                        d="M11 19C15.4183 19 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
                 </svg>
             </button>
 
             <button class="admin-nav-notification">
-                <img src="/assets/images/notifications_unread.png" alt="the notification icon" class="notification-icon">
+                <img src="/assets/images/notifications_unread.png" alt="the notification icon"
+                    class="notification-icon">
             </button>
 
             <div class="admin-nav-dropdown">
                 <img src="assets/images/admin-profile.png" alt="Admin avatar" class="admin-nav-avatar">
                 <span class="admin-nav-name">Admin</span>
-                <svg class="admin-nav-dropdown-icon" width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <svg class="admin-nav-dropdown-icon" width="14" height="14" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
                 <div class="admin-nav-dropdown-menu">
                     <div class="admin-nav-dropdown-item" id="password-change-admin-side">Password Change</div>
-                    <div class="admin-nav-dropdown-item">Logout</div>
+                    <div class="admin-nav-dropdown-item" id="logout-admin-side">Logout</div>
                 </div>
             </div>
 
             <!-- Hamburger Menu for Mobile -->
             <button class="admin-nav-hamburger" aria-label="Toggle mobile menu">
-                <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3 6H21M3 12H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 6H21M3 12H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
                 </svg>
-                <svg class="close-icon" style="display: none;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6 18L18 6M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <svg class="close-icon" style="display: none;" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 18L18 6M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
                 </svg>
             </button>
         </div>
@@ -165,16 +179,16 @@ foreach ($adjustedItems as $item) {
         <x-admin.adminsidebar :sidebarItems="$sidebarItems" />
         <div class="admin-detailedviewcontainer">
             <x-admin.admindashboard />
-            <x-admin.adminstudent :userDetails="$userDetails"/>
-            <x-admin.adminstudentcounsellor/>
-            <x-admin.adminnbfc/>
-            <x-admin.adminindex/>
-            <x-admin.admineditcontent/>
-            <x-admin.adminticketraised/>
-            <x-admin.adminmanagestudent/>
-            <x-admin.adminrolemanagement/>
-            <x-admin.adminpromotionalemail/>
-            <x-admin.adminstudapplication/>
+            <x-admin.adminstudent :userDetails="$userDetails" />
+            <x-admin.adminstudentcounsellor />
+            <x-admin.adminnbfc />
+            <x-admin.adminindex />
+            <x-admin.admineditcontent />
+            <x-admin.adminticketraised />
+            <x-admin.adminmanagestudent />
+            <x-admin.adminrolemanagement />
+            <x-admin.adminpromotionalemail />
+            <x-admin.adminstudapplication />
         </div>
     </div>
 
@@ -182,7 +196,8 @@ foreach ($adjustedItems as $item) {
     <div class="password-change-overlay" id="adminside-password-change-overlay" style="display: none;"></div>
 
     <div class="password-change-container" id="adminside-password-change-container">
-        <div class="password-change-triggered-view-headersection" id="adminside-password-change-triggered-view-headersection">
+        <div class="password-change-triggered-view-headersection"
+            id="adminside-password-change-triggered-view-headersection">
             <h3>Password Change Request</h3>
             <img src="{{ asset('assets/images/Icons/close_small.png') }}" style="cursor:pointer" alt="">
         </div>
@@ -209,11 +224,15 @@ foreach ($adjustedItems as $item) {
         <span id="adminside-confirm-new-password-error" class="error-message"></span>
 
         <div class="footer-passwordchange">
-            <p href="">Forgot Password</p>
+            <p>Forgot Password</p>
             <button id="adminside-password-change-save">Save</button>
         </div>
     </div>
-
+    @if (session()->has('admin'))
+        <script>
+            var admin = @json(session('admin'));
+        </script>
+    @endif
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Unified container mapping
@@ -485,6 +504,7 @@ foreach ($adjustedItems as $item) {
                 if (studentProfileContainerAdminSide) studentProfileContainerAdminSide.style.display = "none";
             }
 
+            passwordForgotAdmin();
             // Desktop Sidebar Handlers
             function initializeAdminSidebar() {
                 adminSidebarItems.forEach((item, index) => {
@@ -622,7 +642,7 @@ foreach ($adjustedItems as $item) {
                     const currentPassword = document.getElementById('adminside-current-password')?.value;
                     const newPassword = document.getElementById('adminside-new-password')?.value;
                     const confirmPassword = document.getElementById('adminside-confirm-new-password')?.value;
-                    
+
                     const currentError = document.getElementById('adminside-current-password-error');
                     const newError = document.getElementById('adminside-new-password-error');
                     const confirmError = document.getElementById('adminside-confirm-new-password-error');
@@ -698,8 +718,9 @@ foreach ($adjustedItems as $item) {
                 });
             }
 
-            const originalRenderContent = window.renderContent || function() {};
-            window.renderContent = function(data) {
+
+            const originalRenderContent = window.renderContent || function () { };
+            window.renderContent = function (data) {
                 originalRenderContent(data);
                 setupEditButtonHandlers();
             };
@@ -742,7 +763,7 @@ foreach ($adjustedItems as $item) {
                 }
             }
 
-              const passwordModelTriggerNbfc = () => {
+            const passwordModelTriggerNbfc = () => {
                 const passwordTrigger = document.getElementById("password-change-admin-side");
                 const passwordChangeContainer = document.getElementById("#password-change-container-admin ");
                 const passwordContainerExit = document.querySelector("#passowrd-changetriggered-adminside img");
@@ -787,12 +808,12 @@ foreach ($adjustedItems as $item) {
                     });
                 }
             };
-            
 
 
 
 
-            
+
+
             const initialiseEightcolumn = () => {
                 const section = document.querySelector(".eightcolumn-firstsection");
 
@@ -840,8 +861,33 @@ foreach ($adjustedItems as $item) {
                 });
 
             }
-
-
+            
+            function logoutadmin() {
+                const logoutButton = document.getElementById('logout-admin-side');
+                if (logoutButton) {
+                    logoutButton.addEventListener('click', () => {
+                        fetch('/api/logout', {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                'Content-Type': 'application/json'
+                            },
+                            credentials: 'include'
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    window.location.href = '/login';
+                                } else {
+                                    alert('Logout failed.');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Logout error:', error);
+                                alert('An error occurred during logout.');
+                            });
+                    });
+                }
+            }
 
 
 
@@ -858,14 +904,15 @@ foreach ($adjustedItems as $item) {
             }
 
 
-            // Initialize
-            
-            
+
+
             initializeAdminSidebar();
             initializeMobileMenu();
             setupEditButtonHandlers();
             updateBackButtonVisibility();
             handleResponsive();
+            logoutadmin();
+
             window.addEventListener('resize', handleResponsive);
             // initialiseSeventhcolumn();
             // initialiseSeventhAdditionalColumn();
@@ -876,7 +923,168 @@ foreach ($adjustedItems as $item) {
             // Set default state
             hideAllContainers();
             if (adminSidebarItems[0]) handleItemClick(adminSidebarItems[0], 0, false);
+
+            adminPasswordChangeCheck();
+
+
         });
+
+        const adminPasswordChangeCheck = () => {
+            const saveButton = document.getElementById('adminside-password-change-save');
+            if (!saveButton) return;
+
+            saveButton.addEventListener('click', function () {
+                const currentPassword = document.getElementById('adminside-current-password').value.trim();
+                const newPassword = document.getElementById('adminside-new-password').value.trim();
+                const confirmNewPassword = document.getElementById('adminside-confirm-new-password').value.trim();
+                const passwordChangeContainer = document.getElementById('adminside-password-change-container');
+
+                clearErrorMessages();
+
+                let valid = true;
+
+                if (!currentPassword) {
+                    displayError('adminside-current-password-error', 'Current password cannot be empty.');
+                    valid = false;
+                }
+
+                if (!newPassword) {
+                    displayError('adminside-new-password-error', 'New password cannot be empty.');
+                    valid = false;
+                } else if (newPassword.length < 8) {
+                    displayError('adminside-new-password-error', 'Password must be at least 8 characters.');
+                    valid = false;
+                }
+
+                if (newPassword !== confirmNewPassword) {
+                    displayError('adminside-confirm-new-password-error', 'Passwords do not match.');
+                    valid = false;
+                }
+
+                if (!valid) return;
+
+                if (typeof admin === 'undefined' || !admin || !admin.email) {
+                    alert("Admin session not found.");
+                    return;
+                }
+
+                const superAdminEmail = document.querySelector('meta[name="superadmin-email"]')?.getAttribute('content');
+                if (admin.email === superAdminEmail) {
+                    alert("This is a super admin account. You cannot change the password.");
+                    return;
+                }
+
+                const payload = {
+                    email: admin.email,
+                    currentPassword,
+                    newPassword,
+                };
+
+                Loader.show();
+
+                fetch("/admin/passwordchange", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                    },
+                    body: JSON.stringify(payload),
+                })
+                    .then(async res => {
+                        const contentType = res.headers.get("content-type");
+
+                        if (!res.ok) {
+                            if (contentType && contentType.includes("application/json")) {
+                                const errorData = await res.json();
+                                alert(errorData.message || "Request failed.");
+                            } else {
+                                const text = await res.text();
+                                alert("Server error: " + text.substring(0, 100));
+                            }
+                            return;
+                        }
+
+                        const data = await res.json();
+                        alert(data.message || "Password updated successfully.");
+
+                        if (passwordChangeContainer) passwordChangeContainer.style.display = 'none';
+
+                        document.getElementById('adminside-current-password').value = '';
+                        document.getElementById('adminside-new-password').value = '';
+                        document.getElementById('adminside-confirm-new-password').value = '';
+                    })
+                    .catch(error => {
+                        console.error("Fetch error:", error);
+                        alert("An error occurred while changing password.");
+                    })
+                    .finally(() => {
+                        Loader.hide();
+                    });
+            });
+        };
+
+        function displayError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            if (errorElement) {
+                errorElement.innerText = message;
+                errorElement.style.display = 'block';
+            }
+        }
+
+        function clearErrorMessages() {
+            const errorElements = document.querySelectorAll('.error-message');
+            errorElements.forEach(el => {
+                if (el.innerText !== '') {
+                    el.innerText = '';
+                    el.style.display = 'none';
+                }
+            });
+        }
+        function passwordForgotAdmin() {
+            const forgotMailTrigger = document.querySelector("#adminside-password-change-container .footer-passwordchange p");
+
+            if (forgotMailTrigger) {
+                forgotMailTrigger.addEventListener('click', () => {
+                    alert("passwordchangeTriggereed")
+
+                    if (!admin || !admin.email) {
+                        alert("Admin session not found.");
+                        return;
+                    }
+
+                    alert(admin.email)
+
+
+
+
+
+                    fetch("/forgot-passwordmailsentsc", {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({ email: email })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            if (data.message) {
+                                alert(data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Error:", error);
+                            alert("There was an error while sending the email.");
+                        });
+                });
+            }
+        }
+
+
+
+
     </script>
 </body>
+
 </html>

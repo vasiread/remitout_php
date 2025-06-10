@@ -170,7 +170,7 @@ Route::post('/check_userid', [StudentDashboardController::class, 'checkUserId'])
 Route::post('/count-user-status', [StudentDashboardController::class, 'getStatusCount']);
 Route::post('/multipleregisterbyscuser', [StudentDashboardController::class, 'multipleuserbyscuser']);
 Route::post('/retrievedashboarddetails', [Admincontroller::class, 'retrieveDashboardDetails']);
- 
+
 Route::get('/getstatusofusersadmin', [Admincontroller::class, 'pointOfEntries']);
 Route::get('/nbfc-lead-gens', [Admincontroller::class, 'nbfcLeadGens']);
 Route::get('/sc-lead-gens', [Admincontroller::class, 'scLeadGens']);
@@ -293,20 +293,24 @@ Route::get('/reset-password', function (Request $request) {
     return view('email.resetpassword', compact('token', 'type'));
 });
 
- 
+
 
 // POST request to send reset link
 Route::post('/send-reset-link', [LoginController::class, 'sendResetLink']);
 Route::post('/mark-query', [AdminController::class, 'markQuery']);
 Route::get('/count-deactive-queries', [Admincontroller::class, 'countDeactiveQueries']);
+                  
 
-// GET request to show reset password form (you need to create this method & view)
- 
-// POST request to reset password
- Route::get('/reports/user-profile', [Admincontroller::class, 'downloadUserProfileReportPDF']);
+Route::get('/reports/user-profile', [Admincontroller::class, 'downloadUserProfileReportPDF'])->name('download.user.profile');
 Route::post('/getprofilecompletionbygender', [Admincontroller::class, 'getProfileCompletionByGenderAndDegree']);
 Route::get('/retrievedashboarddetails', [Admincontroller::class, 'retrieveDashboardDetails']);
 
-
+Route::post('/api/logout', function () {
+    Auth::logout(); // logs out the user
+    request()->session()->invalidate(); // destroys the session
+    request()->session()->regenerateToken(); // prevent CSRF reuse
+    return response()->json(['message' => 'Logged out successfully']);
+});
 
 Route::post('/cms/landing/update', [Admincontroller::class, 'updateLanding']);
+Route::post('/admin/passwordchange', [Admincontroller::class, 'forgotAdminCredential']);

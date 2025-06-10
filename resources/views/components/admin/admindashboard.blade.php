@@ -11,6 +11,11 @@
 
 
 </head>
+<style>
+    #collapsedTags .admin-dashboard-close-tag {
+        display: none;
+    }
+</style>
 
 <body>
     @extends('layouts.app')
@@ -115,11 +120,11 @@
 
 
                 <div class="calendar-wrapper">
-                    <button id="calender-buttongroups"> Calendar <img src="assets/images/Icons/calendar_month.png"
-                            alt=""></button>
+                    <!-- <button id="calender-buttongroups"> Calendar <img src="assets/images/Icons/calendar_month.png"
+                            alt=""></button> -->
                     <button id="download-buttongroups">Download Report</button>
 
-                    <div class="calendar-container">
+                    <!--   <div class="calendar-container">
                         <div class="calendar-input-container">
                             <div class="calendar-date-input calendar-active" id="calendar-start-date-input">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -167,7 +172,7 @@
                                     <option value="11">December</option>
                                 </select>
                                 <select id="calendar-year-select">
-                                    <!-- Years will be populated by JavaScript -->
+                                    Years will be populated by JavaScript
                                 </select>
                             </div>
                             <button class="calendar-nav-btn calendar-next-month">
@@ -187,7 +192,7 @@
                             <div class="calendar-weekday">Sa</div>
                             <div class="calendar-weekday">Su</div>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
 
             </div>
@@ -225,7 +230,7 @@
 
             </div>
 
-            <button class="admin-dashboard-download-button">Download Report</button>
+                <button class="admin-dashboard-download-button">Download Report</button>
 
             <div class="admin-dashboard-filter-panel" id="filterPanel">
                 <div class="admin-dashboard-filter-container">
@@ -817,8 +822,7 @@ $registrationSourceAnalysis = [
         };
 
 
-        //Undergrad and Postgrad Chart
-        // Function to update profile completion by gender and degree
+
         const updateProfileCompletionByGender = () => {
             const undergradTotal = $('.totalundergrads-info h1');
             const undergradFemale = $('.totalundergrads-info p:nth-child(2) span');
@@ -830,27 +834,24 @@ $registrationSourceAnalysis = [
             const postgradMale = $('.totalpostgrads-info p:nth-child(3) span');
             const postgradOthers = $('.totalpostgrads-info p:nth-child(4) span');
 
-            // Fetch data from API (POST request)
             fetch('/getprofilecompletionbygender', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Required for POST in Laravel
                 },
-                body: JSON.stringify({}) // Empty body; adjust if API requires data
+                body: JSON.stringify({})
             })
                 .then(response => {
-                    // console.log('Raw response:', response);
+
                     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
                     return response.json();
                 })
                 .then(data => {
-                    // console.log('Fetched Profile Completion by Gender data:', data);
 
-                    // Validate the API response structure
                     if (!data.success || !data.data || typeof data.data !== 'object' ||
                         !data.data.degree_summary || typeof data.data.degree_summary !== 'object') {
-                        // console.log('Validation failed. Data structure:', data);
+
                         throw new Error('Invalid API response: Missing or invalid data structure');
                     }
 
@@ -859,7 +860,7 @@ $registrationSourceAnalysis = [
                     const ugTotal = ugData.total || 0;
                     const ugFemale = ugData.female || 0;
                     const ugMale = ugData.male || 0;
-                    const ugOthers = ugData.other || (ugTotal - ugFemale - ugMale); // Fallback to total if others not provided
+                    const ugOthers = ugData.other || (ugTotal - ugFemale - ugMale);
 
                     // Extract data for Postgrads (PG)
                     const pgData = data.data.degree_summary.PG;
@@ -2596,34 +2597,126 @@ $registrationSourceAnalysis = [
             });
         };
 
-        function updateVisibleReportsFromFilters() {
-                const activeTags = Array.from(document.querySelectorAll('.admin-dashboard-filter-tag'))
-                    .map(tag => tag.textContent.trim().replace('×', '').trim().toLowerCase());
+       function updateVisibleReportsFromFilters() {
+            const activeTags = Array.from(document.querySelectorAll('.admin-dashboard-filter-tag'))
+                .map(tag => tag.textContent.trim().replace('×', '').trim().toLowerCase());
 
-                const reports = document.querySelectorAll('[data-report]');
+            const reports = document.querySelectorAll('[data-report]');
 
-                reports.forEach(report => {
-                    const reportType = report.getAttribute('data-report').replace(/-/g, ' ').toLowerCase();
-                    const shouldShow = activeTags.some(tag => reportType.includes(tag));
-                    report.style.display = shouldShow ? 'block' : 'none';
-                });
-            }
+            reports.forEach(report => {
+                const reportType = report.getAttribute('data-report').replace(/-/g, ' ').toLowerCase();
+                const shouldShow = activeTags.some(tag => reportType.includes(tag));
+                report.style.display = shouldShow ? 'block' : 'none';
+            });
+        }
 
-            // Watch for clicks on close icons to update the view
-            document.addEventListener('click', (e) => {
-                if (e.target.classList.contains('admin-dashboard-close-tag')) {
-                    // Remove the tag from the DOM
-                    const tagElement = e.target.closest('.admin-dashboard-filter-tag');
-                    if (tagElement) {
-                        tagElement.remove();
-                        updateVisibleReportsFromFilters(); // Re-run filtering
-                    }
+        // Watch for clicks on close icons to update the view
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('admin-dashboard-close-tag')) {
+                // Remove the tag from the DOM
+                const tagElement = e.target.closest('.admin-dashboard-filter-tag');
+                if (tagElement) {
+                    tagElement.remove();
+                    updateVisibleReportsFromFilters(); // Re-run filtering
                 }
+            }
+        });
+
+        const links = dropdown.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const selectedValue = this.getAttribute('data-value');
+                dropdown.classList.remove('show');
+                funnelreport(selectedValue);
+            });
+        });
+
+
+        function ageRatioDropdown() {
+            // Toggle dropdown visibility
+            document.getElementById('postgrad-buttongroups-insideshow-age-ratio-id').addEventListener('click', function () {
+                const dropdown = document.getElementById('postgrad-ageratioprogress');
+                dropdown.classList.toggle('show');
+            });
+
+            // Handle dropdown item clicks and trigger chart update
+            const dropdownItems = document.querySelectorAll('#postgrad-ageratioprogress a');
+            dropdownItems.forEach(item => {
+                item.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const selectedDegreeType = this.textContent.trim();
+
+                    // Optional: update the button text to show the selected type
+                    document.getElementById('postgrad-buttongroups-insideshow-age-ratio-id').innerHTML =
+                        `${selectedDegreeType} <i class="fa-solid fa-chevron-down"></i>`;
+
+                    // Hide the dropdown
+                    document.getElementById('postgrad-ageratioprogress').classList.remove('show');
+
+                    // Load the chart
+                    loadAgeRatioChart(selectedDegreeType);
+                });
+            });
+        }
+
+        function searchMobFunctionality() {
+            const searchInput = document.getElementById('searchinput-admindashboard');
+
+            // Array of section IDs
+            const sectionIds = [
+                'admindashboardcontainer-secondsection',
+                'admindashboardcontainer-thirdsection',
+                'admindashboardcontainer-fourth-section'
+            ];
+
+            searchInput.addEventListener('input', function () {
+                const query = searchInput.value.toLowerCase().trim();
+
+                sectionIds.forEach(sectionId => {
+                    const section = document.getElementById(sectionId);
+
+                    if (section) {
+                        const items = section.querySelectorAll('div'); // or more specific selector if needed
+
+                        items.forEach(item => {
+                            const text = item.textContent.toLowerCase();
+                            item.style.display = text.includes(query) ? '' : 'none';
+                        });
+                    }
+                });
             });
 
 
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            funnelreport();
+            ageRatioDropdown();
+            funnelReportDropdown();
+            searchMobFunctionality();
+            document.getElementById("download-buttongroups").addEventListener('click', function () {
+                window.open("{{ route('download.user.profile') }}", '_blank');
+            });
+            document.querySelector(".admin-dashboard-download-button").addEventListener('click', function () {
+                window.open("{{ route('download.user.profile') }}", '_blank');
+            });
+
+            const mobileCalendarButton = document.getElementById('calendarButton');
+            const calendarContainer = document.querySelector('.calendar-container');
+
+            if (mobileCalendarButton && calendarContainer) {
+                mobileCalendarButton.addEventListener('click', () => {
+                    calendarContainer.classList.toggle('visible');
+
+                    if (calendarContainer.classList.contains('visible')) {
+                        calendarContainer.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            }
 
 
+        });
     </script>
 </body>
 

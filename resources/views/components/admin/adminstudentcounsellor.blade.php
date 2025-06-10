@@ -18,14 +18,14 @@
     @extends('layouts.app')
 
     @php
-        $profileIconPath = "assets/images/account_circle1.png";
-        $phoneIconPath = "assets/images/call.png";
-        $mailIconPath = "assets/images/mail.png";
-        $pindropIconPath = "assets/images/pin_drop.png";
+$profileIconPath = "assets/images/account_circle1.png";
+$phoneIconPath = "assets/images/call.png";
+$mailIconPath = "assets/images/mail.png";
+$pindropIconPath = "assets/images/pin_drop.png";
     @endphp
 
     @php
-        $studentCounsellorsLists = [];
+$studentCounsellorsLists = [];
     @endphp
 
     <div class="add-studentcounsellor-adminside" style="display:none">
@@ -592,15 +592,30 @@
             }
 
 
-            viewButton.addEventListener("click", () => {
-                editmode = false;
-                renderProfile();
+           viewButton.addEventListener("click", async () => {
+                try {
+                    editmode = false;
+                    Loader.show();
+                    await renderProfile();  // Must be async function if you're using await
+                } catch (err) {
+                    console.error("Error rendering profile in view mode:", err);
+                } finally {
+                    Loader.hide();
+                }
             });
 
-            editButton.addEventListener("click", () => {
-                editmode = true;
-                renderProfile();
+            editButton.addEventListener("click", async () => {
+                try {
+                    editmode = true;
+                    Loader.show();
+                    await renderProfile();  // Must be async
+                } catch (err) {
+                    console.error("Error rendering profile in edit mode:", err);
+                } finally {
+                    Loader.hide();
+                }
             });
+
 
             function savescUserAdminMode() {
                 const saveScUserAdmin = document.querySelector("#save-scuser-admin");

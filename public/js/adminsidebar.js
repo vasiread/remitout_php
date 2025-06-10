@@ -48,7 +48,7 @@ function initializeAdminSidebar() {
     const nbfcAdminsideAddAuthority = document.querySelector(".add-nbfc-datasection");
     const studentProfileContainerAdminSide = document.getElementById("studentprofile-section-adminsideview");
     const addCounsellorModelTrigger = document.getElementById("switch-addcounsellor");
-    const adminsideScDashboard = document.querySelector("#scdashboard-profile-adminside");
+    // const adminsideScDashboard = document.querySelector("#scdashboard-profile-adminside");
 
     // Function to handle sidebar visibility based on window size
     function handleSidebarVisibility() {
@@ -149,8 +149,7 @@ function initializeAdminSidebar() {
                 item.classList.add("active");
             }
 
-            // Existing logic for toggling sections based on index
-            if (index === 0) {
+             if (index === 0) {
                 if (adminPropertyOne) adminPropertyOne.style.display = "flex";
                 if (sidebarChevronUpDown) sidebarChevronUpDown.classList.add("fa-chevron-down");
                 if (sidebarStudentCounsellorChevronUpDown) sidebarStudentCounsellorChevronUpDown.classList.add("fa-chevron-down");

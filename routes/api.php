@@ -128,6 +128,7 @@ Route::post('/loanstatuscount', [StudentDashboardController::class, 'loanStatusC
 Route::post('/forgot-passwordmailsent', [StudentDashboardController::class, 'forgotUserCredential']);
 Route::post('/forgot-passwordmailsentnbfc', [NbfcController::class, 'forgotNbfcCredential']);
 Route::post('/forgot-passwordmailsentsc', [scDashboardController::class, 'forgotScCredential']);
+Route::post('/admin/passwordchange', [Admincontroller::class, 'forgotAdminCredential']);
 
 //education route for student-dashboard
 Route::get('/education', [StudentDetailsController::class, 'getEducationDetails']);

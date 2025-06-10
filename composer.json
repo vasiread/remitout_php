@@ -12,6 +12,7 @@
         "aws/aws-sdk-php": "^3.334",
         "aws/aws-sdk-php-laravel": "^3.9",
         "barryvdh/laravel-dompdf": "2.0",
+        "barryvdh/laravel-snappy": "^1.0",
         "doctrine/dbal": "^3.9",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
@@ -21,6 +22,7 @@
         "laravel/tinker": "^2.7",
         "league/flysystem-aws-s3-v3": "3.0",
         "maatwebsite/excel": "^1.1",
+        "maennchen/zipstream-php": "^2.4",
         "spatie/laravel-export": "^1.0",
         "twilio/sdk": "^8.3"
     },

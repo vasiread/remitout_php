@@ -270,16 +270,16 @@
                 <p>Student Description</p>
                 <button class="triggeredbutton" id="admin-student-button-${chatId}" data-button-id="admin-student-button-${chatId}">Message</button>
             </div>
-            <div class="messages-wrapper hidden" data-chat-id="${chatId}" id="admin-student-messages-${chatId}">
+            <div class="messages-wrapper  hidden" data-chat-id="${chatId}" id="admin-student-messages-${chatId}">
                 <!-- Messages will be appended here -->
             </div>
-            <div class="individual-bankmessage-input hidden" data-chat-id="${chatId}" id="admin-student-input-${chatId}">
+            <div class="individual-bankmessage-input hidden"  data-chat-id="${chatId}" id="admin-student-input-${chatId}">
                 <input placeholder="Send message" type="text" id="admin-student-input-field-${chatId}">
                 <img class="send-img" src="assets/images/send.png" alt="Send" id="admin-student-send-${chatId}">
                 <i class="fa-solid fa-paperclip" id="admin-student-paperclip-${chatId}"></i>
                 <i class="fa-regular fa-face-smile" id="admin-student-smile-${chatId}"></i>
             </div>
-            <div style="display: none; justify-content: flex-end; width: 100%; margin-bottom: 10px;" id="admin-student-clear-container-${chatId}">
+            <div style="display: none; justify-content: flex-end; width: 100%;style="margin-left:0" margin-bottom: 10px;" id="admin-student-clear-container-${chatId}">
                 <button style="background-color: rgb(240, 240, 240); border: none; border-radius: 4px; padding: 6px 20px; font-size: 12px; color: rgb(102, 102, 102); cursor: pointer; font-family: Poppins, sans-serif;" id="admin-student-clear-button-${chatId}">Clear Chat</button>
             </div>
         `;
@@ -521,6 +521,7 @@
                         border-radius: 8px;
                         background-color: ${msg.sender_id === 'admin001' ? '#DCF8C6' : '#FFF'};
                         word-wrap: break-word;
+                        overflow-wrap:break-word;
                         font-family: 'Poppins', sans-serif;
                         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
                         display: flex;

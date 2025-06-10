@@ -34,7 +34,13 @@ class LoginController extends Controller
         $superAdminPasswordHash = env('SUPERADMIN_PASSWORD');
 
         if ($loginName === $superAdminEmail && Hash::check($loginPassword, $superAdminPasswordHash)) {
-            session(['superadmin' => ['email' => $superAdminEmail]]);
+
+            session([
+                'admin' => [
+                     'email' => $superAdminEmail,
+                 ]
+            ]);
+
             session()->put('expires_at', now()->addSeconds(20000));
 
             return response()->json([
@@ -49,6 +55,8 @@ class LoginController extends Controller
         $admin = Admin::where('email', $loginName)->first();
         if ($admin && Hash::check($loginPassword, $admin->password)) {
             session(['admin' => $admin]);
+            
+            
             session()->put('expires_at', now()->addSeconds(10000));
 
             return response()->json([

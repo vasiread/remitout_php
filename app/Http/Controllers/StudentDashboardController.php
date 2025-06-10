@@ -22,6 +22,10 @@ use Illuminate\Support\Facades\DB;
 use App\Models\PersonalInfo;
 use App\Models\CourseInfo;
 use Illuminate\Support\Facades\Validator;
+use ZipStream\Option\Archive as ArchiveOptions;
+use ZipStream\ZipStream;
+ 
+
 
 use Illuminate\Support\Str;
 use PhpParser\Node\Stmt\Catch_;
@@ -908,7 +912,8 @@ class StudentDashboardController extends Controller
         // Step 1: Retrieve requested static fileTypes
         foreach ($fileTypes as $fileType) {
             $cleanType = str_replace('static/', '', $fileType); // 👈 Remove static prefix
-            $staticPath = "$userId/$cleanType";
+            $staticPath = "$userId/static/$cleanType";
+
             $staticFiles = $disk->files($staticPath);
 
             if (!empty($staticFiles)) {
@@ -947,20 +952,31 @@ class StudentDashboardController extends Controller
         $request->validate([
             'userId' => 'required|string'
         ]);
-        $userId = $request->input('userId');
-        $folderPath = "$userId";
 
+        $userId = $request->input('userId');
+        $folderPath = "$userId/static";
+
+        // 🔹 Static files logic — DO NOT TOUCH
         $files = Storage::disk("s3")->allFiles($folderPath);
         $documentCount = count($files);
 
+        // 🔹 Dynamic files (inside userId/dynamic/)
+        $dynamicFolderPath = "$userId/dynamic";
+        $dynamicFiles = Storage::disk("s3")->allFiles($dynamicFolderPath);
+        $dynamicDocumentCount = count($dynamicFiles);
 
         return response()->json([
-            'message' => 'Documents counts retreived successfully',
-            'documentscount' => $documentCount - 1,
+            'message' => 'Documents counts retrieved successfully',
 
+            // ✅ Original, don't touch
+            'documentscount' => $documentCount,
+
+            // ✅ New but matches static path explicitly
+            'staticDocuments' => $documentCount,
+
+            // ✅ New for dynamic path
+            'dynamicDocuments' => $dynamicDocumentCount,
         ], 200);
-
-
     }
 
 
@@ -971,36 +987,37 @@ class StudentDashboardController extends Controller
         ]);
 
         $userId = $request->input('userId');
-        $folderPath = "$userId/";
+        $folderPath = "$userId/static";
 
         $expectedFolders = [
-            'aadhar-card-name/',
-            'co-aadhar-card-name/',
-            'co-addressproof/',
-            'co-pan-card-name/',
-            'graduation-grade-name/',
-            'pan-card-name/',
-            'passport-name/',
-            'salary-upload-address-proof-name/',
-            'salary-upload-salary-slip-name/',
-            'secured-graduation-name/',
-            'secured-tenth-name/',
-            'secured-twelfth-name/',
-            'tenth-grade-name/',
-            'twelfth-grade-name/',
-            'work-experience-experience-letter/',
-            'work-experience-joining-letter/',
-            'work-experience-monthly-slip/',
-            'work-experience-office-id/'
+            'aadhar-card-name',
+            'co-aadhar-card-name',
+            'co-addressproof',
+            'co-pan-card-name',
+            'graduation-grade-name',
+            'pan-card-name',
+            'passport-name',
+            'salary-upload-address-proof-name',
+            'salary-upload-salary-slip-name',
+            'secured-graduation-name',
+            'secured-tenth-name',
+            'secured-twelfth-name',
+            'tenth-grade-name',
+            'twelfth-grade-name',
+            'work-experience-experience-letter',
+            'work-experience-joining-letter',
+            'work-experience-monthly-slip',
+            'work-experience-office-id'
         ];
 
         $missingDocuments = [];
 
         foreach ($expectedFolders as $folder) {
-            $filesInFolder = Storage::disk("s3")->files($folderPath . $folder);
+            $pathToCheck = "$folderPath/$folder";
+            $filesInFolder = Storage::disk("s3")->files($pathToCheck);
 
             if (empty($filesInFolder)) {
-                $missingDocuments[] = $folder;
+                $missingDocuments[] = $folder . '/'; // 👈 return with trailing slash to match frontend
             }
         }
 
@@ -1009,6 +1026,7 @@ class StudentDashboardController extends Controller
             'missingDocuments' => $missingDocuments,
         ], 200);
     }
+
 
 
 
@@ -1040,40 +1058,41 @@ class StudentDashboardController extends Controller
             return response()->json(['error' => 'User ID is required'], 400);
         }
 
-        $disk = Storage::disk('s3');
-        $allFiles = $disk->allFiles($userId);  
+        $disk = Storage::disk('s3'); // or 'local'
+        $allFiles = $disk->allFiles($userId);
 
         if (empty($allFiles)) {
-            return response()->json(['error' => 'No files found'], 404);
+            return response()->json(['error' => 'No documents uploaded yet.'], 404);
         }
 
-        // Create a temporary file for the zip
-        $zipFileName = "user_files_$userId.zip";
-        $tmpFile = tempnam(sys_get_temp_dir(), 'zip');
 
-        $zip = new      ZipArchive();
-        if ($zip->open($tmpFile, ZipArchive::CREATE) !== true) {
-            return response()->json(['error' => 'Could not create ZIP file'], 500);
-        }
+        if (ob_get_level())
+            ob_end_clean();
 
-        foreach ($allFiles as $filePath) {
-    $stream = $disk->readStream($filePath);
-    if ($stream === false) {
-        continue; // skip files that cannot be read
-    }
-    $relativePathInZip = substr($filePath, strlen($userId) + 1);
-    if (!empty($relativePathInZip)) {
-        $zip->addFromString($relativePathInZip, stream_get_contents($stream));
-    }
-    fclose($stream);
-}
+        $zipFileName = "user_files_{$userId}.zip";
+        $options = new ArchiveOptions();
+        $options->setSendHttpHeaders(true);
+        $options->setContentType('application/zip');
+        $options->setContentDisposition("attachment; filename=\"{$zipFileName}\"");
 
+        return response()->stream(function () use ($disk, $allFiles, $userId, $options) {
+            $zip = new ZipStream(null, $options);
 
+            foreach ($allFiles as $filePath) {
+                $stream = $disk->readStream($filePath);
+                if (!$stream)
+                    continue;
 
-        $zip->close();
+                $relativePath = substr($filePath, strlen($userId) + 1);
+                if (!empty($relativePath)) {
+                    $zip->addFileFromStream($relativePath, $stream);
+                }
 
-        // Send the file as download and delete after sending
-        return response()->download($tmpFile, $zipFileName)->deleteFileAfterSend(true);
+                fclose($stream);
+            }
+
+            $zip->finish();
+        });
     }
 
 

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DocumentType extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'key'];
+    protected $fillable = ['name', 'key','slug'];
 
     public function userDocuments()
     {

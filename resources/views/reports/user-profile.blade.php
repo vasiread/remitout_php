@@ -100,7 +100,7 @@
             padding: 0 5px;
             display: flex;
             flex-direction: column;
-            gap: 26px;
+            gap: 226px;
             padding: 12px 0;
             margin-top: 1rem;
             border-bottom: 1px solid rgba(217, 217, 217, 1);

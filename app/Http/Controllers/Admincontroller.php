@@ -29,6 +29,7 @@ use App\Models\StudentApplicationForm;
 use App\Models\StudentApplicationSection;
 use App\Models\User;
 use App\Models\UserAdditionalFieldValue;
+use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -40,7 +41,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
-use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Illuminate\Validation\Rule;
 
 
@@ -463,41 +463,49 @@ class Admincontroller extends Controller
         }
     }
 
-    public function getProfileCompletionByGenderAndDegree()
+    public function getProfileCompletionByGenderAndDegree(Request $request)
     {
         try {
-            // Query with proper categorization for completed profiles
-            $results = DB::table('course_details_formdata')
+            $startDate = $request->input('start_date');
+            $endDate = $request->input('end_date');
+
+
+            $query = DB::table('course_details_formdata')
                 ->join('users', 'course_details_formdata.user_id', '=', 'users.unique_id')
-                ->join('personal_infos', 'users.unique_id', '=', 'personal_infos.user_id')
-                ->select(
-                    DB::raw("CASE
+                ->join('personal_infos', 'users.unique_id', '=', 'personal_infos.user_id');
+
+            if ($startDate && $endDate) {
+                $query->whereBetween('users.created_at', [$startDate, $endDate]);
+            } elseif ($startDate) {
+                $query->where('users.created_at', '>=', $startDate);
+            } elseif ($endDate) {
+                $query->where('users.created_at', '<=', $endDate);
+            }
+
+            $results = $query->select(
+                DB::raw("CASE
                     WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%bachelor%' THEN 'UG'
                     WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%master%' THEN 'PG'
                     WHEN LOWER(course_details_formdata.`degree-type`) LIKE '%mca%' OR LOWER(course_details_formdata.`degree-type`) LIKE '%bca%' THEN 'Other'
                     ELSE 'Other'
-                    END as degree_category"),
-                    'personal_infos.gender',
-                    DB::raw('count(*) as count')
-                )
+                END as degree_category"),
+                'personal_infos.gender',
+                DB::raw('count(*) as count')
+            )
                 ->groupBy('degree_category', 'personal_infos.gender')
                 ->get();
 
-            // Initialize breakdown summary
             $summary = [
                 'UG' => ['total' => 0, 'male' => 0, 'female' => 0, 'other' => 0],
                 'PG' => ['total' => 0, 'male' => 0, 'female' => 0, 'other' => 0],
                 'Other' => ['total' => 0, 'male' => 0, 'female' => 0, 'other' => 0],
             ];
 
-            // Initialize overall total
             $overall = ['total' => 0, 'male' => 0, 'female' => 0, 'other' => 0];
 
-            // Fill data from completed profiles
             foreach ($results as $row) {
                 $degree = $row->degree_category;
                 $gender = strtolower($row->gender ?? 'other');
-
                 if (!in_array($gender, ['male', 'female'])) {
                     $gender = 'other';
                 }
@@ -509,13 +517,20 @@ class Admincontroller extends Controller
                 $overall['total'] += $row->count;
             }
 
-            // Get total users count (all users, regardless of profile completion)
-            $totalUsers = DB::table('users')->count();
+            $userQuery = DB::table('users');
+            if ($startDate && $endDate) {
+                $userQuery->whereBetween('created_at', [$startDate, $endDate]);
+            } elseif ($startDate) {
+                $userQuery->where('created_at', '>=', $startDate);
+            } elseif ($endDate) {
+                $userQuery->where('created_at', '<=', $endDate);
+            }
 
-            // Calculate incomplete profiles count
+            $totalUsers = $userQuery->count();
+
             $incompleteProfiles = $totalUsers - $overall['total'];
             if ($incompleteProfiles < 0)
-                $incompleteProfiles = 0; // safety check
+                $incompleteProfiles = 0;
 
             return response()->json([
                 'success' => true,
@@ -534,6 +549,7 @@ class Admincontroller extends Controller
             ], 500);
         }
     }
+
 
 
 
@@ -567,62 +583,63 @@ class Admincontroller extends Controller
     public function mergeAllStudentDetails()
     {
         try {
-            $users = User::all();
+            ini_set('memory_limit', '2048M');
+            set_time_limit(600);
+
+            $referralMap = Scuser::pluck('full_name', 'referral_code');
+
+            $users = User::with([
+                'personalInfo',
+                'courseInfo',
+                'requestProgress' => function ($query) {
+                    $query->where('type', Requestprogress::TYPE_PROPOSAL);
+                },
+            ])->get();
+
             $mergedDetails = [];
 
             foreach ($users as $user) {
-                $personalInfo = PersonalInfo::where('user_id', $user->unique_id)->first();
-                $courseInfo = CourseInfo::where('user_id', $user->unique_id)->get();
+                $personalInfo = $user->personalInfo;
+                $courseInfos = $user->courseInfo;
 
-                // Fetch student counsellor name if referral_code exists
-                $studentCounsellorName = null;
-                $sourceReferral = null;
-                if ($user->referral_code) {
-                    $scuser = Scuser::where('referral_code', $user->referral_code)->first();
-                    if ($scuser) {
-                        $studentCounsellorName = $scuser->full_name;
-                        $sourceReferral = "SC Referral";
-                    }
-                }
-
-                // Retrieve the count of proposals for the current user
-                $proposalCount = Requestprogress::where('user_id', $user->unique_id)
-                    ->where('type', Requestprogress::TYPE_PROPOSAL)
-                    ->count();
+                $studentCounsellorName = $referralMap[$user->referral_code] ?? null;
+                $sourceReferral = $studentCounsellorName ? 'SC Referral' : null;
 
                 $userDetails = [
                     'unique_id' => $user->unique_id,
-                    'email' => $user ? $user->email : null,
-                    'full_name' => $user ? $user->name : null,
-                    'gender' => $personalInfo ? $personalInfo->gender : null,
-                    'dateofbirth' => $personalInfo ? $personalInfo->dob : null,
-                    'sourceOfReferral' => $sourceReferral ?? null,
-                    'scReferral' => $user->referral_code ?? null,
-                    'student_counsellor_name' => $studentCounsellorName ?? null,
+                    'email' => $user->email,
+                    'full_name' => $user->name,
+                    'gender' => $personalInfo->gender ?? null,
+                    'dateofbirth' => $personalInfo->dob ?? null,
+                    'sourceOfReferral' => $sourceReferral,
+                    'scReferral' => $user->referral_code,
+                    'student_counsellor_name' => $studentCounsellorName,
                     'city' => $personalInfo->city ?? null,
                     'state' => $personalInfo->state ?? null,
                     'PointOfEntry' => $personalInfo->linked_through ?? null,
-                    'phone_number' => $user->phone ?? null,
+                    'phone_number' => $user->phone,
                     'degree_type' => null,
                     'loan_amount' => null,
                     'course_info' => [],
-                    'proposal_count' => $proposalCount,
-                    'registration_date' => $user->created_at ? $user->created_at->format('d/m/Y') : null, // <-- added line
+                    'proposal_count' => $user->requestProgress->count(),
+                    'registration_date' => $user->created_at?->format('d/m/Y'),
                 ];
 
-
-                // Check and add course details
-                if ($courseInfo) {
-                    foreach ($courseInfo as $course) {
+                if ($courseInfos->isNotEmpty()) {
+                    foreach ($courseInfos as $course) {
                         $userDetails['course_info'][] = [
-                            'plan_to_study' => json_decode($course->plan_to_study, true),
-                            'degree_type' => $course->{'degree-type'}, // Access using the exact column name
+                            'plan_to_study' => json_decode($course->plan_to_study ?? '[]', true),
+                            'degree_type' => $course->{'degree-type'},
                             'loan_amount_in_lakhs' => $course->loan_amount_in_lakhs
                         ];
 
-                        // If degree_type and loan_amount are in courseInfo, add them
-                        $userDetails['degree_type'] = $course->{'degree-type'};
-                        $userDetails['loan_amount'] = $course->loan_amount_in_lakhs;
+                        // Set only first values for top-level degree/loan
+                        if (!$userDetails['degree_type']) {
+                            $userDetails['degree_type'] = $course->{'degree-type'};
+                        }
+                        if (!$userDetails['loan_amount']) {
+                            $userDetails['loan_amount'] = $course->loan_amount_in_lakhs;
+                        }
                     }
                 }
 
@@ -633,7 +650,7 @@ class Admincontroller extends Controller
                 'status' => 'success',
                 'message' => 'All user details retrieved successfully.',
                 'data' => $mergedDetails
-            ], 200);
+            ]);
 
         } catch (\Exception $e) {
             return response()->json([
@@ -643,6 +660,7 @@ class Admincontroller extends Controller
             ], 500);
         }
     }
+
     public function landingPage()
     {
         $landingpages = landingpage::get();
@@ -1253,7 +1271,8 @@ class Admincontroller extends Controller
 
     public function showStudentPersonalInfoAdditionalField()
     {
-        $documentTypes = DocumentType::all();
+        $documentTypes = DocumentType::where('slug', 'kyc')->get();
+
 
         return response()->json([
             'documentTypes' => $documentTypes
@@ -1683,27 +1702,33 @@ class Admincontroller extends Controller
 
     public function storeKYCDynamic(Request $request)
     {
-        $request->validate(rules: [
-            'name' => 'required|string|max:255'
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255'
         ]);
 
         $name = strtolower(trim($request->input('name')));
+        $slug = strtolower(trim($request->input('slug')));
 
-        Log::info($name);
-        $existing = DocumentType::whereRaw('LOWER(name) = ?', [$name])->first();
-        Log::info($existing);
+        Log::info("Checking for existing document with name: $name and slug: $slug");
+
+        $existing = DocumentType::whereRaw('LOWER(name) = ?', [$name])
+            ->where('slug', $slug)
+            ->first();
 
         if ($existing) {
-            return response()->json(['message' => 'Document type already exists.'], 409);
+            return response()->json(['message' => 'Document type already exists for this section.'], 409);
         }
 
         $documentType = DocumentType::create([
-            'name' => $request->input('name'), // Store original casing
-            'key' => \Str::slug($request->input('name')) // optional
+            'name' => $request->input('name'), // Preserve original casing
+            'key' => \Str::slug($request->input('name')), // Optional
+            'slug' => $slug
         ]);
 
         return response()->json($documentType, 201);
     }
+
 
     public function updatepersonalinfoadminside(Request $request)
     {
@@ -2176,6 +2201,10 @@ class Admincontroller extends Controller
 
     public function downloadUserProfileReportPDF()
     {
+
+        ini_set('memory_limit', '2048M'); // or -1 for unlimited, if server allows
+        set_time_limit(600); // seconds (10 minutes)
+
         $users = User::all();
 
         // --- 1. User Profile Report ---
@@ -2401,6 +2430,9 @@ class Admincontroller extends Controller
             });
         });
 
+        PDF::setBinary('"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe"');
+
+
         $pdf = PDF::loadView('reports.user-profile', compact(
             'userProfileReport',
             'downloadProgressReport',
@@ -2414,6 +2446,18 @@ class Admincontroller extends Controller
         ));
 
         return $pdf->download('user_profile_report_' . now()->format('Ymd_His') . '.pdf');
+        // return view('reports.user-profile', compact(
+        //     'userProfileReport',
+        //     'downloadProgressReport',
+        //     'destinationCountries',
+        //     'cityStats',
+        //     'exportDate',
+        //     'exportTime',
+        //     'exportMonth',
+        //     'referralsReport',
+        //     'userReport'
+        // ));
+
     }
 
 
@@ -2438,6 +2482,55 @@ class Admincontroller extends Controller
 
         return response()->json(['message' => 'Updated successfully']);
     }
+
+    public function forgotAdminCredential(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'currentPassword' => 'required|string',
+            'newPassword' => 'required|string|min:8',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $email = $request->email;
+        $currentPassword = $request->currentPassword;
+        $newPassword = $request->newPassword;
+
+        // Pull from .env via config
+        $superAdminEmail = config('admin.superadmin_email', '');
+
+        // If the email matches the .env superadmin, deny change
+        if (!empty($superAdminEmail) && $email === $superAdminEmail) {
+            return response()->json([
+                'message' => 'Super admin password cannot be changed via this route.'
+            ], 403);
+        }
+
+        // Look for normal admin in DB
+        $user = Admin::where('email', $email)->first();
+
+        if (!$user || !Hash::check($currentPassword, $user->password)) {
+            return response()->json([
+                'message' => 'Invalid email or current password'
+            ], 401);
+        }
+
+        $user->password = Hash::make($newPassword);
+        $user->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Password updated successfully.'
+        ]);
+    }
+
+
 
 
 }

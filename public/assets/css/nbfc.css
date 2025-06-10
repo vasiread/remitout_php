@@ -2953,9 +2953,7 @@ body {
         height: auto;
     }
 
-    .messages-wrapper {
-        margin-left: 40px;
-    }
+   
 }
 
 @media (max-width: 380px) {

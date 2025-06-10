@@ -556,7 +556,7 @@
                       <div class="document-row" id="document-row-1">
                         <!-- PAN Card -->
                         <div class="document-box">
-                          <div class="document-name" id="pan-card-document-name" >
+                          <div class="document-name" id="pan-card-document-name">
                             PAN Card
                           </div>
                           <div class="upload-field">
@@ -587,7 +587,7 @@
 
                         <!-- Aadhar Card -->
                         <div class="document-box">
-                          <div class="document-name" id="aadhar-card-document-name" >
+                          <div class="document-name" id="aadhar-card-document-name">
                             Aadhar Card
                           </div>
                           <div class="upload-field">
@@ -618,7 +618,7 @@
                         </div>
                         <!-- Passport -->
                         <div class="document-box">
-                          <div class="document-name" id="passport-document-name" >
+                          <div class="document-name" id="passport-document-name">
                             Passport
                           </div>
                           <div class="upload-field">
@@ -675,7 +675,7 @@
                       <div class="document-row" id="academic-row-1">
                         <!-- 10th Grade Mark Sheet -->
                         <div class="document-box">
-                          <div class="document-name" id="10th-mark-sheet-id" >
+                          <div class="document-name" id="10th-mark-sheet-id">
                             10th Mark Sheet
                           </div>
                           <div class="upload-field">
@@ -1426,7 +1426,7 @@
       fetchAdditionalPersonalFields();
       fetchAcademics();
       fetchCourseDetailOptions();
- 
+
       const managers = [
         SectionToggler,
         InputFieldManager,
@@ -2449,6 +2449,67 @@
         return this.modified;
       }
     };
+    const sections = [
+        {
+          id: 'add-document-btn-kyc-id',
+          type: 'document',
+          containerId: 'document-fields-container-kyc-id',
+          rowId: 'document-row-1',
+          apiEndpoint: '/getdocumenttypesadminform',
+          namePrefix: 'student_kyc',
+          slug: 'kyc',
+        },
+        {
+          id: 'add-academic-btn-id',
+          type: 'academic',
+          containerId: 'academic-fields-container-id',
+          rowId: 'academic-row-1',
+          apiEndpoint: '/getacademicdocuments',
+          namePrefix: 'academic_marks',
+          slug: 'academic'
+        },
+        {
+          id: 'add-secured-btn-id',
+          type: 'secured',
+          containerId: 'secured-fields-container-id',
+          rowId: 'secured-row-1',
+          apiEndpoint: '/getsecuredmarksdocuments',
+          namePrefix: 'secured_marks',
+          slug: 'secured'
+        },
+        {
+          id: 'add-work-experience-btn-id',
+          type: 'workExperience',
+          containerId: 'work-experience-container-id',
+          rowId: 'work-experience-row-1',
+          apiEndpoint: '/getworkexperiencedocuments',
+          namePrefix: 'work_experience',
+          slug: 'experience'
+        },
+        {
+          id: 'add-co-borrower-btn-id',
+          type: 'coBorrower',
+          containerId: 'co-borrower-fields-container',
+          rowId: 'co-borrower-row-1',
+          apiEndpoint: '/getcoborrowerdocuments',
+          namePrefix: 'co_borrower_kyc',
+          slug: 'co-borrower'
+        },
+        {
+          id: 'add-salaried-business-btn-id',
+          type: 'salariedBusiness',
+          containerId: 'salaried-business-fields-container',
+          rowId: 'salaried-row-1',
+          apiEndpoint: '/getsalariedbusinessdocuments',
+          namePrefix: 'salaried_business',
+          subSections: ['salaried', 'business'],
+          slug: 'businessdocuments'
+        }
+      ];
+
+      // Initialize all sections
+      sections.forEach(initializeDocumentSection);
+
 
     const DocumentFieldManager = {
       section: 'Document Upload',
@@ -2470,7 +2531,8 @@
             containerId: 'document-fields-container-kyc-id',
             rowId: 'document-row-1',
             apiEndpoint: '/getdocumenttypesadminform',
-            namePrefix: 'student_kyc'
+            namePrefix: 'student_kyc',
+            slug:'kyc',
           },
           {
             id: 'add-academic-btn-id',
@@ -2478,7 +2540,9 @@
             containerId: 'academic-fields-container-id',
             rowId: 'academic-row-1',
             apiEndpoint: '/getacademicdocuments',
-            namePrefix: 'academic_marks'
+            namePrefix: 'academic_marks',
+            slug:'academic'
+
           },
           {
             id: 'add-secured-btn-id',
@@ -2486,7 +2550,9 @@
             containerId: 'secured-fields-container-id',
             rowId: 'secured-row-1',
             apiEndpoint: '/getsecuredmarksdocuments',
-            namePrefix: 'secured_marks'
+            namePrefix: 'secured_marks',
+            slug:'secured'
+
           },
           {
             id: 'add-work-experience-btn-id',
@@ -2494,7 +2560,9 @@
             containerId: 'work-experience-container-id',
             rowId: 'work-experience-row-1',
             apiEndpoint: '/getworkexperiencedocuments',
-            namePrefix: 'work_experience'
+            namePrefix: 'work_experience',
+            slug:'experience'
+
           },
           {
             id: 'add-co-borrower-btn-id',
@@ -2502,7 +2570,9 @@
             containerId: 'co-borrower-fields-container',
             rowId: 'co-borrower-row-1',
             apiEndpoint: '/getcoborrowerdocuments',
-            namePrefix: 'co_borrower_kyc'
+            namePrefix: 'co_borrower_kyc',
+            slug:'co-borrower'
+            
           },
           {
             id: 'add-salaried-business-btn-id',
@@ -2511,11 +2581,13 @@
             rowId: 'salaried-row-1',
             apiEndpoint: '/getsalariedbusinessdocuments',
             namePrefix: 'salaried_business',
-            subSections: ['salaried', 'business']
+            subSections: ['salaried', 'business'],
+            slug:'businessdocuments'
+            
           }
         ];
 
-        buttons.forEach(({ id, type, containerId, rowId, apiEndpoint, namePrefix, subSections }) => {
+        buttons.forEach(({ id, type, containerId, rowId, apiEndpoint, namePrefix, subSections,slug }) => {
           const button = document.getElementById(id);
           if (button) {
             button.addEventListener('click', (e) => {
@@ -2530,7 +2602,7 @@
                 }
               }
               if (fieldType) {
-                this.addNewDocumentField(fieldType, type, containerId, rowId, apiEndpoint, namePrefix, subSection);
+                this.addNewDocumentField(fieldType, type, containerId, rowId, apiEndpoint, namePrefix, subSection,slug);
                 this.modified = true;
                 // Assuming FormSubmissionManager exists
                 if (typeof FormSubmissionManager !== 'undefined') {
@@ -2646,7 +2718,16 @@
           .catch(err => console.error(`Error fetching dynamic documents for ${type}:`, err));
       },
 
-      addNewDocumentField(fieldType, type, containerId, rowId, apiEndpoint, namePrefix, subSection = '') {
+      addNewDocumentField(fieldType, type, containerId, rowId, apiEndpoint, namePrefix, subSection = '',slug) {
+        // alert(fieldType);
+        // alert(type);
+        // alert(containerId);
+        // alert(rowId);
+        // alert(apiEndpoint);
+        // alert(namePrefix);
+        // alert(subSection);
+        // alert(slug)
+
         fetch('/kycdynamicpost', {
           method: 'POST',
           headers: {
@@ -2654,7 +2735,7 @@
             'Accept': 'application/json',
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
           },
-          body: JSON.stringify({ name: fieldType, type, subSection })
+          body: JSON.stringify({ name: fieldType, slug })
         })
           .then(response => {
             if (response.ok) return response.json();
@@ -2670,6 +2751,7 @@
       },
 
       createDocumentBox(doc, isDynamic, namePrefix, type) {
+
         const key = (doc.key || doc.name.toLowerCase().replace(/[^a-z0-9-_]/g, '-')).trim();
         const displayName = doc.name;
         const subSection = doc.subSection || '';
@@ -3346,7 +3428,7 @@
         .then(res => res.json())
         .then(data => {
           const staticKeys = staticDocs.map(d => d.key);
-          
+
 
           deleteInitialization();
         })
@@ -3354,8 +3436,10 @@
 
       // --- Document Box Template ---
       function createDocumentBox(doc, isDynamic) {
+
         const key = doc.key;
         const displayName = doc.name;
+
 
         const uploadIconHTML = isDynamic
           ? `<p class="kyc-delete-dynamic-content" data-id="${doc.id}" data-target="${key}" style="cursor: pointer; color: grey; font-size: 14px; margin: 0;">x</p>`
@@ -3423,11 +3507,11 @@
     }
 
     function fetchAdditionalPersonalFields() {
-  const existingStyle = document.getElementById("personal-inline-style");
-  if (!existingStyle) {
-    const style = document.createElement("style");
-    style.id = "personal-inline-style";
-    style.innerHTML = `
+      const existingStyle = document.getElementById("personal-inline-style");
+      if (!existingStyle) {
+        const style = document.createElement("style");
+        style.id = "personal-inline-style";
+        style.innerHTML = `
       #personal-fields-container {
         padding: 20px;
         border-top: 1px solid #e0e0e0;
@@ -3483,88 +3567,88 @@
         cursor: pointer;
       }
     `;
-    document.head.appendChild(style);
-  }
+        document.head.appendChild(style);
+      }
 
-  fetch('/additionalpersonalinfodata')
-    .then(response => response.json())
-    .then(data => {
-      if (data && data.additionalFields) {
-        const container = document.getElementById("personal-fields-container");
-        container.innerHTML = "";  
+      fetch('/additionalpersonalinfodata')
+        .then(response => response.json())
+        .then(data => {
+          if (data && data.additionalFields) {
+            const container = document.getElementById("personal-fields-container");
+            container.innerHTML = "";
 
-        data.additionalFields.forEach((field, index) => {
-          const fieldWrapper = document.createElement("div");
-          fieldWrapper.className = "personal-field";
-          fieldWrapper.dataset.id = field.id;
+            data.additionalFields.forEach((field, index) => {
+              const fieldWrapper = document.createElement("div");
+              fieldWrapper.className = "personal-field";
+              fieldWrapper.dataset.id = field.id;
 
-          const labelElement = document.createElement("label");
-          labelElement.textContent = field.label || "Field";
-          fieldWrapper.appendChild(labelElement);
+              const labelElement = document.createElement("label");
+              labelElement.textContent = field.label || "Field";
+              fieldWrapper.appendChild(labelElement);
 
-          let inputHTML = "";
-          const fieldName = `personal-info[extra][${index}][${field.name}]`;
+              let inputHTML = "";
+              const fieldName = `personal-info[extra][${index}][${field.name}]`;
 
-          if (field.type === "text") {
-            inputHTML = `<input type="text" name="${fieldName}" placeholder="${field.label}">`;
-          } else if (field.type === "select" && Array.isArray(field.options)) {
-            const options = field.options.map(opt => `<option value="${opt}">${opt}</option>`).join("");
-            inputHTML = `<select name="${fieldName}">${options}</select>`;
-          } else if (field.type === "radio" && Array.isArray(field.options)) {
-            inputHTML = field.options.map(opt => `
+              if (field.type === "text") {
+                inputHTML = `<input type="text" name="${fieldName}" placeholder="${field.label}">`;
+              } else if (field.type === "select" && Array.isArray(field.options)) {
+                const options = field.options.map(opt => `<option value="${opt}">${opt}</option>`).join("");
+                inputHTML = `<select name="${fieldName}">${options}</select>`;
+              } else if (field.type === "radio" && Array.isArray(field.options)) {
+                inputHTML = field.options.map(opt => `
               <label style="margin-right:10px">
                 <input type="radio" name="${fieldName}" value="${opt}"> ${opt}
               </label>
             `).join("");
-          } else if (field.type === "checkbox" && Array.isArray(field.options)) {
-            inputHTML = field.options.map(opt => `
+              } else if (field.type === "checkbox" && Array.isArray(field.options)) {
+                inputHTML = field.options.map(opt => `
               <label style="margin-right:10px">
                 <input type="checkbox" name="${fieldName}[]" value="${opt}"> ${opt}
               </label>
             `).join("");
-          }
+              }
 
-          fieldWrapper.innerHTML += inputHTML;
+              fieldWrapper.innerHTML += inputHTML;
 
-          const deleteBtn = document.createElement("button");
-          deleteBtn.type = "button";
-          deleteBtn.className = "remove-field-btn";
-          deleteBtn.textContent = "✕";
-          deleteBtn.title = "Delete this field";
+              const deleteBtn = document.createElement("button");
+              deleteBtn.type = "button";
+              deleteBtn.className = "remove-field-btn";
+              deleteBtn.textContent = "✕";
+              deleteBtn.title = "Delete this field";
 
-          deleteBtn.addEventListener("click", () => {
-            const id = fieldWrapper.dataset.id;
-            if (id && confirm("Are you sure you want to delete this field?")) {
-              fetch(`/additionalfields/${id}`, {
-                method: "DELETE",
-                headers: {
-                  "Content-Type": "application/json",
-                  "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+              deleteBtn.addEventListener("click", () => {
+                const id = fieldWrapper.dataset.id;
+                if (id && confirm("Are you sure you want to delete this field?")) {
+                  fetch(`/additionalfields/${id}`, {
+                    method: "DELETE",
+                    headers: {
+                      "Content-Type": "application/json",
+                      "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                    }
+                  })
+                    .then(res => res.json())
+                    .then(response => {
+                      if (response.success) {
+                        fieldWrapper.remove();
+                      } else {
+                        alert("Failed to delete the field.");
+                      }
+                    })
+                    .catch(err => {
+                      console.error("Error deleting field:", err);
+                    });
                 }
-              })
-                .then(res => res.json())
-                .then(response => {
-                  if (response.success) {
-                    fieldWrapper.remove();
-                  } else {
-                    alert("Failed to delete the field.");
-                  }
-                })
-                .catch(err => {
-                  console.error("Error deleting field:", err);
-                });
-            }
-          });
+              });
 
-          fieldWrapper.appendChild(deleteBtn);
-          container.appendChild(fieldWrapper);
+              fieldWrapper.appendChild(deleteBtn);
+              container.appendChild(fieldWrapper);
+            });
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching personal fields:', error);
         });
-      }
-    })
-    .catch(error => {
-      console.error('Error fetching personal fields:', error);
-    });
-}
+    }
 
 
     function fetchAcademics() {
@@ -3823,7 +3907,7 @@
     }
 
 
-     
+
 
 
   </script>

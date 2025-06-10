@@ -2524,7 +2524,7 @@ $counter = 1;
                     });
                 }
 
-              if (viewButton) {
+                if (viewButton) {
                     viewButton.addEventListener('click', () => {
                         const user = @json(session('nbfcuser'));
                         const nbfc_id = user?.nbfc_id;
@@ -2942,7 +2942,7 @@ $counter = 1;
                         })
                     });
 
-                   if (res.ok) {
+                    if (res.ok) {
                         input.value = '';
 
                         const msgWrapper = document.createElement('div');
@@ -3220,7 +3220,7 @@ $counter = 1;
                 await retreiveUserDetails(userId);
                 await initialiseAllViews(userId);
                 await initialiseProfileView(userId);
-                // await downloadDocuments(userId);
+                await downloadDocuments(userId);
 
 
                 console.log("Profile loaded for user:", userId);
@@ -5033,50 +5033,79 @@ $counter = 1;
             }
         }
 
-        function downloadDocuments(userId) {
-            console.log(userId)
-            const downloadTrigger = document.querySelector(".myapplication-seventhcolumn-headernbfc #downloaddocuments");
+    function downloadDocuments(userId) {
+            console.log("Downloading documents for user:", userId);
 
             if (!userId) {
                 console.error("User ID is required to download documents.");
                 return;
             }
 
-            if (downloadTrigger) {
-                downloadTrigger.addEventListener('click', () => {
-                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const downloadTrigger = document.querySelector(".myapplication-seventhcolumn-headernbfc #downloaddocuments");
 
-                    fetch('/downloadzip', {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': csrfToken,
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ userId: userId }),
-                    })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error("Network response was not ok");
-                            }
-                            return response.blob(); // get zip file as binary blob
-                        })
-                        .then(blob => {
-                            const url = window.URL.createObjectURL(blob);
-                            const a = document.createElement('a');
-                            a.href = url;
-                            a.download = `user_files_${userId}.zip`;
-                            document.body.appendChild(a);
-                            a.click();
-                            a.remove();
-                            window.URL.revokeObjectURL(url);
-                        })
-                        .catch(error => {
-                            console.error("Error downloading documents:", error);
-                            alert("Download failed. Please try again.");
-                        });
-                });
+            if (!downloadTrigger) {
+                console.error("Download button not found.");
+                return;
             }
+
+            // Avoid multiple event bindings
+            downloadTrigger.addEventListener('click', function handleDownloadClick(e) {
+                e.preventDefault();
+
+                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+                if (!csrfToken) {
+                    console.error("CSRF token not found.");
+                    return;
+                }
+
+                // ✅ Show loader before starting request
+                Loader.show();
+
+                fetch('/downloadzip', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ userId: userId }),
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            if (response.status === 404) {
+                                throw new Error("NO_FILES");
+                            } else {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                        }
+                        return response.blob();
+                    })
+                    .then(blob => {
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `user_files_${userId}.zip`;
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+                        window.URL.revokeObjectURL(url);
+                    })
+                    .catch(error => {
+                        console.error("Error downloading documents:", error);
+
+                        if (error.message === "NO_FILES") {
+                            alert("No documents uploaded for this user yet.");
+                        } else {
+                            alert("Download failed. Please try again.");
+                        }
+                    })
+                    .finally(() => {
+                        Loader.hide();
+                    });
+
+            });
         }
+
+
 
 
         const reviwedUsers = (userId) => {
