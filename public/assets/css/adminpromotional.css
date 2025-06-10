@@ -748,11 +748,7 @@
     }
 }
 
-@media only screen and (max-width: 380px) {
-    .promotional-link-container {
-        width: 310px;
-    }
-}
+
 .promotional_email_composer-icon{
     display:flex;
     width:230px;
