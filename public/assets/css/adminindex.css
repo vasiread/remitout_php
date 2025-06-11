@@ -828,16 +828,8 @@ body {
 }
 
 @media screen and (max-width: 768px) {
-<<<<<<< b13e8b96d9b0862ab1fff1dd3391cab58b005cf5
-    .admin-student-loanproposals{
-        border-radius: 0px 0px 8px 8px;
-    }
-    #admin-student-inbox-container{
-        width:100%;
-=======
     #admin-student-inbox-container {
         width: 100%;
->>>>>>> changes recents tuesday
         border-radius: 8px;
     }
 
@@ -1056,7 +1048,6 @@ body {
         width: 20px;
         height: 20px;
     }
-<<<<<<< b13e8b96d9b0862ab1fff1dd3391cab58b005cf5
         .dashboard-section-index,
         .dashboard-section-title {
             display: none;
@@ -1073,7 +1064,6 @@ body {
            
         }
     }
-=======
 
     .dashboard-section-index,
     .dashboard-section-title {
@@ -1091,5 +1081,5 @@ body {
         border-radius: 4px;
 
     }
-}
->>>>>>> changes recents tuesday
+
+

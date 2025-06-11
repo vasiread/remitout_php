@@ -181,8 +181,12 @@
         flex-direction: column;
         gap: 0px;
         display: block;
+        pointer-events: auto;
+        opacity: 1;
+        z-index: 10;
+        position: relative;
     }
-
+   
     .two-bar {
         display: block;
         width: 24px;
@@ -428,7 +432,7 @@
 
 .admin-dashboard-divider {
     height: 1px;
-    background-color: #e5e7eb;
+    background-color: #FA7B15;
     margin: 20px 0;
 }
 
@@ -461,6 +465,7 @@
     max-height: 500px;
     transition: max-height 0.5s ease-in;
 }
+
 
 @media (max-width: 767px) {
     .admindashboardcontainer-secondsection-mobile {
@@ -650,9 +655,11 @@
 
 .admindashboard-secondpart,
 .admindashboard-thirdpart {
+    display: flex;
     flex: 1;
     width: 100%;
     flex-direction: column;
+    gap: 12px; 
 }
 
 .reports-registeration-sectionone {
@@ -679,7 +686,7 @@
     flex-direction: column;
     width: fit-content;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 328px;
+    width: 100%;
     border-radius: 8px;
 }
 
@@ -785,15 +792,15 @@ canvas {
 .admindashboard-secondpart {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
     width: 100%;
     max-width: 340px;
 }
 
 .admindashboard-second-main-container {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
     max-width: 340px;
 }
 
@@ -1138,7 +1145,7 @@ canvas {
     .admindashboard-secondpart,
     .admindashboard-thirdpart {
         width: 100%;
-        max-width: 380px;
+        max-width: 100%;
         margin: 0 auto;
     }
 
@@ -1153,6 +1160,7 @@ canvas {
         width: 100%;
         max-width: 90%;
         margin: 0 auto;
+        margin-bottom: 8px;
     }
 
     .totalundergrads-admin {
@@ -1182,6 +1190,7 @@ canvas {
         width: 100%;
         max-width: 90%;
         margin: 0 auto;
+        height:auto;
     }
 
     .admindashboard-thirdpart {
