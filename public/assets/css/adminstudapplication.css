@@ -146,12 +146,6 @@
     margin-bottom: 0px;
 }
 
-.admin-student-form-question-course.active,
-.admin-student-form-question.active {
-    border: 1px solid #ccc;
-    margin-bottom: 40px;
-    transition: border 0.3s ease;
-}
 
 .admin-student-form-question-course.active,
 .admin-student-form-question-course-degree.active,
@@ -1163,6 +1157,7 @@ textarea::placeholder {
     .admin-student-form-question-course-degree,
     .admin-student-form-question-month {
         padding: 0px;
+        border:none !important;
     }
 
     .admin-studnet-application-main-container {
@@ -1269,7 +1264,7 @@ textarea::placeholder {
         width: 268px;
     }
     .education-container {
-        border: none;
+        border: none !important;
         border-radius: 4px;
         padding: 0px;
         background-color: #fff;
@@ -1601,5 +1596,13 @@ textarea::placeholder {
         margin-right: 70px;
         margin-top: 20px;
       }
+      @media only screen and (max-width: 768px) {
+        .document-container-admin {
+            grid-template-columns: 1fr;
+        }
+        #work-experience-row-1{
+            grid-template-columns: 1fr;
+        }
+    }
       
    
