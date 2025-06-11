@@ -286,6 +286,7 @@
         margin-left: auto; 
         margin-top: auto; 
         padding: 20px 15px !important;
+        display:none;
     }
     
     .admindashboardsecondsection-buttongroups button {
@@ -558,13 +559,11 @@
 
     .admin-dashboard-search-filter-container {
         flex-wrap: wrap;
-        width:85%;
+        width:100%;
         gap:5px;
     }
     .calendar-wrapper {
-        margin-left: auto;
-        top: 30px;
-        right: -120px;
+      display:none;
     }
 
     .admin-dashboard-header {
@@ -577,6 +576,7 @@
 
     .admin-dashboard-calendar-button {
         padding: 12px;
+        display:none;
     }
 
     .admin-dashboard-filter-button {
@@ -591,12 +591,7 @@
         display: block;
     }
 }
-@media (max-width: 360px) {
-    .calendar-wrapper {
-        right: -110px;
-        position: absolute;
-    }
-}
+
 #showall-buttongroups {
     width: 242px;
     padding: 8px 16px;
