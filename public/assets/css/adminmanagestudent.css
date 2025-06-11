@@ -358,10 +358,7 @@
 @media screen and (max-width: 768px) {
     .manage-student-main-report-container {
         width: 100%;
-        max-width: 380px;
-        margin: 0 auto;
-        position: relative;
-        top: 100px;
+        max-width: 100%;
         right: auto;
         left: auto;
         padding: 10px;
@@ -379,7 +376,6 @@
     .manage-student-report-container {
         padding: 10px;
         width: 100%;
-        max-width: 380px;
         margin: 0 auto;
     }
 

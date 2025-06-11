@@ -3,6 +3,10 @@
   width: 100%;
   max-width: 100%;
   background-color: #FDFDFD;
+  overflow-x: hidden;
+}
+body {
+  overflow-x: hidden;
 }
 
 .admin-nav {
