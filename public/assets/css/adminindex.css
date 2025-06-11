@@ -148,8 +148,11 @@ body {
 }
 
 @media screen and (max-width: 768px) {
+        #index-section-admin-id{
+        margin-top: 70px;
+    }
     .admin-index-section-main-container {
-        max-width: 380px;
+        width: 95%;
         margin: 0 auto;
         padding: 0;
     }
@@ -849,15 +852,10 @@ body {
         align-items: center;
 
     }
-
-    .admin-index-heading-index p {
-        color: rgba(144, 144, 144, 1);
+    .admin-index-heading-index p{
+        color:rgba(144, 144, 144, 1);
         font-weight: 600;
-
         font-size: 14px;
-
-
-
 
     }
 

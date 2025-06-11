@@ -50,8 +50,8 @@
                 <h2>NBFCs List</h2>
             </div>
             <div class="headersection-rightsidecontent">
-                <div class="searchcontainer-rightsidecontent" id="search-student-list-container">
-                    <input type="text" id="search-student-list" placeholder="Search">
+                <div class="searchcontainer-rightsidecontent" id="search-student-list-container-nbfc">
+                    <input type="text" id="search-student-list-nbfc" placeholder="Search">
                     <i class="fa-solid fa-search"></i>
                 </div>
 

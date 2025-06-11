@@ -1161,11 +1161,12 @@ textarea::placeholder {
     }
 
     .admin-studnet-application-main-container {
-        width: 100%;
-        padding: 15px;
+        width: 95%;
+        padding: 10px;
         left: 0;
         right: 0;
         position: relative;
+        margin: 50px auto;
     }
     .nbfc-studentdashboardprofile-profile-section-container,
     .admin-student-question-title-course,

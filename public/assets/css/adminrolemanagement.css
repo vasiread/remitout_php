@@ -131,13 +131,14 @@
 .role-management-name:not([disabled]) {
     color: #6f25ce;
     border-color: #6f25ce;
+    width:90%;
 }
 
 .role-management-email:not([disabled]),
 .role-management-select:not([disabled]) {
     color: #6f25ce;
     border-color: #6f25ce;
-    width: 190px;
+    width: 90%;
 }
 
 .role-management-name:disabled,
@@ -214,7 +215,7 @@
 .role-management-mobile-heading {
     display: flex;
     justify-content: space-between;
-    width:340px;
+    width:100%;
 }
 .role-management-mobile-add-btn {
     padding: 5px 15px;
@@ -238,8 +239,8 @@
         padding: 15px;
         margin: 0 auto;
         width: 90%;
-        max-width: 500px;
-        top: 100px;
+        max-width: 100%;
+        top: 70px;
     }
 
     .role-management-header {
@@ -299,7 +300,6 @@
     }
 
     .role-management-actions {
-        position: absolute;
         top: 15px;
         right: 0;
     }
@@ -324,6 +324,6 @@
       display: none !important;
     }
     .role-management-controls{
-      width:340px;
+      width:100%;
     }
 }

@@ -21,6 +21,7 @@
 
 
     <div class="admindashboard-container">
+     <div class="mobile-main-container">
         <!-- Header section -->
         <div class="admindashboardcontainer-firstsection">
             <h1>Hi, Admin name</h1>
@@ -103,8 +104,6 @@
                     </div>
                 </div>
 
-
-
                 <div class="postgrad-buttongroups" id="postgrad-reports" style="display: none;">
                     <div id="postgrad-buttongroups-insideshow-id">
                         Graduate <i class="fa-solid fa-chevron-down"></i>
@@ -118,8 +117,9 @@
 
 
                 <div class="calendar-wrapper">
-                    <button id="calender-buttongroups" style="display:none"> Calendar <img
-                            src="assets/images/Icons/calendar_month.png" alt=""></button>
+                    <button id="calender-buttongroups"> 
+                    <span>Calendar</span>
+                    <img src="assets/images/Icons/calendar_month.png" alt=""></button>
                     <button id="download-buttongroups">Download Report</button>
 
                     <div class="calendar-container" style="display:none">
@@ -210,10 +210,6 @@
                     Filters
                     <img src="assets/images/filter-icon.png" alt="Admin filter icon" />
                 </button>
-
-                <button class="admin-dashboard-calendar-button" id="calendarButton">
-                    <i class="far fa-calendar"></i>
-                </button>
             </div>
 
             <div class="admin-dashboard-showing-panels" id="showPanelsArea">
@@ -297,7 +293,7 @@
                 </div>
             </div>
         </div>
-
+     </div>
 
         <div class="admindashboardcontainer-thirdsection">
             <div class="admindashboard-firstpart">
@@ -603,10 +599,6 @@
                 </div>
 
 
-
-
-
-
                 <div class="admindashboardcontainer-sixth-section">
                     <div class="sc-lead-container" data-report="sc-generation-leads-approved">
                         <div class="sc-lead-header">
@@ -687,13 +679,6 @@
 
             </div>
 
-
-
-
-
-
-
-
         </div>
 
     </div>
@@ -751,13 +736,11 @@
                 drawNBFCChart();
 
                 const datePicker = document.getElementById('date-picker-linegraph');
-                const selectedDateText = document.getElementById('selected-date'); // optional UI
+                const selectedDateText = document.getElementById('selected-date'); 
 
-                // ✅ Step 1: Initial API hit WITHOUT month/year (overall data)
                 initializeRegistrationLineGraph(); // No arguments = default/overall
 
-                // ✅ Step 2: Listen for user input
-               if (datePicker) {
+                if (datePicker) {
                     datePicker.addEventListener('change', function () {
                         const [year, month] = this.value.split('-');
                         const button = document.getElementById('calendar-trigger-button');
@@ -1790,14 +1773,12 @@
 
             initializeLeadChart(isConverted);
 
-
         });
 
         // Optional: reset to default on focus
         scDropdown.addEventListener('focus', function () {
             this.selectedIndex = 0;
         });
-
 
 
         const initializeLeadSuccessChart = () => {
@@ -2369,30 +2350,47 @@
         };
 
 
-
-        // Mobile Menu Modal
         const initializeMobileMenu = () => {
             const mobileModal = $('#mobile-admin-dashboard-modal');
             const mobileMenuBtn = $('#mobile-admin-dashboard-menu-btn');
             const closeModalBtn = $('#mobile-admin-dashboard-close-modal-btn');
             const manageStudentBtn = $('#manage-student-admindashboard-mobile');
+            const referralLinkBtnMob = $('#referral-link-admindashboard-mobile');
+            const manageStudentDesktopBtn = $('#manage-student-admindashboard');
+            const referralLinkDesktopBtn = $('#referral-link-admindashboard');
+            const backdrop = $('#backdrop');
+            const modalContent = $('.mobile-admin-dashboard-modal-content', mobileModal);
 
-            if (!mobileModal || !mobileMenuBtn || !closeModalBtn) {
+            // Validate elements
+            if (!mobileModal || !mobileMenuBtn || !closeModalBtn || !backdrop || !manageStudentBtn || !referralLinkBtnMob || !manageStudentDesktopBtn || !referralLinkDesktopBtn || !modalContent) {
                 return console.error('Mobile menu elements missing');
             }
 
             const openModal = e => {
                 e.stopPropagation();
                 mobileModal.style.display = 'flex';
+                modalContent.style.display = 'block'; // Ensure content is visible
+                modalContent.style.visibility = 'visible';
+                backdrop.classList.add('active'); // Show backdrop
             };
 
             const closeModal = e => {
                 if (e) e.stopPropagation();
                 mobileModal.style.display = 'none';
+                modalContent.style.display = 'none'; // Hide content explicitly
+                backdrop.classList.remove('active'); // Hide backdrop
             };
 
+            // Toggle the modal on hamburger menu click
             mobileMenuBtn.removeEventListener('click', openModal);
-            mobileMenuBtn.addEventListener('click', openModal);
+            mobileMenuBtn.addEventListener('click', e => {
+                e.stopPropagation();
+                if (mobileModal.style.display === 'flex') {
+                    closeModal(e);
+                } else {
+                    openModal(e);
+                }
+            });
 
             closeModalBtn.removeEventListener('click', closeModal);
             closeModalBtn.addEventListener('click', closeModal);
@@ -2401,220 +2399,224 @@
                 if (e.target === mobileModal) closeModal(e);
             });
 
-            manageStudentBtn?.addEventListener('click', e => {
-                e.stopPropagation();
-                // console.log('Manage Students clicked');
+            backdrop.addEventListener('click', e => {
                 closeModal(e);
+                const referralModal = $('#referralModal');
+                if (referralModal && !referralModal.classList.contains('hidden')) {
+                    referralModal.classList.add('hidden');
+                    backdrop.classList.remove('active');
+                }
+            });
+
+            // Trigger desktop button clicks from mobile buttons
+            manageStudentBtn.addEventListener('click', e => {
+                e.stopPropagation();
+                closeModal(e);
+                manageStudentDesktopBtn.click();
+            });
+
+            referralLinkBtnMob.addEventListener('click', e => {
+                e.stopPropagation();
+                closeModal(e);
+                referralLinkDesktopBtn.click();
             });
         };
-const initializeFilterPanel = () => {
-    // Ensure mobile view
-    const isMobileView = document.querySelector('.admindashboardcontainer-secondsection-mobile');
-    if (!isMobileView) {
-        console.log('Not in mobile view, skipping filter panel initialization.');
-        return;
-    }
 
-    console.log('Initializing filter panel for mobile view.');
 
-    // DOM elements
-    const filterButton = $('#filterButton');
-    const filterPanel = $('#filterPanel');
-    const closeFilterBtn = $('#closeFilterBtn');
-    const showAllBtn = $('#showAllBtn');
-    const collapsedTags = $('#collapsedTags');
-    const topTagsContainer = $('.admin-dashboard-filter-panel > .admin-dashboard-filter-container > .admin-dashboard-filter-tags');
-    const bottomTagsContainer = $('#collapsedTags .admin-dashboard-filter-tags');
-    const panelsToggle = $('#panelsToggle');
-    const panelsIconButton = $('#panelsIcon');
+        const initializeFilterPanel = () => {
+            // Ensure mobile view
+            const isMobileView = document.querySelector('.admindashboardcontainer-secondsection-mobile');
+            if (!isMobileView) {
+                console.log('Not in mobile view, skipping filter panel initialization.');
+                return;
+            }
 
-    // Validate elements
-    if (!filterButton || !filterPanel || !closeFilterBtn || !showAllBtn || !collapsedTags || !topTagsContainer || !bottomTagsContainer || !panelsToggle || !panelsIconButton) {
-        console.error('One or more critical filter panel elements are missing. Aborting initialization.');
-        return;
-    }
+            console.log('Initializing filter panel for mobile view.');
 
-    // All possible tags
-    const allTags = [
-        { id: 'admin-dashboard-filter-tag-registration', text: 'Registration Reports', report: 'registration-reports' },
-        { id: '', text: 'No of grads', report: 'no-of-grads' },
-        { id: 'admin-dashboard-filter-tag-source', text: 'Registration Source', report: 'registration-source' },
-        { id: '', text: 'Age ratio Reports', report: 'age-ratio-reports' },
-        { id: 'admin-dashboard-filter-tag-funnel', text: 'Funnel Reports', report: 'funnel-reports' },
-        { id: '', text: 'Destination countries', report: 'destination-countries' },
-        { id: 'admin-dashboard-filter-tag-city', text: 'Cities', report: 'cities' },
-        { id: 'admin-dashboard-filter-tag-nbfc-lead', text: 'NBFC: Generation Leads', report: 'nbfc-generation-leads' },
-        { id: '', text: 'Point of entry', report: 'point-of-entry' },
-        { id: 'admin-dashboard-filter-tag-sc-lead', text: 'SC: Generation Leads', report: 'sc-generation-leads' },
-        { id: 'admin-dashboard-filter-tag-sc-lead-approved', text: 'SC: Approved Profiles', report: 'sc-generation-leads-approved' },
-        { id: 'admin-dashboard-filter-tag-semrush', text: 'Sem Rush', report: 'sem-rush' }
-    ];
+            const filterButton = $('#filterButton');
+            const filterPanel = $('#filterPanel');
+            const closeFilterBtn = $('#closeFilterBtn');
+            const showAllBtn = $('#showAllBtn');
+            const collapsedTags = $('#collapsedTags');
+            const topTagsContainer = $('.admin-dashboard-filter-panel > .admin-dashboard-filter-container > .admin-dashboard-filter-tags');
+            const bottomTagsContainer = $('#collapsedTags .admin-dashboard-filter-tags');
+            const panelsToggle = $('#panelsToggle');
+            const panelsIconButton = $('#panelsIcon');
 
-    let topTags = [...allTags];
-    let bottomTags = [];
+            if (!filterButton || !filterPanel || !closeFilterBtn || !showAllBtn || !collapsedTags || !topTagsContainer || !bottomTagsContainer || !panelsToggle || !panelsIconButton) {
+                console.error('One or more critical filter panel elements are missing. Aborting initialization.');
+                return;
+            }
 
-    const openFilterPanel = () => {
-        console.log('Opening filter panel');
-        filterPanel.style.display = 'flex';
-        renderTags();
-    };
+            const allTags = [
+                { id: 'admin-dashboard-filter-tag-registration', text: 'Registration Reports', report: 'registration-reports' },
+                { id: '', text: 'No of grads', report: 'no-of-grads' },
+                { id: 'admin-dashboard-filter-tag-source', text: 'Registration Source', report: 'registration-source' },
+                { id: '', text: 'Age ratio Reports', report: 'age-ratio-reports' },
+                { id: 'admin-dashboard-filter-tag-funnel', text: 'Funnel Reports', report: 'funnel-reports' },
+                { id: '', text: 'Destination countries', report: 'destination-countries' },
+                { id: 'admin-dashboard-filter-tag-city', text: 'Cities', report: 'cities' },
+                { id: 'admin-dashboard-filter-tag-nbfc-lead', text: 'NBFC: Generation Leads', report: 'nbfc-generation-leads' },
+                { id: '', text: 'Point of entry', report: 'point-of-entry' },
+                { id: 'admin-dashboard-filter-tag-sc-lead', text: 'SC: Generation Leads', report: 'sc-generation-leads' },
+                { id: 'admin-dashboard-filter-tag-sc-lead-approved', text: 'SC: Approved Profiles', report: 'sc-generation-leads-approved' },
+                { id: 'admin-dashboard-filter-tag-semrush', text: 'Sem Rush', report: 'sem-rush' }
+            ];
 
-    const closeFilterPanel = () => {
-        console.log('Closing filter panel');
-        filterPanel.style.display = 'none';
-    };
+            let topTags = [...allTags];
+            let bottomTags = [];
 
-    const updatePanelCount = () => {
-        panelsToggle.textContent = `${topTags.length} Panels`;
-    };
+            const openFilterPanel = () => {
+                console.log('Opening filter panel');
+                filterPanel.style.display = 'flex';
+                renderTags();
+            };
 
-    const updateVisibleReports = () => {
-        console.log('Updating visible reports based on active tags:', topTags.map(t => t.text));
-        const activeTags = topTags.map(tag => tag.text.toLowerCase());
-        const reportMapping = {
-            'registration reports': 'registration-reports',
-            'no of grads': 'no-of-grads',
-            'registration source': 'registration-source',
-            'age ratio reports': 'age-ratio-reports',
-            'funnel reports': 'funnel-reports',
-            'destination countries': 'destination-countries',
-            'cities': 'cities',
-            'nbfc: generation leads': 'nbfc-generation-leads',
-            'point of entry': 'point-of-entry',
-            'sc: generation leads': 'sc-generation-leads',
-            'sc: approved profiles': 'sc-generation-leads-approved',
-            'sem rush': 'sem-rush'
+            const closeFilterPanel = () => {
+                console.log('Closing filter panel');
+                filterPanel.style.display = 'none';
+            };
+
+            const updatePanelCount = () => {
+                panelsToggle.textContent = `${topTags.length} Panels`;
+            };
+
+            const updateVisibleReports = () => {
+                console.log('Updating visible reports based on active tags:', topTags.map(t => t.text));
+                const activeTags = topTags.map(tag => tag.text.toLowerCase());
+                const reportMapping = {
+                    'registration reports': 'registration-reports',
+                    'no of grads': 'no-of-grads',
+                    'registration source': 'registration-source',
+                    'age ratio reports': 'age-ratio-reports',
+                    'funnel reports': 'funnel-reports',
+                    'destination countries': 'destination-countries',
+                    'cities': 'cities',
+                    'nbfc: generation leads': 'nbfc-generation-leads',
+                    'point of entry': 'point-of-entry',
+                    'sc: generation leads': 'sc-generation-leads',
+                    'sc: approved profiles': 'sc-generation-leads-approved',
+                    'sem rush': 'sem-rush'
+                };
+
+                const reports = document.querySelectorAll('[data-report]');
+                reports.forEach(report => {
+                    const reportId = report.getAttribute('data-report');
+                    const tagText = Object.keys(reportMapping).find(key => reportMapping[key] === reportId);
+                    const shouldShow = tagText && activeTags.includes(tagText.toLowerCase());
+                    console.log(`Report ${reportId}: Tag "${tagText || 'N/A'}" ${shouldShow ? 'shown' : 'hidden'}`);
+                    report.style.display = shouldShow ? 'block' : 'none';
+                });
+            };
+
+            const renderTags = () => {
+                console.log('Rendering tags - Top:', topTags.map(t => t.text), 'Bottom:', bottomTags.map(t => t.text));
+
+                topTagsContainer.innerHTML = '';
+                bottomTagsContainer.innerHTML = '';
+
+                topTags.forEach(tag => {
+                    const tagElement = document.createElement('div');
+                    tagElement.className = 'admin-dashboard-filter-tag';
+                    if (tag.id) tagElement.id = tag.id;
+                    tagElement.innerHTML = `${tag.text} <span class="admin-dashboard-close-tag">×</span>`;
+                    topTagsContainer.appendChild(tagElement);
+                });
+
+                bottomTags.forEach(tag => {
+                    const tagElement = document.createElement('div');
+                    tagElement.className = 'admin-dashboard-filter-tag';
+                    if (tag.id) tagElement.id = tag.id;
+                    tagElement.textContent = tag.text;
+                    tagElement.style.display = 'inline-flex';
+                    tagElement.style.cursor = 'pointer'; // Indicate clickability
+                    bottomTagsContainer.appendChild(tagElement);
+                });
+
+                console.log('Top tags HTML:', topTagsContainer.innerHTML);
+                console.log('Bottom tags HTML:', bottomTagsContainer.innerHTML);
+
+               
+                if (bottomTags.length > 0) {
+                    collapsedTags.classList.add('show');
+                    showAllBtn.innerHTML = 'Show Less <i class="fa-solid fa-chevron-up"></i>';
+                } else {
+                    collapsedTags.classList.remove('show');
+                    showAllBtn.innerHTML = 'Show All <i class="fa-solid fa-chevron-down"></i>';
+                }
+
+                updatePanelCount();
+                updateVisibleReports();
+            };
+
+            filterButton.addEventListener('click', openFilterPanel);
+            panelsIconButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openFilterPanel();
+            });
+
+            closeFilterBtn.addEventListener('click', closeFilterPanel);
+            showAllBtn.addEventListener('click', () => {
+                console.log('Show All/Show Less clicked');
+                if (collapsedTags.classList.contains('show')) {
+                    topTags = [...allTags];
+                    bottomTags = [];
+                }
+                collapsedTags.classList.toggle('show');
+                showAllBtn.innerHTML = collapsedTags.classList.contains('show')
+                    ? 'Show Less <i class="fa-solid fa-chevron-up"></i>'
+                    : 'Show All <i class="fa-solid fa-chevron-down"></i>';
+                renderTags();
+            });
+
+            filterPanel.addEventListener('click', e => {
+                if (!e.target.closest('.admin-dashboard-filter-container')) {
+                    console.log('Clicked outside filter container, closing panel');
+                    closeFilterPanel();
+                }
+            });
+
+            topTagsContainer.addEventListener('click', e => {
+                if (e.target.classList.contains('admin-dashboard-close-tag')) {
+                    e.stopPropagation(); // Prevent closing the filter panel
+                    const tagElement = e.target.closest('.admin-dashboard-filter-tag');
+                    const tagText = tagElement.textContent.replace('×', '').trim();
+                    const tag = topTags.find(t => t.text === tagText);
+                    if (tag) {
+                        console.log(`Removing tag from top: ${tagText}`);
+                        topTags = topTags.filter(t => t.text !== tagText);
+                        bottomTags.push(tag);
+                        console.log(`Moved tag to bottom: ${tagText}`);
+                        renderTags();
+                    } else {
+                        console.warn(`Tag not found in topTags: ${tagText}`);
+                    }
+                }
+            });
+
+            bottomTagsContainer.addEventListener('click', e => {
+                if (e.target.classList.contains('admin-dashboard-filter-tag')) {
+                    e.stopPropagation(); // Prevent closing the filter panel
+                    const tagText = e.target.textContent.trim();
+                    const tag = bottomTags.find(t => t.text === tagText);
+                    if (tag) {
+                        console.log(`Activating tag: ${tagText}`);
+                        bottomTags = bottomTags.filter(t => t.text !== tagText);
+                        topTags.push(tag);
+                        renderTags();
+                    } else {
+                        console.warn(`Tag not found in bottomTags: ${tagText}`);
+                    }
+                }
+            });
+
+            console.log('Rendering initial tags');
+            renderTags();
         };
 
-        const reports = document.querySelectorAll('[data-report]');
-        reports.forEach(report => {
-            const reportId = report.getAttribute('data-report');
-            const tagText = Object.keys(reportMapping).find(key => reportMapping[key] === reportId);
-            const shouldShow = tagText && activeTags.includes(tagText.toLowerCase());
-            console.log(`Report ${reportId}: Tag "${tagText || 'N/A'}" ${shouldShow ? 'shown' : 'hidden'}`);
-            report.style.display = shouldShow ? 'block' : 'none';
-        });
-    };
-
-    const renderTags = () => {
-        console.log('Rendering tags - Top:', topTags.map(t => t.text), 'Bottom:', bottomTags.map(t => t.text));
-
-        // Clear containers
-        topTagsContainer.innerHTML = '';
-        bottomTagsContainer.innerHTML = '';
-
-        // Render top tags (with "X")
-        topTags.forEach(tag => {
-            const tagElement = document.createElement('div');
-            tagElement.className = 'admin-dashboard-filter-tag';
-            if (tag.id) tagElement.id = tag.id;
-            tagElement.innerHTML = `${tag.text} <span class="admin-dashboard-close-tag">×</span>`;
-            topTagsContainer.appendChild(tagElement);
-        });
-
-        // Render bottom tags (without "X")
-        bottomTags.forEach(tag => {
-            const tagElement = document.createElement('div');
-            tagElement.className = 'admin-dashboard-filter-tag';
-            if (tag.id) tagElement.id = tag.id;
-            tagElement.textContent = tag.text;
-            tagElement.style.display = 'inline-flex';
-            tagElement.style.cursor = 'pointer'; // Indicate clickability
-            bottomTagsContainer.appendChild(tagElement);
-        });
-
-        // Log rendered HTML for debugging
-        console.log('Top tags HTML:', topTagsContainer.innerHTML);
-        console.log('Bottom tags HTML:', bottomTagsContainer.innerHTML);
-
-        // Toggle collapsed section visibility
-        if (bottomTags.length > 0) {
-            collapsedTags.classList.add('show');
-            showAllBtn.innerHTML = 'Show Less <i class="fa-solid fa-chevron-up"></i>';
-        } else {
-            collapsedTags.classList.remove('show');
-            showAllBtn.innerHTML = 'Show All <i class="fa-solid fa-chevron-down"></i>';
-        }
-
-        updatePanelCount();
-        updateVisibleReports();
-    };
-
-    // Event listeners
-    filterButton.addEventListener('click', openFilterPanel);
-    panelsIconButton.addEventListener('click', (e) => {
-        e.stopPropagation();
-        openFilterPanel();
-    });
-    closeFilterBtn.addEventListener('click', closeFilterPanel);
-    showAllBtn.addEventListener('click', () => {
-        console.log('Show All/Show Less clicked');
-        if (collapsedTags.classList.contains('show')) {
-            topTags = [...allTags];
-            bottomTags = [];
-        }
-        collapsedTags.classList.toggle('show');
-        showAllBtn.innerHTML = collapsedTags.classList.contains('show')
-            ? 'Show Less <i class="fa-solid fa-chevron-up"></i>'
-            : 'Show All <i class="fa-solid fa-chevron-down"></i>';
-        renderTags();
-    });
-
-    // Prevent filter panel from closing when clicking inside the container
-    filterPanel.addEventListener('click', e => {
-        if (!e.target.closest('.admin-dashboard-filter-container')) {
-            console.log('Clicked outside filter container, closing panel');
-            closeFilterPanel();
-        }
-    });
-
-    // Handle tag removal from top container
-    topTagsContainer.addEventListener('click', e => {
-        if (e.target.classList.contains('admin-dashboard-close-tag')) {
-            e.stopPropagation(); // Prevent closing the filter panel
-            const tagElement = e.target.closest('.admin-dashboard-filter-tag');
-            const tagText = tagElement.textContent.replace('×', '').trim();
-            const tag = topTags.find(t => t.text === tagText);
-            if (tag) {
-                console.log(`Removing tag from top: ${tagText}`);
-                topTags = topTags.filter(t => t.text !== tagText);
-                bottomTags.push(tag);
-                console.log(`Moved tag to bottom: ${tagText}`);
-                renderTags();
-            } else {
-                console.warn(`Tag not found in topTags: ${tagText}`);
-            }
-        }
-    });
-
-    // Handle tag activation from bottom container
-    bottomTagsContainer.addEventListener('click', e => {
-        if (e.target.classList.contains('admin-dashboard-filter-tag')) {
-            e.stopPropagation(); // Prevent closing the filter panel
-            const tagText = e.target.textContent.trim();
-            const tag = bottomTags.find(t => t.text === tagText);
-            if (tag) {
-                console.log(`Activating tag: ${tagText}`);
-                bottomTags = bottomTags.filter(t => t.text !== tagText);
-                topTags.push(tag);
-                renderTags();
-            } else {
-                console.warn(`Tag not found in bottomTags: ${tagText}`);
-            }
-        }
-    });
-
-    // Remove the global document listener for tag removal
-    // The previous global listener is replaced by specific container listeners
-
-    // Initial render
-    console.log('Rendering initial tags');
-    renderTags();
-};
         let ageratioChart;
 
         function loadAgeRatioChart(degreeType = '') {
-            // Map user-friendly labels to backend values
             let mappedDegreeType = degreeType;
 
             if (degreeType === "Post Graduate") {
@@ -2957,34 +2959,68 @@ const initializeFilterPanel = () => {
             });
         }
 
-        function searchMobFunctionality(){
-                const searchInput = document.getElementById('searchinput-admindashboard');
+       function searchMobFunctionality() {
+            const searchInput = document.getElementById('searchinput-admindashboard');
+            if (!searchInput) {
+                console.error('Search input element not found');
+                return;
+            }
 
-            // Array of section IDs
-            const sectionIds = [
-                'admindashboardcontainer-secondsection',
-                'admindashboardcontainer-thirdsection',
-                'admindashboardcontainer-fourth-section'
-            ];
+            // Mapping of display names to data-report values
+            const reportMapping = {
+                'registration reports': 'registration-reports',
+                'no of grads': 'no-of-grads',
+                'registration source': 'registration-source',
+                'age ratio reports': 'age-ratio-reports',
+                'funnel reports': 'funnel-reports',
+                'destination countries': 'destination-countries',
+                'cities': 'cities',
+                'nbfc: generation leads': 'nbfc-generation-leads',
+                'point of entry': 'point-of-entry',
+                'sc: generation leads': 'sc-generation-leads',
+                'sc: generation leads approved': 'sc-generation-leads-approved',
+                'sem rush': 'sem-rush'
+            };
 
-            // searchInput.addEventListener('input', function () {
-            //     const query = searchInput.value.toLowerCase().trim();
+            // Get all report names for searching
+            const reportNames = Object.keys(reportMapping);
 
-            //     sectionIds.forEach(sectionId => {
-            //         const section = document.getElementById(sectionId);
+            searchInput.addEventListener('input', function () {
+                const query = this.value.trim().toLowerCase();
+                console.log('Search query:', query);
 
-            //         if (section) {
-            //             const items = section.querySelectorAll('div'); // or more specific selector if needed
+                // Get all report containers
+                const reports = document.querySelectorAll('[data-report]');
+                if (!reports.length) {
+                    console.warn('No report containers found with [data-report]');
+                    return;
+                }
 
-            //             items.forEach(item => {
-            //                 const text = item.textContent.toLowerCase();
-            //                 item.style.display = text.includes(query) ? '' : 'none';
-            //             });
-            //         }
-            //     });
-            // });
+                if (!query) {
+                    // If search is empty, show all reports
+                    reports.forEach(report => {
+                        report.style.display = 'block';
+                    });
+                    console.log('Search cleared, showing all reports');
+                    return;
+                }
 
+                // Find matching report names
+                const matchedReports = reportNames.filter(name => name.toLowerCase().includes(query));
+                console.log('Matched report names:', matchedReports);
 
+                // Convert matched names to their data-report values
+                const matchedReportIds = matchedReports.map(name => reportMapping[name.toLowerCase()]);
+                console.log('Matched report IDs:', matchedReportIds);
+
+                // Show/hide reports based on matches
+                reports.forEach(report => {
+                    const reportId = report.getAttribute('data-report');
+                    const shouldShow = matchedReportIds.includes(reportId);
+                    report.style.display = shouldShow ? 'block' : 'none';
+                    console.log(`Report ${reportId}: ${shouldShow ? 'shown' : 'hidden'}`);
+                });
+            });
         }
 
         document.addEventListener('DOMContentLoaded', function () {

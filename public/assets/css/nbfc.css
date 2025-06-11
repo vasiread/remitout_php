@@ -1846,7 +1846,6 @@ body {
 
     .dashboard-sort-button-container {
         width: 100%;
-        order: 2;
     }
 
     .dashboard-sort-options {
@@ -2815,7 +2814,8 @@ body {
         padding: 0px;
         margin: 0px;
         padding-top: 0px;
-        margin: 0 3%;
+        margin: 0 auto;
+        width:90%;
     }
 
     .inbox-container {
@@ -2954,8 +2954,6 @@ body {
         font-size: 12px;
         height: auto;
     }
-
-   
 }
 
 @media (max-width: 380px) {
