@@ -1239,8 +1239,7 @@ class Admincontroller extends Controller
 
 
         $additionalFields = AdditionalField::where('section', 'academic')->get();
-        ;
-
+    
 
         return response()->json([
             'additionalFields' => $additionalFields
@@ -1269,14 +1268,10 @@ class Admincontroller extends Controller
     }
 
 
-    public function showStudentPersonalInfoAdditionalField()
+    public function showStudentPersonalInfoAdditionalField($slug)
     {
-        $documentTypes = DocumentType::where('slug', 'kyc')->get();
-
-
-        return response()->json([
-            'documentTypes' => $documentTypes
-        ]);
+        $documentTypes = DocumentType::where('slug', $slug)->get();
+        return response()->json(['documentTypes' => $documentTypes]);
 
     }
     public function showStudentPlanForCountriesAdmin()

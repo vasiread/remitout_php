@@ -484,15 +484,14 @@ class scDashboardController extends Controller
     public function import_excel_post(Request $request)
     {
         $request->validate([
-            'excel_file' => 'required|mimes:xls,xlsx'
+            'excel_file' => 'required|mimes:xls,xlsx',
+            'referral_id' => 'nullable|string'  // Add this to validate referral input
         ]);
 
         try {
-            // Create an instance of StudentsImport with a skipped count
-            $import = new StudentsImport();
+            $import = new StudentsImport($request->referral_id); // Pass referral_id
             Excel::import($import, $request->file('excel_file'));
 
-            // Get the count of skipped rows (duplicate emails)
             $skippedRows = $import->getSkippedRows();
 
             if ($skippedRows > 0) {
@@ -508,7 +507,7 @@ class scDashboardController extends Controller
                 'message' => 'All students were registered successfully.',
             ], 200);
         } catch (QueryException $e) {
-            if ($e->errorInfo[1] == 1062) { // Duplicate entry error
+            if ($e->errorInfo[1] == 1062) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Duplicate entry found. Please check your file for existing student data.'
@@ -521,6 +520,7 @@ class scDashboardController extends Controller
             ], 500);
         }
     }
+
 
 
 

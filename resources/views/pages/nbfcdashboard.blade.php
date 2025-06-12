@@ -110,7 +110,7 @@ $viewIconPath = "assets/images/visibility.png";
                 <i class="fa-solid fa-square-poll-vertical"></i> Dashboard
             </li>
             <li>
-                <i class="fa-solid fa-inbox"></i> Inbox
+                <i class="fa-solid fa-inbox" ></i> Inbox
             </li>
         </ul>
 
@@ -280,7 +280,7 @@ $viewIconPath = "assets/images/visibility.png";
                         </div>
                         <div class="testscoreseditsection-secondrow">
                             @php
-$counter = 1; 
+                                $counter = 1; 
                             @endphp
 
 
@@ -1262,19 +1262,32 @@ $counter = 1;
                     const wholeContainer = document.querySelector(".wholeapplicationprofile");
                     const requestSendContainer = document.querySelector(".dashboard-sections-container");
 
+                    // Show loader before doing anything async
+                    Loader.show();
+
                     requestSendContainer.style.display = "none";
                     wholeContainer.style.display = "flex";
 
-                    // Fix: force layout recalculation
+                    // Force layout recalculation
                     setTimeout(() => {
                         wholeContainer.offsetHeight;
                         wholeContainer.classList.add("layout-ready");
                     }, 50);
 
-                    viewProfileOfUsers(viewButton, studentId, loader);
-                    studentApplicationInsideRejection(student);
-                    handleSendProposalProcess(studentId);
+                    Promise.all([
+                        viewProfileOfUsers(viewButton, studentId, loader),
+                        studentApplicationInsideRejection(student),
+                        handleSendProposalProcess(studentId)
+                    ])
+                        .then(() => {
+                            Loader.hide();
+                        })
+                        .catch((err) => {
+                            console.error("Error loading profile:", err);
+                            Loader.hide();
+                        });
                 });
+
                 listItem.addEventListener("click", (e) => {
                     // Only trigger if screen width is 750px or less AND click is NOT on action buttons
                     if (window.innerWidth <= 750 && !e.target.closest('.dashboard-action-buttons')) {
@@ -3209,7 +3222,7 @@ $counter = 1;
             const userId = studentId.textContent;
             console.log("Fetching profile for user:", userId);
             const inboxContainer = document.getElementById("index-section-id-nbfc");
-            inboxContainer.style.display = "block";
+            inboxContainer.style.display = "none";
 
             // Show loader and disable further interactions
             loaderElement.style.display = 'block'; // Show loader

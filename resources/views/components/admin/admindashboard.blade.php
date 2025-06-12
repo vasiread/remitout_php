@@ -108,7 +108,7 @@
 
 
                 <div class="postgrad-buttongroups" id="postgrad-reports" style="display: none;">
-                    <div id="postgrad-buttongroups-insideshow-id" >
+                    <div id="postgrad-buttongroups-insideshow-id">
                         Graduate <i class="fa-solid fa-chevron-down"></i>
                     </div>
                     <div class="dropdown-content-postgrad" id="postgrad-overallprogress">
@@ -120,11 +120,11 @@
 
 
                 <div class="calendar-wrapper">
-                    <!-- <button id="calender-buttongroups"> Calendar <img src="assets/images/Icons/calendar_month.png"
-                            alt=""></button> -->
+                    <button id="calender-buttongroups" style="display:none"> Calendar <img
+                            src="assets/images/Icons/calendar_month.png" alt=""></button>
                     <button id="download-buttongroups">Download Report</button>
 
-                    <!--   <div class="calendar-container">
+                    <div class="calendar-container" style="display:none">
                         <div class="calendar-input-container">
                             <div class="calendar-date-input calendar-active" id="calendar-start-date-input">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -192,7 +192,7 @@
                             <div class="calendar-weekday">Sa</div>
                             <div class="calendar-weekday">Su</div>
                         </div>
-                    </div>-->
+                    </div>
                 </div>
 
             </div>
@@ -230,7 +230,7 @@
 
             </div>
 
-                <button class="admin-dashboard-download-button">Download Report</button>
+            <button class="admin-dashboard-download-button">Download Report</button>
 
             <div class="admin-dashboard-filter-panel" id="filterPanel">
                 <div class="admin-dashboard-filter-container">
@@ -270,7 +270,7 @@
                     <div class="admin-dashboard-collapsed-tags" id="collapsedTags">
                         <div class="admin-dashboard-filter-tags">
                             <div class="admin-dashboard-filter-tag" id="admin-dashboard-filter-tag-city">
-                                Cities 
+                                Cities
                                 <span class="admin-dashboard-close-tag">×</span>
                             </div>
                             <div class="admin-dashboard-filter-tag" id="admin-dashboard-filter-tag-nbfc-lead">
@@ -303,10 +303,22 @@
                 <div class="reports-registeration" data-report="registration-reports">
                     <div class="reports-registeration-sectionone">
                         <p>Reports on registration</p>
-                         
-                        <input type="month" id="date-picker-linegraph">
-                         
-                     </div>
+
+                    <div style="position: relative; display: inline-block;">
+                        <button id="calendar-trigger-button" style="position: relative; z-index: 1;width: 100px;
+    height: 28px;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 4px;border:1px solid rgba(82, 82, 82, 0.24);background:transparent;color:rgba(93, 92, 92, 1);font-weight: 500;display:flex;justify-content: space-between;align-items: center;">
+                            Calendar <img src={{asset('assets/images/stat_minus_black.png')}} alt="">
+                        </button>
+                        <input type="month" id="date-picker-linegraph" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+                                      opacity: 0; cursor: pointer; z-index: 2;">
+                    </div>
+
+
+
+                    </div>
                     <div class="reports-registeration-graph">
                         <div id="chart_div" style="width: 100%; height: 160px;"></div>
                     </div>
@@ -387,11 +399,11 @@ $registrationSourceAnalysis = [
                         <div id="postgrad-buttongroups-insideshow-funnelreports-id">
                             Graduate <i class="fa-solid fa-chevron-down"></i>
                         </div>
-                    <div class="dropdown-content-postgrad" id="postgrad-funnelreportsprogress">
-                        <a href="#" data-value="bachelors">Post Graduate</a>
-                        <a href="#" data-value="masters">Under Graduate</a>
-                        <a href="#" data-value="others">Others</a>
-                    </div>
+                        <div class="dropdown-content-postgrad" id="postgrad-funnelreportsprogress">
+                            <a href="#" data-value="bachelors">Post Graduate</a>
+                            <a href="#" data-value="masters">Under Graduate</a>
+                            <a href="#" data-value="others">Others</a>
+                        </div>
 
                     </div>
 
@@ -725,7 +737,7 @@ $registrationSourceAnalysis = [
         // Chart Initialization
         const initializeCharts = () => {
             // Centralize Google Charts callback to avoid multiple setOnLoad calls
-           google.charts.setOnLoadCallback(() => {
+            google.charts.setOnLoadCallback(() => {
                 drawNBFCChart();
 
                 const datePicker = document.getElementById('date-picker-linegraph');
@@ -735,17 +747,31 @@ $registrationSourceAnalysis = [
                 initializeRegistrationLineGraph(); // No arguments = default/overall
 
                 // ✅ Step 2: Listen for user input
-                if (datePicker) {
+               if (datePicker) {
                     datePicker.addEventListener('change', function () {
                         const [year, month] = this.value.split('-');
+                        const button = document.getElementById('calendar-trigger-button');
 
-                         if (selectedDateText) {
+                        // Optional: show selected month/year in the button
+                        if (button) {
+                            button.innerHTML = `${getMonthName(month)} ${year} <img src="assets/images/Icons/calendar_month.png" alt="">`;
+                        }
+
+                        if (selectedDateText) {
                             selectedDateText.textContent = `Selected: ${month}/${year}`;
                         }
 
-                         initializeRegistrationLineGraph(month, year);
+                        initializeRegistrationLineGraph(month, year);
                     });
                 }
+
+                // Utility function
+                function getMonthName(monthNumber) {
+                    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                    return months[parseInt(monthNumber, 10) - 1];
+                }
+
             });
 
             // initializeDonutGraphSource();
@@ -1635,132 +1661,132 @@ $registrationSourceAnalysis = [
         });
 
         // Lead Chart with API Data and Pagination
-       let leadChartInstance = null; // Track the current chart instance
+        let leadChartInstance = null; // Track the current chart instance
 
-   const initializeLeadChart = (converted = false) => {
-        const ctx = $('#leadChart')?.getContext('2d');
-        if (!ctx) return console.error('leadChart canvas not found');
+        const initializeLeadChart = (converted = false) => {
+            const ctx = $('#leadChart')?.getContext('2d');
+            if (!ctx) return console.error('leadChart canvas not found');
 
-        let currentPage = 1;
-        const itemsPerPage = 5;
-        let fullLabels = [];
-        let fullData = [];
-        const prevBtn = $('#sc-lead-prev-btn');
-        const nextBtn = $('#sc-lead-next-btn');
-        const pageRange = $('#sc-lead-page-range');
-        const totalItems = $('#sc-lead-total-items');
+            let currentPage = 1;
+            const itemsPerPage = 5;
+            let fullLabels = [];
+            let fullData = [];
+            const prevBtn = $('#sc-lead-prev-btn');
+            const nextBtn = $('#sc-lead-next-btn');
+            const pageRange = $('#sc-lead-page-range');
+            const totalItems = $('#sc-lead-total-items');
 
-        // Use different URLs based on converted value
-        const url = converted ? '/sc-lead-gens?converted=true' : '/sc-lead-gens';
+            // Use different URLs based on converted value
+            const url = converted ? '/sc-lead-gens?converted=true' : '/sc-lead-gens';
 
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-            .then(response => {
-                if (!response.ok) throw new Error('Network response was not ok');
-                return response.json();
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
             })
-            .then(data => {
-                if (!data.student_counsellors || !Array.isArray(data.student_counsellors) ||
-                    !data.lead_counts || !Array.isArray(data.lead_counts) ||
-                    data.student_counsellors.length !== data.lead_counts.length) {
-                    throw new Error('Invalid API response: Mismatched or missing data arrays');
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    if (!data.student_counsellors || !Array.isArray(data.student_counsellors) ||
+                        !data.lead_counts || !Array.isArray(data.lead_counts) ||
+                        data.student_counsellors.length !== data.lead_counts.length) {
+                        throw new Error('Invalid API response: Mismatched or missing data arrays');
+                    }
+
+                    fullLabels = data.student_counsellors;
+                    fullData = data.lead_counts;
+                    totalItems.textContent = fullLabels.length;
+                    updateChart();
+
+                    prevBtn.onclick = () => {
+                        if (currentPage > 1) {
+                            currentPage--;
+                            updateChart();
+                        }
+                    };
+
+                    nextBtn.onclick = () => {
+                        if (currentPage < Math.ceil(fullLabels.length / itemsPerPage)) {
+                            currentPage++;
+                            updateChart();
+                        }
+                    };
+                })
+                .catch(error => {
+                    console.error('Error fetching lead generation data:', error);
+                    fullLabels = ['Fallback1', 'Fallback2'];
+                    fullData = [5, 10];
+                    totalItems.textContent = fullLabels.length;
+                    updateChart();
+                });
+
+            function updateChart() {
+                const startIdx = (currentPage - 1) * itemsPerPage;
+                const endIdx = Math.min(startIdx + itemsPerPage, fullLabels.length);
+                const paginatedLabels = fullLabels.slice(startIdx, endIdx);
+                const paginatedData = fullData.slice(startIdx, endIdx);
+
+                // Destroy previous chart if it exists
+                if (leadChartInstance) {
+                    leadChartInstance.destroy();
                 }
 
-                fullLabels = data.student_counsellors;
-                fullData = data.lead_counts;
-                totalItems.textContent = fullLabels.length;
-                updateChart();
-
-                prevBtn.onclick = () => {
-                    if (currentPage > 1) {
-                        currentPage--;
-                        updateChart();
-                    }
-                };
-
-                nextBtn.onclick = () => {
-                    if (currentPage < Math.ceil(fullLabels.length / itemsPerPage)) {
-                        currentPage++;
-                        updateChart();
-                    }
-                };
-            })
-            .catch(error => {
-                console.error('Error fetching lead generation data:', error);
-                fullLabels = ['Fallback1', 'Fallback2'];
-                fullData = [5, 10];
-                totalItems.textContent = fullLabels.length;
-                updateChart();
-            });
-
-        function updateChart() {
-            const startIdx = (currentPage - 1) * itemsPerPage;
-            const endIdx = Math.min(startIdx + itemsPerPage, fullLabels.length);
-            const paginatedLabels = fullLabels.slice(startIdx, endIdx);
-            const paginatedData = fullData.slice(startIdx, endIdx);
-
-            // Destroy previous chart if it exists
-            if (leadChartInstance) {
-                leadChartInstance.destroy();
-            }
-
-            leadChartInstance = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: paginatedLabels,
-                    datasets: [{
-                        label: 'No. Of Leads',
-                        data: paginatedData,
-                        backgroundColor: '#d3b8f0',
-                        barThickness: 11
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: { enabled: true }
+                leadChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: paginatedLabels,
+                        datasets: [{
+                            label: 'No. Of Leads',
+                            data: paginatedData,
+                            backgroundColor: '#d3b8f0',
+                            barThickness: 11
+                        }]
                     },
-                    scales: {
-                        y: { beginAtZero: true, grid: { display: false }, ticks: { display: false } },
-                        x: {
-                            grid: { display: false },
-                            ticks: {
-                                font: { family: 'Poppins', size: 12 },
-                                color: '#5D5C5C'
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { enabled: true }
+                        },
+                        scales: {
+                            y: { beginAtZero: true, grid: { display: false }, ticks: { display: false } },
+                            x: {
+                                grid: { display: false },
+                                ticks: {
+                                    font: { family: 'Poppins', size: 12 },
+                                    color: '#5D5C5C'
+                                }
                             }
                         }
                     }
-                }
-            });
+                });
 
-            pageRange.textContent = `${startIdx + 1} - ${endIdx}`;
-        }
-    };
+                pageRange.textContent = `${startIdx + 1} - ${endIdx}`;
+            }
+        };
 
-    // On load (default – no ?converted param)
-    initializeLeadChart(false);
+        // On load (default – no ?converted param)
+        initializeLeadChart(false);
 
-    // Dropdown handler
-    const scDropdown = document.getElementById('scLeadDropdown');
+        // Dropdown handler
+        const scDropdown = document.getElementById('scLeadDropdown');
 
-    scDropdown.addEventListener('change', function () {
-        const isConverted = this.value === 'converted';
+        scDropdown.addEventListener('change', function () {
+            const isConverted = this.value === 'converted';
 
-        initializeLeadChart(isConverted);
+            initializeLeadChart(isConverted);
 
-            
+
         });
 
-    // Optional: reset to default on focus
-    scDropdown.addEventListener('focus', function () {
-        this.selectedIndex = 0;
-    });
+        // Optional: reset to default on focus
+        scDropdown.addEventListener('focus', function () {
+            this.selectedIndex = 0;
+        });
 
 
 
@@ -2399,7 +2425,7 @@ $registrationSourceAnalysis = [
 
         let ageratioChart;
 
-          function loadAgeRatioChart(degreeType = '') {
+        function loadAgeRatioChart(degreeType = '') {
             // Map user-friendly labels to backend values
             let mappedDegreeType = degreeType;
 
@@ -2498,7 +2524,7 @@ $registrationSourceAnalysis = [
                 .catch(error => {
                     console.error('Error:', error);
                 });
-        } 
+        }
 
         loadAgeRatioChart();
 
@@ -2519,7 +2545,7 @@ $registrationSourceAnalysis = [
 
         })
 
-      function funnelreport(degreeType = '') {
+        function funnelreport(degreeType = '') {
             console.log("funnelreport working for:", degreeType);
 
             const url = degreeType
@@ -2545,23 +2571,23 @@ $registrationSourceAnalysis = [
                 .catch(err => console.error('Dashboard data error:', err));
         }
         function funnelReportDropdown() {
-                const toggle = document.getElementById('postgrad-buttongroups-insideshow-funnelreports-id');
-                const dropdown = document.getElementById('postgrad-funnelreportsprogress');
+            const toggle = document.getElementById('postgrad-buttongroups-insideshow-funnelreports-id');
+            const dropdown = document.getElementById('postgrad-funnelreportsprogress');
 
-                toggle.addEventListener('click', function () {
-                    dropdown.classList.toggle('show');
-                });
+            toggle.addEventListener('click', function () {
+                dropdown.classList.toggle('show');
+            });
 
-                const links = dropdown.querySelectorAll('a');
-                links.forEach(link => {
-                    link.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        const selectedValue = this.getAttribute('data-value');
-                        dropdown.classList.remove('show');
-                        funnelreport(selectedValue); // Call with selected degreeType
-                    });
+            const links = dropdown.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const selectedValue = this.getAttribute('data-value');
+                    dropdown.classList.remove('show');
+                    funnelreport(selectedValue); // Call with selected degreeType
                 });
-            }
+            });
+        }
 
         function fetchReferralAcceptedCounts() {
             fetch('/referralacceptedcounts')
@@ -2574,7 +2600,6 @@ $registrationSourceAnalysis = [
                 });
         }
 
-
         function monthYearPicker() {
             const button = document.getElementById('calender-reportsregister');
             const input = document.getElementById('date-picker-linegraph');
@@ -2584,23 +2609,20 @@ $registrationSourceAnalysis = [
             });
 
             input.addEventListener('change', function () {
-                const selectedMonthYear = this.value; // Format: YYYY-MM
+                const selectedMonthYear = this.value;
                 const [year, month] = selectedMonthYear.split('-');
 
-                // Update button text to show selected month and year
                 button.innerHTML = `Calendar ${getMonthName(month)} ${year} <img src="assets/images/Icons/calendar_month.png" alt="">`;
             });
 
-            // Helper function to get month name from month number
             function getMonthName(monthNumber) {
                 const months = [
-                    'January', 'February', 'March', 'April', 'May', 'June',
-                    'July', 'August', 'September', 'October', 'November', 'December'
+                    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
                 ];
-                return months[parseInt(monthNumber, 10) - 1];  // Adjust for 1-based index
+                return months[parseInt(monthNumber, 10) - 1];
             }
         }
-
         const initializePostgradDropdowns = () => {
             const postgradButtons = $$('.postgrad-buttongroups');
 
@@ -2654,7 +2676,7 @@ $registrationSourceAnalysis = [
             });
         };
 
-       function updateVisibleReportsFromFilters() {
+        function updateVisibleReportsFromFilters() {
             const activeTags = Array.from(document.querySelectorAll('.admin-dashboard-filter-tag'))
                 .map(tag => tag.textContent.trim().replace('×', '').trim().toLowerCase());
 
@@ -2727,22 +2749,22 @@ $registrationSourceAnalysis = [
                 'admindashboardcontainer-fourth-section'
             ];
 
-            searchInput.addEventListener('input', function () {
-                const query = searchInput.value.toLowerCase().trim();
+            // searchInput.addEventListener('input', function () {
+            //     const query = searchInput.value.toLowerCase().trim();
 
-                sectionIds.forEach(sectionId => {
-                    const section = document.getElementById(sectionId);
+            //     sectionIds.forEach(sectionId => {
+            //         const section = document.getElementById(sectionId);
 
-                    if (section) {
-                        const items = section.querySelectorAll('div'); // or more specific selector if needed
+            //         if (section) {
+            //             const items = section.querySelectorAll('div'); // or more specific selector if needed
 
-                        items.forEach(item => {
-                            const text = item.textContent.toLowerCase();
-                            item.style.display = text.includes(query) ? '' : 'none';
-                        });
-                    }
-                });
-            });
+            //             items.forEach(item => {
+            //                 const text = item.textContent.toLowerCase();
+            //                 item.style.display = text.includes(query) ? '' : 'none';
+            //             });
+            //         }
+            //     });
+            // });
 
 
         }

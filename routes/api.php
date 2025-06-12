@@ -94,6 +94,7 @@ Route::post('/check_userid', [StudentDashboardController::class, 'checkUserId'])
 Route::post('/multipleregisterbyscuser', [StudentDashboardController::class, 'multipleuserbyscuser']);
 Route::post('/retrievedashboarddetails', [Admincontroller::class, 'retrieveDashboardDetails']);
 Route::post('/getprofilecompletionbygender', [Admincontroller::class, 'getProfileCompletionByGenderAndDegree']);
+Route::post('/students/import', [scDashboardController::class, 'import_excel_post']);
 
 // Admin Routes
 Route::get('/getstatusofusersadmin', [Admincontroller::class, 'pointOfEntries']);
@@ -139,9 +140,10 @@ Route::put('/admins/{id}', [AdminController::class, 'updateAdmin']);
 Route::get('/student-forms', [AdminController::class, 'showStudentForm']);
 Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser']);
 Route::get('/getInfoForAdminSocial', [Admincontroller::class, 'showStudentFormAdmin']);
-Route::get('/getdocumenttypesadminform', [Admincontroller::class, 'showStudentPersonalInfoAdditionalField']);
+Route::get('/getdocumenttypesadminform/{slug}', [AdminController::class, 'showStudentPersonalInfoAdditionalField']);
 Route::delete('/deleteInfoForAdminSocial/{id}', [AdminController::class, 'deleteInfoForAdminSocial']);
 Route::delete('/deletedegree/{id}', [AdminController::class, 'deleteDegreesAdminside']);
+
 Route::delete('/deletecourseduration/{id}', [AdminController::class, 'deleteCourseDuration']);
 Route::delete('/deletekycdocument/{id}', [AdminController::class, 'deleteDynamicKycField']);
 

@@ -1422,7 +1422,7 @@
       fetchAndRenderStudyLocations();
       fetchAndRenderDegrees();
       fetchAndRenderCourseDurations();
-      kycInitialization();
+      // kycInitialization();
       fetchAdditionalPersonalFields();
       fetchAcademics();
       fetchCourseDetailOptions();
@@ -1437,7 +1437,7 @@
         CourseDetailsManager,
         AcademicDetailsManager,
         CoBorrowerManager,
-        // DocumentFieldManager,
+        DocumentFieldManager,
         FormSubmissionManager
       ];
       managers.forEach(manager => manager.init());
@@ -2449,67 +2449,6 @@
         return this.modified;
       }
     };
-    const sections = [
-        {
-          id: 'add-document-btn-kyc-id',
-          type: 'document',
-          containerId: 'document-fields-container-kyc-id',
-          rowId: 'document-row-1',
-          apiEndpoint: '/getdocumenttypesadminform',
-          namePrefix: 'student_kyc',
-          slug: 'kyc',
-        },
-        {
-          id: 'add-academic-btn-id',
-          type: 'academic',
-          containerId: 'academic-fields-container-id',
-          rowId: 'academic-row-1',
-          apiEndpoint: '/getacademicdocuments',
-          namePrefix: 'academic_marks',
-          slug: 'academic'
-        },
-        {
-          id: 'add-secured-btn-id',
-          type: 'secured',
-          containerId: 'secured-fields-container-id',
-          rowId: 'secured-row-1',
-          apiEndpoint: '/getsecuredmarksdocuments',
-          namePrefix: 'secured_marks',
-          slug: 'secured'
-        },
-        {
-          id: 'add-work-experience-btn-id',
-          type: 'workExperience',
-          containerId: 'work-experience-container-id',
-          rowId: 'work-experience-row-1',
-          apiEndpoint: '/getworkexperiencedocuments',
-          namePrefix: 'work_experience',
-          slug: 'experience'
-        },
-        {
-          id: 'add-co-borrower-btn-id',
-          type: 'coBorrower',
-          containerId: 'co-borrower-fields-container',
-          rowId: 'co-borrower-row-1',
-          apiEndpoint: '/getcoborrowerdocuments',
-          namePrefix: 'co_borrower_kyc',
-          slug: 'co-borrower'
-        },
-        {
-          id: 'add-salaried-business-btn-id',
-          type: 'salariedBusiness',
-          containerId: 'salaried-business-fields-container',
-          rowId: 'salaried-row-1',
-          apiEndpoint: '/getsalariedbusinessdocuments',
-          namePrefix: 'salaried_business',
-          subSections: ['salaried', 'business'],
-          slug: 'businessdocuments'
-        }
-      ];
-
-      // Initialize all sections
-      sections.forEach(initializeDocumentSection);
-
 
     const DocumentFieldManager = {
       section: 'Document Upload',
@@ -2532,62 +2471,58 @@
             rowId: 'document-row-1',
             apiEndpoint: '/getdocumenttypesadminform',
             namePrefix: 'student_kyc',
-            slug:'kyc',
+            slug: 'kyc'
           },
           {
             id: 'add-academic-btn-id',
             type: 'academic',
             containerId: 'academic-fields-container-id',
             rowId: 'academic-row-1',
-            apiEndpoint: '/getacademicdocuments',
+            apiEndpoint: '/getdocumenttypesadminform',
             namePrefix: 'academic_marks',
-            slug:'academic'
-
+            slug: 'academic'
           },
           {
             id: 'add-secured-btn-id',
             type: 'secured',
             containerId: 'secured-fields-container-id',
             rowId: 'secured-row-1',
-            apiEndpoint: '/getsecuredmarksdocuments',
+            apiEndpoint: '/getdocumenttypesadminform',
             namePrefix: 'secured_marks',
-            slug:'secured'
-
+            slug: 'secured'
           },
           {
             id: 'add-work-experience-btn-id',
             type: 'workExperience',
             containerId: 'work-experience-container-id',
             rowId: 'work-experience-row-1',
-            apiEndpoint: '/getworkexperiencedocuments',
+            apiEndpoint: '/getdocumenttypesadminform',
             namePrefix: 'work_experience',
-            slug:'experience'
-
+            slug: 'experience'
           },
           {
             id: 'add-co-borrower-btn-id',
             type: 'coBorrower',
             containerId: 'co-borrower-fields-container',
             rowId: 'co-borrower-row-1',
-            apiEndpoint: '/getcoborrowerdocuments',
+            apiEndpoint: '/getdocumenttypesadminform',
             namePrefix: 'co_borrower_kyc',
-            slug:'co-borrower'
-            
+            slug: 'co-borrower'
           },
           {
             id: 'add-salaried-business-btn-id',
             type: 'salariedBusiness',
             containerId: 'salaried-business-fields-container',
             rowId: 'salaried-row-1',
-            apiEndpoint: '/getsalariedbusinessdocuments',
+            apiEndpoint: '/getdocumenttypesadminform',
             namePrefix: 'salaried_business',
             subSections: ['salaried', 'business'],
-            slug:'businessdocuments'
-            
+            slug: 'business-document'
           }
         ];
 
-        buttons.forEach(({ id, type, containerId, rowId, apiEndpoint, namePrefix, subSections,slug }) => {
+
+        buttons.forEach(({ id, type, containerId, rowId, apiEndpoint, namePrefix, subSections, slug }) => {
           const button = document.getElementById(id);
           if (button) {
             button.addEventListener('click', (e) => {
@@ -2602,7 +2537,7 @@
                 }
               }
               if (fieldType) {
-                this.addNewDocumentField(fieldType, type, containerId, rowId, apiEndpoint, namePrefix, subSection,slug);
+                this.addNewDocumentField(fieldType, type, containerId, rowId, apiEndpoint, namePrefix, subSection, slug);
                 this.modified = true;
                 // Assuming FormSubmissionManager exists
                 if (typeof FormSubmissionManager !== 'undefined') {
@@ -2611,7 +2546,7 @@
               }
             });
           }
-          this.initializeSection(containerId, rowId, apiEndpoint, namePrefix, type, subSections);
+          this.initializeSection(containerId, rowId, apiEndpoint, namePrefix, type, subSections, slug);
         });
 
         this.setupHelpTriggerListener();
@@ -2634,7 +2569,7 @@
         document.addEventListener('click', this.handleHelpTriggerClick);
       },
 
-      initializeSection(containerId, rowId, apiEndpoint, namePrefix, type, subSections) {
+      initializeSection(containerId, rowId, apiEndpoint, namePrefix, type, subSections, slug) {
         const container = document.getElementById(rowId);
         if (!container) return;
 
@@ -2694,10 +2629,13 @@
           });
         }
 
-        fetch(apiEndpoint)
+        fetch(`/api${apiEndpoint}/${slug}`)
+
+
           .then(res => res.json())
           .then(data => {
             const dynamicDocs = data.documentTypes || [];
+            alert(slug)
             if (type === 'salariedBusiness') {
               const salariedContainer = document.getElementById('salaried-row-1');
               const businessContainer = document.getElementById('business-row-1');
@@ -2718,16 +2656,7 @@
           .catch(err => console.error(`Error fetching dynamic documents for ${type}:`, err));
       },
 
-      addNewDocumentField(fieldType, type, containerId, rowId, apiEndpoint, namePrefix, subSection = '',slug) {
-        // alert(fieldType);
-        // alert(type);
-        // alert(containerId);
-        // alert(rowId);
-        // alert(apiEndpoint);
-        // alert(namePrefix);
-        // alert(subSection);
-        // alert(slug)
-
+      addNewDocumentField(fieldType, type, containerId, rowId, apiEndpoint, namePrefix, subSection = '', slug) {
         fetch('/kycdynamicpost', {
           method: 'POST',
           headers: {
@@ -2743,15 +2672,33 @@
           })
           .then(data => {
             console.log("Added Document Type:", data);
-            this.initializeSection(containerId, rowId, apiEndpoint, namePrefix, type, ['salaried', 'business']);
+
+            // ✅ Call the fetch to refresh document types for the slug
+            return fetch(`/getdocumenttypesadminform/${slug}`, {
+              headers: {
+                'Accept': 'application/json' // or 'text/html' depending on your server
+              }
+            });
+          })
+          .then(response => {
+            if (!response.ok) throw new Error("Failed to refresh document form.");
+
+            // ✅ Optional: You might not need to do anything if the page auto-updates
+            // But if needed: parse and trigger your update logic
+            return response.text(); // or .json() if it's JSON
+          })
+          .then(data => {
+            // Optional: handle response if needed
+            console.log(`Refreshed form for ${slug}`, data);
           })
           .catch(error => {
             alert(error.message);
           });
       },
 
-      createDocumentBox(doc, isDynamic, namePrefix, type) {
 
+
+      createDocumentBox(doc, isDynamic, namePrefix, type) {
         const key = (doc.key || doc.name.toLowerCase().replace(/[^a-z0-9-_]/g, '-')).trim();
         const displayName = doc.name;
         const subSection = doc.subSection || '';
@@ -3408,103 +3355,6 @@
     });
 
 
-    function kycInitialization() {
-      const container = document.getElementById("document-row-1");
-      container.innerHTML = ""; // Clear existing content
-
-      const staticDocs = [
-        { key: "pan-card", name: "PAN Card" },
-        { key: "aadhar-card", name: "Aadhar Card" },
-        { key: "passport", name: "Passport" }
-      ];
-
-      // Render static docs (no remove icon)
-      staticDocs.forEach(doc => {
-        container.appendChild(createDocumentBox(doc, false));
-      });
-
-      // --- Dynamic Documents from API ---
-      fetch("/getdocumenttypesadminform")
-        .then(res => res.json())
-        .then(data => {
-          const staticKeys = staticDocs.map(d => d.key);
-
-
-          deleteInitialization();
-        })
-        .catch(err => console.error("Error fetching dynamic documents:", err));
-
-      // --- Document Box Template ---
-      function createDocumentBox(doc, isDynamic) {
-
-        const key = doc.key;
-        const displayName = doc.name;
-
-
-        const uploadIconHTML = isDynamic
-          ? `<p class="kyc-delete-dynamic-content" data-id="${doc.id}" data-target="${key}" style="cursor: pointer; color: grey; font-size: 14px; margin: 0;">x</p>`
-          : "";
-
-
-        const div = document.createElement("div");
-        div.className = "document-box";
-        div.id = `document-box-${key}`;
-        div.innerHTML = `
-      <div class="document-name" id="${key}-document-name" style="display: none">${displayName}</div>
-      <div class="upload-field">
-        <span id="${key}-name" data-original="${displayName}" title="${displayName}">${displayName}</span>
-        <div class="file-actions">
-          <label for="${key}" style="display: flex; align-items: center; justify-content: flex-start; margin-right: 10px;" class="upload-icon" id="${key}-upload-icon">
-            ${uploadIconHTML}
-          </label>
-          <input type="file" id="${key}" name="documents[student_kyc][${key}]"
-            accept=".jpg, .png, .pdf"
-            onchange="handleFileUpload(event, '${key}-name', '${key}-upload-icon', '${key}-remove-icon}')" />
-        </div>
-      </div>
-      <div class="info">
-        <span class="help-trigger" data-target="${key}-help">ⓘ Help</span>
-        <span>*jpg, png, pdf formats</span>
-      </div>
-      <div class="help-container ${key}-help" style="display: none">
-        <h3 class="help-title">Help</h3>
-        <div class="help-content">
-          <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
-        </div>
-      </div>
-    `;
-        return div;
-      }
-
-      function deleteInitialization() {
-        const deleteButtons = document.querySelectorAll(".kyc-delete-dynamic-content");
-
-        deleteButtons.forEach(button => {
-          button.addEventListener("click", () => {
-            const key = button.getAttribute("data-target");
-            const id = button.getAttribute("data-id");
-            const box = document.getElementById(`document-box-${key}`);
-            if (box) box.remove();
-
-            fetch(`/deletekycdocument/${id}`, {
-              method: "DELETE",
-              headers: {
-                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
-              }
-            })
-              .then(res => {
-                if (!res.ok) throw new Error("Delete failed");
-                alert(`Deleted: ${key}`);
-                kycInitialization();
-
-              })
-              .catch(err => console.error(err));
-          });
-        });
-      }
-
-
-    }
 
     function fetchAdditionalPersonalFields() {
       const existingStyle = document.getElementById("personal-inline-style");

@@ -2238,16 +2238,18 @@ body {
 }
 
 #index-section-id-nbfc {
+    /* display:none; */
     margin-top: 80px;
     overflow-x: hidden;
+
     max-width: 100%;
     width: 100%;
     /* margin-left: -4.09%; */
 }
 
-.index-section {
+#index-section-id-nbfc {
     padding: 0;
-}
+ }
 
 .inbox-container {
     background: white;
@@ -2808,7 +2810,7 @@ body {
 }
 
 @media only screen and (max-width: 767px) {
-    .index-section {
+   #index-section-id-nbfc {
         grid-template-columns: 1fr;
         padding: 0px;
         margin: 0px;

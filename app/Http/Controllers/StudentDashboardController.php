@@ -259,6 +259,7 @@ class StudentDashboardController extends Controller
             'students.*.email' => 'required|email|unique:users,email|max:255',
             'students.*.phone' => 'required|digits:10|unique:users,phone',
             'students.*.password' => 'required|string|min:8',
+            'students.*.referral_code' => 'nullable|string|max:50', // ✅ new validation rule
         ]);
 
         if ($validator->fails()) {
@@ -278,6 +279,7 @@ class StudentDashboardController extends Controller
                     'email' => $student['email'],
                     'phone' => $student['phone'],
                     'password' => Hash::make($student['password']),
+                    'referral_code' => $student['referral_code'] ?? null, // ✅ save if provided
                 ]);
                 $createdStudents[] = $user;
             }
@@ -293,6 +295,7 @@ class StudentDashboardController extends Controller
             ], 500);
         }
     }
+
 
     public function removeUserIdFromNBFCAndReject(Request $request)
     {

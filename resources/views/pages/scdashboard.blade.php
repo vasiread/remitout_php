@@ -403,9 +403,9 @@ $studentDocumentDetailsInfo = [
 
                         <div id="viewmore-queries">
                             <p>view more</p> <img src="{{ asset("assets/images/Icons/stat_minus_1.png") }}" style="margin-top: 9px;
-                                                                                    margin-left: 8px;
-                                                                                    width: 12px;
-                                                                                    height: 7px;" alt="">
+                                                                                                margin-left: 8px;
+                                                                                                width: 12px;
+                                                                                                height: 7px;" alt="">
                         </div>
 
 
@@ -1699,44 +1699,44 @@ $studentDocumentDetailsInfo = [
         };
 
         const queryDetails = () => {
-                const scuser = @json(session('scuser'));
-                const scuserid = scuser.referral_code;
-                fetchDeactiveQueryCount(scuserid);
+            const scuser = @json(session('scuser'));
+            const scuserid = scuser.referral_code;
+            fetchDeactiveQueryCount(scuserid);
 
 
-                const mobRef = document.getElementById("mobgeneratedreferralcode");
-                const Ref = document.getElementById("pcviewgeneratedreferralcode");
+            const mobRef = document.getElementById("mobgeneratedreferralcode");
+            const Ref = document.getElementById("pcviewgeneratedreferralcode");
 
-                if (mobRef && Ref) {
-                    mobRef.textContent = `Referral Code:  ${scuserid} `;
-                    Ref.textContent = `Referral Code:  ${scuserid} `;
-                }
+            if (mobRef && Ref) {
+                mobRef.textContent = `Referral Code:  ${scuserid} `;
+                Ref.textContent = `Referral Code:  ${scuserid} `;
+            }
 
-                if (scuserid) {
-                    fetch(`/get-queries?scUserId=${scuserid}`, {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json",
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        }
-                    })
-                        .then((response) => response.json())
-                        .then((data) => {
-                            const container = document.querySelector(".groupofraisedquestion-scdashboard");
-                            container.innerHTML = ''; // Clear existing
+            if (scuserid) {
+                fetch(`/get-queries?scUserId=${scuserid}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        const container = document.querySelector(".groupofraisedquestion-scdashboard");
+                        container.innerHTML = ''; // Clear existing
 
-                            if (data.success && data.queries.length > 0) {
-                                const sortedQueries = data.queries.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                        if (data.success && data.queries.length > 0) {
+                            const sortedQueries = data.queries.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
-                                sortedQueries.forEach((item) => {
-                                    console.log(item)
-                                    const div = document.createElement('div');
-                                    div.classList.add('individual-raisedquestions');
-                                    div.setAttribute('data-added', item.created_at);
+                            sortedQueries.forEach((item) => {
+                                console.log(item)
+                                const div = document.createElement('div');
+                                div.classList.add('individual-raisedquestions');
+                                div.setAttribute('data-added', item.created_at);
 
-                                    let buttonsHTML = '';
-                                    if (item.status === 'deactive') {
-                                        buttonsHTML = `
+                                let buttonsHTML = '';
+                                if (item.status === 'deactive') {
+                                    buttonsHTML = `
                            <div class="query-actions" style="display: flex; gap: 8px;">
   <button
     style="padding: 6px 12px; font-size: 16px; border-radius: 4px; cursor: pointer; background-color: #f47b20; color: #fff; border: none;"
@@ -1754,75 +1754,75 @@ $studentDocumentDetailsInfo = [
   </button>
 </div>`;
 
-                                    }
+                                }
 
-                                    div.innerHTML = `
+                                div.innerHTML = `
                         <p id="queries-row">${item.queryraised}</p>
                         <p id="query-raisedbyrow">${item.querytype}</p>
                         ${buttonsHTML}
                     `;
 
-                                    container.appendChild(div);
-                                });
+                                container.appendChild(div);
+                            });
 
-                                getStatusGroups();
-                            } else {
-                                container.innerHTML = '<p>No queries found.</p>';
-                            }
-                        })
-                        .catch((error) => {
-                            console.error("Request failed:", error);
-                        });
-                }
-            };
-          function markQuery(queryId, status) {
-                fetch(`/mark-query`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({ query_id: queryId, status: status })
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.success) {
-                            queryDetails(); // reload the list after update
-
-                            if (status === 'deactive') {
-                                alert('Query deleted successfully.');
-                            } else if (status === 'active') {
-                                alert('Query sent to admin again.');
-                            }
+                            getStatusGroups();
                         } else {
-                            alert('Failed to update query.');
+                            container.innerHTML = '<p>No queries found.</p>';
                         }
                     })
-                    .catch(err => {
-                        console.error('Update error:', err);
-                        alert('An error occurred while updating the query.');
+                    .catch((error) => {
+                        console.error("Request failed:", error);
                     });
             }
+        };
+        function markQuery(queryId, status) {
+            fetch(`/mark-query`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ query_id: queryId, status: status })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        queryDetails(); // reload the list after update
 
-
-
-                function fetchDeactiveQueryCount(scUserId) {
-                        fetch(`/count-deactive-queries?scUserId=${scUserId}`)
-                            .then(res => res.json())
-                            .then(data => {
-                                if (data.success) {
-                                    const countDisplay = document.getElementById('deactive-query-count');
-                                    if (countDisplay) {
-                                        countDisplay.textContent = `Deactive Queries: ${data.count}`;
-                                    }
-                                } else {
-                                    console.error('Failed to fetch count:', data.message);
-                                }
-                            })
-                            .catch(err => console.error('Error:', err));
+                        if (status === 'deactive') {
+                            alert('Query deleted successfully.');
+                        } else if (status === 'active') {
+                            alert('Query sent to admin again.');
+                        }
+                    } else {
+                        alert('Failed to update query.');
                     }
+                })
+                .catch(err => {
+                    console.error('Update error:', err);
+                    alert('An error occurred while updating the query.');
+                });
+        }
 
- 
+
+
+        function fetchDeactiveQueryCount(scUserId) {
+            fetch(`/count-deactive-queries?scUserId=${scUserId}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        const countDisplay = document.getElementById('deactive-query-count');
+                        if (countDisplay) {
+                            countDisplay.textContent = `Deactive Queries: ${data.count}`;
+                        }
+                    } else {
+                        console.error('Failed to fetch count:', data.message);
+                    }
+                })
+                .catch(err => console.error('Error:', err));
+        }
+
+
         const initializeRaiseQuery = () => {
             const raiseQueryButton = document.querySelector("#raised-query");
             const raiseQueryPopup = document.querySelector(".raise-query-popup");
@@ -2127,20 +2127,19 @@ $studentDocumentDetailsInfo = [
 
                     formData.append('excel_file', file);
 
+                    const referralId = document.querySelector('#screferral-id-fromprofile span')?.textContent || '';
+                    formData.append('referral_id', referralId); // ✅ Fixed key here
+
                     fetch('{{ route("students.import") }}', {
                         method: 'POST',
                         headers: {
-                            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
                         },
                         body: formData
                     })
                         .then(response => response.json())
                         .then(data => {
-                            if (data.success) {
-                                alert(data.message);
-                            } else {
-                                alert(data.message);
-                            }
+                            alert(data.message);
                             fileNameDisplay.value = "";
                             excelUploadEvent.value = "";
                             fileUploadInfo.style.display = "none";
@@ -2151,10 +2150,23 @@ $studentDocumentDetailsInfo = [
                         });
                 });
             }
+
         };
 
 
         const collectStudentData = async () => {
+
+
+            const getRefCode = document.querySelector("#screferral-id-fromprofile span");
+            const referralId = getRefCode ? getRefCode.textContent : '';
+
+            if (!referralId) {
+                console.error("Referral ID is missing");
+                return;
+            }
+
+
+
             const studentForms = document.querySelectorAll(".studentAddByScuserPopup-contentpart");
             const students = [];
             let hasInvalidEmail = false;
@@ -2177,7 +2189,8 @@ $studentDocumentDetailsInfo = [
                     name: inputs[0].value.trim(),
                     email: inputs[1].value.trim(),
                     phone: inputs[2].value.trim(),
-                    password: inputs[3].value.trim()
+                    password: inputs[3].value.trim(),
+                    referral_code: referralId
                 };
 
                 // Email check

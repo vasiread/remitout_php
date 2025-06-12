@@ -245,7 +245,7 @@ Route::post('/update-personal-info-adminside', [AdminController::class, 'updatep
 
 
 Route::get('/documents', [StudentDetailsController::class, 'getDynamicDocuments']);
-Route::get('/getdocumenttypesadminform', [Admincontroller::class, 'showStudentPersonalInfoAdditionalField']);
+Route::get('/getdocumenttypesadminform/{slug}', [AdminController::class, 'showStudentPersonalInfoAdditionalField']);
 Route::get('/additionalpersonalinfodata', [Admincontroller::class, 'showAdditionalPersonalInfoData']);
 
 
