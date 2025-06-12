@@ -148,7 +148,7 @@
     background: none;
     -webkit-appearance: none;
     appearance: none;
-    width: 190px;
+    width: 100%;
     font-size: 14px;
     padding: 5px 10px;
     color: #575555;
@@ -228,6 +228,18 @@
     transition: all 0.3s ease;
     width: 60px;
     height: 38px;
+}
+@media screen and (max-width: 1024px) {
+    .role-management-admin-main-container {
+        border-radius: 8px;
+        margin: 0 auto;
+        flex-direction: column;
+        font-family: 'Poppins', sans-serif;
+        width: 100%;
+        max-width: 90%;
+        margin: 100px auto;
+
+    }
 }
 
 @media screen and (max-width: 767px) {

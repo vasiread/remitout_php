@@ -1,12 +1,19 @@
 .admindashboard-container {
     display: flex;
     flex-direction: column;
-    margin: 80px 5px 80px 30px;
+    border-radius: 8px;
+    padding: 20px;
+    font-family: "Poppins", sans-serif;
+    width: calc(100% - 18% - 20px);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: auto;
+    margin-left: auto;
+    margin-top: 100px;
+    border-radius: 8px;
+    padding: 20px;
     max-width: 100%;
-    width: 100%;
-    max-width: 1000px;
-    padding-top: 53px;
-    margin-left: 30%;
 }
 
 .admindashboardcontainer-firstsection {
@@ -167,6 +174,19 @@
 }
 #referralModal {
     z-index: 1200;
+}
+
+@media (max-width: 1024px) {
+    .admindashboard-container {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        width:90%;
+        padding-top: 53px;
+        margin: 50px auto;
+    }
+
+
 }
 
 @media (max-width: 767px) {
@@ -734,7 +754,7 @@
 }
 
 .admindashboard-firstpart {
-    width: 330px;
+    width: 28%;
 }
 
 .admindashboard-secondpart,
@@ -793,7 +813,6 @@
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 330px;
     border-radius: 8px;
 }
 
@@ -807,7 +826,7 @@
 
 .ageratio-donutregistration-chart-container {
     justify-content: space-around;
-    width: 300px;
+    width: 100%;
 }
 
 #source-registeration-header {
@@ -817,6 +836,7 @@
     line-height: 18.36px;
     color: rgba(93, 92, 92, 1);
     text-align: left;
+    margin-bottom: 25px;
 }
 
 canvas {
@@ -878,19 +898,19 @@ canvas {
     flex-direction: column;
     gap: 5px;
     width: 100%;
-    max-width: 340px;
+    max-width: 28%;
 }
 
 .admindashboard-second-main-container {
     display: flex !important;
     flex-direction: column !important;
     gap: 6px !important;
-    max-width: 340px;
+    width:100%;
 }
 
 .admindashboard-secondpart .totalundergrads-admin,
 .admindashboard-secondpart .totalpostgrads-admin {
-    padding: 22px 12px 18px 12px;
+    padding: 18px 12px 12px 12px;
     display: flex;
     flex-direction: column;
     height: fit-content;
@@ -1038,18 +1058,19 @@ canvas {
 
 .admindashboard-secondpart .ageratio-graph-admin {
     display: flex;
+    gap: 2.2rem;
     flex-direction: column;
-    padding: 12px 8px 0 12px;
-    height: 164px;
-    margin-top: 12px;
+    padding: 20px;
+    margin-top: 14.23px;
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
     border-radius: 8px;
 }
 
 .ageratio-graph-admin {
     gap: 1rem;
-    width: 305px;
+    width: 100%;
 }
 
 .agerationcolumn-firstsection {
@@ -1090,6 +1111,7 @@ canvas {
     display: flex;
     justify-content: space-between;
     align-content: center;
+    margin-bottom: 25px;
 }
 
 #funnel-analyze-header {
@@ -1105,7 +1127,7 @@ canvas {
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     justify-content: space-between;
-    height: 312px;
+    height:310px;
 }
 
 .funnelreport-analyse-left,
@@ -1123,7 +1145,6 @@ canvas {
 
 .funnelreport-analyze-diagram .funnelreport-analyse-left div {
     height: 52px;
-    max-width: 279px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -2329,7 +2350,6 @@ text[fill="#222222"] {
     }
 
     .referral-triggered-view-footer button:last-child {
-        width: 217px;
         height: 45px;
         background-color: rgba(111, 37, 206, 1);
         box-shadow: 0px 0px 10px rgba(146, 136, 155, 0.13);
@@ -2583,38 +2603,5 @@ text[fill="#222222"] {
         left: 50%;
         transform: translateX(-85%);
         top: 20%;
-    }
-}
-
-
-@media (min-width: 1500px) {
-    .admindashboard-container {
-        margin: 80px 20px 80px 30px;
-        max-width: 1100px;
-        margin-left: 32%;
-    }
-
-    .admindashboard-secondpart .ageratio-graph-admin {
-        width: 340px;
-    }
-}
-
-@media (min-width: 1728px) {
-    .admindashboard-container {
-        margin: 80px 30px 80px 40px;
-        max-width: 1200px;
-        margin-left: 40%;
-    }
-
-    .admindashboard-secondpart .ageratio-graph-admin {
-        width: 340px;
-    }
-
-    #nbfc-lead-chart_container,
-    .sc-lead-container,
-    .point-entry-donut,
-    .point-entry-dashboard {
-        width: 100%;
-        margin: 0;
     }
 }

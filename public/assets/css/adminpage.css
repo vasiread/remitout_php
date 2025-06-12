@@ -5,9 +5,7 @@
   background-color: #FDFDFD;
   overflow-x: hidden;
 }
-body {
-  overflow-x: hidden;
-}
+
 
 .admin-nav {
   position: fixed;
@@ -502,7 +500,7 @@ body {
   }
 
   /* Mobile-Specific Navbar Styles */
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
       .admin-nav {
           background-color: #ffffff;
           box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
@@ -594,6 +592,14 @@ body {
     #adminside-password-change-container {
         max-width: 90%; 
     }
+    .admin-parentcontainer {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 100%;
+      background-color: #FDFDFD;
+      overflow-x: hidden;
+  }
 }
 
 

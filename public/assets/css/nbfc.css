@@ -2554,19 +2554,6 @@ body {
     font-size: 18px;
 }
 
-.index-search-container {
-    position: relative;
-}
-
-.index-search-input {
-    padding: 8px 12px 8px 36px;
-    border: 1px solid #e2e2e2;
-    border-radius: 4px;
-    width: 240px;
-    font-family: "Poppins", sans-serif;
-    background-color: #ffffff;
-    font-size: 12px;
-}
 
 .index-search-input::placeholder {
     padding: 0px 10px;
@@ -2734,10 +2721,6 @@ body {
     z-index: 2;
 }
 
-.nbfc-personalinfo-secondrow i {
-    font-size: 18px;
-}
-
 .index-search-container {
     position: relative;
 }
@@ -2752,23 +2735,8 @@ body {
     font-size: 12px;
 }
 
-.index-search-input::placeholder {
-    padding: 0px 10px;
-    font-family: "Inter", sans-serif;
-    font-weight: 500;
-    font-size: 12px;
-    color: #5d5c5c;
-}
 
-.index-search-icon {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 24px;
-    height: 24px;
-    opacity: 0.5;
-}
+
 
 @media (min-width: 1700px) {
     .index-student-details-container {
@@ -2805,6 +2773,9 @@ body {
         margin-left: auto;
         border-radius: 4px;
         padding: 10px;
+    }
+    .inbox-controls{
+        max-width: 100%;
     }
 }
 
@@ -3419,4 +3390,58 @@ body {
     color: white;
     text-decoration: underline;
     word-wrap: break-word;
+}
+@media only screen and (max-width: 768px) {
+    .overlay-password-change-nbfc {
+        background-color: rgba(128, 128, 128, 0.9);
+    }
+
+    .password-change-container-nbfc {
+        max-width: 90%;
+        padding: 1rem;
+        gap: 1rem;
+        border-radius: 6px;
+        transform: translate(-50%, -50%);
+    }
+
+    .password-change-container-nbfc input {
+        min-height: 45px;
+        font-size: 13px;
+        padding-left: 8px;
+    }
+
+    #password-change-save-nbfc {
+        max-width: 100px;
+        min-height: 32px;
+        font-size: 13px;
+    }
+
+    .password-change-triggered-view-headersection-nbfc h3 {
+        font-size: 16px;
+        line-height: clamp(10px, 3.5vw, 22px);
+    }
+
+    .popup-notify-list-nbfc {
+        width: 160px;
+        right: 2%;
+        padding: 0.8rem 0;
+        border-radius: 4px;
+    }
+
+    .popup-notify-list-nbfc p {
+        font-size: 13px;
+        height: 30px;
+        padding: 0.2rem;
+        margin: 0 2px;
+    }
+
+    .footer-passwordchange-nbfc {
+        gap: 0.8rem;
+        align-items: flex-end;
+    }
+
+    .footer-passwordchange-nbfc p {
+        font-size: 11px;
+        text-align: right;
+    }
 }

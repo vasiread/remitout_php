@@ -556,7 +556,7 @@
                       <div class="document-row" id="document-row-1">
                         <!-- PAN Card -->
                         <div class="document-box">
-                          <div class="document-name" id="pan-card-document-name">
+                          <div class="document-name" id="pan-card-document-name" >
                             PAN Card
                           </div>
                           <div class="upload-field">
@@ -576,18 +576,19 @@
                           <div class="info">
                             <span class="help-trigger" data-target="kyc-pan-help">ⓘ Help</span>
                             <span>*jpg, png, pdf formats</span>
-                          </div>
-                          <div class="help-container kyc-pan-help" id="help-container-kyc-id">
-                            <h3 class="help-title">Help</h3>
-                            <div class="help-content">
-                              <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+                            <div class="help-container kyc-pan-help" id="help-container-kyc-id" style="position: relative;">
+                              <h3 class="help-title">Help</h3>
+                              <div class="help-content">
+                                <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+                              </div>
                             </div>
                           </div>
+                          
                         </div>
 
                         <!-- Aadhar Card -->
                         <div class="document-box">
-                          <div class="document-name" id="aadhar-card-document-name">
+                          <div class="document-name" id="aadhar-card-document-name" >
                             Aadhar Card
                           </div>
                           <div class="upload-field">
@@ -618,7 +619,7 @@
                         </div>
                         <!-- Passport -->
                         <div class="document-box">
-                          <div class="document-name" id="passport-document-name">
+                          <div class="document-name" id="passport-document-name" >
                             Passport
                           </div>
                           <div class="upload-field">
@@ -675,7 +676,7 @@
                       <div class="document-row" id="academic-row-1">
                         <!-- 10th Grade Mark Sheet -->
                         <div class="document-box">
-                          <div class="document-name" id="10th-mark-sheet-id">
+                          <div class="document-name" id="10th-mark-sheet-id" >
                             10th Mark Sheet
                           </div>
                           <div class="upload-field">
@@ -1426,7 +1427,7 @@
       fetchAdditionalPersonalFields();
       fetchAcademics();
       fetchCourseDetailOptions();
-
+ 
       const managers = [
         SectionToggler,
         InputFieldManager,
@@ -2664,7 +2665,7 @@
             'Accept': 'application/json',
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
           },
-          body: JSON.stringify({ name: fieldType, slug })
+          body: JSON.stringify({ name: fieldType, type, subSection })
         })
           .then(response => {
             if (response.ok) return response.json();
@@ -3357,11 +3358,11 @@
 
 
     function fetchAdditionalPersonalFields() {
-      const existingStyle = document.getElementById("personal-inline-style");
-      if (!existingStyle) {
-        const style = document.createElement("style");
-        style.id = "personal-inline-style";
-        style.innerHTML = `
+  const existingStyle = document.getElementById("personal-inline-style");
+  if (!existingStyle) {
+    const style = document.createElement("style");
+    style.id = "personal-inline-style";
+    style.innerHTML = `
       #personal-fields-container {
         padding: 20px;
         border-top: 1px solid #e0e0e0;
@@ -3417,88 +3418,88 @@
         cursor: pointer;
       }
     `;
-        document.head.appendChild(style);
-      }
+    document.head.appendChild(style);
+  }
 
-      fetch('/additionalpersonalinfodata')
-        .then(response => response.json())
-        .then(data => {
-          if (data && data.additionalFields) {
-            const container = document.getElementById("personal-fields-container");
-            container.innerHTML = "";
+  fetch('/additionalpersonalinfodata')
+    .then(response => response.json())
+    .then(data => {
+      if (data && data.additionalFields) {
+        const container = document.getElementById("personal-fields-container");
+        container.innerHTML = "";  
 
-            data.additionalFields.forEach((field, index) => {
-              const fieldWrapper = document.createElement("div");
-              fieldWrapper.className = "personal-field";
-              fieldWrapper.dataset.id = field.id;
+        data.additionalFields.forEach((field, index) => {
+          const fieldWrapper = document.createElement("div");
+          fieldWrapper.className = "personal-field";
+          fieldWrapper.dataset.id = field.id;
 
-              const labelElement = document.createElement("label");
-              labelElement.textContent = field.label || "Field";
-              fieldWrapper.appendChild(labelElement);
+          const labelElement = document.createElement("label");
+          labelElement.textContent = field.label || "Field";
+          fieldWrapper.appendChild(labelElement);
 
-              let inputHTML = "";
-              const fieldName = `personal-info[extra][${index}][${field.name}]`;
+          let inputHTML = "";
+          const fieldName = `personal-info[extra][${index}][${field.name}]`;
 
-              if (field.type === "text") {
-                inputHTML = `<input type="text" name="${fieldName}" placeholder="${field.label}">`;
-              } else if (field.type === "select" && Array.isArray(field.options)) {
-                const options = field.options.map(opt => `<option value="${opt}">${opt}</option>`).join("");
-                inputHTML = `<select name="${fieldName}">${options}</select>`;
-              } else if (field.type === "radio" && Array.isArray(field.options)) {
-                inputHTML = field.options.map(opt => `
+          if (field.type === "text") {
+            inputHTML = `<input type="text" name="${fieldName}" placeholder="${field.label}">`;
+          } else if (field.type === "select" && Array.isArray(field.options)) {
+            const options = field.options.map(opt => `<option value="${opt}">${opt}</option>`).join("");
+            inputHTML = `<select name="${fieldName}">${options}</select>`;
+          } else if (field.type === "radio" && Array.isArray(field.options)) {
+            inputHTML = field.options.map(opt => `
               <label style="margin-right:10px">
                 <input type="radio" name="${fieldName}" value="${opt}"> ${opt}
               </label>
             `).join("");
-              } else if (field.type === "checkbox" && Array.isArray(field.options)) {
-                inputHTML = field.options.map(opt => `
+          } else if (field.type === "checkbox" && Array.isArray(field.options)) {
+            inputHTML = field.options.map(opt => `
               <label style="margin-right:10px">
                 <input type="checkbox" name="${fieldName}[]" value="${opt}"> ${opt}
               </label>
             `).join("");
-              }
-
-              fieldWrapper.innerHTML += inputHTML;
-
-              const deleteBtn = document.createElement("button");
-              deleteBtn.type = "button";
-              deleteBtn.className = "remove-field-btn";
-              deleteBtn.textContent = "✕";
-              deleteBtn.title = "Delete this field";
-
-              deleteBtn.addEventListener("click", () => {
-                const id = fieldWrapper.dataset.id;
-                if (id && confirm("Are you sure you want to delete this field?")) {
-                  fetch(`/additionalfields/${id}`, {
-                    method: "DELETE",
-                    headers: {
-                      "Content-Type": "application/json",
-                      "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-                    }
-                  })
-                    .then(res => res.json())
-                    .then(response => {
-                      if (response.success) {
-                        fieldWrapper.remove();
-                      } else {
-                        alert("Failed to delete the field.");
-                      }
-                    })
-                    .catch(err => {
-                      console.error("Error deleting field:", err);
-                    });
-                }
-              });
-
-              fieldWrapper.appendChild(deleteBtn);
-              container.appendChild(fieldWrapper);
-            });
           }
-        })
-        .catch(error => {
-          console.error('Error fetching personal fields:', error);
+
+          fieldWrapper.innerHTML += inputHTML;
+
+          const deleteBtn = document.createElement("button");
+          deleteBtn.type = "button";
+          deleteBtn.className = "remove-field-btn";
+          deleteBtn.textContent = "✕";
+          deleteBtn.title = "Delete this field";
+
+          deleteBtn.addEventListener("click", () => {
+            const id = fieldWrapper.dataset.id;
+            if (id && confirm("Are you sure you want to delete this field?")) {
+              fetch(`/additionalfields/${id}`, {
+                method: "DELETE",
+                headers: {
+                  "Content-Type": "application/json",
+                  "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                }
+              })
+                .then(res => res.json())
+                .then(response => {
+                  if (response.success) {
+                    fieldWrapper.remove();
+                  } else {
+                    alert("Failed to delete the field.");
+                  }
+                })
+                .catch(err => {
+                  console.error("Error deleting field:", err);
+                });
+            }
+          });
+
+          fieldWrapper.appendChild(deleteBtn);
+          container.appendChild(fieldWrapper);
         });
-    }
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching personal fields:', error);
+    });
+}
 
 
     function fetchAcademics() {
@@ -3755,8 +3756,6 @@
         alert('An error occurred while deleting the option.');
       }
     }
-
-
 
   </script>
 </body>

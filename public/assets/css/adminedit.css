@@ -215,12 +215,16 @@
 }
 
 /* Mobile and Tablet responsive styles */
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 1024px) {
     .edit-content-container {
-        max-width: 100%;
-        margin: 0;
-        padding: 0;
-        border-radius: 0;
+        display: flex;
+        border-radius: 8px;
+        margin: 0 auto;
+        flex-direction: column;
+        font-family: 'Poppins', sans-serif;
+        width: 100%;
+        max-width: 90%;
+        margin: 100px auto;
     }
 
     .edit-content-header {

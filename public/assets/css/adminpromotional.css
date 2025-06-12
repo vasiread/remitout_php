@@ -160,7 +160,7 @@
 .promotional-content-area {
     padding: 20px 0px;
     min-height: 400px;
-    width: 788px;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -456,6 +456,20 @@
     color: #5d5c5cb3;
     line-height: 1.5;
     font-family: "Poppins", sans-serif;
+}
+
+@media only screen and (max-width: 1024px){
+    .promotional-email-composer {
+    border-radius: 8px;
+    margin: 0 auto;
+    flex-direction: column;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    margin: 100px auto;
+}
+.promotional-footer{
+    width:95%;
+}
 }
 @media only screen and (max-width: 768px) {
     .promotional-email-composer {

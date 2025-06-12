@@ -11,9 +11,6 @@
     left: auto;
     margin-left: auto;
     margin-top: 100px;
-}
-
-.manage-student-main-report-container {
     border-radius: 8px;
     padding: 20px;
     max-width: 100%;
@@ -355,6 +352,19 @@
     min-width: 2000px;
 }
 
+@media screen and (max-width: 1024px) {
+    .manage-student-main-report-container {
+        display: flex;
+        border-radius: 8px;
+        margin: 0 auto;
+        flex-direction: column;
+        font-family: 'Poppins', sans-serif;
+        width: 100%;
+        margin: 100px auto;
+
+    }
+
+}
 @media screen and (max-width: 768px) {
     .manage-student-main-report-container {
         width: 100%;
