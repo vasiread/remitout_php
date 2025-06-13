@@ -187,7 +187,7 @@
                         mediaConstraints: {
                             formats: ['png', 'jpg', 'jpeg'],
                             width: 400,
-                            height: 320
+                            height: 527
                         }
                     },
                     {
@@ -222,205 +222,63 @@
                         id: 8,
                         page: 'Landing Page',
                         sectionType: 'testimonial',
-                        title: 'Testimonial Card 1 Name',
-                        content: 'Mark Debrovski',
+                        title: 'Testimonials',
+                        content: JSON.stringify([
+                            {
+                                name: 'Mark Debrovski',
+                                designation: 'Designation',
+                                rating: 5,
+                                description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
+                                image: '/api/placeholder/100/100',
+                                mediaConstraints: {
+                                    formats: ['png', 'jpg', 'jpeg'],
+                                    width: 100,
+                                    height: 100
+                                }
+                            },
+                            {
+                                name: 'Debrovski',
+                                designation: 'Designation',
+                                rating: 4,
+                                description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
+                                image: '/api/placeholder/100/100',
+                                mediaConstraints: {
+                                    formats: ['png', 'jpg', 'jpeg'],
+                                    width: 100,
+                                    height: 100
+                                }
+                            },
+                            {
+                                name: 'Mark Debrovski',
+                                designation: 'Designation',
+                                rating: 5,
+                                description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
+                                image: '/api/placeholder/100/100',
+                                mediaConstraints: {
+                                    formats: ['png', 'jpg', 'jpeg'],
+                                    width: 100,
+                                    height: 100
+                                }
+                            },
+                            {
+                                name: 'Mark Debrovski',
+                                designation: 'Designation',
+                                rating: 5,
+                                description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
+                                image: '/api/placeholder/100/100',
+                                mediaConstraints: {
+                                    formats: ['png', 'jpg', 'jpeg'],
+                                    width: 100,
+                                    height: 100
+                                }
+                            }
+                        ]),
                         status: 'Active',
-                        maxLength: 50
-                    },
-                    {
-                        id: 9,
-                        page: 'Landing Page',
-                        sectionType: 'testimonial',
-                        title: 'Testimonial Card 1 Designation',
-                        content: 'Designation',
-                        status: 'Active',
-                        maxLength: 50
-                    },
-                    {
-                        id: 10,
-                        page: 'Landing Page',
-                        sectionType: 'testimonial',
-                        title: 'Testimonial Card 1 Rating',
-                        content: '5',
-                        status: 'Active',
-                        maxLength: 1
-                    },
-                    {
-                        id: 11,
-                        page: 'Landing Page',
-                        sectionType: 'testimonial',
-                        title: 'Testimonial Card 1 Description',
-                        content: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
-                        status: 'Active',
-                        maxLength: 100
-                    },
-                    {
-                        id: 12,
-                        page: 'Landing Page',
-                        sectionType: 'testimonial',
-                        title: 'Testimonial Card 1 Image',
-                        content: '/api/placeholder/100/100',
-                        status: 'Active',
-                        isMedia: true,
-                        mediaConstraints: {
-                            formats: ['png', 'jpg', 'jpeg'],
-                            width: 100,
-                            height: 100
-                        }
-                    },
-                    {
-                        id: 13,
-                        page: 'Landing Page',
-                        sectionType: 'testimonial',
-                        title: 'Testimonial Card 2 Name',
-                        content: 'Debrovski',
-                        status: 'Active',
-                        maxLength: 50
-                    },
-                    {
-                        id: 14,
-                        page: 'Landing Page',
-                        sectionType: 'testimonial',
-                        title: 'Testimonial Card 2 Designation',
-                        content: 'Designation',
-                        status: 'Active',
-                        maxLength: 50
-                    },
-                    {
-                        id: 15,
-                        page: 'Landing Page',
-                        sectionType: 'testimonial',
-                        title: 'Testimonial Card 2 Rating',
-                        content: '4',
-                        status: 'Active',
-                        maxLength: 1
-                    },
-                    {
-                        id: 16,
-                        page: 'Landing Page',
-                        sectionType: 'testimonial',
-                        title: 'Testimonial Card 2 Description',
-                        content: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
-                        status: 'Active',
-                        maxLength: 100
-                    },
-                    {
-                        id: 17,
-                        page: 'Landing Page',
-                        sectionType: 'testimonial',
-                        title: 'Testimonial Card 2 Image',
-                        content: '/api/placeholder/100/100',
-                        status: 'Active',
-                        isMedia: true,
-                        mediaConstraints: {
-                            formats: ['png', 'jpg', 'jpeg'],
-                            width: 100,
-                            height: 100
-                        }
-                    },
-                    {
-                        id: 18,
-                        page: 'Landing Page',
-                        sectionType: 'testimonial',
-                        title: 'Testimonial Card 3 Name',
-                        content: 'Mark Debrovski',
-                        status: 'Active',
-                        maxLength: 50
-                    },
-                    {
-                        id: 19,
-                        page: 'Landing Page',
-                        sectionType: 'testimonial',
-                        title: 'Testimonial Card 3 Designation',
-                        content: 'Designation',
-                        status: 'Active',
-                        maxLength: 50
-                    },
-                    {
-                        id: 20,
-                        page: 'Landing Page',
-                        sectionType: 'testimonial',
-                        title: 'Testimonial Card 3 Rating',
-                        content: '5',
-                        status: 'Active',
-                        maxLength: 1
-                    },
-                    {
-                        id: 21,
-                        page: 'Landing Page',
-                        sectionType: 'testimonial',
-                        title: 'Testimonial Card 3 Description',
-                        content: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
-                        status: 'Active',
-                        maxLength: 100
-                    },
-                    {
-                        id: 22,
-                        page: 'Landing Page',
-                        sectionType: 'testimonial',
-                        title: 'Testimonial Card 3 Image',
-                        content: '/api/placeholder/100/100',
-                        status: 'Active',
-                        isMedia: true,
-                        mediaConstraints: {
-                            formats: ['png', 'jpg', 'jpeg'],
-                            width: 100,
-                            height: 100
-                        }
-                    },
-                    {
-                        id: 23,
-                        page: 'Landing Page',
-                        sectionType: 'testimonial',
-                        title: 'Testimonial Card 4 Name',
-                        content: 'Mark Debrovski',
-                        status: 'Active',
-                        maxLength: 50
-                    },
-                    {
-                        id: 24,
-                        page: 'Landing Page',
-                        sectionType: 'testimonial',
-                        title: 'Testimonial Card 4 Designation',
-                        content: 'Designation',
-                        status: 'Active',
-                        maxLength: 50
-                    },
-                    {
-                        id: 25,
-                        page: 'Landing Page',
-                        sectionType: 'testimonial',
-                        title: 'Testimonial Card 4 Rating',
-                        content: '5',
-                        status: 'Active',
-                        maxLength: 1
-                    },
-                    {
-                        id: 26,
-                        page: 'Landing Page',
-                        sectionType: 'testimonial',
-                        title: 'Testimonial Card 4 Description',
-                        content: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
-                        status: 'Active',
-                        maxLength: 100
-                    },
-                    {
-                        id: 27,
-                        page: 'Landing Page',
-                        sectionType: 'testimonial',
-                        title: 'Testimonial Card 4 Image',
-                        content: '/api/placeholder/100/100',
-                        status: 'Active',
-                        isMedia: true,
-                        mediaConstraints: {
-                            formats: ['png', 'jpg', 'jpeg'],
-                            width: 100,
-                            height: 100
-                        }
+                        isTestimonialArray: true
                     },
                     // Logo Section
                     {
-                        id: 28,
+                        id: 9,
                         page: 'Landing Page',
                         sectionType: 'logo',
                         title: 'Partner Logo 1',
@@ -434,7 +292,7 @@
                         }
                     },
                     {
-                        id: 29,
+                        id: 10,
                         page: 'Landing Page',
                         sectionType: 'logo',
                         title: 'Partner Logo 2',
@@ -448,7 +306,7 @@
                         }
                     },
                     {
-                        id: 30,
+                        id: 11,
                         page: 'Landing Page',
                         sectionType: 'logo',
                         title: 'Partner Logo 3',
@@ -462,7 +320,7 @@
                         }
                     },
                     {
-                        id: 31,
+                        id: 12,
                         page: 'Landing Page',
                         sectionType: 'logo',
                         title: 'Partner Logo 4',
@@ -476,7 +334,7 @@
                         }
                     },
                     {
-                        id: 32,
+                        id: 13,
                         page: 'Landing Page',
                         sectionType: 'logo',
                         title: 'Partner Logo 5',
@@ -491,7 +349,7 @@
                     },
                     // Study Loan Graph Section
                     {
-                        id: 33,
+                        id: 14,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Graph Heading',
@@ -500,7 +358,7 @@
                         maxLength: 50
                     },
                     {
-                        id: 34,
+                        id: 15,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Graph Subheading',
@@ -509,7 +367,7 @@
                         maxLength: 100
                     },
                     {
-                        id: 35,
+                        id: 16,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Globe Image',
@@ -523,7 +381,7 @@
                         }
                     },
                     {
-                        id: 36,
+                        id: 17,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Step 1 Header: Profile Assessment',
@@ -532,7 +390,7 @@
                         maxLength: 50
                     },
                     {
-                        id: 37,
+                        id: 18,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Step 1 Content: Profile Assessment',
@@ -541,7 +399,7 @@
                         maxLength: 150
                     },
                     {
-                        id: 38,
+                        id: 19,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Step 1 Image: Profile Assessment Vector',
@@ -555,7 +413,7 @@
                         }
                     },
                     {
-                        id: 39,
+                        id: 20,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Diagonal Label: Profile Assessment',
@@ -564,7 +422,7 @@
                         maxLength: 50
                     },
                     {
-                        id: 40,
+                        id: 21,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Step 2 Header: Get Matched with Top NBFCs',
@@ -573,7 +431,7 @@
                         maxLength: 50
                     },
                     {
-                        id: 41,
+                        id: 22,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Step 2 Content: Get Matched with Top NBFCs',
@@ -582,7 +440,7 @@
                         maxLength: 150
                     },
                     {
-                        id: 42,
+                        id: 23,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Step 2 Image: Handshake',
@@ -596,7 +454,7 @@
                         }
                     },
                     {
-                        id: 43,
+                        id: 24,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Diagonal Label: Perfect Match',
@@ -605,7 +463,7 @@
                         maxLength: 50
                     },
                     {
-                        id: 44,
+                        id: 25,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Step 3 Header: Choose Your Loan Offers',
@@ -614,7 +472,7 @@
                         maxLength: 50
                     },
                     {
-                        id: 45,
+                        id: 26,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Step 3 Content: Choose Your Loan Offers',
@@ -623,7 +481,7 @@
                         maxLength: 150
                     },
                     {
-                        id: 46,
+                        id: 27,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Step 3 Image: Loan Choices Vector',
@@ -637,7 +495,7 @@
                         }
                     },
                     {
-                        id: 47,
+                        id: 28,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Diagonal Label: Loan Choices',
@@ -646,7 +504,7 @@
                         maxLength: 50
                     },
                     {
-                        id: 48,
+                        id: 29,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Step 4 Header: Submit Documents With Ease',
@@ -655,7 +513,7 @@
                         maxLength: 50
                     },
                     {
-                        id: 49,
+                        id: 30,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Step 4 Content: Submit Documents With Ease',
@@ -664,7 +522,7 @@
                         maxLength: 150
                     },
                     {
-                        id: 50,
+                        id: 31,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Step 4 Image: Easy Process Vector',
@@ -678,7 +536,7 @@
                         }
                     },
                     {
-                        id: 51,
+                        id: 32,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Diagonal Label: Easy Process',
@@ -687,7 +545,7 @@
                         maxLength: 50
                     },
                     {
-                        id: 52,
+                        id: 33,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Step 5 Header: Fast-Track Approval',
@@ -696,7 +554,7 @@
                         maxLength: 50
                     },
                     {
-                        id: 53,
+                        id: 34,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Step 5 Content: Fast-Track Approval',
@@ -705,7 +563,7 @@
                         maxLength: 150
                     },
                     {
-                        id: 54,
+                        id: 35,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Step 5 Image: Clock Hand',
@@ -719,7 +577,7 @@
                         }
                     },
                     {
-                        id: 55,
+                        id: 36,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Diagonal Label: Fast-Track Approval',
@@ -728,7 +586,7 @@
                         maxLength: 50
                     },
                     {
-                        id: 56,
+                        id: 37,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Step 6 Header: Guaranteed Disbursement',
@@ -737,7 +595,7 @@
                         maxLength: 50
                     },
                     {
-                        id: 57,
+                        id: 38,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Step 6 Content: Guaranteed Disbursement',
@@ -746,7 +604,7 @@
                         maxLength: 150
                     },
                     {
-                        id: 58,
+                        id: 39,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Step 6 Image: Guarantee Vector',
@@ -760,7 +618,7 @@
                         }
                     },
                     {
-                        id: 59,
+                        id: 40,
                         page: 'Landing Page',
                         sectionType: 'study-loan',
                         title: 'Diagonal Label: Guaranteed Disbursement',
@@ -770,7 +628,7 @@
                     },
                     // Secure Loan Section
                     {
-                        id: 60,
+                        id: 41,
                         page: 'Landing Page',
                         sectionType: 'secure-loan',
                         title: 'Main Heading',
@@ -779,7 +637,7 @@
                         maxLength: 50
                     },
                     {
-                        id: 61,
+                        id: 42,
                         page: 'Landing Page',
                         sectionType: 'secure-loan',
                         title: 'Mobile Image',
@@ -793,7 +651,7 @@
                         }
                     },
                     {
-                        id: 62,
+                        id: 43,
                         page: 'Landing Page',
                         sectionType: 'secure-loan',
                         title: 'Feature 1 Title',
@@ -802,7 +660,7 @@
                         maxLength: 50
                     },
                     {
-                        id: 63,
+                        id: 44,
                         page: 'Landing Page',
                         sectionType: 'secure-loan',
                         title: 'Feature 1 Description',
@@ -811,7 +669,7 @@
                         maxLength: 100
                     },
                     {
-                        id: 64,
+                        id: 45,
                         page: 'Landing Page',
                         sectionType: 'secure-loan',
                         title: 'Feature 1 Icon',
@@ -825,7 +683,7 @@
                         }
                     },
                     {
-                        id: 65,
+                        id: 46,
                         page: 'Landing Page',
                         sectionType: 'secure-loan',
                         title: 'Feature 2 Title',
@@ -834,7 +692,7 @@
                         maxLength: 50
                     },
                     {
-                        id: 66,
+                        id: 47,
                         page: 'Landing Page',
                         sectionType: 'secure-loan',
                         title: 'Feature 2 Description',
@@ -843,7 +701,7 @@
                         maxLength: 100
                     },
                     {
-                        id: 67,
+                        id: 48,
                         page: 'Landing Page',
                         sectionType: 'secure-loan',
                         title: 'Feature 2 Icon',
@@ -857,7 +715,7 @@
                         }
                     },
                     {
-                        id: 68,
+                        id: 49,
                         page: 'Landing Page',
                         sectionType: 'secure-loan',
                         title: 'Feature 3 Title',
@@ -866,7 +724,7 @@
                         maxLength: 50
                     },
                     {
-                        id: 69,
+                        id: 50,
                         page: 'Landing Page',
                         sectionType: 'secure-loan',
                         title: 'Feature 3 Description',
@@ -875,7 +733,7 @@
                         maxLength: 100
                     },
                     {
-                        id: 70,
+                        id: 51,
                         page: 'Landing Page',
                         sectionType: 'secure-loan',
                         title: 'Feature 3 Icon',
@@ -889,7 +747,7 @@
                         }
                     },
                     {
-                        id: 71,
+                        id: 52,
                         page: 'Landing Page',
                         sectionType: 'secure-loan',
                         title: 'Feature 4 Title',
@@ -898,7 +756,7 @@
                         maxLength: 50
                     },
                     {
-                        id: 72,
+                        id: 53,
                         page: 'Landing Page',
                         sectionType: 'secure-loan',
                         title: 'Feature 4 Description',
@@ -907,7 +765,7 @@
                         maxLength: 100
                     },
                     {
-                        id: 73,
+                        id: 54,
                         page: 'Landing Page',
                         sectionType: 'secure-loan',
                         title: 'Feature 4 Icon',
@@ -921,7 +779,7 @@
                         }
                     },
                     {
-                        id: 74,
+                        id: 55,
                         page: 'Landing Page',
                         sectionType: 'secure-loan',
                         title: 'CTA Button Text',
@@ -930,7 +788,7 @@
                         maxLength: 30
                     },
                     {
-                        id: 75,
+                        id: 56,
                         page: 'Landing Page',
                         sectionType: 'secure-loan',
                         title: 'Loading Animation',
@@ -944,7 +802,7 @@
                         }
                     },
                     {
-                        id: 76,
+                        id: 57,
                         page: 'Landing Page',
                         sectionType: 'secure-loan',
                         title: 'Radcliffe Icon',
@@ -958,11 +816,11 @@
                         }
                     },
                     {
-                        id: 77,
+                        id: 58,
                         page: 'Landing Page',
                         sectionType: 'secure-loan',
-                        content: 'Radcliffe Image',
-                        status: 'assets/images/image-1.png',
+                        title: 'Radcliffe Image',
+                        content: 'assets/images/image-1.png',
                         status: 'Active',
                         isMedia: true,
                         mediaConstraints: {
@@ -972,7 +830,7 @@
                         }
                     },
                     {
-                        id: 78,
+                        id: 59,
                         page: 'Landing Page',
                         sectionType: 'secure-loan',
                         title: 'Students Image',
@@ -986,7 +844,7 @@
                         }
                     },
                     {
-                        id: 79,
+                        id: 60,
                         page: 'Landing Page',
                         sectionType: 'secure-loan',
                         title: 'Graduation Image',
@@ -1001,7 +859,7 @@
                     },
                     // Global Transfer and Services Section
                     {
-                        id: 80,
+                        id: 61,
                         page: 'Landing Page',
                         sectionType: 'global-transfer',
                         title: 'Background Image',
@@ -1015,7 +873,7 @@
                         }
                     },
                     {
-                        id: 81,
+                        id: 62,
                         page: 'Landing Page',
                         sectionType: 'global-transfer',
                         title: 'Main Image',
@@ -1029,7 +887,7 @@
                         }
                     },
                     {
-                        id: 82,
+                        id: 63,
                         page: 'Landing Page',
                         sectionType: 'global-transfer',
                         title: 'Heading',
@@ -1038,7 +896,7 @@
                         maxLength: 50
                     },
                     {
-                        id: 83,
+                        id: 64,
                         page: 'Landing Page',
                         sectionType: 'global-transfer',
                         title: 'Description',
@@ -1047,7 +905,7 @@
                         maxLength: 200
                     },
                     {
-                        id: 84,
+                        id: 65,
                         page: 'Landing Page',
                         sectionType: 'global-transfer',
                         title: 'Students Icon',
@@ -1061,7 +919,7 @@
                         }
                     },
                     {
-                        id: 85,
+                        id: 66,
                         page: 'Landing Page',
                         sectionType: 'global-transfer',
                         title: 'NBFCs Icon',
@@ -1075,7 +933,7 @@
                         }
                     },
                     {
-                        id: 86,
+                        id: 67,
                         page: 'Landing Page',
                         sectionType: 'global-transfer',
                         title: 'Countries Icon',
@@ -1089,7 +947,7 @@
                         }
                     },
                     {
-                        id: 87,
+                        id: 68,
                         page: 'Landing Page',
                         sectionType: 'global-transfer',
                         title: 'Customers Icon',
@@ -1103,7 +961,7 @@
                         }
                     },
                     {
-                        id: 88,
+                        id: 69,
                         page: 'Landing Page',
                         sectionType: 'global-transfer',
                         title: 'Students Stat Value',
@@ -1112,7 +970,7 @@
                         maxLength: 10
                     },
                     {
-                        id: 89,
+                        id: 70,
                         page: 'Landing Page',
                         sectionType: 'global-transfer',
                         title: 'Students Stat Label',
@@ -1121,7 +979,7 @@
                         maxLength: 20
                     },
                     {
-                        id: 90,
+                        id: 71,
                         page: 'Landing Page',
                         sectionType: 'global-transfer',
                         title: 'NBFCs Stat Value',
@@ -1130,7 +988,7 @@
                         maxLength: 10
                     },
                     {
-                        id: 91,
+                        id: 72,
                         page: 'Landing Page',
                         sectionType: 'global-transfer',
                         title: 'NBFCs Stat Label',
@@ -1138,7 +996,7 @@
                         maxLength: 20
                     },
                     {
-                        id: 92,
+                        id: 73,
                         page: 'Landing Page',
                         sectionType: 'global-transfer',
                         title: 'Countries Stat Value',
@@ -1147,7 +1005,7 @@
                         maxLength: 10
                     },
                     {
-                        id: 93,
+                        id: 74,
                         page: 'Landing Page',
                         sectionType: 'global-transfer',
                         title: 'Countries Stat Label',
@@ -1156,7 +1014,7 @@
                         maxLength: 20
                     },
                     {
-                        id: 94,
+                        id: 75,
                         page: 'Landing Page',
                         sectionType: 'global-transfer',
                         title: 'Customers Stat Value',
@@ -1165,7 +1023,7 @@
                         maxLength: 10
                     },
                     {
-                        id: 95,
+                        id: 76,
                         page: 'Landing Page',
                         sectionType: 'global-transfer',
                         title: 'Customers Stat Label',
@@ -1175,7 +1033,7 @@
                     },
                     // FAQ Section
                     {
-                        id: 96,
+                        id: 77,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Header Desktop',
@@ -1184,7 +1042,7 @@
                         maxLength: 50
                     },
                     {
-                        id: 97,
+                        id: 78,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Question 1',
@@ -1193,7 +1051,7 @@
                         maxLength: 100
                     },
                     {
-                        id: 98,
+                        id: 79,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Answer 1',
@@ -1202,7 +1060,7 @@
                         maxLength: 200
                     },
                     {
-                        id: 99,
+                        id: 80,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Question 2',
@@ -1211,7 +1069,7 @@
                         maxLength: 100
                     },
                     {
-                        id: 100,
+                        id: 81,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Answer 2',
@@ -1220,7 +1078,7 @@
                         maxLength: 200
                     },
                     {
-                        id: 101,
+                        id: 82,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Question 3',
@@ -1229,7 +1087,7 @@
                         maxLength: 100
                     },
                     {
-                        id: 102,
+                        id: 83,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Answer 3',
@@ -1238,7 +1096,7 @@
                         maxLength: 200
                     },
                     {
-                        id: 103,
+                        id: 84,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Question 4',
@@ -1247,7 +1105,7 @@
                         maxLength: 100
                     },
                     {
-                        id: 104,
+                        id: 85,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Answer 4',
@@ -1256,7 +1114,7 @@
                         maxLength: 200
                     },
                     {
-                        id: 105,
+                        id: 86,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Question 5',
@@ -1265,7 +1123,7 @@
                         maxLength: 100
                     },
                     {
-                        id: 106,
+                        id: 87,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Answer 5',
@@ -1274,7 +1132,7 @@
                         maxLength: 200
                     },
                     {
-                        id: 107,
+                        id: 88,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Question 6',
@@ -1283,7 +1141,7 @@
                         maxLength: 100
                     },
                     {
-                        id: 108,
+                        id: 89,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Answer 6',
@@ -1292,7 +1150,7 @@
                         maxLength: 200
                     },
                     {
-                        id: 109,
+                        id: 90,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Question 7',
@@ -1301,7 +1159,7 @@
                         maxLength: 100
                     },
                     {
-                        id: 110,
+                        id: 91,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Answer 7',
@@ -1310,7 +1168,7 @@
                         maxLength: 200
                     },
                     {
-                        id: 111,
+                        id: 92,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Question 8',
@@ -1319,7 +1177,7 @@
                         maxLength: 100
                     },
                     {
-                        id: 112,
+                        id: 93,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Answer 8',
@@ -1327,7 +1185,7 @@
                         maxLength: 200
                     },
                     {
-                        id: 113,
+                        id: 94,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Question 9',
@@ -1336,7 +1194,7 @@
                         maxLength: 100
                     },
                     {
-                        id: 114,
+                        id: 95,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Answer 9',
@@ -1345,7 +1203,7 @@
                         maxLength: 200
                     },
                     {
-                        id: 115,
+                        id: 96,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Question 10',
@@ -1354,7 +1212,7 @@
                         maxLength: 100
                     },
                     {
-                        id: 116,
+                        id: 97,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Answer 10',
@@ -1363,7 +1221,7 @@
                         maxLength: 200
                     },
                     {
-                        id: 117,
+                        id: 98,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Question 11',
@@ -1372,7 +1230,7 @@
                         maxLength: 100
                     },
                     {
-                        id: 118,
+                        id: 99,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Answer 11',
@@ -1381,7 +1239,7 @@
                         maxLength: 200
                     },
                     {
-                        id: 119,
+                        id: 100,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Question 12',
@@ -1390,7 +1248,7 @@
                         maxLength: 100
                     },
                     {
-                        id: 120,
+                        id: 101,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQ Answer 12',
@@ -1399,106 +1257,106 @@
                         maxLength: 200
                     },
                     // Footer Section
-                   {
-                    id: 121,
-                    page: 'Landing Page',
-                    sectionType: 'footer',
-                    title: 'Company Description',
-                    content: 'B/415DAMJI SHAMJI CORPORATE SQUARE BEHIND EVEREST GARDEN GM LINK RD GTK, Mumbai, Maharashtra, India, 400075',
-                    status: 'Active',
-                    maxLength: 150
-                },
-                {
-                    id: 122,
-                    page: 'Landing Page',
-                    sectionType: 'footer',
-                    title: 'Contact Number',
-                    content: '+91 75784 75788',
-                    status: 'Active',
-                    maxLength: 20
-                },
-                {
-                    id: 123,
-                    page: 'Landing Page',
-                    sectionType: 'footer',
-                    title: 'Quick Links',
-                    content: 'Home | About Us | Services | Contact | FAQs',
-                    status: 'Active',
-                    maxLength: 100
-                },
-                {
-                    id: 124,
-                    page: 'Landing Page',
-                    sectionType: 'footer',
-                    title: 'Social Media Links',
-                    content: 'Twitter: https://x.com/RemitoutL | Instagram: https://www.instagram.com/remitout_india/ | Facebook: https://www.facebook.com/RemitoutIN/',
-                    status: 'Active',
-                    maxLength: 200
-                },
-                {
-                    id: 125,
-                    page: 'Landing Page',
-                    sectionType: 'footer',
-                    title: 'Signup Heading',
-                    content: 'Sign Up with us Today!',
-                    status: 'Active',
-                    maxLength: 50
-                },
-                {
-                    id: 126,
-                    page: 'Landing Page',
-                    sectionType: 'footer',
-                    title: 'Signup Description',
-                    content: 'Prepare yourself and let\'s explore this world.',
-                    status: 'Active',
-                    maxLength: 100
-                },
-                {
-                    id: 127,
-                    page: 'Landing Page',
-                    sectionType: 'footer',
-                    title: 'Register Button Text',
-                    content: 'Register Now!',
-                    status: 'Active',
-                    maxLength: 20
-                },
-                {
-                    id: 128,
-                    page: 'Landing Page',
-                    sectionType: 'footer',
-                    title: 'Footer Logo Image',
-                    content: 'assets/images/footer-logo.png',
-                    status: 'Active',
-                    isMedia: true,
-                    mediaConstraints: {
-                        formats: ['png', 'jpg', 'jpeg'],
-                        width: 100,
-                        height: 50
+                    {
+                        id: 102,
+                        page: 'Landing Page',
+                        sectionType: 'footer',
+                        title: 'Company Description',
+                        content: 'B/415DAMJI SHAMJI CORPORATE SQUARE BEHIND EVEREST GARDEN GM LINK RD GTK, Mumbai, Maharashtra, India, 400075',
+                        status: 'Active',
+                        maxLength: 150
+                    },
+                    {
+                        id: 103,
+                        page: 'Landing Page',
+                        sectionType: 'footer',
+                        title: 'Contact Number',
+                        content: '+91 75784 75788',
+                        status: 'Active',
+                        maxLength: 20
+                    },
+                    {
+                        id: 104,
+                        page: 'Landing Page',
+                        sectionType: 'footer',
+                        title: 'Quick Links',
+                        content: 'Home | About Us | Services | Contact | FAQs',
+                        status: 'Active',
+                        maxLength: 100
+                    },
+                    {
+                        id: 105,
+                        page: 'Landing Page',
+                        sectionType: 'footer',
+                        title: 'Social Media Links',
+                        content: 'Twitter: https://x.com/RemitoutL | Instagram: https://www.instagram.com/remitout_india/ | Facebook: https://www.facebook.com/RemitoutIN/',
+                        status: 'Active',
+                        maxLength: 200
+                    },
+                    {
+                        id: 106,
+                        page: 'Landing Page',
+                        sectionType: 'footer',
+                        title: 'Signup Heading',
+                        content: 'Sign Up with us Today!',
+                        status: 'Active',
+                        maxLength: 50
+                    },
+                    {
+                        id: 107,
+                        page: 'Landing Page',
+                        sectionType: 'footer',
+                        title: 'Signup Description',
+                        content: 'Prepare yourself and let\'s explore this world.',
+                        status: 'Active',
+                        maxLength: 100
+                    },
+                    {
+                        id: 108,
+                        page: 'Landing Page',
+                        sectionType: 'footer',
+                        title: 'Register Button Text',
+                        content: 'Register Now!',
+                        status: 'Active',
+                        maxLength: 20
+                    },
+                    {
+                        id: 109,
+                        page: 'Landing Page',
+                        sectionType: 'footer',
+                        title: 'Footer Logo Image',
+                        content: 'assets/images/footer-logo.png',
+                        status: 'Active',
+                        isMedia: true,
+                        mediaConstraints: {
+                            formats: ['png', 'jpg', 'jpeg'],
+                            width: 100,
+                            height: 50
+                        }
+                    },
+                    {
+                        id: 110,
+                        page: 'Landing Page',
+                        sectionType: 'footer',
+                        title: 'Signup Background Image',
+                        content: 'assets/images/Globe.WebP',
+                        status: 'Active',
+                        isMedia: true,
+                        mediaConstraints: {
+                            formats: ['webp', 'png', 'jpg', 'jpeg'],
+                            width: 400,
+                            height: 320
+                        }
+                    },
+                    {
+                        id: 111,
+                        page: 'Landing Page',
+                        sectionType: 'footer',
+                        title: 'Copyright Text',
+                        content: 'All Rights reserved',
+                        status: 'Active',
+                        maxLength: 50
                     }
-                },
-                {
-                    id: 129,
-                    page: 'Landing Page',
-                    sectionType: 'footer',
-                    title: 'Signup Background Image',
-                    content: 'assets/images/Globe.WebP',
-                    status: 'Active',
-                    isMedia: true,
-                    mediaConstraints: {
-                        formats: ['webp', 'png', 'jpg', 'jpeg'],
-                        width: 400,
-                        height: 320
-                    }
-                },
-                {
-                    id: 130,
-                    page: 'Landing Page',
-                    sectionType: 'footer',
-                    title: 'Copyright Text',
-                    content: 'All Rights reserved',
-                    status: 'Active',
-                    maxLength: 50
-                }
                 ];
                 this.originalData = JSON.parse(JSON.stringify(this.data));
                 this.filteredData = this.data;
@@ -1546,10 +1404,10 @@
             }
 
             processToastQueue() {
-                if (this.isToastActive || this.currentPage === 0) return;
+                if (this.isToastActive || this.toastQueue.length === 0) return;
 
                 this.isToastActive = true;
-                const { message, isError } = this.currentPageQueue.shift();
+                const { message, isError } = this.toastQueue.shift();
                 const toast = document.querySelector('.toast');
                 toast.textContent = message;
                 toast.className = 'toast' + (isError ? ' error' : '');
@@ -1563,7 +1421,7 @@
                     setTimeout(() => {
                         toast.style.display = 'none';
                         this.isToastActive = false;
-                        this.currentPageToastQueue();
+                        this.processToastQueue();
                     }, 300);
                 }, 3000);
             }
@@ -1586,7 +1444,7 @@
                     canvas.height = targetHeight;
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
-                    callback(canvas.toDataURL('image/jpeg', true));
+                    callback(canvas.toDataURL('image/jpeg', 0.8));
                 };
                 img.src = dataUrl;
             }
@@ -1601,21 +1459,29 @@
                 this.filteredData = this.data.filter(item =>
                     item.page.toLowerCase().includes(searchTerm) ||
                     item.title.toLowerCase().includes(searchTerm) ||
-                    item.content.toString().toLowerCase().includes(searchTerm)
+                    (item.isTestimonialArray ? JSON.parse(item.content).some(testimonial =>
+                        testimonial.name.toLowerCase().includes(searchTerm) ||
+                        testimonial.designation.toLowerCase().includes(searchTerm) ||
+                        testimonial.description.toLowerCase().includes(searchTerm)
+                    ) : item.content.toString().toLowerCase().includes(searchTerm))
                 );
                 this.renderTable();
             }
 
             handlePageChange(page) {
+                console.log('handlePageChange called with page:', page); // Debug
                 if (!page || page === 'all') {
-                    this.currentPage = this.data;
-                    this.renderTable = 1;
+                    this.filteredData = this.data;
+                    this.currentPage = 1;
+                    this.renderTable();
                     return;
                 }
                 const pageName = page.charAt(0).toUpperCase() + page.slice(1).toLowerCase();
+                console.log('Filtering for page:', pageName); // Debug
                 this.filteredData = this.data.filter(item => 
                     item.page.toLowerCase() === pageName.toLowerCase()
                 );
+                console.log('Filtered data:', this.filteredData); // Debug
                 const sectionSelect = document.getElementById('sectionSelect');
                 if (pageName.toLowerCase() === 'landing page') {
                     sectionSelect.innerHTML = `
@@ -1645,6 +1511,25 @@
             handleSectionChange(section) {
                 const pageSelect = document.getElementById('pageSelect');
                 const pageName = pageSelect.value.charAt(0).toUpperCase() + pageSelect.value.slice(1).toLowerCase();
+                console.log('handleSectionChange called with section:', section, 'and page:', pageName); // Debug
+                if (!section || section === 'all') {
+                    this.filteredData = this.data.filter(item =>
+                        item.page.toLowerCase() === pageName.toLowerCase()
+                    );
+                } else {
+                    this.filteredData = this.data.filter(item =>
+                        item.page.toLowerCase() === pageName.toLowerCase() &&
+                        item.sectionType.toLowerCase() === section.toLowerCase()
+                    );
+                }
+                console.log('Filtered data after section change:', this.filteredData); // Debug
+                this.currentPage = 1;
+                this.renderTable();
+            }
+
+            handleSectionChange(section) {
+                const pageSelect = document.getElementById('pageSelect');
+                const pageName = pageSelect.value.charAt(0).toUpperCase() + pageSelect.value.slice(1).toLowerCase();
                 if (!section || section === 'all') {
                     this.filteredData = this.data.filter(item =>
                         item.page.toLowerCase() === pageName.toLowerCase()
@@ -1659,6 +1544,58 @@
                 this.renderTable();
             }
 
+            addNewTestimonial(item) {
+                const testimonials = JSON.parse(item.content);
+                testimonials.push({
+                    name: 'New Testimonial',
+                    designation: 'Designation',
+                    rating: 5,
+                    description: 'Enter description here.',
+                    image: '/api/placeholder/100/100',
+                    mediaConstraints: {
+                        formats: ['png', 'jpg', 'jpeg'],
+                        width: 100,
+                        height: 100
+                    }
+                });
+                item.content = JSON.stringify(testimonials);
+                this.renderTable();
+                this.showToast('New testimonial added');
+            }
+
+            removeTestimonial(item, index) {
+                const testimonials = JSON.parse(item.content);
+                if (testimonials.length > 1) {
+                    testimonials.splice(index, 1);
+                    item.content = JSON.stringify(testimonials);
+                    this.renderTable();
+                    this.showToast('Testimonial removed');
+                } else {
+                    this.showToast('At least one testimonial is required', true);
+                }
+            }
+
+            addNewLogo(item) {
+        const newId = Math.max(...this.data.map(d => d.id)) + 1;
+        this.data.push({
+            id: newId,
+            page: item.page,
+            sectionType: 'logo',
+            title: `Partner Logo ${this.data.filter(d => d.sectionType === 'logo').length + 1}`,
+            content: '/api/placeholder/200/100',
+            status: 'Active',
+            isMedia: true,
+            mediaConstraints: {
+                formats: ['png', 'jpg', 'jpeg'],
+                width: 200,
+                height: 100
+            }
+        });
+        this.handlePageChange(item.page);
+        this.showToast('New logo added');
+    }
+
+       // Updated renderTable method
             renderTable() {
                 const tbody = document.getElementById('cmsTableBody');
                 tbody.innerHTML = '';
@@ -1667,13 +1604,15 @@
                 const endIndex = Math.min(startIndex + this.rowsPerPage, this.filteredData.length);
                 const paginatedData = this.filteredData.slice(startIndex, endIndex);
 
+                let rowCounter = startIndex + 1; // Initialize the S.No counter
+
                 paginatedData.forEach((item, index) => {
                     const row = document.createElement('tr');
                     row.dataset.id = item.id;
 
                     if (item.isMedia) {
                         row.innerHTML = `
-                            <td>${startIndex + index + 1}</td>
+                            <td>${rowCounter++}</td>
                             <td>${item.page}</td>
                             <td class="editable-cell">
                                 <div class="editable-content" contenteditable="true">${item.title}</div>
@@ -1689,11 +1628,7 @@
                                     <div class="media-actions">
                                         <input type="file" class="file-input hidden-input" accept="${item.mediaConstraints?.formats.map(format => `.${format}`).join(',') || 'image/*'}">
                                         <div class="upload-trigger">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                                <polyline points="17 8 12 3 7 8"/>
-                                                <line x1="12" y1="3" x2="12" y2="15"/>
-                                            </svg>
+                                            <svg>...</svg>
                                             Replace Media
                                         </div>
                                     </div>
@@ -1704,64 +1639,296 @@
                                 <button class="edit-contents-cms-update">Update</button>
                             </td>
                         `;
-                        const fileInput = row.querySelector('.file-input');
-                        const uploadTrigger = row.querySelector('.upload-trigger');
-                        const closeBtn = row.querySelector('.close-btn');
+                        tbody.appendChild(row); // Append the media row to tbody
+                    } else if (item.isTestimonialArray) {
+                        const testimonials = JSON.parse(item.content);
+                        testimonials.forEach((testimonial, idx) => {
+                            const testimonialRow = document.createElement('tr');
+                            testimonialRow.dataset.id = `${item.id}-${idx}`;
+                            testimonialRow.classList.add('testimonial-row');
+                            // Use the continuous rowCounter for S.No
+                            const testimonialTitle = `Testimonial ${idx + 1}`;
+                            // Default view: show only name in content column
+                            testimonialRow.innerHTML = `
+                                <td>${rowCounter++}</td>
+                                <td>${item.page}</td>
+                                <td class="editable-cell no-border">
+                                    <div class="editable-content" contenteditable="true">${testimonialTitle}</div>
+                                </td>
+                                <td class="editable-cell content-cell">
+                                    <div class="editable-content" contenteditable="true" data-max-length="50">${testimonial.name}</div>
+                                    <div class="char-count hidden" data-max="50">${testimonial.name.length}/50</div>
+                                </td>
+                                <td><span class="edit-contents-cms-status">${item.status}</span></td>
+                                <td>
+                                    <button class="edit-contents-cms-edit">✏️</button>
+                                </td>
+                            `;
+                            tbody.appendChild(testimonialRow);
 
-                        uploadTrigger.addEventListener('click', () => {
-                            fileInput.click();
-                        });
+                            // Edit button to toggle full details
+                            const editButton = testimonialRow.querySelector('.edit-contents-cms-edit');
+                            editButton.addEventListener('click', () => {
+                                testimonialRow.classList.toggle('edit-mode');
+                                if (testimonialRow.classList.contains('edit-mode')) {
+                                    // Full details in edit mode
+                                    let maxLengthIndicatorName = `<div class="char-count hidden" data-max="50">${testimonial.name.length}/50</div>`;
+                                    let maxLengthIndicatorDesignation = `<div class="char-count hidden" data-max="50">${testimonial.designation.length}/50</div>`;
+                                    let maxLengthIndicatorDescription = `<div class="char-count hidden" data-max="100">${testimonial.description.length}/100</div>`;
 
-                        fileInput.addEventListener('change', (e) => {
-                            const file = e.target.files[0];
-                            if (file) {
-                                if (file.size > 5 * 1024 * 1024) {
-                                    this.showToast('File size should be less than 5MB', true);
-                                    return;
-                                }
-                                if (item.mediaConstraints && item.mediaConstraints.formats) {
-                                    const fileExt = file.name.split('.').pop().toLowerCase();
-                                    if (!item.mediaConstraints.formats.includes(fileExt)) {
-                                        this.showToast(`Only ${item.mediaConstraints.formats.join(', ')} files are allowed`, true);
-                                        return;
-                                    }
-                                }
-                                const reader = new FileReader();
-                                reader.onload = (e) => {
-                                    const mediaElement = row.querySelector('.media-preview video, .media-preview img');
-                                    mediaElement.src = e.target.result;
-                                    if (item.mediaConstraints && item.mediaConstraints.width && item.mediaConstraints.height) {
-                                        const tempMedia = item.mediaConstraints.formats.includes('mp4') || item.mediaConstraints.formats.includes('webm') ? new Video() : new Image();
-                                        tempMedia.onload = () => {
-                                            if (tempMedia.width !== item.mediaConstraints.width || tempMedia.height !== item.mediaConstraints.height) {
-                                                this.showToast(`Media must be ${item.mediaConstraints.width}×${item.mediaConstraints.height}px. Your media is ${tempMedia.width}×${tempMedia.height}px.`, true);
-                                                this.resizeImage(e.target.result, item.mediaConstraints.width, item.mediaConstraints.height, (resizedMedia) => {
-                                                    mediaElement.src = resizedMedia;
-                                                    item.content = resizedMedia;
-                                                    this.showToast('Media resized to required dimensions');
-                                                });
-                                            } else {
-                                                item.content = e.target.result;
-                                                this.showToast('Media updated successfully');
+                                    testimonialRow.innerHTML = `
+                                        <td>${rowCounter - 1}</td> <!-- Maintain the same S.No in edit mode -->
+                                        <td>${item.page}</td>
+                                        <td class="editable-cell no-border">
+                                            <div class="editable-content" contenteditable="true">${testimonialTitle}</div>
+                                        </td>
+                                        <td class="editable-cell content-cell">
+                                            <div class="testimonial-details">
+                                                <div class="testimonial-field">
+                                                    <label>Name:</label>
+                                                    <div class="editable-content" contenteditable="true" data-max-length="50">${testimonial.name}</div>
+                                                    ${maxLengthIndicatorName}
+                                                </div>
+                                                <div class="testimonial-field">
+                                                    <label>Designation:</label>
+                                                    <div class="editable-content" contenteditable="true" data-max-length="50">${testimonial.designation}</div>
+                                                    ${maxLengthIndicatorDesignation}
+                                                </div>
+                                                <div class="testimonial-field">
+                                                    <label>Rating (1-5):</label>
+                                                    <input type="number" class="testimonial-rating" value="${testimonial.rating}" min="1" max="5">
+                                                </div>
+                                                <div class="testimonial-field">
+                                                    <label>Description:</label>
+                                                    <div class="editable-content" contenteditable="true" data-max-length="100">${testimonial.description}</div>
+                                                    ${maxLengthIndicatorDescription}
+                                                </div>
+                                                <div class="testimonial-field media-field">
+                                                    <label>Image:</label>
+                                                    <div class="media-preview">
+                                                        <img src="${testimonial.image}" alt="Testimonial image">
+                                                        <span class="close-btn">×</span>
+                                                    </div>
+                                                    <input type="file" class="file-input hidden-input" accept="${testimonial.mediaConstraints.formats.map(format => `.${format}`).join(',')}">
+                                                    <div class="upload-trigger">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                                            <polyline points="17 8 12 3 7 8"/>
+                                                            <line x1="12" y1="3" x2="12" y2="15"/>
+                                                        </svg>
+                                                        Replace Image
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="edit-contents-cms-status">${item.status}</span></td>
+                                        <td>
+                                            <button class="edit-contents-cms-update">Update</button>
+                                            <button class="edit-contents-cms-edit">✏️</button>
+                                            <button class="remove-testimonial" title="Remove Testimonial">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                </svg>
+                                            </button>
+                                            ${idx === testimonials.length - 1 ? `
+                                                <button class="add-testimonial" title="Add Testimonial">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                    </svg>
+                                                </button>
+                                            ` : ''}
+                                        </td>
+                                    `;
+
+                                    // Editable fields event listeners
+                                    const editableContents = testimonialRow.querySelectorAll('.editable-content');
+                                    editableContents.forEach((content, contentIdx) => {
+                                        const maxLength = parseInt(content.getAttribute('data-max-length') || 50);
+                                        const charCount = content.nextElementSibling;
+                                        if (charCount) {
+                                            charCount.textContent = `${content.textContent.length}/${maxLength}`;
+                                        }
+
+                                        content.addEventListener('input', () => {
+                                            const currentLength = content.textContent.length;
+                                            if (charCount) {
+                                                charCount.textContent = `${currentLength}/${maxLength}`;
+                                                if (currentLength > maxLength) {
+                                                    charCount.classList.remove('char-count');
+                                                    charCount.classList.add('char-count-exceeded');
+                                                    content.textContent = content.textContent.substring(0, maxLength);
+                                                    charCount.textContent = `${maxLength}/${maxLength}`;
+                                                    this.placeCaretAtEnd(content);
+                                                } else {
+                                                    charCount.classList.remove('char-count-exceeded');
+                                                    charCount.classList.add('char-count');
+                                                }
                                             }
-                                        };
-                                        tempMedia.src = e.target.result;
-                                    } else {
-                                        item.content = e.target.result;
-                                        this.showToast('Media updated successfully');
-                                    }
-                                };
-                                reader.readAsDataURL(file);
-                            }
-                        });
+                                            if (contentIdx === 0) testimonials[idx].name = content.textContent;
+                                            else if (contentIdx === 1) testimonials[idx].name = content.textContent;
+                                            else if (contentIdx === 2) testimonials[idx].designation = content.textContent;
+                                            else if (contentIdx === 3) testimonials[idx].description = content.textContent;
+                                            item.content = JSON.stringify(testimonials);
+                                        });
 
-                        closeBtn.addEventListener('click', () => {
-                            const mediaElement = row.querySelector('.media-preview video, .media-preview img');
-                            mediaElement.src = '/api/placeholder/400/320';
-                            item.content = '/api/placeholder/400/320';
-                            this.showToast('Media removed');
+                                        content.addEventListener('blur', () => {
+                                            if (contentIdx === 0) testimonials[idx].name = content.textContent;
+                                            else if (contentIdx === 1) testimonials[idx].name = content.textContent;
+                                            else if (contentIdx === 2) testimonials[idx].designation = content.textContent;
+                                            else if (contentIdx === 3) testimonials[idx].description = content.textContent;
+                                            item.content = JSON.stringify(testimonials);
+                                            if (charCount) charCount.classList.add('hidden');
+                                        });
+
+                                        content.addEventListener('keydown', (e) => {
+                                            if (e.key === 'Enter' && !e.shiftKey) {
+                                                e.preventDefault();
+                                                content.blur();
+                                            }
+                                            if (maxLength && content.textContent.length >= maxLength &&
+                                                e.key !== 'Backspace' && e.key !== 'Delete' &&
+                                                !e.ctrlKey && !e.metaKey) {
+                                                if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' ||
+                                                    e.key === 'ArrowUp' || e.key === 'ArrowDown' ||
+                                                    e.key === 'Home' || e.key === 'End') {
+                                                    return;
+                                                }
+                                                const selection = window.getSelection();
+                                                if (selection.toString().length === 0) {
+                                                    e.preventDefault();
+                                                }
+                                            }
+                                        });
+                                    });
+
+                                    // Rating input
+                                    const ratingInput = testimonialRow.querySelector('.testimonial-rating');
+                                    ratingInput.addEventListener('input', () => {
+                                        const rating = parseInt(ratingInput.value);
+                                        if (rating >= 1 && rating <= 5) {
+                                            testimonials[idx].rating = rating;
+                                            item.content = JSON.stringify(testimonials);
+                                        } else {
+                                            this.showToast('Rating must be between 1 and 5', true);
+                                            ratingInput.value = testimonials[idx].rating;
+                                        }
+                                    });
+
+                                    // Image upload
+                                    const fileInput = testimonialRow.querySelector('.file-input');
+                                    const uploadTrigger = fileInput.previousElementSibling;
+                                    const mediaPreview = fileInput.parentElement.querySelector('.media-preview img');
+                                    const closeBtn = fileInput.parentElement.querySelector('.close-btn');
+
+                                    uploadTrigger.addEventListener('click', () => {
+                                        fileInput.click();
+                                    });
+
+                                    fileInput.addEventListener('change', (e) => {
+                                        const file = e.target.files[0];
+                                        if (file) {
+                                            if (file.size > 5 * 1024 * 1024) {
+                                                this.showToast('File size should be less than 5MB', true);
+                                                return;
+                                            }
+                                            const fileExt = file.name.split('.').pop().toLowerCase();
+                                            if (!testimonial.mediaConstraints.formats.includes(fileExt)) {
+                                                this.showToast(`Only ${testimonial.mediaConstraints.formats.join(', ')} files are allowed`, true);
+                                                return;
+                                            }
+                                            const reader = new FileReader();
+                                            reader.onload = (e) => {
+                                                const tempImg = new Image();
+                                                tempImg.onload = () => {
+                                                    if (tempImg.width !== testimonial.mediaConstraints.width || tempImg.height !== testimonial.mediaConstraints.height) {
+                                                        this.showToast(`Image must be ${testimonial.mediaConstraints.width}×${testimonial.mediaConstraints.height}px`, true);
+                                                        this.resizeImage(e.target.result, testimonial.mediaConstraints.width, testimonial.mediaConstraints.height, (resizedImage) => {
+                                                            mediaPreview.src = resizedImage;
+                                                            testimonials[idx].image = resizedImage;
+                                                            item.content = JSON.stringify(testimonials);
+                                                            this.showToast('Image resized and updated');
+                                                        });
+                                                    } else {
+                                                        mediaPreview.src = e.target.result;
+                                                        testimonials[idx].image = e.target.result;
+                                                        item.content = JSON.stringify(testimonials);
+                                                        this.showToast('Image updated successfully');
+                                                    }
+                                                };
+                                                tempImg.src = e.target.result;
+                                            };
+                                            reader.readAsDataURL(file);
+                                        }
+                                    });
+
+                                    closeBtn.addEventListener('click', () => {
+                                        mediaPreview.src = '/api/placeholder/100/100';
+                                        testimonials[idx].image = '/api/placeholder/100/100';
+                                        item.content = JSON.stringify(testimonials);
+                                        this.showToast('Image removed');
+                                    });
+
+                                    // Update button
+                                    const updateButton = testimonialRow.querySelector('.edit-contents-cms-update');
+                                    updateButton.addEventListener('click', () => {
+                                        item.content = JSON.stringify(testimonials);
+                                        this.showToast('Testimonial updated successfully');
+                                        this.renderTable();
+                                    });
+
+                                    // Remove testimonial
+                                    const removeButton = testimonialRow.querySelector('.remove-testimonial');
+                                    if (removeButton) {
+                                        removeButton.addEventListener('click', () => {
+                                            this.removeTestimonial(item, idx);
+                                        });
+                                    }
+
+                                    // Add new testimonial
+                                    const addButton = testimonialRow.querySelector('.add-testimonial');
+                                    if (addButton) {
+                                        addButton.addEventListener('click', () => {
+                                            this.addNewTestimonial(item);
+                                        });
+                                    }
+
+                                    // Edit button to toggle back
+                                    const newEditButton = testimonialRow.querySelector('.edit-contents-cms-edit');
+                                    newEditButton.addEventListener('click', () => {
+                                        testimonialRow.classList.remove('edit-mode');
+                                        this.renderTable();
+                                    });
+                                }
+                            });
                         });
+                        if (testimonials.length === 0) {
+                            // Handle empty testimonials
+                            row.innerHTML = `
+                                <td>${rowCounter++}</td>
+                                <td>${item.page}</td>
+                                <td class="editable-cell no-border">
+                                    <div class="editable-content" contenteditable="true">${item.title}</div>
+                                </td>
+                                <td>No testimonials available</td>
+                                <td><span class="edit-contents-cms-status">${item.status}</span></td>
+                                <td>
+                                    <button class="add-testimonial" title="Add Testimonial">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        </svg>
+                                    </button>
+                                </td>
+                            `;
+                            row.querySelector('.add-testimonial').addEventListener('click', () => {
+                                this.addNewTestimonial(item);
+                            });
+                            tbody.appendChild(row);
+                        }
                     } else {
+                        // Non-media, non-testimonial row rendering
                         let maxLengthIndicator = '';
                         if (item.maxLength) {
                             const currentLength = item.content.length;
@@ -1770,7 +1937,7 @@
                             maxLengthIndicator = `<div class="${charCountClass} hidden" data-max="${item.maxLength}">${currentLength}/${item.maxLength}</div>`;
                         }
                         row.innerHTML = `
-                            <td>${startIndex + index + 1}</td>
+                            <td>${rowCounter++}</td>
                             <td>${item.page}</td>
                             <td class="editable-cell">
                                 <div class="editable-content" contenteditable="true">${item.title}</div>
@@ -1784,14 +1951,102 @@
                                 <button class="edit-contents-cms-edit">✏️</button>
                             </td>
                         `;
+                        tbody.appendChild(row); // Append the regular row to tbody
                     }
-                    tbody.appendChild(row);
+
+                    if (item.isMedia) {
+                        // Reattach media event listeners
+                        const fileInput = row.querySelector('.file-input');
+                        const uploadTrigger = row.querySelector('.upload-trigger');
+                        const closeBtn = row.querySelector('.close-btn');
+
+                        if (uploadTrigger && fileInput) {
+                            uploadTrigger.addEventListener('click', () => {
+                                fileInput.click();
+                            });
+                        }
+
+                        if (fileInput) {
+                            fileInput.addEventListener('change', (e) => {
+                                const file = e.target.files[0];
+                                if (file) {
+                                    if (file.size > 5 * 1024 * 1024) {
+                                        this.showToast('File size should be less than 5MB', true);
+                                        return;
+                                    }
+                                    const fileExt = file.name.split('.').pop().toLowerCase();
+                                    if (!item.mediaConstraints.formats.includes(fileExt)) {
+                                        this.showToast(`Only ${item.mediaConstraints.formats.join(', ')} files are allowed`, true);
+                                        return;
+                                    }
+                                    const reader = new FileReader();
+                                    reader.onload = (e) => {
+                                        const mediaElement = row.querySelector('.media-preview video, .media-preview img');
+                                        mediaElement.src = e.target.result;
+                                        if (item.mediaConstraints && item.mediaConstraints.width && item.mediaConstraints.height) {
+                                            const tempMedia = item.mediaConstraints.formats.includes('mp4') || item.mediaConstraints.formats.includes('webm') ? new Video() : new Image();
+                                            tempMedia.onload = () => {
+                                                if (tempMedia.width !== item.mediaConstraints.width || tempMedia.height !== item.mediaConstraints.height) {
+                                                    this.showToast(`Media must be ${item.mediaConstraints.width}×${item.mediaConstraints.height}px. Your media is ${tempMedia.width}×${tempMedia.height}px.`, true);
+                                                    this.resizeImage(e.target.result, item.mediaConstraints.width, item.mediaConstraints.height, (resizedMedia) => {
+                                                        mediaElement.src = resizedMedia;
+                                                        item.content = resizedMedia;
+                                                        this.showToast('Media resized to required dimensions');
+                                                        this.renderTable(); // Re-render the table to reflect the change
+                                                    });
+                                                } else {
+                                                    item.content = e.target.result;
+                                                    this.showToast('Media updated successfully');
+                                                    this.renderTable(); // Re-render the table to reflect the change
+                                                }
+                                            };
+                                            tempMedia.src = e.target.result;
+                                        } else {
+                                            item.content = e.target.result;
+                                            this.showToast('Media updated successfully');
+                                            this.renderTable(); // Re-render the table to reflect the change
+                                        }
+                                    };
+                                    reader.readAsDataURL(file);
+                                }
+                            });
+                        }
+
+                        if (closeBtn) {
+                            closeBtn.addEventListener('click', () => {
+                                const mediaElement = row.querySelector('.media-preview video, .media-preview img');
+                                mediaElement.src = '/api/placeholder/400/320';
+                                item.content = '/api/placeholder/400/320';
+                                this.showToast('Media removed');
+                                this.renderTable(); // Re-render the table to reflect the change
+                            });
+                        }
+                    }
                 });
 
                 this.addEditListeners();
                 this.renderPagination(this.filteredData.length);
             }
 
+        // Modified addNewTestimonial method
+        addNewTestimonial(item) {
+            const testimonials = JSON.parse(item.content);
+            testimonials.push({
+                name: 'New Testimonial',
+                designation: 'Designation',
+                rating: 5,
+                description: 'Enter description here.',
+                image: '/api/placeholder/100/100',
+                mediaConstraints: {
+                    formats: ['png', 'jpg', 'jpeg'],
+                    width: 100,
+                    height: 100
+                }
+            });
+            item.content = JSON.stringify(testimonials);
+            this.renderTable();
+            this.showToast('New testimonial added');
+        }
             renderPagination(totalItems) {
                 const totalPages = Math.ceil(totalItems / this.rowsPerPage);
                 const paginationControls = document.getElementById('paginationControls');
@@ -1846,6 +2101,7 @@
             }
 
             addEditListeners() {
+      
                 document.querySelectorAll('.edit-contents-cms-edit').forEach(button => {
                     button.addEventListener('click', (e) => {
                         const row = e.target.closest('tr');
@@ -1861,26 +2117,39 @@
                     });
                 });
 
+                // Event listeners for update buttons
                 document.querySelectorAll('.edit-contents-cms-update').forEach(button => {
                     button.addEventListener('click', (e) => {
                         const row = e.target.closest('tr');
-                        const id = parseInt(row.dataset.id);
+                        const id = parseInt(row.dataset.id.split('-')[0]); // Handle testimonial rows with "id-index"
                         const item = this.data.find(item => item.id === id);
                         if (item) {
-                            const editableContents = row.querySelectorAll('.editable-content');
-                            editableContents.forEach((content, index) => {
-                                if (index === 0) item.title = content.textContent;
-                            });
-                            const charCount = row.querySelector('.char-count-exceeded');
-                            if (charCount) {
-                                charCount.classList.add('hidden');
+                            if (item.isMedia) {
+                                // For media rows, the content is already updated via file input or close button
+                                this.showToast('Media content updated successfully');
+                                this.renderTable(); // Re-render the table to reflect the updated media
+                            } else if (item.isTestimonialArray) {
+                                // Testimonial rows are handled in their own event listeners
+                                return; // Skip here as it's handled in renderTable
+                            } else {
+                                // For regular text rows
+                                const editableContents = row.querySelectorAll('.editable-content');
+                                editableContents.forEach((content, index) => {
+                                    if (index === 0) item.title = content.textContent;
+                                    else if (index === 1) item.content = content.textContent;
+                                });
+                                const charCount = row.querySelector('.char-count-exceeded');
+                                if (charCount) {
+                                    charCount.classList.add('hidden');
+                                }
+                                this.showToast('Content updated successfully');
+                                this.renderTable();
                             }
-                            this.showToast('Content updated successfully');
-                            this.renderTable();
                         }
                     });
                 });
 
+                // Event listeners for editable content with max length
                 document.querySelectorAll('.editable-content[data-max-length]').forEach(content => {
                     const maxLength = parseInt(content.getAttribute('data-max-length'));
                     const charCount = content.nextElementSibling;
@@ -1900,6 +2169,7 @@
                     });
                 });
 
+                // General event listeners for all editable content
                 document.querySelectorAll('.editable-content').forEach(content => {
                     content.addEventListener('dblclick', () => {
                         const row = content.closest('tr');
@@ -1913,9 +2183,9 @@
 
                     content.addEventListener('blur', () => {
                         const row = content.closest('tr');
-                        const id = parseInt(row.dataset.id);
+                        const id = parseInt(row.dataset.id.split('-')[0]); // Handle testimonial rows
                         const item = this.data.find(item => item.id === id);
-                        if (item) {
+                        if (item && !item.isMedia && !item.isTestimonialArray) {
                             const isTitle = content.parentElement.cellIndex === 2;
                             const isContent = content.parentElement.cellIndex === 3;
                             if (isTitle) {
@@ -1982,12 +2252,12 @@
                         })
                         .map(item => ({
                             title: item.title,
-                            content: item.content
+                            content: item.isTestimonialArray ? JSON.parse(item.content) : item.content
                         }));
                     if (updatedValues.length > 0) {
                         console.log('Updated Content Values:', updatedValues);
                         const alertMessage = 'CMS Content updated successfully:\n' +
-                            updatedValues.map(item => `${item.title}: ${item.content}`).join('\n');
+                            updatedValues.map(item => `${item.title}: ${JSON.stringify(item.content)}`).join('\n');
                         alert(alertMessage);
                         toastMessage = 'All changes saved successfully';
                     } else {
@@ -2021,8 +2291,7 @@
             });
         });
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const dropdownToggle = document.querySelector('.admin-edit-dropdown-toggle');
+    const dropdownToggle = document.querySelector('.admin-edit-dropdown-toggle');
             const dropdownMenu = document.querySelector('.admin-edit-dropdown-menu');
             const dropdownItems = document.querySelectorAll('.admin-edit-dropdown-item');
 
@@ -2052,59 +2321,46 @@
             });
 
             dropdownItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const sortValue = item.getAttribute('data-value');
-                    const data = extractContentData();
-                    let sortedContent = [...data];
-                    switch (sortValue) {
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const sortType = item.getAttribute('data-value');
+                    let sortedData = [...contentData];
+
+                    switch (sortType) {
                         case 'name':
-                            sortedContent.sort((a, b) => a.name.localeCompare(b.name));
+                            // Sort A-Z by name
+                            sortedData.sort((a, b) => a.name.localeCompare(b.name));
                             break;
                         case 'role':
-                            sortedContent.sort((a, b) => b.name.localeCompare(b.name));
+                            // Sort Z-A by name
+                            sortedData.sort((a, b) => b.name.localeCompare(a.name));
                             break;
                         case 'email-new':
-                            sortedContent.sort((a, b) => b.sections - a.sections);
+                            // Sort by newest (assuming newer entries are added at the end)
+                            sortedData.reverse();
                             break;
                         case 'email-old':
-                            sortedContent.sort((a, b) => a.sections - b.sections);
+                            // Sort by oldest
+                            sortedData = [...contentData];
+                            break;
+                        default:
                             break;
                     }
-                    renderContentRows(sortedContent);
+
+                    // Update the content list with sorted data
+                    renderContent(sortedData);
                     dropdownMenu.style.display = 'none';
+                    dropdownToggle.innerHTML = `Sort: ${item.textContent} <img src="assets/images/filter-icon.png" alt="Filter">`;
                 });
             });
 
+            // Close dropdown when clicking outside
             document.addEventListener('click', (e) => {
-                if (!e.target.closest('.admin-edit-dropdown')) {
+                if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
                     dropdownMenu.style.display = 'none';
                 }
             });
-
-            function renderContentRows(sortedData) {
-                const contentContainer = document.querySelector('.edit-content-list');
-                if (!contentContainer) {
-                    console.error("Content container not found!");
-                    return;
-                }
-                while (contentContainer.firstChild) {
-                    contentContainer.removeChild(contentContainer.firstChild);
-                }
-                sortedData.forEach(item => {
-                    contentContainer.appendChild(item.element);
-                });
-            }
-
-            document.querySelector('.edit-content-search-input')?.addEventListener('input', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
-                const data = extractContentData();
-                const filteredContent = data.filter(item =>
-                    item.name.toLowerCase().includes(searchTerm) ||
-                    item.tags.some(tag => tag.toLowerCase().includes(searchTerm))
-                );
-                renderContentRows(filteredContent);
-            });
-        });
+        
     </script>
 </body>
 </html>
