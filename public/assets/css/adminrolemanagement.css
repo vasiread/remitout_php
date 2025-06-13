@@ -131,13 +131,14 @@
 .role-management-name:not([disabled]) {
     color: #6f25ce;
     border-color: #6f25ce;
+    width:90%;
 }
 
 .role-management-email:not([disabled]),
 .role-management-select:not([disabled]) {
     color: #6f25ce;
     border-color: #6f25ce;
-    width: 190px;
+    width: 90%;
 }
 
 .role-management-name:disabled,
@@ -147,7 +148,7 @@
     background: none;
     -webkit-appearance: none;
     appearance: none;
-    width: 190px;
+    width: 100%;
     font-size: 14px;
     padding: 5px 10px;
     color: #575555;
@@ -214,7 +215,7 @@
 .role-management-mobile-heading {
     display: flex;
     justify-content: space-between;
-    width:340px;
+    width:100%;
 }
 .role-management-mobile-add-btn {
     padding: 5px 15px;
@@ -228,6 +229,18 @@
     width: 60px;
     height: 38px;
 }
+@media screen and (max-width: 1024px) {
+    .role-management-admin-main-container {
+        border-radius: 8px;
+        margin: 0 auto;
+        flex-direction: column;
+        font-family: 'Poppins', sans-serif;
+        width: 100%;
+        max-width: 90%;
+        margin: 100px auto;
+
+    }
+}
 
 @media screen and (max-width: 767px) {
     .role-management-admin-main-container {
@@ -238,8 +251,8 @@
         padding: 15px;
         margin: 0 auto;
         width: 90%;
-        max-width: 500px;
-        top: 100px;
+        max-width: 100%;
+        top: 70px;
     }
 
     .role-management-header {
@@ -299,7 +312,6 @@
     }
 
     .role-management-actions {
-        position: absolute;
         top: 15px;
         right: 0;
     }
@@ -324,6 +336,6 @@
       display: none !important;
     }
     .role-management-controls{
-      width:340px;
+      width:100%;
     }
 }

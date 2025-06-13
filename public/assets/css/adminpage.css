@@ -3,7 +3,9 @@
   width: 100%;
   max-width: 100%;
   background-color: #FDFDFD;
+  overflow-x: hidden;
 }
+
 
 .admin-nav {
   position: fixed;
@@ -433,7 +435,6 @@
   .admin-mobile-menu-bottom {
     list-style: none;
     margin-top: auto;
-    position: absolute;
     bottom: 20px;
     width:100%;
     margin:0;
@@ -499,7 +500,7 @@
   }
 
   /* Mobile-Specific Navbar Styles */
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
       .admin-nav {
           background-color: #ffffff;
           box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
@@ -591,6 +592,14 @@
     #adminside-password-change-container {
         max-width: 90%; 
     }
+    .admin-parentcontainer {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 100%;
+      background-color: #FDFDFD;
+      overflow-x: hidden;
+  }
 }
 
 

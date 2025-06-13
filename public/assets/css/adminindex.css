@@ -147,9 +147,30 @@ body {
     display: none;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
     .admin-index-section-main-container {
-        max-width: 380px;
+        display: flex;
+        border-radius: 8px;
+        margin: 0 auto;
+        flex-direction: column;
+        font-family: 'Poppins', sans-serif;
+        width: 100%;
+        max-width: 90%;
+        margin: 0 auto;
+       
+    }
+    #index-section-admin-id {
+        margin-top: 60px;
+    }
+
+}
+
+@media screen and (max-width: 767px) {
+        #index-section-admin-id{
+        margin-top: 70px;
+    }
+    .admin-index-section-main-container {
+        width: 95%;
         margin: 0 auto;
         padding: 0;
     }
@@ -759,6 +780,7 @@ body {
 #admin-nbfc-header {
     background-color: white;
     padding: 10px 40px;
+    justify-content: flex-end;
 }
 
 #admin-nbfc-header {
@@ -827,17 +849,9 @@ body {
     display: block;
 }
 
-@media screen and (max-width: 768px) {
-<<<<<<< b13e8b96d9b0862ab1fff1dd3391cab58b005cf5
-    .admin-student-loanproposals{
-        border-radius: 0px 0px 8px 8px;
-    }
-    #admin-student-inbox-container{
-        width:100%;
-=======
+@media screen and (max-width: 767px) {
     #admin-student-inbox-container {
         width: 100%;
->>>>>>> changes recents tuesday
         border-radius: 8px;
     }
 
@@ -857,15 +871,10 @@ body {
         align-items: center;
 
     }
-
-    .admin-index-heading-index p {
-        color: rgba(144, 144, 144, 1);
+    .admin-index-heading-index p{
+        color:rgba(144, 144, 144, 1);
         font-weight: 600;
-
         font-size: 14px;
-
-
-
 
     }
 
@@ -1056,7 +1065,6 @@ body {
         width: 20px;
         height: 20px;
     }
-<<<<<<< b13e8b96d9b0862ab1fff1dd3391cab58b005cf5
         .dashboard-section-index,
         .dashboard-section-title {
             display: none;
@@ -1073,7 +1081,6 @@ body {
            
         }
     }
-=======
 
     .dashboard-section-index,
     .dashboard-section-title {
@@ -1091,5 +1098,5 @@ body {
         border-radius: 4px;
 
     }
-}
->>>>>>> changes recents tuesday
+
+

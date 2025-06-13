@@ -114,6 +114,7 @@
     background-color: white;
     border-radius: 8px;
     height: fit-content;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .add-nbfc-firstsection {
@@ -353,7 +354,7 @@
     width: 300px;
 }
 .individualnbfclists-content .editable:nth-child(2) {
-    width: 300px;
+    width: 100%;
     text-align: left;
 }
 
@@ -389,9 +390,24 @@
     background: #f5f5f5;
 }
 
+@media (max-width: 1024px)
+{
+    .nbfclist-adminside {
+        display: flex;
+        border-radius: 8px;
+        margin: 0 auto;
+        flex-direction: column;
+        font-family: 'Poppins', sans-serif;
+        width: 100%;
+        max-width: 95%;
+        margin:0 auto;
+
+    }
+}
+
 @media (max-width: 768px) {
     .nbfclist-adminside {
-        margin: 20px auto;
+        margin: 0px auto;
         width: 100%;
         max-width: 100%;
         gap: 10px;
@@ -405,6 +421,7 @@
     .individualcounsellorlists-content {
         flex-direction: column;
         gap: 8px;
+        align-items: flex-start;
     }
 
     .individualnbfclists-header {
@@ -479,8 +496,20 @@
     }
 
     .add-nbfc-datasection {
-        max-width: 380px;
-        padding: 30px 0px;
-        margin: 0 auto;
+        max-width: 90%;
+        margin: 70px auto;
     }
+     .studentlist-add-button{
+        margin-top: -100px;
+    } 
+    #switch-addcounsellor {
+        width: 45px !important;
+        height: 45px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        margin-top: -100px !important;
+    }
+   
 }

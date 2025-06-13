@@ -1,18 +1,30 @@
 .admindashboard-container {
     display: flex;
     flex-direction: column;
-    margin: 80px 5px 80px 30px;
+    border-radius: 8px;
+    padding: 20px;
+    font-family: "Poppins", sans-serif;
+    width: calc(100% - 18% - 20px);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: auto;
+    margin-left: auto;
+    margin-top: 100px;
+    border-radius: 8px;
+    padding: 20px;
     max-width: 100%;
-    width: 100%;
-    max-width: 1000px;
-    padding-top: 53px;
-    margin-left: 30%;
 }
 
 .admindashboardcontainer-firstsection {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+.mobile-main-container{
+    display:flex;
+    flex-direction: column;
+    
 }
 
 .admindashboardcontainer-sixth-section {
@@ -103,6 +115,9 @@
     margin-top: 80px;
     border-radius: 8px;
     padding: 20px;
+    z-index: 1100; 
+    display: block;
+    visibility: visible;
 }
 
 .mobile-admin-dashboard-modal-header {
@@ -157,12 +172,37 @@
     background-color: #333;
     margin: 2px 0;
 }
+#referralModal {
+    z-index: 1200;
+}
+
+@media (max-width: 1024px) {
+    .admindashboard-container {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        width:90%;
+        padding-top: 53px;
+        margin: 50px auto;
+    }
+
+
+}
 
 @media (max-width: 767px) {
     .admindashboard-container {
         margin: 40px auto;
         padding-top: 30px;
         width:100%;
+    }
+    .mobile-main-container{
+        display:flex;
+        flex-direction: column;
+        width:100%;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: white;
+        margin:20px auto;
+        border-radius: 8px;
     }
     .admindashboardcontainer-sixth-section{
         display:flex;
@@ -181,8 +221,12 @@
         flex-direction: column;
         gap: 0px;
         display: block;
+        pointer-events: auto;
+        opacity: 1;
+        z-index: 10;
+        position: relative;
     }
-
+   
     .two-bar {
         display: block;
         width: 24px;
@@ -195,9 +239,8 @@
             display: flex;
             align-items: center;
             gap: 20px;
-            margin: 30px auto 0; 
+            margin: 10px auto 0; 
             padding: 8px;
-            background-color: white;
             padding-top: 30px;
             border-top-left-radius: 8px;
             border-top-right-radius: 8px;
@@ -225,7 +268,6 @@
         flex-direction: column;
         align-items: flex-start;
         margin: 0px;
-        background-color: white;
         padding: 8px;
         width:90%;
         margin:0 auto;
@@ -244,9 +286,36 @@
         text-align: center;
     }
 
-    .admindashboardsecondsection-buttongroups {
+    /* .admindashboardsecondsection-buttongroups {
+        display: none;
+    } */
+    #download-buttongroups{
+        display:none;
+    }
+    .show-all-admin-button-container{
+        display:none !important;
+    }
+    #calender-buttongroups span {
         display: none;
     }
+
+    #calender-buttongroups {
+        position: relative; 
+        right: 0; 
+        bottom: 0; 
+        margin-left: auto; 
+        margin-top: auto; 
+        padding: 20px 15px !important;
+        display:none;
+    }
+    
+    .admindashboardsecondsection-buttongroups button {
+        width: 100%;
+        padding: 8px 12px;
+        justify-content: center;
+        font-size: 14px;
+    }
+    
 }
 
 
@@ -278,7 +347,6 @@
     margin-bottom: 20px;
     align-items: center;
 }
-
 .admin-dashboard-search-box {
     flex: 1;
     position: relative;
@@ -291,17 +359,32 @@
 }
 
 .admin-dashboard-search-icon {
-    padding: 0 15px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0 10px;
     color: #666;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
 }
 
 .admin-dashboard-search-input {
     flex: 1;
-    padding: 12px 0;
+    padding: 12px 0 12px 35px;
     border: none;
     outline: none;
     font-family: "Poppins", sans-serif;
     font-size: 14px;
+    width: 100%;
+    background: transparent;
+}
+
+.admin-dashboard-search-input:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
 }
 
 .admin-dashboard-filter-button,
@@ -371,7 +454,6 @@
 }
 
 .admin-dashboard-filter-container {
-    background-color: white;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -428,7 +510,7 @@
 
 .admin-dashboard-divider {
     height: 1px;
-    background-color: #e5e7eb;
+    background-color: #FA7B15;
     margin: 20px 0;
 }
 
@@ -462,7 +544,27 @@
     transition: max-height 0.5s ease-in;
 }
 
+
 @media (max-width: 767px) {
+    .admin-dashboard-filter-container {
+        width: 90%;
+        padding: 15px;
+        background-color: #ffffff;
+    }
+
+    .admin-dashboard-filter-title {
+        font-size: 16px;
+    }
+
+    .admin-dashboard-filter-tag {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .admin-dashboard-show-all-btn {
+        font-size: 12px;
+        padding: 8px 16px;
+    }
     .admindashboardcontainer-secondsection-mobile {
         display: block;
         background-color: white;
@@ -472,10 +574,16 @@
         border-bottom-left-radius: 8px;
         border-bottom-right-radius: 8px;
         width:90%;
+        margin-top: -30px;
     }
 
     .admin-dashboard-search-filter-container {
         flex-wrap: wrap;
+        width:100%;
+        gap:5px;
+    }
+    .calendar-wrapper {
+      display:none;
     }
 
     .admin-dashboard-header {
@@ -488,6 +596,7 @@
 
     .admin-dashboard-calendar-button {
         padding: 12px;
+        display:none;
     }
 
     .admin-dashboard-filter-button {
@@ -645,14 +754,16 @@
 }
 
 .admindashboard-firstpart {
-    width: 330px;
+    width: 28%;
 }
 
 .admindashboard-secondpart,
 .admindashboard-thirdpart {
+    display: flex;
     flex: 1;
     width: 100%;
     flex-direction: column;
+    gap: 12px; 
 }
 
 .reports-registeration-sectionone {
@@ -679,7 +790,7 @@
     flex-direction: column;
     width: fit-content;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 328px;
+    width: 100%;
     border-radius: 8px;
 }
 
@@ -702,7 +813,6 @@
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 330px;
     border-radius: 8px;
 }
 
@@ -716,7 +826,7 @@
 
 .ageratio-donutregistration-chart-container {
     justify-content: space-around;
-    width: 300px;
+    width: 100%;
 }
 
 #source-registeration-header {
@@ -726,6 +836,7 @@
     line-height: 18.36px;
     color: rgba(93, 92, 92, 1);
     text-align: left;
+    margin-bottom: 25px;
 }
 
 canvas {
@@ -785,21 +896,21 @@ canvas {
 .admindashboard-secondpart {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
     width: 100%;
-    max-width: 340px;
+    max-width: 28%;
 }
 
 .admindashboard-second-main-container {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    max-width: 340px;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    width:100%;
 }
 
 .admindashboard-secondpart .totalundergrads-admin,
 .admindashboard-secondpart .totalpostgrads-admin {
-    padding: 22px 12px 18px 12px;
+    padding: 18px 12px 12px 12px;
     display: flex;
     flex-direction: column;
     height: fit-content;
@@ -947,18 +1058,19 @@ canvas {
 
 .admindashboard-secondpart .ageratio-graph-admin {
     display: flex;
+    gap: 2.2rem;
     flex-direction: column;
-    padding: 12px 8px 0 12px;
-    height: 164px;
-    margin-top: 12px;
+    padding: 20px;
+    margin-top: 14.23px;
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
     border-radius: 8px;
 }
 
 .ageratio-graph-admin {
     gap: 1rem;
-    width: 305px;
+    width: 100%;
 }
 
 .agerationcolumn-firstsection {
@@ -999,6 +1111,7 @@ canvas {
     display: flex;
     justify-content: space-between;
     align-content: center;
+    margin-bottom: 25px;
 }
 
 #funnel-analyze-header {
@@ -1014,7 +1127,7 @@ canvas {
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     justify-content: space-between;
-    height: 312px;
+    height:310px;
 }
 
 .funnelreport-analyse-left,
@@ -1032,7 +1145,6 @@ canvas {
 
 .funnelreport-analyze-diagram .funnelreport-analyse-left div {
     height: 52px;
-    max-width: 279px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -1138,21 +1250,21 @@ canvas {
     .admindashboard-secondpart,
     .admindashboard-thirdpart {
         width: 100%;
-        max-width: 380px;
+        max-width: 100%;
         margin: 0 auto;
     }
 
     .reports-registeration {
         order: 1;
-        width: 90%;
+        width: 100%;
         margin: 0 auto;
     }
 
     .admindashboard-second-main-container {
         order: 2;
         width: 100%;
-        max-width: 90%;
         margin: 0 auto;
+        margin-bottom: 8px;
     }
 
     .totalundergrads-admin {
@@ -1166,7 +1278,6 @@ canvas {
     .source-registeration {
         order: 3;
         width: 100%;
-        max-width: 90%;
         margin: 0 auto;
     }
 
@@ -1180,8 +1291,8 @@ canvas {
     .admindashboard-secondpart .ageratio-graph-admin {
         order: 4;
         width: 100%;
-        max-width: 90%;
         margin: 0 auto;
+        height:auto;
     }
 
     .admindashboard-thirdpart {
@@ -2079,7 +2190,6 @@ text[fill="#222222"] {
     .admin-dashboard-container-four {
         padding: 15px 0 0 0;
         width: 100%;
-        max-width: 90%;
         margin: 0 auto;
     }
 
@@ -2105,7 +2215,7 @@ text[fill="#222222"] {
 
     #nbfc-lead-chart_container,
     .sc-lead-container {
-        width: 90%;
+        width: 100%;
         margin: 0 auto;
     }
 
@@ -2120,7 +2230,7 @@ text[fill="#222222"] {
      }
 
     .point-entry-donut {
-        width: 90%;
+        width: 100%;
         margin: 0 auto 15px auto;
     }
 
@@ -2236,7 +2346,6 @@ text[fill="#222222"] {
     }
 
     .referral-triggered-view-footer button:last-child {
-        width: 217px;
         height: 45px;
         background-color: rgba(111, 37, 206, 1);
         box-shadow: 0px 0px 10px rgba(146, 136, 155, 0.13);
@@ -2483,34 +2592,12 @@ text[fill="#222222"] {
     display: none;
 }
 
-@media (min-width: 1500px) {
-    .admindashboard-container {
-        margin: 80px 20px 80px 30px;
-        max-width: 1100px;
-        margin-left: 32%;
-    }
 
-    .admindashboard-secondpart .ageratio-graph-admin {
-        width: 340px;
-    }
-}
-
-@media (min-width: 1728px) {
-    .admindashboard-container {
-        margin: 80px 30px 80px 40px;
-        max-width: 1200px;
-        margin-left: 40%;
-    }
-
-    .admindashboard-secondpart .ageratio-graph-admin {
-        width: 340px;
-    }
-
-    #nbfc-lead-chart_container,
-    .sc-lead-container,
-    .point-entry-donut,
-    .point-entry-dashboard {
-        width: 100%;
-        margin: 0;
+@media (max-width: 767px) {
+    .calendar-container {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-85%);
+        top: 20%;
     }
 }

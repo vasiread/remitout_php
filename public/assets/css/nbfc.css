@@ -1080,15 +1080,6 @@ body {
     height: auto;
 }
 
-.dashboard-main-content {
-    display: flex;
-    gap: 1.1rem;
-    margin-left: 1.2rem;
-    max-width: 100%;
-    width: 100%;
-    flex-direction: row;
-}
-
 .index-view-more-mobile {
     display: none;
     text-align: center;
@@ -1178,9 +1169,14 @@ body {
 /*nbfc main container for dashboard*/
 .dashboard-main-content {
     flex: 1;
-    margin-left: 20%;
+    margin-left: 15%;
     padding: 18px;
     background-color: #f5f5f5;
+    display: flex;
+    gap: 1.1rem;
+    max-width: 100%;
+    width: 100%;
+    flex-direction: column;
 }
 
 .dashboard-sections-container {
@@ -1846,7 +1842,6 @@ body {
 
     .dashboard-sort-button-container {
         width: 100%;
-        order: 2;
     }
 
     .dashboard-sort-options {
@@ -2244,7 +2239,7 @@ body {
 
     max-width: 100%;
     width: 100%;
-    /* margin-left: -4.09%; */
+    margin-left: 5%;
 }
 
 #index-section-id-nbfc {
@@ -2555,19 +2550,6 @@ body {
     font-size: 18px;
 }
 
-.index-search-container {
-    position: relative;
-}
-
-.index-search-input {
-    padding: 8px 12px 8px 36px;
-    border: 1px solid #e2e2e2;
-    border-radius: 4px;
-    width: 240px;
-    font-family: "Poppins", sans-serif;
-    background-color: #ffffff;
-    font-size: 12px;
-}
 
 .index-search-input::placeholder {
     padding: 0px 10px;
@@ -2735,10 +2717,6 @@ body {
     z-index: 2;
 }
 
-.nbfc-personalinfo-secondrow i {
-    font-size: 18px;
-}
-
 .index-search-container {
     position: relative;
 }
@@ -2753,23 +2731,8 @@ body {
     font-size: 12px;
 }
 
-.index-search-input::placeholder {
-    padding: 0px 10px;
-    font-family: "Inter", sans-serif;
-    font-weight: 500;
-    font-size: 12px;
-    color: #5d5c5c;
-}
 
-.index-search-icon {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 24px;
-    height: 24px;
-    opacity: 0.5;
-}
+
 
 @media (min-width: 1700px) {
     .index-student-details-container {
@@ -2807,6 +2770,9 @@ body {
         border-radius: 4px;
         padding: 10px;
     }
+    .inbox-controls{
+        max-width: 100%;
+    }
 }
 
 @media only screen and (max-width: 767px) {
@@ -2815,7 +2781,8 @@ body {
         padding: 0px;
         margin: 0px;
         padding-top: 0px;
-        margin: 0 3%;
+        margin: 0 auto;
+        width:90%;
     }
 
     .inbox-container {
@@ -2954,15 +2921,13 @@ body {
         font-size: 12px;
         height: auto;
     }
-
-   
 }
 
 @media (max-width: 380px) {
     .message-content {
         border: 1px solid #e2e2e2;
         font-size: 12px;
-        width: 270px;
+        width: 100%;
         height: auto;
     }
 }
@@ -3421,4 +3386,58 @@ body {
     color: white;
     text-decoration: underline;
     word-wrap: break-word;
+}
+@media only screen and (max-width: 768px) {
+    .overlay-password-change-nbfc {
+        background-color: rgba(128, 128, 128, 0.9);
+    }
+
+    .password-change-container-nbfc {
+        max-width: 90%;
+        padding: 1rem;
+        gap: 1rem;
+        border-radius: 6px;
+        transform: translate(-50%, -50%);
+    }
+
+    .password-change-container-nbfc input {
+        min-height: 45px;
+        font-size: 13px;
+        padding-left: 8px;
+    }
+
+    #password-change-save-nbfc {
+        max-width: 100px;
+        min-height: 32px;
+        font-size: 13px;
+    }
+
+    .password-change-triggered-view-headersection-nbfc h3 {
+        font-size: 16px;
+        line-height: clamp(10px, 3.5vw, 22px);
+    }
+
+    .popup-notify-list-nbfc {
+        width: 160px;
+        right: 2%;
+        padding: 0.8rem 0;
+        border-radius: 4px;
+    }
+
+    .popup-notify-list-nbfc p {
+        font-size: 13px;
+        height: 30px;
+        padding: 0.2rem;
+        margin: 0 2px;
+    }
+
+    .footer-passwordchange-nbfc {
+        gap: 0.8rem;
+        align-items: flex-end;
+    }
+
+    .footer-passwordchange-nbfc p {
+        font-size: 11px;
+        text-align: right;
+    }
 }

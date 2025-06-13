@@ -7,21 +7,16 @@
     <title>Document</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> <!-- Added jQuery -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
-
 </head>
-<style>
-    #collapsedTags .admin-dashboard-close-tag {
-        display: none;
-    }
-</style>
 
 <body>
     @extends('layouts.app')
 
 
     <div class="admindashboard-container">
+     <div class="mobile-main-container">
         <!-- Header section -->
         <div class="admindashboardcontainer-firstsection">
             <h1>Hi, Admin name</h1>
@@ -38,7 +33,7 @@
             </button>
         </div>
 
-        <!-- Mobile Modal -->
+       
         <div class="mobile-admin-dashboard-modal" id="mobile-admin-dashboard-modal">
             <div class="mobile-admin-dashboard-modal-content">
                 <div class="mobile-admin-dashboard-modal-header">
@@ -59,11 +54,9 @@
 
 
 
-
         <div class="backdrop" id="backdrop"></div>
 
-        <!-- Referral Modal -->
-        <div class="referral-triggered-view hidden" id="referralModal">
+         <div class="referral-triggered-view hidden" id="referralModal">
             <div class="referral-triggered-view-headersection">
                 <h3>Generate Referral Link</h3>
                 <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="Close Icon" class="close-icon"
@@ -81,6 +74,7 @@
                 <button id="generateBtn">Generate</button>
             </div>
         </div>
+        
 
 
         <div class="admindashboardcontainer-secondsection">
@@ -120,8 +114,8 @@
 
 
                 <div class="calendar-wrapper">
-                    <button id="calender-buttongroups" style="display:none"> Calendar <img
-                            src="assets/images/Icons/calendar_month.png" alt=""></button>
+                    <button id="calender-buttongroups"> Calendar <img src="assets/images/Icons/calendar_month.png"
+                            alt=""></button>
                     <button id="download-buttongroups">Download Report</button>
 
                     <div class="calendar-container" style="display:none">
@@ -172,7 +166,7 @@
                                     <option value="11">December</option>
                                 </select>
                                 <select id="calendar-year-select">
-                                    Years will be populated by JavaScript
+                                    <!-- Years will be populated by JavaScript -->
                                 </select>
                             </div>
                             <button class="calendar-nav-btn calendar-next-month">
@@ -200,11 +194,12 @@
 
         <div class="admindashboardcontainer-secondsection-mobile">
             <div class="admin-dashboard-search-filter-container">
+                
                 <div class="admin-dashboard-search-box">
                     <div class="admin-dashboard-search-icon">
                         <i class="fas fa-search"></i>
                     </div>
-                    <input type="text" class="admin-dashboard-search-input" placeholder="Search" />
+                    <input type="text" id="searchinput-admindashboard" class="admin-dashboard-search-input" placeholder="Search" />
                 </div>
 
                 <button class="admin-dashboard-filter-button" id="filterButton">
@@ -212,7 +207,7 @@
                     <img src="assets/images/filter-icon.png" alt="Admin filter icon" />
                 </button>
 
-                <button class="admin-dashboard-calendar-button" id="calendarButton">
+               <button class="admin-dashboard-calendar-button" id="calendarButton">
                     <i class="far fa-calendar"></i>
                 </button>
             </div>
@@ -242,27 +237,29 @@
                     </div>
 
                     <div class="admin-dashboard-filter-tags">
-                        <div class="admin-dashboard-filter-tag" id="admin-dashboard-filter-tag-registration">
-                            Registration Reports
-                            <span class="admin-dashboard-close-tag">×</span>
+                        <div class="admin-dashboard-filter-tag">Registration Reports <span
+                                class="admin-dashboard-close-tag">×</span></div>
+                        <div class="admin-dashboard-filter-tag">No of grads <span
+                                class="admin-dashboard-close-tag">×</span></div>
+                        <div class="admin-dashboard-filter-tag">Registration Source <span
+                                class="admin-dashboard-close-tag">×</span></div>
+                        <div class="admin-dashboard-filter-tag">Age ratio Reports <span
+                                class="admin-dashboard-close-tag">×</span></div>
+                        <div class="admin-dashboard-filter-tag">Funnel Reports <span
+                                class="admin-dashboard-close-tag">×</span></div>
+                        <div class="admin-dashboard-filter-tag">Destination countries <span
+                                class="admin-dashboard-close-tag">×</span></div>
+                        <div class="admin-dashboard-filter-tag">Cities <span class="admin-dashboard-close-tag">×</span>
                         </div>
-                        <div class="admin-dashboard-filter-tag">
-                            No of grads <span class="admin-dashboard-close-tag">×</span>
+                        <div class="admin-dashboard-filter-tag">NBFC: Generation Leads <span
+                                class="admin-dashboard-close-tag">×</span>
                         </div>
-                        <div class="admin-dashboard-filter-tag" id="admin-dashboard-filter-tag-source">
-                            Registration Source
-                            <span class="admin-dashboard-close-tag">×</span>
-                        </div>
-                        <div class="admin-dashboard-filter-tag">
-                            Age ratio Reports <span class="admin-dashboard-close-tag">×</span>
-                        </div>
-                        <div class="admin-dashboard-filter-tag" id=admin-dashboard-filter-tag-funnel">
-                            Funnel Reports <span class="admin-dashboard-close-tag">×</span>
-                        </div>
-                        <div class="admin-dashboard-filter-tag">
-                            Destination countries
-                            <span class="admin-dashboard-close-tag">×</span>
-                        </div>
+                        <div class="admin-dashboard-filter-tag">Point of entry <span
+                                class="admin-dashboard-close-tag">×</span></div>
+                        <div class="admin-dashboard-filter-tag">SC: Generation Leads <span
+                                class="admin-dashboard-close-tag">×</span></div>
+                        <div class="admin-dashboard-filter-tag">Sem Rush <span
+                                class="admin-dashboard-close-tag">×</span></div>
                     </div>
 
                     <div class="admin-dashboard-divider"></div>
@@ -296,7 +293,7 @@
                 </div>
             </div>
         </div>
-
+     </div>
 
         <div class="admindashboardcontainer-thirdsection">
             <div class="admindashboard-firstpart">
@@ -372,12 +369,12 @@
                         <canvas id="ageratio-donutRegistrationChart"></canvas>
                         <div class="ageratio-donutgraphinfos">
                             @php
-$registrationSourceAnalysis = [
-    ['color' => 'rgba(111, 37, 206, 1)', 'studentRangeValue' => '16 - 20'],
-    ['color' => 'rgba(167, 121, 224, 1)', 'studentRangeValue' => '21 - 25'],
-    ['color' => 'rgba(203, 176, 237, 1)', 'studentRangeValue' => '26 - 30'],
-    ['color' => 'rgba(226, 211, 245, 1)', 'studentRangeValue' => '30 - 40'],
-];
+                                $registrationSourceAnalysis = [
+                                    ['color' => 'rgba(111, 37, 206, 1)', 'studentRangeValue' => '16 - 20'],
+                                    ['color' => 'rgba(167, 121, 224, 1)', 'studentRangeValue' => '21 - 25'],
+                                    ['color' => 'rgba(203, 176, 237, 1)', 'studentRangeValue' => '26 - 30'],
+                                    ['color' => 'rgba(226, 211, 245, 1)', 'studentRangeValue' => '30 - 40'],
+                                ];
                             @endphp
 
                             @foreach ($registrationSourceAnalysis as $source)
@@ -407,6 +404,7 @@ $registrationSourceAnalysis = [
 
                     </div>
 
+
                 </div>
                 <div class="funnelreport-analyze-diagram">
                     <div class="funnelreport-analyse-left">
@@ -434,12 +432,12 @@ $registrationSourceAnalysis = [
                     </div>
                     <div class="funnelreport-analyse-right" id="funnelreport-rightsideid">
 
-                        <p id="incomplete-count">140</p>
-                        <p id="dummy-1">360</p>
-                        <p id="dummy-2">10</p>
-                        <p id="offer-issued">100</p>
-                        <p id="offer-rejected">20</p>
-                        <p id="offer-accepted">200</p>
+                        <p id="incomplete-count"> </p>
+                        <p id="dummy-1"> </p>
+                        <p id="dummy-2">1 </p>
+                        <p id="offer-issued"> </p>
+                        <p id="offer-rejected"> </p>
+                        <p id="offer-accepted"> </p>
 
                     </div>
 
@@ -723,9 +721,17 @@ $registrationSourceAnalysis = [
                 updateProfileCompletionByGender()
                 initializeCitiesTable();
                 initializeCountriesTable();
-                funnelreport();
                 initializePostgradDropdowns();
                 updateVisibleReportsFromFilters()
+
+                // Only initialize filter panel in mobile view
+                const isMobileView = document.querySelector('.admindashboardcontainer-secondsection-mobile');
+                if (isMobileView) {
+                    console.log('Mobile view detected, initializing filter panel.');
+                    initializeFilterPanel();
+                } else {
+                    console.log('Desktop view detected, skipping filter panel initialization.');
+                }
 
                 // loadAgeRatioChart();
 
@@ -741,13 +747,11 @@ $registrationSourceAnalysis = [
                 drawNBFCChart();
 
                 const datePicker = document.getElementById('date-picker-linegraph');
-                const selectedDateText = document.getElementById('selected-date'); // optional UI
+                const selectedDateText = document.getElementById('selected-date'); 
 
-                // ✅ Step 1: Initial API hit WITHOUT month/year (overall data)
                 initializeRegistrationLineGraph(); // No arguments = default/overall
 
-                // ✅ Step 2: Listen for user input
-               if (datePicker) {
+                if (datePicker) {
                     datePicker.addEventListener('change', function () {
                         const [year, month] = this.value.split('-');
                         const button = document.getElementById('calendar-trigger-button');
@@ -849,7 +853,8 @@ $registrationSourceAnalysis = [
         };
 
 
-
+        //Undergrad and Postgrad Chart
+        // Function to update profile completion by gender and degree
         const updateProfileCompletionByGender = () => {
             const undergradTotal = $('.totalundergrads-info h1');
             const undergradFemale = $('.totalundergrads-info p:nth-child(2) span');
@@ -861,24 +866,27 @@ $registrationSourceAnalysis = [
             const postgradMale = $('.totalpostgrads-info p:nth-child(3) span');
             const postgradOthers = $('.totalpostgrads-info p:nth-child(4) span');
 
+            // Fetch data from API (POST request)
             fetch('/getprofilecompletionbygender', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Required for POST in Laravel
                 },
-                body: JSON.stringify({})
+                body: JSON.stringify({}) // Empty body; adjust if API requires data
             })
                 .then(response => {
-
+                    // console.log('Raw response:', response);
                     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
                     return response.json();
                 })
                 .then(data => {
+                    // console.log('Fetched Profile Completion by Gender data:', data);
 
+                    // Validate the API response structure
                     if (!data.success || !data.data || typeof data.data !== 'object' ||
                         !data.data.degree_summary || typeof data.data.degree_summary !== 'object') {
-
+                        // console.log('Validation failed. Data structure:', data);
                         throw new Error('Invalid API response: Missing or invalid data structure');
                     }
 
@@ -887,7 +895,7 @@ $registrationSourceAnalysis = [
                     const ugTotal = ugData.total || 0;
                     const ugFemale = ugData.female || 0;
                     const ugMale = ugData.male || 0;
-                    const ugOthers = ugData.other || (ugTotal - ugFemale - ugMale);
+                    const ugOthers = ugData.other || (ugTotal - ugFemale - ugMale); // Fallback to total if others not provided
 
                     // Extract data for Postgrads (PG)
                     const pgData = data.data.degree_summary.PG;
@@ -1850,8 +1858,8 @@ $registrationSourceAnalysis = [
                 .catch(error => {
                     console.error('Error fetching SC users approved profiles data:', error);
                     // Fallback to static data if API fails
-                    fullLabels = ['SCREF87324409', 'SCREF87324468', 'SCREF75333418'];
-                    fullData = [3, 1, 0];
+                    // fullLabels = ['SCREF87324409', 'SCREF87324468', 'SCREF75333418'];
+                    // fullData = [3, 1, 0];
 
                     // Update total items
                     totalItems.textContent = fullLabels.length;
@@ -1935,325 +1943,340 @@ $registrationSourceAnalysis = [
                 });
             });
         };
-        // Updated Dropdown Initialization
+       
         // Updated Dropdown Initialization
         const initializeDropdown = () => {
-            const dropdownButton = $('#showall-buttongroups');
-            const dropdownOptions = $('#dropdown-options');
-            const icon = $('.fa-chevron-down', dropdownButton);
-            const container = $('.admindashboard-container');
+    const dropdownButton = $('#showall-buttongroups');
+    const dropdownOptions = $('#dropdown-options');
+    const icon = $('.fa-chevron-down', dropdownButton);
+    const container = $('.admindashboard-container');
 
-            if (!dropdownButton || !dropdownOptions || !icon || !container) {
-                console.error('Dropdown elements missing:', { dropdownButton, dropdownOptions, icon, container });
-                return;
+    if (!dropdownButton || !dropdownOptions || !icon || !container) {
+        console.error('Dropdown elements missing:', { dropdownButton, dropdownOptions, icon, container });
+        return;
+    }
+
+    let currentReport = 'all';
+
+    const fallbackMessage = document.createElement('div');
+    fallbackMessage.className = 'report-fallback';
+    fallbackMessage.style.padding = '20px';
+    fallbackMessage.style.textAlign = 'center';
+    fallbackMessage.style.color = '#666';
+    container.appendChild(fallbackMessage);
+
+    const showAllReports = () => {
+        $$('[data-report]').forEach(report => {
+            report.style.removeProperty('display');
+            report.style.removeProperty('visibility');
+            report.style.display = '';
+            report.style.visibility = '';
+        });
+        fallbackMessage.style.display = 'none';
+        dropdownButton.innerHTML = `Show All <i class="fa-solid fa-chevron-down"></i>`;
+        currentReport = 'all';
+    };
+
+    const showReport = (reportId) => {
+        const reportContainer = $(`[data-report="${reportId}"]`);
+        if (!reportContainer) {
+            $$('[data-report]').forEach(report => {
+                report.style.display = 'block';
+                report.style.visibility = 'hidden';
+            });
+            fallbackMessage.textContent = `No data available for ${$(`[data-report="${reportId}"]`, dropdownOptions)?.textContent || 'this report'}.`;
+            fallbackMessage.style.display = 'block';
+        } else {
+            $$('[data-report]').forEach(report => {
+                if (report.dataset.report === reportId) {
+                    report.style.display = 'block';
+                    report.style.visibility = 'visible';
+                } else {
+                    report.style.display = 'block';
+                    report.style.visibility = 'hidden';
+                }
+            });
+            fallbackMessage.style.display = 'none';
+        }
+        const selectedOption = $(`[data-report="${reportId}"]`, dropdownOptions);
+        const optionText = selectedOption ? selectedOption.textContent.trim() : 'Unknown';
+        dropdownButton.innerHTML = `Show: ${optionText} <i class="fa-solid fa-chevron-down"></i>`;
+        currentReport = reportId;
+    };
+
+    const toggleDropdown = (e) => {
+        e.stopPropagation();
+        dropdownOptions.classList.toggle('show');
+        icon.classList.toggle('show-all-admin-rotate-icon');
+        // Ensure all options are visible in the dropdown
+        $$('.show-all-admin-options button', dropdownOptions).forEach(option => {
+            option.style.display = 'block';
+            option.style.visibility = 'visible';
+        });
+        if (dropdownOptions.classList.contains('show')) {
+            console.log('Dropdown opened with all options');
+        } else {
+            console.log('Dropdown closed');
+        }
+    };
+
+    const handleOptionClick = (e) => {
+        e.stopPropagation();
+        const reportId = e.target.dataset.report;
+        console.log('Option selected:', reportId);
+        if (reportId === 'all') {
+            showAllReports();
+        } else if (reportId) {
+            showReport(reportId);
+        }
+        dropdownOptions.classList.remove('show');
+        icon.classList.remove('show-all-admin-rotate-icon');
+    };
+
+    // Bind events directly
+    dropdownButton.addEventListener('click', toggleDropdown);
+    $$('.show-all-admin-options button', dropdownOptions).forEach(option => {
+        option.addEventListener('click', handleOptionClick);
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.show-all-admin-button-container') && dropdownOptions.classList.contains('show')) {
+            console.log('Closing dropdown due to outside click');
+            dropdownOptions.classList.remove('show');
+            icon.classList.remove('show-all-admin-rotate-icon');
+        }
+    });
+
+    // Initialize with all reports visible
+    showAllReports();
+};
+
+
+const initializeCalendar = () => {
+    const calendarConfigs = [
+        {
+            buttonId: 'calender-buttongroups',
+            containerClass: '.calendar-container',
+            wrapperClass: '.calendar-wrapper',
+            isMobile: false
+        },
+        {
+            buttonId: 'calendarButton',
+            containerClass: '.calendar-container',
+            wrapperClass: '.calendar-wrapper',
+            isMobile: true
+        }
+    ];
+
+    calendarConfigs.forEach(config => {
+        const calendarButton = $(`#${config.buttonId}`);
+        const calendarContainer = $(`${config.wrapperClass} ${config.containerClass}`);
+        const calendarGrid = $(`${config.wrapperClass} .calendar-grid`);
+        const monthSelect = $(`${config.wrapperClass} #calendar-month-select`);
+        const yearSelect = $(`${config.wrapperClass} #calendar-year-select`);
+        const startDateInput = $(`${config.wrapperClass} #calendar-start-date-input`);
+        const endDateInput = $(`${config.wrapperClass} #calendar-end-date-input`);
+        const prevMonthBtn = $(`${config.wrapperClass} .calendar-prev-month`);
+        const nextMonthBtn = $(`${config.wrapperClass} .calendar-next-month`);
+
+        if (!calendarButton || !calendarContainer || !calendarGrid || !monthSelect || !yearSelect || !startDateInput || !endDateInput || !prevMonthBtn || !nextMonthBtn) {
+            console.error(`Calendar elements missing for ${config.buttonId}`, {
+                calendarButton, calendarContainer, calendarGrid, monthSelect, yearSelect, startDateInput, endDateInput, prevMonthBtn, nextMonthBtn
+            });
+            return;
+        }
+
+        let currentDate = new Date();
+        let startDate = null;
+        let endDate = null;
+        let selectionMode = 'start';
+        let isCalendarOpen = false;
+
+        const populateYearSelect = () => {
+            const currentYear = new Date().getFullYear();
+            yearSelect.innerHTML = '';
+            for (let year = currentYear - 5; year <= currentYear + 5; year++) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                if (year === currentYear) option.selected = true;
+                yearSelect.appendChild(option);
+            }
+        };
+
+        const toggleCalendar = (e) => {
+            e.stopPropagation();
+            isCalendarOpen = !isCalendarOpen;
+            console.log(`Toggling calendar for ${config.buttonId}: ${isCalendarOpen ? 'open' : 'closed'}`);
+            calendarContainer.style.display = isCalendarOpen ? 'block' : 'none';
+            if (isCalendarOpen) {
+                if (config.isMobile) {
+                    console.log('Applying mobile view styles');
+                    calendarContainer.classList.add('mobile-visible');
+                    setTimeout(() => {
+                        calendarContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 100); // Delay to ensure display is applied
+                } else {
+                    calendarContainer.classList.remove('mobile-visible');
+                }
+                renderCalendar(); // Ensure calendar is rendered when opened
+            } else {
+                calendarContainer.classList.remove('mobile-visible');
+            }
+        };
+
+        const updateMonthYearSelects = () => {
+            monthSelect.value = currentDate.getMonth();
+            yearSelect.value = currentDate.getFullYear();
+        };
+
+        const renderCalendar = () => {
+            console.log(`Rendering calendar for ${currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}`);
+            const days = $$(`${config.wrapperClass} .calendar-day`);
+            days.forEach(el => el.remove());
+
+            const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+            let firstDayIndex = firstDay.getDay() - 1;
+            if (firstDayIndex < 0) firstDayIndex = 6;
+
+            const prevMonthLastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+            for (let i = prevMonthLastDay - firstDayIndex + 1; i <= prevMonthLastDay; i++) {
+                addDayToCalendar(i, 'calendar-other-month', new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, i));
             }
 
-            let currentReport = 'all';
-
-            const fallbackMessage = document.createElement('div');
-            fallbackMessage.className = 'report-fallback';
-            fallbackMessage.style.padding = '20px';
-            fallbackMessage.style.textAlign = 'center';
-            fallbackMessage.style.color = '#666';
-            container.appendChild(fallbackMessage);
-
-            const showAllReports = () => {
-                $$('[data-report]').forEach(report => {
-                    report.style.removeProperty('display');
-                    report.style.removeProperty('visibility');
-                    report.style.display = '';
-                    report.style.visibility = '';
-                });
-                fallbackMessage.style.display = 'none';
-                dropdownButton.innerHTML = `Show All <i class="fa-solid fa-chevron-down"></i>`;
-                currentReport = 'all';
-            };
-
-            const showReport = (reportId) => {
-                const reportContainer = $(`[data-report="${reportId}"]`);
-                if (!reportContainer) {
-                    $$('[data-report]').forEach(report => {
-                        report.style.display = 'block';
-                        report.style.visibility = 'hidden';
-                    });
-                    fallbackMessage.textContent = `No data available for ${$(`[data-report="${reportId}"]`, dropdownOptions)?.textContent || 'this report'}.`;
-                    fallbackMessage.style.display = 'block';
-                } else {
-                    $$('[data-report]').forEach(report => {
-                        if (report.dataset.report === reportId) {
-                            report.style.display = 'block';
-                            report.style.visibility = 'visible';
-                        } else {
-                            report.style.display = 'block';
-                            report.style.visibility = 'hidden';
-                        }
-                    });
-                    fallbackMessage.style.display = 'none';
+            const today = new Date();
+            for (let i = 1; i <= lastDay.getDate(); i++) {
+                const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
+                const classes = [];
+                if (today.toDateString() === date.toDateString()) classes.push('calendar-today');
+                if (startDate && startDate.toDateString() === date.toDateString()) classes.push('calendar-selected-start');
+                if (endDate && endDate.toDateString() === date.toDateString()) classes.push('calendar-selected-end');
+                if (startDate && endDate && date > startDate && date < endDate) {
+                    classes.push('calendar-in-range');
+                    if (i === 1 || new Date(currentDate.getFullYear(), currentDate.getMonth(), i - 1) <= startDate) {
+                        classes.push('calendar-first-in-range');
+                    }
+                    if (i === lastDay.getDate() || new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1) >= endDate) {
+                        classes.push('calendar-last-in-range');
+                    }
                 }
-                const selectedOption = $(`[data-report="${reportId}"]`, dropdownOptions);
-                const optionText = selectedOption ? selectedOption.textContent.trim() : 'Unknown';
-                dropdownButton.innerHTML = `Show: ${optionText} <i class="fa-solid fa-chevron-down"></i>`;
-                currentReport = reportId;
-            };
+                addDayToCalendar(i, classes.join(' '), date);
+            }
 
-            const toggleDropdown = (e) => {
-                e.stopPropagation();
-                dropdownOptions.classList.toggle('show');
-                icon.classList.toggle('show-all-admin-rotate-icon');
-                // Ensure all options are visible in the dropdown
-                $$('.show-all-admin-options button', dropdownOptions).forEach(option => {
-                    option.style.display = 'block';
-                    option.style.visibility = 'visible';
-                });
-                if (dropdownOptions.classList.contains('show')) {
-                    // console.log('Dropdown opened with all options');
-                } else {
-                    // console.log('Dropdown closed');
+            const daysRendered = firstDayIndex + lastDay.getDate();
+            const remainingDays = 7 - (daysRendered % 7);
+            if (remainingDays < 7) {
+                for (let i = 1; i <= remainingDays; i++) {
+                    addDayToCalendar(i, 'calendar-other-month', new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, i));
                 }
-            };
-
-            const handleOptionClick = (e) => {
-                e.stopPropagation();
-                const reportId = e.target.dataset.report;
-                // console.log('Option selected:', reportId);
-                if (reportId === 'all') {
-                    showAllReports();
-                } else if (reportId) {
-                    showReport(reportId);
-                }
-                dropdownOptions.classList.remove('show');
-                icon.classList.remove('show-all-admin-rotate-icon');
-            };
-
-            // Bind events directly
-            dropdownButton.addEventListener('click', toggleDropdown);
-            $$('.show-all-admin-options button', dropdownOptions).forEach(option => {
-                option.addEventListener('click', handleOptionClick);
-            });
-
-            // Close dropdown when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!e.target.closest('.show-all-admin-button-container') && dropdownOptions.classList.contains('show')) {
-                    // console.log('Closing dropdown due to outside click');
-                    dropdownOptions.classList.remove('show');
-                    icon.classList.remove('show-all-admin-rotate-icon');
-                }
-            });
-
-            // Initialize with all reports visible
-            showAllReports();
+            }
         };
 
+        const addDayToCalendar = (dayNumber, classes, date) => {
+            const dayElement = document.createElement('div');
+            dayElement.className = `calendar-day ${classes}`;
+            dayElement.textContent = dayNumber;
 
-        // Initialize calendars for multiple buttons and containers
-        const initializeCalendar = () => {
-            // Define calendar configurations
-            const calendarConfigs = [
-                {
-                    buttonId: 'calender-buttongroups',
-                    containerClass: '.calendar-container',
-                    wrapperClass: '.calendar-wrapper'
-                },
-                {
-                    buttonId: 'calender-reportsregister',
-                    containerClass: '.calendar-container',
-                    wrapperClass: '.reports-registeration'
-                }
-            ];
-
-            calendarConfigs.forEach(config => {
-                const calendarButton = document.getElementById(config.buttonId);
-                const calendarContainer = document.querySelector(`${config.wrapperClass} ${config.containerClass}`);
-                const calendarGrid = document.querySelector(`${config.wrapperClass} .calendar-grid`);
-                const monthSelect = document.querySelector(`${config.wrapperClass} #calendar-month-select`);
-                const yearSelect = document.querySelector(`${config.wrapperClass} #calendar-year-select`);
-                const startDateInput = document.querySelector(`${config.wrapperClass} #calendar-start-date-input`);
-                const endDateInput = document.querySelector(`${config.wrapperClass} #calendar-end-date-input`);
-                const prevMonthBtn = document.querySelector(`${config.wrapperClass} .calendar-prev-month`);
-                const nextMonthBtn = document.querySelector(`${config.wrapperClass} .calendar-next-month`);
-
-                // Validate all required elements
-                if (!calendarButton || !calendarContainer || !calendarGrid || !monthSelect || !yearSelect || !startDateInput || !endDateInput || !prevMonthBtn || !nextMonthBtn) {
-                    console.error(`Calendar elements missing for ${config.buttonId}:`, {
-                        calendarButton, calendarContainer, calendarGrid, monthSelect, yearSelect, startDateInput, endDateInput, prevMonthBtn, nextMonthBtn
-                    });
-                    return;
-                }
-
-                let currentDate = new Date();
-                let startDate = null;
-                let endDate = null;
-                let selectionMode = 'start';
-                let isCalendarOpen = false;
-
-                // Populate year select
-                const currentYear = new Date().getFullYear();
-                for (let year = currentYear - 5; year <= currentYear + 5; year++) {
-                    const option = document.createElement('option');
-                    option.value = year;
-                    option.textContent = year;
-                    if (year === currentYear) option.selected = true;
-                    yearSelect.appendChild(option);
-                }
-
-                const toggleCalendar = () => {
-                    isCalendarOpen = !isCalendarOpen;
-                    calendarContainer.style.display = isCalendarOpen ? 'block' : 'none';
-                    // Ensure the calendar is positioned below the button
-                    calendarContainer.style.position = 'absolute';
-                    calendarContainer.style.top = `${calendarButton.offsetTop + calendarButton.offsetHeight}px`;
-                    calendarContainer.style.left = `${calendarButton.offsetLeft}px`;
-                    console.log(`Toggled calendar for ${config.buttonId}: ${isCalendarOpen ? 'visible' : 'hidden'}`);
-                };
-
-                const updateMonthYearSelects = () => {
-                    monthSelect.value = currentDate.getMonth();
-                    yearSelect.value = currentDate.getFullYear();
-                };
-
-                const renderCalendar = () => {
-                    const days = document.querySelectorAll(`${config.wrapperClass} .calendar-day`);
-                    days.forEach(el => el.remove());
-
-                    const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-                    const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-                    let firstDayIndex = firstDay.getDay() - 1;
-                    if (firstDayIndex < 0) firstDayIndex = 6;
-
-                    const prevMonthLastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
-                    for (let i = prevMonthLastDay - firstDayIndex + 1; i <= prevMonthLastDay; i++) {
-                        addDayToCalendar(i, 'calendar-other-month', new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, i));
-                    }
-
-                    const today = new Date();
-                    for (let i = 1; i <= lastDay.getDate(); i++) {
-                        const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
-                        const classes = [];
-                        if (today.toDateString() === date.toDateString()) classes.push('calendar-today');
-                        if (startDate && startDate.toDateString() === date.toDateString()) classes.push('calendar-selected-start');
-                        if (endDate && endDate.toDateString() === date.toDateString()) classes.push('calendar-selected-end');
-                        if (startDate && endDate && date > startDate && date < endDate) {
-                            classes.push('calendar-in-range');
-                            if (i === 1 || new Date(currentDate.getFullYear(), currentDate.getMonth(), i - 1) <= startDate) {
-                                classes.push('calendar-first-in-range');
-                            }
-                            if (i === lastDay.getDate() || new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1) >= endDate) {
-                                classes.push('calendar-last-in-range');
-                            }
+            if (!classes.includes('calendar-other-month')) {
+                dayElement.addEventListener('click', e => {
+                    e.stopPropagation();
+                    console.log(`Selected date: ${date.toLocaleDateString()}`);
+                    if (selectionMode === 'start') {
+                        startDate = new Date(date);
+                        if (endDate && endDate < startDate) endDate = null;
+                        selectionMode = 'end';
+                        startDateInput.classList.remove('calendar-active');
+                        endDateInput.classList.add('calendar-active');
+                    } else {
+                        endDate = new Date(date);
+                        if (startDate && endDate < startDate) {
+                            [startDate, endDate] = [endDate, startDate];
                         }
-                        addDayToCalendar(i, classes.join(' '), date);
+                        selectionMode = 'start';
+                        startDateInput.classList.add('calendar-active');
+                        endDateInput.classList.remove('calendar-active');
                     }
-
-                    const daysRendered = firstDayIndex + lastDay.getDate();
-                    const remainingDays = 7 - (daysRendered % 7);
-                    if (remainingDays < 7) {
-                        for (let i = 1; i <= remainingDays; i++) {
-                            addDayToCalendar(i, 'calendar-other-month', new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, i));
-                        }
-                    }
-                };
-
-                const addDayToCalendar = (dayNumber, classes, date) => {
-                    const dayElement = document.createElement('div');
-                    dayElement.className = `calendar-day ${classes}`;
-                    dayElement.textContent = dayNumber;
-
-                    if (!classes.includes('calendar-other-month')) {
-                        dayElement.addEventListener('click', e => {
-                            e.stopPropagation();
-                            if (selectionMode === 'start') {
-                                startDate = new Date(date);
-                                if (endDate && endDate < startDate) endDate = null;
-                                selectionMode = 'end';
-                                startDateInput.classList.remove('calendar-active');
-                                endDateInput.classList.add('calendar-active');
-                            } else {
-                                endDate = new Date(date);
-                                if (startDate && endDate < startDate) {
-                                    [startDate, endDate] = [endDate, startDate];
-                                }
-                                selectionMode = 'start';
-                                startDateInput.classList.add('calendar-active');
-                                endDateInput.classList.remove('calendar-active');
-                            }
-                            updateInputs();
-                            renderCalendar();
-                        });
-                    }
-                    calendarGrid.appendChild(dayElement);
-                };
-
-                const updateInputs = () => {
-                    startDateInput.innerHTML = startDate
-                        ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                        ${startDate.getDate().toString().padStart(2, '0')}/${(startDate.getMonth() + 1).toString().padStart(2, '0')}/${startDate.getFullYear()}`
-                        : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><span>Start Date</span>`;
-
-                    endDateInput.innerHTML = endDate
-                        ? `${endDate.getDate().toString().padStart(2, '0')}/${(endDate.getMonth() + 1).toString().padStart(2, '0')}/${endDate.getFullYear()}
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: auto;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`
-                        : `<span>End Date</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: auto;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`;
-                };
-
-                startDateInput.addEventListener('click', e => {
-                    e.stopPropagation();
-                    selectionMode = 'start';
-                    startDateInput.classList.add('calendar-active');
-                    endDateInput.classList.remove('calendar-active');
-                });
-
-                endDateInput.addEventListener('click', e => {
-                    e.stopPropagation();
-                    selectionMode = 'end';
-                    startDateInput.classList.remove('calendar-active');
-                    endDateInput.classList.add('calendar-active');
-                });
-
-                calendarButton.addEventListener('click', e => {
-                    e.stopPropagation();
-                    toggleCalendar();
-                });
-
-                calendarContainer.addEventListener('click', e => e.stopPropagation());
-
-                document.addEventListener('click', e => {
-                    if (isCalendarOpen && !calendarContainer.contains(e.target) && e.target !== calendarButton) {
-                        toggleCalendar();
-                    }
-                });
-
-                prevMonthBtn.addEventListener('click', e => {
-                    e.stopPropagation();
-                    currentDate.setMonth(currentDate.getMonth() - 1);
-                    updateMonthYearSelects();
+                    updateInputs();
                     renderCalendar();
                 });
-
-                nextMonthBtn.addEventListener('click', e => {
-                    e.stopPropagation();
-                    currentDate.setMonth(currentDate.getMonth() + 1);
-                    updateMonthYearSelects();
-                    renderCalendar();
-                });
-
-                monthSelect.addEventListener('change', () => {
-                    currentDate.setMonth(parseInt(monthSelect.value));
-                    renderCalendar();
-                });
-
-                yearSelect.addEventListener('change', () => {
-                    currentDate.setFullYear(parseInt(yearSelect.value));
-                    renderCalendar();
-                });
-
-                updateMonthYearSelects();
-                renderCalendar();
-            });
+            }
+            calendarGrid.appendChild(dayElement);
         };
 
+        const updateInputs = () => {
+            startDateInput.innerHTML = startDate
+                ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                ${startDate.getDate().toString().padStart(2, '0')}/${(startDate.getMonth() + 1).toString().padStart(2, '0')}/${startDate.getFullYear()}`
+                : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><span>Start Date</span>`;
+
+            endDateInput.innerHTML = endDate
+                ? `${endDate.getDate().toString().padStart(2, '0')}/${(endDate.getMonth() + 1).toString().padStart(2, '0')}/${endDate.getFullYear()}
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: auto;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`
+                : `<span>End Date</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: auto;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`;
+        };
+
+        startDateInput.addEventListener('click', e => {
+            e.stopPropagation();
+            selectionMode = 'start';
+            startDateInput.classList.add('calendar-active');
+            endDateInput.classList.remove('calendar-active');
+        });
+
+        endDateInput.addEventListener('click', e => {
+            e.stopPropagation();
+            selectionMode = 'end';
+            startDateInput.classList.remove('calendar-active');
+            endDateInput.classList.add('calendar-active');
+        });
+
+        calendarButton.addEventListener('click', toggleCalendar);
+
+        calendarContainer.addEventListener('click', e => e.stopPropagation());
+
+        document.addEventListener('click', e => {
+            if (isCalendarOpen && !calendarContainer.contains(e.target) && e.target !== calendarButton) {
+                console.log('Closing calendar due to outside click');
+                isCalendarOpen = false;
+                calendarContainer.style.display = 'none';
+                calendarContainer.classList.remove('mobile-visible');
+            }
+        });
+
+        prevMonthBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            updateMonthYearSelects();
+            renderCalendar();
+        });
+
+        nextMonthBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            updateMonthYearSelects();
+            renderCalendar();
+        });
+
+        monthSelect.addEventListener('change', () => {
+            currentDate.setMonth(parseInt(monthSelect.value));
+            renderCalendar();
+        });
+
+        yearSelect.addEventListener('change', () => {
+            currentDate.setFullYear(parseInt(yearSelect.value));
+            renderCalendar();
+        });
+
+        populateYearSelect();
+        updateMonthYearSelects();
+        renderCalendar();
+    });
+};
         // Referral Modal
         const initializeReferralModal = () => {
             const referralLinkBtn = document.getElementById('referral-link-admindashboard');
+            const referralLinkBtnMob = document.getElementById('referral-link-admindashboard-mobile');
             const modal = document.getElementById('referralModal');
             const backdrop = document.getElementById('backdrop');
             const closeBtn = document.getElementById('closeModal');
@@ -2261,50 +2284,64 @@ $registrationSourceAnalysis = [
             const generateBtn = document.getElementById('generateBtn');
             const inputField = document.getElementById('referralLink');
             const modalFooter = document.getElementById('modalFooter');
+            const mobPopupForOptions = document.querySelector(".mobile-admin-dashboard-modal-content");
 
-            if (!referralLinkBtn || !modal || !backdrop || !closeBtn || !cancelBtn || !generateBtn || !inputField) {
+            if (!referralLinkBtn || !modal || !backdrop || !closeBtn || !cancelBtn || !generateBtn || !inputField || !modalFooter) {
                 return console.error('Referral modal elements missing');
             }
 
             const openModal = () => {
                 modal.classList.remove('hidden');
                 backdrop.classList.add('active');
+                inputField.value = '';
+                modalFooter.innerHTML = `
+            <button id="cancelBtn">
+                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="Cancel Icon" class="cancel-icon">
+                Cancel
+            </button>
+            <button id="generateBtn">Generate</button>
+        `;
+                addModalListeners();
             };
 
             const closeModal = () => {
                 modal.classList.add('hidden');
                 backdrop.classList.remove('active');
                 inputField.value = '';
-                modalFooter.innerHTML = `
-                    <button id="cancelBtn">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="Cancel Icon" class="cancel-icon">
-                        Cancel
-                    </button>
-                    <button id="generateBtn">Generate</button>
-                `;
+            };
+
+            const toggleModal = () => {
+                const isOpen = !modal.classList.contains('hidden');
+                if (isOpen) {
+                    closeModal();
+                } else {
+                    if (mobPopupForOptions) mobPopupForOptions.style.display = "none"; // optional
+                    openModal();
+                }
             };
 
             const updateFooterButtons = (link) => {
                 modalFooter.innerHTML = `
-                    <button id="cancelBtn">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="Cancel Icon" class="cancel-icon">
-                        Cancel
+            <button id="cancelBtn">
+                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="Cancel Icon" class="cancel-icon">
+                Cancel
+            </button>
+            <div class="button-group">
+                <div class="copy-button-container">
+                    <button id="copyBtn">
+                        <img src="assets/images/content_copy-icon.png" alt="Copy Icon" class="copy-icon">
+                        Copy Link
                     </button>
-                    <div class="button-group">
-                        <div class="copy-button-container">
-                            <button id="copyBtn">
-                                <img src="assets/images/content_copy-icon.png" alt="Copy Icon" class="copy-icon">
-                                Copy Link
-                            </button>
-                        </div>
-                        <div class="share-button-container">
-                            <button id="shareBtn">
-                                <img src="assets/images/share-icon.png" alt="Share Icon" class="share-icon">
-                                Share
-                            </button>
-                        </div>
-                    </div>
-                `;
+                </div>
+                <div class="share-button-container">
+                    <button id="shareBtn">
+                        <img src="assets/images/share-icon.png" alt="Share Icon" class="share-icon">
+                        Share
+                    </button>
+                </div>
+            </div>
+        `;
+
                 document.getElementById('cancelBtn').addEventListener('click', closeModal);
                 document.getElementById('copyBtn').addEventListener('click', () => {
                     navigator.clipboard.writeText(link).then(() => {
@@ -2316,12 +2353,27 @@ $registrationSourceAnalysis = [
                 });
             };
 
-            referralLinkBtn.addEventListener('click', openModal);
-            closeBtn.addEventListener('click', closeModal);
-            cancelBtn.addEventListener('click', closeModal);
-            backdrop.addEventListener('click', closeModal);
+            const addModalListeners = () => {
+                const newCancelBtn = document.getElementById('cancelBtn');
+                const newGenerateBtn = document.getElementById('generateBtn');
 
-            generateBtn.addEventListener('click', () => {
+                if (newCancelBtn) newCancelBtn.addEventListener('click', closeModal);
+                if (newGenerateBtn) {
+                    newGenerateBtn.addEventListener('click', () => {
+                        const newLink = `https://example.com/referral?code=${Math.random().toString(36).substr(2, 8)}`;
+                        inputField.value = newLink;
+                        updateFooterButtons(newLink);
+                    });
+                }
+            };
+
+            referralLinkBtn?.addEventListener('click', openModal);
+            referralLinkBtnMob?.addEventListener('click', toggleModal);
+
+            closeBtn.addEventListener('click', closeModal);
+            backdrop.addEventListener('click', closeModal);
+            cancelBtn?.addEventListener('click', closeModal);
+            generateBtn?.addEventListener('click', () => {
                 const newLink = `https://example.com/referral?code=${Math.random().toString(36).substr(2, 8)}`;
                 inputField.value = newLink;
                 updateFooterButtons(newLink);
@@ -2329,99 +2381,274 @@ $registrationSourceAnalysis = [
         };
 
 
-        // Mobile Menu Modal
         const initializeMobileMenu = () => {
             const mobileModal = $('#mobile-admin-dashboard-modal');
             const mobileMenuBtn = $('#mobile-admin-dashboard-menu-btn');
             const closeModalBtn = $('#mobile-admin-dashboard-close-modal-btn');
             const manageStudentBtn = $('#manage-student-admindashboard-mobile');
+            const referralLinkBtnMob = $('#referral-link-admindashboard-mobile');
+            const manageStudentDesktopBtn = $('#manage-student-admindashboard');
+            const referralLinkDesktopBtn = $('#referral-link-admindashboard');
+            const backdrop = $('#backdrop');
+            const modalContent = $('.mobile-admin-dashboard-modal-content', mobileModal);
 
-            if (!mobileModal || !mobileMenuBtn || !closeModalBtn) {
+            // Validate elements
+            if (!mobileModal || !mobileMenuBtn || !closeModalBtn || !backdrop || !manageStudentBtn || !referralLinkBtnMob || !manageStudentDesktopBtn || !referralLinkDesktopBtn || !modalContent) {
                 return console.error('Mobile menu elements missing');
             }
 
             const openModal = e => {
                 e.stopPropagation();
                 mobileModal.style.display = 'flex';
+                modalContent.style.display = 'block'; // Ensure content is visible
+                modalContent.style.visibility = 'visible';
+                backdrop.classList.add('active'); // Show backdrop
             };
 
             const closeModal = e => {
                 if (e) e.stopPropagation();
                 mobileModal.style.display = 'none';
+                modalContent.style.display = 'none'; // Hide content explicitly
+                backdrop.classList.remove('active'); // Hide backdrop
             };
 
+            // Toggle the modal on hamburger menu click
             mobileMenuBtn.removeEventListener('click', openModal);
-            mobileMenuBtn.addEventListener('click', openModal);
+            mobileMenuBtn.addEventListener('click', e => {
+                e.stopPropagation();
+                if (mobileModal.style.display === 'flex') {
+                    closeModal(e);
+                } else {
+                    openModal(e);
+                }
+            });
 
             closeModalBtn.removeEventListener('click', closeModal);
             closeModalBtn.addEventListener('click', closeModal);
 
+            // Close modal when clicking outside (on the backdrop part of the modal)
             mobileModal.addEventListener('click', e => {
                 if (e.target === mobileModal) closeModal(e);
             });
 
-            manageStudentBtn?.addEventListener('click', e => {
-                e.stopPropagation();
-                // console.log('Manage Students clicked');
+            // Ensure backdrop click closes the mobile modal and referral modal
+            backdrop.addEventListener('click', e => {
                 closeModal(e);
+                const referralModal = $('#referralModal');
+                if (referralModal && !referralModal.classList.contains('hidden')) {
+                    referralModal.classList.add('hidden');
+                    backdrop.classList.remove('active');
+                }
+            });
+
+            // Trigger desktop button clicks from mobile buttons
+            manageStudentBtn.addEventListener('click', e => {
+                e.stopPropagation();
+                closeModal(e);
+                manageStudentDesktopBtn.click();
+            });
+
+            referralLinkBtnMob.addEventListener('click', e => {
+                e.stopPropagation();
+                closeModal(e);
+                referralLinkDesktopBtn.click();
             });
         };
 
-        // Filter Panel
+
         const initializeFilterPanel = () => {
+            // Ensure mobile view
+            const isMobileView = document.querySelector('.admindashboardcontainer-secondsection-mobile');
+            if (!isMobileView) {
+                console.log('Not in mobile view, skipping filter panel initialization.');
+                return;
+            }
+
+            console.log('Initializing filter panel for mobile view.');
+
             const filterButton = $('#filterButton');
             const filterPanel = $('#filterPanel');
             const closeFilterBtn = $('#closeFilterBtn');
             const showAllBtn = $('#showAllBtn');
             const collapsedTags = $('#collapsedTags');
+            const topTagsContainer = $('.admin-dashboard-filter-panel > .admin-dashboard-filter-container > .admin-dashboard-filter-tags');
+            const bottomTagsContainer = $('#collapsedTags .admin-dashboard-filter-tags');
             const panelsToggle = $('#panelsToggle');
-            const showPanelsArea = $('#showPanelsArea');
+            const panelsIconButton = $('#panelsIcon');
 
-            if (!filterButton || !filterPanel || !closeFilterBtn || !showAllBtn || !collapsedTags || !panelsToggle || !showPanelsArea) {
-                return console.error('Filter panel elements missing');
+            if (!filterButton || !filterPanel || !closeFilterBtn || !showAllBtn || !collapsedTags || !topTagsContainer || !bottomTagsContainer || !panelsToggle || !panelsIconButton) {
+                console.error('One or more critical filter panel elements are missing. Aborting initialization.');
+                return;
             }
 
+            const allTags = [
+                { id: 'admin-dashboard-filter-tag-registration', text: 'Registration Reports', report: 'registration-reports' },
+                { id: '', text: 'No of grads', report: 'no-of-grads' },
+                { id: 'admin-dashboard-filter-tag-source', text: 'Registration Source', report: 'registration-source' },
+                { id: '', text: 'Age ratio Reports', report: 'age-ratio-reports' },
+                { id: 'admin-dashboard-filter-tag-funnel', text: 'Funnel Reports', report: 'funnel-reports' },
+                { id: '', text: 'Destination countries', report: 'destination-countries' },
+                { id: 'admin-dashboard-filter-tag-city', text: 'Cities', report: 'cities' },
+                { id: 'admin-dashboard-filter-tag-nbfc-lead', text: 'NBFC: Generation Leads', report: 'nbfc-generation-leads' },
+                { id: '', text: 'Point of entry', report: 'point-of-entry' },
+                { id: 'admin-dashboard-filter-tag-sc-lead', text: 'SC: Generation Leads', report: 'sc-generation-leads' },
+                { id: 'admin-dashboard-filter-tag-sc-lead-approved', text: 'SC: Approved Profiles', report: 'sc-generation-leads-approved' },
+                { id: 'admin-dashboard-filter-tag-semrush', text: 'Sem Rush', report: 'sem-rush' }
+            ];
+
+            let topTags = [...allTags];
+            let bottomTags = [];
+
             const openFilterPanel = () => {
+                console.log('Opening filter panel');
                 filterPanel.style.display = 'flex';
+                renderTags();
             };
 
             const closeFilterPanel = () => {
+                console.log('Closing filter panel');
                 filterPanel.style.display = 'none';
             };
 
             const updatePanelCount = () => {
-                const visibleTags = $$('.admin-dashboard-filter-tag').length;
-                panelsToggle.textContent = `${visibleTags} Panels`;
+                panelsToggle.textContent = `${topTags.length} Panels`;
             };
 
-            filterButton.addEventListener('click', openFilterPanel);
-            showPanelsArea.addEventListener('click', openFilterPanel);
-            closeFilterBtn.addEventListener('click', closeFilterPanel);
+            const updateVisibleReports = () => {
+                console.log('Updating visible reports based on active tags:', topTags.map(t => t.text));
+                const activeTags = topTags.map(tag => tag.text.toLowerCase());
+                const reportMapping = {
+                    'registration reports': 'registration-reports',
+                    'no of grads': 'no-of-grads',
+                    'registration source': 'registration-source',
+                    'age ratio reports': 'age-ratio-reports',
+                    'funnel reports': 'funnel-reports',
+                    'destination countries': 'destination-countries',
+                    'cities': 'cities',
+                    'nbfc: generation leads': 'nbfc-generation-leads',
+                    'point of entry': 'point-of-entry',
+                    'sc: generation leads': 'sc-generation-leads',
+                    'sc: approved profiles': 'sc-generation-leads-approved',
+                    'sem rush': 'sem-rush'
+                };
 
+                const reports = document.querySelectorAll('[data-report]');
+                reports.forEach(report => {
+                    const reportId = report.getAttribute('data-report');
+                    const tagText = Object.keys(reportMapping).find(key => reportMapping[key] === reportId);
+                    const shouldShow = tagText && activeTags.includes(tagText.toLowerCase());
+                    console.log(`Report ${reportId}: Tag "${tagText || 'N/A'}" ${shouldShow ? 'shown' : 'hidden'}`);
+                    report.style.display = shouldShow ? 'block' : 'none';
+                });
+            };
+
+            const renderTags = () => {
+                console.log('Rendering tags - Top:', topTags.map(t => t.text), 'Bottom:', bottomTags.map(t => t.text));
+
+                topTagsContainer.innerHTML = '';
+                bottomTagsContainer.innerHTML = '';
+
+                // Render top tags (with "X")
+                topTags.forEach(tag => {
+                    const tagElement = document.createElement('div');
+                    tagElement.className = 'admin-dashboard-filter-tag';
+                    if (tag.id) tagElement.id = tag.id;
+                    tagElement.innerHTML = `${tag.text} <span class="admin-dashboard-close-tag">×</span>`;
+                    topTagsContainer.appendChild(tagElement);
+                });
+
+                bottomTags.forEach(tag => {
+                    const tagElement = document.createElement('div');
+                    tagElement.className = 'admin-dashboard-filter-tag';
+                    if (tag.id) tagElement.id = tag.id;
+                    tagElement.textContent = tag.text;
+                    tagElement.style.display = 'inline-flex';
+                    tagElement.style.cursor = 'pointer'; // Indicate clickability
+                    bottomTagsContainer.appendChild(tagElement);
+                });
+
+                // Log rendered HTML for debugging
+                console.log('Top tags HTML:', topTagsContainer.innerHTML);
+                console.log('Bottom tags HTML:', bottomTagsContainer.innerHTML);
+
+                // Toggle collapsed section visibility
+                if (bottomTags.length > 0) {
+                    collapsedTags.classList.add('show');
+                    showAllBtn.innerHTML = 'Show Less <i class="fa-solid fa-chevron-up"></i>';
+                } else {
+                    collapsedTags.classList.remove('show');
+                    showAllBtn.innerHTML = 'Show All <i class="fa-solid fa-chevron-down"></i>';
+                }
+
+                updatePanelCount();
+                updateVisibleReports();
+            };
+
+            // Event listeners
+            filterButton.addEventListener('click', openFilterPanel);
+            panelsIconButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openFilterPanel();
+            });
+
+            closeFilterBtn.addEventListener('click', closeFilterPanel);
             showAllBtn.addEventListener('click', () => {
+                console.log('Show All/Show Less clicked');
+                if (collapsedTags.classList.contains('show')) {
+                    topTags = [...allTags];
+                    bottomTags = [];
+                }
                 collapsedTags.classList.toggle('show');
                 showAllBtn.innerHTML = collapsedTags.classList.contains('show')
                     ? 'Show Less <i class="fa-solid fa-chevron-up"></i>'
                     : 'Show All <i class="fa-solid fa-chevron-down"></i>';
+                renderTags();
             });
 
             filterPanel.addEventListener('click', e => {
-                if (!e.target.closest('.admin-dashboard-filter-container') && e.target !== filterButton) {
+                if (!e.target.closest('.admin-dashboard-filter-container')) {
+                    console.log('Clicked outside filter container, closing panel');
                     closeFilterPanel();
                 }
             });
 
-            document.addEventListener('click', e => {
+            topTagsContainer.addEventListener('click', e => {
                 if (e.target.classList.contains('admin-dashboard-close-tag')) {
-                    e.target.parentElement.remove();
-                    updatePanelCount();
+                    e.stopPropagation(); // Prevent closing the filter panel
+                    const tagElement = e.target.closest('.admin-dashboard-filter-tag');
+                    const tagText = tagElement.textContent.replace('×', '').trim();
+                    const tag = topTags.find(t => t.text === tagText);
+                    if (tag) {
+                        console.log(`Removing tag from top: ${tagText}`);
+                        topTags = topTags.filter(t => t.text !== tagText);
+                        bottomTags.push(tag);
+                        console.log(`Moved tag to bottom: ${tagText}`);
+                        renderTags();
+                    } else {
+                        console.warn(`Tag not found in topTags: ${tagText}`);
+                    }
                 }
             });
 
-            updatePanelCount();
+            bottomTagsContainer.addEventListener('click', e => {
+                if (e.target.classList.contains('admin-dashboard-filter-tag')) {
+                    e.stopPropagation(); // Prevent closing the filter panel
+                    const tagText = e.target.textContent.trim();
+                    const tag = bottomTags.find(t => t.text === tagText);
+                    if (tag) {
+                        console.log(`Activating tag: ${tagText}`);
+                        bottomTags = bottomTags.filter(t => t.text !== tagText);
+                        topTags.push(tag);
+                        renderTags();
+                    } else {
+                        console.warn(`Tag not found in bottomTags: ${tagText}`);
+                    }
+                }
+            });
+
+            console.log('Rendering initial tags');
+            renderTags();
         };
-
-
 
         let ageratioChart;
 
@@ -2450,100 +2677,87 @@ $registrationSourceAnalysis = [
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        const ageRatio = data.age_ratio;
-                        const ageData = Object.values(ageRatio);
+                        const ageRatio = data.age_ratio || {};
                         const ageLabels = Object.keys(ageRatio);
-                        const ageColors = [
-                            'rgba(111, 37, 206, 1)',
-                            'rgba(167, 121, 224, 1)',
-                            'rgba(203, 176, 237, 1)',
-                            'rgba(226, 211, 245, 1)',
-                        ];
+                        const ageData = Object.values(ageRatio);
 
+                        const isDataEmpty = ageLabels.length === 0 || ageData.every(value => value === 0);
+
+                        // Destroy existing chart if present
                         if (typeof ageratioChart !== 'undefined' && ageratioChart) {
                             ageratioChart.destroy();
                         }
 
-                        const ctx = document.getElementById('ageratio-donutRegistrationChart').getContext('2d');
+                        const ctx = document.getElementById('ageratio-donutRegistrationChart')?.getContext('2d');
+                        if (!ctx) {
+                            console.error('Canvas context not found');
+                            return;
+                        }
 
-                        // Check if data is empty or all zeros
-                        const isEmptyData = ageData.length === 0 || ageData.every(value => value === 0);
-
-                        if (isEmptyData) {
-                            // Show a placeholder chart with a single slice and label 'No data'
+                        if (isDataEmpty) {
+                            // Show placeholder chart with 1 segment
                             ageratioChart = new Chart(ctx, {
                                 type: 'doughnut',
                                 data: {
-                                    labels: ['No data'],
+                                    labels: ['No Data'],
                                     datasets: [{
-                                        label: 'Age Ratio',
-                                        data: [1],  // dummy data to show the chart
-                                        backgroundColor: ['rgba(200, 200, 200, 0.5)'],
-                                        borderWidth: 1,
+                                        data: [1],
+                                        backgroundColor: ['#e0e0e0'],
+                                        borderWidth: 0
                                     }]
                                 },
                                 options: {
                                     responsive: true,
                                     plugins: {
-                                        legend: {
-                                            display: true
-                                        },
-                                        tooltip: {
-                                            enabled: false
-                                        }
+                                        legend: { display: false },
+                                        tooltip: { enabled: false }
                                     }
                                 }
                             });
+
+                            // Optional: Show text notice on chart area
+                            document.getElementById('ageratio-header').textContent = "No age ratio data available";
                         } else {
-                            // Render normal chart with actual data
+                            const ageColors = [
+                                'rgba(111, 37, 206, 1)',
+                                'rgba(167, 121, 224, 1)',
+                                'rgba(203, 176, 237, 1)',
+                                'rgba(226, 211, 245, 1)'
+                            ];
+
                             ageratioChart = new Chart(ctx, {
                                 type: 'doughnut',
                                 data: {
                                     labels: ageLabels,
                                     datasets: [{
-                                        label: 'Age Ratio',
                                         data: ageData,
-                                        backgroundColor: ageColors,
-                                        borderWidth: 1,
+                                        backgroundColor: ageColors.slice(0, ageData.length),
+                                        borderWidth: 1
                                     }]
                                 },
                                 options: {
                                     responsive: true,
                                     plugins: {
-                                        legend: {
-                                            display: false
-                                        }
+                                        legend: { display: false }
                                     }
                                 }
                             });
+
+                            document.getElementById('ageratio-header').textContent = "Age ratio of students";
                         }
                     } else {
-                        alert('Error: ' + data.message);
+                        alert('Error: ' + (data.message || 'Unknown error'));
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
+                    console.error('Fetch error:', error);
                 });
         }
 
         loadAgeRatioChart();
 
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.dropdown-content-postgrad a').forEach(item => {
-                item.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const degreeType = this.innerText.trim(); // "Post Graduate", "Under Graduate", "Others"
-
-                    document.getElementById('postgrad-buttongroups-insideshow').innerHTML = degreeType + ' <i class="fa-solid fa-chevron-down"></i>';
-
-                    loadAgeRatioChart(degreeType);
-                });
-            });
 
 
-
-
-        })
 
         function funnelreport(degreeType = '') {
             console.log("funnelreport working for:", degreeType);
@@ -2593,7 +2807,7 @@ $registrationSourceAnalysis = [
             fetch('/referralacceptedcounts')
                 .then(response => response.json())
                 .then(data => {
-                    // console.log("Referral Accepted Counts:", data);
+                    console.log("Referral Accepted Counts:", data);
                 })
                 .catch(error => {
                     console.error('Fetch failed:', error);
@@ -2701,16 +2915,25 @@ $registrationSourceAnalysis = [
             }
         });
 
-        const links = dropdown.querySelectorAll('a');
-        links.forEach(link => {
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-                const selectedValue = this.getAttribute('data-value');
-                dropdown.classList.remove('show');
-                funnelreport(selectedValue);
-            });
-        });
 
+        function funnelReportDropdown() {
+            const toggle = document.getElementById('postgrad-buttongroups-insideshow-funnelreports-id');
+            const dropdown = document.getElementById('postgrad-funnelreportsprogress');
+
+            toggle.addEventListener('click', function () {
+                dropdown.classList.toggle('show');
+            });
+
+            const links = dropdown.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const selectedValue = this.getAttribute('data-value');
+                    dropdown.classList.remove('show');
+                    funnelreport(selectedValue);
+                });
+            });
+        }
 
         function ageRatioDropdown() {
             // Toggle dropdown visibility
@@ -2739,34 +2962,68 @@ $registrationSourceAnalysis = [
             });
         }
 
-        function searchMobFunctionality() {
+       function searchMobFunctionality() {
             const searchInput = document.getElementById('searchinput-admindashboard');
+            if (!searchInput) {
+                console.error('Search input element not found');
+                return;
+            }
 
-            // Array of section IDs
-            const sectionIds = [
-                'admindashboardcontainer-secondsection',
-                'admindashboardcontainer-thirdsection',
-                'admindashboardcontainer-fourth-section'
-            ];
+            // Mapping of display names to data-report values
+            const reportMapping = {
+                'registration reports': 'registration-reports',
+                'no of grads': 'no-of-grads',
+                'registration source': 'registration-source',
+                'age ratio reports': 'age-ratio-reports',
+                'funnel reports': 'funnel-reports',
+                'destination countries': 'destination-countries',
+                'cities': 'cities',
+                'nbfc: generation leads': 'nbfc-generation-leads',
+                'point of entry': 'point-of-entry',
+                'sc: generation leads': 'sc-generation-leads',
+                'sc: generation leads approved': 'sc-generation-leads-approved',
+                'sem rush': 'sem-rush'
+            };
 
-            // searchInput.addEventListener('input', function () {
-            //     const query = searchInput.value.toLowerCase().trim();
+            // Get all report names for searching
+            const reportNames = Object.keys(reportMapping);
 
-            //     sectionIds.forEach(sectionId => {
-            //         const section = document.getElementById(sectionId);
+            searchInput.addEventListener('input', function () {
+                const query = this.value.trim().toLowerCase();
+                console.log('Search query:', query);
 
-            //         if (section) {
-            //             const items = section.querySelectorAll('div'); // or more specific selector if needed
+                // Get all report containers
+                const reports = document.querySelectorAll('[data-report]');
+                if (!reports.length) {
+                    console.warn('No report containers found with [data-report]');
+                    return;
+                }
 
-            //             items.forEach(item => {
-            //                 const text = item.textContent.toLowerCase();
-            //                 item.style.display = text.includes(query) ? '' : 'none';
-            //             });
-            //         }
-            //     });
-            // });
+                if (!query) {
+                    // If search is empty, show all reports
+                    reports.forEach(report => {
+                        report.style.display = 'block';
+                    });
+                    console.log('Search cleared, showing all reports');
+                    return;
+                }
 
+                // Find matching report names
+                const matchedReports = reportNames.filter(name => name.toLowerCase().includes(query));
+                console.log('Matched report names:', matchedReports);
 
+                // Convert matched names to their data-report values
+                const matchedReportIds = matchedReports.map(name => reportMapping[name.toLowerCase()]);
+                console.log('Matched report IDs:', matchedReportIds);
+
+                // Show/hide reports based on matches
+                reports.forEach(report => {
+                    const reportId = report.getAttribute('data-report');
+                    const shouldShow = matchedReportIds.includes(reportId);
+                    report.style.display = shouldShow ? 'block' : 'none';
+                    console.log(`Report ${reportId}: ${shouldShow ? 'shown' : 'hidden'}`);
+                });
+            });
         }
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -2774,25 +3031,8 @@ $registrationSourceAnalysis = [
             ageRatioDropdown();
             funnelReportDropdown();
             searchMobFunctionality();
-            document.getElementById("download-buttongroups").addEventListener('click', function () {
-                window.open("{{ route('download.user.profile') }}", '_blank');
-            });
-            document.querySelector(".admin-dashboard-download-button").addEventListener('click', function () {
-                window.open("{{ route('download.user.profile') }}", '_blank');
-            });
 
-            const mobileCalendarButton = document.getElementById('calendarButton');
-            const calendarContainer = document.querySelector('.calendar-container');
-
-            if (mobileCalendarButton && calendarContainer) {
-                mobileCalendarButton.addEventListener('click', () => {
-                    calendarContainer.classList.toggle('visible');
-
-                    if (calendarContainer.classList.contains('visible')) {
-                        calendarContainer.scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
-            }
+           
 
 
         });
