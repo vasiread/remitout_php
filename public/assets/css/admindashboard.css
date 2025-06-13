@@ -198,7 +198,7 @@
     .mobile-main-container{
         display:flex;
         flex-direction: column;
-        width:90%;
+        width:100%;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         background-color: white;
         margin:20px auto;
@@ -1256,14 +1256,13 @@ canvas {
 
     .reports-registeration {
         order: 1;
-        width: 90%;
+        width: 100%;
         margin: 0 auto;
     }
 
     .admindashboard-second-main-container {
         order: 2;
         width: 100%;
-        max-width: 90%;
         margin: 0 auto;
         margin-bottom: 8px;
     }
@@ -1279,7 +1278,6 @@ canvas {
     .source-registeration {
         order: 3;
         width: 100%;
-        max-width: 90%;
         margin: 0 auto;
     }
 
@@ -1293,7 +1291,6 @@ canvas {
     .admindashboard-secondpart .ageratio-graph-admin {
         order: 4;
         width: 100%;
-        max-width: 90%;
         margin: 0 auto;
         height:auto;
     }
@@ -2193,7 +2190,6 @@ text[fill="#222222"] {
     .admin-dashboard-container-four {
         padding: 15px 0 0 0;
         width: 100%;
-        max-width: 90%;
         margin: 0 auto;
     }
 
@@ -2219,7 +2215,7 @@ text[fill="#222222"] {
 
     #nbfc-lead-chart_container,
     .sc-lead-container {
-        width: 90%;
+        width: 100%;
         margin: 0 auto;
     }
 
@@ -2234,7 +2230,7 @@ text[fill="#222222"] {
      }
 
     .point-entry-donut {
-        width: 90%;
+        width: 100%;
         margin: 0 auto 15px auto;
     }
 
