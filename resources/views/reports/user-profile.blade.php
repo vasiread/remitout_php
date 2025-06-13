@@ -132,27 +132,17 @@
 
         /* .rightside-header  */
     </style>
+    <link rel="stylesheet" href="{{ public_path('css/app.css') }}">
+
 </head>
 
 <body>
     <div class="export-container">
         <div class="header-group">
             <div class="header-export">
-                <img src="{{ asset('assets/images/Icons/remitoutlogo.png') }}" alt="">
+<img src="{{ public_path('assets/images/Icons/remitoutlogo.png') }}" alt="">
 
-                <div class="rightside-header">
-                    <div class="authordiv">
-                        <p><strong>Authority name</strong></p>
-                        <p><strong>Designation:</strong></p>
-
-                    </div>
-                    <div class="designation">
-                        <p><strong>Date of export:</strong> {{ $exportDate }}</p>
-
-                        <p><strong>Time of export:</strong> {{ $exportTime }}</p>
-
-                    </div>
-                </div>
+               
 
 
             </div>
@@ -313,7 +303,7 @@
 
         </div>
         <div class="footer-group">
-            <img src="{{ asset('assets/images/Icons/remitoutlogo.png') }}" alt="">
+            <img src="{{ public_path('assets/images/Icons/remitoutlogo.png') }}" alt="">
 
 
         </div>

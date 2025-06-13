@@ -1468,11 +1468,7 @@ const initializeIndividualCards = () => {
 };
 
 
-
-
-
 const initializeKycDocumentUpload = () => {
-    
     const individualKycDocumentsUpload = document.querySelectorAll(
         ".individualkycdocuments"
     );
@@ -1490,7 +1486,7 @@ const initializeKycDocumentUpload = () => {
 
             const documentType = eyeIcon.id
                 .replace("view-", "")
-                .replace("-card", ""); // e.g., "aadhar-card"
+                .replace("-card", "");
             const fileTypeKey = `${documentType}-card-name`;
             const fileUrl = documentUrls[fileTypeKey];
             const fileNameElement = card.querySelector(
@@ -1498,47 +1494,30 @@ const initializeKycDocumentUpload = () => {
             );
             const fileName = fileNameElement
                 ? fileNameElement.textContent
-                : "Document.pdf";
+                : "Document";
 
-            console.log(`Previewing ${documentType}: ${fileUrl}`);
-
-            // Check if a preview is already active
-            if (eyeIcon.classList.contains('preview-active')) {
-                const previewWrapper = document.querySelector('.pdf-preview-wrapper');
-                if (previewWrapper) previewWrapper.remove();
-                const overlay = document.querySelector('.pdf-preview-overlay');
-                if (overlay) overlay.remove();
-                eyeIcon.classList.remove('preview-active');
+            if (eyeIcon.classList.contains("preview-active")) {
+                document.querySelector(".pdf-preview-wrapper")?.remove();
+                document.querySelector(".image-preview-wrapper")?.remove();
+                document.querySelector(".pdf-preview-overlay")?.remove();
+                document.querySelector(".image-preview-overlay")?.remove();
+                eyeIcon.classList.remove("preview-active");
                 eyeIcon.src = "/assets/images/visibility.png";
                 return;
             }
 
-            // If no file URL, show an alert
             if (!fileUrl) {
                 alert("No document found to preview.");
                 return;
             }
 
-            // Create the preview modal
-            const previewWrapper = document.createElement("div");
-            previewWrapper.className = "pdf-preview-wrapper";
-            previewWrapper.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 60%;
-                height: 80vh;
-                background-color: white;
-                display: flex;
-                flex-direction: column;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                z-index: 1000;
-                border-radius: 8px;
-            `;
+            const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
+            const isImage = [".jpg", ".jpeg", ".png"].some(ext =>
+                fileUrl.toLowerCase().endsWith(ext)
+            );
 
             const overlay = document.createElement("div");
-            overlay.className = "pdf-preview-overlay";
+            overlay.className = isPDF ? "pdf-preview-overlay" : "image-preview-overlay";
             overlay.style.cssText = `
                 position: fixed;
                 top: 0;
@@ -1547,6 +1526,26 @@ const initializeKycDocumentUpload = () => {
                 height: 100%;
                 background-color: rgba(0, 0, 0, 0.5);
                 z-index: 999;
+            `;
+
+            const previewWrapper = document.createElement("div");
+            previewWrapper.className = isPDF ? "pdf-preview-wrapper" : "image-preview-wrapper";
+            previewWrapper.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: ${isPDF ? "60%" : "90%"};
+                max-width: 800px;
+                height: ${isPDF ? "80vh" : "auto"};
+                max-height: 90vh;
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 1000;
+                border-radius: 8px;
+                overflow: hidden;
             `;
 
             const header = document.createElement("div");
@@ -1558,138 +1557,151 @@ const initializeKycDocumentUpload = () => {
                 background-color: #1a1a1a;
                 color: white;
                 height: 40px;
-                border-top-left-radius: 8px;
-                border-top-right-radius: 8px;
-            `;
-
-            const fileNameSection = document.createElement("div");
-            fileNameSection.style.cssText = `
-                display: flex;
-                align-items: center;
-                gap: 8px;
+                font-family: 'Poppins', sans-serif;
+                position: relative;
             `;
 
             const fileNameSpan = document.createElement("span");
             fileNameSpan.textContent = fileName;
             fileNameSpan.style.cssText = `
-                color: white;
                 font-size: 14px;
+                color: white;
+            `;
+
+            const closeButton = document.createElement("button");
+            closeButton.innerHTML = "✕";
+            closeButton.style.cssText = `
+                background: none;
+                border: none;
+                color: white;
+                font-size: 18px;
+                cursor: pointer;
                 font-family: 'Poppins', sans-serif;
             `;
-            fileNameSection.appendChild(fileNameSpan);
-
-            const zoomControls = document.createElement("div");
-            zoomControls.style.cssText = `
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
-            `;
-
-            const zoomOut = document.createElement("button");
-            zoomOut.innerHTML = "−";
-            const zoomIn = document.createElement("button");
-            zoomIn.innerHTML = "+";
-
-            [zoomOut, zoomIn].forEach((btn) => {
-                btn.style.cssText = `
-                    background: none;
-                    border: 1px solid #fff;
-                    border-radius: 4px;
-                    color: white;
-                    font-size: 16px;
-                    cursor: pointer;
-                    padding: 2px 8px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-family: 'Poppins', sans-serif;
-                `;
-            });
-
-            zoomControls.appendChild(zoomOut);
-            zoomControls.appendChild(zoomIn);
-
-            // Close button
-            const closeButton = document.createElement('button');
-            closeButton.innerHTML = '&#10005;';
-            closeButton.style.cssText = `
-                    background: none;
-                    border: none;
-                    color: white;
-                    font-size: 18px;
-                    cursor: pointer;
-                    padding: 4px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                `;
 
             const closePreview = () => {
                 previewWrapper.remove();
                 overlay.remove();
-                eyeIcon.classList.remove('preview-active');
-                eyeIcon.classList.replace('fa-times', 'fa-eye');
+                eyeIcon.classList.remove("preview-active");
+                eyeIcon.src = "/assets/images/visibility.png";
             };
 
             closeButton.addEventListener("click", closePreview);
             overlay.addEventListener("click", closePreview);
 
-            header.appendChild(fileNameSection);
-            header.appendChild(zoomControls);
+            header.appendChild(fileNameSpan);
             header.appendChild(closeButton);
 
-            const iframe = document.createElement("iframe");
-            iframe.src = fileUrl;
-            iframe.style.cssText = `
-                width: 100%;
-                height: calc(100% - 40px);
-                border: none;
-                background-color: white;
-                border-bottom-left-radius: 8px;
-                border-bottom-right-radius: 8px;
-            `;
+            // Zoom controls (PDF only)
+            let currentZoom = 1;
+            if (isPDF) {
+                const zoomControls = document.createElement("div");
+                zoomControls.style.cssText = `
+                    display: flex;
+                    gap: 12px;
+                    align-items: center;
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                `;
+
+                const zoomOut = document.createElement("button");
+                const zoomIn = document.createElement("button");
+                zoomOut.textContent = "−";
+                zoomIn.textContent = "+";
+
+                [zoomOut, zoomIn].forEach(btn => {
+                    btn.style.cssText = `
+                        background: none;
+                        border: 1px solid #fff;
+                        border-radius: 4px;
+                        color: white;
+                        font-size: 16px;
+                        padding: 2px 8px;
+                        cursor: pointer;
+                        font-family: 'Poppins', sans-serif;
+                    `;
+                    zoomControls.appendChild(btn);
+                });
+
+                header.insertBefore(zoomControls, closeButton);
+            }
 
             previewWrapper.appendChild(header);
-            previewWrapper.appendChild(iframe);
+
+            if (isPDF) {
+                const iframeContainer = document.createElement("div");
+                iframeContainer.style.cssText = `
+                    width: 100%;
+                    height: calc(100% - 40px);
+                    overflow: auto;
+                    background-color: white;
+                    position: relative;
+                `;
+
+                const iframe = document.createElement("iframe");
+                iframe.src = fileUrl;
+                iframe.style.cssText = `
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                    transform-origin: top center;
+                    transition: transform 0.2s ease;
+                `;
+
+                iframeContainer.appendChild(iframe);
+                previewWrapper.appendChild(iframeContainer);
+
+                header.querySelectorAll("button")[1]?.addEventListener("click", () => {
+                    currentZoom += 0.1;
+                    iframe.style.transform = `scale(${currentZoom})`;
+                });
+
+                header.querySelectorAll("button")[0]?.addEventListener("click", () => {
+                    currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                    iframe.style.transform = `scale(${currentZoom})`;
+                });
+
+            } else if (isImage) {
+                const imgContainer = document.createElement("div");
+                imgContainer.style.cssText = `
+                    padding: 20px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #f0f0f0;
+                `;
+
+                const img = document.createElement("img");
+                img.src = fileUrl;
+                img.style.cssText = `
+                    max-width: 100%;
+                    max-height: 80vh;
+                    object-fit: contain;
+                `;
+                imgContainer.appendChild(img);
+                previewWrapper.appendChild(imgContainer);
+            } else {
+                alert("Unsupported file type. Only PDFs and images (JPG, PNG, JPEG) are supported.");
+                return;
+            }
 
             document.body.appendChild(overlay);
             document.body.appendChild(previewWrapper);
-
-            let currentZoom = 1;
-            zoomIn.addEventListener("click", () => {
-                currentZoom += 0.1;
-                iframe.style.transform = `scale(${currentZoom})`;
-                iframe.style.transformOrigin = "top center";
-            });
-
-            zoomOut.addEventListener("click", () => {
-                currentZoom = Math.max(currentZoom - 0.1, 0.5);
-                iframe.style.transform = `scale(${currentZoom})`;
-                iframe.style.transformOrigin = "top center";
-            });
-
-            document.addEventListener("keydown", function (e) {
-                if (e.key === "Escape") {
-                    closePreview();
-                }
+            document.addEventListener("keydown", e => {
+                if (e.key === "Escape") closePreview();
             });
 
             eyeIcon.classList.add("preview-active");
-            eyeIcon.src = "/assets/images/close.png"; // Update with your actual path
+            eyeIcon.src = "/assets/images/close.png";
         });
     });
 };
 
-
 const initializeMarksheetUpload = () => {
-    const individualMarksheetDocumentsUpload = document.querySelectorAll(
-        ".individualmarksheetdocuments"
-    );
+    const cards = document.querySelectorAll(".individualmarksheetdocuments");
 
-    individualMarksheetDocumentsUpload.forEach((card) => {
+    cards.forEach((card) => {
         const eyeIcon = card.querySelector(".fa-eye");
 
         if (!eyeIcon) {
@@ -1700,11 +1712,17 @@ const initializeMarksheetUpload = () => {
         eyeIcon.addEventListener("click", function (event) {
             event.stopPropagation();
 
-            // Get the document type from the eye icon's ID
-            const documentType = eyeIcon.id.replace('view-', '').replace('-card', '');
+            if (eyeIcon.classList.contains("preview-active")) {
+                document.querySelector(".pdf-preview-wrapper")?.remove();
+                document.querySelector(".image-preview-wrapper")?.remove();
+                document.querySelector(".pdf-preview-overlay")?.remove();
+                document.querySelector(".image-preview-overlay")?.remove();
+                eyeIcon.classList.remove("preview-active");
+                eyeIcon.src = "/assets/images/visibility.png";
+                return;
+            }
 
-            // Construct the fileType key used in documentUrls based on the class name
-            let fileTypeKey;
+            let fileTypeKey = null;
             if (card.querySelector(".sslc-marksheet")) {
                 fileTypeKey = "tenth-grade-name";
             } else if (card.querySelector(".hsc-marksheet")) {
@@ -1713,54 +1731,22 @@ const initializeMarksheetUpload = () => {
                 fileTypeKey = "graduation-grade-name";
             }
 
-            // Get the URL from documentUrls
-            const fileUrl = documentUrls[fileTypeKey];
-            const fileNameElement = card.querySelector(
-                `.${fileTypeKey.replace("-name", "-marksheet")}`
-            );
-            const fileName = fileNameElement
-                ? fileNameElement.textContent
-                : "Document.pdf";
-
-            console.log(`Previewing marksheet (${fileTypeKey}):`, fileUrl);
-
-            if (eyeIcon.classList.contains("preview-active")) {
-                const previewWrapper = document.querySelector(
-                    ".pdf-preview-wrapper"
-                );
-                const overlay = document.querySelector(".pdf-preview-overlay");
-                if (previewWrapper) previewWrapper.remove();
-                if (overlay) overlay.remove();
-                eyeIcon.classList.remove("preview-active");
-                eyeIcon.src = "/assets/images/visibility.png";
-                return;
-            }
-
-            if (!fileUrl) {
+            if (!fileTypeKey || !documentUrls[fileTypeKey]) {
                 alert("No document found to preview.");
                 return;
             }
 
-            // Create the preview modal
-            const previewWrapper = document.createElement("div");
-            previewWrapper.className = "pdf-preview-wrapper";
-            previewWrapper.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 60%;
-                height: 80vh;
-                background-color: white;
-                display: flex;
-                flex-direction: column;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                z-index: 1000;
-                border-radius: 8px;
-            `;
+            const fileUrl = documentUrls[fileTypeKey];
+            const fileNameElement = card.querySelector(`.${fileTypeKey.replace("-name", "-marksheet")}`);
+            const fileName = fileNameElement?.textContent || "Document";
+
+            const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
+            const isImage = [".jpg", ".jpeg", ".png"].some(ext =>
+                fileUrl.toLowerCase().endsWith(ext)
+            );
 
             const overlay = document.createElement("div");
-            overlay.className = "pdf-preview-overlay";
+            overlay.className = isPDF ? "pdf-preview-overlay" : "image-preview-overlay";
             overlay.style.cssText = `
                 position: fixed;
                 top: 0;
@@ -1769,6 +1755,26 @@ const initializeMarksheetUpload = () => {
                 height: 100%;
                 background-color: rgba(0, 0, 0, 0.5);
                 z-index: 999;
+            `;
+
+            const previewWrapper = document.createElement("div");
+            previewWrapper.className = isPDF ? "pdf-preview-wrapper" : "image-preview-wrapper";
+            previewWrapper.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: ${isPDF ? "60%" : "90%"};
+                max-width: 800px;
+                height: ${isPDF ? "80vh" : "auto"};
+                max-height: 90vh;
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 1000;
+                border-radius: 8px;
+                overflow: hidden;
             `;
 
             const header = document.createElement("div");
@@ -1780,59 +1786,15 @@ const initializeMarksheetUpload = () => {
                 background-color: #1a1a1a;
                 color: white;
                 height: 40px;
-                border-top-left-radius: 8px;
-                border-top-right-radius: 8px;
-            `;
-
-            const fileNameSection = document.createElement("div");
-            fileNameSection.style.cssText = `
-                display: flex;
-                align-items: center;
-                gap: 8px;
+                font-family: 'Poppins', sans-serif;
             `;
 
             const fileNameSpan = document.createElement("span");
             fileNameSpan.textContent = fileName;
             fileNameSpan.style.cssText = `
-                color: white;
                 font-size: 14px;
-                font-family: 'Poppins', sans-serif;
+                color: white;
             `;
-            fileNameSection.appendChild(fileNameSpan);
-
-            const zoomControls = document.createElement("div");
-            zoomControls.style.cssText = `
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
-            `;
-
-            const zoomOut = document.createElement("button");
-            zoomOut.innerHTML = "−";
-            const zoomIn = document.createElement("button");
-            zoomIn.innerHTML = "+";
-
-            [zoomOut, zoomIn].forEach((btn) => {
-                btn.style.cssText = `
-                    background: none;
-                    border: 1px solid #fff;
-                    border-radius: 4px;
-                    color: white;
-                    font-size: 16px;
-                    cursor: pointer;
-                    padding: 2px 8px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-family: 'Poppins', sans-serif;
-                `;
-            });
-
-            zoomControls.appendChild(zoomOut);
-            zoomControls.appendChild(zoomIn);
 
             const closeButton = document.createElement("button");
             closeButton.innerHTML = "✕";
@@ -1842,10 +1804,6 @@ const initializeMarksheetUpload = () => {
                 color: white;
                 font-size: 18px;
                 cursor: pointer;
-                padding: 4px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
                 font-family: 'Poppins', sans-serif;
             `;
 
@@ -1859,44 +1817,101 @@ const initializeMarksheetUpload = () => {
             closeButton.addEventListener("click", closePreview);
             overlay.addEventListener("click", closePreview);
 
-            header.appendChild(fileNameSection);
-            header.appendChild(zoomControls);
+            header.appendChild(fileNameSpan);
             header.appendChild(closeButton);
 
-            const iframe = document.createElement("iframe");
-            iframe.src = fileUrl;
-            iframe.style.cssText = `
-                width: 100%;
-                height: calc(100% - 40px);
-                border: none;
-                background-color: white;
-                border-bottom-left-radius: 8px;
-                border-bottom-right-radius: 8px;
-            `;
+            // Zoom controls (for PDF)
+            if (isPDF) {
+                const zoomControls = document.createElement("div");
+                zoomControls.style.cssText = `
+                    display: flex;
+                    gap: 12px;
+                    align-items: center;
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                `;
+
+                const zoomOut = document.createElement("button");
+                const zoomIn = document.createElement("button");
+                zoomOut.textContent = "−";
+                zoomIn.textContent = "+";
+
+                [zoomOut, zoomIn].forEach(btn => {
+                    btn.style.cssText = `
+                        background: none;
+                        border: 1px solid #fff;
+                        border-radius: 4px;
+                        color: white;
+                        font-size: 16px;
+                        padding: 2px 8px;
+                        cursor: pointer;
+                        font-family: 'Poppins', sans-serif;
+                    `;
+                    zoomControls.appendChild(btn);
+                });
+
+                header.insertBefore(zoomControls, closeButton);
+            }
 
             previewWrapper.appendChild(header);
-            previewWrapper.appendChild(iframe);
+
+            if (isPDF) {
+                const iframe = document.createElement("iframe");
+                iframe.src = fileUrl;
+                iframe.style.cssText = `
+                    width: 100%;
+                    height: calc(100% - 40px);
+                    border: none;
+                    background-color: white;
+                    transform: scale(1);
+                    transform-origin: top center;
+                    transition: transform 0.2s ease-in-out;
+                `;
+
+                previewWrapper.appendChild(iframe);
+
+                let currentZoom = 1;
+
+                header.querySelectorAll("button")[1]?.addEventListener("click", () => {
+                    currentZoom += 0.1;
+                    iframe.style.transform = `scale(${currentZoom})`;
+                });
+
+                header.querySelectorAll("button")[0]?.addEventListener("click", () => {
+                    currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                    iframe.style.transform = `scale(${currentZoom})`;
+                });
+
+            } else if (isImage) {
+                const imgContainer = document.createElement("div");
+                imgContainer.style.cssText = `
+                    padding: 20px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #f0f0f0;
+                `;
+
+                const img = document.createElement("img");
+                img.src = fileUrl;
+                img.style.cssText = `
+                    max-width: 100%;
+                    max-height: 80vh;
+                    object-fit: contain;
+                `;
+                imgContainer.appendChild(img);
+                previewWrapper.appendChild(imgContainer);
+            } else {
+                alert("Unsupported file type. Only PDFs and images (JPG, PNG, JPEG) are supported.");
+                return;
+            }
 
             document.body.appendChild(overlay);
             document.body.appendChild(previewWrapper);
 
-            let currentZoom = 1;
-            zoomIn.addEventListener("click", () => {
-                currentZoom += 0.1;
-                iframe.style.transform = `scale(${currentZoom})`;
-                iframe.style.transformOrigin = "top center";
-            });
-
-            zoomOut.addEventListener("click", () => {
-                currentZoom = Math.max(currentZoom - 0.1, 0.5);
-                iframe.style.transform = `scale(${currentZoom})`;
-                iframe.style.transformOrigin = "top center";
-            });
-
-            document.addEventListener("keydown", function (e) {
-                if (e.key === "Escape") {
-                    closePreview();
-                }
+            document.addEventListener("keydown", e => {
+                if (e.key === "Escape") closePreview();
             });
 
             eyeIcon.classList.add("preview-active");
@@ -1904,6 +1919,10 @@ const initializeMarksheetUpload = () => {
         });
     });
 };
+
+
+
+ 
 
 const initializeSecuredAdmissionDocumentUpload = () => {
     const securedAdmissionDocuments = document.querySelectorAll(
@@ -2275,10 +2294,7 @@ function truncateFileName(fileName) {
     return name.slice(0, 16) + "..." + extension;
 }
 
-//  document.addEventListener('DOMContentLoaded', function () {
-//     initializeSecuredAdmissionDocumentUpload();
-// });
-
+ 
 
 
 const initializeWorkExperienceDocumentUpload = () => {
@@ -2643,12 +2659,12 @@ const initializeWorkExperienceDocumentUpload = () => {
         });
     });
 };
+
 const initializeCoBorrowerDocumentUpload = () => {
     const coBorrowerDocuments = document.querySelectorAll(".individual-coborrower-kyc-documents");
 
     coBorrowerDocuments.forEach((card) => {
         const eyeIcon = card.querySelector(".fa-eye");
-
         if (!eyeIcon) {
             console.error("Eye icon not found in card:", card);
             return;
@@ -2657,7 +2673,7 @@ const initializeCoBorrowerDocumentUpload = () => {
         eyeIcon.addEventListener("click", function (event) {
             event.stopPropagation();
 
-            let fileTypeKey;
+            let fileTypeKey = null;
             if (card.querySelector(".coborrower-pancard")) {
                 fileTypeKey = "co-pan-card-name";
             } else if (card.querySelector(".coborrower-aadharcard")) {
@@ -2667,18 +2683,26 @@ const initializeCoBorrowerDocumentUpload = () => {
             }
 
             const fileUrl = documentUrls[fileTypeKey];
-            const fileNameElement = card.querySelector(`.${fileTypeKey.replace("-name", "-grade")}`);
-            const rawFileName = fileNameElement ? fileNameElement.textContent.trim() : "Document.pdf";
-            const fileName = truncateFileName ? truncateFileName(rawFileName) : rawFileName;
+            const fileNameElement = card.querySelector(`.${fileTypeKey?.replace("-name", "-grade")}`);
+            const rawFileName = fileNameElement ? fileNameElement.textContent.trim() : "Document";
+            const fileName = typeof truncateFileName === "function" ? truncateFileName(rawFileName) : rawFileName;
 
-            if (eyeIcon.classList.contains("preview-active")) {
-                // Close preview if already open
-                const previewWrapper = document.querySelector(".pdf-preview-wrapper, .image-preview-wrapper");
-                const overlay = document.querySelector(".pdf-preview-overlay, .image-preview-overlay");
-                if (previewWrapper) previewWrapper.remove();
-                if (overlay) overlay.remove();
+            const closePreview = () => {
+                document.querySelector(".pdf-preview-wrapper")?.remove();
+                document.querySelector(".image-preview-wrapper")?.remove();
+                document.querySelector(".pdf-preview-overlay")?.remove();
+                document.querySelector(".image-preview-overlay")?.remove();
                 eyeIcon.classList.remove("preview-active");
                 eyeIcon.src = "/assets/images/visibility.png";
+                document.removeEventListener("keydown", keydownHandler);
+            };
+
+            const keydownHandler = (e) => {
+                if (e.key === "Escape") closePreview();
+            };
+
+            if (eyeIcon.classList.contains("preview-active")) {
+                closePreview();
                 return;
             }
 
@@ -2688,277 +2712,170 @@ const initializeCoBorrowerDocumentUpload = () => {
             }
 
             const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
-            const isImage = [".jpg", ".jpeg", ".png"].some((ext) => fileUrl.toLowerCase().endsWith(ext));
+            const isImage = [".jpg", ".jpeg", ".png"].some(ext => fileUrl.toLowerCase().endsWith(ext));
 
-            const closePreview = () => {
-                const previewWrapper = document.querySelector(".pdf-preview-wrapper, .image-preview-wrapper");
-                const overlay = document.querySelector(".pdf-preview-overlay, .image-preview-overlay");
-                if (previewWrapper) previewWrapper.remove();
-                if (overlay) overlay.remove();
-                eyeIcon.classList.remove("preview-active");
-                eyeIcon.src = "/assets/images/visibility.png";
-                document.removeEventListener("keydown", keydownHandler);
-            };
+            const overlay = document.createElement("div");
+            overlay.className = isPDF ? "pdf-preview-overlay" : "image-preview-overlay";
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            `;
 
-            const keydownHandler = (e) => {
-                if (e.key === "Escape") {
-                    closePreview();
-                }
-            };
+            const previewWrapper = document.createElement("div");
+            previewWrapper.className = isPDF ? "pdf-preview-wrapper" : "image-preview-wrapper";
+            previewWrapper.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: ${isPDF ? "60%" : "90%"};
+                max-width: 800px;
+                height: ${isPDF ? "80vh" : "auto"};
+                max-height: 90vh;
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 1000;
+                border-radius: 8px;
+                overflow: hidden;
+            `;
+
+            const header = document.createElement("div");
+            header.style.cssText = `
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 8px 16px;
+                background-color: #1a1a1a;
+                color: white;
+                height: 40px;
+                font-family: 'Poppins', sans-serif;
+            `;
+
+            const fileNameSpan = document.createElement("span");
+            fileNameSpan.textContent = fileName;
+            fileNameSpan.style.cssText = `
+                font-size: 14px;
+                color: white;
+            `;
+
+            const closeButton = document.createElement("button");
+            closeButton.innerHTML = "✕";
+            closeButton.style.cssText = `
+                background: none;
+                border: none;
+                color: white;
+                font-size: 18px;
+                cursor: pointer;
+                font-family: 'Poppins', sans-serif;
+            `;
+
+            closeButton.addEventListener("click", closePreview);
+            overlay.addEventListener("click", closePreview);
+            header.appendChild(fileNameSpan);
 
             if (isPDF) {
-                // PDF PREVIEW
-                const previewWrapper = document.createElement("div");
-                previewWrapper.className = "pdf-preview-wrapper";
-                previewWrapper.style.cssText = `
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 60%;
-          height: 80vh;
-          background-color: white;
-          display: flex;
-          flex-direction: column;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-          z-index: 1000;
-          border-radius: 8px;
-        `;
-
-                const overlay = document.createElement("div");
-                overlay.className = "pdf-preview-overlay";
-                overlay.style.cssText = `
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-color: rgba(0, 0, 0, 0.5);
-          z-index: 999;
-        `;
-
-                const header = document.createElement("div");
-                header.style.cssText = `
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 8px 16px;
-          background-color: #1a1a1a;
-          color: white;
-          height: 40px;
-          border-top-left-radius: 8px;
-          border-top-right-radius: 8px;
-          position: relative;
-        `;
-
-                const fileNameSection = document.createElement("div");
-                fileNameSection.style.cssText = `display: flex; align-items: center; gap: 8px;`;
-
-                const fileNameSpan = document.createElement("span");
-                fileNameSpan.textContent = fileName;
-                fileNameSpan.style.cssText = `
-          color: white;
-          font-size: 14px;
-          font-family: 'Poppins', sans-serif;
-        `;
-                fileNameSection.appendChild(fileNameSpan);
-
                 const zoomControls = document.createElement("div");
                 zoomControls.style.cssText = `
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          position: absolute;
-          left: 50%;
-          transform: translateX(-50%);
-        `;
+                    display: flex;
+                    gap: 12px;
+                    align-items: center;
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                `;
 
                 const zoomOut = document.createElement("button");
-                zoomOut.innerHTML = "−";
                 const zoomIn = document.createElement("button");
-                zoomIn.innerHTML = "+";
+                zoomOut.textContent = "−";
+                zoomIn.textContent = "+";
 
-                [zoomOut, zoomIn].forEach((btn) => {
+                [zoomOut, zoomIn].forEach(btn => {
                     btn.style.cssText = `
-            background: none;
-            border: 1px solid #fff;
-            border-radius: 4px;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            padding: 2px 8px;
-            font-family: 'Poppins', sans-serif;
-          `;
+                        background: none;
+                        border: 1px solid #fff;
+                        border-radius: 4px;
+                        color: white;
+                        font-size: 16px;
+                        padding: 2px 8px;
+                        cursor: pointer;
+                        font-family: 'Poppins', sans-serif;
+                    `;
+                    zoomControls.appendChild(btn);
                 });
 
-                zoomControls.appendChild(zoomOut);
-                zoomControls.appendChild(zoomIn);
+                header.insertBefore(zoomControls, closeButton);
+            }
 
-                const closeButton = document.createElement("button");
-                closeButton.innerHTML = "✕";
-                closeButton.style.cssText = `
-          background: none;
-          border: none;
-          color: white;
-          font-size: 18px;
-          cursor: pointer;
-          padding: 4px;
-          font-family: 'Poppins', sans-serif;
-        `;
+            header.appendChild(closeButton);
+            previewWrapper.appendChild(header);
 
-                closeButton.addEventListener("click", closePreview);
-                overlay.addEventListener("click", closePreview);
-
-                header.appendChild(fileNameSection);
-                header.appendChild(zoomControls);
-                header.appendChild(closeButton);
-
+            if (isPDF) {
                 const iframe = document.createElement("iframe");
                 iframe.src = fileUrl;
                 iframe.style.cssText = `
-          width: 100%;
-          height: calc(100% - 40px);
-          border: none;
-          background-color: white;
-          border-bottom-left-radius: 8px;
-          border-bottom-right-radius: 8px;
-          transform-origin: top center;
-        `;
+                    width: 100%;
+                    height: calc(100% - 40px);
+                    border: none;
+                    background-color: white;
+                `;
 
-                previewWrapper.appendChild(header);
                 previewWrapper.appendChild(iframe);
 
-                document.body.appendChild(overlay);
-                document.body.appendChild(previewWrapper);
-
                 let currentZoom = 1;
-                zoomIn.addEventListener("click", () => {
+                header.querySelectorAll("button")[1]?.addEventListener("click", () => {
                     currentZoom += 0.1;
                     iframe.style.transform = `scale(${currentZoom})`;
+                    iframe.style.transformOrigin = "top center";
                 });
 
-                zoomOut.addEventListener("click", () => {
+                header.querySelectorAll("button")[0]?.addEventListener("click", () => {
                     currentZoom = Math.max(currentZoom - 0.1, 0.5);
                     iframe.style.transform = `scale(${currentZoom})`;
+                    iframe.style.transformOrigin = "top center";
                 });
 
-                document.addEventListener("keydown", keydownHandler);
-                eyeIcon.classList.add("preview-active");
-                eyeIcon.src = "/assets/images/close.png";
             } else if (isImage) {
-                // IMAGE PREVIEW
-                const previewWrapper = document.createElement("div");
-                previewWrapper.className = "image-preview-wrapper";
-                previewWrapper.style.cssText = `
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 90%;
-          max-width: 800px;
-          max-height: 90vh;
-          background-color: white;
-          display: flex;
-          flex-direction: column;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-          z-index: 1000;
-          border-radius: 8px;
-        `;
-
-                const overlay = document.createElement("div");
-                overlay.className = "image-preview-overlay";
-                overlay.style.cssText = `
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-color: rgba(0, 0, 0, 0.5);
-          z-index: 999;
-        `;
-
-                const header = document.createElement("div");
-                header.style.cssText = `
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 8px 16px;
-          background-color: #1a1a1a;
-          color: white;
-          height: 40px;
-          border-top-left-radius: 8px;
-          border-top-right-radius: 8px;
-        `;
-
-                const fileNameSection = document.createElement("div");
-                fileNameSection.style.cssText = `display: flex; align-items: center; gap: 8px;`;
-
-                const fileNameSpan = document.createElement("span");
-                fileNameSpan.textContent = fileName;
-                fileNameSpan.style.cssText = `
-          color: white;
-          font-size: 14px;
-          font-family: 'Poppins', sans-serif;
-        `;
-                fileNameSection.appendChild(fileNameSpan);
-
-                const closeButton = document.createElement("button");
-                closeButton.innerHTML = "✕";
-                closeButton.style.cssText = `
-          background: none;
-          border: none;
-          color: white;
-          font-size: 18px;
-          cursor: pointer;
-          padding: 4px;
-          font-family: 'Poppins', sans-serif;
-        `;
-
-                closeButton.addEventListener("click", closePreview);
-                overlay.addEventListener("click", closePreview);
-
-                header.appendChild(fileNameSection);
-                header.appendChild(closeButton);
-
-                const imageContainer = document.createElement("div");
-                imageContainer.style.cssText = `
-          width: 100%;
-          height: calc(100% - 40px);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          overflow: hidden;
-          border-bottom-left-radius: 8px;
-          border-bottom-right-radius: 8px;
-          background-color: #fff;
-        `;
+                const imgContainer = document.createElement("div");
+                imgContainer.style.cssText = `
+                    padding: 20px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #f0f0f0;
+                `;
 
                 const img = document.createElement("img");
                 img.src = fileUrl;
-                img.alt = fileName;
                 img.style.cssText = `
-          max-width: 100%;
-          max-height: 100%;
-          object-fit: contain;
-        `;
+                    max-width: 100%;
+                    max-height: 80vh;
+                    object-fit: contain;
+                `;
 
-                imageContainer.appendChild(img);
-
-                previewWrapper.appendChild(header);
-                previewWrapper.appendChild(imageContainer);
-
-                document.body.appendChild(overlay);
-                document.body.appendChild(previewWrapper);
-
-                document.addEventListener("keydown", keydownHandler);
-                eyeIcon.classList.add("preview-active");
-                eyeIcon.src = "/assets/images/close.png";
+                imgContainer.appendChild(img);
+                previewWrapper.appendChild(imgContainer);
             } else {
-                alert("Unsupported file format.");
+                alert("Unsupported file type. Only PDFs and images (JPG, PNG, JPEG) are supported.");
+                return;
             }
+
+            document.body.appendChild(overlay);
+            document.body.appendChild(previewWrapper);
+            document.addEventListener("keydown", keydownHandler);
+
+            eyeIcon.classList.add("preview-active");
+            eyeIcon.src = "/assets/images/close.png";
         });
     });
 };
+
 
 const bankListedThroughNBFC = async () => {
 

@@ -1391,16 +1391,15 @@
                     updateTable(filteredData.length);
                 }
             });
-
-            // Filter button event listener (filter by country name)
+ 
             filterBtn.addEventListener('click', () => {
                 const userInput = prompt('Filter by Country (leave empty to clear filter):', filterCountry);
                 filterCountry = userInput ? userInput.trim() : '';
                 applyFilter();
+                
             });
         };
-
-        // Call the function after the DOM is loaded
+ 
         document.addEventListener('DOMContentLoaded', () => {
             initializeCountriesTable();
         });

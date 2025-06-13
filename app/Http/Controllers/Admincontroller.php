@@ -2097,22 +2097,29 @@ class Admincontroller extends Controller
     public function getDestinationCountries()
     {
         try {
-            // Fetch the data with plan-to-study (JSON array) and gender
-            $data = CourseInfo::select('course_details_formdata.plan-to-study', 'personal_infos.gender')
+            // Fetch the data with aliasing for 'plan-to-study'
+            $data = CourseInfo::select(
+                'course_details_formdata.plan-to-study as plan_to_study',
+                'personal_infos.gender'
+            )
                 ->join('personal_infos', 'course_details_formdata.user_id', '=', 'personal_infos.user_id')
                 ->get();
 
             $countryStats = [];
 
             foreach ($data as $record) {
-                // Decode the JSON array of countries
-                $countries = json_decode($record->{'plan-to-study'}, true);
+                $rawCountries = $record->plan_to_study;
+
+                // If it's a string, decode it; if it's already an array, cast it
+                $countries = is_string($rawCountries)
+                    ? json_decode($rawCountries, true)
+                    : (array) $rawCountries;
 
                 if (!is_array($countries)) {
                     continue;
                 }
 
-                $gender = strtolower(trim($record->gender)); // Normalize gender
+                $gender = strtolower(trim($record->gender ?? 'others')); // normalize
 
                 foreach ($countries as $country) {
                     $country = trim($country);
@@ -2121,12 +2128,12 @@ class Admincontroller extends Controller
                         continue;
                     }
 
-                    // Normalize 'others' country value if needed
+                    // Normalize 'others' country label
                     if (strtolower($country) === 'others' || strtolower($country) === 'other') {
                         $country = 'Others';
                     }
 
-                    // Initialize the country record
+                    // Initialize record
                     if (!isset($countryStats[$country])) {
                         $countryStats[$country] = [
                             'female' => 0,
@@ -2136,7 +2143,7 @@ class Admincontroller extends Controller
                         ];
                     }
 
-                    // Count based on gender
+                    // Count by gender
                     if ($gender === 'female') {
                         $countryStats[$country]['female']++;
                     } elseif ($gender === 'male') {
@@ -2145,12 +2152,11 @@ class Admincontroller extends Controller
                         $countryStats[$country]['others']++;
                     }
 
-                    // Increment total
                     $countryStats[$country]['total_students']++;
                 }
             }
 
-            // Format result
+            // Format for response
             $result = array_map(function ($country, $stats) {
                 return [
                     'country' => $country,
@@ -2163,13 +2169,14 @@ class Admincontroller extends Controller
 
             // Sort descending by total
             usort($result, function ($a, $b) {
-                return $b['total_students'] - $a['total_students'];
+                return $b['total_students'] <=> $a['total_students'];
             });
 
             return response()->json([
                 'success' => true,
                 'data' => $result
             ]);
+
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -2177,6 +2184,7 @@ class Admincontroller extends Controller
             ], 500);
         }
     }
+
     public function getCityStats()
     {
         $data = PersonalInfo::select(
@@ -2438,7 +2446,8 @@ class Admincontroller extends Controller
             'exportMonth',
             'referralsReport',
             'userReport'
-        ));
+        ))->setPaper('a4', 'portrait');
+        
 
         return $pdf->download('user_profile_report_' . now()->format('Ymd_His') . '.pdf');
         // return view('reports.user-profile', compact(
