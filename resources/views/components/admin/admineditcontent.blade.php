@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="assets/css/adminedit.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 </head>
+
 <body>
     <div class="edit-content-container" id="edit-content-main-section">
         <div class="admin-edit-container-sections">
@@ -98,12 +102,31 @@
 
     <script>
         // Define contentData globally
-        const contentData = [
-            { name: "Landing Page", sections: 116, tags: ["Text", "Img", "Video"] },
-            { name: "Contact Page", sections: 2, tags: ["Text", "Img", "Video"] },
-            { name: "About Us", sections: 3, tags: ["Text"] },
-            { name: "Services", sections: 5, tags: ["Text", "Images", "Video"] },
-            { name: "Contact Page", sections: 2, tags: ["Text", "Img", "Video"] }
+        const contentData = [{
+                name: "Landing Page",
+                sections: 116,
+                tags: ["Text", "Img", "Video"]
+            },
+            {
+                name: "Contact Page",
+                sections: 2,
+                tags: ["Text", "Img", "Video"]
+            },
+            {
+                name: "About Us",
+                sections: 3,
+                tags: ["Text"]
+            },
+            {
+                name: "Services",
+                sections: 5,
+                tags: ["Text", "Images", "Video"]
+            },
+            {
+                name: "Contact Page",
+                sections: 2,
+                tags: ["Text", "Img", "Video"]
+            }
         ];
 
         const contentList = document.querySelector('.edit-content-list');
@@ -126,8 +149,11 @@
                     document.querySelector('.edit-content-header').style.display = 'none';
                     document.querySelector('.edit-contents-cms-container').style.display = 'block';
                     const pageSelect = document.getElementById('pageSelect');
-                    if (!Array.from(pageSelect.options).some(opt => opt.value === item.name.toLowerCase())) {
-                        pageSelect.innerHTML = `<option value="${item.name.toLowerCase()}">${item.name}</option>` + pageSelect.innerHTML;
+                    if (!Array.from(pageSelect.options).some(opt => opt.value === item.name
+                            .toLowerCase())) {
+                        pageSelect.innerHTML =
+                            `<option value="${item.name.toLowerCase()}">${item.name}</option>` + pageSelect
+                            .innerHTML;
                     }
                     pageSelect.value = item.name.toLowerCase();
                     if (!window.cmsEditor) {
@@ -139,7 +165,7 @@
             });
         }
 
-        document.querySelector('.edit-content-search-input').addEventListener('input', function () {
+        document.querySelector('.edit-content-search-input').addEventListener('input', function() {
             const searchTerm = this.value.toLowerCase();
             const filteredData = contentData.filter(item => item.name.toLowerCase().includes(searchTerm));
             renderContent(filteredData);
@@ -218,69 +244,7 @@
                         status: 'Active',
                         maxLength: 20
                     },
-                    {
-                        id: 8,
-                        page: 'Landing Page',
-                        sectionType: 'testimonial',
-                        title: 'Testimonials',
-                        content: JSON.stringify([
-                            {
-                                name: 'Mark Debrovski',
-                                designation: 'Designation',
-                                rating: 5,
-                                description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
-                                image: '/api/placeholder/100/100',
-                                mediaConstraints: {
-                                    formats: ['png', 'jpg', 'jpeg'],
-                                    width: 100,
-                                    height: 100
-                                }
-                            },
-                            {
-                                name: 'Debrovski',
-                                designation: 'Designation',
-                                rating: 4,
-                                description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
-                                image: '/api/placeholder/100/100',
-                                mediaConstraints: {
-                                    formats: ['png', 'jpg', 'jpeg'],
-                                    width: 100,
-                                    height: 100
-                                }
-                            },
-                            {
-                                name: 'Mark Debrovski',
-                                designation: 'Designation',
-                                rating: 5,
-                                description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
-                                image: '/api/placeholder/100/100',
-                                mediaConstraints: {
-                                    formats: ['png', 'jpg', 'jpeg'],
-                                    width: 100,
-                                    height: 100
-                                }
-                            },
-                            {
-                                name: 'Mark Debrovski',
-                                designation: 'Designation',
-                                rating: 5,
-                                description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
-                                image: '/api/placeholder/100/100',
-                                mediaConstraints: {
-                                    formats: ['png', 'jpg', 'jpeg'],
-                                    width: 100,
-                                    height: 100
-                                }
-                            }
-                        ]),
-                        status: 'Active',
-                        isTestimonialArray: true,
-                        maxLengthConstraints: {
-                            name: 20,
-                            designation: 20,
-                            description: 160
-                        }
-                    },
+
                     // Logo Section
                     {
                         id: 9,
@@ -1046,68 +1010,7 @@
                         status: 'Active',
                         maxLength: 50
                     },
-                    {
-                        id: 78,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQs',
-                        content: JSON.stringify([
-                            {
-                                question: 'How can I apply for a loan with Remitout?',
-                                answer: 'You can easily apply online by visiting our application page and filling out a short form with your basic information. Once submitted, our team will reach out with the next steps.'
-                            },
-                            {
-                                question: 'What are the eligibility criteria for a loan?',
-                                answer: 'Our eligibility criteria includes age requirements, income verification, and credit history assessment. Please contact our support team for detailed information specific to your situation.'
-                            },
-                            {
-                                question: 'How long does the loan approval process take?',
-                                answer: 'The loan approval process typically takes 2-3 business days, depending on the completeness of your application and required documentation.'
-                            },
-                            {
-                                question: 'What documents are required to apply for a loan?',
-                                answer: 'Required documents typically include government-issued ID, proof of income, bank statements, and proof of address. Specific requirements may vary based on the loan type.'
-                            },
-                            {
-                                question: 'Can I apply for a loan if I have bad credit?',
-                                answer: 'While bad credit may impact your eligibility, we assess applications on a case-by-case basis. Reach out to our support team to discuss potential options for your situation.'
-                            },
-                            {
-                                question: 'How do I track my loan application status?',
-                                answer: 'You can track the status of your loan application by logging into your account on our website. Additionally, our team will notify you of any updates via email or phone.'
-                            },
-                            {
-                                question: 'Can I use my loan for any purpose?',
-                                answer: 'Our loans are designed primarily for educational expenses. While most loans can be used for tuition, living costs, and study-related expenses, check the loan terms for any specific restrictions.'
-                            },
-                            {
-                                question: 'What is the repayment schedule for my loan?',
-                                answer: 'Repayment terms are customized based on your loan amount, tenure, and educational institution. You’ll be informed about your repayment schedule at the time of loan approval.'
-                            },
-                            {
-                                question: 'How do I choose the best loan offer for me?',
-                                answer: 'Once your profile is assessed, we provide personalized loan offers. You can compare these offers based on your eligibility, interest rates, and repayment options to select the one that best suits your needs.'
-                            },
-                            {
-                                question: 'Can I pay off my loan early?',
-                                answer: 'Yes, you can pay off your loan early without any prepayment penalties. Early repayment may also help you save on interest charges.'
-                            },
-                            {
-                                question: 'What happens if I miss a loan payment?',
-                                answer: 'If you miss a loan payment, please contact us immediately. We may offer alternative arrangements or extend your payment period. It’s important to keep us informed to avoid negative impacts on your credit score.'
-                            },
-                            {
-                                question: 'How fast can I receive my loan disbursement?',
-                                answer: 'Once approved, your loan will be disbursed directly to your educational institution in a timely manner, ensuring there are no delays in securing your admission.'
-                            }
-                        ]),
-                        status: 'Active',
-                        isFAQArray: true,
-                        maxLengthConstraints: {
-                            question: 100,
-                            answer: 200
-                        }
-                    },
+
                     // Footer Section
                     {
                         id: 79,
@@ -1217,8 +1120,13 @@
                 this.currentPage = 1;
                 this.rowsPerPage = 10;
                 this.initializeEventListeners();
+                this.injectDynamicHeroContent();
                 this.renderTable();
             }
+
+
+
+
 
             initializeEventListeners() {
                 const saveButton = document.querySelector('.edit-contents-cms-save');
@@ -1251,7 +1159,10 @@
             }
 
             showToast(message, isError = false) {
-                this.toastQueue.push({ message, isError });
+                this.toastQueue.push({
+                    message,
+                    isError
+                });
                 this.processToastQueue();
             }
 
@@ -1259,7 +1170,10 @@
                 if (this.isToastActive || this.toastQueue.length === 0) return;
 
                 this.isToastActive = true;
-                const { message, isError } = this.toastQueue.shift();
+                const {
+                    message,
+                    isError
+                } = this.toastQueue.shift();
                 const toast = document.querySelector('.toast');
                 toast.textContent = message;
                 toast.className = 'toast' + (isError ? ' error' : '');
@@ -1290,7 +1204,7 @@
 
             resizeImage(dataUrl, targetWidth, targetHeight, callback) {
                 const img = new Image();
-                img.onload = function () {
+                img.onload = function() {
                     const canvas = document.createElement('canvas');
                     canvas.width = targetWidth;
                     canvas.height = targetHeight;
@@ -1333,7 +1247,7 @@
                 }
                 const pageName = page.charAt(0).toUpperCase() + page.slice(1).toLowerCase();
                 console.log('Filtering for page:', pageName);
-                this.filteredData = this.data.filter(item => 
+                this.filteredData = this.data.filter(item =>
                     item.page.toLowerCase() === pageName.toLowerCase()
                 );
                 console.log('Filtered data:', this.filteredData);
@@ -1471,7 +1385,8 @@
                         logo.title = `Partner Logo ${idx + 1}`;
                     });
                     const currentSection = document.getElementById('sectionSelect').value;
-                    this.handlePageChange(this.data.find(item => item.sectionType === 'logo')?.page || 'Landing Page', currentSection);
+                    this.handlePageChange(this.data.find(item => item.sectionType === 'logo')?.page || 'Landing Page',
+                        currentSection);
                     this.showToast('Logo removed');
                 }
             }
@@ -1486,7 +1401,7 @@
                 }
                 const pageName = page.charAt(0).toUpperCase() + page.slice(1).toLowerCase();
                 console.log('Filtering for page:', pageName);
-                this.filteredData = this.data.filter(item => 
+                this.filteredData = this.data.filter(item =>
                     item.page.toLowerCase() === pageName.toLowerCase()
                 );
                 console.log('Filtered data:', this.filteredData);
@@ -1515,6 +1430,79 @@
                 this.currentPage = 1;
                 this.handleSectionChange(section);
             }
+            async injectDynamicHeroContent() {
+                try {
+                    const res = await fetch('/landingpage');
+                    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
+                    const cmsData = await res.json();
+
+                    this.data.forEach(item => {
+                        const match = cmsData.find(serverItem =>
+                            serverItem.section === item.sectionType && serverItem.title === item.title
+                        );
+                        if (match) {
+                            item.content = match.content;
+                        }
+                    });
+
+                    this.originalData = JSON.parse(JSON.stringify(this.data));
+                    this.filteredData = this.data;
+                    this.renderTable();
+
+                } catch (err) {
+                    console.error('❌ CMS fetch failed:', err);
+                    this.renderTable();
+                    this.showToast('⚠️ Failed to load live CMS content', true);
+                }
+            }
+
+
+            async updateHeroContentToAPI(item) {
+                const payload = {
+                    key_name: 'field_' + item.id,
+                    content: item.content
+                };
+
+                // Get CSRF token from meta tag
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                try {
+                    console.log('Sending payload:', payload);
+
+                    const res = await fetch('/landingpageupdate', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken // 🔐 Include CSRF token
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!res.ok) {
+                        const error = await res.json();
+                        console.error('❌ Server responded with error:', error);
+                        throw new Error(error.message || 'Unknown server error');
+                    }
+
+                    this.showToast('✅ Content updated successfully');
+                } catch (err) {
+                    console.error('❌ Update API failed:', err);
+                    this.showToast('⚠️ Failed to update content: ' + err.message, true);
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+
 
             renderTable() {
                 const tbody = document.getElementById('cmsTableBody');
@@ -1605,13 +1593,13 @@
                                     </svg>
                                 </button>
                                 ${isLastLogo ? `
-                                    <button class="add-logo" title="Add Logo">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <line x1="12" y1="5" x2="12" y2="19"></line>
-                                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                                        </svg>
-                                    </button>
-                                ` : ''}
+                                                                            <button class="add-logo" title="Add Logo">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                                                </svg>
+                                                                            </button>
+                                                                        ` : ''}
                             </td>
                         `;
                         tbody.appendChild(row);
@@ -1643,9 +1631,12 @@
                             editButton.addEventListener('click', () => {
                                 testimonialRow.classList.toggle('edit-mode');
                                 if (testimonialRow.classList.contains('edit-mode')) {
-                                    let maxLengthIndicatorName = `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.name || 20}">${testimonial.name.length}/${item.maxLengthConstraints?.name || 20}</div>`;
-                                    let maxLengthIndicatorDesignation = `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.designation || 20}">${testimonial.designation.length}/${item.maxLengthConstraints?.designation || 20}</div>`;
-                                    let maxLengthIndicatorDescription = `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.description || 160}">${testimonial.description.length}/${item.maxLengthConstraints?.description || 160}</div>`;
+                                    let maxLengthIndicatorName =
+                                        `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.name || 20}">${testimonial.name.length}/${item.maxLengthConstraints?.name || 20}</div>`;
+                                    let maxLengthIndicatorDesignation =
+                                        `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.designation || 20}">${testimonial.designation.length}/${item.maxLengthConstraints?.designation || 20}</div>`;
+                                    let maxLengthIndicatorDescription =
+                                        `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.description || 160}">${testimonial.description.length}/${item.maxLengthConstraints?.description || 160}</div>`;
 
                                     testimonialRow.innerHTML = `
                                         <td>${rowCounter - 1}</td>
@@ -1703,46 +1694,75 @@
                                                 </svg>
                                             </button>
                                             ${idx === testimonials.length - 1 ? `
-                                                <button class="add-testimonial" title="Add Testimonial">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                    </svg>
-                                                </button>
-                                            ` : ''}
+                                                                                        <button class="add-testimonial" title="Add Testimonial">
+                                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                                                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                                                            </svg>
+                                                                                        </button>
+                                                                                    ` : ''}
                                         </td>
                                     `;
 
-                                    const editableContents = testimonialRow.querySelectorAll('.editable-content');
+                                    const editableContents = testimonialRow.querySelectorAll(
+                                        '.editable-content');
                                     editableContents.forEach((editableContent) => {
-                                        editableContent.addEventListener('input', () => {
-                                            const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                            const charCount = editableContent.parentElement.querySelector('.char-count');
-                                            if (charCount) {
-                                                charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                                charCount.classList.toggle('hidden', editableContent.textContent.length <= maxLength);
-                                                charCount.classList.toggle('error', editableContent.textContent.length > maxLength);
-                                            }
-                                        });
-                                        editableContent.addEventListener('focus', () => {
-                                            const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                            const charCount = editableContent.parentElement.querySelector('.char-count');
-                                            if (charCount) {
-                                                charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                                charCount.classList.remove('hidden');
-                                            }
-                                        });
+                                        editableContent.addEventListener('input',
+                                            () => {
+                                                const maxLength = parseInt(
+                                                    editableContent
+                                                    .getAttribute(
+                                                        'data-max-length'));
+                                                const charCount = editableContent
+                                                    .parentElement.querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.textContent =
+                                                        `${editableContent.textContent.length}/${maxLength}`;
+                                                    charCount.classList.toggle(
+                                                        'hidden',
+                                                        editableContent
+                                                        .textContent.length <=
+                                                        maxLength);
+                                                    charCount.classList.toggle(
+                                                        'error', editableContent
+                                                        .textContent.length >
+                                                        maxLength);
+                                                }
+                                            });
+                                        editableContent.addEventListener('focus',
+                                            () => {
+                                                const maxLength = parseInt(
+                                                    editableContent
+                                                    .getAttribute(
+                                                        'data-max-length'));
+                                                const charCount = editableContent
+                                                    .parentElement.querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.textContent =
+                                                        `${editableContent.textContent.length}/${maxLength}`;
+                                                    charCount.classList.remove(
+                                                        'hidden');
+                                                }
+                                            });
                                         editableContent.addEventListener('blur', () => {
-                                            const charCount = editableContent.parentElement.querySelector('.char-count');
+                                            const charCount = editableContent
+                                                .parentElement.querySelector(
+                                                    '.char-count');
                                             if (charCount) {
-                                                charCount.classList.add('hidden');
+                                                charCount.classList.add(
+                                                    'hidden');
                                             }
                                         });
                                     });
 
-                                    const fileInput = testimonialRow.querySelector('.file-input');
-                                    const uploadTrigger = testimonialRow.querySelector('.upload-trigger');
-                                    uploadTrigger.addEventListener('click', () => fileInput.click());
+                                    const fileInput = testimonialRow.querySelector(
+                                        '.file-input');
+                                    const uploadTrigger = testimonialRow.querySelector(
+                                        '.upload-trigger');
+                                    uploadTrigger.addEventListener('click', () => fileInput
+                                        .click());
                                     fileInput.addEventListener('change', (e) => {
                                         const file = e.target.files[0];
                                         if (file) {
@@ -1750,16 +1770,41 @@
                                             reader.onload = (event) => {
                                                 const img = new Image();
                                                 img.onload = () => {
-                                                    if (img.width === testimonial.mediaConstraints.width && img.height === testimonial.mediaConstraints.height) {
-                                                        testimonial.image = event.target.result;
-                                                        item.content = JSON.stringify(testimonials);
+                                                    if (img.width ===
+                                                        testimonial
+                                                        .mediaConstraints
+                                                        .width && img.height ===
+                                                        testimonial
+                                                        .mediaConstraints.height
+                                                    ) {
+                                                        testimonial.image =
+                                                            event.target.result;
+                                                        item.content = JSON
+                                                            .stringify(
+                                                                testimonials);
                                                         this.renderTable();
                                                     } else {
-                                                        this.resizeImage(event.target.result, testimonial.mediaConstraints.width, testimonial.mediaConstraints.height, (resizedImage) => {
-                                                            testimonial.image = resizedImage;
-                                                            item.content = JSON.stringify(testimonials);
-                                                            this.renderTable();
-                                                        });
+                                                        this.resizeImage(event
+                                                            .target.result,
+                                                            testimonial
+                                                            .mediaConstraints
+                                                            .width,
+                                                            testimonial
+                                                            .mediaConstraints
+                                                            .height, (
+                                                                resizedImage
+                                                            ) => {
+                                                                testimonial
+                                                                    .image =
+                                                                    resizedImage;
+                                                                item.content =
+                                                                    JSON
+                                                                    .stringify(
+                                                                        testimonials
+                                                                    );
+                                                                this
+                                                                    .renderTable();
+                                                            });
                                                     }
                                                 };
                                                 img.src = event.target.result;
@@ -1768,47 +1813,77 @@
                                         }
                                     });
 
-                                    const updateButton = testimonialRow.querySelector('.edit-contents-cms-update');
+                                    const updateButton = testimonialRow.querySelector(
+                                        '.edit-contents-cms-update');
                                     updateButton.addEventListener('click', () => {
-                                        const nameElement = testimonialRow.querySelector('.testimonial-field:nth-child(1) .editable-content');
-                                        const designationElement = testimonialRow.querySelector('.testimonial-field:nth-child(2) .editable-content');
-                                        const ratingElement = testimonialRow.querySelector('.testimonial-rating');
-                                        const descriptionElement = testimonialRow.querySelector('.testimonial-field:nth-child(4) .editable-content');
+                                        const nameElement = testimonialRow
+                                            .querySelector(
+                                                '.testimonial-field:nth-child(1) .editable-content'
+                                            );
+                                        const designationElement = testimonialRow
+                                            .querySelector(
+                                                '.testimonial-field:nth-child(2) .editable-content'
+                                            );
+                                        const ratingElement = testimonialRow
+                                            .querySelector('.testimonial-rating');
+                                        const descriptionElement = testimonialRow
+                                            .querySelector(
+                                                '.testimonial-field:nth-child(4) .editable-content'
+                                            );
 
-                                        const maxLengthName = parseInt(nameElement.getAttribute('data-max-length'));
-                                        const maxLengthDesignation = parseInt(designationElement.getAttribute('data-max-length'));
-                                        const maxLengthDescription = parseInt(descriptionElement.getAttribute('data-max-length'));
+                                        const maxLengthName = parseInt(nameElement
+                                            .getAttribute('data-max-length'));
+                                        const maxLengthDesignation = parseInt(
+                                            designationElement.getAttribute(
+                                                'data-max-length'));
+                                        const maxLengthDescription = parseInt(
+                                            descriptionElement.getAttribute(
+                                                'data-max-length'));
 
-                                        if (nameElement.textContent.length > maxLengthName) {
-                                            this.showToast(`Name exceeds maximum length of ${maxLengthName} characters`, true);
+                                        if (nameElement.textContent.length >
+                                            maxLengthName) {
+                                            this.showToast(
+                                                `Name exceeds maximum length of ${maxLengthName} characters`,
+                                                true);
                                             return;
                                         }
-                                        if (designationElement.textContent.length > maxLengthDesignation) {
-                                            this.showToast(`Designation exceeds maximum length of ${maxLengthDesignation} characters`, true);
+                                        if (designationElement.textContent.length >
+                                            maxLengthDesignation) {
+                                            this.showToast(
+                                                `Designation exceeds maximum length of ${maxLengthDesignation} characters`,
+                                                true);
                                             return;
                                         }
-                                        if (descriptionElement.textContent.length > maxLengthDescription) {
-                                            this.showToast(`Description exceeds maximum length of ${maxLengthDescription} characters`, true);
+                                        if (descriptionElement.textContent.length >
+                                            maxLengthDescription) {
+                                            this.showToast(
+                                                `Description exceeds maximum length of ${maxLengthDescription} characters`,
+                                                true);
                                             return;
                                         }
 
                                         testimonial.name = nameElement.textContent;
-                                        testimonial.designation = designationElement.textContent;
-                                        testimonial.rating = parseInt(ratingElement.value);
-                                        testimonial.description = descriptionElement.textContent;
+                                        testimonial.designation = designationElement
+                                            .textContent;
+                                        testimonial.rating = parseInt(ratingElement
+                                            .value);
+                                        testimonial.description = descriptionElement
+                                            .textContent;
                                         item.content = JSON.stringify(testimonials);
                                         testimonialRow.classList.remove('edit-mode');
                                         this.renderTable();
                                         this.showToast('Testimonial updated');
                                     });
 
-                                    const removeButton = testimonialRow.querySelector('.remove-testimonial');
+                                    const removeButton = testimonialRow.querySelector(
+                                        '.remove-testimonial');
                                     removeButton.addEventListener('click', () => {
                                         this.removeTestimonial(item, idx);
                                     });
 
                                     if (idx === testimonials.length - 1) {
-                                        const addButton = testimonialRow.querySelector('.add-testimonial');
+                                        const addButton = testimonialRow.querySelector(
+                                            '.add-testimonial');
                                         addButton.addEventListener('click', () => {
                                             this.addNewTestimonial(item);
                                         });
@@ -1846,8 +1921,10 @@
                             editButton.addEventListener('click', () => {
                                 faqRow.classList.toggle('edit-mode');
                                 if (faqRow.classList.contains('edit-mode')) {
-                                    let maxLengthIndicatorQuestion = `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.question || 100}">${faq.question.length}/${item.maxLengthConstraints?.question || 100}</div>`;
-                                    let maxLengthIndicatorAnswer = `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.answer || 200}">${faq.answer.length}/${item.maxLengthConstraints?.answer || 200}</div>`;
+                                    let maxLengthIndicatorQuestion =
+                                        `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.question || 100}">${faq.question.length}/${item.maxLengthConstraints?.question || 100}</div>`;
+                                    let maxLengthIndicatorAnswer =
+                                        `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.answer || 200}">${faq.answer.length}/${item.maxLengthConstraints?.answer || 200}</div>`;
 
                                     faqRow.innerHTML = `
                                         <td>${rowCounter - 1}</td>
@@ -1880,57 +1957,97 @@
                                                 </svg>
                                             </button>
                                             ${idx === faqs.length - 1 ? `
-                                                <button class="add-faq" title="Add FAQ">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                    </svg>
-                                                </button>
-                                            ` : ''}
+                                                                                        <button class="add-faq" title="Add FAQ">
+                                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                                                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                                                            </svg>
+                                                                                        </button>
+                                                                                    ` : ''}
                                         </td>
                                     `;
 
-                                    const editableContents = faqRow.querySelectorAll('.editable-content');
+                                    const editableContents = faqRow.querySelectorAll(
+                                        '.editable-content');
                                     editableContents.forEach((editableContent) => {
-                                        editableContent.addEventListener('input', () => {
-                                            const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                            const charCount = editableContent.parentElement.querySelector('.char-count');
-                                            if (charCount) {
-                                                charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                                charCount.classList.toggle('hidden', editableContent.textContent.length <= maxLength);
-                                                charCount.classList.toggle('error', editableContent.textContent.length > maxLength);
-                                            }
-                                        });
-                                        editableContent.addEventListener('focus', () => {
-                                            const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                            const charCount = editableContent.parentElement.querySelector('.char-count');
-                                            if (charCount) {
-                                                charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                                charCount.classList.remove('hidden');
-                                            }
-                                        });
+                                        editableContent.addEventListener('input',
+                                            () => {
+                                                const maxLength = parseInt(
+                                                    editableContent
+                                                    .getAttribute(
+                                                        'data-max-length'));
+                                                const charCount = editableContent
+                                                    .parentElement.querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.textContent =
+                                                        `${editableContent.textContent.length}/${maxLength}`;
+                                                    charCount.classList.toggle(
+                                                        'hidden',
+                                                        editableContent
+                                                        .textContent.length <=
+                                                        maxLength);
+                                                    charCount.classList.toggle(
+                                                        'error', editableContent
+                                                        .textContent.length >
+                                                        maxLength);
+                                                }
+                                            });
+                                        editableContent.addEventListener('focus',
+                                            () => {
+                                                const maxLength = parseInt(
+                                                    editableContent
+                                                    .getAttribute(
+                                                        'data-max-length'));
+                                                const charCount = editableContent
+                                                    .parentElement.querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.textContent =
+                                                        `${editableContent.textContent.length}/${maxLength}`;
+                                                    charCount.classList.remove(
+                                                        'hidden');
+                                                }
+                                            });
                                         editableContent.addEventListener('blur', () => {
-                                            const charCount = editableContent.parentElement.querySelector('.char-count');
+                                            const charCount = editableContent
+                                                .parentElement.querySelector(
+                                                    '.char-count');
                                             if (charCount) {
-                                                charCount.classList.add('hidden');
+                                                charCount.classList.add(
+                                                    'hidden');
                                             }
                                         });
                                     });
 
-                                    const updateButton = faqRow.querySelector('.edit-contents-cms-update');
-                                                                       updateButton.addEventListener('click', () => {
-                                        const questionElement = faqRow.querySelector('.faq-field:nth-child(1) .editable-content');
-                                        const answerElement = faqRow.querySelector('.faq-field:nth-child(2) .editable-content');
+                                    const updateButton = faqRow.querySelector(
+                                        '.edit-contents-cms-update');
+                                    updateButton.addEventListener('click', () => {
+                                        const questionElement = faqRow.querySelector(
+                                            '.faq-field:nth-child(1) .editable-content'
+                                        );
+                                        const answerElement = faqRow.querySelector(
+                                            '.faq-field:nth-child(2) .editable-content'
+                                        );
 
-                                        const maxLengthQuestion = parseInt(questionElement.getAttribute('data-max-length'));
-                                        const maxLengthAnswer = parseInt(answerElement.getAttribute('data-max-length'));
+                                        const maxLengthQuestion = parseInt(
+                                            questionElement.getAttribute(
+                                                'data-max-length'));
+                                        const maxLengthAnswer = parseInt(answerElement
+                                            .getAttribute('data-max-length'));
 
-                                        if (questionElement.textContent.length > maxLengthQuestion) {
-                                            this.showToast(`Question exceeds maximum length of ${maxLengthQuestion} characters`, true);
+                                        if (questionElement.textContent.length >
+                                            maxLengthQuestion) {
+                                            this.showToast(
+                                                `Question exceeds maximum length of ${maxLengthQuestion} characters`,
+                                                true);
                                             return;
                                         }
-                                        if (answerElement.textContent.length > maxLengthAnswer) {
-                                            this.showToast(`Answer exceeds maximum length of ${maxLengthAnswer} characters`, true);
+                                        if (answerElement.textContent.length >
+                                            maxLengthAnswer) {
+                                            this.showToast(
+                                                `Answer exceeds maximum length of ${maxLengthAnswer} characters`,
+                                                true);
                                             return;
                                         }
 
@@ -1984,24 +2101,33 @@
                         const editableContents = row.querySelectorAll('.editable-content');
                         editableContents.forEach((editableContent) => {
                             editableContent.addEventListener('input', () => {
-                                const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                const maxLength = parseInt(editableContent.getAttribute(
+                                    'data-max-length'));
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
                                 if (charCount) {
-                                    charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                    charCount.classList.toggle('hidden', editableContent.textContent.length <= maxLength);
-                                    charCount.classList.toggle('error', editableContent.textContent.length > maxLength);
+                                    charCount.textContent =
+                                        `${editableContent.textContent.length}/${maxLength}`;
+                                    charCount.classList.toggle('hidden', editableContent
+                                        .textContent.length <= maxLength);
+                                    charCount.classList.toggle('error', editableContent
+                                        .textContent.length > maxLength);
                                 }
                             });
                             editableContent.addEventListener('focus', () => {
-                                const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                const maxLength = parseInt(editableContent.getAttribute(
+                                    'data-max-length'));
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
                                 if (charCount) {
-                                    charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
+                                    charCount.textContent =
+                                        `${editableContent.textContent.length}/${maxLength}`;
                                     charCount.classList.remove('hidden');
                                 }
                             });
                             editableContent.addEventListener('blur', () => {
-                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
                                 if (charCount) {
                                     charCount.classList.add('hidden');
                                 }
@@ -2013,7 +2139,8 @@
                             editButton.addEventListener('click', () => {
                                 row.classList.toggle('edit-mode');
                                 if (row.classList.contains('edit-mode')) {
-                                    let maxLengthIndicator = `<div class="char-count hidden" data-max="${item.maxLength || 100}">${item.content.length}/${item.maxLength || 100}</div>`;
+                                    let maxLengthIndicator =
+                                        `<div class="char-count hidden" data-max="${item.maxLength || 100}">${item.content.length}/${item.maxLength || 100}</div>`;
                                     row.innerHTML = `
                                         <td>${rowCounter - 1}</td>
                                         <td>${item.page}</td>
@@ -2031,46 +2158,68 @@
                                         </td>
                                     `;
 
-                                    const newEditableContents = row.querySelectorAll('.editable-content');
+                                    const newEditableContents = row.querySelectorAll(
+                                        '.editable-content');
                                     newEditableContents.forEach((editableContent) => {
                                         editableContent.addEventListener('input', () => {
-                                            const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                            const charCount = editableContent.parentElement.querySelector('.char-count');
+                                            const maxLength = parseInt(editableContent
+                                                .getAttribute('data-max-length'));
+                                            const charCount = editableContent
+                                                .parentElement.querySelector(
+                                                    '.char-count');
                                             if (charCount) {
-                                                charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                                charCount.classList.toggle('hidden', editableContent.textContent.length <= maxLength);
-                                                charCount.classList.toggle('error', editableContent.textContent.length > maxLength);
+                                                charCount.textContent =
+                                                    `${editableContent.textContent.length}/${maxLength}`;
+                                                charCount.classList.toggle('hidden',
+                                                    editableContent.textContent
+                                                    .length <= maxLength);
+                                                charCount.classList.toggle('error',
+                                                    editableContent.textContent
+                                                    .length > maxLength);
                                             }
                                         });
                                         editableContent.addEventListener('focus', () => {
-                                            const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                            const charCount = editableContent.parentElement.querySelector('.char-count');
+                                            const maxLength = parseInt(editableContent
+                                                .getAttribute('data-max-length'));
+                                            const charCount = editableContent
+                                                .parentElement.querySelector(
+                                                    '.char-count');
                                             if (charCount) {
-                                                charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
+                                                charCount.textContent =
+                                                    `${editableContent.textContent.length}/${maxLength}`;
                                                 charCount.classList.remove('hidden');
                                             }
                                         });
                                         editableContent.addEventListener('blur', () => {
-                                            const charCount = editableContent.parentElement.querySelector('.char-count');
+                                            const charCount = editableContent
+                                                .parentElement.querySelector(
+                                                    '.char-count');
                                             if (charCount) {
                                                 charCount.classList.add('hidden');
                                             }
                                         });
                                     });
 
-                                    const newUpdateButton = row.querySelector('.edit-contents-cms-update');
+                                    const newUpdateButton = row.querySelector(
+                                        '.edit-contents-cms-update');
                                     newUpdateButton.addEventListener('click', () => {
-                                        const titleElement = row.querySelector('.editable-cell:nth-child(3) .editable-content');
-                                        const contentElement = row.querySelector('.editable-cell:nth-child(4) .editable-content');
+                                        const titleElement = row.querySelector(
+                                            '.editable-cell:nth-child(3) .editable-content');
+                                        const contentElement = row.querySelector(
+                                            '.editable-cell:nth-child(4) .editable-content');
 
-                                        const maxLength = parseInt(contentElement.getAttribute('data-max-length'));
+                                        const maxLength = parseInt(contentElement.getAttribute(
+                                            'data-max-length'));
                                         if (contentElement.textContent.length > maxLength) {
-                                            this.showToast(`Content exceeds maximum length of ${maxLength} characters`, true);
+                                            this.showToast(
+                                                `Content exceeds maximum length of ${maxLength} characters`,
+                                                true);
                                             return;
                                         }
 
                                         item.title = titleElement.textContent;
                                         item.content = contentElement.textContent;
+                                        this.updateHeroContentToAPI(item);
                                         row.classList.remove('edit-mode');
                                         this.renderTable();
                                         this.showToast('Content updated');
@@ -2082,12 +2231,17 @@
                         } else {
                             const updateButton = row.querySelector('.edit-contents-cms-update');
                             updateButton.addEventListener('click', () => {
-                                const titleElement = row.querySelector('.editable-cell:nth-child(3) .editable-content');
-                                const contentElement = row.querySelector('.editable-cell:nth-child(4) .editable-content');
+                                const titleElement = row.querySelector(
+                                    '.editable-cell:nth-child(3) .editable-content');
+                                const contentElement = row.querySelector(
+                                    '.editable-cell:nth-child(4) .editable-content');
 
-                                const maxLength = parseInt(contentElement.getAttribute('data-max-length'));
+                                const maxLength = parseInt(contentElement.getAttribute(
+                                    'data-max-length'));
                                 if (contentElement.textContent.length > maxLength) {
-                                    this.showToast(`Content exceeds maximum length of ${maxLength} characters`, true);
+                                    this.showToast(
+                                        `Content exceeds maximum length of ${maxLength} characters`,
+                                        true);
                                     return;
                                 }
 
@@ -2112,27 +2266,40 @@
                                 reader.onload = (event) => {
                                     const img = new Image();
                                     img.onload = () => {
-                                        const constraints = item.mediaConstraints || (item.isTestimonialArray ? JSON.parse(item.content)[idx]?.mediaConstraints : null);
-                                        if (img.width === constraints?.width && img.height === constraints?.height) {
+                                        const constraints = item.mediaConstraints || (
+                                            item.isTestimonialArray ? JSON.parse(
+                                                item.content)[idx]
+                                            ?.mediaConstraints : null);
+                                        if (img.width === constraints?.width && img
+                                            .height === constraints?.height) {
                                             if (item.isTestimonialArray) {
-                                                const testimonials = JSON.parse(item.content);
-                                                testimonials[idx].image = event.target.result;
-                                                item.content = JSON.stringify(testimonials);
+                                                const testimonials = JSON.parse(item
+                                                    .content);
+                                                testimonials[idx].image = event.target
+                                                    .result;
+                                                item.content = JSON.stringify(
+                                                    testimonials);
                                             } else {
                                                 item.content = event.target.result;
                                             }
                                             this.renderTable();
                                         } else {
-                                            this.resizeImage(event.target.result, constraints?.width, constraints?.height, (resizedImage) => {
-                                                if (item.isTestimonialArray) {
-                                                    const testimonials = JSON.parse(item.content);
-                                                    testimonials[idx].image = resizedImage;
-                                                    item.content = JSON.stringify(testimonials);
-                                                } else {
-                                                    item.content = resizedImage;
-                                                }
-                                                this.renderTable();
-                                            });
+                                            this.resizeImage(event.target.result,
+                                                constraints?.width, constraints
+                                                ?.height, (resizedImage) => {
+                                                    if (item.isTestimonialArray) {
+                                                        const testimonials = JSON
+                                                            .parse(item.content);
+                                                        testimonials[idx].image =
+                                                            resizedImage;
+                                                        item.content = JSON
+                                                            .stringify(
+                                                                testimonials);
+                                                    } else {
+                                                        item.content = resizedImage;
+                                                    }
+                                                    this.renderTable();
+                                                });
                                         }
                                     };
                                     img.src = event.target.result;
@@ -2160,71 +2327,73 @@
                 this.renderPagination();
             }
 
-             renderPagination() {
-                    const totalItems = this.filteredData.length;
-                    const totalPages = Math.ceil(totalItems / this.rowsPerPage);
-                    const paginationControls = document.getElementById('paginationControls');
-                    paginationControls.innerHTML = '';
+            renderPagination() {
+                const totalItems = this.filteredData.length;
+                const totalPages = Math.ceil(totalItems / this.rowsPerPage);
+                const paginationControls = document.getElementById('paginationControls');
+                paginationControls.innerHTML = '';
 
-                    if (totalItems === 0) {
-                        paginationControls.innerHTML = '<span>No data available</span>';
-                        return;
-                    }
+                if (totalItems === 0) {
+                    paginationControls.innerHTML = '<span>No data available</span>';
+                    return;
+                }
 
-                    const paginationContainer = document.createElement('div');
-                    paginationContainer.classList.add('pagination-container');
+                const paginationContainer = document.createElement('div');
+                paginationContainer.classList.add('pagination-container');
 
-                    const prevButton = document.createElement('button');
-                    prevButton.innerHTML = `
+                const prevButton = document.createElement('button');
+                prevButton.innerHTML = `
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="15 18 9 12 15 6"></polyline>
                         </svg>
                     `;
-                    prevButton.disabled = this.currentPage === 1;
-                    prevButton.addEventListener('click', () => {
-                        if (this.currentPage > 1) {
-                            this.currentPage--;
-                            this.renderTable();
-                        }
-                    });
-                    paginationContainer.appendChild(prevButton);
+                prevButton.disabled = this.currentPage === 1;
+                prevButton.addEventListener('click', () => {
+                    if (this.currentPage > 1) {
+                        this.currentPage--;
+                        this.renderTable();
+                    }
+                });
+                paginationContainer.appendChild(prevButton);
 
-                    const startIndex = (this.currentPage - 1) * this.rowsPerPage + 1;
-                    const endIndex = Math.min(this.currentPage * this.rowsPerPage, totalItems);
-                    const paginationText = document.createElement('span');
-                    paginationText.textContent = `${startIndex}-${endIndex} of ${totalItems}`;
-                    paginationContainer.appendChild(paginationText);
+                const startIndex = (this.currentPage - 1) * this.rowsPerPage + 1;
+                const endIndex = Math.min(this.currentPage * this.rowsPerPage, totalItems);
+                const paginationText = document.createElement('span');
+                paginationText.textContent = `${startIndex}-${endIndex} of ${totalItems}`;
+                paginationContainer.appendChild(paginationText);
 
-                    const nextButton = document.createElement('button');
-                    nextButton.innerHTML = `
+                const nextButton = document.createElement('button');
+                nextButton.innerHTML = `
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="9 18 15 12 9 6"></polyline>
                         </svg>
                     `;
-                    nextButton.disabled = this.currentPage === totalPages;
-                    nextButton.addEventListener('click', () => {
-                        if (this.currentPage < totalPages) {
-                            this.currentPage++;
-                            this.renderTable();
-                        }
-                    });
-                    paginationContainer.appendChild(nextButton);
+                nextButton.disabled = this.currentPage === totalPages;
+                nextButton.addEventListener('click', () => {
+                    if (this.currentPage < totalPages) {
+                        this.currentPage++;
+                        this.renderTable();
+                    }
+                });
+                paginationContainer.appendChild(nextButton);
 
-                    paginationControls.appendChild(paginationContainer);
-                }
-
-                handleSave() {
-                    this.showLoading();
-                    setTimeout(() => {
-                        this.originalData = JSON.parse(JSON.stringify(this.data));
-                        this.hideLoading();
-                        this.showToast('Changes saved successfully');
-                    }, 1000);
-                }
+                paginationControls.appendChild(paginationContainer);
             }
 
-            
-         document.addEventListener('DOMContentLoaded', () => {
+            handleSave() {
+                this.showLoading();
+                setTimeout(() => {
+                    this.originalData = JSON.parse(JSON.stringify(this.data));
+                    this.hideLoading();
+                    this.showToast('Changes saved successfully');
+                }, 1000);
+            }
+        }
+
+
+
+
+        document.addEventListener('DOMContentLoaded', () => {
             renderContent(contentData);
 
             const dropdownToggle = document.querySelector('.admin-edit-dropdown-toggle');
@@ -2261,4 +2430,5 @@
         });
     </script>
 </body>
+
 </html>

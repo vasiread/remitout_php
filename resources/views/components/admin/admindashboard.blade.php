@@ -721,7 +721,7 @@
             initializeMobileMenu();
             initializeFilterPanel();
             highlightHighestValues();
-                    initializeDonutGraphSource();
+            initializeDonutGraphSource();
 
             fetchReferralAcceptedCounts();
             initializePaginationAndFilters()
@@ -730,6 +730,8 @@
             initializeCountriesTable();
             initializePostgradDropdowns();
             updateVisibleReportsFromFilters();
+
+        
 
             // Only initialize filter panel in mobile view
             const isMobileView = document.querySelector('.admindashboardcontainer-secondsection-mobile');
@@ -798,6 +800,25 @@
         initializeLeadChart();
         initializeLeadSuccessChart();
     };
+
+    const button = document.querySelector(".calendar-wrapper #download-buttongroups");
+const mobButton = document.querySelector(".admin-dashboard-download-button");
+
+if (button) {
+    button.addEventListener('click', () => {
+        window.location.href = '/download-user-report';
+    });
+} else {
+    console.error("Desktop download button not found!");
+}
+
+if (mobButton) {
+    mobButton.addEventListener('click', () => {
+        window.location.href = '/download-user-report';
+    });
+} else {
+    console.error("Mobile download button not found!");
+}
 
 
     // Registration Line Graph with API Data
@@ -3282,6 +3303,7 @@
             });
         });
     }
+       
 
     function searchMobFunctionality() {
         const searchInput = document.getElementById('searchinput-admindashboard');

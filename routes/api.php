@@ -109,6 +109,8 @@ Route::post('/update-academicsinfo', [StudentDetailsController::class, 'updateAc
 
 Route::get('/dest-countries', [Admincontroller::class, 'getDestinationCountries']);
 Route::get('/landingpage', [Admincontroller::class, 'landingPage']);
+Route::put('/landingpageupdate', [Admincontroller::class, 'updateHeroContent']);
+
 Route::post('/promotional-email', [Admincontroller::class, 'promotionalEmail']);
 Route::post('/promotional-image-attach', [Admincontroller::class, 'attachImagePromotional']);
 Route::get('/student-chat-members', [Admincontroller::class, 'initializeChatStudent']);

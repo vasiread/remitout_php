@@ -21,6 +21,8 @@ use App\Http\Controllers\scDashboardController;
 // use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\StudentCounsellorController;
 use App\Models\student_admin_application;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -190,6 +192,7 @@ Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails'])
 
 Route::get('/get-tickets', [scDashboardController::class, 'getScUserTickets']);
 Route::get('/landingpage', [Admincontroller::class, 'landingPage']);
+Route::put('/landingpageupdate', [Admincontroller::class, 'updateHeroContent']);
 Route::post('/promotional-email', [Admincontroller::class, 'promotionalEmail']);
 Route::post('/promotional-image-attach', [Admincontroller::class, 'attachImagePromotional']);
 Route::get('/student-chat-members', [Admincontroller::class, 'initializeChatStudent']);

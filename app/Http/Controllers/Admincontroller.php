@@ -7,6 +7,7 @@ use App\Mail\SendScDetailsMail;
 use App\Models\Academics;
 use App\Models\AdditionalField;
 use App\Models\Admin;
+use App\Models\CmsContent;
 use App\Models\CoBorrowerInfo;
 use App\Models\CourseDetailOption;
 use App\Models\CourseDuration;
@@ -665,8 +666,8 @@ class Admincontroller extends Controller
 
     public function landingPage()
     {
-        $landingpages = landingpage::get();
-        return response()->json($landingpages);
+        $content = CmsContent::all(); // Get everything
+    return response()->json($content);
     }
 
     public function store(Request $request)
@@ -1719,7 +1720,7 @@ class Admincontroller extends Controller
 
         $documentType = DocumentType::create([
             'name' => $request->input('name'), // Preserve original casing
-            'key' => \Str::slug($request->input('name')), // Optional
+            'key' => Str::slug($request->input('name')), // Optional
             'slug' => $slug
         ]);
 
@@ -1804,7 +1805,7 @@ class Admincontroller extends Controller
                 'course_info' => $courseInfo
             ]);
         } catch (\Exception $e) {
-            \Log::error('Error in updatepersonalinfoadminside:', [
+            Log::error('Error in updatepersonalinfoadminside:', [
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
             ]);
@@ -2572,10 +2573,28 @@ class Admincontroller extends Controller
 
         return response()->json(['message' => 'Testimonial added!'], 201);
     }
+    public function updateHeroContent(Request $request)
+{
+        $request->validate([
+        'key_name' => 'required|string|exists:cms_contents,key_name',
+        'content' => 'nullable|string'
+    ]);
 
+    // Fetch the row
+    $cmsItem = CmsContent::where('key_name', $request->key_name)->first();
 
+    // Optional: validate against maxLength if present in constraints
+    $constraints = $cmsItem->constraints ?? [];
+    if (!empty($constraints['maxLength']) && strlen($request->content) > $constraints['maxLength']) {
+        return response()->json(['message' => 'Content exceeds allowed length'], 422);
+    }
 
+    // Update content
+    $cmsItem->content = $request->content;
+    $cmsItem->save();
 
+    return response()->json(['message' => 'Content updated successfully']);
+}
 }
 
 

@@ -189,7 +189,7 @@
                 this.originalData = JSON.parse(JSON.stringify(this.data));
                 this.initializeEventListeners();
                 this.renderTable();
-            }
+             }
 
             initializeEventListeners() {
                 document.getElementById('searchInput').addEventListener('input', (e) => {
@@ -520,6 +520,8 @@ function renderContent(data) {
         contentList.appendChild(row);
     });
 }
+
+
 
 
 
