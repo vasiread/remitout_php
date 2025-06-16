@@ -181,7 +181,7 @@
         display: flex;
         flex-direction: column;
         margin: 0;
-        width:90%;
+        width:100%;
         padding-top: 53px;
         margin: 50px auto;
     }
@@ -2600,4 +2600,12 @@ text[fill="#222222"] {
         transform: translateX(-85%);
         top: 20%;
     }
+    .responsive-chart svg {
+        max-width: 320px; 
+      }
 }
+@media (max-width: 480px) {
+    .responsive-chart svg {
+      max-width: 320px; /* or any smaller size */
+    }
+  }

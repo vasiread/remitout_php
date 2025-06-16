@@ -159,9 +159,6 @@ body {
         margin: 0 auto;
        
     }
-    #index-section-admin-id {
-        margin-top: 60px;
-    }
 
 }
 
@@ -205,9 +202,14 @@ body {
         display: flex;
         flex-direction: column;
         background: white;
-        margin: 0px;
+        margin: 0;
         padding-top: 20px;
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+        border-radius: 8px;
     }
+
 
     #index-container-id {
         width: 100%;
@@ -898,7 +900,7 @@ body {
 
     .admin-index-section-main-container {
         width: 100%;
-        max-width: 100%;
+        max-width: 90%;
         margin: 0 auto;
         padding: 0;
         flex-direction: column;
@@ -907,7 +909,6 @@ body {
     .admin-index-main-container {
         display: none;
     }
-
 
 
     .mobile-inbox-item {
@@ -923,18 +924,7 @@ body {
         border-bottom: 2px solid #6f25ce;
     }
 
-    .admin-index-main-sub-container {
-        display: flex;
-        flex-direction: column;
-        background: white;
-        margin: 0;
-        padding-top: 20px;
-        width: 100%;
-        box-sizing: border-box;
-        margin-bottom: 20px;
-        border-radius: 8px;
-    }
-
+  
     #index-container-id {
         width: 100%;
         max-width: 380px;
