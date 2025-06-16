@@ -63,7 +63,19 @@ body {
     font-size: 16px;
     color: #260254;
 }
+.truncate-filename {
+    max-width: 180px;
+    /* or whatever fits your layout */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    vertical-align: middle;
+}
 
+.truncate-filename:hover {
+    cursor: pointer;
+}
 .nbfc-search-icon {
     position: absolute;
     left: 12px;
@@ -247,6 +259,12 @@ body {
     background-color: rgba(255, 255, 255, 1);
     max-width: 100%;
 }
+
+/* .truncate-filename:empty::after {
+    content: "No document";
+    color: #999;
+    font-style: italic;
+} */
 
 .index-student-info .student-ids {
     display: none;
@@ -531,7 +549,6 @@ body {
 .nbfcapprovalcolumnrightaligned button:last-child {
     cursor: pointer;
     width: 109px;
-
     height: 35px;
     border-radius: 4px;
     gap: 8px;
@@ -541,7 +558,6 @@ body {
     border: 1px solid rgba(111, 37, 206, 1);
     box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
     font-family: "Poppins", sans-serif;
-
     font-weight: 500;
     font-size: 14px;
     line-height: 120%;
@@ -587,7 +603,7 @@ body {
 }
 
 .nbfcstudentdashboardprofile-togglesidebar {
-    max-width: 18.93%;
+    max-width: 19.93%;
     width: 100%;
     padding: 35px 10px;
     box-shadow: 0px 8px 23px 0px rgba(26, 2, 57, 0.05);
@@ -657,7 +673,7 @@ body {
 
     /*  .nbfc-mobile-sidebar {
                 display: none;
-            }*/
+    }*/
 
     .nbfc-mobile-sidebar.active {
         display: flex;
@@ -680,6 +696,7 @@ body {
     .myapplication-nbfcapprovalcolumn {
         display: none;
     }
+   
 
     #profilesection-nbfcapprovalcolumn {
         display: flex;
@@ -1169,7 +1186,7 @@ body {
 /*nbfc main container for dashboard*/
 .dashboard-main-content {
     flex: 1;
-    margin-left: 15%;
+    margin-left: 21%;
     padding: 18px;
     background-color: #f5f5f5;
     display: flex;
@@ -1181,7 +1198,7 @@ body {
 
 .dashboard-sections-container {
     display: grid;
-    margin-left: 4.09%;
+    /* margin-left: 4.09%; */
     grid-template-columns: 1fr 1fr;
     gap: 24px;
     padding: 10px;
@@ -2239,7 +2256,7 @@ body {
 
     max-width: 100%;
     width: 100%;
-    margin-left: 5%;
+    /* margin-left: 5%; */
 }
 
 #index-section-id-nbfc {
@@ -3054,7 +3071,6 @@ body {
 
 .nbfc-student-dashboard-section-main-contents .studentdashboardprofile-myapplication {
     display: none;
-    width: 100%;
     margin-left: 20px;
     margin-right: 0;
 }

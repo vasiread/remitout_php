@@ -14,17 +14,17 @@
 <body>
     @extends('layouts.app');
     @php
-$profileImgPath = '';
-$uploadPanName = '';
-$profileIconPath = "assets/images/account_circle.png";
-$phoneIconPath = "assets/images/call.png";
-$mailIconPath = "assets/images/mail.png";
-$pindropIconPath = "assets/images/pin_drop.png";
-$discordIconPath = "assets/images/icons/discordicon.png";
-$viewIconPath = "assets/images/visibility.png";
+        $profileImgPath = '';
+        $uploadPanName = '';
+        $profileIconPath = "assets/images/account_circle.png";
+        $phoneIconPath = "assets/images/call.png";
+        $mailIconPath = "assets/images/mail.png";
+        $pindropIconPath = "assets/images/pin_drop.png";
+        $discordIconPath = "assets/images/icons/discordicon.png";
+        $viewIconPath = "assets/images/visibility.png";
 
 
-$nbfcdata = [];
+        $nbfcdata = [];
 
       @endphp
 
@@ -59,12 +59,12 @@ $nbfcdata = [];
         <div class="scdashboard-studentapplication" id="studentapplicationfromadminstudent">
             @foreach ($userDetails as $users)
                 @php
-    $status = 'pending';
-    if ($users->reviewed == 0) {
-        $status = 'not-reviewed';
-    } elseif ($users->type == 'proposal') {
-        $status = 'approved';
-    }
+                    $status = 'pending';
+                    if ($users->reviewed == 0) {
+                        $status = 'not-reviewed';
+                    } elseif ($users->type == 'proposal') {
+                        $status = 'approved';
+                    }
                 @endphp
                 <div class="studentapplication-lists" data-status="{{ $status }}">
                     <div class="individualapplication-list">
@@ -85,7 +85,7 @@ $nbfcdata = [];
                             <button class="studenteacheditbutton">Edit</button>
                         </div>
                     </div>
-                    <ul class="individualstudentapplication-status">
+                    <ul class="individualstudentapplication-status" data-user-id="{{ $users->user_id }}">
                         <li class="scdashboard-nbfcnamecontainer">
                             <p>NBFC:</p>
                             <p>{{ optional($users->nbfc)->nbfc_name ?? 'N/A' }}</p>
@@ -674,7 +674,7 @@ $nbfcdata = [];
                             <p class="document-name">Pan Card</p>
                             <div class="inputfilecontainer">
                                 <i class="fa-solid fa-image"></i>
-                                <p class="uploaded-pan-name"> pan_card.jpg</p>
+                                <p class="uploaded-pan-name truncate-filename"> pan_card.jpg</p>
                                 <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-pan-card" />
                             </div>
                             <input type="file" id="inputfilecontainer-real" />
@@ -685,7 +685,7 @@ $nbfcdata = [];
                             <p class="document-name">Aadhar Card</p>
                             <div class="inputfilecontainer">
                                 <i class="fa-solid fa-image"></i>
-                                <p class="uploaded-aadhar-name"> aadhar_card.jpg</p>
+                                <p class="uploaded-aadhar-name truncate-filename"> aadhar_card.jpg</p>
                                 <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-aadhar-card" />
                             </div>
                             <input type="file" id="inputfilecontainer-real" />
@@ -696,7 +696,7 @@ $nbfcdata = [];
                             <p class="document-name">Passport</p>
                             <div class="inputfilecontainer">
                                 <i class="fa-solid fa-image"></i>
-                                <p class="passport-name-selector"> Passport.pdf</p>
+                                <p class="passport-name-selector truncate-filename"> Passport.pdf</p>
                                 <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-passport-card" />
                             </div>
                             <input type="file" id="inputfilecontainer-real" />
@@ -718,7 +718,7 @@ $nbfcdata = [];
                             <p class="document-name">10th grade marksheet</p>
                             <div class="inputfilecontainer-marksheet">
                                 <i class="fa-solid fa-image"></i>
-                                <p class="sslc-marksheet"> 10th grade marksheet</p>
+                                <p class="sslc-marksheet truncate-filename"> 10th grade marksheet</p>
                                 <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-card" />
                             </div>
                             <input type="file" id="inputfilecontainer-real-marksheet" />
@@ -729,7 +729,7 @@ $nbfcdata = [];
                             <p class="document-name">12th grade marksheet</p>
                             <div class="inputfilecontainer-marksheet">
                                 <i class="fa-solid fa-image"></i>
-                                <p class="hsc-marksheet"> 12th grade marksheet</p>
+                                <p class="hsc-marksheet truncate-filename"> 12th grade marksheet</p>
                                 <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-card" />
                             </div>
                             <input type="file" id="inputfilecontainer-real-marksheet" />
@@ -740,7 +740,7 @@ $nbfcdata = [];
                             <p class="document-name">Graduation marksheet</p>
                             <div class="inputfilecontainer-marksheet">
                                 <i class="fa-solid fa-image"></i>
-                                <p class="graduation-marksheet"> Graduation Marksheet</p>
+                                <p class="graduation-marksheet truncate-filename"> Graduation Marksheet</p>
                                 <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-card" />
                             </div>
                             <input type="file" id="inputfilecontainer-real-marksheet" />
@@ -763,7 +763,7 @@ $nbfcdata = [];
                             </p>
                             <div class="inputfilecontainer-secured-admission">
                                 <i class="fa-solid fa-image"></i>
-                                <p class="sslc-grade">SSLC Grade</p>
+                                <p class="sslc-grade truncate-filename">SSLC Grade</p>
 
                                 <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-grade"></>
 
@@ -773,11 +773,11 @@ $nbfcdata = [];
                             <span class="document-status">420 MB uploaded</span>
                         </div>
                         <div class="individual-secured-admission-documents">
-                            <p class="document-name">12th Grade
+                            <p class="document-name ">12th Grade
                             </p>
                             <div class="inputfilecontainer-secured-admission">
                                 <i class="fa-solid fa-image"></i>
-                                <p class="hsc-grade">HSC Grade</p>
+                                <p class="hsc-grade truncate-filename">HSC Grade</p>
 
                                 <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-grade"></>
 
@@ -791,7 +791,7 @@ $nbfcdata = [];
                             </p>
                             <div class="inputfilecontainer-secured-admission">
                                 <i class="fa-solid fa-image"></i>
-                                <p class="graduation-grade">Graduation</p>
+                                <p class="graduation-grade truncate-filename">Graduation</p>
 
                                 <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-grade"></>
 
@@ -817,7 +817,7 @@ $nbfcdata = [];
                             </p>
                             <div class="inputfilecontainer-work-experiencecolumn">
                                 <i class="fa-solid fa-image"></i>
-                                <p class="experience-letter">Experience Letter</p>
+                                <p class="experience-letter truncate-filename">Experience Letter</p>
 
                                 <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-experience-letter"></>
 
@@ -831,7 +831,7 @@ $nbfcdata = [];
                             </p>
                             <div class="inputfilecontainer-work-experiencecolumn">
                                 <i class="fa-solid fa-image"></i>
-                                <p class="salary-slip">3 month salary slip</p>
+                                <p class="salary-slip truncate-filename">3 month salary slip</p>
 
                                 <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-salary-slip"></>
 
@@ -845,7 +845,7 @@ $nbfcdata = [];
                             </p>
                             <div class="inputfilecontainer-work-experiencecolumn">
                                 <i class="fa-solid fa-image"></i>
-                                <p class="office-id">Office ID</p>
+                                <p class="office-id truncate-filename">Office ID</p>
 
                                 <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-office-id"></>
 
@@ -859,7 +859,7 @@ $nbfcdata = [];
                             </p>
                             <div class="inputfilecontainer-work-experiencecolumn">
                                 <i class="fa-solid fa-image"></i>
-                                <p class="joining-letter">Joining Letter</p>
+                                <p class="joining-letter truncate-filename">Joining Letter</p>
 
                                 <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-joining-letter"></>
 
@@ -885,7 +885,7 @@ $nbfcdata = [];
                             </p>
                             <div class="inputfilecontainer-coborrower-kyccolumn">
                                 <i class="fa-solid fa-image"></i>
-                                <p class="coborrower-pancard">Pan Card </p>
+                                <p class="coborrower-pancard truncate-filename">Pan Card </p>
                                 <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-pan"></>
                             </div>
                             <input type="file" id="inputfilecontainer-kyccoborrwer">
@@ -896,7 +896,7 @@ $nbfcdata = [];
                             </p>
                             <div class="inputfilecontainer-coborrower-kyccolumn">
                                 <i class="fa-solid fa-image"></i>
-                                <p class="coborrower-aadharcard">Aadhar Card </p>
+                                <p class="coborrower-aadharcard truncate-filename">Aadhar Card </p>
                                 <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-aadhar"></>
                             </div>
                             <input type="file" id="inputfilecontainer-kyccoborrwer">
@@ -907,7 +907,7 @@ $nbfcdata = [];
                             </p>
                             <div class="inputfilecontainer-coborrower-kyccolumn">
                                 <i class="fa-solid fa-image"></i>
-                                <p class="coborrower-addressproof">Address Proof </p>
+                                <p class="coborrower-addressproof truncate-filename">Address Proof </p>
                                 <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-addressproof"></>
                             </div>
                             <input type="file" id="inputfilecontainer-kyccoborrwer">
@@ -975,7 +975,6 @@ $nbfcdata = [];
     <script>
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Run all top-level setup functions
             expandingStudentDetails();
             initializeSearchAndFilter();
             setupProfileTriggers();
@@ -985,8 +984,6 @@ $nbfcdata = [];
             triggerExcelRegistration();
             addDynamicInputFields();
             triggeredButtons();
-
-            // Directly initialize column/document-related functions
             initialiseEightcolumn();
             initialiseSeventhcolumn();
             initialiseSeventhAdditionalColumn();
@@ -997,6 +994,7 @@ $nbfcdata = [];
             initializeSecuredAdmissionDocumentUpload();
             initializeWorkExperienceDocumentUpload();
             initializeCoBorrowerDocumentUpload();
+            // retreiveMissingDoucmentsCount();
         });
 
 
@@ -1025,7 +1023,7 @@ $nbfcdata = [];
         });
 
         const expandingStudentDetails = async () => {
-             const listContainer = document.querySelectorAll(".studentapplication-lists");
+            const listContainer = document.querySelectorAll(".studentapplication-lists");
             const expandButton = document.querySelectorAll(".individualapplication-list .application-buttoncontainer .expand-arrow");
             const documentsStatusBar = document.querySelectorAll(".studentapplication-lists-remainingdocuments");
             const studentId = document.querySelectorAll(".studentapplication-lists .firstsection-lists [id^='hidden-id-elementforaccess-']");
@@ -1033,19 +1031,19 @@ $nbfcdata = [];
             let previousUserId = null;
 
             for (let [index, item] of expandButton.entries()) {
-                item.addEventListener('click', async () => {
+                item.addEventListener('click',  () => {
                     if (listContainer[index] && documentsStatusBar[index] && studentId[index]) {
                         const isExpanded = listContainer[index].style.height === "fit-content";
 
                         listContainer[index].style.height = isExpanded ? "140px" : "fit-content";
                         documentsStatusBar[index].style.display = isExpanded ? "none" : "block";
                         item.style.transform = isExpanded ? "rotate(0deg)" : "rotate(180deg)";
-                        item.style.transition = "transform 0.2s ease";
+                        item.style.transition = "transform 0.2s ease";  
 
                         const userId = studentId[index].textContent.trim();
                         if (!isExpanded && userId && userId !== previousUserId) {
                             previousUserId = userId;
-                            await getRemainingDocuments(userId);
+                             getRemainingDocuments(userId);
                         }
                     }
                 });
@@ -1053,7 +1051,7 @@ $nbfcdata = [];
         };
 
         const getRemainingDocuments = async (userId) => {
-             const documentIdPrefixMap = {
+            const documentIdPrefixMap = {
                 "pan-card-name": "pan-card-admin-view-",
                 "aadhar-card-name": "aadhar-card-admin-view-",
                 "passport-name": "passport-view-",
@@ -1211,16 +1209,16 @@ $nbfcdata = [];
         };
 
         function setupProfileTriggers() {
-             const studentProfileContainer = document.getElementById("studentprofile-section-adminsideview");
+            const studentProfileContainer = document.getElementById("studentprofile-section-adminsideview");
             const studentListContainer = document.getElementById("student-admin-section-id");
             const viewTriggers = document.querySelectorAll(".view-student-profile-trigger");
             const editTriggers = document.querySelectorAll(".edit-student-profile-trigger");
 
-           viewTriggers.forEach(trigger => {
+            viewTriggers.forEach(trigger => {
                 trigger.addEventListener('click', () => {
                     const uniqueId = document.getElementById(`hidden-id-elementforaccess-${trigger.dataset.userId}`).textContent.trim();
 
-                     Loader.show();
+                    Loader.show();
 
                     // Call both functions in parallel and wait for both
                     Promise.all([
@@ -1283,6 +1281,8 @@ $nbfcdata = [];
                 console.error('Error fetching profile data:', err);
             }
         }
+
+
 
         function updateProfileView(userProfile) {
             // Personal Info
@@ -1555,7 +1555,7 @@ $nbfcdata = [];
         const documentUrls = {};
 
         const initialiseAllViews = (uniqueId) => {
-           
+
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content");
             const userId = uniqueId;
 
@@ -1679,8 +1679,6 @@ $nbfcdata = [];
 
 
         const initializeKycDocumentUpload = () => {
-            console.log("the console");
-
             const individualKycDocumentsUpload = document.querySelectorAll(
                 ".individualkycdocuments"
             );
@@ -1698,7 +1696,7 @@ $nbfcdata = [];
 
                     const documentType = eyeIcon.id
                         .replace("view-", "")
-                        .replace("-card", ""); // e.g., "aadhar-card"
+                        .replace("-card", "");
                     const fileTypeKey = `${documentType}-card-name`;
                     const fileUrl = documentUrls[fileTypeKey];
                     const fileNameElement = card.querySelector(
@@ -1706,47 +1704,30 @@ $nbfcdata = [];
                     );
                     const fileName = fileNameElement
                         ? fileNameElement.textContent
-                        : "Document.pdf";
+                        : "Document";
 
-                    console.log(`Previewing ${documentType}: ${fileUrl}`);
-
-                    // Check if a preview is already active
-                    if (eyeIcon.classList.contains('preview-active')) {
-                        const previewWrapper = document.querySelector('.pdf-preview-wrapper');
-                        if (previewWrapper) previewWrapper.remove();
-                        const overlay = document.querySelector('.pdf-preview-overlay');
-                        if (overlay) overlay.remove();
-                        eyeIcon.classList.remove('preview-active');
+                    if (eyeIcon.classList.contains("preview-active")) {
+                        document.querySelector(".pdf-preview-wrapper")?.remove();
+                        document.querySelector(".image-preview-wrapper")?.remove();
+                        document.querySelector(".pdf-preview-overlay")?.remove();
+                        document.querySelector(".image-preview-overlay")?.remove();
+                        eyeIcon.classList.remove("preview-active");
                         eyeIcon.src = "/assets/images/visibility.png";
                         return;
                     }
 
-                    // If no file URL, show an alert
                     if (!fileUrl) {
                         alert("No document found to preview.");
                         return;
                     }
 
-                    // Create the preview modal
-                    const previewWrapper = document.createElement("div");
-                    previewWrapper.className = "pdf-preview-wrapper";
-                    previewWrapper.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 60%;
-                height: 80vh;
-                background-color: white;
-                display: flex;
-                flex-direction: column;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                z-index: 1000;
-                border-radius: 8px;
-            `;
+                    const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
+                    const isImage = [".jpg", ".jpeg", ".png"].some(ext =>
+                        fileUrl.toLowerCase().endsWith(ext)
+                    );
 
                     const overlay = document.createElement("div");
-                    overlay.className = "pdf-preview-overlay";
+                    overlay.className = isPDF ? "pdf-preview-overlay" : "image-preview-overlay";
                     overlay.style.cssText = `
                 position: fixed;
                 top: 0;
@@ -1755,6 +1736,26 @@ $nbfcdata = [];
                 height: 100%;
                 background-color: rgba(0, 0, 0, 0.5);
                 z-index: 999;
+            `;
+
+                    const previewWrapper = document.createElement("div");
+                    previewWrapper.className = isPDF ? "pdf-preview-wrapper" : "image-preview-wrapper";
+                    previewWrapper.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: ${isPDF ? "60%" : "90%"};
+                max-width: 800px;
+                height: ${isPDF ? "80vh" : "auto"};
+                max-height: 90vh;
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 1000;
+                border-radius: 8px;
+                overflow: hidden;
             `;
 
                     const header = document.createElement("div");
@@ -1766,139 +1767,151 @@ $nbfcdata = [];
                 background-color: #1a1a1a;
                 color: white;
                 height: 40px;
-                border-top-left-radius: 8px;
-                border-top-right-radius: 8px;
-            `;
-
-                    const fileNameSection = document.createElement("div");
-                    fileNameSection.style.cssText = `
-                display: flex;
-                align-items: center;
-                gap: 8px;
+                font-family: 'Poppins', sans-serif;
+                position: relative;
             `;
 
                     const fileNameSpan = document.createElement("span");
                     fileNameSpan.textContent = fileName;
                     fileNameSpan.style.cssText = `
-                color: white;
                 font-size: 14px;
+                color: white;
+            `;
+
+                    const closeButton = document.createElement("button");
+                    closeButton.innerHTML = "✕";
+                    closeButton.style.cssText = `
+                background: none;
+                border: none;
+                color: white;
+                font-size: 18px;
+                cursor: pointer;
                 font-family: 'Poppins', sans-serif;
             `;
-                    fileNameSection.appendChild(fileNameSpan);
-
-                    const zoomControls = document.createElement("div");
-                    zoomControls.style.cssText = `
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
-            `;
-
-                    const zoomOut = document.createElement("button");
-                    zoomOut.innerHTML = "−";
-                    const zoomIn = document.createElement("button");
-                    zoomIn.innerHTML = "+";
-
-                    [zoomOut, zoomIn].forEach((btn) => {
-                        btn.style.cssText = `
-                    background: none;
-                    border: 1px solid #fff;
-                    border-radius: 4px;
-                    color: white;
-                    font-size: 16px;
-                    cursor: pointer;
-                    padding: 2px 8px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-family: 'Poppins', sans-serif;
-                `;
-                    });
-
-                    zoomControls.appendChild(zoomOut);
-                    zoomControls.appendChild(zoomIn);
-
-                    // Close button
-                    const closeButton = document.createElement('button');
-                    closeButton.innerHTML = '&#10005;';
-                    closeButton.style.cssText = `
-                    background: none;
-                    border: none;
-                    color: white;
-                    font-size: 18px;
-                    cursor: pointer;
-                    padding: 4px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                `;
 
                     const closePreview = () => {
                         previewWrapper.remove();
                         overlay.remove();
-                        eyeIcon.classList.remove('preview-active');
-                        eyeIcon.classList.replace('fa-times', 'fa-eye');
+                        eyeIcon.classList.remove("preview-active");
+                        eyeIcon.src = "/assets/images/visibility.png";
                     };
 
                     closeButton.addEventListener("click", closePreview);
                     overlay.addEventListener("click", closePreview);
 
-                    header.appendChild(fileNameSection);
-                    header.appendChild(zoomControls);
+                    header.appendChild(fileNameSpan);
                     header.appendChild(closeButton);
 
-                    const iframe = document.createElement("iframe");
-                    iframe.src = fileUrl;
-                    iframe.style.cssText = `
-                width: 100%;
-                height: calc(100% - 40px);
-                border: none;
-                background-color: white;
-                border-bottom-left-radius: 8px;
-                border-bottom-right-radius: 8px;
-            `;
+                    // Zoom controls (PDF only)
+                    let currentZoom = 1;
+                    if (isPDF) {
+                        const zoomControls = document.createElement("div");
+                        zoomControls.style.cssText = `
+                    display: flex;
+                    gap: 12px;
+                    align-items: center;
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                `;
+
+                        const zoomOut = document.createElement("button");
+                        const zoomIn = document.createElement("button");
+                        zoomOut.textContent = "−";
+                        zoomIn.textContent = "+";
+
+                        [zoomOut, zoomIn].forEach(btn => {
+                            btn.style.cssText = `
+                        background: none;
+                        border: 1px solid #fff;
+                        border-radius: 4px;
+                        color: white;
+                        font-size: 16px;
+                        padding: 2px 8px;
+                        cursor: pointer;
+                        font-family: 'Poppins', sans-serif;
+                    `;
+                            zoomControls.appendChild(btn);
+                        });
+
+                        header.insertBefore(zoomControls, closeButton);
+                    }
 
                     previewWrapper.appendChild(header);
-                    previewWrapper.appendChild(iframe);
+
+                    if (isPDF) {
+                        const iframeContainer = document.createElement("div");
+                        iframeContainer.style.cssText = `
+                    width: 100%;
+                    height: calc(100% - 40px);
+                    overflow: auto;
+                    background-color: white;
+                    position: relative;
+                `;
+
+                        const iframe = document.createElement("iframe");
+                        iframe.src = fileUrl;
+                        iframe.style.cssText = `
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                    transform-origin: top center;
+                    transition: transform 0.2s ease;
+                `;
+
+                        iframeContainer.appendChild(iframe);
+                        previewWrapper.appendChild(iframeContainer);
+
+                        header.querySelectorAll("button")[1]?.addEventListener("click", () => {
+                            currentZoom += 0.1;
+                            iframe.style.transform = `scale(${currentZoom})`;
+                        });
+
+                        header.querySelectorAll("button")[0]?.addEventListener("click", () => {
+                            currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                            iframe.style.transform = `scale(${currentZoom})`;
+                        });
+
+                    } else if (isImage) {
+                        const imgContainer = document.createElement("div");
+                        imgContainer.style.cssText = `
+                    padding: 20px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #f0f0f0;
+                `;
+
+                        const img = document.createElement("img");
+                        img.src = fileUrl;
+                        img.style.cssText = `
+                    max-width: 100%;
+                    max-height: 80vh;
+                    object-fit: contain;
+                `;
+                        imgContainer.appendChild(img);
+                        previewWrapper.appendChild(imgContainer);
+                    } else {
+                        alert("Unsupported file type. Only PDFs and images (JPG, PNG, JPEG) are supported.");
+                        return;
+                    }
 
                     document.body.appendChild(overlay);
                     document.body.appendChild(previewWrapper);
-
-                    let currentZoom = 1;
-                    zoomIn.addEventListener("click", () => {
-                        currentZoom += 0.1;
-                        iframe.style.transform = `scale(${currentZoom})`;
-                        iframe.style.transformOrigin = "top center";
-                    });
-
-                    zoomOut.addEventListener("click", () => {
-                        currentZoom = Math.max(currentZoom - 0.1, 0.5);
-                        iframe.style.transform = `scale(${currentZoom})`;
-                        iframe.style.transformOrigin = "top center";
-                    });
-
-                    document.addEventListener("keydown", function (e) {
-                        if (e.key === "Escape") {
-                            closePreview();
-                        }
+                    document.addEventListener("keydown", e => {
+                        if (e.key === "Escape") closePreview();
                     });
 
                     eyeIcon.classList.add("preview-active");
-                    eyeIcon.src = "/assets/images/close.png"; // Update with your actual path
+                    eyeIcon.src = "/assets/images/close.png";
                 });
             });
         };
 
-
         const initializeMarksheetUpload = () => {
-            console.log("console")
-            const individualMarksheetDocumentsUpload = document.querySelectorAll(
-                ".individualmarksheetdocuments"
-            );
+            const cards = document.querySelectorAll(".individualmarksheetdocuments");
 
-            individualMarksheetDocumentsUpload.forEach((card) => {
+            cards.forEach((card) => {
                 const eyeIcon = card.querySelector(".fa-eye");
 
                 if (!eyeIcon) {
@@ -1909,11 +1922,17 @@ $nbfcdata = [];
                 eyeIcon.addEventListener("click", function (event) {
                     event.stopPropagation();
 
-                    // Get the document type from the eye icon's ID
-                    const documentType = eyeIcon.id.replace('view-', '').replace('-card', '');
+                    if (eyeIcon.classList.contains("preview-active")) {
+                        document.querySelector(".pdf-preview-wrapper")?.remove();
+                        document.querySelector(".image-preview-wrapper")?.remove();
+                        document.querySelector(".pdf-preview-overlay")?.remove();
+                        document.querySelector(".image-preview-overlay")?.remove();
+                        eyeIcon.classList.remove("preview-active");
+                        eyeIcon.src = "/assets/images/visibility.png";
+                        return;
+                    }
 
-                    // Construct the fileType key used in documentUrls based on the class name
-                    let fileTypeKey;
+                    let fileTypeKey = null;
                     if (card.querySelector(".sslc-marksheet")) {
                         fileTypeKey = "tenth-grade-name";
                     } else if (card.querySelector(".hsc-marksheet")) {
@@ -1922,54 +1941,22 @@ $nbfcdata = [];
                         fileTypeKey = "graduation-grade-name";
                     }
 
-                    // Get the URL from documentUrls
-                    const fileUrl = documentUrls[fileTypeKey];
-                    const fileNameElement = card.querySelector(
-                        `.${fileTypeKey.replace("-name", "-marksheet")}`
-                    );
-                    const fileName = fileNameElement
-                        ? fileNameElement.textContent
-                        : "Document.pdf";
-
-                    console.log(`Previewing marksheet (${fileTypeKey}):`, fileUrl);
-
-                    if (eyeIcon.classList.contains("preview-active")) {
-                        const previewWrapper = document.querySelector(
-                            ".pdf-preview-wrapper"
-                        );
-                        const overlay = document.querySelector(".pdf-preview-overlay");
-                        if (previewWrapper) previewWrapper.remove();
-                        if (overlay) overlay.remove();
-                        eyeIcon.classList.remove("preview-active");
-                        eyeIcon.src = "/assets/images/visibility.png";
-                        return;
-                    }
-
-                    if (!fileUrl) {
+                    if (!fileTypeKey || !documentUrls[fileTypeKey]) {
                         alert("No document found to preview.");
                         return;
                     }
 
-                    // Create the preview modal
-                    const previewWrapper = document.createElement("div");
-                    previewWrapper.className = "pdf-preview-wrapper";
-                    previewWrapper.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 60%;
-                height: 80vh;
-                background-color: white;
-                display: flex;
-                flex-direction: column;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                z-index: 1000;
-                border-radius: 8px;
-            `;
+                    const fileUrl = documentUrls[fileTypeKey];
+                    const fileNameElement = card.querySelector(`.${fileTypeKey.replace("-name", "-marksheet")}`);
+                    const fileName = fileNameElement?.textContent || "Document";
+
+                    const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
+                    const isImage = [".jpg", ".jpeg", ".png"].some(ext =>
+                        fileUrl.toLowerCase().endsWith(ext)
+                    );
 
                     const overlay = document.createElement("div");
-                    overlay.className = "pdf-preview-overlay";
+                    overlay.className = isPDF ? "pdf-preview-overlay" : "image-preview-overlay";
                     overlay.style.cssText = `
                 position: fixed;
                 top: 0;
@@ -1978,6 +1965,26 @@ $nbfcdata = [];
                 height: 100%;
                 background-color: rgba(0, 0, 0, 0.5);
                 z-index: 999;
+            `;
+
+                    const previewWrapper = document.createElement("div");
+                    previewWrapper.className = isPDF ? "pdf-preview-wrapper" : "image-preview-wrapper";
+                    previewWrapper.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: ${isPDF ? "60%" : "90%"};
+                max-width: 800px;
+                height: ${isPDF ? "80vh" : "auto"};
+                max-height: 90vh;
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 1000;
+                border-radius: 8px;
+                overflow: hidden;
             `;
 
                     const header = document.createElement("div");
@@ -1989,59 +1996,15 @@ $nbfcdata = [];
                 background-color: #1a1a1a;
                 color: white;
                 height: 40px;
-                border-top-left-radius: 8px;
-                border-top-right-radius: 8px;
-            `;
-
-                    const fileNameSection = document.createElement("div");
-                    fileNameSection.style.cssText = `
-                display: flex;
-                align-items: center;
-                gap: 8px;
+                font-family: 'Poppins', sans-serif;
             `;
 
                     const fileNameSpan = document.createElement("span");
                     fileNameSpan.textContent = fileName;
                     fileNameSpan.style.cssText = `
-                color: white;
                 font-size: 14px;
-                font-family: 'Poppins', sans-serif;
+                color: white;
             `;
-                    fileNameSection.appendChild(fileNameSpan);
-
-                    const zoomControls = document.createElement("div");
-                    zoomControls.style.cssText = `
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
-            `;
-
-                    const zoomOut = document.createElement("button");
-                    zoomOut.innerHTML = "−";
-                    const zoomIn = document.createElement("button");
-                    zoomIn.innerHTML = "+";
-
-                    [zoomOut, zoomIn].forEach((btn) => {
-                        btn.style.cssText = `
-                    background: none;
-                    border: 1px solid #fff;
-                    border-radius: 4px;
-                    color: white;
-                    font-size: 16px;
-                    cursor: pointer;
-                    padding: 2px 8px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-family: 'Poppins', sans-serif;
-                `;
-                    });
-
-                    zoomControls.appendChild(zoomOut);
-                    zoomControls.appendChild(zoomIn);
 
                     const closeButton = document.createElement("button");
                     closeButton.innerHTML = "✕";
@@ -2051,10 +2014,6 @@ $nbfcdata = [];
                 color: white;
                 font-size: 18px;
                 cursor: pointer;
-                padding: 4px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
                 font-family: 'Poppins', sans-serif;
             `;
 
@@ -2068,44 +2027,101 @@ $nbfcdata = [];
                     closeButton.addEventListener("click", closePreview);
                     overlay.addEventListener("click", closePreview);
 
-                    header.appendChild(fileNameSection);
-                    header.appendChild(zoomControls);
+                    header.appendChild(fileNameSpan);
                     header.appendChild(closeButton);
 
-                    const iframe = document.createElement("iframe");
-                    iframe.src = fileUrl;
-                    iframe.style.cssText = `
-                width: 100%;
-                height: calc(100% - 40px);
-                border: none;
-                background-color: white;
-                border-bottom-left-radius: 8px;
-                border-bottom-right-radius: 8px;
-            `;
+                    // Zoom controls (for PDF)
+                    if (isPDF) {
+                        const zoomControls = document.createElement("div");
+                        zoomControls.style.cssText = `
+                    display: flex;
+                    gap: 12px;
+                    align-items: center;
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                `;
+
+                        const zoomOut = document.createElement("button");
+                        const zoomIn = document.createElement("button");
+                        zoomOut.textContent = "−";
+                        zoomIn.textContent = "+";
+
+                        [zoomOut, zoomIn].forEach(btn => {
+                            btn.style.cssText = `
+                        background: none;
+                        border: 1px solid #fff;
+                        border-radius: 4px;
+                        color: white;
+                        font-size: 16px;
+                        padding: 2px 8px;
+                        cursor: pointer;
+                        font-family: 'Poppins', sans-serif;
+                    `;
+                            zoomControls.appendChild(btn);
+                        });
+
+                        header.insertBefore(zoomControls, closeButton);
+                    }
 
                     previewWrapper.appendChild(header);
-                    previewWrapper.appendChild(iframe);
+
+                    if (isPDF) {
+                        const iframe = document.createElement("iframe");
+                        iframe.src = fileUrl;
+                        iframe.style.cssText = `
+                    width: 100%;
+                    height: calc(100% - 40px);
+                    border: none;
+                    background-color: white;
+                    transform: scale(1);
+                    transform-origin: top center;
+                    transition: transform 0.2s ease-in-out;
+                `;
+
+                        previewWrapper.appendChild(iframe);
+
+                        let currentZoom = 1;
+
+                        header.querySelectorAll("button")[1]?.addEventListener("click", () => {
+                            currentZoom += 0.1;
+                            iframe.style.transform = `scale(${currentZoom})`;
+                        });
+
+                        header.querySelectorAll("button")[0]?.addEventListener("click", () => {
+                            currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                            iframe.style.transform = `scale(${currentZoom})`;
+                        });
+
+                    } else if (isImage) {
+                        const imgContainer = document.createElement("div");
+                        imgContainer.style.cssText = `
+                    padding: 20px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #f0f0f0;
+                `;
+
+                        const img = document.createElement("img");
+                        img.src = fileUrl;
+                        img.style.cssText = `
+                    max-width: 100%;
+                    max-height: 80vh;
+                    object-fit: contain;
+                `;
+                        imgContainer.appendChild(img);
+                        previewWrapper.appendChild(imgContainer);
+                    } else {
+                        alert("Unsupported file type. Only PDFs and images (JPG, PNG, JPEG) are supported.");
+                        return;
+                    }
 
                     document.body.appendChild(overlay);
                     document.body.appendChild(previewWrapper);
 
-                    let currentZoom = 1;
-                    zoomIn.addEventListener("click", () => {
-                        currentZoom += 0.1;
-                        iframe.style.transform = `scale(${currentZoom})`;
-                        iframe.style.transformOrigin = "top center";
-                    });
-
-                    zoomOut.addEventListener("click", () => {
-                        currentZoom = Math.max(currentZoom - 0.1, 0.5);
-                        iframe.style.transform = `scale(${currentZoom})`;
-                        iframe.style.transformOrigin = "top center";
-                    });
-
-                    document.addEventListener("keydown", function (e) {
-                        if (e.key === "Escape") {
-                            closePreview();
-                        }
+                    document.addEventListener("keydown", e => {
+                        if (e.key === "Escape") closePreview();
                     });
 
                     eyeIcon.classList.add("preview-active");
@@ -2113,7 +2129,6 @@ $nbfcdata = [];
                 });
             });
         };
-
         const initializeSecuredAdmissionDocumentUpload = () => {
             const securedAdmissionDocuments = document.querySelectorAll(
                 ".individual-secured-admission-documents"
@@ -2991,7 +3006,221 @@ $nbfcdata = [];
                 });
             }
         };
+        const initializeCoBorrowerDocumentUpload = () => {
+            const coBorrowerDocuments = document.querySelectorAll(".individual-coborrower-kyc-documents");
 
+            coBorrowerDocuments.forEach((card) => {
+                const eyeIcon = card.querySelector(".fa-eye");
+                if (!eyeIcon) {
+                    console.error("Eye icon not found in card:", card);
+                    return;
+                }
+
+                eyeIcon.addEventListener("click", function (event) {
+                    event.stopPropagation();
+
+                    let fileTypeKey = null;
+                    if (card.querySelector(".coborrower-pancard")) {
+                        fileTypeKey = "co-pan-card-name";
+                    } else if (card.querySelector(".coborrower-aadharcard")) {
+                        fileTypeKey = "co-aadhar-card-name";
+                    } else if (card.querySelector(".coborrower-addressproof")) {
+                        fileTypeKey = "co-addressproof";
+                    }
+
+                    const fileUrl = documentUrls[fileTypeKey];
+                    const fileNameElement = card.querySelector(`.${fileTypeKey?.replace("-name", "-grade")}`);
+                    const rawFileName = fileNameElement ? fileNameElement.textContent.trim() : "Document";
+                    const fileName = typeof truncateFileName === "function" ? truncateFileName(rawFileName) : rawFileName;
+
+                    const closePreview = () => {
+                        document.querySelector(".pdf-preview-wrapper")?.remove();
+                        document.querySelector(".image-preview-wrapper")?.remove();
+                        document.querySelector(".pdf-preview-overlay")?.remove();
+                        document.querySelector(".image-preview-overlay")?.remove();
+                        eyeIcon.classList.remove("preview-active");
+                        eyeIcon.src = "/assets/images/visibility.png";
+                        document.removeEventListener("keydown", keydownHandler);
+                    };
+
+                    const keydownHandler = (e) => {
+                        if (e.key === "Escape") closePreview();
+                    };
+
+                    if (eyeIcon.classList.contains("preview-active")) {
+                        closePreview();
+                        return;
+                    }
+
+                    if (!fileUrl) {
+                        alert("No document found to preview.");
+                        return;
+                    }
+
+                    const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
+                    const isImage = [".jpg", ".jpeg", ".png"].some(ext => fileUrl.toLowerCase().endsWith(ext));
+
+                    const overlay = document.createElement("div");
+                    overlay.className = isPDF ? "pdf-preview-overlay" : "image-preview-overlay";
+                    overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            `;
+
+                    const previewWrapper = document.createElement("div");
+                    previewWrapper.className = isPDF ? "pdf-preview-wrapper" : "image-preview-wrapper";
+                    previewWrapper.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: ${isPDF ? "60%" : "90%"};
+                max-width: 800px;
+                height: ${isPDF ? "80vh" : "auto"};
+                max-height: 90vh;
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 1000;
+                border-radius: 8px;
+                overflow: hidden;
+            `;
+
+                    const header = document.createElement("div");
+                    header.style.cssText = `
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 8px 16px;
+                background-color: #1a1a1a;
+                color: white;
+                height: 40px;
+                font-family: 'Poppins', sans-serif;
+            `;
+
+                    const fileNameSpan = document.createElement("span");
+                    fileNameSpan.textContent = fileName;
+                    fileNameSpan.style.cssText = `
+                font-size: 14px;
+                color: white;
+            `;
+
+                    const closeButton = document.createElement("button");
+                    closeButton.innerHTML = "✕";
+                    closeButton.style.cssText = `
+                background: none;
+                border: none;
+                color: white;
+                font-size: 18px;
+                cursor: pointer;
+                font-family: 'Poppins', sans-serif;
+            `;
+
+                    closeButton.addEventListener("click", closePreview);
+                    overlay.addEventListener("click", closePreview);
+                    header.appendChild(fileNameSpan);
+
+                    if (isPDF) {
+                        const zoomControls = document.createElement("div");
+                        zoomControls.style.cssText = `
+                    display: flex;
+                    gap: 12px;
+                    align-items: center;
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                `;
+
+                        const zoomOut = document.createElement("button");
+                        const zoomIn = document.createElement("button");
+                        zoomOut.textContent = "−";
+                        zoomIn.textContent = "+";
+
+                        [zoomOut, zoomIn].forEach(btn => {
+                            btn.style.cssText = `
+                        background: none;
+                        border: 1px solid #fff;
+                        border-radius: 4px;
+                        color: white;
+                        font-size: 16px;
+                        padding: 2px 8px;
+                        cursor: pointer;
+                        font-family: 'Poppins', sans-serif;
+                    `;
+                            zoomControls.appendChild(btn);
+                        });
+
+                        header.insertBefore(zoomControls, closeButton);
+                    }
+
+                    header.appendChild(closeButton);
+                    previewWrapper.appendChild(header);
+
+                    if (isPDF) {
+                        const iframe = document.createElement("iframe");
+                        iframe.src = fileUrl;
+                        iframe.style.cssText = `
+                    width: 100%;
+                    height: calc(100% - 40px);
+                    border: none;
+                    background-color: white;
+                `;
+
+                        previewWrapper.appendChild(iframe);
+
+                        let currentZoom = 1;
+                        header.querySelectorAll("button")[1]?.addEventListener("click", () => {
+                            currentZoom += 0.1;
+                            iframe.style.transform = `scale(${currentZoom})`;
+                            iframe.style.transformOrigin = "top center";
+                        });
+
+                        header.querySelectorAll("button")[0]?.addEventListener("click", () => {
+                            currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                            iframe.style.transform = `scale(${currentZoom})`;
+                            iframe.style.transformOrigin = "top center";
+                        });
+
+                    } else if (isImage) {
+                        const imgContainer = document.createElement("div");
+                        imgContainer.style.cssText = `
+                    padding: 20px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #f0f0f0;
+                `;
+
+                        const img = document.createElement("img");
+                        img.src = fileUrl;
+                        img.style.cssText = `
+                    max-width: 100%;
+                    max-height: 80vh;
+                    object-fit: contain;
+                `;
+
+                        imgContainer.appendChild(img);
+                        previewWrapper.appendChild(imgContainer);
+                    } else {
+                        alert("Unsupported file type. Only PDFs and images (JPG, PNG, JPEG) are supported.");
+                        return;
+                    }
+
+                    document.body.appendChild(overlay);
+                    document.body.appendChild(previewWrapper);
+                    document.addEventListener("keydown", keydownHandler);
+
+                    eyeIcon.classList.add("preview-active");
+                    eyeIcon.src = "/assets/images/close.png";
+                });
+            });
+        };
 
         const collectStudentData = async () => {
             const studentForms = document.querySelectorAll(".studentAddByScuserPopup-contentpart");
@@ -3476,6 +3705,34 @@ $nbfcdata = [];
                 });
         }
 
+        function retreiveMissingDoucmentsCount() {
+            const userStatusElements = document.querySelectorAll('.individualstudentapplication-status');
+
+            userStatusElements.forEach(statusElement => {
+                const userId = statusElement.getAttribute('data-user-id');
+
+                fetch('/remaining-documents', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ userId: userId })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        const missingCount = data.missingDocuments.length;
+                        const countElement = statusElement.querySelector('.missing-document-count');
+                        if (countElement) {
+                            countElement.textContent = missingCount.toString().padStart(2, '0');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching missing documents:', error);
+                    });
+            });
+
+        }
 
     </script>
     <script src="{{ asset('js/studentforms.js') }}"></script>

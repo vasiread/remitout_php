@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        body {
-            overflow: hideen;
-        }
-    </style>
+   
 </head>
 
 <body>
     @extends('layouts.app')
+
 
     @section('title', 'Welcome to Remitout')
 
@@ -24,13 +21,13 @@
                     <img src="<?php echo $backgroundLinearBackground; ?>" alt="Background Image">
                 </div> -->
 
-        <x-profilecardsection></x-profilecardsection>
+      @include('components.profilecardsection', ['testimonials' => $testimonials])
+      @include('components.inforecords', ['study_loan' => $study_loan])
+
 
         <x-graphflow></x-graphflow>
 
-        <x-landingpageservice></x-landingpageservice>
-
-        <x-inforecords></x-inforecords>
+  
 
         <x-faqsection></x-faqsection>
     @endsection

@@ -1,0 +1,938 @@
+ [{
+                        "id": 1,
+                        "page": "Landing Page",
+                        "sectionType": "hero",
+                        "title": "Special Heading",
+                        "content": "Secure Fast Simple Loans For a Brighter Future",
+                        "status": "Active",
+                        "maxlength": 46
+                    },
+                    {
+                        "id": 2,
+                        "page": "Landing Page",
+                        "sectionType": "hero",
+                        "title": "By Line",
+                        "content": "Fuel your Global Journey",
+                        "status": "Active",
+                        "maxlength": 25
+                    },
+                    {
+                        "id": 3,
+                        "page": "Landing Page",
+                        "sectionType": "hero",
+                        "title": "Description",
+                        "content": "Trusted by 15,000+ students across India, Remitout is your partner in securing the financial support you need to succeed in your studies.",
+                        "status": "Active",
+                        "maxlength": 140
+                    },
+                    {
+                        "id": 4,
+                        "page": "Landing Page",
+                        "sectionType": "hero",
+                        "title": "Background: Media",
+                        "content": "/api/placeholder/400/320",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 400,
+                            "height": 527
+                        }
+                    },
+                    {
+                        "id": 5,
+                        "page": "Landing Page",
+                        "sectionType": "hero",
+                        "title": "Button",
+                        "content": "Secure your Loan now!",
+                        "status": "Active",
+                        "maxlength": 22
+                    },
+                    {
+                        "id": 6,
+                        "page": "Landing Page",
+                        "sectionType": "hero",
+                        "title": "Button",
+                        "content": "Watch Demo",
+                        "status": "Active",
+                        "maxlength": 10
+                    },
+
+                    {
+                        "id": 7,
+                        "page": "Landing Page",
+                        "sectionType": "testimonial",
+                        "title": "Testimonial Heading",
+                        "content": "Hear What They Say",
+                        "status": "Active",
+                        "maxlength": 20
+                    },
+
+
+                    {
+                        "id": 9,
+                        "page": "Landing Page",
+                        "sectionType": "logo",
+                        "title": "Partner Logo 1",
+                        "content": "/api/placeholder/200/100",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 200,
+                            "height": 100
+                        }
+                    },
+                    {
+                        "id": 10,
+                        "page": "Landing Page",
+                        "sectionType": "logo",
+                        "title": "Partner Logo 2",
+                        "content": "/api/placeholder/200/100",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 200,
+                            "height": 100
+                        }
+                    },
+                    {
+                        "id": 11,
+                        "page": "Landing Page",
+                        "sectionType": "logo",
+                        "title": "Partner Logo 3",
+                        "content": "/api/placeholder/200/100",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 200,
+                            "height": 100
+                        }
+                    },
+                    {
+                        "id": 12,
+                        "page": "Landing Page",
+                        "sectionType": "logo",
+                        "title": "Partner Logo 4",
+                        "content": "/api/placeholder/200/100",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 200,
+                            "height": 100
+                        }
+                    },
+                    {
+                        "id": 13,
+                        "page": "Landing Page",
+                        "sectionType": "logo",
+                        "title": "Partner Logo 5",
+                        "content": "/api/placeholder/200/100",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 200,
+                            "height": 100
+                        }
+                    },
+
+                    {
+                        "id": 14,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Graph Heading",
+                        "content": "Your Smart Route to Study Loans",
+                        "status": "Active",
+                        "maxlength": 50
+                    },
+                    {
+                        "id": 15,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Graph Subheading",
+                        "content": "Bespoke Loan Options from Trusted NBFCs for Your International Education.",
+                        "status": "Active",
+                        "maxlength": 100
+                    },
+                    {
+                        "id": 16,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Globe Image",
+                        "content": "/api/placeholder/300/300",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 300,
+                            "height": 300
+                        }
+                    },
+                    {
+                        "id": 17,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Step 1 Header: Profile Assessment",
+                        "content": "Profile Assessment",
+                        "status": "Active",
+                        "maxlength": 50
+                    },
+                    {
+                        "id": 18,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Step 1 Content: Profile Assessment",
+                        "content": "Our experts assess your academic and financial profile to determine the best loan options for your overseas education.",
+                        "status": "Active",
+                        "maxlength": 150
+                    },
+                    {
+                        "id": 19,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Step 1 Image: Profile Assessment Vector",
+                        "content": "/api/placeholder/50/50",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    {
+                        "id": 20,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Diagonal Label: Profile Assessment",
+                        "content": "Profile Assessment",
+                        "status": "Active",
+                        "maxlength": 50
+                    },
+                    {
+                        "id": 21,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Step 2 Header: Get Matched with Top NBFCs",
+                        "content": "Get Matched with Top NBFCs",
+                        "status": "Active",
+                        "maxlength": 50
+                    },
+                    {
+                        "id": 22,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Step 2 Content: Get Matched with Top NBFCs",
+                        "content": "We connect you with multiple non-banking financial companies (NBFCs) offering competitive study loans.",
+                        "status": "Active",
+                        "maxlength": 150
+                    },
+                    {
+                        "id": 23,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Step 2 Image: Handshake",
+                        "content": "/api/placeholder/50/50",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    {
+                        "id": 24,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Diagonal Label: Perfect Match",
+                        "content": "Perfect Match",
+                        "status": "Active",
+                        "maxlength": 50
+                    },
+                    {
+                        "id": 25,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Step 3 Header: Choose Your Loan Offers",
+                        "content": "Choose Your Loan Offers",
+                        "status": "Active",
+                        "maxlength": 50
+                    },
+                    {
+                        "id": 26,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Step 3 Content: Choose Your Loan Offers",
+                        "content": "Browse and compare personalized loan offers based on your eligibility and repayment preferences.",
+                        "status": "Active",
+                        "maxlength": 150
+                    },
+                    {
+                        "id": 27,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Step 3 Image: Loan Choices Vector",
+                        "content": "/api/placeholder/50/50",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    {
+                        "id": 28,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Diagonal Label: Loan Choices",
+                        "content": "Loan Choices",
+                        "status": "Active",
+                        "maxlength": 50
+                    },
+                    {
+                        "id": 29,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Step 4 Header: Submit Documents With Ease",
+                        "content": "Submit Documents With Ease",
+                        "status": "Active",
+                        "maxlength": 50
+                    },
+                    {
+                        "id": 30,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Step 4 Content: Submit Documents With Ease",
+                        "content": "Upload your required documents securely through our platform for a seamless process.",
+                        "status": "Active",
+                        "maxlength": 150
+                    },
+                    {
+                        "id": 31,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Step 4 Image: Easy Process Vector",
+                        "content": "/api/placeholder/50/50",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    {
+                        "id": 32,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Diagonal Label: Easy Process",
+                        "content": "Easy Process",
+                        "status": "Active",
+                        "maxlength": 50
+                    },
+                    {
+                        "id": 33,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Step 5 Header: Fast-Track Approval",
+                        "content": "Fast-Track Approval",
+                        "status": "Active",
+                        "maxlength": 50
+                    },
+                    {
+                        "id": 34,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Step 5 Content: Fast-Track Approval",
+                        "content": "Experience quick approvals with minimal delays, ensuring you stay on track for your educational goals.",
+                        "status": "Active",
+                        "maxlength": 150
+                    },
+                    {
+                        "id": 35,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Step 5 Image: Clock Hand",
+                        "content": "/api/placeholder/50/50",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    {
+                        "id": 36,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Diagonal Label: Fast-Track Approval",
+                        "content": "Fast-Track Approval",
+                        "status": "Active",
+                        "maxlength": 50
+                    },
+                    {
+                        "id": 37,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Step 6 Header: Guaranteed Disbursement",
+                        "content": "Guaranteed Disbursement",
+                        "status": "Active",
+                        "maxlength": 50
+                    },
+                    {
+                        "id": 38,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Step 6 Content: Guaranteed Disbursement",
+                        "content": "Once approved, your loan is disbursed directly to your institution on time, securing your admission.",
+                        "status": "Active",
+                        "maxlength": 150
+                    },
+                    {
+                        "id": 39,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Step 6 Image: Guarantee Vector",
+                        "content": "/api/placeholder/50/50",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    {
+                        "id": 40,
+                        "page": "Landing Page",
+                        "sectionType": "study-loan",
+                        "title": "Diagonal Label: Guaranteed Disbursement",
+                        "content": "Guaranteed Disbursement",
+                        "status": "Active",
+                        "maxlength": 50
+                    },
+
+                    {
+                        "id": 41,
+                        "page": "Landing Page",
+                        "sectionType": "secure-loan",
+                        "title": "Main Heading",
+                        "content": "Where your safety meets<br>smart lending",
+                        "status": "Active",
+                        "maxlength": 50
+                    },
+                    {
+                        "id": 42,
+                        "page": "Landing Page",
+                        "sectionType": "secure-loan",
+                        "title": "Mobile Image",
+                        "content": "assets/images/tablet-group-image.png",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 300,
+                            "height": 200
+                        }
+                    },
+                    {
+                        "id": 43,
+                        "page": "Landing Page",
+                        "sectionType": "secure-loan",
+                        "title": "Feature 1 Title",
+                        "content": "Integrated Support, Anytime, Anywhere",
+                        "status": "Active",
+                        "maxlength": 50
+                    },
+                    {
+                        "id": 44,
+                        "page": "Landing Page",
+                        "sectionType": "secure-loan",
+                        "title": "Feature 1 Description",
+                        "content": "Instant support builds trust and enhances experience!",
+                        "status": "Active",
+                        "maxlength": 100
+                    },
+                    {
+                        "id": 45,
+                        "page": "Landing Page",
+                        "sectionType": "secure-loan",
+                        "title": "Feature 1 Icon",
+                        "content": "assets/images/icon-1.png",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    {
+                        "id": 46,
+                        "page": "Landing Page",
+                        "sectionType": "secure-loan",
+                        "title": "Feature 2 Title",
+                        "content": "Rapid Processing",
+                        "status": "Active",
+                        "maxlength": 50
+                    },
+                    {
+                        "id": 47,
+                        "page": "Landing Page",
+                        "sectionType": "secure-loan",
+                        "title": "Feature 2 Description",
+                        "content": "Easy student remittance in just a few steps!",
+                        "status": "Active",
+                        "maxlength": 100
+                    },
+                    {
+                        "id": 48,
+                        "page": "Landing Page",
+                        "sectionType": "secure-loan",
+                        "title": "Feature 2 Icon",
+                        "content": "assets/images/icon-2.png",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    {
+                        "id": 49,
+                        "page": "Landing Page",
+                        "sectionType": "secure-loan",
+                        "title": "Feature 3 Title",
+                        "content": "Best Price Commitment",
+                        "status": "Active",
+                        "maxlength": 50
+                    },
+                    {
+                        "id": 50,
+                        "page": "Landing Page",
+                        "sectionType": "secure-loan",
+                        "title": "Feature 3 Description",
+                        "content": "Transparent, competitive exchange rates guaranteed!",
+                        "status": "Active",
+                        "maxlength": 100
+                    },
+                    {
+                        "id": 51,
+                        "page": "Landing Page",
+                        "sectionType": "secure-loan",
+                        "title": "Feature 3 Icon",
+                        "content": "assets/images/icon-3.png",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    {
+                        "id": 52,
+                        "page": "Landing Page",
+                        "sectionType": "secure-loan",
+                        "title": "Feature 4 Title",
+                        "content": "Absolutely Protected",
+                        "status": "Active",
+                        "maxlength": 50
+                    },
+                    {
+                        "id": 53,
+                        "page": "Landing Page",
+                        "sectionType": "secure-loan",
+                        "title": "Feature 4 Description",
+                        "content": "Instant transfers, no fees, 24/7 support!",
+                        "status": "Active",
+                        "maxlength": 100
+                    },
+                    {
+                        "id": 54,
+                        "page": "Landing Page",
+                        "sectionType": "secure-loan",
+                        "title": "Feature 4 Icon",
+                        "content": "assets/images/icon-4.png",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    {
+                        "id": 55,
+                        "page": "Landing Page",
+                        "sectionType": "secure-loan",
+                        "title": "CTA Button Text",
+                        "content": "Secure your loan now!",
+                        "status": "Active",
+                        "maxlength": 30
+                    },
+                    {
+                        "id": 56,
+                        "page": "Landing Page",
+                        "sectionType": "secure-loan",
+                        "title": "Loading Animation",
+                        "content": "assets/images/Circle.png",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 100,
+                            "height": 100
+                        }
+                    },
+                    {
+                        "id": 57,
+                        "page": "Landing Page",
+                        "sectionType": "secure-loan",
+                        "title": "Radcliffe Icon",
+                        "content": "assets/images/over-icon.png",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    {
+                        "id": 58,
+                        "page": "Landing Page",
+                        "sectionType": "secure-loan",
+                        "title": "Radcliffe Image",
+                        "content": "assets/images/image-1.png",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 300,
+                            "height": 200
+                        }
+                    },
+                    {
+                        "id": 59,
+                        "page": "Landing Page",
+                        "sectionType": "secure-loan",
+                        "title": "Students Image",
+                        "content": "assets/images/image-2.png",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 300,
+                            "height": 200
+                        }
+                    },
+                    {
+                        "id": 60,
+                        "page": "Landing Page",
+                        "sectionType": "secure-loan",
+                        "title": "Graduation Image",
+                        "content": "assets/images/image-3.png",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 300,
+                            "height": 200
+                        }
+                    },
+
+                    {
+                        "id": 61,
+                        "page": "Landing Page",
+                        "sectionType": "global-transfer",
+                        "title": "Background Image",
+                        "content": "assets/images/effort-banner.png",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 1200,
+                            "height": 600
+                        }
+                    },
+                    {
+                        "id": 62,
+                        "page": "Landing Page",
+                        "sectionType": "global-transfer",
+                        "title": "Main Image",
+                        "content": "assets/images/girl-image-with-banner.png",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 400,
+                            "height": 400
+                        }
+                    },
+                    {
+                        "id": 63,
+                        "page": "Landing Page",
+                        "sectionType": "global-transfer",
+                        "title": "Heading",
+                        "content": "Effortless and affordable <br>global transfers!",
+                        "status": "Active",
+                        "maxlength": 50
+                    },
+                    {
+                        "id": 64,
+                        "page": "Landing Page",
+                        "sectionType": "global-transfer",
+                        "title": "Description",
+                        "content": "Support loved ones abroad by sending money from India for education and expenses. Transfer to 40+ countries with real exchange rates, no hidden fees. Sign up easily online with your PAN and address.",
+                        "status": "Active",
+                        "maxlength": 200
+                    },
+                    {
+                        "id": 65,
+                        "page": "Landing Page",
+                        "sectionType": "global-transfer",
+                        "title": "Students Icon",
+                        "content": "assets/images/account_circle-grid.png",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    {
+                        "id": 66,
+                        "page": "Landing Page",
+                        "sectionType": "global-transfer",
+                        "title": "NBFCs Icon",
+                        "content": "assets/images/account_balance.png",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    {
+                        "id": 67,
+                        "page": "Landing Page",
+                        "sectionType": "global-transfer",
+                        "title": "Countries Icon",
+                        "content": "assets/images/flag.png",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    {
+                        "id": 68,
+                        "page": "Landing Page",
+                        "sectionType": "global-transfer",
+                        "title": "Customers Icon",
+                        "content": "assets/images/sentiment_very_satisfied.png",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png"],
+                            "width": 50,
+                            "height": 50
+                        }
+                    },
+                    {
+                        "id": 69,
+                        "page": "Landing Page",
+                        "sectionType": "global-transfer",
+                        "title": "Students Stat Value",
+                        "content": "500+",
+                        "status": "Active",
+                        "maxlength": 10
+                    },
+                    {
+                        "id": 70,
+                        "page": "Landing Page",
+                        "sectionType": "global-transfer",
+                        "title": "Students Stat Label",
+                        "content": "Students",
+                        "status": "Active",
+                        "maxlength": 20
+                    },
+                    {
+                        "id": 71,
+                        "page": "Landing Page",
+                        "sectionType": "global-transfer",
+                        "title": "NBFCs Stat Value",
+                        "content": "100",
+                        "status": "Active",
+                        "maxlength": 10
+                    },
+                    {
+                        "id": 72,
+                        "page": "Landing Page",
+                        "sectionType": "global-transfer",
+                        "title": "NBFCs Stat Label",
+                        "content": "editable",
+                        "maxlength": 20
+                    },
+                    {
+                        "id": 73,
+                        "page": "Landing Page",
+                        "sectionType": "global-transfer",
+                        "title": "Countries Stat Value",
+                        "content": "40+",
+                        "status": "Active",
+                        "maxlength": 10
+                    },
+                    {
+                        "id": 74,
+                        "page": "Landing Page",
+                        "sectionType": "global-transfer",
+                        "title": "Countries Stat Label",
+                        "content": "Countries",
+                        "status": "Active",
+                        "maxlength": 20
+                    },
+                    {
+                        "id": 75,
+                        "page": "Landing Page",
+                        "sectionType": "global-transfer",
+                        "title": "Customers Stat Value",
+                        "content": "2k+",
+                        "status": "Active",
+                        "maxlength": 10
+                    },
+                    {
+                        "id": 76,
+                        "page": "Landing Page",
+                        "sectionType": "global-transfer",
+                        "title": "Customers Stat Label",
+                        "content": "Customers",
+                        "status": "Active",
+                        "maxlength": 20
+                    },
+
+                    {
+                        "id": 77,
+                        "page": "Landing Page",
+                        "sectionType": "faq-section",
+                        "title": "FAQ Header Desktop",
+                        "content": "Frequently asked questions",
+                        "status": "Active",
+                        "maxlength": 50
+                    },
+                   
+
+                    {
+                        "id": 79,
+                        "page": "Landing Page",
+                        "sectionType": "footer",
+                        "title": "Company Description",
+                        "content": "B/415DAMJI SHAMJI CORPORATE SQUARE BEHIND EVEREST GARDEN GM LINK RD GTK, Mumbai, Maharashtra, India, 400075",
+                        "status": "Active",
+                        "maxlength": 150
+                    },
+                    {
+                        "id": 80,
+                        "page": "Landing Page",
+                        "sectionType": "footer",
+                        "title": "Contact Number",
+                        "content": "+91 75784 75788",
+                        "status": "Active",
+                        "maxlength": 20
+                    },
+                    {
+                        "id": 81,
+                        "page": "Landing Page",
+                        "sectionType": "footer",
+                        "title": "Quick Links",
+                        "content": "Home | About Us | Services | Contact | FAQs",
+                        "status": "Active",
+                        "maxlength": 100
+                    },
+                    {
+                        "id": 82,
+                        "page": "Landing Page",
+                        "sectionType": "footer",
+                        "title": "Social Media Links",
+
+                        "status": "Active",
+                        "maxlength": 200
+                    },
+                    {
+                        "id": 83,
+                        "page": "Landing Page",
+                        "sectionType": "footer",
+                        "title": "Signup Heading",
+                        "content": "Sign Up with us Today!",
+                        "status": "Active",
+                        "maxlength": 50
+                    },
+                    {
+                        "id": 84,
+                        "page": "Landing Page",
+                        "sectionType": "footer",
+                        "title": "Signup Description",
+                        "content": "Prepare yourself and let\"s explore this world.",
+                        "status": "Active",
+                        "maxlength": 100
+                    },
+                    {
+                        "id": 85,
+                        "page": "Landing Page",
+                        "sectionType": "footer",
+                        "title": "Register Button Text",
+                        "content": "Register Now!",
+                        "status": "Active",
+                        "maxlength": 20
+                    },
+                    {
+                        "id": 86,
+                        "page": "Landing Page",
+                        "sectionType": "footer",
+                        "title": "Footer Logo Image",
+                        "content": "assets/images/footer-logo.png",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["png", "jpg", "jpeg"],
+                            "width": 100,
+                            "height": 50
+                        }
+                    },
+                    {
+                        "id": 87,
+                        "page": "Landing Page",
+                        "sectionType": "footer",
+                        "title": "Signup Background Image",
+                        "content": "assets/images/Globe.WebP",
+                        "status": "Active",
+                        "isMedia": true,
+                        "mediaConstraints": {
+                            "formats": ["webp", "png", "jpg", "jpeg"],
+                            "width": 400,
+                            "height": 320
+                        }
+                    },
+                    {
+                        "id": 88,
+                        "page": "Landing Page",
+                        "sectionType": "footer",
+                        "title": "Copyright Text",
+                        "content": "All Rights reserved",
+                        "status": "Active",
+                        "maxlength": 50
+                    }
+                ]

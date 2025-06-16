@@ -51,7 +51,7 @@ Route::post('/registerformdata', [RegisterController::class, 'store']);
 
 Route::post('/send-mobotp', [OTPMobController::class, 'sendOTP']);
 Route::post('/verify-mobotp', [OTPMobController::class, 'verifyOTP']);
-Route::post('/emailuniquecheck', action: [RegisterController::class, 'emailUniqueCheck']);
+Route::post('/emailuniquecheck',  [RegisterController::class, 'emailUniqueCheck']);
 Route::post('/updatedetailsinfo', [StudentDetailsController::class, 'updateUserIds']);
 
 Route::post('/getUserFromNbfc', [StudentDashboardController::class, 'getUserFromNbfc']);
@@ -60,7 +60,7 @@ Route::post("/send-proposals-with-file", [NbfcController::class, 'sendProposalsW
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
 Route::post('/passwordchange', [GoogleAuthController::class, 'passwordChange']);
 Route::get("/getalluserdetailsfromadmin", [StudentDashboardController::class, 'getAllUsersFromAdmin']);
-Route::post('/retrieve-file', action: [StudentDashboardController::class, 'retrieveFile']);
+Route::post('/retrieve-file',  [StudentDashboardController::class, 'retrieveFile']);
 Route::post('/remove-each-documents', [StudentDashboardController::class, 'removeFromServer']);
 
 Route::post('/getuserbyref', [scDashboardController::class, 'getUsersByCounsellorApi']);
@@ -74,7 +74,7 @@ Route::get("/getnbfcdata", [TrackController::class, 'getnbfcdata']);
 Route::get("/overallcounts", [TrackController::class, 'counts']);
 Route::post("/addbulkusers", [NbfcController::class, 'addBulkNbfc']);
 Route::post("/downloadzip", [StudentDashboardController::class, 'downloadFilesAsZip']);
-Route::post('/send-message', action: [ChatController::class, 'sendMessage']);
+Route::post('/send-message', [ChatController::class, 'sendMessage']);
 Route::get('/get-messages/{nbfc_id}/{student_id}', [ChatController::class, 'getMessages']);
 Route::post('/count-user-status', [StudentDashboardController::class, 'getStatusCount']);
 Route::get('/get-messages-byconversations/{nbfc_id}/{student_id}', [ChatController::class, 'groupCountingChats']);
@@ -109,6 +109,8 @@ Route::post('/update-academicsinfo', [StudentDetailsController::class, 'updateAc
 
 Route::get('/dest-countries', [Admincontroller::class, 'getDestinationCountries']);
 Route::get('/landingpage', [Admincontroller::class, 'landingPage']);
+Route::put('/landingpageupdate', [Admincontroller::class, 'updateHeroContent']);
+
 Route::post('/promotional-email', [Admincontroller::class, 'promotionalEmail']);
 Route::post('/promotional-image-attach', [Admincontroller::class, 'attachImagePromotional']);
 Route::get('/student-chat-members', [Admincontroller::class, 'initializeChatStudent']);
@@ -116,8 +118,8 @@ Route::get('/nbfc-chat-members', [Admincontroller::class, 'initializeChatNbfc'])
 
 Route::get('/get-messages-adminnbfc/{nbfc_id}/{admin_id}', [ChatController::class, 'getMessagesForAdminNbfc']);
 Route::get('/get-messages-adminstudent/{student_id}/{admin_id}', [ChatController::class, 'getMessagesForAdminStudent']);
-Route::post('/send-message-from-adminnbfc', action: [ChatController::class, 'sendMessageFromAdminNbfc']);
-Route::post('/send-message-from-adminstudent', action: [ChatController::class, 'sendMessageFromAdminStudent']);
+Route::post('/send-message-from-adminnbfc',  [ChatController::class, 'sendMessageFromAdminNbfc']);
+Route::post('/send-message-from-adminstudent',  [ChatController::class, 'sendMessageFromAdminStudent']);
 Route::post('/age-ratio', [Admincontroller::class, 'ageratioCalculation']);
 Route::post('/sourceregister', [Admincontroller::class, 'sourceRegistration']);
 
@@ -133,7 +135,7 @@ Route::post('/admin/passwordchange', [Admincontroller::class, 'forgotAdminCreden
 
 //education route for student-dashboard
 Route::get('/education', [StudentDetailsController::class, 'getEducationDetails']);
-Route::get('/getrecipients', action: [Admincontroller::class, 'fetchRecipients']);
+Route::get('/getrecipients',  [Admincontroller::class, 'fetchRecipients']);
 Route::get('/admins', [Admincontroller::class, 'getAdmins']);
 Route::post('/admins', [Admincontroller::class, 'createAdmin']);
 Route::put('/admins/{id}', [AdminController::class, 'updateAdmin']);
@@ -228,6 +230,10 @@ Route::post('/reset-password', [LoginController::class, 'resetPassword']);
 
 
  Route::get('/api/cms/landing', [Admincontroller::class, 'getLanding']);
-
-// POST update landing page content
+ 
 Route::post('/cms/landing/update', [Admincontroller::class, 'updateLanding']);
+
+
+
+Route::get('/get-testimonial', [Admincontroller::class, 'TestimonialIndex']);
+Route::post('/testimonials-store', [Admincontroller::class, 'TestimonialStore']);

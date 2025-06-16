@@ -541,16 +541,17 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // ✅ Construct final payload
         const courseInfoData = {
             personalInfoId,
-            selectedDegreeType,
-            expenseType,
-            loanAmount,
-            courseDuration,
-            studyLocations,
+            degree_type: selectedDegreeType,
+            loan_amount_in_lakhs: loanAmount,
+            course_duration: courseDuration,
+            plan_to_study: studyLocations,
+            course_details: expenseType,
             dynamic_fields: dynamicFields
         };
+
+
 
         // ✅ Send data to backend
         fetch("/update-courseinfo", {

@@ -1,3 +1,19 @@
+@php
+function smartBreak($text) {
+    $words = explode(' ', $text);
+    $count = count($words);
+    
+    if ($count === 2) {
+        return implode('<br>', $words);
+    } elseif ($count === 4) {
+        return implode(' ', array_slice($words, 0, 2)) . '<br>' . implode(' ', array_slice($words, 2));
+    } else {
+        return $text;
+    }
+}
+@endphp
+
+
 <section class="study-loans-section">
     <div class="study-loans-content">
 
@@ -17,95 +33,86 @@
 </section>
 
 
-<div class="study-loans-graphview">
-    <div class="study-loans-graphfirstbox">
-        <h3>Get Matched with Top NBFCs</h3>
-        <p>We connect you with
-            multiple non-banking financial companies (NBFCs) offering competitive study loans.</p>
+    <div class="study-loans-graphview">
+        <div class="study-loans-graphfirstbox">
+            <h3>Get Matched with Top NBFCs</h3>
+            <p>{{$study_loan[1]->description}}</p>
+        </div>
+        <img src="{{ asset('assets/images/graphvectors/verticalGraphline.png') }}" alt="" id="firstverticalline">
+        <div class="study-loans-numbertwosection">
+            <img src="{{ asset('assets/images/graphvectors/02.png') }}" id="numbertwo" alt="">
+            <img src="{{ asset('assets/images/graphvectors/handshake.png') }}" id="handshake-id" alt="">
+        </div>
+        <img src="{{ asset('assets/images/graphvectors/perfectmatchvector.png') }}" alt="" id="first-diagonal">
+        <p id="first-diagonal-header" class="global-diagonal-content">{!! smartBreak($study_loan[1]->title) !!}</p>
+
+        <div class="study-loans-graphsecondbox">
+            <img src="{{ asset('assets/images/graphvectors/01.png') }}" id="numberone" alt="">
+            <img src="{{ asset('assets/images/graphvectors/horizontalfirst.png') }}" id="horizontallinefirst" alt="">
+
+            <h3 class="global-header-graph" style="text-align:left">{{ $study_loan[0]->title }}</h3>
+            <p class="global-content-graph" style="text-align:left">{{ $study_loan[0]->description }}</p>
+        </div>
+        <img src="{{ asset('assets/images/graphvectors/profileassesmentvector.png') }}" id="second-diagonal" alt="">
+        <p id="second-diagonal-content" class="global-diagonal-content">Profile
+            <br /> Assessment
+        </p>
+
+        <img src="{{ asset('assets/images/graphvectors/additionalvector.png') }}" alt="" id="first-additional-vector">
+        <img src="{{ asset('assets/images/graphvectors/firstgroup.png') }}" alt="" id="graph-group-img">
+        <img src="{{ asset('assets/images/graphvectors/verticalgraphshort.png') }}" alt="" id="vertical-shortfirst">
+        <img src="{{ asset('assets/images/graphvectors/verticalgraphshort.png') }}" alt="" id="vertical-shortsecond">
+        <img src="{{ asset('assets/images/graphvectors/loanchoicesvector.png') }}" alt="" id="third-diagonal">
+        <p id="third-diagonal-content" class="global-diagonal-content">Loan
+            <br /> Choices
+        </p>
+        <img src="{{ asset('assets/images/graphvectors/verticalGraphlinesecond.png') }}" alt=""
+            id="vertical-line-second">
+        <img src="{{ asset('assets/images/graphvectors/03.png') }}" alt="" id="numberthree">
+
+        <div class="study-loans-graphthirdbox">
+
+            <h3 class="global-header-graph" style="text-align:left;width: 110% ;">{!! smartBreak($study_loan[2]->title) !!}</h3>
+            <p class="global-content-graph" style="text-align:left">{{$study_loan[2]->description}}</p>
+        </div>
+        <img src="{{ asset('assets/images/graphvectors/guaranteevector.png') }}" id="sixth-diagonal" alt="">
+        <p id="sixth-diagonal-content" class="global-diagonal-content">Guaranteed </br>
+            Disbursement
+        </p>
+
+        <img src="{{ asset('assets/images/graphvectors/easyprocessvector.png') }}" id="fourth-diagonal" alt="">
+        <img src="{{ asset('assets/images/graphvectors/additionalvector.png') }}" id="second-additional-vector" alt="">
+        <p id="fifth-diagonal-content" class="global-diagonal-content">Easy </br> Process</p>
+        <img src="{{ asset('assets/images/graphvectors/verticalGraphline.png') }}" id="verticallinethird" alt="">
+        <img src="{{ asset('assets/images/graphvectors/04.png') }}" id="numberfour" alt="">
+        <img src="{{ asset('assets/images/graphvectors/06.png') }}" id="numbersix" alt="">
+        <img src="{{ asset('assets/images/graphvectors/05.png') }}" id="numberfive" alt="">
+        <img src="{{ asset('assets/images/graphvectors/handpointer.png') }}" id="handpointer-img" alt="">
+        <img src="{{ asset('assets/images/graphvectors/fastrackaprovalvector.png') }}" id="fifth-diagonal" alt="">
+        <img src="{{ asset('assets/images/graphvectors/clockhand.png') }}" id="clock-hand" alt="">
+        <img src="{{ asset('assets/images/graphvectors/verticalGraphline.png') }}" id="verticallinefourth" alt="">
+        <img src="{{ asset('assets/images/graphvectors/horizontalfirst.png') }}" id="horizontalsecond" alt="">
+        <p id="fourth-diagonal-content" class="global-diagonal-content" style="width:82px">{!! smartBreak($study_loan[4]->title) !!}
+        </p>
+        <div class="study-loans-graphfourthbox">
+            <h3 class="global-header-graph" style="text-align:left;">{!! smartBreak($study_loan[3]->title) !!}</h3>
+            <p class="global-content-graph" style="text-align:left;width: 120% ;">{{$study_loan[3]->description}}</p>
+        </div>
+
+        <div class="study-loans-graphfifthbox">
+
+            <h3 class="global-header-graph" style="text-align:right;width:100%">{!! smartBreak($study_loan[4]->title) !!}</h3>
+            <p class="global-content-graph" style="text-align:right;width:100%">{{ $study_loan[4]->description }}</p>
+        </div>
+        <div class="study-loans-graphsixthbox">
+
+            <h3 class="global-header-graph" style="text-align:left">{!! smartBreak($study_loan[5]->title) !!}
+</h3>
+            <p class="global-content-graph" style="text-align:left">{{ $study_loan[5]->description }}</p>
+        </div>
+
+
     </div>
-    <img src="{{ asset('assets/images/graphvectors/verticalGraphline.png') }}" alt="" id="firstverticalline">
-    <div class="study-loans-numbertwosection">
-        <img src="{{ asset('assets/images/graphvectors/02.png') }}" id="numbertwo" alt="">
-        <img src="{{ asset('assets/images/graphvectors/handshake.png') }}" id="handshake-id" alt="">
-    </div>
-    <img src="{{ asset('assets/images/graphvectors/perfectmatchvector.png') }}" alt="" id="first-diagonal">
-    <p id="first-diagonal-header" class="global-diagonal-content">Perfect <br> Match</p>
-
-    <div class="study-loans-graphsecondbox">
-        <img src="{{ asset('assets/images/graphvectors/01.png') }}" id="numberone" alt="">
-        <img src="{{ asset('assets/images/graphvectors/horizontalfirst.png') }}" id="horizontallinefirst" alt="">
-
-        <h3 class="global-header-graph" style="text-align:left">Profile Assessment</h3>
-        <p class="global-content-graph" style="text-align:left">Our experts assess your academic and financial
-            profile to determine the best loan options for your
-            overseas education.</p>
-    </div>
-    <img src="{{ asset('assets/images/graphvectors/profileassesmentvector.png') }}" id="second-diagonal" alt="">
-    <p id="second-diagonal-content" class="global-diagonal-content">Profile
-        <br /> Assessment
-    </p>
-
-    <img src="{{ asset('assets/images/graphvectors/additionalvector.png') }}" alt="" id="first-additional-vector">
-    <img src="{{ asset('assets/images/graphvectors/firstgroup.png') }}" alt="" id="graph-group-img">
-    <img src="{{ asset('assets/images/graphvectors/verticalgraphshort.png') }}" alt="" id="vertical-shortfirst">
-    <img src="{{ asset('assets/images/graphvectors/verticalgraphshort.png') }}" alt="" id="vertical-shortsecond">
-    <img src="{{ asset('assets/images/graphvectors/loanchoicesvector.png') }}" alt="" id="third-diagonal">
-    <p id="third-diagonal-content" class="global-diagonal-content">Loan
-        <br /> Choices
-    </p>
-    <img src="{{ asset('assets/images/graphvectors/verticalGraphlinesecond.png') }}" alt=""
-        id="vertical-line-second">
-    <img src="{{ asset('assets/images/graphvectors/03.png') }}" alt="" id="numberthree">
-
-    <div class="study-loans-graphthirdbox">
-
-        <h3 class="global-header-graph" style="text-align:left;width: 110% ;">Choose Your<br> Loan Offers</h3>
-        <p class="global-content-graph" style="text-align:left">Browse and compare personalized loan offers based on
-            your eligibility
-            and repayment preferences.</p>
-    </div>
-    <img src="{{ asset('assets/images/graphvectors/guaranteevector.png') }}" id="sixth-diagonal" alt="">
-    <p id="sixth-diagonal-content" class="global-diagonal-content">Guaranteed </br>
-        Disbursement
-    </p>
-
-    <img src="{{ asset('assets/images/graphvectors/easyprocessvector.png') }}" id="fourth-diagonal" alt="">
-    <img src="{{ asset('assets/images/graphvectors/additionalvector.png') }}" id="second-additional-vector" alt="">
-    <p id="fifth-diagonal-content" class="global-diagonal-content">Easy </br> Process</p>
-    <img src="{{ asset('assets/images/graphvectors/verticalGraphline.png') }}" id="verticallinethird" alt="">
-    <img src="{{ asset('assets/images/graphvectors/04.png') }}" id="numberfour" alt="">
-    <img src="{{ asset('assets/images/graphvectors/06.png') }}" id="numbersix" alt="">
-    <img src="{{ asset('assets/images/graphvectors/05.png') }}" id="numberfive" alt="">
-    <img src="{{ asset('assets/images/graphvectors/handpointer.png') }}" id="handpointer-img" alt="">
-    <img src="{{ asset('assets/images/graphvectors/fastrackaprovalvector.png') }}" id="fifth-diagonal" alt="">
-    <img src="{{ asset('assets/images/graphvectors/clockhand.png') }}" id="clock-hand" alt="">
-    <img src="{{ asset('assets/images/graphvectors/verticalGraphline.png') }}" id="verticallinefourth" alt="">
-    <img src="{{ asset('assets/images/graphvectors/horizontalfirst.png') }}" id="horizontalsecond" alt="">
-    <p id="fourth-diagonal-content" class="global-diagonal-content" style="width:82px">Fast-Track </br>
-        Approval
-    </p>
-    <div class="study-loans-graphfourthbox">
-        <h3 class="global-header-graph" style="text-align:left;">Submit Document<br>With Ease</h3>
-        <p class="global-content-graph" style="text-align:left;width: 120% ;">Upload your required documents
-            securely through our
-            platform for a seamless process.</p>
-    </div>
-
-    <div class="study-loans-graphfifthbox">
-
-        <h3 class="global-header-graph" style="text-align:right;width:100%">Fast-Track Approval</h3>
-        <p class="global-content-graph" style="text-align:right;width:100%">Experience quick
-            approvals with minimal delays, ensuring you stay on track for your educational goals</p>
-    </div>
-    <div class="study-loans-graphsixthbox">
-
-        <h3 class="global-header-graph" style="text-align:left">Guaranteed </br> Disbursement</h3>
-        <p class="global-content-graph" style="text-align:left">Once approved, your loan is disbursed directly to
-            your institution on time, securing your admission.</p>
-    </div>
-
-
-</div>
 
 
 </section>
@@ -190,27 +197,27 @@
 
 
     <?php
-    // Dynamic data for stats
-    $stats = [
-        'students' => '500+',
-        'nbfcs' => '100',
-        'countries' => '40+',
-        'customers' => '2k+'
-    ];
+// Dynamic data for stats
+$stats = [
+    'students' => '500+',
+    'nbfcs' => '100',
+    'countries' => '40+',
+    'customers' => '2k+'
+];
 
-    $labels = [
-        'students' => 'Students',
-        'nbfcs' => 'NBFCs',
-        'countries' => 'Countries',
-        'customers' => 'Happy customers'
-    ];
+$labels = [
+    'students' => 'Students',
+    'nbfcs' => 'NBFCs',
+    'countries' => 'Countries',
+    'customers' => 'Happy customers'
+];
 
-    $icons = [
-        'students' => 'assets/images/icon-students.png',
-        'nbfcs' => 'assets/images/icon-nbfcs.png',
-        'countries' => 'assets/images/icon-countries.png',
-        'customers' => 'assets/images/icon-customers.png'
-    ];
+$icons = [
+    'students' => 'assets/images/icon-students.png',
+    'nbfcs' => 'assets/images/icon-nbfcs.png',
+    'countries' => 'assets/images/icon-countries.png',
+    'customers' => 'assets/images/icon-customers.png'
+];
 
     ?>
 
@@ -251,14 +258,14 @@
 
                     <div class="effort-stats-grid">
                         <?php
-                        foreach ($stats as $key => $value) {
-                            echo "
+foreach ($stats as $key => $value) {
+    echo "
                             <div class=\"effort-stat-card\">
                                 <div class=\"effort-stat-value\">{$value}</div>
                                 <div class=\"effort-stat-label\">{$labels[$key]}</div>
                             </div>
                             ";
-                        }
+}
                         ?>
                     </div>
                 </div>

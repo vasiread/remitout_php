@@ -7,6 +7,7 @@ use App\Mail\SendScDetailsMail;
 use App\Models\Academics;
 use App\Models\AdditionalField;
 use App\Models\Admin;
+use App\Models\CmsContent;
 use App\Models\CoBorrowerInfo;
 use App\Models\CourseDetailOption;
 use App\Models\CourseDuration;
@@ -27,6 +28,8 @@ use App\Models\Scuser;
 use App\Models\SocialOption;
 use App\Models\StudentApplicationForm;
 use App\Models\StudentApplicationSection;
+use App\Models\StudyLoanStep;
+use App\Models\Testimonial;
 use App\Models\User;
 use App\Models\UserAdditionalFieldValue;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
@@ -663,8 +666,8 @@ class Admincontroller extends Controller
 
     public function landingPage()
     {
-        $landingpages = landingpage::get();
-        return response()->json($landingpages);
+        $content = CmsContent::all(); // Get everything
+    return response()->json($content);
     }
 
     public function store(Request $request)
@@ -1717,7 +1720,7 @@ class Admincontroller extends Controller
 
         $documentType = DocumentType::create([
             'name' => $request->input('name'), // Preserve original casing
-            'key' => \Str::slug($request->input('name')), // Optional
+            'key' => Str::slug($request->input('name')), // Optional
             'slug' => $slug
         ]);
 
@@ -1802,7 +1805,7 @@ class Admincontroller extends Controller
                 'course_info' => $courseInfo
             ]);
         } catch (\Exception $e) {
-            \Log::error('Error in updatepersonalinfoadminside:', [
+            Log::error('Error in updatepersonalinfoadminside:', [
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
             ]);
@@ -2097,22 +2100,29 @@ class Admincontroller extends Controller
     public function getDestinationCountries()
     {
         try {
-            // Fetch the data with plan-to-study (JSON array) and gender
-            $data = CourseInfo::select('course_details_formdata.plan-to-study', 'personal_infos.gender')
+            // Fetch the data with aliasing for 'plan-to-study'
+            $data = CourseInfo::select(
+                'course_details_formdata.plan-to-study as plan_to_study',
+                'personal_infos.gender'
+            )
                 ->join('personal_infos', 'course_details_formdata.user_id', '=', 'personal_infos.user_id')
                 ->get();
 
             $countryStats = [];
 
             foreach ($data as $record) {
-                // Decode the JSON array of countries
-                $countries = json_decode($record->{'plan-to-study'}, true);
+                $rawCountries = $record->plan_to_study;
+
+                // If it's a string, decode it; if it's already an array, cast it
+                $countries = is_string($rawCountries)
+                    ? json_decode($rawCountries, true)
+                    : (array) $rawCountries;
 
                 if (!is_array($countries)) {
                     continue;
                 }
 
-                $gender = strtolower(trim($record->gender)); // Normalize gender
+                $gender = strtolower(trim($record->gender ?? 'others')); // normalize
 
                 foreach ($countries as $country) {
                     $country = trim($country);
@@ -2121,12 +2131,12 @@ class Admincontroller extends Controller
                         continue;
                     }
 
-                    // Normalize 'others' country value if needed
+                    // Normalize 'others' country label
                     if (strtolower($country) === 'others' || strtolower($country) === 'other') {
                         $country = 'Others';
                     }
 
-                    // Initialize the country record
+                    // Initialize record
                     if (!isset($countryStats[$country])) {
                         $countryStats[$country] = [
                             'female' => 0,
@@ -2136,7 +2146,7 @@ class Admincontroller extends Controller
                         ];
                     }
 
-                    // Count based on gender
+                    // Count by gender
                     if ($gender === 'female') {
                         $countryStats[$country]['female']++;
                     } elseif ($gender === 'male') {
@@ -2145,12 +2155,11 @@ class Admincontroller extends Controller
                         $countryStats[$country]['others']++;
                     }
 
-                    // Increment total
                     $countryStats[$country]['total_students']++;
                 }
             }
 
-            // Format result
+            // Format for response
             $result = array_map(function ($country, $stats) {
                 return [
                     'country' => $country,
@@ -2163,13 +2172,14 @@ class Admincontroller extends Controller
 
             // Sort descending by total
             usort($result, function ($a, $b) {
-                return $b['total_students'] - $a['total_students'];
+                return $b['total_students'] <=> $a['total_students'];
             });
 
             return response()->json([
                 'success' => true,
                 'data' => $result
             ]);
+
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -2177,6 +2187,7 @@ class Admincontroller extends Controller
             ], 500);
         }
     }
+
     public function getCityStats()
     {
         $data = PersonalInfo::select(
@@ -2359,7 +2370,7 @@ class Admincontroller extends Controller
                     'created_at' => $student->created_at?->format('d/m/Y') ?? 'N/A',
                 ];
             })
-            ->values(); // reset keys
+            ->values();  
 
 
 
@@ -2438,7 +2449,8 @@ class Admincontroller extends Controller
             'exportMonth',
             'referralsReport',
             'userReport'
-        ));
+        ))->setPaper('a4', 'portrait');
+        
 
         return $pdf->download('user_profile_report_' . now()->format('Ymd_His') . '.pdf');
         // return view('reports.user-profile', compact(
@@ -2528,6 +2540,61 @@ class Admincontroller extends Controller
 
 
 
+    public function TestimonialIndex()
+    {
+        $testimonials = Testimonial::all();
+        $study_loan = StudyLoanStep::all();
+
+        return view('pages.landing', compact('testimonials', 'study_loan'));
+    }
+
+
+    //     public function TestimonialIndex()
+// {
+//     $testimonials = Testimonial::all();
+//     return response()->json($testimonials);
+// }
+
+
+
+
+    public function TestimonialStore(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'designation' => 'required|string|max:255',
+            'rating' => 'required|integer|min:1|max:5',
+            'review' => 'required|string',
+            'image'=>'nullable'
+        ]);
+ 
+
+        Testimonial::create($data);
+
+        return response()->json(['message' => 'Testimonial added!'], 201);
+    }
+    public function updateHeroContent(Request $request)
+{
+        $request->validate([
+        'key_name' => 'required|string|exists:cms_contents,key_name',
+        'content' => 'nullable|string'
+    ]);
+
+    // Fetch the row
+    $cmsItem = CmsContent::where('key_name', $request->key_name)->first();
+
+    // Optional: validate against maxLength if present in constraints
+    $constraints = $cmsItem->constraints ?? [];
+    if (!empty($constraints['maxLength']) && strlen($request->content) > $constraints['maxLength']) {
+        return response()->json(['message' => 'Content exceeds allowed length'], 422);
+    }
+
+    // Update content
+    $cmsItem->content = $request->content;
+    $cmsItem->save();
+
+    return response()->json(['message' => 'Content updated successfully']);
+}
 }
 
 

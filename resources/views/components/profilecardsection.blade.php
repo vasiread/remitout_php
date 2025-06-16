@@ -1,37 +1,7 @@
 @php
-    $profileCards = [
-        [
-            "name" => "Mark Debrovski",
-            "role" => "Designation",
-            "starrating" => 5,
-            "description" => "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.",
-            "image" => asset('assets/images/Person.png')
-        ],
-        [
-            "name" => "Debrovski",
-            "role" => "Designation",
-            "starrating" => 4,
-            "description" => "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.",
-            "image" => asset('assets/images/person5.avif')
-        ],
-        [
-            "name" => "Mark Debrovski",
-            "role" => "Designation",
-            "starrating" => 5,
-            "description" => "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.",
-            "image" => asset('assets/images/person3.avif')
-        ],
-        [
-            "name" => "Mark Debrovski",
-            "role" => "Designation",
-            "starrating" => 5,
-            "description" => "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.",
-            "image" => asset('assets/images/Person.png')
-        ],
-        
-    ];
-@endphp
 
+
+@endphp
 <div class="profilecardsection">
     <div class="background-vector"></div>
 
@@ -45,28 +15,29 @@
      <div class="card-container">
         <div class="profilecard-container">
             <div class="testimonial-slider">
-                @foreach ($profileCards as $index => $items)
-                    <div class="profilecardsection-individual" data-index="{{ $index }}">
-                        <img src="{{ asset('assets/images/profileCardVector.png') }}" alt="Quote" class="quote-icon">
-                        <div class="profilecard-firstrow">
-                            <div class="profilecard-firstrowleft">
-                                <img src="{{ $items['image'] }}" alt="Profile">
-                            </div>
-                            <div class="profilecard-firstrowright">
-                                <h1>{{ $items['name'] }}</h1>
-                                <p>{{ $items['role'] }}</p>
-                                <div class="profilecard-ratingcontainer">
-                                    @for ($i = 0; $i < $items['starrating']; $i++)
-                                        <i class="fa-solid fa-star"></i>
-                                    @endfor
-                                </div>
-                            </div>
-                        </div>
-                        <div class="profilecard-secondrow">
-                            <p>{{ $items['description'] }}</p>
-                        </div>
-                    </div>
-                @endforeach
+              @foreach ($testimonials as $index => $item)
+    <div class="profilecardsection-individual" data-index="{{ $index }}">
+        <img src="{{ asset('assets/images/profileCardVector.png') }}" alt="Quote" class="quote-icon">
+        <div class="profilecard-firstrow">
+            <div class="profilecard-firstrowleft">
+                <img src="{{ asset($item->image) }}" alt="Profile">
+            </div>
+            <div class="profilecard-firstrowright">
+                <h1>{{ $item->name }}</h1>
+                <p>{{ $item->designation }}</p>
+                <div class="profilecard-ratingcontainer">
+                    @for ($i = 0; $i < $item->rating; $i++)
+                        <i class="fa-solid fa-star"></i>
+                    @endfor
+                </div>
+            </div>
+        </div>
+        <div class="profilecard-secondrow">
+            <p>{{ $item->review }}</p>
+        </div>
+    </div>
+@endforeach
+
             </div>
         </div>
     </div>

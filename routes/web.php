@@ -21,6 +21,8 @@ use App\Http\Controllers\scDashboardController;
 // use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\StudentCounsellorController;
 use App\Models\student_admin_application;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,9 +37,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Landing and Authentication Routes
-Route::get('/', function () {
-    return view('pages.landing');
-});
+// routes/web.php
+Route::get('/', [AdminController::class, 'TestimonialIndex'])->name('landing');
 
 Route::get('/signup', function () {
     return view('pages.loginsignup');
@@ -191,6 +192,7 @@ Route::get('/mergestudents', [Admincontroller::class, 'mergeAllStudentDetails'])
 
 Route::get('/get-tickets', [scDashboardController::class, 'getScUserTickets']);
 Route::get('/landingpage', [Admincontroller::class, 'landingPage']);
+Route::put('/landingpageupdate', [Admincontroller::class, 'updateHeroContent']);
 Route::post('/promotional-email', [Admincontroller::class, 'promotionalEmail']);
 Route::post('/promotional-image-attach', [Admincontroller::class, 'attachImagePromotional']);
 Route::get('/student-chat-members', [Admincontroller::class, 'initializeChatStudent']);
@@ -314,3 +316,10 @@ Route::post('/api/logout', function () {
 
 Route::post('/cms/landing/update', [Admincontroller::class, 'updateLanding']);
 Route::post('/admin/passwordchange', [Admincontroller::class, 'forgotAdminCredential']);
+
+
+
+
+
+Route::get('/get-testimonialss', [Admincontroller::class, 'TestimonialIndex']);
+Route::post('/testimonials-store', [Admincontroller::class, 'TestimonialStore']);
