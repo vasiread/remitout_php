@@ -1022,7 +1022,7 @@ input[type="file"] {
 }
 
 .custom-radio input[type="radio"] {
-    display: none;
+    display: flex;
 }
 
 .custom-radio {

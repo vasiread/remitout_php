@@ -98,6 +98,17 @@ class StudentDetailsController extends Controller
             Log::info('updateCourseInfo called:', $request->all());
 
             $courseInfoDetail = CourseInfo::find($request->personalInfoId);
+            // Update static course fields from the request if present
+            $courseInfoDetail->fill([
+    'plan-to-study'        => $request->input('plan_to_study'),
+    'degree-type'          => $request->input('degree_type'),
+    'course-duration'      => $request->input('course_duration'),
+    'course-details'       => $request->input('course_details'),
+    'loan_amount_in_lakhs' => $request->input('loan_amount_in_lakhs'),
+]);
+
+
+
             $user = User::where('unique_id', $request->personalInfoId)->first();
 
             if (!$courseInfoDetail || !$user) {

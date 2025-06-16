@@ -994,7 +994,7 @@
             initializeSecuredAdmissionDocumentUpload();
             initializeWorkExperienceDocumentUpload();
             initializeCoBorrowerDocumentUpload();
-            retreiveMissingDoucmentsCount();
+            // retreiveMissingDoucmentsCount();
         });
 
 
@@ -1031,7 +1031,7 @@
             let previousUserId = null;
 
             for (let [index, item] of expandButton.entries()) {
-                item.addEventListener('click', async () => {
+                item.addEventListener('click',  () => {
                     if (listContainer[index] && documentsStatusBar[index] && studentId[index]) {
                         const isExpanded = listContainer[index].style.height === "fit-content";
 
@@ -1043,7 +1043,7 @@
                         const userId = studentId[index].textContent.trim();
                         if (!isExpanded && userId && userId !== previousUserId) {
                             previousUserId = userId;
-                            await getRemainingDocuments(userId);
+                             getRemainingDocuments(userId);
                         }
                     }
                 });

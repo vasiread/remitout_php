@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Mail\WelcomeMail;
 use Illuminate\Support\Str;
 use ZipArchive;
+use App\Jobs\ProcessUserDocuments;
 
 
 
@@ -73,93 +74,23 @@ class MailController extends Controller
 
 
 
-    public function sendUserDocuments(Request $request)
-    {
-        /* ---------- 1. basic validation ------------------------------------ */
-        $request->validate([
-            'userId' => 'required|string',
-            'name' => 'required|string'
-           
-        ]);
+  public function sendUserDocuments(Request $request)
+{
+    $request->validate([
+        'userId' => 'required|string',
+        'name' => 'required|string'
+    ]);
 
-        $userId = $request->input('userId');
-        $borrower = $request->input('name');
+    $userId = $request->input('userId');
+    $borrower = $request->input('name');
 
-        /* ---------- 2. collect every file below  {userId}/static/… --------- */
-        $base = "$userId/static";
-        $folders = Storage::disk('s3')->directories($base);
-        $fileList = [];
+    // Dispatch background job
+    ProcessUserDocuments::dispatch($userId, $borrower);
 
-        foreach ($folders as $folder) {
-            try {
-                foreach (Storage::disk('s3')->files($folder) as $file) {
-                    $fileList[] = $file;
-                }
-            } catch (\Throwable $e) {
-                Log::error("S3 list error in [$folder]: {$e->getMessage()}");
-            }
-        }
-
-        if (empty($fileList)) {
-            return response()->json([
-                'message' => 'No documents found for this user.'
-            ], 404);
-        }
-
-        /* ---------- 3. build ZIP in local temp dir ------------------------- */
-        $localDir = storage_path('app/temp');
-        if (!is_dir($localDir)) {
-            mkdir($localDir, 0755, true);
-        }
-
-        $zipName = 'documents_' . Str::random(10) . '.zip';
-        $localZip = "$localDir/$zipName";
-        $zip = new ZipArchive;
-
-        if ($zip->open($localZip, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== TRUE) {
-            return response()->json(['message' => 'Unable to create ZIP'], 500);
-        }
-
-        foreach ($fileList as $s3Path) {
-            $zip->addFromString(basename($s3Path), Storage::disk('s3')->get($s3Path));
-        }
-        $zip->close();
-
-        /* ---------- 4. upload ZIP to S3 ------------------------------------ */
-        $s3Path = "zips/$zipName";
-
-        // -------  OPTION A: PERMANENT/PUBLIC URL (no time limit)  ------------
-        // Make sure bucket policy or ACL allows public-read.
-        Storage::disk('s3')->put(
-            $s3Path,
-            fopen($localZip, 'r'),
-            ['ACL' => 'public-read']           // or 'visibility' => 'public' in Laravel 11
-        );
-        $zipUrl = Storage::disk('s3')->url($s3Path);   // never expires
-
-        /*  -------  OPTION B: STILL PRIVATE BUT MAX 7 DAYS (comment above lines,
-                       uncomment below).  ------------------------------------
-        Storage::disk('s3')->put($s3Path, fopen($localZip, 'r+'));
-        $zipUrl = Storage::disk('s3')->temporaryUrl($s3Path, now()->addDays(7));
-        */
-
-        /* ---------- 5. e-mail every active NBFC ---------------------------- */
-        $nbfcEmails = Nbfc::where('status', 'active')->pluck('nbfc_email');
-
-        foreach ($nbfcEmails as $email) {
-            // If attachment preferred and file ≤ 10 MB, do:
-            //   Mail::to($email)->send(new SendDocumentsMail($borrower, null, $localZip));
-            Mail::to($email)->send(new SendDocumentsMail($zipUrl, $borrower));
-        }
-
-        /* ---------- 6. housekeeping --------------------------------------- */
-        unlink($localZip);
-
-        return response()->json([
-            'message' => 'Documents sent successfully to all active NBFCs.',
-            'zipUrl' => $zipUrl          // handy for debugging/API consumers
-        ], 200);
-    }
+    return response()->json([
+        'message' => 'Document processing started. NBFCs will receive files shortly.'
+    ]);
+}
 
 
 

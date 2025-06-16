@@ -524,7 +524,7 @@ const triggerEditButton = () => {
     disabledInputs.forEach(inputItems => {
         inputItems.removeAttribute('disabled');
     });
-    defaultDisabledInput.setAttribute('disabled')
+    // defaultDisabledInput.setAttribute('disabled')
 
     const disabledRadios = document.querySelectorAll('.studentdashboardprofile-myapplication input[type="radio"][disabled]');
     disabledRadios.forEach(radio => {

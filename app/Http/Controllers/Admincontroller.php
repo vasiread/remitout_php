@@ -27,6 +27,8 @@ use App\Models\Scuser;
 use App\Models\SocialOption;
 use App\Models\StudentApplicationForm;
 use App\Models\StudentApplicationSection;
+use App\Models\StudyLoanStep;
+use App\Models\Testimonial;
 use App\Models\User;
 use App\Models\UserAdditionalFieldValue;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
@@ -2367,7 +2369,7 @@ class Admincontroller extends Controller
                     'created_at' => $student->created_at?->format('d/m/Y') ?? 'N/A',
                 ];
             })
-            ->values(); // reset keys
+            ->values();  
 
 
 
@@ -2532,6 +2534,43 @@ class Admincontroller extends Controller
             'success' => true,
             'message' => 'Password updated successfully.'
         ]);
+    }
+
+
+
+
+    public function TestimonialIndex()
+    {
+        $testimonials = Testimonial::all();
+        $study_loan = StudyLoanStep::all();
+
+        return view('pages.landing', compact('testimonials', 'study_loan'));
+    }
+
+
+    //     public function TestimonialIndex()
+// {
+//     $testimonials = Testimonial::all();
+//     return response()->json($testimonials);
+// }
+
+
+
+
+    public function TestimonialStore(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'designation' => 'required|string|max:255',
+            'rating' => 'required|integer|min:1|max:5',
+            'review' => 'required|string',
+            'image'=>'nullable'
+        ]);
+ 
+
+        Testimonial::create($data);
+
+        return response()->json(['message' => 'Testimonial added!'], 201);
     }
 
 

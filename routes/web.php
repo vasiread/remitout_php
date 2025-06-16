@@ -35,9 +35,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Landing and Authentication Routes
-Route::get('/', function () {
-    return view('pages.landing');
-});
+// routes/web.php
+Route::get('/', [AdminController::class, 'TestimonialIndex'])->name('landing');
 
 Route::get('/signup', function () {
     return view('pages.loginsignup');
@@ -314,3 +313,10 @@ Route::post('/api/logout', function () {
 
 Route::post('/cms/landing/update', [Admincontroller::class, 'updateLanding']);
 Route::post('/admin/passwordchange', [Admincontroller::class, 'forgotAdminCredential']);
+
+
+
+
+
+Route::get('/get-testimonialss', [Admincontroller::class, 'TestimonialIndex']);
+Route::post('/testimonials-store', [Admincontroller::class, 'TestimonialStore']);
