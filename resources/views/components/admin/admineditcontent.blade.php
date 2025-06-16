@@ -165,7 +165,7 @@
                         title: 'By Line',
                         content: 'Fuel your Global Journey',
                         status: 'Active',
-                        maxLength: 30
+                        maxLength: 25
                     },
                     {
                         id: 3,
@@ -216,7 +216,7 @@
                         title: 'Testimonial Heading',
                         content: 'Hear What They Say',
                         status: 'Active',
-                        maxLength: 50
+                        maxLength: 20
                     },
                     {
                         id: 8,
@@ -274,7 +274,12 @@
                             }
                         ]),
                         status: 'Active',
-                        isTestimonialArray: true
+                        isTestimonialArray: true,
+                        maxLengthConstraints: {
+                            name: 20,
+                            designation: 20,
+                            description: 160
+                        }
                     },
                     // Logo Section
                     {
@@ -1045,220 +1050,67 @@
                         id: 78,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
-                        title: 'FAQ Question 1',
-                        content: 'How can I apply for a loan with Remitout?',
+                        title: 'FAQs',
+                        content: JSON.stringify([
+                            {
+                                question: 'How can I apply for a loan with Remitout?',
+                                answer: 'You can easily apply online by visiting our application page and filling out a short form with your basic information. Once submitted, our team will reach out with the next steps.'
+                            },
+                            {
+                                question: 'What are the eligibility criteria for a loan?',
+                                answer: 'Our eligibility criteria includes age requirements, income verification, and credit history assessment. Please contact our support team for detailed information specific to your situation.'
+                            },
+                            {
+                                question: 'How long does the loan approval process take?',
+                                answer: 'The loan approval process typically takes 2-3 business days, depending on the completeness of your application and required documentation.'
+                            },
+                            {
+                                question: 'What documents are required to apply for a loan?',
+                                answer: 'Required documents typically include government-issued ID, proof of income, bank statements, and proof of address. Specific requirements may vary based on the loan type.'
+                            },
+                            {
+                                question: 'Can I apply for a loan if I have bad credit?',
+                                answer: 'While bad credit may impact your eligibility, we assess applications on a case-by-case basis. Reach out to our support team to discuss potential options for your situation.'
+                            },
+                            {
+                                question: 'How do I track my loan application status?',
+                                answer: 'You can track the status of your loan application by logging into your account on our website. Additionally, our team will notify you of any updates via email or phone.'
+                            },
+                            {
+                                question: 'Can I use my loan for any purpose?',
+                                answer: 'Our loans are designed primarily for educational expenses. While most loans can be used for tuition, living costs, and study-related expenses, check the loan terms for any specific restrictions.'
+                            },
+                            {
+                                question: 'What is the repayment schedule for my loan?',
+                                answer: 'Repayment terms are customized based on your loan amount, tenure, and educational institution. You’ll be informed about your repayment schedule at the time of loan approval.'
+                            },
+                            {
+                                question: 'How do I choose the best loan offer for me?',
+                                answer: 'Once your profile is assessed, we provide personalized loan offers. You can compare these offers based on your eligibility, interest rates, and repayment options to select the one that best suits your needs.'
+                            },
+                            {
+                                question: 'Can I pay off my loan early?',
+                                answer: 'Yes, you can pay off your loan early without any prepayment penalties. Early repayment may also help you save on interest charges.'
+                            },
+                            {
+                                question: 'What happens if I miss a loan payment?',
+                                answer: 'If you miss a loan payment, please contact us immediately. We may offer alternative arrangements or extend your payment period. It’s important to keep us informed to avoid negative impacts on your credit score.'
+                            },
+                            {
+                                question: 'How fast can I receive my loan disbursement?',
+                                answer: 'Once approved, your loan will be disbursed directly to your educational institution in a timely manner, ensuring there are no delays in securing your admission.'
+                            }
+                        ]),
                         status: 'Active',
-                        maxLength: 100
-                    },
-                    {
-                        id: 79,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQ Answer 1',
-                        content: 'You can easily apply online by visiting our application page and filling out a short form with your basic information. Once submitted, our team will reach out with the next steps.',
-                        status: 'Active',
-                        maxLength: 200
-                    },
-                    {
-                        id: 80,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQ Question 2',
-                        content: 'What are the eligibility criteria for a loan?',
-                        status: 'Active',
-                        maxLength: 100
-                    },
-                    {
-                        id: 81,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQ Answer 2',
-                        content: 'Our eligibility criteria includes age requirements, income verification, and credit history assessment. Please contact our support team for detailed information specific to your situation.',
-                        status: 'Active',
-                        maxLength: 200
-                    },
-                    {
-                        id: 82,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQ Question 3',
-                        content: 'How long does the loan approval process take?',
-                        status: 'Active',
-                        maxLength: 100
-                    },
-                    {
-                        id: 83,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQ Answer 3',
-                        content: 'The loan approval process typically takes 2-3 business days, depending on the completeness of your application and required documentation.',
-                        status: 'Active',
-                        maxLength: 200
-                    },
-                    {
-                        id: 84,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQ Question 4',
-                        content: 'What documents are required to apply for a loan?',
-                        status: 'Active',
-                        maxLength: 100
-                    },
-                    {
-                        id: 85,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQ Answer 4',
-                        content: 'Required documents typically include government-issued ID, proof of income, bank statements, and proof of address. Specific requirements may vary based on the loan type.',
-                        status: 'Active',
-                        maxLength: 200
-                    },
-                    {
-                        id: 86,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQ Question 5',
-                        content: 'Can I apply for a loan if I have bad credit?',
-                        status: 'Active',
-                        maxLength: 100
-                    },
-                    {
-                        id: 87,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQ Answer 5',
-                        content: 'While bad credit may impact your eligibility, we assess applications on a case-by-case basis. Reach out to our support team to discuss potential options for your situation.',
-                        status: 'Active',
-                        maxLength: 200
-                    },
-                    {
-                        id: 88,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQ Question 6',
-                        content: 'How do I track my loan application status?',
-                        status: 'Active',
-                        maxLength: 100
-                    },
-                    {
-                        id: 89,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQ Answer 6',
-                        content: 'You can track the status of your loan application by logging into your account on our website. Additionally, our team will notify you of any updates via email or phone.',
-                        status: 'Active',
-                        maxLength: 200
-                    },
-                    {
-                        id: 90,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQ Question 7',
-                        content: 'Can I use my loan for any purpose?',
-                        status: 'Active',
-                        maxLength: 100
-                    },
-                    {
-                        id: 91,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQ Answer 7',
-                        content: 'Our loans are designed primarily for educational expenses. While most loans can be used for tuition, living costs, and study-related expenses, check the loan terms for any specific restrictions.',
-                        status: 'Active',
-                        maxLength: 200
-                    },
-                    {
-                        id: 92,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQ Question 8',
-                        content: 'What is the repayment schedule for my loan?',
-                        status: 'Active',
-                        maxLength: 100
-                    },
-                    {
-                        id: 93,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQ Answer 8',
-                        content: 'Repayment terms are customized based on your loan amount, tenure, and educational institution. You’ll be informed about your repayment schedule at the time of loan approval.',
-                        maxLength: 200
-                    },
-                    {
-                        id: 94,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQ Question 9',
-                        content: 'How do I choose the best loan offer for me?',
-                        status: 'Active',
-                        maxLength: 100
-                    },
-                    {
-                        id: 95,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQ Answer 9',
-                        content: 'Once your profile is assessed, we provide personalized loan offers. You can compare these offers based on your eligibility, interest rates, and repayment options to select the one that best suits your needs.',
-                        status: 'Active',
-                        maxLength: 200
-                    },
-                    {
-                        id: 96,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQ Question 10',
-                        content: 'Can I pay off my loan early?',
-                        status: 'Active',
-                        maxLength: 100
-                    },
-                    {
-                        id: 97,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQ Answer 10',
-                        content: 'Yes, you can pay off your loan early without any prepayment penalties. Early repayment may also help you save on interest charges.',
-                        status: 'Active',
-                        maxLength: 200
-                    },
-                    {
-                        id: 98,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQ Question 11',
-                        content: 'What happens if I miss a loan payment?',
-                        status: 'Active',
-                        maxLength: 100
-                    },
-                    {
-                        id: 99,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQ Answer 11',
-                        content: 'If you miss a loan payment, please contact us immediately. We may offer alternative arrangements or extend your payment period. It’s important to keep us informed to avoid negative impacts on your credit score.',
-                        status: 'Active',
-                        maxLength: 200
-                    },
-                    {
-                        id: 100,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQ Question 12',
-                        content: 'How fast can I receive my loan disbursement?',
-                        status: 'Active',
-                        maxLength: 100
-                    },
-                    {
-                        id: 101,
-                        page: 'Landing Page',
-                        sectionType: 'faq-section',
-                        title: 'FAQ Answer 12',
-                        content: 'Once approved, your loan will be disbursed directly to your educational institution in a timely manner, ensuring there are no delays in securing your admission.',
-                        status: 'Active',
-                        maxLength: 200
+                        isFAQArray: true,
+                        maxLengthConstraints: {
+                            question: 100,
+                            answer: 200
+                        }
                     },
                     // Footer Section
                     {
-                        id: 102,
+                        id: 79,
                         page: 'Landing Page',
                         sectionType: 'footer',
                         title: 'Company Description',
@@ -1267,7 +1119,7 @@
                         maxLength: 150
                     },
                     {
-                        id: 103,
+                        id: 80,
                         page: 'Landing Page',
                         sectionType: 'footer',
                         title: 'Contact Number',
@@ -1276,7 +1128,7 @@
                         maxLength: 20
                     },
                     {
-                        id: 104,
+                        id: 81,
                         page: 'Landing Page',
                         sectionType: 'footer',
                         title: 'Quick Links',
@@ -1285,7 +1137,7 @@
                         maxLength: 100
                     },
                     {
-                        id: 105,
+                        id: 82,
                         page: 'Landing Page',
                         sectionType: 'footer',
                         title: 'Social Media Links',
@@ -1294,7 +1146,7 @@
                         maxLength: 200
                     },
                     {
-                        id: 106,
+                        id: 83,
                         page: 'Landing Page',
                         sectionType: 'footer',
                         title: 'Signup Heading',
@@ -1303,7 +1155,7 @@
                         maxLength: 50
                     },
                     {
-                        id: 107,
+                        id: 84,
                         page: 'Landing Page',
                         sectionType: 'footer',
                         title: 'Signup Description',
@@ -1312,7 +1164,7 @@
                         maxLength: 100
                     },
                     {
-                        id: 108,
+                        id: 85,
                         page: 'Landing Page',
                         sectionType: 'footer',
                         title: 'Register Button Text',
@@ -1321,7 +1173,7 @@
                         maxLength: 20
                     },
                     {
-                        id: 109,
+                        id: 86,
                         page: 'Landing Page',
                         sectionType: 'footer',
                         title: 'Footer Logo Image',
@@ -1335,7 +1187,7 @@
                         }
                     },
                     {
-                        id: 110,
+                        id: 87,
                         page: 'Landing Page',
                         sectionType: 'footer',
                         title: 'Signup Background Image',
@@ -1349,7 +1201,7 @@
                         }
                     },
                     {
-                        id: 111,
+                        id: 88,
                         page: 'Landing Page',
                         sectionType: 'footer',
                         title: 'Copyright Text',
@@ -1463,13 +1315,16 @@
                         testimonial.name.toLowerCase().includes(searchTerm) ||
                         testimonial.designation.toLowerCase().includes(searchTerm) ||
                         testimonial.description.toLowerCase().includes(searchTerm)
+                    ) : item.isFAQArray ? JSON.parse(item.content).some(faq =>
+                        faq.question.toLowerCase().includes(searchTerm) ||
+                        faq.answer.toLowerCase().includes(searchTerm)
                     ) : item.content.toString().toLowerCase().includes(searchTerm))
                 );
                 this.renderTable();
             }
 
             handlePageChange(page) {
-                console.log('handlePageChange called with page:', page); // Debug
+                console.log('handlePageChange called with page:', page);
                 if (!page || page === 'all') {
                     this.filteredData = this.data;
                     this.currentPage = 1;
@@ -1477,11 +1332,11 @@
                     return;
                 }
                 const pageName = page.charAt(0).toUpperCase() + page.slice(1).toLowerCase();
-                console.log('Filtering for page:', pageName); // Debug
+                console.log('Filtering for page:', pageName);
                 this.filteredData = this.data.filter(item => 
                     item.page.toLowerCase() === pageName.toLowerCase()
                 );
-                console.log('Filtered data:', this.filteredData); // Debug
+                console.log('Filtered data:', this.filteredData);
                 const sectionSelect = document.getElementById('sectionSelect');
                 if (pageName.toLowerCase() === 'landing page') {
                     sectionSelect.innerHTML = `
@@ -1511,7 +1366,7 @@
             handleSectionChange(section) {
                 const pageSelect = document.getElementById('pageSelect');
                 const pageName = pageSelect.value.charAt(0).toUpperCase() + pageSelect.value.slice(1).toLowerCase();
-                console.log('handleSectionChange called with section:', section, 'and page:', pageName); // Debug
+                console.log('handleSectionChange called with section:', section, 'and page:', pageName);
                 if (!section || section === 'all') {
                     this.filteredData = this.data.filter(item =>
                         item.page.toLowerCase() === pageName.toLowerCase()
@@ -1522,24 +1377,7 @@
                         item.sectionType.toLowerCase() === section.toLowerCase()
                     );
                 }
-                console.log('Filtered data after section change:', this.filteredData); // Debug
-                this.currentPage = 1;
-                this.renderTable();
-            }
-
-            handleSectionChange(section) {
-                const pageSelect = document.getElementById('pageSelect');
-                const pageName = pageSelect.value.charAt(0).toUpperCase() + pageSelect.value.slice(1).toLowerCase();
-                if (!section || section === 'all') {
-                    this.filteredData = this.data.filter(item =>
-                        item.page.toLowerCase() === pageName.toLowerCase()
-                    );
-                } else {
-                    this.filteredData = this.data.filter(item =>
-                        item.page.toLowerCase() === pageName.toLowerCase() &&
-                        item.sectionType.toLowerCase() === section.toLowerCase()
-                    );
-                }
+                console.log('Filtered data after section change:', this.filteredData);
                 this.currentPage = 1;
                 this.renderTable();
             }
@@ -1575,27 +1413,109 @@
                 }
             }
 
-            addNewLogo(item) {
-        const newId = Math.max(...this.data.map(d => d.id)) + 1;
-        this.data.push({
-            id: newId,
-            page: item.page,
-            sectionType: 'logo',
-            title: `Partner Logo ${this.data.filter(d => d.sectionType === 'logo').length + 1}`,
-            content: '/api/placeholder/200/100',
-            status: 'Active',
-            isMedia: true,
-            mediaConstraints: {
-                formats: ['png', 'jpg', 'jpeg'],
-                width: 200,
-                height: 100
+            addNewFAQ(item) {
+                const faqs = JSON.parse(item.content);
+                faqs.push({
+                    question: 'New FAQ Question',
+                    answer: 'Enter answer here.'
+                });
+                item.content = JSON.stringify(faqs);
+                this.renderTable();
+                this.showToast('New FAQ added');
             }
-        });
-        this.handlePageChange(item.page);
-        this.showToast('New logo added');
-    }
 
-       // Updated renderTable method
+            removeFAQ(item, index) {
+                const faqs = JSON.parse(item.content);
+                if (faqs.length > 1) {
+                    faqs.splice(index, 1);
+                    item.content = JSON.stringify(faqs);
+                    this.renderTable();
+                    this.showToast('FAQ removed');
+                } else {
+                    this.showToast('At least one FAQ is required', true);
+                }
+            }
+
+            addNewLogo(item) {
+                const newId = Math.max(...this.data.map(d => d.id)) + 1;
+                this.data.push({
+                    id: newId,
+                    page: item.page,
+                    sectionType: 'logo',
+                    title: `Partner Logo ${this.data.filter(d => d.sectionType === 'logo').length + 1}`,
+                    content: '/api/placeholder/200/100',
+                    status: 'Active',
+                    isMedia: true,
+                    mediaConstraints: {
+                        formats: ['png', 'jpg', 'jpeg'],
+                        width: 200,
+                        height: 100
+                    }
+                });
+                const currentSection = document.getElementById('sectionSelect').value;
+                this.handlePageChange(item.page, currentSection);
+                this.showToast('New logo added');
+            }
+
+            removeLogo(id) {
+                const logos = this.data.filter(item => item.sectionType === 'logo');
+                if (logos.length <= 1) {
+                    this.showToast('At least one logo is required', true);
+                    return;
+                }
+                const index = this.data.findIndex(item => item.id === id);
+                if (index !== -1) {
+                    this.data.splice(index, 1);
+                    const remainingLogos = this.data.filter(item => item.sectionType === 'logo');
+                    remainingLogos.forEach((logo, idx) => {
+                        logo.title = `Partner Logo ${idx + 1}`;
+                    });
+                    const currentSection = document.getElementById('sectionSelect').value;
+                    this.handlePageChange(this.data.find(item => item.sectionType === 'logo')?.page || 'Landing Page', currentSection);
+                    this.showToast('Logo removed');
+                }
+            }
+
+            handlePageChange(page, section = 'all') {
+                console.log('handlePageChange called with page:', page, 'and section:', section);
+                if (!page || page === 'all') {
+                    this.filteredData = this.data;
+                    this.currentPage = 1;
+                    this.renderTable();
+                    return;
+                }
+                const pageName = page.charAt(0).toUpperCase() + page.slice(1).toLowerCase();
+                console.log('Filtering for page:', pageName);
+                this.filteredData = this.data.filter(item => 
+                    item.page.toLowerCase() === pageName.toLowerCase()
+                );
+                console.log('Filtered data:', this.filteredData);
+                const sectionSelect = document.getElementById('sectionSelect');
+                if (pageName.toLowerCase() === 'landing page') {
+                    sectionSelect.innerHTML = `
+                        <option value="all">All Sections</option>
+                        <option value="hero">Hero Section</option>
+                        <option value="testimonial">Testimonial</option>
+                        <option value="logo">Logo Section</option>
+                        <option value="study-loan">Study Loan Graph</option>
+                        <option value="secure-loan">Secure Loan</option>
+                        <option value="global-transfer">Global Transfer and Services</option>
+                        <option value="faq-section">FAQ</option>
+                        <option value="footer">Footer</option>
+                    `;
+                } else {
+                    sectionSelect.innerHTML = `
+                        <option value="all">All Sections</option>
+                        <option value="hero">Hero Section</option>
+                        <option value="features">Features</option>
+                        <option value="footer">Footer</option>
+                    `;
+                }
+                sectionSelect.value = section;
+                this.currentPage = 1;
+                this.handleSectionChange(section);
+            }
+
             renderTable() {
                 const tbody = document.getElementById('cmsTableBody');
                 tbody.innerHTML = '';
@@ -1604,13 +1524,13 @@
                 const endIndex = Math.min(startIndex + this.rowsPerPage, this.filteredData.length);
                 const paginatedData = this.filteredData.slice(startIndex, endIndex);
 
-                let rowCounter = startIndex + 1; // Initialize the S.No counter
+                let rowCounter = startIndex + 1;
 
                 paginatedData.forEach((item, index) => {
                     const row = document.createElement('tr');
                     row.dataset.id = item.id;
 
-                    if (item.isMedia) {
+                    if (item.isMedia && item.sectionType !== 'logo') {
                         row.innerHTML = `
                             <td>${rowCounter++}</td>
                             <td>${item.page}</td>
@@ -1628,7 +1548,11 @@
                                     <div class="media-actions">
                                         <input type="file" class="file-input hidden-input" accept="${item.mediaConstraints?.formats.map(format => `.${format}`).join(',') || 'image/*'}">
                                         <div class="upload-trigger">
-                                            <svg>...</svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                                <polyline points="17 8 12 3 7 8"/>
+                                                <line x1="12" y1="3" x2="12" y2="15"/>
+                                            </svg>
                                             Replace Media
                                         </div>
                                     </div>
@@ -1639,16 +1563,65 @@
                                 <button class="edit-contents-cms-update">Update</button>
                             </td>
                         `;
-                        tbody.appendChild(row); // Append the media row to tbody
+                        tbody.appendChild(row);
+                    } else if (item.sectionType === 'logo') {
+                        const logos = this.filteredData.filter(d => d.sectionType === 'logo');
+                        const logoIndex = logos.findIndex(logo => logo.id === item.id);
+                        const isLastLogo = logoIndex === logos.length - 1;
+
+                        row.classList.add('logo-row');
+                        row.innerHTML = `
+                            <td>${rowCounter++}</td>
+                            <td>${item.page}</td>
+                            <td class="editable-cell">
+                                <div class="editable-content" contenteditable="true">${item.title}</div>
+                            </td>
+                            <td>
+                                <div class="media-container">
+                                    <div class="media-preview">
+                                        <img src="${item.content}" alt="Logo preview">
+                                        <span class="close-btn">×</span>
+                                    </div>
+                                    <div class="media-actions">
+                                        <input type="file" class="file-input hidden-input" accept="${item.mediaConstraints.formats.map(format => `.${format}`).join(',')}">
+                                        <div class="upload-trigger">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                                <polyline points="17 8 12 3 7 8"/>
+                                                <line x1="12" y1="3" x2="12" y2="15"/>
+                                            </svg>
+                                            Replace Logo
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="edit-contents-cms-status">${item.status}</span></td>
+                            <td>
+                                <button class="edit-contents-cms-update">Update</button>
+                                <button class="remove-logo" title="Remove Logo">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </button>
+                                ${isLastLogo ? `
+                                    <button class="add-logo" title="Add Logo">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        </svg>
+                                    </button>
+                                ` : ''}
+                            </td>
+                        `;
+                        tbody.appendChild(row);
                     } else if (item.isTestimonialArray) {
                         const testimonials = JSON.parse(item.content);
                         testimonials.forEach((testimonial, idx) => {
                             const testimonialRow = document.createElement('tr');
                             testimonialRow.dataset.id = `${item.id}-${idx}`;
                             testimonialRow.classList.add('testimonial-row');
-                            // Use the continuous rowCounter for S.No
                             const testimonialTitle = `Testimonial ${idx + 1}`;
-                            // Default view: show only name in content column
                             testimonialRow.innerHTML = `
                                 <td>${rowCounter++}</td>
                                 <td>${item.page}</td>
@@ -1656,8 +1629,8 @@
                                     <div class="editable-content" contenteditable="true">${testimonialTitle}</div>
                                 </td>
                                 <td class="editable-cell content-cell">
-                                    <div class="editable-content" contenteditable="true" data-max-length="50">${testimonial.name}</div>
-                                    <div class="char-count hidden" data-max="50">${testimonial.name.length}/50</div>
+                                    <div class="editable-content" contenteditable="true" data-max-length="${item.maxLengthConstraints?.name || 20}">${testimonial.name}</div>
+                                    <div class="char-count hidden" data-max="${item.maxLengthConstraints?.name || 20}">${testimonial.name.length}/${item.maxLengthConstraints?.name || 20}</div>
                                 </td>
                                 <td><span class="edit-contents-cms-status">${item.status}</span></td>
                                 <td>
@@ -1666,18 +1639,16 @@
                             `;
                             tbody.appendChild(testimonialRow);
 
-                            // Edit button to toggle full details
                             const editButton = testimonialRow.querySelector('.edit-contents-cms-edit');
                             editButton.addEventListener('click', () => {
                                 testimonialRow.classList.toggle('edit-mode');
                                 if (testimonialRow.classList.contains('edit-mode')) {
-                                    // Full details in edit mode
-                                    let maxLengthIndicatorName = `<div class="char-count hidden" data-max="50">${testimonial.name.length}/50</div>`;
-                                    let maxLengthIndicatorDesignation = `<div class="char-count hidden" data-max="50">${testimonial.designation.length}/50</div>`;
-                                    let maxLengthIndicatorDescription = `<div class="char-count hidden" data-max="100">${testimonial.description.length}/100</div>`;
+                                    let maxLengthIndicatorName = `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.name || 20}">${testimonial.name.length}/${item.maxLengthConstraints?.name || 20}</div>`;
+                                    let maxLengthIndicatorDesignation = `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.designation || 20}">${testimonial.designation.length}/${item.maxLengthConstraints?.designation || 20}</div>`;
+                                    let maxLengthIndicatorDescription = `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.description || 160}">${testimonial.description.length}/${item.maxLengthConstraints?.description || 160}</div>`;
 
                                     testimonialRow.innerHTML = `
-                                        <td>${rowCounter - 1}</td> <!-- Maintain the same S.No in edit mode -->
+                                        <td>${rowCounter - 1}</td>
                                         <td>${item.page}</td>
                                         <td class="editable-cell no-border">
                                             <div class="editable-content" contenteditable="true">${testimonialTitle}</div>
@@ -1686,12 +1657,12 @@
                                             <div class="testimonial-details">
                                                 <div class="testimonial-field">
                                                     <label>Name:</label>
-                                                    <div class="editable-content" contenteditable="true" data-max-length="50">${testimonial.name}</div>
+                                                    <div class="editable-content" contenteditable="true" data-max-length="${item.maxLengthConstraints?.name || 20}">${testimonial.name}</div>
                                                     ${maxLengthIndicatorName}
                                                 </div>
                                                 <div class="testimonial-field">
                                                     <label>Designation:</label>
-                                                    <div class="editable-content" contenteditable="true" data-max-length="50">${testimonial.designation}</div>
+                                                    <div class="editable-content" contenteditable="true" data-max-length="${item.maxLengthConstraints?.designation || 20}">${testimonial.designation}</div>
                                                     ${maxLengthIndicatorDesignation}
                                                 </div>
                                                 <div class="testimonial-field">
@@ -1700,7 +1671,7 @@
                                                 </div>
                                                 <div class="testimonial-field">
                                                     <label>Description:</label>
-                                                    <div class="editable-content" contenteditable="true" data-max-length="100">${testimonial.description}</div>
+                                                    <div class="editable-content" contenteditable="true" data-max-length="${item.maxLengthConstraints?.description || 160}">${testimonial.description}</div>
                                                     ${maxLengthIndicatorDescription}
                                                 </div>
                                                 <div class="testimonial-field media-field">
@@ -1742,200 +1713,253 @@
                                         </td>
                                     `;
 
-                                    // Editable fields event listeners
                                     const editableContents = testimonialRow.querySelectorAll('.editable-content');
-                                    editableContents.forEach((content, contentIdx) => {
-                                        const maxLength = parseInt(content.getAttribute('data-max-length') || 50);
-                                        const charCount = content.nextElementSibling;
-                                        if (charCount) {
-                                            charCount.textContent = `${content.textContent.length}/${maxLength}`;
-                                        }
-
-                                        content.addEventListener('input', () => {
-                                            const currentLength = content.textContent.length;
+                                    editableContents.forEach((editableContent) => {
+                                        editableContent.addEventListener('input', () => {
+                                            const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
+                                            const charCount = editableContent.parentElement.querySelector('.char-count');
                                             if (charCount) {
-                                                charCount.textContent = `${currentLength}/${maxLength}`;
-                                                if (currentLength > maxLength) {
-                                                    charCount.classList.remove('char-count');
-                                                    charCount.classList.add('char-count-exceeded');
-                                                    content.textContent = content.textContent.substring(0, maxLength);
-                                                    charCount.textContent = `${maxLength}/${maxLength}`;
-                                                    this.placeCaretAtEnd(content);
-                                                } else {
-                                                    charCount.classList.remove('char-count-exceeded');
-                                                    charCount.classList.add('char-count');
-                                                }
+                                                charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
+                                                charCount.classList.toggle('hidden', editableContent.textContent.length <= maxLength);
+                                                charCount.classList.toggle('error', editableContent.textContent.length > maxLength);
                                             }
-                                            if (contentIdx === 0) testimonials[idx].name = content.textContent;
-                                            else if (contentIdx === 1) testimonials[idx].name = content.textContent;
-                                            else if (contentIdx === 2) testimonials[idx].designation = content.textContent;
-                                            else if (contentIdx === 3) testimonials[idx].description = content.textContent;
-                                            item.content = JSON.stringify(testimonials);
                                         });
-
-                                        content.addEventListener('blur', () => {
-                                            if (contentIdx === 0) testimonials[idx].name = content.textContent;
-                                            else if (contentIdx === 1) testimonials[idx].name = content.textContent;
-                                            else if (contentIdx === 2) testimonials[idx].designation = content.textContent;
-                                            else if (contentIdx === 3) testimonials[idx].description = content.textContent;
-                                            item.content = JSON.stringify(testimonials);
-                                            if (charCount) charCount.classList.add('hidden');
-                                        });
-
-                                        content.addEventListener('keydown', (e) => {
-                                            if (e.key === 'Enter' && !e.shiftKey) {
-                                                e.preventDefault();
-                                                content.blur();
+                                        editableContent.addEventListener('focus', () => {
+                                            const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
+                                            const charCount = editableContent.parentElement.querySelector('.char-count');
+                                            if (charCount) {
+                                                charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
+                                                charCount.classList.remove('hidden');
                                             }
-                                            if (maxLength && content.textContent.length >= maxLength &&
-                                                e.key !== 'Backspace' && e.key !== 'Delete' &&
-                                                !e.ctrlKey && !e.metaKey) {
-                                                if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' ||
-                                                    e.key === 'ArrowUp' || e.key === 'ArrowDown' ||
-                                                    e.key === 'Home' || e.key === 'End') {
-                                                    return;
-                                                }
-                                                const selection = window.getSelection();
-                                                if (selection.toString().length === 0) {
-                                                    e.preventDefault();
-                                                }
+                                        });
+                                        editableContent.addEventListener('blur', () => {
+                                            const charCount = editableContent.parentElement.querySelector('.char-count');
+                                            if (charCount) {
+                                                charCount.classList.add('hidden');
                                             }
                                         });
                                     });
 
-                                    // Rating input
-                                    const ratingInput = testimonialRow.querySelector('.testimonial-rating');
-                                    ratingInput.addEventListener('input', () => {
-                                        const rating = parseInt(ratingInput.value);
-                                        if (rating >= 1 && rating <= 5) {
-                                            testimonials[idx].rating = rating;
-                                            item.content = JSON.stringify(testimonials);
-                                        } else {
-                                            this.showToast('Rating must be between 1 and 5', true);
-                                            ratingInput.value = testimonials[idx].rating;
-                                        }
-                                    });
-
-                                    // Image upload
                                     const fileInput = testimonialRow.querySelector('.file-input');
-                                    const uploadTrigger = fileInput.previousElementSibling;
-                                    const mediaPreview = fileInput.parentElement.querySelector('.media-preview img');
-                                    const closeBtn = fileInput.parentElement.querySelector('.close-btn');
-
-                                    uploadTrigger.addEventListener('click', () => {
-                                        fileInput.click();
-                                    });
-
+                                    const uploadTrigger = testimonialRow.querySelector('.upload-trigger');
+                                    uploadTrigger.addEventListener('click', () => fileInput.click());
                                     fileInput.addEventListener('change', (e) => {
                                         const file = e.target.files[0];
                                         if (file) {
-                                            if (file.size > 5 * 1024 * 1024) {
-                                                this.showToast('File size should be less than 5MB', true);
-                                                return;
-                                            }
-                                            const fileExt = file.name.split('.').pop().toLowerCase();
-                                            if (!testimonial.mediaConstraints.formats.includes(fileExt)) {
-                                                this.showToast(`Only ${testimonial.mediaConstraints.formats.join(', ')} files are allowed`, true);
-                                                return;
-                                            }
                                             const reader = new FileReader();
-                                            reader.onload = (e) => {
-                                                const tempImg = new Image();
-                                                tempImg.onload = () => {
-                                                    if (tempImg.width !== testimonial.mediaConstraints.width || tempImg.height !== testimonial.mediaConstraints.height) {
-                                                        this.showToast(`Image must be ${testimonial.mediaConstraints.width}×${testimonial.mediaConstraints.height}px`, true);
-                                                        this.resizeImage(e.target.result, testimonial.mediaConstraints.width, testimonial.mediaConstraints.height, (resizedImage) => {
-                                                            mediaPreview.src = resizedImage;
-                                                            testimonials[idx].image = resizedImage;
-                                                            item.content = JSON.stringify(testimonials);
-                                                            this.showToast('Image resized and updated');
-                                                        });
-                                                    } else {
-                                                        mediaPreview.src = e.target.result;
-                                                        testimonials[idx].image = e.target.result;
+                                            reader.onload = (event) => {
+                                                const img = new Image();
+                                                img.onload = () => {
+                                                    if (img.width === testimonial.mediaConstraints.width && img.height === testimonial.mediaConstraints.height) {
+                                                        testimonial.image = event.target.result;
                                                         item.content = JSON.stringify(testimonials);
-                                                        this.showToast('Image updated successfully');
+                                                        this.renderTable();
+                                                    } else {
+                                                        this.resizeImage(event.target.result, testimonial.mediaConstraints.width, testimonial.mediaConstraints.height, (resizedImage) => {
+                                                            testimonial.image = resizedImage;
+                                                            item.content = JSON.stringify(testimonials);
+                                                            this.renderTable();
+                                                        });
                                                     }
                                                 };
-                                                tempImg.src = e.target.result;
+                                                img.src = event.target.result;
                                             };
                                             reader.readAsDataURL(file);
                                         }
                                     });
 
-                                    closeBtn.addEventListener('click', () => {
-                                        mediaPreview.src = '/api/placeholder/100/100';
-                                        testimonials[idx].image = '/api/placeholder/100/100';
-                                        item.content = JSON.stringify(testimonials);
-                                        this.showToast('Image removed');
-                                    });
-
-                                    // Update button
                                     const updateButton = testimonialRow.querySelector('.edit-contents-cms-update');
                                     updateButton.addEventListener('click', () => {
+                                        const nameElement = testimonialRow.querySelector('.testimonial-field:nth-child(1) .editable-content');
+                                        const designationElement = testimonialRow.querySelector('.testimonial-field:nth-child(2) .editable-content');
+                                        const ratingElement = testimonialRow.querySelector('.testimonial-rating');
+                                        const descriptionElement = testimonialRow.querySelector('.testimonial-field:nth-child(4) .editable-content');
+
+                                        const maxLengthName = parseInt(nameElement.getAttribute('data-max-length'));
+                                        const maxLengthDesignation = parseInt(designationElement.getAttribute('data-max-length'));
+                                        const maxLengthDescription = parseInt(descriptionElement.getAttribute('data-max-length'));
+
+                                        if (nameElement.textContent.length > maxLengthName) {
+                                            this.showToast(`Name exceeds maximum length of ${maxLengthName} characters`, true);
+                                            return;
+                                        }
+                                        if (designationElement.textContent.length > maxLengthDesignation) {
+                                            this.showToast(`Designation exceeds maximum length of ${maxLengthDesignation} characters`, true);
+                                            return;
+                                        }
+                                        if (descriptionElement.textContent.length > maxLengthDescription) {
+                                            this.showToast(`Description exceeds maximum length of ${maxLengthDescription} characters`, true);
+                                            return;
+                                        }
+
+                                        testimonial.name = nameElement.textContent;
+                                        testimonial.designation = designationElement.textContent;
+                                        testimonial.rating = parseInt(ratingElement.value);
+                                        testimonial.description = descriptionElement.textContent;
                                         item.content = JSON.stringify(testimonials);
-                                        this.showToast('Testimonial updated successfully');
+                                        testimonialRow.classList.remove('edit-mode');
                                         this.renderTable();
+                                        this.showToast('Testimonial updated');
                                     });
 
-                                    // Remove testimonial
                                     const removeButton = testimonialRow.querySelector('.remove-testimonial');
-                                    if (removeButton) {
-                                        removeButton.addEventListener('click', () => {
-                                            this.removeTestimonial(item, idx);
-                                        });
-                                    }
+                                    removeButton.addEventListener('click', () => {
+                                        this.removeTestimonial(item, idx);
+                                    });
 
-                                    // Add new testimonial
-                                    const addButton = testimonialRow.querySelector('.add-testimonial');
-                                    if (addButton) {
+                                    if (idx === testimonials.length - 1) {
+                                        const addButton = testimonialRow.querySelector('.add-testimonial');
                                         addButton.addEventListener('click', () => {
                                             this.addNewTestimonial(item);
                                         });
                                     }
-
-                                    // Edit button to toggle back
-                                    const newEditButton = testimonialRow.querySelector('.edit-contents-cms-edit');
-                                    newEditButton.addEventListener('click', () => {
-                                        testimonialRow.classList.remove('edit-mode');
-                                        this.renderTable();
-                                    });
+                                } else {
+                                    this.renderTable();
                                 }
                             });
                         });
-                        if (testimonials.length === 0) {
-                            // Handle empty testimonials
-                            row.innerHTML = `
+                    } else if (item.isFAQArray) {
+                        const faqs = JSON.parse(item.content);
+                        faqs.forEach((faq, idx) => {
+                            const faqRow = document.createElement('tr');
+                            faqRow.dataset.id = `${item.id}-${idx}`;
+                            faqRow.classList.add('faq-row');
+                            const faqTitle = `FAQ ${idx + 1}`;
+                            faqRow.innerHTML = `
                                 <td>${rowCounter++}</td>
                                 <td>${item.page}</td>
                                 <td class="editable-cell no-border">
-                                    <div class="editable-content" contenteditable="true">${item.title}</div>
+                                    <div class="editable-content" contenteditable="true">${faqTitle}</div>
                                 </td>
-                                <td>No testimonials available</td>
+                                <td class="editable-cell content-cell">
+                                    <div class="editable-content" contenteditable="true" data-max-length="${item.maxLengthConstraints?.question || 100}">${faq.question}</div>
+                                    <div class="char-count hidden" data-max="${item.maxLengthConstraints?.question || 100}">${faq.question.length}/${item.maxLengthConstraints?.question || 100}</div>
+                                </td>
                                 <td><span class="edit-contents-cms-status">${item.status}</span></td>
                                 <td>
-                                    <button class="add-testimonial" title="Add Testimonial">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <line x1="12" y1="5" x2="12" y2="19"></line>
-                                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                                        </svg>
-                                    </button>
+                                    <button class="edit-contents-cms-edit">✏️</button>
                                 </td>
                             `;
-                            row.querySelector('.add-testimonial').addEventListener('click', () => {
-                                this.addNewTestimonial(item);
+                            tbody.appendChild(faqRow);
+
+                            const editButton = faqRow.querySelector('.edit-contents-cms-edit');
+                            editButton.addEventListener('click', () => {
+                                faqRow.classList.toggle('edit-mode');
+                                if (faqRow.classList.contains('edit-mode')) {
+                                    let maxLengthIndicatorQuestion = `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.question || 100}">${faq.question.length}/${item.maxLengthConstraints?.question || 100}</div>`;
+                                    let maxLengthIndicatorAnswer = `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.answer || 200}">${faq.answer.length}/${item.maxLengthConstraints?.answer || 200}</div>`;
+
+                                    faqRow.innerHTML = `
+                                        <td>${rowCounter - 1}</td>
+                                        <td>${item.page}</td>
+                                        <td class="editable-cell no-border">
+                                            <div class="editable-content" contenteditable="true">${faqTitle}</div>
+                                        </td>
+                                        <td class="editable-cell content-cell">
+                                            <div class="faq-details">
+                                                <div class="faq-field">
+                                                    <label>Question:</label>
+                                                    <div class="editable-content" contenteditable="true" data-max-length="${item.maxLengthConstraints?.question || 100}">${faq.question}</div>
+                                                    ${maxLengthIndicatorQuestion}
+                                                </div>
+                                                <div class="faq-field">
+                                                    <label>Answer:</label>
+                                                    <div class="editable-content" contenteditable="true" data-max-length="${item.maxLengthConstraints?.answer || 200}">${faq.answer}</div>
+                                                    ${maxLengthIndicatorAnswer}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="edit-contents-cms-status">${item.status}</span></td>
+                                        <td>
+                                            <button class="edit-contents-cms-update">Update</button>
+                                            <button class="edit-contents-cms-edit">✏️</button>
+                                            <button class="remove-faq" title="Remove FAQ">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                </svg>
+                                            </button>
+                                            ${idx === faqs.length - 1 ? `
+                                                <button class="add-faq" title="Add FAQ">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                    </svg>
+                                                </button>
+                                            ` : ''}
+                                        </td>
+                                    `;
+
+                                    const editableContents = faqRow.querySelectorAll('.editable-content');
+                                    editableContents.forEach((editableContent) => {
+                                        editableContent.addEventListener('input', () => {
+                                            const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
+                                            const charCount = editableContent.parentElement.querySelector('.char-count');
+                                            if (charCount) {
+                                                charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
+                                                charCount.classList.toggle('hidden', editableContent.textContent.length <= maxLength);
+                                                charCount.classList.toggle('error', editableContent.textContent.length > maxLength);
+                                            }
+                                        });
+                                        editableContent.addEventListener('focus', () => {
+                                            const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
+                                            const charCount = editableContent.parentElement.querySelector('.char-count');
+                                            if (charCount) {
+                                                charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
+                                                charCount.classList.remove('hidden');
+                                            }
+                                        });
+                                        editableContent.addEventListener('blur', () => {
+                                            const charCount = editableContent.parentElement.querySelector('.char-count');
+                                            if (charCount) {
+                                                charCount.classList.add('hidden');
+                                            }
+                                        });
+                                    });
+
+                                    const updateButton = faqRow.querySelector('.edit-contents-cms-update');
+                                                                       updateButton.addEventListener('click', () => {
+                                        const questionElement = faqRow.querySelector('.faq-field:nth-child(1) .editable-content');
+                                        const answerElement = faqRow.querySelector('.faq-field:nth-child(2) .editable-content');
+
+                                        const maxLengthQuestion = parseInt(questionElement.getAttribute('data-max-length'));
+                                        const maxLengthAnswer = parseInt(answerElement.getAttribute('data-max-length'));
+
+                                        if (questionElement.textContent.length > maxLengthQuestion) {
+                                            this.showToast(`Question exceeds maximum length of ${maxLengthQuestion} characters`, true);
+                                            return;
+                                        }
+                                        if (answerElement.textContent.length > maxLengthAnswer) {
+                                            this.showToast(`Answer exceeds maximum length of ${maxLengthAnswer} characters`, true);
+                                            return;
+                                        }
+
+                                        faq.question = questionElement.textContent;
+                                        faq.answer = answerElement.textContent;
+                                        item.content = JSON.stringify(faqs);
+                                        faqRow.classList.remove('edit-mode');
+                                        this.renderTable();
+                                        this.showToast('FAQ updated');
+                                    });
+
+                                    const removeButton = faqRow.querySelector('.remove-faq');
+                                    removeButton.addEventListener('click', () => {
+                                        this.removeFAQ(item, idx);
+                                    });
+
+                                    if (idx === faqs.length - 1) {
+                                        const addButton = faqRow.querySelector('.add-faq');
+                                        addButton.addEventListener('click', () => {
+                                            this.addNewFAQ(item);
+                                        });
+                                    }
+                                } else {
+                                    this.renderTable();
+                                }
                             });
-                            tbody.appendChild(row);
-                        }
+                        });
                     } else {
-                        // Non-media, non-testimonial row rendering
-                        let maxLengthIndicator = '';
-                        if (item.maxLength) {
-                            const currentLength = item.content.length;
-                            const remainingChars = item.maxLength - currentLength;
-                            const charCountClass = remainingChars < 0 ? 'char-count-exceeded' : 'char-count';
-                            maxLengthIndicator = `<div class="${charCountClass} hidden" data-max="${item.maxLength}">${currentLength}/${item.maxLength}</div>`;
-                        }
+                        // Handle non-media, non-array items (Special Heading, By Line, Description, Buttons, etc.)
                         row.innerHTML = `
                             <td>${rowCounter++}</td>
                             <td>${item.page}</td>
@@ -1943,424 +1967,298 @@
                                 <div class="editable-content" contenteditable="true">${item.title}</div>
                             </td>
                             <td class="editable-cell content-cell">
-                                <div class="editable-content" contenteditable="true" ${item.maxLength ? `data-max-length="${item.maxLength}"` : ''}>${item.content}</div>
-                                ${maxLengthIndicator}
+                                <div class="editable-content" contenteditable="true" data-max-length="${item.maxLength || 100}">${item.content}</div>
+                                <div class="char-count hidden" data-max="${item.maxLength || 100}">${item.content.length}/${item.maxLength || 100}</div>
                             </td>
                             <td><span class="edit-contents-cms-status">${item.status}</span></td>
                             <td>
-                                <button class="edit-contents-cms-edit">✏️</button>
+                                ${
+                                    item.sectionType === 'hero' && item.id !== 4
+                                        ? '<button class="edit-contents-cms-edit">✏️</button>'
+                                        : '<button class="edit-contents-cms-update">Update</button>'
+                                }
                             </td>
                         `;
-                        tbody.appendChild(row); // Append the regular row to tbody
-                    }
+                        tbody.appendChild(row);
 
-                    if (item.isMedia) {
-                        // Reattach media event listeners
-                        const fileInput = row.querySelector('.file-input');
-                        const uploadTrigger = row.querySelector('.upload-trigger');
-                        const closeBtn = row.querySelector('.close-btn');
-
-                        if (uploadTrigger && fileInput) {
-                            uploadTrigger.addEventListener('click', () => {
-                                fileInput.click();
-                            });
-                        }
-
-                        if (fileInput) {
-                            fileInput.addEventListener('change', (e) => {
-                                const file = e.target.files[0];
-                                if (file) {
-                                    if (file.size > 5 * 1024 * 1024) {
-                                        this.showToast('File size should be less than 5MB', true);
-                                        return;
-                                    }
-                                    const fileExt = file.name.split('.').pop().toLowerCase();
-                                    if (!item.mediaConstraints.formats.includes(fileExt)) {
-                                        this.showToast(`Only ${item.mediaConstraints.formats.join(', ')} files are allowed`, true);
-                                        return;
-                                    }
-                                    const reader = new FileReader();
-                                    reader.onload = (e) => {
-                                        const mediaElement = row.querySelector('.media-preview video, .media-preview img');
-                                        mediaElement.src = e.target.result;
-                                        if (item.mediaConstraints && item.mediaConstraints.width && item.mediaConstraints.height) {
-                                            const tempMedia = item.mediaConstraints.formats.includes('mp4') || item.mediaConstraints.formats.includes('webm') ? new Video() : new Image();
-                                            tempMedia.onload = () => {
-                                                if (tempMedia.width !== item.mediaConstraints.width || tempMedia.height !== item.mediaConstraints.height) {
-                                                    this.showToast(`Media must be ${item.mediaConstraints.width}×${item.mediaConstraints.height}px. Your media is ${tempMedia.width}×${tempMedia.height}px.`, true);
-                                                    this.resizeImage(e.target.result, item.mediaConstraints.width, item.mediaConstraints.height, (resizedMedia) => {
-                                                        mediaElement.src = resizedMedia;
-                                                        item.content = resizedMedia;
-                                                        this.showToast('Media resized to required dimensions');
-                                                        this.renderTable(); // Re-render the table to reflect the change
-                                                    });
-                                                } else {
-                                                    item.content = e.target.result;
-                                                    this.showToast('Media updated successfully');
-                                                    this.renderTable(); // Re-render the table to reflect the change
-                                                }
-                                            };
-                                            tempMedia.src = e.target.result;
-                                        } else {
-                                            item.content = e.target.result;
-                                            this.showToast('Media updated successfully');
-                                            this.renderTable(); // Re-render the table to reflect the change
-                                        }
-                                    };
-                                    reader.readAsDataURL(file);
+                        const editableContents = row.querySelectorAll('.editable-content');
+                        editableContents.forEach((editableContent) => {
+                            editableContent.addEventListener('input', () => {
+                                const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
+                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                if (charCount) {
+                                    charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
+                                    charCount.classList.toggle('hidden', editableContent.textContent.length <= maxLength);
+                                    charCount.classList.toggle('error', editableContent.textContent.length > maxLength);
                                 }
                             });
-                        }
+                            editableContent.addEventListener('focus', () => {
+                                const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
+                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                if (charCount) {
+                                    charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
+                                    charCount.classList.remove('hidden');
+                                }
+                            });
+                            editableContent.addEventListener('blur', () => {
+                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                if (charCount) {
+                                    charCount.classList.add('hidden');
+                                }
+                            });
+                        });
 
-                        if (closeBtn) {
-                            closeBtn.addEventListener('click', () => {
-                                const mediaElement = row.querySelector('.media-preview video, .media-preview img');
-                                mediaElement.src = '/api/placeholder/400/320';
-                                item.content = '/api/placeholder/400/320';
-                                this.showToast('Media removed');
-                                this.renderTable(); // Re-render the table to reflect the change
+                        if (item.sectionType === 'hero' && item.id !== 4) {
+                            const editButton = row.querySelector('.edit-contents-cms-edit');
+                            editButton.addEventListener('click', () => {
+                                row.classList.toggle('edit-mode');
+                                if (row.classList.contains('edit-mode')) {
+                                    let maxLengthIndicator = `<div class="char-count hidden" data-max="${item.maxLength || 100}">${item.content.length}/${item.maxLength || 100}</div>`;
+                                    row.innerHTML = `
+                                        <td>${rowCounter - 1}</td>
+                                        <td>${item.page}</td>
+                                        <td class="editable-cell">
+                                            <div class="editable-content" contenteditable="true">${item.title}</div>
+                                        </td>
+                                        <td class="editable-cell content-cell">
+                                            <div class="editable-content" contenteditable="true" data-max-length="${item.maxLength || 100}">${item.content}</div>
+                                            ${maxLengthIndicator}
+                                        </td>
+                                        <td><span class="edit-contents-cms-status">${item.status}</span></td>
+                                        <td>
+                                            <button class="edit-contents-cms-update">Update</button>
+                                            <button class="edit-contents-cms-edit">✏️</button>
+                                        </td>
+                                    `;
+
+                                    const newEditableContents = row.querySelectorAll('.editable-content');
+                                    newEditableContents.forEach((editableContent) => {
+                                        editableContent.addEventListener('input', () => {
+                                            const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
+                                            const charCount = editableContent.parentElement.querySelector('.char-count');
+                                            if (charCount) {
+                                                charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
+                                                charCount.classList.toggle('hidden', editableContent.textContent.length <= maxLength);
+                                                charCount.classList.toggle('error', editableContent.textContent.length > maxLength);
+                                            }
+                                        });
+                                        editableContent.addEventListener('focus', () => {
+                                            const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
+                                            const charCount = editableContent.parentElement.querySelector('.char-count');
+                                            if (charCount) {
+                                                charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
+                                                charCount.classList.remove('hidden');
+                                            }
+                                        });
+                                        editableContent.addEventListener('blur', () => {
+                                            const charCount = editableContent.parentElement.querySelector('.char-count');
+                                            if (charCount) {
+                                                charCount.classList.add('hidden');
+                                            }
+                                        });
+                                    });
+
+                                    const newUpdateButton = row.querySelector('.edit-contents-cms-update');
+                                    newUpdateButton.addEventListener('click', () => {
+                                        const titleElement = row.querySelector('.editable-cell:nth-child(3) .editable-content');
+                                        const contentElement = row.querySelector('.editable-cell:nth-child(4) .editable-content');
+
+                                        const maxLength = parseInt(contentElement.getAttribute('data-max-length'));
+                                        if (contentElement.textContent.length > maxLength) {
+                                            this.showToast(`Content exceeds maximum length of ${maxLength} characters`, true);
+                                            return;
+                                        }
+
+                                        item.title = titleElement.textContent;
+                                        item.content = contentElement.textContent;
+                                        row.classList.remove('edit-mode');
+                                        this.renderTable();
+                                        this.showToast('Content updated');
+                                    });
+                                } else {
+                                    this.renderTable();
+                                }
+                            });
+                        } else {
+                            const updateButton = row.querySelector('.edit-contents-cms-update');
+                            updateButton.addEventListener('click', () => {
+                                const titleElement = row.querySelector('.editable-cell:nth-child(3) .editable-content');
+                                const contentElement = row.querySelector('.editable-cell:nth-child(4) .editable-content');
+
+                                const maxLength = parseInt(contentElement.getAttribute('data-max-length'));
+                                if (contentElement.textContent.length > maxLength) {
+                                    this.showToast(`Content exceeds maximum length of ${maxLength} characters`, true);
+                                    return;
+                                }
+
+                                item.title = titleElement.textContent;
+                                item.content = contentElement.textContent;
+                                this.renderTable();
+                                this.showToast('Content updated');
                             });
                         }
                     }
-                });
 
-                this.addEditListeners();
-                this.renderPagination(this.filteredData.length);
-            }
+                    const fileInputs = row.querySelectorAll('.file-input');
+                    fileInputs.forEach((fileInput, idx) => {
+                        const uploadTrigger = fileInput.parentElement.querySelector('.upload-trigger');
+                        uploadTrigger.addEventListener('click', () => {
+                            fileInput.click();
+                        });
+                        fileInput.addEventListener('change', (e) => {
+                            const file = e.target.files[0];
+                            if (file) {
+                                const reader = new FileReader();
+                                reader.onload = (event) => {
+                                    const img = new Image();
+                                    img.onload = () => {
+                                        const constraints = item.mediaConstraints || (item.isTestimonialArray ? JSON.parse(item.content)[idx]?.mediaConstraints : null);
+                                        if (img.width === constraints?.width && img.height === constraints?.height) {
+                                            if (item.isTestimonialArray) {
+                                                const testimonials = JSON.parse(item.content);
+                                                testimonials[idx].image = event.target.result;
+                                                item.content = JSON.stringify(testimonials);
+                                            } else {
+                                                item.content = event.target.result;
+                                            }
+                                            this.renderTable();
+                                        } else {
+                                            this.resizeImage(event.target.result, constraints?.width, constraints?.height, (resizedImage) => {
+                                                if (item.isTestimonialArray) {
+                                                    const testimonials = JSON.parse(item.content);
+                                                    testimonials[idx].image = resizedImage;
+                                                    item.content = JSON.stringify(testimonials);
+                                                } else {
+                                                    item.content = resizedImage;
+                                                }
+                                                this.renderTable();
+                                            });
+                                        }
+                                    };
+                                    img.src = event.target.result;
+                                };
+                                reader.readAsDataURL(file);
+                            }
+                        });
+                    });
 
-        // Modified addNewTestimonial method
-        addNewTestimonial(item) {
-            const testimonials = JSON.parse(item.content);
-            testimonials.push({
-                name: 'New Testimonial',
-                designation: 'Designation',
-                rating: 5,
-                description: 'Enter description here.',
-                image: '/api/placeholder/100/100',
-                mediaConstraints: {
-                    formats: ['png', 'jpg', 'jpeg'],
-                    width: 100,
-                    height: 100
-                }
-            });
-            item.content = JSON.stringify(testimonials);
-            this.renderTable();
-            this.showToast('New testimonial added');
-        }
-            renderPagination(totalItems) {
-                const totalPages = Math.ceil(totalItems / this.rowsPerPage);
-                const paginationControls = document.getElementById('paginationControls');
-                paginationControls.innerHTML = '';
+                    const removeLogoButtons = row.querySelectorAll('.remove-logo');
+                    removeLogoButtons.forEach((button) => {
+                        button.addEventListener('click', () => {
+                            this.removeLogo(item.id);
+                        });
+                    });
 
-                if (totalItems === 0) {
-                    paginationControls.innerHTML = '<span>No data available</span>';
-                    return;
-                }
-
-                const paginationContainer = document.createElement('div');
-                paginationContainer.classList.add('pagination-container');
-
-                const prevButton = document.createElement('button');
-                prevButton.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="15 18 9 12 15 6"></polyline>
-                    </svg>
-                `;
-                prevButton.disabled = this.currentPage === 1;
-                prevButton.addEventListener('click', () => {
-                    if (this.currentPage > 1) {
-                        this.currentPage--;
-                        this.renderTable();
-                    }
-                });
-                paginationContainer.appendChild(prevButton);
-
-                const startIndex = (this.currentPage - 1) * this.rowsPerPage + 1;
-                const endIndex = Math.min(this.currentPage * this.rowsPerPage, totalItems);
-                const paginationText = document.createElement('span');
-                paginationText.textContent = `${startIndex}-${endIndex} of ${totalItems}`;
-                paginationText.style.margin = '0 10px';
-                paginationContainer.appendChild(paginationText);
-
-                const nextButton = document.createElement('button');
-                nextButton.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                `;
-                nextButton.disabled = this.currentPage === totalPages;
-                nextButton.addEventListener('click', () => {
-                    if (this.currentPage < totalPages) {
-                        this.currentPage++;
-                        this.renderTable();
-                    }
-                });
-                paginationContainer.appendChild(nextButton);
-
-                paginationControls.appendChild(paginationContainer);
-            }
-
-            addEditListeners() {
-      
-                document.querySelectorAll('.edit-contents-cms-edit').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        const row = e.target.closest('tr');
-                        row.classList.toggle('edit-mode');
-                        const charCount = row.querySelector('.char-count, .char-count-exceeded');
-                        if (charCount) {
-                            charCount.classList.remove('hidden');
-                        }
-                        const editableContents = row.querySelectorAll('.editable-content');
-                        editableContents.forEach(content => {
-                            content.focus();
+                    const addLogoButtons = row.querySelectorAll('.add-logo');
+                    addLogoButtons.forEach((button) => {
+                        button.addEventListener('click', () => {
+                            this.addNewLogo(item);
                         });
                     });
                 });
 
-                // Event listeners for update buttons
-                document.querySelectorAll('.edit-contents-cms-update').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        const row = e.target.closest('tr');
-                        const id = parseInt(row.dataset.id.split('-')[0]); // Handle testimonial rows with "id-index"
-                        const item = this.data.find(item => item.id === id);
-                        if (item) {
-                            if (item.isMedia) {
-                                // For media rows, the content is already updated via file input or close button
-                                this.showToast('Media content updated successfully');
-                                this.renderTable(); // Re-render the table to reflect the updated media
-                            } else if (item.isTestimonialArray) {
-                                // Testimonial rows are handled in their own event listeners
-                                return; // Skip here as it's handled in renderTable
-                            } else {
-                                // For regular text rows
-                                const editableContents = row.querySelectorAll('.editable-content');
-                                editableContents.forEach((content, index) => {
-                                    if (index === 0) item.title = content.textContent;
-                                    else if (index === 1) item.content = content.textContent;
-                                });
-                                const charCount = row.querySelector('.char-count-exceeded');
-                                if (charCount) {
-                                    charCount.classList.add('hidden');
-                                }
-                                this.showToast('Content updated successfully');
-                                this.renderTable();
-                            }
-                        }
-                    });
-                });
-
-                // Event listeners for editable content with max length
-                document.querySelectorAll('.editable-content[data-max-length]').forEach(content => {
-                    const maxLength = parseInt(content.getAttribute('data-max-length'));
-                    const charCount = content.nextElementSibling;
-                    content.addEventListener('input', () => {
-                        const currentLength = content.textContent.length;
-                        charCount.textContent = `${currentLength}/${maxLength}`;
-                        if (currentLength > maxLength) {
-                            charCount.classList.remove('char-count');
-                            charCount.classList.add('char-count-exceeded');
-                            content.textContent = content.textContent.substring(0, maxLength);
-                            charCount.textContent = `${maxLength}/${maxLength}`;
-                            this.placeCaretAtEnd(content);
-                        } else {
-                            charCount.classList.remove('char-count-exceeded');
-                            charCount.classList.add('char-count');
-                        }
-                    });
-                });
-
-                // General event listeners for all editable content
-                document.querySelectorAll('.editable-content').forEach(content => {
-                    content.addEventListener('dblclick', () => {
-                        const row = content.closest('tr');
-                        row.classList.add('edit-mode');
-                        const charCount = row.querySelector('.char-count, .char-count-exceeded');
-                        if (charCount) {
-                            charCount.classList.remove('hidden');
-                        }
-                        content.focus();
-                    });
-
-                    content.addEventListener('blur', () => {
-                        const row = content.closest('tr');
-                        const id = parseInt(row.dataset.id.split('-')[0]); // Handle testimonial rows
-                        const item = this.data.find(item => item.id === id);
-                        if (item && !item.isMedia && !item.isTestimonialArray) {
-                            const isTitle = content.parentElement.cellIndex === 2;
-                            const isContent = content.parentElement.cellIndex === 3;
-                            if (isTitle) {
-                                item.title = content.textContent;
-                            } else if (isContent) {
-                                if (item.maxLength && content.textContent.length > item.maxLength) {
-                                    content.textContent = content.textContent.substring(0, item.maxLength);
-                                }
-                                item.content = content.textContent;
-                                const charCount = content.nextElementSibling;
-                                if (charCount && (charCount.classList.contains('char-count') || charCount.classList.contains('char-count-exceeded'))) {
-                                    charCount.textContent = `${content.textContent.length}/${item.maxLength}`;
-                                    if (content.textContent.length > item.maxLength) {
-                                        charCount.classList.remove('char-count');
-                                        charCount.classList.add('char-count-exceeded');
-                                    } else {
-                                        charCount.classList.remove('char-count-exceeded');
-                                        charCount.classList.add('char-count');
-                                    }
-                                }
-                            }
-                        }
-                        if (!row.classList.contains('edit-mode')) {
-                            const charCount = row.querySelector('.char-count, .char-count-exceeded');
-                            if (charCount) {
-                                charCount.classList.add('hidden');
-                            }
-                        }
-                        row.classList.remove('edit-mode');
-                    });
-
-                    content.addEventListener('keydown', (e) => {
-                        if (e.key === 'Enter' && !e.shiftKey) {
-                            e.preventDefault();
-                            content.blur();
-                        }
-                        const maxLength = content.getAttribute('data-max-length');
-                        if (maxLength && content.textContent.length >= parseInt(maxLength) &&
-                            e.key !== 'Backspace' && e.key !== 'Delete' &&
-                            !e.ctrlKey && !e.metaKey) {
-                            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' ||
-                                e.key === 'ArrowUp' || e.key === 'ArrowDown' ||
-                                e.key === 'Home' || e.key === 'End') {
-                                return;
-                            }
-                            const selection = window.getSelection();
-                            if (selection.toString().length === 0) {
-                                e.preventDefault();
-                            }
-                        }
-                    });
-                });
+                this.renderPagination();
             }
 
-            async handleSave() {
-                let toastMessage = '';
-                let isError = false;
-                try {
-                    this.showLoading();
-                    const updatedValues = this.data
-                        .filter(item => {
-                            const originalItem = this.originalData.find(orig => orig.id === item.id);
-                            return originalItem && (item.content !== originalItem.content || item.title !== originalItem.title);
-                        })
-                        .map(item => ({
-                            title: item.title,
-                            content: item.isTestimonialArray ? JSON.parse(item.content) : item.content
-                        }));
-                    if (updatedValues.length > 0) {
-                        console.log('Updated Content Values:', updatedValues);
-                        const alertMessage = 'CMS Content updated successfully:\n' +
-                            updatedValues.map(item => `${item.title}: ${JSON.stringify(item.content)}`).join('\n');
-                        alert(alertMessage);
-                        toastMessage = 'All changes saved successfully';
-                    } else {
-                        console.log('No content changes detected.');
-                        alert('CMS Content: No changes detected.');
-                        toastMessage = 'No changes to save';
+             renderPagination() {
+                    const totalItems = this.filteredData.length;
+                    const totalPages = Math.ceil(totalItems / this.rowsPerPage);
+                    const paginationControls = document.getElementById('paginationControls');
+                    paginationControls.innerHTML = '';
+
+                    if (totalItems === 0) {
+                        paginationControls.innerHTML = '<span>No data available</span>';
+                        return;
                     }
-                    this.originalData = JSON.parse(JSON.stringify(this.data));
-                } catch (error) {
-                    toastMessage = 'Error saving changes: ' + error.message;
-                    isError = true;
-                    console.error('Save error:', error);
-                } finally {
-                    this.hideLoading();
-                    this.showToast(toastMessage, isError);
+
+                    const paginationContainer = document.createElement('div');
+                    paginationContainer.classList.add('pagination-container');
+
+                    const prevButton = document.createElement('button');
+                    prevButton.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    `;
+                    prevButton.disabled = this.currentPage === 1;
+                    prevButton.addEventListener('click', () => {
+                        if (this.currentPage > 1) {
+                            this.currentPage--;
+                            this.renderTable();
+                        }
+                    });
+                    paginationContainer.appendChild(prevButton);
+
+                    const startIndex = (this.currentPage - 1) * this.rowsPerPage + 1;
+                    const endIndex = Math.min(this.currentPage * this.rowsPerPage, totalItems);
+                    const paginationText = document.createElement('span');
+                    paginationText.textContent = `${startIndex}-${endIndex} of ${totalItems}`;
+                    paginationContainer.appendChild(paginationText);
+
+                    const nextButton = document.createElement('button');
+                    nextButton.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    `;
+                    nextButton.disabled = this.currentPage === totalPages;
+                    nextButton.addEventListener('click', () => {
+                        if (this.currentPage < totalPages) {
+                            this.currentPage++;
+                            this.renderTable();
+                        }
+                    });
+                    paginationContainer.appendChild(nextButton);
+
+                    paginationControls.appendChild(paginationContainer);
+                }
+
+                handleSave() {
+                    this.showLoading();
+                    setTimeout(() => {
+                        this.originalData = JSON.parse(JSON.stringify(this.data));
+                        this.hideLoading();
+                        this.showToast('Changes saved successfully');
+                    }, 1000);
                 }
             }
 
-            hasUnsavedChanges() {
-                return JSON.stringify(this.data) !== JSON.stringify(this.originalData);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
+            
+         document.addEventListener('DOMContentLoaded', () => {
             renderContent(contentData);
-            window.addEventListener('beforeunload', (e) => {
-                if (window.cmsEditor && window.cmsEditor.hasUnsavedChanges()) {
-                    e.preventDefault();
-                    e.returnValue = '';
-                }
-            });
-        });
 
-    const dropdownToggle = document.querySelector('.admin-edit-dropdown-toggle');
+            const dropdownToggle = document.querySelector('.admin-edit-dropdown-toggle');
             const dropdownMenu = document.querySelector('.admin-edit-dropdown-menu');
             const dropdownItems = document.querySelectorAll('.admin-edit-dropdown-item');
 
-            function extractContentData() {
-                const contentRows = document.querySelectorAll('.edit-content-row');
-                const contentData = [];
-                contentRows.forEach(row => {
-                    const name = row.querySelector('div:first-child').textContent;
-                    const sections = parseInt(row.querySelector('div:nth-child(2)').textContent);
-                    const tags = [];
-                    row.querySelectorAll('.edit-content-tag').forEach(tag => {
-                        tags.push(tag.textContent);
-                    });
-                    contentData.push({
-                        name,
-                        sections,
-                        tags,
-                        element: row
-                    });
-                });
-                return contentData;
-            }
-
-            dropdownToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            dropdownToggle.addEventListener('click', () => {
+                dropdownMenu.classList.toggle('show');
             });
 
             dropdownItems.forEach(item => {
-                item.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const sortType = item.getAttribute('data-value');
+                item.addEventListener('click', () => {
+                    const sortValue = item.getAttribute('data-value');
                     let sortedData = [...contentData];
-
-                    switch (sortType) {
-                        case 'name':
-                            // Sort A-Z by name
-                            sortedData.sort((a, b) => a.name.localeCompare(b.name));
-                            break;
-                        case 'role':
-                            // Sort Z-A by name
-                            sortedData.sort((a, b) => b.name.localeCompare(a.name));
-                            break;
-                        case 'email-new':
-                            // Sort by newest (assuming newer entries are added at the end)
-                            sortedData.reverse();
-                            break;
-                        case 'email-old':
-                            // Sort by oldest
-                            sortedData = [...contentData];
-                            break;
-                        default:
-                            break;
+                    if (sortValue === 'name') {
+                        sortedData.sort((a, b) => a.name.localeCompare(b.name));
+                    } else if (sortValue === 'role') {
+                        sortedData.sort((a, b) => b.name.localeCompare(a.name));
+                    } else if (sortValue === 'email-new') {
+                        sortedData.sort((a, b) => b.sections - a.sections);
+                    } else if (sortValue === 'email-old') {
+                        sortedData.sort((a, b) => a.sections - b.sections);
                     }
-
-                    // Update the content list with sorted data
                     renderContent(sortedData);
-                    dropdownMenu.style.display = 'none';
-                    dropdownToggle.innerHTML = `Sort: ${item.textContent} <img src="assets/images/filter-icon.png" alt="Filter">`;
+                    dropdownMenu.classList.remove('show');
                 });
             });
 
-            // Close dropdown when clicking outside
             document.addEventListener('click', (e) => {
                 if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
-                    dropdownMenu.style.display = 'none';
+                    dropdownMenu.classList.remove('show');
                 }
             });
-        
+        });
     </script>
 </body>
 </html>
