@@ -456,7 +456,8 @@
     vertical-align: top;
     font-size: 12px;
     line-height: 18px;
-    color: #5d5c5c;
+    color: #5d5c5c;  
+    white-space: nowrap;
 
 }
 
@@ -825,11 +826,10 @@
     }
 }
 
-/* Mobile-specific styles (max-width: 767px) */
 @media screen and (max-width: 767px) {
     .edit-contents-cms-container {
-        width: 90%;
-        max-width: 500px;
+        width: 100%;
+        max-width: 100%;
         margin: 20px auto;
         padding: 10px;
         border-radius: 10px;
@@ -1066,4 +1066,12 @@
 .testimonial-row .remove-testimonial:hover,
 .testimonial-row .add-testimonial:hover {
     background: #f0f0f0; 
+}
+.logo-row .remove-logo,
+.logo-row .add-logo, 
+.remove-faq,
+.add-faq {
+    padding: 5px;
+    border-radius: 4px;
+    background-color: white;
 }
