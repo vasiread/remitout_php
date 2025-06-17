@@ -104,7 +104,7 @@
         // Define contentData globally
         const contentData = [{
                 name: "Landing Page",
-                sections: 86,
+                sections: 116,
                 tags: ["Text", "Img", "Video"]
             },
             {
@@ -128,7 +128,7 @@
                 tags: ["Text", "Img", "Video"]
             }
         ];
-        window.selectedFilePerTitle = {}; 
+        window.selectedFilePerTitle = {};
 
         const contentList = document.querySelector('.edit-content-list');
 
@@ -246,7 +246,7 @@
                         status: 'Active',
                         maxLength: 20
                     },
-                        // Testimonial Section
+                    // Testimonial Section
                     {
                         id: 7,
                         page: 'Landing Page',
@@ -261,8 +261,7 @@
                         page: 'Landing Page',
                         sectionType: 'testimonial',
                         title: 'Testimonials',
-                        content: JSON.stringify([
-                            {
+                        content: JSON.stringify([{
                                 name: 'Mark Debrovski',
                                 designation: 'Designation',
                                 rating: 5,
@@ -319,7 +318,7 @@
                             description: 160
                         }
                     },
-                    
+
 
                     // Logo Section
                     {
@@ -1091,8 +1090,7 @@
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQs',
-                        content: JSON.stringify([
-                            {
+                        content: JSON.stringify([{
                                 question: 'How can I apply for a loan with Remitout?',
                                 answer: 'You can easily apply online by visiting our application page and filling out a short form with your basic information. Once submitted, our team will reach out with the next steps.'
                             },
@@ -1631,7 +1629,18 @@
                 }
             }
 
-         renderTable() {
+
+
+
+
+
+
+
+
+
+
+
+            renderTable() {
                 const tbody = document.getElementById('cmsTableBody');
                 tbody.innerHTML = '';
 
@@ -1646,64 +1655,73 @@
                     row.dataset.id = item.id;
                     row.setAttribute('data-id', item.id);
 
-                if (item.isMedia && item.sectionType !== 'logo') {
-                    row.innerHTML = `
-                        <td>${rowCounter++}</td>
-                        <td>${item.page}</td>
-                        <td class="editable-cell">
-                            <div class="editable-content" contenteditable="true">${item.title}</div>
-                        </td>
-                        <td>
-                            <div class="media-container">
-                                <div class="media-preview">
-                                    ${item.mediaConstraints.formats.includes('mp4') || item.mediaConstraints.formats.includes('webm') ?
-                                        `<video src="${item.content}" controls width="200"></video>` :
-                                        `<img src="${item.content}" alt="Media preview">`}
-                                    <span class="close-btn">×</span>
-                                </div>
-                                <div class="media-actions">
-                                    <input type="file" class="file-input hidden-input" accept="${item.mediaConstraints?.formats.map(format => `.${format}`).join(',') || 'image/*'}">
-                                    <div class="upload-trigger">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                            <polyline points="17 8 12 3 7 8"/>
-                                            <line x1="12" y1="3" x2="12" y2="15"/>
-                                        </svg>
-                                        Replace Media
+                    if (item.isMedia && item.sectionType !== 'logo') {
+                        row.innerHTML = `
+                            <td>${rowCounter++}</td>
+                            <td>${item.page}</td>
+                            <td class="editable-cell">
+                                <div class="editable-content" contenteditable="true">${item.title}</div>
+                            </td>
+                            <td>
+                                <div class="media-container">
+                                    <div class="media-preview">
+                                        ${item.mediaConstraints.formats.includes('mp4') || item.mediaConstraints.formats.includes('webm') ?
+                                            `<video src="${item.content}" controls width="200"></video>` :
+                                            `<img src="${item.content}" alt="Media preview">`}
+                                        <span class="close-btn">×</span>
+                                    </div>
+                                    <div class="media-actions">
+                                        <input type="file" class="file-input hidden-input" accept="${item.mediaConstraints?.formats.map(format => `.${format}`).join(',') || 'image/*'}">
+                                        <div class="upload-trigger">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                                <polyline points="17 8 12 3 7 8"/>
+                                                <line x1="12" y1="3" x2="12" y2="15"/>
+                                            </svg>
+                                            Replace Media
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td><span class="edit-contents-cms-status">${item.status}</span></td>
-                        <td>
-                            <button class="edit-contents-cms-update">Update</button>
-                        </td>
-                    `;
+                            </td>
+                            <td><span class="edit-contents-cms-status">${item.status}</span></td>
+                            <td>
+                                <button class="edit-contents-cms-update">Update</button>
+                            </td>
+                        `;
                         row.setAttribute('data-id', item.id);
 
-                    tbody.appendChild(row);
+                        tbody.appendChild(row);
 
                         const editableContents = row.querySelectorAll('.editable-cell .editable-content');
                         editableContents.forEach((editableContent) => {
                             editableContent.addEventListener('input', () => {
-                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
                                 if (charCount) {
-                                    const maxLength = parseInt(charCount.getAttribute('data-max'));
-                                    charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                    charCount.classList.toggle('hidden', editableContent.textContent.length <= maxLength);
-                                    charCount.classList.toggle('error', editableContent.textContent.length > maxLength);
+                                    const maxLength = parseInt(charCount.getAttribute(
+                                        'data-max'));
+                                    charCount.textContent =
+                                        `${editableContent.textContent.length}/${maxLength}`;
+                                    charCount.classList.toggle('hidden', editableContent
+                                        .textContent.length <= maxLength);
+                                    charCount.classList.toggle('error', editableContent
+                                        .textContent.length > maxLength);
                                 }
                             });
                             editableContent.addEventListener('focus', () => {
-                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
                                 if (charCount) {
-                                    const maxLength = parseInt(charCount.getAttribute('data-max'));
-                                    charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
+                                    const maxLength = parseInt(charCount.getAttribute(
+                                        'data-max'));
+                                    charCount.textContent =
+                                        `${editableContent.textContent.length}/${maxLength}`;
                                     charCount.classList.remove('hidden');
                                 }
                             });
                             editableContent.addEventListener('blur', () => {
-                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
                                 if (charCount) {
                                     charCount.classList.add('hidden');
                                 }
@@ -1712,7 +1730,8 @@
 
                         const updateButton = row.querySelector('.edit-contents-cms-update');
                         updateButton.addEventListener('click', () => {
-                            const titleElement = row.querySelector('.editable-cell:nth-child(3) .editable-content');
+                            const titleElement = row.querySelector(
+                                '.editable-cell:nth-child(3) .editable-content');
                             item.title = titleElement.textContent;
                             this.renderTable();
                             this.showToast('Media content updated');
@@ -1722,77 +1741,86 @@
                         const logoIndex = logos.findIndex(logo => logo.id === item.id);
                         const isLastLogo = logoIndex === logos.length - 1;
 
-                    row.classList.add('logo-row');
+                        row.classList.add('logo-row');
                         row.setAttribute('data-id', item.id);
-                    row.innerHTML = `
-                        <td>${rowCounter++}</td>
-                        <td>${item.page}</td>
-                        <td class="editable-cell">
-                            <div class="editable-content" contenteditable="true">${item.title}</div>
-                        </td>
-                        <td>
-                            <div class="media-container">
-                                <div class="media-preview">
-                                    <img src="${item.content}" alt="Logo preview">
-                                    <span class="close-btn">×</span>
-                                </div>
-                                <div class="media-actions">
-                                    <input type="file" class="file-input hidden-input" accept="${item.mediaConstraints.formats.map(format => `.${format}`).join(',')}">
-                                    <div class="upload-trigger">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                            <polyline points="17 8 12 3 7 8"/>
-                                            <line x1="12" y1="3" x2="12" y2="15"/>
-                                        </svg>
-                                        Replace Logo
+                        row.innerHTML = `
+                            <td>${rowCounter++}</td>
+                            <td>${item.page}</td>
+                            <td class="editable-cell">
+                                <div class="editable-content" contenteditable="true">${item.title}</div>
+                            </td>
+                            <td>
+                                <div class="media-container">
+                                    <div class="media-preview">
+                                        <img src="${item.content}" alt="Logo preview">
+                                        <span class="close-btn">×</span>
+                                    </div>
+                                    <div class="media-actions">
+                                        <input type="file" class="file-input hidden-input" accept="${item.mediaConstraints.formats.map(format => `.${format}`).join(',')}">
+                                        <div class="upload-trigger">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                                <polyline points="17 8 12 3 7 8"/>
+                                                <line x1="12" y1="3" x2="12" y2="15"/>
+                                            </svg>
+                                            Replace Logo
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td><span class="edit-contents-cms-status">${item.status}</span></td>
-                        <td>
-                            <button class="edit-contents-cms-update">Update</button>
-                            <button class="remove-logo" title="Remove Logo">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                                </svg>
-                            </button>
-                            ${isLastLogo ? `
-                                            <button class="add-logo" title="Add Logo">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                </svg>
-                                            </button>
-                                        ` : ''}
-                        </td>
-                    `;
+                            </td>
+                            <td><span class="edit-contents-cms-status">${item.status}</span></td>
+                            <td>
+                                <button class="edit-contents-cms-update">Update</button>
+                                <button class="remove-logo" title="Remove Logo">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </button>
+                                ${isLastLogo ? `
+                                                                                            <button class="add-logo" title="Add Logo">
+                                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                                                                </svg>
+                                                                                            </button>
+                                                                                        ` : ''}
+                            </td>
+                        `;
                         row.setAttribute('data-id', item.id);
 
-                    tbody.appendChild(row);
+                        tbody.appendChild(row);
 
                         const editableContents = row.querySelectorAll('.editable-cell .editable-content');
                         editableContents.forEach((editableContent) => {
                             editableContent.addEventListener('input', () => {
-                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
                                 if (charCount) {
-                                    const maxLength = parseInt(charCount.getAttribute('data-max'));
-                                    charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                    charCount.classList.toggle('hidden', editableContent.textContent.length <= maxLength);
-                                    charCount.classList.toggle('error', editableContent.textContent.length > maxLength);
+                                    const maxLength = parseInt(charCount.getAttribute(
+                                        'data-max'));
+                                    charCount.textContent =
+                                        `${editableContent.textContent.length}/${maxLength}`;
+                                    charCount.classList.toggle('hidden', editableContent
+                                        .textContent.length <= maxLength);
+                                    charCount.classList.toggle('error', editableContent
+                                        .textContent.length > maxLength);
                                 }
                             });
                             editableContent.addEventListener('focus', () => {
-                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
                                 if (charCount) {
-                                    const maxLength = parseInt(charCount.getAttribute('data-max'));
-                                    charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
+                                    const maxLength = parseInt(charCount.getAttribute(
+                                        'data-max'));
+                                    charCount.textContent =
+                                        `${editableContent.textContent.length}/${maxLength}`;
                                     charCount.classList.remove('hidden');
                                 }
                             });
                             editableContent.addEventListener('blur', () => {
-                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
                                 if (charCount) {
                                     charCount.classList.add('hidden');
                                 }
@@ -1801,7 +1829,8 @@
 
                         const updateButton = row.querySelector('.edit-contents-cms-update');
                         updateButton.addEventListener('click', () => {
-                            const titleElement = row.querySelector('.editable-cell:nth-child(3) .editable-content');
+                            const titleElement = row.querySelector(
+                                '.editable-cell:nth-child(3) .editable-content');
                             item.title = titleElement.textContent;
                             this.renderTable();
                             this.showToast('Logo updated');
@@ -1897,46 +1926,75 @@
                                                 </svg>
                                             </button>
                                             ${idx === testimonials.length - 1 ? `
-                                                <button class="add-testimonial" title="Add Testimonial">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                    </svg>
-                                                </button>
-                                            ` : ''}
+                                                                                                        <button class="add-testimonial" title="Add Testimonial">
+                                                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                                                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                                                                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                                                                            </svg>
+                                                                                                        </button>
+                                                                                                    ` : ''}
                                         </td>
                                     `;
 
-                                    const editableContents = testimonialRow.querySelectorAll('.editable-content');
+                                    const editableContents = testimonialRow.querySelectorAll(
+                                        '.editable-content');
                                     editableContents.forEach((editableContent) => {
-                                        editableContent.addEventListener('input', () => {
-                                            const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                            const charCount = editableContent.parentElement.querySelector('.char-count');
+                                        editableContent.addEventListener('input',
+                                    () => {
+                                            const maxLength = parseInt(
+                                                editableContent
+                                                .getAttribute(
+                                                    'data-max-length'));
+                                            const charCount = editableContent
+                                                .parentElement.querySelector(
+                                                    '.char-count');
                                             if (charCount) {
-                                                charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                                charCount.classList.toggle('hidden', editableContent.textContent.length <= maxLength);
-                                                charCount.classList.toggle('error', editableContent.textContent.length > maxLength);
+                                                charCount.textContent =
+                                                    `${editableContent.textContent.length}/${maxLength}`;
+                                                charCount.classList.toggle(
+                                                    'hidden',
+                                                    editableContent
+                                                    .textContent.length <=
+                                                    maxLength);
+                                                charCount.classList.toggle(
+                                                    'error', editableContent
+                                                    .textContent.length >
+                                                    maxLength);
                                             }
                                         });
-                                        editableContent.addEventListener('focus', () => {
-                                            const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                            const charCount = editableContent.parentElement.querySelector('.char-count');
+                                        editableContent.addEventListener('focus',
+                                    () => {
+                                            const maxLength = parseInt(
+                                                editableContent
+                                                .getAttribute(
+                                                    'data-max-length'));
+                                            const charCount = editableContent
+                                                .parentElement.querySelector(
+                                                    '.char-count');
                                             if (charCount) {
-                                                charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                                charCount.classList.remove('hidden');
+                                                charCount.textContent =
+                                                    `${editableContent.textContent.length}/${maxLength}`;
+                                                charCount.classList.remove(
+                                                    'hidden');
                                             }
                                         });
                                         editableContent.addEventListener('blur', () => {
-                                            const charCount = editableContent.parentElement.querySelector('.char-count');
+                                            const charCount = editableContent
+                                                .parentElement.querySelector(
+                                                    '.char-count');
                                             if (charCount) {
-                                                charCount.classList.add('hidden');
+                                                charCount.classList.add(
+                                                    'hidden');
                                             }
                                         });
                                     });
 
-                                    const fileInput = testimonialRow.querySelector('.file-input');
-                                    const uploadTrigger = testimonialRow.querySelector('.upload-trigger');
-                                    uploadTrigger.addEventListener('click', () => fileInput.click());
+                                    const fileInput = testimonialRow.querySelector(
+                                        '.file-input');
+                                    const uploadTrigger = testimonialRow.querySelector(
+                                        '.upload-trigger');
+                                    uploadTrigger.addEventListener('click', () => fileInput
+                                        .click());
                                     fileInput.addEventListener('change', (e) => {
                                         const file = e.target.files[0];
                                         if (file) {
@@ -1944,16 +2002,41 @@
                                             reader.onload = (event) => {
                                                 const img = new Image();
                                                 img.onload = () => {
-                                                    if (img.width === testimonial.mediaConstraints.width && img.height === testimonial.mediaConstraints.height) {
-                                                        testimonial.image = event.target.result;
-                                                        item.content = JSON.stringify(testimonials);
+                                                    if (img.width ===
+                                                        testimonial
+                                                        .mediaConstraints
+                                                        .width && img.height ===
+                                                        testimonial
+                                                        .mediaConstraints.height
+                                                    ) {
+                                                        testimonial.image =
+                                                            event.target.result;
+                                                        item.content = JSON
+                                                            .stringify(
+                                                                testimonials);
                                                         this.renderTable();
                                                     } else {
-                                                        this.resizeImage(event.target.result, testimonial.mediaConstraints.width, testimonial.mediaConstraints.height, (resizedImage) => {
-                                                            testimonial.image = resizedImage;
-                                                            item.content = JSON.stringify(testimonials);
-                                                            this.renderTable();
-                                                        });
+                                                        this.resizeImage(event
+                                                            .target.result,
+                                                            testimonial
+                                                            .mediaConstraints
+                                                            .width,
+                                                            testimonial
+                                                            .mediaConstraints
+                                                            .height, (
+                                                                resizedImage
+                                                            ) => {
+                                                                testimonial
+                                                                    .image =
+                                                                    resizedImage;
+                                                                item.content =
+                                                                    JSON
+                                                                    .stringify(
+                                                                        testimonials
+                                                                    );
+                                                                this
+                                                                    .renderTable();
+                                                            });
                                                     }
                                                 };
                                                 img.src = event.target.result;
@@ -1962,47 +2045,77 @@
                                         }
                                     });
 
-                                    const updateButton = testimonialRow.querySelector('.edit-contents-cms-update');
+                                    const updateButton = testimonialRow.querySelector(
+                                        '.edit-contents-cms-update');
                                     updateButton.addEventListener('click', () => {
-                                        const nameElement = testimonialRow.querySelector('.testimonial-field:nth-child(1) .editable-content');
-                                        const designationElement = testimonialRow.querySelector('.testimonial-field:nth-child(2) .editable-content');
-                                        const ratingElement = testimonialRow.querySelector('.testimonial-rating');
-                                        const descriptionElement = testimonialRow.querySelector('.testimonial-field:nth-child(4) .editable-content');
+                                        const nameElement = testimonialRow
+                                            .querySelector(
+                                                '.testimonial-field:nth-child(1) .editable-content'
+                                            );
+                                        const designationElement = testimonialRow
+                                            .querySelector(
+                                                '.testimonial-field:nth-child(2) .editable-content'
+                                            );
+                                        const ratingElement = testimonialRow
+                                            .querySelector('.testimonial-rating');
+                                        const descriptionElement = testimonialRow
+                                            .querySelector(
+                                                '.testimonial-field:nth-child(4) .editable-content'
+                                            );
 
-                                        const maxLengthName = parseInt(nameElement.getAttribute('data-max-length'));
-                                        const maxLengthDesignation = parseInt(designationElement.getAttribute('data-max-length'));
-                                        const maxLengthDescription = parseInt(descriptionElement.getAttribute('data-max-length'));
+                                        const maxLengthName = parseInt(nameElement
+                                            .getAttribute('data-max-length'));
+                                        const maxLengthDesignation = parseInt(
+                                            designationElement.getAttribute(
+                                                'data-max-length'));
+                                        const maxLengthDescription = parseInt(
+                                            descriptionElement.getAttribute(
+                                                'data-max-length'));
 
-                                        if (nameElement.textContent.length > maxLengthName) {
-                                            this.showToast(`Name exceeds maximum length of ${maxLengthName} characters`, true);
+                                        if (nameElement.textContent.length >
+                                            maxLengthName) {
+                                            this.showToast(
+                                                `Name exceeds maximum length of ${maxLengthName} characters`,
+                                                true);
                                             return;
                                         }
-                                        if (designationElement.textContent.length > maxLengthDesignation) {
-                                            this.showToast(`Designation exceeds maximum length of ${maxLengthDesignation} characters`, true);
+                                        if (designationElement.textContent.length >
+                                            maxLengthDesignation) {
+                                            this.showToast(
+                                                `Designation exceeds maximum length of ${maxLengthDesignation} characters`,
+                                                true);
                                             return;
                                         }
-                                        if (descriptionElement.textContent.length > maxLengthDescription) {
-                                            this.showToast(`Description exceeds maximum length of ${maxLengthDescription} characters`, true);
+                                        if (descriptionElement.textContent.length >
+                                            maxLengthDescription) {
+                                            this.showToast(
+                                                `Description exceeds maximum length of ${maxLengthDescription} characters`,
+                                                true);
                                             return;
                                         }
 
                                         testimonial.name = nameElement.textContent;
-                                        testimonial.designation = designationElement.textContent;
-                                        testimonial.rating = parseInt(ratingElement.value);
-                                        testimonial.description = descriptionElement.textContent;
+                                        testimonial.designation = designationElement
+                                            .textContent;
+                                        testimonial.rating = parseInt(ratingElement
+                                            .value);
+                                        testimonial.description = descriptionElement
+                                            .textContent;
                                         item.content = JSON.stringify(testimonials);
                                         testimonialRow.classList.remove('edit-mode');
                                         this.renderTable();
                                         this.showToast('Testimonial updated');
                                     });
 
-                                    const removeButton = testimonialRow.querySelector('.remove-testimonial');
+                                    const removeButton = testimonialRow.querySelector(
+                                        '.remove-testimonial');
                                     removeButton.addEventListener('click', () => {
                                         this.removeTestimonial(item, idx);
                                     });
 
                                     if (idx === testimonials.length - 1) {
-                                        const addButton = testimonialRow.querySelector('.add-testimonial');
+                                        const addButton = testimonialRow.querySelector(
+                                            '.add-testimonial');
                                         addButton.addEventListener('click', () => {
                                             this.addNewTestimonial(item);
                                         });
@@ -2040,8 +2153,10 @@
                             editButton.addEventListener('click', () => {
                                 faqRow.classList.toggle('edit-mode');
                                 if (faqRow.classList.contains('edit-mode')) {
-                                    let maxLengthIndicatorQuestion = `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.question || 100}">${faq.question.length}/${item.maxLengthConstraints?.question || 100}</div>`;
-                                    let maxLengthIndicatorAnswer = `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.answer || 200}">${faq.answer.length}/${item.maxLengthConstraints?.answer || 200}</div>`;
+                                    let maxLengthIndicatorQuestion =
+                                        `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.question || 100}">${faq.question.length}/${item.maxLengthConstraints?.question || 100}</div>`;
+                                    let maxLengthIndicatorAnswer =
+                                        `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.answer || 200}">${faq.answer.length}/${item.maxLengthConstraints?.answer || 200}</div>`;
 
                                     faqRow.innerHTML = `
                                         <td>${rowCounter - 1}</td>
@@ -2065,6 +2180,7 @@
                                         </td>
                                         <td><span class="edit-contents-cms-status">${item.status}</span></td>
                                         <td>
+                                            <button class="edit-contents-cms-update">Update</button>
                                             <button class="edit-contents-cms-edit">✏️</button>
                                             <button class="remove-faq" title="Remove FAQ">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2073,39 +2189,65 @@
                                                 </svg>
                                             </button>
                                             ${idx === faqs.length - 1 ? `
-                                                <button class="add-faq" title="Add FAQ">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                    </svg>
-                                                </button>
-                                            ` : ''}
+                                                                                                                                                                <button class="add-faq" title="Add FAQ">
+                                                                                                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                                                                                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                                                                                                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                                                                                                                                    </svg>
+                                                                                                                                                                </button>
+                                                                                                                                                            ` : ''}
                                         </td>
                                     `;
 
-                                    const editableContents = faqRow.querySelectorAll('.editable-content');
+                                    const editableContents = faqRow.querySelectorAll(
+                                        '.editable-content');
                                     editableContents.forEach((editableContent) => {
-                                        editableContent.addEventListener('input', () => {
-                                            const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                            const charCount = editableContent.parentElement.querySelector('.char-count');
+                                        editableContent.addEventListener('input',
+                                    () => {
+                                            const maxLength = parseInt(
+                                                editableContent
+                                                .getAttribute(
+                                                    'data-max-length'));
+                                            const charCount = editableContent
+                                                .parentElement.querySelector(
+                                                    '.char-count');
                                             if (charCount) {
-                                                charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                                charCount.classList.toggle('hidden', editableContent.textContent.length <= maxLength);
-                                                charCount.classList.toggle('error', editableContent.textContent.length > maxLength);
+                                                charCount.textContent =
+                                                    `${editableContent.textContent.length}/${maxLength}`;
+                                                charCount.classList.toggle(
+                                                    'hidden',
+                                                    editableContent
+                                                    .textContent.length <=
+                                                    maxLength);
+                                                charCount.classList.toggle(
+                                                    'error', editableContent
+                                                    .textContent.length >
+                                                    maxLength);
                                             }
                                         });
-                                        editableContent.addEventListener('focus', () => {
-                                            const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                            const charCount = editableContent.parentElement.querySelector('.char-count');
+                                        editableContent.addEventListener('focus',
+                                    () => {
+                                            const maxLength = parseInt(
+                                                editableContent
+                                                .getAttribute(
+                                                    'data-max-length'));
+                                            const charCount = editableContent
+                                                .parentElement.querySelector(
+                                                    '.char-count');
                                             if (charCount) {
-                                                charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                                charCount.classList.remove('hidden');
+                                                charCount.textContent =
+                                                    `${editableContent.textContent.length}/${maxLength}`;
+                                                charCount.classList.remove(
+                                                    'hidden');
                                             }
                                         });
                                         editableContent.addEventListener('blur', () => {
-                                            const charCount = editableContent.parentElement.querySelector('.char-count');
+                                            const charCount = editableContent
+                                                .parentElement.querySelector(
+                                                    '.char-count');
                                             if (charCount) {
-                                                charCount.classList.add('hidden');
+                                                charCount.classList.add(
+                                                    'hidden');
                                             }
                                         });
                                     });
@@ -2152,102 +2294,147 @@
                         const editableContents = row.querySelectorAll('.editable-content');
                         editableContents.forEach((editableContent) => {
                             editableContent.addEventListener('input', () => {
-                                const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                const maxLength = parseInt(editableContent.getAttribute(
+                                    'data-max-length'));
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
                                 if (charCount) {
-                                    charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                    charCount.classList.toggle('hidden', editableContent.textContent.length <= maxLength);
-                                    charCount.classList.toggle('error', editableContent.textContent.length > maxLength);
+                                    charCount.textContent =
+                                        `${editableContent.textContent.length}/${maxLength}`;
+                                    charCount.classList.toggle('hidden', editableContent
+                                        .textContent.length <= maxLength);
+                                    charCount.classList.toggle('error', editableContent
+                                        .textContent.length > maxLength);
                                 }
                             });
                             editableContent.addEventListener('focus', () => {
-                                const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                const maxLength = parseInt(editableContent.getAttribute(
+                                    'data-max-length'));
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
                                 if (charCount) {
-                                    charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
+                                    charCount.textContent =
+                                        `${editableContent.textContent.length}/${maxLength}`;
                                     charCount.classList.remove('hidden');
                                 }
                             });
                             editableContent.addEventListener('blur', () => {
-                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
                                 if (charCount) {
                                     charCount.classList.add('hidden');
                                 }
                             });
                         });
 
-                        if (item.sectionType === 'hero' && item.id !== 4) {
-                            const editButton = row.querySelector('.edit-contents-cms-edit');
-                            editButton.addEventListener('click', () => {
-                                row.classList.toggle('edit-mode');
-                                row.setAttribute('data-id', item.id);
-                                if (row.classList.contains('edit-mode')) {
-                                    let maxLengthIndicator =
-                                        `<div class="char-count hidden" data-max="${item.maxLength || 100}">${item.content.length}/${item.maxLength || 100}</div>`;
-                                    row.innerHTML = `
-                                        <td>${rowCounter - 1}</td>
-                                        <td>${item.page}</td>
-                                        <td class="editable-cell">
-                                            <div class="editable-content" contenteditable="true">${item.title}</div>
-                                        </td>
-                                        <td class="editable-cell content-cell">
-                                            <div class="editable-content" contenteditable="true" data-max-length="${item.maxLength || 100}">${item.content}</div>
-                                            ${maxLengthIndicator}
-                                        </td>
-                                        <td><span class="edit-contents-cms-status">${item.status}</span></td>
-                                        <td>
-                                            <button class="edit-contents-cms-update">Update</button>
-                                            <button class="edit-contents-cms-edit">✏️</button>
-                                        </td>
-                                    `;
+                   if (item.sectionType === 'hero' && item.id !== 4) {
+    const editButton = row.querySelector('.edit-contents-cms-edit');
 
-                                const newEditableContents = row.querySelectorAll('.editable-content');
-                                newEditableContents.forEach((editableContent) => {
-                                    editableContent.addEventListener('input', () => {
-                                        const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                        const charCount = editableContent.parentElement.querySelector('.char-count');
-                                        if (charCount) {
-                                            charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                            charCount.classList.toggle('hidden', editableContent.textContent.length <= maxLength);
-                                            charCount.classList.toggle('error', editableContent.textContent.length > maxLength);
-                                        }
-                                    });
-                                    editableContent.addEventListener('focus', () => {
-                                        const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                        const charCount = editableContent.parentElement.querySelector('.char-count');
-                                        if (charCount) {
-                                            charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                            charCount.classList.remove('hidden');
-                                        }
-                                    });
-                                    editableContent.addEventListener('blur', () => {
-                                        const charCount = editableContent.parentElement.querySelector('.char-count');
-                                        if (charCount) {
-                                            charCount.classList.add('hidden');
-                                        }
-                                    });
-                                });
-                            
-                            } else {
-                                const titleElement = row.querySelector('.editable-cell:nth-child(3) .editable-content');
-                                const contentElement = row.querySelector('.editable-cell:nth-child(4) .editable-content');
+    if (editButton) {
+        editButton.addEventListener('click', () => {
+            row.classList.toggle('edit-mode');
+            row.setAttribute('data-id', item.id);
 
-                                const maxLength = parseInt(contentElement.getAttribute('data-max-length'));
+            if (row.classList.contains('edit-mode')) {
+                const maxLength = item.maxLength || 100;
+                const maxLengthIndicator = `
+                    <div class="char-count hidden" data-max="${maxLength}">
+                        ${item.content.length}/${maxLength}
+                    </div>`;
+
+                row.innerHTML = `
+                    <td>${rowCounter - 1}</td>
+                    <td>${item.page}</td>
+                    <td class="editable-cell">
+                        <div class="editable-content" contenteditable="true">${item.title}</div>
+                    </td>
+                    <td class="editable-cell content-cell">
+                        <div class="editable-content" contenteditable="true" data-max-length="${maxLength}">
+                            ${item.content}
+                        </div>
+                        ${maxLengthIndicator}
+                    </td>
+                    <td><span class="edit-contents-cms-status">${item.status}</span></td>
+                    <td>
+                        <button class="edit-contents-cms-update">Update</button>
+                        <button class="edit-contents-cms-edit">✏️</button>
+                    </td>
+                `;
+
+                const newEditableContents = row.querySelectorAll('.editable-content');
+                newEditableContents.forEach((editableContent) => {
+                    editableContent.addEventListener('input', () => {
+                        const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
+                        const charCount = editableContent.parentElement.querySelector('.char-count');
+                        if (charCount) {
+                            charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
+                            charCount.classList.toggle('hidden', editableContent.textContent.length <= maxLength);
+                            charCount.classList.toggle('error', editableContent.textContent.length > maxLength);
+                        }
+                    });
+
+                    editableContent.addEventListener('focus', () => {
+                        const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
+                        const charCount = editableContent.parentElement.querySelector('.char-count');
+                        if (charCount) {
+                            charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
+                            charCount.classList.remove('hidden');
+                        }
+                    });
+
+                    editableContent.addEventListener('blur', () => {
+                        const charCount = editableContent.parentElement.querySelector('.char-count');
+                        if (charCount) {
+                            charCount.classList.add('hidden');
+                        }
+                    });
+                });
+
+            } else {
+                const titleElement = row.querySelector('.editable-cell:nth-child(3) .editable-content');
+                const contentElement = row.querySelector('.editable-cell:nth-child(4) .editable-content');
+
+                const maxLength = parseInt(contentElement.getAttribute('data-max-length'));
+                if (contentElement.textContent.length > maxLength) {
+                    this.showToast(`Content exceeds maximum length of ${maxLength} characters`, true);
+                    return;
+                }
+
+                item.title = titleElement.textContent;
+                item.content = contentElement.textContent;
+                this.updateHeroContentToAPI(item);
+                row.classList.remove('edit-mode');
+                this.renderTable();
+                this.showToast('Content updated');
+            }
+        });
+    }
+}
+
+
+ else {
+                            const updateButton = row.querySelector('.edit-contents-cms-update');
+                            updateButton.addEventListener('click', () => {
+                                const titleElement = row.querySelector(
+                                    '.editable-cell:nth-child(3) .editable-content');
+                                const contentElement = row.querySelector(
+                                    '.editable-cell:nth-child(4) .editable-content');
+
+                                const maxLength = parseInt(contentElement.getAttribute(
+                                    'data-max-length'));
                                 if (contentElement.textContent.length > maxLength) {
-                                    this.showToast(`Content exceeds maximum length of ${maxLength} characters`, true);
+                                    this.showToast(
+                                        `Content exceeds maximum length of ${maxLength} characters`,
+                                        true);
                                     return;
                                 }
 
                                 item.title = titleElement.textContent;
                                 item.content = contentElement.textContent;
-                                if (item.sectionType === 'hero') {
-                                    this.updateHeroContentToAPI(item);
-                                }
                                 this.renderTable();
                                 this.showToast('Content updated');
-                            }
-                        });
-                    }
+                            });
+                        }
                     }
 
                     const fileInputs = row.querySelectorAll('.file-input');
@@ -2263,27 +2450,40 @@
                                 reader.onload = (event) => {
                                     const img = new Image();
                                     img.onload = () => {
-                                        const constraints = item.mediaConstraints || (item.isTestimonialArray ? JSON.parse(item.content)[idx]?.mediaConstraints : null);
-                                        if (img.width === constraints?.width && img.height === constraints?.height) {
+                                        const constraints = item.mediaConstraints || (
+                                            item.isTestimonialArray ? JSON.parse(
+                                                item.content)[idx]
+                                            ?.mediaConstraints : null);
+                                        if (img.width === constraints?.width && img
+                                            .height === constraints?.height) {
                                             if (item.isTestimonialArray) {
-                                                const testimonials = JSON.parse(item.content);
-                                                testimonials[idx].image = event.target.result;
-                                                item.content = JSON.stringify(testimonials);
+                                                const testimonials = JSON.parse(item
+                                                    .content);
+                                                testimonials[idx].image = event.target
+                                                    .result;
+                                                item.content = JSON.stringify(
+                                                    testimonials);
                                             } else {
                                                 item.content = event.target.result;
                                             }
                                             this.renderTable();
                                         } else {
-                                            this.resizeImage(event.target.result, constraints?.width, constraints?.height, (resizedImage) => {
-                                                if (item.isTestimonialArray) {
-                                                    const testimonials = JSON.parse(item.content);
-                                                    testimonials[idx].image = resizedImage;
-                                                    item.content = JSON.stringify(testimonials);
-                                                } else {
-                                                    item.content = resizedImage;
-                                                }
-                                                this.renderTable();
-                                            });
+                                            this.resizeImage(event.target.result,
+                                                constraints?.width, constraints
+                                                ?.height, (resizedImage) => {
+                                                    if (item.isTestimonialArray) {
+                                                        const testimonials = JSON
+                                                            .parse(item.content);
+                                                        testimonials[idx].image =
+                                                            resizedImage;
+                                                        item.content = JSON
+                                                            .stringify(
+                                                                testimonials);
+                                                    } else {
+                                                        item.content = resizedImage;
+                                                    }
+                                                    this.renderTable();
+                                                });
                                         }
                                     };
                                     img.src = event.target.result;
@@ -2313,10 +2513,9 @@
 
 
                 });
-            
+
                 this.renderPagination();
             }
-            
 
             renderPagination() {
                 const totalItems = this.filteredData.length;
@@ -2421,24 +2620,25 @@
         });
 
         function initializeFileInputs() {
-          document.querySelectorAll('.file-input').forEach(input => {
-    input.addEventListener('change', function () {
-        const file = this.files[0];
-        if (!file || !file.type.startsWith('image/')) {
-            alert('Only image files allowed');
-            return;
-        }
+            document.querySelectorAll('.file-input').forEach(input => {
+                input.addEventListener('change', function() {
+                    const file = this.files[0];
+                    if (!file || !file.type.startsWith('image/')) {
+                        alert('Only image files allowed');
+                        return;
+                    }
 
-        const title = this.closest('tr')?.querySelector('.editable-content')?.innerText?.trim(); // if input is in row
-        if (!title) {
-            alert('Missing title to associate with file');
-            return;
-        }
+                    const title = this.closest('tr')?.querySelector('.editable-content')?.innerText
+                ?.trim(); // if input is in row
+                    if (!title) {
+                        alert('Missing title to associate with file');
+                        return;
+                    }
 
-        window.selectedFilePerTitle[title] = file;
-        console.log('✅ Stored file for title:', title, file);
-    });
-});
+                    window.selectedFilePerTitle[title] = file;
+                    console.log('✅ Stored file for title:', title, file);
+                });
+            });
         }
 
 
@@ -2470,33 +2670,33 @@
 
         function initializeUpdateButtons() {
             document.querySelectorAll('.edit-contents-cms-update').forEach(button => {
-    if (button.dataset.listenerAttached === 'true') return;
+                if (button.dataset.listenerAttached === 'true') return;
 
-    button.addEventListener('click', async function () {
-        const row = this.closest('tr');
-        const title = row.querySelector('.editable-content')?.innerText?.trim();
+                button.addEventListener('click', async function() {
+                    const row = this.closest('tr');
+                    const title = row.querySelector('.editable-content')?.innerText?.trim();
 
-        const file = window.selectedFilePerTitle[title];
+                    const file = window.selectedFilePerTitle[title];
 
-        if (!file) {
-            alert('Please select an image file first');
-            return;
-        }
+                    if (!file) {
+                        alert('Please select an image file first');
+                        return;
+                    }
 
-        const uploadedUrl = await updateCmsContent(title, file);
-        if (uploadedUrl) {
-            delete window.selectedFilePerTitle[title];
+                    const uploadedUrl = await updateCmsContent(title, file);
+                    if (uploadedUrl) {
+                        delete window.selectedFilePerTitle[title];
 
-            const preview = row.querySelector('.media-preview');
-            if (preview) {
-                preview.innerHTML = `<img src="${uploadedUrl}" width="200">`;
-            }
-            window.cmsEditor.showToast('✅ Image uploaded!');
-        }
-    });
+                        const preview = row.querySelector('.media-preview');
+                        if (preview) {
+                            preview.innerHTML = `<img src="${uploadedUrl}" width="200">`;
+                        }
+                        window.cmsEditor.showToast('✅ Image uploaded!');
+                    }
+                });
 
-    button.dataset.listenerAttached = 'true';
-});
+                button.dataset.listenerAttached = 'true';
+            });
         }
     </script>
 </body>
