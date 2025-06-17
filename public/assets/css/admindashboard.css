@@ -1901,7 +1901,7 @@ text[fill="#222222"] {
 }
 
 .sc-lead-chart-wrapper {
-    height: 150px;
+    height: auto;
     margin-bottom: 5px;
 }
 

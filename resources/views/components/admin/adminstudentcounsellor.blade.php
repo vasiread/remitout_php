@@ -371,7 +371,6 @@
                     headerSection.style.alignItems = 'center';
                 }
                 if (addButton) {
-                    addButton.style.width = '100%';
                     addButton.style.marginTop = '10px';
                 }
             } else {

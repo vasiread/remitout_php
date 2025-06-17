@@ -76,8 +76,8 @@
                                 <img src="assets/images/search.png" class="mobile-search-icon-student-report"
                                     alt="search">
                             </div>
-                            <button class="mobile-filter-btn-student-report" id="show-mobile-filters">
-                                Filters <span>⌄</span>
+                           <button class="mobile-filter-btn-student-report" id="show-mobile-filters">
+                                Filters <img src="assets/images/filter-icon.png" alt="Dropdown Icon" class="dropdown-icon">
                             </button>
                             <button class="mobile-calendar-btn-student-report">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
