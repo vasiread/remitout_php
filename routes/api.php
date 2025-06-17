@@ -237,3 +237,7 @@ Route::post('/cms/landing/update', [Admincontroller::class, 'updateLanding']);
 
 Route::get('/get-testimonial', [Admincontroller::class, 'TestimonialIndex']);
 Route::post('/testimonials-store', [Admincontroller::class, 'TestimonialStore']);
+
+
+
+Route::post('/update-cms-imageupload',[Admincontroller::class,'updateCmsImageContent']);

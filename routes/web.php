@@ -323,3 +323,7 @@ Route::post('/admin/passwordchange', [Admincontroller::class, 'forgotAdminCreden
 
 Route::get('/get-testimonialss', [Admincontroller::class, 'TestimonialIndex']);
 Route::post('/testimonials-store', [Admincontroller::class, 'TestimonialStore']);
+
+
+
+Route::post('/update-cms-imageupload', [Admincontroller::class, 'updateCmsImageContent']);
