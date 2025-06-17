@@ -3305,69 +3305,71 @@ if (mobButton) {
     }
        
 
-    function searchMobFunctionality() {
-        const searchInput = document.getElementById('searchinput-admindashboard');
-        if (!searchInput) {
-            console.error('Search input element not found');
-            return;
-        }
-
-        // Mapping of display names to data-report values
-        const reportMapping = {
-            'registration reports': 'registration-reports',
-            'no of grads': 'no-of-grads',
-            'registration source': 'registration-source',
-            'age ratio reports': 'age-ratio-reports',
-            'funnel reports': 'funnel-reports',
-            'destination countries': 'destination-countries',
-            'cities': 'cities',
-            'nbfc: generation leads': 'nbfc-generation-leads',
-            'point of entry': 'point-of-entry',
-            'sc: generation leads': 'sc-generation-leads',
-            'sc: generation leads approved': 'sc-generation-leads-approved',
-            'sem rush': 'sem-rush'
-        };
-
-        // Get all report names for searching
-        const reportNames = Object.keys(reportMapping);
-
-        searchInput.addEventListener('input', function() {
-            const query = this.value.trim().toLowerCase();
-            console.log('Search query:', query);
-
-            // Get all report containers
-            const reports = document.querySelectorAll('[data-report]');
-            if (!reports.length) {
-                console.warn('No report containers found with [data-report]');
+   function searchMobFunctionality() {
+            const searchInput = document.getElementById('searchinput-admindashboard');
+            if (!searchInput) {
+                console.error('Search input element not found');
                 return;
             }
 
-            if (!query) {
-                // If search is empty, show all reports
+            // Mapping of display names and aliases to data-report values
+            const reportMapping = {
+                'registration reports': 'registration-reports',
+                'no of grads': 'no-of-grads',
+                'total undergrad': 'no-of-grads', 
+                'total postgrad': 'no-of-grads', 
+                'registration source': 'registration-source',
+                'no age ratio data available': 'age-ratio-reports',
+                'funnel reports': 'funnel-reports',
+                'destination countries': 'destination-countries',
+                'cities': 'cities',
+                'nbfc: generation leads': 'nbfc-generation-leads',
+                'point of entry': 'point-of-entry',
+                'sc: generation leads': 'sc-generation-leads',
+                'sc: generation leads approved': 'sc-generation-leads-approved',
+                'sem rush': 'sem-rush'
+            };
+
+            // Get all report names and aliases for searching
+            const reportNames = Object.keys(reportMapping);
+
+            searchInput.addEventListener('input', function() {
+                const query = this.value.trim().toLowerCase();
+                console.log('Search query:', query);
+
+                // Get all report containers
+                const reports = document.querySelectorAll('[data-report]');
+                if (!reports.length) {
+                    console.warn('No report containers found with [data-report]');
+                    return;
+                }
+
+                if (!query) {
+                    // If search is empty, show all reports
+                    reports.forEach(report => {
+                        report.style.display = 'block';
+                    });
+                    console.log('Search cleared, showing all reports');
+                    return;
+                }
+
+                // Find matching report names or aliases
+                const matchedReports = reportNames.filter(name => name.toLowerCase().includes(query));
+                console.log('Matched report names:', matchedReports);
+
+                // Convert matched names to their data-report values (deduplicate)
+                const matchedReportIds = [...new Set(matchedReports.map(name => reportMapping[name.toLowerCase()]))];
+                console.log('Matched report IDs:', matchedReportIds);
+
+                // Show/hide reports based on matches
                 reports.forEach(report => {
-                    report.style.display = 'block';
+                    const reportId = report.getAttribute('data-report');
+                    const shouldShow = matchedReportIds.includes(reportId);
+                    report.style.display = shouldShow ? 'block' : 'none';
+                    console.log(`Report ${reportId}: ${shouldShow ? 'shown' : 'hidden'}`);
                 });
-                console.log('Search cleared, showing all reports');
-                return;
-            }
-
-            // Find matching report names
-            const matchedReports = reportNames.filter(name => name.toLowerCase().includes(query));
-            console.log('Matched report names:', matchedReports);
-
-            // Convert matched names to their data-report values
-            const matchedReportIds = matchedReports.map(name => reportMapping[name.toLowerCase()]);
-            console.log('Matched report IDs:', matchedReportIds);
-
-            // Show/hide reports based on matches
-            reports.forEach(report => {
-                const reportId = report.getAttribute('data-report');
-                const shouldShow = matchedReportIds.includes(reportId);
-                report.style.display = shouldShow ? 'block' : 'none';
-                console.log(`Report ${reportId}: ${shouldShow ? 'shown' : 'hidden'}`);
             });
-        });
-    }
+        }
 
     document.addEventListener('DOMContentLoaded', function() {
         funnelreport();

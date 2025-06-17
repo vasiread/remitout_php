@@ -683,10 +683,11 @@
     }
     #studentprofile-section-adminsideview .studentdashboardprofile-myapplication {
         max-width: 100%;
-        width: 95%;
-        margin: 50px auto;
+        width: 90%;
+        margin: 70px auto;
         padding: 15px;
         gap: 1.5rem;
+        border-radius: 8px;
     }
     #selected-study-location-edit{
         gap:15px;
