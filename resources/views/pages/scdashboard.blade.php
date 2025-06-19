@@ -719,7 +719,8 @@ $studentDocumentDetailsInfo = [
 
             window.addEventListener('resize', updateQueryVisibility);
 
-            updateQueryVisibility(); // Initial check on load
+            updateQueryVisibility();
+            
 
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -727,6 +728,7 @@ $studentDocumentDetailsInfo = [
                 const queryType = document.querySelector('#query-type').value;
                 const scuser = @json(session('scuser'));
                 const scUserId = scuser.referral_code;
+
 
                 if (!queryText || !queryType) {
                     alert('Please fill in all fields.');

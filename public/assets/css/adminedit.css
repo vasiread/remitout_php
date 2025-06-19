@@ -688,7 +688,16 @@
     background-color: rgba(0, 123, 255, 0.1);
     border-radius: 4px;
 }
-
+.disabled-update {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+.disabled-edit {
+    background-color: #f3f3f3;
+    color: #777;
+    cursor: not-allowed;
+}
 .char-count,
 .char-count-exceeded {
     font-size: 12px;
@@ -1053,6 +1062,12 @@
 .testimonial-row .add-testimonial svg {
     width: 16px;
     height: 16px;
+}
+.remove-testimonial svg{
+        background: none;
+        border: 1px solid #ff6b2b;
+        cursor: pointer;
+        color:#ff6b2b;
 }
 
 .testimonial-row .remove-testimonial:hover svg,

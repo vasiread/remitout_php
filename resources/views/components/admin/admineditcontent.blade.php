@@ -104,7 +104,7 @@
         // Define contentData globally
         const contentData = [{
                 name: "Landing Page",
-                sections: 86,
+                sections: 116,
                 tags: ["Text", "Img", "Video"]
             },
             {
@@ -128,6 +128,8 @@
                 tags: ["Text", "Img", "Video"]
             }
         ];
+        window.selectedFilePerTitle = {};
+        window.selectedFilePerTitle = {};
 
         const contentList = document.querySelector('.edit-content-list');
 
@@ -136,6 +138,7 @@
             data.forEach(item => {
                 const row = document.createElement('div');
                 row.classList.add('edit-content-row');
+                row.setAttribute('data-id', item.id);
                 row.innerHTML = `
                     <div>${item.name}</div>
                     <div>${item.sections} Sections</div>
@@ -244,80 +247,26 @@
                         status: 'Active',
                         maxLength: 20
                     },
-                        // Testimonial Section
-                    {
-                        id: 7,
-                        page: 'Landing Page',
-                        sectionType: 'testimonial',
-                        title: 'Testimonial Heading',
-                        content: 'Hear What They Say',
-                        status: 'Active',
-                        maxLength: 20
-                    },
                     {
                         id: 8,
                         page: 'Landing Page',
                         sectionType: 'testimonial',
                         title: 'Testimonials',
-                        content: JSON.stringify([
-                            {
-                                name: 'Mark Debrovski',
-                                designation: 'Designation',
-                                rating: 5,
-                                description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
-                                image: '/api/placeholder/100/100',
-                                mediaConstraints: {
-                                    formats: ['png', 'jpg', 'jpeg'],
-                                    width: 100,
-                                    height: 100
-                                }
-                            },
-                            {
-                                name: 'Debrovski',
-                                designation: 'Designation',
-                                rating: 4,
-                                description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
-                                image: '/api/placeholder/100/100',
-                                mediaConstraints: {
-                                    formats: ['png', 'jpg', 'jpeg'],
-                                    width: 100,
-                                    height: 100
-                                }
-                            },
-                            {
-                                name: 'Mark Debrovski',
-                                designation: 'Designation',
-                                rating: 5,
-                                description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
-                                image: '/api/placeholder/100/100',
-                                mediaConstraints: {
-                                    formats: ['png', 'jpg', 'jpeg'],
-                                    width: 100,
-                                    height: 100
-                                }
-                            },
-                            {
-                                name: 'Mark Debrovski',
-                                designation: 'Designation',
-                                rating: 5,
-                                description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
-                                image: '/api/placeholder/100/100',
-                                mediaConstraints: {
-                                    formats: ['png', 'jpg', 'jpeg'],
-                                    width: 100,
-                                    height: 100
-                                }
+                        content: JSON.stringify([{
+                            name: 'Mark Debrovski',
+                            designation: 'Designation',
+                            rating: 5,
+                            description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
+                            image: '/api/placeholder/100/100',
+                            mediaConstraints: {
+                                formats: ['png', 'jpg', 'jpeg'],
+                                width: 100,
+                                height: 100
                             }
-                        ]),
-                        status: 'Active',
-                        isTestimonialArray: true,
-                        maxLengthConstraints: {
-                            name: 20,
-                            designation: 20,
-                            description: 160
-                        }
+                        }, ])
                     },
-                    
+
+
 
                     // Logo Section
                     {
@@ -1089,63 +1038,12 @@
                         page: 'Landing Page',
                         sectionType: 'faq-section',
                         title: 'FAQs',
-                        content: JSON.stringify([
-                            {
-                                question: 'How can I apply for a loan with Remitout?',
-                                answer: 'You can easily apply online by visiting our application page and filling out a short form with your basic information. Once submitted, our team will reach out with the next steps.'
-                            },
-                            {
-                                question: 'What are the eligibility criteria for a loan?',
-                                answer: 'Our eligibility criteria includes age requirements, income verification, and credit history assessment. Please contact our support team for detailed information specific to your situation.'
-                            },
-                            {
-                                question: 'How long does the loan approval process take?',
-                                answer: 'The loan approval process typically takes 2-3 business days, depending on the completeness of your application and required documentation.'
-                            },
-                            {
-                                question: 'What documents are required to apply for a loan?',
-                                answer: 'Required documents typically include government-issued ID, proof of income, bank statements, and proof of address. Specific requirements may vary based on the loan type.'
-                            },
-                            {
-                                question: 'Can I apply for a loan if I have bad credit?',
-                                answer: 'While bad credit may impact your eligibility, we assess applications on a case-by-case basis. Reach out to our support team to discuss potential options for your situation.'
-                            },
-                            {
-                                question: 'How do I track my loan application status?',
-                                answer: 'You can track the status of your loan application by logging into your account on our website. Additionally, our team will notify you of any updates via email or phone.'
-                            },
-                            {
-                                question: 'Can I use my loan for any purpose?',
-                                answer: 'Our loans are designed primarily for educational expenses. While most loans can be used for tuition, living costs, and study-related expenses, check the loan terms for any specific restrictions.'
-                            },
-                            {
-                                question: 'What is the repayment schedule for my loan?',
-                                answer: 'Repayment terms are customized based on your loan amount, tenure, and educational institution. You’ll be informed about your repayment schedule at the time of loan approval.'
-                            },
-                            {
-                                question: 'How do I choose the best loan offer for me?',
-                                answer: 'Once your profile is assessed, we provide personalized loan offers. You can compare these offers based on your eligibility, interest rates, and repayment options to select the one that best suits your needs.'
-                            },
-                            {
-                                question: 'Can I pay off my loan early?',
-                                answer: 'Yes, you can pay off your loan early without any prepayment penalties. Early repayment may also help you save on interest charges.'
-                            },
-                            {
-                                question: 'What happens if I miss a loan payment?',
-                                answer: 'If you miss a loan payment, please contact us immediately. We may offer alternative arrangements or extend your payment period. It’s important to keep us informed to avoid negative impacts on your credit score.'
-                            },
-                            {
-                                question: 'How fast can I receive my loan disbursement?',
-                                answer: 'Once approved, your loan will be disbursed directly to your educational institution in a timely manner, ensuring there are no delays in securing your admission.'
-                            }
-                        ]),
-                        status: 'Active',
-                        isFAQArray: true,
-                        maxLengthConstraints: {
-                            question: 100,
-                            answer: 200
-                        }
+                        content: [{
+                            question: 'How can I apply for a loan with Remitout?',
+                            answer: 'You can easily apply online by visiting our application page and filling out a short form with your basic information. Once submitted, our team will reach out with the next steps.'
+                        }]
                     },
+
 
                     // Footer Section
                     {
@@ -1432,59 +1330,218 @@
                 this.renderTable();
             }
 
-            addNewTestimonial(item) {
+            async addNewTestimonial(item) {
                 const testimonials = JSON.parse(item.content);
-                testimonials.push({
+
+                const newTestimonial = {
                     name: 'New Testimonial',
                     designation: 'Designation',
                     rating: 5,
                     description: 'Enter description here.',
-                    image: '/api/placeholder/100/100',
                     mediaConstraints: {
                         formats: ['png', 'jpg', 'jpeg'],
                         width: 100,
                         height: 100
                     }
-                });
-                item.content = JSON.stringify(testimonials);
-                this.renderTable();
-                this.showToast('New testimonial added');
+                };
+
+                try {
+                    const res = await fetch('/testimonial/store', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        },
+                        body: JSON.stringify({
+                            name: newTestimonial.name,
+                            designation: newTestimonial.designation,
+                            rating: newTestimonial.rating,
+                            review: newTestimonial.description
+                        })
+                    });
+
+                    const result = await res.json();
+
+                    if (result.status && result.data?.id) {
+                        newTestimonial.id = result.data.id;
+                        testimonials.push(newTestimonial);
+                        item.content = JSON.stringify(testimonials);
+                        this.renderTable();
+                        this.showToast('✅ Testimonial added and saved');
+                    } else {
+                        this.showToast('❌ Failed to add testimonial', true);
+                    }
+                } catch (err) {
+                    console.error(err);
+                    this.showToast('⚠️ Error saving testimonial', true);
+                }
             }
 
-            removeTestimonial(item, index) {
+
+            async removeTestimonial(item, index) {
                 const testimonials = JSON.parse(item.content);
-                if (testimonials.length > 1) {
+                const testimonial = testimonials[index];
+
+                if (testimonial?.isProtected) {
+                    this.showToast('🚫 This is a default testimonial and cannot be deleted.', true);
+                    return;
+                }
+
+                // Not yet saved to DB — just remove locally
+                if (!testimonial.id) {
                     testimonials.splice(index, 1);
                     item.content = JSON.stringify(testimonials);
                     this.renderTable();
-                    this.showToast('Testimonial removed');
-                } else {
-                    this.showToast('At least one testimonial is required', true);
+                    this.showToast('🗑️ Unsaved testimonial removed');
+                    return;
+                }
+
+                try {
+                    const res = await fetch(`/testimonial/delete/${testimonial.id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        }
+                    });
+
+                    const result = await res.json();
+
+                    if (result.status) {
+                        testimonials.splice(index, 1);
+                        item.content = JSON.stringify(testimonials);
+                        this.renderTable();
+                        this.showToast('🗑️ Testimonial deleted');
+                    } else {
+                        this.showToast('❌ Failed to delete testimonial', true);
+                    }
+                } catch (err) {
+                    console.error(err);
+                    this.showToast('⚠️ Error deleting testimonial', true);
                 }
             }
 
-            addNewFAQ(item) {
+
+            async addNewFAQ(item) {
                 const faqs = JSON.parse(item.content);
-                faqs.push({
+
+                const newFaq = {
                     question: 'New FAQ Question',
                     answer: 'Enter answer here.'
-                });
-                item.content = JSON.stringify(faqs);
-                this.renderTable();
-                this.showToast('New FAQ added');
+                };
+
+                try {
+                    const res = await fetch('/faq/store', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        },
+                        body: JSON.stringify(newFaq)
+                    });
+
+                    const result = await res.json();
+
+                    if (result.status && result.data?.id) {
+                        newFaq.id = result.data.id;
+                        faqs.push(newFaq);
+                        item.content = JSON.stringify(faqs);
+                        this.renderTable();
+                        this.showToast('✅ FAQ added and saved');
+                    } else {
+                        this.showToast('❌ Failed to add FAQ', true);
+                    }
+                } catch (err) {
+                    console.error(err);
+                    this.showToast('⚠️ Error saving FAQ', true);
+                }
+            }
+            async updateFAQ(item, index) {
+                const faqs = JSON.parse(item.content);
+                const faq = faqs[index];
+
+                if (faq?.isProtected) {
+                    this.showToast('🚫 This FAQ is protected and cannot be updated.', true);
+                    return;
+                }
+
+                if (!faq.id) {
+                    this.showToast('❌ Cannot update unsaved FAQ. Please save it first.', true);
+                    return;
+                }
+
+                try {
+                    const res = await fetch(`/faq/update/${faq.id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        },
+                        body: JSON.stringify({
+                            question: faq.question,
+                            answer: faq.answer
+                        })
+                    });
+
+                    const result = await res.json();
+
+                    if (result.status) {
+                        this.showToast('✅ FAQ updated successfully');
+                    } else {
+                        this.showToast(`❌ Failed to update FAQ: ${result.message}`, true);
+                    }
+                } catch (err) {
+                    console.error(err);
+                    this.showToast('⚠️ Error updating FAQ', true);
+                }
             }
 
-            removeFAQ(item, index) {
+
+            async removeFAQ(item, index) {
                 const faqs = JSON.parse(item.content);
-                if (faqs.length > 1) {
+                const faq = faqs[index];
+
+                if (faq?.isProtected) {
+                    this.showToast('🚫 This is a default FAQ and cannot be deleted.', true);
+                    return;
+                }
+
+                if (!faq.id) {
                     faqs.splice(index, 1);
                     item.content = JSON.stringify(faqs);
                     this.renderTable();
-                    this.showToast('FAQ removed');
-                } else {
-                    this.showToast('At least one FAQ is required', true);
+                    this.showToast('🗑️ Unsaved FAQ removed');
+                    return;
+                }
+
+                try {
+                    const res = await fetch(`/faq/delete/${faq.id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        }
+                    });
+
+                    const result = await res.json();
+
+                    if (result.status) {
+                        faqs.splice(index, 1);
+                        item.content = JSON.stringify(faqs);
+                        this.renderTable();
+                        this.showToast('🗑️ FAQ deleted');
+                    } else {
+                        this.showToast('❌ Failed to delete FAQ', true);
+                    }
+                } catch (err) {
+                    console.error(err);
+                    this.showToast('⚠️ Error deleting FAQ', true);
                 }
             }
+
 
             addNewLogo(item) {
                 const newId = Math.max(...this.data.map(d => d.id)) + 1;
@@ -1568,30 +1625,165 @@
             }
             async injectDynamicHeroContent() {
                 try {
-                    const res = await fetch('/landingpage');
-                    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
+                    const res = await fetch('/landingpage');
+                    if (!res.ok) throw new Error(`CMS fetch failed: ${res.status}`);
                     const cmsData = await res.json();
 
-                    this.data.forEach(item => {
+
+
+                    for (const item of this.data) {
+                        // Try to find matching CMS block
                         const match = cmsData.find(serverItem =>
                             serverItem.section === item.sectionType && serverItem.title === item.title
                         );
+
+                        // If found, use its content
                         if (match) {
                             item.content = match.content;
                         }
-                    });
+
+                        // ✅ Always process testimonials
+                        if (item.sectionType === 'testimonial' && item.title === 'Testimonials') {
+                            try {
+                                const parsed = JSON.parse(item.content);
+                                if (Array.isArray(parsed)) {
+                                    item.isTestimonialArray = true;
+                                    item.maxLengthConstraints = {
+                                        name: 20,
+                                        designation: 20,
+                                        description: 160
+                                    };
+
+                                    const testimonialRes = await fetch('/gettestimonials');
+                                    if (!testimonialRes.ok) throw new Error(
+                                        `Testimonial fetch failed: ${testimonialRes.status}`);
+                                    const testimonialData = await testimonialRes.json();
+
+                                    if (testimonialData.status && Array.isArray(testimonialData.data)) {
+                                        parsed.splice(1, 0, ...testimonialData.data.map(t => ({
+                                            id: t.id,
+                                            name: t.name,
+                                            designation: t.designation,
+                                            description: t.review,
+                                            image: t.image,
+                                            rating: t.rating,
+                                            mediaConstraints: {
+                                                formats: ['png', 'jpg', 'jpeg'],
+                                                width: 100,
+                                                height: 100
+                                            }
+                                        })));
+
+                                        parsed[0].isProtected = true;
+                                        item.content = JSON.stringify(parsed);
+                                    }
+                                }
+                            } catch (e) {
+                                console.warn(`Invalid JSON for testimonials`, e);
+                            }
+                        }
+
+                        // alert(item)
+                        // console.log("------------")
+                        // console.log(item)
+
+                        if (item.sectionType === 'faq-section' && item.title === 'FAQs') {
+                            try {
+                                const parsed = JSON.parse(item.content);
+                                if (Array.isArray(parsed)) {
+                                    item.isFaqArray = true;
+                                    item.maxLengthConstraints = {
+                                        question: 100,
+                                        answer: 400
+                                    };
+
+                                    const faqRes = await fetch('/getfaqs');
+                                    if (!faqRes.ok) throw new Error(`FAQ fetch failed: ${faqRes.status}`);
+                                    const faqData = await faqRes.json();
+
+                                    if (faqData.status && Array.isArray(faqData.data)) {
+                                        parsed.splice(1, 0, ...faqData.data.map(f => ({
+                                            id: f.id,
+                                            question: f.question,
+                                            answer: f.answer
+                                        })));
+
+                                        parsed[0].isProtected = true;
+                                        item.content = JSON.stringify(parsed);
+                                    }
+                                }
+                            } catch (e) {
+                                console.warn('Invalid JSON for FAQs', e);
+                            }
+                        }
+                    }
+
 
                     this.originalData = JSON.parse(JSON.stringify(this.data));
                     this.filteredData = this.data;
                     this.renderTable();
 
                 } catch (err) {
-                    console.error('❌ CMS fetch failed:', err);
+                    console.error('❌ injectDynamicHeroContent failed:', err);
                     this.renderTable();
-                    this.showToast('⚠️ Failed to load live CMS content', true);
+                    this.showToast('⚠️ Failed to load CMS content', true);
                 }
             }
+
+            async updateTestimonial(item, index) {
+                const testimonials = JSON.parse(item.content);
+                const testimonial = testimonials[index];
+
+                // 🚫 Prevent updating the protected testimonial
+                if (testimonial?.isProtected) {
+                    this.showToast('🚫 This is a default testimonial and cannot be updated.', true);
+                    return;
+                }
+
+                if (!testimonial.id) {
+                    this.showToast('❌ Cannot update unsaved testimonial. Please save it first.', true);
+                    return;
+                }
+
+                const payload = {
+                    name: testimonial.name,
+                    designation: testimonial.designation,
+                    rating: testimonial.rating,
+                    review: testimonial.description
+                };
+
+                try {
+                    const res = await fetch(`/testimonial/update/${testimonial.id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await res.json();
+
+                    if (result.status) {
+                        this.showToast('✅ Testimonial updated successfully');
+                    } else {
+                        this.showToast(`❌ Failed to update testimonial: ${result.message}`, true);
+                    }
+                } catch (err) {
+                    console.error(err);
+                    this.showToast('⚠️ Error updating testimonial', true);
+                }
+            }
+
+
+
+
+
+
+
+
 
 
             async updateHeroContentToAPI(item) {
@@ -1629,7 +1821,18 @@
                 }
             }
 
-         renderTable() {
+
+
+
+
+
+
+
+
+
+
+
+            renderTable() {
                 const tbody = document.getElementById('cmsTableBody');
                 tbody.innerHTML = '';
 
@@ -1639,12 +1842,13 @@
 
                 let rowCounter = startIndex + 1;
 
+
                 paginatedData.forEach((item, index) => {
                     const row = document.createElement('tr');
                     row.dataset.id = item.id;
+                    row.setAttribute('data-id', item.id);
 
                     if (item.isMedia && item.sectionType !== 'logo') {
-                        // Image content: Show Update button directly, no Edit icon
                         row.innerHTML = `
                             <td>${rowCounter++}</td>
                             <td>${item.page}</td>
@@ -1677,29 +1881,40 @@
                                 <button class="edit-contents-cms-update">Update</button>
                             </td>
                         `;
+                        row.setAttribute('data-id', item.id);
+
                         tbody.appendChild(row);
 
                         const editableContents = row.querySelectorAll('.editable-cell .editable-content');
                         editableContents.forEach((editableContent) => {
                             editableContent.addEventListener('input', () => {
-                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
                                 if (charCount) {
-                                    const maxLength = parseInt(charCount.getAttribute('data-max'));
-                                    charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                    charCount.classList.toggle('hidden', editableContent.textContent.length <= maxLength);
-                                    charCount.classList.toggle('error', editableContent.textContent.length > maxLength);
+                                    const maxLength = parseInt(charCount.getAttribute(
+                                        'data-max'));
+                                    charCount.textContent =
+                                        `${editableContent.textContent.length}/${maxLength}`;
+                                    charCount.classList.toggle('hidden', editableContent
+                                        .textContent.length <= maxLength);
+                                    charCount.classList.toggle('error', editableContent
+                                        .textContent.length > maxLength);
                                 }
                             });
                             editableContent.addEventListener('focus', () => {
-                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
                                 if (charCount) {
-                                    const maxLength = parseInt(charCount.getAttribute('data-max'));
-                                    charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
+                                    const maxLength = parseInt(charCount.getAttribute(
+                                        'data-max'));
+                                    charCount.textContent =
+                                        `${editableContent.textContent.length}/${maxLength}`;
                                     charCount.classList.remove('hidden');
                                 }
                             });
                             editableContent.addEventListener('blur', () => {
-                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
                                 if (charCount) {
                                     charCount.classList.add('hidden');
                                 }
@@ -1708,7 +1923,8 @@
 
                         const updateButton = row.querySelector('.edit-contents-cms-update');
                         updateButton.addEventListener('click', () => {
-                            const titleElement = row.querySelector('.editable-cell:nth-child(3) .editable-content');
+                            const titleElement = row.querySelector(
+                                '.editable-cell:nth-child(3) .editable-content');
                             item.title = titleElement.textContent;
                             this.renderTable();
                             this.showToast('Media content updated');
@@ -1719,6 +1935,7 @@
                         const isLastLogo = logoIndex === logos.length - 1;
 
                         row.classList.add('logo-row');
+                        row.setAttribute('data-id', item.id);
                         row.innerHTML = `
                             <td>${rowCounter++}</td>
                             <td>${item.page}</td>
@@ -1754,38 +1971,49 @@
                                     </svg>
                                 </button>
                                 ${isLastLogo ? `
-                                    <button class="add-logo" title="Add Logo">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <line x1="12" y1="5" x2="12" y2="19"></line>
-                                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                                        </svg>
-                                    </button>
-                                ` : ''}
+                                                                                                                                                <button class="add-logo" title="Add Logo">
+                                                                                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                                                                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                                                                                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                                                                                                                    </svg>
+                                                                                                                                                </button>
+                                                                                                                                            ` : ''}
                             </td>
                         `;
+                        row.setAttribute('data-id', item.id);
+
                         tbody.appendChild(row);
 
                         const editableContents = row.querySelectorAll('.editable-cell .editable-content');
                         editableContents.forEach((editableContent) => {
                             editableContent.addEventListener('input', () => {
-                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
                                 if (charCount) {
-                                    const maxLength = parseInt(charCount.getAttribute('data-max'));
-                                    charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                    charCount.classList.toggle('hidden', editableContent.textContent.length <= maxLength);
-                                    charCount.classList.toggle('error', editableContent.textContent.length > maxLength);
+                                    const maxLength = parseInt(charCount.getAttribute(
+                                        'data-max'));
+                                    charCount.textContent =
+                                        `${editableContent.textContent.length}/${maxLength}`;
+                                    charCount.classList.toggle('hidden', editableContent
+                                        .textContent.length <= maxLength);
+                                    charCount.classList.toggle('error', editableContent
+                                        .textContent.length > maxLength);
                                 }
                             });
                             editableContent.addEventListener('focus', () => {
-                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
                                 if (charCount) {
-                                    const maxLength = parseInt(charCount.getAttribute('data-max'));
-                                    charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
+                                    const maxLength = parseInt(charCount.getAttribute(
+                                        'data-max'));
+                                    charCount.textContent =
+                                        `${editableContent.textContent.length}/${maxLength}`;
                                     charCount.classList.remove('hidden');
                                 }
                             });
                             editableContent.addEventListener('blur', () => {
-                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
                                 if (charCount) {
                                     charCount.classList.add('hidden');
                                 }
@@ -1794,7 +2022,8 @@
 
                         const updateButton = row.querySelector('.edit-contents-cms-update');
                         updateButton.addEventListener('click', () => {
-                            const titleElement = row.querySelector('.editable-cell:nth-child(3) .editable-content');
+                            const titleElement = row.querySelector(
+                                '.editable-cell:nth-child(3) .editable-content');
                             item.title = titleElement.textContent;
                             this.renderTable();
                             this.showToast('Logo updated');
@@ -1883,53 +2112,89 @@
                                         <td>
                                             <button class="edit-contents-cms-update">Update</button>
                                             <button class="edit-contents-cms-edit">✏️</button>
-                                            <button class="remove-testimonial" title="Remove Testimonial">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                                                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                                                </svg>
+                                            <button class="remove-testimonial"  title="Remove Testimonial">
+                                              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M9 3V4H4V6H5V19C5 20.11 5.9 21 7 21H17C18.11 21 19 20.11 19 19V6H20V4H15V3H9M7 6H17V19H7V6Z" />
+  </svg>
+                                               
                                             </button>
                                             ${idx === testimonials.length - 1 ? `
-                                                <button class="add-testimonial" title="Add Testimonial">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                    </svg>
-                                                </button>
-                                            ` : ''}
+                                                                                                                                                            <button class="add-testimonial" title="Add Testimonial">
+                                                                                                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                                                                                                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                                                                                                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                                                                                                                                </svg>
+                                                                                                                                                            </button>
+                                                                                                                                                        ` : ''}
                                         </td>
                                     `;
 
-                                    const editableContents = testimonialRow.querySelectorAll('.editable-content');
+                                    const editableContents = testimonialRow.querySelectorAll(
+                                        '.editable-content');
                                     editableContents.forEach((editableContent) => {
-                                        editableContent.addEventListener('input', () => {
-                                            const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                            const charCount = editableContent.parentElement.querySelector('.char-count');
-                                            if (charCount) {
-                                                charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                                charCount.classList.toggle('hidden', editableContent.textContent.length <= maxLength);
-                                                charCount.classList.toggle('error', editableContent.textContent.length > maxLength);
-                                            }
-                                        });
-                                        editableContent.addEventListener('focus', () => {
-                                            const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                            const charCount = editableContent.parentElement.querySelector('.char-count');
-                                            if (charCount) {
-                                                charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                                charCount.classList.remove('hidden');
-                                            }
-                                        });
+                                        if (testimonial.isProtected) {
+                                            editableContent.contentEditable = "false";
+                                            editableContent.classList.add(
+                                                "disabled-edit");
+                                            return; // No need to attach input/focus/blur
+                                        }
+
+                                        editableContent.addEventListener('input',
+                                            () => {
+                                                const maxLength = parseInt(
+                                                    editableContent
+                                                    .getAttribute(
+                                                        'data-max-length'));
+                                                const charCount = editableContent
+                                                    .parentElement.querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.textContent =
+                                                        `${editableContent.textContent.length}/${maxLength}`;
+                                                    charCount.classList.toggle(
+                                                        'hidden',
+                                                        editableContent
+                                                        .textContent.length <=
+                                                        maxLength);
+                                                    charCount.classList.toggle(
+                                                        'error', editableContent
+                                                        .textContent.length >
+                                                        maxLength);
+                                                }
+                                            });
+                                        editableContent.addEventListener('focus',
+                                            () => {
+                                                const maxLength = parseInt(
+                                                    editableContent
+                                                    .getAttribute(
+                                                        'data-max-length'));
+                                                const charCount = editableContent
+                                                    .parentElement.querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.textContent =
+                                                        `${editableContent.textContent.length}/${maxLength}`;
+                                                    charCount.classList.remove(
+                                                        'hidden');
+                                                }
+                                            });
                                         editableContent.addEventListener('blur', () => {
-                                            const charCount = editableContent.parentElement.querySelector('.char-count');
+                                            const charCount = editableContent
+                                                .parentElement.querySelector(
+                                                    '.char-count');
                                             if (charCount) {
-                                                charCount.classList.add('hidden');
+                                                charCount.classList.add(
+                                                    'hidden');
                                             }
                                         });
                                     });
 
-                                    const fileInput = testimonialRow.querySelector('.file-input');
-                                    const uploadTrigger = testimonialRow.querySelector('.upload-trigger');
-                                    uploadTrigger.addEventListener('click', () => fileInput.click());
+                                    const fileInput = testimonialRow.querySelector(
+                                        '.file-input');
+                                    const uploadTrigger = testimonialRow.querySelector(
+                                        '.upload-trigger');
+                                    uploadTrigger.addEventListener('click', () => fileInput
+                                        .click());
                                     fileInput.addEventListener('change', (e) => {
                                         const file = e.target.files[0];
                                         if (file) {
@@ -1937,16 +2202,41 @@
                                             reader.onload = (event) => {
                                                 const img = new Image();
                                                 img.onload = () => {
-                                                    if (img.width === testimonial.mediaConstraints.width && img.height === testimonial.mediaConstraints.height) {
-                                                        testimonial.image = event.target.result;
-                                                        item.content = JSON.stringify(testimonials);
+                                                    if (img.width ===
+                                                        testimonial
+                                                        .mediaConstraints
+                                                        .width && img.height ===
+                                                        testimonial
+                                                        .mediaConstraints.height
+                                                    ) {
+                                                        testimonial.image =
+                                                            event.target.result;
+                                                        item.content = JSON
+                                                            .stringify(
+                                                                testimonials);
                                                         this.renderTable();
                                                     } else {
-                                                        this.resizeImage(event.target.result, testimonial.mediaConstraints.width, testimonial.mediaConstraints.height, (resizedImage) => {
-                                                            testimonial.image = resizedImage;
-                                                            item.content = JSON.stringify(testimonials);
-                                                            this.renderTable();
-                                                        });
+                                                        this.resizeImage(event
+                                                            .target.result,
+                                                            testimonial
+                                                            .mediaConstraints
+                                                            .width,
+                                                            testimonial
+                                                            .mediaConstraints
+                                                            .height, (
+                                                                resizedImage
+                                                            ) => {
+                                                                testimonial
+                                                                    .image =
+                                                                    resizedImage;
+                                                                item.content =
+                                                                    JSON
+                                                                    .stringify(
+                                                                        testimonials
+                                                                    );
+                                                                this
+                                                                    .renderTable();
+                                                            });
                                                     }
                                                 };
                                                 img.src = event.target.result;
@@ -1955,47 +2245,84 @@
                                         }
                                     });
 
-                                    const updateButton = testimonialRow.querySelector('.edit-contents-cms-update');
+                                    const updateButton = testimonialRow.querySelector(
+                                        '.edit-contents-cms-update');
                                     updateButton.addEventListener('click', () => {
-                                        const nameElement = testimonialRow.querySelector('.testimonial-field:nth-child(1) .editable-content');
-                                        const designationElement = testimonialRow.querySelector('.testimonial-field:nth-child(2) .editable-content');
-                                        const ratingElement = testimonialRow.querySelector('.testimonial-rating');
-                                        const descriptionElement = testimonialRow.querySelector('.testimonial-field:nth-child(4) .editable-content');
 
-                                        const maxLengthName = parseInt(nameElement.getAttribute('data-max-length'));
-                                        const maxLengthDesignation = parseInt(designationElement.getAttribute('data-max-length'));
-                                        const maxLengthDescription = parseInt(descriptionElement.getAttribute('data-max-length'));
+                                        const nameElement = testimonialRow
+                                            .querySelector(
+                                                '.testimonial-field:nth-child(1) .editable-content'
+                                            );
+                                        const designationElement = testimonialRow
+                                            .querySelector(
+                                                '.testimonial-field:nth-child(2) .editable-content'
+                                            );
+                                        const ratingElement = testimonialRow
+                                            .querySelector('.testimonial-rating');
+                                        const descriptionElement = testimonialRow
+                                            .querySelector(
+                                                '.testimonial-field:nth-child(4) .editable-content'
+                                            );
 
-                                        if (nameElement.textContent.length > maxLengthName) {
-                                            this.showToast(`Name exceeds maximum length of ${maxLengthName} characters`, true);
+                                        const maxLengthName = parseInt(nameElement
+                                            .getAttribute('data-max-length'));
+                                        const maxLengthDesignation = parseInt(
+                                            designationElement.getAttribute(
+                                                'data-max-length'));
+                                        const maxLengthDescription = parseInt(
+                                            descriptionElement.getAttribute(
+                                                'data-max-length'));
+
+                                        if (nameElement.textContent.length >
+                                            maxLengthName) {
+                                            this.showToast(
+                                                `Name exceeds maximum length of ${maxLengthName} characters`,
+                                                true);
                                             return;
                                         }
-                                        if (designationElement.textContent.length > maxLengthDesignation) {
-                                            this.showToast(`Designation exceeds maximum length of ${maxLengthDesignation} characters`, true);
+                                        if (designationElement.textContent.length >
+                                            maxLengthDesignation) {
+                                            this.showToast(
+                                                `Designation exceeds maximum length of ${maxLengthDesignation} characters`,
+                                                true);
                                             return;
                                         }
-                                        if (descriptionElement.textContent.length > maxLengthDescription) {
-                                            this.showToast(`Description exceeds maximum length of ${maxLengthDescription} characters`, true);
+                                        if (descriptionElement.textContent.length >
+                                            maxLengthDescription) {
+                                            this.showToast(
+                                                `Description exceeds maximum length of ${maxLengthDescription} characters`,
+                                                true);
                                             return;
                                         }
 
                                         testimonial.name = nameElement.textContent;
-                                        testimonial.designation = designationElement.textContent;
-                                        testimonial.rating = parseInt(ratingElement.value);
-                                        testimonial.description = descriptionElement.textContent;
+                                        testimonial.designation = designationElement
+                                            .textContent;
+                                        testimonial.rating = parseInt(ratingElement
+                                            .value);
+                                        testimonial.description = descriptionElement
+                                            .textContent;
                                         item.content = JSON.stringify(testimonials);
                                         testimonialRow.classList.remove('edit-mode');
+                                        this.updateTestimonial(item, idx);
                                         this.renderTable();
-                                        this.showToast('Testimonial updated');
                                     });
+                                    if (testimonial.isProtected) {
+                                        updateButton.disabled = true;
+                                        updateButton.title =
+                                            "This testimonial is protected and cannot be updated.";
+                                        updateButton.classList.add("disabled-update");
+                                    }
 
-                                    const removeButton = testimonialRow.querySelector('.remove-testimonial');
+                                    const removeButton = testimonialRow.querySelector(
+                                        '.remove-testimonial');
                                     removeButton.addEventListener('click', () => {
                                         this.removeTestimonial(item, idx);
                                     });
 
                                     if (idx === testimonials.length - 1) {
-                                        const addButton = testimonialRow.querySelector('.add-testimonial');
+                                        const addButton = testimonialRow.querySelector(
+                                            '.add-testimonial');
                                         addButton.addEventListener('click', () => {
                                             this.addNewTestimonial(item);
                                         });
@@ -2005,7 +2332,7 @@
                                 }
                             });
                         });
-                    } else if (item.isFAQArray) {
+                    } else if (item.isFaqArray) {
                         const faqs = JSON.parse(item.content);
                         faqs.forEach((faq, idx) => {
                             const faqRow = document.createElement('tr');
@@ -2013,94 +2340,164 @@
                             faqRow.classList.add('faq-row');
                             const faqTitle = `FAQ ${idx + 1}`;
                             faqRow.innerHTML = `
-                                <td>${rowCounter++}</td>
-                                <td>${item.page}</td>
-                                <td class="editable-cell no-border">
-                                    <div class="editable-content" contenteditable="true">${faqTitle}</div>
-                                </td>
-                                <td class="editable-cell content-cell">
-                                    <div class="editable-content" contenteditable="true" data-max-length="${item.maxLengthConstraints?.question || 100}">${faq.question}</div>
-                                    <div class="char-count hidden" data-max="${item.maxLengthConstraints?.question || 100}">${faq.question.length}/${item.maxLengthConstraints?.question || 100}</div>
-                                </td>
-                                <td><span class="edit-contents-cms-status">${item.status}</span></td>
-                                <td>
-                                    <button class="edit-contents-cms-edit">✏️</button>
-                                </td>
-                            `;
+                                    <td>${rowCounter++}</td>
+                                    <td>${item.page}</td>
+                                    <td class="editable-cell no-border">
+                                        <div class="editable-content" contenteditable="true">${faqTitle}</div>
+                                    </td>
+                                    <td class="editable-cell content-cell">
+                                        <div class="editable-content" contenteditable="true" data-max-length="${item.maxLengthConstraints?.question || 100}">${faq.question}</div>
+                                        <div class="char-count hidden" data-max="${item.maxLengthConstraints?.question || 100}">${faq.question.length}/${item.maxLengthConstraints?.question || 100}</div>
+                                    </td>
+                                    <td><span class="edit-contents-cms-status">${item.status}</span></td>
+                                    <td>
+                                        <button class="edit-contents-cms-edit">✏️</button>
+                                    </td>
+                                `;
                             tbody.appendChild(faqRow);
 
                             const editButton = faqRow.querySelector('.edit-contents-cms-edit');
                             editButton.addEventListener('click', () => {
                                 faqRow.classList.toggle('edit-mode');
                                 if (faqRow.classList.contains('edit-mode')) {
-                                    let maxLengthIndicatorQuestion = `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.question || 100}">${faq.question.length}/${item.maxLengthConstraints?.question || 100}</div>`;
-                                    let maxLengthIndicatorAnswer = `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.answer || 200}">${faq.answer.length}/${item.maxLengthConstraints?.answer || 200}</div>`;
+                                    let maxLengthIndicatorQuestion =
+                                        `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.question || 100}">${faq.question.length}/${item.maxLengthConstraints?.question || 100}</div>`;
+                                    let maxLengthIndicatorAnswer =
+                                        `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.answer || 200}">${faq.answer.length}/${item.maxLengthConstraints?.answer || 200}</div>`;
 
                                     faqRow.innerHTML = `
-                                        <td>${rowCounter - 1}</td>
-                                        <td>${item.page}</td>
-                                        <td class="editable-cell no-border">
-                                            <div class="editable-content" contenteditable="true">${faqTitle}</div>
-                                        </td>
-                                        <td class="editable-cell content-cell">
-                                            <div class="faq-details">
-                                                <div class="faq-field">
-                                                    <label>Question:</label>
-                                                    <div class="editable-content" contenteditable="true" data-max-length="${item.maxLengthConstraints?.question || 100}">${faq.question}</div>
-                                                    ${maxLengthIndicatorQuestion}
+                                            <td>${rowCounter - 1}</td>
+                                            <td>${item.page}</td>
+                                            <td class="editable-cell no-border">
+                                                <div class="editable-content" contenteditable="true">${faqTitle}</div>
+                                            </td>
+                                            <td class="editable-cell content-cell">
+                                                <div class="faq-details">
+                                                    <div class="faq-field">
+                                                        <label>Question:</label>
+                                                        <div class="editable-content" contenteditable="true" data-max-length="${item.maxLengthConstraints?.question || 100}">${faq.question}</div>
+                                                        ${maxLengthIndicatorQuestion}
+                                                    </div>
+                                                    <div class="faq-field">
+                                                        <label>Answer:</label>
+                                                        <div class="editable-content" contenteditable="true" data-max-length="${item.maxLengthConstraints?.answer || 200}">${faq.answer}</div>
+                                                        ${maxLengthIndicatorAnswer}
+                                                    </div>
                                                 </div>
-                                                <div class="faq-field">
-                                                    <label>Answer:</label>
-                                                    <div class="editable-content" contenteditable="true" data-max-length="${item.maxLengthConstraints?.answer || 200}">${faq.answer}</div>
-                                                    ${maxLengthIndicatorAnswer}
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td><span class="edit-contents-cms-status">${item.status}</span></td>
-                                        <td>
-                                            <button class="edit-contents-cms-edit">✏️</button>
-                                            <button class="remove-faq" title="Remove FAQ">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                                                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                                                </svg>
-                                            </button>
-                                            ${idx === faqs.length - 1 ? `
-                                                <button class="add-faq" title="Add FAQ">
+                                            </td>
+                                            <td><span class="edit-contents-cms-status">${item.status}</span></td>
+                                            <td>
+                                                <button class="edit-contents-cms-update">Update</button>
+                                                <button class="edit-contents-cms-edit">✏️</button>
+                                                <button class="remove-faq" title="Remove FAQ">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                        <line x1="6" y1="6" x2="18" y2="18"></line>
                                                     </svg>
                                                 </button>
-                                            ` : ''}
-                                        </td>
-                                    `;
+                                                ${idx === faqs.length - 1 ? `
+                                                                                                                                                                                                                        <button class="add-faq" title="Add FAQ">
+                                                                                                                                                                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                                                                                                                                                                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                                                                                                                                                                                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                                                                                                                                                                                            </svg>
+                                                                                                                                                                                                                        </button>
+                                                                                                                                                                                                                    ` : ''}
+                                            </td>
+                                        `;
 
-                                    const editableContents = faqRow.querySelectorAll('.editable-content');
+                                    const editableContents = faqRow.querySelectorAll(
+                                        '.editable-content');
                                     editableContents.forEach((editableContent) => {
-                                        editableContent.addEventListener('input', () => {
-                                            const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                            const charCount = editableContent.parentElement.querySelector('.char-count');
-                                            if (charCount) {
-                                                charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                                charCount.classList.toggle('hidden', editableContent.textContent.length <= maxLength);
-                                                charCount.classList.toggle('error', editableContent.textContent.length > maxLength);
-                                            }
-                                        });
-                                        editableContent.addEventListener('focus', () => {
-                                            const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                            const charCount = editableContent.parentElement.querySelector('.char-count');
-                                            if (charCount) {
-                                                charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                                charCount.classList.remove('hidden');
-                                            }
-                                        });
+                                        editableContent.addEventListener('input',
+                                            () => {
+                                                const maxLength = parseInt(
+                                                    editableContent
+                                                    .getAttribute(
+                                                        'data-max-length'));
+                                                const charCount = editableContent
+                                                    .parentElement.querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.textContent =
+                                                        `${editableContent.textContent.length}/${maxLength}`;
+                                                    charCount.classList.toggle(
+                                                        'hidden',
+                                                        editableContent
+                                                        .textContent.length <=
+                                                        maxLength);
+                                                    charCount.classList.toggle(
+                                                        'error', editableContent
+                                                        .textContent.length >
+                                                        maxLength);
+                                                }
+                                            });
+                                        editableContent.addEventListener('focus',
+                                            () => {
+                                                const maxLength = parseInt(
+                                                    editableContent
+                                                    .getAttribute(
+                                                        'data-max-length'));
+                                                const charCount = editableContent
+                                                    .parentElement.querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.textContent =
+                                                        `${editableContent.textContent.length}/${maxLength}`;
+                                                    charCount.classList.remove(
+                                                        'hidden');
+                                                }
+                                            });
                                         editableContent.addEventListener('blur', () => {
-                                            const charCount = editableContent.parentElement.querySelector('.char-count');
+                                            const charCount = editableContent
+                                                .parentElement.querySelector(
+                                                    '.char-count');
                                             if (charCount) {
-                                                charCount.classList.add('hidden');
+                                                charCount.classList.add(
+                                                    'hidden');
                                             }
                                         });
+                                    });
+
+                                    const updateButton = faqRow.querySelector(
+                                        '.edit-contents-cms-update');
+                                    updateButton.addEventListener('click', () => {
+                                        const questionElement = faqRow.querySelector(
+                                            '.faq-field:nth-child(1) .editable-content'
+                                        );
+                                        const answerElement = faqRow.querySelector(
+                                            '.faq-field:nth-child(2) .editable-content'
+                                        );
+
+                                        const maxLengthQuestion = parseInt(
+                                            questionElement.getAttribute(
+                                                'data-max-length'));
+                                        const maxLengthAnswer = parseInt(answerElement
+                                            .getAttribute('data-max-length'));
+
+                                        if (questionElement.textContent.length >
+                                            maxLengthQuestion) {
+                                            this.showToast(
+                                                `Question exceeds maximum length of ${maxLengthQuestion} characters`,
+                                                true);
+                                            return;
+                                        }
+                                        if (answerElement.textContent.length >
+                                            maxLengthAnswer) {
+                                            this.showToast(
+                                                `Answer exceeds maximum length of ${maxLengthAnswer} characters`,
+                                                true);
+                                            return;
+                                        }
+
+                                        faq.question = questionElement.textContent;
+                                        faq.answer = answerElement.textContent;
+                                        item.content = JSON.stringify(faqs);
+                                        this.updateFAQ(item, idx);
+                                        faqRow.classList.remove('edit-mode');
+
+                                        this.renderTable();
+                                        this.showToast('FAQ updated');
                                     });
 
                                     const removeButton = faqRow.querySelector('.remove-faq');
@@ -2120,7 +2517,7 @@
                             });
                         });
                     } else {
-                        // Text content: Show Edit icon, but no Update button after editing
+                        row.setAttribute('data-id', item.id);
                         row.innerHTML = `
                             <td>${rowCounter++}</td>
                             <td>${item.page}</td>
@@ -2133,7 +2530,11 @@
                             </td>
                             <td><span class="edit-contents-cms-status">${item.status}</span></td>
                             <td>
-                                <button class="edit-contents-cms-edit">✏️</button>
+                                ${
+                                    item.sectionType === 'hero' && item.id !== 4
+                                        ? '<button class="edit-contents-cms-edit">✏️</button>'
+                                        : '<button class="edit-contents-cms-update">Update</button>'
+                                }
                             </td>
                         `;
                         tbody.appendChild(row);
@@ -2141,96 +2542,167 @@
                         const editableContents = row.querySelectorAll('.editable-content');
                         editableContents.forEach((editableContent) => {
                             editableContent.addEventListener('input', () => {
-                                const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                const maxLength = parseInt(editableContent.getAttribute(
+                                    'data-max-length'));
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
                                 if (charCount) {
-                                    charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                    charCount.classList.toggle('hidden', editableContent.textContent.length <= maxLength);
-                                    charCount.classList.toggle('error', editableContent.textContent.length > maxLength);
+                                    charCount.textContent =
+                                        `${editableContent.textContent.length}/${maxLength}`;
+                                    charCount.classList.toggle('hidden', editableContent
+                                        .textContent.length <= maxLength);
+                                    charCount.classList.toggle('error', editableContent
+                                        .textContent.length > maxLength);
                                 }
                             });
                             editableContent.addEventListener('focus', () => {
-                                const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                const maxLength = parseInt(editableContent.getAttribute(
+                                    'data-max-length'));
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
                                 if (charCount) {
-                                    charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
+                                    charCount.textContent =
+                                        `${editableContent.textContent.length}/${maxLength}`;
                                     charCount.classList.remove('hidden');
                                 }
                             });
                             editableContent.addEventListener('blur', () => {
-                                const charCount = editableContent.parentElement.querySelector('.char-count');
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
                                 if (charCount) {
                                     charCount.classList.add('hidden');
                                 }
                             });
                         });
 
-                        const editButton = row.querySelector('.edit-contents-cms-edit');
-                        editButton.addEventListener('click', () => {
-                            row.classList.toggle('edit-mode');
-                            if (row.classList.contains('edit-mode')) {
-                                let maxLengthIndicator = `<div class="char-count hidden" data-max="${item.maxLength || 100}">${item.content.length}/${item.maxLength || 100}</div>`;
-                                row.innerHTML = `
-                                    <td>${rowCounter - 1}</td>
-                                    <td>${item.page}</td>
-                                    <td class="editable-cell">
-                                        <div class="editable-content" contenteditable="true">${item.title}</div>
-                                    </td>
-                                    <td class="editable-cell content-cell">
-                                        <div class="editable-content" contenteditable="true" data-max-length="${item.maxLength || 100}">${item.content}</div>
-                                        ${maxLengthIndicator}
-                                    </td>
-                                    <td><span class="edit-contents-cms-status">${item.status}</span></td>
-                                    <td>
-                                        <button class="edit-contents-cms-edit">✏️</button>
-                                    </td>
-                                `;
+                        if (item.sectionType === 'hero' && item.id !== 4) {
+                            const editButton = row.querySelector('.edit-contents-cms-edit');
 
-                                const newEditableContents = row.querySelectorAll('.editable-content');
-                                newEditableContents.forEach((editableContent) => {
-                                    editableContent.addEventListener('input', () => {
-                                        const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                        const charCount = editableContent.parentElement.querySelector('.char-count');
-                                        if (charCount) {
-                                            charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                            charCount.classList.toggle('hidden', editableContent.textContent.length <= maxLength);
-                                            charCount.classList.toggle('error', editableContent.textContent.length > maxLength);
+                            if (editButton) {
+                                editButton.addEventListener('click', () => {
+                                    row.classList.toggle('edit-mode');
+                                    row.setAttribute('data-id', item.id);
+
+                                    if (row.classList.contains('edit-mode')) {
+                                        const maxLength = item.maxLength || 100;
+                                        const maxLengthIndicator = `
+                    <div class="char-count hidden" data-max="${maxLength}">
+                        ${item.content.length}/${maxLength}
+                    </div>`;
+
+                                        row.innerHTML = `
+                    <td>${rowCounter - 1}</td>
+                    <td>${item.page}</td>
+                    <td class="editable-cell">
+                        <div class="editable-content" contenteditable="true">${item.title}</div>
+                    </td>
+                    <td class="editable-cell content-cell">
+                        <div class="editable-content" contenteditable="true" data-max-length="${maxLength}">
+                            ${item.content}
+                        </div>
+                        ${maxLengthIndicator}
+                    </td>
+                    <td><span class="edit-contents-cms-status">${item.status}</span></td>
+                    <td>
+                        <button class="edit-contents-cms-update">Update</button>
+                        <button class="edit-contents-cms-edit">✏️</button>
+                    </td>
+                `;
+
+                                        const newEditableContents = row.querySelectorAll(
+                                            '.editable-content');
+                                        newEditableContents.forEach((editableContent) => {
+                                            editableContent.addEventListener('input', () => {
+                                                const maxLength = parseInt(
+                                                    editableContent.getAttribute(
+                                                        'data-max-length'));
+                                                const charCount = editableContent
+                                                    .parentElement.querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.textContent =
+                                                        `${editableContent.textContent.length}/${maxLength}`;
+                                                    charCount.classList.toggle('hidden',
+                                                        editableContent.textContent
+                                                        .length <= maxLength);
+                                                    charCount.classList.toggle('error',
+                                                        editableContent.textContent
+                                                        .length > maxLength);
+                                                }
+                                            });
+
+                                            editableContent.addEventListener('focus', () => {
+                                                const maxLength = parseInt(
+                                                    editableContent.getAttribute(
+                                                        'data-max-length'));
+                                                const charCount = editableContent
+                                                    .parentElement.querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.textContent =
+                                                        `${editableContent.textContent.length}/${maxLength}`;
+                                                    charCount.classList.remove(
+                                                    'hidden');
+                                                }
+                                            });
+
+                                            editableContent.addEventListener('blur', () => {
+                                                const charCount = editableContent
+                                                    .parentElement.querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.classList.add('hidden');
+                                                }
+                                            });
+                                        });
+
+                                    } else {
+                                        const titleElement = row.querySelector(
+                                            '.editable-cell:nth-child(3) .editable-content');
+                                        const contentElement = row.querySelector(
+                                            '.editable-cell:nth-child(4) .editable-content');
+
+                                        const maxLength = parseInt(contentElement.getAttribute(
+                                            'data-max-length'));
+                                        if (contentElement.textContent.length > maxLength) {
+                                            this.showToast(
+                                                `Content exceeds maximum length of ${maxLength} characters`,
+                                                true);
+                                            return;
                                         }
-                                    });
-                                    editableContent.addEventListener('focus', () => {
-                                        const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                        const charCount = editableContent.parentElement.querySelector('.char-count');
-                                        if (charCount) {
-                                            charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                            charCount.classList.remove('hidden');
-                                        }
-                                    });
-                                    editableContent.addEventListener('blur', () => {
-                                        const charCount = editableContent.parentElement.querySelector('.char-count');
-                                        if (charCount) {
-                                            charCount.classList.add('hidden');
-                                        }
-                                    });
+
+                                        item.title = titleElement.textContent;
+                                        item.content = contentElement.textContent;
+                                        this.updateHeroContentToAPI(item);
+                                        row.classList.remove('edit-mode');
+                                        this.renderTable();
+                                        this.showToast('Content updated');
+                                    }
                                 });
-                            } else {
-                                const titleElement = row.querySelector('.editable-cell:nth-child(3) .editable-content');
-                                const contentElement = row.querySelector('.editable-cell:nth-child(4) .editable-content');
+                            }
+                        } else {
+                            const updateButton = row.querySelector('.edit-contents-cms-update');
+                            updateButton.addEventListener('click', () => {
+                                const titleElement = row.querySelector(
+                                    '.editable-cell:nth-child(3) .editable-content');
+                                const contentElement = row.querySelector(
+                                    '.editable-cell:nth-child(4) .editable-content');
 
-                                const maxLength = parseInt(contentElement.getAttribute('data-max-length'));
+                                const maxLength = parseInt(contentElement.getAttribute(
+                                    'data-max-length'));
                                 if (contentElement.textContent.length > maxLength) {
-                                    this.showToast(`Content exceeds maximum length of ${maxLength} characters`, true);
+                                    this.showToast(
+                                        `Content exceeds maximum length of ${maxLength} characters`,
+                                        true);
                                     return;
                                 }
 
                                 item.title = titleElement.textContent;
                                 item.content = contentElement.textContent;
-                                if (item.sectionType === 'hero') {
-                                    this.updateHeroContentToAPI(item);
-                                }
                                 this.renderTable();
                                 this.showToast('Content updated');
-                            }
-                        });
+                            });
+                        }
                     }
 
                     const fileInputs = row.querySelectorAll('.file-input');
@@ -2246,27 +2718,40 @@
                                 reader.onload = (event) => {
                                     const img = new Image();
                                     img.onload = () => {
-                                        const constraints = item.mediaConstraints || (item.isTestimonialArray ? JSON.parse(item.content)[idx]?.mediaConstraints : null);
-                                        if (img.width === constraints?.width && img.height === constraints?.height) {
+                                        const constraints = item.mediaConstraints || (
+                                            item.isTestimonialArray ? JSON.parse(
+                                                item.content)[idx]
+                                            ?.mediaConstraints : null);
+                                        if (img.width === constraints?.width && img
+                                            .height === constraints?.height) {
                                             if (item.isTestimonialArray) {
-                                                const testimonials = JSON.parse(item.content);
-                                                testimonials[idx].image = event.target.result;
-                                                item.content = JSON.stringify(testimonials);
+                                                const testimonials = JSON.parse(item
+                                                    .content);
+                                                testimonials[idx].image = event.target
+                                                    .result;
+                                                item.content = JSON.stringify(
+                                                    testimonials);
                                             } else {
                                                 item.content = event.target.result;
                                             }
                                             this.renderTable();
                                         } else {
-                                            this.resizeImage(event.target.result, constraints?.width, constraints?.height, (resizedImage) => {
-                                                if (item.isTestimonialArray) {
-                                                    const testimonials = JSON.parse(item.content);
-                                                    testimonials[idx].image = resizedImage;
-                                                    item.content = JSON.stringify(testimonials);
-                                                } else {
-                                                    item.content = resizedImage;
-                                                }
-                                                this.renderTable();
-                                            });
+                                            this.resizeImage(event.target.result,
+                                                constraints?.width, constraints
+                                                ?.height, (resizedImage) => {
+                                                    if (item.isTestimonialArray) {
+                                                        const testimonials = JSON
+                                                            .parse(item.content);
+                                                        testimonials[idx].image =
+                                                            resizedImage;
+                                                        item.content = JSON
+                                                            .stringify(
+                                                                testimonials);
+                                                    } else {
+                                                        item.content = resizedImage;
+                                                    }
+                                                    this.renderTable();
+                                                });
                                         }
                                     };
                                     img.src = event.target.result;
@@ -2289,6 +2774,12 @@
                             this.addNewLogo(item);
                         });
                     });
+
+                    initializeFileInputs();
+                    initializeUpdateButtons();
+
+
+
                 });
 
                 this.renderPagination();
@@ -2395,6 +2886,86 @@
                 }
             });
         });
+
+        function initializeFileInputs() {
+            document.querySelectorAll('.file-input').forEach(input => {
+                input.addEventListener('change', function() {
+                    const file = this.files[0];
+                    if (!file || !file.type.startsWith('image/')) {
+                        alert('Only image files allowed');
+                        return;
+                    }
+
+                    const title = this.closest('tr')?.querySelector('.editable-content')?.innerText
+                        ?.trim(); // if input is in row
+                    if (!title) {
+                        alert('Missing title to associate with file');
+                        return;
+                    }
+
+                    window.selectedFilePerTitle[title] = file;
+                    console.log('✅ Stored file for title:', title, file);
+                });
+            });
+        }
+
+
+
+
+        async function updateCmsContent(title, file) {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('title', title);
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            const response = await fetch('/update-cms-imageupload', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                body: formData
+            });
+
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.message || 'Upload failed');
+
+            return result.file_url;
+        }
+
+
+
+
+        function initializeUpdateButtons() {
+            document.querySelectorAll('.edit-contents-cms-update').forEach(button => {
+                if (button.dataset.listenerAttached === 'true') return;
+
+                button.addEventListener('click', async function() {
+                    const row = this.closest('tr');
+                    const title = row.querySelector('.editable-content')?.innerText?.trim();
+
+                    const file = window.selectedFilePerTitle[title];
+
+                    if (!file) {
+                        alert('Please select an image file first');
+                        return;
+                    }
+
+                    const uploadedUrl = await updateCmsContent(title, file);
+                    if (uploadedUrl) {
+                        delete window.selectedFilePerTitle[title];
+
+                        const preview = row.querySelector('.media-preview');
+                        if (preview) {
+                            preview.innerHTML = `<img src="${uploadedUrl}" width="200">`;
+                        }
+                        window.cmsEditor.showToast('✅ Image uploaded!');
+                    }
+                });
+
+                button.dataset.listenerAttached = 'true';
+            });
+        }
     </script>
 </body>
 

@@ -14,6 +14,7 @@ use App\Models\CourseDuration;
 use App\Models\CourseInfo;
 use App\Models\Degree;
 use App\Models\DocumentType;
+use App\Models\Faq;
 use App\Models\landingpage;
 use App\Models\Nbfc;
 use App\Models\PersonalInfo;
@@ -457,7 +458,6 @@ class Admincontroller extends Controller
                 "days_of_week" => $daysOfWeek,
                 "registration_counts" => $registrationCounts
             ], 200);
-
         } catch (Exception $e) {
             return response()->json([
                 "message" => false,
@@ -654,7 +654,6 @@ class Admincontroller extends Controller
                 'message' => 'All user details retrieved successfully.',
                 'data' => $mergedDetails
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
@@ -667,7 +666,7 @@ class Admincontroller extends Controller
     public function landingPage()
     {
         $content = CmsContent::all(); // Get everything
-    return response()->json($content);
+        return response()->json($content);
     }
 
     public function store(Request $request)
@@ -896,7 +895,6 @@ class Admincontroller extends Controller
                 'message' => 'Students retrieved successfully.',
                 'data' => $nbfc,
             ], 200);
-
         } catch (\Exception $e) {
             // Handle errors (e.g., database errors, unexpected issues)
             return response()->json([
@@ -1242,7 +1240,7 @@ class Admincontroller extends Controller
 
 
         $additionalFields = AdditionalField::where('section', 'academic')->get();
-    
+
 
         return response()->json([
             'additionalFields' => $additionalFields
@@ -1275,7 +1273,6 @@ class Admincontroller extends Controller
     {
         $documentTypes = DocumentType::where('slug', $slug)->get();
         return response()->json(['documentTypes' => $documentTypes]);
-
     }
     public function showStudentPlanForCountriesAdmin()
     {
@@ -1685,7 +1682,6 @@ class Admincontroller extends Controller
                 'message' => 'User profile fetched successfully.',
                 'data' => $data
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
@@ -1876,7 +1872,7 @@ class Admincontroller extends Controller
         $fieldValues = UserAdditionalFieldValue::with('field')
             ->where('user_id', $user->id)
             ->get()
-            ->groupBy(fn($item) => $item->field->section); // group by section
+            ->groupBy(fn ($item) => $item->field->section); // group by section
 
         // 3. Format the grouped data
         $formatted = $fieldValues->map(function ($items, $section) {
@@ -2179,7 +2175,6 @@ class Admincontroller extends Controller
                 'success' => true,
                 'data' => $result
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -2232,7 +2227,8 @@ class Admincontroller extends Controller
                 'masters' => 'Post Graduate',
                 'bachelors' => 'Under Graduate',
                 default => 'Others',
-            } : null;
+            }
+                : null;
 
             $planToStudy = null;
             if ($courseInfo && $courseInfo->{'plan-to-study'}) {
@@ -2322,7 +2318,7 @@ class Admincontroller extends Controller
 
 
         $destinationCountries = collect($countryStats)
-            ->map(fn($stats, $country) => array_merge(['country' => $country], $stats))
+            ->map(fn ($stats, $country) => array_merge(['country' => $country], $stats))
             ->sortByDesc('total_students')
             ->values();
 
@@ -2359,7 +2355,8 @@ class Admincontroller extends Controller
                     'masters' => 'Post Graduate',
                     'bachelors' => 'Under Graduate',
                     default => 'Others',
-                } : 'N/A';
+                }
+                    : 'N/A';
 
                 return [
                     'referrer_name' => $referrer->full_name,
@@ -2370,7 +2367,7 @@ class Admincontroller extends Controller
                     'created_at' => $student->created_at?->format('d/m/Y') ?? 'N/A',
                 ];
             })
-            ->values();  
+            ->values();
 
 
 
@@ -2396,7 +2393,8 @@ class Admincontroller extends Controller
                 'masters' => 'Post Graduate',
                 'bachelors' => 'Under Graduate',
                 default => 'Others',
-            } : null;
+            }
+                : null;
 
             // Get proposal records of type 'proposal'
             $proposalRecords = $user->requestProgress()
@@ -2450,7 +2448,7 @@ class Admincontroller extends Controller
             'referralsReport',
             'userReport'
         ))->setPaper('a4', 'portrait');
-        
+
 
         return $pdf->download('user_profile_report_' . now()->format('Ymd_His') . '.pdf');
         // return view('reports.user-profile', compact(
@@ -2471,7 +2469,7 @@ class Admincontroller extends Controller
 
     public function getLanding()
     {
-        $landing = landingpage::first(); // Or find($id) if needed
+        $landing = CmsContent::get();
         return response()->json($landing);
     }
 
@@ -2509,10 +2507,10 @@ class Admincontroller extends Controller
         $currentPassword = $request->currentPassword;
         $newPassword = $request->newPassword;
 
-        // Pull from .env via config
+
         $superAdminEmail = config('admin.superadmin_email', '');
 
-        // If the email matches the .env superadmin, deny change
+
         if (!empty($superAdminEmail) && $email === $superAdminEmail) {
             return response()->json([
                 'message' => 'Super admin password cannot be changed via this route.'
@@ -2540,20 +2538,183 @@ class Admincontroller extends Controller
 
 
 
-    public function TestimonialIndex()
+    // public function TestimonialIndex()
+    // {
+    //     $testimonials = Testimonial::all();
+    //     $study_loan = StudyLoanStep::all();
+    //     $testimonialIndex = CmsContent::where("title", "Testimonials")->first();
+
+    //     // Parse field_8 JSON
+    //     $initialProfile = [];
+    //     if ($testimonialIndex && !empty($testimonialIndex->field_8)) {
+    //         $initialProfileArray = json_decode($testimonialIndex->field_8, true);
+    //         $initialProfile = $initialProfileArray[0] ?? null;
+    //     }
+
+    //     return view('pages.landing', compact('testimonials', 'study_loan', 'testimonialIndex', 'initialProfile'));
+    // }
+
+
+    public function TestimonialIndex(Request $request)
     {
         $testimonials = Testimonial::all();
         $study_loan = StudyLoanStep::all();
+        $testimonialIndex = CmsContent::where("title", "Testimonials")->first();
+        $landingpageContents = CmsContent::get();
 
-        return view('pages.landing', compact('testimonials', 'study_loan'));
+        // Parse the CMS content field (initial testimonials)
+        $initialProfiles = [];
+        if ($testimonialIndex && !empty($testimonialIndex->content)) {
+            $decoded = json_decode($testimonialIndex->content, true);
+            if (is_array($decoded)) {
+                $initialProfiles = $decoded;
+            }
+        }
+
+        // Convert DB testimonials to array
+        $dbTestimonials = $testimonials->map(function ($item) {
+            return [
+                'name' => $item->name,
+                'designation' => $item->designation,
+                'rating' => $item->rating,
+                'description' => $item->review,
+                'image' => $item->image ?? '/images/default-profile.png',
+            ];
+        })->toArray();
+
+        // Merge initial + DB testimonials
+        $combinedTestimonials = array_merge($initialProfiles, $dbTestimonials);
+
+
+        // ✅ Now handle the FAQ part
+        $faqContent = CmsContent::where("title", "Landing Page")->first();
+        $initialFaqs = [];
+
+        if ($faqContent && !empty($faqContent->field_78)) {
+            $decodedFaqs = json_decode($faqContent->field_78, true);
+            if (is_array($decodedFaqs)) {
+                $initialFaqs = $decodedFaqs;
+            }
+        }
+
+        // Get DB FAQs and convert to array
+        $dbFaqs = Faq::all()->map(function ($faq) {
+            return [
+                'question' => $faq->question,
+                'answer' => $faq->answer,
+            ];
+        })->toArray();
+
+        // Merge initial + DB FAQs
+        $combinedFaqs = array_merge($initialFaqs, $dbFaqs);
+
+
+        // Return to view
+        return view('pages.landing', compact(
+            'testimonials',
+            'study_loan',
+            'testimonialIndex',
+            'combinedTestimonials',
+            'landingpageContents',
+            'combinedFaqs'   
+        ));
     }
 
 
-    //     public function TestimonialIndex()
-// {
-//     $testimonials = Testimonial::all();
-//     return response()->json($testimonials);
-// }
+
+
+
+
+    public function TestimonialCMS()
+    {
+        $testimonials = Testimonial::all();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Testimonials fetched successfully',
+            'data' => $testimonials
+        ]);
+    }
+    public function TestimonialFaqs()
+    {
+        $faqs = Faq::all();
+
+        return response()->json([
+            'status' => true,
+            'data' => $faqs
+        ]);
+    }
+    public function updateTestimonial(Request $request, $id)
+    {
+        $testimonial = Testimonial::find($id);
+
+        if (!$testimonial) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Testimonial not found'
+            ], 404);
+        }
+
+        $testimonial->update($request->only([
+            'name',
+            'designation',
+            'review',
+            'image',
+            'rating'
+        ]));
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Testimonial updated successfully',
+            'data' => $testimonial
+        ]);
+    }
+
+    public function deleteTestimonial($id)
+    {
+        $testimonial = Testimonial::find($id);
+
+        if (!$testimonial) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Testimonial not found'
+            ], 404);
+        }
+
+        $testimonial->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Testimonial deleted successfully'
+        ]);
+    }
+    public function storeTestimonial(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'designation' => 'required|string|max:255',
+            'review' => 'required|string|max:1000',
+            'rating' => 'required|integer|min:1|max:5'
+        ]);
+
+        $testimonial = Testimonial::create([
+            'name' => $request->name,
+            'designation' => $request->designation,
+            'review' => $request->review,
+            'rating' => $request->rating,
+            'image' => $request->image ?? null // optional image
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Testimonial created successfully',
+            'data' => $testimonial
+        ]);
+    }
+
+
+
+
 
 
 
@@ -2565,37 +2726,133 @@ class Admincontroller extends Controller
             'designation' => 'required|string|max:255',
             'rating' => 'required|integer|min:1|max:5',
             'review' => 'required|string',
-            'image'=>'nullable'
+            'image' => 'nullable'
         ]);
- 
+
 
         Testimonial::create($data);
 
         return response()->json(['message' => 'Testimonial added!'], 201);
     }
     public function updateHeroContent(Request $request)
-{
+    {
         $request->validate([
-        'key_name' => 'required|string|exists:cms_contents,key_name',
-        'content' => 'nullable|string'
-    ]);
+            'key_name' => 'required|string|exists:cms_contents,key_name',
+            'content' => 'nullable|string'
+        ]);
 
-    // Fetch the row
-    $cmsItem = CmsContent::where('key_name', $request->key_name)->first();
+        // Fetch the row
+        $cmsItem = CmsContent::where('key_name', $request->key_name)->first();
 
-    // Optional: validate against maxLength if present in constraints
-    $constraints = $cmsItem->constraints ?? [];
-    if (!empty($constraints['maxLength']) && strlen($request->content) > $constraints['maxLength']) {
-        return response()->json(['message' => 'Content exceeds allowed length'], 422);
+        // Optional: validate against maxLength if present in constraints
+        $constraints = $cmsItem->constraints ?? [];
+        if (!empty($constraints['maxLength']) && strlen($request->content) > $constraints['maxLength']) {
+            return response()->json(['message' => 'Content exceeds allowed length'], 422);
+        }
+
+        // Update content
+        $cmsItem->content = $request->content;
+        $cmsItem->save();
+
+        return response()->json(['message' => 'Content updated successfully']);
     }
 
-    // Update content
-    $cmsItem->content = $request->content;
-    $cmsItem->save();
 
-    return response()->json(['message' => 'Content updated successfully']);
+
+    public function updateCmsImageContent(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|image', // ✅ image only
+            'title' => 'required|string'
+        ]);
+
+        $file = $request->file('file');
+        $title = Str::slug($request->input('title')); // folder name
+        $originalTitle = $request->input('title');     // exact title for DB match
+
+        $fileName = $file->getClientOriginalName();
+        $fileDirectory = "cms_uploads/{$title}";
+
+        // Remove existing files in that folder
+        $existingFiles = Storage::disk('s3')->files($fileDirectory);
+        if (!empty($existingFiles)) {
+            Storage::disk('s3')->delete($existingFiles);
+        }
+
+        // Store the new file
+        $filePath = $file->storeAs(
+            $fileDirectory,
+            time() . '-' . $fileName,
+            [
+                'disk' => 's3',
+                'visibility' => 'public',
+            ]
+        );
+
+        $fileUrl = Storage::disk('s3')->url($filePath);
+
+        // Find CMS content by title
+        $cmsContent = CmsContent::where('title', $originalTitle)->first();
+
+        if (!$cmsContent) {
+            return response()->json([
+                'message' => "CMS content with title '{$originalTitle}' not found."
+            ], 404);
+        }
+
+        // Update the content with new file URL
+        $cmsContent->content = $fileUrl;
+        $cmsContent->save();
+
+        return response()->json([
+            'message' => 'Media uploaded and content updated successfully!',
+            'file_url' => $fileUrl,
+        ], 200);
+    }
+
+
+
+    public function storeFaq(Request $request)
+    {
+        $request->validate([
+            'question' => 'required|string|max:255',
+            'answer' => 'required|string'
+        ]);
+
+        $faq = Faq::create($request->only(['question', 'answer']));
+
+        return response()->json([
+            'status' => true,
+            'message' => 'FAQ created successfully',
+            'data' => $faq
+        ]);
+    }
+    public function updateFaq(Request $request, $id)
+    {
+        $faq = Faq::find($id);
+
+        if (!$faq) {
+            return response()->json(['status' => false, 'message' => 'FAQ not found'], 404);
+        }
+
+        $faq->update($request->only(['question', 'answer']));
+
+        return response()->json([
+            'status' => true,
+            'message' => 'FAQ updated successfully',
+            'data' => $faq
+        ]);
+    }
+    public function deleteFaq($id)
+    {
+        $faq = Faq::find($id);
+
+        if (!$faq) {
+            return response()->json(['status' => false, 'message' => 'FAQ not found'], 404);
+        }
+
+        $faq->delete();
+
+        return response()->json(['status' => true, 'message' => 'FAQ deleted successfully']);
+    }
 }
-}
-
-
-

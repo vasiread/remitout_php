@@ -323,3 +323,22 @@ Route::post('/admin/passwordchange', [Admincontroller::class, 'forgotAdminCreden
 
 Route::get('/get-testimonialss', [Admincontroller::class, 'TestimonialIndex']);
 Route::post('/testimonials-store', [Admincontroller::class, 'TestimonialStore']);
+
+
+
+Route::post('/update-cms-imageupload', [Admincontroller::class, 'updateCmsImageContent']);
+Route::get('/gettestimonials', [Admincontroller::class, 'TestimonialCMS']);
+
+
+
+Route::post('/testimonial/update/{id}', [Admincontroller::class, 'updateTestimonial']);
+Route::delete('/testimonial/delete/{id}', [Admincontroller::class, 'deleteTestimonial']);
+Route::post('/testimonial/store', [Admincontroller::class, 'storeTestimonial']);
+
+
+Route::get('/getfaqs', [Admincontroller::class, 'TestimonialFaqs']);
+
+
+Route::post('/faq/store', [Admincontroller::class, 'storeFaq']);
+Route::post('/faq/update/{id}', [Admincontroller::class, 'updateFaq']);
+Route::delete('/faq/delete/{id}', [Admincontroller::class, 'deleteFaq']);
