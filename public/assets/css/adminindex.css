@@ -790,7 +790,8 @@ body {
 }
 
 #admin-student-loanproposals {
-    margin: 0;
+    margin: 0; 
+    box-shadow: none;
 }
 
 #admin-nbfc-sort {
