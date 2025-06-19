@@ -1033,18 +1033,16 @@
                         status: 'Active',
                         maxLength: 50
                     },
-                         {
+                    {
                         id: 78,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
-                        title:'FAQs',
-                        content: [
-                            {
+                        title: 'FAQs',
+                        content: [{
                             question: 'How can I apply for a loan with Remitout?',
                             answer: 'You can easily apply online by visiting our application page and filling out a short form with your basic information. Once submitted, our team will reach out with the next steps.'
-                            }
-                        ]
-                    }, 
+                        }]
+                    },
 
 
                     // Footer Section
@@ -1425,121 +1423,124 @@
             }
 
 
-           async addNewFAQ(item) {
-  const faqs = JSON.parse(item.content);
+            async addNewFAQ(item) {
+                const faqs = JSON.parse(item.content);
 
-  const newFaq = {
-    question: 'New FAQ Question',
-    answer: 'Enter answer here.'
-  };
+                const newFaq = {
+                    question: 'New FAQ Question',
+                    answer: 'Enter answer here.'
+                };
 
-  try {
-    const res = await fetch('/faq/store', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-      },
-      body: JSON.stringify(newFaq)
-    });
+                try {
+                    const res = await fetch('/faq/store', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        },
+                        body: JSON.stringify(newFaq)
+                    });
 
-    const result = await res.json();
+                    const result = await res.json();
 
-    if (result.status && result.data?.id) {
-      newFaq.id = result.data.id;
-      faqs.push(newFaq);
-      item.content = JSON.stringify(faqs);
-      this.renderTable();
-      this.showToast('✅ FAQ added and saved');
-    } else {
-      this.showToast('❌ Failed to add FAQ', true);
-    }
-  } catch (err) {
-    console.error(err);
-    this.showToast('⚠️ Error saving FAQ', true);
-  }
-}
-async updateFAQ(item, index) {
-  const faqs = JSON.parse(item.content);
-  const faq = faqs[index];
+                    if (result.status && result.data?.id) {
+                        newFaq.id = result.data.id;
+                        faqs.push(newFaq);
+                        item.content = JSON.stringify(faqs);
+                        this.renderTable();
+                        this.showToast('✅ FAQ added and saved');
+                    } else {
+                        this.showToast('❌ Failed to add FAQ', true);
+                    }
+                } catch (err) {
+                    console.error(err);
+                    this.showToast('⚠️ Error saving FAQ', true);
+                }
+            }
+            async updateFAQ(item, index) {
+                const faqs = JSON.parse(item.content);
+                const faq = faqs[index];
 
-  if (faq?.isProtected) {
-    this.showToast('🚫 This FAQ is protected and cannot be updated.', true);
-    return;
-  }
+                if (faq?.isProtected) {
+                    this.showToast('🚫 This FAQ is protected and cannot be updated.', true);
+                    return;
+                }
 
-  if (!faq.id) {
-    this.showToast('❌ Cannot update unsaved FAQ. Please save it first.', true);
-    return;
-  }
+                if (!faq.id) {
+                    this.showToast('❌ Cannot update unsaved FAQ. Please save it first.', true);
+                    return;
+                }
 
-  try {
-    const res = await fetch(`/faq/update/${faq.id}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-      },
-      body: JSON.stringify({
-        question: faq.question,
-        answer: faq.answer
-      })
-    });
+                try {
+                    const res = await fetch(`/faq/update/${faq.id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        },
+                        body: JSON.stringify({
+                            question: faq.question,
+                            answer: faq.answer
+                        })
+                    });
 
-    const result = await res.json();
+                    const result = await res.json();
 
-    if (result.status) {
-      this.showToast('✅ FAQ updated successfully');
-    } else {
-      this.showToast(`❌ Failed to update FAQ: ${result.message}`, true);
-    }
-  } catch (err) {
-    console.error(err);
-    this.showToast('⚠️ Error updating FAQ', true);
-  }
-}
+                    if (result.status) {
+                        this.showToast('✅ FAQ updated successfully');
+                    } else {
+                        this.showToast(`❌ Failed to update FAQ: ${result.message}`, true);
+                    }
+                } catch (err) {
+                    console.error(err);
+                    this.showToast('⚠️ Error updating FAQ', true);
+                }
+            }
 
 
-          async removeFAQ(item, index) {
-  const faqs = JSON.parse(item.content);
-  const faq = faqs[index];
+            async removeFAQ(item, index) {
+                const faqs = JSON.parse(item.content);
+                const faq = faqs[index];
 
-  if (faq?.isProtected) {
-    this.showToast('🚫 This is a default FAQ and cannot be deleted.', true);
-    return;
-  }
+                if (faq?.isProtected) {
+                    this.showToast('🚫 This is a default FAQ and cannot be deleted.', true);
+                    return;
+                }
 
-  if (!faq.id) {
-    faqs.splice(index, 1);
-    item.content = JSON.stringify(faqs);
-    this.renderTable();
-    this.showToast('🗑️ Unsaved FAQ removed');
-    return;
-  }
+                if (!faq.id) {
+                    faqs.splice(index, 1);
+                    item.content = JSON.stringify(faqs);
+                    this.renderTable();
+                    this.showToast('🗑️ Unsaved FAQ removed');
+                    return;
+                }
 
-  try {
-    const res = await fetch(`/faq/delete/${faq.id}`, {
-      method: 'DELETE',
-      headers: {
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-      }
-    });
+                try {
+                    const res = await fetch(`/faq/delete/${faq.id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        }
+                    });
 
-    const result = await res.json();
+                    const result = await res.json();
 
-    if (result.status) {
-      faqs.splice(index, 1);
-      item.content = JSON.stringify(faqs);
-      this.renderTable();
-      this.showToast('🗑️ FAQ deleted');
-    } else {
-      this.showToast('❌ Failed to delete FAQ', true);
-    }
-  } catch (err) {
-    console.error(err);
-    this.showToast('⚠️ Error deleting FAQ', true);
-  }
-}
+                    if (result.status) {
+                        faqs.splice(index, 1);
+                        item.content = JSON.stringify(faqs);
+                        this.renderTable();
+                        this.showToast('🗑️ FAQ deleted');
+                    } else {
+                        this.showToast('❌ Failed to delete FAQ', true);
+                    }
+                } catch (err) {
+                    console.error(err);
+                    this.showToast('⚠️ Error deleting FAQ', true);
+                }
+            }
 
 
             addNewLogo(item) {
@@ -1686,8 +1687,8 @@ async updateFAQ(item, index) {
                         // alert(item)
                         // console.log("------------")
                         // console.log(item)
- 
-                       if (item.sectionType === 'faq-section' && item.title === 'FAQs') {
+
+                        if (item.sectionType === 'faq-section' && item.title === 'FAQs') {
                             try {
                                 const parsed = JSON.parse(item.content);
                                 if (Array.isArray(parsed)) {
@@ -1970,13 +1971,13 @@ async updateFAQ(item, index) {
                                     </svg>
                                 </button>
                                 ${isLastLogo ? `
-                                                                                                                                            <button class="add-logo" title="Add Logo">
-                                                                                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                                                                                                                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                                                                                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                                                                                                                </svg>
-                                                                                                                                            </button>
-                                                                                                                                        ` : ''}
+                                                                                                                                                <button class="add-logo" title="Add Logo">
+                                                                                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                                                                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                                                                                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                                                                                                                    </svg>
+                                                                                                                                                </button>
+                                                                                                                                            ` : ''}
                             </td>
                         `;
                         row.setAttribute('data-id', item.id);
@@ -2118,13 +2119,13 @@ async updateFAQ(item, index) {
                                                
                                             </button>
                                             ${idx === testimonials.length - 1 ? `
-                                                                                                                                                        <button class="add-testimonial" title="Add Testimonial">
-                                                                                                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                                                                                                                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                                                                                                                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                                                                                                                            </svg>
-                                                                                                                                                        </button>
-                                                                                                                                                    ` : ''}
+                                                                                                                                                            <button class="add-testimonial" title="Add Testimonial">
+                                                                                                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                                                                                                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                                                                                                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                                                                                                                                </svg>
+                                                                                                                                                            </button>
+                                                                                                                                                        ` : ''}
                                         </td>
                                     `;
 
@@ -2139,44 +2140,44 @@ async updateFAQ(item, index) {
                                         }
 
                                         editableContent.addEventListener('input',
-                                    () => {
-                                            const maxLength = parseInt(
-                                                editableContent
-                                                .getAttribute(
-                                                    'data-max-length'));
-                                            const charCount = editableContent
-                                                .parentElement.querySelector(
-                                                    '.char-count');
-                                            if (charCount) {
-                                                charCount.textContent =
-                                                    `${editableContent.textContent.length}/${maxLength}`;
-                                                charCount.classList.toggle(
-                                                    'hidden',
+                                            () => {
+                                                const maxLength = parseInt(
                                                     editableContent
-                                                    .textContent.length <=
-                                                    maxLength);
-                                                charCount.classList.toggle(
-                                                    'error', editableContent
-                                                    .textContent.length >
-                                                    maxLength);
-                                            }
-                                        });
+                                                    .getAttribute(
+                                                        'data-max-length'));
+                                                const charCount = editableContent
+                                                    .parentElement.querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.textContent =
+                                                        `${editableContent.textContent.length}/${maxLength}`;
+                                                    charCount.classList.toggle(
+                                                        'hidden',
+                                                        editableContent
+                                                        .textContent.length <=
+                                                        maxLength);
+                                                    charCount.classList.toggle(
+                                                        'error', editableContent
+                                                        .textContent.length >
+                                                        maxLength);
+                                                }
+                                            });
                                         editableContent.addEventListener('focus',
-                                    () => {
-                                            const maxLength = parseInt(
-                                                editableContent
-                                                .getAttribute(
-                                                    'data-max-length'));
-                                            const charCount = editableContent
-                                                .parentElement.querySelector(
-                                                    '.char-count');
-                                            if (charCount) {
-                                                charCount.textContent =
-                                                    `${editableContent.textContent.length}/${maxLength}`;
-                                                charCount.classList.remove(
-                                                    'hidden');
-                                            }
-                                        });
+                                            () => {
+                                                const maxLength = parseInt(
+                                                    editableContent
+                                                    .getAttribute(
+                                                        'data-max-length'));
+                                                const charCount = editableContent
+                                                    .parentElement.querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.textContent =
+                                                        `${editableContent.textContent.length}/${maxLength}`;
+                                                    charCount.classList.remove(
+                                                        'hidden');
+                                                }
+                                            });
                                         editableContent.addEventListener('blur', () => {
                                             const charCount = editableContent
                                                 .parentElement.querySelector(
@@ -2395,13 +2396,13 @@ async updateFAQ(item, index) {
                                                     </svg>
                                                 </button>
                                                 ${idx === faqs.length - 1 ? `
-                                                                                                                                                                                                                    <button class="add-faq" title="Add FAQ">
-                                                                                                                                                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                                                                                                                                                                                            <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                                                                                                                                                                                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                                                                                                                                                                                        </svg>
-                                                                                                                                                                                                                    </button>
-                                                                                                                                                                                                                ` : ''}
+                                                                                                                                                                                                                        <button class="add-faq" title="Add FAQ">
+                                                                                                                                                                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                                                                                                                                                                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                                                                                                                                                                                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                                                                                                                                                                                            </svg>
+                                                                                                                                                                                                                        </button>
+                                                                                                                                                                                                                    ` : ''}
                                             </td>
                                         `;
 
@@ -2409,44 +2410,44 @@ async updateFAQ(item, index) {
                                         '.editable-content');
                                     editableContents.forEach((editableContent) => {
                                         editableContent.addEventListener('input',
-                                    () => {
-                                            const maxLength = parseInt(
-                                                editableContent
-                                                .getAttribute(
-                                                    'data-max-length'));
-                                            const charCount = editableContent
-                                                .parentElement.querySelector(
-                                                    '.char-count');
-                                            if (charCount) {
-                                                charCount.textContent =
-                                                    `${editableContent.textContent.length}/${maxLength}`;
-                                                charCount.classList.toggle(
-                                                    'hidden',
+                                            () => {
+                                                const maxLength = parseInt(
                                                     editableContent
-                                                    .textContent.length <=
-                                                    maxLength);
-                                                charCount.classList.toggle(
-                                                    'error', editableContent
-                                                    .textContent.length >
-                                                    maxLength);
-                                            }
-                                        });
+                                                    .getAttribute(
+                                                        'data-max-length'));
+                                                const charCount = editableContent
+                                                    .parentElement.querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.textContent =
+                                                        `${editableContent.textContent.length}/${maxLength}`;
+                                                    charCount.classList.toggle(
+                                                        'hidden',
+                                                        editableContent
+                                                        .textContent.length <=
+                                                        maxLength);
+                                                    charCount.classList.toggle(
+                                                        'error', editableContent
+                                                        .textContent.length >
+                                                        maxLength);
+                                                }
+                                            });
                                         editableContent.addEventListener('focus',
-                                    () => {
-                                            const maxLength = parseInt(
-                                                editableContent
-                                                .getAttribute(
-                                                    'data-max-length'));
-                                            const charCount = editableContent
-                                                .parentElement.querySelector(
-                                                    '.char-count');
-                                            if (charCount) {
-                                                charCount.textContent =
-                                                    `${editableContent.textContent.length}/${maxLength}`;
-                                                charCount.classList.remove(
-                                                    'hidden');
-                                            }
-                                        });
+                                            () => {
+                                                const maxLength = parseInt(
+                                                    editableContent
+                                                    .getAttribute(
+                                                        'data-max-length'));
+                                                const charCount = editableContent
+                                                    .parentElement.querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.textContent =
+                                                        `${editableContent.textContent.length}/${maxLength}`;
+                                                    charCount.classList.remove(
+                                                        'hidden');
+                                                }
+                                            });
                                         editableContent.addEventListener('blur', () => {
                                             const charCount = editableContent
                                                 .parentElement.querySelector(
@@ -2494,7 +2495,7 @@ async updateFAQ(item, index) {
                                         item.content = JSON.stringify(faqs);
                                         this.updateFAQ(item, idx);
                                         faqRow.classList.remove('edit-mode');
-                                        
+
                                         this.renderTable();
                                         this.showToast('FAQ updated');
                                     });
@@ -2574,22 +2575,22 @@ async updateFAQ(item, index) {
                             });
                         });
 
-                   if (item.sectionType === 'hero' && item.id !== 4) {
-    const editButton = row.querySelector('.edit-contents-cms-edit');
+                        if (item.sectionType === 'hero' && item.id !== 4) {
+                            const editButton = row.querySelector('.edit-contents-cms-edit');
 
-    if (editButton) {
-        editButton.addEventListener('click', () => {
-            row.classList.toggle('edit-mode');
-            row.setAttribute('data-id', item.id);
+                            if (editButton) {
+                                editButton.addEventListener('click', () => {
+                                    row.classList.toggle('edit-mode');
+                                    row.setAttribute('data-id', item.id);
 
-            if (row.classList.contains('edit-mode')) {
-                const maxLength = item.maxLength || 100;
-                const maxLengthIndicator = `
+                                    if (row.classList.contains('edit-mode')) {
+                                        const maxLength = item.maxLength || 100;
+                                        const maxLengthIndicator = `
                     <div class="char-count hidden" data-max="${maxLength}">
                         ${item.content.length}/${maxLength}
                     </div>`;
 
-                row.innerHTML = `
+                                        row.innerHTML = `
                     <td>${rowCounter - 1}</td>
                     <td>${item.page}</td>
                     <td class="editable-cell">
@@ -2608,58 +2609,78 @@ async updateFAQ(item, index) {
                     </td>
                 `;
 
-                const newEditableContents = row.querySelectorAll('.editable-content');
-                newEditableContents.forEach((editableContent) => {
-                    editableContent.addEventListener('input', () => {
-                        const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                        const charCount = editableContent.parentElement.querySelector('.char-count');
-                        if (charCount) {
-                            charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                            charCount.classList.toggle('hidden', editableContent.textContent.length <= maxLength);
-                            charCount.classList.toggle('error', editableContent.textContent.length > maxLength);
-                        }
-                    });
+                                        const newEditableContents = row.querySelectorAll(
+                                            '.editable-content');
+                                        newEditableContents.forEach((editableContent) => {
+                                            editableContent.addEventListener('input', () => {
+                                                const maxLength = parseInt(
+                                                    editableContent.getAttribute(
+                                                        'data-max-length'));
+                                                const charCount = editableContent
+                                                    .parentElement.querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.textContent =
+                                                        `${editableContent.textContent.length}/${maxLength}`;
+                                                    charCount.classList.toggle('hidden',
+                                                        editableContent.textContent
+                                                        .length <= maxLength);
+                                                    charCount.classList.toggle('error',
+                                                        editableContent.textContent
+                                                        .length > maxLength);
+                                                }
+                                            });
 
-                    editableContent.addEventListener('focus', () => {
-                        const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                        const charCount = editableContent.parentElement.querySelector('.char-count');
-                        if (charCount) {
-                            charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                            charCount.classList.remove('hidden');
-                        }
-                    });
+                                            editableContent.addEventListener('focus', () => {
+                                                const maxLength = parseInt(
+                                                    editableContent.getAttribute(
+                                                        'data-max-length'));
+                                                const charCount = editableContent
+                                                    .parentElement.querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.textContent =
+                                                        `${editableContent.textContent.length}/${maxLength}`;
+                                                    charCount.classList.remove(
+                                                    'hidden');
+                                                }
+                                            });
 
-                    editableContent.addEventListener('blur', () => {
-                        const charCount = editableContent.parentElement.querySelector('.char-count');
-                        if (charCount) {
-                            charCount.classList.add('hidden');
-                        }
-                    });
-                });
+                                            editableContent.addEventListener('blur', () => {
+                                                const charCount = editableContent
+                                                    .parentElement.querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.classList.add('hidden');
+                                                }
+                                            });
+                                        });
 
-            } else {
-                const titleElement = row.querySelector('.editable-cell:nth-child(3) .editable-content');
-                const contentElement = row.querySelector('.editable-cell:nth-child(4) .editable-content');
+                                    } else {
+                                        const titleElement = row.querySelector(
+                                            '.editable-cell:nth-child(3) .editable-content');
+                                        const contentElement = row.querySelector(
+                                            '.editable-cell:nth-child(4) .editable-content');
 
-                const maxLength = parseInt(contentElement.getAttribute('data-max-length'));
-                if (contentElement.textContent.length > maxLength) {
-                    this.showToast(`Content exceeds maximum length of ${maxLength} characters`, true);
-                    return;
-                }
+                                        const maxLength = parseInt(contentElement.getAttribute(
+                                            'data-max-length'));
+                                        if (contentElement.textContent.length > maxLength) {
+                                            this.showToast(
+                                                `Content exceeds maximum length of ${maxLength} characters`,
+                                                true);
+                                            return;
+                                        }
 
-                item.title = titleElement.textContent;
-                item.content = contentElement.textContent;
-                this.updateHeroContentToAPI(item);
-                row.classList.remove('edit-mode');
-                this.renderTable();
-                this.showToast('Content updated');
-            }
-        });
-    }
-}
-
-
- else {
+                                        item.title = titleElement.textContent;
+                                        item.content = contentElement.textContent;
+                                        this.updateHeroContentToAPI(item);
+                                        row.classList.remove('edit-mode');
+                                        this.renderTable();
+                                        this.showToast('Content updated');
+                                    }
+                                });
+                            }
+                        } else {
                             const updateButton = row.querySelector('.edit-contents-cms-update');
                             updateButton.addEventListener('click', () => {
                                 const titleElement = row.querySelector(
