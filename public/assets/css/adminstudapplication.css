@@ -1397,6 +1397,9 @@ textarea::placeholder {
       .document-row {
         display: contents;
       }
+      #salaried-row-1{
+        margin-bottom: 0px;
+      }
       
       .document-box {
         background: #fff;
@@ -1610,6 +1613,19 @@ textarea::placeholder {
         }
         #work-experience-row-1{
             grid-template-columns: 1fr;
+        }
+        .admin-student-form-save-btn {
+            margin-bottom: 0px;
+            margin-right: 0px; 
+            margin-top: 0px;
+        }
+        .admin-student-form-section-course-details {
+             margin-bottom: 0px;
+            padding: 0px;
+        }
+        .document-container-admin-salary
+        {
+          gap: 0px;
         }
     }
       

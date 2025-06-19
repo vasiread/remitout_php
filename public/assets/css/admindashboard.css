@@ -784,7 +784,7 @@
 
 
 .reports-registeration {
-    padding: 13.23px 9px 11.25px 6.16px;
+    padding: 18px 9px 18px 6.16px;
     background: white;
     display: flex;
     flex-direction: column;
@@ -1691,8 +1691,6 @@ canvas {
 }
 
 #nbfc-lead-chart_container {
-    width: 490px;
-    height: 300px;
     margin: 0 auto;
     padding: 20px;
     border-radius: 8px;
@@ -1836,8 +1834,6 @@ text[fill="#222222"] {
 }
 
 .sc-lead-container {
-    width: 490px;
-
     background: white;
     padding: 12px;
     border-radius: 10px;
@@ -1901,7 +1897,7 @@ text[fill="#222222"] {
 }
 
 .sc-lead-chart-wrapper {
-    height: 150px;
+    height: auto;
     margin-bottom: 5px;
 }
 
@@ -2194,6 +2190,13 @@ text[fill="#222222"] {
     height: 16px;
 }
 
+@media (max-width: 1024px) {
+    #leadChart {
+        width: 100% !important;
+        max-width: 300px !important;
+    }
+
+}
 
 @media (max-width: 767px) {
     .admindashboardcontainer-fourth-section {
@@ -2230,6 +2233,14 @@ text[fill="#222222"] {
     .sc-lead-container {
         width: 100%;
         margin: 0 auto;
+    }
+    .chart-container {
+        max-width: 250px;
+    }
+      svg {
+        width: 100% !important;
+        height: auto;
+        margin-top: -20px;
     }
 
     #leadChart {
@@ -2619,6 +2630,7 @@ text[fill="#222222"] {
 }
 @media (max-width: 480px) {
     .responsive-chart svg {
-      max-width: 320px; /* or any smaller size */
+      max-width: 320px;
     }
   }
+  

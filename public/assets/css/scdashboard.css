@@ -926,6 +926,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .application-buttoncontainer .reportsindashboard-buttoncontainer {
@@ -1089,6 +1090,7 @@ display: grid;
     border-radius: 4px;
     padding: 21px 9px;
     font-weight: 500;
+    cursor: pointer;
 }
 
 .inactive-page,

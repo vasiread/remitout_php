@@ -16,15 +16,15 @@
     top: 0;
     right: 0;
     left: auto;
-
     margin-left: auto;
     margin-top: 100px;
+   
 }
 
 .promotional-composer-container {
     background: white;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 100%;
 }
 
@@ -707,9 +707,10 @@
         margin-top: 40px;
     }
     .promotional-composer-main-section{
-        width:100%;
+        width: 95%;
         background-color: white;
-        margin-top: 20px;
+        margin: 20px auto;
+        border-radius: 4px;
     
    }
 

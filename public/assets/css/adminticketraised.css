@@ -9,7 +9,7 @@
             font-family: 'Poppins', sans-serif;
             max-width: 71.04%;
             width: 100%;
-
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-left: 23.04%;
             margin-top: 140px;
             margin-right: 85px;
@@ -317,18 +317,19 @@
                 width: 100%;
                 max-width: 90%;
                 margin: 120px auto;
+                gap:0px;
             }
         }
 
 @media screen and (max-width: 768px) {
   .ticket-raised-container {
     width: 100%;
-    max-width: 100%;
+    max-width: 90%;
     margin: 60px auto;
     padding: 10px;
     box-shadow: none;
-    gap: 10px;
-    background-color: transparent;
+    gap: 0px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
 
   .ticket-raised-header {

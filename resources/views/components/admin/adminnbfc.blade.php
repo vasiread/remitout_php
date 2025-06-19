@@ -49,7 +49,7 @@
             <div class="nbfclist-adminside-container">
                 <h2>NBFCs List</h2>
             </div>
-            <div class="headersection-rightsidecontent">
+            <div class="headersection-rightsidecontent" id="headersection-rightsidecontent-nbfc">
                 <div class="searchcontainer-rightsidecontent" id="search-student-list-container-nbfc">
                     <input type="text" id="search-student-list-nbfc" placeholder="Search">
                     <i class="fa-solid fa-search"></i>
