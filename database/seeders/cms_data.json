@@ -58,15 +58,39 @@
                         "maxlength": 10
                     },
 
-                    {
-                        "id": 7,
-                        "page": "Landing Page",
-                        "sectionType": "testimonial",
-                        "title": "Testimonial Heading",
-                        "content": "Hear What They Say",
-                        "status": "Active",
-                        "maxlength": 20
-                    },
+                   
+  {
+    "id": 7,
+    "page": "Landing Page",
+    "sectionType": "testimonial",
+    "title": "Testimonial Heading",
+    "content": "Hear What They Say",
+    "status": "Active",
+    "maxlength": 20
+  },
+  {
+    "id": 8,
+    "page": "Landing Page",
+    "sectionType": "testimonial",
+    "title": "Testimonials",
+    "content": [
+      {
+        "name": "Mark Debrovski",
+        "designation": "Designation",
+        "rating": 5,
+        "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.",
+        "image": "/api/placeholder/100/100",
+        "mediaConstraints": {
+          "formats": ["png", "jpg", "jpeg"],
+          "width": 100,
+          "height": 100
+        }
+      }
+    ]
+  },
+
+
+
 
 
                     {
@@ -833,7 +857,21 @@
                         "status": "Active",
                         "maxlength": 50
                     },
-                   
+                            {
+                        "id": 78,
+                        "page": "Landing Page",
+                        "sectionType": "faq-section",
+                        "title": "FAQs",
+                        "content": [
+                            {
+                            "question": "How can I apply for a loan with Remitout?",
+                            "answer": "You can easily apply online by visiting our application page and filling out a short form with your basic information. Once submitted, our team will reach out with the next steps."
+                            }
+                        ]
+                    },  
+
+
+
 
                     {
                         "id": 79,

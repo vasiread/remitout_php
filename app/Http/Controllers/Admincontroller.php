@@ -14,6 +14,7 @@ use App\Models\CourseDuration;
 use App\Models\CourseInfo;
 use App\Models\Degree;
 use App\Models\DocumentType;
+use App\Models\Faq;
 use App\Models\landingpage;
 use App\Models\Nbfc;
 use App\Models\PersonalInfo;
@@ -2468,7 +2469,7 @@ class Admincontroller extends Controller
 
     public function getLanding()
     {
-        $landing = landingpage::first(); // Or find($id) if needed
+        $landing = CmsContent::get();
         return response()->json($landing);
     }
 
@@ -2537,13 +2538,180 @@ class Admincontroller extends Controller
 
 
 
-    public function TestimonialIndex()
+    // public function TestimonialIndex()
+    // {
+    //     $testimonials = Testimonial::all();
+    //     $study_loan = StudyLoanStep::all();
+    //     $testimonialIndex = CmsContent::where("title", "Testimonials")->first();
+
+    //     // Parse field_8 JSON
+    //     $initialProfile = [];
+    //     if ($testimonialIndex && !empty($testimonialIndex->field_8)) {
+    //         $initialProfileArray = json_decode($testimonialIndex->field_8, true);
+    //         $initialProfile = $initialProfileArray[0] ?? null;
+    //     }
+
+    //     return view('pages.landing', compact('testimonials', 'study_loan', 'testimonialIndex', 'initialProfile'));
+    // }
+
+
+    public function TestimonialIndex(Request $request)
     {
         $testimonials = Testimonial::all();
         $study_loan = StudyLoanStep::all();
+        $testimonialIndex = CmsContent::where("title", "Testimonials")->first();
+        $landingpageContents = CmsContent::get();
 
-        return view('pages.landing', compact('testimonials', 'study_loan'));
+        // Parse the CMS content field (initial testimonials)
+        $initialProfiles = [];
+        if ($testimonialIndex && !empty($testimonialIndex->content)) {
+            $decoded = json_decode($testimonialIndex->content, true);
+            if (is_array($decoded)) {
+                $initialProfiles = $decoded;
+            }
+        }
+
+        // Convert DB testimonials to array
+        $dbTestimonials = $testimonials->map(function ($item) {
+            return [
+                'name' => $item->name,
+                'designation' => $item->designation,
+                'rating' => $item->rating,
+                'description' => $item->review,
+                'image' => $item->image ?? '/images/default-profile.png',
+            ];
+        })->toArray();
+
+        // Merge initial + DB testimonials
+        $combinedTestimonials = array_merge($initialProfiles, $dbTestimonials);
+
+
+        // ✅ Now handle the FAQ part
+        $faqContent = CmsContent::where("title", "Landing Page")->first();
+        $initialFaqs = [];
+
+        if ($faqContent && !empty($faqContent->field_78)) {
+            $decodedFaqs = json_decode($faqContent->field_78, true);
+            if (is_array($decodedFaqs)) {
+                $initialFaqs = $decodedFaqs;
+            }
+        }
+
+        // Get DB FAQs and convert to array
+        $dbFaqs = Faq::all()->map(function ($faq) {
+            return [
+                'question' => $faq->question,
+                'answer' => $faq->answer,
+            ];
+        })->toArray();
+
+        // Merge initial + DB FAQs
+        $combinedFaqs = array_merge($initialFaqs, $dbFaqs);
+
+
+        // Return to view
+        return view('pages.landing', compact(
+            'testimonials',
+            'study_loan',
+            'testimonialIndex',
+            'combinedTestimonials',
+            'landingpageContents',
+            'combinedFaqs'   
+        ));
     }
+
+
+
+
+
+
+    public function TestimonialCMS()
+    {
+        $testimonials = Testimonial::all();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Testimonials fetched successfully',
+            'data' => $testimonials
+        ]);
+    }
+    public function TestimonialFaqs()
+    {
+        $faqs = Faq::all();
+
+        return response()->json([
+            'status' => true,
+            'data' => $faqs
+        ]);
+    }
+    public function updateTestimonial(Request $request, $id)
+    {
+        $testimonial = Testimonial::find($id);
+
+        if (!$testimonial) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Testimonial not found'
+            ], 404);
+        }
+
+        $testimonial->update($request->only([
+            'name',
+            'designation',
+            'review',
+            'image',
+            'rating'
+        ]));
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Testimonial updated successfully',
+            'data' => $testimonial
+        ]);
+    }
+
+    public function deleteTestimonial($id)
+    {
+        $testimonial = Testimonial::find($id);
+
+        if (!$testimonial) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Testimonial not found'
+            ], 404);
+        }
+
+        $testimonial->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Testimonial deleted successfully'
+        ]);
+    }
+    public function storeTestimonial(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'designation' => 'required|string|max:255',
+            'review' => 'required|string|max:1000',
+            'rating' => 'required|integer|min:1|max:5'
+        ]);
+
+        $testimonial = Testimonial::create([
+            'name' => $request->name,
+            'designation' => $request->designation,
+            'review' => $request->review,
+            'rating' => $request->rating,
+            'image' => $request->image ?? null // optional image
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Testimonial created successfully',
+            'data' => $testimonial
+        ]);
+    }
+
 
 
 
@@ -2640,5 +2808,51 @@ class Admincontroller extends Controller
             'message' => 'Media uploaded and content updated successfully!',
             'file_url' => $fileUrl,
         ], 200);
+    }
+
+
+
+    public function storeFaq(Request $request)
+    {
+        $request->validate([
+            'question' => 'required|string|max:255',
+            'answer' => 'required|string'
+        ]);
+
+        $faq = Faq::create($request->only(['question', 'answer']));
+
+        return response()->json([
+            'status' => true,
+            'message' => 'FAQ created successfully',
+            'data' => $faq
+        ]);
+    }
+    public function updateFaq(Request $request, $id)
+    {
+        $faq = Faq::find($id);
+
+        if (!$faq) {
+            return response()->json(['status' => false, 'message' => 'FAQ not found'], 404);
+        }
+
+        $faq->update($request->only(['question', 'answer']));
+
+        return response()->json([
+            'status' => true,
+            'message' => 'FAQ updated successfully',
+            'data' => $faq
+        ]);
+    }
+    public function deleteFaq($id)
+    {
+        $faq = Faq::find($id);
+
+        if (!$faq) {
+            return response()->json(['status' => false, 'message' => 'FAQ not found'], 404);
+        }
+
+        $faq->delete();
+
+        return response()->json(['status' => true, 'message' => 'FAQ deleted successfully']);
     }
 }

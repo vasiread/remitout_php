@@ -240,10 +240,10 @@
                             <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span
                                     class="personal_info_id" style="margin-left: 6px;"> </span> </li>
                             <div class="myapplication-nbfcapprovalcolumn" id="profilesection-nbfcapprovalcolumn">
-                                <button>Send Proposal</button>
+                                <button id="sendproposaltrigger-mob">Send Proposal</button>
                                 <div class="nbfcapprovalcolumnrightaligned">
-                                    <button>Message</button>
-                                    <button>Reject</button>
+                                    <button id="mobmessage-nbfc">Message</button>
+                                    <button id="mobreject-nbfc">Reject</button>
                                 </div>
 
 
@@ -640,8 +640,6 @@
                         <button id="index-student-message-btn-footer">Message</button>
                         <button class='dashboard-inside-reject-button'>Reject</button>
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -1045,8 +1043,10 @@
         });
 
         const messageButtonNbfc = document.querySelector("#index-student-message-btn-footer");
+        const messageMob = document.getElementById("mobmessage-nbfc");
 
-        messageButtonNbfc.addEventListener("click", function() {
+        if(messageButtonNbfc){
+             messageButtonNbfc.addEventListener("click", function() {
             const viewContainerApplication = document.getElementById("nbfc-student-profile-details");
             viewContainerApplication.style.display = "none";
             const nbfcListUsers = document.querySelector(".dashboard-sections-container");
@@ -1056,6 +1056,22 @@
             document.querySelector(".wholeapplicationprofile").style.display = "none";
             setActiveMenuItem(inboxMenuItem);
         });
+        }
+
+        if(messageMob){
+              messageMob.addEventListener("click", function() {
+            const viewContainerApplication = document.getElementById("nbfc-student-profile-details");
+            viewContainerApplication.style.display = "none";
+            const nbfcListUsers = document.querySelector(".dashboard-sections-container");
+            nbfcListUsers.style.display = "none";
+            inboxContainer.style.display = "flex";
+            parentContainerNBFC.style.display = "none";
+            document.querySelector(".wholeapplicationprofile").style.display = "none";
+            setActiveMenuItem(inboxMenuItem);
+        });
+        }
+       
+      
 
         // Set initial states
         dashboardSectionsContainer.style.display = "grid";
@@ -1309,8 +1325,7 @@
             });
 
             listItem.addEventListener("click", (e) => {
-                // Only trigger if screen width is 750px or less AND click is NOT on action buttons
-                if (window.innerWidth <= 750 && !e.target.closest('.dashboard-action-buttons')) {
+                 if (window.innerWidth <= 750 && !e.target.closest('.dashboard-action-buttons')) {
                     viewProfileOfUsers(viewButton, studentId, loader);
                     studentApplicationInsideRejection(student);
                     handleSendProposalProcess(studentId);
@@ -1350,33 +1365,53 @@
             return listItem;
         }
         // Select all send buttons using querySelectorAll
-        const sendButtons = document.querySelectorAll('.nbfc-send-proposal-send-button, .nbfc-send-img');
+        // const sendButtons = document.querySelectorAll('.nbfc-send-proposal-send-button, .nbfc-send-img');
 
         // Add event listener to each send button
-        sendButtons.forEach(sendButton => {
-            sendButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                sendMessage();
-                closeModal(); // If closeModal is a defined function
-            });
-        });
+        // sendButtons.forEach(sendButton => {
+        //     sendButton.addEventListener('click', function(e) {
+        //         e.preventDefault();
+        //         sendMessage();
+        //         closeModal(); // If closeModal is a defined function
+        //     });
+        // });
 
 
         const studentApplicationInsideRejection = (student) => {
             const rejectButtonInside = document.querySelector(".dashboard-inside-reject-button");
+            const rejectMob = document.getElementById("mobreject-nbfc");
+
+
 
             if (rejectButtonInside) {
                 rejectButtonInside.addEventListener("click", function() {
                     handleRejectionProcess(student);
                 });
             }
+            if(rejectMob){
+                rejectMob.addEventListener("click",function(){
+                    handleRejectionProcess(student);
+                })
+            }
         };
 
         const handleSendProposalProcess = (studentId) => {
             const sendProposalTrigger = document.querySelector(
                 ".myapplication-nbfcapprovalcolumn #sendproposal-trigger");
+            const sendProposalTriggerMob = document.getElementById(
+                "sendproposaltrigger-mob");
 
             if (sendProposalTrigger) {
+                const newTrigger = sendProposalTrigger.cloneNode(true);
+                sendProposalTrigger.parentNode.replaceChild(newTrigger, sendProposalTrigger);
+
+                newTrigger.addEventListener("click", () => {
+                    console.log("Clicked");
+                    console.log(studentId);
+                    openModal(studentId);
+                });
+            }
+            if(sendProposalTriggerMob){
                 const newTrigger = sendProposalTrigger.cloneNode(true);
                 sendProposalTrigger.parentNode.replaceChild(newTrigger, sendProposalTrigger);
 
@@ -1921,7 +1956,6 @@
                 }
             }
 
-            // Clear previously selected file info
             selectedFile = null;
             fileName.textContent = '';
             fileSize.textContent = '';

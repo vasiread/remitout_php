@@ -21,16 +21,26 @@
                     <img src="<?php echo $backgroundLinearBackground; ?>" alt="Background Image">
                 </div> -->
 
-      @include('components.profilecardsection', ['testimonials' => $testimonials])
-      @include('components.inforecords', ['study_loan' => $study_loan])
+      @include('components.profilecardsection', [
+        'combinedTestimonials'=>$combinedTestimonials,
+        'landingpageContents'=>$landingpageContents
+
+        ])
+      @include('components.inforecords', [
+        'study_loan' => $study_loan,
+        'landingpageContents'=>$landingpageContents
+        ])
+      
 
 
         <x-graphflow></x-graphflow>
 
   
+@include('components.faqsection', [
+    'combinedFaqs' => $combinedFaqs
+])
 
-        <x-faqsection></x-faqsection>
-    @endsection
+         @endsection
 
 
     <script>

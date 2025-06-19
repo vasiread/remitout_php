@@ -129,6 +129,7 @@
             }
         ];
         window.selectedFilePerTitle = {};
+        window.selectedFilePerTitle = {};
 
         const contentList = document.querySelector('.edit-content-list');
 
@@ -246,78 +247,25 @@
                         status: 'Active',
                         maxLength: 20
                     },
-                    // Testimonial Section
-                    {
-                        id: 7,
-                        page: 'Landing Page',
-                        sectionType: 'testimonial',
-                        title: 'Testimonial Heading',
-                        content: 'Hear What They Say',
-                        status: 'Active',
-                        maxLength: 20
-                    },
                     {
                         id: 8,
                         page: 'Landing Page',
                         sectionType: 'testimonial',
                         title: 'Testimonials',
                         content: JSON.stringify([{
-                                name: 'Mark Debrovski',
-                                designation: 'Designation',
-                                rating: 5,
-                                description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
-                                image: '/api/placeholder/100/100',
-                                mediaConstraints: {
-                                    formats: ['png', 'jpg', 'jpeg'],
-                                    width: 100,
-                                    height: 100
-                                }
-                            },
-                            {
-                                name: 'Debrovski',
-                                designation: 'Designation',
-                                rating: 4,
-                                description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
-                                image: '/api/placeholder/100/100',
-                                mediaConstraints: {
-                                    formats: ['png', 'jpg', 'jpeg'],
-                                    width: 100,
-                                    height: 100
-                                }
-                            },
-                            {
-                                name: 'Mark Debrovski',
-                                designation: 'Designation',
-                                rating: 5,
-                                description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
-                                image: '/api/placeholder/100/100',
-                                mediaConstraints: {
-                                    formats: ['png', 'jpg', 'jpeg'],
-                                    width: 100,
-                                    height: 100
-                                }
-                            },
-                            {
-                                name: 'Mark Debrovski',
-                                designation: 'Designation',
-                                rating: 5,
-                                description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
-                                image: '/api/placeholder/100/100',
-                                mediaConstraints: {
-                                    formats: ['png', 'jpg', 'jpeg'],
-                                    width: 100,
-                                    height: 100
-                                }
+                            name: 'Mark Debrovski',
+                            designation: 'Designation',
+                            rating: 5,
+                            description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.',
+                            image: '/api/placeholder/100/100',
+                            mediaConstraints: {
+                                formats: ['png', 'jpg', 'jpeg'],
+                                width: 100,
+                                height: 100
                             }
-                        ]),
-                        status: 'Active',
-                        isTestimonialArray: true,
-                        maxLengthConstraints: {
-                            name: 20,
-                            designation: 20,
-                            description: 160
-                        }
+                        }, ])
                     },
+
 
 
                     // Logo Section
@@ -1085,67 +1033,19 @@
                         status: 'Active',
                         maxLength: 50
                     },
-                    {
+                         {
                         id: 78,
                         page: 'Landing Page',
                         sectionType: 'faq-section',
-                        title: 'FAQs',
-                        content: JSON.stringify([{
-                                question: 'How can I apply for a loan with Remitout?',
-                                answer: 'You can easily apply online by visiting our application page and filling out a short form with your basic information. Once submitted, our team will reach out with the next steps.'
-                            },
+                        title:'FAQs',
+                        content: [
                             {
-                                question: 'What are the eligibility criteria for a loan?',
-                                answer: 'Our eligibility criteria includes age requirements, income verification, and credit history assessment. Please contact our support team for detailed information specific to your situation.'
-                            },
-                            {
-                                question: 'How long does the loan approval process take?',
-                                answer: 'The loan approval process typically takes 2-3 business days, depending on the completeness of your application and required documentation.'
-                            },
-                            {
-                                question: 'What documents are required to apply for a loan?',
-                                answer: 'Required documents typically include government-issued ID, proof of income, bank statements, and proof of address. Specific requirements may vary based on the loan type.'
-                            },
-                            {
-                                question: 'Can I apply for a loan if I have bad credit?',
-                                answer: 'While bad credit may impact your eligibility, we assess applications on a case-by-case basis. Reach out to our support team to discuss potential options for your situation.'
-                            },
-                            {
-                                question: 'How do I track my loan application status?',
-                                answer: 'You can track the status of your loan application by logging into your account on our website. Additionally, our team will notify you of any updates via email or phone.'
-                            },
-                            {
-                                question: 'Can I use my loan for any purpose?',
-                                answer: 'Our loans are designed primarily for educational expenses. While most loans can be used for tuition, living costs, and study-related expenses, check the loan terms for any specific restrictions.'
-                            },
-                            {
-                                question: 'What is the repayment schedule for my loan?',
-                                answer: 'Repayment terms are customized based on your loan amount, tenure, and educational institution. You’ll be informed about your repayment schedule at the time of loan approval.'
-                            },
-                            {
-                                question: 'How do I choose the best loan offer for me?',
-                                answer: 'Once your profile is assessed, we provide personalized loan offers. You can compare these offers based on your eligibility, interest rates, and repayment options to select the one that best suits your needs.'
-                            },
-                            {
-                                question: 'Can I pay off my loan early?',
-                                answer: 'Yes, you can pay off your loan early without any prepayment penalties. Early repayment may also help you save on interest charges.'
-                            },
-                            {
-                                question: 'What happens if I miss a loan payment?',
-                                answer: 'If you miss a loan payment, please contact us immediately. We may offer alternative arrangements or extend your payment period. It’s important to keep us informed to avoid negative impacts on your credit score.'
-                            },
-                            {
-                                question: 'How fast can I receive my loan disbursement?',
-                                answer: 'Once approved, your loan will be disbursed directly to your educational institution in a timely manner, ensuring there are no delays in securing your admission.'
+                            question: 'How can I apply for a loan with Remitout?',
+                            answer: 'You can easily apply online by visiting our application page and filling out a short form with your basic information. Once submitted, our team will reach out with the next steps.'
                             }
-                        ]),
-                        status: 'Active',
-                        isFAQArray: true,
-                        maxLengthConstraints: {
-                            question: 100,
-                            answer: 200
-                        }
-                    },
+                        ]
+                    }, 
+
 
                     // Footer Section
                     {
@@ -1432,59 +1332,215 @@
                 this.renderTable();
             }
 
-            addNewTestimonial(item) {
+            async addNewTestimonial(item) {
                 const testimonials = JSON.parse(item.content);
-                testimonials.push({
+
+                const newTestimonial = {
                     name: 'New Testimonial',
                     designation: 'Designation',
                     rating: 5,
                     description: 'Enter description here.',
-                    image: '/api/placeholder/100/100',
                     mediaConstraints: {
                         formats: ['png', 'jpg', 'jpeg'],
                         width: 100,
                         height: 100
                     }
-                });
-                item.content = JSON.stringify(testimonials);
-                this.renderTable();
-                this.showToast('New testimonial added');
+                };
+
+                try {
+                    const res = await fetch('/testimonial/store', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        },
+                        body: JSON.stringify({
+                            name: newTestimonial.name,
+                            designation: newTestimonial.designation,
+                            rating: newTestimonial.rating,
+                            review: newTestimonial.description
+                        })
+                    });
+
+                    const result = await res.json();
+
+                    if (result.status && result.data?.id) {
+                        newTestimonial.id = result.data.id;
+                        testimonials.push(newTestimonial);
+                        item.content = JSON.stringify(testimonials);
+                        this.renderTable();
+                        this.showToast('✅ Testimonial added and saved');
+                    } else {
+                        this.showToast('❌ Failed to add testimonial', true);
+                    }
+                } catch (err) {
+                    console.error(err);
+                    this.showToast('⚠️ Error saving testimonial', true);
+                }
             }
 
-            removeTestimonial(item, index) {
+
+            async removeTestimonial(item, index) {
                 const testimonials = JSON.parse(item.content);
-                if (testimonials.length > 1) {
+                const testimonial = testimonials[index];
+
+                if (testimonial?.isProtected) {
+                    this.showToast('🚫 This is a default testimonial and cannot be deleted.', true);
+                    return;
+                }
+
+                // Not yet saved to DB — just remove locally
+                if (!testimonial.id) {
                     testimonials.splice(index, 1);
                     item.content = JSON.stringify(testimonials);
                     this.renderTable();
-                    this.showToast('Testimonial removed');
-                } else {
-                    this.showToast('At least one testimonial is required', true);
+                    this.showToast('🗑️ Unsaved testimonial removed');
+                    return;
+                }
+
+                try {
+                    const res = await fetch(`/testimonial/delete/${testimonial.id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        }
+                    });
+
+                    const result = await res.json();
+
+                    if (result.status) {
+                        testimonials.splice(index, 1);
+                        item.content = JSON.stringify(testimonials);
+                        this.renderTable();
+                        this.showToast('🗑️ Testimonial deleted');
+                    } else {
+                        this.showToast('❌ Failed to delete testimonial', true);
+                    }
+                } catch (err) {
+                    console.error(err);
+                    this.showToast('⚠️ Error deleting testimonial', true);
                 }
             }
 
-            addNewFAQ(item) {
-                const faqs = JSON.parse(item.content);
-                faqs.push({
-                    question: 'New FAQ Question',
-                    answer: 'Enter answer here.'
-                });
-                item.content = JSON.stringify(faqs);
-                this.renderTable();
-                this.showToast('New FAQ added');
-            }
 
-            removeFAQ(item, index) {
-                const faqs = JSON.parse(item.content);
-                if (faqs.length > 1) {
-                    faqs.splice(index, 1);
-                    item.content = JSON.stringify(faqs);
-                    this.renderTable();
-                    this.showToast('FAQ removed');
-                } else {
-                    this.showToast('At least one FAQ is required', true);
-                }
-            }
+           async addNewFAQ(item) {
+  const faqs = JSON.parse(item.content);
+
+  const newFaq = {
+    question: 'New FAQ Question',
+    answer: 'Enter answer here.'
+  };
+
+  try {
+    const res = await fetch('/faq/store', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      },
+      body: JSON.stringify(newFaq)
+    });
+
+    const result = await res.json();
+
+    if (result.status && result.data?.id) {
+      newFaq.id = result.data.id;
+      faqs.push(newFaq);
+      item.content = JSON.stringify(faqs);
+      this.renderTable();
+      this.showToast('✅ FAQ added and saved');
+    } else {
+      this.showToast('❌ Failed to add FAQ', true);
+    }
+  } catch (err) {
+    console.error(err);
+    this.showToast('⚠️ Error saving FAQ', true);
+  }
+}
+async updateFAQ(item, index) {
+  const faqs = JSON.parse(item.content);
+  const faq = faqs[index];
+
+  if (faq?.isProtected) {
+    this.showToast('🚫 This FAQ is protected and cannot be updated.', true);
+    return;
+  }
+
+  if (!faq.id) {
+    this.showToast('❌ Cannot update unsaved FAQ. Please save it first.', true);
+    return;
+  }
+
+  try {
+    const res = await fetch(`/faq/update/${faq.id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      },
+      body: JSON.stringify({
+        question: faq.question,
+        answer: faq.answer
+      })
+    });
+
+    const result = await res.json();
+
+    if (result.status) {
+      this.showToast('✅ FAQ updated successfully');
+    } else {
+      this.showToast(`❌ Failed to update FAQ: ${result.message}`, true);
+    }
+  } catch (err) {
+    console.error(err);
+    this.showToast('⚠️ Error updating FAQ', true);
+  }
+}
+
+
+          async removeFAQ(item, index) {
+  const faqs = JSON.parse(item.content);
+  const faq = faqs[index];
+
+  if (faq?.isProtected) {
+    this.showToast('🚫 This is a default FAQ and cannot be deleted.', true);
+    return;
+  }
+
+  if (!faq.id) {
+    faqs.splice(index, 1);
+    item.content = JSON.stringify(faqs);
+    this.renderTable();
+    this.showToast('🗑️ Unsaved FAQ removed');
+    return;
+  }
+
+  try {
+    const res = await fetch(`/faq/delete/${faq.id}`, {
+      method: 'DELETE',
+      headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      }
+    });
+
+    const result = await res.json();
+
+    if (result.status) {
+      faqs.splice(index, 1);
+      item.content = JSON.stringify(faqs);
+      this.renderTable();
+      this.showToast('🗑️ FAQ deleted');
+    } else {
+      this.showToast('❌ Failed to delete FAQ', true);
+    }
+  } catch (err) {
+    console.error(err);
+    this.showToast('⚠️ Error deleting FAQ', true);
+  }
+}
+
 
             addNewLogo(item) {
                 const newId = Math.max(...this.data.map(d => d.id)) + 1;
@@ -1568,30 +1624,165 @@
             }
             async injectDynamicHeroContent() {
                 try {
-                    const res = await fetch('/landingpage');
-                    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
+                    const res = await fetch('/landingpage');
+                    if (!res.ok) throw new Error(`CMS fetch failed: ${res.status}`);
                     const cmsData = await res.json();
 
-                    this.data.forEach(item => {
+
+
+                    for (const item of this.data) {
+                        // Try to find matching CMS block
                         const match = cmsData.find(serverItem =>
                             serverItem.section === item.sectionType && serverItem.title === item.title
                         );
+
+                        // If found, use its content
                         if (match) {
                             item.content = match.content;
                         }
-                    });
+
+                        // ✅ Always process testimonials
+                        if (item.sectionType === 'testimonial' && item.title === 'Testimonials') {
+                            try {
+                                const parsed = JSON.parse(item.content);
+                                if (Array.isArray(parsed)) {
+                                    item.isTestimonialArray = true;
+                                    item.maxLengthConstraints = {
+                                        name: 20,
+                                        designation: 20,
+                                        description: 160
+                                    };
+
+                                    const testimonialRes = await fetch('/gettestimonials');
+                                    if (!testimonialRes.ok) throw new Error(
+                                        `Testimonial fetch failed: ${testimonialRes.status}`);
+                                    const testimonialData = await testimonialRes.json();
+
+                                    if (testimonialData.status && Array.isArray(testimonialData.data)) {
+                                        parsed.splice(1, 0, ...testimonialData.data.map(t => ({
+                                            id: t.id,
+                                            name: t.name,
+                                            designation: t.designation,
+                                            description: t.review,
+                                            image: t.image,
+                                            rating: t.rating,
+                                            mediaConstraints: {
+                                                formats: ['png', 'jpg', 'jpeg'],
+                                                width: 100,
+                                                height: 100
+                                            }
+                                        })));
+
+                                        parsed[0].isProtected = true;
+                                        item.content = JSON.stringify(parsed);
+                                    }
+                                }
+                            } catch (e) {
+                                console.warn(`Invalid JSON for testimonials`, e);
+                            }
+                        }
+
+                        // alert(item)
+                        // console.log("------------")
+                        // console.log(item)
+ 
+                       if (item.sectionType === 'faq-section' && item.title === 'FAQs') {
+                            try {
+                                const parsed = JSON.parse(item.content);
+                                if (Array.isArray(parsed)) {
+                                    item.isFaqArray = true;
+                                    item.maxLengthConstraints = {
+                                        question: 100,
+                                        answer: 400
+                                    };
+
+                                    const faqRes = await fetch('/getfaqs');
+                                    if (!faqRes.ok) throw new Error(`FAQ fetch failed: ${faqRes.status}`);
+                                    const faqData = await faqRes.json();
+
+                                    if (faqData.status && Array.isArray(faqData.data)) {
+                                        parsed.splice(1, 0, ...faqData.data.map(f => ({
+                                            id: f.id,
+                                            question: f.question,
+                                            answer: f.answer
+                                        })));
+
+                                        parsed[0].isProtected = true;
+                                        item.content = JSON.stringify(parsed);
+                                    }
+                                }
+                            } catch (e) {
+                                console.warn('Invalid JSON for FAQs', e);
+                            }
+                        }
+                    }
+
 
                     this.originalData = JSON.parse(JSON.stringify(this.data));
                     this.filteredData = this.data;
                     this.renderTable();
 
                 } catch (err) {
-                    console.error('❌ CMS fetch failed:', err);
+                    console.error('❌ injectDynamicHeroContent failed:', err);
                     this.renderTable();
-                    this.showToast('⚠️ Failed to load live CMS content', true);
+                    this.showToast('⚠️ Failed to load CMS content', true);
                 }
             }
+
+            async updateTestimonial(item, index) {
+                const testimonials = JSON.parse(item.content);
+                const testimonial = testimonials[index];
+
+                // 🚫 Prevent updating the protected testimonial
+                if (testimonial?.isProtected) {
+                    this.showToast('🚫 This is a default testimonial and cannot be updated.', true);
+                    return;
+                }
+
+                if (!testimonial.id) {
+                    this.showToast('❌ Cannot update unsaved testimonial. Please save it first.', true);
+                    return;
+                }
+
+                const payload = {
+                    name: testimonial.name,
+                    designation: testimonial.designation,
+                    rating: testimonial.rating,
+                    review: testimonial.description
+                };
+
+                try {
+                    const res = await fetch(`/testimonial/update/${testimonial.id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await res.json();
+
+                    if (result.status) {
+                        this.showToast('✅ Testimonial updated successfully');
+                    } else {
+                        this.showToast(`❌ Failed to update testimonial: ${result.message}`, true);
+                    }
+                } catch (err) {
+                    console.error(err);
+                    this.showToast('⚠️ Error updating testimonial', true);
+                }
+            }
+
+
+
+
+
+
+
+
 
 
             async updateHeroContentToAPI(item) {
@@ -1649,6 +1840,7 @@
                 const paginatedData = this.filteredData.slice(startIndex, endIndex);
 
                 let rowCounter = startIndex + 1;
+
 
                 paginatedData.forEach((item, index) => {
                     const row = document.createElement('tr');
@@ -1778,13 +1970,13 @@
                                     </svg>
                                 </button>
                                 ${isLastLogo ? `
-                                                                                            <button class="add-logo" title="Add Logo">
-                                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                                                                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                                                                </svg>
-                                                                                            </button>
-                                                                                        ` : ''}
+                                                                                                                                            <button class="add-logo" title="Add Logo">
+                                                                                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                                                                                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                                                                                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                                                                                                                </svg>
+                                                                                                                                            </button>
+                                                                                                                                        ` : ''}
                             </td>
                         `;
                         row.setAttribute('data-id', item.id);
@@ -1919,26 +2111,33 @@
                                         <td>
                                             <button class="edit-contents-cms-update">Update</button>
                                             <button class="edit-contents-cms-edit">✏️</button>
-                                            <button class="remove-testimonial" title="Remove Testimonial">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                                                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                                                </svg>
+                                            <button class="remove-testimonial"  title="Remove Testimonial">
+                                              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M9 3V4H4V6H5V19C5 20.11 5.9 21 7 21H17C18.11 21 19 20.11 19 19V6H20V4H15V3H9M7 6H17V19H7V6Z" />
+  </svg>
+                                               
                                             </button>
                                             ${idx === testimonials.length - 1 ? `
-                                                                                                        <button class="add-testimonial" title="Add Testimonial">
-                                                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                                                                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                                                                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                                                                            </svg>
-                                                                                                        </button>
-                                                                                                    ` : ''}
+                                                                                                                                                        <button class="add-testimonial" title="Add Testimonial">
+                                                                                                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                                                                                                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                                                                                                                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                                                                                                                            </svg>
+                                                                                                                                                        </button>
+                                                                                                                                                    ` : ''}
                                         </td>
                                     `;
 
                                     const editableContents = testimonialRow.querySelectorAll(
                                         '.editable-content');
                                     editableContents.forEach((editableContent) => {
+                                        if (testimonial.isProtected) {
+                                            editableContent.contentEditable = "false";
+                                            editableContent.classList.add(
+                                                "disabled-edit");
+                                            return; // No need to attach input/focus/blur
+                                        }
+
                                         editableContent.addEventListener('input',
                                     () => {
                                             const maxLength = parseInt(
@@ -2048,6 +2247,7 @@
                                     const updateButton = testimonialRow.querySelector(
                                         '.edit-contents-cms-update');
                                     updateButton.addEventListener('click', () => {
+
                                         const nameElement = testimonialRow
                                             .querySelector(
                                                 '.testimonial-field:nth-child(1) .editable-content'
@@ -2103,9 +2303,15 @@
                                             .textContent;
                                         item.content = JSON.stringify(testimonials);
                                         testimonialRow.classList.remove('edit-mode');
+                                        this.updateTestimonial(item, idx);
                                         this.renderTable();
-                                        this.showToast('Testimonial updated');
                                     });
+                                    if (testimonial.isProtected) {
+                                        updateButton.disabled = true;
+                                        updateButton.title =
+                                            "This testimonial is protected and cannot be updated.";
+                                        updateButton.classList.add("disabled-update");
+                                    }
 
                                     const removeButton = testimonialRow.querySelector(
                                         '.remove-testimonial');
@@ -2125,7 +2331,7 @@
                                 }
                             });
                         });
-                    } else if (item.isFAQArray) {
+                    } else if (item.isFaqArray) {
                         const faqs = JSON.parse(item.content);
                         faqs.forEach((faq, idx) => {
                             const faqRow = document.createElement('tr');
@@ -2133,20 +2339,20 @@
                             faqRow.classList.add('faq-row');
                             const faqTitle = `FAQ ${idx + 1}`;
                             faqRow.innerHTML = `
-                                <td>${rowCounter++}</td>
-                                <td>${item.page}</td>
-                                <td class="editable-cell no-border">
-                                    <div class="editable-content" contenteditable="true">${faqTitle}</div>
-                                </td>
-                                <td class="editable-cell content-cell">
-                                    <div class="editable-content" contenteditable="true" data-max-length="${item.maxLengthConstraints?.question || 100}">${faq.question}</div>
-                                    <div class="char-count hidden" data-max="${item.maxLengthConstraints?.question || 100}">${faq.question.length}/${item.maxLengthConstraints?.question || 100}</div>
-                                </td>
-                                <td><span class="edit-contents-cms-status">${item.status}</span></td>
-                                <td>
-                                    <button class="edit-contents-cms-edit">✏️</button>
-                                </td>
-                            `;
+                                    <td>${rowCounter++}</td>
+                                    <td>${item.page}</td>
+                                    <td class="editable-cell no-border">
+                                        <div class="editable-content" contenteditable="true">${faqTitle}</div>
+                                    </td>
+                                    <td class="editable-cell content-cell">
+                                        <div class="editable-content" contenteditable="true" data-max-length="${item.maxLengthConstraints?.question || 100}">${faq.question}</div>
+                                        <div class="char-count hidden" data-max="${item.maxLengthConstraints?.question || 100}">${faq.question.length}/${item.maxLengthConstraints?.question || 100}</div>
+                                    </td>
+                                    <td><span class="edit-contents-cms-status">${item.status}</span></td>
+                                    <td>
+                                        <button class="edit-contents-cms-edit">✏️</button>
+                                    </td>
+                                `;
                             tbody.appendChild(faqRow);
 
                             const editButton = faqRow.querySelector('.edit-contents-cms-edit');
@@ -2159,45 +2365,45 @@
                                         `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.answer || 200}">${faq.answer.length}/${item.maxLengthConstraints?.answer || 200}</div>`;
 
                                     faqRow.innerHTML = `
-                                        <td>${rowCounter - 1}</td>
-                                        <td>${item.page}</td>
-                                        <td class="editable-cell no-border">
-                                            <div class="editable-content" contenteditable="true">${faqTitle}</div>
-                                        </td>
-                                        <td class="editable-cell content-cell">
-                                            <div class="faq-details">
-                                                <div class="faq-field">
-                                                    <label>Question:</label>
-                                                    <div class="editable-content" contenteditable="true" data-max-length="${item.maxLengthConstraints?.question || 100}">${faq.question}</div>
-                                                    ${maxLengthIndicatorQuestion}
+                                            <td>${rowCounter - 1}</td>
+                                            <td>${item.page}</td>
+                                            <td class="editable-cell no-border">
+                                                <div class="editable-content" contenteditable="true">${faqTitle}</div>
+                                            </td>
+                                            <td class="editable-cell content-cell">
+                                                <div class="faq-details">
+                                                    <div class="faq-field">
+                                                        <label>Question:</label>
+                                                        <div class="editable-content" contenteditable="true" data-max-length="${item.maxLengthConstraints?.question || 100}">${faq.question}</div>
+                                                        ${maxLengthIndicatorQuestion}
+                                                    </div>
+                                                    <div class="faq-field">
+                                                        <label>Answer:</label>
+                                                        <div class="editable-content" contenteditable="true" data-max-length="${item.maxLengthConstraints?.answer || 200}">${faq.answer}</div>
+                                                        ${maxLengthIndicatorAnswer}
+                                                    </div>
                                                 </div>
-                                                <div class="faq-field">
-                                                    <label>Answer:</label>
-                                                    <div class="editable-content" contenteditable="true" data-max-length="${item.maxLengthConstraints?.answer || 200}">${faq.answer}</div>
-                                                    ${maxLengthIndicatorAnswer}
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td><span class="edit-contents-cms-status">${item.status}</span></td>
-                                        <td>
-                                            <button class="edit-contents-cms-update">Update</button>
-                                            <button class="edit-contents-cms-edit">✏️</button>
-                                            <button class="remove-faq" title="Remove FAQ">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                                                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                                                </svg>
-                                            </button>
-                                            ${idx === faqs.length - 1 ? `
-                                                                                                                                                                <button class="add-faq" title="Add FAQ">
-                                                                                                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                                                                                                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                                                                                                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                                                                                                                                    </svg>
-                                                                                                                                                                </button>
-                                                                                                                                                            ` : ''}
-                                        </td>
-                                    `;
+                                            </td>
+                                            <td><span class="edit-contents-cms-status">${item.status}</span></td>
+                                            <td>
+                                                <button class="edit-contents-cms-update">Update</button>
+                                                <button class="edit-contents-cms-edit">✏️</button>
+                                                <button class="remove-faq" title="Remove FAQ">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                    </svg>
+                                                </button>
+                                                ${idx === faqs.length - 1 ? `
+                                                                                                                                                                                                                    <button class="add-faq" title="Add FAQ">
+                                                                                                                                                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                                                                                                                                                                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                                                                                                                                                                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                                                                                                                                                                                        </svg>
+                                                                                                                                                                                                                    </button>
+                                                                                                                                                                                                                ` : ''}
+                                            </td>
+                                        `;
 
                                     const editableContents = faqRow.querySelectorAll(
                                         '.editable-content');
@@ -2250,6 +2456,47 @@
                                                     'hidden');
                                             }
                                         });
+                                    });
+
+                                    const updateButton = faqRow.querySelector(
+                                        '.edit-contents-cms-update');
+                                    updateButton.addEventListener('click', () => {
+                                        const questionElement = faqRow.querySelector(
+                                            '.faq-field:nth-child(1) .editable-content'
+                                        );
+                                        const answerElement = faqRow.querySelector(
+                                            '.faq-field:nth-child(2) .editable-content'
+                                        );
+
+                                        const maxLengthQuestion = parseInt(
+                                            questionElement.getAttribute(
+                                                'data-max-length'));
+                                        const maxLengthAnswer = parseInt(answerElement
+                                            .getAttribute('data-max-length'));
+
+                                        if (questionElement.textContent.length >
+                                            maxLengthQuestion) {
+                                            this.showToast(
+                                                `Question exceeds maximum length of ${maxLengthQuestion} characters`,
+                                                true);
+                                            return;
+                                        }
+                                        if (answerElement.textContent.length >
+                                            maxLengthAnswer) {
+                                            this.showToast(
+                                                `Answer exceeds maximum length of ${maxLengthAnswer} characters`,
+                                                true);
+                                            return;
+                                        }
+
+                                        faq.question = questionElement.textContent;
+                                        faq.answer = answerElement.textContent;
+                                        item.content = JSON.stringify(faqs);
+                                        this.updateFAQ(item, idx);
+                                        faqRow.classList.remove('edit-mode');
+                                        
+                                        this.renderTable();
+                                        this.showToast('FAQ updated');
                                     });
 
                                     const removeButton = faqRow.querySelector('.remove-faq');
@@ -2629,7 +2876,7 @@
                     }
 
                     const title = this.closest('tr')?.querySelector('.editable-content')?.innerText
-                ?.trim(); // if input is in row
+                        ?.trim(); // if input is in row
                     if (!title) {
                         alert('Missing title to associate with file');
                         return;
