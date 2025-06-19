@@ -226,8 +226,8 @@
     background: transparent;
     color: #6f25ce;
     transition: all 0.3s ease;
-    width: 60px;
-    height: 38px;
+    width: 45px;
+    height: 45px;
 }
 @media screen and (max-width: 1024px) {
     .role-management-admin-main-container {
