@@ -123,7 +123,10 @@
         'student-dashboard'
     ])
 )
-        <x-footer></x-footer>
+        <x-footer
+        :landingpageContents="$landingpageContents"
+
+        />
     @endif
 
     {{-- ✅ Global Loader Element --}}

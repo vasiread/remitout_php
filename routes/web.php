@@ -337,6 +337,7 @@ Route::post('/testimonial/store', [Admincontroller::class, 'storeTestimonial']);
 
 
 Route::get('/getfaqs', [Admincontroller::class, 'TestimonialFaqs']);
+Route::get('/getlogospartner', [Admincontroller::class, 'CMSLogos']);
 
 
 Route::post('/faq/store', [Admincontroller::class, 'storeFaq']);

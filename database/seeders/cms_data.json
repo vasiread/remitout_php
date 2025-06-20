@@ -97,7 +97,7 @@
                         "id": 9,
                         "page": "Landing Page",
                         "sectionType": "logo",
-                        "title": "Partner Logo 1",
+                        "title": "seedPartnerLogo",
                         "content": "/api/placeholder/200/100",
                         "status": "Active",
                         "isMedia": true,
@@ -107,62 +107,7 @@
                             "height": 100
                         }
                     },
-                    {
-                        "id": 10,
-                        "page": "Landing Page",
-                        "sectionType": "logo",
-                        "title": "Partner Logo 2",
-                        "content": "/api/placeholder/200/100",
-                        "status": "Active",
-                        "isMedia": true,
-                        "mediaConstraints": {
-                            "formats": ["png", "jpg", "jpeg"],
-                            "width": 200,
-                            "height": 100
-                        }
-                    },
-                    {
-                        "id": 11,
-                        "page": "Landing Page",
-                        "sectionType": "logo",
-                        "title": "Partner Logo 3",
-                        "content": "/api/placeholder/200/100",
-                        "status": "Active",
-                        "isMedia": true,
-                        "mediaConstraints": {
-                            "formats": ["png", "jpg", "jpeg"],
-                            "width": 200,
-                            "height": 100
-                        }
-                    },
-                    {
-                        "id": 12,
-                        "page": "Landing Page",
-                        "sectionType": "logo",
-                        "title": "Partner Logo 4",
-                        "content": "/api/placeholder/200/100",
-                        "status": "Active",
-                        "isMedia": true,
-                        "mediaConstraints": {
-                            "formats": ["png", "jpg", "jpeg"],
-                            "width": 200,
-                            "height": 100
-                        }
-                    },
-                    {
-                        "id": 13,
-                        "page": "Landing Page",
-                        "sectionType": "logo",
-                        "title": "Partner Logo 5",
-                        "content": "/api/placeholder/200/100",
-                        "status": "Active",
-                        "isMedia": true,
-                        "mediaConstraints": {
-                            "formats": ["png", "jpg", "jpeg"],
-                            "width": 200,
-                            "height": 100
-                        }
-                    },
+                    
 
                     {
                         "id": 14,
@@ -808,7 +753,7 @@
                         "page": "Landing Page",
                         "sectionType": "global-transfer",
                         "title": "NBFCs Stat Label",
-                        "content": "editable",
+                        "content": "NBFCs",
                         "maxlength": 20
                     },
                     {

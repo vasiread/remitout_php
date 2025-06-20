@@ -1685,8 +1685,8 @@
                         }
 
                         // alert(item)
-                        // console.log("------------")
-                        // console.log(item)
+                        console.log("------------")
+                        console.log(item)
 
                         if (item.sectionType === 'faq-section' && item.title === 'FAQs') {
                             try {
@@ -1717,6 +1717,51 @@
                                 console.warn('Invalid JSON for FAQs', e);
                             }
                         }
+                       if (item.sectionType === 'logo' && item.title === 'Partner Logo 1') {
+    try {
+        console.log("🔥 Found Logo Section:", item.sectionType, item.title);
+        console.log("🚀 Logo Section Raw Content:", item.content);
+
+        const parsed = JSON.parse(item.content);
+        console.log(item)
+        if (Array.isArray(parsed)) {
+            item.isLogoArray = true;
+
+            const logoRes = await fetch('/getlogospartner');
+            if (!logoRes.ok) throw new Error(`Logo fetch failed: ${logoRes.status}`);
+            const logoData = await logoRes.json();
+            console.log(logoData)
+
+            console.log(" Logo API Data:", logoData.data);
+
+            if (logoData.status && Array.isArray(logoData.data)) {
+                parsed.splice(1, 0, ...logoData.data.map(l => ({
+                    id: l.id,
+                    image: l.content,
+                    title: l.title,
+                    mediaConstraints: {
+                        formats: ['png', 'jpg', 'jpeg', 'svg'],
+                        width: 200,
+                        height: 100
+                    }
+                })));
+
+                parsed[0].isProtected = true;
+                item.content = JSON.stringify(parsed);
+
+                console.log("✅ Final Logo Parsed Content:", item.content);
+            }
+        } else {
+            console.warn("❌ Logo content is not an array.");
+        }
+    } catch (e) {
+        console.warn('❌ Invalid JSON or fetch error for Partner Logos', e);
+    }
+}
+
+
+
+
                     }
 
 
@@ -1869,22 +1914,105 @@
                             <td><span class="edit-contents-cms-status">${item.status}</span></td>
                             <td>
                                 <button class="edit-contents-cms-update">Update</button>
-                                ${item.sectionType === 'logo' ? `
-                                    <button class="remove-logo" title="Remove Logo">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                                        </svg>
-                                    </button>
-                                    ${this.filteredData.filter(d => d.sectionType === 'logo').findIndex(logo => logo.id === item.id) === this.filteredData.filter(d => d.sectionType === 'logo').length - 1 ? `
-                                        <button class="add-logo" title="Add Logo">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </td>
+                        `;
+                        row.setAttribute('data-id', item.id);
+
+                        tbody.appendChild(row);
+
+                        const editableContents = row.querySelectorAll('.editable-cell .editable-content');
+                        editableContents.forEach((editableContent) => {
+                            editableContent.addEventListener('input', () => {
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
+                                if (charCount) {
+                                    const maxLength = parseInt(charCount.getAttribute(
+                                        'data-max'));
+                                    charCount.textContent =
+                                        `${editableContent.textContent.length}/${maxLength}`;
+                                    charCount.classList.toggle('hidden', editableContent
+                                        .textContent.length <= maxLength);
+                                    charCount.classList.toggle('error', editableContent
+                                        .textContent.length > maxLength);
+                                }
+                            });
+                            editableContent.addEventListener('focus', () => {
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
+                                if (charCount) {
+                                    const maxLength = parseInt(charCount.getAttribute(
+                                        'data-max'));
+                                    charCount.textContent =
+                                        `${editableContent.textContent.length}/${maxLength}`;
+                                    charCount.classList.remove('hidden');
+                                }
+                            });
+                            editableContent.addEventListener('blur', () => {
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
+                                if (charCount) {
+                                    charCount.classList.add('hidden');
+                                }
+                            });
+                        });
+
+                        const updateButton = row.querySelector('.edit-contents-cms-update');
+                        updateButton.addEventListener('click', () => {
+                            const titleElement = row.querySelector(
+                                '.editable-cell:nth-child(3) .editable-content');
+                            item.title = titleElement.textContent;
+                            this.renderTable();
+                            this.showToast('Media content updated');
+                        });
+                    } else if (item.sectionType === 'logo') {
+                        const logos = this.filteredData.filter(d => d.sectionType === 'logo');
+                        const logoIndex = logos.findIndex(logo => logo.id === item.id);
+                        const isLastLogo = logoIndex === logos.length - 1;
+
+                        row.classList.add('logo-row');
+                        row.setAttribute('data-id', item.id);
+                        row.innerHTML = `
+                            <td>${rowCounter++}</td>
+                            <td>${item.page}</td>
+                            <td class="editable-cell">
+                                <div class="editable-content" contenteditable="true">${item.title}</div>
+                            </td>
+                            <td>
+                                <div class="media-container">
+                                    <div class="media-preview">
+                                        <img src="${item.content}" alt="Logo preview">
+                                        <span class="close-btn">×</span>
+                                    </div>
+                                    <div class="media-actions">
+                                        <input type="file" class="file-input hidden-input" accept="${item.mediaConstraints.formats.map(format => `.${format}`).join(',')}">
+                                        <div class="upload-trigger">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                                <polyline points="17 8 12 3 7 8"/>
+                                                <line x1="12" y1="3" x2="12" y2="15"/>
                                             </svg>
-                                        </button>
-                                    ` : ''}
-                                ` : ''}
+                                            Replace Logo
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="edit-contents-cms-status">${item.status}</span></td>
+                            <td>
+                                <button class="edit-contents-cms-update">Update</button>
+                                <button class="remove-logo" title="Remove Logo">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </button>
+                                ${isLastLogo ? `
+                                                                                                                                                                <button class="add-logo" title="Add Logo">
+                                                                                                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                                                                                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                                                                                                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                                                                                                                                    </svg>
+                                                                                                                                                                </button>
+                                                                                                                                                            ` : ''}
                             </td>
                         `;
                         tbody.appendChild(row);
@@ -2014,19 +2142,20 @@
                                         <td>
                                             <button class="edit-contents-cms-update">Update</button>
                                             <button class="edit-contents-cms-edit">✏️</button>
-                                            <button class="remove-testimonial" title="Remove Testimonial">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                                                    <path d="M9 3V4H4V6H5V19C5 20.11 5.9 21 7 21H17C18.11 21 19 20.11 19 19V6H20V4H15V3H9M7 6H17V19H7V6Z" />
-                                                </svg>
+                                            <button class="remove-testimonial"  title="Remove Testimonial">
+                                              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 3V4H4V6H5V19C5 20.11 5.9 21 7 21H17C18.11 21 19 20.11 19 19V6H20V4H15V3H9M7 6H17V19H7V6Z" />
+                            </svg>
+                                               
                                             </button>
                                             ${idx === testimonials.length - 1 ? `
-                                                <button class="add-testimonial" title="Add Testimonial">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                    </svg>
-                                                </button>
-                                            ` : ''}
+                                                                                                                                                                            <button class="add-testimonial" title="Add Testimonial">
+                                                                                                                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                                                                                                                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                                                                                                                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                                                                                                                                                </svg>
+                                                                                                                                                                            </button>
+                                                                                                                                                                        ` : ''}
                                         </td>
                                     `;
 
@@ -2361,32 +2490,52 @@
                                     </td>
                                 `;
 
-                                const newEditableContents = row.querySelectorAll('.editable-content');
-                                newEditableContents.forEach((editableContent) => {
-                                    editableContent.addEventListener('input', () => {
-                                        const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                        const charCount = editableContent.parentElement.querySelector('.char-count');
-                                        if (charCount) {
-                                            charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                            charCount.classList.toggle('hidden', editableContent.textContent.length <= maxLength);
-                                            charCount.classList.toggle('error', editableContent.textContent.length > maxLength);
-                                        }
-                                    });
-                                    editableContent.addEventListener('focus', () => {
-                                        const maxLength = parseInt(editableContent.getAttribute('data-max-length'));
-                                        const charCount = editableContent.parentElement.querySelector('.char-count');
-                                        if (charCount) {
-                                            charCount.textContent = `${editableContent.textContent.length}/${maxLength}`;
-                                            charCount.classList.remove('hidden');
-                                        }
-                                    });
-                                    editableContent.addEventListener('blur', () => {
-                                        const charCount = editableContent.parentElement.querySelector('.char-count');
-                                        if (charCount) {
-                                            charCount.classList.add('hidden');
-                                        }
-                                    });
-                                });
+                                        const newEditableContents = row.querySelectorAll(
+                                            '.editable-content');
+                                        newEditableContents.forEach((editableContent) => {
+                                            editableContent.addEventListener('input', () => {
+                                                const maxLength = parseInt(
+                                                    editableContent.getAttribute(
+                                                        'data-max-length'));
+                                                const charCount = editableContent
+                                                    .parentElement.querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.textContent =
+                                                        `${editableContent.textContent.length}/${maxLength}`;
+                                                    charCount.classList.toggle('hidden',
+                                                        editableContent.textContent
+                                                        .length <= maxLength);
+                                                    charCount.classList.toggle('error',
+                                                        editableContent.textContent
+                                                        .length > maxLength);
+                                                }
+                                            });
+
+                                            editableContent.addEventListener('focus', () => {
+                                                const maxLength = parseInt(
+                                                    editableContent.getAttribute(
+                                                        'data-max-length'));
+                                                const charCount = editableContent
+                                                    .parentElement.querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.textContent =
+                                                        `${editableContent.textContent.length}/${maxLength}`;
+                                                    charCount.classList.remove(
+                                                        'hidden');
+                                                }
+                                            });
+
+                                            editableContent.addEventListener('blur', () => {
+                                                const charCount = editableContent
+                                                    .parentElement.querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.classList.add('hidden');
+                                                }
+                                            });
+                                        });
 
                                 const updateButton = row.querySelector('.edit-contents-cms-update');
                                 updateButton.addEventListener('click', () => {

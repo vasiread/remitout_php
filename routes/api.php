@@ -252,7 +252,16 @@ Route::post('/testimonial/store', [Admincontroller::class, 'storeTestimonial']);
 
 
 Route::get('/getfaqs', [Admincontroller::class, 'TestimonialFaqs']);
+Route::get('/getlogospartner', [Admincontroller::class, 'CMSLogos']);
 
 Route::post('/faq/store', [Admincontroller::class, 'storeFaq']);
 Route::post('/faq/update/{id}', [Admincontroller::class, 'updateFaq']);
 Route::delete('/faq/delete/{id}', [Admincontroller::class, 'deleteFaq']);
+
+
+
+Route::prefix('logos')->group(function () {
+    Route::post('{partnerId}', [Admincontroller::class, 'uploadLogo']);
+    Route::get('{partnerId}', [Admincontroller::class, 'listLogos']);
+    Route::delete('{partnerId}', [Admincontroller::class, 'deleteLogo']);
+ });

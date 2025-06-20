@@ -395,23 +395,23 @@
    <?php
  $stats = [
     'students' => trim($landingpageContents[68]->counts ?? '') ?: '500+',
-    'nbfcs' => trim($landingpageContents[88]->counts ?? '') ?: '100',
+    'nbfcs' => trim($landingpageContents[70]->counts ?? '') ?: '100',
     'countries' => trim($landingpageContents[72]->counts ?? '') ?: '40+',
     'customers' => trim($landingpageContents[74]->counts ?? '') ?: '2k+',
 ];
 
 $labels = [
     'students' => trim($landingpageContents[69]->content ?? '') ?: 'Students',
-    'nbfcs' => trim($landingpageContents[88]->content ?? '') ?: 'NBFCs',
+    'nbfcs' => trim($landingpageContents[71]->content ?? '') ?: 'NBFCs',
     'countries' => trim($landingpageContents[73]->content ?? '') ?: 'Countries',
     'customers' => trim($landingpageContents[75]->content ?? '') ?: 'Happy customers',
 ];
 
 $icons = [
-    'students' => trim($landingpageContents[60]->icon_url ?? '') ?: 'assets/images/icon-students.png',
-    'nbfcs' => trim($landingpageContents[61]->icon_url ?? '') ?: 'assets/images/icon-nbfcs.png',
-    'countries' => trim($landingpageContents[62]->icon_url ?? '') ?: 'assets/images/icon-countries.png',
-    'customers' => trim($landingpageContents[63]->icon_url ?? '') ?: 'assets/images/icon-customers.png',
+    'students' => trim($landingpageContents[64]->content ?? '') ?: 'assets/images/account_circle-grid.png',
+    'nbfcs' => trim($landingpageContents[65]->icon_url ?? '') ?: 'assets/images/account_balance.png',
+    'countries' => trim($landingpageContents[66]->icon_url ?? '') ?: 'assets/images/flag.png',
+    'customers' => trim($landingpageContents[67]->icon_url ?? '') ?: 'assets/images/sentiment_very_satisfied.png',
 ];
 ?>
 
@@ -454,10 +454,10 @@ $icons = [
 
                     <!-- Stats Grid -->
                     <div class="effort-icons-image">
-                        <img src="assets/images/account_circle-grid.png" alt="Students Icon" class="effort-icon">
-                        <img src="assets/images/account_balance.png" alt="NBFCs Icon" class="effort-icon">
-                        <img src="assets/images/flag.png" alt="Countries Icon" class="effort-icon">
-                        <img src="assets/images/sentiment_very_satisfied.png" alt="Customers Icon"
+                        <img src={{trim($landingpageContents[64]->content ?? '') ?: 'assets/images/account_circle-grid.png'}} alt="Students Icon" class="effort-icon">
+                        <img src={{trim($landingpageContents[65]->content ?? '') ?: 'assets/images/account_balance.png'}} alt="NBFCs Icon" class="effort-icon">
+                        <img src={{trim($landingpageContents[66]->content ?? '') ?: 'assets/images/flag.png'}} alt="Countries Icon" class="effort-icon">
+                        <img src={{trim($landingpageContents[67]->content ?? '') ?: 'assets/images/sentiment_very_satisfied.png'}} alt="Customers Icon"
                             class="effort-icon">
                     </div>
 
