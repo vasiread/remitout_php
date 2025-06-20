@@ -451,6 +451,7 @@
     font-weight: 500;
     color: #5d5c5c;
     font-size: 14px;
+    white-space: nowrap;
 }
 
 .edit-contents-cms-table td {
