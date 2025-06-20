@@ -536,12 +536,8 @@
           width: 24px;
           height: 24px;
       }
-
-      .admin-nav-name {
-          display: none;
-      }
-
-      .admin-nav-avatar {
+ 
+     .admin-nav-avatar {
           width: 32px;
           height: 32px;
           border-radius: 50%;
