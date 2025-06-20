@@ -477,7 +477,8 @@
         });
 
 
- function renderContent(data) {
+        // Update the renderContent function to handle the edit button click correctly
+function renderContent(data) {
     contentList.innerHTML = '';
     data.forEach(item => {
         const row = document.createElement('div');
