@@ -158,6 +158,7 @@
                     <div class="image-container">
                         <img src="/api/placeholder/800/400" alt="Modern Office Space">
                     </div>
+                    <div class="promotional-heading-container">
                     <h1 class="promotional-heading">Header 01</h1>
                     <p class="promotional-sub">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     <p class="know-more"><a href="http://localhost:8000/">Click here to know more!</a></p>
