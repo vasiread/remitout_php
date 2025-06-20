@@ -460,6 +460,7 @@
     font-size: 12px;
     line-height: 18px;
     color: #5d5c5c;  
+    white-space: nowrap;
 
 }
 
