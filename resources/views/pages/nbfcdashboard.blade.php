@@ -225,7 +225,7 @@
             </div>
         </div>
 
-        <div class="wholeapplicationprofile" style="gap:2.2%;max-width:77.01%">
+        <div class="wholeapplicationprofile">
             <div class="nbfcdashboard-studentlistscontainer">
                 <div class="studentdashboardprofile-profilesection" id="nbfc-list-of-student-profilesections">
                     <img src="{{asset($profileImgPath)}}" class="profileImg" id="profile-photo-id" alt="">

@@ -2237,11 +2237,7 @@ text[fill="#222222"] {
     .chart-container {
         max-width: 250px;
     }
-      svg {
-        width: 100% !important;
-        height: auto;
-        margin-top: -20px;
-    }
+    
 
     #leadChart {
         width: 100% !important;

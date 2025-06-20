@@ -465,7 +465,8 @@
     flex-direction: column;
     font-family: 'Poppins', sans-serif;
     width: 100%;
-    margin: 100px auto;
+    margin: 100px auto;  
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .promotional-footer{
     width:95%;
@@ -476,7 +477,8 @@
         width: 100%;
         padding: 10px;
         margin-top: 60px;
-        position: static;
+        position: static;  
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
     .promotional-composer-container {
