@@ -231,10 +231,9 @@
         </h3>
         <p class="global-content-graph" style="text-align:left;width: 120% ;">
 
-            {{ trim($landingpageContents[29]->content ?? '') ?:
-                'Upload your required documents
+            {{ trim($cms['study-loan']['Step 4 Content: Submit Documents With Ease'] ?? 'Upload your required documents
                                                                                                 securely through our
-                                                                                                platform for a seamless process.' }}
+                                                                                                platform for a seamless process.') }}
 
 
         </p>
@@ -243,7 +242,7 @@
     <div class="study-loans-graphfifthbox">
 
         <h3 class="global-header-graph" style="text-align:right;width:100%">
-            {{ trim($landingpageContents[32]->content ?? '') ?: 'Fast-Track Approval' }}
+            {{ trim($cms['study-loan']['Diagonal Label: Fast-Track Approval'] ?? 'Fast-Track Approval') }}
 
         </h3>
         <p class="global-content-graph" style="text-align:right;width:100%">
