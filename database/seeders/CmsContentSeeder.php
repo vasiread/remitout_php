@@ -50,6 +50,7 @@ class CmsContentSeeder extends Seeder
             ];
 
             CmsContent::create([
+                'id' => $item['id'],
                 'page' => $item['page'],
                 'section' => $item['sectionType'],
                 'title' => $item['title'],

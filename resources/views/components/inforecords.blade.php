@@ -1,4 +1,16 @@
 @php
+
+    function mapCmsContent($contents)
+    {
+        $map = [];
+        foreach ($contents as $item) {
+            $map[$item->section][$item->title] = $item->content;
+        }
+        return $map;
+    }
+
+    $cms = mapCmsContent($landingpageContents);
+
     function smartBreak($text)
     {
         $text = trim($text);
@@ -58,7 +70,9 @@
     }
 
     // Fallback static if content is missing
-    $subText = trim($landingpageContents[14]->content ?? '') ?: '   ';
+    $subText =
+        trim($landingpageContents[14]->content ?? '') ?:
+        'Bespoke Loan Options from Trusted NBFCs for Your International Education.';
 
     $heading = trim($landingpageContents[13]->content ?? '') ?: 'Your Smart Route to Study Loans';
 @endphp
@@ -87,11 +101,14 @@
 
 <div class="study-loans-graphview">
     <div class="study-loans-graphfirstbox">
-        <h3>{{ trim($landingpageContents[20]->content ?? '') ?: 'Get Matched with Top NBFCs' }}</h3>
+        <h3>{{ trim($cms['study-loan']['Step 2 Header: Get Matched with Top NBFCs'] ?? 'Get Matched with Top NBFCs') }}
+        </h3>
 
-        <p>{{ trim($landingpageContents[21]->content ?? '') ?:
-            'We connect you with
-                                                            multiple non-banking financial companies (NBFCs) offering competitive study loans.' }}
+        <p>{{ trim(
+            $cms['study-loan']['Step 2 Content: Get Matched with Top NBFCs'] ??
+                'We connect you with
+                multiple non-banking financial companies (NBFCs) offering competitive study loans.',
+        ) }}
         </p>
     </div>
     <img src="{{ asset('assets/images/graphvectors/verticalGraphline.png') }}" alt="" id="firstverticalline">
@@ -101,7 +118,7 @@
     </div>
     <img src="{{ asset('assets/images/graphvectors/perfectmatchvector.png') }}" alt="" id="first-diagonal">
     <p id="first-diagonal-header" class="global-diagonal-content">
-        {!! trim($landingpageContents[23]->content ?? '') !== ''
+        {!! trim($landingpageContents['study-loan']['Diagonal Label: Perfect Match'] ?? '') !== ''
             ? smartBreak($landingpageContents[23]->content)
             : 'Perfect <br> Match' !!}
     </p>
@@ -114,13 +131,13 @@
             alt="">
 
         <h3 class="global-header-graph" style="text-align:left">
-            {{ trim($landingpageContents[16]->content ?? '') ?: 'Profile Assessment' }}
+            {{ trim($landingpageContents['study-loan']['Step 1 Header: Profile Assessment'] ?? 'Profile Assessment') }}
         </h3>
         <p class="global-content-graph" style="text-align:left">
             {{ trim($landingpageContents[17]->content ?? '') ?:
                 'Our experts assess your academic and financial
-                                                                                    profile to determine the best loan options for your
-                                                                                    overseas education.' }}
+                profile to determine the best loan options for your
+                overseas education.' }}
 
         </p>
     </div>
@@ -162,8 +179,8 @@
 
             {{ trim($landingpageContents[25]->content ?? '') ?:
                 'Browse and compare personalized loan offers based on
-                                                                                    your eligibility
-                                                                                    and repayment preferences.' }}
+                                                                                                your eligibility
+                                                                                                and repayment preferences.' }}
 
 
         </p>
@@ -201,7 +218,7 @@
         {!! trim($landingpageContents[35]->content ?? '') !== ''
             ? smartBreak($landingpageContents[35]->content)
             : ' Fast-Track </br>
-                                                Approval' !!}
+                                                        Approval' !!}
 
     </p>
     <div class="study-loans-graphfourthbox">
@@ -216,8 +233,8 @@
 
             {{ trim($landingpageContents[29]->content ?? '') ?:
                 'Upload your required documents
-                                                                                    securely through our
-                                                                                    platform for a seamless process.' }}
+                                                                                                securely through our
+                                                                                                platform for a seamless process.' }}
 
 
         </p>
@@ -392,28 +409,28 @@
     </section>
 
 
-   <?php
- $stats = [
-    'students' => trim($landingpageContents[68]->counts ?? '') ?: '500+',
-    'nbfcs' => trim($landingpageContents[70]->counts ?? '') ?: '100',
-    'countries' => trim($landingpageContents[72]->counts ?? '') ?: '40+',
-    'customers' => trim($landingpageContents[74]->counts ?? '') ?: '2k+',
-];
-
-$labels = [
-    'students' => trim($landingpageContents[69]->content ?? '') ?: 'Students',
-    'nbfcs' => trim($landingpageContents[71]->content ?? '') ?: 'NBFCs',
-    'countries' => trim($landingpageContents[73]->content ?? '') ?: 'Countries',
-    'customers' => trim($landingpageContents[75]->content ?? '') ?: 'Happy customers',
-];
-
-$icons = [
-    'students' => trim($landingpageContents[64]->content ?? '') ?: 'assets/images/account_circle-grid.png',
-    'nbfcs' => trim($landingpageContents[65]->icon_url ?? '') ?: 'assets/images/account_balance.png',
-    'countries' => trim($landingpageContents[66]->icon_url ?? '') ?: 'assets/images/flag.png',
-    'customers' => trim($landingpageContents[67]->icon_url ?? '') ?: 'assets/images/sentiment_very_satisfied.png',
-];
-?>
+    <?php
+    $stats = [
+        'students' => trim($landingpageContents[68]->counts ?? '') ?: '500+',
+        'nbfcs' => trim($landingpageContents[70]->counts ?? '') ?: '100',
+        'countries' => trim($landingpageContents[72]->counts ?? '') ?: '40+',
+        'customers' => trim($landingpageContents[74]->counts ?? '') ?: '2k+',
+    ];
+    
+    $labels = [
+        'students' => trim($landingpageContents[69]->content ?? '') ?: 'Students',
+        'nbfcs' => trim($landingpageContents[71]->content ?? '') ?: 'NBFCs',
+        'countries' => trim($landingpageContents[73]->content ?? '') ?: 'Countries',
+        'customers' => trim($landingpageContents[75]->content ?? '') ?: 'Happy customers',
+    ];
+    
+    $icons = [
+        'students' => trim($landingpageContents[64]->content ?? '') ?: 'assets/images/account_circle-grid.png',
+        'nbfcs' => trim($landingpageContents[65]->icon_url ?? '') ?: 'assets/images/account_balance.png',
+        'countries' => trim($landingpageContents[66]->icon_url ?? '') ?: 'assets/images/flag.png',
+        'customers' => trim($landingpageContents[67]->icon_url ?? '') ?: 'assets/images/sentiment_very_satisfied.png',
+    ];
+    ?>
 
 
     <div class="effort-section">
@@ -444,8 +461,8 @@ $icons = [
                         <p>
                             {{ trim($landingpageContents[63]->content ?? '') ?:
                                 'Support loved ones abroad by sending money from India for education and expenses.
-                                                        Transfer to 40+ countries with real exchange rates, no hidden fees.
-                                                        Sign up easily online with your PAN and address.' }}
+                                                                                    Transfer to 40+ countries with real exchange rates, no hidden fees.
+                                                                                    Sign up easily online with your PAN and address.' }}
 
                         </p>
                     </div>
@@ -454,11 +471,14 @@ $icons = [
 
                     <!-- Stats Grid -->
                     <div class="effort-icons-image">
-                        <img src={{trim($landingpageContents[64]->content ?? '') ?: 'assets/images/account_circle-grid.png'}} alt="Students Icon" class="effort-icon">
-                        <img src={{trim($landingpageContents[65]->content ?? '') ?: 'assets/images/account_balance.png'}} alt="NBFCs Icon" class="effort-icon">
-                        <img src={{trim($landingpageContents[66]->content ?? '') ?: 'assets/images/flag.png'}} alt="Countries Icon" class="effort-icon">
-                        <img src={{trim($landingpageContents[67]->content ?? '') ?: 'assets/images/sentiment_very_satisfied.png'}} alt="Customers Icon"
-                            class="effort-icon">
+                        <img src={{ trim($landingpageContents[64]->content ?? '') ?: 'assets/images/account_circle-grid.png' }}
+                            alt="Students Icon" class="effort-icon">
+                        <img src={{ trim($landingpageContents[65]->content ?? '') ?: 'assets/images/account_balance.png' }}
+                            alt="NBFCs Icon" class="effort-icon">
+                        <img src={{ trim($landingpageContents[66]->content ?? '') ?: 'assets/images/flag.png' }}
+                            alt="Countries Icon" class="effort-icon">
+                        <img src={{ trim($landingpageContents[67]->content ?? '') ?: 'assets/images/sentiment_very_satisfied.png' }}
+                            alt="Customers Icon" class="effort-icon">
                     </div>
 
 
@@ -466,11 +486,11 @@ $icons = [
                         <?php
                         foreach ($stats as $key => $value) {
                             echo "
-                            <div class=\"effort-stat-card\">
-                                <div class=\"effort-stat-value\">{$value}</div>
-                                <div class=\"effort-stat-label\">{$labels[$key]}</div>
-                            </div>
-                            ";
+                                                    <div class=\"effort-stat-card\">
+                                                        <div class=\"effort-stat-value\">{$value}</div>
+                                                        <div class=\"effort-stat-label\">{$labels[$key]}</div>
+                                                    </div>
+                                                    ";
                         }
                         ?>
                     </div>

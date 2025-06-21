@@ -1937,36 +1937,36 @@
                             row.setAttribute('data-id', logo.id);
 
                             row.innerHTML = `
-            <td>${rowCounter++}</td>
-            <td>${item.page || '-'}</td>
-            <td class="editable-cell">
-                <div class="editable-content" contenteditable="true">${logo.title}</div>
-            </td>
-            <td>
-                <div class="media-container">
-                    <div class="media-preview">
-                        <img src="${logo.image}" alt="${logo.title}" title="${logo.title}" />
-                        ${!logo.isProtected ? `<span class="close-btn" data-id="${logo.id}">×</span>` : ''}
-                    </div>
-                    <div class="media-actions">
-                        <input type="file" class="file-input hidden-input" accept="${logo.mediaConstraints.formats.map(f => `.${f}`).join(',')}">
-                        <div class="upload-trigger">Replace Logo</div>
-                    </div>
-                </div>
-            </td>
-            <td><span class="edit-contents-cms-status">${item.status || '-'}</span></td>
-            <td>
-                <button class="edit-contents-cms-update">Update</button>
-                ${idx === logos.length - 1 ? `
-                        <button class="add-logo" title="Add Logo">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                        </button>
-                    ` : ''}
-            </td>
-        `;
+                                    <td>${rowCounter++}</td>
+                                    <td>${item.page || '-'}</td>
+                                    <td class="editable-cell">
+                                        <div class="editable-content" contenteditable="true">${logo.title}</div>
+                                    </td>
+                                    <td>
+                                        <div class="media-container">
+                                            <div class="media-preview">
+                                                <img src="${logo.image}" alt="${logo.title}" title="${logo.title}" />
+                                                ${!logo.isProtected ? `<span class="close-btn" data-id="${logo.id}">×</span>` : ''}
+                                            </div>
+                                            <div class="media-actions">
+                                                <input type="file" class="file-input hidden-input" accept="${logo.mediaConstraints.formats.map(f => `.${f}`).join(',')}">
+                                                <div class="upload-trigger">Replace Logo</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="edit-contents-cms-status">${item.status || '-'}</span></td>
+                                    <td>
+                                        <button class="edit-contents-cms-update">Update</button>
+                                        ${idx === logos.length - 1 ? `
+                                                <button class="add-logo" title="Add Logo">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                    </svg>
+                                                </button>
+                                            ` : ''}
+                                    </td>
+                                `;
 
                             tbody.appendChild(row);
                         });
@@ -2680,6 +2680,8 @@
     });
 }
 
+
+                   
 
                     const fileInputs = row.querySelectorAll('.file-input');
                     fileInputs.forEach((fileInput, idx) => {

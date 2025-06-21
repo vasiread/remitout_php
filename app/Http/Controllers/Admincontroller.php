@@ -2633,20 +2633,20 @@ class Admincontroller extends Controller
 
 
         // ✅ Return to view
-        // return view('pages.landing', compact(
-        //     'testimonials',
-        //     'study_loan',
-        //     'testimonialIndex',
-        //     'combinedTestimonials',
-        //     'landingpageContents',
-        //     'combinedFaqs',
-        //     'combinedLogos'
-        // ));
+        return view('pages.landing', compact(
+            'testimonials',
+            'study_loan',
+            'testimonialIndex',
+            'combinedTestimonials',
+            'landingpageContents',
+            'combinedFaqs',
+            'combinedLogos'
+        ));
 
-        return response()->json([
+        // return response()->json([
       
-            'combinedLogos' => $combinedLogos
-        ]);
+        //     'combinedLogos' => $combinedLogos
+        // ]);
     }
 
 
