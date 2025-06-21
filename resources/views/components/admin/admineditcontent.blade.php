@@ -104,7 +104,7 @@
         // Define contentData globally
         const contentData = [{
                 name: "Landing Page",
-                sections: 116,
+                sections: 88,
                 tags: ["Text", "Img", "Video"]
             },
             {
@@ -1822,7 +1822,7 @@
             }
 
 
-          renderTable() {
+            renderTable() {
                 const tbody = document.getElementById('cmsTableBody');
                 tbody.innerHTML = '';
 
@@ -1830,11 +1830,12 @@
                 const endIndex = Math.min(startIndex + this.rowsPerPage, this.filteredData.length);
                 const paginatedData = this.filteredData.slice(startIndex, endIndex);
 
-                let rowCounter = startIndex + 1;
+                let rowCounter = startIndex + 1; // Start numbering from the correct index based on pagination
 
                 paginatedData.forEach((item, index) => {
                     const row = document.createElement('tr');
                     row.dataset.id = item.id;
+                    row.dataset.originalSno = rowCounter; // Store original S.No
                     row.setAttribute('data-id', item.id);
 
                     if (item.isMedia || item.sectionType === 'logo') {
@@ -1931,11 +1932,11 @@
                             }
                         });
                     } else if (item.isTestimonialArray) {
-                        // Preserve existing testimonial logic
                         const testimonials = JSON.parse(item.content);
                         testimonials.forEach((testimonial, idx) => {
                             const testimonialRow = document.createElement('tr');
                             testimonialRow.dataset.id = `${item.id}-${idx}`;
+                            testimonialRow.dataset.originalSno = rowCounter; // Store original S.No
                             testimonialRow.classList.add('testimonial-row');
                             const testimonialTitle = `Testimonial ${idx + 1}`;
                             testimonialRow.innerHTML = `
@@ -1959,12 +1960,13 @@
                             editButton.addEventListener('click', () => {
                                 testimonialRow.classList.toggle('edit-mode');
                                 if (testimonialRow.classList.contains('edit-mode')) {
+                                    const originalSno = testimonialRow.dataset.originalSno; // Use stored S.No
                                     const maxLengthIndicatorName = `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.name || 20}">${testimonial.name.length}/${item.maxLengthConstraints?.name || 20}</div>`;
                                     const maxLengthIndicatorDesignation = `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.designation || 20}">${testimonial.designation.length}/${item.maxLengthConstraints?.designation || 20}</div>`;
                                     const maxLengthIndicatorDescription = `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.description || 160}">${testimonial.description.length}/${item.maxLengthConstraints?.description || 160}</div>`;
 
                                     testimonialRow.innerHTML = `
-                                        <td>${rowCounter - 1}</td>
+                                        <td>${originalSno}</td>
                                         <td>${item.page}</td>
                                         <td class="editable-cell no-border">
                                             <div class="editable-content" contenteditable="true">${testimonialTitle}</div>
@@ -2145,11 +2147,11 @@
                             });
                         });
                     } else if (item.isFaqArray) {
-                        // Preserve existing FAQ logic
                         const faqs = JSON.parse(item.content);
                         faqs.forEach((faq, idx) => {
                             const faqRow = document.createElement('tr');
                             faqRow.dataset.id = `${item.id}-${idx}`;
+                            faqRow.dataset.originalSno = rowCounter; // Store original S.No
                             faqRow.classList.add('faq-row');
                             const faqTitle = `FAQ ${idx + 1}`;
                             faqRow.innerHTML = `
@@ -2173,11 +2175,12 @@
                             editButton.addEventListener('click', () => {
                                 faqRow.classList.toggle('edit-mode');
                                 if (faqRow.classList.contains('edit-mode')) {
+                                    const originalSno = faqRow.dataset.originalSno; // Use stored S.No
                                     let maxLengthIndicatorQuestion = `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.question || 100}">${faq.question.length}/${item.maxLengthConstraints?.question || 100}</div>`;
                                     let maxLengthIndicatorAnswer = `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.answer || 200}">${faq.answer.length}/${item.maxLengthConstraints?.answer || 200}</div>`;
 
                                     faqRow.innerHTML = `
-                                        <td>${rowCounter - 1}</td>
+                                        <td>${originalSno}</td>
                                         <td>${item.page}</td>
                                         <td class="editable-cell no-border">
                                             <div class="editable-content" contenteditable="true">${faqTitle}</div>
@@ -2335,13 +2338,14 @@
                         editButton.addEventListener('click', () => {
                             row.classList.toggle('edit-mode');
                             if (row.classList.contains('edit-mode')) {
+                                const originalSno = row.dataset.originalSno; // Use stored S.No
                                 const maxLength = item.maxLength || 100;
                                 const maxLengthIndicator = `
                                     <div class="char-count hidden" data-max="${maxLength}">
                                         ${item.content.length}/${maxLength}
                                     </div>`;
                                 row.innerHTML = `
-                                    <td>${rowCounter - 1}</td>
+                                    <td>${originalSno}</td>
                                     <td>${item.page}</td>
                                     <td class="editable-cell">
                                         <div class="editable-content" contenteditable="true">${item.title}</div>
@@ -2352,6 +2356,7 @@
                                     </td>
                                     <td><span class="edit-contents-cms-status">${item.status}</span></td>
                                     <td>
+                                        <button class="edit-contents-cms-update">Update</button>
                                         <button class="edit-contents-cms-edit">✏️</button>
                                     </td>
                                 `;
@@ -2382,20 +2387,25 @@
                                         }
                                     });
                                 });
+
+                                const updateButton = row.querySelector('.edit-contents-cms-update');
+                                updateButton.addEventListener('click', () => {
+                                    const titleElement = row.querySelector('.editable-cell:nth-child(3) .editable-content');
+                                    const contentElement = row.querySelector('.editable-cell:nth-child(4) .editable-content');
+                                    const maxLength = parseInt(contentElement.getAttribute('data-max-length'));
+                                    if (contentElement.textContent.length > maxLength) {
+                                        this.showToast(`Content exceeds maximum length of ${maxLength} characters`, true);
+                                        return;
+                                    }
+                                    item.title = titleElement.textContent;
+                                    item.content = contentElement.textContent;
+                                    this.updateHeroContentToAPI(item);
+                                    row.classList.remove('edit-mode');
+                                    this.renderTable();
+                                    this.showToast('✅ Content updated');
+                                });
                             } else {
-                                const titleElement = row.querySelector('.editable-cell:nth-child(3) .editable-content');
-                                const contentElement = row.querySelector('.editable-cell:nth-child(4) .editable-content');
-                                const maxLength = parseInt(contentElement.getAttribute('data-max-length'));
-                                if (contentElement.textContent.length > maxLength) {
-                                    this.showToast(`Content exceeds maximum length of ${maxLength} characters`, true);
-                                    return;
-                                }
-                                item.title = titleElement.textContent;
-                                item.content = contentElement.textContent;
-                                this.updateHeroContentToAPI(item);
-                                row.classList.remove('edit-mode');
                                 this.renderTable();
-                                this.showToast('✅ Content updated');
                             }
                         });
                     }
@@ -2461,6 +2471,9 @@
 
                 this.renderPagination();
             }
+
+
+
 
             renderPagination() {
                 const totalItems = this.filteredData.length;
