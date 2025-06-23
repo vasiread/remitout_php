@@ -1,6 +1,6 @@
 .add-studentcounsellor-adminside {
     max-width: 100%;
-    width: 767px;
+    width: 60%;
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-top: 135px;
@@ -154,11 +154,11 @@
     border-bottom: 1px solid #e2e2e2;
     color: rgba(233, 134, 53, 1);
     padding: 20px 0px;
+    width:100%;
 }
 
 .addcouncellor-buttoncontainer #delete-councellor-admin {
-    height: 35;
-
+    height: 35px;
     gap: 8px;
     padding: 1rem 2rem;
     border: 1px solid rgba(111, 37, 206, 1);
@@ -203,8 +203,8 @@
 }
 
 #generate-referral-councellor-admin {
-    width: 210;
-    height: 35;
+    width: 210px;
+    height: 35px;
     gap: 8px;
     padding: 16px 22px;
     border-radius: 4px;
@@ -317,104 +317,6 @@
     pointer-events: none; 
     top:5px;
 }
-@media (max-width: 1024px) {
-.add-studentcounsellor-adminside{
-    display: flex;
-    border-radius: 8px;
-    margin: 0 auto;
-    flex-direction: column;
-    font-family: 'Poppins', sans-serif;
-    width: 100%;
-    max-width: 90%;
-    margin: 120px auto;
-}
-}
-
-@media (max-width: 767px) {
-    .add-studentcounsellor-adminside {
-        max-width: 100%;
-        width: 90%;
-        height: fit-content;
-        margin: 20px auto;
-        margin-top: 80px;
-        padding: 16px;
-        box-shadow: 0px 4px 10px 0px rgba(26, 2, 57, 0.03);
-        border-radius: 8px;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .studentcounsellor-header-admin {
-        font-size: 20px;
-        line-height: 30px;
-        color: rgba(233, 134, 53, 1);
-        margin-bottom: 16px;
-        text-align: center;
-    }
-
-    .studentcounsellor-requiredfields-admin {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        width: 100%;
-    }
-
-    .studentcounsellor-requiredfields-admin input,
-    #trigger-profile-photo-sc {
-        font-size: 12px;
-        height: 40px;
-        padding: 10px;
-        width: 100%;
-        border: 1px solid rgba(226, 226, 226, 1);
-        border-radius: 4px;
-        color: rgba(144, 144, 144, 1);
-    }
-
-    #student-counsellor-admin-address {
-        height: 80px;
-        resize: none;
-    }
-
-    #trigger-profile-photo-sc {
-        background: url("data:image/png;base64,iVBORw0KGgo...") no-repeat right
-            10px center;
-        background-size: 20px;
-        cursor: pointer;
-    }
-
-    .addcouncellor-buttoncontainer {
-        display: flex;
-        flex-direction: row;
-        gap: 12px;
-        width: 100%;
-        margin-top: 20px;
-        justify-content: space-between;
-    }
-
-    #delete-councellor-admin,
-    #generate-referral-councellor-admin {
-        width: 48%;
-        height: 40px;
-        padding: 10px;
-        font-size: 13px;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    #delete-councellor-admin {
-        border: 1px solid rgba(111, 37, 206, 1);
-        background-color: transparent;
-        color: rgba(38, 2, 84, 1);
-        box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
-    }
-
-    #generate-referral-councellor-admin {
-        background-color: rgba(111, 37, 206, 1);
-        color: rgba(255, 255, 255, 1);
-        border: none;
-        box-shadow: 0px 0px 10px 0px rgba(146, 136, 155, 0.13);
-    }
-}
 
 
 #scmember-profilecontainer-adminside {
@@ -443,8 +345,19 @@
     padding-left: 0px;
 }
 
-
-
+@media (max-width: 1024px) {
+    .add-studentcounsellor-adminside{
+        display: none;
+        border-radius: 8px;
+        margin: 0 auto;
+        flex-direction: column;
+        font-family: 'Poppins', sans-serif;
+        width: 100%;
+        max-width: 90%;
+        margin: 120px auto;
+    }
+    }
+    
 @media (max-width: 767px) {
     .add-studentcounsellor-adminside {
         height: fit-content;
@@ -457,6 +370,14 @@
         align-items: center;
         max-width: 95%;
         width: 100%;
+    }
+    .addcouncellor-buttoncontainer {
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+        width: 100%;
+        margin-top: 20px;
+        justify-content: space-between;
     }
         #scdashboard-profile-adminside .scmember-profilecontainer{
             max-width: 100%;
@@ -499,15 +420,6 @@
             10px center;
         background-size: 20px;
         cursor: pointer;
-    }
-
-    .addcouncellor-buttoncontainer {
-        display: flex;
-        flex-direction: row;
-        gap: 12px;
-        width: 100%;
-        margin-top: 20px;
-        justify-content: space-between;
     }
 
     #delete-councellor-admin,

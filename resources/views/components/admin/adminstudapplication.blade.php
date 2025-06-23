@@ -3070,35 +3070,35 @@
                 `document-box ${subSection ? 'salary-upload-box' : type === 'workExperience' ? 'work-experience-box' : ''}`;
             div.id = `document-box-${key}`;
             div.innerHTML = `
-  <div class="document-name" id="${key}-document-name" style="display: none">${displayName}</div>
-  <div class="upload-field">
-    <span id="${key}-name" data-original="${displayName}" title="${displayName}">${displayName}</span>
-    <span id="${key}-remove-icon" class="remove-icon" style="display: none;"
-      onclick="DocumentFieldManager.removeFile('${key}', '${key}-name', '${key}-upload-icon', '${key}-remove-icon')"><span class="thin-x">×</span></span>
-    ${uploadIconHTML} <!-- Add the delete icon here -->
-    <div class="file-actions">
-      <label for="${key}" class="upload-icon" id="${key}-upload-icon" onclick="console.log('Upload icon clicked for ${key}')">
-      </label>
-      <input type="file" id="${key}" name="documents[${namePrefix}${subSection ? `[${subSection}]` : ''}][${key}]"
-        accept=".jpg, .png, .pdf"
-        style="display: none;"
-        onchange="DocumentFieldManager.handleFileUpload(event, '${key}-name', '${key}-upload-icon', '${key}-remove-icon, 'dynamic')" />
-          </div>
-        </div>
-        <div class="info">
-          <span class="help-trigger" data-target="${key}-help">ⓘ Help</span>
-          <span>*jpg, png, pdf formats</span>
-        </div>
-        <div class="help-container ${key}-help" style="display: none">
-          <h3 class="help-title">Help</h3>
-          <div class="help-content">
-            <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
-          </div>
-        </div>
-      `;
+            <div class="document-name" id="${key}-document-name" style="display: none">${displayName}</div>
+            <div class="upload-field">
+                <span id="${key}-name" data-original="${displayName}" title="${displayName}">${displayName}</span>
+                <span id="${key}-remove-icon" class="remove-icon" style="display: none;"
+                onclick="DocumentFieldManager.removeFile('${key}', '${key}-name', '${key}-upload-icon', '${key}-remove-icon')"><span class="thin-x">×</span></span>
+                ${uploadIconHTML} <!-- Add the delete icon here -->
+                <div class="file-actions">
+                <label for="${key}" class="upload-icon" id="${key}-upload-icon" onclick="console.log('Upload icon clicked for ${key}')">
+                </label>
+                <input type="file" id="${key}" name="documents[${namePrefix}${subSection ? `[${subSection}]` : ''}][${key}]"
+                    accept=".jpg, .png, .pdf"
+                    style="display: none;"
+                    onchange="DocumentFieldManager.handleFileUpload(event, '${key}-name', '${key}-upload-icon', '${key}-remove-icon, 'dynamic')" />
+                    </div>
+                    </div>
+                    <div class="info">
+                    <span class="help-trigger" data-target="${key}-help">ⓘ Help</span>
+                    <span>*jpg, png, pdf formats</span>
+                    </div>
+                    <div class="help-container ${key}-help" style="display: none">
+                    <h3 class="help-title">Help</h3>
+                    <div class="help-content">
+                        <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+                    </div>
+                    </div>
+                `;
 
-            return div;
-        },
+                        return div;
+                    },
 
         deleteInitialization(containerId, apiEndpoint, namePrefix, type) {
             const container = document.getElementById(containerId)?.parentElement;

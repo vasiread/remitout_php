@@ -147,7 +147,7 @@
     transition: opacity 0.3s ease;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1020px) {
     .commonsidebar-togglesidebar {
         display: none !important;
     }

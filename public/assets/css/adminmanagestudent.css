@@ -216,12 +216,12 @@
     display: flex;
     gap: 10px;
     align-items: center;
+    width:100%;
 }
 
 .mobile-search-container-student-report {
     position: relative;
     flex: 1;
-    max-width: 200px;
 }
 
 .mobile-search-input-student-report {
@@ -354,18 +354,18 @@
 
 @media screen and (max-width: 1024px) {
     .manage-student-main-report-container {
-        display: flex;
         border-radius: 8px;
         margin: 0 auto;
         flex-direction: column;
         font-family: 'Poppins', sans-serif;
         width: 100%;
         margin: 100px auto;
+        display:none;
 
     }
-
 }
-@media screen and (max-width: 768px) {
+
+@media screen and (max-width: 920px) {
     .manage-student-main-report-container {
         width: 100%;
         max-width: 100%;

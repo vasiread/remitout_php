@@ -194,7 +194,6 @@ body {
     z-index: 999;
 }
 
-/* Styling for the mobile menu button */
 .nbfc-mobile-menu-btn {
     background: transparent;
     border: none;
@@ -234,7 +233,6 @@ body {
     margin: 0;
     position: relative;
     margin: 0 auto;
-
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -457,7 +455,6 @@ body {
 
 #nbfc-list-of-student-profilesections .educationeditsection-secondrow .label {
     flex: 0 0 140px;
-    /* fixed width for labels */
     font-weight: 600;
     text-align: right;
     padding-right: 12px;
@@ -469,7 +466,6 @@ body {
 
 #nbfc-list-of-student-profilesections .educationeditsection-secondrow .label {
     flex: 0 0 140px;
-    /* fixed width for labels */
     font-weight: 600;
     text-align: right;
     padding-right: 12px;
@@ -486,14 +482,12 @@ body {
 
 #nbfc-list-of-student-profilesections .educationeditsection-secondrow .value {
     flex: 1 1 auto;
-    /* allow value to grow & wrap */
     word-break: break-word;
     overflow-wrap: break-word;
 }
 
 #nbfc-list-of-student-profilesections .educationeditsection-secondrow .value {
     flex: 1 1 auto;
-    /* allow value to grow & wrap */
     word-break: break-word;
     overflow-wrap: break-word;
 }
@@ -530,7 +524,6 @@ body {
     justify-content: center;
     justify-self: flex-start;
     font-family: "Poppins", sans-serif;
-
     font-weight: 500;
     font-size: 14px;
     line-height: 120%;

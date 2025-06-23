@@ -280,9 +280,7 @@
     font-size: 14px;
     display: flex;
     justify-content: space-between;
-
     margin: 0 auto;
-    width: 789px;
     height: 55px;
     background-color: #f6f6f6;
     margin-bottom: 20px;
@@ -467,9 +465,13 @@
     width: 100%;
     margin: 100px auto;  
 }
-.promotional-footer{
-    width:95%;
+.promotional-recipients-filters input[type="text"] {
+    width: 80%;
 }
+.promotional-recipients-title {
+    font-size: 18px;
+}
+
 }
 @media only screen and (max-width: 768px) {
     .promotional-email-composer {

@@ -844,14 +844,12 @@ input[type="file"] {
 }
 
 .myapplication-firstcolumn button {
-    width: 109px;
     height: 35px;
     padding: 16px 32px;
     gap: 8px;
     border-radius: 4px;
     border: 1px solid rgba(111, 37, 206, 1);
     font-family: "Poppins", sans-serif;
-
     font-size: 14px;
     font-weight: 500;
     line-height: 16.8px;
@@ -872,7 +870,6 @@ input[type="file"] {
 
 .myapplication-secondcolumn p {
     font-family: "Poppins", sans-serif;
-
     font-size: 16px;
     font-weight: 500;
     line-height: 19.2px;
@@ -1694,6 +1691,10 @@ input[type="file"] {
         display: flex;
         flex-direction: column;
     }
+    .personalinfo-graphsectioncontainer {
+        gap:10px;
+
+    }
 }
 
 @media (max-width: 1020px) {
@@ -1702,7 +1703,12 @@ input[type="file"] {
     }
 
     .studentdashboardprofile {
-        gap: 0;
+        margin:0 auto;
+        gap:10px;
+    }
+    .studentdashboardprofile-trackprogress{
+        max-width: 60%;
+        margin-left: 20px;
     }
 
     .studentdashboardprofile-loanproposals .loanproposals-header {
@@ -1710,21 +1716,35 @@ input[type="file"] {
     }
 
     .studentdashboardprofile-profilesection {
-        max-width: 31.8%;
+        max-width: 32%;
         width: 100%;
-    }
-
+        margin-left: 20px;
+    }  
+   
     .studentdashboardprofile-togglesidebar ul li {
         font-size: 0.8rem;
         gap: 6.07%;
+    }
+    .personalinfo-graphsectioncontainer {
+        gap:5px;
+
     }
 
     .checkbox-group-edit {
         grid-template-columns: repeat(3, 1fr);
     }
 }
+@media (min-width: 769px) and (max-width: 800px) {
+    .studentdashboardprofile-togglesidebar {
+        display: none;
+    }
+    .trackprogress-contentcontainer{
+        display: flex;
+        flex-direction: row;
+    }
+}
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .studentdashboardprofile {
         gap: 0;
         margin: 0px;
@@ -1743,20 +1763,29 @@ input[type="file"] {
         margin:120px auto;
     }
 
-    .studentdashboardprofile-togglesidebar {
-        display: none;
-    }
 
     .trackprogress-contentcontainer {
         display: flex;
-        align-items: stretch;
-        padding: 10px;
-    }
+        align-items: center;
 
+    } 
+    .checkbox-group-edit {  
+        grid-template-columns: repeat(2, 1fr);
+    }
 
     .studentdashboardprofile-firstrowtrackprogress {
         flex-direction: column;
         height: fit-content;
+    }   
+    .myapplication-firstcolumn h1 {  
+        font-size: 22px;
+    }  
+    .rightsection-uploadsection {
+        margin-bottom: 10px;
+
+    }
+    .studentdashboardprofile-togglesidebar{
+        display:none;
     }
 
     .individual-bankmessages {
@@ -1768,10 +1797,6 @@ input[type="file"] {
         flex-direction: row-reverse;
     }
 
-    .bankmessage-buttoncontainer-reject {
-        margin-right: 3rem;
-    }
-
     .indivudalloanstatus-cards {
         padding: 1rem 1.5rem;
     }
@@ -1781,6 +1806,7 @@ input[type="file"] {
         max-width: 100%;
         width: 100%;
         padding: 0 1.5rem;
+        margin-left: 0;
     }
 
     .studentdashboardprofile-trackprogress .trackprogress-header {
@@ -1803,4 +1829,5 @@ input[type="file"] {
     .trackprogress-rightsection {
         width: 100%;
     }
-}
+} 
+   

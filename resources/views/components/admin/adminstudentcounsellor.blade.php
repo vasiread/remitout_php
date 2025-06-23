@@ -379,7 +379,6 @@
                     headerSection.style.alignItems = 'flex-start';
                 }
                 if (addButton) {
-                    addButton.style.width = 'auto';
                     addButton.style.marginTop = '0';
                 }
             }
